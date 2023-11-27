@@ -127,9 +127,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double chargingStationExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check exaggeration
-        if (s.drawAdditionals(chargingStationExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(chargingStationExaggeration)) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -143,51 +143,48 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.chargingStationColor;
                 signColor = s.colorSettings.chargingStationColorSign;
             }
-            // avoid draw invisible elements
-            if (baseColor.alpha() != 0) {
-                // draw parent and child lines
-                drawParentChildLines(s, s.additionalSettings.connectionColor);
-                // Start drawing adding an gl identificator
-                GLHelper::pushName(getGlID());
-                // Add a layer matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
-                // set base color
-                GLHelper::setColor(baseColor);
-                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
-                // draw detail
-                if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
-                    // draw charging power and efficiency
-                    drawLines(s, {toString(myChargingPower)}, baseColor);
-                    // draw sign
-                    drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
-                }
-                // draw geometry points
-                if (myStartPosition != INVALID_DOUBLE) {
-                    drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
-                }
-                if (myEndPosition != INVALID_DOUBLE) {
-                    drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
-                }
-                // pop layer matrix
-                GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add a layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
+            // set base color
+            GLHelper::setColor(baseColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
+            // draw detail
+            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
+                // draw charging power and efficiency
+                drawLines(s, {toString(myChargingPower)}, baseColor);
+                // draw sign
+                drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
             }
-            // draw dotted geometry (don't exaggerate contour)
-            myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
-                                                s.dottedContourSettings.segmentWidth);
-            // draw stoppingPlace children
-            drawStoppingPlaceChildren(s);
+            // draw geometry points
+            if (myStartPosition != INVALID_DOUBLE) {
+                drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+            }
+            if (myEndPosition != INVALID_DOUBLE) {
+                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
         }
+        // draw stoppingPlace children
+        drawStoppingPlaceChildren(s);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
+        // draw dotted geometry (don't exaggerate contour)
+        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 

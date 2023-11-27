@@ -123,31 +123,31 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Start drawing adding an gl identificator (except in Move mode)
-        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            GLHelper::pushName(getParentAdditionals().front()->getGlID());
-        }
-        // start drawing symbol
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
-        // translate to position
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        // rotate over lane
-        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
-        // scale
-        glScaled(VSSExaggeration, VSSExaggeration, 1);
-        // set color
-        RGBColor color;
-        if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-            color = s.colorSettings.selectedAdditionalColor;
-        } else {
-            color = RGBColor::RED;
-        }
-        // avoid draw invisible elements
-        if (color.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator (except in Move mode)
+            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+                GLHelper::pushName(getParentAdditionals().front()->getGlID());
+            }
+            // start drawing symbol
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
+            // translate to position
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+            // rotate over lane
+            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+            // scale
+            glScaled(VSSExaggeration, VSSExaggeration, 1);
+            // set color
+            RGBColor color;
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                color = s.colorSettings.selectedAdditionalColor;
+            } else {
+                color = RGBColor::RED;
+            }
             // draw circle
             GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
             // draw details
@@ -177,10 +177,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
                 GLHelper::popName();
             }
-            // draw dotted contour
-            myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,
-                                              s.dottedContourSettings.segmentWidth);
         }
+        // draw dotted contour
+        myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 

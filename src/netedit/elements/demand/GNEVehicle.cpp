@@ -878,7 +878,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
         const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
-        if ((vehicleColor.alpha() != 0) && (vehiclePosition != Position::INVALID)) {
+        if (vehiclePosition == Position::INVALID) {
+            return;
+        }
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // first push name
             GLHelper::pushName(getGlID());
             // first check if if mouse is enough near to this vehicle to draw it
@@ -963,15 +967,15 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if (myTagProperty.isFlow()) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
+                // pop name
+                GLHelper::popName();
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
-                // draw squared shape
-                myVehicleContour.drawDottedContourRectangle(s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
-                        s.dottedContourSettings.segmentWidth);
             }
-            // pop name
-            GLHelper::popName();
         }
+        // draw squared shape
+        myVehicleContour.drawDottedContourRectangle(s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
+                s.dottedContourSettings.segmentWidth);
     }
 }
 

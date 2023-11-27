@@ -293,19 +293,20 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     }
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
-        // check if draw start und end
-        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
-        // Obtain constants
+        // get exaggeration
         const double TAZExaggeration = getExaggeration(s);
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
-        // get colors
-        const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
-        const RGBColor invertedColor = color.invertedColor();
-        const RGBColor darkerColor = color.changedBrightness(-32);
-        // avoid draw invisible elements
-        if (color.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // check if draw start und end
+            const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+            // Obtain constants
+            const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+            const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
+            // get colors
+            const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
+            const RGBColor invertedColor = color.invertedColor();
+            const RGBColor darkerColor = color.changedBrightness(-32);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             GLHelper::pushName(GNEAdditional::getGlID());
             // push layer matrix
@@ -378,25 +379,25 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
+            // draw name
+            drawName(myTAZCenter, s.scale, s.polyName, s.angle);
+            // check if draw poly type
+            if (s.polyType.show(this)) {
+                const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
+                GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+            }
+            // draw child demand elements
+            for (const auto& demandElement : getChildDemandElements()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                    demandElement->drawGL(s);
+                }
+            }
         }
-        // draw name
-        drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours
         myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
         myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
-        // check if draw poly type
-        if (s.polyType.show(this)) {
-            const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
-            GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
     }
 }
 

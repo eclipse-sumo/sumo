@@ -283,18 +283,18 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
         const double E2Exaggeration = getExaggeration(s);
         // check exaggeration
         if (s.drawAdditionals(E2Exaggeration)) {
-            // declare color
-            RGBColor E2Color, textColor;
-            // set color
-            if (drawUsingSelectColor()) {
-                E2Color = s.colorSettings.selectedAdditionalColor;
-                textColor = E2Color.changedBrightness(-32);
-            } else if (areLaneConsecutives(getParentLanes())) {
-                E2Color = s.detectorSettings.E2Color;
-                textColor = RGBColor::BLACK;
-            }
-            // avoid draw invisible elements
-            if (E2Color.alpha() != 0) {
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForObjectUnderCursor) {
+                // declare color
+                RGBColor E2Color, textColor;
+                // set color
+                if (drawUsingSelectColor()) {
+                    E2Color = s.colorSettings.selectedAdditionalColor;
+                    textColor = E2Color.changedBrightness(-32);
+                } else if (areLaneConsecutives(getParentLanes())) {
+                    E2Color = s.detectorSettings.E2Color;
+                    textColor = RGBColor::BLACK;
+                }
                 // draw parent and child lines
                 drawParentChildLines(s, s.additionalSettings.connectionColor);
                 // Start drawing adding an gl identificator
@@ -326,15 +326,15 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
+                // Draw additional ID
+                drawAdditionalID(s);
+                // draw additional name
+                drawAdditionalName(s);
             }
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
                                                 s.dottedContourSettings.segmentWidth);
         }
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
     }
 }
 
@@ -381,65 +381,66 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         } else {
             E2Geometry = segment->getLane()->getLaneGeometry();
         }
-        // obtain color
-        const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set color
-        GLHelper::setColor(E2Color);
-        // draw geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
-        // draw geometry points
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
-        } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
-        } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
-            // draw arrow
-            if (E2Geometry.getShape().size() > 1) {
-                glTranslated(0, 0, 0.1);
-                GLHelper::drawTriangleAtEnd(E2Geometry.getShape()[-2], E2Geometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // obtain color
+            const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set color
+            GLHelper::setColor(E2Color);
+            // draw geometry
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
+            // draw geometry points
+            if (segment->isFirstSegment() && segment->isLastSegment()) {
+                drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
+                drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+            } else if (segment->isFirstSegment()) {
+                drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
+            } else if (segment->isLastSegment()) {
+                drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+                // draw arrow
+                if (E2Geometry.getShape().size() > 1) {
+                    glTranslated(0, 0, 0.1);
+                    GLHelper::drawTriangleAtEnd(E2Geometry.getShape()[-2], E2Geometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+                }
+            }
+            // Pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw additional ID
+            if (!s.drawForRectangleSelection) {
+                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+                // check if this is the label segment
+                if (segment->isLabelSegment() && !s.drawForRectangleSelection) {
+                    // calculate middle point
+                    const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
+                    // calculate position
+                    const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
+                    // calculate rotation
+                    const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
+                    // Start pushing matrix
+                    GLHelper::pushMatrix();
+                    // Traslate to position
+                    glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
+                    // rotate
+                    glRotated(rot, 0, 0, 1);
+                    // move
+                    glTranslated(-1, 0, 0);
+                    // scale text
+                    glScaled(E2DetectorWidth, E2DetectorWidth, 1);
+                    // draw E1 logo
+                    GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
+                    // pop matrix
+                    GLHelper::popMatrix();
+                }
             }
         }
-        // Pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw additional ID
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            // check if this is the label segment
-            if (segment->isLabelSegment() && !s.drawForRectangleSelection) {
-                // calculate middle point
-                const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
-                // calculate position
-                const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
-                // calculate rotation
-                const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
-                // Start pushing matrix
-                GLHelper::pushMatrix();
-                // Traslate to position
-                glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
-                // rotate
-                glRotated(rot, 0, 0, 1);
-                // move
-                glTranslated(-1, 0, 0);
-                // scale text
-                glScaled(E2DetectorWidth, E2DetectorWidth, 1);
-                // draw E1 logo
-                GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
-                // pop matrix
-                GLHelper::popMatrix();
-            }
-        }
-        // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : segment->getLane()->getLaneShape();
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                             s.dottedContourSettings.segmentWidth);
@@ -473,11 +474,14 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get geometry
             const auto& connectionGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);
-            } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), connectionGeometry, E2DetectorWidth);
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForObjectUnderCursor) {
+                // check if draw only contour
+                if (onlyContour) {
+                    GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);
+                } else {
+                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), connectionGeometry, E2DetectorWidth);
+                }
             }
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
@@ -487,12 +491,15 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             GLHelper::setColor(RGBColor::RED);
             // calculate invalid geometry
             const GUIGeometry invalidGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
-            // check if draw only contour
-            if (onlyContour) {
-                GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
-            } else {
-                // draw invalid geometry
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForObjectUnderCursor) {
+                // check if draw only contour
+                if (onlyContour) {
+                    GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
+                } else {
+                    // draw invalid geometry
+                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
+                }
             }
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false,

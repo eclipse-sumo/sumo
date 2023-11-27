@@ -1108,28 +1108,31 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
         // calculate path width
         const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
+            }
+            // push GL ID
+            GLHelper::pushName(myPlanElement->getGlID());
+            // push matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, GLO_TAZ + 1);
+            // set color
+            GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
+            // draw line
+            GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
+            GLHelper::drawTriangleAtEnd(
+                *(planGeometry.getShape().end() - 2),
+                *(planGeometry.getShape().end() - 1),
+                0.5, 0.5, 0.5);
+            // pop matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
         }
-        // push GL ID
-        GLHelper::pushName(myPlanElement->getGlID());
-        // push matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, GLO_TAZ + 1);
-        // set color
-        GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
-        // draw line
-        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
-        GLHelper::drawTriangleAtEnd(
-            *(planGeometry.getShape().end() - 2),
-            *(planGeometry.getShape().end() - 1),
-            0.5, 0.5, 0.5);
-        // pop matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
         // draw dotted geometry
         myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), pathWidth, 1, true, true,
                 s.dottedContourSettings.segmentWidth);

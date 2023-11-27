@@ -393,10 +393,10 @@ GNEStopPlan::getACParametersMap() const {
 
 void
 GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // declare stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // avoid draw invisible elements
-    if (stopColor.alpha() != 0) {
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // declare stop color
+        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix
@@ -459,10 +459,10 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double ex
 
 void
 GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // declare stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // avoid draw invisible elements
-    if (stopColor.alpha() != 0) {
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // declare stop color
+        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix
@@ -513,10 +513,10 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
-                                            s.dottedContourSettings.segmentWidth);
     }
+    // draw dotted geometry
+    myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
+                                        s.dottedContourSettings.segmentWidth);
 }
 
 // ===========================================================================

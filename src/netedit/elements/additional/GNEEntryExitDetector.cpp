@@ -129,25 +129,25 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Start drawing adding gl identificator
-        GLHelper::pushName(getGlID());
-        // Push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
-        // Set color
-        RGBColor color;
-        if (drawUsingSelectColor()) {
-            color = s.colorSettings.selectedAdditionalColor;
-        } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-            color = s.detectorSettings.E3EntryColor;
-        } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-            color = s.detectorSettings.E3ExitColor;
-        }
-        // avoid draw invisible elements
-        if (color.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding gl identificator
+            GLHelper::pushName(getGlID());
+            // Push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
+            // Set color
+            RGBColor color;
+            if (drawUsingSelectColor()) {
+                color = s.colorSettings.selectedAdditionalColor;
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                color = s.detectorSettings.E3EntryColor;
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                color = s.detectorSettings.E3ExitColor;
+            }
             GLHelper::setColor(color);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             // Push polygon matrix
@@ -252,20 +252,18 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                     // pop matrix
                     GLHelper::popMatrix();
                 }
+                // pop gl identificator
+                GLHelper::popName();
+                // draw additional name
+                drawAdditionalName(s);
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
             }
-            // Pop layer matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         }
         // draw dotted contour
         myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
                                              myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration,
                                              s.dottedContourSettings.segmentWidth);
-        // pop gl identificator
-        GLHelper::popName();
-        // draw additional name
-        drawAdditionalName(s);
     }
 }
 

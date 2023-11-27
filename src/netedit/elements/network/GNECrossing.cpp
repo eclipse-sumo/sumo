@@ -222,52 +222,55 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
         // get width
         const double crossingWidth = NBCrossing->width * 0.5 * selectionScale;
-        // get color
-        RGBColor crossingColor = getCrossingColor(s, NBCrossing);
-        // don't draw crossing in TLS Mode (but draw the TLS links)
-        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
-            // push name
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
-            // set color
-            GLHelper::setColor(crossingColor);
-            // draw depending of level of detail
-            if (drawLowDetail) {
-                GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
-            } else {
-                drawCrossingDetailed(selectionScale, crossingWidth);
-            }
-            // draw shape points only in Network supemode
-            if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius)) {
-                // color
-                const RGBColor darkerColor = crossingColor.changedBrightness(-32);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                // draw moving hint
-                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                    GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // get color
+            RGBColor crossingColor = getCrossingColor(s, NBCrossing);
+            // don't draw crossing in TLS Mode (but draw the TLS links)
+            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
+                // push name
+                GLHelper::pushName(getGlID());
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
+                // set color
+                GLHelper::setColor(crossingColor);
+                // draw depending of level of detail
+                if (drawLowDetail) {
+                    GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
+                } else {
+                    drawCrossingDetailed(selectionScale, crossingWidth);
                 }
+                // draw shape points only in Network supemode
+                if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                    s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius)) {
+                    // color
+                    const RGBColor darkerColor = crossingColor.changedBrightness(-32);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                    // draw moving hint
+                    if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                        GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                    }
+                }
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // pop name
+                GLHelper::popName();
             }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
+            // draw TLS Links No
+            drawTLSLinkNo(s, NBCrossing);
+            // draw crossing name
+            if (s.cwaEdgeName.show(this)) {
+                drawName(myCrossingGeometry.getShape().getCentroid(), s.scale, s.edgeName, 0, true);
+            }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
-        // draw TLS Links No
-        drawTLSLinkNo(s, NBCrossing);
-        // draw crossing name
-        if (s.cwaEdgeName.show(this)) {
-            drawName(myCrossingGeometry.getShape().getCentroid(), s.scale, s.edgeName, 0, true);
-        }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myCrossingGeometry.getShape(), crossingWidth, selectionScale, true, true,
                                             s.dottedContourSettings.segmentWidth);

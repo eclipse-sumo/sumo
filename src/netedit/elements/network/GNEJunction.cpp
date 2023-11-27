@@ -594,56 +594,59 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     const bool junctionBubble = drawAsBubble(s);
     // only continue if exaggeration is greater than 0
     if (junctionExaggeration > 0) {
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // push junction name
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
-        // push name
-        if (s.scale * junctionExaggeration * myMaxDrawingSize < 1.) {
-            // draw something simple so that selection still works
-            GLHelper::drawBoxLine(myNBNode->getPosition(), 0, 1, 1);
-        } else {
-            // draw junction as shape
-            if (junctionShape) {
-                drawJunctionAsShape(s, junctionExaggeration, mousePosition);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // get mouse position
+            const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+            // push junction name
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+            // push name
+            if (s.scale * junctionExaggeration * myMaxDrawingSize < 1.) {
+                // draw something simple so that selection still works
+                GLHelper::drawBoxLine(myNBNode->getPosition(), 0, 1, 1);
+            } else {
+                // draw junction as shape
+                if (junctionShape) {
+                    drawJunctionAsShape(s, junctionExaggeration, mousePosition);
+                }
+                // draw junction as bubble
+                if (junctionBubble) {
+                    drawJunctionAsBubble(s, junctionExaggeration, mousePosition);
+                }
+                // draw TLS
+                drawTLSIcon(s);
+                // draw elevation
+                if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                    GLHelper::pushMatrix();
+                    // Translate to center of junction
+                    glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
+                    // draw Z value
+                    GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
+                    GLHelper::popMatrix();
+                }
             }
-            // draw junction as bubble
-            if (junctionBubble) {
-                drawJunctionAsBubble(s, junctionExaggeration, mousePosition);
+            // pop layer Matrix
+            GLHelper::popMatrix();
+            // pop junction name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            // draw name and ID
+            if (!s.drawForRectangleSelection) {
+                drawName(myNBNode->getPosition(), s.scale, s.junctionID);
+                if (s.junctionName.show(this) && myNBNode->getName() != "") {
+                    GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
+                }
             }
-            // draw TLS
-            drawTLSIcon(s);
-            // draw elevation
-            if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                GLHelper::pushMatrix();
-                // Translate to center of junction
-                glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
-                // draw Z value
-                GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
-                GLHelper::popMatrix();
-            }
+            // draw Junction childs
+            drawJunctionChildren(s);
+            // draw path additional elements
+            myNet->getPathManager()->drawJunctionPathElements(s, this);
         }
-        // pop layer Matrix
-        GLHelper::popMatrix();
-        // pop junction name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // draw name and ID
-        if (!s.drawForRectangleSelection) {
-            drawName(myNBNode->getPosition(), s.scale, s.junctionID);
-            if (s.junctionName.show(this) && myNBNode->getName() != "") {
-                GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
-            }
-        }
-        // draw Junction childs
-        drawJunctionChildren(s);
-        // draw path additional elements
-        myNet->getPathManager()->drawJunctionPathElements(s, this);
         // continue depending of shapes
         if (junctionShape) {
             // draw dotted contour

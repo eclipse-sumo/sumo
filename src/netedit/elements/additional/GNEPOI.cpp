@@ -346,38 +346,41 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration
             const double POIExaggeration = getExaggeration(s);
-            // push name (needed for getGUIGlObjectsUnderCursor(...)
-            GLHelper::pushName(getGlID());
-            // draw inner polygon
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
-                                                 myShapeWidth.length2D(), myShapeHeight.length2D());
-            } else {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
-                                                 myShapeWidth.length2D(), myShapeHeight.length2D());
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForObjectUnderCursor) {
+                // push name (needed for getGUIGlObjectsUnderCursor(...)
+                GLHelper::pushName(getGlID());
+                // draw inner polygon
+                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                    GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
+                                                     myShapeWidth.length2D(), myShapeHeight.length2D());
+                } else {
+                    GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
+                                                     myShapeWidth.length2D(), myShapeHeight.length2D());
+                }
+                // draw an orange square mode if there is an image(see #4036)
+                if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+                    // Add a draw matrix for drawing logo
+                    GLHelper::pushMatrix();
+                    glTranslated(x(), y(), getType() + 0.01);
+                    GLHelper::setColor(RGBColor::ORANGE);
+                    GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+                    GLHelper::popMatrix();
+                }
+                // draw geometry points
+                if (myShapeHeight.size() > 0) {
+                    drawUpGeometryPoint(s, myShapeHeight.front(), 180, RGBColor::ORANGE);
+                    drawDownGeometryPoint(s, myShapeHeight.back(), 180, RGBColor::ORANGE);
+                }
+                if (myShapeWidth.size() > 0) {
+                    drawLeftGeometryPoint(s, myShapeWidth.back(), -90, RGBColor::ORANGE);
+                    drawRightGeometryPoint(s, myShapeWidth.front(), -90, RGBColor::ORANGE);
+                }
+                // pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             }
-            // draw an orange square mode if there is an image(see #4036)
-            if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
-                // Add a draw matrix for drawing logo
-                GLHelper::pushMatrix();
-                glTranslated(x(), y(), getType() + 0.01);
-                GLHelper::setColor(RGBColor::ORANGE);
-                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                GLHelper::popMatrix();
-            }
-            // draw geometry points
-            if (myShapeHeight.size() > 0) {
-                drawUpGeometryPoint(s, myShapeHeight.front(), 180, RGBColor::ORANGE);
-                drawDownGeometryPoint(s, myShapeHeight.back(), 180, RGBColor::ORANGE);
-            }
-            if (myShapeWidth.size() > 0) {
-                drawLeftGeometryPoint(s, myShapeWidth.back(), -90, RGBColor::ORANGE);
-                drawRightGeometryPoint(s, myShapeWidth.front(), -90, RGBColor::ORANGE);
-            }
-            // pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             // draw contour
             if (getShapeImgFile().empty()) {
                 myContour.drawDottedContourCircle(s, *this, 1.3, POIExaggeration,

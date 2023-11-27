@@ -251,53 +251,56 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
-    const auto& color = setColor(s);
     // draw TAZRels
-    if ((color.alpha() != 0) && drawTAZRel()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // get flag for only draw contour
-        const bool onlyDrawContour = !isGenericDataVisible();
-        // push name (needed for getGUIGlObjectsUnderCursor(...)
-        if (!onlyDrawContour) {
-            GLHelper::pushName(getGlID());
-        }
-        // push matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
-        GLHelper::setColor(color);
-        // check if update lastWidth
-        const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
-        if (width != myLastWidth) {
-            myLastWidth = width;
-            gPostDrawing.markGLObjectToUpdate(const_cast<GNETAZRelData*>(this));
-        }
-        // draw geometry
-        if (onlyDrawContour) {
-            // draw depending of TAZRelDrawing
-            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometryCenter, width);
-            } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometry, width);
+    if (drawTAZRel()) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            const auto& color = setColor(s);
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(getCenteringBoundary());
             }
-        } else {
-            // draw depending of TAZRelDrawing
-            const GUIGeometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
-                                       ? myTAZRelGeometryCenter : myTAZRelGeometry);
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geom, width);
-            GLHelper::drawTriangleAtEnd(
-                *(geom.getShape().end() - 2),
-                *(geom.getShape().end() - 1),
-                1.5 + width, 1.5 + width, 0.5 + width);
-        }
-        // pop matrix
-        GLHelper::popMatrix();
-        // pop name
-        if (!onlyDrawContour) {
-            GLHelper::popName();
+            // get flag for only draw contour
+            const bool onlyDrawContour = !isGenericDataVisible();
+            // push name (needed for getGUIGlObjectsUnderCursor(...)
+            if (!onlyDrawContour) {
+                GLHelper::pushName(getGlID());
+            }
+            // push matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+            GLHelper::setColor(color);
+            // check if update lastWidth
+            const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
+            if (width != myLastWidth) {
+                myLastWidth = width;
+                gPostDrawing.markGLObjectToUpdate(const_cast<GNETAZRelData*>(this));
+            }
+            // draw geometry
+            if (onlyDrawContour) {
+                // draw depending of TAZRelDrawing
+                if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometryCenter, width);
+                } else {
+                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myTAZRelGeometry, width);
+                }
+            } else {
+                // draw depending of TAZRelDrawing
+                const GUIGeometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
+                                           ? myTAZRelGeometryCenter : myTAZRelGeometry);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geom, width);
+                GLHelper::drawTriangleAtEnd(
+                    *(geom.getShape().end() - 2),
+                    *(geom.getShape().end() - 1),
+                    1.5 + width, 1.5 + width, 0.5 + width);
+            }
+            // pop matrix
+            GLHelper::popMatrix();
+            // pop name
+            if (!onlyDrawContour) {
+                GLHelper::popName();
+            }
         }
         if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
             // draw dotted geometry

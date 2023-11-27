@@ -453,10 +453,8 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         } else {
             routeGeometry = segment->getLane()->getLaneGeometry();
         }
-        // obtain color
-        const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
-        // avoid draw invisible elements
-        if (routeColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
             // Add a draw matrix
@@ -464,7 +462,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             // Start with the drawing of the area traslating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
             // Set color
-            GLHelper::setColor(routeColor);
+            GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
             // draw route geometry
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
             // Pop last matrix
@@ -494,17 +492,15 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
                 // pop draw matrix
                 GLHelper::popMatrix();
             }
+            // check if mark this route
+            const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+            if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
+                    templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                gPostDrawing.markedRoute = this;
+            }
         }
-        // check if mark this route
-        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-        if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-            gPostDrawing.markedRoute = this;
-        }
-        // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : segment->getLane()->getLaneShape());
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
+        myContour.drawDottedContourExtruded(s, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -533,29 +529,30 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         } else if (segment->getNextLane()) {
             geometry.updateGeometry({segment->getJunction()->getPositionInView(), segment->getNextLane()->getLaneShape().back()});
         }
-        // obtain color
-        const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
-        // Set color
-        GLHelper::setColor(routeColor);
-        // draw lane2lane
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
-        // Pop last matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), getExaggeration(s));
-        // check if mark this route
-        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-        if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-            gPostDrawing.markedRoute = this;
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add a draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
+            // Set color
+            GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
+            // draw lane2lane
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
+            // Pop last matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), getExaggeration(s));
+            // check if mark this route
+            const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+            if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
+                    templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                gPostDrawing.markedRoute = this;
+            }
         }
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, geometry.getShape(), routeWidth, 1, false, false,

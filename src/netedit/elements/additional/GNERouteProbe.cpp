@@ -162,8 +162,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             routeProbeColor = s.additionalSettings.routeProbeColor;
             centralLineColor = RGBColor::WHITE;
         }
-        // avoid draw invisible elements
-        if (routeProbeColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
@@ -208,9 +208,9 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
+            // draw additional name
+            drawAdditionalName(s);
         }
-        // draw additional name
-        drawAdditionalName(s);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);

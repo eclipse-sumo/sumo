@@ -547,24 +547,27 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // first draw draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
+        }
+        // draw geometry points
+        drawEdgeGeometryPoints(s);
+        // draw edge shape (a red line only visible if lane shape is strange)
+        drawEdgeShape(s);
+        // draw edge stopOffset
+        drawLaneStopOffset(s);
+        // draw childrens
+        drawChildrens(s);
+        // draw edge name
+        drawEdgeName(s);
     }
-    // first draw draw lanes
-    for (const auto& lane : myLanes) {
-        lane->drawGL(s);
-    }
-    // draw geometry points
-    drawEdgeGeometryPoints(s);
-    // draw edge shape (a red line only visible if lane shape is strange)
-    drawEdgeShape(s);
-    // draw edge stopOffset
-    drawLaneStopOffset(s);
-    // draw childrens
-    drawChildrens(s);
-    // draw edge name
-    drawEdgeName(s);
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     // draw dotted geometry

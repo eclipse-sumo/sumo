@@ -583,105 +583,104 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
-    // get lane drawing constants
-    const LaneDrawingConstants laneDrawingConstants(s, this);
-    // get lane color
-    const RGBColor color = setLaneColor(s);
-    // avoid draw invisible elements
-    if (color.alpha() == 0) {
-        return;
-    }
-    // get flag for draw lane as railway
-    const bool drawRailway = drawAsRailway(s);
-    // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
-    const bool spreadSuperposed = s.spreadSuperposed && drawRailway && myParentEdge->getNBEdge()->isBidiRail();
-    // Push edge parent name
-    GLHelper::pushName(myParentEdge->getGlID());
-    // Push lane name
-    GLHelper::pushName(getGlID());
-    // Push layer matrix
-    GLHelper::pushMatrix();
-    // translate to front (note: Special case)
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-        glTranslated(0, 0, GLO_FRONTELEMENT);
-    } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
-    } else {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
-    }
-    // recognize full transparency and simply don't draw
-    if ((color.alpha() == 0) || ((s.scale * laneDrawingConstants.exaggeration) < s.laneMinSize)) {
-        // Pop draw matrix 1
-        GLHelper::popMatrix();
-        // Pop Lane Name
-        GLHelper::popName();
-    } else {
-        // continue depending of scale
-        if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
-            // draw lane as line, depending of myShapeColors
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
-            } else {
-                GLHelper::drawLine(myLaneGeometry.getShape());
-            }
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // get lane drawing constants
+        const LaneDrawingConstants laneDrawingConstants(s, this);
+        // get lane color
+        const RGBColor color = setLaneColor(s);
+        // get flag for draw lane as railway
+        const bool drawRailway = drawAsRailway(s);
+        // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
+        const bool spreadSuperposed = s.spreadSuperposed && drawRailway && myParentEdge->getNBEdge()->isBidiRail();
+        // Push edge parent name
+        GLHelper::pushName(myParentEdge->getGlID());
+        // Push lane name
+        GLHelper::pushName(getGlID());
+        // Push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front (note: Special case)
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
+            glTranslated(0, 0, GLO_FRONTELEMENT);
+        } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
         } else {
-            // Check if lane has to be draw as railway and if isn't being drawn for selecting
-            if (drawRailway && (!s.drawForRectangleSelection || spreadSuperposed)) {
-                // draw as railway
-                drawLaneAsRailway(s, laneDrawingConstants);
-            } else {
-                double offset = 0;
-                double widthFactor = 1;
-                if (s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr) {
-                    widthFactor = 0.4; // create visible gap
-                    offset = laneDrawingConstants.halfWidth * 0.5;
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+        }
+        // recognize full transparency and simply don't draw
+        if ((color.alpha() == 0) || ((s.scale * laneDrawingConstants.exaggeration) < s.laneMinSize)) {
+            // Pop draw matrix 1
+            GLHelper::popMatrix();
+            // Pop Lane Name
+            GLHelper::popName();
+        } else {
+            // continue depending of scale
+            if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
+                // draw lane as line, depending of myShapeColors
+                if (myShapeColors.size() > 0) {
+                    GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
+                } else {
+                    GLHelper::drawLine(myLaneGeometry.getShape());
                 }
-                // draw as box lines
-                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth * widthFactor, 0, offset);
+            } else {
+                // Check if lane has to be draw as railway and if isn't being drawn for selecting
+                if (drawRailway && (!s.drawForRectangleSelection || spreadSuperposed)) {
+                    // draw as railway
+                    drawLaneAsRailway(s, laneDrawingConstants);
+                } else {
+                    double offset = 0;
+                    double widthFactor = 1;
+                    if (s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr) {
+                        widthFactor = 0.4; // create visible gap
+                        offset = laneDrawingConstants.halfWidth * 0.5;
+                    }
+                    // draw as box lines
+                    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth * widthFactor, 0, offset);
+                }
+                if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
+                    // Push matrix
+                    GLHelper::pushMatrix();
+                    // move back
+                    glTranslated(0, 0, -0.1);
+                    // set selected edge color
+                    GLHelper::setColor(s.colorSettings.selectedEdgeColor);
+                    // draw again to show the selected edge
+                    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
+                    // Pop matrix
+                    GLHelper::popMatrix();
+                }
+                // only draw details depending of the scale and if isn't being drawn for selecting
+                if ((s.scale >= 10) && !s.drawForRectangleSelection) {
+                    // draw markings
+                    drawMarkings(s, laneDrawingConstants.exaggeration, drawRailway);
+                    // Draw direction indicators
+                    drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
+                }
+                // draw lane textures
+                drawTextures(s, laneDrawingConstants);
+                // draw start end shape points
+                drawStartEndShapePoints(s);
             }
-            if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
-                // Push matrix
-                GLHelper::pushMatrix();
-                // move back
-                glTranslated(0, 0, -0.1);
-                // set selected edge color
-                GLHelper::setColor(s.colorSettings.selectedEdgeColor);
-                // draw again to show the selected edge
-                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
-                // Pop matrix
-                GLHelper::popMatrix();
+            // draw stopOffsets
+            const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
+            if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+                drawLaneStopOffset(s, laneStopOffset.getOffset());
             }
-            // only draw details depending of the scale and if isn't being drawn for selecting
-            if ((s.scale >= 10) && !s.drawForRectangleSelection) {
-                // draw markings
-                drawMarkings(s, laneDrawingConstants.exaggeration, drawRailway);
-                // Draw direction indicators
-                drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
-            }
-            // draw lane textures
-            drawTextures(s, laneDrawingConstants);
-            // draw start end shape points
-            drawStartEndShapePoints(s);
+            // Pop layer matrix
+            GLHelper::popMatrix();
+            // draw lane arrows
+            drawLaneArrows(s, laneDrawingConstants.exaggeration, spreadSuperposed);
+            // draw shape edited
+            drawShapeEdited(s);
+            // Pop lane Name
+            GLHelper::popName();
+            // Pop edge Name
+            GLHelper::popName();
+            // draw link numbers
+            drawLinkNo(s);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
-        // draw stopOffsets
-        const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
-        if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-            drawLaneStopOffset(s, laneStopOffset.getOffset());
-        }
-        // Pop layer matrix
-        GLHelper::popMatrix();
-        // draw lane arrows
-        drawLaneArrows(s, laneDrawingConstants.exaggeration, spreadSuperposed);
-        // draw shape edited
-        drawShapeEdited(s);
-        // Pop lane Name
-        GLHelper::popName();
-        // Pop edge Name
-        GLHelper::popName();
-        // draw link numbers
-        drawLinkNo(s);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // draw children
         drawChildren(s);
         // draw path additional elements

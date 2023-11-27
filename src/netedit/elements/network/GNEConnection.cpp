@@ -417,24 +417,30 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Check if connection must be drawed
     if (drawConnection) {
-        // draw connection checking whether it is not too small if isn't being drawn for selecting
-        const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
-        // get color
-        RGBColor connectionColor;
-        // first check if we're editing shape
-        if (myShapeEdited) {
-            connectionColor = s.colorSettings.editShapeColor;
-        } else if (drawUsingSelectColor()) {
-            // override with special colors (unless the color scheme is based on selection)
-            connectionColor = s.colorSettings.selectedConnectionColor;
-        } else if (mySpecialColor != nullptr) {
-            connectionColor = *mySpecialColor;
-        } else {
-            // Set color depending of the link state
-            connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
+        // draw connections geometry
+        const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
+        PositionVector shapeSuperposed = myConnectionGeometry.getShape();
+        if (spreadSuperposed) {
+            shapeSuperposed.move2side(0.5);
         }
-        // avoid draw invisible elements
-        if (connectionColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw connection checking whether it is not too small if isn't being drawn for selecting
+            const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+            // get color
+            RGBColor connectionColor;
+            // first check if we're editing shape
+            if (myShapeEdited) {
+                connectionColor = s.colorSettings.editShapeColor;
+            } else if (drawUsingSelectColor()) {
+                // override with special colors (unless the color scheme is based on selection)
+                connectionColor = s.colorSettings.selectedConnectionColor;
+            } else if (mySpecialColor != nullptr) {
+                connectionColor = *mySpecialColor;
+            } else {
+                // Set color depending of the link state
+                connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
+            }
             // check if boundary has to be drawn
             if (s.drawBoundaries) {
                 GLHelper::drawBoundary(getCenteringBoundary());
@@ -453,12 +459,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // If it's small, draw a simple line
                 GLHelper::drawLine(myConnectionGeometry.getShape());
             } else {
-                // draw connections geometry
-                const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
-                PositionVector shapeSuperposed = myConnectionGeometry.getShape();
-                if (spreadSuperposed) {
-                    shapeSuperposed.move2side(0.5);
-                }
                 GLHelper::drawBoxLines(shapeSuperposed, myConnectionGeometry.getShapeRotations(), myConnectionGeometry.getShapeLengths(), s.connectionSettings.connectionWidth * selectionScale);
                 glTranslated(0, 0, 0.1);
                 GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
@@ -502,10 +502,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
-                // draw dotted geometry
-                myContour.drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
-                                                    s.dottedContourSettings.segmentWidthSmall);
             }
+            // draw dotted geometry
+            myContour.drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
+                                                s.dottedContourSettings.segmentWidthSmall);
         }
     }
 }

@@ -138,12 +138,12 @@ GNEInstantInductionLoopDetector::updateGeometry() {
 
 void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
+    // Obtain exaggeration of the draw
+    const double E1InstantExaggeration = getExaggeration(s);
     // check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        // Obtain exaggeration of the draw
-        const double E1InstantExaggeration = getExaggeration(s);
-        // check exaggeration
-        if (s.drawAdditionals(E1InstantExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode() && s.drawAdditionals(E1InstantExaggeration)) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // obtain scaledSize
             const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
             // declare colors
@@ -158,39 +158,36 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
                 secondColor = RGBColor::WHITE;
                 textColor = RGBColor::BLACK;
             }
-            // avoid draw invisible elements
-            if (mainColor.alpha() != 0) {
-                // draw parent and child lines
-                drawParentChildLines(s, s.additionalSettings.connectionColor);
-                // start drawing
-                GLHelper::pushName(getGlID());
-                // push layer matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
-                // draw E1Instant shape
-                drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-                // Check if the distance is enought to draw details
-                if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-                    // draw E1 Logo
-                    drawE1DetectorLogo(s, E1InstantExaggeration, "E1", textColor);
-                }
-                // pop layer matrix
-                GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // start drawing
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+            // draw E1Instant shape
+            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
+            // Check if the distance is enought to draw details
+            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
+                // draw E1 Logo
+                drawE1DetectorLogo(s, E1InstantExaggeration, "E1", textColor);
             }
-            // draw dotted contour
-            myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
-                                                 myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
+        // draw dotted contour
+        myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+                                                myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration,
+                                                s.dottedContourSettings.segmentWidth);
     }
 }
 

@@ -140,25 +140,25 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Start drawing adding an gl identificator (except in Move mode)
-        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            GLHelper::pushName(getParentAdditionals().front()->getGlID());
-        }
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
-        // set color
-        RGBColor color;
-        if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-            color = s.colorSettings.selectedAdditionalColor;
-        } else {
-            color = RGBColor(255, 231, 0);
-        }
-        // avoid draw invisible elements
-        if (color.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator (except in Move mode)
+            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+                GLHelper::pushName(getParentAdditionals().front()->getGlID());
+            }
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
+            // set color
+            RGBColor color;
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                color = s.colorSettings.selectedAdditionalColor;
+            } else {
+                color = RGBColor(255, 231, 0);
+            }
             // draw rerouter symbol over all lanes
             for (const auto& symbolGeometry : mySymbolGeometries) {
                 // push symbol matrix

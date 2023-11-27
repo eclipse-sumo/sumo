@@ -438,25 +438,24 @@ GNECalibrator::getHierarchyName() const {
 
 void
 GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
-    // begin push name
-    GLHelper::pushName(getGlID());
-    // push layer matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
-    // translate to position
-    glTranslated(pos.x(), pos.y(), 0);
-    // rotate over lane
-    GUIGeometry::rotateOverLane(rot);
-    // scale
-    glScaled(exaggeration, exaggeration, 1);
-    // set drawing mode
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    // set color
-    const RGBColor color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.calibratorColor;
-    // avoid draw invisible elements
-    if (color.alpha() != 0) {
-        GLHelper::setColor(color);
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // begin push name
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
+        // translate to position
+        glTranslated(pos.x(), pos.y(), 0);
+        // rotate over lane
+        GUIGeometry::rotateOverLane(rot);
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // set drawing mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // set color
+        GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.calibratorColor);
         // base
         glBegin(GL_TRIANGLES);
         glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);

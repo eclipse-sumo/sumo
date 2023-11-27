@@ -208,21 +208,21 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     const double accessExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get color
-        RGBColor accessColor;
-        if (drawUsingSelectColor()) {
-            accessColor = s.colorSettings.selectedAdditionalColor;
-        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
-        } else {
-            accessColor = s.colorSettings.busStopColor;
-        }
-        // avoid draw invisible elements
-        if (accessColor.alpha() != 0) {
-            // get distance squared between mouse and access
-            const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
-            // declare radius
-            const double radius = (distanceSquared <= 1) ? 1 : 0.5;
+        // get distance squared between mouse and access
+        const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
+        // declare radius
+        const double radius = (distanceSquared <= 1) ? 1 : 0.5;
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // get color
+            RGBColor accessColor;
+            if (drawUsingSelectColor()) {
+                accessColor = s.colorSettings.selectedAdditionalColor;
+            } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
+                accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+            } else {
+                accessColor = s.colorSettings.busStopColor;
+            }
             // draw parent and child lines
             drawParentChildLines(s, accessColor);
             // Start drawing adding an gl identificator
@@ -247,10 +247,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
-            // draw dotted contour
-            myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,
-                                              s.dottedContourSettings.segmentWidthSmall);
         }
+        // draw dotted contour
+        myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,
+                                            s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

@@ -203,18 +203,18 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // obtain  values
+        // get witdh
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
-        const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
-        // get colors
-        const RGBColor baseColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
-        const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
-        // avoid draw invisible elements
-        if (baseColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(getCenteringBoundary());
+            }
+            // get angle
+            const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
+            // get contour color
+            const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // push name
@@ -235,7 +235,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // set base color
-                GLHelper::setColor(baseColor);
+                GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor);
                 //draw intern
                 GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
             }
@@ -249,14 +249,14 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
     }
 }
 

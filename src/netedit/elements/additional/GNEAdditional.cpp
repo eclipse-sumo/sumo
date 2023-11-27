@@ -685,39 +685,42 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // translate to position
-        glTranslated(pos.x(), pos.y(), 0);
-        // scale
-        glScaled(exaggeration, exaggeration, 1);
-        // set White color
-        glColor3d(1, 1, 1);
-        // rotate
-        glRotated(180, 0, 0, 1);
-        // draw texture
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
-        } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            // translate to position
+            glTranslated(pos.x(), pos.y(), 0);
+            // scale
+            glScaled(exaggeration, exaggeration, 1);
+            // set White color
+            glColor3d(1, 1, 1);
+            // rotate
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(selectedTexture), size);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), size);
+            }
+            // Pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
-        // Pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
         // draw squared shape
         myContour.drawDottedContourRectangle(s, pos, size, size, 0, 0, 0, exaggeration,
                                              s.dottedContourSettings.segmentWidth);
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
     }
 }
 
@@ -745,77 +748,80 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
         // calculate signPosition position
         Position signPosition = parentPosition;
-        // set position depending of indexes
-        signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // Start drawing adding an gl identifier
-        GLHelper::pushName(getGlID());
-        // calculate colors
-        const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
-        const RGBColor secondColor = baseColor.changedBrightness(-30);
-        const RGBColor textColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
-        // Add layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // set line color
-        GLHelper::setColor(s.additionalSettings.connectionColor);
-        // draw both lines
-        GLHelper::drawBoxLine(positionLineA, 0, 0.1, lineOffset);
-        GLHelper::drawBoxLine(positionLineB, 0, 0.1, lineOffset);
-        // check if draw middle lane
-        if (drawPositionIndex != 0) {
-            // calculate length
-            const double length = std::abs(positionLineA_Y - positionLineB_Y);
-            // push middle lane matrix
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // set position depending of indexes
+            signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(getCenteringBoundary());
+            }
+            // Start drawing adding an gl identifier
+            GLHelper::pushName(getGlID());
+            // calculate colors
+            const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
+            const RGBColor secondColor = baseColor.changedBrightness(-30);
+            const RGBColor textColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
+            // Add layer matrix
             GLHelper::pushMatrix();
-            //move and rotate
-            glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
-            glRotated(90, 0, 0, 1);
-            glTranslated((length * -0.5), 0, 0);
-            // draw line
-            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, length * 0.5);
-            // pop middle lane matrix
-            GLHelper::popMatrix();
-        }
-        // draw extern rectangle
-        GLHelper::setColor(secondColor);
-        GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);
-        // move to front
-        glTranslated(0, -0.06, 0.1);
-        // draw intern rectangle
-        GLHelper::setColor(baseColor);
-        GLHelper::drawBoxLine(signPosition, 0, 0.84, 2.69);
-        // move position down
-        signPosition.add(-2, -0.43, 0);
-        // draw interval
-        GLHelper::drawText(adjustListedAdditionalText(text), signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
-        // move to icon position
-        signPosition.add(-0.3, 0);
-        // check if draw lock icon or rerouter interval icon
-        if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
-        } else {
             // translate to front
-            glTranslated(signPosition.x(), signPosition.y(), 0.1);
-            // set White color
-            glColor3d(1, 1, 1);
-            // rotate
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), 0.25);
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+            // set line color
+            GLHelper::setColor(s.additionalSettings.connectionColor);
+            // draw both lines
+            GLHelper::drawBoxLine(positionLineA, 0, 0.1, lineOffset);
+            GLHelper::drawBoxLine(positionLineB, 0, 0.1, lineOffset);
+            // check if draw middle lane
+            if (drawPositionIndex != 0) {
+                // calculate length
+                const double length = std::abs(positionLineA_Y - positionLineB_Y);
+                // push middle lane matrix
+                GLHelper::pushMatrix();
+                //move and rotate
+                glTranslated(positionLineA.x() + lineOffset, positionLineA.y(), 0);
+                glRotated(90, 0, 0, 1);
+                glTranslated((length * -0.5), 0, 0);
+                // draw line
+                GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, length * 0.5);
+                // pop middle lane matrix
+                GLHelper::popMatrix();
+            }
+            // draw extern rectangle
+            GLHelper::setColor(secondColor);
+            GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);
+            // move to front
+            glTranslated(0, -0.06, 0.1);
+            // draw intern rectangle
+            GLHelper::setColor(baseColor);
+            GLHelper::drawBoxLine(signPosition, 0, 0.84, 2.69);
+            // move position down
+            signPosition.add(-2, -0.43, 0);
+            // draw interval
+            GLHelper::drawText(adjustListedAdditionalText(text), signPosition, .1, 0.5, textColor, 0, (FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE));
+            // move to icon position
+            signPosition.add(-0.3, 0);
+            // check if draw lock icon or rerouter interval icon
+            if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
+            } else {
+                // translate to front
+                glTranslated(signPosition.x(), signPosition.y(), 0.1);
+                // set White color
+                glColor3d(1, 1, 1);
+                // rotate
+                glRotated(180, 0, 0, 1);
+                // draw texture
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), 0.25);
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+            }
         }
         // draw squared shape
         myContour.drawDottedContourRectangle(s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,

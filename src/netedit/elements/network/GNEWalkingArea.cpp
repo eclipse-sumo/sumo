@@ -158,10 +158,10 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
     if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
-        // set shape color
-        const RGBColor walkingAreaColor = myShapeEdited ? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
-        // recognize full transparency and simply don't draw
-        if (walkingAreaColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // set shape color
+            const RGBColor walkingAreaColor = myShapeEdited ? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
             // adjust shape to exaggeration
             if (((walkingAreaExaggeration > 1) || (myExaggeration > 1)) && (walkingAreaExaggeration != myExaggeration)) {
                 myExaggeration = walkingAreaExaggeration;
@@ -177,10 +177,10 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
             }
-        }
-        // draw walkingArea name
-        if (s.cwaEdgeName.show(this)) {
-            drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+            // draw walkingArea name
+            if (s.cwaEdgeName.show(this)) {
+                drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+            }
         }
         // draw dotted contour
         myContour.drawDottedContourClosed(s, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);

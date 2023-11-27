@@ -179,29 +179,32 @@ void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if we're not selecting E1 detectors in TLS Mode
     if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        // get link state color
-        const auto linkStateColor = colorForLinksState(myState);
-        // push name
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-        // move front again
-        glTranslated(0, 0, 0.5);
-        // set color
-        GLHelper::setColor(linkStateColor);
-        // draw geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry,
-                                  s.connectionSettings.connectionWidth);
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
-        // draw edge name
-        if (s.internalEdgeName.show(this)) {
-            GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),
-                                       s.scale, s.angle);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // get link state color
+            const auto linkStateColor = colorForLinksState(myState);
+            // push name
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+            // move front again
+            glTranslated(0, 0, 0.5);
+            // set color
+            GLHelper::setColor(linkStateColor);
+            // draw geometry
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry,
+                                      s.connectionSettings.connectionWidth);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // draw edge name
+            if (s.internalEdgeName.show(this)) {
+                GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),
+                                           s.scale, s.angle);
+            }
         }
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth,

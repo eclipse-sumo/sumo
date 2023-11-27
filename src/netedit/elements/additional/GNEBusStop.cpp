@@ -125,11 +125,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check exaggeration
-        if (s.drawAdditionals(busStopExaggeration)) {
-            // get width
-            const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(busStopExaggeration)) {
+        // get width
+        const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -149,52 +149,48 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.busStopColor;
                 signColor = s.colorSettings.busStopColorSign;
             }
-            // avoid draw invisible elements
-            if (baseColor.alpha() != 0) {
-                // draw parent and child lines
-                drawParentChildLines(s, baseColor);
-                // Start drawing adding an gl identificator
-                GLHelper::pushName(getGlID());
-                // Add layer matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
-                // set base color
-                GLHelper::setColor(baseColor);
-                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
-                // draw detail
-                if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
-                    // draw lines
-                    drawLines(s, myLines, baseColor);
-                    // draw sign
-                    drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
-                }
-                // draw geometry points
-                if (myStartPosition != INVALID_DOUBLE) {
-                    drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
-                }
-                if (myEndPosition != INVALID_DOUBLE) {
-                    drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
-                }
-                // pop layer matrix
-                GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
+            // draw parent and child lines
+            drawParentChildLines(s, baseColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
+            // set base color
+            GLHelper::setColor(baseColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
+            // draw detail
+            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
+                // draw lines
+                drawLines(s, myLines, baseColor);
+                // draw sign
+                drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             }
-            // draw dotted geometry (don't exaggerate contour)
-            myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
-                                                s.dottedContourSettings.segmentWidth);
-
+            // draw geometry points
+            if (myStartPosition != INVALID_DOUBLE) {
+                drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+            }
+            if (myEndPosition != INVALID_DOUBLE) {
+                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             // draw stoppingPlace children
             drawStoppingPlaceChildren(s);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
+        // draw dotted geometry (don't exaggerate contour)
+        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 

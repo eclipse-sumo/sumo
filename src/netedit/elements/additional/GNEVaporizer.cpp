@@ -139,18 +139,18 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // declare colors
-        RGBColor vaporizerColor, centralLineColor;
-        // set colors
-        if (drawUsingSelectColor()) {
-            vaporizerColor = s.colorSettings.selectedAdditionalColor;
-            centralLineColor = vaporizerColor.changedBrightness(-32);
-        } else {
-            vaporizerColor = s.additionalSettings.vaporizerColor;
-            centralLineColor = RGBColor::WHITE;
-        }
-        // avoid draw invisible elements
-        if (vaporizerColor.alpha() != 0) {
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // declare colors
+            RGBColor vaporizerColor, centralLineColor;
+            // set colors
+            if (drawUsingSelectColor()) {
+                vaporizerColor = s.colorSettings.selectedAdditionalColor;
+                centralLineColor = vaporizerColor.changedBrightness(-32);
+            } else {
+                vaporizerColor = s.additionalSettings.vaporizerColor;
+                centralLineColor = RGBColor::WHITE;
+            }
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
@@ -195,9 +195,9 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
+            // draw additional name
+            drawAdditionalName(s);
         }
-        // draw additional name
-        drawAdditionalName(s);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);

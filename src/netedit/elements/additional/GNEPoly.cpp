@@ -286,80 +286,91 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(myAdditionalBoundary);
-    }
+    // Obtain constants
+    const double polyExaggeration = getExaggeration(s);
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
-            myNet->getViewNet()->getDataViewOptions().showShapes() &&
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() &&
             GUIPolygon::checkDraw(s, this, this)) {
-        // check if draw start und end
-        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
-        // Obtain constants
-        const double polyExaggeration = getExaggeration(s);
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // get colors
-        const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
-        const RGBColor invertedColor = color.invertedColor();
-        const RGBColor darkerColor = color.changedBrightness(-32);
-        // avoid draw invisible elements
-        if (color.alpha() != 0) {
-            // push name (needed for getGUIGlObjectsUnderCursor(...)
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
-            // check if we're drawing a polygon or a polyline
-            if (getFill()) {
-                // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
-            } else {
-                // push matrix
-                GLHelper::pushMatrix();
-                // set color
-                GLHelper::setColor(color);
-                // draw geometry (polyline)
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
-                // pop matrix
-                GLHelper::popMatrix();
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(myAdditionalBoundary);
             }
-        }
-        // draw contour if shape isn't blocked
-        if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
-            // push contour matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            glTranslated(0, 0, 0.1);
-            // set color
-            GLHelper::setColor(darkerColor);
-            // draw polygon contour
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
-            // pop contour matrix
-            GLHelper::popMatrix();
-            // draw shape points only in Network supemode
-            if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                // check move mode flag
-                const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor,
-                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), polyExaggeration,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected()) && moveMode) {
-                    GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor,
-                                                s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+            // check if draw start und end
+            const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+            const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+            // get colors
+            const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
+            const RGBColor invertedColor = color.invertedColor();
+            const RGBColor darkerColor = color.changedBrightness(-32);
+            // avoid draw invisible elements
+            if (color.alpha() != 0) {
+                // push name (needed for getGUIGlObjectsUnderCursor(...)
+                GLHelper::pushName(getGlID());
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
+                // check if we're drawing a polygon or a polyline
+                if (getFill()) {
+                    // draw inner polygon
+                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
+                } else {
+                    // push matrix
+                    GLHelper::pushMatrix();
+                    // set color
+                    GLHelper::setColor(color);
+                    // draw geometry (polyline)
+                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+                    // pop matrix
+                    GLHelper::popMatrix();
                 }
             }
+            // draw contour if shape isn't blocked
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+                // push contour matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                glTranslated(0, 0, 0.1);
+                // set color
+                GLHelper::setColor(darkerColor);
+                // draw polygon contour
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * polyExaggeration);
+                // pop contour matrix
+                GLHelper::popMatrix();
+                // draw shape points only in Network supemode
+                if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // check move mode flag
+                    const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor,
+                                                    s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), polyExaggeration,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                    // draw moving hint points
+                    if (!myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected()) && moveMode) {
+                        GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor,
+                                                    s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
+                    }
+                }
+            }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // get name position
+            const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
+            // draw name
+            drawName(namePos, s.scale, s.polyName, s.angle);
+            // check if draw poly type
+            if (s.polyType.show(this)) {
+                const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+                GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+            }
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
         // draw depending if is closed
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
             // draw dotted contour
@@ -368,15 +379,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                                                 polyExaggeration, true, true, s.dottedContourSettings.segmentWidth);
-        }
-        // get name position
-        const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
-        // draw name
-        drawName(namePos, s.scale, s.polyName, s.angle);
-        // check if draw poly type
-        if (s.polyType.show(this)) {
-            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
-            GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
         }
     }
 }
