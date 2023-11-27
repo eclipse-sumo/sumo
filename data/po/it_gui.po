@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-24 17:05+0000\n"
+"PO-Revision-Date: 2023-11-27 15:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -9020,17 +9020,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3288
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3249
 msgid "Starting position in the specified lane"
-msgstr ""
+msgstr "Posizione iniziale sulla corsia specificata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3294
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3255
 msgid "Ending position in the specified lane"
-msgstr ""
+msgstr "Posizione finale sulla corsia specificata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3308
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3269
 msgid "Inner lanes, where placing of overhead wire is restricted"
-msgstr ""
+msgstr "Corsie interne dove la posa di catenarie è soggetta a restrizioni"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3319
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3279
@@ -9069,32 +9069,32 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3363
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3322
 msgid "JuPedSim WalkableArea"
-msgstr ""
+msgstr "Area pedonale JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3368
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3327
 msgid "The id of the walkable area"
-msgstr ""
+msgstr "Il codice identificativo dell'area pedonale"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3373
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3332
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "La forma dell'area pedonale"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3379
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3338
 msgid "Walkable area's name"
-msgstr ""
+msgstr "Il nome dell'area pedonale"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3390
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3348
 msgid "JuPedSim Obstacle"
-msgstr ""
+msgstr "Ostacolo JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3395
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3353
 msgid "The id of the obstacle"
-msgstr ""
+msgstr "Il codice identificativo dell'ostacolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3400
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3358
