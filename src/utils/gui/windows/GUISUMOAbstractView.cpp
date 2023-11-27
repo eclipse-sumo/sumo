@@ -591,7 +591,7 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID idToolTip) {
 
 
 void
-GUISUMOAbstractView::paintGLGrid() {
+GUISUMOAbstractView::paintGLGrid() const {
     // obtain minimum grid
     const double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize) ? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
     // Check if the distance is enough to draw grid

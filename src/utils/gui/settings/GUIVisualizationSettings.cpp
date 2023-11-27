@@ -618,6 +618,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     selectorFrameScale(1.),
     drawForRectangleSelection(false),
     forceDrawForRectangleSelection(false),
+    postDrawing(false),
     disableDottedContours(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     secondaryShape(false),

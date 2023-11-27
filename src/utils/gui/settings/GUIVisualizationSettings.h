@@ -1003,6 +1003,9 @@ public:
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
 
+    /// @brief post drawing (used for draw dotted contours of certain elements in netedit)
+    bool postDrawing;
+
     /// @brief flag for disable dotted contours in netedit
     bool disableDottedContours;
 

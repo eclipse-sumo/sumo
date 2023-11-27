@@ -475,7 +475,7 @@ protected:
     virtual void doInit();
 
     /// @brief paints a grid
-    void paintGLGrid();
+    void paintGLGrid() const;
 
     /// @brief Draws a line with ticks, and the length information.
     void displayLegend();

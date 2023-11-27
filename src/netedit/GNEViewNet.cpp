@@ -1289,13 +1289,14 @@ GNEViewNet::getRelDataAttrs() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
-    if (!myVisualizationSettings->drawForRectangleSelection && myVisualizationSettings->forceDrawForRectangleSelection) {
+    // first check if force drawing for rectangle selection
+    if (myVisualizationSettings->forceDrawForRectangleSelection) {
         myVisualizationSettings->drawForRectangleSelection = true;
     }
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
-
+    // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     GLHelper::pushMatrix();
@@ -1304,50 +1305,18 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
-
     // visualize rectangular selection
     mySelectingArea.drawRectangleSelection(myVisualizationSettings->colorSettings.selectionColor);
-
-    // compute lane width
-    double lw = m2p(SUMO_const_laneWidth);
-    // draw decals (if not in grabbing mode)
+    // draw certain elements only if we aren't in rectangle selection mode
     if (!myVisualizationSettings->drawForRectangleSelection) {
+        // draw decals
         drawDecals();
-        // depending of the visualizationSettings, enable or disable check box show grid
-        if (myVisualizationSettings->showGrid) {
-            // change show grid
-            if (!myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
-                    !myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
-                // change to true
-                myNetworkViewOptions.menuCheckToggleGrid->setChecked(true);
-                myDemandViewOptions.menuCheckToggleGrid->setChecked(true);
-                // update show grid buttons
-                myNetworkViewOptions.menuCheckToggleGrid->update();
-                myNetworkViewOptions.menuCheckToggleGrid->update();
-            }
-            // draw grid only in network and demand mode
-            if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
-                paintGLGrid();
-            }
-        } else {
-            // change show grid
-            if (myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
-                    myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
-                // change to false
-                myNetworkViewOptions.menuCheckToggleGrid->setChecked(false);
-                myDemandViewOptions.menuCheckToggleGrid->setChecked(false);
-                // update show grid buttons
-                myNetworkViewOptions.menuCheckToggleGrid->update();
-                myNetworkViewOptions.menuCheckToggleGrid->update();
-            }
-        }
+        // draw grid (and update grid button)
+        drawGrid();
         // update show connections
         myNetworkViewOptions.menuCheckShowConnections->setChecked(myVisualizationSettings->showLane2Lane);
-    }
-    // draw temporal junction
-    drawTemporalJunction();
-    // draw temporal elements
-    if (!myVisualizationSettings->drawForRectangleSelection) {
+        // draw temporal junction
+        drawTemporalJunction();
         // draw temporal drawing shape
         drawTemporalDrawingShape();
         // draw testing elements
@@ -1380,22 +1349,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // clear pathDraw
     myNet->getPathManager()->getPathDraw()->clearPathDraw();
-    // draw elements
-    glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
-    const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
-    myVisualizationSettings->scale = lw;
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glEnable(GL_POLYGON_OFFSET_LINE);
-    // clear post drawing elements
-    gPostDrawing.clearElements();
-    // obtain objects included in minB and maxB
-    int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
-    // fill objects under cursor
+    // draw all GL elements
+    int hits = drawGLElements(bound);
+    // after draw elements, update objects under cursor
     myObjectsUnderCursor.updateObjectUnderCursor();
     // begin post drawing
-    myPostDrawing = true;
+    myVisualizationSettings->postDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
     if (!myVisualizationSettings->drawForRectangleSelection) {
         // iterate over all inspected ACs
@@ -1443,8 +1402,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // execute post drawing tasks
     gPostDrawing.executePostDrawingTasks();
     // end post drawing
-    myPostDrawing = false;
-    return hits2;
+    myVisualizationSettings->postDrawing = false;
+    return hits;
 }
 
 
@@ -2007,7 +1966,7 @@ GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
         return false;
     }
     // check if we're in post drawing
-    if (myPostDrawing) {
+    if (myVisualizationSettings->postDrawing) {
         // in post-drawing, draw always
         return true;
     } else {
@@ -2037,7 +1996,7 @@ GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSel
         return false;
     }
     // check if we're in post drawing
-    if (myPostDrawing) {
+    if (myVisualizationSettings->postDrawing) {
         // in post-drawing, draw always
         return true;
     } else {
@@ -2067,7 +2026,7 @@ GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSel
         return false;
     }
     // check if we're in post drawing
-    if (myPostDrawing) {
+    if (myVisualizationSettings->postDrawing) {
         // in post-drawing, draw always
         return true;
     } else {
@@ -3366,6 +3325,59 @@ GNEViewNet::updateCursor() {
             // default cursor
             setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+        }
+    }
+}
+
+
+int
+GNEViewNet::drawGLElements(const Boundary& bound) const {
+    // set default scale
+    myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
+    // calculate boundary extremes
+    const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
+    const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
+    // reset gl line to 2
+    glLineWidth(1);
+    // set drawing modes
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    // clear post drawing elements
+    gPostDrawing.clearElements();
+    // draw all elements between minB and maxB, obtain objects included in minB and maxB
+    return myGrid->Search(minB, maxB, *myVisualizationSettings);
+}
+
+
+void
+GNEViewNet::drawGrid() const {
+    // depending of the visualizationSettings, enable or disable check box show grid
+    if (myVisualizationSettings->showGrid) {
+        // change show grid
+        if (!myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
+                !myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
+            // change to true
+            myNetworkViewOptions.menuCheckToggleGrid->setChecked(true);
+            myDemandViewOptions.menuCheckToggleGrid->setChecked(true);
+            // update show grid buttons
+            myNetworkViewOptions.menuCheckToggleGrid->update();
+            myNetworkViewOptions.menuCheckToggleGrid->update();
+        }
+        // draw grid only in network and demand mode
+        if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
+            paintGLGrid();
+        }
+    } else {
+        // change show grid
+        if (myNetworkViewOptions.menuCheckToggleGrid->amChecked() ||
+                myDemandViewOptions.menuCheckToggleGrid->amChecked()) {
+            // change to false
+            myNetworkViewOptions.menuCheckToggleGrid->setChecked(false);
+            myDemandViewOptions.menuCheckToggleGrid->setChecked(false);
+            // update show grid buttons
+            myNetworkViewOptions.menuCheckToggleGrid->update();
+            myNetworkViewOptions.menuCheckToggleGrid->update();
         }
     }
 }

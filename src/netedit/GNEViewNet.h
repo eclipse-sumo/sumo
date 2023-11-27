@@ -718,9 +718,6 @@ private:
     /// @brief last clicked position
     Position myLastClickedPosition = Position::INVALID;
 
-    /// @brief flag for post-drawing (used for dotted contours)
-    bool myPostDrawing = false;
-
     /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
     bool myCreatedPopup = false;
 
@@ -786,6 +783,12 @@ private:
 
     /// @brief draw functions
     /// @{
+
+    /// @brief draw all gl elements of netedit
+    int drawGLElements(const Boundary& bound) const;
+
+    /// @brief draw grid and update grid button
+    void drawGrid() const;
 
     /// @brief draw temporal polygon shape in Polygon Mode
     void drawTemporalDrawingShape() const;
