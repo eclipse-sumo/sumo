@@ -181,13 +181,13 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
-            // draw stoppingPlace children
-            drawStoppingPlaceChildren(s);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
         }
+        // draw stoppingPlace children
+        drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
         myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
                                             s.dottedContourSettings.segmentWidth);

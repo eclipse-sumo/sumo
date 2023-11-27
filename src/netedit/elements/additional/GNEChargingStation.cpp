@@ -175,13 +175,13 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
-        // Draw additional ID
-        drawAdditionalID(s);
-        // draw additional name
-        drawAdditionalName(s);
         // draw dotted geometry (don't exaggerate contour)
         myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
                                             s.dottedContourSettings.segmentWidth);
