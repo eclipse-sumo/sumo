@@ -616,6 +616,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     gaming(false),
     drawBoundaries(false),
     selectorFrameScale(1.),
+    drawForObjectUnderCursor(false),
     drawForRectangleSelection(false),
     forceDrawForRectangleSelection(false),
     postDrawing(false),
