@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 14:48+0000\n"
+"PO-Revision-Date: 2023-11-27 14:49+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -4636,7 +4636,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:173
 #, c-format
 msgid "Ignore % edges because they have the wrong spreadType"
-msgstr ""
+msgstr "Ignorando % aristas porque tienen el tipo de propagación incorrecto"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:195
 #, c-format
@@ -4645,7 +4645,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:209
 msgid "Could not add bidi-edge '%'."
-msgstr ""
+msgstr "No se pudo agregar la arista bidireccional '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:270
 msgid "Railway nodes by number of incoming,outgoing edges:"
@@ -4657,15 +4657,18 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:378
 msgid "Found % bidirectional rail edges"
-msgstr ""
+msgstr "Se encontraron % aristas de riel bidireccionales"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:404
 msgid "Found % railway edges and % railway nodes (% signals)."
 msgstr ""
+"Se encontraron % aristas ferroviarias y % nodos ferroviarios (% señales)."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:521
 msgid "Added % bidi-edges as extension of existing bidi edges."
 msgstr ""
+"Se agregaron % aristas bidireccionales como extensión de las aristas bidi "
+"existentes."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:532
 msgid "Could not find bidi-edge for edge '%'"
@@ -5917,15 +5920,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:493
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "Calculando los carriles de aproximación"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:497
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "Dividiendo carriles en carriles de aproximación"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:503
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "Adivinando el borde de la red"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:506
 #, c-format
@@ -5934,7 +5937,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:511
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "Procesando retornos"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:529
 msgid "Rechecking of lane endings"
@@ -5942,7 +5945,7 @@ msgstr "Verificando nuevamente los finales de carril"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:551
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "Combinando nodos de semáforo"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:558
 msgid "Computing traffic light control information"
@@ -5958,7 +5961,7 @@ msgstr "Computando lógicas de semáforo"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " % semáforo(s) % calculados."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:588
 msgid "Building inner edges"
@@ -5966,7 +5969,7 @@ msgstr "Creando aristas internas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:601
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "estirando cruces para suavizar geometrías"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:630
 msgid "Generating street signs"
