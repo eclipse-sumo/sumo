@@ -2,7 +2,7 @@
 
 Eclipse SUMO - Simulation of Urban MObility
 ===========================================
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10077626.svg)](https://doi.org/10.5281/zenodo.10077626)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10077626.svg )](https://doi.org/10.5281/zenodo.10077626  )
 [![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
 [![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml)
 [![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml)
@@ -28,9 +28,9 @@ Where to get it
 
 You can download SUMO via our [downloads site](https://sumo.dlr.de/docs/Downloads.html).
 
-As the program is still under development and is extended continuously, we advice you to
-use the latest sources from our GitHub repository. Using a command line client
-the following command should work:
+As the program is still under development (and is being extended continuously), we advice you to
+use the latest sources from our GitHub repository. Using a command line client,
+execute the following command:
 
 ```
 git clone --recursive https://github.com/eclipse-sumo/sumo
@@ -51,7 +51,7 @@ Build and Installation
 ----------------------
 
 For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
-If you want to develop under Windows, please also clone the dependent libraries using
+If you want to develop under Windows, please also clone the dependent libraries using:
 
 ```
 git clone --recursive https://github.com/DLR-TS/SUMOLibraries
@@ -60,7 +60,7 @@ git clone --recursive https://github.com/DLR-TS/SUMOLibraries
 If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 [open build service instance](https://build.opensuse.org/project/show/science:dlr).
-If you want to build sumo yourself, the steps for ubuntu are:
+If you want to build SUMO yourself, the steps for ubuntu are:
 
 ```
 sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
@@ -84,27 +84,28 @@ homepage.
 Documentation
 ---------------
 
-- The main documentation is at [sumo.dlr.de/docs](https://sumo.dlr.de/docs). Note, that this tracks the [development version](https://sumo.dlr.de/docs/FAQ.html#why_does_sumo_not_behave_as_documented_in_this_wiki).
+- The main documentation is at [sumo.dlr.de/docs](https://sumo.dlr.de/docs). Note that this tracks the [development version](https://sumo.dlr.de/docs/FAQ.html#why_does_sumo_not_behave_as_documented_in_this_wiki).
 - A mirror of the main documentation is at [sumo.sourceforge.net/docs](https://sumo.sourceforge.net/docs).
 - An offline version of the documentation is part of every release and can be accessed via `docs/userdoc/index.html`.
 
 Improving SUMO
 --------------
 
-Please use the [GitHub bug tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests,
-or file them to the list sumo-user@eclipse.org. Before
+Please use the [GitHub issue tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests,
+or file them to the sumo-user@eclipse.org list. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
 
 We welcome patches, pull requests and other contributions! For details see [our contribution guidelines](CONTRIBUTING.md).
 
 We use [Weblate for translating SUMO](https://hosted.weblate.org/projects/eclipse-sumo/). If you
-want to add translation strings or a language, see [our contribution guidelines](CONTRIBUTING.md#translating).
+want to add translation strings or a language, see [our contribution guidelines](CONTRIBUTING.md#translating) and
+[this page](https://sumo.dlr.de/docs/Developer/Translating.html) for more information.
 
 
 License
 -------
 
 SUMO is licensed under the [Eclipse Public License Version 2](https://eclipse.org/legal/epl-v20.html).
-For the licenses of the different libraries and supplementary code information is in the
-subdirectories and the [Documentation](https://sumo.dlr.de/docs/Libraries_Licenses.html).
+The licenses of the different libraries and supplementary code information are in the
+subdirectories and in the [Documentation](https://sumo.dlr.de/docs/Libraries_Licenses.html).
