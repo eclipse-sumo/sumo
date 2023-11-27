@@ -455,7 +455,7 @@ vehicle types).
 - (10): <https://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
 - (11): <https://de.wikipedia.org/wiki/DBAG-Baureihe_425>
 - (12): <https://de.wikipedia.org/wiki/ICE_3>
-- (14): <https://www.truck.man.eu/man/media/de/content_medien/doc/business_website_truck_master_1/einsatzgebiete/de_2/man-lkw-tg-fernverkehr-volumen.pdf>
+- (14): `https://www.truck.man.eu/man/media/de/content_medien/doc/business_website_truck_master_1/einsatzgebiete/de_2/man-lkw-tg-fernverkehr-volumen.pdf` (dead link)
 - (15): <https://de.wikipedia.org/wiki/Opel_Vivaro>
 - (16): <https://de.wikipedia.org/wiki/Renault_Espace>
 - (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann Knoflacher; Böhlau Verlag Wien, 1995
