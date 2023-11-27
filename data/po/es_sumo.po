@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-27 14:49+0000\n"
+"PO-Revision-Date: 2023-11-27 16:12+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6688,6 +6688,8 @@ msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Generador de redes sintéticas para la simulación de tráfico microscópica y "
+"multimodal de SUMO."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:267
 msgid " Generation done;"
@@ -6713,35 +6715,35 @@ msgstr "Leer red de SUMO desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "Leer definiciones de nodo en XML desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "Leer definiciones de arista en XML desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "Leer definiciones de conexiones en XML desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "Leer definiciones de semáforos en XML desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "Leer definiciones de tipos en XML desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "Leer paradas de transporte público desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "Leer líneas de transporte público desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr ""
+msgstr "Leer polígonos desde FILE para incrustarlos en la red, de ser posible"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
@@ -6754,7 +6756,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
-msgstr ""
+msgstr "Leer red OSM desde la ruta 'FILE(s)'"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
@@ -6782,7 +6784,7 @@ msgstr "Leer red de ITSUMO desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
-msgstr ""
+msgstr "Leer mapa de altura desde el archivo shapefile de ArcGIS"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
@@ -6796,25 +6798,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:148
 msgid "Continue on invalid connections"
-msgstr ""
+msgstr "Continuar con conexiones no válidas"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "Mostrar errores en las conexiones al procesarlas"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "Continuar con tipos de arista desconocidos"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:157
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "vmax se toma como se indicó en km/h"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under "
 "construction"
 msgstr ""
+"Usar la fecha AAAA-MM-DD para determinar la disponibilidad de las "
+"características en construcción"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:163
 msgid "Remove all z-data"
@@ -6822,21 +6826,25 @@ msgstr "Eliminar todos los datos z"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "Eliminar la lista de claves de todos los parámetros"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
 msgstr ""
+"Enumere las clases de vehículos que pueden ignorar las restricciones de "
+"cambio de carril ('all' descarta todas las restricciones)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:174
 msgid "If edge shapes do not end at the node positions, extend them"
 msgstr ""
+"Si las formas de arista no terminan en las posiciones de los nodos, "
+"extenderlas"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:178
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "Omitir la comprobación de nodos y aristas duplicados"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:181
 msgid "Imports elevation data"
@@ -6847,6 +6855,8 @@ msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
 msgstr ""
+"Reconstruir la elevación (relativa) basándose en los datos de la capa. Cada "
+"capa se eleva en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:187
 #, c-format
@@ -6861,11 +6871,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:193
 msgid "Import lane-specific access restrictions"
-msgstr ""
+msgstr "Importar restricciones de acceso específicas de carril"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:197
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
+"Importar carriles bici y corregir direcciones y permisos en carriles bici"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:200
 msgid "Import sidewalks"
@@ -6878,81 +6889,87 @@ msgstr "Importar pasos peatonales"
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:206
 msgid "Import turning arrows from OSM to help with connection building"
 msgstr ""
+"Importar flechas de giro desde OSM para ayudar con la creación de conexiones"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
 msgstr ""
+"La longitud predeterminada de una parada de transporte público en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:211
 msgid "The default length of a bus stop in FLOAT m"
-msgstr ""
+msgstr "La longitud predeterminada de una parada de bus en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:213
 msgid "The default length of a tram stop in FLOAT m"
-msgstr ""
+msgstr "La longitud predeterminada de una parada de tranvía en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:215
 msgid "The default length of a train stop in FLOAT m"
-msgstr ""
+msgstr "La longitud predeterminada de una parada de tren en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:219
 msgid "Whether additional attributes shall be imported"
-msgstr ""
+msgstr "Si se deben importar atributos adicionales"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:223
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
 msgstr ""
+"Lista de atributos adicionales que se deberán importar desde OSM a través de "
+"osm.all-attributes (poner 'all' para importar todo)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:226
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
 msgstr ""
+"El límite de velocidad que se establecerá cuando en la realidad no exista un "
+"límite de velocidad definido"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:230
 msgid "The edge lengths given in the MATSIM-file will be kept"
-msgstr ""
+msgstr "Conservar las longitudes de arista indicadas en el archivo MATSIM"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:233
 msgid "The lane number will be computed from the capacity"
-msgstr ""
+msgstr "Calcular el número de carriles a partir de la capacidad"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:239
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "Leer IDs de arista desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:243
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "Leer IDs de nodos de salida desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:247
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "Leer IDs de nodos de llegada desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:251
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "Leer IDs de tipo desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:254
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "Leer números de carril desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:257
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "Leer velocidad desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:260
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "Leer longitud personalizada de arista desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:263
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "Leer ancho total de arista desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:266
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "Leer nombre (no único) desde la columna STR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:269
 msgid ""
