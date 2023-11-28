@@ -589,7 +589,7 @@ and their usage.
 ### lane change restrictions
 When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases.
 
-To strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
+The strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
 
 ## Stop Offsets
 
