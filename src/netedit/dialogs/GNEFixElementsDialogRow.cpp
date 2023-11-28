@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixElementsDialogRow.h
+/// @file    GNEFixElementsDialogRow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2023
 ///
