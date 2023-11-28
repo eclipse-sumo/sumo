@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 17:53:16 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2023-11-28 13:08:51 by Eclipse SUMO netconvert Version v1_14_1+10973-81e1920c6fe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,95 +38,95 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="20000.00,10000.00" convBoundary="0.00,0.00,25000.00,15925.00" origBoundary="-20000.00,-10000.00,5000.00,5925.00" projParameter="!"/>
 
     <edge id="1" from="1" to="2" priority="-1">
-        <lane id="1_0" index="0" speed="27.78" length="4998.86" shape="3.20,9998.40 4997.86,9998.40"/>
+        <lane id="1_0" index="0" allow="passenger" speed="27.78" length="4998.86" shape="3.20,9998.40 4997.86,9998.40"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="10" from="2" to="11" priority="-1">
-        <lane id="10_0" index="0" speed="27.78" length="15326.57" shape="5026.30,9987.24 19134.38,4073.52"/>
+        <lane id="10_0" index="0" allow="passenger" speed="27.78" length="15326.57" shape="5026.30,9987.24 19134.38,4073.52"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="11" from="3" to="12" priority="-1">
-        <lane id="11_0" index="0" speed="27.78" length="5986.02" shape="19134.01,15920.68 19996.75,10011.16"/>
+        <lane id="11_0" index="0" allow="passenger" speed="27.78" length="5986.02" shape="19134.01,15920.68 19996.75,10011.16"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="12" from="4" to="12" priority="-1">
-        <lane id="12_0" index="0" speed="27.78" length="4998.96" shape="17501.94,14327.91 19992.49,10009.81"/>
+        <lane id="12_0" index="0" allow="passenger" speed="27.78" length="4998.96" shape="17501.94,14327.91 19992.49,10009.81"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="13" from="5" to="12" priority="-1">
-        <lane id="13_0" index="0" speed="27.78" length="4999.42" shape="16171.28,13212.68 19989.16,10007.01"/>
+        <lane id="13_0" index="0" allow="passenger" speed="27.78" length="4999.42" shape="16171.28,13212.68 19989.16,10007.01"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="14" from="6" to="12" priority="-1">
-        <lane id="14_0" index="0" speed="27.78" length="4999.87" shape="15302.24,11709.21 19987.41,10002.88"/>
+        <lane id="14_0" index="0" allow="passenger" speed="27.78" length="4999.87" shape="15302.24,11709.21 19987.41,10002.88"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="15" from="7" to="12" priority="-1">
-        <lane id="15_0" index="0" speed="27.78" length="5000.00" shape="15000.00,9998.40 19987.19,9998.40"/>
+        <lane id="15_0" index="0" allow="passenger" speed="27.78" length="5000.00" shape="15000.00,9998.40 19987.19,9998.40"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="16" from="8" to="12" priority="-1">
-        <lane id="16_0" index="0" speed="27.78" length="4999.87" shape="15302.55,8287.50 19988.51,9994.11"/>
+        <lane id="16_0" index="0" allow="passenger" speed="27.78" length="4999.87" shape="15302.55,8287.50 19988.51,9994.11"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="17" from="9" to="12" priority="-1">
-        <lane id="17_0" index="0" speed="27.78" length="4999.75" shape="16172.03,6783.77 19991.22,9990.54"/>
+        <lane id="17_0" index="0" allow="passenger" speed="27.78" length="4999.75" shape="16172.03,6783.77 19991.22,9990.54"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="18" from="10" to="12" priority="-1">
-        <lane id="18_0" index="0" speed="27.78" length="4999.76" shape="17503.39,5668.20 19994.98,9988.10"/>
+        <lane id="18_0" index="0" allow="passenger" speed="27.78" length="4999.76" shape="17503.39,5668.20 19994.98,9988.10"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="19" from="11" to="12" priority="-1">
-        <lane id="19_0" index="0" speed="27.78" length="5987.81" shape="19136.58,4074.77 19999.83,9987.77"/>
+        <lane id="19_0" index="0" allow="passenger" speed="27.78" length="5987.81" shape="19136.58,4074.77 19999.83,9987.77"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="2" from="2" to="3" priority="-1">
-        <lane id="2_0" index="0" speed="27.78" length="15325.26" shape="5027.28,10009.70 19131.81,15921.93"/>
+        <lane id="2_0" index="0" allow="passenger" speed="27.78" length="15325.26" shape="5027.28,10009.70 19131.81,15921.93"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="20" from="12" to="13" priority="-1">
-        <lane id="20_0" index="0" speed="27.78" length="4999.29" shape="20006.23,9998.40 24996.80,9998.40"/>
+        <lane id="20_0" index="0" allow="passenger" speed="27.78" length="4999.29" shape="20006.23,9998.40 24996.80,9998.40"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="21" from="13" to="14" priority="-1">
-        <lane id="21_0" index="0" speed="27.78" length="9998.11" shape="24998.40,9996.80 24998.40,3.20"/>
+        <lane id="21_0" index="0" allow="passenger" speed="27.78" length="9998.11" shape="24998.40,9996.80 24998.40,3.20"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="22" from="14" to="15" priority="-1">
-        <lane id="22_0" index="0" speed="27.78" length="24998.16" shape="24996.80,1.60 3.20,1.60"/>
+        <lane id="22_0" index="0" allow="passenger" speed="27.78" length="24998.16" shape="24996.80,1.60 3.20,1.60"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="23" from="15" to="1" priority="-1">
-        <lane id="23_0" index="0" speed="27.78" length="9998.15" shape="1.60,3.20 1.60,9996.80"/>
+        <lane id="23_0" index="0" allow="passenger" speed="27.78" length="9998.15" shape="1.60,3.20 1.60,9996.80"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="3" from="2" to="4" priority="-1">
-        <lane id="3_0" index="0" speed="27.78" length="13230.52" shape="5027.84,10007.95 17500.03,14328.62"/>
+        <lane id="3_0" index="0" allow="passenger" speed="27.78" length="13230.52" shape="5027.84,10007.95 17500.03,14328.62"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="4" from="2" to="5" priority="-1">
-        <lane id="4_0" index="0" speed="27.78" length="11624.39" shape="5028.31,10006.48 16169.80,13212.99"/>
+        <lane id="4_0" index="0" allow="passenger" speed="27.78" length="11624.39" shape="5028.31,10006.48 16169.80,13212.99"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="5" from="2" to="6" priority="-1">
-        <lane id="5_0" index="0" speed="27.78" length="10443.12" shape="5029.10,10003.21 15301.43,11709.28"/>
+        <lane id="5_0" index="0" allow="passenger" speed="27.78" length="10443.12" shape="5029.10,10003.21 15301.43,11709.28"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="6" from="2" to="7" priority="-1">
-        <lane id="6_0" index="0" speed="27.78" length="10000.00" shape="5021.03,9998.40 15000.00,9998.40"/>
+        <lane id="6_0" index="0" allow="passenger" speed="27.78" length="10000.00" shape="5021.03,9998.40 15000.00,9998.40"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="7" from="2" to="8" priority="-1">
-        <lane id="7_0" index="0" speed="27.78" length="10443.12" shape="5028.39,9993.66 15301.74,8287.42"/>
+        <lane id="7_0" index="0" allow="passenger" speed="27.78" length="10443.12" shape="5028.39,9993.66 15301.74,8287.42"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="8" from="2" to="9" priority="-1">
-        <lane id="8_0" index="0" speed="27.78" length="11624.43" shape="5027.52,9990.42 16170.56,6783.46"/>
+        <lane id="8_0" index="0" allow="passenger" speed="27.78" length="11624.43" shape="5027.52,9990.42 16170.56,6783.46"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="9" from="2" to="10" priority="-1">
-        <lane id="9_0" index="0" speed="27.78" length="13230.93" shape="5026.96,9988.97 17501.48,5667.49"/>
+        <lane id="9_0" index="0" allow="passenger" speed="27.78" length="13230.93" shape="5026.96,9988.97 17501.48,5667.49"/>
         <param key="capacity" value="3600.00"/>
     </edge>
 
