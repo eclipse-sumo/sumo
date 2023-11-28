@@ -192,14 +192,17 @@ protected:
     bool myFriendlyPosition;
 
     /// @brief draw E1 shape
-    void drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
-                     const RGBColor& mainColor, const RGBColor& secondColor) const;
+    void drawE1Shape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                     const double exaggeration, const double scaledWidth, const RGBColor& mainColor,
+                     const RGBColor& secondColor) const;
 
     /// @brief draw E1 detector Logo
-    void drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+    void drawE1DetectorLogo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                            const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
     /// @brief draw E2 detector Logo
-    void drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+    void drawE2DetectorLogo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                            const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
     /// @brief set attribute after validation

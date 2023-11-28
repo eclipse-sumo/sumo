@@ -1043,28 +1043,28 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 
 
 void
-GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
-                                   const RGBColor& baseColor, const bool ignoreShift) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90, ignoreShift);
+GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+                                   const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
+    drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 void
-GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
-                                     const RGBColor& baseColor, const bool ignoreShift) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 90, 270, ignoreShift);
+GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+                                     const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
+    drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, 90, 270, ignoreShift);
 }
 
 void
-GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
-                                     const RGBColor& baseColor, const bool ignoreShift) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, -90, 90, ignoreShift);
+GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+                                     const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
+    drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
-                                      const RGBColor& baseColor, const bool ignoreShift) const {
-    drawSemiCircleGeometryPoint(s, pos, rot, baseColor, 270, 90, ignoreShift);
+GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+                                      const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
+    drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, 270, 90, ignoreShift);
 }
 
 
@@ -1161,35 +1161,34 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot, const RGBColor& baseColor,
-        const double fromAngle, const double toAngle, const bool ignoreShift) const {
+GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const Position& pos, const double rot, const RGBColor& baseColor, const double fromAngle, const double toAngle,
+        const bool ignoreShift) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
             (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
             (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color depending if check if mouse is over element
-        if (gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), pos,
-                                              s.neteditSizeSettings.additionalGeometryPointRadius)) {
-            GLHelper::setColor(RGBColor::ORANGE);
-        } else {
-            GLHelper::setColor(baseColor.changedBrightness(-50));
+        // check if mouse is over position
+        const bool mouseOverPos = gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), pos,
+                                                                    s.neteditSizeSettings.additionalGeometryPointRadius);
+        // check if draw geometry point
+        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::DetailLevel::Level3)) {
+            // push matrix
+            GLHelper::pushMatrix();
+            // translated to front
+            glTranslated(0, 0, 0.1);
+            // set color depending if check if mouse is over element
+            GLHelper::setColor(mouseOverPos? RGBColor::ORANGE : baseColor.changedBrightness(-50));
+            // push geometry point matrix
+            GLHelper::pushMatrix();
+            // translate and rotate
+            glTranslated(pos.x(), pos.y(), 0.1);
+            glRotated(rot, 0, 0, 1);
+            // draw geometry point
+            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
+            // pop geometry point matrix
+            GLHelper::popMatrix();
         }
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        // translate and rotate
-        glTranslated(pos.x(), pos.y(), 0.1);
-        glRotated(rot, 0, 0, 1);
-        // draw geometry point
-        GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius,
-                                   s.getCircleResolution(), fromAngle, toAngle);
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // pop draw matrix
-        GLHelper::popMatrix();
     }
 }
 

@@ -141,9 +141,13 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = getExaggeration(s);
     // check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode() && s.drawAdditionals(E1InstantExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+        !myNet->getViewNet()->selectingDetectorsTLSMode() &&
+        s.drawAdditionals(E1InstantExaggeration)) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(E1InstantExaggeration);
             // obtain scaledSize
             const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
             // declare colors
@@ -167,12 +171,9 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
             // draw E1Instant shape
-            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-            // Check if the distance is enought to draw details
-            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-                // draw E1 Logo
-                drawE1DetectorLogo(s, E1InstantExaggeration, "E1", textColor);
-            }
+            drawE1Shape(s, detailLevel, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
+            // draw E1 Logo
+            drawE1DetectorLogo(s, detailLevel, E1InstantExaggeration, "E1", textColor);
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name

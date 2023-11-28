@@ -248,11 +248,13 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(exaggeration);
             // draw first symbol
-            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
+            drawCalibratorSymbol(s, detailLevel, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
             // continue with the other symbols
             for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
+                drawCalibratorSymbol(s, detailLevel, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
             }
             // draw additional ID
             drawAdditionalID(s);
@@ -437,7 +439,8 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration,
+        const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // begin push name
@@ -466,7 +469,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
         glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
         glEnd();
         // draw text if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
+        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
             // set color depending of selection status
             RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
             // draw "C"

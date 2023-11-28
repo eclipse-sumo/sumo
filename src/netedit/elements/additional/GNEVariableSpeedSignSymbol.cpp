@@ -125,6 +125,8 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+                // get detail level
+            const auto detailLevel = s.getDetailLevel(VSSExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator (except in Move mode)
@@ -149,9 +151,9 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 color = RGBColor::RED;
             }
             // draw circle
-            GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(detailLevel, (double) 1.3);
             // draw details
-            if (s.scale >= 5) {
+            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
@@ -161,7 +163,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::BLACK);
                 }
                 // draw another circle
-                GLHelper::drawFilledCircle((double) 1.1, s.getCircleResolution());
+                GLHelper::drawFilledCircleDetailled(detailLevel, (double) 1.1);
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // draw speed

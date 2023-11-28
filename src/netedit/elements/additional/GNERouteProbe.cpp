@@ -164,6 +164,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(routeProbeExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
@@ -186,8 +188,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
             // rotate over lane
             GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
-            // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
+            // Draw icon depending of level of detail
+            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // set color
                 glColor3d(1, 1, 1);
                 // rotate texture

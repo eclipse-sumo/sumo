@@ -346,6 +346,8 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             const double POIExaggeration = getExaggeration(s);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (!s.drawForObjectUnderCursor) {
+                // get detail level
+                const auto detailLevel = s.getDetailLevel(POIExaggeration);
                 // push name (needed for getGUIGlObjectsUnderCursor(...)
                 GLHelper::pushName(getGlID());
                 // draw inner polygon
@@ -367,12 +369,12 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw geometry points
                 if (myShapeHeight.size() > 0) {
-                    drawUpGeometryPoint(s, myShapeHeight.front(), 180, RGBColor::ORANGE);
-                    drawDownGeometryPoint(s, myShapeHeight.back(), 180, RGBColor::ORANGE);
+                    drawUpGeometryPoint(s, detailLevel, myShapeHeight.front(), 180, RGBColor::ORANGE);
+                    drawDownGeometryPoint(s, detailLevel, myShapeHeight.back(), 180, RGBColor::ORANGE);
                 }
                 if (myShapeWidth.size() > 0) {
-                    drawLeftGeometryPoint(s, myShapeWidth.back(), -90, RGBColor::ORANGE);
-                    drawRightGeometryPoint(s, myShapeWidth.front(), -90, RGBColor::ORANGE);
+                    drawLeftGeometryPoint(s, detailLevel, myShapeWidth.back(), -90, RGBColor::ORANGE);
+                    drawRightGeometryPoint(s, detailLevel, myShapeWidth.front(), -90, RGBColor::ORANGE);
                 }
                 // pop name
                 GLHelper::popName();

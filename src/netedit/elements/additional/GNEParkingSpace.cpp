@@ -209,10 +209,17 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(parkingAreaExaggeration);
             // get angle
             const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
             // get contour color
-            const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
+            RGBColor contourColor = s.colorSettings.parkingSpaceColorContour;
+            if (drawUsingSelectColor()) {
+                contourColor = s.colorSettings.selectedAdditionalColor;
+            } else if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level3) {
+                contourColor = s.colorSettings.parkingSpaceColorContour;
+            }
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // push name
@@ -229,7 +236,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             PositionVector shapeLengthInner = myShapeLength;
             shapeLengthInner.scaleAbsolute(-0.1);
             // draw intern
-            if (!s.drawForRectangleSelection) {
+            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // set base color
@@ -238,9 +245,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
             }
             // draw geometry points
-            drawUpGeometryPoint(s, myShapeLength.back(), angle, contourColor);
-            drawLeftGeometryPoint(s, myShapeWidth.back(), angle - 90, contourColor);
-            drawRightGeometryPoint(s, myShapeWidth.front(), angle - 90, contourColor);
+            drawUpGeometryPoint(s, detailLevel, myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(s, detailLevel, myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(s, detailLevel, myShapeWidth.front(), angle - 90, contourColor);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name

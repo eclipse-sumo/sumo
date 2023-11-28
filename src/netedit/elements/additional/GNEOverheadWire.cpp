@@ -245,6 +245,8 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
     if (segment->getLane() && s.drawAdditionals(overheadWireWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(overheadWireWidth);
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_STARTPOS);
         // get endPos
@@ -282,36 +284,33 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         // obtain color
         const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
         const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
-        // avoid draw invisible elements
-        if (overheadWireColorTop.alpha() != 0) {
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            glTranslated(0, 0, getType() + offsetFront);
-            // Set top color
-            GLHelper::setColor(overheadWireColorTop);
-            // draw top geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
-            // Set bot color
-            GLHelper::setColor(overheadWireColorBot);
-            // draw bot geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
-            // draw geometry points
-            if (segment->isFirstSegment() && segment->isLastSegment()) {
-                drawLeftGeometryPoint(s, overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
-                drawRightGeometryPoint(s, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
-            } else if (segment->isFirstSegment()) {
-                drawLeftGeometryPoint(s, overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
-            } else if (segment->isLastSegment()) {
-                drawRightGeometryPoint(s, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
-            }
-            // Pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
+        // Start drawing adding an gl identificator
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType() + offsetFront);
+        // Set top color
+        GLHelper::setColor(overheadWireColorTop);
+        // draw top geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
+        // Set bot color
+        GLHelper::setColor(overheadWireColorBot);
+        // draw bot geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
+        // draw geometry points
+        if (segment->isFirstSegment() && segment->isLastSegment()) {
+            drawLeftGeometryPoint(s, detailLevel, overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
+            drawRightGeometryPoint(s, detailLevel, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
+        } else if (segment->isFirstSegment()) {
+            drawLeftGeometryPoint(s, detailLevel, overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
+        } else if (segment->isLastSegment()) {
+            drawRightGeometryPoint(s, detailLevel, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
         }
+        // Pop layer matrix
+        GLHelper::popMatrix();
+        // Pop name
+        GLHelper::popName();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? overheadWireGeometry.getShape() : segment->getLane()->getLaneShape();
         // draw dotted geometry

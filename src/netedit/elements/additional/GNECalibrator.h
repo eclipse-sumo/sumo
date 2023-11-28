@@ -228,7 +228,7 @@ protected:
 
 private:
     /// @brief draw calibrator symbol
-    void drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const;
+    void drawCalibratorSymbol(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration, const Position& pos, const double rot) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

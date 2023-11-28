@@ -295,6 +295,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const double TAZExaggeration = getExaggeration(s);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(TAZExaggeration);
             // check if draw start und end
             const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                             myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
@@ -362,13 +364,13 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw circle
-            GLHelper::drawFilledCircle(centerRadius, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(detailLevel, centerRadius);
             // move to front
             glTranslated(0, 0, 0.1);
             // set color
             GLHelper::setColor(color);
             // draw circle
-            GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(detailLevel, centerRadius * 0.8);
             // pop center matrix
             GLHelper::popMatrix();
             // pop layer matrix
