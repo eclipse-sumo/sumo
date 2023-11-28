@@ -394,8 +394,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to check if push glID
     bool pushGLID = true;
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-            myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
-            s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
+            myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
         drawConnection = !myShapeDeprecated;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         if (myNet->getViewNet()->getNetworkViewOptions().showConnections() || isAttributeCarrierSelected()) {

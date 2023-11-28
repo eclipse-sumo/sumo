@@ -460,28 +460,30 @@ private:
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
 
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const;
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief draw start extreme geometry point
-    void drawStartGeometryPoint(const GUIVisualizationSettings& scircleWidth, const double circleWidth, const double exaggeration) const;
+    void drawStartGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                                const double circleWidth, const double exaggeration) const;
 
     /// @brief draw end extreme geometry point
-    void drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const;
+    void drawEndGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                              const double circleWidth, const double exaggeration) const;
 
     /// @brief draw edge name
-    void drawEdgeName(const GUIVisualizationSettings& s) const;
+    void drawEdgeName(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief draw edgeStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+
+    /// @brief draw edge shape (only one line)
+    void drawEdgeShape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief draw children
     void drawChildrens(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw edge shape (only one line)
-    void drawEdgeShape(const GUIVisualizationSettings& s) const;
 
     /// @brief check if draw big geometry points
     bool drawBigGeometryPoints() const;

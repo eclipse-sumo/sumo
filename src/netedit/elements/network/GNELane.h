@@ -353,10 +353,10 @@ private:
     void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw lane textures
-    void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw start and end shape points
-    void drawStartEndShapePoints(const GUIVisualizationSettings& s) const;
+    void drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;

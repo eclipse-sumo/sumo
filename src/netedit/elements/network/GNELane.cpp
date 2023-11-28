@@ -587,6 +587,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const LaneDrawingConstants laneDrawingConstants(s, this);
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(laneDrawingConstants.exaggeration);
         // get lane color
         const RGBColor color = setLaneColor(s);
         // get flag for draw lane as railway
@@ -657,9 +659,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                     drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
                 }
                 // draw lane textures
-                drawTextures(s, laneDrawingConstants);
+                drawTextures(s, detailLevel, laneDrawingConstants);
                 // draw start end shape points
-                drawStartEndShapePoints(s);
+                drawStartEndShapePoints(s, detailLevel);
             }
             // draw stopOffsets
             const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
@@ -1691,11 +1693,10 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
 
 
 void
-GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const {
+GNELane::drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const {
     // check all conditions for drawing textures
-    if (!s.drawForRectangleSelection && !s.disableLaneIcons &&
-            (myLaneRestrictedTexturePositions.size() > 0) &&
-            s.drawDetail(s.detailSettings.laneTextures, laneDrawingConstants.exaggeration)) {
+    if (!s.drawForRectangleSelection && !s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0) &&
+            (d <= GUIVisualizationSettings::DetailLevel::Level2)) {
         // Declare default width of icon (3)
         double iconWidth = 1;
         // Obtain width of icon, if width of lane is different
@@ -1729,7 +1730,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConsta
 
 
 void
-GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
+GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
     // draw a Start/endPoints if lane has a custom shape
     if (!s.drawForRectangleSelection && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
@@ -1744,13 +1745,13 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // obtain custom shape
         const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
         // draw s depending of detail
-        if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
             // push start matrix
             GLHelper::pushMatrix();
             // move to shape start position
             glTranslated(customShape.front().x(), customShape.front().y(), 0.1);
             // draw circle
-            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(d, circleWidth);
             // move top
             glTranslated(0, 0, 0.1);
             // draw "S"
@@ -1769,13 +1770,13 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // pop line matrix
         GLHelper::popMatrix();
         // draw "e" depending of detail
-        if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
             // push start matrix
             GLHelper::pushMatrix();
             // move to end position
             glTranslated(customShape.back().x(), customShape.back().y(), 0.1);
             // draw filled circle
-            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(d, circleWidth);
             // move top
             glTranslated(0, 0, 0.1);
             // draw "E"
