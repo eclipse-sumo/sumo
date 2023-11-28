@@ -125,7 +125,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(busStopExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get width
         const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

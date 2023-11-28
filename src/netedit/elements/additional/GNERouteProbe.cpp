@@ -151,7 +151,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(routeProbeExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors
         RGBColor routeProbeColor, centralLineColor;
         // set colors

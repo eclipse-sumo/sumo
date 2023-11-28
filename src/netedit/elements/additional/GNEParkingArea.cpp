@@ -154,7 +154,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get detail level

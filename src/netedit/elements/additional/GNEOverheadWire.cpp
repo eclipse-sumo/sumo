@@ -244,7 +244,7 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
-    if (segment->getLane() && s.drawAdditionals(overheadWireWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (segment->getLane() && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get detail level
         const auto detailLevel = s.getDetailLevel(overheadWireWidth);
         // calculate startPos
@@ -325,7 +325,7 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if E2 can be drawn
-    if (s.drawAdditionals(overheadWireWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && segment->getPreviousLane() && segment->getNextLane()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && segment->getPreviousLane() && segment->getNextLane()) {
         // obtain color
         const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
         const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;

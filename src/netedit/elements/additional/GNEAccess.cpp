@@ -207,7 +207,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
     const double accessExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get distance squared between mouse and access
         const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
         // declare radius

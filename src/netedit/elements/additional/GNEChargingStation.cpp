@@ -127,7 +127,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double chargingStationExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(chargingStationExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get detail level

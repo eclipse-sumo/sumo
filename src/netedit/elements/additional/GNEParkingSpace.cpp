@@ -204,7 +204,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && s.drawAdditionals(parkingAreaExaggeration)) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get witdh
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

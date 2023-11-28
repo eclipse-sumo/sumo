@@ -139,7 +139,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
-    if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines

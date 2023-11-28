@@ -281,59 +281,56 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
-        // check exaggeration
-        if (s.drawAdditionals(E2Exaggeration)) {
-            // draw geometry only if we'rent in drawForObjectUnderCursor mode
-            if (!s.drawForObjectUnderCursor) {
-                // get detail level
-                const auto detailLevel = s.getDetailLevel(E2Exaggeration);
-                // declare color
-                RGBColor E2Color, textColor;
-                // set color
-                if (drawUsingSelectColor()) {
-                    E2Color = s.colorSettings.selectedAdditionalColor;
-                    textColor = E2Color.changedBrightness(-32);
-                } else if (areLaneConsecutives(getParentLanes())) {
-                    E2Color = s.detectorSettings.E2Color;
-                    textColor = RGBColor::BLACK;
-                }
-                // draw parent and child lines
-                drawParentChildLines(s, s.additionalSettings.connectionColor);
-                // Start drawing adding an gl identificator
-                GLHelper::pushName(getGlID());
-                // push layer matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-                // set color
-                GLHelper::setColor(E2Color);
-                // draw geometry
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-                // arrow
-                if (myAdditionalGeometry.getShape().size() > 1) {
-                    glTranslated(0, 0, 0.1);
-                    GLHelper::drawTriangleAtEnd(myAdditionalGeometry.getShape()[-2], myAdditionalGeometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
-                }
-                // draw E2 Logo
-                drawE2DetectorLogo(s, detailLevel, E2Exaggeration, "E2", textColor);
-                // draw geometry points
-                drawLeftGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-                drawRightGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
-                // pop layer matrix
-                GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
-                // Draw additional ID
-                drawAdditionalID(s);
-                // draw additional name
-                drawAdditionalName(s);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(E2Exaggeration);
+            // declare color
+            RGBColor E2Color, textColor;
+            // set color
+            if (drawUsingSelectColor()) {
+                E2Color = s.colorSettings.selectedAdditionalColor;
+                textColor = E2Color.changedBrightness(-32);
+            } else if (areLaneConsecutives(getParentLanes())) {
+                E2Color = s.detectorSettings.E2Color;
+                textColor = RGBColor::BLACK;
             }
-            // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
-                                                s.dottedContourSettings.segmentWidth);
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+            // set color
+            GLHelper::setColor(E2Color);
+            // draw geometry
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            // arrow
+            if (myAdditionalGeometry.getShape().size() > 1) {
+                glTranslated(0, 0, 0.1);
+                GLHelper::drawTriangleAtEnd(myAdditionalGeometry.getShape()[-2], myAdditionalGeometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+            }
+            // draw E2 Logo
+            drawE2DetectorLogo(s, detailLevel, E2Exaggeration, "E2", textColor);
+            // draw geometry points
+            drawLeftGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+            drawRightGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
+            // Draw additional ID
+            drawAdditionalID(s);
+            // draw additional name
+            drawAdditionalName(s);
         }
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -350,7 +347,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
-    if (segment->getLane() && (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
+    if (segment->getLane() && (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get detail level
         const auto detailLevel = s.getDetailLevel(E2DetectorWidth);
@@ -454,8 +451,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if E2 can be drawn
-    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
-            segment->getPreviousLane() && segment->getNextLane() &&
+    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && segment->getPreviousLane() && segment->getNextLane() &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;

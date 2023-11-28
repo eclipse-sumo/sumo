@@ -138,7 +138,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get detail level

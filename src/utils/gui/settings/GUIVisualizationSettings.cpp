@@ -2384,18 +2384,6 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 }
 
 
-
-bool
-GUIVisualizationSettings::drawAdditionals(const double exaggeration) const {
-    // if we're drawing for rectangle selection, draw always
-    if (drawForRectangleSelection) {
-        return true;
-    } else {
-        return (scale * exaggeration) > 1.;
-    }
-}
-
-
 GUIVisualizationSettings::DetailLevel
 GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
     return GUIVisualizationSettings::DetailLevel::Level0;

@@ -142,8 +142,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
     const double E1InstantExaggeration = getExaggeration(s);
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        !myNet->getViewNet()->selectingDetectorsTLSMode() &&
-        s.drawAdditionals(E1InstantExaggeration)) {
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get detail level

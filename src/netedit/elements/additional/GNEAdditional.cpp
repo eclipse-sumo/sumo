@@ -682,7 +682,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
     // Obtain drawing exaggeration
     const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // Start drawing adding an gl identificator
@@ -729,7 +729,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
     // draw boundaries
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if additional has to be drawn
-    if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare offsets
         const double lineOffset = 0.1875;
         const double baseOffsetX = 6.25;

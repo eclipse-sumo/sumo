@@ -127,8 +127,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get detail level

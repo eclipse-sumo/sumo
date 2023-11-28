@@ -247,26 +247,24 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        if (s.drawAdditionals(exaggeration)) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(exaggeration);
-            // draw first symbol
-            drawCalibratorSymbol(s, detailLevel, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
-            // continue with the other symbols
-            for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-                drawCalibratorSymbol(s, detailLevel, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
-            }
-            // draw additional ID
-            drawAdditionalID(s);
-            // iterate over additionals and check if drawn
-            for (const auto& calibratorFlow : getChildAdditionals()) {
-                // if calibrator is being inspected or selected, then draw
-                if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-                        isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                        calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
-                        (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
-                    calibratorFlow->drawGL(s);
-                }
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(exaggeration);
+        // draw first symbol
+        drawCalibratorSymbol(s, detailLevel, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
+        // continue with the other symbols
+        for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
+            drawCalibratorSymbol(s, detailLevel, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
+        }
+        // draw additional ID
+        drawAdditionalID(s);
+        // iterate over additionals and check if drawn
+        for (const auto& calibratorFlow : getChildAdditionals()) {
+            // if calibrator is being inspected or selected, then draw
+            if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                    isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                    calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
+                    (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
+                calibratorFlow->drawGL(s);
             }
         }
     }

@@ -595,9 +595,6 @@ public:
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
 
-    /// @brief check if additionals must be drawn
-    bool drawAdditionals(const double exaggeration) const;
-
     /// @brief return the detail level
     DetailLevel getDetailLevel(const double exaggeration) const;
 
