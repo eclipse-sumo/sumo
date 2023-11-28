@@ -248,27 +248,44 @@ public:
      */
     static void drawLine(const Position& beg, const Position& end);
 
+    /** @brief Draws a filled circle around (0,0) depending of level of detail
+     *
+     * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360).
+     *
+     * @param[in] radius The radius of the circle
+     */
+    static void drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel d, const double radius);
+
+    /** @brief Draws a filled circle around (0,0) depending of level of detail
+     *
+     * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360).
+     * @param[in] beg The begin angle in degrees
+     * @param[in] end The end angle in degrees
+     *
+     * @param[in] radius The radius of the circle
+     */
+    static void drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel d, const double radius,
+                                          double beg, double end);
 
     /** @brief Draws a filled circle around (0,0)
      *
      * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360).
      *
-     * @param[in] width The width of the circle
+     * @param[in] radius The radius of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawFilledCircle(double width, int steps = 8);
-
+    static void drawFilledCircle(const double widradiusth, const int steps = 8);
 
     /** @brief Draws a filled circle around (0,0)
      *
      * The circle is drawn use GL_TRIANGLES.
      *
-     * @param[in] width The width of the circle
+     * @param[in] radius The radius of the circle
      * @param[in] steps The number of steps to divide the circle into
      * @param[in] beg The begin angle in degrees
      * @param[in] end The end angle in degrees
      */
-    static void drawFilledCircle(double width, int steps,
+    static void drawFilledCircle(double radius, int steps,
                                  double beg, double end);
 
 
@@ -276,11 +293,11 @@ public:
      *
      * The circle is drawn by calling drawOutlineCircle(width, iwidth, steps, 0, 360).
      *
-     * @param[in] width The (outer) width of the circle
-     * @param[in] iwidth The inner width of the circle
+     * @param[in] radius The (outer) radius of the circle
+     * @param[in] iRadius The inner radius of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawOutlineCircle(double width, double iwidth,
+    static void drawOutlineCircle(double radius, double iRadius,
                                   int steps = 8);
 
 
@@ -288,13 +305,13 @@ public:
      *
      * The circle is drawn use GL_TRIANGLES.
      *
-     * @param[in] width The (outer) width of the circle
-     * @param[in] iwidth The inner width of the circle
+     * @param[in] radius The (outer) radius of the circle
+     * @param[in] iRadius The inner radius of the circle
      * @param[in] steps The number of steps to divide the circle into
      * @param[in] beg The begin angle in degrees
      * @param[in] end The end angle in degrees
      */
-    static void drawOutlineCircle(double width, double iwidth,
+    static void drawOutlineCircle(double radius, double iRadius,
                                   int steps, double beg, double end);
 
 

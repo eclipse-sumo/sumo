@@ -311,50 +311,48 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlOb
                                 const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
-    // get radius squared
-    const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
     // iterate over shape
     for (const auto& vertex : shape) {
-        // push geometry point matrix
-        GLHelper::pushMatrix();
-        // move to vertex
-        glTranslated(vertex.x(), vertex.y(), 0.2);
-        // set color depending if cursor is over geometry point
-        if (glObject && gPostDrawing.positionWithinCircle(glObject, mousePos, vertex, exaggeratedRadio)) {
-            GLHelper::setColor(RGBColor::ORANGE);
-        } else {
-            GLHelper::setColor(geometryPointColor);
-        }
-        // draw circle
-        GLHelper::drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
-        // pop geometry point matrix
-        GLHelper::popMatrix();
-        // draw elevation or special symbols (Start, End and Block)
-        if (!s.drawForRectangleSelection) {
-            // get draw detail
-            const bool drawDetail = s.drawDetail(s.detailSettings.geometryPointsText, exaggeration);
-            // draw text
-            if (editingElevation) {
-                // Push Z matrix
-                GLHelper::pushMatrix();
-                // draw Z (elevation)
-                GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
-                // pop Z matrix
-                GLHelper::popMatrix();
-            } else if ((vertex == shape.front()) && drawDetail && drawExtremeSymbols) {
-                // push "S" matrix
-                GLHelper::pushMatrix();
-                // draw a "s" over first point
-                GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
-                // pop "S" matrix
-                GLHelper::popMatrix();
-            } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawDetail && drawExtremeSymbols) {
-                // push "E" matrix
-                GLHelper::pushMatrix();
-                // draw a "e" over last point if polygon isn't closed
-                GLHelper::drawText("E", vertex, 0.3, 2 * exaggeratedRadio, textColor);
-                // pop "E" matrix
-                GLHelper::popMatrix();
+        // first check if mouse is over geometry point
+        const bool mouseOverGeometryPoint = glObject? gPostDrawing.positionWithinCircle(glObject, mousePos, vertex, exaggeratedRadio) : false;
+        // don't draw in draw for object under cursor)
+        if (!s.drawForObjectUnderCursor) {
+            // get current detail level
+            const auto detailLevel = s.getDetailLevel(exaggeratedRadio);
+            // push geometry point matrix
+            GLHelper::pushMatrix();
+            // move to vertex
+            glTranslated(vertex.x(), vertex.y(), 0.2);
+            // set color depending if cursor is over geometry point
+            GLHelper::setColor(mouseOverGeometryPoint? RGBColor::ORANGE : geometryPointColor);
+            // draw circle detailled
+            GLHelper::drawFilledCircleDetailled(detailLevel, exaggeratedRadio);
+            // pop geometry point matrix
+            GLHelper::popMatrix();
+            // draw elevation or special symbols (Start, End and Block)
+            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level1) {
+                if (editingElevation) {
+                    // Push Z matrix
+                    GLHelper::pushMatrix();
+                    // draw Z (elevation)
+                    GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
+                    // pop Z matrix
+                    GLHelper::popMatrix();
+                } else if ((vertex == shape.front()) && drawExtremeSymbols) {
+                    // push "S" matrix
+                    GLHelper::pushMatrix();
+                    // draw a "s" over first point
+                    GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
+                    // pop "S" matrix
+                    GLHelper::popMatrix();
+                } else if ((vertex == shape.back()) && (shape.isClosed() == false) && drawExtremeSymbols) {
+                    // push "E" matrix
+                    GLHelper::pushMatrix();
+                    // draw a "e" over last point if polygon isn't closed
+                    GLHelper::drawText("E", vertex, 0.3, 2 * exaggeratedRadio, textColor);
+                    // pop "E" matrix
+                    GLHelper::popMatrix();
+                }
             }
         }
     }
@@ -368,37 +366,33 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject
     const double exaggeratedRadio = (radius * exaggeration);
     // obtain distance to shape
     const double distanceToShape = shape.distance2D(mousePos);
-    // obtain squared radius
-    const double squaredRadius = (exaggeratedRadio * exaggeratedRadio);
     // declare index
     int index = -1;
-    // iterate over shape
+    // check if we're already over an existent geometry point
     for (int i = 0; i < (int)shape.size(); i++) {
-        // check distance
-        if (shape[i].distanceSquaredTo2D(mousePos) <= squaredRadius) {
+        if (gPostDrawing.positionWithinCircle(glObject, mousePos, shape[i], exaggeratedRadio)) {
             index = i;
         }
     }
-    // continue depending of distance to shape
+    // continue depending of distance to shape and index
     if ((distanceToShape < exaggeratedRadio) && (index == -1)) {
-        // obtain position over lane
-        const Position positionOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
-        // calculate hintPos
-        const Position hintPos = shape.size() > 1 ? positionOverLane : shape[0];
-        // push hintPos matrix
-        GLHelper::pushMatrix();
-        // translate to hintPos
-        glTranslated(hintPos.x(), hintPos.y(), 0.2);
-        // set color depending if cursor is over geometry point
-        if (glObject && gPostDrawing.positionWithinCircle(glObject, mousePos, hintPos, exaggeratedRadio)) {
-            GLHelper::setColor(RGBColor::ORANGE);
-        } else {
-            GLHelper::setColor(hintColor);
+        // obtain position over shape
+        const Position hintPos = (shape.size() > 1)? shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos)) : shape[0];
+        // first check if mouse is over geometry point
+        const bool mouseOverGeometryPoint = gPostDrawing.positionWithinCircle(glObject, mousePos, hintPos, exaggeratedRadio);
+        // don't draw in draw for object under cursor)
+        if (!s.drawForObjectUnderCursor) {
+            // push hintPos matrix
+            GLHelper::pushMatrix();
+            // translate to hintPos
+            glTranslated(hintPos.x(), hintPos.y(), 0.2);
+            // set color depending if cursor is over geometry point
+            GLHelper::setColor(mouseOverGeometryPoint? RGBColor::ORANGE : hintColor);
+            // draw filled circle
+            GLHelper::drawFilledCircleDetailled(s.getDetailLevel(exaggeratedRadio), exaggeratedRadio);
+            // pop hintPos matrix
+            GLHelper::popMatrix();
         }
-        // draw filled circle
-        GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
-        // pop hintPos matrix
-        GLHelper::popMatrix();
     }
 }
 

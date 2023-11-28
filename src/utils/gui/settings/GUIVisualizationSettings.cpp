@@ -184,27 +184,7 @@ const double GUIVisualizationWidthSettings::embeddedRouteWidth(0.55);
 // details of certain netedit objects (0 = drawn always)
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDetailSettings::connectionsDemandMode(5);
-const double GUIVisualizationDetailSettings::laneTextures(20); // originally 10
-const double GUIVisualizationDetailSettings::lockIcon(30);
-const double GUIVisualizationDetailSettings::additionalTextures(20); // originally 10
-const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
-const double GUIVisualizationDetailSettings::geometryPointsText(20);
-const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
-const double GUIVisualizationDetailSettings::stoppingPlaceText(10);
-const double GUIVisualizationDetailSettings::detectorDetails(10);
-const double GUIVisualizationDetailSettings::detectorText(30);
-const double GUIVisualizationDetailSettings::calibratorText(10);
-const double GUIVisualizationDetailSettings::stopsDetails(10);
-const double GUIVisualizationDetailSettings::stopsText(50);
-const double GUIVisualizationDetailSettings::vehicleTriangles(2);
-const double GUIVisualizationDetailSettings::vehicleBoxes(5);
-const double GUIVisualizationDetailSettings::vehicleShapes(10);
-const double GUIVisualizationDetailSettings::personTriangles(2);
-const double GUIVisualizationDetailSettings::personCircles(5);
-const double GUIVisualizationDetailSettings::personShapes(10);
-const double GUIVisualizationDetailSettings::personExaggeration(4);
-const double GUIVisualizationDetailSettings::plans(5);
+const double GUIVisualizationDetailSettings::tmp(5);
 
 // -------------------------------------------------------------------------
 // scheme names
@@ -2416,6 +2396,12 @@ GUIVisualizationSettings::drawAdditionals(const double exaggeration) const {
 }
 
 
+GUIVisualizationSettings::DetailLevel
+GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
+    return GUIVisualizationSettings::DetailLevel::Level0;
+}
+
+
 bool
 GUIVisualizationSettings::drawDetail(const double detail, const double exaggeration) const {
     if (detail <= 0) {
@@ -2425,7 +2411,7 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
     }
 }
 
-
+/*
 int
 GUIVisualizationSettings::getCircleResolution() const {
     if (drawForRectangleSelection) {
@@ -2438,7 +2424,7 @@ GUIVisualizationSettings::getCircleResolution() const {
         return 8;
     }
 }
-
+*/
 
 bool
 GUIVisualizationSettings::drawDottedContour(const double exaggeration) const {

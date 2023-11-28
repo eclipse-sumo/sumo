@@ -5361,7 +5361,7 @@ GNEViewNet::drawTemporalJunction() const {
         GLHelper::setColor(bubbleColor);
         // draw outline circle
         const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
-        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
+        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, 32);
         // pop junction matrix
         GLHelper::popMatrix();
         // draw temporal edge
@@ -5433,9 +5433,9 @@ GNEViewNet::drawTemporalSplitJunction() const {
         GLHelper::setColor(bubbleColor);
         // draw outline circle
         const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
-        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
+        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, 32);
         // draw filled circle
-        GLHelper::drawFilledCircle(0.5, myVisualizationSettings->getCircleResolution());
+        GLHelper::drawFilledCircle(0.5, 32);
         // pop junction matrix
         GLHelper::popMatrix();
         // pop layer matrix
@@ -5462,7 +5462,7 @@ GNEViewNet::drawTemporalRoundabout() const {
         GLHelper::setColor(RGBColor::GREEN);
         // draw outline circle
         const double circleWidth = (junction->getNBNode()->getRadius() < 0) ? 4.0 : junction->getNBNode()->getRadius();
-        GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, myVisualizationSettings->getCircleResolution());
+        GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, 32);
         // pop junction matrix
         GLHelper::popMatrix();
         // pop layer matrix

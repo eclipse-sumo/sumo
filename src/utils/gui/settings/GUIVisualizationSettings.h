@@ -27,6 +27,7 @@
 #include <map>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
+
 #include "GUIPropertySchemeStorage.h"
 
 
@@ -527,67 +528,7 @@ struct GUIVisualizationWidthSettings {
 struct GUIVisualizationDetailSettings {
 
     /// @brief draw connections in demand mode
-    static const double connectionsDemandMode;
-
-    /// @brief details for lane textures
-    static const double laneTextures;
-
-    /// @brief lock icons
-    static const double lockIcon;
-
-    /// @brief details for additional textures
-    static const double additionalTextures;
-
-    /// @brief details for Geometry Points
-    static const double geometryPointsDetails;
-
-    /// @brief details for Geometry Points Texts
-    static const double geometryPointsText;
-
-    /// @brief details for stopping places
-    static const double stoppingPlaceDetails;
-
-    /// @brief details for stopping place texts
-    static const double stoppingPlaceText;
-
-    /// @brief details for detectors
-    static const double detectorDetails;
-
-    /// @brief details for detector texts
-    static const double detectorText;
-
-    /// @brief details for calibrator text
-    static const double calibratorText;
-
-    /// @brief details for stops
-    static const double stopsDetails;
-
-    /// @brief details for stop texts
-    static const double stopsText;
-
-    /// @brief details for draw person as triangles
-    static const double vehicleTriangles;
-
-    /// @brief details for draw person as boxes
-    static const double vehicleBoxes;
-
-    /// @brief details for draw person as shapes
-    static const double vehicleShapes;
-
-    /// @brief details for draw person as triangles
-    static const double personTriangles;
-
-    /// @brief details for draw person as circles
-    static const double personCircles;
-
-    /// @brief details for draw person as person shapes
-    static const double personShapes;
-
-    /// @brief Exaggeration for persons (only used in netedit)
-    static const double personExaggeration;
-
-    /// @brief details for draw plans (only used in netedit)
-    static const double plans;
+    static const double tmp;
 };
 
 
@@ -598,6 +539,15 @@ struct GUIVisualizationDetailSettings {
 class GUIVisualizationSettings {
 
 public:
+
+    enum class DetailLevel : int {
+        Level0,     // All detail (tesselations)
+        Level1,     // circle resolution = 8, polygons, no lane details
+        Level2,     // circle as squares, squares instead polygons, no text
+        Level3,     // no geometry points
+        Level4,
+    };
+
     /// @brief constructor
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
@@ -648,11 +598,11 @@ public:
     /// @brief check if additionals must be drawn
     bool drawAdditionals(const double exaggeration) const;
 
+    /// @brief return the detail level
+    DetailLevel getDetailLevel(const double exaggeration) const;
+
     /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
     bool drawDetail(const double detail, const double exaggeration) const;
-
-    /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
-    int getCircleResolution() const;
 
     /// @brief check if dotted contour can be drawn
     bool drawDottedContour(const double exaggeration) const;

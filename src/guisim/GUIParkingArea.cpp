@@ -175,7 +175,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+        if (s.drawDetail(10, exaggeration)) {
             GLHelper::drawText("P", Position(), .1, 1.6, blue, mySignRot);
         }
     }

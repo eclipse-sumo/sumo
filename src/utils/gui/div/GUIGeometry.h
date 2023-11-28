@@ -110,7 +110,7 @@ public:
                                    const double radius,const double exaggeration, const bool editingElevation,
                                    const bool drawExtremeSymbols);
 
-    /// @brief draw moving hint
+    /// @brief draw moving hint (circle over shape in which create new vertex)
     static void drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos,
                                const PositionVector& shape, const RGBColor& hintColor, const double radius,
                                const double exaggeration);

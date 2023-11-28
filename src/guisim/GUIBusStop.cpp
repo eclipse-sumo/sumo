@@ -200,7 +200,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     const double signRot = s2 ? myFGSignRot2 : myFGSignRot;
     const Position& signPos = s2 ? myFGSignPos2 : myFGSignPos;
     // draw details unless zoomed out to far
-    if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
+    if (s.drawDetail(10, exaggeration)) {
         GLHelper::pushMatrix();
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
@@ -236,7 +236,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+        if (s.drawDetail(10, exaggeration)) {
             if (myElement == SUMO_TAG_CONTAINER_STOP) {
                 GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
             } else if (myElement == SUMO_TAG_TRAIN_STOP) {

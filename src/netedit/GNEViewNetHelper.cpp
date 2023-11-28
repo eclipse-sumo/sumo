@@ -3933,7 +3933,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
         return false;
     }
     // check detail
-    if (!s.drawDetail(s.detailSettings.lockIcon, exaggeration)) {
+    if (!s.drawDetail(10, exaggeration)) {
         return false;
     }
     // all ok, then draw
