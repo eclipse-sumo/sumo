@@ -208,16 +208,18 @@ GNEStopPlan::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 
 void
 GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double exaggeration = getExaggeration(s);
     // check if stop can be draw
     if ((getTagProperty().isPlanStopPerson() && checkDrawPersonPlan()) ||
             (getTagProperty().isPlanStopContainer() && checkDrawContainerPlan())) {
+        // Obtain exaggeration of the draw
+        const double exaggeration = getExaggeration(s);
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(exaggeration);
         // check if draw stopPerson over busStop oder over lane
         if (getParentAdditionals().size() > 0) {
-            drawStopOverStoppingPlace(s, exaggeration);
+            drawStopOverStoppingPlace(s, detailLevel, exaggeration);
         } else {
-            drawStopOverEdge(s, exaggeration);
+            drawStopOverEdge(s, detailLevel, exaggeration);
         }
         // check if draw plan parent
         if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
@@ -392,7 +394,7 @@ GNEStopPlan::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
@@ -422,8 +424,8 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double ex
         GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
         // move again
         glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        // draw icon depending of detail level
+        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture
@@ -458,7 +460,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double ex
 
 
 void
-GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
@@ -483,8 +485,8 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
         // move again
         glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+        // draw icon depending of detail level
+        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture

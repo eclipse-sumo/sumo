@@ -340,7 +340,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     // continue if container can be drawn
     if (drawContainer) {
         // obtain exaggeration (and add the special containerExaggeration)
-        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + 10;
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

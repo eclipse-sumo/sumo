@@ -1097,7 +1097,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get plan geometry
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
-    if (drawPlan && drawPlanZoom(s) && (planGeometry.getShape().size() > 0)) {
+    if (drawPlan && (planGeometry.getShape().size() > 0)) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
         // get inspected attribute carriers
@@ -1150,7 +1150,9 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // check if this is a dotted element
     const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && drawPlanZoom(s) && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(1);
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1197,7 +1199,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         drawFromArrow(s, segment->getLane(), segment, dottedElement);
         drawToArrow(s, segment->getLane(), segment, dottedElement);
         // draw end position
-        drawEndPosition(s, segment, duplicateWidth);
+        drawEndPosition(s, detailLevel, segment, duplicateWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -1232,8 +1234,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && drawPlanZoom(s) &&
-        myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1371,16 +1372,6 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 }
 
 
-bool
-GNEDemandElementPlan::drawPlanZoom(const GUIVisualizationSettings& s) const {
-    if (s.drawForRectangleSelection) {
-        return true;
-    } else {
-        return s.drawDetail(s.detailSettings.plans, 1);
-    }
-}
-
-
 void
 GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                                     const bool dottedElement) const {
@@ -1424,7 +1415,7 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
     // check if myPlanElement is the last segment
     if (segment->isLastSegment()) {
         // calculate circle width
@@ -1440,7 +1431,7 @@ GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const G
             // translate to pos and move to
             glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
             // resolution of drawn circle depending of the zoom (To improve smothness)
-            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(d, circleWidth);
             // pop draw matrix
             GLHelper::popMatrix();
         }

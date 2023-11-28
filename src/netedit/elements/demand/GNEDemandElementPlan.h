@@ -183,9 +183,6 @@ protected:
     double myArrivalPosition;
 
 private:
-    /// @brief check if draw plan depending of zoom
-    bool drawPlanZoom(const GUIVisualizationSettings& s) const;
-
     /// @brief draw from arrow
     void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                        const bool dottedElement) const;
@@ -195,7 +192,7 @@ private:
                      const bool dottedElement) const;
 
     /// @brief draw to arrow
-    void drawEndPosition(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+    void drawEndPosition(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
 
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;

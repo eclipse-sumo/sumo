@@ -381,6 +381,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         const double width = stopLane ? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(exaggeration);
             // get color
             const auto color = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
             // Start drawing adding an gl identificator
@@ -393,9 +395,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // draw depending if is over lane or over stoppingP
             if (getParentLanes().size() > 0) {
-                drawStopOverLane(s, color, width, exaggeration);
+                drawStopOverLane(s, detailLevel, color, width, exaggeration);
             } else {
-                drawStopOverStoppingPlace(s, color, width, exaggeration);
+                drawStopOverStoppingPlace(s, detailLevel, color, width, exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -1016,7 +1018,8 @@ GNEStop::drawIndex() const {
 
 
 void
-GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const {
+GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color,
+        const double width, const double exaggeration) const {
     // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
                             myDemandElementGeometry.getShapeRotations(),
@@ -1043,7 +1046,7 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const RGBColor &col
     // only draw text if isn't being drawn for selecting
     if (s.drawForRectangleSelection) {
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
+    } else if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
         // draw "S" symbol
         GLHelper::drawText(myTagProperty.isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, color, 180);
         // move to subtitle position
@@ -1062,16 +1065,17 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const RGBColor &col
     // pop detail matrix
     GLHelper::popMatrix();
     // draw geometry points
-    drawGeometryPoints(s, color);
+    drawGeometryPoints(s, d, color);
 }
 
 
 void
-GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const {
+GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color,
+        const double width, const double exaggeration) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
     GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
     // only draw text if isn't being drawn for selecting
-    if (s.drawDetail(s.detailSettings.stopsText, exaggeration) && drawIndex()) {
+    if (drawIndex() && (d <= GUIVisualizationSettings::DetailLevel::Level2)) {
         // Add a detail matrix
         GLHelper::pushMatrix();
         // move to geometry front
@@ -1415,7 +1419,7 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 
 
 void
-GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
+GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
             (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
@@ -1434,7 +1438,7 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
             GLHelper::pushMatrix();
             glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), 0.1);
             // draw geometry point
-            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius);
             // pop geometry point matrix
             GLHelper::popMatrix();
         }
@@ -1443,7 +1447,7 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
             GLHelper::pushMatrix();
             glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
             // draw geometry point
-            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
+            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius);
             // pop geometry point matrix
             GLHelper::popMatrix();
         }

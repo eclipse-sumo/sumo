@@ -226,10 +226,10 @@ protected:
     bool drawIndex() const;
 
     /// @brief draw stop over lane
-    void drawStopOverLane(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const;
+    void drawStopOverLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color, const double width, const double exaggeration) const;
 
     /// @brief draw stop over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const;
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color, const double width, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
@@ -245,7 +245,7 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw geometry points
-    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
+    void drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor& baseColor) const;
 
     /// @brief get pathStopIndex
     int getPathStopIndex() const;

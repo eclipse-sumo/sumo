@@ -885,6 +885,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // first push name
             GLHelper::pushName(getGlID());
+            // get detail level
+            const auto detailLevel = s.getDetailLevel(exaggeration);
             // first check if if mouse is enough near to this vehicle to draw it
             if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // push draw matrix
@@ -924,11 +926,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
                 } else {
                     // draw the vehicle depending of detail level
-                    if (s.drawDetail(s.detailSettings.vehicleShapes, exaggeration)) {
+                    if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level1) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
-                    } else if (s.drawDetail(s.detailSettings.vehicleBoxes, exaggeration)) {
+                    } else if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                    } else if (s.drawDetail(s.detailSettings.vehicleTriangles, exaggeration)) {
+                    } else if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level3) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
                     }
                     // check if min gap has to be drawn
@@ -1046,6 +1048,8 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
     // check conditions
     if (segment->getLane() && !s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment->getLane(), myTagProperty.getTag())) {
+        // get detail level
+        const auto detailLevel = s.getDetailLevel(1);
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, segment->getLane()) * s.widthSettings.tripWidth;
         // calculate startPos
@@ -1128,7 +1132,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
                 // Set person plan color
                 GLHelper::setColor(pathColor);
                 // resolution of drawn circle depending of the zoom (To improve smoothness)
-                GLHelper::drawFilledCircle(myArrivalPositionDiameter, s.getCircleResolution());
+                GLHelper::drawFilledCircleDetailled(detailLevel, myArrivalPositionDiameter);
                 // pop draw matrix
                 GLHelper::popMatrix();
             }

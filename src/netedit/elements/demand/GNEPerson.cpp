@@ -341,7 +341,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // continue if person can be drawn
     if (drawPerson) {
         // obtain exaggeration (and add the special personExaggeration)
-        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + 10;
         // obtain position
         const Position personPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         if (personPosition == Position::INVALID) {
