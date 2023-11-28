@@ -529,10 +529,10 @@ GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel 
             // draw only a square
             GLHelper::pushMatrix();
             glBegin(GL_QUADS);
-            glVertex2d(-radius, 0);
+            glVertex2d(-radius, radius);
             glVertex2d(-radius, -radius);
             glVertex2d(radius, -radius);
-            glVertex2d(radius, 0);
+            glVertex2d(radius, radius);
             glEnd();
             GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
