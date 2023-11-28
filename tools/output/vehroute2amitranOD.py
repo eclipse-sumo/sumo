@@ -25,6 +25,7 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
+
 def convert(vehRoutes, routeOut, odOut, interval):
     routeDict = {}
     actorConfig = defaultdict(list)  # map type -> list of time slices
@@ -87,10 +88,10 @@ def convert(vehRoutes, routeOut, odOut, interval):
 if __name__ == "__main__":
     argParser = ArgumentParser()
     argParser.add_argument("-r", "--routes", default='routes.xml', category="input",
-                         help="name of the amitran route file output [default: %(default)s]")
+                           help="name of the amitran route file output [default: %(default)s]")
     argParser.add_argument("-o", "--od-file", default='od.xml', category="output",
-                         help="name of the amitran O/D file output [default: %(default)s]")
+                           help="name of the amitran O/D file output [default: %(default)s]")
     argParser.add_argument("-i", "--interval", default=3600, type=int,
-                         help="aggregation interval in seconds [default: %(default)s]")
+                           help="aggregation interval in seconds [default: %(default)s]")
     (options, args) = argParser.parse_args()
     convert(args[0], options.routes, options.od_file, options.interval)
