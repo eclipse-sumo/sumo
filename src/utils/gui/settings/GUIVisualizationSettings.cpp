@@ -2386,7 +2386,20 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 
 GUIVisualizationSettings::DetailLevel
 GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
-    return GUIVisualizationSettings::DetailLevel::Level0;
+    // calculate factor
+    const auto factor = (scale * exaggeration);
+    // return detail level depending of factor
+    if (factor >= 10) {
+        return GUIVisualizationSettings::DetailLevel::Level0;
+    } else if (factor >= 5) {
+        return GUIVisualizationSettings::DetailLevel::Level1;
+    } else if (factor >= 2.5) {
+        return GUIVisualizationSettings::DetailLevel::Level2;
+    } else if (factor >= 1.25) {
+        return GUIVisualizationSettings::DetailLevel::Level3;
+    } else {
+        return GUIVisualizationSettings::DetailLevel::Level4;
+    }
 }
 
 

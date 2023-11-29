@@ -663,7 +663,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw junction name
             drawJunctionName(s, detailLevel);
             // draw Junction childs
-            drawJunctionChildren(s);
+            drawJunctionChildren(s, detailLevel);
             // draw path additional elements
             myNet->getPathManager()->drawJunctionPathElements(s, detailLevel, this);
         }
@@ -1656,12 +1656,14 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualiza
         if (d <= GUIVisualizationSettings::DetailLevel::Level0) {
             // draw shape with high detail
             myTesselation.drawTesselation(myTesselation.getShape());
-        } else if (d < GUIVisualizationSettings::DetailLevel::Level1) {
+        } else if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
             // draw shape
-            GLHelper::drawFilledPoly(myTesselation.getShape(), true);
+            GLHelper::drawFilledPoly(myNBNode->getShape(), true);
         } else {
-            // draw boundary
-            GLHelper::drawFilledPoly(myTesselation.getShape().getBoxBoundary().getShape(true), true);
+            // get shape boundary
+            const auto boundary = myNBNode->getShape().getBoxBoundary();
+            // draw rectangle
+            GLHelper::drawRectangle(myNBNode->getCenter(), boundary.getWidth(), boundary.getHeight());
         }
         // draw shape points only in Network supermode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
@@ -1701,7 +1703,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualiza
 void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((d <= GUIVisualizationSettings::DetailLevel::Level4) && myNBNode->isTLControlled() &&
+    if ((d <= GUIVisualizationSettings::DetailLevel::Level3) && myNBNode->isTLControlled() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
         !myAmTLSSelected && !s.drawForRectangleSelection) {
         GLHelper::pushMatrix();
@@ -1729,29 +1731,32 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, GUIVisualizatio
 
 
 void
-GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
-    // draw crossings
-    for (const auto& crossing : myGNECrossings) {
-        crossing->drawGL(s);
-    }
-    // draw walkingAreas
-    for (const auto& walkingArea : myGNEWalkingAreas) {
-        walkingArea->drawGL(s);
-    }
-    // draw internalLanes
-    for (const auto& internalLanes : myInternalLanes) {
-        internalLanes->drawGL(s);
-    }
-    // draw connections and route elements connections (Only for incoming edges)
-    for (const auto& incomingEdge : myGNEIncomingEdges) {
-        for (const auto& connection : incomingEdge->getGNEConnections()) {
-            connection->drawGL(s);
+GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+    // check detail level
+    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+        // draw crossings
+        for (const auto& crossing : myGNECrossings) {
+            crossing->drawGL(s);
         }
-    }
-    // draw child demand elements
-    for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPlacedInRTree()) {
-            demandElement->drawGL(s);
+        // draw walkingAreas
+        for (const auto& walkingArea : myGNEWalkingAreas) {
+            walkingArea->drawGL(s);
+        }
+        // draw internalLanes
+        for (const auto& internalLanes : myInternalLanes) {
+            internalLanes->drawGL(s);
+        }
+        // draw connections and route elements connections (Only for incoming edges)
+        for (const auto& incomingEdge : myGNEIncomingEdges) {
+            for (const auto& connection : incomingEdge->getGNEConnections()) {
+                connection->drawGL(s);
+            }
+        }
+        // draw child demand elements
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
+            }
         }
     }
 }

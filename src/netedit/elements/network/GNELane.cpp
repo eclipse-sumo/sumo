@@ -1245,7 +1245,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::D
         } else {
             GLHelper::drawLine(myLaneGeometry.getShape());
         }
-    } else if ((d <= GUIVisualizationSettings::DetailLevel::Level3) && myIndex == 0) {
+    } else if (myIndex == 0) {
         // declare simple shape
         const PositionVector simpleShape = {myLaneGeometry.getShape().front(), myLaneGeometry.getShape().back()};
         // draw lane as line, depending of myShapeColors

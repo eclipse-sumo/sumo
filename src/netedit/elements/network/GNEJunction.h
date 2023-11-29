@@ -364,7 +364,7 @@ private:
     void drawJunctionName(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief draw junction childs
-    void drawJunctionChildren(const GUIVisualizationSettings& s) const;
+    void drawJunctionChildren(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
