@@ -43,6 +43,9 @@ public:
     /// @brief destructor
     ~GNEContour();
 
+    /// @brief get contour boundary
+    Boundary getContourBoundary() const;
+
     /// @brief reset dotted contour
     void reset() const;
 

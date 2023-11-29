@@ -290,7 +290,7 @@ GUIDottedGeometry::getBackPosition() const {
 
 
 const PositionVector&
-GUIDottedGeometry::getUnresampledShape() {
+GUIDottedGeometry::getUnresampledShape() const {
     return myUnresampledShape;
 }
 

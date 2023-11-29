@@ -56,6 +56,16 @@ GNEContour::~GNEContour() {
 }
 
 
+Boundary
+GNEContour::getContourBoundary() const {
+    Boundary b;
+    for (const auto &dottedGeometry : *myDottedGeometries) {
+        b.add(dottedGeometry.getUnresampledShape().getBoxBoundary());
+    }
+    return b;
+}
+
+
 void
 GNEContour::reset() const {
     myCachedShapes->clear();
