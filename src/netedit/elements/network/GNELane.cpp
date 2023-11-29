@@ -582,10 +582,10 @@ void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // get lane drawing constants
     const LaneDrawingConstants laneDrawingConstants(s, this);
+    // get detail level
+    const auto detailLevel = s.getDetailLevel(laneDrawingConstants.exaggeration);
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
-        // get detail level
-        const auto detailLevel = s.getDetailLevel(laneDrawingConstants.exaggeration);
         // Push edge parent name
         GLHelper::pushName(myParentEdge->getGlID());
         // Push lane name
@@ -614,7 +614,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // draw children
     drawChildren(s);
     // draw path additional elements
-    myNet->getPathManager()->drawLanePathElements(s, this);
+    myNet->getPathManager()->drawLanePathElements(s, detailLevel, this);
     // draw dotted geometry
     myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.width, 1, true, true,
                                         s.dottedContourSettings.segmentWidth);
@@ -1194,10 +1194,10 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNELane::drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
         const LaneDrawingConstants &laneDrawingConstants) const {
+    // set lane colors
+    setLaneColor(s);
     // continue depending of detail level
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
-        // get lane color
-        const RGBColor color = setLaneColor(s);
+    if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
         // get flag for draw lane as railway
         const bool drawRailway = drawAsRailway(s);
         // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
@@ -1236,14 +1236,14 @@ GNELane::drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::D
         drawShapeEdited(s);
         // draw stopOffsets
         drawLaneStopOffset(s, d);
-    } else if (d <= GUIVisualizationSettings::DetailLevel::Level3){
+    } else if (d <= GUIVisualizationSettings::DetailLevel::Level2){
         // draw lane as line, depending of myShapeColors
         if (myShapeColors.size() > 0) {
             GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
         } else {
             GLHelper::drawLine(myLaneGeometry.getShape());
         }
-    } else if (myIndex == 0) {
+    } else if ((d <= GUIVisualizationSettings::DetailLevel::Level3) && myIndex == 0) {
         // declare simple shape
         const PositionVector simpleShape = {myLaneGeometry.getShape().front(), myLaneGeometry.getShape().back()};
         // draw lane as line, depending of myShapeColors
@@ -1616,9 +1616,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, GUIVisualiza
     // Draw direction indicators if the correspondient option is enabled
     if (s.showLaneDirection && (d <= GUIVisualizationSettings::DetailLevel::Level1)) {
         // improve visibility of superposed rail edges
-        if (drawAsRailway) {
-            setLaneColor(s);
-        } else {
+        if (!drawAsRailway) {
             glColor3d(0.3, 0.3, 0.3);
         }
         // get width and sideOffset
@@ -1701,7 +1699,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
 void
 GNELane::drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const {
     // check all conditions for drawing textures
-    if (!s.disableLaneIcons && (d <= GUIVisualizationSettings::DetailLevel::Level2) && (myLaneRestrictedTexturePositions.size() > 0)) {
+    if (!s.disableLaneIcons && (d <= GUIVisualizationSettings::DetailLevel::Level0) && (myLaneRestrictedTexturePositions.size() > 0)) {
         // Declare default width of icon (3)
         const double iconWidth = laneDrawingConstants.halfLaneWidth;
         // Draw list of icons
@@ -1733,7 +1731,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSetting
 void
 GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const {
     // draw a Start/endPoints if lane has a custom shape
-    if ((d <= GUIVisualizationSettings::DetailLevel::Level2) && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
+    if ((d <= GUIVisualizationSettings::DetailLevel::Level1) && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
         // obtain circle width and resolution
         const double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
         // obtain custom shape
@@ -1751,7 +1749,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualiza
         // draw circle
         GLHelper::drawFilledCircleDetailled(d, circleWidth);
         // draw s depending of detail
-        if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+        if (d <= GUIVisualizationSettings::DetailLevel::Level0) {
             // move top
             glTranslated(0, 0, 0.1);
             // draw "S"
@@ -1776,7 +1774,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualiza
         // draw filled circle
         GLHelper::drawFilledCircleDetailled(d, circleWidth);
         // draw "e" depending of detail
-        if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+        if (d <= GUIVisualizationSettings::DetailLevel::Level0) {
             // move top
             glTranslated(0, 0, 0.1);
             // draw "E"

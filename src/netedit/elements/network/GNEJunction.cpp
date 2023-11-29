@@ -587,6 +587,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // get junction exaggeration
     const double junctionExaggeration = getExaggeration(s);
+    // get detail level
+    const auto detailLevel = s.getDetailLevel(junctionExaggeration);
     // check if draw junction as shape
     const bool junctionShape = ((myNBNode->getShape().size() > 0) && s.drawJunctionShape);
     const bool junctionBubble = drawAsBubble(s);
@@ -594,8 +596,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     if (junctionExaggeration > 0) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(junctionExaggeration);
             // get mouse position
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             // push junction name
@@ -640,7 +640,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw Junction childs
             drawJunctionChildren(s);
             // draw path additional elements
-            myNet->getPathManager()->drawJunctionPathElements(s, this);
+            myNet->getPathManager()->drawJunctionPathElements(s, detailLevel, this);
         }
         // continue depending of shapes
         if (junctionShape) {

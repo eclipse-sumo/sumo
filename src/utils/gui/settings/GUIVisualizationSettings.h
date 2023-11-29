@@ -543,8 +543,8 @@ public:
     enum class DetailLevel : int {
         Level0,     // All detail (tesselations)
         Level1,     // circle resolution = 8, polygons, no lane details
-        Level2,     // circle as squares, squares instead polygons, no text
-        Level3,     // no geometry points
+        Level2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
+        Level3,     // minimum number of lanes
         Level4,
     };
 
