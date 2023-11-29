@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-29 10:23+0000\n"
+"PO-Revision-Date: 2023-11-29 12:57+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9264,12 +9264,15 @@ msgstr ""
 msgid ""
 "Only one of the the options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
+"Sólo se puede configurar una de las opciones 'pedestrians' o 'persontrips'."
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:248
 msgid ""
 "Importer of O/D-matrices for the microscopic, multi-modal traffic simulation"
 " SUMO."
 msgstr ""
+"Importador de matrices O/D para la simulación de tráfico microscópica y "
+"multimodal de SUMO."
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:270
 msgid "You must supply a TAZ, network or districts file ('-n')."
@@ -9290,39 +9293,41 @@ msgstr ""
 #: C:\Repos\sumo/src\od\ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
-msgstr ""
+msgstr "No se pudo acceder al archivo de red '%' para cargar."
 
 #: C:\Repos\sumo/src\od\ODDistrictHandler.cpp:130
 msgid "'probability' must be positive (in definition of % '%')."
-msgstr ""
+msgstr "'probability' debe ser positivo (en la definición de % '%')."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:84
 msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
+msgstr "Faltan origen '%' y destino '%' (% vehículos)."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:90
 msgid "Missing origin '%' (% vehicles)."
-msgstr ""
+msgstr "Falta origen '%' (% vehículos)."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:95
 msgid "Missing destination '%' (% vehicles)."
-msgstr ""
+msgstr "Falta destino '%' (% vehículos)."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no source."
-msgstr ""
+msgstr "El distrito '%' no tiene fuente."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:105
 #, c-format
 msgid "District '%' has no sink."
-msgstr ""
+msgstr "El distrito '%' no tiene sumidero."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:197
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
 msgstr ""
+"No se pueden encontrar diferentes aristas fuente y sumidero para el origen "
+"'%' y el destino '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:372 C:\Repos\sumo/src\od\ODMatrix.cpp:392
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:418
@@ -9330,6 +9335,8 @@ msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
+"La densidad de flujo de % vehículos por segundo no se puede representar con "
+"una probabilidad simple. Volviendo a un espaciado uniforme."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:442
 msgid "End of file while reading %."
@@ -9346,23 +9353,23 @@ msgstr "Factor roto: '%'."
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:517
 #, c-format
 msgid "Missing line with % district names."
-msgstr ""
+msgstr "Falta una línea con % nombres de distritos."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:527
 msgid "Missing line for district %."
-msgstr ""
+msgstr "Falta una línea para el distrito %."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:541
 msgid "More entries than districts found."
-msgstr ""
+msgstr "Más entradas que distritos encontrados."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:546 C:\Repos\sumo/src\od\ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
-msgstr ""
+msgstr "Número de vehículo no numérico en la línea '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:592
 msgid "Missing at least one information in line '%'."
-msgstr ""
+msgstr "Falta al menos una información en la línea '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:655
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
@@ -9372,17 +9379,17 @@ msgstr "No se pudo abrir '%'."
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:666 C:\Repos\sumo/src\od\ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
-msgstr ""
+msgstr "'%' no contiene la información necesaria sobre el tiempo descrito."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:682 C:\Repos\sumo/src\od\ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr ""
+msgstr "No se pudo acceder al archivo de matriz '%' para cargar."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:722
 #, c-format
 msgid "Could not access route file '%' to load."
-msgstr ""
+msgstr "No se pudo acceder al archivo de rutas '%' para cargar."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:739
 msgid "Assuming 24 entries for a day timeline, but got %."
@@ -9399,24 +9406,24 @@ msgstr "No se pudo cargar '%'."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:491
 msgid "Loaded decal '%' with bounding box % %."
-msgstr ""
+msgstr "Se cargó la imagen de fondo '%' con cuadro delimitador % %."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:597
 msgid "Could not load '%'. The model is replaced by a cone shape."
-msgstr ""
+msgstr "No pudo cargar '%'. El modelo se sustituye por una forma de cono."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGManipulator.cpp:257
 #, c-format
 msgid "Currently in % camera mode. Press [F] to switch."
-msgstr ""
+msgstr "Actualmente en modo % de cámara. Presione [F] para cambiar."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:167
 msgid "Could not load traffic light files."
-msgstr ""
+msgstr "No se pudieron cargar archivos de semáforo."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:436
 msgid "Invalid link index in '%'."
-msgstr ""
+msgstr "Índice de enlace no válido en '%'."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:438
 msgid "Unknown traffic light in '%'."
@@ -9437,7 +9444,7 @@ msgstr "N/A"
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:343
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:251
 msgid "Unable to project coordinates for polygon '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el polígono '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
@@ -9450,7 +9457,7 @@ msgstr "Falta ID en '%'"
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:271
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:389
 msgid "Unable to project coordinates for POI '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:302
 msgid "Unsupported shape type occurred (id='%')."
@@ -9458,27 +9465,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:71
 msgid "Could not open dlr-navteq-poi-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo dlr-navteq-poi '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:86
 msgid "Could not open dlr-navteq-poly-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo dlr-navteq-poly '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:128
 msgid "Invalid x coordinate for POI '%'."
-msgstr ""
+msgstr "Coordenada x no válida para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:132
 msgid "Invalid y coordinate for POI '%'."
-msgstr ""
+msgstr "Coordenada y no válida para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:137
 msgid "The name of a POI is missing."
-msgstr ""
+msgstr "Falta el nombre de un punto de interés."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:191
 msgid "Invalid dlr-navteq-polygon - line: '%'."
-msgstr ""
+msgstr "dlr-navteq-polygon no válido - línea: '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:220
 #, c-format
@@ -9487,7 +9494,7 @@ msgstr "El polígono '%' está vacío."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
-msgstr ""
+msgstr "Falta el nombre de un polígono; será descartado."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:157
 msgid "Could not import polygon from relation '%' (missing ways)"
@@ -9501,7 +9508,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:230
 msgid "Assembled polygon from relation '%' (name:%)"
-msgstr ""
+msgstr "Polígono ensamblado de la relación '%' (nombre:%)"
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:254
 #, c-format
@@ -9514,7 +9521,7 @@ msgstr "No se pudo abrir el archivo visum '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:149
 msgid "Unable to project coordinates for point '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderXML.cpp:63
 msgid "Could not open xml-file '%'."
@@ -9526,37 +9533,48 @@ msgstr "No se pudo abrir el archivo de red '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:71
 msgid "Could not find projection parameter in net."
-msgstr ""
+msgstr "No se pudo encontrar el parámetro de proyección en la red."
 
 #: C:\Repos\sumo/src\polyconvert\PCTypeDefHandler.cpp:72
 msgid "Could not add polygon type '%' (probably the id is already used)."
 msgstr ""
+"No se pudo agregar el tipo de polígono '%' (probablemente el ID ya esté "
+"utilizado)."
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
 msgstr ""
+"Cargar la red de SUMO FILE como referencia para el desplazamiento y la "
+"proyección"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:85
 msgid ""
 "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"Leer polígonos desde FILE asumiendo que están codificados en formato DLR-"
+"Navteq (Elmar)"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:87
 msgid ""
 "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"Leer puntos de interés desde FILE asumiendo que están codificados en formato "
+"DLR-Navteq (Elmar)"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:92
 msgid "Reads polygons from FILE assuming it's a Visum-net"
-msgstr ""
+msgstr "Leer polígonos desde FILE asumiendo que es una red Visum"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:100
 msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr ""
+"Leer puntos de interés y formas desde FILE suponiendo que estén codificados "
+"en XML"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:105
 msgid "Reads pois from FILE+ assuming they're coded in OSM"
 msgstr ""
+"Leer puntos de interés desde FILE suponiendo que estén codificados en OSM"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
@@ -9564,7 +9582,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:109
 msgid "The id will be set from the given 'name' attribute"
-msgstr ""
+msgstr "El ID se establecerá a partir del atributo 'name' dado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:111
 msgid ""
@@ -9574,19 +9592,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
-msgstr ""
+msgstr "Leer formas desde el archivo de formas FILE"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"
-msgstr ""
+msgstr "Adivinar la proyección del shapefile"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
-msgstr ""
+msgstr "Define en qué columna se puede encontrar el ID"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
-msgstr ""
+msgstr "Define qué columnas forman el ID del tipo (lista separada por comas)"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:137
 msgid "A running number will be used as id"
@@ -9594,7 +9612,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
-msgstr ""
+msgstr "Extraer todas las columnas adicionales como parámetros"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:143
 msgid ""
@@ -9608,11 +9626,13 @@ msgstr "Cargar tipos desde FILE"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr ""
+msgstr "Escribir polígonos/puntos de interés generados en FILE"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:159
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
+"Escribir polígonos/puntos de interés generados en un archivo dlr-tdp con el "
+"prefijo dado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:165
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:169
@@ -9624,7 +9644,7 @@ msgstr "Recorte"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
-msgstr ""
+msgstr "Permitir el recorte en los límites de la red"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:169
 msgid ""
@@ -9632,39 +9652,44 @@ msgid ""
 " Positive values grow the boundary on all sides while negative values shrink"
 " it."
 msgstr ""
+"Usar FLOAT,FLOAT,FLOAT,FLOAT como definición de desplazamiento agregada a "
+"los límites de red. Valores positivos aumentan el límite en todos los lados, "
+"mientras que los valores negativos lo reducen."
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:172
 msgid "Uses STR as pruning boundary"
-msgstr ""
+msgstr "Usar STR como límite de recorte"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
-msgstr ""
+msgstr "Los elementos en STR se mantendrán aunque estén fuera de los límites"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
-msgstr ""
+msgstr "Se eliminarán los elementos con nombres en STR[]"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
-msgstr ""
+msgstr "Importa todos los atributos como pares clave/valor"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:202
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
+"Agregar FLOAT al valor de la capa para cada punto de interés (es decir, para "
+"elevarlo por encima de los polígonos)"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:206
 msgid "Sets STR as default color"
-msgstr ""
+msgstr "Establecer STR como color predeterminado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:209
 msgid "Sets STR as default prefix"
-msgstr ""
+msgstr "Establecer STR como prefijo predeterminado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:212
 msgid "Sets STR as default type"
-msgstr ""
+msgstr "Establecer STR como tipo predeterminado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:215
 msgid "Fills polygons by default"
@@ -9672,11 +9697,11 @@ msgstr "Rellena polígonos por defecto"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:218
 msgid "Sets STR as default icon"
-msgstr ""
+msgstr "Establecer STR como ícono predeterminado"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:221
 msgid "Sets FLOAT as default layer"
-msgstr ""
+msgstr "Establecer FLOAT como capa predeterminada"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:224
 msgid "Sets default action to discard"
@@ -9684,13 +9709,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:228
 msgid "Write geo coordinates in output"
-msgstr ""
+msgstr "Escribir coordenadas geográficas en la salida"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:235
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Importador de polígonos y puntos de interés para la simulación de tráfico "
+"microscópica y multimodal de SUMO."
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:288
 msgid "In order to prune the input on the net, you have to supply a network."
@@ -9713,14 +9740,16 @@ msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
 msgstr ""
+"La opción weights.priority-factor no tiene efecto porque todas las aristas "
+"tienen la misma prioridad."
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "Escribir rutas generadas en FILE"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "Escribir tipos de vehículo usados en el archivo separado FILE"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
@@ -9737,22 +9766,23 @@ msgstr ""
 #: C:\Repos\sumo/src\router\ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
 msgstr ""
+"Leer datos de red adicionales (distritos, paradas de autobús) desde FILE(s)"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr ""
+msgstr "Leer rutas de SUMO, alternativas, flujos y viajes desde FILE(s)"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "Leer pesos de red desde FILE(s)"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "Leer pesos de red basados en carriles desde FILE(s)"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:125
 msgid "Continue if a route could not be build"
-msgstr ""
+msgstr "Continuar si no se puede construir una ruta"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
@@ -9778,19 +9808,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:154
 msgid "Tries to correct a false route"
-msgstr ""
+msgstr "Intentar corregir una ruta falsa"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:157
 msgid ""
 "Tries to correct an invalid starting edge by using the first usable edge "
 "instead"
 msgstr ""
+"Intentar corregir una arista inicial no válida tomando en su lugar la primer "
+"arista utilizable"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:160
 msgid ""
 "Tries to correct an invalid destination edge by using the last usable edge "
 "instead"
 msgstr ""
+"Intentar corregir una arista destino no válida tomando en su lugar la última "
+"arista utilizable"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:163
 msgid ""
@@ -9800,7 +9834,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "Hacer coincidir posiciones con cruces en lugar de aristas"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
@@ -9809,11 +9843,15 @@ msgstr ""
 #: C:\Repos\sumo/src\router\ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
 msgstr ""
+"El número de subprocesos de ejecución paralelos utilizados para el "
+"enrutamiento"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:177
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
+"Seleccionar un algoritmo de enrutamiento ['dijkstra', 'astar', 'CH', "
+"'CHWrapper']"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:181
 msgid ""
@@ -9836,11 +9874,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:217
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "Los valores predeterminados deberán anular los valores dados"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:222
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "Define con qué frecuencia imprimir las estadísticas"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:233
 msgid "No output specified."
@@ -9855,17 +9893,17 @@ msgstr ""
 #: C:\Repos\sumo/src\router\ROLoader.cpp:83
 #: C:\Repos\sumo/src\router\ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "Intentando establecer un peso para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "No se puede acceder al archivo de red '%'."
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:140
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr ""
+msgstr "No se puede acceder al archivo adicional '%'."
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:217
 msgid "Routes found between time steps % and %."
