@@ -75,7 +75,7 @@ public:
     static double getElectricityConsumption(const std::string& vehID);
     static int getPersonNumber(const std::string& vehID);
     static std::vector<std::string> getPersonIDList(const std::string& vehID);
-    static std::pair<std::string, double> getLeader(const std::string& vehID, double dist = 0.);
+    static std::pair<std::string, double> getLeader(const std::string& vehID, double dist = 100.);
     static std::pair<std::string, double> getFollower(const std::string& vehID, double dist = 0.);
     static std::vector<libsumo::TraCIJunctionFoe> getJunctionFoes(const std::string& vehID, double dist = 0.);
     static double getWaitingTime(const std::string& vehID);
