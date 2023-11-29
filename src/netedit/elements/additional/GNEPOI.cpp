@@ -279,7 +279,7 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // add position (this POI)
     myAdditionalBoundary.add(*this);
     // grow boundary
-    myAdditionalBoundary.grow(10 + std::max(getWidth() * 0.5, getHeight() * 0.5));
+    myAdditionalBoundary.grow(5 + std::max(getWidth() * 0.5, getHeight() * 0.5));
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

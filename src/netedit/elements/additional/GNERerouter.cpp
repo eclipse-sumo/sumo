@@ -157,12 +157,12 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
             myAdditionalBoundary.add(rerouterElement->getPositionInView());
             // special case for parking area rerouter
             if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
-                myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getPositionInView());
+                myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getCenteringBoundary());
             }
         }
     }
     // grow
-    myAdditionalBoundary.grow(10);
+    myAdditionalBoundary.grow(5);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

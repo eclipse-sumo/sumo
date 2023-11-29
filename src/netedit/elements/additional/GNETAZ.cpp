@@ -240,7 +240,7 @@ GNETAZ::updateCenteringBoundary(const bool updateGrid) {
         myAdditionalBoundary.add(myTAZCenter);
     }
     // grow boundary
-    myAdditionalBoundary.grow(10);
+    myAdditionalBoundary.grow(5);
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

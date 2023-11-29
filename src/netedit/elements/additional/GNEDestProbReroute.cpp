@@ -106,9 +106,7 @@ GNEDestProbReroute::getPositionInView() const {
 
 void
 GNEDestProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary.reset();
-    myAdditionalBoundary.add(getPositionInView());
-    myAdditionalBoundary.grow(5);
+    // nothing to update
 }
 
 

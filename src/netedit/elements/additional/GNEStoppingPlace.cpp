@@ -165,18 +165,7 @@ GNEStoppingPlace::getPositionInView() const {
 
 void
 GNEStoppingPlace::updateCenteringBoundary(const bool /*updateGrid*/) {
-    if (!isTemplate()) {
-        // update geometry
-        updateGeometry();
-        // add shape boundary
-        myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-        // grow with "width"
-        if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
-            myAdditionalBoundary.grow(getAttributeDouble(SUMO_ATTR_WIDTH));
-        }
-        // grow
-        myAdditionalBoundary.grow(10);
-    }
+    // nothing to do
 }
 
 

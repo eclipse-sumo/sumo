@@ -135,11 +135,9 @@ GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     // add positions of all childrens (symbols and steps)
     for (const auto& additionalChildren : getChildAdditionals()) {
         myAdditionalBoundary.add(additionalChildren->getPositionInView());
-        // also update centering boundary
-        additionalChildren->updateCenteringBoundary(false);
     }
     // grow
-    myAdditionalBoundary.grow(10);
+    myAdditionalBoundary.grow(5);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

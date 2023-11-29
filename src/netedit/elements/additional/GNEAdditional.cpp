@@ -141,7 +141,11 @@ GNEAdditional::getExaggeration(const GUIVisualizationSettings& s) const {
 
 Boundary
 GNEAdditional::getCenteringBoundary() const {
-    return myAdditionalBoundary;
+    if (myAdditionalBoundary.isInitialised()) {
+        return myAdditionalBoundary;
+    } else {
+        return myContour.getContourBoundary();
+    }
 }
 
 

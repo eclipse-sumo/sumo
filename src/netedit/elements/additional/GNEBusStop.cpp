@@ -54,8 +54,6 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNE
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength),
     myColor(color) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
 }
 
 
