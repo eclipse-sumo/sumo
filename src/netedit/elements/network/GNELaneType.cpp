@@ -135,6 +135,12 @@ GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
+Boundary
+GNELaneType::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do

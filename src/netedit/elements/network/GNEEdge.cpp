@@ -483,34 +483,46 @@ GNEEdge::getExaggeration(const GUIVisualizationSettings& s) const {
 }
 
 
+Boundary
+GNEEdge::getCenteringBoundary() const {
+    return myEdgeBoundary;
+}
+
+
 void
 GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
     if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
-    // use as boundary the first lane boundary
-    myBoundary = myLanes.front()->getCenteringBoundary();
+    // first add edge boundary
+    myEdgeBoundary = myNBEdge->getGeometry().getBoxBoundary();
     // add lane boundaries
     for (const auto& lane : myLanes) {
-        lane->updateCenteringBoundary(false);
-        myBoundary.add(lane->getCenteringBoundary());
-        // add parkingArea boundaries
-        for (const auto& additional : lane->getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
-                myBoundary.add(additional->getCenteringBoundary());
+        const auto laneBoundary = lane->getCenteringBoundary();
+        if (laneBoundary.isInitialised()) {
+            myEdgeBoundary.add(laneBoundary);
+            // add additional and demand boundaries
+            for (const auto& additional : lane->getChildAdditionals()) {
+                const auto additionalBoundary = additional->getCenteringBoundary();
+                if (additionalBoundary.isInitialised()) {
+                    myEdgeBoundary.add(additional->getCenteringBoundary());
+                }
             }
         }
     }
-    // ensure that geometry points are selectable even if the lane geometry is strange
-    for (const Position& pos : myNBEdge->getGeometry()) {
-        myBoundary.add(pos);
+    // add additional and demand boundaries
+    for (const auto& additional : getChildAdditionals()) {
+        const auto additionalBoundary = additional->getCenteringBoundary();
+        if (additionalBoundary.isInitialised()) {
+            myEdgeBoundary.add(additionalBoundary);
+        }
     }
     // add junction positions
-    myBoundary.add(getFromJunction()->getPositionInView());
-    myBoundary.add(getToJunction()->getPositionInView());
+    myEdgeBoundary.add(getFromJunction()->getPositionInView());
+    myEdgeBoundary.add(getToJunction()->getPositionInView());
     // grow boundary
-    myBoundary.grow(10);
+    myEdgeBoundary.grow(5);
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

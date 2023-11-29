@@ -222,6 +222,12 @@ GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
+Boundary
+GNEEdgeType::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do

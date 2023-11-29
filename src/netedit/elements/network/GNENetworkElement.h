@@ -138,7 +138,7 @@ public:
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    virtual Boundary getCenteringBoundary() const = 0;
 
     /// @brief update centering boundary (implies change in RTREE)
     virtual void updateCenteringBoundary(const bool updateGrid) = 0;
@@ -201,9 +201,6 @@ public:
     virtual const Parameterised::Map& getACParametersMap() const = 0;
 
 protected:
-    /// @brief object boundary
-    Boundary myBoundary;
-
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;
 

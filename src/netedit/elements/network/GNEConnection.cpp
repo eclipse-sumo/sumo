@@ -366,19 +366,15 @@ GNEConnection::getExaggeration(const GUIVisualizationSettings& s) const {
 }
 
 
+Boundary
+GNEConnection::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // calculate boundary
-    if (myConnectionGeometry.getShape().size() == 0) {
-        // we need to use the center of junction parent as boundary if shape is empty
-        const Position junctionParentPosition = myFromLane->getParentEdge()->getToJunction()->getPositionInView();
-        myBoundary = Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
-                              junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
-    } else {
-        myBoundary = myConnectionGeometry.getShape().getBoxBoundary();
-    }
-    // grow
-    myBoundary.grow(10);
+    // nothing to update
 }
 
 

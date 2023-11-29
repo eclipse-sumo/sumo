@@ -128,6 +128,9 @@ public:
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -293,6 +296,9 @@ public:
     void removeInternalLane(const GNEInternalLane* internalLane);
 
 protected:
+    /// @brief edge boundary
+    Boundary myJunctionBoundary;
+
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
 

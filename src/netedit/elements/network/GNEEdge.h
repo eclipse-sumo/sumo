@@ -164,6 +164,9 @@ public:
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -402,6 +405,9 @@ private:
         /// @brief get demand elements
         const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
+
+    /// @brief edge boundary
+    Boundary myEdgeBoundary;
 
     /// @brief flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
     bool myUpdateGeometry;

@@ -223,16 +223,15 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+Boundary
+GNEWalkingArea::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNEWalkingArea::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // in other case use boundary of parent junction
-    const PositionVector& shape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
-    if (shape.size() == 0) {
-        myBoundary = myParentJunction->getCenteringBoundary();
-    } else {
-        myBoundary = shape.getBoxBoundary();
-        myBoundary.grow(10);
-    }
+    // nothing to update
 }
 
 

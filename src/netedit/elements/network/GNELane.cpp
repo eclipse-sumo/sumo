@@ -806,13 +806,15 @@ GNELane::getExaggeration(const GUIVisualizationSettings& s) const {
 }
 
 
+Boundary
+GNELane::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNELane::updateCenteringBoundary(const bool /*updateGrid*/) {
-    if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
-        myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
-    } else {
-        myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
-    }
+    // nothing to update
 }
 
 

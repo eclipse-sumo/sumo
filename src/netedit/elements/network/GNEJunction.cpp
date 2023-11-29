@@ -555,23 +555,48 @@ GNEJunction::getExaggeration(const GUIVisualizationSettings& s) const {
 }
 
 
+Boundary
+GNEJunction::getCenteringBoundary() const {
+    return myJunctionBoundary;
+}
+
+
 void
 GNEJunction::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
     if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
-    // update boundary
+    // calculate boundary using a radius bigger than geometry point
+    myJunctionBoundary = Boundary(myNBNode->getPosition().x() - 1, myNBNode->getPosition().y() - 1,
+                                  myNBNode->getPosition().x() + 1, myNBNode->getPosition().y() + 1);
+    myJunctionBoundary.grow(10);
+    // add shape
     if (myNBNode->getShape().size() > 0) {
-        myBoundary = myNBNode->getShape().getBoxBoundary();
-    } else {
-        // calculate boundary using EXTENT as size
-        const double EXTENT = 2;
-        Boundary b(myNBNode->getPosition().x() - EXTENT, myNBNode->getPosition().y() - EXTENT,
-                   myNBNode->getPosition().x() + EXTENT, myNBNode->getPosition().y() + EXTENT);
-        myBoundary = b;
+        myJunctionBoundary.add(myNBNode->getShape().getBoxBoundary());
+        myJunctionBoundary.grow(5);
     }
-    myBoundary.grow(10);
+    // add boundaries of all connections, walking areas and crossings
+    for (const auto &edge : myGNEIncomingEdges) {
+        for (const auto &connection : edge->getGNEConnections()) {
+            const auto boundary = connection->getCenteringBoundary();
+            if (boundary.isInitialised()) {
+                myJunctionBoundary.add(boundary);
+            }
+        }
+    }
+    for (const auto &crossing : myGNECrossings) {
+        const auto boundary = crossing->getCenteringBoundary();
+        if (boundary.isInitialised()) {
+            myJunctionBoundary.add(boundary);
+        }
+    }
+    for (const auto &walkingArea : myGNEWalkingAreas) {
+        const auto boundary = walkingArea->getCenteringBoundary();
+        if (boundary.isInitialised()) {
+            myJunctionBoundary.add(boundary);
+        }
+    }
     // add object into net
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);

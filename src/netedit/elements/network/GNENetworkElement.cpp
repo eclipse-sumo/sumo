@@ -100,12 +100,6 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
 }
 
 
-Boundary
-GNENetworkElement::getCenteringBoundary() const {
-    return myBoundary;
-}
-
-
 bool
 GNENetworkElement::isGLObjectLocked() const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {

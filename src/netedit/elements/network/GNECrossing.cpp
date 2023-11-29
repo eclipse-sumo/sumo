@@ -338,23 +338,15 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
+Boundary
+GNECrossing::getCenteringBoundary() const {
+    return myContour.getContourBoundary();
+}
+
+
 void
 GNECrossing::updateCenteringBoundary(const bool /*updateGrid*/) {
-    const auto crossing = getNBCrossing();
-    if (crossing) {
-        if (crossing->customShape.size() > 0) {
-            myBoundary = crossing->customShape.getBoxBoundary();
-            myBoundary.grow(10);
-        } else if (crossing->shape.size() > 0) {
-            myBoundary = crossing->shape.getBoxBoundary();
-            myBoundary.grow(10);
-        } else {
-            myBoundary = myParentJunction->getCenteringBoundary();
-        }
-    } else {
-        // in other case use boundary of parent junction
-        myBoundary = myParentJunction->getCenteringBoundary();
-    }
+    // nothing to update
 }
 
 
