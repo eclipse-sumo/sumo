@@ -274,16 +274,32 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
 
 
 void
+GLHelper::drawRectangle(const Position& center, const double width, const double height) {
+    GLHelper::pushMatrix();
+    glTranslated(center.x(), center.y(), 0);
+    glBegin(GL_QUADS);
+        glVertex2d(-width, height);
+        glVertex2d(-width, -height);
+        glVertex2d(width, -height);
+        glVertex2d(width , height);
+    glEnd();
+    GLHelper::popMatrix();
+#ifdef CHECK_ELEMENTCOUNTER
+    myVertexCounter += 4;
+#endif
+}
+
+void
 GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
                       double width, double offset) {
     GLHelper::pushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
-    glVertex2d(-width - offset, 0);
-    glVertex2d(-width - offset, -visLength);
-    glVertex2d(width - offset, -visLength);
-    glVertex2d(width - offset, 0);
+        glVertex2d(-width - offset, 0);
+        glVertex2d(-width - offset, -visLength);
+        glVertex2d(width - offset, -visLength);
+        glVertex2d(width - offset, 0);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
@@ -300,10 +316,10 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
-    glVertex2d(-width, 0);
-    glVertex2d(-width, -visLength);
-    glVertex2d(width, -visLength);
-    glVertex2d(width, 0);
+        glVertex2d(-width, 0);
+        glVertex2d(-width, -visLength);
+        glVertex2d(width, -visLength);
+        glVertex2d(width, 0);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER

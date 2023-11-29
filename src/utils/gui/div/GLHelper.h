@@ -101,6 +101,15 @@ public:
      */
     static void drawFilledPolyTesselated(const PositionVector& v, bool close);
 
+    /** @brief Draws a rectangle line
+     *
+     * The line is drawn as a GL_QUADS.
+     *
+     * @param[in] center rectangle center
+     * @param[in] width The width of the rectangle
+     * @param[in] height The height of the rectangle
+     */
+    static void drawRectangle(const Position& center, const double width, const double height);
 
     /** @brief Draws a thick line
      *
