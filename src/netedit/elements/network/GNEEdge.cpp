@@ -2672,7 +2672,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, GUIVisualizationS
         }
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             for (const auto& lane : getLanes()) {
-                lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
+                lane->drawLaneStopOffset(s, d);
             }
         }
         // Push stopOffset matrix
@@ -2764,7 +2764,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 }
                 // draw as box lines
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
+                                          lane->getLaneGeometry(), laneDrawingConstants.width);
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }

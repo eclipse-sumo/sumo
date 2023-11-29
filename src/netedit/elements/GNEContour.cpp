@@ -335,14 +335,14 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEE
     GNELane::LaneDrawingConstants laneDrawingConstantsBot(s, botLane);
     // check shapes and widths
     if ((myCachedShapes->at(0) != topLane->getLaneGeometry().getShape()) ||
-        (myCachedDoubles->at(0) != (laneDrawingConstantsTop.halfWidth * laneDrawingConstantsTop.exaggeration)) ||
+        (myCachedDoubles->at(0) != (laneDrawingConstantsTop.width * laneDrawingConstantsTop.exaggeration)) ||
         (myCachedShapes->at(1) != botLane->getLaneGeometry().getShape()) ||
-        (myCachedDoubles->at(1) != (laneDrawingConstantsBot.halfWidth * laneDrawingConstantsBot.exaggeration))) {
+        (myCachedDoubles->at(1) != (laneDrawingConstantsBot.width * laneDrawingConstantsBot.exaggeration))) {
         // update cached values
         myCachedShapes->at(0) = topLane->getLaneGeometry().getShape();
-        myCachedDoubles->at(0) = (laneDrawingConstantsTop.halfWidth * laneDrawingConstantsTop.exaggeration);
+        myCachedDoubles->at(0) = (laneDrawingConstantsTop.width * laneDrawingConstantsTop.exaggeration);
         myCachedShapes->at(1) = botLane->getLaneGeometry().getShape();
-        myCachedDoubles->at(1) = (laneDrawingConstantsBot.halfWidth * laneDrawingConstantsBot.exaggeration);
+        myCachedDoubles->at(1) = (laneDrawingConstantsBot.width * laneDrawingConstantsBot.exaggeration);
         // create top and bot geometries
         myDottedGeometries->at(0) = GUIDottedGeometry(s, myCachedShapes->at(0), false, true);
         myDottedGeometries->at(2) = GUIDottedGeometry(s, myCachedShapes->at(1).reverse(), false, true);
