@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-27 16:12+0000\n"
+"PO-Revision-Date: 2023-11-29 10:23+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9141,17 +9141,20 @@ msgstr ""
 #: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:156
 #: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:163
 msgid "Could not reconstruct shape for edge:'%' (%)."
-msgstr ""
+msgstr "No se pudo reconstruir la forma para la arista:'%' (%)."
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:313
 msgid "Could not compute smooth shape for edge '%'."
-msgstr ""
+msgstr "No se pudo calcular una forma suave para la arista '%'."
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:456
 msgid ""
 "Could not compute smooth shape from lane '%' to lane '%'. Use option "
 "'junctions.scurve-stretch' or increase radius of junction '%' to fix this."
 msgstr ""
+"No se pudo calcular una forma suave desde el carril '%' al carril '%'. "
+"Utilice la opción 'junctions.scurve-stretch' o aumente el radio del cruce "
+"'%' para solucionar esto."
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:963
 msgid ""
@@ -9166,12 +9169,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:462
 msgid "Could not find bidi-connection for edge '%'"
-msgstr ""
+msgstr "No se pudo encontrar una conexión bidireccional para la arista '%'"
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:552
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr ""
+msgstr "El carril '%' tiene una velocidad máxima permitida de 0."
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_XML.cpp:88
 #: C:\Repos\sumo/src\polyconvert\PCPolyContainer.cpp:105
@@ -9179,6 +9182,8 @@ msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been "
 "defined"
 msgstr ""
+"Ignorando la opción \"proj.plain-geo\" porque no se ha definido ninguna "
+"conversión geográfica"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
@@ -9186,19 +9191,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr ""
+msgstr "Guardar definiciones de viaje en FILE"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr ""
+msgstr "Guardar definiciones de flujo en FILE"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
 msgstr ""
+"Escribir flujos probabilísticos en lugar de flujos espaciados uniformemente"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
-msgstr ""
+msgstr "Escribir peatones en lugar de vehículos"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:114
 msgid "Writes persontrips instead of vehicles"
@@ -9226,7 +9232,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "Distribuir los viajes de manera uniforme en cada período de tiempo"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
@@ -9234,7 +9240,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "Definir el prefijo para los nombres de los vehículos"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:162
 msgid "Disable console output of current time step"
@@ -9243,6 +9249,8 @@ msgstr ""
 #: C:\Repos\sumo/src\od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
 msgstr ""
+"No se ha especificado ningún archivo de entrada de zona de análisis de "
+"tráfico (-n)."
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:197
 msgid "No input specified."
