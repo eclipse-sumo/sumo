@@ -283,9 +283,6 @@ public:
     /// @brief set junction Type (using undo/redo)
     void setJunctionType(const std::string& value, GNEUndoList* undoList);
 
-    /// @brief get the maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    double getMaxDrawingSize() const;
-
     /// @brief clear walking areas
     void clearWalkingAreas();
 
@@ -323,9 +320,6 @@ protected:
     /// @brief internal lanes related placed in this junction
     std::vector<const GNEInternalLane*> myInternalLanes;
 
-    /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    double myMaxDrawingSize;
-
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)
     bool myAmCreateEdgeSource;
@@ -357,11 +351,11 @@ private:
 
     /// @brief draw junction as bubble
     void drawJunctionAsBubble(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
-                              const double junctionExaggeration, const Position mousePosition) const;
+                              const double exaggerration) const;
 
     /// @brief draw junction as bubble
     void drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
-                             const double junctionExaggeration, const Position mousePosition) const;
+                             const double exaggerration) const;
 
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;

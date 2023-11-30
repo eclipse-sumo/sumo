@@ -335,7 +335,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, GUI
     // set color
     GLHelper::setColor(color);
     // check if draw polygon or tesselation
-    if ((s.scale * exaggeration * myParentJunction->getMaxDrawingSize()) >= 40) {
+    if (true /*temporal */) {
         // draw shape with high detail
         myTesselation.drawTesselation(myTesselation.getShape());
     } else {
