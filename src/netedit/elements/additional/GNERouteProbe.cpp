@@ -158,10 +158,10 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             routeProbeColor = s.additionalSettings.routeProbeColor;
             centralLineColor = RGBColor::WHITE;
         }
+        // get detail level
+        const auto d = s.getDetailLevel(routeProbeExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(routeProbeExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator
@@ -185,7 +185,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             // rotate over lane
             GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
             // Draw icon depending of level of detail
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // set color
                 glColor3d(1, 1, 1);
                 // rotate texture
@@ -210,7 +210,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

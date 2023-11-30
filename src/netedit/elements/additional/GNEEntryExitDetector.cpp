@@ -128,10 +128,10 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // get detail level
+        const auto d = s.getDetailLevel(entryExitExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(entryExitExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding gl identificator
@@ -150,9 +150,9 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 color = s.detectorSettings.E3ExitColor;
             }
             // draw parts
-            drawBody(s, detailLevel, color, entryExitExaggeration);
-            drawEntryLogo(s, detailLevel, color, entryExitExaggeration);
-            drawE3Logo(s, detailLevel, color, entryExitExaggeration);
+            drawBody(s, d, color, entryExitExaggeration);
+            drawEntryLogo(s, d, color, entryExitExaggeration);
+            drawE3Logo(s, d, color, entryExitExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop gl identificator
@@ -163,7 +163,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+        myContour.drawDottedContourRectangle(s, d, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
                                              myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration,
                                              s.dottedContourSettings.segmentWidth);
     }

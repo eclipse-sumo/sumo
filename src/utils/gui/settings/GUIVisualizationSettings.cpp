@@ -2427,15 +2427,6 @@ GUIVisualizationSettings::getCircleResolution() const {
 }
 */
 
-bool
-GUIVisualizationSettings::drawDottedContour(const double exaggeration) const {
-    if (disableDottedContours || drawForRectangleSelection) {
-        return false;
-    } else {
-        return (scale * exaggeration) > 3.;
-    }
-}
-
 
 bool
 GUIVisualizationSettings::drawMovingGeometryPoint(const double exaggeration, const double radius) const {

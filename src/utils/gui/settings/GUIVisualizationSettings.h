@@ -601,9 +601,6 @@ public:
     /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
     bool drawDetail(const double detail, const double exaggeration) const;
 
-    /// @brief check if dotted contour can be drawn
-    bool drawDottedContour(const double exaggeration) const;
-
     /// @brief check if moving geometry point can be draw
     bool drawMovingGeometryPoint(const double exaggeration, const double radius) const;
 

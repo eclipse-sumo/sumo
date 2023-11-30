@@ -75,84 +75,84 @@ GNEContour::reset() const {
 
 
 void
-GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector& shape,
-                                    const double scale, const bool addOffset, const double lineWidth) const {
+GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const PositionVector& shape, const double scale, const bool addOffset, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourClosed(s, shape, scale);
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
     } else {
-        drawDottedContours(s, s.drawDottedContour(scale), addOffset, lineWidth);
+        drawDottedContours(s, d, scale, addOffset, lineWidth);
     }
 }
 
 
 void
-GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape,
-                                      const double extrusionWidth, const double scale, const bool drawFirstExtrem,
-                                      const bool drawLastExtrem, const double lineWidth) const {
+GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const PositionVector& shape, const double extrusionWidth, const double scale, const bool drawFirstExtrem,
+        const bool drawLastExtrem, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(1));
     } else {
-        drawDottedContours(s, scale, true, lineWidth);
+        drawDottedContours(s, d, scale, true, lineWidth);
     }
 }
 
 
 void
-GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position& pos, const double width,
-                                       const double height, const double offsetX, const double offsetY, const double rot,
-                                       const double scale, const double lineWidth) const {
+GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const Position& pos, const double width, const double height, const double offsetX, const double offsetY,
+        const double rot, const double scale, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourRectangle(s, pos, width, height, offsetX, offsetY, rot, scale);
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
     } else {
-        drawDottedContours(s, scale, true, lineWidth);
+        drawDottedContours(s, d, scale, true, lineWidth);
     }
 }
 
 
 void
-GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const Position& pos, double radius,
-                                    const double scale, const double lineWidth) const {
+GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const Position& pos, double radius, const double scale, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourCircle(s, pos, radius, scale);
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         gPostDrawing.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
     } else {
-        drawDottedContours(s, scale, true, lineWidth);
+        drawDottedContours(s, d, scale, true, lineWidth);
     }
 }
 
 
 void
-GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem,
-                                  const bool drawLastExtrem, const double lineWidth) const {
+GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourEdge(s, edge, drawFirstExtrem, drawLastExtrem);
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(2));
     } else {
-        drawDottedContours(s, 1, true, lineWidth);
+        drawDottedContours(s, d, 1, true, lineWidth);
     }
 }
 
 
 void
-GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-                                   const double lineWidth) const {
+GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const {
     // first build dotted contour (only in rectangle selection mode)
     buildDottedContourEdges(s, fromEdge, toEdge);
     // draw dotted contours
-    drawDottedContours(s, 1, true, lineWidth);
+    drawDottedContours(s, d, 1, true, lineWidth);
 }
 
 
@@ -393,9 +393,10 @@ GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/,const 
 
 
 void
-GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const double scale, const bool addOffset, const double lineWidth) const {
+GNEContour::drawDottedContours(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const double scale, const bool addOffset, const double lineWidth) const {
     // first check if draw dotted contour
-    if (s.drawDottedContour(scale)) {
+    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::DetailLevel::Level2)) {
         // basic contours
         if (myAC->checkDrawFromContour()) {
             drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, addOffset, lineWidth);

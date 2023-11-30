@@ -179,6 +179,8 @@ void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if we're not selecting E1 detectors in TLS Mode
     if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get link state color
@@ -207,7 +209,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth,
+        myContour.drawDottedContourExtruded(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth,
                                             1, true, true, s.dottedContourSettings.segmentWidthSmall);
     }
 }

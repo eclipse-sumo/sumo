@@ -681,12 +681,14 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 void
 GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
-    // Obtain drawing exaggeration
-    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
+        // Obtain drawing exaggeration
+        const double exaggeration = getExaggeration(s);
+        // get detail level
+        const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // Start drawing adding an gl identificator
@@ -721,7 +723,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             drawAdditionalName(s);
         }
         // draw squared shape
-        myContour.drawDottedContourRectangle(s, pos, size, size, 0, 0, 0, exaggeration,
+        myContour.drawDottedContourRectangle(s, d, pos, size, size, 0, 0, 0, exaggeration,
                                              s.dottedContourSettings.segmentWidth);
     }
 }
@@ -734,6 +736,8 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // declare offsets
         const double lineOffset = 0.1875;
         const double baseOffsetX = 6.25;
@@ -824,7 +828,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             }
         }
         // draw squared shape
-        myContour.drawDottedContourRectangle(s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
+        myContour.drawDottedContourRectangle(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
                                              s.dottedContourSettings.segmentWidth);
     }
 }

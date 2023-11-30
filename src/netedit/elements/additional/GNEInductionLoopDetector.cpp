@@ -161,10 +161,10 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     const double E1Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(E1Exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(E1Exaggeration);
             // obtain scaledSize
             const double scaledWidth = s.detectorSettings.E1Width * 0.5 * s.scale;
             // declare colors
@@ -188,9 +188,9 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
             // draw E1 shape
-            drawE1Shape(s, detailLevel, E1Exaggeration, scaledWidth, mainColor, secondColor);
+            drawE1Shape(s, d, E1Exaggeration, scaledWidth, mainColor, secondColor);
             // draw E1 Logo
-            drawE1DetectorLogo(s, detailLevel, E1Exaggeration, "E1", textColor);
+            drawE1DetectorLogo(s, d, E1Exaggeration, "E1", textColor);
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
@@ -203,7 +203,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+        myContour.drawDottedContourRectangle(s, d, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
                                                 myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration,
                                                 s.dottedContourSettings.segmentWidth);
     }

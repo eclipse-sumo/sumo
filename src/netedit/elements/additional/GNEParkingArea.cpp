@@ -155,10 +155,10 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(parkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(parkingAreaExaggeration);
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -185,21 +185,21 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             // draw sign
-            drawSign(s, detailLevel, parkingAreaExaggeration, baseColor, signColor, "P");
+            drawSign(s, d, parkingAreaExaggeration, baseColor, signColor, "P");
             // Traslate to front
             glTranslated(0, 0, 0.1);
             // draw lotSpaceDefinitions
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
                 for (const auto& lsd : myLotSpaceDefinitions) {
                     GLHelper::drawSpaceOccupancies(parkingAreaExaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, true);
                 }
             }
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
             if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -215,7 +215,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

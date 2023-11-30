@@ -331,7 +331,7 @@ private:
                       const LaneDrawingConstants &laneDrawingConstants, const bool drawSpreadSuperposed) const;
 
     /// @brief draw shape edited
-    void drawShapeEdited(const GUIVisualizationSettings& s) const;
+    void drawShapeEdited(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
 
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
@@ -361,11 +361,11 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, 
+    void drawDirectionIndicators(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
                                  const LaneDrawingConstants& laneDrawingConstants, const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawLaneAsRailway(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw lane textures
     void drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;

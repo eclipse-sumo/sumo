@@ -207,17 +207,17 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get witdh
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
+        // get detail level
+        const auto d = s.getDetailLevel(parkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(parkingAreaExaggeration);
             // get angle
             const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
             // get contour color
             RGBColor contourColor = s.colorSettings.parkingSpaceColorContour;
             if (drawUsingSelectColor()) {
                 contourColor = s.colorSettings.selectedAdditionalColor;
-            } else if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level3) {
+            } else if (d <= GUIVisualizationSettings::DetailLevel::Level3) {
                 contourColor = s.colorSettings.parkingSpaceColorContour;
             }
             // draw parent and child lines
@@ -236,7 +236,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             PositionVector shapeLengthInner = myShapeLength;
             shapeLengthInner.scaleAbsolute(-0.1);
             // draw intern
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // set base color
@@ -245,9 +245,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
             }
             // draw geometry points
-            drawUpGeometryPoint(s, detailLevel, myShapeLength.back(), angle, contourColor);
-            drawLeftGeometryPoint(s, detailLevel, myShapeWidth.back(), angle - 90, contourColor);
-            drawRightGeometryPoint(s, detailLevel, myShapeWidth.front(), angle - 90, contourColor);
+            drawUpGeometryPoint(s, d, myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(s, d, myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, contourColor);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name
@@ -260,7 +260,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myShapeLength, width, parkingAreaExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

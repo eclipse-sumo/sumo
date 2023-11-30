@@ -341,6 +341,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     if (drawContainer) {
         // obtain exaggeration (and add the special containerExaggeration)
         const double exaggeration = getExaggeration(s) + 10;
+        // get detail level
+        const auto d = s.getDetailLevel(exaggeration);
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -424,7 +426,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
+        myContour.drawDottedContourRectangle(s, d, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
                                                 s.dottedContourSettings.segmentWidth);
     }
 }

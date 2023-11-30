@@ -347,6 +347,8 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         if (personPosition == Position::INVALID) {
             return;
         }
+        // get detail level
+        const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // obtain width and length
@@ -420,7 +422,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
+        myContour.drawDottedContourRectangle(s, d, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
                                                 s.dottedContourSettings.segmentWidth);
     }
 }

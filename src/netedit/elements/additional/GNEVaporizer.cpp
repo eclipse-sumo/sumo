@@ -135,10 +135,10 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(vaporizerExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(vaporizerExaggeration);
             // declare colors
             RGBColor vaporizerColor, centralLineColor;
             // set colors
@@ -172,7 +172,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             // rotate over lane
             GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
             // Draw icon depending of level of detail
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // set color
                 glColor3d(1, 1, 1);
                 // rotate texture
@@ -197,7 +197,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

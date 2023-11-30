@@ -412,6 +412,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Check if connection must be drawed
     if (drawConnection) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw connections geometry
         const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
         PositionVector shapeSuperposed = myConnectionGeometry.getShape();
@@ -464,7 +466,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                     // color
                     const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                    GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
                                                     s.neteditSizeSettings.connectionGeometryPointRadius, 1,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                     // draw moving hint
@@ -495,7 +497,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
             }
             // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
+            myContour.drawDottedContourExtruded(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
                                                 s.dottedContourSettings.segmentWidthSmall);
         }
     }

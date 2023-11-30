@@ -255,6 +255,8 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // draw TAZRels
     if (drawTAZRel()) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             const auto& color = setColor(s);
@@ -302,11 +304,11 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
             // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true,
+            myContour.drawDottedContourExtruded(s, d, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);
         } else {
             // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, myTAZRelGeometry.getShape(), 0.5, 1, true, true,
+            myContour.drawDottedContourExtruded(s, d, myTAZRelGeometry.getShape(), 0.5, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);
         }
     }

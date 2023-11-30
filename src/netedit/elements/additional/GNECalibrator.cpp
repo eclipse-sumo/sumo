@@ -244,12 +244,12 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get detail level
-        const auto detailLevel = s.getDetailLevel(exaggeration);
+        const auto d = s.getDetailLevel(exaggeration);
         // draw first symbol
-        drawCalibratorSymbol(s, detailLevel, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
+        drawCalibratorSymbol(s, d, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
         // continue with the other symbols
         for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-            drawCalibratorSymbol(s, detailLevel, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
+            drawCalibratorSymbol(s, d, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
         }
         // draw additional ID
         drawAdditionalID(s);
@@ -483,7 +483,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, GUIVisual
         GLHelper::popName();
     }
     // draw dotted contour
-    myContour.drawDottedContourRectangle(s, pos, s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 0,
+    myContour.drawDottedContourRectangle(s, d, pos, s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 0,
                                          s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration, s.dottedContourSettings.segmentWidth);
 }
 

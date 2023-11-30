@@ -119,10 +119,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
+        // get detail level
+        const auto d = s.getDetailLevel(VSSExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-                // get detail level
-            const auto detailLevel = s.getDetailLevel(VSSExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Start drawing adding an gl identificator (except in Move mode)
@@ -147,9 +147,9 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 color = RGBColor::RED;
             }
             // draw circle
-            GLHelper::drawFilledCircleDetailled(detailLevel, (double) 1.3);
+            GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
             // draw details
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
@@ -159,7 +159,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::BLACK);
                 }
                 // draw another circle
-                GLHelper::drawFilledCircleDetailled(detailLevel, (double) 1.1);
+                GLHelper::drawFilledCircleDetailled(d, (double) 1.1);
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // draw speed
@@ -177,7 +177,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted contour
-        myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,
+        myContour.drawDottedContourCircle(s, d, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

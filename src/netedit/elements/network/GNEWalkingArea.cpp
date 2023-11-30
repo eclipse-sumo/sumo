@@ -154,6 +154,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
     if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // set shape color
@@ -169,7 +171,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // check if draw walking area tesselated or contour
             if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                     (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
-                drawTesselatedWalkingArea(s, walkingAreaExaggeration, walkingAreaColor);
+                drawTesselatedWalkingArea(s, d, walkingAreaExaggeration, walkingAreaColor);
             } else {
                 drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
             }
@@ -179,7 +181,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted contour
-        myContour.drawDottedContourClosed(s, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
+        myContour.drawDottedContourClosed(s, d, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -320,7 +322,8 @@ GNEWalkingArea::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& color) const {
+GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+        const double exaggeration, const RGBColor& color) const {
     // get mouse position
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     // push junction name
@@ -344,7 +347,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
         // color
         const RGBColor darkerColor = color.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // draw moving hint

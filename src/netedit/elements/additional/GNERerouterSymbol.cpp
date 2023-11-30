@@ -132,10 +132,12 @@ GNERerouterSymbol::getParentName() const {
 
 void
 GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
@@ -206,7 +208,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myContour.drawDottedContourRectangle(s, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+            myContour.drawDottedContourRectangle(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
                                                  symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration,
                                                  s.dottedContourSettings.segmentWidth);
         }

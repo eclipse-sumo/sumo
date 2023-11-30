@@ -222,6 +222,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
         // get width
         const double crossingWidth = NBCrossing->width * 0.5 * selectionScale;
+        // get detail level
+        const auto d = s.getDetailLevel(selectionScale);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get color
@@ -248,7 +250,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // color
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                    GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
                                                     s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                     // draw moving hint
@@ -272,7 +274,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myCrossingGeometry.getShape(), crossingWidth, selectionScale, true, true,
+        myContour.drawDottedContourExtruded(s, d, myCrossingGeometry.getShape(), crossingWidth, selectionScale, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

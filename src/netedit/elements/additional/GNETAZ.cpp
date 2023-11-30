@@ -293,10 +293,10 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
         // get exaggeration
         const double TAZExaggeration = getExaggeration(s);
+        // get detail level
+        const auto d = s.getDetailLevel(TAZExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(TAZExaggeration);
             // check if draw start und end
             const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                             myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
@@ -345,7 +345,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     // check move mode flag
                     const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
+                    GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
                                                     s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                     // draw moving hint points
@@ -364,13 +364,13 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(detailLevel, centerRadius);
+            GLHelper::drawFilledCircleDetailled(d, centerRadius);
             // move to front
             glTranslated(0, 0, 0.1);
             // set color
             GLHelper::setColor(color);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(detailLevel, centerRadius * 0.8);
+            GLHelper::drawFilledCircleDetailled(d, centerRadius * 0.8);
             // pop center matrix
             GLHelper::popMatrix();
             // pop layer matrix
@@ -396,8 +396,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours
-        myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
-        myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
+        myContour.drawDottedContourClosed(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
+        myContour.drawDottedContourCircle(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
     }
 }
 

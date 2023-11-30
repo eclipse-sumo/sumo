@@ -214,12 +214,12 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // get detail level
-        const auto detailLevel = s.getDetailLevel(exaggeration);
+        const auto d = s.getDetailLevel(exaggeration);
         // check if draw stopPerson over busStop oder over lane
         if (getParentAdditionals().size() > 0) {
-            drawStopOverStoppingPlace(s, detailLevel, exaggeration);
+            drawStopOverStoppingPlace(s, d, exaggeration);
         } else {
-            drawStopOverEdge(s, detailLevel, exaggeration);
+            drawStopOverEdge(s, d, exaggeration);
         }
         // check if draw plan parent
         if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
@@ -454,7 +454,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizatio
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }
     // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
+    myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
                                         s.dottedContourSettings.segmentWidth);
 }
 
@@ -517,7 +517,7 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVis
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }
     // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
+    myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
                                         s.dottedContourSettings.segmentWidth);
 }
 

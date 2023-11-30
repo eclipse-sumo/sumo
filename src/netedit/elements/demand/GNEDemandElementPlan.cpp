@@ -1098,6 +1098,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
     if (drawPlan && (planGeometry.getShape().size() > 0)) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
         // get inspected attribute carriers
@@ -1130,7 +1132,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             GLHelper::popName();
         }
         // draw dotted geometry
-        myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), pathWidth, 1, true, true,
+        myPlanElement->getContour().drawDottedContourExtruded(s, d, planGeometry.getShape(), pathWidth, 1, true, true,
                 s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
@@ -1152,7 +1154,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // check if draw plan element can be drawn
     if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
         // get detail level
-        const auto detailLevel = s.getDetailLevel(1);
+        const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1199,7 +1201,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         drawFromArrow(s, segment->getLane(), segment, dottedElement);
         drawToArrow(s, segment->getLane(), segment, dottedElement);
         // draw end position
-        drawEndPosition(s, detailLevel, segment, duplicateWidth);
+        drawEndPosition(s, d, segment, duplicateWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -1212,10 +1214,10 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
         // draw dotted geometry
         if (duplicateWidth) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+            myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true,
                     s.dottedContourSettings.segmentWidth);
         } else {
-            myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+            myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true,
                     s.dottedContourSettings.segmentWidthSmall);
         }
     }
@@ -1235,6 +1237,8 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
     if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1284,18 +1288,18 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
                 // draw dotted geometry
                 if (duplicateWidth) {
-                    myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                    myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true,
                             s.dottedContourSettings.segmentWidth);
                 } else {
-                    myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                    myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true,
                             s.dottedContourSettings.segmentWidthSmall);
                 }
             }
         } else if (segment->getPreviousLane()) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
+            myPlanElement->getContour().drawDottedContourExtruded(s, d, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
                     pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         } else if (segment->getNextLane()) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
+            myPlanElement->getContour().drawDottedContourExtruded(s, d, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
                     pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
     }

@@ -306,9 +306,9 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos, const PositionVector& shape,
-                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration,
-                                const bool editingElevation, const bool drawExtremeSymbols) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GUIGlObject* glObject,
+                                const Position& mousePos, const PositionVector& shape, const RGBColor& geometryPointColor, const RGBColor& textColor,
+                                const double radius, const double exaggeration, const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // iterate over shape
@@ -318,7 +318,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlOb
         // don't draw in draw for object under cursor)
         if (!s.drawForObjectUnderCursor) {
             // get current detail level
-            const auto detailLevel = s.getDetailLevel(exaggeratedRadio);
+            const auto d = s.getDetailLevel(exaggeratedRadio);
             // push geometry point matrix
             GLHelper::pushMatrix();
             // move to vertex
@@ -326,11 +326,11 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlOb
             // set color depending if cursor is over geometry point
             GLHelper::setColor(mouseOverGeometryPoint? RGBColor::ORANGE : geometryPointColor);
             // draw circle detailled
-            GLHelper::drawFilledCircleDetailled(detailLevel, exaggeratedRadio);
+            GLHelper::drawFilledCircleDetailled(d, exaggeratedRadio);
             // pop geometry point matrix
             GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)
-            if (detailLevel <= GUIVisualizationSettings::DetailLevel::Level1) {
+            if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
                 if (editingElevation) {
                     // Push Z matrix
                     GLHelper::pushMatrix();

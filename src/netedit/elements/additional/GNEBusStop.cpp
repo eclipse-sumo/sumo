@@ -126,10 +126,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get width
         const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
+        // get detail level
+        const auto d = s.getDetailLevel(busStopExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(busStopExaggeration);
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -162,15 +162,15 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
             // draw lines
-            drawLines(s, detailLevel, myLines, baseColor);
+            drawLines(s, d, myLines, baseColor);
             // draw sign
-            drawSign(s, detailLevel, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
+            drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
             if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -186,7 +186,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

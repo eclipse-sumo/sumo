@@ -208,6 +208,8 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
         // declare radius
         const double radius = (distanceSquared <= 1) ? 1 : 0.5;
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get color
@@ -245,7 +247,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }
         // draw dotted contour
-        myContour.drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,
+        myContour.drawDottedContourCircle(s, d, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,
                                             s.dottedContourSettings.segmentWidthSmall);
     }
 }

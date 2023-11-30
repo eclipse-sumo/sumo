@@ -568,21 +568,21 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     getFromJunction()->drawGL(s);
     getToJunction()->drawGL(s);
     // get detail level
-    const auto detailLevel = s.getDetailLevel(1);
+    const auto d = s.getDetailLevel(1);
     // draw geometry points
-    drawEdgeGeometryPoints(s, detailLevel);
+    drawEdgeGeometryPoints(s, d);
     // draw edge shape (a red line only visible if lane shape is strange)
-    drawEdgeShape(s, detailLevel);
+    drawEdgeShape(s, d);
     // draw edge stopOffset
-    drawLaneStopOffset(s, detailLevel);
+    drawLaneStopOffset(s, d);
     // draw edge name
-    drawEdgeName(s, detailLevel);
+    drawEdgeName(s, d);
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     // draw childrens
     drawChildrens(s);
     // draw dotted geometry
-    myContour.drawDottedContourEdge(s, this, true, true, s.dottedContourSettings.segmentWidth);
+    myContour.drawDottedContourEdge(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
 }
 
 

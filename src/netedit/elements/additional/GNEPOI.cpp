@@ -344,10 +344,10 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration
             const double POIExaggeration = getExaggeration(s);
+            // get detail level
+            const auto d = s.getDetailLevel(POIExaggeration);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (!s.drawForObjectUnderCursor) {
-                // get detail level
-                const auto detailLevel = s.getDetailLevel(POIExaggeration);
                 // push name (needed for getGUIGlObjectsUnderCursor(...)
                 GLHelper::pushName(getGlID());
                 // draw inner polygon
@@ -369,12 +369,12 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw geometry points
                 if (myShapeHeight.size() > 0) {
-                    drawUpGeometryPoint(s, detailLevel, myShapeHeight.front(), 180, RGBColor::ORANGE);
-                    drawDownGeometryPoint(s, detailLevel, myShapeHeight.back(), 180, RGBColor::ORANGE);
+                    drawUpGeometryPoint(s, d, myShapeHeight.front(), 180, RGBColor::ORANGE);
+                    drawDownGeometryPoint(s, d, myShapeHeight.back(), 180, RGBColor::ORANGE);
                 }
                 if (myShapeWidth.size() > 0) {
-                    drawLeftGeometryPoint(s, detailLevel, myShapeWidth.back(), -90, RGBColor::ORANGE);
-                    drawRightGeometryPoint(s, detailLevel, myShapeWidth.front(), -90, RGBColor::ORANGE);
+                    drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
+                    drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
                 }
                 // pop name
                 GLHelper::popName();
@@ -383,10 +383,10 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw contour
             if (getShapeImgFile().empty()) {
-                myContour.drawDottedContourCircle(s, *this, 1.3, POIExaggeration,
+                myContour.drawDottedContourCircle(s, d, *this, 1.3, POIExaggeration,
                                                   s.dottedContourSettings.segmentWidth);
             } else {
-                myContour.drawDottedContourRectangle(s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
+                myContour.drawDottedContourRectangle(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
                                                      s.dottedContourSettings.segmentWidth);
             }
         }

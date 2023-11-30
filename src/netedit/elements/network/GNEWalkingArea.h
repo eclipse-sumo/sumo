@@ -180,7 +180,8 @@ protected:
 
 private:
     /// @brief draw tesselated walking area
-    void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& color) const;
+    void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+                                   const double exaggeration, const RGBColor& color) const;
 
     /// @brief draw contour walking area
     void drawContourWalkingArea(const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration, const RGBColor& color) const;

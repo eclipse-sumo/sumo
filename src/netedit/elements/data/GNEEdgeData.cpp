@@ -204,6 +204,8 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
     // get color
     const auto color = setColor(s);
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // Start drawing adding an gl identificator
@@ -242,7 +244,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // draw dotted geometry
-            myContour.drawDottedContourEdge(s, laneEdge->getParentEdge(), true, true,
+            myContour.drawDottedContourEdge(s, d, laneEdge->getParentEdge(), true, true,
                                             s.dottedContourSettings.segmentWidth);
         }
         // Pop name

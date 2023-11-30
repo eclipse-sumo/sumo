@@ -128,10 +128,10 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     const double chargingStationExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get detail level
+        const auto d = s.getDetailLevel(chargingStationExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(chargingStationExaggeration);
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -158,15 +158,15 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
             // draw charging power and efficiency
-            drawLines(s, detailLevel, {toString(myChargingPower)}, baseColor);
+            drawLines(s, d, {toString(myChargingPower)}, baseColor);
             // draw sign
-            drawSign(s, detailLevel, chargingStationExaggeration, baseColor, signColor, "C");
+            drawSign(s, d, chargingStationExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
             if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(s, detailLevel, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -182,7 +182,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

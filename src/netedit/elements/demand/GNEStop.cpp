@@ -379,10 +379,10 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
         // get lane width
         const double width = stopLane ? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
+        // get detail level
+        const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get detail level
-            const auto detailLevel = s.getDetailLevel(exaggeration);
             // get color
             const auto color = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
             // Start drawing adding an gl identificator
@@ -395,9 +395,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // draw depending if is over lane or over stoppingP
             if (getParentLanes().size() > 0) {
-                drawStopOverLane(s, detailLevel, color, width, exaggeration);
+                drawStopOverLane(s, d, color, width, exaggeration);
             } else {
-                drawStopOverStoppingPlace(s, detailLevel, color, width, exaggeration);
+                drawStopOverStoppingPlace(s, d, color, width, exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();
@@ -409,7 +409,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

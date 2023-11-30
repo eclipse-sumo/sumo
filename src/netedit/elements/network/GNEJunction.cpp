@@ -623,7 +623,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // get junction exaggeration
     const double junctionExaggeration = getExaggeration(s);
     // get detail level
-    const auto detailLevel = s.getDetailLevel(junctionExaggeration);
+    const auto d = s.getDetailLevel(junctionExaggeration);
     // check if draw junction as shape
     const bool junctionShape = ((myNBNode->getShape().size() > 0) && s.drawJunctionShape);
     const bool junctionBubble = drawAsBubble(s);
@@ -646,14 +646,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // draw junction as shape
                 if (junctionShape) {
-                    drawJunctionAsShape(s, detailLevel, junctionExaggeration, mousePosition);
+                    drawJunctionAsShape(s, d, junctionExaggeration, mousePosition);
                 }
                 // draw junction as bubble
                 if (junctionBubble) {
-                    drawJunctionAsBubble(s, detailLevel, junctionExaggeration, mousePosition);
+                    drawJunctionAsBubble(s, d, junctionExaggeration, mousePosition);
                 }
                 // draw TLS
-                drawTLSIcon(s, detailLevel);
+                drawTLSIcon(s, d);
                 // draw elevation
                 if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                     GLHelper::pushMatrix();
@@ -671,22 +671,22 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
             // draw junction name
-            drawJunctionName(s, detailLevel);
+            drawJunctionName(s, d);
             // draw Junction childs
-            drawJunctionChildren(s, detailLevel);
+            drawJunctionChildren(s, d);
             // draw path additional elements
-            myNet->getPathManager()->drawJunctionPathElements(s, detailLevel, this);
+            myNet->getPathManager()->drawJunctionPathElements(s, d, this);
         }
         // continue depending of shapes
         if (junctionShape) {
             // draw dotted contour
             if (myNBNode->getShape().area() > 1) {
-                myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
+                myContour.drawDottedContourClosed(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
             }
         }
         if (junctionBubble) {
             // draw dotted contour
-            myContour.drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
+            myContour.drawDottedContourCircle(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
                                               s.dottedContourSettings.segmentWidth);
         }
     }
@@ -1703,7 +1703,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualiza
             // draw shape
             GUIGeometry::drawGeometry(s, mousePos, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
+            GUIGeometry::drawGeometryPoints(s, d, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
                                             s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration,
                                             myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
             // draw moving hint

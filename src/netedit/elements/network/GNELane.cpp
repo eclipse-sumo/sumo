@@ -583,7 +583,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // get lane drawing constants
     const LaneDrawingConstants laneDrawingConstants(s, this);
     // get detail level
-    const auto detailLevel = s.getDetailLevel(laneDrawingConstants.exaggeration);
+    const auto d = s.getDetailLevel(laneDrawingConstants.exaggeration);
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // Push edge parent name
@@ -601,7 +601,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
         }
         // draw lane
-        drawLane(s, detailLevel, laneDrawingConstants);
+        drawLane(s, d, laneDrawingConstants);
         // Pop layer matrix
         GLHelper::popMatrix();
         // Pop Lane Name
@@ -614,9 +614,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // draw children
     drawChildren(s);
     // draw path additional elements
-    myNet->getPathManager()->drawLanePathElements(s, detailLevel, this);
+    myNet->getPathManager()->drawLanePathElements(s, d, this);
     // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.width, 1, true, true,
+    myContour.drawDottedContourExtruded(s, d, getLaneShape(), laneDrawingConstants.width, 1, true, true,
                                         s.dottedContourSettings.segmentWidth);
 }
 
@@ -653,7 +653,7 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLaneMarkings(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, 
+GNELane::drawLaneMarkings(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
         const LaneDrawingConstants &laneDrawingConstants, const bool drawRailway) const {
     // check conditions
     if (s.laneShowBorders && (d <= GUIVisualizationSettings::DetailLevel::Level1) && (laneDrawingConstants.exaggeration == 1) && !drawRailway) {
@@ -1207,7 +1207,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::D
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawRailway && drawSpreadSuperposed) {
             // draw as railway
-            drawLaneAsRailway(s, laneDrawingConstants);
+            drawLaneAsRailway(s, d, laneDrawingConstants);
         } else {
             // create visible gap depending of draw spread superposed
             const double offset = drawSpreadSuperposed? laneDrawingConstants.width * 0.5 : 0;
@@ -1235,7 +1235,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::D
         // draw TLS link numbers
         drawTLSLinkNo(s, d);
         // draw shape edited
-        drawShapeEdited(s);
+        drawShapeEdited(s, d);
         // draw stopOffsets
         drawLaneStopOffset(s, d);
     } else if (d <= GUIVisualizationSettings::DetailLevel::Level2){
@@ -1284,7 +1284,7 @@ GNELane::drawBackEdge(const GUIVisualizationSettings& s, GUIVisualizationSetting
 
 
 void
-GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
+GNELane::drawShapeEdited(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
     // if shape is being edited, draw point and green line
     if (myShapeEdited) {
         // push shape edited matrix
@@ -1300,7 +1300,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         // color
         const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // Pop shape edited matrix
         GLHelper::popMatrix();
@@ -1657,7 +1657,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s, GUIVisualiza
 
 
 void
-GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const {
+GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const {
     // we draw the lanes with reduced width so that the lane markings below are visible
     // (this avoids artifacts at geometry corners without having to
     const bool spreadSuperposed = s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr;
@@ -1694,7 +1694,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // Draw crossties
     GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
     // check if dotted contours has to be drawn
-    myContour.drawDottedContourExtruded(s, shape, halfGauge, 1, true, true, s.dottedContourSettings.segmentWidth);
+    myContour.drawDottedContourExtruded(s, d, shape, halfGauge, 1, true, true, s.dottedContourSettings.segmentWidth);
 }
 
 

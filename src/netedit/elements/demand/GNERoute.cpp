@@ -421,6 +421,8 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -500,7 +502,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             }
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
+        myContour.drawDottedContourExtruded(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -529,6 +531,8 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         } else if (segment->getNextLane()) {
             geometry.updateGeometry({segment->getJunction()->getPositionInView(), segment->getNextLane()->getLaneShape().back()});
         }
+        // get detail level
+        const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // Start drawing adding an gl identificator
@@ -555,7 +559,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             }
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, geometry.getShape(), routeWidth, 1, false, false,
+        myContour.drawDottedContourExtruded(s, d, geometry.getShape(), routeWidth, 1, false, false,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
