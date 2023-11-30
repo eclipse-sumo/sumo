@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-29 12:57+0000\n"
+"PO-Revision-Date: 2023-11-30 13:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5286,13 +5286,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:230
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "Reparar topología de la red ferroviaria"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:233
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
 msgstr ""
+"Reparar topología de la red ferroviaria lo suficiente para permitir que "
+"funcionen las líneas de transporte público cargadas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:236
 msgid ""
@@ -5311,7 +5313,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:245
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "Hacer que todos los rieles sean utilizables en ambas direcciones"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:248
 msgid "Make all rails edge ids from FILE usable in both direction"
@@ -5320,10 +5322,14 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:251
 msgid "Set edge priority values based on estimated main direction"
 msgstr ""
+"Establecer valores de prioridad de arista según la dirección principal "
+"estimada"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:254
 msgid "Extend loaded edge priority values based on estimated main direction"
 msgstr ""
+"Ampliar los valores de prioridad de arista cargados según la dirección "
+"principal estimada"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:257
 msgid "Guess signals that guard public transport stops"
@@ -5332,10 +5338,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:260
 msgid "The search radius for finding suitable road accesses for rail stops"
 msgstr ""
+"El radio de búsqueda para encontrar accesos viales adecuados para paradas de "
+"tren"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:264
 msgid "The maximum road accesses registered per rail stops"
-msgstr ""
+msgstr "El máximo de accesos viales registrados por parada de tren"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:268
 msgid ""
@@ -5358,26 +5366,26 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:283
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "Desactivar la normalización de posiciones de nodo"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:287
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "Agregar FLOAT a las posiciones-x de la red"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:291
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "Agregar FLOAT a las posiciones-y de la red"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:294
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "Agregar FLOAT a las posiciones-z de la red"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:298
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "Invierte la coordenada-y a lo largo de cero"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:302
 msgid "Enable roundabout-guessing"
@@ -5385,7 +5393,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:305
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "Visibilidad predeterminada al acercarse a una rotonda"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:308
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
@@ -5393,7 +5401,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:311
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "Asegurarse de que las aristas opuestas tengan la misma longitud"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:314
 msgid "Enable guessing of network fringe nodes"
@@ -10191,11 +10199,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:145
 msgid "Defines the begin time in seconds;"
-msgstr ""
+msgstr "Define el tiempo de inicio en segundos;"
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:148
 msgid "Defines the end time in seconds;"
-msgstr ""
+msgstr "Define el tiempo final en segundos;"
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
@@ -10204,25 +10212,29 @@ msgstr "No escribir nada."
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:169
 msgid "Either a timeline or a netstate / amitran file must be given."
 msgstr ""
+"Se debe proporcionar una línea de tiempo o un archivo de estado de red / "
+"amitran."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:172
 msgid "The output file must be given."
-msgstr ""
+msgstr "Se debe proporcionar el archivo de salida."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:185
 #, c-format
 msgid "Unknown attribute '%' to write in output."
-msgstr ""
+msgstr "Atributo desconocido '%' para escribir en la salida."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:213
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
 msgstr ""
+"La opción --vtype requiere la opción --additional-files para cargar tipos de "
+"vehículos"
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:225
 #, c-format
 msgid "Vehicle type '%' is not defined"
-msgstr ""
+msgstr "El tipo de vehículo '%' no está definido"
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:245
 msgid "Unreadable file '%'."
@@ -10230,33 +10242,37 @@ msgstr "Archivo ilegible '%'."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:276
 msgid "Missing an entry in line '%'."
-msgstr ""
+msgstr "Falta una entrada en la línea '%'."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:278
 msgid "Not numeric entry in line '%'."
-msgstr ""
+msgstr "Entrada no numérica en la línea '%'."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:58
 msgid "Writing map of '%' into '%'."
-msgstr ""
+msgstr "Escribiendo el mapa de '%' en '%'."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:62
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:291
 #, c-format
 msgid "Could not open file '%' for writing."
-msgstr ""
+msgstr "No se pudo abrir el archivo '%' para escribir."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:86
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr ""
+"Construye y escribe un mapa de emisiones para los modelos de emisiones de "
+"SUMO."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:92
 msgid "If set, maps for all available emissions are written."
 msgstr ""
+"Si se establece, se escribirán mapas para todas las emisiones disponibles."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:95
 msgid "Defines the name of the emission class to generate the map for."
 msgstr ""
+"Definir el nombre de la clase de emisión para la que se generará el mapa."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:98
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
@@ -10312,11 +10328,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
-msgstr ""
+msgstr "¡Iniciando TraCI sin usar carriles internos!"
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***Iniciando servidor en el puerto % ***"
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:323
 #, c-format
@@ -10332,10 +10348,12 @@ msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in"
 " pre-execution phase."
 msgstr ""
+"El orden de ejecución (libsumo::CMD_SETORDER) no se configuró para todos los "
+"clientes TraCI en la fase previa a la ejecución."
 
 #: C:\Repos\sumo/src\utils\common\FileHelpers.cpp:73
 msgid "Cannot get file attributes for file '%'!"
-msgstr ""
+msgstr "¡No se pueden obtener atributos de archivo para el archivo '%'!"
 
 #: C:\Repos\sumo/src\utils\common\FileHelpers.h:318
 msgid "Invalid follower index in route '%'!"
@@ -10344,7 +10362,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\FileHelpers.h:328
 #, c-format
 msgid "An edge within the route '%' is not known!"
-msgstr ""
+msgstr "¡Se desconoce una arista dentro de la ruta '%'!"
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
@@ -10357,13 +10375,15 @@ msgstr "terminado."
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:288
 msgid "Could not set locale to '%'."
-msgstr ""
+msgstr "No se pudo establecer la configuración regional en '%'."
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:293
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized "
 "messages."
 msgstr ""
+"La variable de entorno SUMO_HOME no está configurada, no se pudieron "
+"encontrar mensajes localizados."
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:299
 msgid "Could not find localized messages."
@@ -10371,39 +10391,41 @@ msgstr "No se pudieron encontrar mensajes localizados."
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:87
 msgid "Invalid conversion from string to double (%)"
-msgstr ""
+msgstr "Conversión no válida de string a double (%)"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:90
 msgid "Invalid conversion from string to double (empty value)"
-msgstr ""
+msgstr "Conversión no válida de string a double (valor vacío)"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:109
 msgid "Invalid conversion from string to doubles (%)"
-msgstr ""
+msgstr "Conversión no válida de string a doubles (%)"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:112
 msgid "Invalid conversion from string to doubles (empty value)"
-msgstr ""
+msgstr "Conversión no válida de string a doubles (valor vacío)"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:205
 msgid "Invalid format of parameter (%)"
-msgstr ""
+msgstr "Formato no válido del parámetro (%)"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:230
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr ""
+"Formato no válido del atributo '%'. El atributo debe comenzar con una letra"
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:237
 msgid "Invalid format of attribute (%)"
-msgstr ""
+msgstr "Formato no válido del atributo (%)"
 
 #: C:\Repos\sumo/src\utils\common\RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
 msgstr ""
+"Inicializar el generador de números aleatorios con la hora actual del sistema"
 
 #: C:\Repos\sumo/src\utils\common\RandHelper.cpp:69
 msgid "Initialises the random number generator with the given value"
-msgstr ""
+msgstr "Inicializar el generador de números aleatorios con el valor dado"
 
 #: C:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:187
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
@@ -10416,7 +10438,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:341
 #, c-format
 msgid "Unknown vehicle class '%' encountered."
-msgstr ""
+msgstr "Se encontró una clase de vehículo '%' desconocida."
 
 #: C:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:382
 msgid ""
@@ -10427,31 +10449,31 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:408
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
-msgstr ""
+msgstr "La clase de vehículo '%' es obsoleta, utilice '%' en su lugar."
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:43
 msgid "Loads the named config on startup"
-msgstr ""
+msgstr "Cargar la configuración nombrada al iniciar"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr ""
+msgstr "Guardar la configuración actual en FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
-msgstr ""
+msgstr "Aplicar rutas relativas al guardar la configuración"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr ""
+msgstr "Guardar una plantilla de configuración (vacía) en FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr ""
+msgstr "Guardar el esquema de configuración en FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
-msgstr ""
+msgstr "Agregar comentarios a la plantilla, configuración o esquema guardados"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:71
 msgid "Switches to verbose output"
@@ -10459,11 +10481,11 @@ msgstr "Cambia a la salida detallada"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:74
 msgid "Prints option values before processing"
-msgstr ""
+msgstr "Imprimir los valores de las opciones antes de procesarlas"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
-msgstr ""
+msgstr "Mostrar esta pantalla o temas seleccionados"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:80
 msgid "Prints the current version"
@@ -10499,11 +10521,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
-msgstr ""
+msgstr "Idioma a utilizar en los mensajes"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
 msgid "Include license info into every output file"
-msgstr ""
+msgstr "Incluir información de licencia en cada archivo de salida"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
 msgid ""
@@ -10514,16 +10536,22 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr ""
+"Define el número de dígitos después de la coma para la salida de punto "
+"flotante"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
+"Define el número de dígitos después de la coma para la salida de coordenadas "
+"geográficas (lon,lat)"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:134
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
 msgstr ""
+"Escribir los valores de tiempo como hora:minuto:segundo o día:hora:minuto:"
+"segundo en lugar de segundos"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:43
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:184
@@ -10563,6 +10591,8 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\emissions\EnergyParams.cpp:153
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
+"El dispositivo '%' de vehículo no tiene un valor válido para el parámetro % "
+"(%)."
 
 #: C:\Repos\sumo/src\utils\emissions\HelpersEnergy.cpp:225
 msgid "An acceleration given by the power was not found."
@@ -10632,23 +10662,25 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
-msgstr ""
+msgstr "La proyección inversa solo funciona con parámetros proj explícitos."
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:237
 msgid "The projection method needs to be uniquely defined."
-msgstr ""
+msgstr "El método de proyección debe definirse de forma única."
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:288
 msgid "Uses a simple method for projection"
-msgstr ""
+msgstr "Usar un método simple para la proyección"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:291
 msgid "Scaling factor for input coordinates"
-msgstr ""
+msgstr "Factor de escala para las coordenadas de entrada"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:294
 msgid "Rotation (clockwise degrees) for input coordinates"
 msgstr ""
+"Rotación (grados en el sentido de las agujas del reloj) para las coordenadas "
+"de entrada"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:298
 msgid ""
@@ -10658,7 +10690,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:304
 msgid "Uses STR as proj.4 definition for projection"
-msgstr ""
+msgstr "Usar STR como definición proj.4 para la proyección"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:307
 msgid "Inverses projection"
@@ -10666,7 +10698,7 @@ msgstr "Invertir proyección"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
-msgstr ""
+msgstr "Convertir de Gauss-Krueger a UTM"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:434
 msgid "Could not transform (%,%)"
@@ -10689,23 +10721,25 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\geom\PositionVector.cpp:1528
 #: C:\Repos\sumo/src\utils\geom\PositionVector.cpp:1542
 msgid "Trying to subtract PositionVectors of different lengths."
-msgstr ""
+msgstr "Intentando restar vectores de posición de diferentes longitudes."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:871
 msgid "Invalid charge type '%' defined in chargingStation '%'."
-msgstr ""
+msgstr "Tipo de carga '%' no válido definido en la estación de carga '%'."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1007
 msgid "'lane' and 'length' must be defined together in a lane area detector."
 msgstr ""
+"'lane' y 'length' deben definirse juntos en un detector de área de carril."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1012
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
 msgstr ""
+"'lanes' y 'endPos' deben definirse juntos en un detector de área de carril."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1291
 msgid "Calibrators need either an edge or a lane"
-msgstr ""
+msgstr "Calibradores necesitan una arista o un carril"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1338
 msgid ""
@@ -10718,38 +10752,39 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1528
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
-msgstr ""
+msgstr "La probabilidad de % debe ser mayor o igual a 0"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1714
 msgid "X and Y must be be defined together in POIs"
-msgstr ""
+msgstr "X e Y deben definirse juntos en los puntos de interés"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1720
 msgid "lane and position must be be defined together in POIs"
-msgstr ""
+msgstr "carril y posición deben definirse juntos en los puntos de interés"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1726
 msgid "lon and lat must be be defined together in POIs"
-msgstr ""
+msgstr "longitud y latitud deben definirse juntos en los puntos de interés"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
+"Icono no válido % para el punto de interés '%', usando el predeterminado"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1841
 msgid "Parameters must be defined within an object."
-msgstr ""
+msgstr "Los parámetros deben definirse dentro de un objeto."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1843
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:967
 msgid "Parameters cannot be defined in the additional file's root."
-msgstr ""
+msgstr "Los parámetros no se pueden definir en la raíz del archivo adicional."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1845
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
 msgid "Parameters cannot be defined within another parameter."
-msgstr ""
+msgstr "Los parámetros no se pueden definir dentro de otro parámetro."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1853
 #, c-format
@@ -10774,6 +10809,8 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
+"No se pudo generar % con ID '%' en netedit; El ID contiene caracteres no "
+"válidos."
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:417
 msgid ""
@@ -11283,11 +11320,13 @@ msgstr "ID de % no válido '%'."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr ""
+msgstr "Identificación % no válida '%'. Contiene caracteres no válidos."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:951
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
 msgstr ""
+"El modelo de cambio de carril 'JE2013' es obsoleto. Utilizando el modelo "
+"predeterminado en su lugar."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1143
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
@@ -11302,27 +11341,32 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1178
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "Modelo de seguimiento vehicular % desconocido al analizar el vType '%'"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1180
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "Modelo de seguimiento vehicular desconocido al analizar el vType '%'"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1213
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1229
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Atributo % de modelo de seguimiento vehicular no válido. No se puede "
+"convertir a float"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1217
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1240
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
 msgstr ""
+"Atributo % de modelo de seguimiento vehicular no válido. Debe ser mayor a 0"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1251
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
 msgstr ""
+"Atributo % de modelo de seguimiento vehicular no válido. Solo se admiten "
+"valores entre [0-1]"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1510
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
@@ -11355,11 +11399,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1626
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr ""
+msgstr "Se desconoce la clase de vehículo '%' para % '%'."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1644
 msgid "The shape '%' for % '%' is not known."
-msgstr ""
+msgstr "Se desconoce la forma '%' para % '%'."
 
 #: C:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:286
 msgid "Undefined vehicleType parameter"
@@ -11380,7 +11424,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\GenericHandler.cpp:83
 #: C:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
-msgstr ""
+msgstr "Se encontró el elemento raíz '%' en el archivo '%' (se esperaba '%')."
 
 #: C:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:209
 msgid " In file '"
@@ -11392,7 +11436,7 @@ msgstr " En línea/columna "
 
 #: C:\Repos\sumo/src\utils\xml\SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
-msgstr ""
+msgstr "Falta valor '%' en la arista '%'."
 
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:110
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:136
@@ -11403,7 +11447,7 @@ msgstr "¡No se puede leer el archivo '%'!"
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:139
 #, c-format
 msgid "File '%' is a directory!"
-msgstr ""
+msgstr "¡El archivo '%' es un directorio!"
 
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:156
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:165
@@ -11421,22 +11465,29 @@ msgid ""
 "Environment variable SUMO_HOME is not set properly, disabling XML "
 "validation. Set 'auto' or 'always' for web lookups."
 msgstr ""
+"La variable de entorno SUMO_HOME no está configurada correctamente, "
+"deshabilitando la validación XML. Establezca 'auto' o 'always' para "
+"búsquedas web."
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:111
 msgid ""
 "Environment variable SUMO_HOME is not set properly, XML validation will fail"
 " or use slow website lookups."
 msgstr ""
+"La variable de entorno SUMO_HOME no está configurada correctamente, la "
+"validación XML fallará o utilizará búsquedas lentas en el sitio web."
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:120
 msgid "Cannot read local schema '%'."
-msgstr ""
+msgstr "No se puede leer el esquema local '%'."
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:167
 msgid ""
 "Disabling XML validation for external file '%'. Use 'auto' or 'always' to "
 "enable."
 msgstr ""
+"Deshabilitando la validación XML para el archivo externo '%'. Utilice 'auto' "
+"o 'always' para habilitarla."
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:189
 msgid "Runtime error: % while parsing '%'"
@@ -11451,10 +11502,12 @@ msgid ""
 "SAX error occurred while parsing '%':\n"
 " %"
 msgstr ""
+"Se produjo un error SAX al leer '%':\n"
+" %"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred while parsing '%'"
-msgstr ""
+msgstr "Se produjo un error no especificado al analizar '%'"
 
 #~ msgid "Error while adding an agent: %"
 #~ msgstr "Error al agregar un agente: %"
