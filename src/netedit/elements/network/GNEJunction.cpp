@@ -62,16 +62,17 @@
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
-                                myNBNode(nbn),
-                                myMaxDrawingSize(1),
-                                myAmCreateEdgeSource(false),
-                                myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-                                myAmResponsible(false),
-                                myHasValidLogic(loaded),
-                                myAmTLSSelected(false),
-                                myColorForMissingConnections(false),
-                                myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-myExaggeration(1) {
+    myNBNode(nbn),
+    myJunctionInGrid(true),
+    myMaxDrawingSize(1),
+    myAmCreateEdgeSource(false),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myAmResponsible(false),
+    myHasValidLogic(loaded),
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false),
+    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
+    myExaggeration(1) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -563,8 +564,8 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::updateCenteringBoundary(const bool updateGrid) {
-    // Remove object from net
-    if (updateGrid) {
+    // Remove object from grid
+    if (myJunctionInGrid && updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
     // calculate boundary using a radius bigger than geometry point
@@ -597,9 +598,16 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
             myJunctionBoundary.add(boundary);
         }
     }
-    // add object into net
+
+    // add object into grid
     if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
+        // if junction has at least one edge, then don't add in grid (because uses the edge's grid)
+        if (myGNEIncomingEdges.size() + myGNEOutgoingEdges.size() > 0) {
+            myJunctionInGrid = false;
+        } else {
+            myJunctionInGrid = true;
+            myNet->addGLObjectIntoGrid(this);
+        }
     }
     // trigger rebuilding tesselation
     myExaggeration = 2;
@@ -609,7 +617,9 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
+    if (myJunctionInGrid) {
+        GLHelper::drawBoundary(s, getCenteringBoundary());
+    }
     // get junction exaggeration
     const double junctionExaggeration = getExaggeration(s);
     // get detail level
@@ -715,6 +725,12 @@ GNEJunction::getJunctionNeighbours() const {
         junctions.insert(outgoingEdge->getToJunction());
     }
     return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
+}
+
+
+bool
+GNEJunction::isJunctionInGrid() const {
+    return myJunctionInGrid;
 }
 
 
@@ -1754,9 +1770,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, GUIVisualiz
         }
         // draw child demand elements
         for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
+            demandElement->drawGL(s);
         }
     }
 }

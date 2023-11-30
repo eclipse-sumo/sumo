@@ -758,6 +758,9 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     // Add references into GNEJunctions
     edge->getFromJunction()->addOutgoingGNEEdge(edge);
     edge->getToJunction()->addIncomingGNEEdge(edge);
+    // update boundaries of both junctions (to remove it from Grid)
+    edge->getFromJunction()->updateCenteringBoundary(true);
+    edge->getToJunction()->updateCenteringBoundary(true);
     return edge;
 }
 
@@ -2304,6 +2307,9 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     // Remove refrences from GNEJunctions
     edge->getFromJunction()->removeOutgoingGNEEdge(edge);
     edge->getToJunction()->removeIncomingGNEEdge(edge);
+    // update boundaries of both junctions (to remove it from Grid)
+    edge->getFromJunction()->updateCenteringBoundary(true);
+    edge->getToJunction()->updateCenteringBoundary(true);
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to remove template

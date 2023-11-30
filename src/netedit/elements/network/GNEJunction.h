@@ -153,6 +153,9 @@ public:
     /// @brief return GNEJunction neighbours
     std::vector<GNEJunction*> getJunctionNeighbours() const;
 
+    /// @brief check if junction is currently in grid
+    bool isJunctionInGrid() const;
+
     /// @brief add incoming GNEEdge
     void addIncomingGNEEdge(GNEEdge* edge);
 
@@ -296,11 +299,14 @@ public:
     void removeInternalLane(const GNEInternalLane* internalLane);
 
 protected:
+    /// @brief A reference to the represented junction
+    NBNode* myNBNode;
+
     /// @brief edge boundary
     Boundary myJunctionBoundary;
 
-    /// @brief A reference to the represented junction
-    NBNode* myNBNode;
+    /// @brief flag for check if junction is currently in grid
+    bool myJunctionInGrid;
 
     /// @brief vector with the (child) incomings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEIncomingEdges;

@@ -2768,7 +2768,9 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     // removes all junctions of grid
     WRITE_GLDEBUG("Removing junctions during recomputing");
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
-        myGrid.removeAdditionalGLObject(junction.second.second);
+        if (junction.second.second->isJunctionInGrid()) {
+            myGrid.removeAdditionalGLObject(junction.second.second);
+        }
     }
     // remove all edges from grid
     WRITE_GLDEBUG("Removing edges during recomputing");
@@ -2827,7 +2829,9 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
             // update centering boundary
             junction.second.second->updateCenteringBoundary(false);
             // add junction in grid again
-            myGrid.addAdditionalGLObject(junction.second.second);
+            if (junction.second.second->isJunctionInGrid()) {
+                myGrid.addAdditionalGLObject(junction.second.second);
+            }
         }
         // insert all edges from grid again
         WRITE_GLDEBUG("Add edges during recomputing after calling myNetBuilder->compute(...)");

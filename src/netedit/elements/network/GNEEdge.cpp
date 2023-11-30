@@ -519,8 +519,8 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
         }
     }
     // add junction positions
-    myEdgeBoundary.add(getFromJunction()->getPositionInView());
-    myEdgeBoundary.add(getToJunction()->getPositionInView());
+    myEdgeBoundary.add(getFromJunction()->getCenteringBoundary());
+    myEdgeBoundary.add(getToJunction()->getCenteringBoundary());
     // grow boundary
     myEdgeBoundary.grow(5);
     // add object into net
@@ -559,12 +559,15 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // draw draw lanes
     for (const auto& lane : myLanes) {
         lane->drawGL(s);
     }
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
+    // draw junctions
+    getFromJunction()->drawGL(s);
+    getToJunction()->drawGL(s);
     // get detail level
     const auto detailLevel = s.getDetailLevel(1);
     // draw geometry points
