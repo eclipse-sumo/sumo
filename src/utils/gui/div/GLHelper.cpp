@@ -275,13 +275,15 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
 
 void
 GLHelper::drawRectangle(const Position& center, const double width, const double height) {
+    const double halfWidth = width * 0.5;
+    const double halfHeight = height * 0.5;
     GLHelper::pushMatrix();
     glTranslated(center.x(), center.y(), 0);
     glBegin(GL_QUADS);
-        glVertex2d(-width, height);
-        glVertex2d(-width, -height);
-        glVertex2d(width, -height);
-        glVertex2d(width , height);
+        glVertex2d(-halfWidth, halfHeight);
+        glVertex2d(-halfWidth, -halfHeight);
+        glVertex2d(halfWidth, -halfHeight);
+        glVertex2d(halfWidth , halfHeight);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER

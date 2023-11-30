@@ -616,19 +616,19 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    if (myJunctionInGrid) {
-        GLHelper::drawBoundary(s, getCenteringBoundary());
-    }
     // get junction exaggeration
     const double junctionExaggeration = getExaggeration(s);
-    // get detail level
-    const auto d = s.getDetailLevel(junctionExaggeration);
-    // check if draw junction as shape
-    const bool junctionShape = ((myNBNode->getShape().size() > 0) && s.drawJunctionShape);
-    const bool junctionBubble = drawAsBubble(s);
     // only continue if exaggeration is greater than 0
     if (junctionExaggeration > 0) {
+        // draw boundaries
+        if (myJunctionInGrid) {
+            GLHelper::drawBoundary(s, getCenteringBoundary());
+        }
+        // get detail level
+        const auto d = s.getDetailLevel(junctionExaggeration);
+        // check if draw junction as shape
+        const bool junctionShape = ((myNBNode->getShape().size() > 0) && s.drawJunctionShape);
+        const bool junctionBubble = drawAsBubble(s);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // get mouse position
