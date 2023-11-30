@@ -9323,8 +9323,8 @@ msgstr "從檔案中讀取多邊形, 假設它們以 DLR-Navteq (Elmar) 格式�
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:87
 msgid ""
-"Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
-msgstr "從檔案(FILE+)中讀取興趣點(pois), 假設它們以 DLR-Navteq (Elmar) 格式編碼"
+"Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
+msgstr "從檔案(FILE)中讀取興趣點(pois), 假設它們以 DLR-Navteq (Elmar) 格式編碼"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:92
 msgid "Reads polygons from FILE assuming it's a Visum-net"
@@ -9335,8 +9335,8 @@ msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr "從檔案中讀取位置和形狀,並假設它們是用 XML 編碼"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:105
-msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr "從檔案(FILE+)中讀取興趣點(pois),並假設它們是用 OSM 編碼"
+msgid "Reads pois from FILE assuming they're coded in OSM"
+msgstr "從檔案(FILE)中讀取興趣點(pois),並假設它們是用 OSM 編碼"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"

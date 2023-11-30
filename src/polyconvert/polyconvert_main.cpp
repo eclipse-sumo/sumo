@@ -84,7 +84,7 @@ fillOptions() {
     oc.doRegister("dlr-navteq-poly-files", new Option_FileName());
     oc.addDescription("dlr-navteq-poly-files", "Input", TL("Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
     oc.doRegister("dlr-navteq-poi-files", new Option_FileName());
-    oc.addDescription("dlr-navteq-poi-files", "Input", TL("Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"));
+    oc.addDescription("dlr-navteq-poi-files", "Input", TL("Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
 
     // visum import
     oc.doRegister("visum-files", new Option_FileName());
@@ -102,7 +102,7 @@ fillOptions() {
     // osm import
     oc.doRegister("osm-files", new Option_FileName());
     oc.addSynonyme("osm-files", "osm");
-    oc.addDescription("osm-files", "Input", TL("Reads pois from FILE+ assuming they're coded in OSM"));
+    oc.addDescription("osm-files", "Input", TL("Reads pois from FILE assuming they're coded in OSM"));
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
     oc.addDescription("osm.keep-full-type", "Input", TL("The type will be made of the key-value - pair"));
     oc.doRegister("osm.use-name", new Option_Bool(false));

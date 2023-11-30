@@ -74,11 +74,11 @@ distinct shape file.
 |--------|-------------|
 | **-n** {{DT_FILE}}<br> **--net-file** {{DT_FILE}} | Loads SUMO-network FILE as reference to offset and projection |
 | **--dlr-navteq-poly-files** {{DT_FILE}} | Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format |
-| **--dlr-navteq-poi-files** {{DT_FILE}} | Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format |
+| **--dlr-navteq-poi-files** {{DT_FILE}} | Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format |
 | **--visum-files** {{DT_FILE}} | Reads polygons from FILE assuming it's a Visum-net |
 | **--visum.language-file** {{DT_FILE}} | Load language mappings from FILE |
 | **--xml-files** {{DT_FILE}} | Reads pois and shapes from FILE assuming they're coded in XML |
-| **--osm-files** {{DT_FILE}} | Reads pois from FILE+ assuming they're coded in OSM |
+| **--osm-files** {{DT_FILE}} | Reads pois from FILE assuming they're coded in OSM |
 | **--osm.keep-full-type** {{DT_BOOL}} | The type will be made of the key-value - pair; *default:* **false** |
 | **--osm.use-name** {{DT_BOOL}} | The id will be set from the given 'name' attribute; *default:* **false** |
 | **--osm.merge-relations** {{DT_FLOAT}} | If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT; *default:* **-1** |

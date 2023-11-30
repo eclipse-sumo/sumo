@@ -10198,9 +10198,9 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:87
 msgid ""
-"Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
+"Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
-"DLR-Navteq (Elmar)-formatında kodlandıklarını varsayarak DOSYA+'dan poileri "
+"DLR-Navteq (Elmar)-formatında kodlandıklarını varsayarak DOSYA'dan poileri "
 "okur"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:92
@@ -10212,8 +10212,8 @@ msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr "XML'de kodlandıklarını varsayarak DOSYA'dan poi ve şekilleri okur"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:105
-msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr "OSM'de kodlanmış olduklarını varsayarak DOSYA+'dan poileri okur"
+msgid "Reads pois from FILE assuming they're coded in OSM"
+msgstr "OSM'de kodlanmış olduklarını varsayarak DOSYA'dan poileri okur"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"

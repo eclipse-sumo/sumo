@@ -17,11 +17,11 @@
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Loads SUMO-network FILE as reference to offset and projection"/>
         <dlr-navteq-poly-files value="" type="FILE" help="Reads polygons from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
-        <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
+        <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <visum-files value="" synonymes="visum" type="FILE" help="Reads polygons from FILE assuming it&apos;s a Visum-net"/>
         <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <xml-files value="" synonymes="xml" type="FILE" help="Reads pois and shapes from FILE assuming they&apos;re coded in XML"/>
-        <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in OSM"/>
+        <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE assuming they&apos;re coded in OSM"/>
         <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
         <osm.use-name value="false" type="BOOL" help="The id will be set from the given &apos;name&apos; attribute"/>
         <osm.merge-relations value="-1" type="FLOAT" help="If FLOAT &gt;= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"/>

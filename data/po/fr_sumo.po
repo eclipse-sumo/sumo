@@ -9242,7 +9242,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:87
 msgid ""
-"Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
+"Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:92
@@ -9254,7 +9254,7 @@ msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:105
-msgid "Reads pois from FILE+ assuming they're coded in OSM"
+msgid "Reads pois from FILE assuming they're coded in OSM"
 msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:107

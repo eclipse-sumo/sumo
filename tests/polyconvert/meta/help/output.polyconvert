@@ -20,14 +20,14 @@ Input Options:
                                      offset and projection
   --dlr-navteq-poly-files FILE      Reads polygons from FILE assuming they're
                                      coded in DLR-Navteq (Elmar)-format
-  --dlr-navteq-poi-files FILE       Reads pois from FILE+ assuming they're
+  --dlr-navteq-poi-files FILE       Reads pois from FILE assuming they're
                                      coded in DLR-Navteq (Elmar)-format
   --visum-files FILE                Reads polygons from FILE assuming it's a
                                      Visum-net
   --visum.language-file FILE        Load language mappings from FILE
   --xml-files FILE                  Reads pois and shapes from FILE assuming
                                      they're coded in XML
-  --osm-files FILE                  Reads pois from FILE+ assuming they're
+  --osm-files FILE                  Reads pois from FILE assuming they're
                                      coded in OSM
   --osm.keep-full-type              The type will be made of the key-value -
                                      pair
