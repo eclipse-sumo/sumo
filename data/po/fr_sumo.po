@@ -10387,7 +10387,7 @@ msgid "X and Y must be be defined together in POIs"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1720
-msgid "lane and position must be be defined together in POIs"
+msgid "lane and position must be defined together in POIs"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1726

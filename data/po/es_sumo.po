@@ -10759,7 +10759,7 @@ msgid "X and Y must be be defined together in POIs"
 msgstr "X e Y deben definirse juntos en los puntos de interés"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1720
-msgid "lane and position must be be defined together in POIs"
+msgid "lane and position must be defined together in POIs"
 msgstr "carril y posición deben definirse juntos en los puntos de interés"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1726

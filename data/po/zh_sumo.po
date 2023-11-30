@@ -10443,7 +10443,7 @@ msgid "X and Y must be be defined together in POIs"
 msgstr "X 和 Y 必须一起定义于兴趣点(POIs)內"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1720
-msgid "lane and position must be be defined together in POIs"
+msgid "lane and position must be defined together in POIs"
 msgstr "车道和位置必须一起定义于兴趣点(POIs)內"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1726

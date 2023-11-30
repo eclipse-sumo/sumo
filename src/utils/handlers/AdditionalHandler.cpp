@@ -1717,7 +1717,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // check that lane and pos are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) ||
             (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
-        writeError(TL("lane and position must be be defined together in POIs"));
+        writeError(TL("lane and position must be defined together in POIs"));
         parsedOk = false;
     }
     // check that lon and lat are defined together
