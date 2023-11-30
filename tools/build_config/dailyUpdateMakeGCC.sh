@@ -152,6 +152,6 @@ fi
 # Linux x64 wheels
 if test ${FILEPREFIX} == "gcc4_64"; then
   mv dist dist_native  # just as backup
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v0.13.0 > $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.0.4 > $WHEELLOG 2>&1
   cp build_config/$FILEPREFIX/*.whl wheelhouse
 fi
