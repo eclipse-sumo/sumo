@@ -1286,6 +1286,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
+    // check if force drawing for rectangle selection
+    if (myVisualizationSettings->forceDrawForRectangleSelection) {
+        myVisualizationSettings->drawForRectangleSelection = true;
+    }
+    // first step: update objects under cursor
+    updateObjectsUnderCursor(myNet->getViewNet()->getPositionInformation());
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -1295,12 +1301,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
-    // first step: update objects under cursor
-    updateObjectsUnderCursor(myNet->getViewNet()->getPositionInformation());
-    // check if force drawing for rectangle selection
-    if (myVisualizationSettings->forceDrawForRectangleSelection) {
-        myVisualizationSettings->drawForRectangleSelection = true;
-    }
     // visualize rectangular selection
     mySelectingArea.drawRectangleSelection(myVisualizationSettings->colorSettings.selectionColor);
     // draw certain elements only if we aren't in rectangle selection mode
@@ -1345,6 +1345,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // clear pathDraw
     myNet->getPathManager()->getPathDraw()->clearPathDraw();
+    // draw network (boundary
+    myNet->drawGL(*myVisualizationSettings);
     // draw all GL elements
     int hits = drawGLElements(bound);
     // force draw inspected and front elements (due parent/child lines)
@@ -3260,8 +3262,6 @@ GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
     gPostDrawing.clearElements();
     // push matrix
     GLHelper::pushMatrix();
-    // draw back (to avoid overlapping)
-    glTranslated(0, 0, -10);
     // enable draw for object under cursor
     myVisualizationSettings->drawForObjectUnderCursor = true;
     // create an small boundary

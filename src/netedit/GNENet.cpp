@@ -58,6 +58,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
@@ -176,8 +177,9 @@ GNENet::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void
-GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // nothing to drawn
+GNENet::drawGL(const GUIVisualizationSettings& s) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
 }
 
 
