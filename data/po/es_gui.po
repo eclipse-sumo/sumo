@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 14:48+0000\n"
+"PO-Revision-Date: 2023-11-30 13:33+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -1226,7 +1226,7 @@ msgstr "Seleccionar usuarios en conflicto"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
-msgstr ""
+msgstr "Seleccionar pasajeros / contenedores"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
@@ -3613,7 +3613,7 @@ msgstr "Crear elementos edgeRelation."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6859
 msgid "TAZRelation"
-msgstr ""
+msgstr "Relación TAZ"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 msgid "Create TAZRelation elements."
@@ -7527,6 +7527,8 @@ msgstr "el índice del carril saliente (números comienzan con 0)"
 msgid ""
 "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
 msgstr ""
+"si se establece, los vehículos que pasen por esta conexión (carril a carril) "
+"no esperarán"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1449
 msgid ""
@@ -7541,6 +7543,8 @@ msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
 msgstr ""
+"Si se establece en un valor superior a 0, se construirá un cruce interno en "
+"esta posición (en m) desde el inicio del carril interno para esta conexión"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1461
 msgid ""
@@ -7944,7 +7948,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1967
 msgid "Enable or disable lefthand position"
-msgstr ""
+msgstr "Activar o desactivar la posición de lado izquierdo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1980
 msgid "ParkingSpace"
@@ -8206,7 +8210,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2497
 msgid "VariableSpeedSign (lane)"
-msgstr ""
+msgstr "Señal de velocidad variable (carril)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2508
 msgid "VariableSpeedSign Step"
@@ -8304,7 +8308,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2664
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5828
 msgid "End of departure interval"
-msgstr ""
+msgstr "Fin del intervalo de salida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2674
 msgid "The id of the vehicle type to use for this calibrator flow"
@@ -8330,6 +8334,8 @@ msgstr "El ID del rerouter"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2709
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
 msgstr ""
+"Un ID de arista o una lista de IDs de arista a los cuales se deberán desviar "
+"los vehículos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2714
 msgid "X,Y position in editor (Only used in netedit)"
@@ -8368,11 +8374,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2754
 msgid "Rerouter (Edge)"
-msgstr ""
+msgstr "Rerouter (Arista)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2765
 msgid "Rerouter Interval"
-msgstr ""
+msgstr "Intervalo de rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2770
 msgid "Begin"
@@ -8548,7 +8554,7 @@ msgstr "La posición latitudinal del vehículo estacionado en la vista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3139
 msgid "TrafficAssignmentZones"
-msgstr ""
+msgstr "Zonas de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3143
 msgid "The id of the TAZ"
@@ -8597,7 +8603,7 @@ msgstr "Peso de llegada asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3236
 msgid "TractionSubstation"
-msgstr ""
+msgstr "Subestación de tracción"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3240
 msgid "Traction substation ID"
@@ -8613,7 +8619,7 @@ msgstr "Limite actual de la línea de alimentación"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3269
 msgid "WireSection"
-msgstr ""
+msgstr "Sección de catenaria"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3273
 msgid "Overhead wire segment ID"
@@ -8643,7 +8649,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3319
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "Abrazadera aérea para cables"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3323
 msgid "Overhead wire clamp ID"
@@ -8986,7 +8992,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
 msgid "VehicleRoute"
-msgstr ""
+msgstr "Vehículo con ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3868
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
@@ -9017,11 +9023,11 @@ msgstr "El instante de tiempo en el que el vehículo debe entrar a la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "Vehículo con ruta incrustada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3951
 msgid "FlowEdges"
-msgstr ""
+msgstr "Flujo entre aristas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 msgid "The ID of the flow"
@@ -9049,7 +9055,7 @@ msgstr "Lista de IDs de aristas intermedias que deben ser parte del flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3995
 msgid "FlowJunctions"
-msgstr ""
+msgstr "Flujo entre cruces"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4001
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4040
@@ -9067,7 +9073,7 @@ msgstr "El ID del cruce en el que el flujo debe terminar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
 msgid "FlowTAZs"
-msgstr ""
+msgstr "Flujo entre TAZs"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4051
 msgid "The name of the TAZ the flow starts at"
@@ -9082,7 +9088,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4073
 msgid "FlowRoute"
-msgstr ""
+msgstr "Flujo sobre ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4090
 msgid "The id of the route the flow shall drive along"
@@ -9100,7 +9106,7 @@ msgstr "El índice de la arista dentro de la ruta, en la que finaliza el flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4117
 msgid "FlowEmbeddedRoute"
-msgstr ""
+msgstr "Flujo sobre ruta incrustada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4123
 msgid "The name of the flow"
