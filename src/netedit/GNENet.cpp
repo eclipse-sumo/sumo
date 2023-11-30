@@ -1229,35 +1229,32 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     myViewNet = viewNet;
     // add default vTypes
     myAttributeCarriers->addDefaultVTypes();
-    // update geometry of all lanes (needed  for dotted geometry)
+    // update all edge geometries
     for (const auto& edge : myAttributeCarriers->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
-            lane->updateGeometry();
-        }
+        edge.second.second->updateGeometry();
+    }
+    // update view Net and recalculate edge boundaries)
+    myViewNet->update();
+    for (const auto& edge : myAttributeCarriers->getEdges()) {
+        edge.second.second->updateCenteringBoundary(true);
     }
 }
 
 
 void
 GNENet::addGLObjectIntoGrid(GNEAttributeCarrier* AC) {
-    // first check if given object has an associated GUIGlObject
-    if (AC->getGUIGlObject()) {
-        // check if object must be inserted in RTREE
-        if (AC->getTagProperty().isPlacedInRTree()) {
-            myGrid.addAdditionalGLObject(AC->getGUIGlObject());
-        }
+    // check if object must be inserted in RTREE
+    if (AC->getTagProperty().isPlacedInRTree()) {
+        myGrid.addAdditionalGLObject(AC->getGUIGlObject());
     }
 }
 
 
 void
 GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
-    // first check if given object has an associated GUIGlObject
-    if (AC->getGUIGlObject()) {
-        // check if object must be inserted in RTREE
-        if (AC->getTagProperty().isPlacedInRTree()) {
-            myGrid.removeAdditionalGLObject(AC->getGUIGlObject());
-        }
+    // check if object must be inserted in RTREE
+    if (AC->getTagProperty().isPlacedInRTree()) {
+        myGrid.removeAdditionalGLObject(AC->getGUIGlObject());
     }
 }
 

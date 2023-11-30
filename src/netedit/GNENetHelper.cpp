@@ -747,10 +747,6 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->setResponsible(false);
     // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = std::make_pair(edge->getGUIGlObject(), edge);
-    // expand edge boundary
-    myNet->expandBoundary(edge->getCenteringBoundary());
-    // add edge into grid
-    myNet->addGLObjectIntoGrid(edge);
     // insert all lanes
     for (const auto& lane : edge->getLanes()) {
         insertLane(lane);
@@ -761,6 +757,12 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     // update boundaries of both junctions (to remove it from Grid)
     edge->getFromJunction()->updateCenteringBoundary(true);
     edge->getToJunction()->updateCenteringBoundary(true);
+    // update edge boundary
+    edge->updateCenteringBoundary(false);
+    // expand edge boundary
+    myNet->expandBoundary(edge->getCenteringBoundary());
+    // finally add edge into grid
+    myNet->addGLObjectIntoGrid(edge);
     return edge;
 }
 
