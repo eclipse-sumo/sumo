@@ -9310,7 +9310,7 @@ msgid ""
 msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
-msgid "Reads shapes from shapefiles FILE+"
+msgid "Reads shapes from shapefiles FILE"
 msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122

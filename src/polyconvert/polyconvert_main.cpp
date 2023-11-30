@@ -115,7 +115,7 @@ fillOptions() {
     oc.addSynonyme("shapefile-prefixes", "shapefile-prefix");
     oc.addSynonyme("shapefile-prefixes", "shapefile");
     oc.addSynonyme("shapefile-prefixes", "shape-files", true);
-    oc.addDescription("shapefile-prefixes", "Input", TL("Reads shapes from shapefiles FILE+"));
+    oc.addDescription("shapefile-prefixes", "Input", TL("Reads shapes from shapefiles FILE"));
 
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);

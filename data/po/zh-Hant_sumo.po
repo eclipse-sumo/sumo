@@ -9353,8 +9353,8 @@ msgid ""
 msgstr "如果浮點數(FLOAT) >= 0, 且如果它們都以低於 FLOAT 的間距連接, 則從則從關係內的所有路徑(ways)組合一個多邊形"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
-msgid "Reads shapes from shapefiles FILE+"
-msgstr "從形狀檔案(shapefiles FILE+) 讀入形狀"
+msgid "Reads shapes from shapefiles FILE"
+msgstr "從形狀檔案(shapefiles FILE) 讀入形狀"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"

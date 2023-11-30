@@ -10567,7 +10567,7 @@ msgstr ""
 "zusammen, wenn diese eine maximale Lücke FLOAT zum Nachbarweg haben"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
-msgid "Reads shapes from shapefiles FILE+"
+msgid "Reads shapes from shapefiles FILE"
 msgstr "Liest Shapes aus Shapedatei FILE"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122

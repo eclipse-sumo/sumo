@@ -10232,8 +10232,8 @@ msgstr ""
 "ilişkinin tüm yollarından bir poligon oluşturun"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
-msgid "Reads shapes from shapefiles FILE+"
-msgstr "Şekil dosyalarından şekilleri okur DOSYA+"
+msgid "Reads shapes from shapefiles FILE"
+msgstr "Şekil dosyalarından şekilleri okur DOSYA"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"

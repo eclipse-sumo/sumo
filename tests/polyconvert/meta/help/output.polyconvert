@@ -36,7 +36,7 @@ Input Options:
   --osm.merge-relations FLOAT       If FLOAT >= 0, assemble one polygon from
                                      all ways of a relation if they all connect
                                      with gaps below FLOAT
-  --shapefile-prefixes FILE         Reads shapes from shapefiles FILE+
+  --shapefile-prefixes FILE         Reads shapes from shapefiles FILE
   --shapefile.guess-projection      Guesses the shapefile's projection
   --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
   --shapefile.id-column STR         Defines in which column the id can be found
