@@ -1347,8 +1347,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myNet->getPathManager()->getPathDraw()->clearPathDraw();
     // draw all GL elements
     int hits = drawGLElements(bound);
-    // begin post drawing
-    myVisualizationSettings->postDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
     if (!myVisualizationSettings->drawForRectangleSelection) {
         // iterate over all inspected ACs
@@ -1375,10 +1373,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalE1TLSLines();
     // draw temporal lines between junctions in TLS Mode
     drawTemporalJunctionTLSLines();
-    // draw dotted contours
-    drawOverDottedContour();
-    drawDeleteDottedContour();
-    drawSelectDottedContour();
     // draw netedit attributes references
     drawNeteditAttributesReferences();
     // draw test circle
@@ -1395,8 +1389,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     */
     // execute post drawing tasks
     gPostDrawing.executePostDrawingTasks();
-    // end post drawing
-    myVisualizationSettings->postDrawing = false;
     return hits;
 }
 
@@ -1950,72 +1942,26 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
-    // avoid draw in rectangle selection
-    if (myVisualizationSettings->drawForRectangleSelection) {
-        return false;
-    }
-    // check if element is under cursor
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // check if we're in post drawing
-    if (myVisualizationSettings->postDrawing) {
-        // in post-drawing, draw always
-        return true;
-    } else {
-        // check if set as markedElementDeleteContour
-        if ((gPostDrawing.markedElementOverContour == nullptr) ||
-                (GLObject->getType() > gPostDrawing.markedElementOverContour->getType())) {
-            gPostDrawing.markedElementOverContour = GLObject;
-        }
-        // we wan't to draw select contour in this moment
-        return false;
-    }
-}
-
-
-bool
-GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
+GNEViewNet::checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const {
     // check if elemet is blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
         return false;
     }
+    // get front GLObject
+    const auto glObjectFront = myObjectsUnderCursor.getGUIGlObjectFront();
     // check if element is under cursor
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    return true;
-}
-
-
-bool
-GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const {
-    // avoid draw in position/rectangle selection
-    if (myVisualizationSettings->drawForRectangleSelection) {
-        return false;
-    }
-    // check if elemet is blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
-        return false;
-    }
-    // check if element is under cursor
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // check if we're in post drawing
-    if (myVisualizationSettings->postDrawing) {
-        // in post-drawing, draw always
-        return true;
-    } else {
-        // check if set as markedElementSelectContour
-        if ((gPostDrawing.markedElementSelectContour == nullptr) ||
-                (GLObject->getType() > gPostDrawing.markedElementSelectContour->getType())) {
-            gPostDrawing.markedElementSelectContour = GLObject;
+    if (glObjectFront) {
+        if (glObjectFront == GLObject) {
+            return true;
+        } else if (glObjectFront->getType() == GLObject->getType()) {
+            for (const auto &glObjectUnderCursor : myObjectsUnderCursor.getClickedGLObjects()) {
+                if (glObjectUnderCursor == GLObject){
+                    return true;
+                }
+            }
         }
-        // we wan't to draw select contour in this moment
-        return false;
     }
+    return false;
 }
 
 
@@ -5525,77 +5471,6 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         }
         // pop layer matrix
         GLHelper::popMatrix();
-    }
-}
-
-
-void
-GNEViewNet::drawOverDottedContour() {
-    // first check if there is a markedElementOverContour
-    if (gPostDrawing.markedElementOverContour) {
-        // check if is a basic GLObject or a path element
-        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementOverContour);
-        if (pathElement != nullptr) {
-            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
-        } else {
-            gPostDrawing.markedElementOverContour->drawGL(*myVisualizationSettings);
-        }
-    }
-}
-
-
-void
-GNEViewNet::drawDeleteDottedContour() {
-    // first check if there is a markedElementDeleteContour
-    if (gPostDrawing.markedElementDeleteContour) {
-        // check if is a basic GLObject or a path element
-        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementDeleteContour);
-        if (pathElement != nullptr) {
-            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
-        } else {
-            gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
-        }
-        // iterate over all objects under cursor
-        for (const auto& objectUnderCursor : gPostDrawing.getElementsUnderCursor()) {
-            // compare objectUnderCursor and markedElementsDeleteContour types
-            if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
-                // check if is a normalGLObject or a path element
-                pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
-                if (pathElement != nullptr) {
-                    myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
-                } else {
-                    objectUnderCursor->drawGL(*myVisualizationSettings);
-                }
-            }
-        }
-    }
-}
-
-
-void
-GNEViewNet::drawSelectDottedContour() {
-    // first check if there is a markedElementSelectContour
-    if (gPostDrawing.markedElementSelectContour) {
-        // check if is a basic GLObject or a path element
-        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementSelectContour);
-        if (pathElement != nullptr) {
-            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
-        } else {
-            gPostDrawing.markedElementSelectContour->drawGL(*myVisualizationSettings);
-        }
-        // iterate over all objects under cursor
-        for (const auto& objectUnderCursor : gPostDrawing.getElementsUnderCursor()) {
-            // compare objectUnderCursor and markedElementsSelectContour types
-            if (objectUnderCursor->getType() == gPostDrawing.markedElementSelectContour->getType()) {
-                // check if is a normalGLObject or a path element
-                pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
-                if (pathElement != nullptr) {
-                    myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
-                } else {
-                    objectUnderCursor->drawGL(*myVisualizationSettings);
-                }
-            }
-        }
     }
 }
 

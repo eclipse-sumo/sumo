@@ -30,13 +30,9 @@ void
 GUIPostDrawing::clearElements() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
-    myGLObjectsToUpdate.clear();
     // clear objects under cursor
     myElementsUnderCursor.clear();
     // reset marked elements
-    markedElementOverContour = nullptr;
-    markedElementDeleteContour = nullptr;
-    markedElementSelectContour = nullptr;
     markedEdge = nullptr;
     markedLane = nullptr;
     markedTAZ = nullptr;
@@ -51,14 +47,6 @@ GUIPostDrawing::executePostDrawingTasks() {
     // udate AC geometries
     for (const auto& GLObject : myGLObjectsToUpdate) {
         GLObject->updateGLObject();
-    }
-}
-
-
-void
-GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
-    if (GLObject) {
-        myGLObjectsToUpdate.push_back(GLObject);
     }
 }
 

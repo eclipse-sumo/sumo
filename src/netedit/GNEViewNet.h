@@ -525,14 +525,8 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
-    /// @brief check if draw over contour
-    bool checkDrawOverContour(const GUIGlObject* GLObject) const;
-
-    /// @brief check if draw delete contour
-    bool checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const;
-
-    /// @brief check if draw select contour
-    bool checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const;
+    /// @brief check if given element is locked (used for drawing select and delete contour)
+    bool checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const;
 
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
@@ -807,15 +801,6 @@ private:
 
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
-
-    /// @brief draw over dotted contours
-    void drawOverDottedContour();
-
-    /// @brief draw delete dotted contours
-    void drawDeleteDottedContour();
-
-    /// @brief draw select dotted contours
-    void drawSelectDottedContour();
 
     /// @brief draw circle in testing mode (needed for grid)
     void drawNeteditAttributesReferences();

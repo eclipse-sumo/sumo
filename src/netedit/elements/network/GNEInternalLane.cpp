@@ -126,7 +126,7 @@ GNEInternalLane::checkDrawRelatedContour() const {
 
 bool
 GNEInternalLane::checkDrawOverContour() const {
-     return myNet->getViewNet()->checkDrawOverContour(this);
+    return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
 }
 
 

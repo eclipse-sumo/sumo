@@ -188,7 +188,7 @@ GNEDemandElement::checkDrawOverContour() const {
             const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over route
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleRoute()) {
-                return myNet->getViewNet()->checkDrawOverContour(this);
+                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
             }
         } else if (modes.isCurrentSupermodeDemand()) {
             // check if we're in person or personPlan modes
@@ -196,7 +196,7 @@ GNEDemandElement::checkDrawOverContour() const {
                     ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markRoutes()) ||
                     ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markRoutes()) ||
                     ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markRoutes())) {
-                return myNet->getViewNet()->checkDrawOverContour(this);
+                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
             }
         }
     }
@@ -210,7 +210,7 @@ GNEDemandElement::checkDrawDeleteContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
-        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }
@@ -223,7 +223,7 @@ GNEDemandElement::checkDrawSelectContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_SELECT)) {
-        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }

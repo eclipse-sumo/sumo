@@ -128,7 +128,7 @@ GNEGenericData::checkDrawDeleteContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeData() && (editModes.dataEditMode == DataEditMode::DATA_DELETE)) {
-        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }
@@ -141,7 +141,7 @@ GNEGenericData::checkDrawSelectContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeData() && (editModes.dataEditMode == DataEditMode::DATA_SELECT)) {
-        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }

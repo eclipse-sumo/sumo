@@ -295,7 +295,7 @@ GNEJunction::checkDrawOverContour() const {
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markJunctions()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markJunctions()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markJunctions())) {
-            return myNet->getViewNet()->checkDrawOverContour(this);
+            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
         }
     }
     return false;
@@ -308,7 +308,7 @@ GNEJunction::checkDrawDeleteContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }
@@ -321,7 +321,7 @@ GNEJunction::checkDrawSelectContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }

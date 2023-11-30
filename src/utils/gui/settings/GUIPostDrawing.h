@@ -48,9 +48,6 @@ public:
     /// @brief execute post drawing tasks
     void executePostDrawingTasks();
 
-    /// @brief mark GLObject to update (usually the geometry)
-    void markGLObjectToUpdate(GUIGlObject* GLObject);
-
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
@@ -65,15 +62,6 @@ public:
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
-
-    /// @brief elements marked for drawing over contour (used in netedit)
-    const GUIGlObject* markedElementOverContour;
-
-    /// @brief elements marked for drawing delete contour (used in netedit)
-    const GUIGlObject* markedElementDeleteContour;
-
-    /// @brief elements marked for drawing select contour (used in netedit)
-    const GUIGlObject* markedElementSelectContour;
 
     /// @brief marked edge (used in create edge mode, for splitting)
     const GNEEdge* markedEdge = nullptr;

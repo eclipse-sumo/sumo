@@ -277,7 +277,7 @@ GNEEdge::checkDrawOverContour() const {
         const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to edges
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
-            return myNet->getViewNet()->checkDrawOverContour(this);
+            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
@@ -285,7 +285,7 @@ GNEEdge::checkDrawOverContour() const {
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markEdges()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markEdges())) {
-            return myNet->getViewNet()->checkDrawOverContour(this);
+            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
         }
     }
     return false;
@@ -298,7 +298,7 @@ GNEEdge::checkDrawDeleteContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }
@@ -311,7 +311,7 @@ GNEEdge::checkDrawSelectContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
     } else {
         return false;
     }
