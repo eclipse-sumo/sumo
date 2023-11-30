@@ -541,24 +541,24 @@ GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel 
             drawFilledCircle(radius, 32);
             break;
         case GUIVisualizationSettings::DetailLevel::Level1:
-            drawFilledCircle(radius, 8);
+            drawFilledCircle(radius, 16);
             break;
         case GUIVisualizationSettings::DetailLevel::Level2:
+            drawFilledCircle(radius, 8);
+            break;
+        default:
             // draw only a square
             GLHelper::pushMatrix();
             glBegin(GL_QUADS);
-            glVertex2d(-radius, radius);
-            glVertex2d(-radius, -radius);
-            glVertex2d(radius, -radius);
-            glVertex2d(radius, radius);
+                glVertex2d(-radius, radius);
+                glVertex2d(-radius, -radius);
+                glVertex2d(radius, -radius);
+                glVertex2d(radius, radius);
             glEnd();
             GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
             myVertexCounter += 4;
 #endif
-            break;
-        default:
-            // nothing to draw
             break;
     }
 }
