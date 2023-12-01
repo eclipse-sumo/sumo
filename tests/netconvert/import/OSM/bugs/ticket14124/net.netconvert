@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-01 16:51:45 by Eclipse SUMO netconvert Version v1_19_0+0278-73271c2eb99
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <formats>
+        <osm.bike-access value="true"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-398641.20,-5814694.50" convBoundary="0.00,0.00,138.06,216.90" origBoundary="13.507667,52.473015,13.509758,52.474937" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+
+    <edge id="1119385764" from="5061820386" to="244157475" priority="11" type="highway.secondary" spreadType="center" shape="138.06,0.27 45.20,146.38 0.42,216.90">
+        <lane id="1119385764_0" index="0" allow="pedestrian bicycle" speed="13.89" length="256.66" width="1.00" shape="139.41,1.13 46.55,147.24 1.77,217.76"/>
+        <lane id="1119385764_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="256.66" shape="137.64,0.00 44.78,146.11 -0.00,216.64"/>
+    </edge>
+
+    <junction id="244157475" type="dead_end" x="0.00" y="216.64" incLanes="1119385764_0 1119385764_1" intLanes="" shape="2.19,218.03 -1.35,215.78"/>
+    <junction id="5061820386" type="dead_end" x="137.64" y="0.00" incLanes="" intLanes="" shape="136.29,-0.86 139.83,1.39"/>
+
+</net>

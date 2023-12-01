@@ -105,3 +105,6 @@ ticket13217
 
 # bad join and also turn around not detected (#13238)
 ticket13237
+
+# foot=yes with sidewalk=no
+ticket14124
