@@ -212,10 +212,9 @@ GNECrossing::getNBCrossing() const {
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag
-    bool drawLowDetail = false;
     bool drawExtremeSymbols = false;
     // continue depending of drawCrossing flag
-    if (checkDrawCrossing(s, drawLowDetail, drawExtremeSymbols)) {
+    if (checkDrawCrossing(s)) {
         // get NBCrossing
         const auto NBCrossing = getNBCrossing();
         // get scaling depending if attribute carrier is selected
@@ -224,8 +223,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         const double crossingWidth = NBCrossing->width * 0.5 * selectionScale;
         // get detail level
         const auto d = s.getDetailLevel(selectionScale);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        // check if draw geometry
+        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Crossing)) {
             // get color
             RGBColor crossingColor = getCrossingColor(s, NBCrossing);
             // don't draw crossing in TLS Mode (but draw the TLS links)
@@ -239,14 +238,19 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(crossingColor);
                 // draw depending of level of detail
-                if (drawLowDetail) {
-                    GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
-                } else {
+                if (d <= GUIVisualizationSettings::Detail::CrossingDetails) {
                     drawCrossingDetailed(selectionScale, crossingWidth);
+                } else {
+                    GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
                 }
                 // draw shape points only in Network supemode
                 if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                     s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius)) {
+                    // get edit modes
+                    const auto& editModes = myNet->getViewNet()->getEditModes();
+                    // check if draw start und end
+                    const bool drawExtremeSymbols = editModes.isCurrentSupermodeNetwork() &&
+                        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
                     // color
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points
@@ -506,31 +510,20 @@ GNECrossing::checkEdgeBelong(const std::vector<GNEEdge*>& edges) const {
 
 
 bool
-GNECrossing::checkDrawCrossing(const GUIVisualizationSettings& s, bool& drawLowDetail, bool& drawExtremeSymbols) const {
-    // get edit modes
-    const auto& editModes = myNet->getViewNet()->getEditModes();
-    // check draw detail
-    if ((s.scale < 3.0) || s.drawForRectangleSelection) {
-        drawLowDetail = false;
-    }
-    // check if draw start und end
-    drawExtremeSymbols = editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
-    // declare flag for drawing crossing
-    bool drawCrossing = s.drawCrossingsAndWalkingareas;
+GNECrossing::checkDrawCrossing(const GUIVisualizationSettings& s) const {
     // don't draw in supermode data
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        drawCrossing = false;
+        return false;
     }
     // check shape rotations
     if (myCrossingGeometry.getShapeRotations().empty()) {
-        drawCrossing = false;
+        return false;
     }
     // check shape lengths
     if (myCrossingGeometry.getShapeLengths().empty()) {
-        drawCrossing = false;
+        return false;
     }
-    return drawCrossing;
+    return s.drawCrossingsAndWalkingareas;
 }
 
 

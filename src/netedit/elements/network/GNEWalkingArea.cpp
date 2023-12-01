@@ -153,11 +153,12 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // get walking area shape
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
-    if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
+    if ((myParentJunction->getNBNode()->getShape().area() > 4) &&
+            (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // get detail level
-        const auto d = s.getDetailLevel(1);
+        const auto d = s.getDetailLevel(walkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::WalkingArea)) {
             // set shape color
             const RGBColor walkingAreaColor = myShapeEdited ? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
             // adjust shape to exaggeration
@@ -169,11 +170,10 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 myTesselation.myTesselation.clear();
             }
             // check if draw walking area tesselated or contour
-            if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                    (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
-                drawTesselatedWalkingArea(s, d, walkingAreaExaggeration, walkingAreaColor);
-            } else {
+            if (drawInContourMode()) {
                 drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
+            } else {
+                drawTesselatedWalkingArea(s, d, walkingAreaExaggeration, walkingAreaColor);
             }
             // draw walkingArea name
             if (s.cwaEdgeName.show(this)) {
@@ -321,6 +321,22 @@ GNEWalkingArea::getACParametersMap() const {
 // private
 // ===========================================================================
 
+bool
+GNEWalkingArea::drawInContourMode() const {
+    const auto &modes = myNet->getViewNet()->getEditModes();
+    // check modes
+    if (!modes.isCurrentSupermodeNetwork()) {
+        return false;
+    } else if (modes.networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+        return false;
+    } else if (modes.networkEditMode != NetworkEditMode::NETWORK_CONNECT) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 void
 GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const double exaggeration, const RGBColor& color) const {
@@ -335,7 +351,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     // set color
     GLHelper::setColor(color);
     // check if draw polygon or tesselation
-    if (true /*temporal */) {
+    if (d <= GUIVisualizationSettings::Detail::WalkingAreaDetails) {
         // draw shape with high detail
         myTesselation.drawTesselation(myTesselation.getShape());
     } else {
@@ -343,7 +359,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
         GLHelper::drawFilledPoly(myTesselation.getShape(), true);
     }
     // draw shape points only in Network supemode
-    if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+    if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius)) {
         // color
         const RGBColor darkerColor = color.changedBrightness(-32);
         // draw geometry points

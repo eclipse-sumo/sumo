@@ -201,7 +201,7 @@ protected:
 
 private:
     /// @brief check if draw crossing
-    bool checkDrawCrossing(const GUIVisualizationSettings& s, bool &drawLowDetail, bool &drawExtremeSymbols) const;
+    bool checkDrawCrossing(const GUIVisualizationSettings& s) const;
 
     /// @brief get crossing color
     RGBColor getCrossingColor(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const;

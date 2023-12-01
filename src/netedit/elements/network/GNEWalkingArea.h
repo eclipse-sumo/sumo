@@ -179,6 +179,9 @@ protected:
     GNEContour myInnenContour;
 
 private:
+    /// @brief check if draw walking area in contour mode
+    bool drawInContourMode() const;
+
     /// @brief draw tesselated walking area
     void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                    const double exaggeration, const RGBColor& color) const;
