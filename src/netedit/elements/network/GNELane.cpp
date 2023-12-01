@@ -584,7 +584,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const LaneDrawingConstants laneDrawingConstants(s, this);
     // get detail level
     const auto d = s.getDetailLevel(laneDrawingConstants.exaggeration);
-    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    // check drawing conditions
     if (!s.drawForObjectUnderCursor) {
         // Push edge parent name
         GLHelper::pushName(myParentEdge->getGlID());
@@ -1295,7 +1295,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s, const GUIVisualizati
         // color
         const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // Pop shape edited matrix
         GLHelper::popMatrix();

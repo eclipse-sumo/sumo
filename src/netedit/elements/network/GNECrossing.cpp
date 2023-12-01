@@ -254,7 +254,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // color
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, d, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
                                                     s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                     // draw moving hint

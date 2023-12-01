@@ -1683,7 +1683,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
         // draw shape
         GUIGeometry::drawGeometry(s, mousePos, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
         // draw moving hint
