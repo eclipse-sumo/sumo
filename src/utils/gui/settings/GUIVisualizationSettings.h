@@ -547,8 +547,7 @@ public:
             LaneDetails = 0,    // offset, icons, indicators...
             Text = 0,
             VehiclePoly = 0,
-            CrossingDetails = 0,
-            WalkingAreaDetails = 0,
+            JunctionElementDetails = 0,
 
         Level1 = 1,     // circle resolution = 8, polygons, no lane details
             CircleResolution16 = 1,
@@ -556,8 +555,7 @@ public:
             VehicleBox = 1,
             AdditionalDetails = 1,  // stoppingPlace signs, EntryExit arrows...
             GeometryPoint = 1,
-            Crossing = 1,
-            WalkingArea = 1,
+            JunctionElement = 1,    // crossings, walking area, connections and internal lanes
 
         Level2 = 2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
             CircleResolution8 = 2,
@@ -571,11 +569,11 @@ public:
 
         Level3 = 3,
             CircleResolutionSquare = 3,
-            DrawPolygonBoundary = 3,
             LaneSimple = 3,
 
         Level4 = 4,
             LaneSimpleOnlyFirst = 4,
+            DrawPolygonBoundary = 4,
     };
 
     /// @brief constructor

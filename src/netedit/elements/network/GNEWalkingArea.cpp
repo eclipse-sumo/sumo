@@ -158,7 +158,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(walkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::WalkingArea)) {
+        if (!s.drawForObjectUnderCursor) {
             // set shape color
             const RGBColor walkingAreaColor = myShapeEdited ? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
             // adjust shape to exaggeration
@@ -351,7 +351,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     // set color
     GLHelper::setColor(color);
     // check if draw polygon or tesselation
-    if (d <= GUIVisualizationSettings::Detail::WalkingAreaDetails) {
+    if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
         // draw shape with high detail
         myTesselation.drawTesselation(myTesselation.getShape());
     } else {

@@ -224,7 +224,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(selectionScale);
         // check if draw geometry
-        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Crossing)) {
+        if (!s.drawForObjectUnderCursor) {
             // get color
             RGBColor crossingColor = getCrossingColor(s, NBCrossing);
             // don't draw crossing in TLS Mode (but draw the TLS links)
@@ -238,7 +238,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(crossingColor);
                 // draw depending of level of detail
-                if (d <= GUIVisualizationSettings::Detail::CrossingDetails) {
+                if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
                     drawCrossingDetailed(selectionScale, crossingWidth);
                 } else {
                     GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
