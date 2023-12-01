@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-30 13:09+0000\n"
+"PO-Revision-Date: 2023-12-01 10:58+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1905,6 +1905,8 @@ msgstr "Habilitar comprobación de colisiones en cruces"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:395
 msgid "Increase or decrease sensitivity for junction collision check"
 msgstr ""
+"Aumentar o disminuir la sensibilidad para la verificación de colisiones en "
+"cruces"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:398
 msgid ""
@@ -2009,20 +2011,24 @@ msgstr ""
 msgid ""
 "Allow inserting a vehicle in a situation which requires emergency braking"
 msgstr ""
+"Permitir insertar un vehículo en una situación que requiera un frenado de "
+"emergencia"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:452
 msgid ""
 "Each vehicle receives a random offset to its depart value drawn uniformly "
 "from [0, TIME]"
 msgstr ""
+"Cada vehículo recibe un offset aleatorio de su valor de salida extraído "
+"uniformemente de [0, TIME]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:455
 msgid "Duration of a lane change maneuver (default 0)"
-msgstr ""
+msgstr "Duración de una maniobra de cambio de carril (por defecto 0)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:458
 msgid "Whether overtaking on the right on motorways is permitted"
-msgstr ""
+msgstr "Si está permitido o no adelantar por la derecha en las autopistas"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:461
 msgid "Switches off all traffic lights."
@@ -2046,7 +2052,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:476
 msgid "Minimum deceleration when braking at yellow"
-msgstr ""
+msgstr "Desaceleración mínima al frenar en amarillo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:479
 msgid "Let railsignals operate in moving-block mode by default"
@@ -2057,6 +2063,9 @@ msgid ""
 "Specify how long a vehicle may wait until impatience grows from 0 to 1, "
 "defaults to 300, non-positive values disable impatience growth"
 msgstr ""
+"Especificar cuánto tiempo puede esperar un vehículo hasta que la impaciencia "
+"aumente de 0 a 1, el valor predeterminado es 300, los valores no positivos "
+"desactivan el crecimiento de la impaciencia"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:485
 msgid ""
@@ -2115,12 +2124,16 @@ msgid ""
 "Sets the fraction of emergency decel capability that must be used to trigger"
 " a warning."
 msgstr ""
+"Establece la fracción de la capacidad de desaceleración de emergencia que se "
+"debe utilizar para activar una advertencia."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:510
 msgid ""
 "Whether parking simulation includes maneuvering time and associated lane "
 "blocking"
 msgstr ""
+"Si la simulación de estacionamiento incluye el tiempo de maniobra y el "
+"bloqueo de carril asociado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:513
 msgid "Override stop until times with stop ended times when given"
@@ -2134,6 +2147,8 @@ msgstr ""
 msgid ""
 "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
 msgstr ""
+"Seleccionar entre modelos de peatones ['nonInteracting', 'striping', "
+"'remote']"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:523
 msgid ""
@@ -2144,6 +2159,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:526
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
 msgstr ""
+"Factor de desaceleración aleatoria [0,1] para usar con el modelo 'striping'"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:529
 msgid ""
@@ -2192,6 +2208,8 @@ msgstr ""
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the walkingarea"
 msgstr ""
+"Generar INT puntos intermedios para suavizar los carriles dentro de las "
+"áreas peatonales"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "The update interval of the JuPedSim simulation (in seconds)"
@@ -2200,7 +2218,7 @@ msgstr "El intervalo de actualización de la simulación JuPedSim (en segundos)"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid ""
 "The distance to the destination point considered as arrival (in meters)"
-msgstr ""
+msgstr "La distancia al punto de destino considerado como llegada (en metros)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid ""
@@ -2231,6 +2249,8 @@ msgid ""
 "When set, trips between the same origin and destination will share a taxi by"
 " default"
 msgstr ""
+"Si se establece, los viajes entre el mismo origen y destino compartirán un "
+"taxi de forma predeterminada"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:614
 msgid "Replay exact rerouting sequence from vehroute-output"
@@ -2248,7 +2268,7 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:136
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:126
 msgid "Determines where to load PHEMlight definitions from"
-msgstr ""
+msgstr "Determina desde dónde cargar las definiciones de PHEMlight"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:625
 #: C:\Repos\sumo/src\router\ROFrame.cpp:93
@@ -2263,6 +2283,8 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:132
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
 msgstr ""
+"Establecer la temperatura ambiente, para corregir las emisiones de NOx en "
+"PHEMlight5"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:637
 msgid "Disable performance reports for individual simulation steps"
@@ -2270,7 +2292,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:640
 msgid "Enable statistics on vehicle trips"
-msgstr ""
+msgstr "Habilitar estadísticas sobre viajes en vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:643
 msgid "Disable console output of current simulation step"
@@ -2278,15 +2300,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:646
 msgid "Number of simulation steps between step-log outputs"
-msgstr ""
+msgstr "Número de pasos de simulación entre salidas de registro de pasos"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:651
 msgid "Enables TraCI Server if set"
-msgstr ""
+msgstr "Habilita el servidor TraCI si está configurado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:653
 msgid "Expected number of connecting clients"
-msgstr ""
+msgstr "Número esperado de clientes conectados"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:657
 msgid "Enables mesoscopic simulation"
@@ -2294,7 +2316,7 @@ msgstr "Habilita la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:659
 msgid "Length of an edge segment in mesoscopic simulation"
-msgstr ""
+msgstr "Longitud de un segmento de arista en la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:661
 msgid "Factor for calculating the net free-free headway time"
@@ -2314,11 +2336,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:672
 msgid "Enable multiple queues at edge ends"
-msgstr ""
+msgstr "Habilitar varias filas en los extremos de arista"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:674
 msgid "Enable separate queues for every lane"
-msgstr ""
+msgstr "Habilitar filas separadas para cada carril"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:676
 msgid ""
@@ -2345,39 +2367,40 @@ msgstr "Cargar configuración de visualización desde archivo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:710
 msgid "Quits the GUI when the simulation stops"
-msgstr ""
+msgstr "Cerrar la interfaz gráfica cuando la simulación se detenga"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:713
 msgid "Start the GUI in gaming mode"
-msgstr ""
+msgstr "Iniciar la interfaz gráfica en modo de juego"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:716
 msgid "Select the game type ('tls', 'drt')"
-msgstr ""
+msgstr "Seleccionar el tipo de juego ('tls', 'drt')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:719
 msgid "Start the simulation after loading"
-msgstr ""
+msgstr "Iniciar la simulación después de cargar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:722
 msgid "Use FLOAT in ms as delay between simulation steps"
-msgstr ""
+msgstr "Usar FLOAT (en ms) como retardo entre los pasos de simulación"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:725
 msgid "Use TIME[] as times when the simulation should halt"
-msgstr ""
+msgstr "Usar TIME[] como momentos en los que la simulación deberá pararse"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:729
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr ""
+msgstr "Cargar pesos de arista/carril para visualización desde FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:732
 msgid "Load a secondary road network for abstract visualization from FILE"
 msgstr ""
+"Cargar una red de vial secundaria para visualización abstracta desde FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:735
 msgid "Restart the simulation after ending (demo mode)"
-msgstr ""
+msgstr "Reiniciar la simulación después de finalizar (modo demo)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:738
 msgid "Do not load background pictures"
@@ -2401,7 +2424,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:754
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
-msgstr ""
+msgstr "Comenzar con una vista OpenSceneGraph en lugar de la vista 2D normal"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:759
 msgid "Enable overlay for screen recognition"
@@ -2414,6 +2437,8 @@ msgstr "Habilitar mensajes de salida durante la prueba de GUI"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:767
 msgid "Save gui settings in the given settings output file"
 msgstr ""
+"Guardar la configuración de la interfaz gráfica en el archivo de salida "
+"proporcionado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:818
 msgid "No network file (-n) specified."
@@ -2429,20 +2454,21 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:838
 msgid "You can either restart or quit on end."
-msgstr ""
+msgstr "Puede reiniciar o salir definitivamente al finalizar."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:843
 msgid ""
 "The option 'meso-junction-control.limited' implies 'meso-junction-control'."
 msgstr ""
+"La opción 'meso-junction-control.limited' implica 'meso-junction-control'."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:861
 msgid "The begin time should not be negative."
-msgstr ""
+msgstr "El tiempo de inicio no debe ser negativo."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:871
 msgid "The end time should be after the begin time."
-msgstr ""
+msgstr "El tiempo de finalización debe ser posterior al tiempo de inicio."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:876
 msgid "the minimum step-length is 0.001"
@@ -2463,33 +2489,42 @@ msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
 msgstr ""
+"La opción 'sloppy-insert' está en desuso, porque ahora está activada de "
+"forma predeterminada, consulte la nueva opción 'eager-insert'."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:911
 msgid ""
 "Only one of the options 'lanechange.duration' or 'lateral-resolution' may be"
 " given."
 msgstr ""
+"Sólo se puede dar una de las opciones 'lanechange.duration' o 'lateral-"
+"resolution'."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:915
 msgid "Sublane dynamics are not supported by mesoscopic simulation"
 msgstr ""
+"Las dinámicas de subcarril no son compatibles con la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:919
 msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
 msgstr ""
+"La opción 'ignore-accidents' está obsoleta. Utilice 'collision.action none' "
+"en su lugar."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:932
 msgid ""
 "The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
 "unfinished."
 msgstr ""
+"La opción tripinfo-output.write-undeparted implica tripinfo-output.write-"
+"unfinished."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:954
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr ""
+msgstr "Modelo desconocido '%' para la opción 'carfollow.model'."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:963
 #, c-format
@@ -2497,6 +2532,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'"
 msgstr ""
+"Valor no válido '%' para la opción 'default.emergencydecel'. Debe ser un "
+"FLOAT, 'default' o 'decel'"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:969
 msgid "You need a non-negative delay."
@@ -2504,11 +2541,11 @@ msgstr "Se necesita un retardo no negativo."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:982
 msgid "Parallel simulation is only possible when compiled with Fox."
-msgstr ""
+msgstr "La simulación paralela sólo es posible cuando se compila con Fox."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:987
 msgid "You need at least one thread."
-msgstr ""
+msgstr "Se necesita al menos un hilo."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:991
 msgid ""
@@ -2518,13 +2555,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:994
 msgid "game.mode must be one of ['tls', 'drt']"
-msgstr ""
+msgstr "game.mode debe ser uno de ['tls', 'drt']"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:1001
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
 msgstr ""
+"Opción de transferencia no válida '%'. Debe ser ya sea 'parkingAreas', "
+"'ptStops' o 'allJunctions'"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:1060
 msgid ""
@@ -2536,12 +2575,12 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
-msgstr ""
+msgstr "Ya existe otro vehículo con el ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr ""
+msgstr "El cruce interno % no tiene carriles entrantes"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:324
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
@@ -2554,7 +2593,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:783
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
-msgstr ""
+msgstr "El vehículo '%' se inserta en una situación de emergencia."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:789
 msgid "Vehicle '%' will not be able to depart using the given velocity (%)!"
