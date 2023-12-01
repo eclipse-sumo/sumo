@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-28 15:20+0000\n"
+"PO-Revision-Date: 2023-12-01 11:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9272,22 +9272,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3622
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3576
 msgid "The number of containers the vehicle can transport"
-msgstr ""
+msgstr "Il numero di contenitori che il veicolo può trasportare"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3627
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3581
 msgid "The time required by a person to board the vehicle"
-msgstr ""
+msgstr "Il tempo richiesto di una persona per salire sul veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3633
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3587
 msgid "The time required to load a container onto the vehicle"
-msgstr ""
+msgstr "Il tempo richiesto per caricare un contenitore sul veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3639
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3593
 msgid "The preferred lateral alignment when using the sublane-model"
-msgstr ""
+msgstr "La posizione laterale preferita quando si usa il modello sublane"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3646
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3600
@@ -9295,11 +9295,13 @@ msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
 msgstr ""
+"La distanza laterale minima a una velocità relativa di 50km/h quando si usa "
+"il modello sublane"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3652
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3606
 msgid "The maximum lateral speed when using the sublane-model"
-msgstr ""
+msgstr "La velocità laterale massima quando si usa il modello sublane"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3658
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3612
@@ -9314,36 +9316,38 @@ msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
 msgstr ""
+"La probabilità usata quando l'elemento viene aggiunto ad una distribuzione "
+"senza specificare la probabilità esplicitamente"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3670
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
 msgid "3D model file for this class"
-msgstr ""
+msgstr "File 3D da usare per questa classe"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3675
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3629
 msgid "Carriage lengths"
-msgstr ""
+msgstr "Lunghezze delle carrozze"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3680
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3634
 msgid "Locomotive lengths"
-msgstr ""
+msgstr "Lunghezze dei locomotori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3685
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3639
 msgid "Gap between carriages"
-msgstr ""
+msgstr "Distanza tra due carrozze"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3706
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3659
 msgid "VehicleTypeDistribution"
-msgstr ""
+msgstr "Distribuzione di tipi di veicoli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3711
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3664
 msgid "The id of VehicleType distribution"
-msgstr ""
+msgstr "Il codice identificativo della distribuzione di tipi di veicoli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3731
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3683
@@ -9353,7 +9357,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3737
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3689
 msgid "The ID of trip"
-msgstr ""
+msgstr "Il codice identificativo della corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3742
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3789
@@ -9362,22 +9366,23 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3740
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3781
 msgid "The id of the vehicle type to use for this trip"
-msgstr ""
+msgstr "Il codice identificativo del tipo di veicolo da usare per questa corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3700
 msgid "The ID of the edge the trip starts at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove comincia la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3753
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3705
 msgid "The ID of the edge the trip ends at"
-msgstr ""
+msgstr "Il codice identificativo dell'arco dove termina la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3758
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3710
 msgid "List of intermediate edge ids which shall be part of the trip"
 msgstr ""
+"Elenco di codici identificativi di archi intermedi da passare nella corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3766
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3808
@@ -9389,11 +9394,13 @@ msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
 msgstr ""
+"L'ora di partenza della (prima) corsa creata usando questa definizione di "
+"corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3778
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3729
 msgid "TripJunctions"
-msgstr ""
+msgstr "Corsa tra incroci"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3784
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3826
@@ -9415,7 +9422,7 @@ msgstr "Il nome dell'incrocio dove termina la corsa"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3820
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3770
 msgid "TripTAZs"
-msgstr ""
+msgstr "Corsa tra zone di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3837
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3787
