@@ -108,7 +108,7 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
             agent_parameters.radius = 0.25 * (type.getLength() + type.getWidth());
         }
     }
-    agent_parameters.v0 = MIN2(type.getMaxSpeed(), type.getDesiredMaxSpeed());
+    agent_parameters.v0 = state->getPerson()->getMaxSpeed();
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
