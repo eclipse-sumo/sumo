@@ -1180,7 +1180,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, co
         const bool mouseOverPos = gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), pos,
                                                                     s.neteditSizeSettings.additionalGeometryPointRadius);
         // check if draw geometry point
-        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Level3)) {
+        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
             // push matrix
             GLHelper::pushMatrix();
             // translated to front

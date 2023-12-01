@@ -1041,13 +1041,11 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizat
     glTranslated(0, exaggeration * 0.5, 0);
     // draw stop front
     GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, width);
-    // move to "S" position
+    // move to symbol position
     glTranslated(0, 1, 0.1);
-    // only draw text if isn't being drawn for selecting
-    if (s.drawForRectangleSelection) {
-        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else if (d <= GUIVisualizationSettings::Detail::Level2) {
-        // draw "S" symbol
+    // draw text depending of detail
+    if (d <= GUIVisualizationSettings::Detail::Text) {
+        // draw symbol
         GLHelper::drawText(myTagProperty.isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, color, 180);
         // move to subtitle position
         glTranslated(0, 1.4, 0);
@@ -1061,6 +1059,8 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizat
             // draw index
             GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, color, 180);
         }
+    } else {
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     }
     // pop detail matrix
     GLHelper::popMatrix();
@@ -1075,7 +1075,7 @@ GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIV
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
     GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
     // only draw text if isn't being drawn for selecting
-    if (drawIndex() && (d <= GUIVisualizationSettings::Detail::Level2)) {
+    if ((d <= GUIVisualizationSettings::Detail::Text) && drawIndex()) {
         // Add a detail matrix
         GLHelper::pushMatrix();
         // move to geometry front

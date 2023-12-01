@@ -330,7 +330,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // pop geometry point matrix
             GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)
-            if (d <= GUIVisualizationSettings::Detail::Level1) {
+            if (d <= GUIVisualizationSettings::Detail::Text) {
                 if (editingElevation) {
                     // Push Z matrix
                     GLHelper::pushMatrix();

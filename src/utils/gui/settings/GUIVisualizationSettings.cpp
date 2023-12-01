@@ -2387,7 +2387,6 @@ GUIVisualizationSettings::Detail
 GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
     // calculate factor
     const auto factor = (scale * exaggeration);
-    // return detail level depending of factor
     if (factor >= 10) {
         return GUIVisualizationSettings::Detail::Level0;
     } else if (factor >= 5) {

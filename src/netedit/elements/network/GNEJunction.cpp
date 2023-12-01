@@ -1633,66 +1633,63 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVi
 
 void
 GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
+    // check if draw start und end
+    const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+    // set shape color
+    const RGBColor junctionShapeColor = setColor(s, false);
+    // set color
+    GLHelper::setColor(junctionShapeColor);
+    // adjust shape to exaggeration (check)
+    if ((exaggeration > 1 || myExaggeration > 1) && exaggeration != myExaggeration) {
+        myExaggeration = exaggeration;
+        myTesselation.setShape(myNBNode->getShape());
+        myTesselation.getShapeRef().closePolygon();
+        myTesselation.getShapeRef().scaleRelative(exaggeration);
+        myTesselation.myTesselation.clear();
+    }
     // check if draw tesselation or or polygon
-    if (d <= GUIVisualizationSettings::Detail::Level3) {
-        // check if draw start und end
-        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
-        // set shape color
-        const RGBColor junctionShapeColor = setColor(s, false);
+    if (d <= GUIVisualizationSettings::Detail::DrawPolygonTesselation) {
+        // draw shape with high detail
+        myTesselation.drawTesselation(myTesselation.getShape());
+    } else if (d <= GUIVisualizationSettings::Detail::DrawPolygon) {
+        // draw shape
+        GLHelper::drawFilledPoly(myNBNode->getShape(), true);
+    } else if ((d <= GUIVisualizationSettings::Detail::DrawPolygonBoundary)){
+        // get shape boundary
+        const auto boundary = myNBNode->getShape().getBoxBoundary();
+        // draw rectangle
+        GLHelper::drawRectangle(myNBNode->getCenter(), boundary.getWidth(), boundary.getHeight());
+    }
+    // draw shape points only in Network supermode
+    if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+        s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.junctionGeometryPointRadius)) {
+        // get mouse position
+        const auto mousePos = myNet->getViewNet()->getPositionInformation();
         // set color
-        GLHelper::setColor(junctionShapeColor);
-        // adjust shape to exaggeration (check)
-        if ((exaggeration > 1 || myExaggeration > 1) && exaggeration != myExaggeration) {
-            myExaggeration = exaggeration;
-            myTesselation.setShape(myNBNode->getShape());
-            myTesselation.getShapeRef().closePolygon();
-            myTesselation.getShapeRef().scaleRelative(exaggeration);
-            myTesselation.myTesselation.clear();
+        const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
+        // calculate geometry
+        GUIGeometry junctionGeometry;
+        // obtain junction Shape
+        PositionVector junctionOpenShape = myNBNode->getShape();
+        // adjust shape to exaggeration
+        if (exaggeration > 1) {
+            junctionOpenShape.scaleRelative(exaggeration);
         }
-        // check if draw tesselation or or polygon
-        if (d <= GUIVisualizationSettings::Detail::Level0) {
-            // draw shape with high detail
-            myTesselation.drawTesselation(myTesselation.getShape());
-        } else if (d <= GUIVisualizationSettings::Detail::Level1) {
-            // draw shape
-            GLHelper::drawFilledPoly(myNBNode->getShape(), true);
-        } else {
-            // get shape boundary
-            const auto boundary = myNBNode->getShape().getBoxBoundary();
-            // draw rectangle
-            GLHelper::drawRectangle(myNBNode->getCenter(), boundary.getWidth(), boundary.getHeight());
-        }
-        // draw shape points only in Network supermode
-        if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.junctionGeometryPointRadius)) {
-            // get mouse position
-            const auto mousePos = myNet->getViewNet()->getPositionInformation();
-            // set color
-            const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
-            // calculate geometry
-            GUIGeometry junctionGeometry;
-            // obtain junction Shape
-            PositionVector junctionOpenShape = myNBNode->getShape();
-            // adjust shape to exaggeration
-            if (exaggeration > 1) {
-                junctionOpenShape.scaleRelative(exaggeration);
-            }
-            // update geometry
-            junctionGeometry.updateGeometry(junctionOpenShape);
-            // set color
-            GLHelper::setColor(darkerColor);
-            // draw shape
-            GUIGeometry::drawGeometry(s, mousePos, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
-            // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
-                                            s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-            // draw moving hint
-            if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                GUIGeometry::drawMovingHint(s, this, mousePos, junctionOpenShape, darkerColor,
-                                            s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration);
-            }
+        // update geometry
+        junctionGeometry.updateGeometry(junctionOpenShape);
+        // set color
+        GLHelper::setColor(darkerColor);
+        // draw shape
+        GUIGeometry::drawGeometry(s, mousePos, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
+        // draw geometry points
+        GUIGeometry::drawGeometryPoints(s, d, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
+                                        s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+        // draw moving hint
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            GUIGeometry::drawMovingHint(s, this, mousePos, junctionOpenShape, darkerColor,
+                                        s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration);
         }
     }
 }
@@ -1701,7 +1698,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
 void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((d <= GUIVisualizationSettings::Detail::Level3) && myNBNode->isTLControlled() &&
+    if ((d <= GUIVisualizationSettings::Detail::TLSIcon) && myNBNode->isTLControlled() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
         !myAmTLSSelected && !s.drawForRectangleSelection) {
         GLHelper::pushMatrix();
@@ -1719,7 +1716,7 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizati
 void
 GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw name and ID
-    if (d <= GUIVisualizationSettings::Detail::Level3) {
+    if (d <= GUIVisualizationSettings::Detail::Names) {
         drawName(myNBNode->getPosition(), s.scale, s.junctionID);
         if (s.junctionName.show(this) && myNBNode->getName() != "") {
             GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
@@ -1730,30 +1727,27 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, const GUIVisual
 
 void
 GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
-    // check detail level
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
-        // draw crossings
-        for (const auto& crossing : myGNECrossings) {
-            crossing->drawGL(s);
+    // draw crossings
+    for (const auto& crossing : myGNECrossings) {
+        crossing->drawGL(s);
+    }
+    // draw walkingAreas
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->drawGL(s);
+    }
+    // draw internalLanes
+    for (const auto& internalLanes : myInternalLanes) {
+        internalLanes->drawGL(s);
+    }
+    // draw connections and route elements connections (Only for incoming edges)
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
+            connection->drawGL(s);
         }
-        // draw walkingAreas
-        for (const auto& walkingArea : myGNEWalkingAreas) {
-            walkingArea->drawGL(s);
-        }
-        // draw internalLanes
-        for (const auto& internalLanes : myInternalLanes) {
-            internalLanes->drawGL(s);
-        }
-        // draw connections and route elements connections (Only for incoming edges)
-        for (const auto& incomingEdge : myGNEIncomingEdges) {
-            for (const auto& connection : incomingEdge->getGNEConnections()) {
-                connection->drawGL(s);
-            }
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->drawGL(s);
-        }
+    }
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->drawGL(s);
     }
 }
 

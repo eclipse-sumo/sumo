@@ -541,11 +541,37 @@ class GUIVisualizationSettings {
 public:
 
     enum class Detail : int {
-        Level0,     // All detail (tesselations)
-        Level1,     // circle resolution = 8, polygons, no lane details
-        Level2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
-        Level3,     // minimum number of lanes
-        Level4,
+        Level0 = 0,
+            CircleResolution32 = 0,
+            DrawPolygonTesselation = 0,
+            LaneDetails = 0,    // offset, icons, indicators...
+            Text = 0,
+            VehiclePoly = 0,
+
+        Level1 = 1,     // circle resolution = 8, polygons, no lane details
+            CircleResolution16 = 1,
+            DrawPolygon = 1,
+            VehicleBox = 1,
+            AdditionalDetails = 1,  // stoppingPlace signs, EntryExit arrows...
+            GeometryPoint = 1,
+
+        Level2 = 2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
+            CircleResolution8 = 2,
+            DrawPolygonSquare = 2,
+            VehicleTriangle = 2,
+            Names = 2,
+            TLSIcon = 2,
+            Additionals = 2,
+            DottedContours = 2,
+            Lane = 2,
+
+        Level3 = 3,
+            CircleResolutionSquare = 3,
+            DrawPolygonBoundary = 3,
+            LaneSimple = 3,
+
+        Level4 = 4,
+            LaneSimpleOnlyFirst = 4,
     };
 
     /// @brief constructor

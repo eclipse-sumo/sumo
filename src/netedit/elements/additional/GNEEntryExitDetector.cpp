@@ -249,7 +249,7 @@ void
 GNEEntryExitDetector::drawBody(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
-    if (d <= GUIVisualizationSettings::Detail::Level3) {
+    if (d <= GUIVisualizationSettings::Detail::Additionals) {
         // Push polygon matrix
         GLHelper::pushMatrix();
         // set color
@@ -263,7 +263,7 @@ GNEEntryExitDetector::drawBody(const GUIVisualizationSettings& s, const GUIVisua
         // scale
         glScaled(exaggeration, exaggeration, 1);
         // check detail level
-        if (d <= GUIVisualizationSettings::Detail::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
             // Draw polygon
             glBegin(GL_LINES);
             glVertex2d(1.7, 0);
@@ -302,7 +302,7 @@ void
 GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // Push matrix
         GLHelper::pushMatrix();
         // set color
@@ -320,14 +320,14 @@ GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings& s, const GUI
         // rotate 90 degrees lane
         glRotated(90, 0, 0, 1);
         // draw Entry or Exit text if isn't being drawn for selecting
-        if (d <= GUIVisualizationSettings::Detail::Level1) {
-            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else {
+        if (d <= GUIVisualizationSettings::Detail::Text) {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
                 GLHelper::drawText("Entry", Position(), .1, 1, color, 180);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
                 GLHelper::drawText("Exit", Position(), .1, 1, color, 180);
             }
+        } else {
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         }
         // pop matrix
         GLHelper::popMatrix();
@@ -339,7 +339,7 @@ void
 GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Text) {
         // Push matrix
         GLHelper::pushMatrix();
         // set color

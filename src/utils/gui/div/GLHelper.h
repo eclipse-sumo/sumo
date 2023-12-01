@@ -263,7 +263,7 @@ public:
      *
      * @param[in] radius The radius of the circle
      */
-    static void drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d, const double radius);
+    static void drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d, const double radius);
 
     /** @brief Draws a filled circle around (0,0) depending of level of detail
      *
@@ -273,7 +273,7 @@ public:
      *
      * @param[in] radius The radius of the circle
      */
-    static void drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d, const double radius,
+    static void drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d, const double radius,
                                           double beg, double end);
 
     /** @brief Draws a filled circle around (0,0)

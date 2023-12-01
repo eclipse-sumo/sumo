@@ -370,8 +370,8 @@ private:
     /// @brief draw lane textures
     void drawTextures(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
 
-    /// @brief draw start and end shape points
-    void drawStartEndShapePoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
+    /// @brief draw start and end geometry points
+    void drawStartEndGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;

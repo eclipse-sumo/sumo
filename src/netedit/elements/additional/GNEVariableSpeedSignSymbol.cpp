@@ -142,14 +142,14 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             RGBColor color;
             if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                color = s.colorSettings.selectedAdditionalColor;
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
             } else {
-                color = RGBColor::RED;
+                GLHelper::setColor(RGBColor::RED);
             }
             // draw circle
             GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
             // draw details
-            if (d <= GUIVisualizationSettings::Detail::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
@@ -163,10 +163,12 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // draw speed
-                if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
-                } else {
-                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+                if (d <= GUIVisualizationSettings::Detail::Text) {
+                    if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                        GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
+                    } else {
+                        GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+                    }
                 }
             }
             // Pop symbol matrix

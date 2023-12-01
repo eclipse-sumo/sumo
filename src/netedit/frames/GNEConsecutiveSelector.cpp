@@ -295,7 +295,8 @@ GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSe
         const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, GUIVisualizationSettings::Detail::Level1, nullptr, myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
+        GUIGeometry::drawGeometryPoints(s, GUIVisualizationSettings::Detail::GeometryPoint, nullptr,
+                                        myFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
                                         pointColor, RGBColor::WHITE, s.neteditSizeSettings.polylineWidth, 1, false, true);
         // Pop last matrix
         GLHelper::popMatrix();

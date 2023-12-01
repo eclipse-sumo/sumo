@@ -513,17 +513,20 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 
 void
-GLHelper::drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d,const double radius,
+GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d,const double radius,
         double beg, double end) {
     // get current resolution level
     switch (d) {
-        case GUIVisualizationSettings::Detail::Level0:
+        case GUIVisualizationSettings::Detail::CircleResolution32:
             drawFilledCircle(radius, 32, beg, end);
             break;
-        case GUIVisualizationSettings::Detail::Level1:
+        case GUIVisualizationSettings::Detail::CircleResolution16:
+            drawFilledCircle(radius, 16, beg, end);
+            break;
+        case GUIVisualizationSettings::Detail::CircleResolution8:
             drawFilledCircle(radius, 8, beg, end);
             break;
-        case GUIVisualizationSettings::Detail::Level2:
+        case GUIVisualizationSettings::Detail::CircleResolutionSquare:
             drawFilledCircleDetailled(d, radius);
             break;
         default:
@@ -534,16 +537,16 @@ GLHelper::drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail
 
 
 void
-GLHelper::drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d, const double radius) {
+GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d, const double radius) {
     // get current resolution level
     switch (d) {
-        case GUIVisualizationSettings::Detail::Level0:
+        case GUIVisualizationSettings::Detail::CircleResolution32:
             drawFilledCircle(radius, 32);
             break;
-        case GUIVisualizationSettings::Detail::Level1:
+        case GUIVisualizationSettings::Detail::CircleResolution16:
             drawFilledCircle(radius, 16);
             break;
-        case GUIVisualizationSettings::Detail::Level2:
+        case GUIVisualizationSettings::Detail::CircleResolution8:
             drawFilledCircle(radius, 8);
             break;
         default:

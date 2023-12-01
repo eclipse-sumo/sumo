@@ -192,7 +192,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const GUIVisualizati
     // end draw line
     glEnd();
     // draw center only in draw in level 2
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // set main color
         GLHelper::setColor(secondColor);
         // set polygon mode
@@ -231,7 +231,7 @@ void
 GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
     // only draw in level 2
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Text) {
         // calculate position
         const Position pos = myAdditionalGeometry.getShape().front();
         // calculate rotation
@@ -254,7 +254,7 @@ void
 GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
     // only draw in level 2
-    if (d <= GUIVisualizationSettings::Detail::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Text) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position

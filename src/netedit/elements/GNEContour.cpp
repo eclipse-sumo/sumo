@@ -336,7 +336,7 @@ void
 GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const double scale, const bool addOffset, const double lineWidth) const {
     // first check if draw dotted contour
-    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::Level2)) {
+    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // basic contours
         if (myAC->checkDrawFromContour()) {
             drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, addOffset, lineWidth);

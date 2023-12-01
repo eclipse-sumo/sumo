@@ -425,7 +425,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
         // move again
         glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
         // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::Detail::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture
@@ -444,7 +444,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
             // move matrix
             glTranslated(0, 0, 0);
             // draw filled circle
-            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+            GLHelper::drawFilledCircleDetailled(d, 0.1 + s.additionalSettings.vaporizerSize);
         }
         // pop layer matrix
         GLHelper::popMatrix();
@@ -486,7 +486,7 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         // move again
         glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
         // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::Detail::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture

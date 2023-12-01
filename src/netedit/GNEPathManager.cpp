@@ -811,7 +811,7 @@ void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GNELane* lane) const {
     // check detail level and lane segments
-    if ((d <= GUIVisualizationSettings::Detail::Level2) && (myLaneSegments.count(lane) > 0)) {
+    if (myLaneSegments.count(lane) > 0) {
         int numRoutes = 0;
         // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myLaneSegments.at(lane)) {
@@ -847,7 +847,7 @@ void
 GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GNEJunction* junction) const {
     // check detail level and junction segments
-    if ((d <= GUIVisualizationSettings::Detail::Level2) && (myJunctionSegments.count(junction) > 0)) {
+    if (myJunctionSegments.count(junction) > 0) {
         // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
             if (segment->getPathElement()->isPathElementSelected()) {
