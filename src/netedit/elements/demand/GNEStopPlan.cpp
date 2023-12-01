@@ -394,7 +394,7 @@ GNEStopPlan::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const {
+GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
@@ -425,7 +425,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizatio
         // move again
         glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
         // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::Level2) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture
@@ -460,7 +460,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizatio
 
 
 void
-GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const {
+GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
@@ -486,7 +486,7 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVis
         // move again
         glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
         // draw icon depending of detail level
-        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::Level2) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture

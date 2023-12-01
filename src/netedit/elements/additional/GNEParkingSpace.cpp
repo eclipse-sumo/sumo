@@ -217,7 +217,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             RGBColor contourColor = s.colorSettings.parkingSpaceColorContour;
             if (drawUsingSelectColor()) {
                 contourColor = s.colorSettings.selectedAdditionalColor;
-            } else if (d <= GUIVisualizationSettings::DetailLevel::Level3) {
+            } else if (d <= GUIVisualizationSettings::Detail::Level3) {
                 contourColor = s.colorSettings.parkingSpaceColorContour;
             }
             // draw parent and child lines
@@ -236,7 +236,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             PositionVector shapeLengthInner = myShapeLength;
             shapeLengthInner.scaleAbsolute(-0.1);
             // draw intern
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 // Traslate to front
                 glTranslated(0, 0, 0.1);
                 // set base color

@@ -540,7 +540,7 @@ class GUIVisualizationSettings {
 
 public:
 
-    enum class DetailLevel : int {
+    enum class Detail : int {
         Level0,     // All detail (tesselations)
         Level1,     // circle resolution = 8, polygons, no lane details
         Level2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
@@ -596,7 +596,7 @@ public:
     bool flippedTextAngle(double objectAngle) const;
 
     /// @brief return the detail level
-    DetailLevel getDetailLevel(const double exaggeration) const;
+    Detail getDetailLevel(const double exaggeration) const;
 
     /// @brief check if details can be drawn for the given GUIVisualizationDetailSettings and current scale and exxageration
     bool drawDetail(const double detail, const double exaggeration) const;

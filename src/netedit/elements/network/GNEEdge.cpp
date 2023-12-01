@@ -2427,9 +2427,9 @@ GNEEdge::getContainersOverEdgeMap() const {
 
 
 void
-GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // first check conditions
-    if ((d <= GUIVisualizationSettings::DetailLevel::Level3) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+    if ((d <= GUIVisualizationSettings::Detail::Level3) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // check if draw geometry points
         const bool bigGeometryPoints = drawBigGeometryPoints();
         // Obtain exaggeration of the draw
@@ -2461,7 +2461,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizat
                 // draw filled circle (resolution of drawn circle depending of the zoom, to improve smoothness)
                 GLHelper::drawFilledCircleDetailled(d, circleWidth);
                 // draw elevation or special symbols (Start, End and Block)
-                if ((d <= GUIVisualizationSettings::DetailLevel::Level1) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                if ((d <= GUIVisualizationSettings::Detail::Level1) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                     // Translate to top
                     glTranslated(0, 0, 0.2);
                     // draw Z value
@@ -2481,7 +2481,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizat
 
 
 void
-GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const double circleWidth, const double exaggeration) const {
     // get first geometry point
     const auto& startGeometryPointPos = myNBEdge->getGeometry().front();
@@ -2513,7 +2513,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizat
             // pop drawing matrix
             GLHelper::popMatrix();
             // draw a "s" over last point depending of detail level
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 // push drawing matrix
                 GLHelper::pushMatrix();
                 // move top
@@ -2544,7 +2544,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizat
 
 
 void
-GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const double circleWidth, const double exaggeration) const {
     // get first geometry point
     const auto& geometryPointPos = myNBEdge->getGeometry().back();
@@ -2576,7 +2576,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizatio
             // pop drawing matrix
             GLHelper::popMatrix();
             // draw a "s" over last point depending of detail level
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 // push drawing matrix
                 GLHelper::pushMatrix();
                 // move top
@@ -2607,9 +2607,9 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizatio
 
 
 void
-GNEEdge::drawEdgeName(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEEdge::drawEdgeName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // check  if we can draw it
-    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::DetailLevel::Level1)) {
+    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Level1)) {
         // draw the name and/or the street name
         const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
         const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
@@ -2673,9 +2673,9 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s, GUIVisualizationSetting
 
 
 void
-GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::DetailLevel::Level0)) {
+    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Level0)) {
         // Push stopOffset matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
@@ -2809,7 +2809,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // avoid draw for railways
     if (!s.drawForObjectUnderCursor && (gPostDrawing.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
         // push draw matrix

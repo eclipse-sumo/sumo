@@ -1419,7 +1419,7 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
     // check if myPlanElement is the last segment
     if (segment->isLastSegment()) {
         // calculate circle width

@@ -306,7 +306,7 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GUIGlObject* glObject,
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GUIGlObject* glObject,
                                 const Position& mousePos, const PositionVector& shape, const RGBColor& geometryPointColor, const RGBColor& textColor,
                                 const double radius, const double exaggeration, const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
@@ -330,7 +330,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizat
             // pop geometry point matrix
             GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)
-            if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+            if (d <= GUIVisualizationSettings::Detail::Level1) {
                 if (editingElevation) {
                     // Push Z matrix
                     GLHelper::pushMatrix();

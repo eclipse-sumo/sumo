@@ -1018,7 +1018,7 @@ GNEStop::drawIndex() const {
 
 
 void
-GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color,
+GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color,
         const double width, const double exaggeration) const {
     // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
@@ -1046,7 +1046,7 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, GUIVisualizationSet
     // only draw text if isn't being drawn for selecting
     if (s.drawForRectangleSelection) {
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-    } else if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    } else if (d <= GUIVisualizationSettings::Detail::Level2) {
         // draw "S" symbol
         GLHelper::drawText(myTagProperty.isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, color, 180);
         // move to subtitle position
@@ -1070,12 +1070,12 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, GUIVisualizationSet
 
 
 void
-GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color,
+GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color,
         const double width, const double exaggeration) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
     GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
     // only draw text if isn't being drawn for selecting
-    if (drawIndex() && (d <= GUIVisualizationSettings::DetailLevel::Level2)) {
+    if (drawIndex() && (d <= GUIVisualizationSettings::Detail::Level2)) {
         // Add a detail matrix
         GLHelper::pushMatrix();
         // move to geometry front
@@ -1419,7 +1419,7 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 
 
 void
-GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor& baseColor) const {
+GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
             (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&

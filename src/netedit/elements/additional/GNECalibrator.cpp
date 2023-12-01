@@ -433,7 +433,7 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration,
+GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
         const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
@@ -463,7 +463,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, GUIVisual
         glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
         glEnd();
         // draw text if isn't being drawn for selecting
-        if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+        if (d <= GUIVisualizationSettings::Detail::Level2) {
             // set color depending of selection status
             RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
             // draw "C"

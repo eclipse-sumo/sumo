@@ -120,13 +120,13 @@ public:
 
 private:
     /// @brief draw body
-    void drawBody(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color, const double exaggeration) const;
+    void drawBody(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color, const double exaggeration) const;
 
     /// @brief draw entry logo
-    void drawEntryLogo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color, const double exaggeration) const;
+    void drawEntryLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color, const double exaggeration) const;
 
     /// @brief draw E3 logo
-    void drawE3Logo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const RGBColor &color, const double exaggeration) const;
+    void drawE3Logo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color, const double exaggeration) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

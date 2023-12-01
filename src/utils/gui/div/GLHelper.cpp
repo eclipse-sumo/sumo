@@ -513,17 +513,17 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 
 void
-GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel d,const double radius,
+GLHelper::drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d,const double radius,
         double beg, double end) {
     // get current resolution level
     switch (d) {
-        case GUIVisualizationSettings::DetailLevel::Level0:
+        case GUIVisualizationSettings::Detail::Level0:
             drawFilledCircle(radius, 32, beg, end);
             break;
-        case GUIVisualizationSettings::DetailLevel::Level1:
+        case GUIVisualizationSettings::Detail::Level1:
             drawFilledCircle(radius, 8, beg, end);
             break;
-        case GUIVisualizationSettings::DetailLevel::Level2:
+        case GUIVisualizationSettings::Detail::Level2:
             drawFilledCircleDetailled(d, radius);
             break;
         default:
@@ -534,16 +534,16 @@ GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel 
 
 
 void
-GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::DetailLevel d, const double radius) {
+GLHelper::drawFilledCircleDetailled(const const GUIVisualizationSettings::Detail d, const double radius) {
     // get current resolution level
     switch (d) {
-        case GUIVisualizationSettings::DetailLevel::Level0:
+        case GUIVisualizationSettings::Detail::Level0:
             drawFilledCircle(radius, 32);
             break;
-        case GUIVisualizationSettings::DetailLevel::Level1:
+        case GUIVisualizationSettings::Detail::Level1:
             drawFilledCircle(radius, 16);
             break;
-        case GUIVisualizationSettings::DetailLevel::Level2:
+        case GUIVisualizationSettings::Detail::Level2:
             drawFilledCircle(radius, 8);
             break;
         default:

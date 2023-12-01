@@ -149,7 +149,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // draw circle
             GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
             // draw details
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color

@@ -282,10 +282,10 @@ GNEStoppingPlace::getHierarchyName() const {
 
 
 void
-GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const GUIVisualizationSettings::DetailLevel d,
+GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const const GUIVisualizationSettings::Detail d,
         const std::vector<std::string>& lines, const RGBColor& color) const {
     // only draw in level 1
-    if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+    if (d <= GUIVisualizationSettings::Detail::Level1) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
@@ -312,10 +312,10 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const GUIVisualiz
 
 
 void
-GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::DetailLevel d, const double exaggeration,
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const const GUIVisualizationSettings::Detail d, const double exaggeration,
                            const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const {
     // only draw in level 2
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Level2) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
@@ -333,7 +333,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
         // Draw circle
         GLHelper::drawFilledCircleDetailled(d, myCircleWidth);
         // continue depending of rectangle selection
-        if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+        if (d <= GUIVisualizationSettings::Detail::Level1) {
             // Traslate to front
             glTranslated(0, 0, .1);
             // set color

@@ -189,7 +189,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Traslate to front
             glTranslated(0, 0, 0.1);
             // draw lotSpaceDefinitions
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 for (const auto& lsd : myLotSpaceDefinitions) {
                     GLHelper::drawSpaceOccupancies(parkingAreaExaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, true);
                 }

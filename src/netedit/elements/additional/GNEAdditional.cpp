@@ -1051,26 +1051,26 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 
 
 void
-GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+GNEAdditional::drawUpGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                    const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
     drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 void
-GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+GNEAdditional::drawDownGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                      const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
     drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, 90, 270, ignoreShift);
 }
 
 void
-GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+GNEAdditional::drawLeftGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                      const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
     drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, -90, 90, ignoreShift);
 }
 
 
 void
-GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+GNEAdditional::drawRightGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                       const double rot, const RGBColor& baseColor, const bool ignoreShift) const {
     drawSemiCircleGeometryPoint(s, d, pos, rot, baseColor, 270, 90, ignoreShift);
 }
@@ -1169,7 +1169,7 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const Position& pos, const double rot, const RGBColor& baseColor, const double fromAngle, const double toAngle,
         const bool ignoreShift) const {
     // first check that we're in move mode and shift key is pressed
@@ -1180,7 +1180,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, GU
         const bool mouseOverPos = gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), pos,
                                                                     s.neteditSizeSettings.additionalGeometryPointRadius);
         // check if draw geometry point
-        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::DetailLevel::Level3)) {
+        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::Level3)) {
             // push matrix
             GLHelper::pushMatrix();
             // translated to front

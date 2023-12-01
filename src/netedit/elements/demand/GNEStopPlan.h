@@ -243,10 +243,10 @@ protected:
     int myParametersSet = 0;
 
     /// @brief draw stop plan over lane
-    void drawStopOverEdge(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const;
+    void drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
 
     /// @brief draw stop plan over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const;
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else

@@ -185,7 +185,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             // rotate over lane
             GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
             // Draw icon depending of level of detail
-            if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+            if (d <= GUIVisualizationSettings::Detail::Level2) {
                 // set color
                 glColor3d(1, 1, 1);
                 // rotate texture

@@ -158,7 +158,7 @@ GNEDetector::getHierarchyName() const {
 
 
 void
-GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                          const double exaggeration, const double scaledWidth, const RGBColor& mainColor,
                          const RGBColor& secondColor) const {
     // push matrix
@@ -192,7 +192,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, GUIVisualizationSett
     // end draw line
     glEnd();
     // draw center only in draw in level 2
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Level2) {
         // set main color
         GLHelper::setColor(secondColor);
         // set polygon mode
@@ -228,10 +228,10 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, GUIVisualizationSett
 
 
 void
-GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
     // only draw in level 2
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Level2) {
         // calculate position
         const Position pos = myAdditionalGeometry.getShape().front();
         // calculate rotation
@@ -251,10 +251,10 @@ GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, GUIVisualizat
 
 
 void
-GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
     // only draw in level 2
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Level2) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position

@@ -275,7 +275,7 @@ public:
     void drawOverlappedRoutes(const int numRoutes) const;
 
     /// @brief draw laneStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
 protected:
     /// @brief FOX needs this
@@ -323,30 +323,30 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                   const LaneDrawingConstants &laneDrawingConstants) const;
 
     /// @brief draw back edge
-    void drawBackEdge(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawBackEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                       const LaneDrawingConstants &laneDrawingConstants, const bool drawSpreadSuperposed) const;
 
     /// @brief draw shape edited
-    void drawShapeEdited(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawShapeEdited(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawLaneMarkings(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants &laneDrawingConstants, const bool drawRailway) const;
+    void drawLaneMarkings(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants &laneDrawingConstants, const bool drawRailway) const;
 
     /// @brief draw link Number
-    void drawLinkNo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawLinkNo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw TLS link Number
-    void drawTLSLinkNo(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw lane arrows
-    void drawLaneArrows(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const bool spreadSuperposed) const;
+    void drawLaneArrows(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const bool spreadSuperposed) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
@@ -361,17 +361,17 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawDirectionIndicators(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                  const LaneDrawingConstants& laneDrawingConstants, const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawLaneAsRailway(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw lane textures
-    void drawTextures(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawTextures(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw start and end shape points
-    void drawStartEndShapePoints(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawStartEndShapePoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;

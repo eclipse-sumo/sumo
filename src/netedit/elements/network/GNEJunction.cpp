@@ -1612,7 +1612,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                   const double exaggeration) const {
     // calculate bubble radius
     const double bubbleRadius = s.neteditSizeSettings.junctionBubbleRadius * exaggeration;
@@ -1632,9 +1632,9 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, GUIVisualiz
 
 
 void
-GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const double exaggeration) const {
+GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // check if draw tesselation or or polygon
-    if (d <= GUIVisualizationSettings::DetailLevel::Level3) {
+    if (d <= GUIVisualizationSettings::Detail::Level3) {
         // check if draw start und end
         const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                         myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
@@ -1651,10 +1651,10 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualiza
             myTesselation.myTesselation.clear();
         }
         // check if draw tesselation or or polygon
-        if (d <= GUIVisualizationSettings::DetailLevel::Level0) {
+        if (d <= GUIVisualizationSettings::Detail::Level0) {
             // draw shape with high detail
             myTesselation.drawTesselation(myTesselation.getShape());
-        } else if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+        } else if (d <= GUIVisualizationSettings::Detail::Level1) {
             // draw shape
             GLHelper::drawFilledPoly(myNBNode->getShape(), true);
         } else {
@@ -1699,9 +1699,9 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualiza
 
 
 void
-GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw TLS icon if isn't being drawn for selecting
-    if ((d <= GUIVisualizationSettings::DetailLevel::Level3) && myNBNode->isTLControlled() &&
+    if ((d <= GUIVisualizationSettings::Detail::Level3) && myNBNode->isTLControlled() &&
         (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
         !myAmTLSSelected && !s.drawForRectangleSelection) {
         GLHelper::pushMatrix();
@@ -1717,9 +1717,9 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, GUIVisualizationSett
 
 
 void
-GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw name and ID
-    if (d <= GUIVisualizationSettings::DetailLevel::Level3) {
+    if (d <= GUIVisualizationSettings::Detail::Level3) {
         drawName(myNBNode->getPosition(), s.scale, s.junctionID);
         if (s.junctionName.show(this) && myNBNode->getName() != "") {
             GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
@@ -1729,9 +1729,9 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, GUIVisualizatio
 
 
 void
-GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const {
+GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // check detail level
-    if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+    if (d <= GUIVisualizationSettings::Detail::Level2) {
         // draw crossings
         for (const auto& crossing : myGNECrossings) {
             crossing->drawGL(s);

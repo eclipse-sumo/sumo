@@ -192,7 +192,7 @@ private:
                      const bool dottedElement) const;
 
     /// @brief draw to arrow
-    void drawEndPosition(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+    void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
 
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;

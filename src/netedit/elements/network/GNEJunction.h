@@ -350,21 +350,21 @@ private:
     bool drawAsBubble(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction as bubble
-    void drawJunctionAsBubble(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                               const double exaggerration) const;
 
     /// @brief draw junction as bubble
-    void drawJunctionAsShape(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                              const double exaggerration) const;
 
     /// @brief draw TLS icon
-    void drawTLSIcon(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw junction name
-    void drawJunctionName(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw junction childs
-    void drawJunctionChildren(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d) const;
+    void drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

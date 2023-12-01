@@ -322,7 +322,7 @@ GNEWalkingArea::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const double exaggeration, const RGBColor& color) const {
     // get mouse position
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();

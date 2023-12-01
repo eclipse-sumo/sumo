@@ -313,19 +313,19 @@ public:
     void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols = false) const;
 
     /// @brief draw up geometry point
-    void drawUpGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+    void drawUpGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                              const double rot, const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw down geometry point
-    void drawDownGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+    void drawDownGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                const double rot, const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw left geometry point
-    void drawLeftGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+    void drawLeftGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                const double rot, const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw right geometry point
-    void drawRightGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d, const Position& pos,
+    void drawRightGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const Position& pos,
                                 const double rot, const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief get draw position index (used in rerouters and VSS)
@@ -453,7 +453,7 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief draw geometry point
-    void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, GUIVisualizationSettings::DetailLevel d,
+    void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const Position& pos, const double rot, const RGBColor& baseColor,
                                      const double fromAngle, const double toAngle, const bool ignoreShift) const;
 

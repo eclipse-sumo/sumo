@@ -926,11 +926,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
                 } else {
                     // draw the vehicle depending of detail level
-                    if (d <= GUIVisualizationSettings::DetailLevel::Level1) {
+                    if (d <= GUIVisualizationSettings::Detail::Level1) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
-                    } else if (d <= GUIVisualizationSettings::DetailLevel::Level2) {
+                    } else if (d <= GUIVisualizationSettings::Detail::Level2) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-                    } else if (d <= GUIVisualizationSettings::DetailLevel::Level3) {
+                    } else if (d <= GUIVisualizationSettings::Detail::Level3) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
                     }
                     // check if min gap has to be drawn
