@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-01 10:58+0000\n"
+"PO-Revision-Date: 2023-12-01 13:20+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2828,6 +2828,8 @@ msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr ""
+"Existe una persona y un contenedor con el mismo ID '%'. Desde SUMO versión "
+"1.9.0 esto es un error."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1011
 #, c-format
@@ -2968,7 +2970,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1680
 msgid "No edges to tranship container '%'."
-msgstr ""
+msgstr "No hay aristas para transbordar el contenedor '%'."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:76
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:64
@@ -2979,11 +2981,11 @@ msgstr "No se puede leer el archivo XML '%'."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
-msgstr ""
+msgstr "No se pudo analizar el tiempo del archivo de estado '%'"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:185
 msgid "State was written with sumo version % (present: %)!"
-msgstr ""
+msgstr "¡El estado fue escrito con la versión % de SUMO (actual: %)!"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:230
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:286
@@ -3250,6 +3252,8 @@ msgstr ""
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
 msgstr ""
+"el dispositivo bluelight no es compatible con la simulación mesoscópica ("
+"ignorado para el vehículo '%')"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
@@ -3261,7 +3265,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
-msgstr ""
+msgstr "Intensidad del ruido que impulsa el proceso de error."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:72
 msgid ""
@@ -3375,7 +3379,7 @@ msgstr "Valor no válido '%' para el parámetro de tipo de vehículo 'example'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
-msgstr ""
+msgstr "Tiempo de inicio de registro de los datos FCD"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:70
 #: C:\Repos\sumo/src\microsim\devices\MSTransportableDevice_FCD.cpp:49
@@ -3384,7 +3388,7 @@ msgstr "Periodo de registro de datos FCD"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
-msgstr ""
+msgstr "Registrar objetos en este radio alrededor de los vehículos equipados"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #, c-format
@@ -3398,7 +3402,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:167
 #, c-format
 msgid "Unknown attribute '%' to write in fcd output."
-msgstr ""
+msgstr "Atributo desconocido '%' para escribir en la salida fcd."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Friction.cpp:48
 msgid ""
@@ -3554,11 +3558,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:250
 msgid "Give a global default filename for the SSM output"
-msgstr ""
+msgstr "Indicar un nombre de archivo predeterminado global para la salida SSM"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:252
 msgid "Whether to use coordinates of the original reference system in output"
 msgstr ""
+"Si se deben usar las coordenadas del sistema de referencia original en la "
+"salida"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:254
 msgid "Whether to write positions (coordinates) for each timestep"
@@ -3617,6 +3623,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo 'device.ssm.file'. "
+"Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3903
 #, c-format
@@ -3633,6 +3641,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo 'device.ssm.geo'. "
+"Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3930
 #, c-format
@@ -3653,6 +3663,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo 'device.ssm.write-"
+"positions'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3957
 #, c-format
@@ -3686,6 +3698,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo 'device.ssm.exclude-"
+"conflict-types'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4013
 msgid ""
@@ -3709,6 +3723,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo 'device.ssm.range'. "
+"Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4057
 #, c-format
@@ -3726,6 +3742,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo "
+"'device.ssm.mdrac.prt'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4086
 #, c-format
@@ -3743,6 +3761,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo "
+"'device.ssm.extratime'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4103
 #, c-format
@@ -3750,6 +3770,9 @@ msgid ""
 "Negative (or no) value encountered for vehicle parameter "
 "'device.ssm.extratime' in vehicle '%' using default value % instead."
 msgstr ""
+"Se encontró un valor negativo (o ninguno) para el parámetro de vehículo "
+"'device.ssm.extratime' en el vehículo '%', usando el valor predeterminado % "
+"en su lugar."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4117
 #, c-format
@@ -3768,12 +3791,16 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo "
+"'device.ssm.trajectories'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4157
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo "
+"'device.ssm.measures'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4174
 msgid ""
@@ -3797,6 +3824,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using"
 " default of '%'."
 msgstr ""
+"El vehículo '%' no proporciona el parámetro de vehículo "
+"'device.ssm.thresholds'. Usando el valor predeterminado de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4211
 msgid ""
@@ -3808,6 +3837,8 @@ msgstr ""
 msgid ""
 "Time to wait for a rescue vehicle on the road side when the battery is empty"
 msgstr ""
+"Tiempo de espera a que llegue un vehículo de rescate al costado de la via "
+"cuando la batería esté descargada"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:48
 msgid ""
@@ -3817,7 +3848,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:50
 msgid "Battery percentage to go into rescue mode"
-msgstr ""
+msgstr "Porcentaje de batería para entrar en modo rescate"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:52
 msgid "Search radius in travel time seconds"
@@ -3826,10 +3857,11 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:54
 msgid "When to trigger a new search if no station has been found"
 msgstr ""
+"Cuándo activar una nueva búsqueda si no se ha encontrado ninguna estación"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:56
 msgid "The maximum charging speed of the vehicle battery"
-msgstr ""
+msgstr "La velocidad máxima de carga de la batería del vehículo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:58
 msgid "Type of energy transfer"
@@ -3840,6 +3872,8 @@ msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
 msgstr ""
+"Pasado este tiempo de espera el vehículo buscará una nueva estación si la "
+"inicial está bloqueada"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:124
 msgid ""
@@ -3856,11 +3890,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:87
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr ""
+msgstr "Escribir información del algoritmo de despacho en FILE"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:90
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
+"Cargar parámetros del algoritmo de despacho en formato "
+"KEY1:VALUE1[,KEY2:VALUE]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:93
 msgid "The period between successive calls to the dispatcher"
@@ -3868,21 +3904,25 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:96
 msgid "The behavior of idle taxis [stop|randomCircling]"
-msgstr ""
+msgstr "El comportamiento de los taxis inactivos [stop|randomCircling]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:99
 msgid "Write information from the idling algorithm to FILE"
-msgstr ""
+msgstr "Escribir información del algoritmo de inactividad en FILE"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:117
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
+"El vehículo '%' con dispositivo device.taxi debería tener la clase de "
+"vehículo taxi en lugar de '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:124
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
 msgstr ""
+"El vehículo '%' con personCapacity % y containerCapacity % no se puede "
+"utilizar como taxi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:149
 #, c-format
@@ -3900,27 +3940,33 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:468
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
+"No se pudo agregar la parada de taxi para el vehículo '%' a %. tiempo=% "
+"error=%."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:584
 msgid "Taxi '%' reaches scheduled end of service at time=%."
-msgstr ""
+msgstr "El taxi '%' llega al final del servicio programado en el tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:660
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
+"Todos los clientes abandonaron el vehículo '%' en el tiempo=% pero quedan % "
+"paradas restantes"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
-msgstr ""
+msgstr "Tipo de vehículo para el régimen de conducción manual."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
-msgstr ""
+msgstr "Tipo de vehículo para el régimen de conducción automatizada."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:120
 msgid "Average response time needed by a driver to take back control."
 msgstr ""
+"Tiempo medio de respuesta que necesita un conductor para recuperar el "
+"control."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:122
 msgid "Recovery rate for the driver's awareness after a ToC."
@@ -4027,12 +4073,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:578
 msgid "Ignoring unknown safe spot '%' for vehicle '%'."
-msgstr ""
+msgstr "Ignorando el lugar seguro desconocido '%' para el vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:731
 #, c-format
 msgid "vType '%' for vehicle '%' is not known."
-msgstr ""
+msgstr "El tipo de vehículo '%' para el vehículo '%' no es conocido."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:933
 msgid ""
@@ -4045,6 +4091,8 @@ msgid ""
 "Value of dynamicToCThreshold must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"El valor de dynamicToCThreshold debe ser no negativo. (Se ignora el valor "
+"dado % para el vehículo %)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:961
 #, c-format
@@ -4052,6 +4100,8 @@ msgid ""
 "Value of dynamicMRMProbability must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"El valor de dynamicMRMProbability debe ser no negativo. (Se ignora el valor "
+"dado % para el vehículo %)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:975
 #, c-format
@@ -4059,6 +4109,8 @@ msgid ""
 "Value of maxPreparationAccel must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"El valor de maxPreparationAccel debe ser no negativo. (Se ignora el valor "
+"dado % para el vehículo %)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1000
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1021
@@ -4125,17 +4177,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\engine\VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
-msgstr ""
+msgstr "Etiqueta desconocida '%' durante el análisis."
 
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:82
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
 msgstr ""
+"El modelo de cambio de carril '%' no es compatible con la simulación de "
+"subcarril"
 
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr ""
+msgstr "Modelo de cambio de carril '%' no implementado"
 
 #: C:\Repos\sumo/src\microsim\output\MSE2Collector.cpp:124
 msgid ""
@@ -4163,7 +4217,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\output\MSMeanData.cpp:766
 msgid "Unknown attribute '%' to write in meanData '%'."
-msgstr ""
+msgstr "Atributo desconocido '%' para escribir en meanData '%'."
 
 #: C:\Repos\sumo/src\microsim\output\MSStopOut.cpp:69
 msgid ""
