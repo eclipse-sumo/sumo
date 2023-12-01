@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 23:56:44 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
+<!-- generated on 2023-11-29 16:53:08 by Eclipse SUMO netconvert Version v1_19_0+0209-a5b0ff7060c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,7 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -124,8 +128,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="EC" from="E" to="C" priority="2" type="withBikeLane">
         <lane id="EC_0" index="0" allow="bicycle" speed="13.89" length="87.10" width="2.00" shape="200.00,107.40 112.90,107.40"/>
-        <lane id="EC_1" index="1" disallow="bicycle" speed="13.89" length="87.10" shape="200.00,104.80 112.90,104.80"/>
-        <lane id="EC_2" index="2" disallow="bicycle" speed="13.89" length="87.10" shape="200.00,101.60 112.90,101.60"/>
+        <lane id="EC_1" index="1" disallow="pedestrian bicycle" speed="13.89" length="87.10" shape="200.00,104.80 112.90,104.80"/>
+        <lane id="EC_2" index="2" disallow="pedestrian bicycle" speed="13.89" length="87.10" shape="200.00,101.60 112.90,101.60"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="2" type="withBikeLane">
         <lane id="NC_0" index="0" allow="bicycle" speed="13.89" length="89.60" width="2.00" shape="92.60,200.00 92.60,110.40"/>
@@ -148,7 +152,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryyyyyrrrryyyy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 WC_0 WC_1" intLanes=":C_18_0 :C_1_0 :C_2_0 :C_2_1 :C_19_0 :C_5_0 :C_5_1 :C_7_0 :C_7_1 :C_20_0 :C_10_0 :C_11_0 :C_11_1 :C_21_0 :C_14_0 :C_15_0 :C_15_1 :C_22_0" shape="91.60,110.40 110.90,110.40 111.12,109.29 111.40,108.90 111.79,108.62 112.29,108.46 112.90,108.40 112.90,91.60 109.29,91.38 108.03,91.10 107.12,90.71 106.58,90.21 106.40,89.60 93.60,89.60 93.16,91.82 92.60,92.60 91.82,93.16 90.82,93.49 89.60,93.60 89.60,106.40 90.71,106.84 91.10,107.40 91.38,108.18 91.54,109.18">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 WC_0 WC_1" intLanes=":C_18_0 :C_1_0 :C_2_0 :C_2_1 :C_19_0 :C_5_0 :C_5_1 :C_7_0 :C_7_1 :C_20_0 :C_10_0 :C_11_0 :C_11_1 :C_21_0 :C_14_0 :C_15_0 :C_15_1 :C_22_0" shape="91.60,110.40 110.90,110.40 111.12,109.29 111.40,108.90 111.79,108.62 112.29,108.46 112.90,108.40 112.90,91.60 109.29,91.38 108.02,91.10 107.12,90.71 106.58,90.21 106.40,89.60 93.60,89.60 93.16,91.82 92.60,92.60 91.82,93.16 90.82,93.49 89.60,93.60 89.60,106.40 90.71,106.84 91.10,107.40 91.38,108.18 91.54,109.18">
         <request index="0"  response="100011111000001100" foes="111011111110001110" cont="1"/>
         <request index="1"  response="000000000000000001" foes="000000000110000001" cont="0"/>
         <request index="2"  response="100000001000000000" foes="111110001110000001" cont="0"/>

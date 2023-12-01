@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 23:56:44 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
+<!-- generated on 2023-11-29 16:53:08 by Eclipse SUMO netconvert Version v1_19_0+0209-a5b0ff7060c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -28,7 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -73,8 +77,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_12_0" index="0" allow="bicycle" speed="10.57" length="15.69" width="1.00" shape="90.60,93.10 97.73,94.12 102.83,97.17 104.13,99.36"/>
     </edge>
     <edge id=":C_13" function="internal">
-        <lane id=":C_13_0" index="0" disallow="bicycle rail" speed="13.89" length="19.80" shape="90.60,95.20 110.40,95.20"/>
-        <lane id=":C_13_1" index="1" disallow="bicycle rail" speed="13.89" length="19.80" shape="90.60,98.40 110.40,98.40"/>
+        <lane id=":C_13_0" index="0" disallow="pedestrian bicycle rail" speed="13.89" length="19.80" shape="90.60,95.20 110.40,95.20"/>
+        <lane id=":C_13_1" index="1" disallow="pedestrian bicycle rail" speed="13.89" length="19.80" shape="90.60,98.40 110.40,98.40"/>
     </edge>
     <edge id=":C_15" function="internal">
         <lane id=":C_15_0" index="0" allow="passenger" speed="8.88" length="4.86" shape="90.60,98.40 95.41,99.09"/>
@@ -88,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0
 
     <edge id="CE" from="C" to="E" priority="2">
         <lane id="CE_0" index="0" allow="bicycle" speed="13.89" length="89.60" width="1.00" shape="110.40,93.10 200.00,93.10"/>
-        <lane id="CE_1" index="1" disallow="bicycle" speed="13.89" length="89.60" shape="110.40,95.20 200.00,95.20"/>
-        <lane id="CE_2" index="2" disallow="bicycle" speed="13.89" length="89.60" shape="110.40,98.40 200.00,98.40"/>
+        <lane id="CE_1" index="1" disallow="pedestrian bicycle" speed="13.89" length="89.60" shape="110.40,95.20 200.00,95.20"/>
+        <lane id="CE_2" index="2" disallow="pedestrian bicycle" speed="13.89" length="89.60" shape="110.40,98.40 200.00,98.40"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="2">
         <lane id="CN_0" index="0" allow="bicycle" speed="13.89" length="90.60" width="1.00" shape="106.90,109.40 106.90,200.00"/>
@@ -119,8 +123,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
         <lane id="WC_0" index="0" allow="bicycle" speed="13.89" length="90.60" width="1.00" shape="0.00,93.10 90.60,93.10"/>
-        <lane id="WC_1" index="1" disallow="bicycle rail" speed="13.89" length="90.60" shape="0.00,95.20 90.60,95.20"/>
-        <lane id="WC_2" index="2" disallow="bicycle rail" speed="13.89" length="90.60" shape="0.00,98.40 90.60,98.40"/>
+        <lane id="WC_1" index="1" disallow="pedestrian bicycle rail" speed="13.89" length="90.60" shape="0.00,95.20 90.60,95.20"/>
+        <lane id="WC_2" index="2" disallow="pedestrian bicycle rail" speed="13.89" length="90.60" shape="0.00,98.40 90.60,98.40"/>
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
