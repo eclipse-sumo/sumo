@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 08:17+0000\n"
+"PO-Revision-Date: 2023-12-01 10:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -3960,7 +3960,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1434
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 msgid "Tranships"
-msgstr ""
+msgstr "Umladungen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1439
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
@@ -8042,7 +8042,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2078
 msgid "E2 LaneAreaDetector"
-msgstr ""
+msgstr "Fahrstreifenflächendetektor (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2083
 msgid "The id of E2"
@@ -8100,7 +8100,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
 msgid "E2 MultiLaneAreaDetector"
-msgstr ""
+msgstr "Mehrfahrstreifenflächendetektor (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
 msgid "The id of Multilane E2"
@@ -9207,7 +9207,7 @@ msgstr "Wegpunkt über Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4377
 msgid "TrainWaypoint associated with this waypoint"
-msgstr ""
+msgstr "Mit diesem Wegpunkt verknüpfter Zugwegpunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4391
 msgid "WaypointContainerStop"
@@ -10462,31 +10462,33 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:93
 msgid "no tag type defined"
-msgstr ""
+msgstr "kein Tag-Typ definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:96
 msgid "no tag property defined"
-msgstr ""
+msgstr "keine Tag-Eigenschaft definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:99
 msgid "no tag parent defined"
-msgstr ""
+msgstr "kein Tag-Elternelement definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:102
 msgid "no conflict defined"
-msgstr ""
+msgstr "kein Konflikt definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:106
 msgid "no basic type property defined"
-msgstr ""
+msgstr "keine grundlegende Typeigenschaft definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:110
 msgid "multiple basic type properties defined"
-msgstr ""
+msgstr "mehrere grundlegende Typeigenschaften definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:114
 msgid "element can be either shape or TAZ or wire element at the same time"
 msgstr ""
+"das Element kann entweder ein Shape, eine Verkehrsumlegungszone oder eine "
+"Oberleitung definieren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:118
 msgid ""
@@ -11190,11 +11192,13 @@ msgstr "Kante '%' folgt nicht direkt auf Kante '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:281
 msgid "Cannot repeat in routes with only one edge"
-msgstr ""
+msgstr "Routen mit nur einer Kante können nicht wiederholt werden"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:285
 msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr ""
+"Die Route kann nicht wiederholt werden, da die letzte Kante nicht identisch "
+"mit der ersten ist"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:803
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1856
@@ -11285,7 +11289,7 @@ msgstr "Ungültige Route '%' in % '%' verwendet."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:841
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1056
 msgid "invalid person parent"
-msgstr ""
+msgstr "ungültiges Elternelement der Person"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:652
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:752
@@ -11424,11 +11428,11 @@ msgstr "Fahrzeug (mit integrierter Route)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:127
 msgid "RouteFlow"
-msgstr ""
+msgstr "Fluss über Route"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:131
 msgid "RouteFlow (embedded route)"
-msgstr ""
+msgstr "Fluss über interne Route"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:135
 msgid "Trip"
@@ -11506,11 +11510,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 msgid "RouteFlows"
-msgstr ""
+msgstr "Flüsse über Routen"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:295
 msgid "RouteFlows (embedded route)"
-msgstr ""
+msgstr "Flüsse über interne Routen"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:298
 msgid "Trips"
@@ -11526,11 +11530,11 @@ msgstr "Ungültiger Fahrzeug-Tag"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2364
 msgid "departPos of %"
-msgstr ""
+msgstr "Abfahrtsposition von %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2374
 msgid "arrivalPos of %"
-msgstr ""
+msgstr "Ankunftsposition von %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:720
 msgid "Could not set attribute '%' (tls is broken)"
@@ -11550,15 +11554,15 @@ msgstr "ungültiger Linkstand='%'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:443
 msgid "TLS operations"
-msgstr ""
+msgstr "LSA-Operationen"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:445
 msgid "Add TLS"
-msgstr ""
+msgstr "LSA hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:446
 msgid "Add joined TLS"
-msgstr ""
+msgstr "Vereinigte LSA hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:523
 msgid "Reset junction shapes"
@@ -11654,6 +11658,8 @@ msgstr "Kante hier auftrennen"
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1927
 msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr ""
+"Kante für beide Richtungen hier aufteilen (keine symmetrische "
+"Gegenrichtungskante)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1932
 msgid "Split edge in both directions here (no opposite edge)"
@@ -12116,12 +12122,12 @@ msgstr "deaktiviere Attribut '"
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:648
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "Elternelement von % inspizieren"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
 msgid "Open dialog for editing vClasses"
-msgstr ""
+msgstr "Dialog zur Bearbeitung der Fahrzeugklassen öffnen"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
@@ -12360,7 +12366,7 @@ msgstr "Zeige Kandidatenkanten"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:151
 msgid "SHIFT-click: ignore vClass"
-msgstr ""
+msgstr "SHIFT-Klick: Fahrzeugklasse ignorieren"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
 msgid "CTRL-click: force add"
@@ -12481,19 +12487,19 @@ msgstr "Doppelte Halte sind nicht erlaubt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:38
 msgid " Valid element"
-msgstr ""
+msgstr " Gültiges Element"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:41
 msgid " From element"
-msgstr ""
+msgstr " Vom Element"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:44
 msgid " To element"
-msgstr ""
+msgstr " Zu Element"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:91
 msgid "Plan type"
-msgstr ""
+msgstr "Plantyp"
 
 #: C:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -12799,7 +12805,7 @@ msgstr "Kantenvorlage entfernen"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
 #, c-format
 msgid "Set edge '%' as Template"
-msgstr ""
+msgstr "Kante '%' als Vorlage verwenden"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
@@ -13110,15 +13116,15 @@ msgstr "Information auswählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:106
 msgid "TAZSources"
-msgstr ""
+msgstr "Quellen von Verkehrsumlegungszonen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:107
 msgid "TAZSinks"
-msgstr ""
+msgstr "Senken von Verkehrsumlegungszonen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 msgid "JuPedSim elements"
-msgstr ""
+msgstr "JuPedSim-Elemente"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Transport"
@@ -13408,7 +13414,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:77
 msgid "Distribution Editor"
-msgstr ""
+msgstr "Verteilungseditor"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:83
 msgid "New"
@@ -13637,11 +13643,11 @@ msgstr "Legende"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:91
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:93
 msgid "-Click over lane to create it"
-msgstr ""
+msgstr "-Klicke auf einen Fahrstreifen, um es zu erstellen"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:95
 msgid "-Click over view to create it"
-msgstr ""
+msgstr "-Klicke in die Ansicht, um es zu erstellen"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
@@ -13752,6 +13758,8 @@ msgstr "Fehler beim Speichern der Verbindungsoperationen"
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
 msgstr ""
+"Die modifizierte Verbindung kann nicht gespeichert werden, da die Route '%' "
+"unterbrochen wurde."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -13836,12 +13844,17 @@ msgstr "Verbindungen von ausgewählten Fahrstreifen zurücksetzen"
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
 msgstr ""
+"Halte während des Klickens <SHIFT> gedrückt, um vorrangige Verbindungen zu "
+"erstellen (pass=true)."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
 " nodes or with incompatible permissions)"
 msgstr ""
+"Halte während des Klickens <CTRL> gedrückt, um in Konflikt stehende "
+"Verbindungen zu erstellen (z.B. an Reißverschlussfahrstreifnwechsel oder bei "
+"inkompatiblen Zufahrtsrechten)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
 msgid "Possible Target"
