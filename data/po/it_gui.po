@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-01 11:34+0000\n"
+"PO-Revision-Date: 2023-12-01 12:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9649,27 +9649,27 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4207
 msgid "ChargingStation associated with this stop"
-msgstr ""
+msgstr "Stazione di ricarica associata a questa fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4283
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4220
 msgid "StopParkingArea"
-msgstr ""
+msgstr "Fermata su un parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4225
 msgid "ParkingArea associated with this stop"
-msgstr ""
+msgstr "Parcheggio associato a questa fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4311
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4247
 msgid "WaypointLane"
-msgstr ""
+msgstr "Punto intermedio di un itinerario su una corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4316
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4252
 msgid "The name of the lane the waypoint shall be located at"
-msgstr ""
+msgstr "Il nome della corsia dove il punto intermedio deve essere posizionato"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4339
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4275
@@ -9681,7 +9681,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4353
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
 msgid "WaypointBusStop"
-msgstr ""
+msgstr "Punto intermedio di itinerario a una fermata di autobus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4358
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4293
