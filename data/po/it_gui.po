@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-01 12:04+0000\n"
+"PO-Revision-Date: 2023-12-03 15:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -323,7 +323,7 @@ msgstr "Apre un dialogo per localizzare un punto di interesse."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:560
 msgid "Po&lygon"
-msgstr "PO&ligono"
+msgstr "Po&ligono"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:560
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
