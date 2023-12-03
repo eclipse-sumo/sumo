@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_18_0+1700-2463a0685ee
+Eclipse SUMO polyconvert Version v1_19_0+0280-744f1199eca
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -20,15 +20,15 @@ Input Options:
                                      offset and projection
   --dlr-navteq-poly-files FILE      Reads polygons from FILE assuming they're
                                      coded in DLR-Navteq (Elmar)-format
-  --dlr-navteq-poi-files FILE       Reads pois from FILE assuming they're
-                                     coded in DLR-Navteq (Elmar)-format
+  --dlr-navteq-poi-files FILE       Reads pois from FILE assuming they're coded
+                                     in DLR-Navteq (Elmar)-format
   --visum-files FILE                Reads polygons from FILE assuming it's a
                                      Visum-net
   --visum.language-file FILE        Load language mappings from FILE
   --xml-files FILE                  Reads pois and shapes from FILE assuming
                                      they're coded in XML
-  --osm-files FILE                  Reads pois from FILE assuming they're
-                                     coded in OSM
+  --osm-files FILE                  Reads pois from FILE assuming they're coded
+                                     in OSM
   --osm.keep-full-type              The type will be made of the key-value -
                                      pair
   --osm.use-name                    The id will be set from the given 'name'
