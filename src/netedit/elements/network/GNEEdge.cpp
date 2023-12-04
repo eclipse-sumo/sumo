@@ -583,7 +583,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     }
     // draw childrens
-    drawChildrens(s);
+    drawChildrens(s, d);
     // draw dotted geometry
     myContour.drawDottedContourEdge(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
 }
@@ -2699,28 +2699,31 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
 
 
 void
-GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
-    // draw child additional
-    for (const auto& additional : getChildAdditionals()) {
-        additional->drawGL(s);
-    }
-    // draw person stops
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
-        for (const auto& stopEdge : getChildDemandElements()) {
-            if ((stopEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) || (stopEdge->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
-                stopEdge->drawGL(s);
+GNEEdge::drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    // check if draw children elements
+    if (s.drawForObjectUnderCursor || (d <= GUIVisualizationSettings::Detail::Additionals)) {
+        // draw child additional
+        for (const auto& additional : getChildAdditionals()) {
+            additional->drawGL(s);
+        }
+        // draw person stops
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
+            for (const auto& stopEdge : getChildDemandElements()) {
+                if ((stopEdge->getTagProperty().getTag() == GNE_TAG_STOPPERSON_EDGE) || (stopEdge->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
+                    stopEdge->drawGL(s);
+                }
             }
         }
-    }
-    // draw vehicles
-    const std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesMap = getVehiclesOverEdgeMap();
-    for (const auto& vehicleMap : vehiclesMap) {
-        for (const auto& vehicle : vehicleMap.second) {
-            vehicle->drawGL(s);
+        // draw vehicles
+        const std::map<const GNELane*, std::vector<GNEDemandElement*> > vehiclesMap = getVehiclesOverEdgeMap();
+        for (const auto& vehicleMap : vehiclesMap) {
+            for (const auto& vehicle : vehicleMap.second) {
+                vehicle->drawGL(s);
+            }
         }
+        // draw TAZ elements
+        drawTAZElements(s);
     }
-    // draw TAZ elements
-    drawTAZElements(s);
 }
 
 
