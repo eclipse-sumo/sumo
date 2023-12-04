@@ -638,18 +638,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw TLS
             drawTLSIcon(s, d);
             // draw elevation
-            if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
-                GLHelper::pushMatrix();
-                // Translate to center of junction
-                glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
-                // draw Z value
-                GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
-                GLHelper::popMatrix();
-            }
+            drawElevation(s, d);
             // pop layer Matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), 1);
             // draw junction name
             drawJunctionName(s, d);
         }
@@ -1688,6 +1681,20 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizati
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::TLS), -halfWidth, -halfHeight, halfWidth, halfHeight);
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEJunction::drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    // check if draw elevation
+    if ((d <= GUIVisualizationSettings::Detail::Text) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+        GLHelper::pushMatrix();
+        // Translate to center of junction
+        glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
+        // draw Z value
+        GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
         GLHelper::popMatrix();
     }
 }
