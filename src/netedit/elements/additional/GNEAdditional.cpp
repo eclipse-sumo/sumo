@@ -712,7 +712,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             // Pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
@@ -799,11 +799,11 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             // move to icon position
             signPosition.add(-0.3, 0);
             // check if draw lock icon or rerouter interval icon
-            if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
+            if (GNEViewNetHelper::LockIcon::checkDrawing(s, d, this, getType(), 1)) {
                 // pop layer matrix
                 GLHelper::popMatrix();
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
+                GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
             } else {
                 // translate to front
                 glTranslated(signPosition.x(), signPosition.y(), 0.1);

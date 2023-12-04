@@ -363,6 +363,9 @@ private:
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
+    /// @brief draw elevation
+    void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
     /// @brief draw junction name
     void drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 

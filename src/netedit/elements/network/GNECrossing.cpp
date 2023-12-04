@@ -271,7 +271,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 drawName(myCrossingGeometry.getShape().getCentroid(), s.scale, s.edgeName, 0, true);
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), 1);
         }
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, d, myCrossingGeometry.getShape(), crossingWidth, selectionScale, true, true,

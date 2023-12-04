@@ -375,7 +375,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
                 }
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
+                GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), POIExaggeration);
             }
             // draw contour
             if (getShapeImgFile().empty()) {

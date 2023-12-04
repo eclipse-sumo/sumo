@@ -1427,13 +1427,14 @@ struct GNEViewNetHelper {
     /// @brief struct for pack all variables and functions related with Block Icon
     struct LockIcon {
         /// @brief draw lock icon
-        static void drawLockIcon(const GNEAttributeCarrier* AC, GUIGlObjectType type, const Position viewPosition,
+        static void drawLockIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                 const GNEAttributeCarrier* AC, GUIGlObjectType type, const Position position,
                                  const double exaggeration, const double size = 0.5,
                                  const double offsetx = 0, const double offsety = 0);
 
         /// @brief check if icon can be drawn
-        static bool checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration);
-
+        static bool checkDrawing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                 const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration);
     private:
         /// @brief constructor
         LockIcon();

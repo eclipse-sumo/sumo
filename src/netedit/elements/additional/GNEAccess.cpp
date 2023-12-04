@@ -240,7 +240,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }
         // draw dotted contour
         myContour.drawDottedContourCircle(s, d, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,

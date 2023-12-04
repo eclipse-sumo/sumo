@@ -400,7 +400,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), exaggeration);
             // Draw name
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }

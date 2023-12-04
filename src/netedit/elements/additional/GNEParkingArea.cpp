@@ -202,7 +202,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), parkingAreaExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name

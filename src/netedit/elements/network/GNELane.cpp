@@ -667,7 +667,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop layer matrix
         GLHelper::popMatrix();
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+        GNEViewNetHelper::LockIcon::drawLockIcon(s, myDrawingConstants->getDetail(), this, getType(), getPositionInView(), 1);
     }
     // draw children
     drawChildren(s);
@@ -1742,7 +1742,7 @@ GNELane::drawTextures(const GUIVisualizationSettings& s) const {
     // check all conditions for drawing textures
     if (!s.disableLaneIcons && (myLaneRestrictedTexturePositions.size() > 0)) {
         // Declare default width of icon (3)
-        const double iconWidth = myDrawingConstants->getHalfLaneWidth();
+        const double iconWidth = myDrawingConstants->getHalfLaneWidth() * 0.6;
         // Draw list of icons
         for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
             // Push draw matrix 2

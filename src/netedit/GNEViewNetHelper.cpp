@@ -3877,15 +3877,15 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, GUIGlObjectType type,
-        const Position viewPosition, const double exaggeration, const double size,
-        const double offsetx, const double offsety) {
+GNEViewNetHelper::LockIcon::drawLockIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+        const GNEAttributeCarrier* AC, GUIGlObjectType type, const Position position, const double exaggeration,
+        const double size, const double offsetx, const double offsety) {
     // first check if icon can be drawn
-    if (checkDrawing(AC, type, exaggeration)) {
+    if (checkDrawing(s, d, AC, type, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
-        glTranslated(viewPosition.x(), viewPosition.y(), GLO_LOCKICON);
+        glTranslated(position.x(), position.y(), GLO_LOCKICON);
         // Traslate depending of the offset
         glTranslated(offsetx, offsety, 0);
         // rotate to avoid draw invert
@@ -3904,11 +3904,14 @@ GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
 bool
-GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration) {
+GNEViewNetHelper::LockIcon::checkDrawing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+        const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration) {
+    // check detail
+    if (d > GUIVisualizationSettings::Detail::LockedIcons) {
+        return false;
+    }
     // get view net
     const auto viewNet = AC->getNet()->getViewNet();
-    // get visualization settings
-    const auto& s = viewNet->getVisualisationSettings();
     // check exaggeration
     if (exaggeration == 0) {
         return false;
@@ -3926,14 +3929,6 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
     }
     // check if is locked
     if (!viewNet->getLockManager().isObjectLocked(type, AC->isAttributeCarrierSelected())) {
-        return false;
-    }
-    // check visualizationSettings
-    if (s.drawForRectangleSelection) {
-        return false;
-    }
-    // check detail
-    if (!s.drawDetail(10, exaggeration)) {
         return false;
     }
     // all ok, then draw

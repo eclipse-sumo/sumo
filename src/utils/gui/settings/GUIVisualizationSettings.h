@@ -548,6 +548,7 @@ public:
             Text = 0,
             VehiclePoly = 0,
             JunctionElementDetails = 0,
+            LockedIcons = 0,
 
         Level1 = 1,     // circle resolution = 8, polygons, no lane details
             CircleResolution16 = 1,
