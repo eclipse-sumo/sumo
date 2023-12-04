@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-30 13:33+0000\n"
+"PO-Revision-Date: 2023-12-04 13:15+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1537,7 +1537,7 @@ msgstr "longitud total sumada de los atascos [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "paradas iniciadas [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
@@ -1682,11 +1682,11 @@ msgstr "tiempo de salida del líder del segmento"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "intervalo de tiempo medio en el segmento [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "tiempo de bloqueo de entrada de segmento [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
@@ -1726,7 +1726,7 @@ msgstr "penalización semafórica"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "penalización de flujo semafórico"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 msgid "minor penalty"
@@ -2328,11 +2328,11 @@ msgstr "lado izquierdo en la arista [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:187
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "subcarril de arista más a la derecha [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:188
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "subcarril de arista más a la izquierda [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
@@ -3895,7 +3895,7 @@ msgstr "Puntos de interés"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "WalkableAreas"
-msgstr ""
+msgstr "Áreas peatonales"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Obstacles"
@@ -7491,7 +7491,7 @@ msgstr "Áreas peatonal (WalkingArea)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1392
 msgid "Walking Area ID"
-msgstr ""
+msgstr "ID de área peatonal"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1397
 msgid "The width of the WalkingArea"
@@ -8246,6 +8246,8 @@ msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
 msgstr ""
+"El intervalo de agregación en el que calibrar los flujos. El valor "
+"predeterminado es la longitud del paso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2557
 msgid "Name of Calibrator"
@@ -8282,7 +8284,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2589
 msgid "CalibratorLane"
-msgstr ""
+msgstr "Carril calibrador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2599
 msgid "The id of lane in the simulation network"
@@ -8290,11 +8292,11 @@ msgstr "El ID del carril en la red simulada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2616
 msgid "Name of calibrator lane"
-msgstr ""
+msgstr "Nombre del carril calibrador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2648
 msgid "CalibratorFlow"
-msgstr ""
+msgstr "Flujo de calibrador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2653
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3879
@@ -8303,7 +8305,7 @@ msgstr "El ID de la ruta por la que deberá circular el vehículo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2658
 msgid "First calibrator flow departure time"
-msgstr ""
+msgstr "Primer tiempo de partida del flujo de calibrador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2664
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5828
@@ -9114,7 +9116,7 @@ msgstr "El nombre del flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 msgid "StopLane"
-msgstr ""
+msgstr "Parada en carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4170
 msgid "The name of the lane the stop shall be located at"
@@ -9128,7 +9130,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4207
 msgid "StopBusStop"
-msgstr ""
+msgstr "Parada en parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4212
 msgid "BusStop associated with this stop"
@@ -9136,7 +9138,7 @@ msgstr "Parada de bus (busStop) asociada a esta parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4226
 msgid "StopTrainStop"
-msgstr ""
+msgstr "Parada en parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4231
 msgid "TrainStop associated with this stop"
@@ -9144,7 +9146,7 @@ msgstr "Parada de trenes (trainStop) asociada a esta parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4245
 msgid "StopContainerStop"
-msgstr ""
+msgstr "Parada en parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4250
 msgid "ContainerStop associated with this stop"
@@ -9152,7 +9154,7 @@ msgstr "Parada de contenedores (containerStop) asociada a esta parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4264
 msgid "StopChargingStation"
-msgstr ""
+msgstr "Parada en estación de carga"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
 msgid "ChargingStation associated with this stop"
@@ -9160,7 +9162,7 @@ msgstr "Estación de carga asociada a esta parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4283
 msgid "StopParkingArea"
-msgstr ""
+msgstr "Parada en zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
 msgid "ParkingArea associated with this stop"
@@ -9168,7 +9170,7 @@ msgstr "Zona de estacionamiento asociada a esta parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4311
 msgid "WaypointLane"
-msgstr ""
+msgstr "Punto de referencia en carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4316
 msgid "The name of the lane the waypoint shall be located at"
@@ -9183,7 +9185,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4353
 msgid "WaypointBusStop"
-msgstr ""
+msgstr "Punto de referencia en parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4358
 msgid "BusWaypoint associated with this waypoint"
@@ -9191,7 +9193,7 @@ msgstr "BusWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4372
 msgid "WaypointTrainStop"
-msgstr ""
+msgstr "Punto de referencia en parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4377
 msgid "TrainWaypoint associated with this waypoint"
@@ -9199,7 +9201,7 @@ msgstr "TrainWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4391
 msgid "WaypointContainerStop"
-msgstr ""
+msgstr "Punto de referencia en parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4396
 msgid "ContainerWaypoint associated with this waypoint"
@@ -9207,7 +9209,7 @@ msgstr "ContainerWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4410
 msgid "WaypointChargingStation"
-msgstr ""
+msgstr "Parada de referencia en estación de carga"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4415
 msgid "ChargingStation associated with this waypoint"
@@ -9215,7 +9217,7 @@ msgstr "Estación de carga asociada a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4429
 msgid "WaypointParkingArea"
-msgstr ""
+msgstr "Parada de referencia en zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4434
 msgid "ParkingArea associated with this waypoint"
@@ -9716,27 +9718,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5950
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "Parámetro del proceso EIDM Wiener para el error de conducción [s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5956
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "Parámetro del proceso EIDM Wiener para el error de estimación [s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5962
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "Parámetro de serenidad EIDM del IDM mejorado [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5969
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
+msgstr "Parámetro de error de estimación de velocidad del líder EIDM [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5975
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "Parámetro de error de estimación de brecha EIDM [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5981
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "Parámetro de error de conducción EIDM [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5987
 msgid "EIDM maximal jerk parameter [m/s^3]"
@@ -9802,7 +9804,7 @@ msgstr "parámetro Wiedemann"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6117
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "Parámetro del factor MinGap"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6122
 msgid "K parameter"
@@ -10326,10 +10328,12 @@ msgstr "El ID de la arista en la cual termina la edgeRel"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6865
 msgid "The name of the TAZ the TAZRel starts at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico donde comienza la relación TAZ"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6870
 msgid "The name of the TAZ the TAZRel ends at"
 msgstr ""
+"El nombre de la zona de análisis de tráfico donde finaliza la relación TAZ"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6881
 msgid "MeanDataEdge"
@@ -16333,7 +16337,7 @@ msgstr "Mostrar nombre completo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2080
 msgid "StoppingPlace"
-msgstr ""
+msgstr "Lugar de parada"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2081
 msgid "body"
