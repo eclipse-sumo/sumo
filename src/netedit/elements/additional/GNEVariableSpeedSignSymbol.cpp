@@ -125,10 +125,6 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator (except in Move mode)
-            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-                GLHelper::pushName(getParentAdditionals().front()->getGlID());
-            }
             // start drawing symbol
             GLHelper::pushMatrix();
             // translate to front
@@ -173,10 +169,6 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Pop symbol matrix
             GLHelper::popMatrix();
-            // Pop VSS name
-            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-                GLHelper::popName();
-            }
         }
         // draw dotted contour
         myContour.drawDottedContourCircle(s, d, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,

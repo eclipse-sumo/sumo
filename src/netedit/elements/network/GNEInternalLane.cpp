@@ -185,8 +185,6 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // get link state color
             const auto linkStateColor = colorForLinksState(myState);
-            // push name
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -200,8 +198,6 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
                                       s.connectionSettings.connectionWidth);
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
             // draw edge name
             if (s.internalEdgeName.show(this)) {
                 GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),

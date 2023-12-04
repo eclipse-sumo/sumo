@@ -229,8 +229,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             RGBColor crossingColor = getCrossingColor(s, NBCrossing);
             // don't draw crossing in TLS Mode (but draw the TLS links)
             if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
-                // push name
-                GLHelper::pushName(getGlID());
                 // push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front
@@ -265,8 +263,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // pop layer matrix
                 GLHelper::popMatrix();
-                // pop name
-                GLHelper::popName();
             }
             // draw TLS Links No
             drawTLSLinkNo(s, NBCrossing);

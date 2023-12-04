@@ -399,8 +399,6 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
         // Add layer matrix matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -448,8 +446,6 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
         }
         // pop layer matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }
@@ -465,8 +461,6 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
     if (!s.drawForObjectUnderCursor) {
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
         // Add layer matrix matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -511,8 +505,6 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         }
         // pop layer matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }

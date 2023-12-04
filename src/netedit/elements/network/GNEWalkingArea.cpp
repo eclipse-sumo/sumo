@@ -342,8 +342,6 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
         const double exaggeration, const RGBColor& color) const {
     // get mouse position
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-    // push junction name
-    GLHelper::pushName(getGlID());
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -374,8 +372,6 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     }
     // pop layer Matrix
     GLHelper::popMatrix();
-    // pop junction name
-    GLHelper::popName();
 }
 
 

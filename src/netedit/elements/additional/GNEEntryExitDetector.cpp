@@ -134,8 +134,6 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding gl identificator
-            GLHelper::pushName(getGlID());
             // Push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -155,8 +153,6 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             drawE3Logo(s, d, color, entryExitExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop gl identificator
-            GLHelper::popName();
             // draw additional name
             drawAdditionalName(s);
             // draw lock icon

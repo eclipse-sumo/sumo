@@ -222,8 +222,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // push name
-            GLHelper::pushName(getGlID());
             // push later matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -250,8 +248,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, contourColor);
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
             // Draw additional ID

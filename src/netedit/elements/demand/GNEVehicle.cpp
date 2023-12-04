@@ -885,8 +885,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // first push name
-            GLHelper::pushName(getGlID());
             // first check if if mouse is enough near to this vehicle to draw it
             if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // push draw matrix
@@ -969,8 +967,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if (myTagProperty.isFlow()) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
-                // pop name
-                GLHelper::popName();
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
             }
@@ -1082,8 +1078,6 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
-        // Start drawing adding an gl identifier
-        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area translating matrix to origin
@@ -1137,8 +1131,6 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
                 GLHelper::popMatrix();
             }
         }
-        // Pop name
-        GLHelper::popName();
         // draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
             myContour.drawDottedContourExtruded(s, d, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
@@ -1167,8 +1159,6 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
         const double width = s.vehicleSize.getExaggeration(s, segment->getPreviousLane()) * s.widthSettings.tripWidth;
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // Start drawing adding an gl identifier
-        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area translating matrix to origin
@@ -1206,8 +1196,6 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
             myContour.drawDottedContourExtruded(s, d, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
-        // Pop name
-        GLHelper::popName();
     }
 }
 

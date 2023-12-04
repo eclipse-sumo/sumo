@@ -586,10 +586,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const auto d = s.getDetailLevel(laneDrawingConstants.exaggeration);
     // check drawing conditions
     if (!s.drawForObjectUnderCursor) {
-        // Push edge parent name
-        GLHelper::pushName(myParentEdge->getGlID());
-        // Push lane name
-        GLHelper::pushName(getGlID());
         // Push layer matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
@@ -604,10 +600,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         drawLane(s, d, laneDrawingConstants);
         // Pop layer matrix
         GLHelper::popMatrix();
-        // Pop Lane Name
-        GLHelper::popName();
-        // Pop edge Name
-        GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     }

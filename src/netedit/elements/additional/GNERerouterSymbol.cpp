@@ -142,10 +142,6 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator (except in Move mode)
-            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-                GLHelper::pushName(getParentAdditionals().front()->getGlID());
-            }
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -201,10 +197,6 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-                GLHelper::popName();
-            }
         }
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {

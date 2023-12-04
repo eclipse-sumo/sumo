@@ -181,8 +181,6 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // start drawing
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -193,8 +191,6 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             drawE1DetectorLogo(s, d, E1Exaggeration, "E1", textColor);
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1Exaggeration);
             // Draw additional ID

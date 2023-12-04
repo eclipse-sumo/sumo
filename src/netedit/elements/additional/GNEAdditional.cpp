@@ -691,8 +691,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -713,8 +711,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             }
             // Pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
             // Draw additional ID
@@ -760,8 +756,6 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         if (!s.drawForObjectUnderCursor) {
             // set position depending of indexes
             signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
-            // Start drawing adding an gl identifier
-            GLHelper::pushName(getGlID());
             // calculate colors
             const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
             const RGBColor secondColor = baseColor.changedBrightness(-30);
@@ -808,8 +802,6 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             if (GNEViewNetHelper::LockIcon::checkDrawing(this, getType(), 1)) {
                 // pop layer matrix
                 GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), signPosition, 1, 0.4, 0.0, -0.05);
             } else {
@@ -823,8 +815,6 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(texture), 0.25);
                 // pop layer matrix
                 GLHelper::popMatrix();
-                // Pop name
-                GLHelper::popName();
             }
         }
         // draw squared shape

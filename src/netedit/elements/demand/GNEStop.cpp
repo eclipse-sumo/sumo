@@ -385,8 +385,6 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // get color
             const auto color = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add a layer matrix
             GLHelper::pushMatrix();
             // set Color
@@ -401,8 +399,6 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
             // Draw name

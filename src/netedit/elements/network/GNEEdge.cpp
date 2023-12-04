@@ -2742,17 +2742,6 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
         if (TAZSourceSinks.size() > 0) {
             // check if current front element is a Source/sink
             const auto frontAC = myNet->getViewNet()->getFrontAttributeCarrier();
-            // push all GLIDs
-            for (const auto& TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink == frontAC) {
-                    GLHelper::pushName(TAZSourceSink->getGUIGlObject()->getGlID());
-                }
-            }
-            for (const auto& TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink != frontAC) {
-                    GLHelper::pushName(TAZSourceSink->getGlID());
-                }
-            }
             // check if TAZ Source/sink is selected
             bool selected = false;
             for (const auto& TAZSourceSink : TAZSourceSinks) {
@@ -2787,17 +2776,6 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                                           lane->getLaneGeometry(), laneDrawingConstants.width);
                 // Pop layer matrix
                 GLHelper::popMatrix();
-            }
-            // pop all GLIDs
-            for (const auto& TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink == frontAC) {
-                    GLHelper::popName();
-                }
-            }
-            for (const auto& TAZSourceSink : TAZSourceSinks) {
-                if (TAZSourceSink != frontAC) {
-                    GLHelper::popName();
-                }
             }
             /*
                 // check if curently we're inspecting a TAZ Source/Sink

@@ -623,8 +623,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         const bool junctionBubble = drawAsBubble(s);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // push junction name
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -650,8 +648,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer Matrix
             GLHelper::popMatrix();
-            // pop junction name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
             // draw junction name

@@ -352,8 +352,6 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
             // obtain img file
             const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
-            // push GL ID
-            GLHelper::pushName(getGlID());
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -385,8 +383,6 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                     drawJunctionLine(containerPlan);
                 }
             }
-            // pop name
-            GLHelper::popName();
             // draw stack label
             if (myStackedLabelNumber > 0) {
                 drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));

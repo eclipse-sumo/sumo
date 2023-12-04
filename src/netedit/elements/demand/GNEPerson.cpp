@@ -356,8 +356,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
             // obtain img file
             const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
-            // push GL ID
-            GLHelper::pushName(getGlID());
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -409,8 +407,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             if (myTagProperty.isFlow()) {
                 drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
             }
-            // pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
             // draw name

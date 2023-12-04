@@ -307,8 +307,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
             const RGBColor invertedColor = color.invertedColor();
             const RGBColor darkerColor = color.changedBrightness(-32);
-            // push name (needed for getGUIGlObjectsUnderCursor(...)
-            GLHelper::pushName(GNEAdditional::getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -375,8 +373,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
             // draw name

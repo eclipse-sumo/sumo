@@ -280,8 +280,6 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         // obtain color
         const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
         const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -305,8 +303,6 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         }
         // Pop layer matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? overheadWireGeometry.getShape() : segment->getLane()->getLaneShape();
         // draw dotted geometry
@@ -339,8 +335,6 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         // move to sides
         overheadWireGeometryTop.moveGeometryToSide(overheadWireWidth * 0.5);
         overheadWireGeometryBot.moveGeometryToSide(overheadWireWidth * -0.5);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -355,8 +349,6 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
         // Pop last matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw contours
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get shape

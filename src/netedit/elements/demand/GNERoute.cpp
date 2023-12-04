@@ -457,8 +457,6 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -473,8 +471,6 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             if (!s.drawForRectangleSelection) {
                 drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             }
-            // Pop name
-            GLHelper::popName();
             // check if we have to draw a red line to the next segment
             if (segment->getNextLane()) {
                 // push draw matrix
@@ -535,8 +531,6 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -547,8 +541,6 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
             // Pop last matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), getExaggeration(s));
             // check if mark this route

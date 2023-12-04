@@ -164,8 +164,6 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add layer matrix matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -204,8 +202,6 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw additional name
             drawAdditionalName(s);
         }

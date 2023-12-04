@@ -437,8 +437,6 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
         const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
-        // begin push name
-        GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -479,8 +477,6 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
         }
         // pop layer matrix
         GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
     }
     // draw dotted contour
     myContour.drawDottedContourRectangle(s, d, pos, s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 0,

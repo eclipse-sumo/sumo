@@ -1112,8 +1112,6 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // push GL ID
-            GLHelper::pushName(myPlanElement->getGlID());
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -1128,8 +1126,6 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
                 0.5, 0.5, 0.5);
             // pop matrix
             GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
         }
         // draw dotted geometry
         myPlanElement->getContour().drawDottedContourExtruded(s, d, planGeometry.getShape(), pathWidth, 1, true, true,
@@ -1187,8 +1183,6 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         } else {
             planGeometry = segment->getLane()->getLaneGeometry();
         }
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(myPlanElement->getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -1208,8 +1202,6 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         if (!s.drawForRectangleSelection) {
             myPlanElement->drawName(myPlanElement->getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
-        // Pop name
-        GLHelper::popName();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
         // draw dotted geometry
@@ -1247,8 +1239,6 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
         // calculate path width
         const double pathWidth = s.addSize.getExaggeration(s, segment->getPreviousLane()) * planWidth * (duplicateWidth ? 2 : 1);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(myPlanElement->getGlID());
         // push a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -1277,8 +1267,6 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         }
         // Pop last matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
         // check if shape dotted contour has to be drawn

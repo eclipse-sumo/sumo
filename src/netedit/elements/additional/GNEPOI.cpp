@@ -348,8 +348,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             const auto d = s.getDetailLevel(POIExaggeration);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (!s.drawForObjectUnderCursor) {
-                // push name (needed for getGUIGlObjectsUnderCursor(...)
-                GLHelper::pushName(getGlID());
                 // draw inner polygon
                 if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
@@ -376,8 +374,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
                     drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
                 }
-                // pop name
-                GLHelper::popName();
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             }

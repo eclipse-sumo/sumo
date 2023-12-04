@@ -305,8 +305,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
             const RGBColor invertedColor = color.invertedColor();
             const RGBColor darkerColor = color.changedBrightness(-32);
-            // push name (needed for getGUIGlObjectsUnderCursor(...)
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -356,8 +354,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
             // get name position
             const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
             // draw name

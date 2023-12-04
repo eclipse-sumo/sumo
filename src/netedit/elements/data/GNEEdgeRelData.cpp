@@ -168,10 +168,6 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
         const auto d = s.getDetailLevel(1);
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
-        // Start drawing adding an gl identificator
-        if (!onlyDrawContour) {
-            GLHelper::pushName(getGlID());
-        }
         // draw over all edge's lanes
         for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
             // get lane width
@@ -203,10 +199,6 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
-        }
-        // Pop name
-        if (!onlyDrawContour) {
-            GLHelper::popName();
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {

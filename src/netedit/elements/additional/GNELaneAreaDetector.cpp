@@ -291,8 +291,6 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -313,8 +311,6 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // Draw additional ID
@@ -377,8 +373,6 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         if (!s.drawForObjectUnderCursor) {
             // obtain color
             const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
@@ -403,8 +397,6 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             }
             // Pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw additional ID
             if (!s.drawForRectangleSelection) {
                 drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
@@ -451,8 +443,6 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         const auto d = s.getDetailLevel(E2DetectorWidth);
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -500,8 +490,6 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         }
         // Pop last matrix
         GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
     }
 }
 

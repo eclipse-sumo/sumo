@@ -438,10 +438,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // Set color depending of the link state
                 connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
             }
-            // Push name
-            if (pushGLID) {
-                GLHelper::pushName(getGlID());
-            }
             // Push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -488,10 +484,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                                       : myConnectionGeometry.getShape()[shapeIndex]);
                         GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
                     }
-                }
-                // Pop name
-                if (pushGLID) {
-                    GLHelper::popName();
                 }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);

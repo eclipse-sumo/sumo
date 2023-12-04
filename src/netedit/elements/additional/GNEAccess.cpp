@@ -223,8 +223,6 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw parent and child lines
             drawParentChildLines(s, accessColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -241,8 +239,6 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
-            // pop gl identificator
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }

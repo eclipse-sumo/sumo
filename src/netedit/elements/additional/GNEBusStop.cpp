@@ -151,8 +151,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw parent and child lines
             drawParentChildLines(s, baseColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -174,8 +172,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             // Draw additional ID

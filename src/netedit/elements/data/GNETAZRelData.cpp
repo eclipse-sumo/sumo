@@ -262,10 +262,6 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             const auto& color = setColor(s);
             // get flag for only draw contour
             const bool onlyDrawContour = !isGenericDataVisible();
-            // push name (needed for getGUIGlObjectsUnderCursor(...)
-            if (!onlyDrawContour) {
-                GLHelper::pushName(getGlID());
-            }
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -296,10 +292,6 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
-            // pop name
-            if (!onlyDrawContour) {
-                GLHelper::popName();
-            }
         }
         if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
             // draw dotted geometry
