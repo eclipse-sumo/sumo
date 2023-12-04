@@ -2771,7 +2771,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 }
                 // draw as box lines
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneGeometry(),
-                                          lane->getDrawingConstants()->getWidth());
+                                          lane->getDrawingConstants()->getDrawingWidth());
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }

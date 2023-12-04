@@ -67,8 +67,11 @@ public:
         // @brief get half lane width without markings (intersection points)
         double getHalfLaneWidthMinusMark() const;
 
-        /// @brief get lane width (but reduced,to make sure that a selected edge can still be seen
-        double getWidth() const;
+        /// @brief get lane drawing width (reduced, to make sure that a selected edge can still be seen
+        double getDrawingWidth() const;
+
+        /// @brief get lane offset
+        double getOffset() const;
 
         /// @brief get detail
         GUIVisualizationSettings::Detail getDetail() const;
@@ -79,7 +82,10 @@ public:
         /// @brief draw superposed
         bool drawSuperposed() const;
 
-    private:
+        /// @brief get drawing lane shape
+        PositionVector getDrawingShape() const;
+
+    protected:
         /// @brief lane
         const GNELane* myLane;
 
@@ -92,8 +98,11 @@ public:
         // @brief compute lane-marking width (intersection points)
         double myHalfLaneWidthMinusMark = 0;
 
-        /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
-        double myWidth = 0;
+        /// @brief lane drawing width (reduced,to make sure that a selected edge can still be seen
+        double myDrawingWidth = 0;
+
+        /// @brief lane offset
+        double myOffset = 0;
 
         /// @brief detail level
         GUIVisualizationSettings::Detail myDetail = GUIVisualizationSettings::Detail::Level4;
@@ -104,6 +113,10 @@ public:
         /// @brief draw supersposed (reduced width so that the lane markings below are visible)
         bool myDrawSuperposed = false;
 
+        /// @brief lane shape (used for draw spreading)
+        PositionVector myDrawingShape;
+
+    private:
         /// @brief invalidate default constructor
         DrawingConstants() = delete;
 

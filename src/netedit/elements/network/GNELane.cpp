@@ -76,14 +76,16 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     const auto &laneStruct = myLane->myParentEdge->getNBEdge()->getLaneStruct(myLane->getIndex());
     // get selection scale
     const double selectionScale = myLane->isAttributeCarrierSelected() || myLane->myParentEdge->isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+    // get lane width
+    const double laneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width);
     // calculate exaggeration
     myExaggeration = selectionScale * s.laneWidthExaggeration;
     // calculate exaggerated half lane width
-    myHalfLaneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width) * myExaggeration * 0.5;
+    myHalfLaneWidth = laneWidth * myExaggeration * 0.5;
     // calculate half-lane width without mark width
     myHalfLaneWidthMinusMark = myHalfLaneWidth - (SUMO_const_laneMarkWidth / 2);
     // get with (depending if is selected
-    myWidth = myLane->drawUsingSelectColor() ? (myHalfLaneWidthMinusMark - myExaggeration * 0.5) : myHalfLaneWidthMinusMark;
+    myDrawingWidth = myLane->drawUsingSelectColor() ? (myHalfLaneWidthMinusMark - myExaggeration * 0.5) : myHalfLaneWidthMinusMark;
     // get detail level
     myDetail = s.getDetailLevel(myExaggeration);
     // check if draw lane as railway
@@ -94,6 +96,24 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     }
     // check if draw superposed
     myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
+    // set shape
+    myDrawingShape = myLane->getLaneGeometry().getShape();
+    // adjust shape
+    if (myDrawAsRailway) {
+        // draw as railway: assume standard gauge of 1435mm when lane width is not set
+        // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+        // assume crosstie length of 181% gauge (2600mm for standard gauge)
+        myHalfLaneWidth = (laneWidth == SUMO_const_laneWidth ?  1.4350 : laneWidth) * myExaggeration * 0.5;
+        // modify shape
+        myDrawingShape.move2side(myHalfLaneWidth * 0.8);
+        // update half gauge
+        myHalfLaneWidth *= 0.4;
+    }
+    if (myDrawSuperposed) {
+        // reduce width
+        myDrawingWidth *= 0.4;
+        myOffset = myDrawingWidth * 0.5;
+    }
 }
 
 
@@ -116,8 +136,14 @@ GNELane::DrawingConstants::getHalfLaneWidthMinusMark() const {
 
 
 double
-GNELane::DrawingConstants::getWidth() const {
-    return myWidth;
+GNELane::DrawingConstants::getDrawingWidth() const {
+    return myDrawingWidth;
+}
+
+
+double
+GNELane::DrawingConstants::getOffset() const {
+    return myOffset;
 }
 
 
@@ -136,6 +162,12 @@ GNELane::DrawingConstants::drawAsRailway() const {
 bool
 GNELane::DrawingConstants::drawSuperposed() const {
     return myDrawSuperposed;
+}
+
+
+PositionVector
+GNELane::DrawingConstants::getDrawingShape() const {
+    return myDrawingShape;
 }
 
 // ---------------------------------------------------------------------------
@@ -672,8 +704,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // draw children
     drawChildren(s);
     // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, myDrawingConstants->getDetail(), getLaneShape(), myDrawingConstants->getWidth(), 1, true, true,
-                                        s.dottedContourSettings.segmentWidth);
+    myContour.drawDottedContourExtruded(s, myDrawingConstants->getDetail(), myDrawingConstants->getDrawingShape(),
+                                        myDrawingConstants->getDrawingWidth(), 1, true, true, s.dottedContourSettings.segmentWidth);
 }
 
 
@@ -1264,14 +1296,11 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
             // draw as railway
             drawLaneAsRailway(s);
         } else {
-            // create visible gap depending of draw spread superposed
-            const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getWidth() * 0.5 : 0;
-            const double widthFactor = myDrawingConstants->drawSuperposed()? 0.4 : 1;
             // draw as box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                           myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
                                           myLaneGeometry.getShapeLengths(), myShapeColors,
-                                          myDrawingConstants->getWidth() * widthFactor, false, offset);
+                                          myDrawingConstants->getDrawingWidth(), false, myDrawingConstants->getOffset());
         }
         // draw back edge
         drawBackEdge(s);
@@ -1311,7 +1340,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawBackEdge(const GUIVisualizationSettings& s) const {
     // only draw if width and mark width are differents
-    if (myDrawingConstants->getWidth() != myDrawingConstants->getHalfLaneWidthMinusMark()) {
+    if (myDrawingConstants->getDrawingWidth() != myDrawingConstants->getHalfLaneWidthMinusMark()) {
         // Push matrix
         GLHelper::pushMatrix();
         // move back
@@ -1319,13 +1348,13 @@ GNELane::drawBackEdge(const GUIVisualizationSettings& s) const {
         // set selected edge color
         GLHelper::setColor(s.colorSettings.selectedEdgeColor);
         // create visible gap depending of draw spread superposed
-        const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getWidth() * 0.5 : 0;
+        const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getDrawingWidth() * 0.5 : 0;
         const double widthFactor = myDrawingConstants->drawSuperposed()? 0.4 : 1;
         // draw as box lines
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                         myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
                                         myLaneGeometry.getShapeLengths(), {},
-                                        myDrawingConstants->getWidth() * widthFactor, false, offset);
+                                        myDrawingConstants->getDrawingWidth() * widthFactor, false, offset);
         // Pop matrix
         GLHelper::popMatrix();
     }
@@ -1636,10 +1665,10 @@ GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
         glRotated(rot, 0, 0, 1);
         glTranslated(0, laneStopOffset.getOffset(), 0);
         glBegin(GL_QUADS);
-            glVertex2d(-myDrawingConstants->getWidth(), 0.0);
-            glVertex2d(-myDrawingConstants->getWidth(), 0.2);
-            glVertex2d(myDrawingConstants->getWidth(), 0.2);
-            glVertex2d(myDrawingConstants->getWidth(), 0.0);
+            glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.0);
+            glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.2);
+            glVertex2d(myDrawingConstants->getDrawingWidth(), 0.2);
+            glVertex2d(myDrawingConstants->getDrawingWidth(), 0.0);
         glEnd();
         GLHelper::popMatrix();
     }
@@ -1697,38 +1726,27 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
-    // get lane shape
-    PositionVector shape = myLaneGeometry.getShape();
-    // get width
-    const double laneWidth = myDrawingConstants->getHalfLaneWidth() * 2;
-    // draw as railway: assume standard gauge of 1435mm when lane width is not set
-    // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
-    // assume crosstie length of 181% gauge (2600mm for standard gauge)
-    double halfGauge = 0.5 * (laneWidth == SUMO_const_laneWidth ?  1.4350 : laneWidth) * myDrawingConstants->getExaggeration();
-    // modify shape
-    shape.move2side(halfGauge * 0.8);
-    // update half gauge
-    halfGauge *= 0.4;
     // calculate constant
-    const double halfInnerFeetWidth = halfGauge - 0.039 * myDrawingConstants->getExaggeration();
+    const double halfInnerFeetWidth = myDrawingConstants->getHalfLaneWidth() - 0.039 * myDrawingConstants->getExaggeration();
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * myDrawingConstants->getExaggeration();
-    const double halfCrossTieWidth = halfGauge * 1.81;
-    // Draw lane geometry
-    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
-    // Save current color
-    RGBColor current = GLHelper::getColor();
-    // Draw gray on top with reduced width (the area between the two tracks)
-    glColor3d(0.8, 0.8, 0.8);
-    // move
-    glTranslated(0, 0, 0.1);
-    // draw lane geometry again
-    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
-    // Set current color back
-    GLHelper::setColor(current);
-    // Draw crossties
-    GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(), halfCrossTieWidth, s.drawForRectangleSelection);
-    // check if dotted contours has to be drawn
-    myContour.drawDottedContourExtruded(s, myDrawingConstants->getDetail(), shape, halfGauge, 1, true, true, s.dottedContourSettings.segmentWidth);
+    const double halfCrossTieWidth = myDrawingConstants->getHalfLaneWidth() * 1.81;
+    // Draw extern lane
+    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    // continue depending of detail
+    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+        // Save current color
+        RGBColor current = GLHelper::getColor();
+        // Draw gray on top with reduced width (the area between the two tracks)
+        glColor3d(0.8, 0.8, 0.8);
+        // move
+        glTranslated(0, 0, 0.1);
+        // draw lane geometry again
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+        // Set current color back
+        GLHelper::setColor(current);
+        // Draw crossties
+        GLHelper::drawCrossTies(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(), halfCrossTieWidth, s.drawForRectangleSelection);
+    }
 }
 
 
