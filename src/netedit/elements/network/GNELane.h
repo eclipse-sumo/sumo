@@ -87,7 +87,7 @@ public:
         double myWidth = 0;
 
         /// @brief invalidate default constructor
-        DrawingConstants(const GNELane* lane) = delete;
+        DrawingConstants() = delete;
 
         /// @brief Invalidated copy constructor.
         DrawingConstants(const DrawingConstants&) = delete;
