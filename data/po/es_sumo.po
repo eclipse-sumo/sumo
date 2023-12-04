@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-04 12:27+0000\n"
+"PO-Revision-Date: 2023-12-04 15:41+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6251,7 +6251,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "Se eliminó una via sin cruces: %."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
@@ -6300,7 +6300,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:838
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:845
 msgid "Not joining junctions % (%)."
-msgstr ""
+msgstr "No combinando cruces % (%)."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:805
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:819
@@ -6490,16 +6490,20 @@ msgstr ""
 msgid ""
 "Could not determine vehicle class for public transport line of type '%'."
 msgstr ""
+"No se pudo determinar la clase de vehículo para la línea de transporte "
+"público del tipo '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBPTLineCont.cpp:556
 msgid "Could not determine direction for line '%' at stop '%'."
-msgstr ""
+msgstr "No se pudo determinar la dirección de la línea '%' en la parada '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:110
 msgid ""
 "Could not find corresponding edge or compatible lane for pt stop '%' (%). "
 "Thus, it will be removed!"
 msgstr ""
+"No se pudo encontrar la arista correspondiente o el carril compatible para "
+"la parada de transporte público '%' (%). ¡Por lo tanto, será eliminada!"
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:136
 msgid ""
@@ -6510,19 +6514,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:170
 #, c-format
 msgid "Added % stops for superposed rail edges."
-msgstr ""
+msgstr "Se agregaron % paradas para las aristas de riel superpuestas."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
-msgstr ""
+msgstr "No se pudo determinar el producto cruz para la arista '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
 msgstr ""
+"Eliminando la parada de transporte público '%' en la arista no existente '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
 msgstr ""
+"No se pudo reasignar la parada de transporte público '%' después de "
+"reemplazar la arista '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:446
 msgid ""
@@ -6534,30 +6541,34 @@ msgstr ""
 #, c-format
 msgid "Ignoring parking area on edge '%' due to invalid permissions."
 msgstr ""
+"Ignorando el área de estacionamiento en la arista '%' debido a permisos no "
+"válidos."
 
 #: C:\Repos\sumo/src\netbuild\NBParking.cpp:51
 #, c-format
 msgid "Ignoring parking area on edge '%' due to insufficient space."
 msgstr ""
+"Ignorando el área de estacionamiento en la arista '%' debido a espacio "
+"insuficiente."
 
 #: C:\Repos\sumo/src\netbuild\NBParking.cpp:71
 msgid "Could not find edge for parkingArea '%'."
-msgstr ""
+msgstr "No se pudo encontrar arista para la zona de estacionamiento '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightDefinition.cpp:115
 #, c-format
 msgid ""
 "The traffic light '%' does not control any links; it will not be build."
-msgstr ""
+msgstr "El semáforo '%' no controla ningún enlace; no se construirá."
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightDefinition.cpp:229
 msgid "Unreachable edge '%' within tlLogic '%'"
-msgstr ""
+msgstr "Arista inalcanzable '%' dentro la lógica semafórica '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightDefinition.cpp:509
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
-msgstr ""
+msgstr "El cruce ferroviario '%' no tiene vías."
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightLogic.cpp:100
 #, c-format
@@ -10641,15 +10652,17 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Escribe todos los mensajes en FILE (implica salida detallada)"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
 msgstr ""
+"Escribe todos los mensajes, que no sean de error, en FILE (implica salida "
+"detallada)"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr ""
+msgstr "Escribe todas las advertencias y errores en FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
 msgid "Writes timestamps in front of all messages"
