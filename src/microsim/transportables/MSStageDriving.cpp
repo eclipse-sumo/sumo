@@ -42,6 +42,8 @@
 #include <microsim/transportables/MSPModel.h>
 
 
+#define DEFAULT_CARRIAGE_DOOR_WIDTH 1.5
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -440,6 +442,8 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                     const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * (carriageLengthWithGap - pars.carriageGap);
                     myArrivalPos = frontPosOnLane - randomDoorOffset;
                 }
+
+                myArrivalPos += RandHelper::rand(-0.5*DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5*DEFAULT_CARRIAGE_DOOR_WIDTH);
             }
         }
     } else {
