@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-04 12:25+0000\n"
+"PO-Revision-Date: 2023-12-04 12:27+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2727,12 +2727,12 @@ msgstr "Método no soportado"
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:187
 #: C:\Repos\sumo/src\router\RONet.cpp:60
 msgid "A network was not yet constructed."
-msgstr ""
+msgstr "Aún no se ha construido una red."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:221
 #: C:\Repos\sumo/src\router\RONet.cpp:83
 msgid "A network was already constructed."
-msgstr ""
+msgstr "Ya se había construido una red."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:286
 msgid ""
