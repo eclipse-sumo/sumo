@@ -79,7 +79,7 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     // calculate exaggeration
     myExaggeration = selectionScale * s.laneWidthExaggeration;
     // calculate exaggerated half lane width
-    myHalfLaneWidth = myExaggeration * (laneStruct.width / 2);
+    myHalfLaneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width) * myExaggeration / 2.0;
     // calculate half-lane width without mark width
     myHalfLaneWidthMinusMark = myHalfLaneWidth - (SUMO_const_laneMarkWidth / 2);
     // get with (depending if is selected
