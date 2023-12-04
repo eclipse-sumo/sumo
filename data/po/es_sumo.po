@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-01 13:20+0000\n"
+"PO-Revision-Date: 2023-12-04 12:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -230,10 +230,12 @@ msgstr "Guardar definiciones de rerouter para detectores sumidero en FILE"
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Escribir definiciones de bucle de inducción para las posiciones dadas de "
+"detector en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Agregar detectores de origen a la salida de validación"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
@@ -245,15 +247,15 @@ msgstr "Cambia al modo autopista"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Solo advertir sobre detectores no analizables"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Volver a calcular los tipos de detectores incluso si se proporcionan"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Volver a calcular rutas incluso si se proporcionan"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
@@ -261,11 +263,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Mantener rutas incluso si existe una más corta"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
-msgstr ""
+msgstr "Número de aristas para seguir una ruta sin pasar un detector"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:153
 msgid "Writes only emission times"
@@ -273,23 +275,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "No enviar rutas por estas aristas"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
-msgstr ""
+msgstr "Solo enrutar en aristas que permitan la clase de vehículo dada"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "Permitir retornos como continuaciones de ruta"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
-msgstr ""
+msgstr "Distancia mínima en metros entre el nodo de inicio y fin de cada ruta"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
-msgstr ""
+msgstr "generar tiempos de salida aleatorios para los vehículos emitidos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
@@ -301,30 +303,34 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "Distancia esperada entre dos conjuntos de datos sucesivos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Guardar calibradores en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Incluir rutas, en la salida, que no tengan vehículos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Comprobar si los detectores con flujo calculado 0 pueden atraer tráfico "
+"adicional"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Remover detectores vacíos de la lista"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:198
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
+"Si las aristas con estado desconocido pueden evitar que una arista se "
+"convierta en una fuente"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:201
 msgid ""
@@ -380,24 +386,27 @@ msgstr "Asigna una velocidad de llegada por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "La desviación predeterminada de velocidad de los vehículos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
 msgstr ""
+"Define el tiempo de inicio; Las definiciones anteriores serán descartadas"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:234
 msgid ""
 "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Define el tiempo de finalización; Las definiciones posteriores serán "
+"descartadas; Por defecto es un día"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "Listar los detectores sin flujo (habilita -v)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "Imprimir flujos de detectores agregados"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:246
 #: C:\Repos\sumo/src\router\ROFrame.cpp:225
@@ -442,6 +451,8 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"El detector '%' no tiene flujos.\n"
+" Intentando reconstruir."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:467
 msgid " Could not build list of previous flows."
@@ -505,7 +516,7 @@ msgstr "No se encontraron detectores."
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:103
 #, c-format
 msgid "The measure-file '%' can not be opened."
-msgstr ""
+msgstr "El archivo de medida '%' no se puede abrir."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:124
 msgid "Removing empty detectors"
@@ -541,15 +552,15 @@ msgstr "Escribiendo emitters"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:210
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Escribir puntos de interés emisores"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:217
 msgid "Writing speed triggers"
-msgstr ""
+msgstr "Escribir activadores de velocidad"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:224
 msgid "Writing validation detectors"
-msgstr ""
+msgstr "Escribir detectores de validación"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:231
 msgid "Writing highway end rerouter"
@@ -562,19 +573,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "Guardar rutas alternativas generadas en FILE"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "Guardar divisiones de arista y conectividad en FILE"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
-msgstr ""
+msgstr "Guardar aristas intermodales con longitudes y tiempos de viaje en FILE"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
 msgstr ""
+"Escribir viajes en lugar de vehículos (para validar la entrada de viaje)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
@@ -586,7 +598,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "Incluir el atributo de costo en la salida de la ruta"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:92
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:568
@@ -633,7 +645,7 @@ msgstr "Usar FLOAT como beta de Gawron"
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:121
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "Usar FLOAT como alfa de Gawron"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:124
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:62
@@ -644,7 +656,7 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:127
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:251
 msgid "Include total route length in the output"
-msgstr ""
+msgstr "Incluir la longitud total de la ruta en la salida"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:130
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:216
@@ -654,11 +666,11 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:133
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "Solo reutilizar rutas de la entrada, no calcular nuevas"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:136
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "La probabilidad de mantener la ruta antigua"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:139
 msgid "Route all public transport input"
@@ -667,23 +679,26 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:142
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
-msgstr ""
+msgstr "Elegir un método de elección de ruta: gawron, logit o lohse"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:145
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
+"Usar el modelo c-logit (obsoleto en favor de --route-choice-method logit)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "Usar FLOAT como beta de logit"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:153
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "Usar FLOAT como gamma de logit"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:157
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
+"Usar FLOAT como theta de logit (valores negativos significan estimación "
+"automática)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:160
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:589
@@ -700,12 +715,13 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:170
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:599
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Dónde los taxis pueden dejar a los clientes ('allJunctions, 'ptStops')"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:173
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:602
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
 msgstr ""
+"Dónde los taxis pueden recoger a los clientes ('allJunctions, 'ptStops')"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:176
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:608
@@ -730,12 +746,13 @@ msgstr "El algoritmo de enrutamiento '%' no admite el enrutamiento masivo."
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:228
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
-msgstr ""
+msgstr "Método de elección de ruta '%' no válido."
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
 msgstr ""
+"La opción --logit está obsoleta, favor usar --route-choice-method logit."
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
@@ -746,6 +763,8 @@ msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
 msgstr ""
+"La opción --write-trips.junctions no tiene efecto cuando --write-trips está "
+"deshabilitado."
 
 #: C:\Repos\sumo/src\duarouter\duarouter_main.cpp:107
 #, c-format
@@ -783,11 +802,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:73
 msgid "Use STR[] as list of sink edges"
-msgstr ""
+msgstr "Usar STR[] como lista de aristas sumidero"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:76
 msgid "Whether all edges are allowed as sink edges"
-msgstr ""
+msgstr "Si todas las aristas están permitidas como aristas sumidero"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:79
 msgid "Ignore road restrictions based on vehicle class"
@@ -838,15 +857,19 @@ msgstr "La arista '%' declarada como fuente no es conocida."
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
 msgstr ""
+"La arista '%' no se conoce dentro de la red (dentro de una etiqueta 'from-"
+"edge')."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:172
 #, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
 msgstr ""
+"La arista '%' no se conoce dentro de la red (dentro de una etiqueta 'to-"
+"edge')."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
-msgstr ""
+msgstr "'probability' debe ser positiva (en la definición de to-edge '%')."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:201
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:206
@@ -859,6 +882,7 @@ msgstr "La arista '%' no es conocida."
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
 msgstr ""
+"'probability' debe ser positiva (en la relación de aristas de '%' a '%')."
 
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:94
 msgid ""
@@ -904,6 +928,8 @@ msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
 msgstr ""
+"El ángulo de apertura del campo de visión ('%') debe estar dentro del "
+"intervalo (0, 360), ignorando el filtro..."
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1341
 msgid ""
@@ -1107,11 +1133,11 @@ msgstr "Escalar los flujos cargados por FLOAT"
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:156
 #: C:\Repos\sumo/src\od2trips_main.cpp:146
 msgid "Defines the name of the vehicle type to use"
-msgstr ""
+msgstr "Define el nombre del tipo de vehículo a utilizar"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "Define el prefijo para los nombres de flujo de vehículos"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:162
 #: C:\Repos\sumo/src\od2trips_main.cpp:152
@@ -1273,12 +1299,12 @@ msgstr "No se pudo despejar atasco en el calibrador '%' en el tiempo=%."
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:177
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:414
 msgid "No valid routes in calibrator '%'."
-msgstr ""
+msgstr "No hay rutas válidas en el calibrador '%'."
 
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:181
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:418
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
-msgstr ""
+msgstr "La ruta '%' en el calibrador '%' no contiene la arista '%'."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
@@ -1315,7 +1341,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:189
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "No se permite cambiar el ID de un vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:306
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
@@ -1388,16 +1414,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:850
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
-msgstr ""
+msgstr "¡El vehículo '%' no podrá llegar al carril indicado '%_%'!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:862
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:874
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
-msgstr ""
+msgstr "El vehículo '%' no tiene carril de llegada utilizable en la arista '%'."
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:886
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
-msgstr ""
+msgstr "¡El vehículo '%' no podrá llegar a la velocidad indicada!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
@@ -1405,22 +1431,24 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:919
 msgid "getLeader not yet implemented for meso"
-msgstr ""
+msgstr "getLeader aún no está implementado para la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:933
 msgid "getFollower not yet implemented for meso"
-msgstr ""
+msgstr "getFollower aún no está implementado para la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:660
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr ""
+"Eligiendo un nuevo factor de velocidad % para el vehículo '%' para coincidir "
+"con la velocidad de salida % (% máximo)."
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:1264
 #, c-format
 msgid "Bidi-edge '%' does not exist"
-msgstr ""
+msgstr "La arista bidireccional '%' no existe"
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:1277
 msgid "Ambiguous superposable edges between junction '%' and '%'."
@@ -1430,10 +1458,12 @@ msgstr ""
 #, c-format
 msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
 msgstr ""
+"La arista '%s' y la arista bidireccional '%s' no tienen carriles "
+"bidireccionales coincidentes"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr ""
+msgstr "Cargar descripción de la red vial desde FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
@@ -1445,16 +1475,16 @@ msgstr "Cargar más descripciones de FILE(s)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
-msgstr ""
+msgstr "Cargar pesos de arista/carril para el enrutamiento en línea desde FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:94
 #: C:\Repos\sumo/src\router\ROFrame.cpp:108
 msgid "Name of the xml attribute which gives the edge weight"
-msgstr ""
+msgstr "Nombre del atributo xml que proporciona el peso de arista"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:97
 msgid "Loads a network state from FILE"
-msgstr ""
+msgstr "Cargar un estado de red desde FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:99
 msgid "Shifts all times loaded from a saved state by the given offset"
@@ -1473,7 +1503,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:114
 msgid "Save complete network states into FILE"
-msgstr ""
+msgstr "Guardar los estados completos de la red en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:119
 msgid "Write also empty edges completely when dumping"
@@ -1481,15 +1511,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
-msgstr ""
+msgstr "Escribir posiciones y velocidades con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:128
 msgid "Save the emission values of each vehicle"
-msgstr ""
+msgstr "Guardar los valores de emisiones de cada vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:130
 msgid "Write emission values with the given precision (default 2)"
-msgstr ""
+msgstr "Escribir los valores de emisiones con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
@@ -1503,19 +1533,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:138
 msgid "Save the battery values of each vehicle"
-msgstr ""
+msgstr "Guardar los valores de batería de cada vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:140
 msgid "Write battery values with the given precision (default 2)"
-msgstr ""
+msgstr "Escribir los valores de batería con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:143
 msgid "Save the elecHybrid values of each vehicle"
-msgstr ""
+msgstr "Guardar los valores elecHybrid de cada vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:145
 msgid "Write elecHybrid values with the given precision (default 2)"
-msgstr ""
+msgstr "Escribir los valores elecHybrid con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:147
 msgid "Write elecHybrid values into one aggregated file"
@@ -1531,44 +1561,51 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:156
 msgid "Write data of electrical substation stations"
-msgstr ""
+msgstr "Escribir datos de las subestaciones eléctricas"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:158
 msgid "Write substation values with the given precision (default 2)"
 msgstr ""
+"Escribir los valores de subestación con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:161
 msgid "Save the Floating Car Data"
-msgstr ""
+msgstr "Guardar el Floating Car Data"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:163
 msgid "Save the Floating Car Data using geo-coordinates (lon/lat)"
-msgstr ""
+msgstr "Guardar el Floating Car Data usando coordenadas geográficas (lon/lat)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:165
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
 msgstr ""
+"Agregar el estado de la señal del vehículo a la salida FCD (luces de freno, "
+"etc.)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:167
 msgid "Add kilometrage to the FCD output (linear referencing)"
-msgstr ""
+msgstr "Agregar kilometraje a la salida FCD (referencia lineal)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:169
 msgid "Add acceleration to the FCD output"
-msgstr ""
+msgstr "Agregar aceleración a la salida FCD"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:171
 msgid ""
 "Add leader vehicle information to the FCD output (within the given distance)"
 msgstr ""
+"Agregar información del vehículo líder a la salida FCD (dentro de la "
+"distancia dada)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:173
 msgid "Add generic parameter values to the FCD output"
-msgstr ""
+msgstr "Agregar valores de parámetros genéricos a la salida FCD"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:175
 msgid "Restrict fcd output to the edge selection from the given input file"
 msgstr ""
+"Restringir la salida de FCD a las aristas seleccionadas en el archivo de "
+"entrada dado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:177
 msgid "List attributes that should be included in the FCD output"
@@ -1603,7 +1640,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:195
 msgid "Save the vehicle trajectories in the Amitran format"
-msgstr ""
+msgstr "Guardar las trayectorias de los vehículos en formato Amitran"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:200
 msgid "Save aggregated vehicle departure info into FILE"
@@ -2262,6 +2299,8 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:123
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
 msgstr ""
+"Retornar los valores de consumo de combustible en unidades (antiguas) l en "
+"lugar de mg"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:622
 #: C:\Repos\sumo/src\router\ROFrame.cpp:90
@@ -2615,6 +2654,8 @@ msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead)!"
 msgstr ""
+"¡El vehículo '%' no podrá salir usando la velocidad dada (carril lento más "
+"adelante)!"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2086
 msgid "Vehicle '%'"
@@ -2633,15 +2674,15 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2124
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr ""
+msgstr "Mantener el vehículo controlado remotamente '%' después"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2137
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
-msgstr ""
+msgstr " colisión con la persona '%', carril='%', brecha=%, tiempo=%, etapa=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2140
 msgid " collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr " colisión con la persona '%', carril='%', tiempo=%, etapa=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2206
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -2650,16 +2691,22 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2213
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
+"Removiendo el vehículo '%' después de una colisión anterior, carril='%', "
+"tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2218
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
+"Teleportando el vehículo '%' después de una colisión anterior, carril='%', "
+"tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2709
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
 msgstr ""
+"El carril '%' es accedido varias veces desde la arista '%'. Esto puede "
+"causar colisiones."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4317
 msgid "Invalid % '%'."
