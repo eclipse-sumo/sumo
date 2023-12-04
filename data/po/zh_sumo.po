@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-27 13:25+0000\n"
+"PO-Revision-Date: 2023-12-04 13:15+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -4166,17 +4166,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:163
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
-msgstr "信号逻辑（tlLogic）'%'的未使用的状态， 其发生在信号索引(tl-index) % 后的相位 % 內的时制方案'%' 內"
+msgstr "交通信号逻辑（tlLogic）'%'有未使用的状态， 其发生在信控方案'%'内的相位 % "
+"，信号灯索引(tl-index) 为 %"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:182
 msgid ""
 "Missing yellow phase in tlLogic '%', program '%' for tl-index % when "
 "switching% to phase %."
-msgstr "信号逻辑(tlLogic) '%' 缺少黄灯相位,其发生在切换到相位 % 时，信号索引(tl-index) % 的时制方案 '%' 內。"
+msgstr "交通信号逻辑(tlLogic) '%' 缺少黄灯相位,其发生在信控方案 '%'内切换到相位 % "
+"时，信号灯索引(tl-index)为 % 。"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:204
 msgid "Missing green phase in tlLogic '%', program '%' for tl-index %."
-msgstr "信号逻辑(tlLogic) '%' 缺少绿灯相位, 其发生于信号索引(tl-index) % 的时制方案 '%' 內。"
+msgstr "交通信号逻辑(tlLogic) '%' 缺少绿灯相位，其发生在信控方案 '%' 内，信号灯索引"
+"(tl-index) 为 % 。"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:268
 msgid ""
