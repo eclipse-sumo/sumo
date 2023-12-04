@@ -291,8 +291,8 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEE
     myDottedGeometries->at(0) = GUIDottedGeometry(s, topLane->getLaneGeometry().getShape(), false, true);
     myDottedGeometries->at(2) = GUIDottedGeometry(s, botLane->getLaneGeometry().getShape().reverse(), false, true);
     // move geometries top and bot
-    myDottedGeometries->at(0).moveShapeToSide(topLane->getLaneDrawingConstants()->getWidth() * topLane->getLaneDrawingConstants()->getExaggeration() * -1);
-    myDottedGeometries->at(2).moveShapeToSide(botLane->getLaneDrawingConstants()->getWidth() * botLane->getLaneDrawingConstants()->getExaggeration() * -1);
+    myDottedGeometries->at(0).moveShapeToSide(topLane->getDrawingConstants()->getWidth() * topLane->getDrawingConstants()->getExaggeration() * -1);
+    myDottedGeometries->at(2).moveShapeToSide(botLane->getDrawingConstants()->getWidth() * botLane->getDrawingConstants()->getExaggeration() * -1);
     // create left and right geometries
     if (drawFirstExtrem) {
         myDottedGeometries->at(3) = GUIDottedGeometry(s, {

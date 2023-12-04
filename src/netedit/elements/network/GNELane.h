@@ -48,12 +48,12 @@ class GNELane : public GNENetworkElement, public GNECandidateElement, public FXD
     FXDECLARE(GNELane)
 
 public:
-    /// @brief class for LaneDrawingConstants
-    class LaneDrawingConstants {
+    /// @brief class for lane drawing constants
+    class DrawingConstants {
 
     public:
-        /// @brief parameter constructor (reference)
-        LaneDrawingConstants(const GNELane* lane);
+        /// @brief parameter constructor
+        DrawingConstants(const GNELane* lane);
 
         /// @brief update lane drawing constants
         void update(const GUIVisualizationSettings& s);
@@ -86,11 +86,14 @@ public:
         /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
         double myWidth = 0;
 
+        /// @brief invalidate default constructor
+        DrawingConstants(const GNELane* lane) = delete;
+
         /// @brief Invalidated copy constructor.
-        LaneDrawingConstants(const LaneDrawingConstants&) = delete;
+        DrawingConstants(const DrawingConstants&) = delete;
 
         /// @brief Invalidated assignment operator.
-        LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
+        DrawingConstants& operator=(const DrawingConstants&) = delete;
     };
 
     /**@brief Constructor
@@ -124,8 +127,8 @@ public:
     /// @brief get lengths of the single shape parts
     const std::vector<double>& getShapeLengths() const;
 
-    /// @brief get LaneDrawingConstants
-    const LaneDrawingConstants* getLaneDrawingConstants() const;
+    /// @brief get lane drawing constants (previously calculated in drawGL())
+    const DrawingConstants* getDrawingConstants() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -313,7 +316,7 @@ private:
     GUIGeometry myLaneGeometry;
 
     /// @brief LaneDrawingConstants
-    LaneDrawingConstants *myLaneDrawingConstants;
+    DrawingConstants *myDrawingConstants;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

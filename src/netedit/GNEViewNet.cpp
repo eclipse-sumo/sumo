@@ -5359,7 +5359,7 @@ GNEViewNet::drawTemporalSplitJunction() const {
         const auto lane = gPostDrawing.markedEdge->getLanes().back();
         auto shape = lane->getLaneShape();
         // move shape to side
-        shape.move2side(lane->getLaneDrawingConstants()->getWidth() * -1);
+        shape.move2side(lane->getDrawingConstants()->getWidth() * -1);
         const auto offset = shape.nearest_offset_to_point2D(snapToActiveGrid(getPositionInformation()));
         const auto splitPosition = shape.positionAtOffset2D(offset);
         // get junction exaggeration

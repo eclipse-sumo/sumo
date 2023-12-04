@@ -163,12 +163,12 @@ GNEStopPlan::updateGeometry() {
         const GNELane* backLane = getParentEdges().front()->getLanes().back();
         // calculate front position
         const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
-                                                                                    frontLane->getLaneDrawingConstants()->getWidth());
+                                                                                    frontLane->getDrawingConstants()->getWidth());
         // calulate length between both shapes
         const double length = backLane->getLaneShape().distance2D(frontPosition, true);
         // calculate back position
         const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
-                                                                                   (length + backLane->getLaneDrawingConstants()->getWidth() - frontLane->getLaneDrawingConstants()->getWidth()) * -1);
+                                                                                   (length + backLane->getDrawingConstants()->getWidth() - frontLane->getDrawingConstants()->getWidth()) * -1);
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     }
