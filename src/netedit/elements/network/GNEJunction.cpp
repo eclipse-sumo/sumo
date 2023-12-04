@@ -1736,7 +1736,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
             demandElement->drawGL(s);
         }
         // draw path additional elements
-        myNet->getPathManager()->drawJunctionPathElements(s, d, this);
+        myNet->getPathManager()->drawJunctionPathElements(s, this);
     }
 }
 

@@ -70,6 +70,9 @@ public:
         /// @brief get lane width (but reduced,to make sure that a selected edge can still be seen
         double getWidth() const;
 
+        /// @brief get detail
+        GUIVisualizationSettings::Detail getDetail() const;
+
     private:
         /// @brief lane
         const GNELane* myLane;
@@ -85,6 +88,9 @@ public:
 
         /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
         double myWidth = 0;
+
+        /// @brief detail level
+        GUIVisualizationSettings::Detail myDetail = GUIVisualizationSettings::Detail::Level4;
 
         /// @brief invalidate default constructor
         DrawingConstants() = delete;
@@ -299,7 +305,7 @@ public:
     void drawOverlappedRoutes(const int numRoutes) const;
 
     /// @brief draw laneStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
 
 protected:
     /// @brief FOX needs this
@@ -350,29 +356,29 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLane(const GUIVisualizationSettings& s) const;
 
     /// @brief draw back edge
-    void drawBackEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+    void drawBackEdge(const GUIVisualizationSettings& s,
                       const bool drawSpreadSuperposed) const;
 
     /// @brief draw shape edited
-    void drawShapeEdited(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawShapeEdited(const GUIVisualizationSettings& s) const;
 
     /// @brief draw children
-    void drawChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawLaneMarkings(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const bool drawRailway) const;
+    void drawLaneMarkings(const GUIVisualizationSettings& s, const bool drawRailway) const;
 
     /// @brief draw link Number
-    void drawLinkNo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TLS link Number
-    void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane arrows
-    void drawLaneArrows(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const bool spreadSuperposed) const;
+    void drawLaneArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
@@ -387,17 +393,17 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+    void drawDirectionIndicators(const GUIVisualizationSettings& s,
                                  const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLaneAsRailway(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane textures
-    void drawTextures(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawTextures(const GUIVisualizationSettings& s) const;
 
     /// @brief draw start and end geometry points
-    void drawStartEndGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawStartEndGeometryPoints(const GUIVisualizationSettings& s) const;
 
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;

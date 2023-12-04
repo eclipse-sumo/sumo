@@ -333,10 +333,10 @@ public:
     void removePath(PathElement* pathElement);
 
     /// @brief draw lane path elements
-    void drawLanePathElements(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNELane* lane) const;
+    void drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
     /// @brief draw junction path elements
-    void drawJunctionPathElements(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEJunction* junction) const;
+    void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) const;
 
     /// @brief force draw path (used carefully, ONLY when we're inspecting a path element, due slowdowns)
     void forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const;

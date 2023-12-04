@@ -558,8 +558,6 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // get detail level
-    const auto d = s.getDetailLevel(1);
     // draw boundaries
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // draw draw lanes
@@ -569,6 +567,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw junctions
     getFromJunction()->drawGL(s);
     getToJunction()->drawGL(s);
+    // get detail level from the first lane
+    const auto d = myLanes.front()->getDrawingConstants()->getDetail();
     // draw geometry points
     drawEdgeGeometryPoints(s, d);
     // check if draw details
@@ -2689,7 +2689,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
         }
         if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             for (const auto& lane : getLanes()) {
-                lane->drawLaneStopOffset(s, d);
+                lane->drawLaneStopOffset(s);
             }
         }
         // Push stopOffset matrix
