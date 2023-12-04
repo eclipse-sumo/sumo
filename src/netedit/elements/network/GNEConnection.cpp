@@ -415,9 +415,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw connections geometry
-        const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
         PositionVector shapeSuperposed = myConnectionGeometry.getShape();
-        if (spreadSuperposed) {
+        if (myFromLane->getDrawingConstants()->drawSuperposed()) {
             shapeSuperposed.move2side(0.5);
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

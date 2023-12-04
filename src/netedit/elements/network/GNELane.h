@@ -64,14 +64,20 @@ public:
         /// @brief get half lane width
         double getHalfLaneWidth() const;
 
-        // @brief get compute lane-marking width (intersection points)
-        double getMarkWidth() const;
+        // @brief get half lane width without markings (intersection points)
+        double getHalfLaneWidthMinusMark() const;
 
         /// @brief get lane width (but reduced,to make sure that a selected edge can still be seen
         double getWidth() const;
 
         /// @brief get detail
         GUIVisualizationSettings::Detail getDetail() const;
+
+        /// @brief draw as railway
+        bool drawAsRailway() const;
+
+        /// @brief draw superposed
+        bool drawSuperposed() const;
 
     private:
         /// @brief lane
@@ -84,13 +90,19 @@ public:
         double myHalfLaneWidth = 0;
 
         // @brief compute lane-marking width (intersection points)
-        double myMarkWidth = 0;
+        double myHalfLaneWidthMinusMark = 0;
 
         /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
         double myWidth = 0;
 
         /// @brief detail level
         GUIVisualizationSettings::Detail myDetail = GUIVisualizationSettings::Detail::Level4;
+
+        /// @brief draw as railway
+        bool myDrawAsRailway = false;
+
+        /// @brief draw supersposed (reduced width so that the lane markings below are visible)
+        bool myDrawSuperposed = false;
 
         /// @brief invalidate default constructor
         DrawingConstants() = delete;
@@ -298,9 +310,6 @@ public:
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
-    /// @brief whether to draw this lane as a railway
-    bool drawAsRailway(const GUIVisualizationSettings& s) const;
-
     /// @brief draw overlapped routes
     void drawOverlappedRoutes(const int numRoutes) const;
 
@@ -359,8 +368,7 @@ private:
     void drawLane(const GUIVisualizationSettings& s) const;
 
     /// @brief draw back edge
-    void drawBackEdge(const GUIVisualizationSettings& s,
-                      const bool drawSpreadSuperposed) const;
+    void drawBackEdge(const GUIVisualizationSettings& s) const;
 
     /// @brief draw shape edited
     void drawShapeEdited(const GUIVisualizationSettings& s) const;
@@ -369,7 +377,7 @@ private:
     void drawChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawLaneMarkings(const GUIVisualizationSettings& s, const bool drawRailway) const;
+    void drawLaneMarkings(const GUIVisualizationSettings& s) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;
@@ -378,7 +386,7 @@ private:
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane arrows
-    void drawLaneArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const;
+    void drawLaneArrows(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
@@ -393,8 +401,7 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(const GUIVisualizationSettings& s,
-                                 const bool drawAsRailway, const bool spreadSuperposed) const;
+    void drawDirectionIndicators(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane as railway
     void drawLaneAsRailway(const GUIVisualizationSettings& s) const;

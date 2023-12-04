@@ -72,14 +72,28 @@ GNELane::DrawingConstants::DrawingConstants(const GNELane* lane) :
 
 void
 GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
+    // get lane struct
+    const auto &laneStruct = myLane->myParentEdge->getNBEdge()->getLaneStruct(myLane->getIndex());
+    // get selection scale
     const double selectionScale = myLane->isAttributeCarrierSelected() || myLane->myParentEdge->isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+    // calculate exaggeration
     myExaggeration = selectionScale * s.laneWidthExaggeration;
-    myHalfLaneWidth = myExaggeration * (myLane->myParentEdge->getNBEdge()->getLaneWidth(myLane->getIndex()) / 2);
-    myMarkWidth = myHalfLaneWidth - (SUMO_const_laneMarkWidth / 2);
-    myWidth = myLane->drawUsingSelectColor() ? (myMarkWidth - myExaggeration * 0.3) : myMarkWidth;
-
+    // calculate exaggerated half lane width
+    myHalfLaneWidth = myExaggeration * (laneStruct.width / 2);
+    // calculate half-lane width without mark width
+    myHalfLaneWidthMinusMark = myHalfLaneWidth - (SUMO_const_laneMarkWidth / 2);
+    // get with (depending if is selected
+    myWidth = myLane->drawUsingSelectColor() ? (myHalfLaneWidthMinusMark - myExaggeration * 0.3) : myHalfLaneWidthMinusMark;
     // get detail level
     myDetail = s.getDetailLevel(myExaggeration);
+    // check if draw lane as railway
+    if (isRailway(laneStruct.permissions)) {
+        myDrawAsRailway = ((laneStruct.permissions & SVC_BUS) == 0) && s.showRails && s.spreadSuperposed;
+    } else {
+        myDrawAsRailway = false;
+    }
+    // check if draw superposed
+    myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
 }
 
 
@@ -96,8 +110,8 @@ GNELane::DrawingConstants::getHalfLaneWidth() const {
 
 
 double
-GNELane::DrawingConstants::getMarkWidth() const {
-    return myMarkWidth;
+GNELane::DrawingConstants::getHalfLaneWidthMinusMark() const {
+    return myHalfLaneWidthMinusMark;
 }
 
 
@@ -110,6 +124,18 @@ GNELane::DrawingConstants::getWidth() const {
 GUIVisualizationSettings::Detail
 GNELane::DrawingConstants::getDetail() const {
     return myDetail;
+}
+
+
+bool
+GNELane::DrawingConstants::drawAsRailway() const {
+    return myDrawAsRailway;
+}
+
+
+bool
+GNELane::DrawingConstants::drawSuperposed() const {
+    return myDrawSuperposed;
 }
 
 // ---------------------------------------------------------------------------
@@ -487,7 +513,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLaneArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const {
+GNELane::drawLaneArrows(const GUIVisualizationSettings& s) const {
     if (s.showLinkDecals && myParentEdge->getToJunction()->isLogicValid()) {
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
@@ -498,7 +524,7 @@ GNELane::drawLaneArrows(const GUIVisualizationSettings& s, const bool spreadSupe
         // move front (note: must draw on top of junction shape?
         glTranslated(0, 0, 0.5);
         // change color depending of spreadSuperposed
-        if (spreadSuperposed) {
+        if (myDrawingConstants->drawSuperposed()) {
             GLHelper::setColor(RGBColor::CYAN);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -688,9 +714,9 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLaneMarkings(const GUIVisualizationSettings& s, const bool drawRailway) const {
+GNELane::drawLaneMarkings(const GUIVisualizationSettings& s) const {
     // check conditions
-    if (s.laneShowBorders && (myDrawingConstants->getExaggeration() == 1) && !drawRailway) {
+    if (s.laneShowBorders && (myDrawingConstants->getExaggeration() == 1) && !myDrawingConstants->drawAsRailway()) {
         // optionally draw inverse markings
         bool haveChangeProhibitions = false;
         if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
@@ -1233,18 +1259,14 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
     setLaneColor(s);
     // continue depending of detail level
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Lane) {
-        // get flag for draw lane as railway
-        const bool drawRailway = drawAsRailway(s);
-        // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
-        const bool drawSpreadSuperposed = s.spreadSuperposed && myParentEdge->getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
-        if (drawRailway && drawSpreadSuperposed) {
+        if (myDrawingConstants->drawAsRailway() && myDrawingConstants->drawSuperposed()) {
             // draw as railway
             drawLaneAsRailway(s);
         } else {
             // create visible gap depending of draw spread superposed
-            const double offset = drawSpreadSuperposed? myDrawingConstants->getWidth() * 0.5 : 0;
-            const double widthFactor = drawSpreadSuperposed? 0.4 : 1;
+            const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getWidth() * 0.5 : 0;
+            const double widthFactor = myDrawingConstants->drawSuperposed()? 0.4 : 1;
             // draw as box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                           myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
@@ -1252,19 +1274,19 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
                                           myDrawingConstants->getWidth() * widthFactor, false, offset);
         }
         // draw back edge
-        drawBackEdge(s, drawSpreadSuperposed);
+        drawBackEdge(s);
         // draw start end shape points
         drawStartEndGeometryPoints(s);
         // check if draw details
         if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
             // draw markings
-            drawLaneMarkings(s, drawRailway);
+            drawLaneMarkings(s);
             // Draw direction indicators
-            drawDirectionIndicators(s, drawRailway, drawSpreadSuperposed);
+            drawDirectionIndicators(s);
             // draw lane textures
             drawTextures(s);
             // draw lane arrows
-            drawLaneArrows(s, drawSpreadSuperposed);
+            drawLaneArrows(s);
             // draw link numbers
             drawLinkNo(s);
             // draw TLS link numbers
@@ -1287,9 +1309,9 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawBackEdge(const GUIVisualizationSettings& s, const bool drawSpreadSuperposed) const {
+GNELane::drawBackEdge(const GUIVisualizationSettings& s) const {
     // only draw if width and mark width are differents
-    if (myDrawingConstants->getWidth() != myDrawingConstants->getMarkWidth()) {
+    if (myDrawingConstants->getWidth() != myDrawingConstants->getHalfLaneWidthMinusMark()) {
         // Push matrix
         GLHelper::pushMatrix();
         // move back
@@ -1297,8 +1319,8 @@ GNELane::drawBackEdge(const GUIVisualizationSettings& s, const bool drawSpreadSu
         // set selected edge color
         GLHelper::setColor(s.colorSettings.selectedEdgeColor);
         // create visible gap depending of draw spread superposed
-        const double offset = drawSpreadSuperposed? myDrawingConstants->getWidth() * 0.5 : 0;
-        const double widthFactor = drawSpreadSuperposed? 0.4 : 1;
+        const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getWidth() * 0.5 : 0;
+        const double widthFactor = myDrawingConstants->drawSuperposed()? 0.4 : 1;
         // draw as box lines
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                         myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
@@ -1583,14 +1605,6 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 }
 
 
-bool
-GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex))
-           && (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_BUS) == 0
-           && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
-}
-
-
 void
 GNELane::drawOverlappedRoutes(const int numRoutes) const {
     // get middle point and angle
@@ -1639,17 +1653,16 @@ GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s,
-        const bool drawAsRailway, const bool spreadSuperposed) const {
+GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
     // Draw direction indicators if the correspondient option is enabled
     if (s.showLaneDirection) {
         // improve visibility of superposed rail edges
-        if (!drawAsRailway) {
+        if (!myDrawingConstants->drawAsRailway()) {
             glColor3d(0.3, 0.3, 0.3);
         }
         // get width and sideOffset
-        const double width = MAX2(NUMERICAL_EPS, (myDrawingConstants->getHalfLaneWidth() * 2 * myDrawingConstants->getExaggeration() * (spreadSuperposed ? 0.4 : 1)));
-        const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
+        const double width = MAX2(NUMERICAL_EPS, (myDrawingConstants->getHalfLaneWidth() * 2 * myDrawingConstants->getExaggeration() * (myDrawingConstants->drawSuperposed() ? 0.4 : 1)));
+        const double sideOffset = myDrawingConstants->drawSuperposed() ? width * -0.5 : 0;
         // push direction indicator matrix
         GLHelper::pushMatrix();
         // move to front
