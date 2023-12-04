@@ -334,7 +334,7 @@ private:
     void drawShapeEdited(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw children
-    void drawChildren(const GUIVisualizationSettings& s) const;
+    void drawChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw lane markings
     void drawLaneMarkings(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants &laneDrawingConstants, const bool drawRailway) const;

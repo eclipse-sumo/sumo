@@ -612,9 +612,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     }
     // draw children
-    drawChildren(s);
-    // draw path additional elements
-    myNet->getPathManager()->drawLanePathElements(s, d, this);
+    drawChildren(s, d);
     // draw dotted geometry
     myContour.drawDottedContourExtruded(s, d, getLaneShape(), laneDrawingConstants.width, 1, true, true,
                                         s.dottedContourSettings.segmentWidth);
@@ -637,17 +635,22 @@ GNELane::updateGLObject() {
 
 
 void
-GNELane::drawChildren(const GUIVisualizationSettings& s) const {
-    // draw additional children
-    for (const auto& additional : getChildAdditionals()) {
-        // check that ParkingAreas aren't draw two times
-        additional->drawGL(s);
-    }
-    // draw demand element children
-    for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPlacedInRTree()) {
-            demandElement->drawGL(s);
+GNELane::drawChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    // check if draw children elements
+    if (s.drawForObjectUnderCursor || (d <= GUIVisualizationSettings::Detail::Additionals)) {
+        // draw additional children
+        for (const auto& additional : getChildAdditionals()) {
+            // check that ParkingAreas aren't draw two times
+            additional->drawGL(s);
         }
+        // draw demand element children
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
+            }
+        }
+        // draw path additional elements
+        myNet->getPathManager()->drawLanePathElements(s, d, this);
     }
 }
 
