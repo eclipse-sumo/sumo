@@ -63,15 +63,10 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
-    myJunctionInGrid(true),
-    myAmCreateEdgeSource(false),
+    myCircleContour(this),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
     myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false),
-    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-    myExaggeration(1) {
+    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -664,19 +659,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw Junction childs
         drawJunctionChildren(s, d);
-        // draw path additional elements
-        myNet->getPathManager()->drawJunctionPathElements(s, d, this);
-        // continue depending of shapes
-        if (junctionShape) {
-            // draw dotted contour
-            if (myNBNode->getShape().area() > 1) {
-                myContour.drawDottedContourClosed(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
-            }
+        // draw dotted contour depending of shapes
+        if (junctionShape && (myNBNode->getShape().area() > 1)) {
+            myContour.drawDottedContourClosed(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
         }
         if (junctionBubble) {
-            // draw dotted contour
-            myContour.drawDottedContourCircle(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
-                                              s.dottedContourSettings.segmentWidth);
+            myCircleContour.drawDottedContourCircle(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
+                                                    s.dottedContourSettings.segmentWidth);
         }
     }
 }
@@ -1652,14 +1641,9 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
     if (d <= GUIVisualizationSettings::Detail::DrawPolygonTesselation) {
         // draw shape with high detail
         myTesselation.drawTesselation(myTesselation.getShape());
-    } else if (d <= GUIVisualizationSettings::Detail::DrawPolygon) {
+    } else {
         // draw shape
         GLHelper::drawFilledPoly(myNBNode->getShape(), true);
-    } else if ((d <= GUIVisualizationSettings::Detail::DrawPolygonBoundary)){
-        // get shape boundary
-        const auto boundary = myNBNode->getShape().getBoxBoundary();
-        // draw rectangle
-        GLHelper::drawRectangle(myNBNode->getCenter(), boundary.getWidth(), boundary.getHeight());
     }
     // draw shape points only in Network supermode
     if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
@@ -1733,6 +1717,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
         for (const auto& crossing : myGNECrossings) {
             crossing->drawGL(s);
         }
+        // draw walking areas
         for (const auto& walkingArea : myGNEWalkingAreas) {
             walkingArea->drawGL(s);
         }
@@ -1740,6 +1725,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
         for (const auto& internalLanes : myInternalLanes) {
             internalLanes->drawGL(s);
         }
+        // draw connections
         for (const auto& incomingEdge : myGNEIncomingEdges) {
             for (const auto& connection : incomingEdge->getGNEConnections()) {
                 connection->drawGL(s);
@@ -1749,6 +1735,12 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
         for (const auto& demandElement : getChildDemandElements()) {
             demandElement->drawGL(s);
         }
+        // draw child demand elements
+        for (const auto& demandElement : getChildDemandElements()) {
+            demandElement->drawGL(s);
+        }
+        // draw path additional elements
+        myNet->getPathManager()->drawJunctionPathElements(s, d, this);
     }
 }
 

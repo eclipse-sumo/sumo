@@ -551,7 +551,6 @@ public:
 
         Level1 = 1,     // circle resolution = 8, polygons, no lane details
             CircleResolution16 = 1,
-            DrawPolygon = 1,
             VehicleBox = 1,
             AdditionalDetails = 1,  // stoppingPlace signs, EntryExit arrows...
             GeometryPoint = 1,
@@ -573,7 +572,6 @@ public:
 
         Level4 = 4,
             LaneSimpleOnlyFirst = 4,
-            DrawPolygonBoundary = 4,
     };
 
     /// @brief constructor

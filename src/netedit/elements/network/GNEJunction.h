@@ -303,7 +303,10 @@ protected:
     Boundary myJunctionBoundary;
 
     /// @brief flag for check if junction is currently in grid
-    bool myJunctionInGrid;
+    bool myJunctionInGrid = true;
+
+    /// @brief variable used for draw circle contours
+    GNEContour myCircleContour;
 
     /// @brief vector with the (child) incomings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEIncomingEdges;
@@ -322,28 +325,28 @@ protected:
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)
-    bool myAmCreateEdgeSource;
+    bool myAmCreateEdgeSource = false;
 
     /// @brief modification status of the junction logic (all connections across this junction)
     std::string myLogicStatus;
 
     /// @brief whether we are responsible for deleting myNBNode
-    bool myAmResponsible;
+    bool myAmResponsible = false;
 
     /// @brief whether this junctions logic is valid
     bool myHasValidLogic;
 
     /// @brief whether this junction is selected in tls-mode
-    bool myAmTLSSelected;
+    bool myAmTLSSelected = false;
 
     /// @brief whether this junction probably should have some connections but doesn't
-    bool myColorForMissingConnections;
+    bool myColorForMissingConnections = false;
 
     /// @brief An object that stores the shape and its tesselation
     mutable TesselatedPolygon myTesselation;
 
     /// @brief exaggeration used in tesselation
-    mutable double myExaggeration;
+    mutable double myExaggeration = 1;
 
 private:
     /// @brief check if draw junction as bubble
