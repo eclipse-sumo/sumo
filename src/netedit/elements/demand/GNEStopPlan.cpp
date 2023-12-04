@@ -161,15 +161,14 @@ GNEStopPlan::updateGeometry() {
         // get front and back lane
         const GNELane* frontLane = getParentEdges().front()->getLanes().front();
         const GNELane* backLane = getParentEdges().front()->getLanes().back();
-        // get lane drawing constants
-        GNELane::LaneDrawingConstants laneDrawingConstantsFront(myNet->getViewNet()->getVisualisationSettings(), frontLane);
-        GNELane::LaneDrawingConstants laneDrawingConstantBack(myNet->getViewNet()->getVisualisationSettings(), backLane);
         // calculate front position
-        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), laneDrawingConstantsFront.width);
+        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                                                                    frontLane->getLaneDrawingConstants()->getWidth());
         // calulate length between both shapes
         const double length = backLane->getLaneShape().distance2D(frontPosition, true);
         // calculate back position
-        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), (length + laneDrawingConstantBack.width - laneDrawingConstantsFront.width) * -1);
+        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                                                                   (length + backLane->getLaneDrawingConstants()->getWidth() - frontLane->getLaneDrawingConstants()->getWidth()) * -1);
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     }

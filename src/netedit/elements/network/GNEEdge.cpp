@@ -2751,8 +2751,6 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
             }
             // iterate over lanes
             for (const auto& lane : myLanes) {
-                // get lane drawing constants
-                GNELane::LaneDrawingConstants laneDrawingConstants(s, lane);
                 // Push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front (note: Special case)
@@ -2772,8 +2770,8 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::CYAN);
                 }
                 // draw as box lines
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          lane->getLaneGeometry(), laneDrawingConstants.width);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneGeometry(),
+                                          lane->getLaneDrawingConstants()->getWidth());
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }

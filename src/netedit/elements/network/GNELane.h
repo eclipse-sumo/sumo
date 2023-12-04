@@ -53,26 +53,44 @@ public:
 
     public:
         /// @brief parameter constructor (reference)
-        LaneDrawingConstants(const GUIVisualizationSettings&  s, const GNELane* lane);
+        LaneDrawingConstants(const GNELane* lane);
 
-        /// @brief selection scale
-        const double selectionScale;
+        /// @brief update lane drawing constants
+        void update(const GUIVisualizationSettings& s);
 
-        /// @brief exaggeration
-        const double exaggeration;
+        /// @brief get exaggeration
+        double getExaggeration() const;
 
-        /// @brief half lane width
-        const double halfLaneWidth;
+        /// @brief get half lane width
+        double getHalfLaneWidth() const;
 
-        // @brief compute lane-marking width (intersection points)
-        const double markWidth;
+        // @brief get compute lane-marking width (intersection points)
+        double getMarkWidth() const;
 
-        /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
-        const double width;
+        /// @brief get lane width (but reduced,to make sure that a selected edge can still be seen
+        double getWidth() const;
 
     private:
-        /// @brief default constructor
-        LaneDrawingConstants();
+        /// @brief lane
+        const GNELane* myLane;
+
+        /// @brief exaggeration
+        double myExaggeration = 0;
+
+        /// @brief half lane width
+        double myHalfLaneWidth = 0;
+
+        // @brief compute lane-marking width (intersection points)
+        double myMarkWidth = 0;
+
+        /// @brief lane width (but reduced,to make sure that a selected edge can still be seen
+        double myWidth = 0;
+
+        /// @brief Invalidated copy constructor.
+        LaneDrawingConstants(const LaneDrawingConstants&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
     };
 
     /**@brief Constructor
@@ -105,6 +123,9 @@ public:
 
     /// @brief get lengths of the single shape parts
     const std::vector<double>& getShapeLengths() const;
+
+    /// @brief get LaneDrawingConstants
+    const LaneDrawingConstants* getLaneDrawingConstants() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -291,6 +312,9 @@ private:
     /// @brief lane geometry
     GUIGeometry myLaneGeometry;
 
+    /// @brief LaneDrawingConstants
+    LaneDrawingConstants *myLaneDrawingConstants;
+
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
 
@@ -323,12 +347,11 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                  const LaneDrawingConstants &laneDrawingConstants) const;
+    void drawLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw back edge
     void drawBackEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                      const LaneDrawingConstants &laneDrawingConstants, const bool drawSpreadSuperposed) const;
+                      const bool drawSpreadSuperposed) const;
 
     /// @brief draw shape edited
     void drawShapeEdited(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
@@ -337,7 +360,7 @@ private:
     void drawChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw lane markings
-    void drawLaneMarkings(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants &laneDrawingConstants, const bool drawRailway) const;
+    void drawLaneMarkings(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const bool drawRailway) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
@@ -362,16 +385,16 @@ private:
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                 const LaneDrawingConstants& laneDrawingConstants, const bool drawAsRailway, const bool spreadSuperposed) const;
+                                 const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawLaneAsRailway(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw lane textures
-    void drawTextures(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawTextures(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw start and end geometry points
-    void drawStartEndGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const LaneDrawingConstants& laneDrawingConstants) const;
+    void drawStartEndGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;
