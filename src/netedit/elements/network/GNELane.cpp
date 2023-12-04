@@ -79,16 +79,16 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     // calculate exaggeration
     myExaggeration = selectionScale * s.laneWidthExaggeration;
     // calculate exaggerated half lane width
-    myHalfLaneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width) * myExaggeration / 2.0;
+    myHalfLaneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width) * myExaggeration * 0.5;
     // calculate half-lane width without mark width
     myHalfLaneWidthMinusMark = myHalfLaneWidth - (SUMO_const_laneMarkWidth / 2);
     // get with (depending if is selected
-    myWidth = myLane->drawUsingSelectColor() ? (myHalfLaneWidthMinusMark - myExaggeration * 0.3) : myHalfLaneWidthMinusMark;
+    myWidth = myLane->drawUsingSelectColor() ? (myHalfLaneWidthMinusMark - myExaggeration * 0.5) : myHalfLaneWidthMinusMark;
     // get detail level
     myDetail = s.getDetailLevel(myExaggeration);
     // check if draw lane as railway
     if (isRailway(laneStruct.permissions)) {
-        myDrawAsRailway = ((laneStruct.permissions & SVC_BUS) == 0) && s.showRails && s.spreadSuperposed;
+        myDrawAsRailway = ((laneStruct.permissions & SVC_BUS) == 0) && s.showRails;
     } else {
         myDrawAsRailway = false;
     }
@@ -1260,7 +1260,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
     // continue depending of detail level
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Lane) {
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
-        if (myDrawingConstants->drawAsRailway() && myDrawingConstants->drawSuperposed()) {
+        if (myDrawingConstants->drawAsRailway()) {
             // draw as railway
             drawLaneAsRailway(s);
         } else {
@@ -1697,23 +1697,18 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
-    // we draw the lanes with reduced width so that the lane markings below are visible
-    // (this avoids artifacts at geometry corners without having to
-    const bool spreadSuperposed = s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr;
     // get lane shape
     PositionVector shape = myLaneGeometry.getShape();
     // get width
-    const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
+    const double laneWidth = myDrawingConstants->getHalfLaneWidth() * 2;
     // draw as railway: assume standard gauge of 1435mm when lane width is not set
     // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
-    double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * myDrawingConstants->getExaggeration();
-    // check if we have to modify shape
-    if (spreadSuperposed) {
-        shape.move2side(halfGauge * 0.8);
-        halfGauge *= 0.4;
-        //std::cout << "spreadSuperposed " << getID() << " old=" << myLaneGeometry.getShape() << " new=" << shape << "\n";
-    }
+    double halfGauge = 0.5 * (laneWidth == SUMO_const_laneWidth ?  1.4350 : laneWidth) * myDrawingConstants->getExaggeration();
+    // modify shape
+    shape.move2side(halfGauge * 0.8);
+    // update half gauge
+    halfGauge *= 0.4;
     // calculate constant
     const double halfInnerFeetWidth = halfGauge - 0.039 * myDrawingConstants->getExaggeration();
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * myDrawingConstants->getExaggeration();
