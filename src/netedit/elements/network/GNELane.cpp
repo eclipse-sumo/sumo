@@ -1295,12 +1295,16 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
         if (myDrawingConstants->drawAsRailway()) {
             // draw as railway
             drawLaneAsRailway(s);
+        } else if (myShapeColors.size() > 0) {
+            // draw box lines with own colors
+            GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                                   myLaneGeometry.getShapeLengths(), myShapeColors, myDrawingConstants->getDrawingWidth(), 0,
+                                   myDrawingConstants->getOffset());
         } else {
-            // draw as box lines
-            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                                          myLaneGeometry.getShapeLengths(), myShapeColors,
-                                          myDrawingConstants->getDrawingWidth(), false, myDrawingConstants->getOffset());
+            // draw box lines with current color
+            GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                                   myLaneGeometry.getShapeLengths(), myDrawingConstants->getDrawingWidth(), 0,
+                                   myDrawingConstants->getOffset());
         }
         // draw back edge
         drawBackEdge(s);
@@ -1347,14 +1351,10 @@ GNELane::drawBackEdge(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, -0.1);
         // set selected edge color
         GLHelper::setColor(s.colorSettings.selectedEdgeColor);
-        // create visible gap depending of draw spread superposed
-        const double offset = myDrawingConstants->drawSuperposed()? myDrawingConstants->getDrawingWidth() * 0.5 : 0;
-        const double widthFactor = myDrawingConstants->drawSuperposed()? 0.4 : 1;
         // draw as box lines
-        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                        myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                                        myLaneGeometry.getShapeLengths(), {},
-                                        myDrawingConstants->getDrawingWidth() * widthFactor, false, offset);
+        GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                               myLaneGeometry.getShapeLengths(), myDrawingConstants->getDrawingWidth(),
+                               myDrawingConstants->getOffset());
         // Pop matrix
         GLHelper::popMatrix();
     }
@@ -1371,8 +1371,9 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
         // set selected edge color
         GLHelper::setColor(s.colorSettings.editShapeColor);
-        // draw again to show the selected edge
-        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
+        // draw shape around
+        GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                                myLaneGeometry.getShapeLengths(), 0.25);
         // move front
         glTranslated(0, 0, 1);
         // color
@@ -1730,8 +1731,15 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
     const double halfInnerFeetWidth = myDrawingConstants->getHalfLaneWidth() - 0.039 * myDrawingConstants->getExaggeration();
     const double halfRailWidth = halfInnerFeetWidth + 0.15 * myDrawingConstants->getExaggeration();
     const double halfCrossTieWidth = myDrawingConstants->getHalfLaneWidth() * 1.81;
-    // Draw extern lane
-    GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    // draw as box lines
+    if (myShapeColors.size() > 0) {
+        GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                               myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth,
+                               myDrawingConstants->getOffset());
+    } else {
+        GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                               myLaneGeometry.getShapeLengths(), halfRailWidth, myDrawingConstants->getOffset());
+    }
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
         // Save current color
@@ -1740,8 +1748,10 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
         glColor3d(0.8, 0.8, 0.8);
         // move
         glTranslated(0, 0, 0.1);
-        // draw lane geometry again
-        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+        // draw as box lines
+        GLHelper::drawBoxLines(myDrawingConstants->getDrawingShape(), myLaneGeometry.getShapeRotations(),
+                               myLaneGeometry.getShapeLengths(), halfInnerFeetWidth,
+                               myDrawingConstants->getOffset());
         // Set current color back
         GLHelper::setColor(current);
         // Draw crossties

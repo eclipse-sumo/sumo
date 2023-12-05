@@ -401,36 +401,6 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject
 
 
 void
-GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
-                              const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors,
-                              double width, const bool onlyContour, const double offset) {
-    // first check if we're in draw a contour or for selecting cliking mode
-    if (onlyContour) {
-        // get shapes
-        PositionVector shapeA = shape;
-        PositionVector shapeB = shape;
-        // move both shapes
-        shapeA.move2side((width - 0.1));
-        shapeB.move2side((width - 0.1) * -1);
-        // reverse shape B
-        shapeB = shapeB.reverse();
-        // append shape B to shape A
-        shapeA.append(shapeB, 0);
-        // close shape A
-        shapeA.closePolygon();
-        // draw box lines using shapeA
-        GLHelper::drawBoxLines(shapeA, 0.1);
-    } else if (colors.size() > 0) {
-        // draw box lines with own colors
-        GLHelper::drawBoxLines(shape, rotations, lengths, colors, width, 0, offset);
-    } else {
-        // draw box lines with current color
-        GLHelper::drawBoxLines(shape, rotations, lengths, width, 0, offset);
-    }
-}
-
-
-void
 GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
                             const RGBColor& color, const bool drawEntire, const double lineWidth) {
     if (!s.drawForRectangleSelection) {
