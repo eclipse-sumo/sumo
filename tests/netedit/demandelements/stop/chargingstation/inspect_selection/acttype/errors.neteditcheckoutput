@@ -1,25 +1,2 @@
-Warning: Vehicle 'flow.3' aborts stop.
-Warning: Vehicle 'flow.5' aborts stop.
-Warning: Vehicle 'flow.3' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.8' aborts stop.
-Warning: Vehicle 'flow.7' aborts stop.
-Warning: Vehicle 'flow.9' aborts stop.
-Warning: Vehicle 'flow.14' aborts stop.
-Warning: Vehicle 'flow.5' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.7' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.9' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.14' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.0' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.1' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.10' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.11' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.12' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.13' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.14' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.15' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.16' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.17' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.2' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.4' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.6' aborted waiting for a person that will never come.
+Error: The route file 'routes.netedit' is not accessible.
+Quitting (on error).

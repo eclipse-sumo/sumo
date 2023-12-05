@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.busStop.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,

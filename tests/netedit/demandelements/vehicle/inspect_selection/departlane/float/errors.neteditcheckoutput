@@ -1,0 +1,3 @@
+Warning: Vehicle 'vehicleA' will not be able to arrive at the given lane 'Edge2_0'!
+Error: Invalid departlane definition for vehicle 'vehicleA'.
+Quitting (on error).

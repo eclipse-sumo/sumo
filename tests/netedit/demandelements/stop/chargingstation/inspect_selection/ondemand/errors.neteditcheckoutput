@@ -1,38 +1,15 @@
 Warning: Vehicle 'flow.3' aborts stop.
 Warning: Vehicle 'flow.5' aborts stop.
 Warning: Vehicle 'flow.3' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.3' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.33, offset=6.35), time=37.00.
-Warning: Vehicle 'flow.5' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.5' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-9.11, offset=7.05), time=44.00.
 Warning: Vehicle 'flow.8' aborts stop.
 Warning: Vehicle 'flow.7' aborts stop.
 Warning: Vehicle 'flow.9' aborts stop.
-Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.8' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.55, offset=10.06), time=53.00.
-Warning: Vehicle 'flow.7' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.7' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-9.10, offset=9.68), time=56.00.
-Warning: Vehicle 'flow.9' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.9' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.59, offset=9.91), time=58.00.
-Warning: Vehicle 'flow.11' aborts stop.
-Warning: Vehicle 'flow.12' aborts stop.
-Warning: Vehicle 'flow.13' aborts stop.
-Warning: Vehicle 'flow.11' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.11' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-9.21, offset=1.43), time=65.00.
 Warning: Vehicle 'flow.14' aborts stop.
-Warning: Vehicle 'flow.12' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.12' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.71, offset=8.30), time=68.00.
-Warning: Vehicle 'flow.15' aborts stop.
-Warning: Vehicle 'flow.13' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.13' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-9.34, offset=1.73), time=70.00.
-Warning: Vehicle 'flow.16' aborts stop.
+Warning: Vehicle 'flow.5' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'flow.7' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'flow.9' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
 Warning: Vehicle 'flow.14' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.14' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.86, offset=8.20), time=73.00.
-Warning: Vehicle 'flow.17' aborts stop.
-Warning: Vehicle 'flow.15' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.15' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.46, offset=9.16), time=76.00.
-Warning: Vehicle 'flow.16' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
-Warning: Vehicle 'flow.16' performs emergency stop at the end of lane 'EdgeCenter0_1' for unknown reasons (decel=-10.06, offset=4.73), time=78.00.
-Warning: Vehicle 'flow.17' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
 Warning: Vehicle 'flow.0' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.1' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.10' aborted waiting for a person that will never come.
@@ -44,10 +21,5 @@ Warning: Vehicle 'flow.15' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.16' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.17' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.2' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.3' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.4' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.5' aborted waiting for a person that will never come.
 Warning: Vehicle 'flow.6' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.7' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.8' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow.9' aborted waiting for a person that will never come.

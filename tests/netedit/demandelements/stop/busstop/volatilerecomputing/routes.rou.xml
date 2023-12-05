@@ -37,16 +37,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="Edge0 Edge1" color="yellow" id="route_0">
-        <stop busStop="busStopC" duration="60.00"/>
-        <stop busStop="busStopD" duration="60.00"/>
-        <stop busStop="busStopE" duration="60.00"/>
-        <stop busStop="busStopF" duration="60.00"/>
-        <stop busStop="busStopG" duration="60.00"/>
-        <stop busStop="busStopH" duration="60.00"/>
-    </route>
     <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_1">
         <stop busStop="busStopA" duration="60.00"/>
-        <stop busStop="busStopB" duration="60.00"/>
     </route>
 </routes>

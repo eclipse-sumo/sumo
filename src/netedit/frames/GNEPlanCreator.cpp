@@ -487,8 +487,8 @@ GNEPlanCreator::getFromTrainStop() const {
 
 GNEAdditional*
 GNEPlanCreator::getToTrainStop() const {
-    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
-        return myFromStoppingPlace;
+    if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+        return myToStoppingPlace;
     } else {
         return nullptr;
     }
@@ -507,8 +507,8 @@ GNEPlanCreator::getFromContainerStop() const {
 
 GNEAdditional*
 GNEPlanCreator::getToContainerStop() const {
-    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
-        return myFromStoppingPlace;
+    if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
+        return myToStoppingPlace;
     } else {
         return nullptr;
     }

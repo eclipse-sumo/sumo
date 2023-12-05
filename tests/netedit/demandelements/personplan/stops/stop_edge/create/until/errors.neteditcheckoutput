@@ -1,2 +1,4 @@
-Warning: Disconnected plan for person 'p_0' (stop range 37.33-37.53 does not cover previous arrival position 24.45).
-Warning: Disconnected plan for person 'p_0' (stop range 29.32-29.52 does not cover previous arrival position 24.45).
+Error: Another edge with the id ':Junction3_0' exists.
+Error: Another edge with the id ':Junction3_1' exists.
+Error: Another junction with the id 'Junction3' exists.
+Quitting (on error).
