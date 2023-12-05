@@ -266,14 +266,14 @@ GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector&
 
 
 void
-GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos,
-                          const GUIGeometry& geometry, const double width, double offset) {
-    // continue depending of draw for position selection
-    if (s.scale * width < 1) {
-        // draw line (needed for zoom out)
-        GLHelper::drawLine(geometry.getShape());
-    } else {
+GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
+                          const double width, double offset) {
+    // continue depending of detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryAsLines) {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
+    } else {
+        // simply draw a line
+        GLHelper::drawLine(geometry.getShape());
     }
 }
 

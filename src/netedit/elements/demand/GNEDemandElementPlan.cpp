@@ -1119,7 +1119,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw line
-            GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
+            GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
             GLHelper::drawTriangleAtEnd(
                 *(planGeometry.getShape().end() - 2),
                 *(planGeometry.getShape().end() - 1),
@@ -1190,7 +1190,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         // Set color
         GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw geometry
-        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
+        GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
         // draw red arrows
         drawFromArrow(s, segment->getLane(), segment, dottedElement);
         drawToArrow(s, segment->getLane(), segment, dottedElement);
@@ -1251,7 +1251,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
                 // obtain lane2lane geometry
                 const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
                 // draw lane2lane
-                GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), lane2laneGeometry, pathWidth);
+                GUIGeometry::drawGeometry(d, lane2laneGeometry, pathWidth);
             } else {
                 // Set invalid plan color
                 GLHelper::setColor(RGBColor::RED);

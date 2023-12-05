@@ -408,13 +408,13 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
         // set base color
         GLHelper::setColor(stopColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
+        GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.3 * exaggeration);
         // move to front
         glTranslated(0, 0, .1);
         // set central color
         GLHelper::setColor(centralLineColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
+        GUIGeometry::drawGeometry(d, myDemandElementGeometry, 0.05 * exaggeration);
         // move to icon position and front
         glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
         // rotate over lane
@@ -468,9 +468,9 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         GLHelper::setColor(stopColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.trainStopWidth * exaggeration);
+            GUIGeometry::drawGeometry(d, myDemandElementGeometry, s.stoppingPlaceSettings.trainStopWidth * exaggeration);
         } else {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+            GUIGeometry::drawGeometry(d, myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
         }
         // move to icon position and front
         glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);

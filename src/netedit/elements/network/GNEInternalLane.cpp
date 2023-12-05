@@ -194,7 +194,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(linkStateColor);
             // draw geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry,
+            GUIGeometry::drawGeometry(d, myInternalLaneGeometry,
                                       s.connectionSettings.connectionWidth);
             // pop layer matrix
             GLHelper::popMatrix();

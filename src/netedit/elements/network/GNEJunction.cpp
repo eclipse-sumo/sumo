@@ -1654,7 +1654,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
         // set color
         GLHelper::setColor(darkerColor);
         // draw shape
-        GUIGeometry::drawGeometry(s, mousePos, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
+        GUIGeometry::drawGeometry(d, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
         // draw geometry points
         GUIGeometry::drawGeometryPoints(s, this, mousePos, junctionOpenShape, darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,

@@ -233,13 +233,13 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // set color
             GLHelper::setColor(segmentColor);
             // draw temporal edge
-            GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 0.45);
+            GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 0.45);
             // check if draw starPos
             if (startPos != INVALID_DOUBLE) {
                 // cut start pos
                 geometry.updateGeometry(laneShape, startPos, Position::INVALID, startPos + 0.5, Position::INVALID);
                 // draw startPos
-                GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
+                GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 1);
             } else {
                 // push circle matrix
                 GLHelper::pushMatrix();
@@ -255,7 +255,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
                 // cut endPos
                 geometry.updateGeometry(laneShape, endPos - 0.5, Position::INVALID, endPos, Position::INVALID);
                 // draw endPos
-                GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
+                GUIGeometry::drawGeometry(lane->getDrawingConstants()->getDetail(), geometry, 1);
             } else {
                 // push circle matrix
                 GLHelper::pushMatrix();

@@ -5328,7 +5328,7 @@ GNEViewNet::drawTemporalJunction() const {
             // set color
             GLHelper::setColor(temporalEdgeColor);
             // draw temporal edge
-            GUIGeometry::drawGeometry(*myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
+            GUIGeometry::drawGeometry(GUIVisualizationSettings::Detail::Level0, temporalEdgeGeometry, 0.75);
             // check if we have to draw opposite edge
             if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
@@ -5336,7 +5336,7 @@ GNEViewNet::drawTemporalJunction() const {
                 // update geometry
                 temporalEdgeGeometry.updateGeometry(temporalEdge);
                 // draw temporal edge
-                GUIGeometry::drawGeometry(*myVisualizationSettings, getPositionInformation(), temporalEdgeGeometry, 0.75);
+                GUIGeometry::drawGeometry(GUIVisualizationSettings::Detail::Level0, temporalEdgeGeometry, 0.75);
             }
             // pop temporal edge matrix
             GLHelper::popMatrix();

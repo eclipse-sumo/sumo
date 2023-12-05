@@ -464,7 +464,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             // Set color
             GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
             // draw route geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
+            GUIGeometry::drawGeometry(d, routeGeometry, routeWidth);
             // Pop last matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
@@ -538,7 +538,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             // Set color
             GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
             // draw lane2lane
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
+            GUIGeometry::drawGeometry(d, geometry, routeWidth);
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon

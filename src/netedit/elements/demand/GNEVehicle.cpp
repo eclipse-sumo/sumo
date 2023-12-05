@@ -1085,7 +1085,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
         // Set color
         GLHelper::setColor(pathColor);
         // draw geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), vehicleGeometry, width);
+        GUIGeometry::drawGeometry(d, vehicleGeometry, width);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
@@ -1172,7 +1172,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
         // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
         if (segment->getPreviousLane() && segment->getNextLane()) {
             // draw lane2lane
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(),
+            GUIGeometry::drawGeometry(d,
                                       segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()), width);
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
             // draw line between center of junction and last lane shape

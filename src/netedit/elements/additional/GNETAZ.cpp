@@ -322,7 +322,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(color);
                 // draw geometry (polyline)
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+                GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
                 // pop matrix
                 GLHelper::popMatrix();
             }
@@ -335,7 +335,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(darkerColor);
                 // draw polygon contour
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
+                GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
                 // pop contour matrix
                 GLHelper::popMatrix();
                 // draw shape points only in Network supemode

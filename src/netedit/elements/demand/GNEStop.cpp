@@ -1069,7 +1069,7 @@ void
 GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color,
         const double width, const double exaggeration) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
-    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
+    GUIGeometry::drawGeometry(d, myDemandElementGeometry, width);
     // only draw text if isn't being drawn for selecting
     if ((d <= GUIVisualizationSettings::Detail::Text) && drawIndex()) {
         // Add a detail matrix

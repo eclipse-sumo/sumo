@@ -568,6 +568,7 @@ public:
             Lane = 2,
 
         Level3 = 3,
+            GeometryAsLines = 3,
             CircleResolutionSquare = 3,
             LaneSimple = 3,
 

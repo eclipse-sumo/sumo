@@ -287,11 +287,11 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         // Set top color
         GLHelper::setColor(overheadWireColorTop);
         // draw top geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
+        GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
         // Set bot color
         GLHelper::setColor(overheadWireColorBot);
         // draw bot geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
+        GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             drawLeftGeometryPoint(s, d, overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
@@ -342,11 +342,11 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         // Set top color
         GLHelper::setColor(overheadWireColorTop);
         // draw top geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryTop, 0.2);
+        GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
         // Set bot color
         GLHelper::setColor(overheadWireColorBot);
         // draw bot geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), overheadWireGeometryBot, 0.2);
+        GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
         // Pop last matrix
         GLHelper::popMatrix();
         // draw contours

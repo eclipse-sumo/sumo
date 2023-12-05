@@ -298,7 +298,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(E2Color);
             // draw geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+            GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
             // arrow
             if (myAdditionalGeometry.getShape().size() > 1) {
                 glTranslated(0, 0, 0.1);
@@ -380,7 +380,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             // Set color
             GLHelper::setColor(E2Color);
             // draw geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
+            GUIGeometry::drawGeometry(d, E2Geometry, E2DetectorWidth);
             // draw geometry points
             if (segment->isFirstSegment() && segment->isLastSegment()) {
                 drawLeftGeometryPoint(s, d, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
@@ -463,7 +463,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                 if (onlyContour) {
                     GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);
                 } else {
-                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), connectionGeometry, E2DetectorWidth);
+                    GUIGeometry::drawGeometry(d, connectionGeometry, E2DetectorWidth);
                 }
             }
             // draw dotted geometry
@@ -481,7 +481,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                     GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));
                 } else {
                     // draw invalid geometry
-                    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
+                    GUIGeometry::drawGeometry(d, invalidGeometry, (0.5 * E2DetectorWidth));
                 }
             }
             // draw dotted geometry

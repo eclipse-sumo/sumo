@@ -158,13 +158,13 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(vaporizerColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
+            GUIGeometry::drawGeometry(d, myAdditionalGeometry, 0.3 * vaporizerExaggeration);
             // move to front
             glTranslated(0, 0, .1);
             // set central color
             GLHelper::setColor(centralLineColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
+            GUIGeometry::drawGeometry(d, myAdditionalGeometry, 0.05 * vaporizerExaggeration);
             // move to icon position and front
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
             // rotate over lane

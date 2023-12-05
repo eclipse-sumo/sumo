@@ -92,7 +92,7 @@ public:
     /// @{
 
     /// @brief draw geometry
-    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry,
+    static void drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
                              const double width, double offset = 0);
 
     /// @brief draw contour geometry

@@ -742,8 +742,8 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         // continue depending of index
         if (myIndex == 0) {
             // in the first lane, draw a separator
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry,
-                                separatorWidth, myDrawingConstants->getDrawingWidth() - separatorWidth);
+            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
+                                      separatorWidth, myDrawingConstants->getDrawingWidth() - separatorWidth);
         } else {
             // get permissions between this and previous lane
             const auto permissionsA = myParentEdge->getNBEdge()->getPermissions(myIndex - 1);
@@ -756,7 +756,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
                                               3, 6, myDrawingConstants->getDrawingWidth(), changeLeft, changeRight, s.lefthand, 1);
             } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry,
+                GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
                                           separatorWidth, myDrawingConstants->getDrawingWidth() + separatorWidth);
             }
             // check if we have change prohibitions
@@ -768,7 +768,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(RGBColor::ORANGE);
                 // higlight prohibition
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry,
+                GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
                                           myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
                 // pop prohibitionsmatrix
                 GLHelper::popMatrix();
@@ -776,8 +776,8 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         }
         // check if draw last separator
         if (myIndex == (myParentEdge->getNBEdge()->getNumLanes() - 1)) {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry,
-                                separatorWidth, (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth);
+            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
+                                      separatorWidth, (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth);
         }
         // pop matrix
         GLHelper::popMatrix();

@@ -158,7 +158,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
+            GUIGeometry::drawGeometry(d, myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
             // draw lines
             drawLines(s, d, myLines, baseColor);
             // draw sign

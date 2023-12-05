@@ -151,7 +151,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
+            GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
             // draw lines
             drawLines(s, d, myLines, baseColor);
             // draw sign
