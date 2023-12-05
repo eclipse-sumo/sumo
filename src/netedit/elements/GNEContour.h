@@ -60,7 +60,8 @@ public:
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
     void drawDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                    const PositionVector& shape, const double extrusionWidth, const double scale,
-                                   const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+                                   const bool drawFirstExtrem, const bool drawLastExtrem, const double offset,
+                                   const double lineWidth) const;
 
     /// @brief draw dotted contour (for rectangled elements)
     void drawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -108,7 +109,7 @@ private:
 
     /// @brief build and draw dotted contour extruded
     PositionVector buildDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape, const double extrusionWidth,
-                                              const double scale, const bool drawFirstExtrem, const bool drawLastExtrem) const;
+                                              const double scale, const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const;
 
     /// @brief build dotted contour rectangle
     PositionVector buildDottedContourRectangle(const GUIVisualizationSettings& s, const Position& pos, const double width, const double height,

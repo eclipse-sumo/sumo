@@ -193,7 +193,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

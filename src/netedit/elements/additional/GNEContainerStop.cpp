@@ -180,7 +180,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 1, true, true,
+        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, 1, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

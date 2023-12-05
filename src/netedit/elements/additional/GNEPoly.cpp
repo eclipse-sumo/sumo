@@ -371,7 +371,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                                                polyExaggeration, true, true, s.dottedContourSettings.segmentWidth);
+                                                polyExaggeration, true, true, 0, s.dottedContourSettings.segmentWidth);
         }
     }
 }

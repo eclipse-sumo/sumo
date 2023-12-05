@@ -256,7 +256,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myShapeLength, width, parkingAreaExaggeration, true, true,
+        myContour.drawDottedContourExtruded(s, d, myShapeLength, width, parkingAreaExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

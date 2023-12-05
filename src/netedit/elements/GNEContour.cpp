@@ -85,11 +85,11 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const GUI
 void
 GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const PositionVector& shape, const double extrusionWidth, const double scale, const bool drawFirstExtrem,
-        const bool drawLastExtrem, const double lineWidth) const {
+        const bool drawLastExtrem, const double offset, const double lineWidth) const {
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
-        const auto extrudedShape = buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
+        const auto extrudedShape = buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
         gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), extrudedShape);
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
@@ -203,16 +203,16 @@ GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const Po
 
 
 PositionVector
-GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape, const double extrusionWidth, const double scale,
-        const bool drawFirstExtrem, const bool drawLastExtrem) const {
+GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape, const double extrusionWidth,
+        const double scale, const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const {
     // check dotted caches
     checkDottedCaches(4);
     // create top and bot geometries
     myDottedGeometries->at(0) = GUIDottedGeometry(s, shape, false, true);
     myDottedGeometries->at(2) = GUIDottedGeometry(s, shape.reverse(), false, true);
     // move geometries top and bot
-    myDottedGeometries->at(0).moveShapeToSide(extrusionWidth * scale * -1);
-    myDottedGeometries->at(2).moveShapeToSide(extrusionWidth * scale * -1);
+    myDottedGeometries->at(0).moveShapeToSide((extrusionWidth * scale * -1) - offset);
+    myDottedGeometries->at(2).moveShapeToSide((extrusionWidth * scale * -1) - offset);
     // create left and right geometries
     if (drawFirstExtrem) {
         myDottedGeometries->at(3) = GUIDottedGeometry(s, {

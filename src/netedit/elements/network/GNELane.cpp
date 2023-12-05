@@ -684,7 +684,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     drawChildren(s);
     // draw dotted geometry
     myContour.drawDottedContourExtruded(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
-                                        myDrawingConstants->getDrawingWidth(), 1, true, true, s.dottedContourSettings.segmentWidth);
+                                        myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset(),
+                                        s.dottedContourSettings.segmentWidth);
 }
 
 
@@ -1776,7 +1777,7 @@ GNELane::drawLaneAsRailway() const {
         // Draw crossties
         GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
                                 0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(),
-                                myDrawingConstants->getDrawingWidth(), false);
+                                myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset(), false);
     }
 }
 

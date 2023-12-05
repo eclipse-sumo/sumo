@@ -488,7 +488,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), 0.1);
             }
             // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
+            myContour.drawDottedContourExtruded(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0,
                                                 s.dottedContourSettings.segmentWidthSmall);
         }
     }
