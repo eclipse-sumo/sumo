@@ -272,7 +272,7 @@ public:
         }
 #endif
         if (!silent) {
-            this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+            this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
         }
         return false;
     }

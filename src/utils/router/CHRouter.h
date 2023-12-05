@@ -269,7 +269,7 @@ public:
 
     virtual void prohibit(const std::vector<E*>& toProhibit) {
         if (toProhibit.size() > 0) {
-            WRITE_WARNINGF("Routing algorithm CH does not support dynamic closing of edges%", "");
+            WRITE_WARNINGF(TL("Routing algorithm CH does not support dynamic closing of edges%"), "");
         }
     }
 
@@ -329,7 +329,7 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             if (!silent) {
-                this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+                this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
             }
             result = false;
         }

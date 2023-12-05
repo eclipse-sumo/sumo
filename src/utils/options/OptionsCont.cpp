@@ -429,7 +429,7 @@ void
 OptionsCont::reportDoubleSetting(const std::string& arg) const {
     std::vector<std::string> synonymes = getSynonymes(arg);
     std::ostringstream s;
-    s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
+    s << TLF("A value for the option '%' was already set.\n Possible synonymes: ", arg);
     auto synonym = synonymes.begin();
     while (synonym != synonymes.end()) {
         s << (*synonym);
