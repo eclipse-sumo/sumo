@@ -198,7 +198,7 @@ def mapFCD(options, typedNets):
         subprocess.call(call, shell=True)
 
 
-def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=100):
+def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=150):
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
         if options.verbose:
@@ -220,7 +220,9 @@ def traceMap(options, typedNets, fixedStops, invEdgeMap, radius=100):
                     fixed = fixedStops.get("%s.%s" % (tid, idx))
                     if fixed:
                         vias[idx] = invEdgeMap[fixed.lane[:fixed.lane.rfind("_")]]
-                mappedRoute = sumolib.route.mapTrace(trace, net, radius, fillGaps=options.fill_gaps, vias=vias)
+                mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
+                                                     fillGaps=options.fill_gaps, gapPenalty=5000., vias=vias,
+                                                     reversalPenalty=1000.)
                 if mappedRoute:
                     routes[tid] = [e.getID() for e in mappedRoute]
         if options.verbose:

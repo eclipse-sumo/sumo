@@ -86,7 +86,7 @@ def _getMinPath(paths):
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
-             debug=False, direction=False, vClass=None, vias=None):
+             debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -108,7 +108,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
         if debug:
             print("\n\npos:%s, %s" % (pos[0], pos[1]))
-            print("candidates:%s\n" % candidates)
+            print("candidates:%s\n" % [(e.getID(), c) for e, c in candidates])
         if verbose and not candidates:
             print("Found no candidate edges for %s,%s" % pos)
 
@@ -133,13 +133,15 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             if debug:
                                 print("---------- same edge")
                         else:
-                            maxGap = min(airDistFactor * advance + edge.getLength() + path[-1].getLength(), fillGaps)
-                            extension, cost = net.getShortestPath(path[-1], edge, maxGap, fromPos=lastBase, toPos=base)
+                            penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
+                            maxGap = min(penalty + edge.getLength() + path[-1].getLength(), fillGaps)
+                            extension, cost = net.getOptimalPath(path[-1], edge, maxCost=maxGap,
+                                                                 reversalPenalty=reversalPenalty,
+                                                                 fromPos=lastBase, toPos=base)
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
                                     edge.getFromNode().getCoord())
-                                penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
                                 pathLength = path[-1].getLength() - lastBase + base + airLineDist + penalty
                                 baseDiff = abs(lastBase + advance -
                                                path[-1].getLength() - base - airLineDist) + penalty
