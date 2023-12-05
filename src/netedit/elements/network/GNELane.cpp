@@ -89,7 +89,7 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
         // draw as railway: assume standard gauge of 1435mm when lane width is not set
         myDrawingWidth = (laneWidth == SUMO_const_laneWidth ?  1.4350 : laneWidth) * myExaggeration;
         // calculate internal drawing width
-        myInternalDrawingWidth = myDrawingWidth * 0.6;
+        myInternalDrawingWidth = myDrawingWidth * 0.8;
     } else {
         // calculate exaggerated drawing width
         myDrawingWidth = laneWidth * myExaggeration * 0.5;
@@ -97,8 +97,9 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
         myInternalDrawingWidth = myDrawingWidth - (2 * SUMO_const_laneMarkWidth);
     }
     // check if draw superposed
-    myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
-    if (myDrawAsRailway || myDrawSuperposed) {
+    myDrawSuperposed = myDrawAsRailway || (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
+    // adjust parameters depending of superposing
+    if (myDrawSuperposed) {
         // apply offset
         myOffset = myDrawingWidth * 0.5;
         // reduce width
@@ -524,7 +525,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLaneArrows(const GUIVisualizationSettings& s) const {
+GNELane::drawArrows(const GUIVisualizationSettings& s) const {
     if (s.showLinkDecals && myParentEdge->getToJunction()->isLogicValid()) {
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
@@ -546,8 +547,10 @@ GNELane::drawLaneArrows(const GUIVisualizationSettings& s) const {
         glRotated(rot, 0, 0, 1);
         const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
         if (width < SUMO_const_laneWidth) {
-            glScaled(width / SUMO_const_laneWidth, 1, 1);
+            glScaled(myDrawingConstants->getDrawingWidth() / SUMO_const_laneWidth, 1, 1);
         }
+        // apply offset
+        glTranslated(myDrawingConstants->getOffset(), 0, 0);
         // get destiny node
         const NBNode* dest = myParentEdge->getNBEdge()->myTo;
         // draw all links iterating over connections
@@ -1340,7 +1343,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
             // draw lane textures
             drawTextures(s);
             // draw lane arrows
-            drawLaneArrows(s);
+            drawArrows(s);
             // draw link numbers
             drawLinkNo(s);
             // draw TLS link numbers

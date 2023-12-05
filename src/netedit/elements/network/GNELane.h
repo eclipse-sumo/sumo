@@ -387,7 +387,7 @@ private:
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane arrows
-    void drawLaneArrows(const GUIVisualizationSettings& s) const;
+    void drawArrows(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;

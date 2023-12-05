@@ -871,9 +871,9 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
             for (double t = 0; t < lengths[i]; t += spacing) {
                 glBegin(GL_QUADS);
                 glVertex2d(-halfWidth - offset, -t);
-                glVertex2d(-halfWidth- offset, -t - length);
-                glVertex2d(halfWidth- offset, -t - length);
-                glVertex2d(halfWidth- offset, -t);
+                glVertex2d(-halfWidth - offset, -t - length);
+                glVertex2d( halfWidth - offset, -t - length);
+                glVertex2d( halfWidth - offset, -t);
                 glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
                 myVertexCounter += 4;
@@ -882,10 +882,10 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
         } else {
             // only draw a single rectangle if it's being drawn only for selecting
             glBegin(GL_QUADS);
-            glVertex2d(-halfWidth- offset, 0);
-            glVertex2d(-halfWidth- offset, -lengths.back());
-            glVertex2d(halfWidth- offset, -lengths.back());
-            glVertex2d(halfWidth- offset, 0);
+            glVertex2d(-halfWidth - offset, 0);
+            glVertex2d(-halfWidth - offset, -lengths.back());
+            glVertex2d( halfWidth - offset, -lengths.back());
+            glVertex2d( halfWidth - offset, 0);
             glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
             myVertexCounter += 4;
