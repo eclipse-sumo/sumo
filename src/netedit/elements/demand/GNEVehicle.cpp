@@ -968,7 +968,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), vehiclePosition, exaggeration);
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), vehiclePosition, exaggeration);
             }
         }
         // draw squared shape

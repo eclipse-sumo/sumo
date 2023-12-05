@@ -56,7 +56,7 @@ public:
     bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;
 
     /// @brief draw lane reference
-    void drawLaneReference(const GUIVisualizationSettings& s, const GNELane* lane) const;
+    void drawLaneReference(const GNELane* lane) const;
 
     /// @name FOX-callbacks
     /// @{

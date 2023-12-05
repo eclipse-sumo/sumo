@@ -167,11 +167,11 @@ protected:
     void setStoppingPlaceGeometry(double movingToSide);
 
     /// @brief draw lines
-    void drawLines(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                   const std::vector<std::string>& lines, const RGBColor& color) const;
+    void drawLines(const GUIVisualizationSettings::Detail d, const std::vector<std::string>& lines,
+                   const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
+    void drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration,
                   const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
 
     // draw stoppingPlace children

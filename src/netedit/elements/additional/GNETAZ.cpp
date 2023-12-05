@@ -374,7 +374,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), TAZExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), TAZExaggeration);
             // draw name
             drawName(myTAZCenter, s.scale, s.polyName, s.angle);
             // check if draw poly type

@@ -160,9 +160,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(d, myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
             // draw lines
-            drawLines(s, d, myLines, baseColor);
+            drawLines(d, myLines, baseColor);
             // draw sign
-            drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
+            drawSign(d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
@@ -173,7 +173,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name

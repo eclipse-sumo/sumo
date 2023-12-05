@@ -282,8 +282,7 @@ GNEStoppingPlace::getHierarchyName() const {
 
 
 void
-GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const std::vector<std::string>& lines, const RGBColor& color) const {
+GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std::vector<std::string>& lines, const RGBColor& color) const {
     // only draw in level 1
     if (d <= GUIVisualizationSettings::Detail::Text) {
         // calculate middle point
@@ -312,8 +311,8 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const GUIVisualiz
 
 
 void
-GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
-                           const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const {
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration, const RGBColor& baseColor,
+        const RGBColor& signColor, const std::string& word) const {
     // only draw in level 2
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // calculate middle point

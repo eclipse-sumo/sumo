@@ -312,7 +312,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name

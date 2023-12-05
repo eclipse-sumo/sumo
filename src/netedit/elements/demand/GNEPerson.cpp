@@ -408,7 +408,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
             // draw name
             drawName(personPosition, s.scale, s.personName, s.angle);
             if (s.personValue.show(this)) {

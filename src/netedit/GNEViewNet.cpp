@@ -5477,7 +5477,7 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 void
 GNEViewNet::drawNeteditAttributesReferences() {
     if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
-        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(*myVisualizationSettings, gPostDrawing.markedLane);
+        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gPostDrawing.markedLane);
     }
 }
 

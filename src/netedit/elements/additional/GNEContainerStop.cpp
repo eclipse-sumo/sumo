@@ -153,9 +153,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
             // draw lines
-            drawLines(s, d, myLines, baseColor);
+            drawLines(d, myLines, baseColor);
             // draw sign
-            drawSign(s, d, containerStopExaggeration, baseColor, signColor, "C");
+            drawSign(d, containerStopExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
@@ -166,7 +166,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name

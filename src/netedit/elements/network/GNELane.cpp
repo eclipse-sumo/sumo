@@ -681,7 +681,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop layer matrix
         GLHelper::popMatrix();
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(s, myDrawingConstants->getDetail(), this, getType(), getPositionInView(), 1);
+        GNEViewNetHelper::LockIcon::drawLockIcon(myDrawingConstants->getDetail(), this, getType(), getPositionInView(), 1);
     }
     // draw children
     drawChildren(s);

@@ -190,7 +190,7 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), 1);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
             // draw filtered attribute
             if (getParentEdges().front()->getLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),

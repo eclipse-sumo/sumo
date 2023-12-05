@@ -156,9 +156,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
             // draw charging power and efficiency
-            drawLines(s, d, {toString(myChargingPower)}, baseColor);
+            drawLines(d, {toString(myChargingPower)}, baseColor);
             // draw sign
-            drawSign(s, d, chargingStationExaggeration, baseColor, signColor, "C");
+            drawSign(d, chargingStationExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (myStartPosition != INVALID_DOUBLE) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
@@ -169,7 +169,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name

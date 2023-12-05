@@ -226,10 +226,12 @@ protected:
     bool drawIndex() const;
 
     /// @brief draw stop over lane
-    void drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color, const double width, const double exaggeration) const;
+    void drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                          const RGBColor &color, const double width, const double exaggeration) const;
 
     /// @brief draw stop over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color, const double width, const double exaggeration) const;
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor &color,
+                                   const double width, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else

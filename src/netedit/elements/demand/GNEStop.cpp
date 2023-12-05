@@ -395,12 +395,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             if (getParentLanes().size() > 0) {
                 drawStopOverLane(s, d, color, width, exaggeration);
             } else {
-                drawStopOverStoppingPlace(s, d, color, width, exaggeration);
+                drawStopOverStoppingPlace(d, color, width, exaggeration);
             }
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
             // Draw name
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
@@ -1066,7 +1066,7 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizat
 
 
 void
-GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color,
+GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor &color,
         const double width, const double exaggeration) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
     GUIGeometry::drawGeometry(d, myDemandElementGeometry, width);

@@ -148,15 +148,15 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 color = s.detectorSettings.E3ExitColor;
             }
             // draw parts
-            drawBody(s, d, color, entryExitExaggeration);
-            drawEntryLogo(s, d, color, entryExitExaggeration);
-            drawE3Logo(s, d, color, entryExitExaggeration);
+            drawBody(d, color, entryExitExaggeration);
+            drawEntryLogo(d, color, entryExitExaggeration);
+            drawE3Logo(d, color, entryExitExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw additional name
             drawAdditionalName(s);
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         }
         // draw dotted contour
         myContour.drawDottedContourRectangle(s, d, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
@@ -242,7 +242,7 @@ GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEntryExitDetector::drawBody(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEEntryExitDetector::drawBody(const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::Additionals) {
@@ -295,7 +295,7 @@ GNEEntryExitDetector::drawBody(const GUIVisualizationSettings& s, const GUIVisua
 
 
 void
-GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
@@ -332,7 +332,7 @@ GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings& s, const GUI
 
 
 void
-GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings::Detail d,
         const RGBColor &color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::Text) {

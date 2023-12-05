@@ -3877,11 +3877,11 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEViewNetHelper::LockIcon::drawLockIcon(const GUIVisualizationSettings::Detail d,
         const GNEAttributeCarrier* AC, GUIGlObjectType type, const Position position, const double exaggeration,
         const double size, const double offsetx, const double offsety) {
     // first check if icon can be drawn
-    if (checkDrawing(s, d, AC, type, exaggeration)) {
+    if (checkDrawing(d, AC, type, exaggeration)) {
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
@@ -3904,8 +3904,8 @@ GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
 bool
-GNEViewNetHelper::LockIcon::checkDrawing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration) {
+GNEViewNetHelper::LockIcon::checkDrawing(const GUIVisualizationSettings::Detail d, const GNEAttributeCarrier* AC,
+        GUIGlObjectType type, const double exaggeration) {
     // check detail
     if (d > GUIVisualizationSettings::Detail::LockedIcons) {
         return false;

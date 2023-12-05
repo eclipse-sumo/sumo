@@ -193,7 +193,7 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
 
 
 void
-GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNENeteditAttributes::drawLaneReference(const GNELane* lane) const {
     // get element length
     const double elementLength = getElementLength();
     // check lane

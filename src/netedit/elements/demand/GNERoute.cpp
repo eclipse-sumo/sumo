@@ -542,7 +542,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(s, d, this, getType(), getPositionInView(), getExaggeration(s));
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), getExaggeration(s));
             // check if mark this route
             const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
             if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
