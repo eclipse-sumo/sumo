@@ -61,14 +61,11 @@ public:
         /// @brief get exaggeration
         double getExaggeration() const;
 
-        /// @brief get half lane width
-        double getHalfLaneWidth() const;
-
-        // @brief get half lane width without markings (intersection points)
-        double getHalfLaneWidthMinusMark() const;
-
-        /// @brief get lane drawing width (reduced, to make sure that a selected edge can still be seen
+        /// @brief get lane drawing width
         double getDrawingWidth() const;
+
+        /// @brief get internal lane drawing width
+        double getInternalDrawingWidth() const;
 
         /// @brief get lane offset
         double getOffset() const;
@@ -82,9 +79,6 @@ public:
         /// @brief draw superposed
         bool drawSuperposed() const;
 
-        /// @brief get drawing lane shape
-        PositionVector getDrawingShape() const;
-
     protected:
         /// @brief lane
         const GNELane* myLane;
@@ -92,14 +86,11 @@ public:
         /// @brief exaggeration
         double myExaggeration = 0;
 
-        /// @brief half lane width
-        double myHalfLaneWidth = 0;
-
-        // @brief compute lane-marking width (intersection points)
-        double myHalfLaneWidthMinusMark = 0;
-
-        /// @brief lane drawing width (reduced,to make sure that a selected edge can still be seen
+        /// @brief lane drawing width
         double myDrawingWidth = 0;
+
+        /// @brief internal lane drawing width (used for drawing selected lanes)
+        double myInternalDrawingWidth = 0;
 
         /// @brief lane offset
         double myOffset = 0;
@@ -112,9 +103,6 @@ public:
 
         /// @brief draw supersposed (reduced width so that the lane markings below are visible)
         bool myDrawSuperposed = false;
-
-        /// @brief lane shape (used for draw spreading)
-        PositionVector myDrawingShape;
 
     private:
         /// @brief invalidate default constructor
@@ -380,8 +368,8 @@ private:
     /// @brief draw lane
     void drawLane(const GUIVisualizationSettings& s) const;
 
-    /// @brief draw back edge
-    void drawBackEdge(const GUIVisualizationSettings& s) const;
+    /// @brief draw selected lane
+    void drawSelectedLane(const GUIVisualizationSettings& s) const;
 
     /// @brief draw shape edited
     void drawShapeEdited(const GUIVisualizationSettings& s) const;
@@ -390,7 +378,7 @@ private:
     void drawChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawLaneMarkings(const GUIVisualizationSettings& s) const;
+    void drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;

@@ -105,13 +105,20 @@ GNEAttributeCarrier::isAttributeCarrierSelected() const {
 
 bool
 GNEAttributeCarrier::drawUsingSelectColor() const {
-    // get flag for network element
-    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement();
-    // check supermode network
-    if ((networkElement && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) ||
-            (myTagProperty.isDemandElement() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) ||
-            (myTagProperty.isGenericData() && myNet->getViewNet()->getEditModes().isCurrentSupermodeData())) {
-        return mySelected;
+    // first check if element is selected
+    if (mySelected) {
+        // get flag for network element
+        const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement();
+        // check current supermode
+        if (networkElement && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            return true;
+        } else if (myTagProperty.isDemandElement() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+            return true;
+        } else if (myTagProperty.isGenericData() && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
