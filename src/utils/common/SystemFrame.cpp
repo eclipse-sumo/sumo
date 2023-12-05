@@ -115,7 +115,7 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("log.processid", new Option_Bool(false));
     oc.addDescription("log.processid", "Report", TL("Writes process ID in front of all messages"));
 
-    oc.doRegister("language", new Option_String("C"));
+    oc.doRegister("language", new Option_String(gLanguage));
     oc.addDescription("language", "Report", TL("Language to use in messages"));
 
     oc.doRegister("write-license", new Option_Bool(false));

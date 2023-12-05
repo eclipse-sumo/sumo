@@ -57,6 +57,10 @@ main(int argc, char** argv) {
     oc.setApplicationDescription(TL("GUI version of the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
     gSimulation = true;
+    // preload registry from sumo to decide on language
+    FXRegistry reg("SUMO GUI", "sumo-gui");
+    reg.read();
+    gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
     try {
         // initialise subsystems

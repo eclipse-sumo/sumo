@@ -496,14 +496,6 @@ GNEApplicationWindow::dependentBuild() {
         return;
     }
     myHadDependentBuild = true;
-    // set language
-    if (gLanguage == "C") {
-        // due sumo and netedit shares language, load registry from sumo
-        FXRegistry reg("SUMO GUI", "sumo-gui");
-        reg.read();
-        gLanguage = reg.readStringEntry("gui", "language", "C");
-        MsgHandler::setupI18n(gLanguage);
-    }
     setTarget(this);
     setSelector(MID_WINDOW);
     // build toolbar menu
