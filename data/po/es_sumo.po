@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-12-04 15:41+0000\n"
+"PO-Revision-Date: 2023-12-05 10:08+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2664,12 +2664,12 @@ msgstr "Vehículo '%'"
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2115
 #, c-format
 msgid "Teleporting vehicle '%' after"
-msgstr ""
+msgstr "Teleportando el vehículo '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2120
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr ""
+msgstr "Removiendo el vehículo '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2124
 #, c-format
@@ -2760,7 +2760,7 @@ msgstr "La carga de % falló."
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:1664
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr ""
+msgstr "Error al cargar el estado desde '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:104
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:108
@@ -3099,7 +3099,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:2778
 msgid "Suspicious right_before_left junction '%'."
-msgstr ""
+msgstr "Cruce right_before_left sospechoso '%'."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:4515
 msgid " for unknown reasons"
@@ -5633,7 +5633,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:639
 msgid "Remove edges after joining"
-msgstr ""
+msgstr "Quitar aristas después de combinar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:643
 msgid ""
@@ -6013,7 +6013,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:361
 msgid "Guessed % bike lanes."
-msgstr ""
+msgstr "Se estimaron % carriles de bicicleta."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:372
 #, c-format
@@ -6048,7 +6048,7 @@ msgstr "Computando tipos de nodos"
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:447
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr ""
+msgstr "Se estimaron % pasos peatonales."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:475
 msgid "Computing priorities"
@@ -6060,7 +6060,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:484
 msgid "Guessing and setting roundabouts"
-msgstr ""
+msgstr "Estimando y estableciendo rotondas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:487
 msgid " Guessed % roundabout(s)."
@@ -6153,7 +6153,7 @@ msgstr "ID de nodo '%' no válido."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
-msgstr ""
+msgstr " Eliminando la arista en bucle '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
@@ -7196,7 +7196,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:325
 msgid "Uses speeds from types"
-msgstr ""
+msgstr "Usar velocidades de los tipos"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:328
 msgid "Sets connector speed"
@@ -7918,7 +7918,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1864
 msgid "Ignoring restriction relation '%'."
-msgstr ""
+msgstr "Ignorando la relación de restricción '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1889
 #, c-format
@@ -8548,7 +8548,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:705
 #, c-format
 msgid "Unknown edge '%' in roundabout."
-msgstr ""
+msgstr "Arista desconocida '%' en la rotonda."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
@@ -8715,7 +8715,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:307
 msgid "NIVissimDisturbance: no connection"
-msgstr ""
+msgstr "NIVissimDisturbance: sin conexión"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:340
 #, c-format
@@ -10279,7 +10279,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:78
 msgid "Defines the entry separator."
-msgstr ""
+msgstr "Define el carácter para separar las entradas."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:83
 msgid ""
@@ -11027,7 +11027,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:204
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:206
 msgid "Invalid parsing embedded VType"
-msgstr ""
+msgstr "Análisis no válido del tipo de vehículo incrustado"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1089
 msgid "A stop must be defined either with an edge or with an lane, not both"
