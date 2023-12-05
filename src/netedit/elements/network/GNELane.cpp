@@ -87,26 +87,23 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     // adjust rest of parameters depending if draw as railway
     if (myDrawAsRailway) {
         // draw as railway: assume standard gauge of 1435mm when lane width is not set
-        // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
-        // assume crosstie length of 181% gauge (2600mm for standard gauge)
         myDrawingWidth = (laneWidth == SUMO_const_laneWidth ?  1.4350 : laneWidth) * myExaggeration;
-        // set offset
-        myOffset = myDrawingWidth * 0.8;
-        // update half gauge
-        myDrawingWidth *= 0.4;
+        // calculate internal drawing width
+        myInternalDrawingWidth = myDrawingWidth * 0.6;
     } else {
         // calculate exaggerated drawing width
         myDrawingWidth = laneWidth * myExaggeration * 0.5;
         // calculate internal drawing width
         myInternalDrawingWidth = myDrawingWidth - (2 * SUMO_const_laneMarkWidth);
     }
-
     // check if draw superposed
     myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
-    if (myDrawSuperposed) {
+    if (myDrawAsRailway || myDrawSuperposed) {
+        // apply offset
+        myOffset = myDrawingWidth * 0.5;
         // reduce width
         myDrawingWidth *= 0.4;
-        myOffset = myDrawingWidth * 0.5;
+        myInternalDrawingWidth *= 0.4;
     }
 }
 
@@ -1317,7 +1314,7 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (myDrawingConstants->drawAsRailway()) {
             // draw as railway
-            drawLaneAsRailway(s);
+            drawLaneAsRailway();
         } else if (myShapeColors.size() > 0) {
             // draw box lines with own colors
             GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
@@ -1377,7 +1374,7 @@ GNELane::drawSelectedLane(const GUIVisualizationSettings& s) const {
         // draw internal box line
         GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
                                myLaneGeometry.getShapeLengths(), myDrawingConstants->getInternalDrawingWidth(),
-                               myDrawingConstants->getOffset());
+                               0, myDrawingConstants->getOffset());
         // Pop matrix
         GLHelper::popMatrix();
     }
@@ -1746,22 +1743,24 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
-    // calculate constant
-    const double halfInnerFeetWidth = myDrawingConstants->getDrawingWidth() - 0.039 * myDrawingConstants->getExaggeration();
-    const double halfRailWidth = halfInnerFeetWidth + 0.15 * myDrawingConstants->getExaggeration();
-    const double halfCrossTieWidth = myDrawingConstants->getDrawingWidth() * 1.81;
+GNELane::drawLaneAsRailway() const {
+    // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+    // assume crosstie length of 181% gauge (2600mm for standard gauge)
     // draw as box lines
     if (myShapeColors.size() > 0) {
         GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth,
+                               myLaneGeometry.getShapeLengths(), myShapeColors,
+                               myDrawingConstants->getInternalDrawingWidth(), 0,
                                myDrawingConstants->getOffset());
     } else {
         GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), halfRailWidth, myDrawingConstants->getOffset());
+                               myLaneGeometry.getShapeLengths(), myDrawingConstants->getInternalDrawingWidth(),
+                               0, myDrawingConstants->getOffset());
     }
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+        // calculate intern geometry width
+        const double internGeometryWidth = myDrawingConstants->getInternalDrawingWidth() - (2 * SUMO_const_laneMarkWidth);
         // Save current color
         RGBColor current = GLHelper::getColor();
         // Draw gray on top with reduced width (the area between the two tracks)
@@ -1770,12 +1769,14 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, 0.1);
         // draw as box lines
         GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), halfInnerFeetWidth,
+                               myLaneGeometry.getShapeLengths(), internGeometryWidth, 0,
                                myDrawingConstants->getOffset());
         // Set current color back
         GLHelper::setColor(current);
         // Draw crossties
-        GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(), halfCrossTieWidth, s.drawForRectangleSelection);
+        GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
+                                0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(),
+                                myDrawingConstants->getDrawingWidth(), false);
     }
 }
 

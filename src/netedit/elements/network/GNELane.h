@@ -405,7 +405,7 @@ private:
     void drawDirectionIndicators(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s) const;
+    void drawLaneAsRailway() const;
 
     /// @brief draw lane textures
     void drawTextures(const GUIVisualizationSettings& s) const;
