@@ -39,9 +39,8 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-SPEED_DEFAULT = 20  # default vehicle speed in m/s
+SPEED_DEFAULT = 20 # default vehicle speed in m/s
 PENALTY_FACTOR = 5  # factor on penalty for rejecting requests
-
 
 class CostType(Enum):
     DISTANCE = 1
@@ -60,8 +59,7 @@ def dispatch(reservations, fleet, time_limit, cost_type, drf, waiting_time, end,
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
     if verbose:
         print('Start interpreting the solution for SUMO.')
-    solution_requests = solution_by_requests(
-        solution_ortools, reservations, data, verbose)
+    solution_requests = solution_by_requests(solution_ortools, reservations, data, verbose)
     return solution_requests
 
 
@@ -143,14 +141,12 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
         if hasattr(res, 'direct_route_cost'):
             continue
         if hasattr(res, 'from_node'):
-            setattr(res, 'direct_route_cost',
-                    cost_matrix[res.from_node][res.to_node])
+            setattr(res, 'direct_route_cost', cost_matrix[res.from_node][res.to_node])
             if verbose:
                 print('Reservation %s has direct route costs %s' % (res.id, res.direct_route_cost))
         else:
             # TODO: use 'historical data' from dict in get_cost_matrix instead
-            route = traci.simulation.findRoute(
-                res.fromEdge, res.toEdge, vType=type_vehicle)
+            route = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
             if cost_type == CostType.TIME:
                 direct_route_cost = route.travelTime
             elif cost_type == CostType.DISTANCE:
@@ -193,14 +189,12 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
             entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
             if reservation.persons[0] in entered_persons:
                 veh_demand[v_i] += 1
-                # id of assigned vehicle (from SUMO input)
-                setattr(reservation, 'vehicle', id_vehicle)
-                # index of assigned vehicle [0, ..., n_v -1]
-                setattr(reservation, 'vehicle_index', v_i)
+                setattr(reservation, 'vehicle', id_vehicle)  # id of assigned vehicle (from SUMO input)
+                setattr(reservation, 'vehicle_index', v_i)  # index of assigned vehicle [0, ..., n_v -1]
 
     # get time windows
     time_windows = get_time_windows(reservations, fleet, end)
-
+    
     data = {}
     data['depot'] = 0  # node_id of the depot
     data['cost_matrix'] = cost_matrix
@@ -221,7 +215,6 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
     data['penalty'] = penalty
     return data
 
-
 def get_network_path(sumo_config):
     """Get path to SUMO network from config file."""
     sumo_config = pathlib.Path(sumo_config)
@@ -229,7 +222,6 @@ def get_network_path(sumo_config):
     net_filename = net_file[0].getAttribute("value")
     net_path = sumo_config.parent / net_filename
     return net_path
-
 
 def get_network_dimension(sumo_config, cost_type):
     """Get the rough network dimension."""
@@ -244,13 +236,11 @@ def get_network_dimension(sumo_config, cost_type):
         dimension = diameter / SPEED_DEFAULT
     return dimension
 
-
 def get_penalty(sumo_config, cost_type, penalty_factor=PENALTY_FACTOR):
     """Define penalty for rejecting requests."""
     dimension = get_network_dimension(sumo_config, cost_type)
     penalty = dimension * penalty_factor
     return penalty
-
 
 def get_time_windows(reservations, fleet, end):
     """returns a list of pairs with earliest and latest time"""
@@ -265,8 +255,7 @@ def get_time_windows(reservations, fleet, end):
     dp_reservations = [res for res in reservations if res.state != 8]
     for res in dp_reservations:
         person_id = res.persons[0]
-        pickup_earliest = traci.person.getParameter(
-            person_id, "pickup_earliest")
+        pickup_earliest = traci.person.getParameter(person_id, "pickup_earliest")
         if pickup_earliest:
             pickup_earliest = round(float(pickup_earliest))
         else:
@@ -316,7 +305,7 @@ def get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indi
     pickUpDuration_param = traci.vehicle.getParameter(id_vehicle, 'device.taxi.pickUpDuration')
     pickUpDuration = 0 if pickUpDuration_param == '' else round(float(pickUpDuration_param))
     dropOffDuration_param = traci.vehicle.getParameter(id_vehicle, 'device.taxi.dropOffDuration')
-    dropOffDuration = 0 if dropOffDuration_param == '' else round( float(dropOffDuration_param))
+    dropOffDuration = 0 if dropOffDuration_param == '' else round(float(dropOffDuration_param))
     n_edges = len(edges)
     time_matrix = np.zeros([n_edges, n_edges], dtype=int)
     cost_matrix = np.zeros([n_edges, n_edges], dtype=int)
@@ -340,13 +329,11 @@ def get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indi
                 time_matrix[ii][jj] = 0
                 cost_matrix[ii][jj] = 0
                 continue
-            route = traci.simulation.findRoute(
-                edge_from, edge_to, vType=type_vehicle)
+            route = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
             time_matrix[ii][jj] = round(route.travelTime)
             if ii in pickup_indices:
                 time_matrix[ii][jj] += pickUpDuration  # add pickup_duration
-                # add boarding_duration
-                time_matrix[ii][jj] += boardingDuration
+                time_matrix[ii][jj] += boardingDuration  # add boarding_duration
             if jj in dropoff_indices:
                 time_matrix[ii][jj] += dropOffDuration  # add dropoff_duration
             time_dict[(edge_from, edge_to)] = time_matrix[ii][jj]
@@ -376,13 +363,10 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], [], []]  # request order, costs, node order
-        # take only the routes ([0]) without the start node ([1:-1])
-        for i_route in solution_ortools[key][0][1:-1]:
+        for i_route in solution_ortools[key][0][1:-1]:  # take only the routes ([0]) without the start node ([1:-1])
             if i_route in route2request:
-                # add request id to route
-                solution[0].append(route2request[i_route])
-                # get the reservation
-                res = [res for res in reservations if res.id == route2request[i_route]][0]
+                solution[0].append(route2request[i_route])  # add request id to route
+                res = [res for res in reservations if res.id == route2request[i_route]][0]  # get the reservation
                 setattr(res, 'vehicle_index', key)
             else:
                 if verbose:
@@ -479,12 +463,10 @@ def run(penalty, end=None, interval=30, time_limit=10, cost_type='distance', drf
         for res in reservations_removed:
             for person in res.persons:
                 traci.person.removeStages(person)
-        reservations_new = [
-            res for res in reservations_new if res not in reservations_removed]
+        reservations_new = [res for res in reservations_new if res not in reservations_removed]
         if verbose:
             if reservations_removed:
-                print(
-                    f"Reservations rejected: {[res.id for res in reservations_removed]}")
+                print(f"Reservations rejected: {[res.id for res in reservations_removed]}")
 
         # if fix_allocation=True only take new reservations from traci
         # and add to all_reservations to keep the vehicle allocation for the older reservations
@@ -493,12 +475,10 @@ def run(penalty, end=None, interval=30, time_limit=10, cost_type='distance', drf
             reservations_all += reservations_new
             current_res_ids = [res.id for res in current_reservations]
             # remove completed reservations
-            reservations_all = [
-                res for res in reservations_all if res.id in current_res_ids]
+            reservations_all = [res for res in reservations_all if res.id in current_res_ids]
             for res in reservations_all:  # update reservation state
                 if res.id in current_res_ids:
-                    res.state = [
-                        cur_res for cur_res in current_reservations if cur_res.id == res.id][0].state
+                    res.state = [cur_res for cur_res in current_reservations if cur_res.id == res.id][0].state
         else:
             reservations_all = current_reservations
 
@@ -511,15 +491,13 @@ def run(penalty, end=None, interval=30, time_limit=10, cost_type='distance', drf
             if solution_requests is not None:
                 for index_vehicle, vehicle_requests in solution_requests.items():  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
-                    reservations_order = [
-                        res_id for res_id in vehicle_requests[0]]  # [0] for route
+                    reservations_order = [res_id for res_id in vehicle_requests[0]]  # [0] for route
                     if verbose:
                         print("Dispatching %s with %s" % (id_vehicle, reservations_order))
                         print("Costs for %s: %s" % (id_vehicle, vehicle_requests[1]))
                     if fix_allocation and not reservations_order:  # ignore empty reservations if allocation is fixed
                         continue
-                    # overwrite existing dispatch
-                    traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)
+                    traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)  # overwrite existing dispatch
             else:
                 if verbose:
                     print("Found no solution, continue...")
@@ -559,7 +537,7 @@ def get_arguments():
     ap.add_argument("-p", "--penalty-factor", type=float, default=PENALTY_FACTOR,
                     help="factor on penalty for rejecting requests")
     ap.add_argument("--trace-file", type=ap.file,
-                    help="log file for TraCI debugging")
+                help="log file for TraCI debugging")
     return ap.parse_args()
 
 
@@ -575,8 +553,7 @@ def check_set_arguments(arguments):
     elif arguments.cost_type == "time":
         arguments.cost_type = CostType.TIME
     else:
-        raise ValueError(
-            f"Wrong cost type '{arguments.cost_type}'. Only 'distance' and 'time' are allowed.")
+        raise ValueError(f"Wrong cost type '{arguments.cost_type}'. Only 'distance' and 'time' are allowed.")
 
     if arguments.drf < 1 and arguments.drf != -1:
         raise ValueError(
@@ -585,7 +562,7 @@ def check_set_arguments(arguments):
     if arguments.waiting_time < 0:
         raise ValueError(
             f"Wrong value for waiting time '{arguments.waiting_time}'. Value must be equal or greater than 0.")
-
+    
 
 if __name__ == "__main__":
 
@@ -596,12 +573,10 @@ if __name__ == "__main__":
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    traci.start([arguments.sumoBinary, "-c", arguments.sumo_config],
-                traceFile=arguments.trace_file)
+    traci.start([arguments.sumoBinary, "-c", arguments.sumo_config], traceFile=arguments.trace_file)
 
     # get penalty
-    penalty = get_penalty(arguments.sumo_config,
-                          arguments.cost_type, arguments.penalty_factor)
+    penalty = get_penalty(arguments.sumo_config, arguments.cost_type, arguments.penalty_factor)
 
     run(penalty, arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
         arguments.waiting_time, arguments.fix_allocation, arguments.verbose)
