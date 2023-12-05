@@ -186,10 +186,10 @@ protected:
                 case MsgType::MT_MESSAGE:
                     break;
                 case MsgType::MT_WARNING:
-                    prefix += "Warning: ";
+                    prefix += myWarningPrefix;
                     break;
                 case MsgType::MT_ERROR:
-                    prefix += "Error: ";
+                    prefix += myErrorPrefix;
                     break;
                 case MsgType::MT_DEBUG:
                     prefix += "Debug: ";
@@ -259,21 +259,33 @@ private:
     /// @brief storage for initial messages
     std::vector<std::string> myInitialMessages;
 
+    /** @brief Flag to enable or disable debug output
+     *
+     * This value is used to show more internal information through warning messages about certain operations
+     */
+    static bool myWriteDebugMessages;
+
+    /// @brief Flag to enable or disable GL specific debug output
+    static bool myWriteDebugGLMessages;
+
+    /// @brief Whether to prefix every message with a time stamp
+    static bool myWriteTimestamps;
+
+    /// @brief Whether to prefix every message with the process id
+    static bool myWriteProcessId;
+
+    /// @brief The possibly translated error prefix (mainly for speedup)
+    static std::string myErrorPrefix;
+
+    /// @brief The possibly translated warning prefix (mainly for speedup)
+    static std::string myWarningPrefix;
+
 private:
     /// @brief invalid copy constructor
     MsgHandler(const MsgHandler& s) = delete;
 
     /// @brief invalid assignment operator
     MsgHandler& operator=(const MsgHandler& s) = delete;
-
-    /** @brief Flag to enable or disable debug GL Functions
-     *
-     * This value is used to show more internal information through warning messages about certain operations
-     */
-    static bool myWriteDebugMessages;
-    static bool myWriteDebugGLMessages;
-    static bool myWriteTimestamps;
-    static bool myWriteProcessId;
 };
 
 

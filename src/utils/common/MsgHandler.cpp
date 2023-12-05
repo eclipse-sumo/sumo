@@ -54,6 +54,8 @@ bool MsgHandler::myWriteDebugMessages = false;
 bool MsgHandler::myWriteDebugGLMessages = false;
 bool MsgHandler::myWriteTimestamps = false;
 bool MsgHandler::myWriteProcessId = false;
+std::string MsgHandler::myErrorPrefix = "Error: ";
+std::string MsgHandler::myWarningPrefix = "Warning: ";
 
 
 // ===========================================================================
@@ -305,6 +307,8 @@ MsgHandler::setupI18n(const std::string& locale) {
 #else
     UNUSED_PARAMETER(locale);
 #endif
+    myWarningPrefix = TL("Warning: ");
+    myErrorPrefix = TL("Error: ");
 }
 
 
