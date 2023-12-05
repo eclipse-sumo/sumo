@@ -119,6 +119,8 @@ title: Projects
   controlled. To do so, it simulates the effects of the underlying
   layers, not their protocols in detail. This makes it especially fast
   and suitable for application developers.
+- [PedSUMO](https://github.com/M-Colley/pedsumo): PedSUMO is an enhancement to SUMO that explores the dynamic interaction between automated vehicles and pedestrians at unprioritized crossings, focusing on pedestrian behavior in response to vehicle-priority communication methods. This open-source project offers detailed algorithms, parameter insights, and an initial data analysis of Ingolstadt, Germany, paving the way for understanding the complex impact of automated vehicles in urban environments.
+  
 
 ### Past Projects
 
