@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-04 13:15+0000\n"
+"PO-Revision-Date: 2023-12-07 10:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1915,7 +1915,7 @@ msgstr "teleports [#]"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "detenidos [#]"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:499
 msgid "stopped [#]"
