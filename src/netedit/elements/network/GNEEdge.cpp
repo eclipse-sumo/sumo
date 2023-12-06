@@ -2444,9 +2444,9 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // obtain geometry point
             const auto geometryPointPos = myNBEdge->getGeometry()[i];
             // check if mouse is in geometry point position
-            const auto mouseOverPos = gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), geometryPointPos, circleWidth);
-            // draw geometry only if we'rent in drawForObjectUnderCursor mode
-            if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
+            const auto mouseOverPos = s.drawForObjectUnderCursor? gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), geometryPointPos, circleWidth) : false;
+            // draw geometry depending of detail
+            if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
                 // obtain color
                 RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
                 if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
