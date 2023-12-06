@@ -7,7 +7,9 @@ title: TraCI
 TraCI is the short term for "**Tra**ffic **C**ontrol **I**nterface".
 Giving access to a running road traffic simulation, it allows to
 retrieve values of simulated objects and to manipulate their behavior
-"on-line".
+"on-line". If performance is an issue you should consider using
+[libsumo](Libsumo.md) instead. You can also start with TraCI and switch
+to libsumo later, since the function signatures are the same.
 
 ## Using TraCI
 
@@ -287,6 +289,11 @@ depends on many factors:
   than others)
 - computation within the TraCI script
 - client language
+
+!!! note
+    Please always consider using [libsumo](Libsumo.md) if performance is important.
+    While it is much faster in general, not all optimizations mentioned below are applicable to libsumo as well.
+    Especially subscriptions might even turn out to be slower.
 
 ### Examples
 
