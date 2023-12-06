@@ -5618,13 +5618,12 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                // swap lane to edge (except if we're editing a shape lane)
-                if (!(myObjectsUnderCursor.getLaneFront() && myObjectsUnderCursor.getLaneFront()->isShapeEdited())) {
-                    myObjectsUnderCursor.filterEdges();
-                } else {
-                    myObjectsUnderCursor.filterLanes();
-                }
+                myObjectsUnderCursor.filterLanes();
+            } else {
+                myObjectsUnderCursor.filterEdges();
             }
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
@@ -5638,15 +5637,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     processClick(eventData);
                 }
             } else {
-                // now filter locked elements forcing excluding walkingAreas
-                myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
-                // allways swap lane to edges in movement mode
-                myObjectsUnderCursor.filterLanes();
-                // update AC under cursor
+                // get AC under cursor
                 auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
-                // check that AC under cursor isn't a demand element
-                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
-                    !AC->getTagProperty().isDemandElement()) {
+                // check that AC is an network or additional element
+                if (AC && (AC->getTagProperty().isNetworkElement() || !AC->getTagProperty().isAdditionalElement())) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
