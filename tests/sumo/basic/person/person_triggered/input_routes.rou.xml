@@ -27,4 +27,9 @@
         <ride to="gneE1" lines="v0"/>
         <walk to="gneE3"/>
     </person>
+    <person id="p1" depart="triggered">
+        <param key="key" value="value"/>
+        <ride to="gneE1" lines="v0"/>
+        <walk to="gneE3"/>
+    </person>
 </routes>
