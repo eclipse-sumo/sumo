@@ -181,7 +181,7 @@ void
 MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         if (myActiveTransportablePlan != nullptr && myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED
-                && element != SUMO_TAG_RIDE && element != SUMO_TAG_TRANSPORT) {
+                && element != SUMO_TAG_RIDE && element != SUMO_TAG_TRANSPORT && element != SUMO_TAG_PARAM) {
             const std::string mode = myActiveType == ObjectTypeEnum::PERSON ? "ride" : "transport";
             throw ProcessError("Triggered departure for " + myActiveTypeName + " '" + myVehicleParameter->id + "' requires starting with a " + mode + ".");
         }

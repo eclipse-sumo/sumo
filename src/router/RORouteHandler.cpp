@@ -196,9 +196,9 @@ void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     try {
-        if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_RIDE) {
+        if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_RIDE && element != SUMO_TAG_PARAM) {
             throw ProcessError(TLF("Triggered departure for person '%' requires starting with a ride.", myVehicleParameter->id));
-        } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_TRANSPORT) {
+        } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_TRANSPORT && element != SUMO_TAG_PARAM) {
             throw ProcessError(TLF("Triggered departure for container '%' requires starting with a transport.", myVehicleParameter->id));
         }
         SUMORouteHandler::myStartElement(element, attrs);
