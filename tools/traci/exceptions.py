@@ -51,7 +51,6 @@ def alias_param(param, alias, deprecate=True):
     else:
         subst = list(zip(param, alias))
 
-
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):

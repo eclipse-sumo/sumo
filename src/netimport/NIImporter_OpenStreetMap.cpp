@@ -744,8 +744,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->addSidewalk(sidewalkWidth * offsetFactor);
             }
             if (!addBackward && (e->myExtraAllowed & SVC_PEDESTRIAN) != 0 && (nbe->getPermissions(0) & SVC_PEDESTRIAN) == 0) {
-                // pedestrians are explicitly allowed (maybe through foot="yes") but dídn't get a sidewalk (maybe through sidewalk="no")
-                // since we do not have a backward edge, we need to make sure they can at least walk somewhere, see #14124
+                // Pedestrians are explicitly allowed (maybe through foot="yes") but did not get a sidewalk (maybe through sidewalk="no").
+                // Since we do not have a backward edge, we need to make sure they can at least walk somewhere, see #14124
                 nbe->setPermissions(nbe->getPermissions(0) | SVC_PEDESTRIAN, 0);
             }
             nbe->updateParameters(e->getParametersMap());
