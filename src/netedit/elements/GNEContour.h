@@ -37,14 +37,6 @@ class GNEAttributeCarrier;
 class GNEContour {
 
 public:
-    /// @brief enum for geometryPoints
-    enum GeometryPoint {
-        FROM =      1 << 0,     // Geometry point from
-        TO =        1 << 1,     // Geometry point to
-        MIDDLE =    1 << 2,     // Middle geometry points
-        NONE =      0           // no geometry points
-    };
-
     /// @brief Constructor
     GNEContour(GNEAttributeCarrier* AC);
 

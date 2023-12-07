@@ -408,7 +408,7 @@ protected:
                               const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
     /// @brief check if draw additional extrem geometry points
-    int drawAdditionalExtremGeometryPoints(const bool ignoreShift, const double startPos, const double endPos) const;
+    bool drawMovingGeometryPoints(const bool ignoreShift) const;
 
     /// @brief get moveOperation for an element over single lane
     GNEMoveOperation* getMoveOperationSingleLane(const double startPos, const double endPos);

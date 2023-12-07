@@ -824,25 +824,17 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
 }
 
 
-int
-GNEAdditional::drawAdditionalExtremGeometryPoints(const bool ignoreShift, const double startPos, const double endPos) const {
-    // declare result
-    int result = GNEContour::GeometryPoint::NONE;
+bool
+GNEAdditional::drawMovingGeometryPoints(const bool ignoreShift) const {
     // get modes
     const auto &modes = myNet->getViewNet()->getEditModes();
     // check conditions
-    if (modes.isCurrentSupermodeNetwork() &&
-        (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+    if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
         (ignoreShift || myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
-        // check positions
-        if (startPos != INVALID_DOUBLE) {
-            result |= GNEContour::GeometryPoint::FROM;
-        }
-        if (startPos != INVALID_DOUBLE) {
-            result |= GNEContour::GeometryPoint::TO;
-        }
+        return true;
+    } else {
+        return false;
     }
-    return result;
 }
 
 
@@ -1184,31 +1176,21 @@ void
 GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const Position& pos, const double rot, const RGBColor& baseColor, const double fromAngle, const double toAngle,
         const bool ignoreShift) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            (myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed() || ignoreShift)) {
-        // check if mouse is over position
-        const bool mouseOverPos = gPostDrawing.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), pos,
-                                                                    s.neteditSizeSettings.additionalGeometryPointRadius);
-        // check if draw geometry point
-        if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
-            // push matrix
-            GLHelper::pushMatrix();
-            // translated to front
-            glTranslated(0, 0, 0.1);
-            // set color depending if check if mouse is over element
-            GLHelper::setColor(mouseOverPos? RGBColor::ORANGE : baseColor.changedBrightness(-50));
-            // push geometry point matrix
-            GLHelper::pushMatrix();
-            // translate and rotate
-            glTranslated(pos.x(), pos.y(), 0.1);
-            glRotated(rot, 0, 0, 1);
-            // draw geometry point
-            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
-            // pop geometry point matrix
-            GLHelper::popMatrix();
-        }
+    // check if draw geometry point
+    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
+        // push matrix
+        GLHelper::pushMatrix();
+        // translated to front
+        glTranslated(0, 0, 0.1);
+        // set color depending if check if mouse is over element
+        GLHelper::setColor(baseColor.changedBrightness(-50));
+        // translate and rotate
+        glTranslated(pos.x(), pos.y(), 0.1);
+        glRotated(rot, 0, 0, 1);
+        // draw geometry point
+        GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
+        // pop geometry point matrix
+        GLHelper::popMatrix();
     }
 }
 

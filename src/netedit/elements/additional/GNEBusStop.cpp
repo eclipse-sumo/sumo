@@ -122,8 +122,10 @@ void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = getExaggeration(s);
-    // first check if additional has to be drawn
+    // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if draw moving geometry points
+        const int movingGeometryPoints = drawMovingGeometryPoints(false);
         // get width
         const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
         // get detail level
@@ -164,16 +166,20 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
-            if (myStartPosition != INVALID_DOUBLE) {
+            if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
-            if (myEndPosition != INVALID_DOUBLE) {
+            if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
                 drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
+            if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, 0.5);
+            } else {
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, 0.25);
+            }
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
@@ -182,8 +188,18 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), stopWidth, 1, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        if (movingGeometryPoints) {
+            myContour.drawDottedContourGeometryPoints(s, d, myAdditionalGeometry.getShape().front(), 0,
+                                                      s.neteditSizeSettings.additionalGeometryPointRadius, 1,
+                                                      s.dottedContourSettings.segmentWidth);
+        } else {
+            myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), stopWidth, 1, true, true, 0,
+                                                s.dottedContourSettings.segmentWidth);
+        }
+        // check start and end geometry points
+        if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
+
+        }
     }
 }
 
