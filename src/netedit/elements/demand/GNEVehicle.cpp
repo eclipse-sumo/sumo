@@ -1172,8 +1172,7 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
         // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
         if (segment->getPreviousLane() && segment->getNextLane()) {
             // draw lane2lane
-            GUIGeometry::drawGeometry(d,
-                                      segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()), width);
+            GUIGeometry::drawGeometry(d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()), width);
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
             // draw line between center of junction and last lane shape
             GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, width);
@@ -1188,7 +1187,6 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(), 0,
                                                 width, 1, false, false, s.dottedContourSettings.segmentWidthSmall);
-
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
             myContour.drawDottedContourExtruded(s, d, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, 0,
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);

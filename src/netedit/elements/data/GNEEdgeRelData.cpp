@@ -179,6 +179,8 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
             GLHelper::setColor(RGBColor::BLACK);
             // draw box lines
+
+
             GLHelper::drawBoxLines(laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
                                    laneEdge->getShapeLengths(), laneWidth);
             // translate to top

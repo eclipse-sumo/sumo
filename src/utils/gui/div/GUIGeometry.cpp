@@ -269,11 +269,43 @@ void
 GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
                           const double width, double offset) {
     // continue depending of detail level
-    if (d <= GUIVisualizationSettings::Detail::GeometryAsLines) {
+    if (d <= GUIVisualizationSettings::Detail::GeometryBoxLines) {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
-    } else {
-        // simply draw a line
+    } else if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+        // set line width
+        glLineWidth(width);
+        // draw a simple line
         GLHelper::drawLine(geometry.getShape());
+        // restore line width
+        glLineWidth(1);
+    } else {
+        // draw a simple line
+        GLHelper::drawLine(geometry.getShape());
+    }
+}
+
+
+void
+GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
+                          const std::vector<RGBColor>& colors, const double width, double offset) {
+    // continue depending of detail level
+    if (d <= GUIVisualizationSettings::Detail::GeometryBoxLines) {
+        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), colors, width, 0, offset);
+    } else{
+        // set first color
+        GLHelper::setColor(*colors.begin());
+        // set width
+        if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+            // set line width
+            glLineWidth(width);
+            // draw a simple line
+            GLHelper::drawLine(geometry.getShape());
+            // restore line width
+            glLineWidth(1);
+        } else {
+            // draw a simple line
+            GLHelper::drawLine(geometry.getShape());
+        }
     }
 }
 

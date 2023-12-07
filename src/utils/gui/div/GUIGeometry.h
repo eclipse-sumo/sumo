@@ -95,6 +95,10 @@ public:
     static void drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
                              const double width, double offset = 0);
 
+    /// @brief draw colored geometry
+    static void drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeometry& geometry,
+                             const std::vector<RGBColor>& colors, const double width, double offset = 0);
+
     /// @brief draw contour geometry
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);
 

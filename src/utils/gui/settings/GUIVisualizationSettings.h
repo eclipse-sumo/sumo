@@ -542,38 +542,36 @@ public:
 
     enum class Detail : int {
         Level0 = 0,
-            CircleResolution32 = 0,
-            DrawPolygonTesselation = 0,
-            LaneDetails = 0,    // offset, icons, indicators...
-            Text = 0,
-            VehiclePoly = 0,
-            JunctionElementDetails = 0,
-            LockedIcons = 0,
+            CircleResolution32 = 0,     // circle resolution = 32
+            DrawPolygonTesselation = 0, // draw polygons tesselated
+            LaneDetails = 0,            // offset, icons, indicators...
+            Text = 0,                   // draw text (E2, routes...)
+            VehiclePoly = 0,            // draw vehicles as polygons
+            JunctionElementDetails = 0, // draw junction elements with high detail (crossings)
+            LockedIcons = 0,            // draw lock icons
 
-        Level1 = 1,     // circle resolution = 8, polygons, no lane details
-            CircleResolution16 = 1,
-            VehicleBox = 1,
+        Level1 = 1,
+            CircleResolution16 = 1, // circle resolution = 16
+            VehicleBox = 1,         // vehicles as boxes
             AdditionalDetails = 1,  // stoppingPlace signs, EntryExit arrows...
-            GeometryPoint = 1,
+            GeometryPoint = 1,      // draw geometry points
             JunctionElement = 1,    // crossings, walking area, connections and internal lanes
 
-        Level2 = 2,     // circle as squares, squares instead polygons, no text, no geometry points and no junction/lane paths
-            CircleResolution8 = 2,
-            DrawPolygonSquare = 2,
-            VehicleTriangle = 2,
-            Names = 2,
-            TLSIcon = 2,
-            Additionals = 2,
-            DottedContours = 2,
-            Lane = 2,
+        Level2 = 2,
+            CircleResolution8 = 2,  // circle resolution = 8
+            DrawPolygonSquare = 2,  // draw polygons as squares
+            VehicleTriangle = 2,    // draw vehicles as triangles
+            Names = 2,              // draw element names
+            Additionals = 2,        // draw additional elements
+            DottedContours = 2,     // draw dotted contours
+            GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry
 
         Level3 = 3,
-            GeometryAsLines = 3,
-            CircleResolutionSquare = 3,
-            LaneSimple = 3,
+            CircleResolution4 = 3,  // draw circle resolution as squares
+            TLSIcon = 3,            // draw TLS icons
 
         Level4 = 4,
-            LaneSimpleOnlyFirst = 4,
+            GeometryBoxSimpleLine = 4,  // draw lines with width = 1 instead boxes in GUIGeometry::drawGeometry
     };
 
     /// @brief constructor
@@ -622,6 +620,9 @@ public:
 
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
+
+    /// @brief check if draw element depending of shapeSize
+    bool checkShapeSizeDrawing(const double shapeLenght) const;
 
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;

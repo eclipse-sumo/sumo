@@ -218,15 +218,13 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
             // Start with the drawing of the area translating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
             GLHelper::setColor(RGBColor::BLACK);
-            // draw box lines
-            GLHelper::drawBoxLines(laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                                   laneEdge->getShapeLengths(), laneWidth);
+            // draw geometry
+            GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), laneWidth);
             // translate to top
             glTranslated(0, 0, 0.01);
             GLHelper::setColor(color);
             // draw internal box lines
-            GLHelper::drawBoxLines(laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                                   laneEdge->getShapeLengths(), (laneWidth - 0.1));
+            GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), (laneWidth - 0.1));
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon

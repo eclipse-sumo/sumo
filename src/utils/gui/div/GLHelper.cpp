@@ -526,7 +526,7 @@ GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d,con
         case GUIVisualizationSettings::Detail::CircleResolution8:
             drawFilledCircle(radius, 8, beg, end);
             break;
-        case GUIVisualizationSettings::Detail::CircleResolutionSquare:
+        case GUIVisualizationSettings::Detail::CircleResolution4:
             drawFilledCircleDetailled(d, radius);
             break;
         default:

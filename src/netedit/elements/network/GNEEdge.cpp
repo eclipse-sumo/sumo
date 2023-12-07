@@ -558,17 +558,19 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
+    // draw boundary
     GLHelper::drawBoundary(s, getCenteringBoundary());
-    // draw draw lanes
-    for (const auto& lane : myLanes) {
-        lane->drawGL(s);
+    // get detail level from the first lane
+    const auto d = myLanes.front()->getDrawingConstants()->getDetail();
+    if (s.checkShapeSizeDrawing(myLanes.front()->getLaneShapeLength())) {
+        // draw draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
+        }
     }
     // draw junctions
     getFromJunction()->drawGL(s);
     getToJunction()->drawGL(s);
-    // get detail level from the first lane
-    const auto d = myLanes.front()->getDrawingConstants()->getDetail();
     // draw geometry points
     drawEdgeGeometryPoints(s, d);
     // check if draw details

@@ -2383,6 +2383,20 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 }
 
 
+bool
+GUIVisualizationSettings::checkShapeSizeDrawing(const double shapeLenght) const {
+    if (drawForObjectUnderCursor) {
+        return true;
+    } else if ((scale <= 2.5) && (shapeLenght < 8)) {
+        return false;
+    } else if ((scale <= 1.25) && (shapeLenght < 12)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 GUIVisualizationSettings::Detail
 GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
     // calculate factor
@@ -2409,21 +2423,6 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
         return ((scale * exaggeration) >= detail);
     }
 }
-
-/*
-int
-GUIVisualizationSettings::getCircleResolution() const {
-    if (drawForRectangleSelection) {
-        return 8;
-    } else if (scale >= 10) {
-        return 32;
-    } else if (scale >= 5) {
-        return 16;
-    } else {
-        return 8;
-    }
-}
-*/
 
 
 bool

@@ -782,26 +782,6 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         }
         // pop matrix
         GLHelper::popMatrix();
-/*
-        // optionally draw inverse markings
-        bool haveChangeProhibitions = false;
-        if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
-            GLHelper::pushMatrix();
-            glTranslated(0, 0, 0.1);
-            const bool cl = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
-            const bool cr = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
-            GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                          3, 6, myDrawingConstants->getDrawingWidth(), cl, cr, s.lefthand, myDrawingConstants->getExaggeration());
-            haveChangeProhibitions = !(cl && cr);
-            GLHelper::popMatrix();
-        }
-        // draw markings
-        GLHelper::pushMatrix();
-        if (haveChangeProhibitions) {
-
-        }
-        GLHelper::popMatrix();
-*/
     }
 }
 
@@ -1313,55 +1293,42 @@ void
 GNELane::drawLane(const GUIVisualizationSettings& s) const {
     // set lane colors
     setLaneColor(s);
-    // continue depending of detail level
-    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Lane) {
-        // Check if lane has to be draw as railway and if isn't being drawn for selecting
-        if (myDrawingConstants->drawAsRailway()) {
-            // draw as railway
-            drawLaneAsRailway();
-        } else if (myShapeColors.size() > 0) {
-            // draw box lines with own colors
-            GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                                   myLaneGeometry.getShapeLengths(), myShapeColors, myDrawingConstants->getDrawingWidth(), 0,
-                                   myDrawingConstants->getOffset());
-        } else {
-            // draw box lines with current color
-            GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                                   myLaneGeometry.getShapeLengths(), myDrawingConstants->getDrawingWidth(), 0,
-                                   myDrawingConstants->getOffset());
-        }
-        // draw back edge
-        drawSelectedLane(s);
-        // draw start end shape points
-        drawStartEndGeometryPoints(s);
-        // check if draw details
-        if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-            // draw markings
-            drawMarkingsAndBoundings(s);
-            // Draw direction indicators
-            drawDirectionIndicators(s);
-            // draw lane textures
-            drawTextures(s);
-            // draw lane arrows
-            drawArrows(s);
-            // draw link numbers
-            drawLinkNo(s);
-            // draw TLS link numbers
-            drawTLSLinkNo(s);
-            // draw stopOffsets
-            drawLaneStopOffset(s);
-        }
-        // draw shape edited
-        drawShapeEdited(s);
-    } else if ((myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneSimple) ||
-               ((myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneSimpleOnlyFirst) && (myIndex == 0))) {
-        // draw lane as line, depending of myShapeColors
-        if (myShapeColors.size() > 0) {
-            GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
-        } else {
-            GLHelper::drawLine(myLaneGeometry.getShape());
-        }
+    // Check if lane has to be draw as railway and if isn't being drawn for selecting
+    if (myDrawingConstants->drawAsRailway()) {
+        // draw as railway
+        drawLaneAsRailway();
+    } else if (myShapeColors.size() > 0) {
+        // draw geometry with own colors
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
+                                    myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
+    } else {
+        // draw geometry with current color
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
+                                    myDrawingConstants->getOffset());
     }
+    // if lane is selected, draw a second lane over it
+    drawSelectedLane(s);
+    // draw start end shape points
+    drawStartEndGeometryPoints(s);
+    // check if draw details
+    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+        // draw markings
+        drawMarkingsAndBoundings(s);
+        // Draw direction indicators
+        drawDirectionIndicators(s);
+        // draw lane textures
+        drawTextures(s);
+        // draw lane arrows
+        drawArrows(s);
+        // draw link numbers
+        drawLinkNo(s);
+        // draw TLS link numbers
+        drawTLSLinkNo(s);
+        // draw stopOffsets
+        drawLaneStopOffset(s);
+    }
+    // draw shape edited
+    drawShapeEdited(s);
 }
 
 
@@ -1375,10 +1342,9 @@ GNELane::drawSelectedLane(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, 0.1);
         // set selected edge color
         GLHelper::setColor(s.colorSettings.selectedLaneColor);
-        // draw internal box line
-        GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), myDrawingConstants->getInternalDrawingWidth(),
-                               0, myDrawingConstants->getOffset());
+        // draw geometry with current color
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
+                                  myDrawingConstants->getOffset());
         // Pop matrix
         GLHelper::popMatrix();
     }
@@ -1396,8 +1362,8 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         // set selected edge color
         GLHelper::setColor(s.colorSettings.editShapeColor);
         // draw shape around
-        GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                                myLaneGeometry.getShapeLengths(), 0.25);
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, 0.25,
+                                  myDrawingConstants->getOffset());
         // move front
         glTranslated(0, 0, 1);
         // color
@@ -1752,14 +1718,13 @@ GNELane::drawLaneAsRailway() const {
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
     // draw as box lines
     if (myShapeColors.size() > 0) {
-        GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), myShapeColors,
-                               myDrawingConstants->getInternalDrawingWidth(), 0,
-                               myDrawingConstants->getOffset());
+        // draw colored box lines
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
+                                  myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
     } else {
-        GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), myDrawingConstants->getInternalDrawingWidth(),
-                               0, myDrawingConstants->getOffset());
+        // draw geometry with current color
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
+                                  myDrawingConstants->getOffset());
     }
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
@@ -1771,10 +1736,9 @@ GNELane::drawLaneAsRailway() const {
         glColor3d(0.8, 0.8, 0.8);
         // move
         glTranslated(0, 0, 0.1);
-        // draw as box lines
-        GLHelper::drawBoxLines(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(),
-                               myLaneGeometry.getShapeLengths(), internGeometryWidth, 0,
-                               myDrawingConstants->getOffset());
+        // draw geometry
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, internGeometryWidth,
+                                  myDrawingConstants->getOffset());
         // Set current color back
         GLHelper::setColor(current);
         // Draw crossties
