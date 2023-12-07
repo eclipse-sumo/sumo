@@ -76,9 +76,13 @@ public:
                                     const Position& pos, const double width, const double height, const double offsetX,
                                     const double offsetY, const double rot, const double scale, const double lineWidth) const;
 
-    /// @brief draw dotted contour (circle)
+    /// @brief draw dotted contour (circle elements)
     void drawDottedContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                  const Position& pos, double radius, const double scale, const double lineWidth) const;
+
+    /// @brief draw dotted contour (geometry points elements)
+    void drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                         const Position& pos, const int index, double radius, const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour edge
     void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

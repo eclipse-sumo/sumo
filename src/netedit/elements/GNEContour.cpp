@@ -127,6 +127,20 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
 
 
 void
+GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+        const Position& pos, const int index, double radius, const double scale, const double lineWidth) const {
+    // check if mouse is within geometry (only in rectangle selection mode)
+    if (s.drawForObjectUnderCursor) {
+        // build dotted contour
+        buildDottedContourCircle(s, pos, radius, scale);
+        gPostDrawing.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), index, pos, (radius * scale));
+    } else {
+        drawDottedContours(s, d, scale, true, lineWidth);
+    }
+}
+
+
+void
 GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const {
     // check if mouse is within two lines (only in rectangle selection mode)
