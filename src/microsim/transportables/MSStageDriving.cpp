@@ -433,17 +433,28 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 const int firstPassengerCarriage = numCarriages == 1
                                                 || (myVehicle->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
                 const int randomCarriage = RandHelper::rand(numCarriages - firstPassengerCarriage) + firstPassengerCarriage;
+                const double positionOnLane = myVehicle->getPositionOnLane();
                 if (randomCarriage == 0) {
                     const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * pars.locomotiveLength;
-                    myArrivalPos = myVehicle->getPositionOnLane() - randomDoorOffset;
+                    myArrivalPos = positionOnLane - randomDoorOffset;
                 } else {
                     const double carriageLengthWithGap = totalLength / numCarriages;
-                    const double frontPosOnLane = myVehicle->getPositionOnLane() - pars.locomotiveLength - pars.carriageGap - carriageLengthWithGap * (randomCarriage - 1);
+                    const double frontPosOnLane = positionOnLane - pars.locomotiveLength - pars.carriageGap - carriageLengthWithGap * (randomCarriage - 1);
                     const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * (carriageLengthWithGap - pars.carriageGap);
                     myArrivalPos = frontPosOnLane - randomDoorOffset;
                 }
 
-                myArrivalPos += RandHelper::rand(-0.5*DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5*DEFAULT_CARRIAGE_DOOR_WIDTH);
+                const double myCandidateArrivalPos = myArrivalPos + RandHelper::rand(-0.5*DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5*DEFAULT_CARRIAGE_DOOR_WIDTH);
+                const double laneLength = myVehicle->getLane()->getLength();
+                if (myCandidateArrivalPos > laneLength) {
+                    myArrivalPos = laneLength;
+                }
+                else if (myCandidateArrivalPos < 0) {
+                    myArrivalPos = 0;
+                }
+                else {
+                    myArrivalPos = myCandidateArrivalPos;
+                }
             }
         }
     } else {
