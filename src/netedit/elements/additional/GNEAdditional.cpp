@@ -824,6 +824,28 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
 }
 
 
+int
+GNEAdditional::drawAdditionalExtremGeometryPoints(const bool ignoreShift, const double startPos, const double endPos) const {
+    // declare result
+    int result = GNEContour::GeometryPoint::NONE;
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
+    // check conditions
+    if (modes.isCurrentSupermodeNetwork() &&
+        (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        (ignoreShift || myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
+        // check positions
+        if (startPos != INVALID_DOUBLE) {
+            result |= GNEContour::GeometryPoint::FROM;
+        }
+        if (startPos != INVALID_DOUBLE) {
+            result |= GNEContour::GeometryPoint::TO;
+        }
+    }
+    return result;
+}
+
+
 GNEMoveOperation*
 GNEAdditional::getMoveOperationSingleLane(const double startPos, const double endPos) {
     // get allow change lane
