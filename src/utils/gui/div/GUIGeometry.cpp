@@ -273,7 +273,7 @@ GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeo
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
     } else if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
         // set line width
-        glLineWidth(width);
+        glLineWidth(static_cast<double>(width));
         // draw a simple line
         GLHelper::drawLine(geometry.getShape());
         // restore line width
@@ -297,7 +297,7 @@ GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeo
         // set width
         if (d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
             // set line width
-            glLineWidth(width);
+            glLineWidth(static_cast<double>(width));
             // draw a simple line
             GLHelper::drawLine(geometry.getShape());
             // restore line width
