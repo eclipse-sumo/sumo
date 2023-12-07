@@ -26,8 +26,10 @@
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEMoveElement.h"
+
 // ===========================================================================
 // enum
 // ===========================================================================
@@ -412,7 +414,7 @@ struct GNEViewNetHelper {
         void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
-        void processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects);
+        void processGUIGlObjects(const GUIPostDrawing::GLObjectsContainer& objectsContainer);
 
         /// @brief default constructor
         ObjectsUnderCursor();

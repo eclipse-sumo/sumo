@@ -1010,16 +1010,16 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects) {
+GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const GUIPostDrawing::GLObjectsContainer& objectsContainer) {
     // iterate over filtered edge objects
-    for (const auto& glObject : glObjects) {
+    for (const auto& glObject : objectsContainer) {
         // update all elements by categories
-        updateNetworkElements(myObjects, glObject);
-        updateAdditionalElements(myObjects, glObject);
-        updateShapeElements(myObjects, glObject);
-        updateTAZElements(myObjects, glObject);
-        updateDemandElements(myObjects, glObject);
-        updateGenericDataElements(myObjects, glObject);
+        updateNetworkElements(myObjects, glObject.first);
+        updateAdditionalElements(myObjects, glObject.first);
+        updateShapeElements(myObjects, glObject.first);
+        updateTAZElements(myObjects, glObject.first);
+        updateDemandElements(myObjects, glObject.first);
+        updateGenericDataElements(myObjects, glObject.first);
     }
 }
 

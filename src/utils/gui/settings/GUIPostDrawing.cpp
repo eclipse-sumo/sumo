@@ -42,26 +42,32 @@ GUIPostDrawing::clearElements() {
 }
 
 
-void
-GUIPostDrawing::executePostDrawingTasks() {
-    // udate AC geometries
-    for (const auto& GLObject : myGLObjectsToUpdate) {
-        GLObject->updateGLObject();
-    }
-}
-
-
 bool
 GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
-    return (std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end());
+    // avoid to insert duplicated elements
+    for (auto &element : myElementsUnderCursor) {
+        if (element.first == GLObject) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
 bool
 GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius) {
     if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
-        addElementUnderCursor(GLObject);
-        return true;
+        return addElementUnderCursor(GLObject);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GUIPostDrawing::positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius) {
+    if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
+        return addGeometryPointUnderCursor(GLObject, index);
     } else {
         return false;
     }
@@ -71,26 +77,51 @@ GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position
 bool
 GUIPostDrawing::positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape) {
     if (shape.around(pos)) {
-        addElementUnderCursor(GLObject);
-        return true;
+        return addElementUnderCursor(GLObject);
     } else {
         return false;
     }
 }
 
 
-const std::vector<const GUIGlObject*>&
+const GUIPostDrawing::GLObjectsContainer&
 GUIPostDrawing::getElementsUnderCursor() const {
     return myElementsUnderCursor;
 }
 
 
-void
+bool
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     // avoid to insert duplicated elements
-    if (isElementUnderCursor(GLObject) == false) {
-        myElementsUnderCursor.push_back(GLObject);
+    if (isElementUnderCursor(GLObject)) {
+        return false;
+    } else {
+        myElementsUnderCursor.push_back(std::make_pair(GLObject, std::vector<int>()));
+        return true;
     }
+}
+
+
+bool
+GUIPostDrawing::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
+    // avoid to insert duplicated elements
+    for (auto &element : myElementsUnderCursor) {
+        if (element.first == GLObject) {
+            // avoid double points
+            for (auto &index : element.second) {
+                if (index == newIndex) {
+                    return false;
+                }
+            }
+            // add new index
+            element.second.push_back(newIndex);
+            return true;
+        }
+    }
+    // no element found then add it
+    myElementsUnderCursor.push_back(std::make_pair(GLObject, std::vector<int>()));
+    myElementsUnderCursor.back().second.push_back(newIndex);
+    return true;
 }
 
 /****************************************************************************/

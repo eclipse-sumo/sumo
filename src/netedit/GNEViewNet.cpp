@@ -1389,8 +1389,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myNet->getGrid().updateBoundaries(gPostDrawing.recomputeBoundaries);
         }
     */
-    // execute post drawing tasks
-    gPostDrawing.executePostDrawingTasks();
     return hits;
 }
 
@@ -1983,7 +1981,7 @@ GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject, false);
+        auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.first, false);
         if (junction) {
             return junction;
         }
@@ -1996,7 +1994,7 @@ GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject, false);
+        auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject.first, false);
         if (connection) {
             return connection;
         }
@@ -2009,7 +2007,7 @@ GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject, false);
+        auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject.first, false);
         if (crossing) {
             return crossing;
         }
@@ -2022,7 +2020,7 @@ GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingArea(glObject, false);
+        auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingArea(glObject.first, false);
         if (walkingArea) {
             return walkingArea;
         }
@@ -2035,7 +2033,7 @@ GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject, false);
+        auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.first, false);
         if (edge) {
             return edge;
         }
@@ -2048,7 +2046,7 @@ GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject, false);
+        auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject.first, false);
         if (lane) {
             return lane;
         }
@@ -2061,7 +2059,7 @@ GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(glObject, false);
+        auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false);
         if (additionalElement) {
             return additionalElement;
         }
@@ -2074,7 +2072,7 @@ GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(glObject, false);
+        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(glObject.first, false);
         if (demandElement) {
             return demandElement;
         }
@@ -2087,7 +2085,7 @@ GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     // get first object that can be parsed to poly element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
+        auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
         if (polygon) {
             return polygon;
         }
@@ -2100,7 +2098,7 @@ GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     // get first object that can be parsed to POI element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
+        auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
         if (POI) {
             return POI;
         }
@@ -2113,7 +2111,7 @@ GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     // get first object that can be parsed to TAZ element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
+        auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
         if (TAZ) {
             return TAZ;
         }

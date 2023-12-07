@@ -39,14 +39,14 @@ class GNERoute;
 class GUIPostDrawing {
 
 public:
+    /// @brief typedefs
+    typedef std::vector<std::pair<const GUIGlObject*, std::vector<int> > > GLObjectsContainer;
+
     /// @brief constructor
     GUIPostDrawing();
 
     /// @brief clear elements
     void clearElements();
-
-    /// @brief execute post drawing tasks
-    void executePostDrawingTasks();
 
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
@@ -54,11 +54,14 @@ public:
     /// @brief check if mouse is within elements geometry (for circles)
     bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius);
 
+    /// @brief check if mouse is within geometry point
+    bool positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius);
+
     /// @brief check if mouse is within closed shapes (for filled shapes)
     bool positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape);
 
     /// @brief get all elements under cursor
-    const std::vector<const GUIGlObject*>& getElementsUnderCursor() const;
+    const GLObjectsContainer& getElementsUnderCursor() const;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -82,14 +85,14 @@ public:
     const GUIGlObject* markedSecondGeometryPoint = nullptr;
 
 protected:
-    /// @brief GLObjects to update
-    std::vector<GUIGlObject*> myGLObjectsToUpdate;
-
-    /// @brief elements under cursor
-    std::vector<const GUIGlObject*> myElementsUnderCursor;
+    /// @brief elements under cursor and their geometry point indexes
+    GLObjectsContainer myElementsUnderCursor;
 
     /// @brief add element into list of elements under cursor
-    void addElementUnderCursor(const GUIGlObject* GLObject);
+    bool addElementUnderCursor(const GUIGlObject* GLObject);
+
+    /// @brief add geometryPoint into list of elements under cursor
+    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
 
 private:
     /// @brief set copy constructor private
