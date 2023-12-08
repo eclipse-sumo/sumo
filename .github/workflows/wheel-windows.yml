@@ -78,13 +78,10 @@ jobs:
     - name: Building libsumo plain
       if: matrix.build_type == 'libsumo'
       run: |
-        mkdir build_msvc
         cmake -Bbuild_msvc -GNinja -DCHECK_OPTIONAL_LIBS=false
         cmake --build build_msvc --config Release --target libsumo libtraci
         xcopy /s data .\tools\libsumo\data\
         python tools\build_config\version.py tools\build_config\setup-libsumo.py tools\setup.py
-        python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
-        python tools\build_config\version.py tools\build_config\setup-libtraci.py tools\setup.py
         python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
 
     - name: Building SUMO Wheels
