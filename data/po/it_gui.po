@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-03 15:05+0000\n"
+"PO-Revision-Date: 2023-12-08 12:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8738,51 +8738,58 @@ msgstr "Il colore di questo tipo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3548
 msgid "The vehicle's netto-length (length) [m]"
-msgstr ""
+msgstr "La lunghezza netta del veicolo [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3553
 msgid "Empty space after leader [m]"
-msgstr ""
+msgstr "Spazio vuoto dietro al veicolo di testa [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3558
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "La velocità massima del veicolo [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3563
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr ""
+"Il fattore del veicolo (o una definizione di distribuzione) con cui i "
+"vengono multiplicati i limiti di velocità"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3568
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr ""
+"La velocità desiderata massima del veicolo (interagisce con speedFactor)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3569
 msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
+"Applicabile soltanto dove non ci sono limiti di velocità (biciclette, alcune "
+"autostrade) [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3574
 msgid "An abstract emission class"
-msgstr ""
+msgstr "Una classe astratta di emissioni"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3580
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "Il metodo per disegnare il veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3586
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "La larghezza del veicolo (usata soltanto per disegnarlo) [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3592
 msgid "The vehicle's height [m] (only used for drawing)"
-msgstr ""
+msgstr "L'altezza del veicolo (usata soltanto per disegnarlo) [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3598
 msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
 msgstr ""
+"File per disegnare i veicoli di questo tipo (meglio in toni di grigio per "
+"permettere la colorazione funzionale)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3603
 msgid "The model used for changing lanes"
@@ -8797,6 +8804,8 @@ msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
 msgstr ""
+"Il numero di persone (senza contare un conducente autonomo) che il veicolo "
+"può trasportare"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3622
 msgid "The number of containers the vehicle can transport"
@@ -8831,6 +8840,8 @@ msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr ""
+"Il periodo dopo il quale il veicolo ricalcola la sua logica decisionale ("
+"accelerazione e cambio corsia)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3664
 msgid ""
@@ -9320,35 +9331,36 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5112
 msgid "walk: route"
-msgstr ""
+msgstr "cammino: itinerario"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5127
 msgid "Walk: edge->edge"
-msgstr ""
+msgstr "Cammino: arco->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5141
 msgid "Walk: edge->taz"
-msgstr ""
+msgstr "Cammino: arco->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5155
 msgid "Walk: edge->junction"
-msgstr ""
+msgstr "Cammino: arco->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5169
 msgid "Walk: edge->busStop"
-msgstr ""
+msgstr "Cammino: arco->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5183
 msgid "Walk: edge->trainStop"
-msgstr ""
+msgstr "Cammino: arco->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5198
 msgid "Walk: taz->edge"
-msgstr ""
+msgstr "Cammino: zona di assegnazione del traffico->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5212
 msgid "Walk: taz->taz"
 msgstr ""
+"Cammino: zona di assegnazione del traffico->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5226
 msgid "Walk: taz->junction"
@@ -9356,109 +9368,109 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5241
 msgid "Walk: taz->busStop"
-msgstr ""
+msgstr "Cammino: zona di assegnazione del traffico->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5255
 msgid "Walk: taz->trainStop"
-msgstr ""
+msgstr "Cammino: zona di assegnazione del traffico->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5270
 msgid "Walk: junction->edge"
-msgstr ""
+msgstr "Cammino: incrocio->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5284
 msgid "Walk: junction->taz"
-msgstr ""
+msgstr "Cammino: incrocio->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5298
 msgid "Walk: junction->junction"
-msgstr ""
+msgstr "Cammino: incrocio->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5312
 msgid "Walk: junction->busStop"
-msgstr ""
+msgstr "Cammino: incrocio->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5326
 msgid "Walk: junction->trainStop"
-msgstr ""
+msgstr "Cammino: incrocio->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5341
 msgid "Walk: busStop->edge"
-msgstr ""
+msgstr "Cammino: fermata di autobus->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5355
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5369
 msgid "Walk: busStop->taz"
-msgstr ""
+msgstr "Cammino: fermata di autobus->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5383
 msgid "Walk: busStop->busStop"
-msgstr ""
+msgstr "Cammino: fermata di autobus->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5397
 msgid "Walk: busStop->trainStop"
-msgstr ""
+msgstr "Cammino: fermata di autobus->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5412
 msgid "Walk: trainStop->edge"
-msgstr ""
+msgstr "Cammino: fermata ferroviaria->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5426
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5440
 msgid "Walk: trainStop->taz"
-msgstr ""
+msgstr "Cammino: fermata ferroviaria->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5454
 msgid "Walk: trainStop->busStop"
-msgstr ""
+msgstr "Cammino: fermata ferroviaria->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5468
 msgid "Walk: trainStop->trainStop"
-msgstr ""
+msgstr "Cammino: fermata ferroviaria->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5490
 msgid "Ride: edge->edge"
-msgstr ""
+msgstr "Passaggio: arco->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5504
 msgid "Ride: edge->busStop"
-msgstr ""
+msgstr "Passaggio: arco->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5518
 msgid "Ride: edge->trainStop"
-msgstr ""
+msgstr "Passaggio: arco->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5533
 msgid "Ride: busStop->edge"
-msgstr ""
+msgstr "Passaggio: fermata di autobus->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5547
 msgid "Ride: busStop->busStop"
-msgstr ""
+msgstr "Passaggio: fermata di autobus->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5561
 msgid "Ride: busStop->trainStop"
-msgstr ""
+msgstr "Passaggio: fermata di autobus->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5576
 msgid "Ride: trainStop->edge"
-msgstr ""
+msgstr "Passaggio: fermata ferroviaria->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5590
 msgid "Ride: train->busStop"
-msgstr ""
+msgstr "Passaggio: treno->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5604
 msgid "Ride: train->trainStop"
-msgstr ""
+msgstr "Passaggio: treno->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5641
 msgid "Stop: busStop"
-msgstr ""
+msgstr "Fermata: fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5656
 msgid "Stop: trainStop"
-msgstr ""
+msgstr "Fermata: fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5671
 msgid "The color with which the POI shall be displayed"
