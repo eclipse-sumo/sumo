@@ -298,7 +298,7 @@ plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE
 
 ## plot_trajectories.py
 
-Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
+Create plot of all trajectories obtained from a file generated through [--fcd-output](../Simulation/Output/FCDOutput.md). This tool in particular is located in {{SUMO}}/tools.
 
 Example use:
 
