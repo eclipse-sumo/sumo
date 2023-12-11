@@ -20,6 +20,8 @@
 #include <config.h>
 #include <algorithm>
 
+#include <utils/shapes/Shape.h>
+
 #include "GUIPostDrawing.h"
 
 
@@ -45,9 +47,11 @@ GUIPostDrawing::clearElements() {
 bool
 GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
-    for (auto &element : myElementsUnderCursor) {
-        if (element.first == GLObject) {
-            return true;
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.first == GLObject) {
+                return true;
+            }
         }
     }
     return false;
@@ -57,9 +61,11 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
 bool
 GUIPostDrawing::isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int index) const {
     // avoid to insert duplicated elements
-    for (auto &element : myElementsUnderCursor) {
-        if (element.first == GLObject) {
-            return std::find(element.second.begin(), element.second.end(), index) != element.second.end();
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.first == GLObject) {
+                return std::find(element.second.begin(), element.second.end(), index) != element.second.end();
+            }
         }
     }
     return false;
@@ -96,7 +102,7 @@ GUIPostDrawing::positionWithinShape(const GUIGlObject* GLObject, const Position 
 }
 
 
-const GUIPostDrawing::GLObjectsContainer&
+const GUIPostDrawing::GLObjectsSortedContainer&
 GUIPostDrawing::getElementsUnderCursor() const {
     return myElementsUnderCursor;
 }
@@ -105,12 +111,39 @@ GUIPostDrawing::getElementsUnderCursor() const {
 const GUIPostDrawing::GeometryPointsContainer&
 GUIPostDrawing::getGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
-    for (auto &element : myElementsUnderCursor) {
-        if (element.first == GLObject) {
-            return element.second;
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.first == GLObject) {
+                return element.second;
+            }
         }
     }
     return myEmptyGeometryPoints;
+}
+
+
+void
+GUIPostDrawing::updateFrontElement(const GUIGlObject* GLObject) {
+    GLObjectContainer frontElement(nullptr, {});
+    // extract element
+    for (auto &elementLayer : myElementsUnderCursor) {
+        auto it = elementLayer.second.begin();
+        while (it != elementLayer.second.end()) {
+            if (it->first == GLObject) {
+                // copy element to front element
+                frontElement.first = it->first;
+                frontElement.second = it->second;
+                // remove element from myElementsUnderCursor
+                it = elementLayer.second.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
+    // add element again wit a new layer
+    if (frontElement.first) {
+        myElementsUnderCursor[(double)GLO_FRONTELEMENT].push_back(frontElement);
+    }
 }
 
 
@@ -120,7 +153,15 @@ GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     if (isElementUnderCursor(GLObject)) {
         return false;
     } else {
-        myElementsUnderCursor.push_back(std::make_pair(GLObject, GUIPostDrawing::GeometryPointsContainer()));
+        // check if this is an element with an associated layer
+        const auto layer = dynamic_cast<const Shape*>(GLObject);
+        if (layer) {
+            auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+            layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+        } else {
+            auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+            layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+        }
         return true;
     }
 }
@@ -129,22 +170,32 @@ GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
 bool
 GUIPostDrawing::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
     // avoid to insert duplicated elements
-    for (auto &element : myElementsUnderCursor) {
-        if (element.first == GLObject) {
-            // avoid double points
-            for (auto &index : element.second) {
-                if (index == newIndex) {
-                    return false;
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.first == GLObject) {
+                // avoid double points
+                for (auto &index : element.second) {
+                    if (index == newIndex) {
+                        return false;
+                    }
                 }
+                // add new index
+                element.second.push_back(newIndex);
+                return true;
             }
-            // add new index
-            element.second.push_back(newIndex);
-            return true;
         }
     }
     // no element found then add it
-    myElementsUnderCursor.push_back(std::make_pair(GLObject, GUIPostDrawing::GeometryPointsContainer()));
-    myElementsUnderCursor.back().second.push_back(newIndex);
+    const auto layer = dynamic_cast<const Shape*>(GLObject);
+    if (layer) {
+        auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+        auto it = layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+        it->second.push_back(newIndex);
+    } else {
+        auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+        auto it = layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+        it->second.push_back(newIndex);
+    }
     return true;
 }
 

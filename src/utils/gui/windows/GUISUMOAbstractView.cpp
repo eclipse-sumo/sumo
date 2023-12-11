@@ -1218,8 +1218,6 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get all objects under cusor
         auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
-        // filter elements by layer
-        objectsUnderCursor = filterGUIGLObjectsByLayer(objectsUnderCursor);
         // filter elements
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
         std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
@@ -1980,29 +1978,6 @@ GUISUMOAbstractView::LayerObject::LayerObject(GUIGlObject* object) :
 GUIGlObject*
 GUISUMOAbstractView::LayerObject::getGLObject() const {
     return myGLObject;
-}
-
-
-std::vector<GUIGlObject*>
-GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& objects) const {
-    // declare map for saving shapes sorted by layer and ID
-    std::set<LayerObject> layerObjects;
-    for (const auto& object : objects) {
-        if ((object->getType() == GLO_POLYGON) || (object->getType() == GLO_POI)) {
-            layerObjects.insert(LayerObject(dynamic_cast<Shape*>(object)->getShapeLayer(), object));
-        } else {
-            layerObjects.insert(LayerObject(object));
-        }
-    }
-    // declare vector for saving object filtered by layer
-    std::vector<GUIGlObject*> objectsFiltered;
-    // insert in objects filtered sorted from bot to top
-    for (const auto& object : layerObjects) {
-        objectsFiltered.push_back(object.getGLObject());
-    }
-    // reverse objets filtered to top from bot
-    std::reverse(objectsFiltered.begin(), objectsFiltered.end());
-    return objectsFiltered;
 }
 
 /****************************************************************************/

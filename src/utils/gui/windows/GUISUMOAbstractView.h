@@ -635,9 +635,6 @@ private:
         GUIGlObject* myGLObject;
     };
 
-    /// @fbrief filter elements by layer
-    std::vector<GUIGlObject*> filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& objects) const;
-
     // @brief sensitivity for "<>AtPosition(...) functions
     static const double SENSITIVITY;
 };

@@ -41,7 +41,8 @@ class GUIPostDrawing {
 public:
     /// @brief typedefs
     typedef std::vector<int> GeometryPointsContainer;
-    typedef std::vector<std::pair<const GUIGlObject*, GeometryPointsContainer > > GLObjectsContainer;
+    typedef std::pair<const GUIGlObject*, GeometryPointsContainer> GLObjectContainer;
+    typedef std::map<double, std::vector<GLObjectContainer> > GLObjectsSortedContainer;
 
     /// @brief constructor
     GUIPostDrawing();
@@ -64,11 +65,14 @@ public:
     /// @brief check if mouse is within closed shapes (for filled shapes)
     bool positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape);
 
-    /// @brief get all elements under cursor
-    const GLObjectsContainer& getElementsUnderCursor() const;
+    /// @brief get all elements under cursor sorted by layer
+    const GLObjectsSortedContainer& getElementsUnderCursor() const;
 
     /// @brief get geometry points for the given glObject
     const GeometryPointsContainer& getGeometryPoints(const GUIGlObject* GLObject) const;
+
+    /// @brief move front element in elements under cursor (currently used only in netedit)
+    void updateFrontElement(const GUIGlObject* GLObject);
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -93,7 +97,7 @@ public:
 
 protected:
     /// @brief elements under cursor and their geometry point indexes
-    GLObjectsContainer myElementsUnderCursor;
+    GLObjectsSortedContainer myElementsUnderCursor;
 
     /// @brief empty geometry points
     GeometryPointsContainer myEmptyGeometryPoints;
