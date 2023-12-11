@@ -403,22 +403,41 @@ MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, doubl
 
 
 GEOSGeometry*
-MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape) {
+MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isWalkingArea) {
+    // Make sure the shape is closed.
     if (shape.back() != shape.front()) {
         shape.push_back(shape.front());
     }
-    GEOSCoordSequence* coordSeq = GEOSCoordSeq_create((unsigned int)shape.size(), 2);
-    for (unsigned int i = 0; i < shape.size(); i++) {
-        GEOSCoordSeq_setXY(coordSeq, i, shape[i].x(), shape[i].y());
+    // Replace consecutive points that are equal with just one.
+    PositionVector cleanShape;
+    cleanShape.push_back(shape[0]);
+    for (unsigned int i = 1; i < shape.size(); i++) {
+        if (shape[i] == shape[i-1]) {
+            continue;
+        }
+        cleanShape.push_back(shape[i]);
+    }
+    if (cleanShape.size() < shape.size()) {
+        WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed."), shapeID);
+    }
+    GEOSCoordSequence* coordSeq = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
+    for (unsigned int i = 0; i < cleanShape.size(); i++) {
+        GEOSCoordSeq_setXY(coordSeq, i, cleanShape[i].x(), cleanShape[i].y());
     }
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordSeq);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
-    if (GEOSisSimple(polygon)) {
-        return polygon;
-    } else {
-        // Non-simple polygons raise a problem upon merging.
-        return nullptr;
+    if (!GEOSisSimple(polygon)) {
+        WRITE_WARNINGF(TL("Geometry generation failed because polygon '%' is not simple."), shapeID);
+        if (isWalkingArea){
+            // Compute the convex hull of the walking area's shape as a proxy.
+            polygon = GEOSConvexHull(polygon);
+        }
+        else{
+            // The non-simple polygon will be skipped afterwards.
+            polygon = nullptr;
+        }
     }
+    return polygon;
 }
 
 
@@ -480,7 +499,8 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 
                                     if (edge->isNormal() && nextEdge->isNormal()) {
                                         PositionVector walkingAreaShape = getSidewalk<MSEdge, MSLane>(walkingArea)->getShape();
-                                        walkingAreaGeom = createGeometryFromShape(walkingAreaShape);
+                                        std::string walkingAreaShapeID = getSidewalk<MSEdge, MSLane>(walkingArea)->getID();
+                                        walkingAreaGeom = createGeometryFromShape(walkingAreaShape, walkingAreaShapeID, true);
                                         if (walkingAreaGeom) {
                                             walkableAreas.push_back(walkingAreaGeom);
                                             continue;
@@ -525,9 +545,12 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     std::vector<GEOSGeometry*> additionalObstacles;
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
-            walkableAreas.push_back(createGeometryFromShape(polygonWithID.second->getShape()));
+            GEOSGeometry* walkableArea = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
+            if (walkableArea != nullptr) {
+                walkableAreas.push_back(walkableArea);
+            }
         } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            additionalObstacles.push_back(createGeometryFromShape(polygonWithID.second->getShape()));
+            //additionalObstacles.push_back(createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first));
         }
     }
 
@@ -591,7 +614,7 @@ MSPModel_JuPedSim::convertToJPSPoints(const PositionVector& coordinates) {
     for (const Position& p : coordinates) {
         pointVector.push_back({p.x(), p.y()});
     }
-    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream
+    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream.
     pointVector.pop_back();
     return pointVector;
 }
@@ -605,7 +628,7 @@ MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
     GEOSCoordSeq_getSize(coordinateSequence, &coordinateSequenceSize);
     double x;
     double y;
-    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream
+    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream.
     for (unsigned int i = 0; i < coordinateSequenceSize - 1; i++) {
         GEOSCoordSeq_getX(coordinateSequence, i, &x);
         GEOSCoordSeq_getY(coordinateSequence, i, &y);
@@ -690,9 +713,6 @@ MSPModel_JuPedSim::initialize() {
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     int nbrConnectedComponents = GEOSGetNumGeometries(myGEOSPedestrianNetwork);
     myIsPedestrianNetworkConnected = nbrConnectedComponents == 1 ? true : false;
-    if (nbrConnectedComponents > 1) {
-        WRITE_WARNINGF(TL("When generating geometry for JuPedSim % connected components were detected."), nbrConnectedComponents);
-    }
 
     // myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     // for (size_t i = 0; i < GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {
@@ -707,16 +727,21 @@ MSPModel_JuPedSim::initialize() {
     const GEOSGeometry* maxAreaConnectedComponentPolygon = nullptr;
     std::string maxAreaPolygonId;
     double maxArea = 0.0;
-    for (unsigned int i = 0; i < (unsigned int)GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {
+    double totalArea = 0.0;
+    for (unsigned int i = 0; i < (unsigned int)nbrConnectedComponents; i++) {
         const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(myGEOSPedestrianNetwork, i);
         std::string polygonId = std::string("jupedsim.pedestrian_network.") + std::to_string(i);
         double area;
         GEOSArea(connectedComponentPolygon, &area);
+        totalArea += area;
         if (area > maxArea) {
             maxArea = area;
             maxAreaConnectedComponentPolygon = connectedComponentPolygon;
             maxAreaPolygonId = polygonId;
         }
+    }
+    if (nbrConnectedComponents > 1) {
+        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the first."), nbrConnectedComponents, maxArea/totalArea*100.0);
     }
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
