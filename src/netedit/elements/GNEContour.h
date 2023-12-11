@@ -37,6 +37,14 @@ class GNEAttributeCarrier;
 class GNEContour {
 
 public:
+    /// @brief enum for check geometryPoints
+    enum class GeometryPoint {
+        FROM,   // Geometry point from
+        TO,     // Geometry point to
+        MIDDLE, // All geometry points except from-to
+        ALL     // All geometry points
+    };
+
     /// @brief Constructor
     GNEContour(GNEAttributeCarrier* AC);
 
@@ -74,7 +82,8 @@ public:
 
     /// @brief draw dotted contour (geometry points elements)
     void drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                         const Position& pos, const int index, double radius, const double scale, const double lineWidth) const;
+                                         const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale,
+                                         const double lineWidth) const;
 
     /// @brief draw dotted contour edge
     void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

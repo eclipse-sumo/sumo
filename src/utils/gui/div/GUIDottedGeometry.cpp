@@ -91,6 +91,14 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return RGBColor::BLUE.changedBrightness(-30);
             }
+        case DottedContourType::MOVE:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::RED;
+            } else {
+                myColorFlag = true;
+                return RGBColor::RED.changedBrightness(-30);
+            }
         case DottedContourType::OVER:
             if (myColorFlag) {
                 myColorFlag = false;

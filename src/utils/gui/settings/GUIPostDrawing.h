@@ -51,6 +51,9 @@ public:
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
+    /// @brief check if geometry point is under cursor
+    bool isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int geometryPoint) const;
+
     /// @brief check if mouse is within elements geometry (for circles)
     bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius);
 

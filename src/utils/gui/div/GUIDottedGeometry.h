@@ -35,6 +35,7 @@ public:
         INSPECT,    // Inspecting element
         REMOVE,     // Mouse over element to remove
         SELECT,     // Mouse over element to select
+        MOVE,       // Mouse over element to move
         FRONT,      // Element marked as "front element"
         OVER,       // Mouse over element (orange)
         FROM,       // Element marked as from (green)

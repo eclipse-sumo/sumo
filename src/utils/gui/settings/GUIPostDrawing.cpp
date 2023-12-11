@@ -55,6 +55,18 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
 
 
 bool
+GUIPostDrawing::isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int index) const {
+    // avoid to insert duplicated elements
+    for (auto &element : myElementsUnderCursor) {
+        if (element.first == GLObject) {
+            return std::find(element.second.begin(), element.second.end(), index) != element.second.end();
+        }
+    }
+    return false;
+}
+
+
+bool
 GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius) {
     if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
         return addElementUnderCursor(GLObject);

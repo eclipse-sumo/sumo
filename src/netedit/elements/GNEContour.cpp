@@ -128,14 +128,28 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
 
 void
 GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const Position& pos, const int index, double radius, const double scale, const double lineWidth) const {
-    // check if mouse is within geometry (only in rectangle selection mode)
-    if (s.drawForObjectUnderCursor) {
-        // build dotted contour
-        buildDottedContourCircle(s, pos, radius, scale);
-        gPostDrawing.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), index, pos, (radius * scale));
-    } else {
-        drawDottedContours(s, d, scale, true, lineWidth);
+        const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale, const double lineWidth) const {
+    // iterate over all geometry points
+    for (int i = 0; i < (int)shape.size(); i++) {
+        const bool first = (i == 0); 
+        const bool last = ((i + 1) == (int)shape.size());
+        // check conditions
+        if ((geometryPoints == GeometryPoint::ALL) ||
+            (first && (geometryPoints == GeometryPoint::FROM)) ||
+            (last && (geometryPoints == GeometryPoint::TO)) ||
+            (!first && !last && (geometryPoints == GeometryPoint::MIDDLE))) {
+            // continue depending if we're checking position within geometry point or drawing dotted contour
+            if (s.drawForObjectUnderCursor) {
+                // build dotted contour
+                gPostDrawing.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), i, shape[i], (radius * scale));
+            } else if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) &&
+                       gPostDrawing.isGeometryPointUnderCursor(myAC->getGUIGlObject(), i)) {
+                // build dotted contour circle
+                buildDottedContourCircle(s, shape[i], radius, scale);
+                // draw geometry point
+                drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, 0, lineWidth);
+            }
+        }
     }
 }
 
