@@ -52,6 +52,10 @@ GNERunNetgenerate::run(const OptionsCont* netgenerateOptions) {
     std::string sumoHome = "";
     if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
         sumoHome = std::string(sumoHomeEnv);
+        // harmonise slash
+        if (sumoHome.back() == '\\') {
+            sumoHome = sumoHome.substr(0, sumoHome.size() - 1);
+        }
         // prevent double quotes
         if (sumoHome.front() == '"') {
             sumoHome.erase(sumoHome.begin());

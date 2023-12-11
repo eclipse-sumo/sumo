@@ -103,6 +103,10 @@ GNEPythonTool::getCommand() const {
     std::string sumoHome = "";
     if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
         sumoHome = std::string(sumoHomeEnv);
+        // harmonise slash
+        if (sumoHome.back() == '\\') {
+            sumoHome = sumoHome.substr(0, sumoHome.size() - 1);
+        }
         // quote string to handle spaces but prevent double quotes
         if (sumoHome.front() != '"') {
             sumoHome = "\"" + sumoHome;
