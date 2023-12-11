@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIPostDrawing.cpp
+/// @file    GUIObjectsInPosition.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
@@ -22,14 +22,14 @@
 
 #include <utils/shapes/Shape.h>
 
-#include "GUIPostDrawing.h"
+#include "GUIObjectsInPosition.h"
 
 
-GUIPostDrawing::GUIPostDrawing() {}
+GUIObjectsInPosition::GUIObjectsInPosition() {}
 
 
 void
-GUIPostDrawing::clearElements() {
+GUIObjectsInPosition::clearElements() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
     // clear objects under cursor
@@ -45,7 +45,7 @@ GUIPostDrawing::clearElements() {
 
 
 bool
-GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
+GUIObjectsInPosition::isElementUnderCursor(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -59,7 +59,7 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
 
 
 bool
-GUIPostDrawing::isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int index) const {
+GUIObjectsInPosition::isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int index) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -73,7 +73,7 @@ GUIPostDrawing::isGeometryPointUnderCursor(const GUIGlObject* GLObject, const in
 
 
 bool
-GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius) {
+GUIObjectsInPosition::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius) {
     if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
         return addElementUnderCursor(GLObject);
     } else {
@@ -83,7 +83,7 @@ GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position
 
 
 bool
-GUIPostDrawing::positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius) {
+GUIObjectsInPosition::positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius) {
     if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
         return addGeometryPointUnderCursor(GLObject, index);
     } else {
@@ -93,7 +93,7 @@ GUIPostDrawing::positionWithinGeometryPoint(const GUIGlObject* GLObject, const P
 
 
 bool
-GUIPostDrawing::positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape) {
+GUIObjectsInPosition::positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape) {
     if (shape.around(pos)) {
         return addElementUnderCursor(GLObject);
     } else {
@@ -102,14 +102,14 @@ GUIPostDrawing::positionWithinShape(const GUIGlObject* GLObject, const Position 
 }
 
 
-const GUIPostDrawing::GLObjectsSortedContainer&
-GUIPostDrawing::getElementsUnderCursor() const {
+const GUIObjectsInPosition::GLObjectsSortedContainer&
+GUIObjectsInPosition::getElementsUnderCursor() const {
     return myElementsUnderCursor;
 }
 
 
-const GUIPostDrawing::GeometryPointsContainer&
-GUIPostDrawing::getGeometryPoints(const GUIGlObject* GLObject) const {
+const GUIObjectsInPosition::GeometryPointsContainer&
+GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -123,7 +123,7 @@ GUIPostDrawing::getGeometryPoints(const GUIGlObject* GLObject) const {
 
 
 void
-GUIPostDrawing::updateFrontElement(const GUIGlObject* GLObject) {
+GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
     GLObjectContainer frontElement(nullptr, {});
     // extract element
     for (auto &elementLayer : myElementsUnderCursor) {
@@ -148,7 +148,7 @@ GUIPostDrawing::updateFrontElement(const GUIGlObject* GLObject) {
 
 
 bool
-GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
+GUIObjectsInPosition::addElementUnderCursor(const GUIGlObject* GLObject) {
     // avoid to insert duplicated elements
     if (isElementUnderCursor(GLObject)) {
         return false;
@@ -168,7 +168,7 @@ GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
 
 
 bool
-GUIPostDrawing::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
+GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {

@@ -44,7 +44,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 
@@ -220,7 +220,7 @@ GNEJunction::checkDrawToContour() const {
             // check if we're over a destiny junction
             if (junctionSource) {
                 // don't create edges with the same from-to junction
-                if ((junctionSource != this) && gPostDrawing.isElementUnderCursor(this)) {
+                if ((junctionSource != this) && gObjectsInPosition.isElementUnderCursor(this)) {
                     // this junction can be a destiny junction
                     return true;
                 }
@@ -277,7 +277,7 @@ GNEJunction::checkDrawOverContour() const {
         // check if vehicle can be placed over from-to junctions
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
             // check if junction is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return gObjectsInPosition.isElementUnderCursor(this);
         } else {
             return false;
         }

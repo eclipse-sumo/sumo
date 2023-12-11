@@ -25,7 +25,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GNEInstantInductionLoopDetector.h"
 #include "GNEAdditionalHandler.h"

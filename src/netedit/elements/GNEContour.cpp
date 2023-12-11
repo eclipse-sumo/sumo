@@ -25,7 +25,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GNEContour.h"
 #include "GNEAttributeCarrier.h"
@@ -75,7 +75,7 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const GUI
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto closedShape = buildDottedContourClosed(s, shape, scale);
-        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), closedShape);
+        gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), closedShape);
     } else {
         drawDottedContours(s, d, scale, addOffset, lineWidth);
     }
@@ -90,7 +90,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const G
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto extrudedShape = buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
-        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), extrudedShape);
+        gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), extrudedShape);
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
     }
@@ -105,7 +105,7 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto rectangleShape = buildDottedContourRectangle(s, pos, width, height, offsetX, offsetY, rot, scale);
-        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), rectangleShape);
+        gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), rectangleShape);
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
     }
@@ -119,7 +119,7 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
         buildDottedContourCircle(s, pos, radius, scale);
-        gPostDrawing.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
+        gObjectsInPosition.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
     }
@@ -141,9 +141,9 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
             // continue depending if we're checking position within geometry point or drawing dotted contour
             if (s.drawForObjectUnderCursor) {
                 // build dotted contour
-                gPostDrawing.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), i, shape[i], (radius * scale));
+                gObjectsInPosition.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), i, shape[i], (radius * scale));
             } else if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) &&
-                       gPostDrawing.isGeometryPointUnderCursor(myAC->getGUIGlObject(), i)) {
+                       gObjectsInPosition.isGeometryPointUnderCursor(myAC->getGUIGlObject(), i)) {
                 // build dotted contour circle
                 buildDottedContourCircle(s, shape[i], radius, scale);
                 // draw geometry point
@@ -161,7 +161,7 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVi
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
         const auto contourShape = buildDottedContourEdge(s, edge, drawFirstExtrem, drawLastExtrem);
-        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), contourShape);
+        gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), contourShape);
     } else {
         drawDottedContours(s, d, 1, true, lineWidth);
     }

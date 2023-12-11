@@ -66,7 +66,7 @@ GNEStoppingPlace::getMoveOperation() {
     // fist check if we're moving only extremes
     if (drawMovingGeometryPoints(false)) {
         // get geometry points under cursor
-        const auto geometryPoints = gPostDrawing.getGeometryPoints(this);
+        const auto geometryPoints = gObjectsInPosition.getGeometryPoints(this);
         // continue depending of moved element
         if (geometryPoints.empty()) {
             return nullptr;

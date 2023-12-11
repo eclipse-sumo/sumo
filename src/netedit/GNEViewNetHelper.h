@@ -26,7 +26,7 @@
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GNEMoveElement.h"
 
@@ -225,7 +225,7 @@ struct GNEViewNetHelper {
         /// @brief constructor
         ObjectsUnderCursor(GNEViewNet* viewNet);
 
-        /// @brief update objects under cursor (using gPostDrawing)
+        /// @brief update objects under cursor (using gObjectsInPosition)
         void updateObjectUnderCursor();
 
         /// @brief filter (remove) edges
@@ -414,7 +414,7 @@ struct GNEViewNetHelper {
         void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
-        void processGUIGlObjects(const GUIPostDrawing::GLObjectsSortedContainer& objectsContainer);
+        void processGUIGlObjects(const GUIObjectsInPosition::GLObjectsSortedContainer& objectsContainer);
 
         /// @brief default constructor
         ObjectsUnderCursor();

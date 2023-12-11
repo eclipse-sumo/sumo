@@ -63,7 +63,7 @@
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 #include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
@@ -1364,8 +1364,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
     }
     // re-draw marked route
-    if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForRectangleSelection) {
-        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gPostDrawing.markedRoute);
+    if (gObjectsInPosition.markedRoute && !myVisualizationSettings->drawForRectangleSelection) {
+        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gObjectsInPosition.markedRoute);
     }
     // draw temporal split junction
     drawTemporalSplitJunction();
@@ -1385,8 +1385,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myIntervalBar.markForUpdate();
     // check if recopute boundaries (Deactivated, continue after 1.14 release)
     /*
-        if (gPostDrawing.recomputeBoundaries != GLO_NETWORK) {
-            myNet->getGrid().updateBoundaries(gPostDrawing.recomputeBoundaries);
+        if (gObjectsInPosition.recomputeBoundaries != GLO_NETWORK) {
+            myNet->getGrid().updateBoundaries(gObjectsInPosition.recomputeBoundaries);
         }
     */
     return hits;
@@ -1980,7 +1980,7 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.first, false);
             if (junction) {
@@ -1995,7 +1995,7 @@ GNEViewNet::getJunctionAtPopupPosition() {
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject.first, false);
             if (connection) {
@@ -2010,7 +2010,7 @@ GNEViewNet::getConnectionAtPopupPosition() {
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject.first, false);
             if (crossing) {
@@ -2025,7 +2025,7 @@ GNEViewNet::getCrossingAtPopupPosition() {
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingArea(glObject.first, false);
             if (walkingArea) {
@@ -2040,7 +2040,7 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.first, false);
             if (edge) {
@@ -2055,7 +2055,7 @@ GNEViewNet::getEdgeAtPopupPosition() {
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject.first, false);
             if (lane) {
@@ -2070,7 +2070,7 @@ GNEViewNet::getLaneAtPopupPosition() {
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false);
             if (additionalElement) {
@@ -2085,7 +2085,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     // get first object that can be found in their container
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(glObject.first, false);
             if (demandElement) {
@@ -2100,7 +2100,7 @@ GNEViewNet::getDemandElementAtPopupPosition() {
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     // get first object that can be parsed to poly element
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
             if (polygon) {
@@ -2115,7 +2115,7 @@ GNEViewNet::getPolygonAtPopupPosition() {
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     // get first object that can be parsed to POI element
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
             if (POI) {
@@ -2130,7 +2130,7 @@ GNEViewNet::getPOIAtPopupPosition() {
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     // get first object that can be parsed to TAZ element
-    for (const auto& glObjectLayer : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObjectLayer : gObjectsInPosition.getElementsUnderCursor()) {
         for (const auto &glObject : glObjectLayer.second) {
             auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.first, false));
             if (TAZ) {
@@ -3279,7 +3279,7 @@ GNEViewNet::updateCursor() {
 void
 GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
     // clear post drawing elements
-    gPostDrawing.clearElements();
+    gObjectsInPosition.clearElements();
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor
@@ -3296,7 +3296,7 @@ GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
     GLHelper::popMatrix();
     // check if update front element
     if (myFrontAttributeCarrier) {
-        gPostDrawing.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
+        gObjectsInPosition.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
     myObjectsUnderCursor.updateObjectUnderCursor();
@@ -5378,9 +5378,9 @@ GNEViewNet::drawTemporalSplitJunction() const {
             !myMouseButtonKeyPressed.controlKeyPressed() &&
             myMouseButtonKeyPressed.shiftKeyPressed() &&
             !myMouseButtonKeyPressed.altKeyPressed() &&
-            (gPostDrawing.markedEdge != nullptr)) {
+            (gObjectsInPosition.markedEdge != nullptr)) {
         // calculate split position
-        const auto lane = gPostDrawing.markedEdge->getLanes().back();
+        const auto lane = gObjectsInPosition.markedEdge->getLanes().back();
         auto shape = lane->getLaneShape();
         // move shape to side
         shape.move2side(lane->getDrawingConstants()->getDrawingWidth() * -1);
@@ -5501,7 +5501,7 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 void
 GNEViewNet::drawNeteditAttributesReferences() {
     if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
-        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gPostDrawing.markedLane);
+        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gObjectsInPosition.markedLane);
     }
 }
 

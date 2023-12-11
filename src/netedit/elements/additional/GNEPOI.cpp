@@ -33,7 +33,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/NamespaceIDs.h>
 

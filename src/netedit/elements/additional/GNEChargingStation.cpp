@@ -27,7 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GNEChargingStation.h"
 

@@ -43,7 +43,7 @@
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GNELane.h"
 #include "GNEInternalLane.h"
@@ -367,7 +367,7 @@ GNELane::checkDrawOverContour() const {
         // check if vehicle can be placed over from-to edges
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
             // check if lane is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return gObjectsInPosition.isElementUnderCursor(this);
         } else {
             return false;
         }

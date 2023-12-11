@@ -21,7 +21,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GUIGeometry.h"
 
@@ -350,7 +350,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlOb
         // iterate over shape
         for (const auto& vertex : shape) {
             // first check if mouse is over geometry point
-            const bool mouseOverGeometryPoint = glObject? gPostDrawing.positionWithinCircle(glObject, mousePos, vertex, exaggeratedRadio) : false;
+            const bool mouseOverGeometryPoint = glObject? gObjectsInPosition.positionWithinCircle(glObject, mousePos, vertex, exaggeratedRadio) : false;
             // don't draw in draw for object under cursor)
             if (!s.drawForObjectUnderCursor) {
                 // push geometry point matrix
@@ -405,7 +405,7 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject
     int index = -1;
     // check if we're already over an existent geometry point
     for (int i = 0; i < (int)shape.size(); i++) {
-        if (gPostDrawing.positionWithinCircle(glObject, mousePos, shape[i], exaggeratedRadio)) {
+        if (gObjectsInPosition.positionWithinCircle(glObject, mousePos, shape[i], exaggeratedRadio)) {
             index = i;
         }
     }
@@ -414,7 +414,7 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject
         // obtain position over shape
         const Position hintPos = (shape.size() > 1)? shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos)) : shape[0];
         // first check if mouse is over geometry point
-        const bool mouseOverGeometryPoint = gPostDrawing.positionWithinCircle(glObject, mousePos, hintPos, exaggeratedRadio);
+        const bool mouseOverGeometryPoint = gObjectsInPosition.positionWithinCircle(glObject, mousePos, hintPos, exaggeratedRadio);
         // don't draw in draw for object under cursor)
         if (!s.drawForObjectUnderCursor) {
             // push hintPos matrix

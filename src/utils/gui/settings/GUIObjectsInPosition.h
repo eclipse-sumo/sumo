@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIPostDrawing.h
+/// @file    GUIObjectsInPosition.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
@@ -36,7 +36,7 @@ class GNERoute;
 // class definitions
 // ===========================================================================
 
-class GUIPostDrawing {
+class GUIObjectsInPosition {
 
 public:
     /// @brief typedefs
@@ -45,7 +45,7 @@ public:
     typedef std::map<double, std::vector<GLObjectContainer> > GLObjectsSortedContainer;
 
     /// @brief constructor
-    GUIPostDrawing();
+    GUIObjectsInPosition();
 
     /// @brief clear elements
     void clearElements();
@@ -110,8 +110,8 @@ protected:
 
 private:
     /// @brief set copy constructor private
-    GUIPostDrawing(const GUIPostDrawing&) = default;
+    GUIObjectsInPosition(const GUIObjectsInPosition&) = default;
 
     /// @brief set assignment operator private
-    GUIPostDrawing& operator=(const GUIPostDrawing&) = default;
+    GUIObjectsInPosition& operator=(const GUIObjectsInPosition&) = default;
 };

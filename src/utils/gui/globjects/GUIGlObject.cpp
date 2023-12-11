@@ -39,7 +39,7 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"

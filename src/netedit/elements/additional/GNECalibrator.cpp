@@ -24,7 +24,7 @@
 #include <netedit/dialogs/GNECalibratorDialog.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibrator.h"

@@ -39,7 +39,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
 
 #include "GUIDialog_EditViewport.h"
 #include "GUIDialog_ViewSettings.h"
@@ -1667,7 +1667,7 @@ GUIDialog_ViewSettings::SizePanel::update(const GUIVisualizationSizeSettings& se
 long
 GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr) {
     // mark boundaries for recomputing
-    gPostDrawing.recomputeBoundaries = myType;
+    gObjectsInPosition.recomputeBoundaries = myType;
     // continue as a normal change
     return myDialogViewSettings->onCmdColorChange(obj, sel, ptr);
 }
