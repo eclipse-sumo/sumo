@@ -211,7 +211,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                     new NEMAPhase(p, barrierPhase, phaseGreenRest, coordinatePhase, minRecall, maxRecall, fixForceOff, barrierNum, ringNum, controlledStateIndexes, tempPhase)
                 );
 
-                // Add a reference to the sequetionaly prior phase
+                // Add a reference to the sequentially prior phase
                 if (phaseIter > 0) {
                     myPhaseObjs.back()->setSequentialPriorPhase(myPhaseObjs[lastPhaseIter + (phaseIter - 1)]);
                 }
@@ -428,7 +428,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        detector_length, //detector length
                                        myFile, // detector information output file
                                        myFreq, // detector reading interval
-                                       0, // time-based threshold that decribes how much time has to pass until a vehicle is considerred as halting
+                                       0, // time-based threshold that describes how much time has to pass until a vehicle is considered as halting
                                        0, // speed threshold as halting
                                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
                                        "",
@@ -437,7 +437,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        (int)PersonMode::NONE, // detector vehicles, not persons
                                        true, // whether to give some slack on positioning
                                        myShowDetectors, // whether to show detectors in sumo-gui
-                                       nullptr, //traffic light that triggers aggregation when swithing
+                                       nullptr, //traffic light that triggers aggregation when switching
                                        nullptr); // outgoing lane that associated with the traffic light
 
                     //get the detector to be used in the lane detector map loading
@@ -612,7 +612,7 @@ NEMALogic::validate_timing() {
             cycleLengths[ringIndex][p->barrierNum] += p->maxDuration + p->yellow + p->red;
         }
     }
-    // Write warnings if the barrers do not sum
+    // Write warnings if the barriers do not sum
     for (int barrierNum = 0; barrierNum < 2; barrierNum++) {
         if (cycleLengths[0][barrierNum] != cycleLengths[1][barrierNum]) {
             const std::string error = "At NEMA tlLogic '" + getID() + "', the phases before barrier " + toString(barrierNum + 1) + " from both rings do not add up. (ring1="
@@ -1141,7 +1141,7 @@ NEMALogic::trySwitch() {
 #endif
     PhaseTransitionLogic* nextPhases[2] = { nullptr, nullptr };
 
-    // update the internal time. This is a must. Could have just used a reference to the tmme
+    // update the internal time. This is a must. Could have just used a reference to the time
     setCurrentTime();
 
     // Check the Detectors
@@ -1280,7 +1280,7 @@ NEMAPhase::init(NEMALogic* controller, int crossPhaseTarget, int crossPhaseSourc
     recalculateTiming();
 
     for (auto p : controller->getPhasesByRing(ringNum)) {
-        // construct transitions for all potentail movements, including back to myself
+        // construct transitions for all potential movements, including back to myself
         myTransitions.push_back(new PhaseTransitionLogic(this, p));
         myTransitions.back()->setDistance(controller->measureRingDistance(phaseName, p->phaseName, ringNum));
     }
@@ -1564,7 +1564,7 @@ NEMAPhase::update(NEMALogic* controller) {
         // if the green rest timer is exhausted, set ready to switch
         if (greenRestTimer < DELTA_T) {
             readyToSwitch = true;
-            // force the counterparty to be ready to switch too. This needs to be latching....
+            // force the counterpart to be ready to switch too. This needs to be latching....
             NEMAPhase* otherPhase = controller->getOtherPhase(this);
             if (otherPhase->getCurrentState() > LightState::Green) {
                 otherPhase->readyToSwitch = true;
@@ -1600,7 +1600,7 @@ NEMAPhase::getTransition(int toPhase) {
 
 std::vector<PhaseTransitionLogic*>
 NEMAPhase::trySwitch(NEMALogic* controller) {
-    // this function returns the prefered valid transition for the phase
+    // this function returns the preferred valid transition for the phase
     std::vector<PhaseTransitionLogic*> nextTransitions;
     if (readyToSwitch) {
         // only try to switch if I am ready to switch
