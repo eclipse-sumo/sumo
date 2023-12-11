@@ -212,7 +212,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
     data['fix_allocation'] = fix_allocation
     data['max_time'] = end
     data['initial_routes'] = solution_requests
-    data['penalty'] = penalty
+    data['penalty'] = int(penalty)
     return data
 
 def get_network_path(sumo_config):
@@ -240,7 +240,7 @@ def get_penalty(sumo_config, cost_type, penalty_factor=PENALTY_FACTOR):
     """Define penalty for rejecting requests."""
     dimension = get_network_dimension(sumo_config, cost_type)
     penalty = dimension * penalty_factor
-    return penalty
+    return int(penalty)
 
 def get_time_windows(reservations, fleet, end):
     """returns a list of pairs with earliest and latest time"""
@@ -385,7 +385,7 @@ def run(penalty, end=None, interval=30, time_limit=10, cost_type='distance', drf
 
     Parameters
     ----------
-    penalty: float
+    penalty: int
         Penalty for rejecting requests.
     end : int, optional
         Final time step of simulation. The default is 90000.
