@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-05 10:08+0000\n"
+"PO-Revision-Date: 2023-12-11 15:43+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -410,7 +410,7 @@ msgstr "Imprimir flujos de detectores agregados"
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:246
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:225
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "Desactivar la salida en consola para el paso de análisis de ruta"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
@@ -455,11 +455,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " No se pudo generar la lista de flujos anteriores."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:504
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " No se pudo generar la lista de los últimos flujos."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
@@ -493,10 +493,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:997
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
 msgstr ""
+"El factor de velocidad promedio para PKW (automóvil de pasajeros) es %, el "
+"factor de velocidad máximo es %."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:1001
 msgid "Average speedFactor for LKW is % maximum speedFactor is %."
 msgstr ""
+"El factor de velocidad promedio para LKW (camión) es %, el factor de "
+"velocidad máximo es %."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
@@ -535,10 +539,11 @@ msgstr "Computando rutas"
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:158
 msgid "The detector types are not defined; use in combination with a network"
 msgstr ""
+"Los tipos de detector no están definidos; usar en combinación con una red"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "Los emisores no tienen rutas; usar en combinación con una red"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
@@ -603,6 +608,8 @@ msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
 msgstr ""
+"Los pesos de las aristas para el enrutamiento son perturbados dinámicamente "
+"por un factor aleatorio extraído uniformemente de [1,FLOAT)"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:95
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:118
@@ -658,7 +665,7 @@ msgstr "Incluir la longitud total de la ruta en la salida"
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:130
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "Guardar rutas con una probabilidad casi nula"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:133
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:219
@@ -702,6 +709,8 @@ msgstr ""
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
+"Usar FLOAT como factor de velocidad máxima para peatones durante el "
+"enrutamiento intermodal"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:163
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:592
@@ -730,6 +739,8 @@ msgstr "Tiempo estimado para la recogida del taxi"
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
+"Usar FLOAT como longitud máxima del tren al inicializar el enrutador "
+"ferroviario"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:216
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
@@ -754,6 +765,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
 msgstr ""
+"No se puede derivar el nombre de archivo para la salida alternativa, "
+"omitiéndolo."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:251
 msgid ""
@@ -766,7 +779,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:107
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr ""
+msgstr "El algoritmo de enrutamiento '%' no admite parámetros de restricción"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:151
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:180
@@ -776,7 +789,7 @@ msgstr "¡Algoritmo de enrutamiento desconocido '%'!"
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
-msgstr ""
+msgstr "No se cargaron datos de peso para el atributo '%'."
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:238
 msgid ""
@@ -795,7 +808,7 @@ msgstr "Leer relaciones de giro desde FILE(s)"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:69
 msgid "Use STR[] as default turn definition"
-msgstr ""
+msgstr "Usar STR[] como definición de giro predeterminada"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:73
 msgid "Use STR[] as list of sink edges"
@@ -886,16 +899,20 @@ msgid ""
 "The defaults for turnings must be a tuple of at least two numbers divided by "
 "','."
 msgstr ""
+"Los valores predeterminados para los giros deben ser, por lo menos, una "
+"dupla dividida por ','."
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:101
 msgid "A turn default is not numeric."
-msgstr ""
+msgstr "Un giro predeterminado no es numérico."
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:182
 msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
 msgstr ""
+"Enrutador para la simulación microscópica de tráfico multimodal SUMO basada "
+"en relaciones de giro de cruces."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:332
 msgid "This system has no OpenGL support. Exiting."
@@ -1688,7 +1705,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:240
 msgid "Write the output in the duarouter alternatives style"
-msgstr ""
+msgstr "Escribir el resultado en el estilo de alternativas de duarouter"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:243
 msgid "Write costs for all routes"
@@ -1713,7 +1730,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:263
 msgid "Include information about edges between stops"
-msgstr ""
+msgstr "Incluir información sobre aristas entre paradas"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:266
 msgid ""
@@ -1899,6 +1916,8 @@ msgid ""
 "Ignore vehicles which block the junction after they have been standing for "
 "SECONDS (-1 means never ignore)"
 msgstr ""
+"Ignorar vehículos que bloqueen el cruce después de haber estado detenidos "
+"durante SECONDS (-1 significa nunca ignorar)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:374
 msgid "Do not check whether routes are connected"
@@ -1925,12 +1944,16 @@ msgid ""
 "Let vehicle stop for TIME before performing collision.action (except for "
 "action 'none')"
 msgstr ""
+"Dejar que el vehículo se detenga por TIME antes de realizar la acción "
+"collision.action (excepto la acción 'none')"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:389
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
 msgstr ""
+"Dejar que el vehículo se detenga por TIME antes de realizar la acción "
+"intermodal-collision.action (excepto la acción 'none')"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
@@ -2035,6 +2058,8 @@ msgstr ""
 msgid ""
 "Whether insertion on an edge shall not be repeated in same step once failed"
 msgstr ""
+"Si la inserción en una arista no se deberá repetir en el mismo paso una vez "
+"fallada"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:446
 msgid "Whether each vehicle is checked separately for insertion on an edge"
@@ -3090,6 +3115,8 @@ msgstr ""
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
+"No se puede unir el vehículo '%' al vehículo '%' debido a rutas "
+"incompatibles. tiempo=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:2778
 msgid "Suspicious right_before_left junction '%'."
@@ -3534,6 +3561,8 @@ msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or 'device."
 "rerouting.adaptation-weight' may be given."
 msgstr ""
+"Sólo se puede dar una de las opciones 'device.rerouting.adaptation-steps' o "
+"'device.rerouting.adaptation-weight'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:106
 msgid "weights.random-factor cannot be less than 1"
@@ -3867,6 +3896,9 @@ msgid ""
 "measures ('%').\n"
 "Please specify exactly one threshold for each measure."
 msgstr ""
+"La lista dada de umbrales ('%') no tiene el mismo tamaño que la lista de "
+"medidas ('%').\n"
+"Por favor especificar exactamente un umbral para cada medida."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_StationFinder.cpp:46
 msgid ""
@@ -3887,7 +3919,7 @@ msgstr "Porcentaje de batería para entrar en modo rescate"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_StationFinder.cpp:52
 msgid "Search radius in travel time seconds"
-msgstr ""
+msgstr "Radio de búsqueda en segundos de tiempo de viaje"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_StationFinder.cpp:54
 msgid "When to trigger a new search if no station has been found"
@@ -3914,6 +3946,8 @@ msgstr ""
 msgid ""
 "Rerouting using station finder removes all upcoming stops for vehicle '%'."
 msgstr ""
+"El cambio de ruta usando el buscador de estaciones elimina todas las "
+"próximas paradas del vehículo '%'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:84
 msgid ""
@@ -4020,6 +4054,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:128
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
 msgstr ""
+"Tasa de desaceleración aplicada durante una 'maniobra de riesgo mínimo'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:130
 msgid ""
@@ -4376,11 +4411,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
-msgstr ""
+msgstr "NO SE HA LEÍDO UNA LISTA DE POLÍTICAS VÁLIDA"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:81
 msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
 msgstr ""
+"VEHICLE TYPES WEIGHT solo funciona con la política de fase, la cual falta"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:160
 #, c-format
@@ -4406,11 +4442,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:81
 msgid "Mismatching phase size in tls '%', program '%'."
-msgstr ""
+msgstr "Tamaño de fase no coincidente en el semáforo '%', programa '%'."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:116
 msgid "No initial signal plan loaded for tls '%'."
-msgstr ""
+msgstr "No se cargó ningún plan de señal inicial para el semáforo '%'."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:163
 msgid "Could not build an off-state for tls '%'."
@@ -4484,11 +4520,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:115
 msgid "Error while adding person '%' as JuPedSim agent: %"
-msgstr ""
+msgstr "Error al agregar la persona '%' como agente de JuPedSim: %"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:128
 msgid "Error while adding waypoint for an agent: %"
-msgstr ""
+msgstr "Error al agregar el punto de referencia para un agente: %"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:135
 msgid "Error while creating fixed transition for an agent: %"
@@ -4516,18 +4552,19 @@ msgstr "Error durante la iteración %: %"
 msgid ""
 "When generating geometry for JuPedSim % connected components were detected."
 msgstr ""
+"Al generar geometría para JuPedSim, se detectaron % componentes conectados."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:724
 msgid "Error creating the geometry: %"
-msgstr ""
+msgstr "Error al crear la geometría: %"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:731
 msgid "Error creating the pedestrian model: %"
-msgstr ""
+msgstr "Error al crear el modelo peatonal: %"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:737
 msgid "Error creating the simulation: %"
-msgstr ""
+msgstr "Error al crear la simulación: %"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:124
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:875
@@ -4538,7 +4575,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
-msgstr ""
+msgstr "La persona '%' no pudo encontrar la acera en la arista '%', tiempo=%."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:471
 #, c-format
@@ -4547,7 +4584,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:1931
 msgid "Disconnected walk for person '%'."
-msgstr ""
+msgstr "Caminata desconectada para la persona '%'."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:2132
 msgid "Person '%' is jammed on edge '%', time=%."
@@ -4570,6 +4607,8 @@ msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
 msgstr ""
+"Ignorando el tipo de vehículo '%' al enrutar a la persona '%' porque no está "
+"permitido en la arista de inicio."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:141
 msgid "Changing a transportable ID is not permitted"
@@ -4578,6 +4617,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:251
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
+"Teletransportando % '%'; esperó demasiado, desde la arista '%', tiempo =%."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:386
 msgid "parkingAreaReroute not support for containers"
@@ -4589,12 +4629,12 @@ msgstr "Modelo peatonal no conocido '%'"
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
-msgstr ""
+msgstr "No hay intervalos de flujo en el calibrador '%'."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:161
 #, c-format
 msgid "Calibrator '%' has no active or upcoming interval"
-msgstr ""
+msgstr "El calibrador '%' no tiene ningún intervalo activo o próximo"
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:209
 msgid "Insertion lane may differ from calibrator lane for calibrator '%'."
@@ -4602,16 +4642,18 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:213
 msgid "Unknown vehicle type '%' in calibrator '%'."
-msgstr ""
+msgstr "Tipo de vehículo desconocido '%' en el calibrador '%'."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "Falta un atributo obligatorio en la definición del calibrador '%'."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
 msgstr ""
+"Valor no numérico para el atributo numérico en la definición del calibrador "
+"'%'."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:221
 msgid ""
@@ -4622,10 +4664,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
 msgstr ""
+"La calibración de tipo no es soportada en la simulación mesoscópica para el "
+"calibrador '%'."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "El calibrador '%' no pudo remover el vehículo '%' en el tiempo=%."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
@@ -4641,12 +4685,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/trigger/MSChargingStation.cpp:60
 #: /home/micha/programming/sumo/src/microsim/trigger/MSChargingStation.cpp:65
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
-msgstr ""
+msgstr "El atributo % para la estación de carga con ID='%' no es válido (%)."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSChargingStation.cpp:70
 msgid ""
 "ChargingStation with ID='getID()' doesn't have a valid position (% < %)."
-msgstr ""
+msgstr "Estación de carga con ID='getID()' no tiene una posición válida (%<%)."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSLaneSpeedTrigger.cpp:177
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -4683,14 +4727,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:128
 msgid "MSTriggeredRerouter %: No destination edge id given."
 msgstr ""
+"MSTriggeredRerouter %: No se ha proporcionado ningún ID de arista destino."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:193
 msgid "MSTriggeredRerouter %: No route id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: No se ha proporcionado ningún ID de ruta."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:218
 msgid "MSTriggeredRerouter %: No parking area id given."
 msgstr ""
+"MSTriggeredRerouter %: No se ha proporcionado ningún ID de zona de "
+"estacionamiento."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:507
 #, c-format
@@ -4740,15 +4787,18 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:153
 msgid "Ambiguity in turnarounds computation at junction '%'."
-msgstr ""
+msgstr "Ambigüedad en el cálculo de los retornos en el cruce '%'."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:358
 msgid "Converting invalid rail_crossing to priority junction '%'."
 msgstr ""
+"Convirtiendo un cruce rail_crossing no válido en un cruce prioritario '%'."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:362
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
 msgstr ""
+"Convirtiendo un cruce rail_crossing no válido en traffic_light en el cruce "
+"'%'."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:371
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:1744
@@ -4761,6 +4811,8 @@ msgstr "No se pudo asignar el semáforo '%'."
 msgid ""
 "Added % bidi-edges to ensure that all tracks are usable in both directions."
 msgstr ""
+"Se agregaron % aristas bidireccionales para garantizar que todas las pistas "
+"se puedan utilizar en ambas direcciones."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:173
 #, c-format
@@ -4801,7 +4853,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:532
 msgid "Could not find bidi-edge for edge '%'"
-msgstr ""
+msgstr "No se pudo encontrar la arista bidireccional para la arista '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:637
 msgid "Found % reversible edge sequences between broken rail nodes"
@@ -4956,11 +5008,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1158
 msgid "Could not set connection from '%' to '%'."
-msgstr ""
+msgstr "No se pudo establecer la conexión de '%' a '%'."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1670
 msgid "Connection '%_%->%_%' is only %m short."
-msgstr ""
+msgstr "La conexión '% _% ->% _%' es solo %m corta."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1772
 msgid ""
@@ -4973,14 +5025,16 @@ msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
 msgstr ""
+"Velocidad de % conexión '%' reducida en % debido al radio de giro de % ("
+"longitud=%, ángulo=%)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2210
 msgid "In lane '%': lane shape could not be determined (%)."
-msgstr ""
+msgstr "En el carril '%': no se pudo determinar la forma del carril (%)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2223
 msgid "In lane '%': Could not build shape (%)."
-msgstr ""
+msgstr "En el carril '%': No se pudo construir la forma (%)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2637
 msgid ""
@@ -5033,11 +5087,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:3626
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
-msgstr ""
+msgstr "El carril '%' en la arista '%' ya tenía un semáforo."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:3632
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr ""
+"No se pudo establecer ninguna señal de lógica semafórica '%' (grupo "
+"desconocido)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4123
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
@@ -5054,17 +5110,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4401
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
-msgstr ""
+msgstr "La arista % permite peatones en todos sus carriles"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4459
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
+"La arista '%' ya tiene un carril exclusivo para %s. No se agregará otro."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4499
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
+"La arista '%' no tiene un carril exclusivo para %s. No se puede restaurar."
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4547
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
@@ -5073,7 +5131,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:121
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
-msgstr ""
+msgstr "Límite no válido: se necesita al menos 2 coordenadas"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
@@ -5086,7 +5144,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:438
 msgid "Attempt to rename edge using existing id '%'"
-msgstr ""
+msgstr "Se intentó cambiar el nombre de arista usando un ID existente '%'"
 
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:498
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:499
