@@ -1,1 +1,13 @@
-Warning: When generating geometry for JuPedSim 2 connected components were detected.
+Warning: Geometry generation failed because polygon ':1200_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1200_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1200_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1200_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1531_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1531_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1531_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':1531_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':620_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':620_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':620_w0_0' is not simple.
+Warning: Geometry generation failed because polygon ':620_w0_0' is not simple.
+Warning: While generating geometry 2 connected components were detected, 99.98% of total pedestrian area is covered by the first.
