@@ -52,8 +52,8 @@ public:
         /// @brief vector with geometry points
         std::vector<int> geometryPoints;
 
-        /// @brief new position
-        Position newPosition;
+        /// @brief pos over shape
+        Position posOverShape = Position::INVALID;
     };
 
     /// @brief typedef
@@ -77,6 +77,9 @@ public:
     /// @brief check if mouse is within geometry point
     bool positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius);
 
+    /// @brief check if mouse is within geometry point
+    bool positionOverShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape, const double radius);
+
     /// @brief check if mouse is within closed shapes (for filled shapes)
     bool positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape);
 
@@ -85,6 +88,9 @@ public:
 
     /// @brief get geometry points for the given glObject
     const std::vector<int>& getGeometryPoints(const GUIGlObject* GLObject) const;
+
+    /// @brief get position over shape
+    const Position& getPositionOverShape(const GUIGlObject* GLObject) const;
 
     /// @brief move front element in elements under cursor (currently used only in netedit)
     void updateFrontElement(const GUIGlObject* GLObject);
@@ -122,6 +128,9 @@ protected:
 
     /// @brief add geometryPoint into list of elements under cursor
     bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
+
+    /// @brief add position over shape
+    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos);
 
 private:
     /// @brief set copy constructor private

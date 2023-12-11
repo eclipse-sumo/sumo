@@ -129,23 +129,50 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
 void
 GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale, const double lineWidth) const {
-    // iterate over all geometry points
-    for (int i = 0; i < (int)shape.size(); i++) {
-        const bool first = (i == 0); 
-        const bool last = ((i + 1) == (int)shape.size());
-        // check conditions
-        if ((geometryPoints == GeometryPoint::ALL) ||
-            (first && (geometryPoints == GeometryPoint::FROM)) ||
-            (last && (geometryPoints == GeometryPoint::TO)) ||
-            (!first && !last && (geometryPoints == GeometryPoint::MIDDLE))) {
-            // continue depending if we're checking position within geometry point or drawing dotted contour
-            if (s.drawForObjectUnderCursor) {
-                // build dotted contour
-                gObjectsInPosition.positionWithinGeometryPoint(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), i, shape[i], (radius * scale));
-            } else if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) &&
-                       gObjectsInPosition.isGeometryPointUnderCursor(myAC->getGUIGlObject(), i)) {
+    // get object
+    const auto &glObject = myAC->getGUIGlObject();
+    // declare distance
+    const auto scaledRadius = (radius * scale);
+    // check if we're calculating the mouse position over geometry or drawing dotted geometry
+    if (s.drawForObjectUnderCursor) {
+        // declare pos
+        const auto pos = myAC->getNet()->getViewNet()->getPositionInformation();
+        // iterate over all geometry points
+        for (int i = 0; i < (int)shape.size(); i++) {
+            const bool first = (i == 0); 
+            const bool last = ((i + 1) == (int)shape.size());
+            // check conditions
+            if ((geometryPoints == GeometryPoint::ALL) ||
+                (first && (geometryPoints == GeometryPoint::FROM)) ||
+                (last && (geometryPoints == GeometryPoint::TO)) ||
+                (!first && !last && (geometryPoints == GeometryPoint::MIDDLE))) {
+                // check position within geometry
+                gObjectsInPosition.positionWithinGeometryPoint(glObject, pos, i, shape[i], scaledRadius);
+            }
+        }
+        // check if mouse is over shape
+        if (s.drawForObjectUnderCursor) {
+            // check position over shape
+            gObjectsInPosition.positionOverShape(glObject, pos, shape, scaledRadius);
+        }
+    } else if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
+        // get all geometry points
+        const auto &geometryPointIndexes = gObjectsInPosition.getGeometryPoints(glObject);
+        // either draw geometry point indexes or pos over shape, but not together
+        if (geometryPointIndexes.size() > 0) {
+            // draw all geometry points
+            for (const auto &geometryPointIndex : geometryPointIndexes) {
                 // build dotted contour circle
-                buildDottedContourCircle(s, shape[i], radius, scale);
+                buildDottedContourCircle(s, shape[geometryPointIndex], radius, scale);
+                // draw geometry point
+                drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, 0, lineWidth);
+            }
+        } else {
+            // check if draw dotted contour over shape
+            const auto &posOverShape = gObjectsInPosition.getPositionOverShape(glObject);
+            if (posOverShape != Position::INVALID) {
+                // build dotted contour circle
+                buildDottedContourCircle(s, posOverShape, radius, scale);
                 // draw geometry point
                 drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, 0, lineWidth);
             }

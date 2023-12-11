@@ -93,6 +93,18 @@ GUIObjectsInPosition::positionWithinGeometryPoint(const GUIGlObject* GLObject, c
 
 
 bool
+GUIObjectsInPosition::positionOverShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape, const double radius) {
+    // check if mouse is over shape
+    const auto nearestPos = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(pos));
+    if (pos.distanceSquaredTo2D(nearestPos) <= (radius * radius)) {
+        return addPositionOverShape(GLObject, nearestPos);
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GUIObjectsInPosition::positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape) {
     if (shape.around(pos)) {
         return addElementUnderCursor(GLObject);
@@ -119,6 +131,20 @@ GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
         }
     }
     return myEmptyGeometryPoints;
+}
+
+
+const Position&
+GUIObjectsInPosition::getPositionOverShape(const GUIGlObject* GLObject) const {
+    // avoid to insert duplicated elements
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.object == GLObject) {
+                return element.posOverShape;
+            }
+        }
+    }
+    return Position::INVALID;
 }
 
 
@@ -198,5 +224,37 @@ GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, c
     }
     return true;
 }
+
+
+bool
+GUIObjectsInPosition::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos) {
+    // avoid to insert duplicated elements
+    for (auto &elementLayer : myElementsUnderCursor) {
+        for (auto &element : elementLayer.second) {
+            if (element.object == GLObject) {
+                if (element.posOverShape != Position::INVALID) {
+                    return false;
+                } else {
+                    element.posOverShape = pos;
+                    return true;
+                }
+                return true;
+            }
+        }
+    }
+    // no element found then add it
+    const auto layer = dynamic_cast<const Shape*>(GLObject);
+    if (layer) {
+        auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+        auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
+        it->posOverShape = pos;
+    } else {
+        auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+        auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
+        it->posOverShape = pos;
+    }
+    return true;
+}
+
 
 /****************************************************************************/
