@@ -246,6 +246,17 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) override;
 
+    /// @brief draw polygon
+    void drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                     const RGBColor &color, const double exaggeration) const;
+
+    /// @brief draw contour
+    void drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                     const RGBColor &color, const double exaggeration) const;
+
+    /// @brief draw polygon name and type
+    void drawPolygonNameAndType(const GUIVisualizationSettings& s) const;
+
     /// @brief Invalidated copy constructor.
     GNEPoly(const GNEPoly&) = delete;
 
