@@ -30,8 +30,8 @@ set(utils_gui_div_STAT_SRCS
    GUIGeometry.cpp
    GUIDottedGeometry.h
    GUIDottedGeometry.cpp
-   GUIGlobalPostDrawing.h
-   GUIGlobalPostDrawing.cpp
+   GUIGlobalObjectsInPosition.h
+   GUIGlobalObjectsInPosition.cpp
    GUIPersistentWindowPos.h
    GUIPersistentWindowPos.cpp
 )

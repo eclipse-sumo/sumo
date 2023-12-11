@@ -11,20 +11,20 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIGlobalPostDrawing.h
+/// @file    GUIGlobalObjectsInPosition.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
 // A global holder for postDrawing
 /****************************************************************************/
-#pragma once
 #include <config.h>
 
-#include <utils/gui/settings/GUIPostDrawing.h>
-
+#include "GUIGlobalObjectsInPosition.h"
 
 // ===========================================================================
-// global variable declarations
+// global variables definitions
 // ===========================================================================
 
-extern GUIPostDrawing gPostDrawing;
+GUIObjectsInPosition gObjectsInPosition;
+
+/****************************************************************************/
