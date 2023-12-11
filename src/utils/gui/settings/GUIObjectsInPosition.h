@@ -39,10 +39,21 @@ class GNERoute;
 class GUIObjectsInPosition {
 
 public:
-    /// @brief typedefs
-    typedef std::vector<int> GeometryPointsContainer;
-    typedef std::pair<const GUIGlObject*, GeometryPointsContainer> GLObjectContainer;
-    typedef std::map<double, std::vector<GLObjectContainer> > GLObjectsSortedContainer;
+    /// @brief object container
+    struct ObjectContainer {
+
+        /// @brief object
+        const GUIGlObject* object = nullptr;
+
+        /// @brief vector with geometry points
+        std::vector<int> geometryPoints;
+
+        /// @brief new position
+        Position newPosition;
+    };
+
+    /// @brief typedef
+    typedef std::map<double, std::vector<ObjectContainer> > GLObjectsSortedContainer;
 
     /// @brief constructor
     GUIObjectsInPosition();
@@ -69,7 +80,7 @@ public:
     const GLObjectsSortedContainer& getElementsUnderCursor() const;
 
     /// @brief get geometry points for the given glObject
-    const GeometryPointsContainer& getGeometryPoints(const GUIGlObject* GLObject) const;
+    const std::vector<int>& getGeometryPoints(const GUIGlObject* GLObject) const;
 
     /// @brief move front element in elements under cursor (currently used only in netedit)
     void updateFrontElement(const GUIGlObject* GLObject);

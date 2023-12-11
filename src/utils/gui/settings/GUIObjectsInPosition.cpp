@@ -49,7 +49,7 @@ GUIObjectsInPosition::isElementUnderCursor(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
-            if (element.first == GLObject) {
+            if (element.object == GLObject) {
                 return true;
             }
         }
@@ -63,8 +63,8 @@ GUIObjectsInPosition::isGeometryPointUnderCursor(const GUIGlObject* GLObject, co
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
-            if (element.first == GLObject) {
-                return std::find(element.second.begin(), element.second.end(), index) != element.second.end();
+            if (element.object == GLObject) {
+                return std::find(element.geometryPoints.begin(), element.geometryPoints.end(), index) != element.geometryPoints.end();
             }
         }
     }
@@ -108,13 +108,13 @@ GUIObjectsInPosition::getElementsUnderCursor() const {
 }
 
 
-const GUIObjectsInPosition::GeometryPointsContainer&
+const std::vector<int>&
 GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
-            if (element.first == GLObject) {
-                return element.second;
+            if (element.object == GLObject) {
+                return element.geometryPoints;
             }
         }
     }
@@ -124,15 +124,15 @@ GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
 
 void
 GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
-    GLObjectContainer frontElement(nullptr, {});
+    ObjectContainer frontElement;
     // extract element
     for (auto &elementLayer : myElementsUnderCursor) {
         auto it = elementLayer.second.begin();
         while (it != elementLayer.second.end()) {
-            if (it->first == GLObject) {
+            if (it->object == GLObject) {
                 // copy element to front element
-                frontElement.first = it->first;
-                frontElement.second = it->second;
+                frontElement.object = it->object;
+                frontElement.geometryPoints = it->geometryPoints;
                 // remove element from myElementsUnderCursor
                 it = elementLayer.second.erase(it);
             } else {
@@ -141,7 +141,7 @@ GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
         }
     }
     // add element again wit a new layer
-    if (frontElement.first) {
+    if (frontElement.object) {
         myElementsUnderCursor[(double)GLO_FRONTELEMENT].push_back(frontElement);
     }
 }
@@ -172,15 +172,15 @@ GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, c
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
-            if (element.first == GLObject) {
+            if (element.object == GLObject) {
                 // avoid double points
-                for (auto &index : element.second) {
+                for (auto &index : element.geometryPoints) {
                     if (index == newIndex) {
                         return false;
                     }
                 }
                 // add new index
-                element.second.push_back(newIndex);
+                element.geometryPoints.push_back(newIndex);
                 return true;
             }
         }
