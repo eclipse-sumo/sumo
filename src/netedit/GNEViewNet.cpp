@@ -5638,7 +5638,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // get AC under cursor
                 auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
                 // check that AC is an network or additional element
-                if (AC && (AC->getTagProperty().isNetworkElement() || !AC->getTagProperty().isAdditionalElement())) {
+                if (AC && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs

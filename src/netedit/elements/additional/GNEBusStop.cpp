@@ -203,10 +203,6 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), stopWidth, 1, true, true, 0,
                                                 s.dottedContourSettings.segmentWidth);
         }
-        // check start and end geometry points
-        if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
-
-        }
     }
 }
 

@@ -64,24 +64,20 @@ GNEStoppingPlace::getMoveOperation() {
     // get allow change lane
     const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // get snap radius
-        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
-        // get mouse position
-        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        // check if we clicked over start or end position
-        if ((myStartPosition != INVALID_DOUBLE) && (myAdditionalGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
-            // move only start position
+    if (drawMovingGeometryPoints(false)) {
+        // get geometry points under cursor
+        const auto geometryPoints = gPostDrawing.getGeometryPoints(this);
+        // continue depending of moved element
+        if (geometryPoints.empty()) {
+            return nullptr;
+        } else if (geometryPoints.front() == 0) {
+            // move start position
             return new GNEMoveOperation(this, getParentLanes().front(), myStartPosition, getParentLanes().front()->getLaneShape().length2D() - POSITION_EPS,
                                         allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST);
-        } else if ((myEndPosition != INVALID_DOUBLE) && (myAdditionalGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius))) {
-            // move only end position
+        } else {
+            // move end position
             return new GNEMoveOperation(this, getParentLanes().front(), 0, myEndPosition,
                                         allowChangeLane, GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND);
-        } else {
-            return nullptr;
         }
     } else if ((myStartPosition != INVALID_DOUBLE) && (myEndPosition != INVALID_DOUBLE)) {
         // move both start and end positions

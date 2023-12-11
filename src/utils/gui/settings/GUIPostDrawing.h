@@ -40,7 +40,8 @@ class GUIPostDrawing {
 
 public:
     /// @brief typedefs
-    typedef std::vector<std::pair<const GUIGlObject*, std::vector<int> > > GLObjectsContainer;
+    typedef std::vector<int> GeometryPointsContainer;
+    typedef std::vector<std::pair<const GUIGlObject*, GeometryPointsContainer > > GLObjectsContainer;
 
     /// @brief constructor
     GUIPostDrawing();
@@ -66,6 +67,9 @@ public:
     /// @brief get all elements under cursor
     const GLObjectsContainer& getElementsUnderCursor() const;
 
+    /// @brief get geometry points for the given glObject
+    const GeometryPointsContainer& getGeometryPoints(const GUIGlObject* GLObject) const;
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
@@ -90,6 +94,9 @@ public:
 protected:
     /// @brief elements under cursor and their geometry point indexes
     GLObjectsContainer myElementsUnderCursor;
+
+    /// @brief empty geometry points
+    GeometryPointsContainer myEmptyGeometryPoints;
 
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject);

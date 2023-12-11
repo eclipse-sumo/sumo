@@ -155,6 +155,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // check if draw moving geometry points
+        const int movingGeometryPoints = drawMovingGeometryPoints(false);
         // get detail level
         const auto d = s.getDetailLevel(parkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -193,10 +195,10 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // draw geometry points
-            if (myStartPosition != INVALID_DOUBLE) {
+            if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
             }
-            if (myEndPosition != INVALID_DOUBLE) {
+            if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
                 drawRightGeometryPoint(s, d, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
             }
             // pop layer matrix
@@ -211,8 +213,21 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
         // draw dotted geometry (don't exaggerate contour)
-        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        if (movingGeometryPoints) {
+            if (myStartPosition != INVALID_DOUBLE) {
+                myContour.drawDottedContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
+                                                          s.neteditSizeSettings.additionalGeometryPointRadius, 1,
+                                                          s.dottedContourSettings.segmentWidth);
+            }
+            if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
+                myContour.drawDottedContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
+                                                          s.neteditSizeSettings.additionalGeometryPointRadius, 1,
+                                                          s.dottedContourSettings.segmentWidth);
+            }
+        } else {
+            myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true, 0,
+                                                s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 
