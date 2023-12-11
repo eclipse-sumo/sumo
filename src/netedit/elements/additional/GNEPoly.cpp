@@ -849,7 +849,7 @@ GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSe
 void
 GNEPoly::drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                      const RGBColor &color, const double exaggeration) const {
-    // draw contour if shape isn't blocked
+    // draw contour if don't move whole polygon
     if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // get draw color
         const RGBColor darkerColor = color.changedBrightness(-32);

@@ -1015,12 +1015,12 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const GUIObjectsInPosi
     for (const auto& glObjectLayer : objectsContainer) {
         for (const auto &glObject : glObjectLayer.second) {
             // update all elements by categories
-            updateNetworkElements(myObjects, glObject.first);
-            updateAdditionalElements(myObjects, glObject.first);
-            updateShapeElements(myObjects, glObject.first);
-            updateTAZElements(myObjects, glObject.first);
-            updateDemandElements(myObjects, glObject.first);
-            updateGenericDataElements(myObjects, glObject.first);
+            updateNetworkElements(myObjects, glObject.object);
+            updateAdditionalElements(myObjects, glObject.object);
+            updateShapeElements(myObjects, glObject.object);
+            updateTAZElements(myObjects, glObject.object);
+            updateDemandElements(myObjects, glObject.object);
+            updateGenericDataElements(myObjects, glObject.object);
         }
     }
 }

@@ -124,7 +124,7 @@ GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
 
 void
 GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
-    ObjectContainer frontElement;
+    ObjectContainer frontElement(nullptr);
     // extract element
     for (auto &elementLayer : myElementsUnderCursor) {
         auto it = elementLayer.second.begin();
@@ -157,10 +157,10 @@ GUIObjectsInPosition::addElementUnderCursor(const GUIGlObject* GLObject) {
         const auto layer = dynamic_cast<const Shape*>(GLObject);
         if (layer) {
             auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
-            layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+            layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         } else {
             auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
-            layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
+            layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         }
         return true;
     }
@@ -189,12 +189,12 @@ GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, c
     const auto layer = dynamic_cast<const Shape*>(GLObject);
     if (layer) {
         auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
-        auto it = layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
-        it->second.push_back(newIndex);
+        auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
+        it->geometryPoints.push_back(newIndex);
     } else {
         auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
-        auto it = layerContainer.insert(layerContainer.begin(), std::make_pair(GLObject, myEmptyGeometryPoints));
-        it->second.push_back(newIndex);
+        auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
+        it->geometryPoints.push_back(newIndex);
     }
     return true;
 }

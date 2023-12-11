@@ -42,6 +42,10 @@ public:
     /// @brief object container
     struct ObjectContainer {
 
+        /// @brief parameter constructor
+        ObjectContainer(const GUIGlObject* object_) :
+            object(object_) {}
+
         /// @brief object
         const GUIGlObject* object = nullptr;
 
@@ -111,7 +115,7 @@ protected:
     GLObjectsSortedContainer myElementsUnderCursor;
 
     /// @brief empty geometry points
-    GeometryPointsContainer myEmptyGeometryPoints;
+    std::vector<int> myEmptyGeometryPoints;
 
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject);
