@@ -343,14 +343,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     // check move mode flag
                     const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
+                    GUIGeometry::drawGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), darkerColor,
                                                     s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
-                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                    // draw moving hint points
-                    if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && moveMode) {
-                        GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), invertedColor,
-                                                    s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
-                    }
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
                 }
             }
             // draw center

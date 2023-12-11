@@ -103,14 +103,9 @@ public:
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
-    static void drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos,
-                                   const PositionVector& shape, const RGBColor& geometryPointColor, const RGBColor& textColor,
-                                   const double radius, const double exaggeration, const bool editingElevation, const bool drawExtremeSymbols);
-
-    /// @brief draw moving hint (circle over shape in which create new vertex)
-    static void drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos,
-                               const PositionVector& shape, const RGBColor& hintColor, const double radius,
-                               const double exaggeration);
+    static void drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GUIGlObject* glObject,
+                                   const PositionVector &shape, const RGBColor& color, const double radius, const double exaggeration,
+                                   const bool editingElevation, const bool drawingMovingHit);
 
     /// @brief draw line between parent and children (used in netedit)
     static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,

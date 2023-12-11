@@ -252,7 +252,11 @@ private:
 
     /// @brief draw contour
     void drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                     const RGBColor &color, const double exaggeration) const;
+                            const RGBColor &color, const double exaggeration) const;
+
+    /// @brief draw geometry points
+    void drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const RGBColor &color, const double exaggeration) const;
 
     /// @brief draw polygon name and type
     void drawPolygonNameAndType(const GUIVisualizationSettings& s) const;

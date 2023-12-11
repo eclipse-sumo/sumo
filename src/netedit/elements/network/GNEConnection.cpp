@@ -457,18 +457,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawLine(myInternalJunctionMarker);
                 }
                 // draw shape points only in Network supemode
-                if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                    // color
-                    const RGBColor darkerColor = connectionColor.changedBrightness(-32);
+                if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius)) {
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                    GUIGeometry::drawGeometryPoints(s, d, this, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
                                                     s.neteditSizeSettings.connectionGeometryPointRadius, 1,
-                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                    // draw moving hint
-                    if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                        GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor,
-                                                    s.neteditSizeSettings.connectionGeometryPointRadius, 1);
-                    }
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
+                                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 }
                 // Pop layer matrix
                 GLHelper::popMatrix();

@@ -1366,11 +1366,11 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
                                   myDrawingConstants->getOffset());
         // move front
         glTranslated(0, 0, 1);
-        // color
-        const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                        s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+        GUIGeometry::drawGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
+                                        s.colorSettings.editShapeColor.changedBrightness(-32),
+                                        s.neteditSizeSettings.laneGeometryPointRadius, 1,
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // Pop shape edited matrix
         GLHelper::popMatrix();
     }

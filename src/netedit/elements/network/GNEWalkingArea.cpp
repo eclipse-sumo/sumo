@@ -358,17 +358,11 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     }
     // draw shape points only in Network supemode
     if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius)) {
-        // color
-        const RGBColor darkerColor = color.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, d, this, myTesselation.getShape(), color.changedBrightness(-32),
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
-        // draw moving hint
-        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
-                                        s.neteditSizeSettings.crossingGeometryPointRadius, 1);
-        }
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
+                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
     }
     // pop layer Matrix
     GLHelper::popMatrix();
