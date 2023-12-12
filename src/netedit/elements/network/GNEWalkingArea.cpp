@@ -169,7 +169,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if draw walking area tesselated or contour
             if (drawInContourMode()) {
-                drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
+                drawContourWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
             } else {
                 drawTesselatedWalkingArea(s, d, walkingAreaExaggeration, walkingAreaColor);
             }
@@ -368,7 +368,8 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
 
 
 void
-GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration, const RGBColor& color) const {
+GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                       const PositionVector& shape, const double exaggeration, const RGBColor& color) const {
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -376,7 +377,7 @@ GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const 
     // set color
     GLHelper::setColor(color);
     // draw innen contour
-    myInnenContour.drawInnenContourClosed(s, shape, exaggeration, s.dottedContourSettings.segmentWidth);
+    myInnenContour.drawInnenContourClosed(s, d, shape, exaggeration, s.dottedContourSettings.segmentWidth);
     // pop layer Matrix
     GLHelper::popMatrix();
 }

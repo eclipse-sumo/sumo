@@ -74,7 +74,7 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const GUI
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
-        const auto closedShape = buildDottedContourClosed(s, shape, scale);
+        const auto closedShape = buildDottedContourClosed(s, d, shape, scale);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), closedShape);
     } else {
         drawDottedContours(s, d, scale, addOffset, lineWidth);
@@ -89,7 +89,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const G
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
-        const auto extrudedShape = buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
+        const auto extrudedShape = buildDottedContourExtruded(s, d, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), extrudedShape);
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
@@ -104,7 +104,7 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
-        const auto rectangleShape = buildDottedContourRectangle(s, pos, width, height, offsetX, offsetY, rot, scale);
+        const auto rectangleShape = buildDottedContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), rectangleShape);
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
@@ -118,7 +118,7 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
-        buildDottedContourCircle(s, pos, radius, scale);
+        buildDottedContourCircle(s, d, pos, radius, scale);
         gObjectsInPosition.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
     } else {
         drawDottedContours(s, d, scale, true, lineWidth);
@@ -163,7 +163,7 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
             // draw all geometry points
             for (const auto &geometryPointIndex : geometryPointIndexes) {
                 // build dotted contour circle
-                buildDottedContourCircle(s, shape[geometryPointIndex], radius, scale);
+                buildDottedContourCircle(s, d, shape[geometryPointIndex], radius, scale);
                 // draw geometry point
                 drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, 0, lineWidth);
             }
@@ -172,7 +172,7 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
             const auto &posOverShape = gObjectsInPosition.getPositionOverShape(glObject);
             if (posOverShape != Position::INVALID) {
                 // build dotted contour circle
-                buildDottedContourCircle(s, posOverShape, radius, scale);
+                buildDottedContourCircle(s, d, posOverShape, radius, scale);
                 // draw geometry point
                 drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, 0, lineWidth);
             }
@@ -187,7 +187,7 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVi
     // check if mouse is within two lines (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
-        const auto contourShape = buildDottedContourEdge(s, edge, drawFirstExtrem, drawLastExtrem);
+        const auto contourShape = buildDottedContourEdge(s, d, edge, drawFirstExtrem, drawLastExtrem);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), contourShape);
     } else {
         drawDottedContours(s, d, 1, true, lineWidth);
@@ -199,15 +199,15 @@ void
 GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const {
     // first build dotted contour (only in rectangle selection mode)
-    buildDottedContourEdges(s, fromEdge, toEdge);
+    buildDottedContourEdges(s, d, fromEdge, toEdge);
     // draw dotted contours
     drawDottedContours(s, d, 1, true, lineWidth);
 }
 
 
 void
-GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const PositionVector& shape,
-                                   const double scale, const double lineWidth) const {
+GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                   const PositionVector& shape, const double scale, const double lineWidth) const {
     // check dotted caches
     checkDottedCaches(1);
     // declare scaled shape
@@ -217,7 +217,7 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const Posi
     // close
     scaledShape.closePolygon();
     // calculate geometry without resampling
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, scaledShape, true, false);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, scaledShape, true);
     // reset dotted geometry color
     myDottedGeometryColor.reset();
     // Push draw matrix
@@ -241,7 +241,8 @@ GNEContour::checkDottedCaches(size_t dottedGeometries) const {
 }
 
 PositionVector
-GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector& shape, const double scale) const {
+GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                     const PositionVector& shape, const double scale) const {
     // check dotted caches
     checkDottedCaches(1);
     // declare scaled shape
@@ -251,35 +252,36 @@ GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const Po
     // close
     scaledShape.closePolygon();
     // calculate dotted geometry
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, scaledShape, true, true);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, scaledShape, true);
     // finally return scaled shape (used for check mouse pos)
     return scaledShape;
 }
 
 
 PositionVector
-GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape, const double extrusionWidth,
-        const double scale, const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const {
+GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                       const PositionVector& shape, const double extrusionWidth, const double scale,
+                                       const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const {
     // check dotted caches
     checkDottedCaches(4);
     // create top and bot geometries
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, shape, false, true);
-    myDottedGeometries->at(2) = GUIDottedGeometry(s, shape.reverse(), false, true);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, shape, false);
+    myDottedGeometries->at(2) = GUIDottedGeometry(s, d, shape.reverse(), false);
     // move geometries top and bot
     myDottedGeometries->at(0).moveShapeToSide((extrusionWidth * scale * -1) + offset);
     myDottedGeometries->at(2).moveShapeToSide((extrusionWidth * scale * -1) - offset);
     // create left and right geometries
     if (drawFirstExtrem) {
-        myDottedGeometries->at(3) = GUIDottedGeometry(s, {
+        myDottedGeometries->at(3) = GUIDottedGeometry(s, d, {
             myDottedGeometries->at(2).getBackPosition(),
             myDottedGeometries->at(0).getFrontPosition()
-        }, false, true);
+        }, false);
     }
     if (drawLastExtrem) {
-        myDottedGeometries->at(1) = GUIDottedGeometry(s, {
+        myDottedGeometries->at(1) = GUIDottedGeometry(s, d, {
             myDottedGeometries->at(0).getBackPosition(),
             myDottedGeometries->at(2).getFrontPosition()
-        }, false, true);
+        }, false);
     }
     // finally create shape used for check position over mouse
     PositionVector extrudedShape;
@@ -294,8 +296,9 @@ GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const 
 
 
 PositionVector
-GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const Position& pos, const double width, const double height,
-        const double offsetX, const double offsetY, const double rot, const double scale) const {
+GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                        const Position& pos, const double width, const double height, const double offsetX,
+                                        const double offsetY, const double rot, const double scale) const {
     // check dotted caches
     checkDottedCaches(1);
     // create shape
@@ -314,27 +317,40 @@ GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const
     // move to position
     rectangleShape.add(pos);
     // calculate dotted geometry
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, rectangleShape, true, true);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, rectangleShape, true);
     // return rectangle shape used for check position over mouse
     return rectangleShape;
 }
 
 
 PositionVector
-GNEContour::buildDottedContourCircle(const GUIVisualizationSettings& s, const Position& pos, double radius, const double scale) const {
+GNEContour::buildDottedContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                     const Position& pos, double radius, const double scale) const {
     // check dotted caches
     checkDottedCaches(1);
+    // get resolution
+    int resolution = 1;
+    if (d <= GUIVisualizationSettings::Detail::CircleResolution32) {
+        resolution = 32;
+    } else if (d <= GUIVisualizationSettings::Detail::CircleResolution16) {
+        resolution = 16;
+    } else if (d <= GUIVisualizationSettings::Detail::CircleResolution8) {
+        resolution = 8;
+    } else {
+        resolution = 4;
+    }
     // get vertex circle shape
-    const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, (radius * scale) < 2 ? 8 : 16);
+    const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, resolution);
     // calculate dotted geometry
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, circleShape, true, true);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, circleShape, true);
     // return circle shape used for check position over mouse
     return circleShape;
 }
 
 
 PositionVector
-GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const {
+GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                   const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const {
     // check dotted caches
     checkDottedCaches(4);
     // set left hand flag
@@ -343,23 +359,23 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEE
     const GNELane* topLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
     const GNELane* botLane = lefthand ? edge->getLanes().back() : edge->getLanes().front();
     // create top and bot geometries
-    myDottedGeometries->at(0) = GUIDottedGeometry(s, topLane->getLaneGeometry().getShape(), false, true);
-    myDottedGeometries->at(2) = GUIDottedGeometry(s, botLane->getLaneGeometry().getShape().reverse(), false, true);
+    myDottedGeometries->at(0) = GUIDottedGeometry(s, d, topLane->getLaneGeometry().getShape(), false);
+    myDottedGeometries->at(2) = GUIDottedGeometry(s, d, botLane->getLaneGeometry().getShape().reverse(), false);
     // move geometries top and bot
     myDottedGeometries->at(0).moveShapeToSide((topLane->getDrawingConstants()->getDrawingWidth() * -1) + topLane->getDrawingConstants()->getOffset());
     myDottedGeometries->at(2).moveShapeToSide((botLane->getDrawingConstants()->getDrawingWidth() * -1) - botLane->getDrawingConstants()->getOffset());
     // create left and right geometries
     if (drawFirstExtrem) {
-        myDottedGeometries->at(3) = GUIDottedGeometry(s, {
+        myDottedGeometries->at(3) = GUIDottedGeometry(s, d, {
             myDottedGeometries->at(2).getBackPosition(),
             myDottedGeometries->at(0).getFrontPosition()
-        }, false, true);
+        }, false);
     }
     if (drawLastExtrem) {
-        myDottedGeometries->at(1) = GUIDottedGeometry(s, {
+        myDottedGeometries->at(1) = GUIDottedGeometry(s, d, {
             myDottedGeometries->at(0).getBackPosition(),
             myDottedGeometries->at(2).getFrontPosition()
-        }, false, true);
+        }, false);
     }
     // finally create shape used in positionWithinClosedShape
     PositionVector shapeContour;
@@ -375,7 +391,8 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEE
 
 
 PositionVector
-GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/,const GNEEdge* /* fromEdge */, const GNEEdge* /* toEdge */) const {
+GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/, const GUIVisualizationSettings::Detail /*d*/,
+                                    const GNEEdge* /* fromEdge */, const GNEEdge* /* toEdge */) const {
     // check dotted caches
     checkDottedCaches(4);
 

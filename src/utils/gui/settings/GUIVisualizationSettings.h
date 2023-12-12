@@ -551,11 +551,12 @@ public:
             LockedIcons = 0,            // draw lock icons
 
         Level1 = 1,
-            CircleResolution16 = 1, // circle resolution = 16
-            VehicleBox = 1,         // vehicles as boxes
-            AdditionalDetails = 1,  // stoppingPlace signs, EntryExit arrows...
-            GeometryPoint = 1,      // draw geometry points
-            JunctionElement = 1,    // crossings, walking area, connections and internal lanes
+            CircleResolution16 = 1,         // circle resolution = 16
+            VehicleBox = 1,                 // vehicles as boxes
+            AdditionalDetails = 1,          // stoppingPlace signs, EntryExit arrows...
+            GeometryPoint = 1,              // draw geometry points
+            JunctionElement = 1,            // crossings, walking area, connections and internal lanes
+            DottedContoursResampled = 1,    // resample dotted contours
 
         Level2 = 2,
             CircleResolution8 = 2,  // circle resolution = 8

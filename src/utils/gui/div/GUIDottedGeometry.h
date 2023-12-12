@@ -91,13 +91,16 @@ public:
     GUIDottedGeometry();
 
     /// @brief constructor for shapes
-    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
+    GUIDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                      PositionVector shape, const bool closeShape);
 
     /// @brief update GUIDottedGeometry (using lane shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape, const bool resample);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const PositionVector& laneShape);
 
     /// @brief update GUIDottedGeometry (using shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              PositionVector shape, const bool closeShape);
 
     /// @brief draw dotted geometry
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
