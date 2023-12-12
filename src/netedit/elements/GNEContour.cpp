@@ -71,7 +71,7 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const GUI
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto closedShape = buildDottedContourClosed(s, d, shape, scale);
-        gObjectsInPosition.checkShapeElement(myAC->getGUIGlObject(), closedShape);
+        gObjectsInPosition.checkShapeElement(d, myAC->getGUIGlObject(), closedShape);
     } else {
         drawDottedContours(s, d, addOffset, lineWidth);
     }
@@ -86,7 +86,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const G
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto extrudedShape = buildDottedContourExtruded(s, d, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
-        gObjectsInPosition.checkShapeElement(myAC->getGUIGlObject(), extrudedShape);
+        gObjectsInPosition.checkShapeElement(d, myAC->getGUIGlObject(), extrudedShape);
     } else {
         drawDottedContours(s, d, true, lineWidth);
     }
@@ -101,7 +101,7 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
     if (s.drawForObjectUnderCursor) {
         // first build dotted contour
         const auto rectangleShape = buildDottedContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
-        gObjectsInPosition.checkShapeElement(myAC->getGUIGlObject(), rectangleShape);
+        gObjectsInPosition.checkShapeElement(d, myAC->getGUIGlObject(), rectangleShape);
     } else {
         drawDottedContours(s, d, true, lineWidth);
     }
@@ -115,7 +115,7 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
         buildDottedContourCircle(s, d, pos, radius, scale);
-        gObjectsInPosition.checkCircleElement(myAC->getGUIGlObject(), pos, (radius * scale));
+        gObjectsInPosition.checkCircleElement(d, myAC->getGUIGlObject(), pos, (radius * scale));
     } else {
         drawDottedContours(s, d, true, lineWidth);
     }
@@ -141,13 +141,13 @@ GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, c
                 (last && (geometryPoints == GeometryPoint::TO)) ||
                 (!first && !last && (geometryPoints == GeometryPoint::MIDDLE))) {
                 // check position within geometry
-                gObjectsInPosition.checkGeometryPoint(glObject, i, shape[i], scaledRadius);
+                gObjectsInPosition.checkGeometryPoint(d, glObject, i, shape[i], scaledRadius);
             }
         }
         // check if mouse is over shape
         if (s.drawForObjectUnderCursor) {
             // check position over shape
-            gObjectsInPosition.checkPositionOverShape(glObject, shape, scaledRadius);
+            gObjectsInPosition.checkPositionOverShape(d, glObject, shape, scaledRadius);
         }
     } else if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // get all geometry points
@@ -182,7 +182,7 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVi
     if (s.drawForObjectUnderCursor) {
         // build dotted contour
         const auto contourShape = buildDottedContourEdge(s, d, edge, drawFirstExtrem, drawLastExtrem);
-        gObjectsInPosition.checkShapeElement(myAC->getGUIGlObject(), contourShape);
+        gObjectsInPosition.checkShapeElement(d, myAC->getGUIGlObject(), contourShape);
     } else {
         drawDottedContours(s, d, true, lineWidth);
     }

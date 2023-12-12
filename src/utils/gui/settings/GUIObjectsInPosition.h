@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 // ===========================================================================
 // class declaration
@@ -74,20 +75,21 @@ public:
     /// @brief check if element was already selected
     bool isElementSelected(const GUIGlObject* GLObject) const;
 
-    /// @brief check if the given geometry point is selected
-    bool isGeometryPointSelected(const GUIGlObject* GLObject, const int geometryPoint) const;
-
     /// @brief check if mouse is within elements geometry (for circles)
-    bool checkCircleElement(const GUIGlObject* GLObject, const Position &center, const double radius);
+    bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                            const Position &center, const double radius);
 
     /// @brief check if mouse is within geometry point
-    bool checkGeometryPoint(const GUIGlObject* GLObject, const int index, const Position &center, const double radius);
+    bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                            const int index, const Position &center, const double radius);
 
     /// @brief check if mouse is within geometry point
-    bool checkPositionOverShape(const GUIGlObject* GLObject, const PositionVector &shape, const double distance);
+    bool checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                                const PositionVector &shape, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape);
+    bool checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                           const PositionVector &shape);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getElementsUnderCursor() const;

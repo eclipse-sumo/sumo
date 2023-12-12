@@ -557,6 +557,7 @@ public:
             GeometryPoint = 1,              // draw geometry points
             JunctionElement = 1,            // crossings, walking area, connections and internal lanes
             DottedContoursResampled = 1,    // resample dotted contours
+            PreciseSelection = 1,            // precise selection using boundaries
 
         Level2 = 2,
             CircleResolution8 = 2,  // circle resolution = 8
