@@ -654,6 +654,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             myCircleContour.drawDottedContourCircle(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
                                                     s.dottedContourSettings.segmentWidth);
         }
+        // check geometry points if we're editing shape
+        if (myShapeEdited) {
+            myContour.drawDottedContourGeometryPoints(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
+                                                      s.neteditSizeSettings.connectionGeometryPointRadius, junctionExaggeration,
+                                                      s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 

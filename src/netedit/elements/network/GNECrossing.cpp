@@ -216,11 +216,11 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // get NBCrossing
         const auto NBCrossing = getNBCrossing();
         // get scaling depending if attribute carrier is selected
-        const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+        const double crossingExaggeration = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
         // get width
-        const double crossingWidth = NBCrossing->width * 0.5 * selectionScale;
+        const double crossingWidth = NBCrossing->width * 0.5 * crossingExaggeration;
         // get detail level
-        const auto d = s.getDetailLevel(selectionScale);
+        const auto d = s.getDetailLevel(crossingExaggeration);
         // check if draw geometry
         if (!s.drawForObjectUnderCursor) {
             // get color
@@ -235,13 +235,13 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(crossingColor);
                 // draw depending of level of detail
                 if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
-                    drawCrossingDetailed(selectionScale, crossingWidth);
+                    drawCrossingDetailed(crossingExaggeration, crossingWidth);
                 } else {
                     GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
                 }
                 // draw shape points only in Network supemode
                 if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                    s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius)) {
+                    s.drawMovingGeometryPoint(crossingExaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
                     // get edit modes
                     const auto& editModes = myNet->getViewNet()->getEditModes();
                     // check if draw start und end
@@ -251,7 +251,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points
                     GUIGeometry::drawGeometryPoints(s, d, this, myCrossingGeometry.getShape(), darkerColor,
-                                                    s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, crossingExaggeration,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
                                                     myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 }
@@ -268,8 +268,14 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
         }
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myCrossingGeometry.getShape(), crossingWidth, selectionScale, true, true, 0,
+        myContour.drawDottedContourExtruded(s, d, myCrossingGeometry.getShape(), crossingWidth, crossingExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
+        // check geometry points if we're editing shape
+        if (myShapeEdited) {
+            myContour.drawDottedContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                      s.neteditSizeSettings.connectionGeometryPointRadius, crossingExaggeration,
+                                                      s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 

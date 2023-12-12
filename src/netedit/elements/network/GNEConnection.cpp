@@ -393,13 +393,18 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForObjectUnderCursor) {
             // draw connection
             drawConnection(s, d, shapeSuperposed, connectionExaggeration);
-
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
         }
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, connectionExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidthSmall);
+        // check geometry points if we're editing shape
+        if (myShapeEdited) {
+            myContour.drawDottedContourGeometryPoints(s, d, shapeSuperposed, GNEContour::GeometryPoint::ALL,
+                                                      s.neteditSizeSettings.connectionGeometryPointRadius, connectionExaggeration,
+                                                      s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 
