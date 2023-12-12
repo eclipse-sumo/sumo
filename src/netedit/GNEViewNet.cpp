@@ -474,6 +474,8 @@ void
 GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
     // clear post drawing elements
     gObjectsInPosition.clearElements();
+    // set selection boundary in gObjectsInPosition
+    gObjectsInPosition.setSelectionBoundary(boundary);
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor

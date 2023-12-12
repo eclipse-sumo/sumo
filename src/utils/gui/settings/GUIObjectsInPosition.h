@@ -65,8 +65,11 @@ public:
     /// @brief clear elements
     void clearElements();
 
-    /// @brief set position selection (usually the mouse position)
-    void setSelectionPosition(Position pos);
+    /// @brief set selection position (usually the mouse position)
+    void setSelectionPosition(const Position &pos);
+
+    /// @brief set selection boundary (usually the mouse position)
+    void setSelectionBoundary(const Boundary &boundary);
 
     /// @brief check if element was already selected
     bool isElementSelected(const GUIGlObject* GLObject) const;
@@ -81,7 +84,7 @@ public:
     bool checkGeometryPoint(const GUIGlObject* GLObject, const int index, const Position &center, const double radius);
 
     /// @brief check if mouse is within geometry point
-    bool checkPositionOverShape(const GUIGlObject* GLObject, const PositionVector &shape, const double radius);
+    bool checkPositionOverShape(const GUIGlObject* GLObject, const PositionVector &shape, const double distance);
 
     /// @brief check (closed) shape element
     bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape);
