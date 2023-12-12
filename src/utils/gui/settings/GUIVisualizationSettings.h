@@ -547,7 +547,7 @@ public:
             LaneDetails = 0,            // offset, icons, indicators...
             Text = 0,                   // draw text (E2, routes...)
             VehiclePoly = 0,            // draw vehicles as polygons
-            JunctionElementDetails = 0, // draw junction elements with high detail (crossings)
+            JunctionElementDetails = 0, // draw junction elements with high detail (crossings, connections..)
             LockedIcons = 0,            // draw lock icons
 
         Level1 = 1,
