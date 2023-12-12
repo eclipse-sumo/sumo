@@ -117,6 +117,18 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
+        if (previous->getStageType() == MSStageType::ACCESS) {
+            const Position& lastPos = previous->getPosition(now);
+            // making a wild guess on where we actually want to depart laterally
+            const double possibleDepartPosLat = lastPos.distanceTo(previous->getEdgePosition(previous->getEdge(), myDepartPos, 0.));
+            const Position& newPos = previous->getEdgePosition(previous->getEdge(), myDepartPos, -possibleDepartPosLat); // Minus sign is here for legacy reasons.
+            if (lastPos.almostSame(newPos)) {
+                myDepartPosLat = possibleDepartPosLat;
+            } else if (lastPos.almostSame(previous->getEdgePosition(previous->getEdge(), myDepartPos, possibleDepartPosLat))) {
+                // maybe the other side of the street
+                myDepartPosLat = -possibleDepartPosLat;
+            }
+        }
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
         }
@@ -549,10 +561,20 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                                                     prevStop->getLane().geometryPositionAtOffset(arrivalAtBs));
             } else {
                 const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
-                const Position& p = prevStop->getLane().geometryPositionAtOffset(startPos);
-                const double arrivalPos = access->useDoors ? lane->getShape().nearest_offset_to_point2D(p) : access->endPos;
+                const Position& trainExit = prevStop->getLane().geometryPositionAtOffset(startPos);
+                const double arrivalPos = access->useDoors ? lane->getShape().nearest_offset_to_point2D(trainExit) : access->endPos;
+                Position platformEntry = lane->geometryPositionAtOffset(arrivalPos);
+                if (access->useDoors) {
+                    // find the closer side of the platform to enter
+                    const double halfWidth = lane->getWidth() / 2. - MAX2(getVehicleType().getLength(), getVehicleType().getWidth()) / 2. - POSITION_EPS;
+                    platformEntry = lane->geometryPositionAtOffset(arrivalPos, halfWidth);
+                    const Position& plat2 = lane->geometryPositionAtOffset(arrivalPos, -halfWidth);
+                    if (trainExit.distanceSquaredTo2D(plat2) < trainExit.distanceSquaredTo2D(platformEntry)) {
+                        platformEntry = plat2;
+                    }
+                }
                 newStage = new MSPersonStage_Access(accessEdge, prevStop, arrivalPos, access->length, true,
-                                                    p, lane->geometryPositionAtOffset(arrivalPos));
+                    trainExit, platformEntry);
             }
             myStep = myPlan->insert(myStep, newStage);
             return true;

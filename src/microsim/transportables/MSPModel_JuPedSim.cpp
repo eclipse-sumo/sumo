@@ -97,17 +97,8 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
     }
     agent_parameters.orientation = orientation;
     */
-    agent_parameters.radius = 0.3;
     const MSVehicleType& type = state->getPerson()->getVehicleType();
-    if (type.wasSet(VTYPEPARS_LENGTH_SET) || type.wasSet(VTYPEPARS_WIDTH_SET)) {
-        if (!type.wasSet(VTYPEPARS_WIDTH_SET)) {
-            agent_parameters.radius = 0.5 * type.getLength();
-        } else if (!type.wasSet(VTYPEPARS_LENGTH_SET)) {
-            agent_parameters.radius = 0.5 * type.getWidth();
-        } else {
-            agent_parameters.radius = 0.25 * (type.getLength() + type.getWidth());
-        }
-    }
+    agent_parameters.radius = MAX2(type.getLength(), type.getWidth()) / 2.;
     agent_parameters.v0 = state->getPerson()->getMaxSpeed();
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
