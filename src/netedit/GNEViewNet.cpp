@@ -464,44 +464,43 @@ GNEViewNet::viewUpdated() {
 }
 
 
-std::set<std::pair<std::string, GNEAttributeCarrier*> >
-GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges) {
-    // use a SET of pairs to obtain IDs and Pointers to attribute carriers. We need this because certain ACs can be returned many times (example: Edges)
-    // Note: a map cannot be used because there is different ACs with the same ID (example: Additionals)
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > result;
-    // first make OpenGL context current prior to performing OpenGL commands
-    if (makeCurrent()) {
-        // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
-        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary);
-        //  finish make OpenGL context current
-        makeNonCurrent();
-        // iterate over GUIGlIDs
-        for (const auto& GLId : GLIds) {
-            // avoid to select Net (i = 0)
-            if (GLId != 0) {
-                GNEAttributeCarrier* retrievedAC = myNet->getAttributeCarriers()->retrieveAttributeCarrier(GLId);
-                // in the case of a Lane, we need to change the retrieved lane to their the parent if myNetworkViewOptions.mySelectEdges is enabled
-                if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_LANE) && (myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
-                    retrievedAC = myNet->getAttributeCarriers()->retrieveEdge(retrievedAC->getAttribute(GNE_ATTR_PARENT));
-                } else if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) && !(myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
-                    // just ignore this AC
-                    retrievedAC = nullptr;
-                }
-                // make sure that AttributeCarrier can be selected
-                if (retrievedAC && retrievedAC->getTagProperty().isSelectable() &&
-                        !myLockManager.isObjectLocked(retrievedAC->getGUIGlObject()->getType(), retrievedAC->isAttributeCarrierSelected())) {
-                    result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
-                }
-            }
-        }
-    }
-    return result;
-}
-
-
 const GNEViewNetHelper::ObjectsUnderCursor&
 GNEViewNet::getObjectsUnderCursor() const {
     return myObjectsUnderCursor;
+}
+
+
+void
+GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
+    // clear post drawing elements
+    gObjectsInPosition.clearElements();
+    // push matrix
+    GLHelper::pushMatrix();
+    // enable draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = true;
+    // draw all GL elements within the small boundary
+    drawGLElements(boundary);
+    // restore draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = false;
+    // pop matrix
+    GLHelper::popMatrix();
+    // check if update front element
+    if (myFrontAttributeCarrier) {
+        gObjectsInPosition.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
+    }
+    // after draw elements, update objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
+}
+
+
+void
+GNEViewNet::updateObjectsInPosition(const Position &pos) {
+    // create an small boundary
+    Boundary positionBoundary;
+    positionBoundary.add(pos);
+    positionBoundary.grow(POSITION_EPS);
+    // update objets in the boundary
+    updateObjectsInBoundary(positionBoundary);
 }
 
 
@@ -1286,12 +1285,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
-    // check if force drawing for rectangle selection
-    if (myVisualizationSettings->forceDrawForRectangleSelection) {
-        myVisualizationSettings->drawForRectangleSelection = true;
-    }
     // first step: update objects under cursor
-    updateObjectsUnderCursor(myNet->getViewNet()->getPositionInformation());
+    updateObjectsInPosition(myNet->getViewNet()->getPositionInformation());
     // set render modes
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -2727,21 +2722,21 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
     // check polygon
     if (polygonUnderMouse) {
         // get ACs in boundary
-        const auto ACs = getAttributeCarriersInBoundary(polygonUnderMouse->getShape().getBoxBoundary(), false);
+        updateObjectsInBoundary(polygonUnderMouse->getShape().getBoxBoundary());
         // declare filtered ACs
         std::vector<GNEAttributeCarrier*> filteredACs;
         // iterate over obtained GUIGlIDs
-        for (const auto& AC : ACs) {
-            if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, polygonUnderMouse->getShape())) {
-                    filteredACs.push_back(AC.second);
+        for (const auto& AC : myObjectsUnderCursor.getClickedAttributeCarriers()) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                if (myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
+                    filteredACs.push_back(AC);
                 }
-            } else if (AC.second->getTagProperty().getTag() == SUMO_TAG_LANE) {
-                if (!myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, polygonUnderMouse->getShape())) {
-                    filteredACs.push_back(AC.second);
+            } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+                if (!myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
+                    filteredACs.push_back(AC);
                 }
-            } else if ((AC.second != polygonUnderMouse) && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, polygonUnderMouse->getShape())) {
-                filteredACs.push_back(AC.second);
+            } else if ((AC != polygonUnderMouse) && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
+                filteredACs.push_back(AC);
             }
         }
         // continue if there are ACs
@@ -3273,33 +3268,6 @@ GNEViewNet::updateCursor() {
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
         }
     }
-}
-
-
-void
-GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
-    // clear post drawing elements
-    gObjectsInPosition.clearElements();
-    // push matrix
-    GLHelper::pushMatrix();
-    // enable draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = true;
-    // create an small boundary
-    Boundary cursorBoundary;
-    cursorBoundary.add(pos);
-    cursorBoundary.grow(POSITION_EPS);
-    // draw all GL elements within the small boundary
-    drawGLElements(cursorBoundary);
-    // restore draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = false;
-    // pop matrix
-    GLHelper::popMatrix();
-    // check if update front element
-    if (myFrontAttributeCarrier) {
-        gObjectsInPosition.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
-    }
-    // after draw elements, update objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
 }
 
 

@@ -80,14 +80,17 @@ public:
     /// @brief called when view is updated
     void viewUpdated();
 
-    /// @brief get AttributeCarriers in Boundary
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
-
     /// @brief get objects under cursor
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
+
+    /// @brief get objects in the given boundary
+    void updateObjectsInBoundary(const Boundary &boundary);
+
+    /// @brief get objects in the given position
+    void updateObjectsInPosition(const Position &pos);
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -774,9 +777,6 @@ private:
 
     /// @brief draw functions
     /// @{
-
-    /// @brief get objects under given position
-    void updateObjectsUnderCursor(const Position &pos);
 
     /// @brief draw all gl elements of netedit
     int drawGLElements(const Boundary& bound) const;

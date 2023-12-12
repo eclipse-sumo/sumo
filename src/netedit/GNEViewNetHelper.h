@@ -312,6 +312,9 @@ struct GNEViewNetHelper {
         /// @brief get vector with clicked junctions
         const std::vector<GNEJunction*>& getClickedJunctions() const;
 
+        /// @brief get vector with clicked junctions
+        const std::vector<GNEEdge*>& getEdges() const;
+
         /// @brief get vector with clicked Demand Elements
         const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
 
@@ -1155,9 +1158,6 @@ struct GNEViewNetHelper {
 
         /// @brief process rectangle Selection (only limited to Edges)
         std::vector<GNEEdge*> processEdgeRectangleSelection();
-
-        /// @brief process shape selection
-        void processShapeSelection(const PositionVector& shape);
 
         /// @brief draw rectangle selection
         void drawRectangleSelection(const RGBColor& color) const;
