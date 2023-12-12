@@ -54,9 +54,6 @@ public:
     /// @brief get contour boundary
     Boundary getContourBoundary() const;
 
-    /// @brief reset dotted contour
-    void reset() const;
-
     /// @brief dotted contours
     /// @{
 
@@ -113,9 +110,6 @@ private:
 
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
-
-    /// @brief check dotted caches
-    void checkDottedCaches(size_t dottedGeometries) const;
 
     /// @brief build dotted contour shape
     PositionVector buildDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

@@ -43,7 +43,7 @@ GUIDottedGeometry::DottedGeometryColor GNEContour::myDottedGeometryColor;
 
 GNEContour::GNEContour(GNEAttributeCarrier* AC) :
     myAC(AC),
-    myDottedGeometries(new std::vector<GUIDottedGeometry>()) {
+    myDottedGeometries(new std::vector<GUIDottedGeometry>(4)) {
 }
 
 
@@ -56,15 +56,11 @@ Boundary
 GNEContour::getContourBoundary() const {
     Boundary b;
     for (const auto &dottedGeometry : *myDottedGeometries) {
-        b.add(dottedGeometry.getUnresampledShape().getBoxBoundary());
+        if (dottedGeometry.getUnresampledShape().size() > 0) {
+            b.add(dottedGeometry.getUnresampledShape().getBoxBoundary());
+        }
     }
     return b;
-}
-
-
-void
-GNEContour::reset() const {
-    myDottedGeometries->clear();
 }
 
 
@@ -208,8 +204,6 @@ GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GUIV
 void
 GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                    const PositionVector& shape, const double scale, const double lineWidth) const {
-    // check dotted caches
-    checkDottedCaches(1);
     // declare scaled shape
     PositionVector scaledShape = shape;
     // scale shape
@@ -229,22 +223,9 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIV
 }
 
 
-void
-GNEContour::checkDottedCaches(size_t dottedGeometries) const {
-    // check dotted geometries
-    if (myDottedGeometries->size() != dottedGeometries) {
-        myDottedGeometries->clear();
-        for (size_t i = 0; i < dottedGeometries; i++) {
-            myDottedGeometries->push_back(GUIDottedGeometry());
-        }
-    }
-}
-
 PositionVector
 GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                      const PositionVector& shape, const double scale) const {
-    // check dotted caches
-    checkDottedCaches(1);
     // declare scaled shape
     PositionVector scaledShape = shape;
     // scale shape
@@ -262,8 +243,6 @@ PositionVector
 GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                        const PositionVector& shape, const double extrusionWidth, const double scale,
                                        const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const {
-    // check dotted caches
-    checkDottedCaches(4);
     // create top and bot geometries
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, shape, false);
     myDottedGeometries->at(2) = GUIDottedGeometry(s, d, shape.reverse(), false);
@@ -299,8 +278,6 @@ PositionVector
 GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                         const Position& pos, const double width, const double height, const double offsetX,
                                         const double offsetY, const double rot, const double scale) const {
-    // check dotted caches
-    checkDottedCaches(1);
     // create shape
     PositionVector rectangleShape;
     // make rectangle
@@ -326,8 +303,6 @@ GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const
 PositionVector
 GNEContour::buildDottedContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                      const Position& pos, double radius, const double scale) const {
-    // check dotted caches
-    checkDottedCaches(1);
     // get resolution
     int resolution = 1;
     if (d <= GUIVisualizationSettings::Detail::CircleResolution32) {
@@ -351,8 +326,6 @@ GNEContour::buildDottedContourCircle(const GUIVisualizationSettings& s, const GU
 PositionVector
 GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                    const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const {
-    // check dotted caches
-    checkDottedCaches(4);
     // set left hand flag
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     // obtain lanes
@@ -393,8 +366,6 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GUIV
 PositionVector
 GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/, const GUIVisualizationSettings::Detail /*d*/,
                                     const GNEEdge* /* fromEdge */, const GNEEdge* /* toEdge */) const {
-    // check dotted caches
-    checkDottedCaches(4);
 
     /* FINISH */
     return PositionVector();

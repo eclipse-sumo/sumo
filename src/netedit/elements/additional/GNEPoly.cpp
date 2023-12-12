@@ -162,7 +162,6 @@ GNEPoly::updateGeometry() {
     // just update polygon geometry
     myPolygonGeometry.updateGeometry(myShape);
     myTesselation.clear();
-    myContour.reset();
 }
 
 
@@ -750,7 +749,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
-            myContour.reset();
             break;
         case SUMO_ATTR_LINEWIDTH:
             myLineWidth = parse<double>(value);
