@@ -87,7 +87,7 @@ are child elements of plan definitions.
 You can define either a list of "edges" to travel or a "from" and a "to"
 edge. In the former case, only the first and the last edge will be
 considered. Instead of a "to" edge a container stop can be defined.
-If there is a move entry before, the "from" edge can be left.
+If there is a move entry before, the "from" edge can be left out.
 The container will move straight from the first edge to last
 edge. In the latter case, the container will from straight from the edge
 "from" to the edge "to" or the container stop "containerStop".
