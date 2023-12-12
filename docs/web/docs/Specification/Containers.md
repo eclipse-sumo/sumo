@@ -9,7 +9,7 @@ amount of bulk material, an arbitrary amount of animals etc.
 # Containers
 
 A container moves through the net by being transported by a vehicle or
-being transhiped between two stops. A container element has child
+being transhipped between two stops. A container element has child
 elements defining stages of its plan. The stages are a connected
 sequence of [transport](#transports),
 [tranship](#tranships) and
