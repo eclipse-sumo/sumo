@@ -452,16 +452,20 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         const ConstMSEdgeVector& outgoing = junction->getOutgoing();
         adjacent.insert(outgoing.begin(), outgoing.end());
 
+        bool hasWalkingArea = false;
+        int pedEdgeCount = 0;
         for (const MSEdge* const edge : adjacent) {
             if (!edge->isWalkingArea()) {
                 const MSLane* const lane = getSidewalk<MSEdge, MSLane>(edge);
                 if (lane != nullptr) {
+                    pedEdgeCount++;
                     GEOSGeometry* dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
                     walkableAreas.push_back(dilatedLane);
                     for (const MSEdge* const nextEdge : adjacent) {
                         if (nextEdge != edge) {
                             const MSEdge* walkingArea = getWalkingAreaInbetween(edge, nextEdge);
-                            if (walkingArea) {
+                            if (walkingArea != nullptr) {
+                                hasWalkingArea = true;
                                 MSEdgeVector walkingAreaIncoming = walkingArea->getPredecessors();
                                 const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(nextEdge);
                                 if (nextLane != nullptr) {
@@ -501,6 +505,13 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                         }
                     }
                 }
+            }
+        }
+        if (pedEdgeCount > 1 && !hasWalkingArea) {
+            // there is something to connect but no walking area, let's assume peds are allowed everywhere
+            GEOSGeometry* walkingAreaGeom = createGeometryFromShape(junction->getShape());
+            if (walkingAreaGeom != nullptr) {
+                walkableAreas.push_back(walkingAreaGeom);
             }
         }
     }
