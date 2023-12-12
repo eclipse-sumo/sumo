@@ -78,11 +78,11 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
 
 void
-MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
+MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
     JPS_CollisionFreeSpeedModelAgentParameters agent_parameters{};
     agent_parameters.journeyId = state->getJourneyId();
     agent_parameters.stageId = state->getStageId();
-    agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
+    agent_parameters.position = {p.x(), p.y()};
     /*
     const double angle = state->getAngle(*state->getStage(), 0);
     JPS_Point orientation;
@@ -112,24 +112,24 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
 
 
 bool
-MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point) {
+MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID) {
     JPS_ErrorMessage message = nullptr;
     const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {point.x(), point.y()}, myExitTolerance, &message);
     if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding waypoint for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
         return false;
     }
     if (predecessor != 0) {
         const JPS_Transition transition = JPS_Transition_CreateFixedTransition(waypointId, &message);
         if (message != nullptr) {
-            WRITE_WARNINGF(TL("Error while creating fixed transition for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+            WRITE_WARNINGF(TL("Error while creating fixed transition for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
             JPS_ErrorMessage_Free(message);
             return false;
         }
         JPS_JourneyDescription_SetTransitionForStage(journey, predecessor, transition, &message);
         if (message != nullptr) {
-            WRITE_WARNINGF(TL("Error while setting transition for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+            WRITE_WARNINGF(TL("Error while setting transition for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
             JPS_ErrorMessage_Free(message);
             return false;
         }
@@ -142,7 +142,7 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
 
 
 MSTransportableStateAdapter*
-MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
+MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
     assert(person->getCurrentStageType() == MSStageType::WALKING);
     for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
         if (pstate->getPerson() == person) {
@@ -197,7 +197,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
             prevArrivalPos = prev->getDestinationStop()->getAccessPos(prev->getDestination());
         }
         waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prevArrivalPos));
-        if (!addWaypoint(journey, predecessor, waypoints.back())) {
+        if (!addWaypoint(journey, predecessor, waypoints.back(), person->getID())) {
             return nullptr;
         }
         if (startingStage == 0) {
@@ -211,7 +211,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(arrivalStage->getArrivalPos());
     waypoints.push_back(arrivalPosition);
 
-    if (!addWaypoint(journey, predecessor, arrivalPosition)) {
+    if (!addWaypoint(journey, predecessor, arrivalPosition, person->getID())) {
         return nullptr;
     }
     if (startingStage == 0) {
@@ -220,7 +220,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     JPS_ErrorMessage message = nullptr;
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
     if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding a journey for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+        WRITE_WARNINGF(TL("Error while adding a journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
         return nullptr;
     }
@@ -232,7 +232,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
     myPedestrianStates.push_back(state);
     myNumActivePedestrians++;
-    tryPedestrianInsertion(state);
+    tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
 
     return state;
 }
@@ -264,7 +264,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         PState* const state = *stateIt;
 
         if (state->isWaitingToEnter()) {
-            tryPedestrianInsertion(state);
+            // insertion failed at first try so we retry with some noise
+            Position p = state->getPosition(*state->getStage(), time) + Position(RandHelper::rand(-.5, .5), RandHelper::rand(-.5, .5));
+            tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
         }
