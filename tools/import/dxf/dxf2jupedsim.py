@@ -23,6 +23,7 @@ import warnings
 import numpy
 import ezdxf
 import pyproj
+import shapely
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
@@ -41,9 +42,19 @@ def create_test_dxf(args):
 
 
 def polygon_as_XML_element(polygon, typename, index, color, layer):
-    poly = " ".join(["%.9f,%.9f" % c[:2] for c in polygon])
-    return ('    <poly id="jps.%s_%s" type="%s" color="%s" fill="True" layer="%s" shape="%s" geo="True"/>\n' %
-            (typename[9:], index, typename, color, layer, poly))
+    polygonID = "jps.%s_%s" % (typename[9:], index)
+    cleanPolygon = [polygon[0]]
+    for i in range(1, len(polygon)):
+        if polygon[i][0] == polygon[i-1][0] and polygon[i][1] == polygon[i-1][1]:
+            continue
+        cleanPolygon.append(polygon[i])
+    if len(cleanPolygon) < len(polygon):
+        print("Warning: polygon '%s' had some equal consecutive points removed." % polygonID)
+    if not isPolygonSimple(cleanPolygon):
+        print("Warning: polygon '%s' is not simple." % polygonID)
+    polygonAsString = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])
+    return ('    <poly id="%s" type="%s" color="%s" fill="True" layer="%s" shape="%s" geo="True"/>\n' %
+            (polygonID, typename, color, layer, polygonAsString))
 
 
 def generate_circle_vertices(center, radius, nbr_vertices=20):
@@ -55,6 +66,10 @@ def generate_circle_vertices(center, radius, nbr_vertices=20):
 def applyInverseProjection(vertices, projection):
     projection = pyproj.Proj(projection)
     return [projection(vertex[0], vertex[1], inverse=True) for vertex in vertices]
+
+
+def isPolygonSimple(vertices):
+    return shapely.is_simple(shapely.Polygon(vertices))
 
 
 def main():
