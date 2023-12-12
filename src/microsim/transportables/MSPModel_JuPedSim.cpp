@@ -44,7 +44,7 @@
 #include "MSPerson.h"
 
 
-#define DEBUG_GEOMETRY_GENERATION
+// #define DEBUG_GEOMETRY_GENERATION
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
@@ -427,7 +427,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordSeq);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
-        WRITE_WARNINGF(TL("Geometry generation failed because polygon '%' is not simple."), shapeID);
+        WRITE_WARNINGF(TL("Polygon '%' was skipped as it is not simple."), shapeID);
         if (isWalkingArea){
             // Compute the convex hull of the walking area's shape as a proxy.
             polygon = GEOSConvexHull(polygon);
@@ -550,7 +550,10 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                 walkableAreas.push_back(walkableArea);
             }
         } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            //additionalObstacles.push_back(createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first));
+            GEOSGeometry* additionalObstacle = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
+            if (additionalObstacle != nullptr) {
+                additionalObstacles.push_back(additionalObstacle);
+            }
         }
     }
 
