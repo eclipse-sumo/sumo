@@ -85,8 +85,6 @@ public:
     /** returns the junction's position */
     const Position& getPosition(bool secondaryShape = false) const;
 
-
-
     /** @brief Returns this junction's shape
      * @return The shape of this junction
      */
@@ -169,14 +167,11 @@ protected:
     /// @brief outgoing edges
     ConstMSEdgeVector myOutgoing;
 
-    /// @brief definition of the static dictionary type
-    typedef std::map<std::string, MSJunction* > DictType;
-
 private:
     /// @brief Invalidated copy constructor.
-    MSJunction(const MSJunction&);
+    MSJunction(const MSJunction&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MSJunction& operator=(const MSJunction&);
+    MSJunction& operator=(const MSJunction&) = delete;
 
 };
