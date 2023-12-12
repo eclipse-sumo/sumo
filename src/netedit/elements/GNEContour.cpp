@@ -73,7 +73,7 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const GUI
         const auto closedShape = buildDottedContourClosed(s, d, shape, scale);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), closedShape);
     } else {
-        drawDottedContours(s, d, scale, addOffset, lineWidth);
+        drawDottedContours(s, d, addOffset, lineWidth);
     }
 }
 
@@ -88,7 +88,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const G
         const auto extrudedShape = buildDottedContourExtruded(s, d, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), extrudedShape);
     } else {
-        drawDottedContours(s, d, scale, true, lineWidth);
+        drawDottedContours(s, d, true, lineWidth);
     }
 }
 
@@ -103,7 +103,7 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
         const auto rectangleShape = buildDottedContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), rectangleShape);
     } else {
-        drawDottedContours(s, d, scale, true, lineWidth);
+        drawDottedContours(s, d, true, lineWidth);
     }
 }
 
@@ -117,7 +117,7 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const GUI
         buildDottedContourCircle(s, d, pos, radius, scale);
         gObjectsInPosition.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
     } else {
-        drawDottedContours(s, d, scale, true, lineWidth);
+        drawDottedContours(s, d, true, lineWidth);
     }
 }
 
@@ -186,7 +186,7 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVi
         const auto contourShape = buildDottedContourEdge(s, d, edge, drawFirstExtrem, drawLastExtrem);
         gObjectsInPosition.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), contourShape);
     } else {
-        drawDottedContours(s, d, 1, true, lineWidth);
+        drawDottedContours(s, d, true, lineWidth);
     }
 }
 
@@ -197,7 +197,7 @@ GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GUIV
     // first build dotted contour (only in rectangle selection mode)
     buildDottedContourEdges(s, d, fromEdge, toEdge);
     // draw dotted contours
-    drawDottedContours(s, d, 1, true, lineWidth);
+    drawDottedContours(s, d, true, lineWidth);
 }
 
 
@@ -374,7 +374,7 @@ GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/, const
 
 void
 GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const double scale, const bool addOffset, const double lineWidth) const {
+                               const bool addOffset, const double lineWidth) const {
     // first check if draw dotted contour
     if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // basic contours

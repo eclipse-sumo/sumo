@@ -158,9 +158,8 @@ GNEDetector::getHierarchyName() const {
 
 
 void
-GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                         const double exaggeration, const double scaledWidth, const RGBColor& mainColor,
-                         const RGBColor& secondColor) const {
+GNEDetector::drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,
+                         const RGBColor& mainColor, const RGBColor& secondColor) const {
     // push matrix
     GLHelper::pushMatrix();
     // set line width

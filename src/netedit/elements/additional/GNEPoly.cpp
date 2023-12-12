@@ -112,8 +112,6 @@ GNEPoly::getMoveOperation() {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
-        // get geometry point radius
-        const auto radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
         // continue depending of tag
         switch (getTagProperty().getTag()) {
             case GNE_TAG_JPS_WALKABLEAREA:

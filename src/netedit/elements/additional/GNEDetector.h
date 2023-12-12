@@ -192,9 +192,8 @@ protected:
     bool myFriendlyPosition;
 
     /// @brief draw E1 shape
-    void drawE1Shape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                     const double exaggeration, const double scaledWidth, const RGBColor& mainColor,
-                     const RGBColor& secondColor) const;
+    void drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,
+                     const RGBColor& mainColor, const RGBColor& secondColor) const;
 
     /// @brief draw E1 detector Logo
     void drawE1DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

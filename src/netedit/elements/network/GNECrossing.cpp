@@ -209,8 +209,6 @@ GNECrossing::getNBCrossing() const {
 
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
-    // declare flag
-    bool drawExtremeSymbols = false;
     // continue depending of drawCrossing flag
     if (checkDrawCrossing(s)) {
         // get NBCrossing
@@ -244,9 +242,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     s.drawMovingGeometryPoint(crossingExaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
                     // get edit modes
                     const auto& editModes = myNet->getViewNet()->getEditModes();
-                    // check if draw start und end
-                    const bool drawExtremeSymbols = editModes.isCurrentSupermodeNetwork() &&
-                        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
                     // color
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points

@@ -139,7 +139,7 @@ private:
 
     /// @brief draw dotted contours
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const double scale, const bool addOffset, const double lineWidth) const;
+                            const bool addOffset, const double lineWidth) const;
 
     /// @brief draw dotted contour
     void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, const bool addOffset, const double lineWidth) const;

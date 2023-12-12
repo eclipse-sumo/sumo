@@ -165,8 +165,6 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(E1Exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // obtain scaledSize
-            const double scaledWidth = s.detectorSettings.E1Width * 0.5 * s.scale;
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color
@@ -186,7 +184,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
             // draw E1 shape
-            drawE1Shape(s, d, E1Exaggeration, scaledWidth, mainColor, secondColor);
+            drawE1Shape(d, E1Exaggeration, mainColor, secondColor);
             // draw E1 Logo
             drawE1DetectorLogo(s, d, E1Exaggeration, "E1", textColor);
             // pop layer matrix
