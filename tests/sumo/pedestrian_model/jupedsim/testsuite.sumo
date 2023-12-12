@@ -13,3 +13,6 @@ walking_area
 larger_net
 waypoints
 speed_factor
+
+# check correct arrival when there are multiple stops on the same edge
+three_trainStops_at_one_edge
