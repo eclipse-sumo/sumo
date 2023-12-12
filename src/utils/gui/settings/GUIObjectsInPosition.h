@@ -65,23 +65,26 @@ public:
     /// @brief clear elements
     void clearElements();
 
-    /// @brief check if element is under cursor
-    bool isElementUnderCursor(const GUIGlObject* GLObject) const;
+    /// @brief set position selection (usually the mouse position)
+    void setSelectionPosition(Position pos);
 
-    /// @brief check if geometry point is under cursor
-    bool isGeometryPointUnderCursor(const GUIGlObject* GLObject, const int geometryPoint) const;
+    /// @brief check if element was already selected
+    bool isElementSelected(const GUIGlObject* GLObject) const;
+
+    /// @brief check if the given geometry point is selected
+    bool isGeometryPointSelected(const GUIGlObject* GLObject, const int geometryPoint) const;
 
     /// @brief check if mouse is within elements geometry (for circles)
-    bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius);
+    bool checkCircleElement(const GUIGlObject* GLObject, const Position &center, const double radius);
 
     /// @brief check if mouse is within geometry point
-    bool positionWithinGeometryPoint(const GUIGlObject* GLObject, const Position &pos, const int index, const Position &center, const double radius);
+    bool checkGeometryPoint(const GUIGlObject* GLObject, const int index, const Position &center, const double radius);
 
     /// @brief check if mouse is within geometry point
-    bool positionOverShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape, const double radius);
+    bool checkPositionOverShape(const GUIGlObject* GLObject, const PositionVector &shape, const double radius);
 
-    /// @brief check if mouse is within closed shapes (for filled shapes)
-    bool positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape);
+    /// @brief check (closed) shape element
+    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getElementsUnderCursor() const;
@@ -131,6 +134,12 @@ protected:
 
     /// @brief add position over shape
     bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos);
+
+    /// @brief selection boundary
+    Boundary mySelectionBoundary;
+
+    /// @brief position
+    Position mySelectionPosition;
 
 private:
     /// @brief set copy constructor private

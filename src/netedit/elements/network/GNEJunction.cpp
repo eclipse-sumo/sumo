@@ -220,7 +220,7 @@ GNEJunction::checkDrawToContour() const {
             // check if we're over a destiny junction
             if (junctionSource) {
                 // don't create edges with the same from-to junction
-                if ((junctionSource != this) && gObjectsInPosition.isElementUnderCursor(this)) {
+                if ((junctionSource != this) && gObjectsInPosition.isElementSelected(this)) {
                     // this junction can be a destiny junction
                     return true;
                 }
@@ -277,7 +277,7 @@ GNEJunction::checkDrawOverContour() const {
         // check if vehicle can be placed over from-to junctions
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
             // check if junction is under cursor
-            return gObjectsInPosition.isElementUnderCursor(this);
+            return gObjectsInPosition.isElementSelected(this);
         } else {
             return false;
         }

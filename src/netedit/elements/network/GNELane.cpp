@@ -367,7 +367,7 @@ GNELane::checkDrawOverContour() const {
         // check if vehicle can be placed over from-to edges
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
             // check if lane is under cursor
-            return gObjectsInPosition.isElementUnderCursor(this);
+            return gObjectsInPosition.isElementSelected(this);
         } else {
             return false;
         }

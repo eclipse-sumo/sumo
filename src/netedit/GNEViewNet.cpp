@@ -495,12 +495,30 @@ GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
 
 void
 GNEViewNet::updateObjectsInPosition(const Position &pos) {
+    // clear post drawing elements
+    gObjectsInPosition.clearElements();
+    // set selection position in gObjectsInPosition
+    gObjectsInPosition.setSelectionPosition(pos);
     // create an small boundary
     Boundary positionBoundary;
     positionBoundary.add(pos);
     positionBoundary.grow(POSITION_EPS);
-    // update objets in the boundary
-    updateObjectsInBoundary(positionBoundary);
+    // push matrix
+    GLHelper::pushMatrix();
+    // enable draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = true;
+    // draw all GL elements within the small boundary
+    drawGLElements(positionBoundary);
+    // restore draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = false;
+    // pop matrix
+    GLHelper::popMatrix();
+    // check if update front element
+    if (myFrontAttributeCarrier) {
+        gObjectsInPosition.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
+    }
+    // after draw elements, update objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
 }
 
 

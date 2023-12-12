@@ -170,7 +170,7 @@ GNEAdditional::checkDrawFromContour() const {
         } else if (TAZRelDataFrame->shown()) {
             // check first TAZ
             if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                return gObjectsInPosition.isElementUnderCursor(this);
+                return gObjectsInPosition.isElementSelected(this);
             } else if (TAZRelDataFrame->getFirstTAZ() == this) {
                 return true;
             }
@@ -229,7 +229,7 @@ GNEAdditional::checkDrawToContour() const {
         } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
             // check first TAZ
             if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
-                return gObjectsInPosition.isElementUnderCursor(this);
+                return gObjectsInPosition.isElementSelected(this);
             } else if (TAZRelDataFrame->getSecondTAZ() == this) {
                 return true;
             }

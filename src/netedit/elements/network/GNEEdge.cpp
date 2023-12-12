@@ -2462,7 +2462,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // obtain geometry point
             const auto geometryPointPos = myNBEdge->getGeometry()[i];
             // check if mouse is in geometry point position
-            const auto mouseOverPos = s.drawForObjectUnderCursor? gObjectsInPosition.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), geometryPointPos, circleWidth) : false;
+            const auto mouseOverPos = s.drawForObjectUnderCursor? gObjectsInPosition.checkCircleElement(this, geometryPointPos, circleWidth) : false;
             // draw geometry depending of detail
             if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
                 // obtain color
@@ -2512,7 +2512,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
     // check drawing conditions
     if (startPosEdited || forceDraw) {
         // check if mouse is over geometry point
-        const bool mouseOver = gObjectsInPosition.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), startGeometryPointPos, circleWidth);
+        const bool mouseOver = gObjectsInPosition.checkCircleElement(this, startGeometryPointPos, circleWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
             // calculate angle betwen first and second geometry point
@@ -2575,7 +2575,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
     // check drawing conditions
     if (endPosEdited || forceDraw) {
         // check if mouse is over geometry point
-        const bool mouseOver = gObjectsInPosition.positionWithinCircle(this, myNet->getViewNet()->getPositionInformation(), geometryPointPos, circleWidth);
+        const bool mouseOver = gObjectsInPosition.checkCircleElement(this, geometryPointPos, circleWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
             // calculate angle last and previous geometry point
