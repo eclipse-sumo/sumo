@@ -207,7 +207,7 @@ GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const Positi
         } else {
             return new GNEMoveOperation(this, originalShape, {geometryPoints.front()}, shapeToMove, {geometryPoints.front()});
         }
-    } else if (!onlyContour || (posOverShape != Position::INVALID)) {
+    } else if (!onlyContour && (posOverShape != Position::INVALID)) {
         // create new geometry point and keep new index (if we clicked near of shape)
         const int newIndex = shapeToMove.insertAtClosest(posOverShape, true);
         return new GNEMoveOperation(this, originalShape, {shapeToMove.indexOfClosest(posOverShape)}, shapeToMove, {newIndex});
