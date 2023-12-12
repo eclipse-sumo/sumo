@@ -94,7 +94,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true, true);
+        return calculateMoveShapeOperation(this, myShape, true, true);
     }
 }
 

@@ -152,9 +152,7 @@ GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(getCrossingShape(), myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius,
-                                           true, false);
+        return calculateMoveShapeOperation(this, getCrossingShape(), true, false);
     } else {
         return nullptr;
     }

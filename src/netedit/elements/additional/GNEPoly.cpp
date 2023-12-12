@@ -119,10 +119,10 @@ GNEPoly::getMoveOperation() {
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
                 // calculate move shape operation maintain shape closed
-                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, true);
+                return calculateMoveShapeOperation(this, myShape, true, true);
             default:
                 // calculate move shape operation maintain shape closed
-                return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, false);
+                return calculateMoveShapeOperation(this, myShape, true, false);
         }
     }
 }

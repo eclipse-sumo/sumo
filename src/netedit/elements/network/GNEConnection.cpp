@@ -206,9 +206,7 @@ GNEConnection::getMoveOperation() {
         // get connection
         const auto& connection = getNBEdgeConnection();
         // calculate move shape operation
-        return calculateMoveShapeOperation(connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(),
-                                           myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius,
+        return calculateMoveShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(),
                                            true, false);
     } else {
         return nullptr;

@@ -189,45 +189,28 @@ GNEMoveElement::GNEMoveElement() :
 
 
 GNEMoveOperation*
-GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition,
-        const double snapRadius, const bool onlyContour, const bool maintainShapeClosed) {
-    // calculate squared snapRadius
-    const double squaredSnapRadius = (snapRadius * snapRadius);
+GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape,
+        const bool onlyContour, const bool maintainShapeClosed) {
+    // get moved geometry points
+    const auto geometryPoints = gObjectsInPosition.getGeometryPoints(obj);
+    // get pos over shape
+    const auto posOverShape = gObjectsInPosition.getPositionOverShape(obj);
     // declare shape to move
     PositionVector shapeToMove = originalShape;
     const int lastIndex = (int)shapeToMove.size() - 1;
-    // obtain nearest index
-    const int nearestIndex = originalShape.indexOfClosest(mousePosition);
-    // obtain nearest position
-    const Position nearestPosition = originalShape.positionAtOffset2D(originalShape.nearest_offset_to_point2D(mousePosition));
-    // check conditions
-    if (nearestIndex == -1) {
-        return nullptr;
-    } else if (nearestPosition == Position::INVALID) {
-        // special case for extremes
-        if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-            // move geometry point without creating new geometry point
-            if (maintainShapeClosed && ((nearestIndex == 0) || (nearestIndex == lastIndex))) {
-                // move first and last point
-                return new GNEMoveOperation(this, originalShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
-            } else {
-                return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
-            }
-        } else {
-            return nullptr;
-        }
-    } else if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
+    // check if move existent geometry points or create new
+    if (geometryPoints.size() > 0) {
         // move geometry point without creating new geometry point
-        if (maintainShapeClosed && ((nearestIndex == 0) || (nearestIndex == lastIndex))) {
+        if (maintainShapeClosed && ((geometryPoints.front() == 0) || (geometryPoints.front() == lastIndex))) {
             // move first and last point
             return new GNEMoveOperation(this, originalShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
         } else {
-            return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+            return new GNEMoveOperation(this, originalShape, {geometryPoints.front()}, shapeToMove, {geometryPoints.front()});
         }
-    } else if (!onlyContour || nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
+    } else if (!onlyContour || (posOverShape != Position::INVALID)) {
         // create new geometry point and keep new index (if we clicked near of shape)
-        const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
-        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {newIndex});
+        const int newIndex = shapeToMove.insertAtClosest(posOverShape, true);
+        return new GNEMoveOperation(this, originalShape, {shapeToMove.indexOfClosest(posOverShape)}, shapeToMove, {newIndex});
     } else {
         return nullptr;
     }

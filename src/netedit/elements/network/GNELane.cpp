@@ -415,9 +415,7 @@ GNELane::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(getLaneShape(), myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius,
-                                           true, false);
+        return calculateMoveShapeOperation(this, getLaneShape(), true, false);
     } else {
         return nullptr;
     }
