@@ -240,8 +240,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // draw shape points only in Network supemode
                 if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                     s.drawMovingGeometryPoint(crossingExaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
-                    // get edit modes
-                    const auto& editModes = myNet->getViewNet()->getEditModes();
                     // color
                     const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                     // draw geometry points

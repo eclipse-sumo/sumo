@@ -151,12 +151,13 @@ private:
     /// @name drawing functions
     /// @{
 
-    /// @brief draw dotted contours
+    /// @brief draw dotted contours (basics, select, delete, inspect...)
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const bool addOffset, const double lineWidth) const;
+                            const double lineWidth, const bool addOffset) const;
 
     /// @brief draw dotted contour
-    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, const bool addOffset, const double lineWidth) const;
+    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                           const double lineWidth, const bool addOffset) const;
 
     /// @}
 

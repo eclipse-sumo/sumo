@@ -70,7 +70,7 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
         const auto closedShape = buildContourClosedShape(s, d, shape, scale);
         gViewObjectsHandler.checkShapeElement(d, myAC->getGUIGlObject(), closedShape);
     } else {
-        drawDottedContours(s, d, addOffset, lineWidth);
+        drawDottedContours(s, d, lineWidth, addOffset);
     }
 }
 
@@ -85,7 +85,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
         const auto extrudedShape = buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem, offset);
         gViewObjectsHandler.checkShapeElement(d, myAC->getGUIGlObject(), extrudedShape);
     } else {
-        drawDottedContours(s, d, true, lineWidth);
+        drawDottedContours(s, d, lineWidth, true);
     }
 }
 
@@ -100,7 +100,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
         const auto rectangleShape = buildContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         gViewObjectsHandler.checkShapeElement(d, myAC->getGUIGlObject(), rectangleShape);
     } else {
-        drawDottedContours(s, d, true, lineWidth);
+        drawDottedContours(s, d, lineWidth, true);
     }
 }
 
@@ -114,7 +114,7 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
         buildContourCircle(s, d, pos, radius, scale);
         gViewObjectsHandler.checkCircleElement(d, myAC->getGUIGlObject(), pos, (radius * scale));
     } else {
-        drawDottedContours(s, d, true, lineWidth);
+        drawDottedContours(s, d, lineWidth, true);
     }
 }
 
@@ -183,7 +183,7 @@ GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVis
         const auto contourShape = buildContourEdge(s, d, edge, drawFirstExtrem, drawLastExtrem);
         gViewObjectsHandler.checkShapeElement(d, myAC->getGUIGlObject(), contourShape);
     } else {
-        drawDottedContours(s, d, true, lineWidth);
+        drawDottedContours(s, d, lineWidth, true);
     }
 }
 
@@ -194,7 +194,7 @@ GNEContour::calculateContourEdges(const GUIVisualizationSettings& s, const GUIVi
     // first build dotted contour (only in rectangle selection mode)
     buildContourEdges(s, d, fromEdge, toEdge);
     // draw dotted contours
-    drawDottedContours(s, d, true, lineWidth);
+    drawDottedContours(s, d, lineWidth, true);
 }
 
 
@@ -394,37 +394,37 @@ GNEContour::updateContourBondary() const {
 
 void
 GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const bool addOffset, const double lineWidth) const {
+                               const double lineWidth, const bool addOffset) const {
     // first check if draw dotted contour
     if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // basic contours
         if (myAC->checkDrawFromContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, lineWidth, addOffset);
         }
         if (myAC->checkDrawToContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::TO, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::TO, lineWidth, addOffset);
         }
         if (myAC->checkDrawRelatedContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::RELATED, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::RELATED, lineWidth, addOffset);
         }
         if (myAC->checkDrawOverContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::OVER, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::OVER, lineWidth, addOffset);
         }
         // inspect contour
         if (myAC->checkDrawInspectContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, lineWidth, addOffset);
         }
         // front contour
         if (myAC->checkDrawFrontContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FRONT, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FRONT, lineWidth, addOffset);
         }
         // delete contour
         if (myAC->checkDrawDeleteContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, lineWidth, addOffset);
         }
         // select contour
         if (myAC->checkDrawSelectContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::SELECT, addOffset, lineWidth);
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::SELECT, lineWidth, addOffset);
         }
     }
 }
@@ -432,7 +432,7 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
 
 void
 GNEContour::drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                              const bool addOffset, const double lineWidth) const {
+                              const double lineWidth, const bool addOffset) const {
     // reset dotted geometry color
     myDottedGeometryColor.reset();
     // Push draw matrix
@@ -441,7 +441,7 @@ GNEContour::drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeomet
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw dotted geometries
     for (const auto &dottedGeometry : *myDottedGeometries) {
-        dottedGeometry.drawDottedGeometry(s, type, myDottedGeometryColor, addOffset, lineWidth);
+        dottedGeometry.drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth, addOffset);
     }
     // pop matrix
     GLHelper::popMatrix();

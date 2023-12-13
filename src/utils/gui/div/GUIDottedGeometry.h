@@ -104,7 +104,7 @@ public:
 
     /// @brief draw dotted geometry
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                            DottedGeometryColor& dottedGeometryColor, const bool addOffset, const double lineWidth) const;
+                            DottedGeometryColor& dottedGeometryColor, const double lineWidth, const bool addOffset) const;
 
     /// @brief draw innen geometry
     void drawInnenGeometry(const double lineWidth) const;

@@ -236,7 +236,7 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const
 
 void
 GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                      DottedGeometryColor& dottedGeometryColor, const bool addOffset, const double lineWidth) const {
+                                      DottedGeometryColor& dottedGeometryColor, const double lineWidth, const bool addOffset) const {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
