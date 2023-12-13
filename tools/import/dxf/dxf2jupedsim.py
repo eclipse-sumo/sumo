@@ -50,7 +50,7 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
         cleanPolygon.append(polygon[i])
     if len(cleanPolygon) < len(polygon):
         print("Warning: polygon '%s' had some equal consecutive points removed." % polygonID)
-    if not isPolygonSimple(cleanPolygon):
+    if not is_polygon_simple(cleanPolygon):
         print("Warning: polygon '%s' is not simple." % polygonID)
     polygonAsString = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])
     return ('    <poly id="%s" type="%s" color="%s" fill="True" layer="%s" shape="%s" geo="True"/>\n' %
@@ -63,12 +63,12 @@ def generate_circle_vertices(center, radius, nbr_vertices=20):
     return vertices
 
 
-def applyInverseProjection(vertices, projection):
+def apply_inverse_projection(vertices, projection):
     projection = pyproj.Proj(projection)
     return [projection(vertex[0], vertex[1], inverse=True) for vertex in vertices]
 
 
-def isPolygonSimple(vertices):
+def is_polygon_simple(vertices):
     return shapely.is_simple(shapely.Polygon(vertices))
 
 
@@ -106,7 +106,7 @@ def main():
                 vertices = list(entity.vertices())
                 if vertices[-1] != vertices[0]:
                     vertices.append(vertices[0])
-            geoVertices = applyInverseProjection(vertices, args.projection)
+            geoVertices = apply_inverse_projection(vertices, args.projection)
             if entity.dxf.layer == args.walkable_layer:
                 add.write(polygon_as_XML_element(geoVertices, "jupedsim.walkable_area", entity.dxf.handle,
                                                  args.walkable_color, args.sumo_layer))
