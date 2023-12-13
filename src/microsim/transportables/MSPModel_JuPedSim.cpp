@@ -411,7 +411,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     // Replace consecutive points that are equal with just one.
     PositionVector cleanShape;
     cleanShape.push_back(shape[0]);
-    for (unsigned int i = 1; i < shape.size(); i++) {
+    for (int i = 1; i < (int)shape.size(); i++) {
         if (shape[i] == shape[i-1]) {
             continue;
         }
@@ -421,7 +421,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
         WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed."), shapeID);
     }
     GEOSCoordSequence* coordSeq = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
-    for (unsigned int i = 0; i < cleanShape.size(); i++) {
+    for (int i = 0; i < (int)cleanShape.size(); i++) {
         GEOSCoordSeq_setXY(coordSeq, i, cleanShape[i].x(), cleanShape[i].y());
     }
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordSeq);
