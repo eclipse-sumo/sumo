@@ -24,6 +24,7 @@ import numpy
 import ezdxf
 import pyproj
 import shapely
+import itertools
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
@@ -43,6 +44,11 @@ def create_test_dxf(args):
 
 def polygon_as_XML_element(polygon, typename, index, color, layer):
     polygonID = "jps.%s_%s" % (typename[9:], index)
+
+    # Round the coordinates.
+    polygon =[(round(point[0], 9), round(point[1], 9)) for point in polygon]
+
+    # Check for equal consecutive points.
     cleanPolygon = [polygon[0]]
     for i in range(1, len(polygon)):
         if polygon[i][0] == polygon[i-1][0] and polygon[i][1] == polygon[i-1][1]:
@@ -50,11 +56,21 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
         cleanPolygon.append(polygon[i])
     if len(cleanPolygon) < len(polygon):
         print("Warning: polygon '%s' had some equal consecutive points removed." % polygonID)
-    if not is_polygon_simple(cleanPolygon):
+
+    # Check for simplicity and output hints.
+    simple = shapely.is_simple(shapely.Polygon(cleanPolygon))
+    if not simple:
         print("Warning: polygon '%s' is not simple." % polygonID)
-    polygonAsString = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])
+        segments = list(map(shapely.LineString, zip(cleanPolygon[:-1], cleanPolygon[1:])))
+        for segment1, segment2 in itertools.combinations(segments, 2):
+            if segment1.crosses(segment2):
+                    print("Segments [(%.9f, %.9f)] and [(%.9f, %.9f)] intersect each other."
+                            % (segment1.coords[0][0], segment1.coords[0][1], segment2.coords[1][0], segment2.coords[1][1]))
+
+    # Create the XML element.
+    poly = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])
     return ('    <poly id="%s" type="%s" color="%s" fill="True" layer="%s" shape="%s" geo="True"/>\n' %
-            (polygonID, typename, color, layer, polygonAsString))
+            (polygonID, typename, color, layer, poly))
 
 
 def generate_circle_vertices(center, radius, nbr_vertices=20):
@@ -66,10 +82,6 @@ def generate_circle_vertices(center, radius, nbr_vertices=20):
 def apply_inverse_projection(vertices, projection):
     projection = pyproj.Proj(projection)
     return [projection(vertex[0], vertex[1], inverse=True) for vertex in vertices]
-
-
-def is_polygon_simple(vertices):
-    return shapely.is_simple(shapely.Polygon(vertices))
 
 
 def main():
