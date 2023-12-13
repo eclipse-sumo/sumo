@@ -376,13 +376,15 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), POIExaggeration);
+                // draw dotted contour
+                myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
             }
             // draw contour
             if (getShapeImgFile().empty()) {
-                myContour.calculateContourCircleShape(s, d, *this, 1.3, POIExaggeration,
+                myContour.calculateContourCircleShape2(s, d, *this, 1.3, POIExaggeration,
                                                   s.dottedContourSettings.segmentWidth);
             } else {
-                myContour.calculateContourRectangleShape(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
+                myContour.calculateContourRectangleShape2(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
                                                      s.dottedContourSettings.segmentWidth);
             }
         }

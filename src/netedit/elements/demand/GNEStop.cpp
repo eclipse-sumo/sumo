@@ -403,9 +403,11 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
             // Draw name
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0,
+        myContour.calculateContourExtrudedShape2(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

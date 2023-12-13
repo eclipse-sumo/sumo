@@ -138,11 +138,11 @@ GNEInstantInductionLoopDetector::updateGeometry() {
 
 void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double E1InstantExaggeration = getExaggeration(s);
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
         !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // Obtain exaggeration of the draw
+        const double E1InstantExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E1InstantExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -177,11 +177,13 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
-        myContour.calculateContourRectangleShape(s, d, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
-                                                myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration,
-                                                s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourRectangleShape2(s, d, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+                                                  myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration,
+                                                  s.dottedContourSettings.segmentWidth);
     }
 }
 

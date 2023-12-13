@@ -177,6 +177,10 @@ protected:
     // draw stoppingPlace children
     void drawStoppingPlaceChildren(const GUIVisualizationSettings& s) const;
 
+    /// @brief check object in view
+    void checkViewObject(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                         const double width, const bool movingGeometryPoints) const;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

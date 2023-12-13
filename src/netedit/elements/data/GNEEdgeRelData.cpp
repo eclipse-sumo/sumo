@@ -199,13 +199,15 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge(s, d, getParentEdges().front(), true, false, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdge2(s, d, getParentEdges().front(), true, false, s.dottedContourSettings.segmentWidth);
         }
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge(s, d, getParentEdges().back(), false, true, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdge2(s, d, getParentEdges().back(), false, true, s.dottedContourSettings.segmentWidth);
         }
     }
 }
@@ -219,21 +221,12 @@ GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const G
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get flag for only draw contour
-        const bool onlyDrawContour = !isGenericDataVisible();
-        // Start drawing adding an gl identificator
-        if (!onlyDrawContour) {
-            GLHelper::pushName(getGlID());
-        }
 
         // finish
 
-        // Pop name
-        if (!onlyDrawContour) {
-            GLHelper::popName();
-        }
         // draw dotted contour
         if (segment->getPreviousLane() && segment->getNextLane()) {
-            myContour.calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge(), s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdges2(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge(), s.dottedContourSettings.segmentWidth);
         }
     }
 }

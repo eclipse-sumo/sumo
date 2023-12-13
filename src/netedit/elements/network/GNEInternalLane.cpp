@@ -203,9 +203,11 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),
                                            s.scale, s.angle);
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth, 1,
+        myContour.calculateContourExtrudedShape2(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth, 1,
                                             true, true, 0, s.dottedContourSettings.segmentWidthSmall);
     }
 }

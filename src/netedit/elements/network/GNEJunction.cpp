@@ -643,20 +643,22 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
             // draw junction name
             drawJunctionName(s, d);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw Junction childs
         drawJunctionChildren(s, d);
         // draw dotted contour depending of shapes
         if (junctionShape && (myNBNode->getShape().area() > 1)) {
-            myContour.calculateContourClosedShape(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourClosedShape2(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
         }
         if (junctionBubble) {
-            myCircleContour.calculateContourCircleShape(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
+            myCircleContour.calculateContourCircleShape2(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
                                                     s.dottedContourSettings.segmentWidth);
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
+            myContour.calculateContourGeometryPoints2(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
                                                       s.neteditSizeSettings.connectionGeometryPointRadius, junctionExaggeration,
                                                       s.dottedContourSettings.segmentWidth);
         }

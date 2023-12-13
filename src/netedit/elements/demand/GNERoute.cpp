@@ -496,9 +496,11 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
                     templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
                 gViewObjectsHandler.markedRoute = this;
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+        myContour.calculateContourExtrudedShape2(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -549,9 +551,11 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
                     templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
                 gViewObjectsHandler.markedRoute = this;
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, geometry.getShape(), routeWidth, 1, false, false, 0,
+        myContour.calculateContourExtrudedShape2(s, d, geometry.getShape(), routeWidth, 1, false, false, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

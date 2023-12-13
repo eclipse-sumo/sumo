@@ -120,10 +120,10 @@ GNEBusStop::updateGeometry() {
 
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double busStopExaggeration = getExaggeration(s);
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double busStopExaggeration = getExaggeration(s);
         // check if draw moving geometry points
         const int movingGeometryPoints = drawMovingGeometryPoints(false);
         // get width
@@ -184,25 +184,13 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
-        // calculate contour and draw dotted geometry (don't exaggerate contour)
-        if (movingGeometryPoints) {
-            if (myStartPosition != INVALID_DOUBLE) {
-                myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
-                                                          s.neteditSizeSettings.additionalGeometryPointRadius, 1,
-                                                          s.dottedContourSettings.segmentWidth);
-            }
-            if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
-                myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
-                                                          s.neteditSizeSettings.additionalGeometryPointRadius, 1,
-                                                          s.dottedContourSettings.segmentWidth);
-            }
-        } else {
-            myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), stopWidth, 1, true, true, 0,
-                                                s.dottedContourSettings.segmentWidth);
-        }
+        // check object in view
+        checkViewObject(s, d, stopWidth, movingGeometryPoints);
     }
 }
 

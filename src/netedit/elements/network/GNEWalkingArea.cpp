@@ -177,9 +177,11 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             if (s.cwaEdgeName.show(this)) {
                 drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
-        myContour.calculateContourClosedShape(s, d, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourClosedShape2(s, d, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
     }
 }
 

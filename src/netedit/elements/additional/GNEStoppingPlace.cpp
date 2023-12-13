@@ -355,6 +355,28 @@ GNEStoppingPlace::drawStoppingPlaceChildren(const GUIVisualizationSettings& s) c
 }
 
 
+void
+GNEStoppingPlace::checkViewObject(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                  const double width, const bool movingGeometryPoints) const {
+    // calculate contour and draw dotted geometry (don't exaggerate contour)
+    if (movingGeometryPoints) {
+        if (myStartPosition != INVALID_DOUBLE) {
+            myContour.calculateContourGeometryPoints2(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
+                                                     s.neteditSizeSettings.additionalGeometryPointRadius, 1,
+                                                     s.dottedContourSettings.segmentWidth);
+        }
+        if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
+            myContour.calculateContourGeometryPoints2(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
+                                                     s.neteditSizeSettings.additionalGeometryPointRadius, 1,
+                                                     s.dottedContourSettings.segmentWidth);
+        }
+    } else {
+        myContour.calculateContourExtrudedShape2(s, d, myAdditionalGeometry.getShape(), width, 1, true, true, 0,
+                                                s.dottedContourSettings.segmentWidth);
+    }
+}
+
+
 double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myStartPosition != INVALID_DOUBLE) {

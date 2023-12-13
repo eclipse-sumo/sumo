@@ -717,9 +717,11 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw squared shape
-        myContour.calculateContourRectangleShape(s, d, pos, size, size, 0, 0, 0, exaggeration,
+        myContour.calculateContourRectangleShape2(s, d, pos, size, size, 0, 0, 0, exaggeration,
                                              s.dottedContourSettings.segmentWidth);
     }
 }
@@ -816,9 +818,11 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
                 // pop layer matrix
                 GLHelper::popMatrix();
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw squared shape
-        myContour.calculateContourRectangleShape(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
+        myContour.calculateContourRectangleShape2(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
                                              s.dottedContourSettings.segmentWidth);
     }
 }

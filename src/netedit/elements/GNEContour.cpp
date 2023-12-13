@@ -61,7 +61,7 @@ GNEContour::getContourBoundary() const {
 
 
 void
-GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourClosedShape2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const PositionVector& shape, const double scale, const bool addOffset,
                                         const double lineWidth) const {
     // check if mouse is within geometry (only in rectangle selection mode)
@@ -76,7 +76,7 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
 
 
 void
-GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourExtrudedShape2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                           const PositionVector& shape, const double extrusionWidth, const double scale, const bool drawFirstExtrem,
                                           const bool drawLastExtrem, const double offset, const double lineWidth) const {
     // check if mouse is within two lines (only in rectangle selection mode)
@@ -91,7 +91,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
 
 
 void
-GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourRectangleShape2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const Position& pos, const double width, const double height, const double offsetX,
                                            const double offsetY, const double rot, const double scale, const double lineWidth) const {
     // check if mouse is within geometry (only in rectangle selection mode)
@@ -106,7 +106,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
 
 
 void
-GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourCircleShape2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const Position& pos, double radius, const double scale, const double lineWidth) const {
     // check if mouse is within geometry (only in rectangle selection mode)
     if (s.drawForObjectUnderCursor) {
@@ -120,7 +120,7 @@ GNEContour::calculateContourCircleShape(const GUIVisualizationSettings& s, const
 
 
 void
-GNEContour::calculateContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourGeometryPoints2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const PositionVector& shape, GeometryPoint geometryPoints, double radius,
                                            const double scale, const double lineWidth) const {
     // get object
@@ -174,7 +174,7 @@ GNEContour::calculateContourGeometryPoints(const GUIVisualizationSettings& s, co
 
 
 void
-GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourEdge2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                  const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem,
                                  const double lineWidth) const {
     // check if mouse is within two lines (only in rectangle selection mode)
@@ -189,12 +189,50 @@ GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVis
 
 
 void
-GNEContour::calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+GNEContour::calculateContourEdges2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                   const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const {
     // first build dotted contour (only in rectangle selection mode)
     buildContourEdges(s, d, fromEdge, toEdge);
     // draw dotted contours
     drawDottedContours(s, d, lineWidth, true);
+}
+
+
+void
+GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const double lineWidth, const bool addOffset) const {
+    // first check if draw dotted contour
+    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
+        // basic contours
+        if (myAC->checkDrawFromContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, lineWidth, addOffset);
+        }
+        if (myAC->checkDrawToContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::TO, lineWidth, addOffset);
+        }
+        if (myAC->checkDrawRelatedContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::RELATED, lineWidth, addOffset);
+        }
+        if (myAC->checkDrawOverContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::OVER, lineWidth, addOffset);
+        }
+        // inspect contour
+        if (myAC->checkDrawInspectContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, lineWidth, addOffset);
+        }
+        // front contour
+        if (myAC->checkDrawFrontContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FRONT, lineWidth, addOffset);
+        }
+        // delete contour
+        if (myAC->checkDrawDeleteContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, lineWidth, addOffset);
+        }
+        // select contour
+        if (myAC->checkDrawSelectContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::SELECT, lineWidth, addOffset);
+        }
+    }
 }
 
 
@@ -387,44 +425,6 @@ GNEContour::updateContourBondary() const {
     for (const auto &dottedGeometry : *myDottedGeometries) {
         if (dottedGeometry.getUnresampledShape().size() > 0) {
             myContourBoundary->add(dottedGeometry.getUnresampledShape().getBoxBoundary());
-        }
-    }
-}
-
-
-void
-GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const double lineWidth, const bool addOffset) const {
-    // first check if draw dotted contour
-    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
-        // basic contours
-        if (myAC->checkDrawFromContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FROM, lineWidth, addOffset);
-        }
-        if (myAC->checkDrawToContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::TO, lineWidth, addOffset);
-        }
-        if (myAC->checkDrawRelatedContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::RELATED, lineWidth, addOffset);
-        }
-        if (myAC->checkDrawOverContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::OVER, lineWidth, addOffset);
-        }
-        // inspect contour
-        if (myAC->checkDrawInspectContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::INSPECT, lineWidth, addOffset);
-        }
-        // front contour
-        if (myAC->checkDrawFrontContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::FRONT, lineWidth, addOffset);
-        }
-        // delete contour
-        if (myAC->checkDrawDeleteContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::REMOVE, lineWidth, addOffset);
-        }
-        // select contour
-        if (myAC->checkDrawSelectContour()) {
-            drawDottedContour(s, GUIDottedGeometry::DottedContourType::SELECT, lineWidth, addOffset);
         }
     }
 }

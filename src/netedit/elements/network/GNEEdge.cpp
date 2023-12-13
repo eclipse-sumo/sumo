@@ -583,26 +583,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawEdgeName(s, d);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw childrens
         drawChildrens(s, d);
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourEdge(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
-        const auto radius = getSnapRadius(false);
-        // draw geometry points
-        myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::MIDDLE,
-                                            radius, myLanes.front()->getDrawingConstants()->getExaggeration(),
-                                            s.dottedContourSettings.segmentWidth);
-        // extrems depending if has custom from-to
-        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
-        if (forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView())) {
-            myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::FROM,
-                                                radius, 1, s.dottedContourSettings.segmentWidth);
-        }
-        if (forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView())) {
-            myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::TO,
-                                                    radius, 1, s.dottedContourSettings.segmentWidth);
-        }
+        // calculate contours
+        calculateContours(s, d);
     }
 }
 
@@ -2741,6 +2728,29 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s, const GUIVisualization
         }
         // draw TAZ elements
         drawTAZElements(s);
+    }
+}
+
+
+void
+GNEEdge::calculateContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    // calculate contour and draw dotted geometry
+    myContour.calculateContourEdge2(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
+    // get snap radius
+    const auto radius = getSnapRadius(false);
+    // draw geometry points
+    myContour.calculateContourGeometryPoints2(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::MIDDLE,
+                                        radius, myLanes.front()->getDrawingConstants()->getExaggeration(),
+                                        s.dottedContourSettings.segmentWidth);
+    // extrems depending if has custom from-to
+    const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+    if (forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView())) {
+        myContour.calculateContourGeometryPoints2(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::FROM,
+                                            radius, 1, s.dottedContourSettings.segmentWidth);
+    }
+    if (forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView())) {
+        myContour.calculateContourGeometryPoints2(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::TO,
+                                                radius, 1, s.dottedContourSettings.segmentWidth);
     }
 }
 

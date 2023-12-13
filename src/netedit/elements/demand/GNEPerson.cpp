@@ -416,9 +416,11 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 const double value = getColorValue(s, s.personColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
-        myContour.calculateContourRectangleShape(s, d, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
+        myContour.calculateContourRectangleShape2(s, d, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
                                                 s.dottedContourSettings.segmentWidth);
     }
 }

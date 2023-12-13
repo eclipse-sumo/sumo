@@ -206,39 +206,39 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // get flag for only draw contour
-        const bool onlyDrawContour = !isGenericDataVisible();
-        // draw over all edge's lanes
-        for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
-            // get lane width
-            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
-                                     (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
-            // Add a draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area translating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
-            GLHelper::setColor(RGBColor::BLACK);
-            // draw geometry
-            GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), laneWidth);
-            // translate to top
-            glTranslated(0, 0, 0.01);
-            GLHelper::setColor(color);
-            // draw internal box lines
-            GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), (laneWidth - 0.1));
-            // Pop last matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
-            // draw filtered attribute
-            if (getParentEdges().front()->getLanes().front() == laneEdge) {
-                drawFilteredAttribute(s, laneEdge->getLaneShape(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw over all edge's lanes
+            for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
+                // Add a draw matrix
+                GLHelper::pushMatrix();
+                // Start with the drawing of the area translating matrix to origin
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
+                GLHelper::setColor(RGBColor::BLACK);
+                // draw geometry
+                GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), laneEdge->getDrawingConstants()->getDrawingWidth());
+                // translate to top
+                glTranslated(0, 0, 0.01);
+                GLHelper::setColor(color);
+                // draw internal box lines
+                GUIGeometry::drawGeometry(laneEdge->getDrawingConstants()->getDetail(), laneEdge->getLaneGeometry(), (laneEdge->getDrawingConstants()->getDrawingWidth() - 0.1));
+                // Pop last matrix
+                GLHelper::popMatrix();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+                // draw filtered attribute
+                if (getParentEdges().front()->getLanes().front() == laneEdge) {
+                    drawFilteredAttribute(s, laneEdge->getLaneShape(),
+                                          myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                                          myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
+                }
             }
-            // calculate contour and draw dotted geometry
-            myContour.calculateContourEdge(s, d, laneEdge->getParentEdge(), true, true,
-                                            s.dottedContourSettings.segmentWidth);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourEdge2(s, d, segment->getLane()->getParentEdge(), true, true,
+                                        s.dottedContourSettings.segmentWidth);
     }
 }
 

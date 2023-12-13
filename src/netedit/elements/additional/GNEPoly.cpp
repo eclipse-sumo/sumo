@@ -317,25 +317,27 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             drawPolygonNameAndType(s);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), polyExaggeration);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour depending if is closed
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
             // draw dotted contour
-            myContour.calculateContourClosedShape(s, d, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourClosedShape2(s, d, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
         } else {
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+            myContour.calculateContourExtrudedShape2(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                                                 polyExaggeration, true, true, 0, s.dottedContourSettings.segmentWidth);
         }
         // check geometry points
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // draw size depending of mode
             if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                myContour.calculateContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                myContour.calculateContourGeometryPoints2(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius, polyExaggeration,
                                                           s.dottedContourSettings.segmentWidth);
             } else {
-                myContour.calculateContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                myContour.calculateContourGeometryPoints2(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius * 0.5, polyExaggeration,
                                                           s.dottedContourSettings.segmentWidth);
             }

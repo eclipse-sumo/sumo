@@ -377,18 +377,20 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
                 GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
             }
-            // draw child demand elements
-            for (const auto& demandElement : getChildDemandElements()) {
-                if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                    demandElement->drawGL(s);
-                }
-            }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
+        // draw child demand elements
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
+            }
+        }
         // draw dotted contours
-        myContour.calculateContourClosedShape(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
-        myContour.calculateContourCircleShape(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourClosedShape2(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
+        myContour.calculateContourCircleShape2(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
     }
 }
 

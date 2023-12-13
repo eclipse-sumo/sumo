@@ -201,10 +201,10 @@ void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // draw boundaries
     GLHelper::drawBoundary(s, getCenteringBoundary());
-    // Set initial values
-    const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Set initial values
+        const double parkingAreaExaggeration = getExaggeration(s);
         // get witdh
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         // get detail level
@@ -254,9 +254,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, myShapeLength, width, parkingAreaExaggeration, true, true, 0,
+        myContour.calculateContourExtrudedShape2(s, d, myShapeLength, width, parkingAreaExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

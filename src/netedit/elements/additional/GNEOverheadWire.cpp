@@ -277,37 +277,42 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
         // move to sides
         overheadWireGeometryTop.moveGeometryToSide(overheadWireWidth * 0.5);
         overheadWireGeometryBot.moveGeometryToSide(overheadWireWidth * -0.5);
-        // obtain color
-        const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
-        const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set top color
-        GLHelper::setColor(overheadWireColorTop);
-        // draw top geometry
-        GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
-        // Set bot color
-        GLHelper::setColor(overheadWireColorBot);
-        // draw bot geometry
-        GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
-        // draw geometry points
-        if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(s, d, overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
-            drawRightGeometryPoint(s, d, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
-        } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(s, d, overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
-        } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(s, d, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // obtain color
+            const RGBColor overheadWireColorTop = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorTop;
+            const RGBColor overheadWireColorBot = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.overheadWireColorBot;
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set top color
+            GLHelper::setColor(overheadWireColorTop);
+            // draw top geometry
+            GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
+            // Set bot color
+            GLHelper::setColor(overheadWireColorBot);
+            // draw bot geometry
+            GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
+            // draw geometry points
+            if (segment->isFirstSegment() && segment->isLastSegment()) {
+                drawLeftGeometryPoint(s, d, overheadWireGeometry.getShape().front(),  overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
+                drawRightGeometryPoint(s, d, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
+            } else if (segment->isFirstSegment()) {
+                drawLeftGeometryPoint(s, d, overheadWireGeometry.getShape().front(), overheadWireGeometry.getShapeRotations().front(), overheadWireColorTop, true);
+            } else if (segment->isLastSegment()) {
+                drawRightGeometryPoint(s, d, overheadWireGeometry.getShape().back(), overheadWireGeometry.getShapeRotations().back(), overheadWireColorTop, true);
+            }
+            // Pop layer matrix
+            GLHelper::popMatrix();
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // Pop layer matrix
-        GLHelper::popMatrix();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? overheadWireGeometry.getShape() : segment->getLane()->getLaneShape();
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, shape, overheadWireWidth, 1, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourExtrudedShape2(s, d, shape, overheadWireWidth, 1, true, true, 0,
+                                                 s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -335,26 +340,31 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         // move to sides
         overheadWireGeometryTop.moveGeometryToSide(overheadWireWidth * 0.5);
         overheadWireGeometryBot.moveGeometryToSide(overheadWireWidth * -0.5);
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set top color
-        GLHelper::setColor(overheadWireColorTop);
-        // draw top geometry
-        GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
-        // Set bot color
-        GLHelper::setColor(overheadWireColorBot);
-        // draw bot geometry
-        GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
-        // Pop last matrix
-        GLHelper::popMatrix();
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // Add a draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set top color
+            GLHelper::setColor(overheadWireColorTop);
+            // draw top geometry
+            GUIGeometry::drawGeometry(d, overheadWireGeometryTop, 0.2);
+            // Set bot color
+            GLHelper::setColor(overheadWireColorBot);
+            // draw bot geometry
+            GUIGeometry::drawGeometry(d, overheadWireGeometryBot, 0.2);
+            // Pop last matrix
+            GLHelper::popMatrix();
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+        }
         // draw contours
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get shape
             const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, shape, overheadWireWidth, 1, true, true, 0,
+            myContour.calculateContourExtrudedShape2(s, d, shape, overheadWireWidth, 1, true, true, 0,
                                                 s.dottedContourSettings.segmentWidth);
         }
     }

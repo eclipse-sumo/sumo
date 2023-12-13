@@ -200,18 +200,16 @@ GNEAccess::getParentName() const {
 
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration
-    const double accessExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get distance squared between mouse and access
-        const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
-        // declare radius
-        const double radius = (distanceSquared <= 1) ? 1 : 0.5;
+        // Obtain exaggeration
+        const double accessExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // radius depends if mouse is over element
+            const double radius = gViewObjectsHandler.isElementSelected(this)? 1 : 0.5;
             // get color
             RGBColor accessColor;
             if (drawUsingSelectColor()) {
@@ -232,19 +230,17 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // translate to geometry position
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
             // draw circle
-            if (s.drawForRectangleSelection) {
-                GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
-            } else {
-                GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
-            }
+            GLHelper::drawFilledCircleDetailled(d, radius);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidthSmall, true);
         }
-        // draw dotted contour
-        myContour.calculateContourCircleShape(s, d, myAdditionalGeometry.getShape().front(), radius, accessExaggeration,
-                                            s.dottedContourSettings.segmentWidthSmall);
+        // check object in view
+        myContour.calculateContourCircleShape2(s, d, myAdditionalGeometry.getShape().front(), 1, accessExaggeration,
+                                              s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

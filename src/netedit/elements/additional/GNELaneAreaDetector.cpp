@@ -317,9 +317,11 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0,
+        myContour.calculateContourExtrudedShape2(s, d, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -398,35 +400,35 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             // Pop layer matrix
             GLHelper::popMatrix();
             // draw additional ID
-            if (!s.drawForRectangleSelection) {
-                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-                // check if this is the label segment
-                if (segment->isLabelSegment() && !s.drawForRectangleSelection) {
-                    // calculate middle point
-                    const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
-                    // calculate position
-                    const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
-                    // calculate rotation
-                    const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
-                    // Start pushing matrix
-                    GLHelper::pushMatrix();
-                    // Traslate to position
-                    glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
-                    // rotate
-                    glRotated(rot, 0, 0, 1);
-                    // move
-                    glTranslated(-1, 0, 0);
-                    // scale text
-                    glScaled(E2DetectorWidth, E2DetectorWidth, 1);
-                    // draw E1 logo
-                    GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
-                    // pop matrix
-                    GLHelper::popMatrix();
-                }
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // check if this is the label segment
+            if (segment->isLabelSegment() && !s.drawForRectangleSelection) {
+                // calculate middle point
+                const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
+                // calculate position
+                const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
+                // calculate rotation
+                const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
+                // Start pushing matrix
+                GLHelper::pushMatrix();
+                // Traslate to position
+                glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
+                // rotate
+                glRotated(rot, 0, 0, 1);
+                // move
+                glTranslated(-1, 0, 0);
+                // scale text
+                glScaled(E2DetectorWidth, E2DetectorWidth, 1);
+                // draw E1 logo
+                GLHelper::drawText("E2 Multilane", Position(), .1, 1.5, RGBColor::BLACK);
+                // pop matrix
+                GLHelper::popMatrix();
             }
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+        myContour.calculateContourExtrudedShape2(s, d, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -465,9 +467,11 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                 } else {
                     GUIGeometry::drawGeometry(d, connectionGeometry, E2DetectorWidth);
                 }
+                // draw dotted contour
+                myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
             }
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
+            myContour.calculateContourExtrudedShape2(s, d, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
                                                 s.dottedContourSettings.segmentWidth);
         } else {
             // Set invalid person plan color
@@ -483,9 +487,11 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                     // draw invalid geometry
                     GUIGeometry::drawGeometry(d, invalidGeometry, (0.5 * E2DetectorWidth));
                 }
+                // draw dotted contour
+                myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
             }
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
+            myContour.calculateContourExtrudedShape2(s, d, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
                                                 s.dottedContourSettings.segmentWidth);
         }
         // Pop last matrix

@@ -197,10 +197,12 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop layer matrix
             GLHelper::popMatrix();
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myContour.calculateContourRectangleShape(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+            myContour.calculateContourRectangleShape2(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
                                                  symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration,
                                                  s.dottedContourSettings.segmentWidth);
         }

@@ -967,13 +967,15 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if (myTagProperty.isFlow()) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), vehiclePosition, exaggeration);
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), vehiclePosition, exaggeration);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw squared shape
-        myVehicleContour.calculateContourRectangleShape(s, d, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
-                s.dottedContourSettings.segmentWidth);
+        myVehicleContour.calculateContourRectangleShape2(s, d, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
+                                                         s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -1076,67 +1078,70 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
         } else {
             vehicleGeometry = segment->getLane()->getLaneGeometry();
         }
-        // obtain color
-        const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area translating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set color
-        GLHelper::setColor(pathColor);
-        // draw geometry
-        GUIGeometry::drawGeometry(d, vehicleGeometry, width);
-        // Pop last matrix
-        GLHelper::popMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-        // check if we have to draw a red line to the next segment (if next segment isnt' a junction
-        if (segment->getNextLane()) {
-            // push draw matrix
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // obtain color
+            const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
+            // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // Set red color
-            GLHelper::setColor(RGBColor::RED);
-            // get firstPosition (last position of current lane shape)
-            const Position& firstPosition = segment->getLane()->getLaneShape().back();
-            // get lastPosition (first position of next lane shape)
-            const Position& arrivalPosition = segment->getNextLane()->getLaneShape().front();
-            // draw box line
-            GLHelper::drawBoxLine(arrivalPosition,
-                                  RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
-                                  firstPosition.distanceTo2D(arrivalPosition), .05);
-            // pop draw matrix
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set color
+            GLHelper::setColor(pathColor);
+            // draw geometry
+            GUIGeometry::drawGeometry(d, vehicleGeometry, width);
+            // Pop last matrix
             GLHelper::popMatrix();
-        }
-        // check if this is the last segment
-        if (segment->isLastSegment() && (getParentJunctions().size() == 0)) {
-            // get geometryEndPos
-            const Position geometryEndPosition = getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-            // check if endPos can be drawn
-            if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
+            // check if we have to draw a red line to the next segment (if next segment isnt' a junction
+            if (segment->getNextLane()) {
                 // push draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area translating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-                // translate to geometryEndPos
-                glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
-                // Set person plan color
-                GLHelper::setColor(pathColor);
-                // resolution of drawn circle depending of the zoom (To improve smoothness)
-                GLHelper::drawFilledCircleDetailled(d, myArrivalPositionDiameter);
+                // Set red color
+                GLHelper::setColor(RGBColor::RED);
+                // get firstPosition (last position of current lane shape)
+                const Position& firstPosition = segment->getLane()->getLaneShape().back();
+                // get lastPosition (first position of next lane shape)
+                const Position& arrivalPosition = segment->getNextLane()->getLaneShape().front();
+                // draw box line
+                GLHelper::drawBoxLine(arrivalPosition,
+                                      RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
+                                      firstPosition.distanceTo2D(arrivalPosition), .05);
                 // pop draw matrix
                 GLHelper::popMatrix();
             }
+            // check if this is the last segment
+            if (segment->isLastSegment() && (getParentJunctions().size() == 0)) {
+                // get geometryEndPos
+                const Position geometryEndPosition = getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                // check if endPos can be drawn
+                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
+                    // push draw matrix
+                    GLHelper::pushMatrix();
+                    // Start with the drawing of the area translating matrix to origin
+                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+                    // translate to geometryEndPos
+                    glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
+                    // Set person plan color
+                    GLHelper::setColor(pathColor);
+                    // resolution of drawn circle depending of the zoom (To improve smoothness)
+                    GLHelper::drawFilledCircleDetailled(d, myArrivalPositionDiameter);
+                    // pop draw matrix
+                    GLHelper::popMatrix();
+                }
+            }
+            // Draw name if isn't being drawn for selecting
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            myContour.calculateContourExtrudedShape(s, d, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+            myContour.calculateContourExtrudedShape2(s, d, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                                 s.dottedContourSettings.segmentWidthSmall);
         } else {
-            myContour.calculateContourExtrudedShape(s, d, segment->getLane()->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+            myContour.calculateContourExtrudedShape2(s, d, segment->getLane()->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                                 s.dottedContourSettings.segmentWidthSmall);
         }
     }
@@ -1155,43 +1160,48 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
     // check conditions
     if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment, myTagProperty.getTag())) {
-        // calculate width
-        const double width = s.vehicleSize.getExaggeration(s, segment->getPreviousLane()) * s.widthSettings.tripWidth;
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area translating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedVehicleColor);
-        } else {
-            GLHelper::setColor(s.colorSettings.vehicleTripColor);
+        // calculate width
+        const double width = s.vehicleSize.getExaggeration(s, segment->getPreviousLane()) * s.widthSettings.tripWidth;
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // Add a draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area translating matrix to origin
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set color of the base
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.vehicleTripColor);
+            }
+            // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
+            if (segment->getPreviousLane() && segment->getNextLane()) {
+                // draw lane2lane
+                GUIGeometry::drawGeometry(d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()), width);
+            } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
+                // draw line between center of junction and last lane shape
+                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, width);
+            } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
+                // draw line between center of junction and first lane shape
+                GLHelper::drawBoxLines({getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, width);
+            }
+            // Pop last matrix
+            GLHelper::popMatrix();
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
-        if (segment->getPreviousLane() && segment->getNextLane()) {
-            // draw lane2lane
-            GUIGeometry::drawGeometry(d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()), width);
-        } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
-            // draw line between center of junction and last lane shape
-            GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, width);
-        } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
-            // draw line between center of junction and first lane shape
-            GLHelper::drawBoxLines({getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, width);
-        }
-        // Pop last matrix
-        GLHelper::popMatrix();
         // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
         if (segment->getPreviousLane() && segment->getNextLane()) {
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(), 0,
+            myContour.calculateContourExtrudedShape2(s, d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(), 0,
                                                 width, 1, false, false, s.dottedContourSettings.segmentWidthSmall);
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
-            myContour.calculateContourExtrudedShape(s, d, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, 0,
+            myContour.calculateContourExtrudedShape2(s, d, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, 0,
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);
         } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
-            myContour.calculateContourExtrudedShape(s, d, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, 0,
+            myContour.calculateContourExtrudedShape2(s, d, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, 0,
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
     }
