@@ -26,7 +26,7 @@
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEMoveElement.h"
 

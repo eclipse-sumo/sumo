@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
-// Operations that must be applied after drawGL()
+// class used for handle objects over view
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,7 +28,6 @@
 // class declaration
 // ===========================================================================
 
-class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNERoute;

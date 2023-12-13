@@ -40,7 +40,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
@@ -2462,7 +2462,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // obtain geometry point
             const auto geometryPointPos = myNBEdge->getGeometry()[i];
             // check if mouse is in geometry point position
-            const auto mouseOverPos = s.drawForObjectUnderCursor? gObjectsInPosition.checkCircleElement(d, this, geometryPointPos, circleWidth) : false;
+            const auto mouseOverPos = s.drawForObjectUnderCursor? gViewObjectsHandler.checkCircleElement(d, this, geometryPointPos, circleWidth) : false;
             // draw geometry depending of detail
             if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
                 // obtain color
@@ -2512,7 +2512,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
     // check drawing conditions
     if (startPosEdited || forceDraw) {
         // check if mouse is over geometry point
-        const bool mouseOver = gObjectsInPosition.checkCircleElement(d, this, startGeometryPointPos, circleWidth);
+        const bool mouseOver = gViewObjectsHandler.checkCircleElement(d, this, startGeometryPointPos, circleWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
             // calculate angle betwen first and second geometry point
@@ -2575,7 +2575,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
     // check drawing conditions
     if (endPosEdited || forceDraw) {
         // check if mouse is over geometry point
-        const bool mouseOver = gObjectsInPosition.checkCircleElement(d, this, geometryPointPos, circleWidth);
+        const bool mouseOver = gViewObjectsHandler.checkCircleElement(d, this, geometryPointPos, circleWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
             // calculate angle last and previous geometry point
@@ -2811,7 +2811,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // avoid draw for railways
-    if ((gObjectsInPosition.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->getDrawingConstants()->drawAsRailway()) {
+    if ((gViewObjectsHandler.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->getDrawingConstants()->drawAsRailway()) {
         // push draw matrix
         GLHelper::pushMatrix();
         // translate to front depending of big points

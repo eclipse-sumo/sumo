@@ -27,7 +27,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 
 #include "GNERoute.h"
@@ -492,9 +492,9 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             }
             // check if mark this route
             const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            if ((gObjectsInPosition.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
+            if ((gViewObjectsHandler.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
                     templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-                gObjectsInPosition.markedRoute = this;
+                gViewObjectsHandler.markedRoute = this;
             }
         }
         // draw dotted geometry
@@ -545,9 +545,9 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), getExaggeration(s));
             // check if mark this route
             const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            if ((gObjectsInPosition.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
+            if ((gViewObjectsHandler.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
                     templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-                gObjectsInPosition.markedRoute = this;
+                gViewObjectsHandler.markedRoute = this;
             }
         }
         // draw dotted geometry

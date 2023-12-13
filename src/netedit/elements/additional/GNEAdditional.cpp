@@ -34,7 +34,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEAdditional.h"
 #include "GNETAZ.h"
@@ -170,7 +170,7 @@ GNEAdditional::checkDrawFromContour() const {
         } else if (TAZRelDataFrame->shown()) {
             // check first TAZ
             if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                return gObjectsInPosition.isElementSelected(this);
+                return gViewObjectsHandler.isElementSelected(this);
             } else if (TAZRelDataFrame->getFirstTAZ() == this) {
                 return true;
             }
@@ -229,7 +229,7 @@ GNEAdditional::checkDrawToContour() const {
         } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
             // check first TAZ
             if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
-                return gObjectsInPosition.isElementSelected(this);
+                return gViewObjectsHandler.isElementSelected(this);
             } else if (TAZRelDataFrame->getSecondTAZ() == this) {
                 return true;
             }

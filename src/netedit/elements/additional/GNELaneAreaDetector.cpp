@@ -28,7 +28,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNELaneAreaDetector.h"

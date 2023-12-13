@@ -33,7 +33,7 @@
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEViewNetHelper.h"
@@ -224,7 +224,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
     // clear elements
     myObjects.clearElements();
     // process GUIGLObjects using elements under cursor
-    processGUIGlObjects(gObjectsInPosition.getSelectedObjects());
+    processGUIGlObjects(gViewObjectsHandler.getSelectedObjects());
 }
 
 

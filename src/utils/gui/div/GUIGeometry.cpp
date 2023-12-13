@@ -21,7 +21,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/div/GUIGlobalObjectsInPosition.h>
+#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GUIGeometry.h"
 
@@ -384,7 +384,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             }
         }
         // check if draw position over shape
-        const auto &positionOverShape = gObjectsInPosition.getPositionOverShape(glObject);
+        const auto &positionOverShape = gViewObjectsHandler.getPositionOverShape(glObject);
         if (drawingMovingHit && (positionOverShape != Position::INVALID)) {
             // push geometry point matrix
             GLHelper::pushMatrix();

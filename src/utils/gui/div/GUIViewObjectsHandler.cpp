@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
-// Operations that must be applied after drawGL()
+// class used for handle objects over view
 /****************************************************************************/
 #include <config.h>
 #include <algorithm>
@@ -24,6 +24,10 @@
 
 #include "GUIViewObjectsHandler.h"
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 GUIViewObjectsHandler::GUIViewObjectsHandler() {}
 
