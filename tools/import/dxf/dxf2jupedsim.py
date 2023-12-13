@@ -62,10 +62,16 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
     if not simple:
         print("Warning: polygon '%s' is not simple." % polygonID)
         segments = list(map(shapely.LineString, zip(cleanPolygon[:-1], cleanPolygon[1:])))
+        intersect = False
         for segment1, segment2 in itertools.combinations(segments, 2):
             if segment1.crosses(segment2):
-                    print("Segments [(%.9f, %.9f)] and [(%.9f, %.9f)] intersect each other."
+                    intersect = True
+                    print("Hint: segments [(%.9f, %.9f)] and [(%.9f, %.9f)] intersect each other."
                             % (segment1.coords[0][0], segment1.coords[0][1], segment2.coords[1][0], segment2.coords[1][1]))
+        if intersect == False:
+            duplicates = {point for point in cleanPolygon[:-1] if cleanPolygon[:-1].count(point) > 1}
+            for point in duplicates:
+                print("Hint: point [(%.9f, %.9f)] appears at least twice." %(point[0], point[1]))
 
     # Create the XML element.
     poly = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])
