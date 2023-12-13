@@ -50,6 +50,7 @@
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
+const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 1.0;
 
 
 // ===========================================================================
@@ -420,21 +421,32 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     if (cleanShape.size() < shape.size()) {
         WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed."), shapeID);
     }
-    GEOSCoordSequence* coordSeq = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
+    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
     for (int i = 0; i < (int)cleanShape.size(); i++) {
-        GEOSCoordSeq_setXY(coordSeq, i, cleanShape[i].x(), cleanShape[i].y());
+        GEOSCoordSeq_setXY(coordinateSequence, i, cleanShape[i].x(), cleanShape[i].y());
     }
-    GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordSeq);
+    GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordinateSequence);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
-        WRITE_WARNINGF(TL("Polygon '%' was skipped as it is not simple."), shapeID);
-        if (isInternalShape){
-            // Compute the convex hull of the shape as a proxy.
-            polygon = GEOSConvexHull(polygon);
-        }
-        else{
-            // The non-simple polygon will be skipped afterwards.
+        if (cleanShape.size() == 2) {
+            WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
             polygon = nullptr;
+        }
+        else if (cleanShape.size() == 3) {
+            WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
+            GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
+            polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
+            GEOSGeom_destroy(lineString);
+        }
+        else {
+            if (isInternalShape){
+            WRITE_WARNINGF(TL("Polygon '%' has been replaced by its convex hull as it is not simple."), shapeID);
+            polygon = GEOSConvexHull(polygon);
+            }
+            else{
+                WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is not simple."), shapeID);
+                polygon = nullptr;
+            }
         }
     }
     return polygon;

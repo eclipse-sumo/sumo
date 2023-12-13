@@ -161,6 +161,7 @@ private:
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
+    static const double GEOS_BUFFERED_SEGMENT_WIDTH;
 
     void initialize();
     void tryPedestrianInsertion(PState* state, const Position& p);
