@@ -403,7 +403,7 @@ MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, doubl
 
 
 GEOSGeometry*
-MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isWalkingArea) {
+MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape) {
     // Make sure the shape is closed.
     if (shape.back() != shape.front()) {
         shape.push_back(shape.front());
@@ -428,8 +428,8 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
         WRITE_WARNINGF(TL("Polygon '%' was skipped as it is not simple."), shapeID);
-        if (isWalkingArea){
-            // Compute the convex hull of the walking area's shape as a proxy.
+        if (isInternalShape){
+            // Compute the convex hull of the shape as a proxy.
             polygon = GEOSConvexHull(polygon);
         }
         else{
@@ -534,7 +534,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         }
         if (pedEdgeCount > 1 && !hasWalkingArea) {
             // there is something to connect but no walking area, let's assume peds are allowed everywhere
-            GEOSGeometry* walkingAreaGeom = createGeometryFromShape(junction->getShape());
+            GEOSGeometry* walkingAreaGeom = createGeometryFromShape(junction->getShape(), junction->getID(), true);
             if (walkingAreaGeom != nullptr) {
                 walkableAreas.push_back(walkingAreaGeom);
             }

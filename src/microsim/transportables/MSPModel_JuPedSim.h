@@ -170,7 +170,7 @@ private:
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
     static const MSEdge* getWalkingAreaInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
-    static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string shapeID, bool isWalkingArea = false);
+    static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape = false);
     static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const GEOSGeometry* geometry);
