@@ -719,7 +719,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             drawAdditionalName(s);
         }
         // draw squared shape
-        myContour.drawDottedContourRectangle(s, d, pos, size, size, 0, 0, 0, exaggeration,
+        myContour.calculateContourRectangleShape(s, d, pos, size, size, 0, 0, 0, exaggeration,
                                              s.dottedContourSettings.segmentWidth);
     }
 }
@@ -818,7 +818,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             }
         }
         // draw squared shape
-        myContour.drawDottedContourRectangle(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
+        myContour.calculateContourRectangleShape(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
                                              s.dottedContourSettings.segmentWidth);
     }
 }

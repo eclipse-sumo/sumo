@@ -396,12 +396,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, connectionExaggeration, true, true, 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, connectionExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidthSmall);
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myContour.drawDottedContourGeometryPoints(s, d, shapeSuperposed, GNEContour::GeometryPoint::ALL,
+            myContour.calculateContourGeometryPoints(s, d, shapeSuperposed, GNEContour::GeometryPoint::ALL,
                                                       s.neteditSizeSettings.connectionGeometryPointRadius, connectionExaggeration,
                                                       s.dottedContourSettings.segmentWidth);
         }

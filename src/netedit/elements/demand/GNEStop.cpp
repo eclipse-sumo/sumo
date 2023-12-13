@@ -404,8 +404,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw name
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

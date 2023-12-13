@@ -212,20 +212,20 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw stoppingPlace children
         drawStoppingPlaceChildren(s);
-        // draw dotted geometry (don't exaggerate contour)
+        // calculate contour and draw dotted geometry (don't exaggerate contour)
         if (movingGeometryPoints) {
             if (myStartPosition != INVALID_DOUBLE) {
-                myContour.drawDottedContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
+                myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                           s.dottedContourSettings.segmentWidth);
             }
             if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
-                myContour.drawDottedContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
+                myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                           s.dottedContourSettings.segmentWidth);
             }
         } else {
-            myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true, 0,
+            myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true, 0,
                                                 s.dottedContourSettings.segmentWidth);
         }
     }

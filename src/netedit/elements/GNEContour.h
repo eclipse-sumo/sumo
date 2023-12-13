@@ -54,42 +54,42 @@ public:
     /// @brief get contour boundary
     Boundary getContourBoundary() const;
 
-    /// @brief dotted contours
+    /// @brief calculate contours
     /// @{
 
     /// @brief draw dotted contour (for closed shapes)
-    void drawDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                 const PositionVector& shape, const double scale, const bool addOffset,
-                                 const double lineWidth) const;
+    void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                     const PositionVector& shape, const double scale, const bool addOffset,
+                                     const double lineWidth) const;
 
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
-    void drawDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                   const PositionVector& shape, const double extrusionWidth, const double scale,
-                                   const bool drawFirstExtrem, const bool drawLastExtrem, const double offset,
-                                   const double lineWidth) const;
+    void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                       const PositionVector& shape, const double extrusionWidth, const double scale,
+                                       const bool drawFirstExtrem, const bool drawLastExtrem, const double offset,
+                                       const double lineWidth) const;
 
     /// @brief draw dotted contour (for rectangled elements)
-    void drawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                    const Position& pos, const double width, const double height, const double offsetX,
-                                    const double offsetY, const double rot, const double scale, const double lineWidth) const;
+    void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                        const Position& pos, const double width, const double height, const double offsetX,
+                                        const double offsetY, const double rot, const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour (circle elements)
-    void drawDottedContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                 const Position& pos, double radius, const double scale, const double lineWidth) const;
+    void calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                     const Position& pos, double radius, const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour (geometry points elements)
-    void drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                         const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale,
-                                         const double lineWidth) const;
+    void calculateContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                        const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale,
+                                        const double lineWidth) const;
 
     /// @brief draw dotted contour edge
-    void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem,
-                               const double lineWidth) const;
+    void calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem,
+                              const double lineWidth) const;
 
-    /// @brief draw dotted contour between two edges
-    void drawDottedContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const;
+    /// @brief draw dotted contour between two consecutive edges
+    void calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const;
 
     /// @}
 
@@ -114,34 +114,34 @@ private:
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
 
-    /// @name build functions
+    /// @name build contour functions
     /// @{
 
-    /// @brief build dotted contour shape
-    PositionVector buildDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                            const PositionVector& shape, const double scale) const;
+    /// @brief build contour around closed shape (ej. polygon)
+    PositionVector buildContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                           const PositionVector& shape, const double scale) const;
 
-    /// @brief build and draw dotted contour extruded
-    PositionVector buildDottedContourExtruded(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                              const PositionVector& shape, const double extrusionWidth, const double scale,
-                                              const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const;
+    /// @brief build contour around extruded shape (ej. lane)
+    PositionVector buildContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                             const PositionVector& shape, const double extrusionWidth, const double scale,
+                                             const bool drawFirstExtrem, const bool drawLastExtrem, const double offset) const;
 
-    /// @brief build dotted contour rectangle
-    PositionVector buildDottedContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                                               const Position& pos, const double width, const double height, const double offsetX,
-                                               const double offsetY, const double rot, const double scale) const;
+    /// @brief build contour around rectangle
+    PositionVector buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                         const Position& pos, const double width, const double height, const double offsetX,
+                                         const double offsetY, const double rot, const double scale) const;
 
-    /// @brief build dotted contour circle
-    PositionVector buildDottedContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                            const Position& pos, double radius, const double scale) const;
+    /// @brief build contour aorund circle
+    PositionVector buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                      const Position& pos, double radius, const double scale) const;
 
-    /// @brief build dotted contour edge
-    PositionVector buildDottedContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                          const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
+    /// @brief build contour around edge
+    PositionVector buildContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                    const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
-    /// @brief build dotted contour edges
-    PositionVector buildDottedContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+    /// @brief build contour between two from-to edgeds
+    PositionVector buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                     const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
     
     /// @brief update contour boundary
     void updateContourBondary() const;

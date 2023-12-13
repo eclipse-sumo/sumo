@@ -1127,8 +1127,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // pop matrix
             GLHelper::popMatrix();
         }
-        // draw dotted geometry
-        myPlanElement->getContour().drawDottedContourExtruded(s, d, planGeometry.getShape(), pathWidth, 1, true, true, 0,
+        // calculate contour and draw dotted geometry
+        myPlanElement->getContour().calculateContourExtrudedShape(s, d, planGeometry.getShape(), pathWidth, 1, true, true, 0,
                 s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
@@ -1204,12 +1204,12 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
-        // draw dotted geometry
+        // calculate contour and draw dotted geometry
         if (duplicateWidth) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true, 0,
+            myPlanElement->getContour().calculateContourExtrudedShape(s, d, shape, pathWidth, 1, true, true, 0,
                     s.dottedContourSettings.segmentWidth);
         } else {
-            myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true, 0,
+            myPlanElement->getContour().calculateContourExtrudedShape(s, d, shape, pathWidth, 1, true, true, 0,
                     s.dottedContourSettings.segmentWidthSmall);
         }
     }
@@ -1274,20 +1274,20 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
-                // draw dotted geometry
+                // calculate contour and draw dotted geometry
                 if (duplicateWidth) {
-                    myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true, 0,
+                    myPlanElement->getContour().calculateContourExtrudedShape(s, d, shape, pathWidth, 1, true, true, 0,
                             s.dottedContourSettings.segmentWidth);
                 } else {
-                    myPlanElement->getContour().drawDottedContourExtruded(s, d, shape, pathWidth, 1, true, true, 0,
+                    myPlanElement->getContour().calculateContourExtrudedShape(s, d, shape, pathWidth, 1, true, true, 0,
                             s.dottedContourSettings.segmentWidthSmall);
                 }
             }
         } else if (segment->getPreviousLane()) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, d, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
+            myPlanElement->getContour().calculateContourExtrudedShape(s, d, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
                     pathWidth, 1, true, true, 0, s.dottedContourSettings.segmentWidth);
         } else if (segment->getNextLane()) {
-            myPlanElement->getContour().drawDottedContourExtruded(s, d, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
+            myPlanElement->getContour().calculateContourExtrudedShape(s, d, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
                     pathWidth, 1, true, true, 0, s.dottedContourSettings.segmentWidth);
         }
     }

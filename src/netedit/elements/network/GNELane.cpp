@@ -683,8 +683,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw children
     drawChildren(s);
-    // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
+    // calculate contour and draw dotted geometry
+    myContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
                                         myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset(),
                                         s.dottedContourSettings.segmentWidth);
 }

@@ -648,15 +648,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawJunctionChildren(s, d);
         // draw dotted contour depending of shapes
         if (junctionShape && (myNBNode->getShape().area() > 1)) {
-            myContour.drawDottedContourClosed(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourClosedShape(s, d, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
         }
         if (junctionBubble) {
-            myCircleContour.drawDottedContourCircle(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
+            myCircleContour.calculateContourCircleShape(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
                                                     s.dottedContourSettings.segmentWidth);
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myContour.drawDottedContourGeometryPoints(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
+            myContour.calculateContourGeometryPoints(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
                                                       s.neteditSizeSettings.connectionGeometryPointRadius, junctionExaggeration,
                                                       s.dottedContourSettings.segmentWidth);
         }

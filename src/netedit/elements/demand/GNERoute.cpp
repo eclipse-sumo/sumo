@@ -497,8 +497,8 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
                 gViewObjectsHandler.markedRoute = this;
             }
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -550,8 +550,8 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
                 gViewObjectsHandler.markedRoute = this;
             }
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, geometry.getShape(), routeWidth, 1, false, false, 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, geometry.getShape(), routeWidth, 1, false, false, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

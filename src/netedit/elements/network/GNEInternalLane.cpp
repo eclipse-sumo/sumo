@@ -204,8 +204,8 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
                                            s.scale, s.angle);
             }
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth, 1,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth, 1,
                                             true, true, 0, s.dottedContourSettings.segmentWidthSmall);
     }
 }

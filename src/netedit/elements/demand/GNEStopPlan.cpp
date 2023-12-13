@@ -448,8 +448,8 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
     }
-    // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
+    // calculate contour and draw dotted geometry
+    myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
                                         s.dottedContourSettings.segmentWidth);
 }
 
@@ -507,8 +507,8 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
     }
-    // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
+    // calculate contour and draw dotted geometry
+    myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
                                         s.dottedContourSettings.segmentWidth);
 }
 

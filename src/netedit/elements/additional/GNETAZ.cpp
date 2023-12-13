@@ -387,8 +387,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours
-        myContour.drawDottedContourClosed(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
-        myContour.drawDottedContourCircle(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourClosedShape(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
+        myContour.calculateContourCircleShape(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
     }
 }
 

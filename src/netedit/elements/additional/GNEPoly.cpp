@@ -321,21 +321,21 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // draw dotted contour depending if is closed
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
             // draw dotted contour
-            myContour.drawDottedContourClosed(s, d, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourClosedShape(s, d, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
         } else {
-            // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+            // calculate contour and draw dotted geometry
+            myContour.calculateContourExtrudedShape(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                                                 polyExaggeration, true, true, 0, s.dottedContourSettings.segmentWidth);
         }
         // check geometry points
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // draw size depending of mode
             if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                myContour.drawDottedContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                myContour.calculateContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius, polyExaggeration,
                                                           s.dottedContourSettings.segmentWidth);
             } else {
-                myContour.drawDottedContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                myContour.calculateContourGeometryPoints(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                           s.neteditSizeSettings.additionalGeometryPointRadius * 0.5, polyExaggeration,
                                                           s.dottedContourSettings.segmentWidth);
             }

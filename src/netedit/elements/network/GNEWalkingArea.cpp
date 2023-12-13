@@ -179,7 +179,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw dotted contour
-        myContour.drawDottedContourClosed(s, d, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourClosedShape(s, d, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
     }
 }
 

@@ -318,8 +318,8 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             // draw additional name
             drawAdditionalName(s);
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -425,8 +425,8 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
                 }
             }
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                             s.dottedContourSettings.segmentWidth);
     }
 }
@@ -466,8 +466,8 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                     GUIGeometry::drawGeometry(d, connectionGeometry, E2DetectorWidth);
                 }
             }
-            // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, d, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
+            // calculate contour and draw dotted geometry
+            myContour.calculateContourExtrudedShape(s, d, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
                                                 s.dottedContourSettings.segmentWidth);
         } else {
             // Set invalid person plan color
@@ -484,8 +484,8 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
                     GUIGeometry::drawGeometry(d, invalidGeometry, (0.5 * E2DetectorWidth));
                 }
             }
-            // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, d, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
+            // calculate contour and draw dotted geometry
+            myContour.calculateContourExtrudedShape(s, d, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false, 0,
                                                 s.dottedContourSettings.segmentWidth);
         }
         // Pop last matrix

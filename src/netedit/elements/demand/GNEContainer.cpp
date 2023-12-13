@@ -419,7 +419,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, d, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
+        myContour.calculateContourRectangleShape(s, d, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
                                                 s.dottedContourSettings.segmentWidth);
     }
 }

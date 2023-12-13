@@ -159,7 +159,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         }
         // draw dotted contour
-        myContour.drawDottedContourRectangle(s, d, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+        myContour.calculateContourRectangleShape(s, d, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
                                              myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration,
                                              s.dottedContourSettings.segmentWidth);
     }

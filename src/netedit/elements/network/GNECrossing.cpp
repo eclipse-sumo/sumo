@@ -262,12 +262,12 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
         }
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, d, myCrossingGeometry.getShape(), crossingWidth, crossingExaggeration, true, true, 0,
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourExtrudedShape(s, d, myCrossingGeometry.getShape(), crossingWidth, crossingExaggeration, true, true, 0,
                                             s.dottedContourSettings.segmentWidth);
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myContour.drawDottedContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+            myContour.calculateContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                       s.neteditSizeSettings.connectionGeometryPointRadius, crossingExaggeration,
                                                       s.dottedContourSettings.segmentWidth);
         }

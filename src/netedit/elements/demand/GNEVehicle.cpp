@@ -972,7 +972,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw squared shape
-        myVehicleContour.drawDottedContourRectangle(s, d, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
+        myVehicleContour.calculateContourRectangleShape(s, d, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
                 s.dottedContourSettings.segmentWidth);
     }
 }
@@ -1131,12 +1131,12 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
                 GLHelper::popMatrix();
             }
         }
-        // draw dotted geometry
+        // calculate contour and draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            myContour.drawDottedContourExtruded(s, d, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+            myContour.calculateContourExtrudedShape(s, d, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                                 s.dottedContourSettings.segmentWidthSmall);
         } else {
-            myContour.drawDottedContourExtruded(s, d, segment->getLane()->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
+            myContour.calculateContourExtrudedShape(s, d, segment->getLane()->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
                                                 s.dottedContourSettings.segmentWidthSmall);
         }
     }
@@ -1184,14 +1184,14 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
         GLHelper::popMatrix();
         // continue depending if we're in the middle of two lanes or in the begin/end of a junction route
         if (segment->getPreviousLane() && segment->getNextLane()) {
-            // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(), 0,
+            // calculate contour and draw dotted geometry
+            myContour.calculateContourExtrudedShape(s, d, segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape(), 0,
                                                 width, 1, false, false, s.dottedContourSettings.segmentWidthSmall);
         } else if (segment->getPreviousLane() && myTagProperty.vehicleJunctions()) {
-            myContour.drawDottedContourExtruded(s, d, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, 0,
+            myContour.calculateContourExtrudedShape(s, d, {segment->getPreviousLane()->getLaneShape().back(), getParentJunctions().back()->getPositionInView()}, 0,
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);
         } else if (segment->getNextLane() && myTagProperty.vehicleJunctions()) {
-            myContour.drawDottedContourExtruded(s, d, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, 0,
+            myContour.calculateContourExtrudedShape(s, d, {getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, 0,
                                                 width, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
     }
