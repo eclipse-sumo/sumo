@@ -36,9 +36,7 @@ actorConfig for each vehicle will be defined before the vehicle is
 written. The same is true for vehicles and their motionStates.
 
 !!! note
-    All numbers and ids are integers, where all the times are in
-milliseconds. Speeds are given in cm/s and acceleration values in mm/s^2. For details and further information on the types please
-see the schema <https://sumo.dlr.de/xsd/amitran/trajectories.xsd>.
+    All numbers and ids are integers, where all the times are in milliseconds. Speeds are given in cm/s and acceleration values in mm/s^2. For details and further information on the types please see the schema https://sumo.dlr.de/xsd/amitran/trajectories.xsd>.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
