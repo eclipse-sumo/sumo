@@ -25,6 +25,6 @@
 // global variables definitions
 // ===========================================================================
 
-GUIObjectsInPosition gObjectsInPosition;
+GUIViewObjectsHandler gObjectsInPosition;
 
 /****************************************************************************/

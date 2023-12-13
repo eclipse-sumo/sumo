@@ -417,7 +417,7 @@ struct GNEViewNetHelper {
         void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
-        void processGUIGlObjects(const GUIObjectsInPosition::GLObjectsSortedContainer& objectsContainer);
+        void processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer);
 
         /// @brief default constructor
         ObjectsUnderCursor();

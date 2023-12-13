@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIObjectsInPosition.h
+/// @file    GUIViewObjectsHandler.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
@@ -37,7 +37,7 @@ class GNERoute;
 // class definitions
 // ===========================================================================
 
-class GUIObjectsInPosition {
+class GUIViewObjectsHandler {
 
 public:
     /// @brief object container
@@ -61,7 +61,7 @@ public:
     typedef std::map<double, std::vector<ObjectContainer> > GLObjectsSortedContainer;
 
     /// @brief constructor
-    GUIObjectsInPosition();
+    GUIViewObjectsHandler();
 
     /// @brief clear elements
     void clearElements();
@@ -151,8 +151,8 @@ protected:
 
 private:
     /// @brief set copy constructor private
-    GUIObjectsInPosition(const GUIObjectsInPosition&) = default;
+    GUIViewObjectsHandler(const GUIViewObjectsHandler&) = default;
 
     /// @brief set assignment operator private
-    GUIObjectsInPosition& operator=(const GUIObjectsInPosition&) = default;
+    GUIViewObjectsHandler& operator=(const GUIViewObjectsHandler&) = default;
 };

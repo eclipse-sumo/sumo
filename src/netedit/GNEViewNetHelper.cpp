@@ -1016,7 +1016,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const GUIObjectsInPosition::GLObjectsSortedContainer& objectsContainer) {
+GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer) {
     // iterate over filtered edge objects
     for (const auto& glObjectLayer : objectsContainer) {
         for (const auto &glObject : glObjectLayer.second) {

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIObjectsInPosition.cpp
+/// @file    GUIViewObjectsHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 22
 ///
@@ -22,14 +22,14 @@
 
 #include <utils/shapes/Shape.h>
 
-#include "GUIObjectsInPosition.h"
+#include "GUIViewObjectsHandler.h"
 
 
-GUIObjectsInPosition::GUIObjectsInPosition() {}
+GUIViewObjectsHandler::GUIViewObjectsHandler() {}
 
 
 void
-GUIObjectsInPosition::clearElements() {
+GUIViewObjectsHandler::clearElements() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
     // clear objects under cursor
@@ -46,27 +46,27 @@ GUIObjectsInPosition::clearElements() {
 
 
 void
-GUIObjectsInPosition::setSelectionPosition(const Position &pos) {
+GUIViewObjectsHandler::setSelectionPosition(const Position &pos) {
     mySelectionPosition = pos;
     mySelectionBoundary.reset();
 }
 
 
 void
-GUIObjectsInPosition::setSelectionBoundary(const Boundary &boundary) {
+GUIViewObjectsHandler::setSelectionBoundary(const Boundary &boundary) {
     mySelectionPosition = Position::INVALID;
     mySelectionBoundary = boundary;
 }
 
 
 bool
-GUIObjectsInPosition::isElementSelected(const GUIGlObject* GLObject) const {
+GUIViewObjectsHandler::isElementSelected(const GUIGlObject* GLObject) const {
     return mySelectedObjets.find(GLObject) != mySelectedObjets.end();
 }
 
 
 bool
-GUIObjectsInPosition::checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                                          const Position &center, const double radius) {
     // declare squared radius
     const double squaredRadius = (radius * radius);
@@ -115,7 +115,7 @@ GUIObjectsInPosition::checkCircleElement(const GUIVisualizationSettings::Detail 
 
 
 bool
-GUIObjectsInPosition::checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                                          const int index, const Position &center, const double radius) {
     // declare squared radius
     const double squaredRadius = (radius * radius);
@@ -164,7 +164,7 @@ GUIObjectsInPosition::checkGeometryPoint(const GUIVisualizationSettings::Detail 
 
 
 bool
-GUIObjectsInPosition::checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                                              const PositionVector &shape, const double distance) {
     if ((mySelectionPosition != Position::INVALID) && (d <= GUIVisualizationSettings::Detail::PreciseSelection)) {
         // obtain nearest position over shape
@@ -182,7 +182,7 @@ GUIObjectsInPosition::checkPositionOverShape(const GUIVisualizationSettings::Det
 
 
 bool
-GUIObjectsInPosition::checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                                         const PositionVector &shape) {
     // continue depending if we're selecting a position or a boundary
     if (mySelectionBoundary.isInitialised()) {
@@ -215,14 +215,14 @@ GUIObjectsInPosition::checkShapeElement(const GUIVisualizationSettings::Detail d
 }
 
 
-const GUIObjectsInPosition::GLObjectsSortedContainer&
-GUIObjectsInPosition::getSelectedObjects() const {
+const GUIViewObjectsHandler::GLObjectsSortedContainer&
+GUIViewObjectsHandler::getSelectedObjects() const {
     return myElementsUnderCursor;
 }
 
 
 const std::vector<int>&
-GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
+GUIViewObjectsHandler::getGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -236,7 +236,7 @@ GUIObjectsInPosition::getGeometryPoints(const GUIGlObject* GLObject) const {
 
 
 const Position&
-GUIObjectsInPosition::getPositionOverShape(const GUIGlObject* GLObject) const {
+GUIViewObjectsHandler::getPositionOverShape(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -250,7 +250,7 @@ GUIObjectsInPosition::getPositionOverShape(const GUIGlObject* GLObject) const {
 
 
 void
-GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
+GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
     ObjectContainer frontElement(nullptr);
     // extract element
     for (auto &elementLayer : myElementsUnderCursor) {
@@ -275,7 +275,7 @@ GUIObjectsInPosition::updateFrontElement(const GUIGlObject* GLObject) {
 
 
 bool
-GUIObjectsInPosition::addElementUnderCursor(const GUIGlObject* GLObject) {
+GUIViewObjectsHandler::addElementUnderCursor(const GUIGlObject* GLObject) {
     // avoid to insert duplicated elements
     if (isElementSelected(GLObject)) {
         return false;
@@ -296,7 +296,7 @@ GUIObjectsInPosition::addElementUnderCursor(const GUIGlObject* GLObject) {
 
 
 bool
-GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
+GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {
@@ -330,7 +330,7 @@ GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, c
 
 
 bool
-GUIObjectsInPosition::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos) {
+GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos) {
     // avoid to insert duplicated elements
     for (auto &elementLayer : myElementsUnderCursor) {
         for (auto &element : elementLayer.second) {

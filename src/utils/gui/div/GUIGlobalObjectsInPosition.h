@@ -20,11 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/settings/GUIObjectsInPosition.h>
+#include <utils/gui/settings/GUIViewObjectsHandler.h>
 
 
 // ===========================================================================
 // global variable declarations
 // ===========================================================================
 
-extern GUIObjectsInPosition gObjectsInPosition;
+extern GUIViewObjectsHandler gObjectsInPosition;

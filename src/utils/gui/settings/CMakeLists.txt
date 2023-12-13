@@ -7,8 +7,8 @@ set(utils_gui_settings_STAT_SRCS
    GUISettingsHandler.h
    GUIVisualizationSettings.cpp
    GUIVisualizationSettings.h
-   GUIObjectsInPosition.cpp
-   GUIObjectsInPosition.h
+   GUIViewObjectsHandler.cpp
+   GUIViewObjectsHandler.h
 )
 
 add_library(utils_gui_settings STATIC ${utils_gui_settings_STAT_SRCS})
