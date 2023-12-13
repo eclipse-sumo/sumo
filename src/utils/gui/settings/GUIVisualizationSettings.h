@@ -626,9 +626,6 @@ public:
     /// @brief check if draw element depending of boundarySize
     bool checkBoundarySizeDrawing(const double w, const double h) const;
 
-    /// @brief check if draw element depending of shapeSize
-    bool checkShapeSizeDrawing(const double shapeLenght) const;
-
     /// @brief return the detail level
     Detail getDetailLevel(const double exaggeration) const;
 

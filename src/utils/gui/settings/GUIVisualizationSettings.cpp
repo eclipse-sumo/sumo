@@ -2396,20 +2396,6 @@ GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double 
 }
 
 
-bool
-GUIVisualizationSettings::checkShapeSizeDrawing(const double shapeLenght) const {
-    if (drawForObjectUnderCursor) {
-        return true;
-    } else if ((scale <= 2.5) && (shapeLenght < 8)) {
-        return false;
-    } else if ((scale <= 1.25) && (shapeLenght < 12)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-
 GUIVisualizationSettings::Detail
 GUIVisualizationSettings::getDetailLevel(const double exaggeration) const {
     // calculate factor

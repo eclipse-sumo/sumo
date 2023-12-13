@@ -564,11 +564,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level from the first lane
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
-        if (s.checkShapeSizeDrawing(myLanes.front()->getLaneShapeLength())) {
-            // draw draw lanes
-            for (const auto& lane : myLanes) {
-                lane->drawGL(s);
-            }
+        // draw draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
         }
         // draw junctions
         getFromJunction()->drawGL(s);
