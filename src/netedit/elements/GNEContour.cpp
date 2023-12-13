@@ -43,24 +43,20 @@ GUIDottedGeometry::DottedGeometryColor GNEContour::myDottedGeometryColor;
 
 GNEContour::GNEContour(GNEAttributeCarrier* AC) :
     myAC(AC),
-    myDottedGeometries(new std::vector<GUIDottedGeometry>(4)) {
+    myDottedGeometries(new std::vector<GUIDottedGeometry>(4)),
+    myContourBoundary(new Boundary) {
 }
 
 
 GNEContour::~GNEContour() {
     delete myDottedGeometries;
+    delete myContourBoundary;
 }
 
 
 Boundary
 GNEContour::getContourBoundary() const {
-    Boundary b;
-    for (const auto &dottedGeometry : *myDottedGeometries) {
-        if (dottedGeometry.getUnresampledShape().size() > 0) {
-            b.add(dottedGeometry.getUnresampledShape().getBoxBoundary());
-        }
-    }
-    return b;
+    return *myContourBoundary;
 }
 
 
@@ -216,6 +212,8 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIV
     GLHelper::pushMatrix();
     // draw dotted
     myDottedGeometries->at(0).drawInnenGeometry(lineWidth);
+    // update contour boundary
+    updateContourBondary();
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -232,6 +230,8 @@ GNEContour::buildDottedContourClosed(const GUIVisualizationSettings& s, const GU
     scaledShape.closePolygon();
     // calculate dotted geometry
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, scaledShape, true);
+    // update contour boundary
+    updateContourBondary();
     // finally return scaled shape (used for check mouse pos)
     return scaledShape;
 }
@@ -260,6 +260,8 @@ GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const 
             myDottedGeometries->at(2).getFrontPosition()
         }, false);
     }
+    // update contour boundary
+    updateContourBondary();
     // finally create shape used for check position over mouse
     PositionVector extrudedShape;
     for (const auto &position : myDottedGeometries->at(0).getUnresampledShape()) {
@@ -293,6 +295,8 @@ GNEContour::buildDottedContourRectangle(const GUIVisualizationSettings& s, const
     rectangleShape.add(pos);
     // calculate dotted geometry
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, rectangleShape, true);
+    // update contour boundary
+    updateContourBondary();
     // return rectangle shape used for check position over mouse
     return rectangleShape;
 }
@@ -316,6 +320,8 @@ GNEContour::buildDottedContourCircle(const GUIVisualizationSettings& s, const GU
     const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, resolution);
     // calculate dotted geometry
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, circleShape, true);
+    // update contour boundary
+    updateContourBondary();
     // return circle shape used for check position over mouse
     return circleShape;
 }
@@ -348,6 +354,8 @@ GNEContour::buildDottedContourEdge(const GUIVisualizationSettings& s, const GUIV
             myDottedGeometries->at(2).getFrontPosition()
         }, false);
     }
+    // update contour boundary
+    updateContourBondary();
     // finally create shape used in positionWithinClosedShape
     PositionVector shapeContour;
     for (const auto &position : myDottedGeometries->at(0).getUnresampledShape()) {
@@ -367,6 +375,17 @@ GNEContour::buildDottedContourEdges(const GUIVisualizationSettings& /*s*/, const
 
     /* FINISH */
     return PositionVector();
+}
+
+
+void
+GNEContour::updateContourBondary() const {
+    myContourBoundary->reset();
+    for (const auto &dottedGeometry : *myDottedGeometries) {
+        if (dottedGeometry.getUnresampledShape().size() > 0) {
+            myContourBoundary->add(dottedGeometry.getUnresampledShape().getBoxBoundary());
+        }
+    }
 }
 
 

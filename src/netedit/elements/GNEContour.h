@@ -108,8 +108,14 @@ private:
     /// @brief dotted geometries
     std::vector<GUIDottedGeometry>* myDottedGeometries;
 
+    /// @brief contourboundary
+    Boundary *myContourBoundary;
+
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
+
+    /// @name build functions
+    /// @{
 
     /// @brief build dotted contour shape
     PositionVector buildDottedContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -136,6 +142,14 @@ private:
     /// @brief build dotted contour edges
     PositionVector buildDottedContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+    
+    /// @brief update contour boundary
+    void updateContourBondary() const;
+
+    /// @}
+
+    /// @name drawing functions
+    /// @{
 
     /// @brief draw dotted contours
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -143,6 +157,8 @@ private:
 
     /// @brief draw dotted contour
     void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, const bool addOffset, const double lineWidth) const;
+
+    /// @}
 
     /// @brief invalidate default constructor
     GNEContour() = delete;

@@ -34,6 +34,7 @@ GUIObjectsInPosition::clearElements() {
     recomputeBoundaries = GLO_NETWORK;
     // clear objects under cursor
     myElementsUnderCursor.clear();
+    mySelectedObjets.clear();
     // reset marked elements
     markedEdge = nullptr;
     markedLane = nullptr;
@@ -60,15 +61,7 @@ GUIObjectsInPosition::setSelectionBoundary(const Boundary &boundary) {
 
 bool
 GUIObjectsInPosition::isElementSelected(const GUIGlObject* GLObject) const {
-    // avoid to insert duplicated elements
-    for (auto &elementLayer : myElementsUnderCursor) {
-        for (auto &element : elementLayer.second) {
-            if (element.object == GLObject) {
-                return true;
-            }
-        }
-    }
-    return false;
+    return mySelectedObjets.find(GLObject) != mySelectedObjets.end();
 }
 
 
@@ -193,17 +186,21 @@ GUIObjectsInPosition::checkShapeElement(const GUIVisualizationSettings::Detail d
                                         const PositionVector &shape) {
     // continue depending if we're selecting a position or a boundary
     if (mySelectionBoundary.isInitialised()) {
-        if (shape.getBoxBoundary().overlapsWith(mySelectionBoundary)) {
+        // first check if centering boundary is within selection boundary
+        const auto centeringBoundary = GLObject->getCenteringBoundary();
+        if ((centeringBoundary.xmin() >= mySelectionBoundary.xmin()) && 
+            (centeringBoundary.ymin() >= mySelectionBoundary.ymin()) && 
+            (centeringBoundary.xmax() <= mySelectionBoundary.xmax()) && 
+            (centeringBoundary.ymax() <= mySelectionBoundary.ymax())) {
             return addElementUnderCursor(GLObject);
-
-            XXX Check that shape boundary is contained in mySelectionBoundary
-
         }
+        // check if shape crosses to selection boundary
         for (int i = 1; i < shape.size(); i++) {
             if (mySelectionBoundary.crosses(shape[i-1], shape[i])) {
                 return addElementUnderCursor(GLObject);
             }
         }
+        // no intersection, then return false
         return false;
     } else if (mySelectionPosition != Position::INVALID) {
         // check if selection position is around shape
@@ -219,7 +216,7 @@ GUIObjectsInPosition::checkShapeElement(const GUIVisualizationSettings::Detail d
 
 
 const GUIObjectsInPosition::GLObjectsSortedContainer&
-GUIObjectsInPosition::getElementsUnderCursor() const {
+GUIObjectsInPosition::getSelectedObjects() const {
     return myElementsUnderCursor;
 }
 
@@ -292,6 +289,7 @@ GUIObjectsInPosition::addElementUnderCursor(const GUIGlObject* GLObject) {
             auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
             layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         }
+        mySelectedObjets.insert(GLObject);
         return true;
     }
 }
@@ -326,6 +324,7 @@ GUIObjectsInPosition::addGeometryPointUnderCursor(const GUIGlObject* GLObject, c
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->geometryPoints.push_back(newIndex);
     }
+    mySelectedObjets.insert(GLObject);
     return true;
 }
 
@@ -356,6 +355,7 @@ GUIObjectsInPosition::addPositionOverShape(const GUIGlObject* GLObject, const Po
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->posOverShape = pos;
     }
+    mySelectedObjets.insert(GLObject);
     return true;
 }
 

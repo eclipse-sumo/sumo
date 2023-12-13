@@ -92,7 +92,7 @@ public:
                            const PositionVector &shape);
 
     /// @brief get all elements under cursor sorted by layer
-    const GLObjectsSortedContainer& getElementsUnderCursor() const;
+    const GLObjectsSortedContainer& getSelectedObjects() const;
 
     /// @brief get geometry points for the given glObject
     const std::vector<int>& getGeometryPoints(const GUIGlObject* GLObject) const;
@@ -125,8 +125,11 @@ public:
     const GUIGlObject* markedSecondGeometryPoint = nullptr;
 
 protected:
-    /// @brief elements under cursor and their geometry point indexes
+    /// @brief elements under cursor and their geometry point indexes sorted from top to bot
     GLObjectsSortedContainer myElementsUnderCursor;
+
+    /// @brief set with selected elements (used only to avoid double seletions)
+    std::set<const GUIGlObject*> mySelectedObjets;
 
     /// @brief empty geometry points
     std::vector<int> myEmptyGeometryPoints;

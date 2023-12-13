@@ -224,7 +224,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
     // clear elements
     myObjects.clearElements();
     // process GUIGLObjects using elements under cursor
-    processGUIGlObjects(gObjectsInPosition.getElementsUnderCursor());
+    processGUIGlObjects(gObjectsInPosition.getSelectedObjects());
 }
 
 
@@ -1630,8 +1630,8 @@ GNEViewNetHelper::SelectingArea::processEdgeRectangleSelection() {
         rectangleBoundary.add(selectionCorner2);
         // obtain all elements in boundary
         myViewNet->updateObjectsInBoundary(rectangleBoundary);
-        // return all lanes
-        myViewNet->getObjectsUnderCursor().getEdgeFront();
+        // return all edges
+        return myViewNet->getObjectsUnderCursor().getEdges();
     } else {
         return {};
     }
