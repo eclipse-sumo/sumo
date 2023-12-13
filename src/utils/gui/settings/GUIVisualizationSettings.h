@@ -557,7 +557,7 @@ public:
             GeometryPoint = 1,              // draw geometry points
             JunctionElement = 1,            // crossings, walking area, connections and internal lanes
             DottedContoursResampled = 1,    // resample dotted contours
-            PreciseSelection = 1,            // precise selection using boundaries
+            PreciseSelection = 1,           // precise selection using boundaries
 
         Level2 = 2,
             CircleResolution8 = 2,  // circle resolution = 8
@@ -622,6 +622,9 @@ public:
 
     /// @brief return wether the text was flipped for reading at the given angle
     bool flippedTextAngle(double objectAngle) const;
+
+    /// @brief check if draw element depending of boundarySize
+    bool checkBoundarySizeDrawing(const double w, const double h) const;
 
     /// @brief check if draw element depending of shapeSize
     bool checkShapeSizeDrawing(const double shapeLenght) const;

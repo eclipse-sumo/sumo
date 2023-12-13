@@ -1364,24 +1364,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myNet->drawGL(*myVisualizationSettings);
     // draw all GL elements
     int hits = drawGLElements(bound);
-    // force draw inspected and front elements (due parent/child lines)
-    if (!myVisualizationSettings->drawForRectangleSelection) {
-        // iterate over all inspected ACs
-        for (const auto& inspectedAC : myInspectedAttributeCarriers) {
-            // check that inspected AC has an associated GUIGLObject
-            if (inspectedAC->getTagProperty().isAdditionalElement() && inspectedAC->getGUIGlObject()) {
-                inspectedAC->getGUIGlObject()->drawGL(*myVisualizationSettings);
-            }
-        }
-        // draw front element
-        if (myFrontAttributeCarrier && myFrontAttributeCarrier->getGUIGlObject()) {
-            myFrontAttributeCarrier->getGUIGlObject()->drawGL(*myVisualizationSettings);
-        }
-    }
-    // re-draw marked route
-    if (gViewObjectsHandler.markedRoute && !myVisualizationSettings->drawForRectangleSelection) {
-        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gViewObjectsHandler.markedRoute);
-    }
     // draw temporal split junction
     drawTemporalSplitJunction();
     // draw temporal roundabout
@@ -3298,7 +3280,7 @@ GNEViewNet::drawGLElements(const Boundary& bound) const {
     // calculate boundary extremes
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
     const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
-    // reset gl line to 2
+    // reset gl line to 1
     glLineWidth(1);
     // set drawing modes
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

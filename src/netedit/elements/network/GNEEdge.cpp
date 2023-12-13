@@ -558,52 +558,54 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundary
-    GLHelper::drawBoundary(s, getCenteringBoundary());
-    // get detail level from the first lane
-    const auto d = myLanes.front()->getDrawingConstants()->getDetail();
-    if (s.checkShapeSizeDrawing(myLanes.front()->getLaneShapeLength())) {
-        // draw draw lanes
-        for (const auto& lane : myLanes) {
-            lane->drawGL(s);
+    // only draw depending of size boundary
+    if (s.checkBoundarySizeDrawing(myEdgeBoundary.getWidth(), myEdgeBoundary.getHeight())) {
+        // draw boundary
+        GLHelper::drawBoundary(s, getCenteringBoundary());
+        // get detail level from the first lane
+        const auto d = myLanes.front()->getDrawingConstants()->getDetail();
+        if (s.checkShapeSizeDrawing(myLanes.front()->getLaneShapeLength())) {
+            // draw draw lanes
+            for (const auto& lane : myLanes) {
+                lane->drawGL(s);
+            }
+        }
+        // draw junctions
+        getFromJunction()->drawGL(s);
+        getToJunction()->drawGL(s);
+        // draw geometry points
+        drawEdgeGeometryPoints(s, d);
+        // check if draw details
+        if (!s.drawForObjectUnderCursor) {
+            // draw edge shape (a red line only visible if lane shape is strange)
+            drawEdgeShape(s, d);
+            // draw edge stopOffset
+            drawLaneStopOffset(s, d);
+            // draw edge name
+            drawEdgeName(s, d);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+        }
+        // draw childrens
+        drawChildrens(s, d);
+        // calculate contour and draw dotted geometry
+        myContour.calculateContourEdge(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
+        const auto radius = getSnapRadius(false);
+        // draw geometry points
+        myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::MIDDLE,
+                                            radius, myLanes.front()->getDrawingConstants()->getExaggeration(),
+                                            s.dottedContourSettings.segmentWidth);
+        // extrems depending if has custom from-to
+        const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
+        if (forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView())) {
+            myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::FROM,
+                                                radius, 1, s.dottedContourSettings.segmentWidth);
+        }
+        if (forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView())) {
+            myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::TO,
+                                                    radius, 1, s.dottedContourSettings.segmentWidth);
         }
     }
-    // draw junctions
-    getFromJunction()->drawGL(s);
-    getToJunction()->drawGL(s);
-    // draw geometry points
-    drawEdgeGeometryPoints(s, d);
-    // check if draw details
-    if (!s.drawForObjectUnderCursor) {
-        // draw edge shape (a red line only visible if lane shape is strange)
-        drawEdgeShape(s, d);
-        // draw edge stopOffset
-        drawLaneStopOffset(s, d);
-        // draw edge name
-        drawEdgeName(s, d);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
-    }
-    // draw childrens
-    drawChildrens(s, d);
-    // calculate contour and draw dotted geometry
-    myContour.calculateContourEdge(s, d, this, true, true, s.dottedContourSettings.segmentWidth);
-    const auto radius = getSnapRadius(false);
-    // draw geometry points
-    myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::MIDDLE,
-                                        radius, myLanes.front()->getDrawingConstants()->getExaggeration(),
-                                        s.dottedContourSettings.segmentWidth);
-    // extrems depending if has custom from-to
-    const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
-    if (forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView())) {
-        myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::FROM,
-                                            radius, 1, s.dottedContourSettings.segmentWidth);
-    }
-    if (forceDrawExtrems || (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView())) {
-        myContour.calculateContourGeometryPoints(s, d, myNBEdge->getGeometry(), GNEContour::GeometryPoint::TO,
-                                                radius, 1, s.dottedContourSettings.segmentWidth);
-    }
-
 }
 
 
@@ -2811,7 +2813,8 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // avoid draw for railways
-    if ((gViewObjectsHandler.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->getDrawingConstants()->drawAsRailway()) {
+    if ((d <= GUIVisualizationSettings::Detail::LaneDetails) && !myLanes.front()->getDrawingConstants()->drawAsRailway() &&
+        (gViewObjectsHandler.markedFirstGeometryPoint == this)) {
         // push draw matrix
         GLHelper::pushMatrix();
         // translate to front depending of big points

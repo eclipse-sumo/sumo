@@ -2371,6 +2371,7 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
     return objectAngle;
 }
 
+
 bool
 GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
     double viewAngle = objectAngle - angle;
@@ -2380,6 +2381,18 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
     // fmod round towards zero which is not want we want for negative numbers
     viewAngle = fmod(viewAngle, 360);
     return (viewAngle > 90 && viewAngle < 270);
+}
+
+
+bool
+GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
+    const double size = MAX2(w, h);
+    if (drawForObjectUnderCursor) {
+        return true;
+    } else {
+        // for low computers 20. for high 10
+        return (scale * size) > 15;
+    }
 }
 
 

@@ -130,9 +130,6 @@ protected:
     /// @brief set with selected elements (used only to avoid double seletions)
     std::set<const GUIGlObject*> mySelectedObjets;
 
-    /// @brief empty geometry points
-    std::vector<int> myEmptyGeometryPoints;
-
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject);
 
@@ -147,6 +144,9 @@ protected:
 
     /// @brief position
     Position mySelectionPosition;
+
+    /// @brief empty geometry points
+    std::vector<int> myEmptyGeometryPoints;
 
 private:
     /// @brief set copy constructor private
