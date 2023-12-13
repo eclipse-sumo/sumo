@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-11 15:43+0000\n"
+"PO-Revision-Date: 2023-12-13 14:53+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.3-rc\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6200,17 +6200,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:760
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr ""
+msgstr "La conexión '%' inicia en un carril no existente."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:763
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr ""
+msgstr "La conexión '%' apunta a un carril no existente."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:777
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:795
 msgid "Could not use custom shape for connection %."
-msgstr ""
+msgstr "No se pudo utilizar una forma personalizada para la conexión %."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:786
 msgid "Custom shape has distance % to incoming lane for connection %."
