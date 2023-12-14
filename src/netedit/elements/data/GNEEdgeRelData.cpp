@@ -204,10 +204,10 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge2(s, d, getParentEdges().front(), true, false, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdge(s, d, getParentEdges().front(), true, false);
         }
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge2(s, d, getParentEdges().back(), false, true, s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdge(s, d, getParentEdges().back(), false, true);
         }
     }
 }
@@ -226,7 +226,7 @@ GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const G
 
         // draw dotted contour
         if (segment->getPreviousLane() && segment->getNextLane()) {
-            myContour.calculateContourEdges2(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge(), s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge());
         }
     }
 }

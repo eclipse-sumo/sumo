@@ -297,12 +297,10 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape2(s, d, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true, 0,
-                                                s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourExtrudedShape(s, d, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true, 0);
         } else {
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape2(s, d, myTAZRelGeometry.getShape(), 0.5, 1, true, true, 0,
-                                                s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourExtrudedShape(s, d, myTAZRelGeometry.getShape(), 0.5, 1, true, true, 0);
         }
     }
 }
