@@ -179,16 +179,15 @@ protected:
     GNEContour myInnenContour;
 
 private:
+    /// @brief draw walking area
+    void drawWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                         const PositionVector& shape, const double exaggeration) const;
+    
     /// @brief check if draw walking area in contour mode
     bool drawInContourMode() const;
 
     /// @brief draw tesselated walking area
-    void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                   const double exaggeration, const RGBColor& color) const;
-
-    /// @brief draw contour walking area
-    void drawContourWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const PositionVector& shape, const double exaggeration, const RGBColor& color) const;
+    void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

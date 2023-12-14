@@ -251,13 +251,18 @@ private:
     RGBColor getConnectionColor(const GUIVisualizationSettings& s) const;
 
     /// @brief draw connection
-    void drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const PositionVector &shape, const double exaggeration) const;
+    void drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                        const PositionVector &shape, const double exaggeration) const;
 
     /// @brief draw arrows over connections
     void drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor &color) const;
 
     /// @brief draw edge value
     void drawEdgeValues(const GUIVisualizationSettings& s, const PositionVector &shape) const;
+
+    /// @brief calculate connection contour
+    void calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                    const PositionVector &shape, const double exaggeration) const;
 
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;

@@ -392,6 +392,9 @@ private:
     /// @brief draw lane to lane connections
     void drawLane2LaneConnections() const;
 
+    /// @brief calculate contour
+    void calculateLaneContour(const GUIVisualizationSettings& s) const;
+
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme, RGBColor& col) const;
 

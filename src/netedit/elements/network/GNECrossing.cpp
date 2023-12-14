@@ -40,7 +40,7 @@
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
                   myParentJunction(nullptr),
-myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
+    myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,9 +48,9 @@ myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING,
                       SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-myParentJunction(parentJunction),
-myCrossingEdges(crossingEdges),
-myTemplateNBCrossing(nullptr) {
+    myParentJunction(parentJunction),
+    myCrossingEdges(crossingEdges),
+    myTemplateNBCrossing(nullptr) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -221,36 +221,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(crossingExaggeration);
         // check if draw geometry
         if (!s.drawForObjectUnderCursor) {
-            // get color
-            RGBColor crossingColor = getCrossingColor(s, NBCrossing);
-            // don't draw crossing in TLS Mode (but draw the TLS links)
-            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
-                // push layer matrix
-                GLHelper::pushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
-                // set color
-                GLHelper::setColor(crossingColor);
-                // draw depending of level of detail
-                if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
-                    drawCrossingDetailed(crossingExaggeration, crossingWidth);
-                } else {
-                    GLHelper::drawBoxLines(myCrossingGeometry.getShape(), crossingWidth);
-                }
-                // draw shape points only in Network supemode
-                if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                    s.drawMovingGeometryPoint(crossingExaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
-                    // color
-                    const RGBColor darkerColor = crossingColor.changedBrightness(-32);
-                    // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, d, this, myCrossingGeometry.getShape(), darkerColor,
-                                                    s.neteditSizeSettings.crossingGeometryPointRadius, crossingExaggeration,
-                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
-                                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
-                }
-                // pop layer matrix
-                GLHelper::popMatrix();
-            }
+            // draw crossing
+            drawCrossing(s, d, NBCrossing, crossingWidth, crossingExaggeration);
             // draw TLS Links No
             drawTLSLinkNo(s, NBCrossing);
             // draw crossing name
@@ -262,15 +234,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, myCrossingGeometry.getShape(), crossingWidth, crossingExaggeration, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
-        // check geometry points if we're editing shape
-        if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints2(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                      s.neteditSizeSettings.connectionGeometryPointRadius, crossingExaggeration,
-                                                      s.dottedContourSettings.segmentWidth);
-        }
+        // calculate contour
+        calculateCrossingContour(s, d, crossingWidth, crossingExaggeration);
     }
 }
 
@@ -499,6 +464,9 @@ GNECrossing::checkEdgeBelong(const std::vector<GNEEdge*>& edges) const {
     return false;
 }
 
+// ===========================================================================
+// private
+// ===========================================================================
 
 bool
 GNECrossing::checkDrawCrossing(const GUIVisualizationSettings& s) const {
@@ -515,6 +483,42 @@ GNECrossing::checkDrawCrossing(const GUIVisualizationSettings& s) const {
         return false;
     }
     return s.drawCrossingsAndWalkingareas;
+}
+
+
+void
+GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                          const NBNode::Crossing* crossing, const double width, const double exaggeration) const {
+    // don't draw crossing in TLS Mode
+    if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
+        // get color
+        RGBColor crossingColor = getCrossingColor(s, crossing);
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
+        // set color
+        GLHelper::setColor(crossingColor);
+        // draw depending of level of detail
+        if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
+            drawCrossingDetailed(width, exaggeration);
+        } else {
+            GLHelper::drawBoxLines(myCrossingGeometry.getShape(), width);
+        }
+        // draw shape points only in Network supemode
+        if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+            s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
+            // color
+            const RGBColor darkerColor = crossingColor.changedBrightness(-32);
+            // draw geometry points
+            GUIGeometry::drawGeometryPoints(s, d, this, myCrossingGeometry.getShape(), darkerColor,
+                                            s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
+                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
+                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+    }
 }
 
 
@@ -540,15 +544,12 @@ GNECrossing::getCrossingColor(const GUIVisualizationSettings& s, const NBNode::C
     }
 }
 
-// ===========================================================================
-// private
-// ===========================================================================
 
 void
-GNECrossing::drawCrossingDetailed(const double selectionScale, const double width) const {
+GNECrossing::drawCrossingDetailed(const double width, const double exaggeration) const {
     // geet lenght and spacing
-    const double length = 0.5 * selectionScale;
-    const double spacing = 1.0 * selectionScale;
+    const double length = 0.5 * exaggeration;
+    const double spacing = 1.0 * exaggeration;
     // push rail matrix
     GLHelper::pushMatrix();
     // draw on top of of the white area between the rails
@@ -574,6 +575,21 @@ GNECrossing::drawCrossingDetailed(const double selectionScale, const double widt
     // pop rail matrix
     GLHelper::popMatrix();
 }
+
+
+void
+GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                      const double width, const double exaggeration) const {
+    // calculate contour
+    myContour.calculateContourExtrudedShape(s, d, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
+    // check if calculate contour for geometry points
+    if (myShapeEdited) {
+        myContour.calculateContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                 s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
+                                                 s.dottedContourSettings.segmentWidth);
+    }
+}
+
 
 void
 GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {

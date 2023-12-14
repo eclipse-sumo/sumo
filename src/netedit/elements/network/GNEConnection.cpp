@@ -398,15 +398,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, shapeSuperposed, s.connectionSettings.connectionWidth, connectionExaggeration, true, true, 0,
-                                                 s.dottedContourSettings.segmentWidthSmall);
-        // check geometry points if we're editing shape
-        if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints2(s, d, shapeSuperposed, GNEContour::GeometryPoint::ALL,
-                                                      s.neteditSizeSettings.connectionGeometryPointRadius, connectionExaggeration,
-                                                      s.dottedContourSettings.segmentWidthSmall);
-        }
+        // calculate contour
+        calculateConnectionContour(s, d, shapeSuperposed, connectionExaggeration);
     }
 }
 
@@ -676,7 +669,7 @@ GNEConnection::getConnectionColor(const GUIVisualizationSettings& s) const {
 
 void
 GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-        const PositionVector &shape, const double exaggeration) const {
+                              const PositionVector &shape, const double exaggeration) const {
     // get color
     RGBColor connectionColor = getConnectionColor(s);
     // Push layer matrix
@@ -750,6 +743,20 @@ GNEConnection::drawEdgeValues(const GUIVisualizationSettings& s, const PositionV
             const Position p = (myConnectionGeometry.getShape().size() == 2) ? (shape.front() * 0.67 + shape.back() * 0.33) : shape[shapeIndex];
             GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
         }
+    }
+}
+
+
+void
+GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                          const PositionVector &shape, const double exaggeration) const {
+    // calculate connection shape contour
+    myContour.calculateContourExtrudedShape(s, d, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
+    // calculate geometry points contour if we're editing shape
+    if (myShapeEdited) {
+        myContour.calculateContourGeometryPoints(s, d, shape, GNEContour::GeometryPoint::ALL,
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
+                                                s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

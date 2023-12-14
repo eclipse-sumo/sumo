@@ -203,11 +203,19 @@ private:
     /// @brief check if draw crossing
     bool checkDrawCrossing(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw crossing
+    void drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                      const NBNode::Crossing* crossing, const double width, const double exaggeration) const;
+
     /// @brief get crossing color
     RGBColor getCrossingColor(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const;
 
     /// @brief draw crossing with hight detail
-    void drawCrossingDetailed(const double selectionScale, const double width) const;
+    void drawCrossingDetailed(const double width, const double exaggeration) const;
+
+    /// @brief calculate contour
+    void calculateCrossingContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                  const double width, const double exaggeration) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
