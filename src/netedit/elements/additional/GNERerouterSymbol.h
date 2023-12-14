@@ -149,6 +149,10 @@ protected:
     std::vector<GUIGeometry> mySymbolGeometries;
 
 private:
+    /// @brief draw rerouter symbol
+    void drawRerouterSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const double exaggeration) const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

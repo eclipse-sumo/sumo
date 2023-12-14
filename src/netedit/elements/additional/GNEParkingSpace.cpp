@@ -203,53 +203,20 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // Set initial values
-        const double parkingAreaExaggeration = getExaggeration(s);
+        // get exaggeration
+        const double spaceExaggeration = getExaggeration(s);
         // get witdh
-        const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
+        const double parkingSpaceWidth = myShapeWidth.length2D() * 0.5 + (spaceExaggeration * 0.1);
         // get detail level
-        const auto d = s.getDetailLevel(parkingAreaExaggeration);
+        const auto d = s.getDetailLevel(spaceExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // get angle
-            const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
-            // get contour color
-            RGBColor contourColor = s.colorSettings.parkingSpaceColorContour;
-            if (drawUsingSelectColor()) {
-                contourColor = s.colorSettings.selectedAdditionalColor;
-            } else if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-                contourColor = s.colorSettings.parkingSpaceColorContour;
-            }
+            // draw space
+            drawSpace(s, d, parkingSpaceWidth);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // push later matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-            // set contour color
-            GLHelper::setColor(contourColor);
-            // draw extern
-            GLHelper::drawBoxLines(myShapeLength, width);
-            // make a copy of myShapeLength and scale
-            PositionVector shapeLengthInner = myShapeLength;
-            shapeLengthInner.scaleAbsolute(-0.1);
-            // draw intern
-            if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-                // Traslate to front
-                glTranslated(0, 0, 0.1);
-                // set base color
-                GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor);
-                //draw intern
-                GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
-            }
-            // draw geometry points
-            drawUpGeometryPoint(s, d, myShapeLength.back(), angle, contourColor);
-            drawLeftGeometryPoint(s, d, myShapeWidth.back(), angle - 90, contourColor);
-            drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, contourColor);
-            // pop layer matrix
-            GLHelper::popMatrix();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), myShapeLength.getPolygonCenter(), spaceExaggeration);
             // Draw additional ID
             drawAdditionalID(s);
             // draw additional name
@@ -257,9 +224,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, myShapeLength, width, parkingAreaExaggeration, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        // calculate contour
+        calculateSpaceContour(s, d, parkingSpaceWidth, spaceExaggeration);
     }
 }
 
@@ -378,6 +344,55 @@ GNEParkingSpace::getHierarchyName() const {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                           const double width) const {
+    // get angle
+    const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
+    // get contour color
+    RGBColor contourColor = s.colorSettings.parkingSpaceColorContour;
+    if (drawUsingSelectColor()) {
+        contourColor = s.colorSettings.selectedAdditionalColor;
+    } else if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
+        contourColor = s.colorSettings.parkingSpaceColorContour;
+    }
+    // push later matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+    // set contour color
+    GLHelper::setColor(contourColor);
+    // draw extern
+    GLHelper::drawBoxLines(myShapeLength, width);
+    // make a copy of myShapeLength and scale
+    PositionVector shapeLengthInner = myShapeLength;
+    shapeLengthInner.scaleAbsolute(-0.1);
+    // draw intern
+    if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
+        // Traslate to front
+        glTranslated(0, 0, 0.1);
+        // set base color
+        GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor);
+        //draw intern
+        GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+    }
+    // draw geometry points
+    drawUpGeometryPoint(s, d, myShapeLength.back(), angle, contourColor);
+    drawLeftGeometryPoint(s, d, myShapeWidth.back(), angle - 90, contourColor);
+    drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, contourColor);
+    // pop layer matrix
+    GLHelper::popMatrix();
+}
+
+
+void
+GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                       const double width, const double exaggeration) const {
+    // calculate contour and draw dotted geometry
+    myContour.calculateContourExtrudedShape(s, d, myShapeLength, width, exaggeration, true, true, 0);
+}
+
 
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {

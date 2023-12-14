@@ -181,9 +181,8 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
-        myContour.calculateContourRectangleShape2(s, d, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
-                                                  myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration,
-                                                  s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourRectangleShape(s, d, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+                                                  myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
     }
 }
 

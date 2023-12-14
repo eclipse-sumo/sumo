@@ -410,6 +410,9 @@ protected:
     /// @brief check if draw additional extrem geometry points
     bool drawMovingGeometryPoints(const bool ignoreShift) const;
 
+    /// @brief draw demand element children
+    void drawDemandElementChildren(const GUIVisualizationSettings& s) const;
+
     /// @brief get moveOperation for an element over single lane
     GNEMoveOperation* getMoveOperationSingleLane(const double startPos, const double endPos);
 
@@ -436,6 +439,15 @@ protected:
 
     /// @brief get JuPedSim icon
     static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
+
+    /// @}
+
+    /// @name calculate contours
+    /// @{
+
+    /// @brief calculate contour for polygons
+    void calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                  const double exaggeration, const bool contouredShape) const;
 
     /// @}
 

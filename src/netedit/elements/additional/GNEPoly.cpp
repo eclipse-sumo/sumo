@@ -158,7 +158,7 @@ GNEPoly::generateChildID(SumoXMLTag /*childTag*/) {
 void
 GNEPoly::updateGeometry() {
     // just update polygon geometry
-    myPolygonGeometry.updateGeometry(myShape);
+    myAdditionalGeometry.updateGeometry(myShape);
     myTesselation.clear();
 }
 
@@ -320,28 +320,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw dotted contour depending if is closed
-        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-            // draw dotted contour
-            myContour.calculateContourClosedShape2(s, d, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
-        } else {
-            // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape2(s, d, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                                                polyExaggeration, true, true, 0, s.dottedContourSettings.segmentWidth);
-        }
-        // check geometry points
-        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-            // draw size depending of mode
-            if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                myContour.calculateContourGeometryPoints2(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                          s.neteditSizeSettings.additionalGeometryPointRadius, polyExaggeration,
-                                                          s.dottedContourSettings.segmentWidth);
-            } else {
-                myContour.calculateContourGeometryPoints2(s, d, myPolygonGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                          s.neteditSizeSettings.additionalGeometryPointRadius * 0.5, polyExaggeration,
-                                                          s.dottedContourSettings.segmentWidth);
-            }
-        }
+        // calculate contour
+        calculateContourPolygons(s, d, polyExaggeration, (getFill() || myAdditionalGeometry.getShape().isClosed()));
     }
 }
 
@@ -818,7 +798,7 @@ GNEPoly::setMoveShape(const GNEMoveResult& moveResult) {
     // update new shape
     myShape = moveResult.shapeToUpdate;
     // update geometry
-    myPolygonGeometry.updateGeometry(myShape);
+    myAdditionalGeometry.updateGeometry(myShape);
 }
 
 
@@ -837,14 +817,14 @@ GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSe
     // check if we're drawing a polygon or a polyline
     if (getFill()) {
         // draw inner polygon
-        GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
+        GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
     } else {
         // push matrix
         GLHelper::pushMatrix();
         // set color
         GLHelper::setColor(color);
         // draw geometry (polyline)
-        GUIGeometry::drawGeometry(d, myPolygonGeometry, s.neteditSizeSettings.polylineWidth * exaggeration);
+        GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * exaggeration);
         // pop matrix
         GLHelper::popMatrix();
     }
@@ -861,7 +841,7 @@ GNEPoly::drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualiz
     // set color
     GLHelper::setColor(color);
     // draw polygon contour
-    GUIGeometry::drawGeometry(d, myPolygonGeometry, s.neteditSizeSettings.polygonContourWidth * exaggeration);
+    GUIGeometry::drawGeometry(d, myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * exaggeration);
     // pop contour matrix
     GLHelper::popMatrix();
 }
@@ -877,7 +857,7 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
         // get geometry point sizes
         const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, this, myPolygonGeometry.getShape(), color, geometryPointSize, exaggeration,
+        GUIGeometry::drawGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation(), moveMode);
     }
 }
@@ -886,7 +866,7 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
 void
 GNEPoly::drawPolygonNameAndType(const GUIVisualizationSettings& s) const {
     // get name position
-    const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
+    const Position& namePos = myAdditionalGeometry.getShape().getPolygonCenter();
     // draw name
     drawName(namePos, s.scale, s.polyName, s.angle);
     // check if draw poly type

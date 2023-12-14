@@ -176,10 +176,10 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw stoppingPlace children
-        drawStoppingPlaceChildren(s);
-        // check object in view
-        checkViewObject(s, d, s.stoppingPlaceSettings.containerStopWidth, movingGeometryPoints);
+        // draw demand element children
+        drawDemandElementChildren(s);
+        // calculate contour
+        calculateStoppingPlaceContour(s, d, s.stoppingPlaceSettings.containerStopWidth, movingGeometryPoints);
     }
 }
 

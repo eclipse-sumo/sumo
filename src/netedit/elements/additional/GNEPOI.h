@@ -172,9 +172,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const override;
 
-    double getClickPriority() const override {
-        return getShapeLayer();
-    }
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -230,6 +227,13 @@ protected:
     PositionVector myShapeHeight;
 
 private:
+    /// @brief draw POI
+    void drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+
+    /// @brief calculate contour
+    void calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                             const double exaggeration) const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value) override;
 

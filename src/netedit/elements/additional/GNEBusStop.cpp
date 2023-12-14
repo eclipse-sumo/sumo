@@ -125,7 +125,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double busStopExaggeration = getExaggeration(s);
         // check if draw moving geometry points
-        const int movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // get width
         const double stopWidth = (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? s.stoppingPlaceSettings.busStopWidth : s.stoppingPlaceSettings.trainStopWidth;
         // get detail level
@@ -187,10 +187,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw stoppingPlace children
-        drawStoppingPlaceChildren(s);
-        // check object in view
-        checkViewObject(s, d, stopWidth, movingGeometryPoints);
+        // draw demand element children
+        drawDemandElementChildren(s);
+        // calculate contour
+        calculateStoppingPlaceContour(s, d, stopWidth, movingGeometryPoints);
     }
 }
 

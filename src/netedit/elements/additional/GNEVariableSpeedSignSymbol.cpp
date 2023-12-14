@@ -114,67 +114,24 @@ GNEVariableSpeedSignSymbol::getParentName() const {
 
 void
 GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
+        // Obtain exaggeration of the draw
+        const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
         // get detail level
         const auto d = s.getDetailLevel(VSSExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // draw variable speed sign symbol
+            drawVSSSymbol(s, d, VSSExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // start drawing symbol
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
-            // translate to position
-            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-            // rotate over lane
-            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
-            // scale
-            glScaled(VSSExaggeration, VSSExaggeration, 1);
-            // set color
-            RGBColor color;
-            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(RGBColor::RED);
-            }
-            // draw circle
-            GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
-            // draw details
-            if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
-                // move to front
-                glTranslated(0, 0, 0.1);
-                // set color
-                if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
-                } else {
-                    GLHelper::setColor(RGBColor::BLACK);
-                }
-                // draw another circle
-                GLHelper::drawFilledCircleDetailled(d, (double) 1.1);
-                // move to front
-                glTranslated(0, 0, 0.1);
-                // draw speed
-                if (d <= GUIVisualizationSettings::Detail::Text) {
-                    if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                        GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
-                    } else {
-                        GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
-                    }
-                }
-            }
-            // Pop symbol matrix
-            GLHelper::popMatrix();
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw dotted contour
-        myContour.calculateContourCircleShape2(s, d, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration,
-                                            s.dottedContourSettings.segmentWidth);
+        // calculate contour circle
+        myContour.calculateContourCircleShape(s, d, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
     }
 }
 
@@ -229,6 +186,56 @@ GNEVariableSpeedSignSymbol::getHierarchyName() const {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                          const bool exaggeration) const {
+    // start drawing symbol
+    GLHelper::pushMatrix();
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
+    // translate to position
+    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+    // rotate over lane
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+    // scale
+    glScaled(exaggeration, exaggeration, 1);
+    // set color
+    RGBColor color;
+    if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(RGBColor::RED);
+    }
+    // draw circle
+    GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
+    // draw details
+    if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
+        // move to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
+        } else {
+            GLHelper::setColor(RGBColor::BLACK);
+        }
+        // draw another circle
+        GLHelper::drawFilledCircleDetailled(d, (double) 1.1);
+        // move to front
+        glTranslated(0, 0, 0.1);
+        // draw speed
+        if (d <= GUIVisualizationSettings::Detail::Text) {
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
+            } else {
+                GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+            }
+        }
+    }
+    // Pop symbol matrix
+    GLHelper::popMatrix();
+}
+
 
 void
 GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {

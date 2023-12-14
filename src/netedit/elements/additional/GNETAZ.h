@@ -187,6 +187,9 @@ protected:
     /// @brief TAZ center
     Position myTAZCenter;
 
+    /// @brief TAZ center contour
+    GNEContour myTAZCenterContour;
+
 private:
     /// @brief hint size of vertex
     static const double myHintSize;

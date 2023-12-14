@@ -153,9 +153,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const override;
 
-    double getClickPriority() const override {
-        return getShapeLayer();
-    }
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -232,9 +229,6 @@ protected:
 
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
-
-    /// @brief geometry for lengths/rotations
-    GUIGeometry myPolygonGeometry;
 
 private:
     /// @brief set attribute after validation

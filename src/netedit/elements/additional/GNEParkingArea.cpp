@@ -156,7 +156,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double parkingAreaExaggeration = getExaggeration(s);
         // check if draw moving geometry points
-        const int movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // get detail level
         const auto d = s.getDetailLevel(parkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -212,10 +212,10 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw stoppingPlace children
-        drawStoppingPlaceChildren(s);
-        // check object in view
-        checkViewObject(s, d, myWidth * 0.5, movingGeometryPoints);
+        // draw demand element children
+        drawDemandElementChildren(s);
+        // calculate contour
+        calculateStoppingPlaceContour(s, d, myWidth * 0.5, movingGeometryPoints);
     }
 }
 

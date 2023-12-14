@@ -238,9 +238,8 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidthSmall, true);
         }
-        // check object in view
-        myContour.calculateContourCircleShape2(s, d, myAdditionalGeometry.getShape().front(), 1, accessExaggeration,
-                                              s.dottedContourSettings.segmentWidthSmall);
+        // calculate contour
+        myContour.calculateContourCircleShape(s, d, myAdditionalGeometry.getShape().front(), 1, accessExaggeration);
     }
 }
 

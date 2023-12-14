@@ -345,34 +345,23 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
 
 
 void
-GNEStoppingPlace::drawStoppingPlaceChildren(const GUIVisualizationSettings& s) const {
-    // draw child demand elements
-    for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isPlacedInRTree()) {
-            demandElement->drawGL(s);
-        }
-    }
-}
-
-
-void
-GNEStoppingPlace::checkViewObject(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                  const double width, const bool movingGeometryPoints) const {
-    // calculate contour and draw dotted geometry (don't exaggerate contour)
+GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                                const double width, const bool movingGeometryPoints) const {
+    // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
-            myContour.calculateContourGeometryPoints2(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
+            myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
                                                      s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                      s.dottedContourSettings.segmentWidth);
         }
         if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
-            myContour.calculateContourGeometryPoints2(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
+            myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
                                                      s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                      s.dottedContourSettings.segmentWidth);
         }
     } else {
-        myContour.calculateContourExtrudedShape2(s, d, myAdditionalGeometry.getShape(), width, 1, true, true, 0,
-                                                s.dottedContourSettings.segmentWidth);
+        // don't exaggerate contour
+        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
     }
 }
 

@@ -720,9 +720,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw squared shape
-        myContour.calculateContourRectangleShape2(s, d, pos, size, size, 0, 0, 0, exaggeration,
-                                             s.dottedContourSettings.segmentWidth);
+        // calculate contour
+        myContour.calculateContourRectangleShape(s, d, pos, size, size, 0, 0, 0, exaggeration);
     }
 }
 
@@ -821,9 +820,8 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw squared shape
-        myContour.calculateContourRectangleShape2(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
-                                             s.dottedContourSettings.segmentWidth);
+        // calculate contour
+        myContour.calculateContourRectangleShape(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
     }
 }
 
@@ -838,6 +836,17 @@ GNEAdditional::drawMovingGeometryPoints(const bool ignoreShift) const {
         return true;
     } else {
         return false;
+    }
+}
+
+
+void
+GNEAdditional::drawDemandElementChildren(const GUIVisualizationSettings& s) const {
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+            demandElement->drawGL(s);
+        }
     }
 }
 
@@ -978,6 +987,29 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
             return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+void
+GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                        const double exaggeration, const bool contouredShape) const {
+    // calculate contour depenidng of contoured shape
+    if (contouredShape) {
+        myContour.calculateContourClosedShape(s, d, myAdditionalGeometry.getShape(), 1);
+    } else {
+        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                                                 exaggeration, true, true, 0);
+    }
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if draw geometry points
+    if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+        // get geometry point radius (size depends if we're in move mode)
+        const double geometryPointRaidus = s.neteditSizeSettings.additionalGeometryPointRadius * ((editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)? 1 : 0.5);
+        // calculate contour geometry points
+        myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                 geometryPointRaidus, exaggeration, s.dottedContourSettings.segmentWidth);
     }
 }
 

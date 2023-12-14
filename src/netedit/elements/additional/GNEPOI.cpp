@@ -340,54 +340,21 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if POI can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
-        // check if POI can be drawn
-        if (GUIPointOfInterest::checkDraw(s, this)) {
-            // obtain POIExaggeration
-            const double POIExaggeration = getExaggeration(s);
-            // get detail level
-            const auto d = s.getDetailLevel(POIExaggeration);
-            // draw geometry only if we'rent in drawForObjectUnderCursor mode
-            if (!s.drawForObjectUnderCursor) {
-                // draw inner polygon
-                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
-                                                     myShapeWidth.length2D(), myShapeHeight.length2D());
-                } else {
-                    GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
-                                                     myShapeWidth.length2D(), myShapeHeight.length2D());
-                }
-                // draw an orange square mode if there is an image(see #4036)
-                if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
-                    // Add a draw matrix for drawing logo
-                    GLHelper::pushMatrix();
-                    glTranslated(x(), y(), getType() + 0.01);
-                    GLHelper::setColor(RGBColor::ORANGE);
-                    GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                    GLHelper::popMatrix();
-                }
-                // draw geometry points
-                if (myShapeHeight.size() > 0) {
-                    drawUpGeometryPoint(s, d, myShapeHeight.front(), 180, RGBColor::ORANGE);
-                    drawDownGeometryPoint(s, d, myShapeHeight.back(), 180, RGBColor::ORANGE);
-                }
-                if (myShapeWidth.size() > 0) {
-                    drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
-                    drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
-                }
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), POIExaggeration);
-                // draw dotted contour
-                myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
-            }
-            // draw contour
-            if (getShapeImgFile().empty()) {
-                myContour.calculateContourCircleShape2(s, d, *this, 1.3, POIExaggeration,
-                                                  s.dottedContourSettings.segmentWidth);
-            } else {
-                myContour.calculateContourRectangleShape2(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
-                                                     s.dottedContourSettings.segmentWidth);
-            }
+        // obtain POIExaggeration
+        const double POIExaggeration = getExaggeration(s);
+        // get detail level
+        const auto d = s.getDetailLevel(POIExaggeration);
+        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        if (!s.drawForObjectUnderCursor) {
+            // draw POI
+            drawPOI(s, d);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), POIExaggeration);
+            // draw dotted contour
+            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
+        // calculate contour
+        calculatePOIContour(s, d, POIExaggeration);
     }
 }
 
@@ -587,6 +554,51 @@ GNEPOI::getHierarchyName() const {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+    if (GUIPointOfInterest::checkDraw(s, this)) {
+        // draw inner polygon
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
+                                                myShapeWidth.length2D(), myShapeHeight.length2D());
+        } else {
+            GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
+                                                myShapeWidth.length2D(), myShapeHeight.length2D());
+        }
+        // draw an orange square mode if there is an image(see #4036)
+        if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+            // Add a draw matrix for drawing logo
+            GLHelper::pushMatrix();
+            glTranslated(x(), y(), getType() + 0.01);
+            GLHelper::setColor(RGBColor::ORANGE);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+            GLHelper::popMatrix();
+        }
+        // draw geometry points
+        if (myShapeHeight.size() > 0) {
+            drawUpGeometryPoint(s, d, myShapeHeight.front(), 180, RGBColor::ORANGE);
+            drawDownGeometryPoint(s, d, myShapeHeight.back(), 180, RGBColor::ORANGE);
+        }
+        if (myShapeWidth.size() > 0) {
+            drawLeftGeometryPoint(s, d, myShapeWidth.back(), -90, RGBColor::ORANGE);
+            drawRightGeometryPoint(s, d, myShapeWidth.front(), -90, RGBColor::ORANGE);
+        }
+    }
+}
+
+
+void
+GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const double exaggeration) const {
+    // draw contour depending of shape img file
+    if (getShapeImgFile().empty()) {
+        myContour.calculateContourCircleShape(s, d, *this, 1.3, exaggeration);
+    } else {
+        myContour.calculateContourRectangleShape(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), exaggeration);
+    }
+}
+
 
 void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {

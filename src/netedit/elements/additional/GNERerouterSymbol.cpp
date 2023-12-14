@@ -137,74 +137,20 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
         // get detail level
-        const auto d = s.getDetailLevel(1);
+        const auto d = s.getDetailLevel(rerouteExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
+            // draw rerouter symbol
+            drawRerouterSymbol(s, d, rerouteExaggeration);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
-            // set color
-            RGBColor color;
-            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                color = s.colorSettings.selectedAdditionalColor;
-            } else {
-                color = RGBColor(255, 231, 0);
-            }
-            // draw rerouter symbol over all lanes
-            for (const auto& symbolGeometry : mySymbolGeometries) {
-                // push symbol matrix
-                GLHelper::pushMatrix();
-                // translate to position
-                glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
-                // rotate over lane
-                GUIGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
-                // scale
-                glScaled(rerouteExaggeration, rerouteExaggeration, 1);
-                // set color
-                GLHelper::setColor(color);
-                // set draw mode
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                glBegin(GL_TRIANGLES);
-                // base
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 - 1.4, 6);
-                glVertex2d(0 + 1.4, 6);
-                glVertex2d(0 + 1.4, 0);
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 + 1.4, 6);
-                glEnd();
-                // draw "U"
-                if (!s.drawForRectangleSelection) {
-                    // set text color
-                    RGBColor textColor;
-                    if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                        textColor = s.colorSettings.selectedAdditionalColor.changedBrightness(-32);
-                    } else {
-                        textColor = RGBColor::BLACK;
-                    }
-                    // get probability
-                    const std::string probability = toString(getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_PROB) * 100) + "%";
-                    // draw U
-                    GLHelper::drawText("U", Position(0, 2), .1, 3, textColor, 180);
-                    // draw Probability
-                    GLHelper::drawText(probability.c_str(), Position(0, 4), .1, 0.7, textColor, 180);
-                }
-                // pop symbol matrix
-                GLHelper::popMatrix();
-            }
-            // pop layer matrix
-            GLHelper::popMatrix();
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw dotted contour
+        // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myContour.calculateContourRectangleShape2(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
-                                                 symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
+            myContour.calculateContourRectangleShape(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+                                                     symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }
 }
@@ -260,6 +206,67 @@ GNERerouterSymbol::getHierarchyName() const {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                      const double exaggeration) const {
+    // push layer matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
+    // set color
+    RGBColor color;
+    if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+        color = s.colorSettings.selectedAdditionalColor;
+    } else {
+        color = RGBColor(255, 231, 0);
+    }
+    // draw rerouter symbol over all lanes
+    for (const auto& symbolGeometry : mySymbolGeometries) {
+        // push symbol matrix
+        GLHelper::pushMatrix();
+        // translate to position
+        glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
+        // rotate over lane
+        GUIGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
+        // scale
+        glScaled(exaggeration, exaggeration, 1);
+        // set color
+        GLHelper::setColor(color);
+        // set draw mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBegin(GL_TRIANGLES);
+        // base
+        glVertex2d(0 - 1.4, 0);
+        glVertex2d(0 - 1.4, 6);
+        glVertex2d(0 + 1.4, 6);
+        glVertex2d(0 + 1.4, 0);
+        glVertex2d(0 - 1.4, 0);
+        glVertex2d(0 + 1.4, 6);
+        glEnd();
+        // draw "U"
+        if (d <= GUIVisualizationSettings::Detail::Text) {
+            // set text color
+            RGBColor textColor;
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                textColor = s.colorSettings.selectedAdditionalColor.changedBrightness(-32);
+            } else {
+                textColor = RGBColor::BLACK;
+            }
+            // get probability
+            const std::string probability = toString(getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_PROB) * 100) + "%";
+            // draw U
+            GLHelper::drawText("U", Position(0, 2), .1, 3, textColor, 180);
+            // draw Probability
+            GLHelper::drawText(probability.c_str(), Position(0, 4), .1, 0.7, textColor, 180);
+        }
+        // pop symbol matrix
+        GLHelper::popMatrix();
+    }
+    // pop layer matrix
+    GLHelper::popMatrix();
+}
+
 
 void
 GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {

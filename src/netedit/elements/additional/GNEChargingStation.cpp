@@ -180,9 +180,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw stoppingPlace children
-        drawStoppingPlaceChildren(s);
-        // check object in view
-        checkViewObject(s, d, s.stoppingPlaceSettings.chargingStationWidth, movingGeometryPoints);
+        drawDemandElementChildren(s);
+        // calculate contour
+        calculateStoppingPlaceContour(s, d, s.stoppingPlaceSettings.chargingStationWidth, movingGeometryPoints);
     }
 }
 

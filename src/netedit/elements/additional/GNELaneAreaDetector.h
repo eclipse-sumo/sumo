@@ -183,6 +183,20 @@ protected:
     std::string myTrafficLight;
 
 private:
+    /// @brief draw E2 detector
+    void drawE2(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                const double exaggeration) const;
+
+    /// @brief draw E2 partial lane
+    void drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                           const GNEPathManager::Segment* segment, const double offsetFront, 
+                           const GUIGeometry &geometry, const double exaggeration) const;
+
+    /// @brief draw E2 partial junction
+    void drawE2PartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const bool onlyContour, const double offsetFront, const GUIGeometry &geometry,
+                               const double exaggeration) const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

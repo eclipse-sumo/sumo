@@ -48,13 +48,14 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
-              TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
-              myMaxWeightSource(0),
-              myMinWeightSource(0),
-              myAverageWeightSource(0),
-              myMaxWeightSink(0),
-              myMinWeightSink(0),
-myAverageWeightSink(0) {
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+    myTAZCenterContour(this),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -63,14 +64,15 @@ myAverageWeightSink(0) {
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
-TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
-myTAZCenter(center),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
+    myTAZCenter(center),
+    myTAZCenterContour(this),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // update geometry
@@ -377,20 +379,19 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
                 GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
             }
+            // get contour width
+            const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myContour.drawDottedContours(s, d, contourWidth, true);
+            // draw TAZ Center dotted contour
+            myTAZCenterContour.drawDottedContours(s, d, contourWidth, true);
         }
-        // get contour width
-        const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
-        // draw dotted contours
-        myContour.calculateContourClosedShape2(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
-        myContour.calculateContourCircleShape2(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
+        // draw demand element children
+        drawDemandElementChildren(s);
+        // calculate contour
+        calculateContourPolygons(s, d, TAZExaggeration, true);
+        // calculate contour for TAZ Center
+        myTAZCenterContour.calculateContourCircleShape(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
     }
 }
 

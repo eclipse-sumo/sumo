@@ -177,6 +177,14 @@ protected:
     double mySlope;
 
 private:
+    /// @brief draw space
+    void drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                   const double width) const;
+
+    /// @brief calculate space contour
+    void calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const double width, const double exaggeration) const;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
