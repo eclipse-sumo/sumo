@@ -461,10 +461,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw dotted contour
         myContour.drawDottedContours(s, myDrawingConstants->getDetail(), s.dottedContourSettings.segmentWidth, true);
     }
+    // calculate contour (always before children)
+    calculateLaneContour(s);
     // draw children
     drawChildren(s);
-    // calculate contour
-    calculateLaneContour(s);
 }
 
 

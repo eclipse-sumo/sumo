@@ -564,17 +564,10 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level from the first lane
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
-        // draw draw lanes
-        for (const auto& lane : myLanes) {
-            lane->drawGL(s);
-        }
-        // draw junctions
-        getFromJunction()->drawGL(s);
-        getToJunction()->drawGL(s);
-        // draw geometry points
-        drawEdgeGeometryPoints(s, d);
         // check if draw details
         if (!s.drawForObjectUnderCursor) {
+            // draw geometry points
+            drawEdgeGeometryPoints(s, d);
             // draw edge shape (a red line only visible if lane shape is strange)
             drawEdgeShape(s, d);
             // draw edge stopOffset
@@ -586,10 +579,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
+        // calculate edge contour (always before children)
+        calculateEdgeContour(s, d);
+        // draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
+        }
+        // draw junctions
+        getFromJunction()->drawGL(s);
+        getToJunction()->drawGL(s);
         // draw childrens
         drawChildrens(s, d);
-        // calculate contours
-        calculateContours(s, d);
     }
 }
 
@@ -2733,7 +2733,7 @@ GNEEdge::drawChildrens(const GUIVisualizationSettings& s, const GUIVisualization
 
 
 void
-GNEEdge::calculateContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // calculate contour and draw dotted geometry
     myContour.calculateContourEdge(s, d, this, true, true);
     // get snap radius

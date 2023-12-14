@@ -644,13 +644,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
             // draw dotted contour for bubble
             if (drawBubble) {
-                myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+                myCircleContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
             }
         }
+        // calculate junction contour (always before children)
+        calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
         // draw Junction childs
         drawJunctionChildren(s, d);
-        // calculate junction contour
-        calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
     }
 }
 
