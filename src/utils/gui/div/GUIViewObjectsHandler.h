@@ -127,11 +127,11 @@ protected:
     /// @brief elements under cursor and their geometry point indexes sorted from top to bot
     GLObjectsSortedContainer myElementsUnderCursor;
 
-    /// @brief set with selected elements (used only to avoid double seletions)
-    std::set<const GUIGlObject*> mySelectedObjets;
+    /// @brief map with selected elements and if was selected with full boundary (used only to avoid double seletions)
+    std::map<const GUIGlObject*, bool> mySelectedObjets;
 
     /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject);
+    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool fullBoundary);
 
     /// @brief add geometryPoint into list of elements under cursor
     bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
