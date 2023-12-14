@@ -421,8 +421,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
-        myContour.calculateContourRectangleShape2(s, d, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
-                                                s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourRectangleShape(s, d, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
     }
 }
 

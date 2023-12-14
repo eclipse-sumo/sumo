@@ -451,8 +451,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
         myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
     }
     // calculate contour and draw dotted geometry
-    myContour.calculateContourExtrudedShape2(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
-                                        s.dottedContourSettings.segmentWidth);
+    myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0);
 }
 
 
@@ -512,8 +511,7 @@ GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const 
         myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
     }
     // calculate contour and draw dotted geometry
-    myContour.calculateContourExtrudedShape2(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0,
-                                        s.dottedContourSettings.segmentWidth);
+    myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true, 0);
 }
 
 // ===========================================================================

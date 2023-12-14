@@ -407,8 +407,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        myContour.calculateContourExtrudedShape(s, d, myDemandElementGeometry.getShape(), width, exaggeration, true, true, 0);
     }
 }
 

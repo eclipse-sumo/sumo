@@ -279,6 +279,15 @@ protected:
     SUMOVehicleClass myVClass;
 
 private:
+    /// @brief draw route partial lane
+    void drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const GNEPathManager::Segment* segment, const double offsetFront, 
+                              const GUIGeometry &geometry, const double exaggeration) const;
+
+    /// @brief draw route partial junction
+    void drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                  const double offsetFront, const GUIGeometry &geometry, const double exaggeration) const;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

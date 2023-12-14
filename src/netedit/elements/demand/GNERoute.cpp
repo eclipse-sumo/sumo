@@ -421,12 +421,14 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
+        // get exaggeration
+        const double exaggeration = getExaggeration(s);
         // get detail level
-        const auto d = s.getDetailLevel(1);
+        const auto d = s.getDetailLevel(exaggeration);
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
-        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
+        const double routeWidth = embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // calculate startPos
         const double geometryDepartPos = embedded ? (getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH)) : -1;
         // get endPos
@@ -457,51 +459,15 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // Add a draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
-            // Set color
-            GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
-            // draw route geometry
-            GUIGeometry::drawGeometry(d, routeGeometry, routeWidth);
-            // Pop last matrix
-            GLHelper::popMatrix();
-            // Draw name if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection) {
-                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            }
-            // check if we have to draw a red line to the next segment
-            if (segment->getNextLane()) {
-                // push draw matrix
-                GLHelper::pushMatrix();
-                // Start with the drawing of the area traslating matrix to origin
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-                // Set red color
-                GLHelper::setColor(RGBColor::RED);
-                // get firstPosition (last position of current lane shape)
-                const Position firstPosition = segment->getLane()->getLaneShape().back();
-                // get lastPosition (first position of next lane shape)
-                const Position arrivalPos = segment->getNextLane()->getLaneShape().front();
-                // draw box line
-                GLHelper::drawBoxLine(arrivalPos,
-                                      RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
-                                      firstPosition.distanceTo2D(arrivalPos), .05);
-                // pop draw matrix
-                GLHelper::popMatrix();
-            }
-            // check if mark this route
-            const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            if ((gViewObjectsHandler.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                    templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-                gViewObjectsHandler.markedRoute = this;
-            }
+            // draw route partial lane
+            drawRoutePartialLane(s, d, segment, offsetFront, routeGeometry, exaggeration);
+            // draw name
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, routeGeometry.getShape(), routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), 0,
-                                            s.dottedContourSettings.segmentWidth);
+        // calculate contour
+        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, exaggeration, segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
 
@@ -512,51 +478,26 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
-        // get embedded route flag
-        const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
-        // get route width
-        const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
-        // calculate geometry geometry
-        GUIGeometry geometry;
-        if (segment->getPreviousLane() && segment->getNextLane()) {
-            if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
-                geometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
-            } else {
-                geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
-            }
-        } else if (segment->getPreviousLane()) {
-            geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getJunction()->getPositionInView()});
-        } else if (segment->getNextLane()) {
-            geometry.updateGeometry({segment->getJunction()->getPositionInView(), segment->getNextLane()->getLaneShape().back()});
-        }
+            // Obtain exaggeration of the draw
+        const double routeExaggeration = getExaggeration(s);
         // get detail level
-        const auto d = s.getDetailLevel(1);
+        const auto d = s.getDetailLevel(routeExaggeration);
+            // get route width
+        const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+        // check if connection to next lane exist
+        const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
+        // get geometry
+        const GUIGeometry& routeGeometry = connectionExist? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
+                                                         GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // Add a draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
-            // Set color
-            GLHelper::setColor(drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor());
-            // draw lane2lane
-            GUIGeometry::drawGeometry(d, geometry, routeWidth);
-            // Pop last matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), getExaggeration(s));
-            // check if mark this route
-            const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-            if ((gViewObjectsHandler.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                    templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
-                gViewObjectsHandler.markedRoute = this;
-            }
+            // draw route partial
+            drawRoutePartialJunction(s, d, offsetFront, routeGeometry, routeExaggeration);
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape2(s, d, geometry.getShape(), routeWidth, 1, false, false, 0,
-                                            s.dottedContourSettings.segmentWidth);
+        // calculate contour
+        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, routeExaggeration, false, false, 0);
     }
 }
 
@@ -803,6 +744,71 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
 // ===========================================================================
 // private
 // ===========================================================================
+
+void
+GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const GNEPathManager::Segment* segment, const double offsetFront,
+                               const GUIGeometry &geometry, const double exaggeration) const {
+    // get route width
+    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    // push layer matrix
+    GLHelper::pushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType() + offsetFront);
+    // Set color
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.colorSettings.selectedRouteColor);
+    } else {
+        GLHelper::setColor(getColor());
+    }
+    // draw geometry
+    GUIGeometry::drawGeometry(d, geometry, routeWidth * exaggeration);
+    // check if we have to draw a red line to the next segment
+    if (segment->getNextLane()) {
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // Set red color
+        GLHelper::setColor(RGBColor::RED);
+        // get firstPosition (last position of current lane shape)
+        const Position firstPosition = segment->getLane()->getLaneShape().back();
+        // get lastPosition (first position of next lane shape)
+        const Position arrivalPos = segment->getNextLane()->getLaneShape().front();
+        // draw box line
+        GLHelper::drawBoxLine(arrivalPos,
+                                RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                                firstPosition.distanceTo2D(arrivalPos), .05);
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+    // Pop layer matrix
+    GLHelper::popMatrix();
+}
+
+
+void
+GNERoute::drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                   const double offsetFront, const GUIGeometry &geometry, const double exaggeration) const {
+    const bool invalid = geometry.getShape().length() == 2;
+    // get route width
+    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    // Add a draw matrix
+    GLHelper::pushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType() + offsetFront);
+    // Set color of the base
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+    } else if (invalid) {
+        GLHelper::setColor(RGBColor::RED);
+    } else {
+        GLHelper::setColor(getColor());
+    }
+    // draw geometry
+    GUIGeometry::drawGeometry(d, geometry, routeWidth * exaggeration);
+    // Pop last matrix
+    GLHelper::popMatrix();
+}
+
 
 void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
