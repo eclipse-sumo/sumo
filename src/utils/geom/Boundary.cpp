@@ -212,6 +212,17 @@ Boundary::crosses(const Position& p1, const Position& p2) const {
 }
 
 
+double
+Boundary::contains(const Boundary& b) const {
+    if ((myXmin >= b.xmin()) && (myYmin >= b.ymin()) && 
+        (myXmax <= b.xmax()) && (myYmax <= b.ymax())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 bool
 Boundary::isInitialised() const {
     return myWasInitialised;

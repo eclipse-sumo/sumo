@@ -94,6 +94,7 @@ public:
 
     /// @name inherited from AbstractPoly
     /// @{
+
     /// @brief Returns whether the boundary contains the given coordinate
     bool around(const Position& p, double offset = 0) const;
 
@@ -105,7 +106,11 @@ public:
 
     /// @brief Returns whether the boundary crosses the given line
     bool crosses(const Position& p1, const Position& p2) const;
+
     /// @}
+
+    /// @brief return true if this boundary contains the given boundary (only X-Y)
+    double contains(const Boundary& b) const;
 
     /// @brief check if Boundary is Initialised
     bool isInitialised() const;
