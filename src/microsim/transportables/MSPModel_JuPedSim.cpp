@@ -50,7 +50,7 @@
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
-const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 1.0;
+const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
 
 
 // ===========================================================================
@@ -405,6 +405,11 @@ MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, doubl
 
 GEOSGeometry*
 MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape) {
+    // Corner case.
+    if (shape.size() == 1) {
+            WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
+            return nullptr;
+    }
     // Make sure the shape is closed.
     if (shape.back() != shape.front()) {
         shape.push_back(shape.front());
@@ -428,22 +433,16 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordinateSequence);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
-        if (cleanShape.size() == 2) {
-            WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
-            polygon = nullptr;
-        }
-        else if (cleanShape.size() == 3) {
+        if (cleanShape.size() == 3) {
             WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
             GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
             polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
             GEOSGeom_destroy(lineString);
-        }
-        else {
-            if (isInternalShape){
-            WRITE_WARNINGF(TL("Polygon '%' has been replaced by its convex hull as it is not simple."), shapeID);
-            polygon = GEOSConvexHull(polygon);
-            }
-            else{
+        } else {
+            if (isInternalShape) {
+                WRITE_WARNINGF(TL("Polygon '%' has been replaced by its convex hull as it is not simple."), shapeID);
+                polygon = GEOSConvexHull(polygon);
+            } else {
                 WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is not simple."), shapeID);
                 polygon = nullptr;
             }
@@ -756,7 +755,8 @@ MSPModel_JuPedSim::initialize() {
         }
     }
     if (nbrConnectedComponents > 1) {
-        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the first."), nbrConnectedComponents, maxArea/totalArea*100.0);
+        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the first."),
+            nbrConnectedComponents, maxArea/totalArea*100.0, "%");
     }
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
