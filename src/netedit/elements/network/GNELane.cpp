@@ -1378,17 +1378,18 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
-    // calculate contour
-    myContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
-                                            myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
-
-    // calculate geometry points contour if we're editing shape
-    if (myShapeEdited) {
-        myContour.calculateContourGeometryPoints(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(),
-                                                s.dottedContourSettings.segmentWidthSmall);
+    // first check if edge parent was inserted with full boundary
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentEdge)) {
+        // calculate contour
+        myContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
+                                                myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
+        // calculate geometry points contour if we're editing shape
+        if (myShapeEdited) {
+            myContour.calculateContourGeometryPoints(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                    s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(),
+                                                    s.dottedContourSettings.segmentWidthSmall);
+        }
     }
-
 }
 
 

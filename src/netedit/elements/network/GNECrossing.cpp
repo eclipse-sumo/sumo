@@ -580,13 +580,16 @@ GNECrossing::drawCrossingDetailed(const double width, const double exaggeration)
 void
 GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const double width, const double exaggeration) const {
-    // calculate contour
-    myContour.calculateContourExtrudedShape(s, d, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
-    // check if calculate contour for geometry points
-    if (myShapeEdited) {
-        myContour.calculateContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                 s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
+    // first check if junction parent was inserted with full boundary
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
+        // calculate contour
+        myContour.calculateContourExtrudedShape(s, d, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
+        // check if calculate contour for geometry points
+        if (myShapeEdited) {
+            myContour.calculateContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                     s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
+                                                     s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 

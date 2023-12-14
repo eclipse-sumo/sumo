@@ -750,13 +750,16 @@ GNEConnection::drawEdgeValues(const GUIVisualizationSettings& s, const PositionV
 void
 GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                           const PositionVector &shape, const double exaggeration) const {
-    // calculate connection shape contour
-    myContour.calculateContourExtrudedShape(s, d, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
-    // calculate geometry points contour if we're editing shape
-    if (myShapeEdited) {
-        myContour.calculateContourGeometryPoints(s, d, shape, GNEContour::GeometryPoint::ALL,
-                                                s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                                s.dottedContourSettings.segmentWidthSmall);
+    // first check if junction parent was inserted with full boundary
+    if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
+        // calculate connection shape contour
+        myContour.calculateContourExtrudedShape(s, d, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
+        // calculate geometry points contour if we're editing shape
+        if (myShapeEdited) {
+            myContour.calculateContourGeometryPoints(s, d, shape, GNEContour::GeometryPoint::ALL,
+                                                    s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
+                                                    s.dottedContourSettings.segmentWidthSmall);
+        }
     }
 }
 

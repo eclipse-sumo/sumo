@@ -134,7 +134,7 @@ protected:
     std::map<const GUIGlObject*, bool> mySelectedObjects;
 
     /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool fullBoundary);
+    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
 
     /// @brief add geometryPoint into list of elements under cursor
     bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);

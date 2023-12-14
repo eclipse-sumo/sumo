@@ -166,8 +166,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
         }
-        // draw dotted contour (except in contour mode)
-        if (!drawInContourMode()) {
+        // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
+        if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
             myContour.calculateContourClosedShape(s, d, walkingAreaShape, walkingAreaExaggeration);
         }
     }
