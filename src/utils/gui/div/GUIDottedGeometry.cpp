@@ -167,13 +167,14 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, const GU
         for (int i = 1; i < (int)myUnresampledShape.size(); i++) {
             myDottedGeometrySegments.push_back(Segment({myUnresampledShape[i - 1], myUnresampledShape[i]}));
         }
-        // calculate segment length
-        double segmentLength = s.dottedContourSettings.segmentLength;
-        if (myUnresampledShape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
-            segmentLength = myUnresampledShape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
-        }
         // check if resample
         if (d <= GUIVisualizationSettings::Detail::DottedContoursResampled) {
+            // calculate segment length
+            double segmentLength = s.dottedContourSettings.segmentLength;
+            if (myUnresampledShape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
+                segmentLength = myUnresampledShape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
+            }
+            // resample all dotted geometries
             for (auto& segment : myDottedGeometrySegments) {
                 segment.shape = segment.shape.resample(segmentLength, true);
             }
