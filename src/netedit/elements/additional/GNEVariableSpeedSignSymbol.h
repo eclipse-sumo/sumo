@@ -148,7 +148,7 @@ public:
 private:
     /// @brief draw VSS symbol
     void drawVSSSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                       const bool exaggeration) const;
+                       const double exaggeration) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
