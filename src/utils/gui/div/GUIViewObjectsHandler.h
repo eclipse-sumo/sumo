@@ -62,8 +62,8 @@ public:
     /// @brief constructor
     GUIViewObjectsHandler();
 
-    /// @brief clear elements
-    void clearElements();
+    /// @brief clear selected elements
+    void clearSelectedElements();
 
     /// @brief set selection position (usually the mouse position)
     void setSelectionPosition(const Position &pos);
@@ -73,6 +73,9 @@ public:
 
     /// @brief check if element was already selected
     bool isElementSelected(const GUIGlObject* GLObject) const;
+
+    /// @brief check boundary parent element
+    bool checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent);
 
     /// @brief check if mouse is within elements geometry (for circles)
     bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
@@ -124,11 +127,11 @@ public:
     const GUIGlObject* markedSecondGeometryPoint = nullptr;
 
 protected:
-    /// @brief elements under cursor and their geometry point indexes sorted from top to bot
-    GLObjectsSortedContainer myElementsUnderCursor;
+    /// @brief selected element sorted by layer
+    GLObjectsSortedContainer mySortedSelectedObjects;
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double seletions)
-    std::map<const GUIGlObject*, bool> mySelectedObjets;
+    std::map<const GUIGlObject*, bool> mySelectedObjects;
 
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject, const bool fullBoundary);

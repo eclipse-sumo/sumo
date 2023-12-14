@@ -33,12 +33,12 @@ GUIViewObjectsHandler::GUIViewObjectsHandler() {}
 
 
 void
-GUIViewObjectsHandler::clearElements() {
+GUIViewObjectsHandler::clearSelectedElements() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
     // clear objects under cursor
-    myElementsUnderCursor.clear();
-    mySelectedObjets.clear();
+    mySortedSelectedObjects.clear();
+    mySelectedObjects.clear();
     // reset marked elements
     markedEdge = nullptr;
     markedLane = nullptr;
@@ -71,56 +71,78 @@ GUIViewObjectsHandler::setSelectionBoundary(const Boundary &boundary) {
 
 bool
 GUIViewObjectsHandler::isElementSelected(const GUIGlObject* GLObject) const {
-    return mySelectedObjets.find(GLObject) != mySelectedObjets.end();
+    return mySelectedObjects.find(GLObject) != mySelectedObjects.end();
+}
+
+
+bool
+GUIViewObjectsHandler::checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent) {
+    if (!mySelectionBoundary.isInitialised()) {
+        return false;
+    }
+    if (parent == nullptr) {
+        return false;
+    }
+    auto finder = mySelectedObjects.find(parent);
+    if (finder != mySelectedObjects.end() && finder->second) {
+        return addElementUnderCursor(GLObject, true);
+    } else {
+        return false;
+    }
 }
 
 
 bool
 GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                         const Position &center, const double radius) {
-    // declare squared radius
-    const double squaredRadius = (radius * radius);
-    // continue depending if we're selecting a position or a boundary
-    if (mySelectionBoundary.isInitialised()) {
-        // continue depending of detail level
-        if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
-            // make a boundary using center and radius
-            Boundary b;
-            b.add(center);
-            b.grow(radius);
-            // check if selection boundary contains the centering boundary of object
-            if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
-                return addElementUnderCursor(GLObject, true);
-            }
-            // check if boundary overlaps
-            if (mySelectionBoundary.overlapsWith(b)) {
-                return addElementUnderCursor(GLObject, false);
-            }
-            // check if the four boundary vertex are within circle
-            for (const auto &vertex : mySelectionBoundaryShape) {
-                if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
+                                          const Position &center, const double radius) {
+    // first check that object doesn't exist
+    if (isElementSelected(GLObject)) {
+        return false;
+    } else {
+        // declare squared radius
+        const double squaredRadius = (radius * radius);
+        // continue depending if we're selecting a position or a boundary
+        if (mySelectionBoundary.isInitialised()) {
+            // continue depending of detail level
+            if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
+                // make a boundary using center and radius
+                Boundary b;
+                b.add(center);
+                b.grow(radius);
+                // check if selection boundary contains the centering boundary of object
+                if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
+                    return addElementUnderCursor(GLObject, true);
+                }
+                // check if boundary overlaps
+                if (mySelectionBoundary.overlapsWith(b)) {
                     return addElementUnderCursor(GLObject, false);
                 }
+                // check if the four boundary vertex are within circle
+                for (const auto &vertex : mySelectionBoundaryShape) {
+                    if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
+                        return addElementUnderCursor(GLObject, false);
+                    }
+                }
+                // no intersection, then return false
+                return false;
+            } else {
+                // check if center is within mySelectionBoundary
+                if (mySelectionBoundary.around(center)) {
+                    return addElementUnderCursor(GLObject, false);
+                } else {
+                    return false;
+                }
             }
-            // no intersection, then return false
-            return false;
-        } else {
-            // check if center is within mySelectionBoundary
-            if (mySelectionBoundary.around(center)) {
+        } else if (mySelectionPosition != Position::INVALID) {
+            // check distance between selection position and center
+            if (mySelectionPosition.distanceSquaredTo2D(center) <= squaredRadius) {
                 return addElementUnderCursor(GLObject, false);
             } else {
                 return false;
             }
-        }
-    } else if (mySelectionPosition != Position::INVALID) {
-        // check distance between selection position and center
-        if (mySelectionPosition.distanceSquaredTo2D(center) <= squaredRadius) {
-            return addElementUnderCursor(GLObject, false);
         } else {
             return false;
         }
-    } else {
-        return false;
     }
 }
 
@@ -177,7 +199,8 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
 
 bool
 GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                             const PositionVector &shape, const double distance) {
+                                              const PositionVector &shape, const double distance) {
+    // only process if we're selecting a precise position
     if ((mySelectionPosition != Position::INVALID) && (d <= GUIVisualizationSettings::Detail::PreciseSelection)) {
         // obtain nearest position over shape
         const auto nearestPos = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mySelectionPosition));
@@ -196,8 +219,10 @@ GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::De
 bool
 GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                                         const PositionVector &shape) {
-    // continue depending if we're selecting a position or a boundary
-    if (mySelectionBoundary.isInitialised()) {
+    // first check that object doesn't exist
+    if (isElementSelected(GLObject)) {
+        return false;
+    }else if (mySelectionBoundary.isInitialised()) {
         // check if selection boundary contains the centering boundary of object
         if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
             return addElementUnderCursor(GLObject, true);
@@ -225,14 +250,14 @@ GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail 
 
 const GUIViewObjectsHandler::GLObjectsSortedContainer&
 GUIViewObjectsHandler::getSelectedObjects() const {
-    return myElementsUnderCursor;
+    return mySortedSelectedObjects;
 }
 
 
 const std::vector<int>&
 GUIViewObjectsHandler::getGeometryPoints(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
-    for (auto &elementLayer : myElementsUnderCursor) {
+    for (auto &elementLayer : mySortedSelectedObjects) {
         for (auto &element : elementLayer.second) {
             if (element.object == GLObject) {
                 return element.geometryPoints;
@@ -246,7 +271,7 @@ GUIViewObjectsHandler::getGeometryPoints(const GUIGlObject* GLObject) const {
 const Position&
 GUIViewObjectsHandler::getPositionOverShape(const GUIGlObject* GLObject) const {
     // avoid to insert duplicated elements
-    for (auto &elementLayer : myElementsUnderCursor) {
+    for (auto &elementLayer : mySortedSelectedObjects) {
         for (auto &element : elementLayer.second) {
             if (element.object == GLObject) {
                 return element.posOverShape;
@@ -261,7 +286,7 @@ void
 GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
     ObjectContainer frontElement(nullptr);
     // extract element
-    for (auto &elementLayer : myElementsUnderCursor) {
+    for (auto &elementLayer : mySortedSelectedObjects) {
         auto it = elementLayer.second.begin();
         while (it != elementLayer.second.end()) {
             if (it->object == GLObject) {
@@ -277,27 +302,27 @@ GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
     }
     // add element again wit a new layer
     if (frontElement.object) {
-        myElementsUnderCursor[(double)GLO_FRONTELEMENT].push_back(frontElement);
+        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(frontElement);
     }
 }
 
 
 bool
 GUIViewObjectsHandler::addElementUnderCursor(const GUIGlObject* GLObject, const bool fullBoundary) {
-    // avoid to insert duplicated elements
+    // first check that object doesn't exist
     if (isElementSelected(GLObject)) {
         return false;
     } else {
         // check if this is an element with an associated layer
         const auto layer = dynamic_cast<const Shape*>(GLObject);
         if (layer) {
-            auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+            auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
             layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         } else {
-            auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+            auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
             layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         }
-        mySelectedObjets[GLObject] = fullBoundary;
+        mySelectedObjects[GLObject] = fullBoundary;
         return true;
     }
 }
@@ -306,7 +331,7 @@ GUIViewObjectsHandler::addElementUnderCursor(const GUIGlObject* GLObject, const 
 bool
 GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex) {
     // avoid to insert duplicated elements
-    for (auto &elementLayer : myElementsUnderCursor) {
+    for (auto &elementLayer : mySortedSelectedObjects) {
         for (auto &element : elementLayer.second) {
             if (element.object == GLObject) {
                 // avoid double points
@@ -324,15 +349,15 @@ GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, 
     // no element found then add it
     const auto layer = dynamic_cast<const Shape*>(GLObject);
     if (layer) {
-        auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+        auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->geometryPoints.push_back(newIndex);
     } else {
-        auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+        auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->geometryPoints.push_back(newIndex);
     }
-    mySelectedObjets[GLObject] = false;
+    mySelectedObjects[GLObject] = false;
     return true;
 }
 
@@ -340,7 +365,7 @@ GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, 
 bool
 GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos) {
     // avoid to insert duplicated elements
-    for (auto &elementLayer : myElementsUnderCursor) {
+    for (auto &elementLayer : mySortedSelectedObjects) {
         for (auto &element : elementLayer.second) {
             if (element.object == GLObject) {
                 if (element.posOverShape != Position::INVALID) {
@@ -355,17 +380,16 @@ GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const P
     // no element found then add it
     const auto layer = dynamic_cast<const Shape*>(GLObject);
     if (layer) {
-        auto &layerContainer = myElementsUnderCursor[layer->getShapeLayer() * -1];
+        auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->posOverShape = pos;
     } else {
-        auto &layerContainer = myElementsUnderCursor[GLObject->getType() * -1];
+        auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->posOverShape = pos;
     }
-    mySelectedObjets[GLObject] = false;
+    mySelectedObjects[GLObject] = false;
     return true;
 }
-
 
 /****************************************************************************/

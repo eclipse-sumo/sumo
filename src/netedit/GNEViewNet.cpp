@@ -473,7 +473,7 @@ GNEViewNet::getObjectsUnderCursor() const {
 void
 GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
     // clear post drawing elements
-    gViewObjectsHandler.clearElements();
+    gViewObjectsHandler.clearSelectedElements();
     // set selection boundary in gObjectsInPosition
     gViewObjectsHandler.setSelectionBoundary(boundary);
     // push matrix
@@ -498,7 +498,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
 void
 GNEViewNet::updateObjectsInPosition(const Position &pos) {
     // clear post drawing elements
-    gViewObjectsHandler.clearElements();
+    gViewObjectsHandler.clearSelectedElements();
     // set selection position in gObjectsInPosition
     gViewObjectsHandler.setSelectionPosition(pos);
     // create an small boundary
