@@ -150,6 +150,7 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+/*
     // add positions of all childrens (intervals and symbols)
     for (const auto& additionalChildren : getChildAdditionals()) {
         myAdditionalBoundary.add(additionalChildren->getPositionInView());
@@ -161,6 +162,7 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
             }
         }
     }
+*/
     // grow
     myAdditionalBoundary.grow(5);
     // add additional into RTREE again
