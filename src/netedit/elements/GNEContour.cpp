@@ -340,10 +340,8 @@ GNEContour::buildContourCircle(const GUIVisualizationSettings& s, const GUIVisua
     // get resolution
     int resolution = 1;
     if (d <= GUIVisualizationSettings::Detail::CircleResolution32) {
-        resolution = 32;
-    } else if (d <= GUIVisualizationSettings::Detail::CircleResolution16) {
         resolution = 16;
-    } else if (d <= GUIVisualizationSettings::Detail::CircleResolution8) {
+    } else if (d <= GUIVisualizationSettings::Detail::CircleResolution16) {
         resolution = 8;
     } else {
         resolution = 4;
