@@ -142,6 +142,9 @@ protected:
     /// @brief selection boundary
     Boundary mySelectionBoundary;
 
+    /// @brief selection boundary (shape)
+    PositionVector mySelectionBoundaryShape;
+
     /// @brief position
     Position mySelectionPosition;
 

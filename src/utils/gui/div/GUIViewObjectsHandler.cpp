@@ -51,15 +51,21 @@ GUIViewObjectsHandler::clearElements() {
 
 void
 GUIViewObjectsHandler::setSelectionPosition(const Position &pos) {
+    // set position selection
     mySelectionPosition = pos;
+    // invalidate selection boundary
     mySelectionBoundary.reset();
+    mySelectionBoundaryShape.clear();
 }
 
 
 void
 GUIViewObjectsHandler::setSelectionBoundary(const Boundary &boundary) {
+    // invalidate position selection
     mySelectionPosition = Position::INVALID;
+    // set selection boundary
     mySelectionBoundary = boundary;
+    mySelectionBoundaryShape = boundary.getShape(false);
 }
 
 
@@ -82,21 +88,22 @@ GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail
             Boundary b;
             b.add(center);
             b.grow(radius);
+            // check if selection boundary contains the centering boundary of object
+            if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
+                return addElementUnderCursor(GLObject, true);
+            }
             // check if boundary overlaps
             if (mySelectionBoundary.overlapsWith(b)) {
                 return addElementUnderCursor(GLObject, false);
-            } else {
-                // get shape associated with SelectionBoundary
-                const auto boundaryVertices = mySelectionBoundary.getShape(false);
-                // check the four vertex
-                for (const auto &vertex : boundaryVertices) {
-                    if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
-                        return addElementUnderCursor(GLObject, false);
-                    }
-                }
-                // no intersection, then return false
-                return false;
             }
+            // check if the four boundary vertex are within circle
+            for (const auto &vertex : mySelectionBoundaryShape) {
+                if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
+                    return addElementUnderCursor(GLObject, false);
+                }
+            }
+            // no intersection, then return false
+            return false;
         } else {
             // check if center is within mySelectionBoundary
             if (mySelectionBoundary.around(center)) {
@@ -131,21 +138,22 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
             Boundary b;
             b.add(center);
             b.grow(radius);
+            // check if selection boundary contains the centering boundary of object
+            if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
+                return addElementUnderCursor(GLObject, true);
+            }
             // check if boundary overlaps
             if (mySelectionBoundary.overlapsWith(b)) {
-                return addGeometryPointUnderCursor(GLObject, index);
-            } else {
-                // get shape associated with SelectionBoundary
-                const auto boundaryVertices = mySelectionBoundary.getShape(false);
-                // check the four vertex
-                for (const auto &vertex : boundaryVertices) {
-                    if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
-                        return addGeometryPointUnderCursor(GLObject, index);
-                    }
-                }
-                // no intersection, then return false
-                return false;
+                return addElementUnderCursor(GLObject, false);
             }
+            // check if the four boundary vertex are within circle
+            for (const auto &vertex : mySelectionBoundaryShape) {
+                if (vertex.distanceSquaredTo2D(center) <= squaredRadius) {
+                    return addElementUnderCursor(GLObject, false);
+                }
+            }
+            // no intersection, then return false
+            return false;
         } else {
             // check if center is within mySelectionBoundary
             if (mySelectionBoundary.around(center)) {
@@ -190,7 +198,7 @@ GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail 
                                         const PositionVector &shape) {
     // continue depending if we're selecting a position or a boundary
     if (mySelectionBoundary.isInitialised()) {
-        // first check if selection boundary contains the centering boundary of object
+        // check if selection boundary contains the centering boundary of object
         if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
             return addElementUnderCursor(GLObject, true);
         }
