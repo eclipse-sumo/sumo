@@ -86,7 +86,7 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
 ### Working with bidirectional tracks in [netedit](../Netedit/index.md)
 
 - To show both edges that constitute a bidirectional track, activate
-  edge visualization option *spread bidirectional railways/roads*. Both edges will be
+  edge visualization option *spread bidirectional railways/roads* (see [visualization settings](../sumo-gui.md#edgelane_visualisation_settings)). Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
    - this is highly recommended when using connection mode to define connections among bidirectional tracks as it's otherwise hard to distinguish the affected edges
