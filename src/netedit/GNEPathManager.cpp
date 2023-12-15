@@ -42,7 +42,8 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myJunction(nullptr),
     myNextSegment(nullptr),
     myPreviousSegment(nullptr),
-    myLabelSegment(false) {
+    myLabelSegment(false),
+    myContour(new GNEContour) {
     // set previous segment
     if (segments.size() > 0) {
         // set previous segment
@@ -63,7 +64,8 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myJunction(junction),
     myNextSegment(nullptr),
     myPreviousSegment(nullptr),
-    myLabelSegment(false) {
+    myLabelSegment(false),
+    myContour(new GNEContour) {
     // set previous segment
     if (segments.size() > 0) {
         // set previous segment
@@ -87,6 +89,14 @@ GNEPathManager::Segment::~Segment() {
     if (myNextSegment) {
         myNextSegment->myPreviousSegment = nullptr;
     }
+    // delete contour
+    delete myContour;
+}
+
+
+GNEContour*
+GNEPathManager::Segment::getContour() const {
+    return myContour;
 }
 
 

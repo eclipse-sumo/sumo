@@ -22,6 +22,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
+#include <netedit/elements/GNEContour.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -57,6 +58,9 @@ public:
 
         /// @brief destructor
         ~Segment();
+
+        /// @brief getcontour associated with segment
+        GNEContour *getContour() const;
 
         /// @brief check if segment is the first path's segment
         bool isFirstSegment() const;
@@ -112,6 +116,9 @@ public:
 
         /// @brief flag for check if this segment is a label segment
         bool myLabelSegment;
+
+        /// @brief contour associated with segment
+        GNEContour *myContour;
 
     private:
         /// @brief default constructor
