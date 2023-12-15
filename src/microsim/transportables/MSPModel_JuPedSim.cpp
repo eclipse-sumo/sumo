@@ -417,14 +417,16 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     // Replace consecutive points that are equal with just one.
     PositionVector cleanShape;
     cleanShape.push_back(shape[0]);
+    PositionVector duplicates;
     for (int i = 1; i < (int)shape.size(); i++) {
-        if (shape[i] == shape[i-1]) {
-            continue;
+        if (shape[i] != shape[i-1]) {
+            cleanShape.push_back(shape[i]);
+        } else {
+            duplicates.push_back(shape[i]);
         }
-        cleanShape.push_back(shape[i]);
     }
     if (cleanShape.size() < shape.size()) {
-        WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed."), shapeID);
+        WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed: %"), shapeID, toString(duplicates, 9));
     }
     GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
     for (int i = 0; i < (int)cleanShape.size(); i++) {
@@ -771,6 +773,8 @@ MSPModel_JuPedSim::initialize() {
         const std::string error = TLF("Error creating the geometry: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
         throw ProcessError(error);
+    } else {
+        WRITE_MESSAGE("Geometry generation for JuPedSim done.");
     }
     myJPSModelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(myJPSModelBuilder, &message);
