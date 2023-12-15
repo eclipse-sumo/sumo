@@ -94,7 +94,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, myShape, true, true);
+        return calculateMoveShapeOperation(this, myShape, true);
     }
 }
 
@@ -343,9 +343,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     // check move mode flag
                     const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), darkerColor,
+                    GUIGeometry::drawGeometryPoints(s, d, myAdditionalGeometry.getShape(), darkerColor,
                                                     s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
-                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                 }
             }
             // draw center

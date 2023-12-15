@@ -324,7 +324,7 @@ GNEJunction::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, myNBNode->getShape(), true, false);
+        return calculateMoveShapeOperation(this, myNBNode->getShape(), false);
     } else {
         // return move junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
@@ -1652,10 +1652,9 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
             // draw shape
             GUIGeometry::drawGeometry(d, junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, this, junctionOpenShape, darkerColor,
+            GUIGeometry::drawGeometryPoints(s, d, junctionOpenShape, darkerColor,
                                             s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
-                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     }
 }
@@ -1757,9 +1756,8 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
-                                                     s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                                     s.dottedContourSettings.segmentWidth);
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.connectionGeometryPointRadius,
+                                                                      exaggeration, true);
         }
     }
 }

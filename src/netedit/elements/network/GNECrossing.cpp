@@ -152,7 +152,7 @@ GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getCrossingShape(), true, false);
+        return calculateMoveShapeOperation(this, getCrossingShape(), false);
     } else {
         return nullptr;
     }
@@ -511,10 +511,9 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
             // color
             const RGBColor darkerColor = crossingColor.changedBrightness(-32);
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, this, myCrossingGeometry.getShape(), darkerColor,
+            GUIGeometry::drawGeometryPoints(s, d, myCrossingGeometry.getShape(), darkerColor,
                                             s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
-                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
         // pop layer matrix
         GLHelper::popMatrix();
@@ -586,9 +585,9 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
         myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
         // check if calculate contour for geometry points
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                     s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
-                                                     s.dottedContourSettings.segmentWidth);
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(), 
+                                                                      s.neteditSizeSettings.crossingGeometryPointRadius,
+                                                                      exaggeration, true);
         }
     }
 }

@@ -415,7 +415,7 @@ GNELane::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getLaneShape(), true, false);
+        return calculateMoveShapeOperation(this, getLaneShape(), false);
     } else {
         return nullptr;
     }
@@ -1077,10 +1077,10 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         // move front
         glTranslated(0, 0, 1);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
+        GUIGeometry::drawGeometryPoints(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
                                         s.colorSettings.editShapeColor.changedBrightness(-32),
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop shape edited matrix
         GLHelper::popMatrix();
     }
@@ -1385,9 +1385,10 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
                                                 myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                                                    GNEContour::GeometryPoint::ALL, s.neteditSizeSettings.laneGeometryPointRadius,
-                                                    myDrawingConstants->getExaggeration(), s.dottedContourSettings.segmentWidthSmall);
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
+                                                                      s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
+        } else {
+            
         }
     }
 }

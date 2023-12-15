@@ -186,6 +186,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
             // draw dotted contour
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contours for geometry points
+            myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                                                                1, s.dottedContourSettings.segmentWidthSmall);
         }
         // draw demand element children
         drawDemandElementChildren(s);

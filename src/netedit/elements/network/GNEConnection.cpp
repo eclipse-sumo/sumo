@@ -206,8 +206,7 @@ GNEConnection::getMoveOperation() {
         // get connection
         const auto& connection = getNBEdgeConnection();
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(),
-                                           true, false);
+        return calculateMoveShapeOperation(this, connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(), false);
     } else {
         return nullptr;
     }
@@ -698,10 +697,9 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
         // draw shape points only in Network supemode
         if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius)) {
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, this, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
+            GUIGeometry::drawGeometryPoints(s, d, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
                                             s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
-                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     } else {
         GLHelper::drawLine(myConnectionGeometry.getShape());
@@ -756,9 +754,8 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
         myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, shape, GNEContour::GeometryPoint::ALL,
-                                                    s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                                    s.dottedContourSettings.segmentWidthSmall);
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, s.neteditSizeSettings.connectionGeometryPointRadius,
+                                                                      exaggeration, true);
         }
     }
 }

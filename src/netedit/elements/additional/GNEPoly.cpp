@@ -117,10 +117,10 @@ GNEPoly::getMoveOperation() {
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
                 // calculate move shape operation maintain shape closed
-                return calculateMoveShapeOperation(this, myShape, true, true);
+                return calculateMoveShapeOperation(this, myShape, true);
             default:
-                // calculate move shape operation maintain shape closed
-                return calculateMoveShapeOperation(this, myShape, true, false);
+                // calculate move shape operation
+                return calculateMoveShapeOperation(this, myShape, false);
         }
     }
 }
@@ -857,8 +857,13 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
         // get geometry point sizes
         const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(), moveMode);
+        GUIGeometry::drawGeometryPoints(s, d, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+        // draw dotted contours for geometry points if we're in move mode
+        if (moveMode) {
+            myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointSize,
+                                                                exaggeration, s.dottedContourSettings.segmentWidthSmall);
+        }
     }
 }
 

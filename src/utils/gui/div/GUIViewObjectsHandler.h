@@ -89,7 +89,7 @@ public:
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const int index, const Position &center, const double radius);
+                            const PositionVector &shape, const int index, const double radius);
 
     /// @brief check if mouse is within geometry point
     bool checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,

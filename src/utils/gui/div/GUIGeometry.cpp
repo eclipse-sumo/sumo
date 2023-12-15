@@ -338,9 +338,9 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GUIGlObject* glObject,
-                                const PositionVector &shape, const RGBColor& color, const double radius, const double exaggeration,
-                                const bool editingElevation, const bool drawingMovingHit) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                                const PositionVector &shape, const RGBColor& color, const double radius,
+                                const double exaggeration, const bool editingElevation) {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get exaggeratedRadio
@@ -382,20 +382,6 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
                     GLHelper::popMatrix();
                 }
             }
-        }
-        // check if draw position over shape
-        const auto &positionOverShape = gViewObjectsHandler.getPositionOverShape(glObject);
-        if (drawingMovingHit && (positionOverShape != Position::INVALID)) {
-            // push geometry point matrix
-            GLHelper::pushMatrix();
-            // move to vertex
-            glTranslated(positionOverShape.x(), positionOverShape.y(), 0.2);
-            // set color
-            GLHelper::setColor(color);
-            // draw circle detailled
-            GLHelper::drawFilledCircleDetailled(d, exaggeratedRadio);
-            // pop geometry point matrix
-            GLHelper::popMatrix();
         }
     }
 }

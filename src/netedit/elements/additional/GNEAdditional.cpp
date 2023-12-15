@@ -1005,11 +1005,12 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
     const auto &editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
     if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+        // check if we're in move mode
+        const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)
-        const double geometryPointRaidus = s.neteditSizeSettings.additionalGeometryPointRadius * ((editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)? 1 : 0.5);
+        const double geometryPointRaidus = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode? 1 : 0.5);
         // calculate contour geometry points
-        myAdditionalContour.calculateContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                           geometryPointRaidus, exaggeration, s.dottedContourSettings.segmentWidth);
+        myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointRaidus, exaggeration, moveMode);
     }
 }
 

@@ -118,7 +118,7 @@ GNEWalkingArea::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(this, getNBWalkingArea().shape, true, false);
+        return calculateMoveShapeOperation(this, getNBWalkingArea().shape, false);
     } else {
         return nullptr;
     }
@@ -371,10 +371,9 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     // draw shape points only in Network supemode
     if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.junctionGeometryPointRadius)) {
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, this, myTesselation.getShape(), GLHelper::getColor().changedBrightness(-32),
+        GUIGeometry::drawGeometryPoints(s, d, myTesselation.getShape(), GLHelper::getColor().changedBrightness(-32),
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation(),
-                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
     }
 }
 
