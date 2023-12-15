@@ -128,10 +128,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour circle
-        myContour.calculateContourCircleShape(s, d, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
     }
 }
 

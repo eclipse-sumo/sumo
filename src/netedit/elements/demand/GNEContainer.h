@@ -19,6 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <netedit/elements/GNEContour.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
@@ -273,6 +275,9 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
+    /// @brief variable used for contours
+    GNEContour myContainerContour;
+
     /// @brief draw container as poly
     void drawAction_drawAsPoly() const;
 

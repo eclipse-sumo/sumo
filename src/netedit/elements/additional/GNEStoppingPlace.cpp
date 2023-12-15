@@ -350,18 +350,18 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
-            myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
+            myAdditionalContour.calculateContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::FROM,
                                                      s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                      s.dottedContourSettings.segmentWidth);
         }
         if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
-            myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
+            myAdditionalContour.calculateContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::TO,
                                                      s.neteditSizeSettings.additionalGeometryPointRadius, 1,
                                                      s.dottedContourSettings.segmentWidth);
         }
     } else {
         // don't exaggerate contour
-        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
     }
 }
 

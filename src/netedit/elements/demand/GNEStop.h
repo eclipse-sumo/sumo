@@ -204,6 +204,9 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
+    /// @brief variable used for draw contours
+    GNEContour myStopContour;
+
     /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
     Boundary myMovingGeometryBoundary;
 

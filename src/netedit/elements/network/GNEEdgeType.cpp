@@ -224,7 +224,7 @@ GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 
 Boundary
 GNEEdgeType::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 

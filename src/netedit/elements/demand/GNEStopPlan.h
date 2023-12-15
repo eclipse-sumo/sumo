@@ -227,6 +227,9 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
+    /// @brief variable used for draw contours
+    GNEContour myStopContour;
+
     /// @brief duration
     SUMOTime myDuration;
 

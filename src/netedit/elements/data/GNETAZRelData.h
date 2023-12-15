@@ -20,12 +20,13 @@
 #pragma once
 #include <config.h>
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include "GNEGenericData.h"
 
+#include <netedit/elements/GNEContour.h>
+
+#include "GNEGenericData.h"
 
 // ===========================================================================
 // class definitions
@@ -169,6 +170,9 @@ public:
     /// @}
 
 protected:
+    /// @brief variable used for draw contours
+    GNEContour myTAZRelDataContour;
+
     /// @brief Geometry for TAZRel data
     GUIGeometry myTAZRelGeometry;
 

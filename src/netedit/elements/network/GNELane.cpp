@@ -459,7 +459,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myDrawingConstants->getDetail(), this, getType(), getPositionInView(), 1);
         // draw dotted contour
-        myContour.drawDottedContours(s, myDrawingConstants->getDetail(), s.dottedContourSettings.segmentWidth, true);
+        myNetworkElementContour.drawDottedContours(s, myDrawingConstants->getDetail(), this, s.dottedContourSettings.segmentWidth, true);
     }
     // calculate contour (always before children)
     calculateLaneContour(s);
@@ -602,7 +602,7 @@ GNELane::getExaggeration(const GUIVisualizationSettings& s) const {
 
 Boundary
 GNELane::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 
@@ -1381,13 +1381,13 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
     // first check if edge parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentEdge)) {
         // calculate contour
-        myContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
+        myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
                                                 myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                    s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(),
-                                                    s.dottedContourSettings.segmentWidthSmall);
+            myNetworkElementContour.calculateContourGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
+                                                    GNEContour::GeometryPoint::ALL, s.neteditSizeSettings.laneGeometryPointRadius,
+                                                    myDrawingConstants->getExaggeration(), s.dottedContourSettings.segmentWidthSmall);
         }
     }
 }

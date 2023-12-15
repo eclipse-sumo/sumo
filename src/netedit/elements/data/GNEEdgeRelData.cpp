@@ -200,14 +200,14 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge(s, d, getParentEdges().front(), true, false);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().front(), true, false);
         }
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
-            myContour.calculateContourEdge(s, d, getParentEdges().back(), false, true);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), false, true);
         }
     }
 }
@@ -226,7 +226,7 @@ GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const G
 
         // draw dotted contour
         if (segment->getPreviousLane() && segment->getNextLane()) {
-            myContour.calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge());
+            segment->getContour()->calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge());
         }
     }
 }

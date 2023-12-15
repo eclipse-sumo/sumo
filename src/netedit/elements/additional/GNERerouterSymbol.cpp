@@ -145,12 +145,12 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myContour.calculateContourRectangleShape(s, d, symbolGeometry.getShape().front(), 1, 3, 0, 3,
-                                                     symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+                                                               symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }
 }

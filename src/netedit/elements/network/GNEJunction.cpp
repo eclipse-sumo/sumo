@@ -63,7 +63,6 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
-    myCircleContour(this),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myHasValidLogic(loaded),
     myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
@@ -641,10 +640,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw junction name
             drawJunctionName(s, d);
             // draw dotted contour for shape
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             // draw dotted contour for bubble
             if (drawBubble) {
-                myCircleContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+                myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
         }
         // calculate junction contour (always before children)
@@ -1608,9 +1607,6 @@ void
 GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // first check drawing conditions
     if (s.drawJunctionShape && (myNBNode->getShape().size() > 0)) {
-        // check if draw start und end
-        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // set shape color
         const RGBColor junctionShapeColor = setColor(s, false);
         // set color
@@ -1746,14 +1742,14 @@ void
 GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const double exaggeration, const bool drawBubble) const {
     // always calculate for shape
-    myContour.calculateContourClosedShape(s, d, myNBNode->getShape(), exaggeration);
+    myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), exaggeration);
     // check if calculate contour for bubble
     if (drawBubble) {
-        myCircleContour.calculateContourCircleShape(s, d, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
+        myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
     }
     // check geometry points if we're editing shape
     if (myShapeEdited) {
-        myContour.calculateContourGeometryPoints(s, d, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
+        myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
                                                  s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
                                                  s.dottedContourSettings.segmentWidth);
     }

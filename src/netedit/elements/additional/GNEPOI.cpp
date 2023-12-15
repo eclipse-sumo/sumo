@@ -351,7 +351,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), POIExaggeration);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
         calculatePOIContour(s, d, POIExaggeration);
@@ -593,9 +593,9 @@ GNEPOI::calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualiz
                             const double exaggeration) const {
     // draw contour depending of shape img file
     if (getShapeImgFile().empty()) {
-        myContour.calculateContourCircleShape(s, d, *this, 1.3, exaggeration);
+        myAdditionalContour.calculateContourCircleShape(s, d, this, *this, 1.3, exaggeration);
     } else {
-        myContour.calculateContourRectangleShape(s, d, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), exaggeration);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), exaggeration);
     }
 }
 

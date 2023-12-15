@@ -204,11 +204,11 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
                                            s.scale, s.angle);
             }
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContour.calculateContourExtrudedShape(s, d, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth,
-                                                1, true, true, 0);
+        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myInternalLaneGeometry.getShape(),
+                                                              s.connectionSettings.connectionWidth, 1, true, true, 0);
     }
 }
 
@@ -274,7 +274,7 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 Boundary
 GNEInternalLane::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 

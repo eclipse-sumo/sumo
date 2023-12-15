@@ -232,7 +232,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
         calculateCrossingContour(s, d, crossingWidth, crossingExaggeration);
@@ -302,7 +302,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNECrossing::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 
@@ -583,10 +583,10 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
     // first check if junction parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
         // calculate contour
-        myContour.calculateContourExtrudedShape(s, d, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
+        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
         // check if calculate contour for geometry points
         if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints(s, d, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myCrossingGeometry.getShape(), GNEContour::GeometryPoint::ALL,
                                                      s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
                                                      s.dottedContourSettings.segmentWidth);
         }

@@ -298,6 +298,9 @@ public:
     static GNEDemandElement* copyVehicle(const GNEVehicle* originalVehicle);
 
 protected:
+    /// @brief variable used for draw vehicle contours
+    GNEContour myVehicleContour;
+
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 
@@ -307,9 +310,6 @@ protected:
 private:
     /// @brief vehicle arrival position radius
     static const double myArrivalPositionDiameter;
-
-    /// @brief variable used for draw vehicle contour (needed because vehicles have two different contours)
-    GNEContour myVehicleContour;
 
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

@@ -174,7 +174,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw additional name
             drawAdditionalName(s);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // draw demand element children
         drawDemandElementChildren(s);

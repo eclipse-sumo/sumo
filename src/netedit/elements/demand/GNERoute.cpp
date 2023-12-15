@@ -464,10 +464,11 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             // draw name
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, exaggeration, segment->isFirstSegment(), segment->isLastSegment(), 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, exaggeration,
+                                                             segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
 
@@ -494,10 +495,10 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
             // draw route partial
             drawRoutePartialJunction(s, d, offsetFront, routeGeometry, routeExaggeration);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContour.calculateContourExtrudedShape(s, d, routeGeometry.getShape(), routeWidth, routeExaggeration, false, false, 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, routeExaggeration, false, false, 0);
     }
 }
 

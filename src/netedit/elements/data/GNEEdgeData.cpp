@@ -234,10 +234,10 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
                 }
             }
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourEdge(s, d, segment->getLane()->getParentEdge(), true, true);
+        segment->getContour()->calculateContourEdge(s, d, segment->getLane()->getParentEdge(), true, true);
     }
 }
 

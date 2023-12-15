@@ -144,7 +144,7 @@ GNEAdditional::getCenteringBoundary() const {
     if (myAdditionalBoundary.isInitialised()) {
         return myAdditionalBoundary;
     } else {
-        return myContour.getContourBoundary();
+        return myAdditionalContour.getContourBoundary();
     }
 }
 
@@ -718,10 +718,10 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             // draw additional name
             drawAdditionalName(s);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContour.calculateContourRectangleShape(s, d, pos, size, size, 0, 0, 0, exaggeration);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, size, size, 0, 0, 0, exaggeration);
     }
 }
 
@@ -818,10 +818,10 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
                 GLHelper::popMatrix();
             }
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myContour.calculateContourRectangleShape(s, d, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
     }
 }
 
@@ -996,9 +996,9 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
                                         const double exaggeration, const bool contouredShape) const {
     // calculate contour depenidng of contoured shape
     if (contouredShape) {
-        myContour.calculateContourClosedShape(s, d, myAdditionalGeometry.getShape(), 1);
+        myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), 1);
     } else {
-        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                                                  exaggeration, true, true, 0);
     }
     // get edit modes
@@ -1008,8 +1008,8 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
         // get geometry point radius (size depends if we're in move mode)
         const double geometryPointRaidus = s.neteditSizeSettings.additionalGeometryPointRadius * ((editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)? 1 : 0.5);
         // calculate contour geometry points
-        myContour.calculateContourGeometryPoints(s, d, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::ALL,
-                                                 geometryPointRaidus, exaggeration, s.dottedContourSettings.segmentWidth);
+        myAdditionalContour.calculateContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), GNEContour::GeometryPoint::ALL,
+                                                           geometryPointRaidus, exaggeration, s.dottedContourSettings.segmentWidth);
     }
 }
 

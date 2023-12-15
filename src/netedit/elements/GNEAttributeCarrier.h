@@ -24,7 +24,6 @@
 #include <netedit/GNEReferenceCounter.h>
 
 #include "GNETagProperties.h"
-#include "GNEContour.h"
 
 
 // ===========================================================================
@@ -232,9 +231,6 @@ public:
     /// @brief check if this AC is template
     bool isTemplate() const;
 
-    /// @brief get contour
-    const GNEContour& getContour() const;
-
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;
 
@@ -323,9 +319,6 @@ public:
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
-
-    /// @brief variable used for draw contours
-    GNEContour myContour;
 
     /// @brief pointer to net
     GNENet* myNet;

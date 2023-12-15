@@ -49,7 +49,6 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
-    myTAZCenterContour(this),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -66,7 +65,6 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, 
     GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
     TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
     myTAZCenter(center),
-    myTAZCenterContour(this),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -382,16 +380,16 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // get contour width
             const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
             // draw dotted contour
-            myContour.drawDottedContours(s, d, contourWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, contourWidth, true);
             // draw TAZ Center dotted contour
-            myTAZCenterContour.drawDottedContours(s, d, contourWidth, true);
+            myTAZCenterContour.drawDottedContours(s, d, this, contourWidth, true);
         }
         // draw demand element children
         drawDemandElementChildren(s);
         // calculate contour
         calculateContourPolygons(s, d, TAZExaggeration, true);
         // calculate contour for TAZ Center
-        myTAZCenterContour.calculateContourCircleShape(s, d, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+        myTAZCenterContour.calculateContourCircleShape(s, d, this, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
     }
 }
 

@@ -205,10 +205,10 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             // draw additional name
             drawAdditionalName(s);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true, 0);
     }
 }
 

@@ -222,7 +222,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // draw additional name
             drawAdditionalName(s);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
         calculateSpaceContour(s, d, parkingSpaceWidth, spaceExaggeration);
@@ -390,7 +390,7 @@ void
 GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                        const double width, const double exaggeration) const {
     // calculate contour and draw dotted geometry
-    myContour.calculateContourExtrudedShape(s, d, myShapeLength, width, exaggeration, true, true, 0);
+    myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, width, exaggeration, true, true, 0);
 }
 
 

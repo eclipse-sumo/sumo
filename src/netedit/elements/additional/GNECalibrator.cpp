@@ -478,12 +478,11 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
         // pop layer matrix
         GLHelper::popMatrix();
         // draw dotted contour
-        myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+        myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
     }
     // draw dotted contour
-    myContour.calculateContourRectangleShape(s, d, pos, s.additionalSettings.calibratorWidth,
-                                             s.additionalSettings.calibratorHeight * 0.5, 0, 0,
-                                             rot, exaggeration);
+    myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
+                                                       s.additionalSettings.calibratorHeight * 0.5, 0, 0, rot, exaggeration);
 }
 
 void

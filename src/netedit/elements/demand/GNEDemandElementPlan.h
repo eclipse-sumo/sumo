@@ -77,6 +77,9 @@ public:
     static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop);
 
 protected:
+    /// @brief variable used for draw contours
+    GNEContour myPlanContour;
+
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
 

@@ -24,6 +24,7 @@
 #include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
+#include <netedit/elements/GNEContour.h>
 #include <netedit/GNEMoveElement.h>
 
 
@@ -203,6 +204,9 @@ public:
 protected:
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;
+
+    /// @brief network element contour
+    GNEContour myNetworkElementContour;
 
 private:
     /// @brief set attribute after validation

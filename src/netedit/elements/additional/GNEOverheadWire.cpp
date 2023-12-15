@@ -306,12 +306,12 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
             // Pop layer matrix
             GLHelper::popMatrix();
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? overheadWireGeometry.getShape() : segment->getLane()->getLaneShape();
         // calculate contour and draw dotted geometry
-        myContour.calculateContourExtrudedShape(s, d, shape, overheadWireWidth, 1, true, true, 0);
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, overheadWireWidth, 1, true, true, 0);
     }
 }
 
@@ -356,14 +356,14 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
             // Pop last matrix
             GLHelper::popMatrix();
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // draw contours
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get shape
             const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
             // calculate contour and draw dotted geometry
-            myContour.calculateContourExtrudedShape(s, d, shape, overheadWireWidth, 1, true, true, 0);
+            myAdditionalContour.calculateContourExtrudedShape(s, d, this, shape, overheadWireWidth, 1, true, true, 0);
         }
     }
 }

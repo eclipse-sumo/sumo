@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <netedit/elements/GNEContour.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
@@ -273,6 +274,9 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
+    /// @brief variable used for contours
+    GNEContour myPersonContour;
+
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 

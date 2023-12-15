@@ -24,6 +24,7 @@
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
 #include <netedit/GNEMoveElement.h>
+#include <netedit/elements/GNEContour.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -338,11 +339,14 @@ public:
     static bool areLaneConnected(const std::vector<GNELane*>& lanes);
 
 protected:
-    /// @brief Additional Boundary
+    /// @brief Additional Boundary (used only by additionals placed over grid)
     Boundary myAdditionalBoundary;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     GUIGeometry myAdditionalGeometry;
+
+    /// @brief variable used for draw additional contours
+    GNEContour myAdditionalContour;
 
     /// @brief name of additional
     std::string myAdditionalName;

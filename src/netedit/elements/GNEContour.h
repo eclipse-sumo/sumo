@@ -46,7 +46,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEContour(GNEAttributeCarrier* AC);
+    GNEContour();
 
     /// @brief destructor
     ~GNEContour();
@@ -57,34 +57,35 @@ public:
     /// @brief calculate contours
     /// @{
 
-    /// @brief draw dotted contour (for closed shapes)
+    /// @brief calculate contour (for closed shapes)
     void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const PositionVector& shape, const double scale) const;
+                                     const GUIGlObject* glObject, const PositionVector& shape, const double scale) const;
 
-    /// @brief draw dotted contour extruded (used in elements formed by a central shape)
+    /// @brief calculate contour extruded (used in elements formed by a central shape)
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const PositionVector& shape, const double extrusionWidth, const double scale,
-                                       const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const;
+                                       const GUIGlObject* glObject, const PositionVector& shape, const double extrusionWidth,
+                                       const double scale, const bool closeFirstExtrem, const bool closeLastExtrem,
+                                       const double offset) const;
 
-    /// @brief draw dotted contour (for rectangled elements)
+    /// @brief calculate contour (for rectangled elements)
     void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const Position& pos, const double width, const double height, const double offsetX,
-                                        const double offsetY, const double rot, const double scale) const;
+                                        const GUIGlObject* glObject, const Position& pos, const double width, const double height,
+                                        const double offsetX, const double offsetY, const double rot, const double scale) const;
 
-    /// @brief draw dotted contour (circle elements)
+    /// @brief calculate contour (circle elements)
     void calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const Position& pos, double radius, const double scale) const;
+                                     const GUIGlObject* glObject, const Position& pos, double radius, const double scale) const;
 
-    /// @brief draw dotted contour (geometry points elements)
+    /// @brief calculate contour (geometry points elements)
     void calculateContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                        const PositionVector& shape, GeometryPoint geometryPoints, double radius, const double scale,
-                                        const double lineWidth) const;
+                                        const GUIGlObject* glObject, const PositionVector& shape, GeometryPoint geometryPoints,
+                                        double radius, const double scale, const double lineWidth) const;
 
-    /// @brief draw dotted contour edge
+    /// @brief calculate contour edge
     void calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                               const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const;
 
-    /// @brief draw dotted contour between two consecutive edges
+    /// @brief calculate contour between two consecutive edges
     void calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
 
@@ -95,7 +96,7 @@ public:
 
     /// @brief draw dotted contours (basics, select, delete, inspect...)
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const double lineWidth, const bool addOffset) const;
+                            const GNEAttributeCarrier *AC, const double lineWidth, const bool addOffset) const;
 
     /// @brief draw innen contour (currently used only in walkingAreas)
     void drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
@@ -103,9 +104,6 @@ public:
     /// @}
 
 private:
-    /// @brief pointer to AC
-    GNEAttributeCarrier* myAC;
-
     /// @brief dotted geometries
     std::vector<GUIDottedGeometry>* myDottedGeometries;
 
@@ -152,9 +150,6 @@ private:
     /// @brief draw dotted contour
     void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                            const double lineWidth, const bool addOffset) const;
-
-    /// @brief invalidate default constructor
-    GNEContour() = delete;
 
     /// @brief Invalidated copy constructor.
     GNEContour(const GNEContour&) = delete;

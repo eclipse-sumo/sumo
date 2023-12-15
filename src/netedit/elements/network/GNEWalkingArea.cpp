@@ -40,9 +40,8 @@
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
                       GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-                                myParentJunction(parentJunction),
-                                myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
-myInnenContour(this) {
+    myParentJunction(parentJunction),
+    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -164,11 +163,11 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
             }
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
         if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
-            myContour.calculateContourClosedShape(s, d, walkingAreaShape, walkingAreaExaggeration);
+            myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, walkingAreaExaggeration);
         }
     }
 }
@@ -215,7 +214,7 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEWalkingArea::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 

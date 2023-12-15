@@ -366,7 +366,7 @@ GNEConnection::getExaggeration(const GUIVisualizationSettings& s) const {
 
 Boundary
 GNEConnection::getCenteringBoundary() const {
-    return myContour.getContourBoundary();
+    return myNetworkElementContour.getContourBoundary();
 }
 
 
@@ -396,7 +396,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
             // draw dotted contour
-            myContour.drawDottedContours(s, d, s.dottedContourSettings.segmentWidth, true);
+            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
         calculateConnectionContour(s, d, shapeSuperposed, connectionExaggeration);
@@ -753,10 +753,10 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
     // first check if junction parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
         // calculate connection shape contour
-        myContour.calculateContourExtrudedShape(s, d, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
+        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
-            myContour.calculateContourGeometryPoints(s, d, shape, GNEContour::GeometryPoint::ALL,
+            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, shape, GNEContour::GeometryPoint::ALL,
                                                     s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
                                                     s.dottedContourSettings.segmentWidthSmall);
         }
