@@ -50,12 +50,15 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
 
     # Check for equal consecutive points.
     cleanPolygon = [polygon[0]]
+    duplicates = []
     for i in range(1, len(polygon)):
-        if polygon[i][0] == polygon[i-1][0] and polygon[i][1] == polygon[i-1][1]:
-            continue
-        cleanPolygon.append(polygon[i])
+        if polygon[i][0] != polygon[i-1][0] or polygon[i][1] != polygon[i-1][1]:
+            cleanPolygon.append(polygon[i])
+        else:
+            duplicates.append(polygon[i])
     if len(cleanPolygon) < len(polygon):
-        print("Warning: polygon '%s' had some equal consecutive points removed." % polygonID)
+        duplicates = " ".join(["%.9f,%.9f" % c[:2] for c in duplicates])
+        print("Warning: polygon '%s' had some equal consecutive points removed: %s" % (polygonID, duplicates))
 
     # Check for simplicity and output hints.
     simple = shapely.is_simple(shapely.Polygon(cleanPolygon))
