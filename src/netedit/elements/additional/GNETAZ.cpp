@@ -297,9 +297,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(TAZExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // check if draw start und end
-            const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
             // Obtain constants
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
@@ -339,13 +336,19 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // pop contour matrix
                 GLHelper::popMatrix();
                 // draw shape points only in Network supemode
-                if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                    // check move mode flag
+                if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // check if we're in move mode
                     const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                    // get geometry point sizes
+                    const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
                     // draw geometry points
-                    GUIGeometry::drawGeometryPoints(s, d, myAdditionalGeometry.getShape(), darkerColor,
-                                                    s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
+                    GUIGeometry::drawGeometryPoints(s, d, myAdditionalGeometry.getShape(), darkerColor, geometryPointSize, TAZExaggeration,
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                    // draw dotted contours for geometry points if we're in move mode
+                    if (moveMode) {
+                        myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointSize,
+                                                                            TAZExaggeration, s.dottedContourSettings.segmentWidthSmall);
+                    }
                 }
             }
             // draw center
