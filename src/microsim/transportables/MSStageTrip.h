@@ -107,6 +107,11 @@ public:
     */
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
+    /// @brief Whether the transportable is walking
+    bool isWalk() const {
+        return myModeSet == 0;
+    }
+
 private:
     /// the origin edge
     const MSEdge* myOrigin;

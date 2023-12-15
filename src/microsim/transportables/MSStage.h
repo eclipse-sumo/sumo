@@ -158,6 +158,11 @@ public:
         return false;
     }
 
+    /// @brief Whether the transportable is walking
+    virtual bool isWalk() const {
+        return false;
+    }
+
     /// @brief Current vehicle in which the transportable is driving (or nullptr)
     virtual SUMOVehicle* getVehicle() const {
         return nullptr;

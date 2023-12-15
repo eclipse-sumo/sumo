@@ -188,10 +188,14 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     PositionVector waypoints;
     while (person->getNumRemainingStages() > stageOffset) {
         const MSStage* const next = person->getNextStage(stageOffset);
-        if (next->getStageType() != MSStageType::WALKING && next->getStageType() != MSStageType::TRIP) {
+        if (!next->isWalk()) {
             break;
         }
         const MSStage* const prev = person->getNextStage(stageOffset - 1);
+        if (prev->getDestination() != next->getEdge()) {
+            // she is probably using an access
+            break;
+        }
         double prevArrivalPos = prev->getArrivalPos();
         if (prev->getDestinationStop() != nullptr) {
             prevArrivalPos = prev->getDestinationStop()->getAccessPos(prev->getDestination());
@@ -273,6 +277,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         MSPerson* person = state->getPerson();
         MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+        assert(stage != nullptr);
 
         // Updates the agent position.
         auto agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
@@ -300,10 +305,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             state->setLanePosition(candidateLaneLongitudinalPosition);
         }
 
-        const MSEdge* expectedEdge = stage->getEdge();
-        const MSLane* expectedLane = getSidewalk<MSEdge, MSLane>(expectedEdge);
-        if (found && expectedLane->isNormal() && candidateLane->isNormal() && candidateLane != expectedLane) {
-            state->setLanePosition(candidateLaneLongitudinalPosition);
+        const MSEdge* const expectedEdge = stage->getEdge();
+        if (found && expectedEdge->isNormal() && candidateLane->getEdge().isNormal() && &candidateLane->getEdge() != expectedEdge) {
             const bool result = stage->moveToNextEdge(person, time, 1, nullptr);
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.

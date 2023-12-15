@@ -468,7 +468,7 @@ void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* /* previous */) {
     myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
-    // TODO myEstimatedArrival is not a multiple of DELTA_T here. This might give problem because the destination position will not be reached precisely
+    // TODO myEstimatedArrival is not a multiple of DELTA_T here. This might give a problem because the destination position will not be reached precisely
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
     net->getPersonControl().startedAccess();
     myDestinationStop->getLane().getEdge().addTransportable(person);

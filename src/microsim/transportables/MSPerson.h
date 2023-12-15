@@ -141,6 +141,11 @@ public:
         }
         //@}
 
+        /// @brief Whether the transportable is walking
+        bool isWalk() const {
+            return true;
+        }
+
     private:
         /// @brief compute total walking distance
         double walkDistance(bool partial = false) const;
