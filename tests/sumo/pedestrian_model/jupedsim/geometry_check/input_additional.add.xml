@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="1" shape="200.0,0.0"/>
+    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="1" shape="205.0,0.0"/>
+    <poly id="jps.walkable_area_2" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="1" shape="205.0,0.0 300.0,0.0 300.0,0.0 300.0,10.0 300.0,10.0 205.0,10.0 205.0,0.0"/>
 </additional>
