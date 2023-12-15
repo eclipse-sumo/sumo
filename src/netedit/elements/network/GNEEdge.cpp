@@ -558,8 +558,8 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // only draw depending of size boundary
-    if (s.checkBoundarySizeDrawing(myEdgeBoundary.getWidth(), myEdgeBoundary.getHeight())) {
+    // check drawing boundary selection and size boundary
+    if (checkDrawingBoundarySelection() && s.checkBoundarySizeDrawing(myEdgeBoundary.getWidth(), myEdgeBoundary.getHeight())) {
         // draw boundary
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get detail level from the first lane
@@ -579,20 +579,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contour
             myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
-        // calculate contours only one time (needed when we're selecting using shape)
-        if (!gViewObjectsHandler.isElementSelected(this)) {
-            // calculate edge contour (always before children)
-            calculateEdgeContour(s, d);
-            // draw lanes
-            for (const auto& lane : myLanes) {
-                lane->drawGL(s);
-            }
-            // draw junctions
-            getFromJunction()->drawGL(s);
-            getToJunction()->drawGL(s);
-            // draw childrens
-            drawChildrens(s, d);
+        // calculate edge contour (always before children)
+        calculateEdgeContour(s, d);
+        // draw lanes
+        for (const auto& lane : myLanes) {
+            lane->drawGL(s);
         }
+        // draw junctions
+        getFromJunction()->drawGL(s);
+        getToJunction()->drawGL(s);
+        // draw childrens
+        drawChildrens(s, d);
     }
 }
 

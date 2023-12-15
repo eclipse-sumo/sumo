@@ -38,7 +38,9 @@ class GNEDemandElement;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
+
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -207,6 +209,9 @@ protected:
 
     /// @brief network element contour
     GNEContour myNetworkElementContour;
+
+    // @brief check if we're drawing using a boundary but element was already selected
+    bool checkDrawingBoundarySelection() const;
 
 private:
     /// @brief set attribute after validation

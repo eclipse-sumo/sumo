@@ -605,49 +605,49 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    // first draw boundaries
-    if (myJunctionInGrid) {
-        GLHelper::drawBoundary(s, getCenteringBoundary());
-    }
-    // get junction exaggeration
-    const double junctionExaggeration = getExaggeration(s);
-    // only continue if exaggeration is greater than 0
-    if (junctionExaggeration > 0) {
-        // get detail level
-        const auto d = s.getDetailLevel(junctionExaggeration);
-        // check if draw junction as shape
-        const bool drawBubble = drawAsBubble(s);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
-            // draw junction as shape
-            drawJunctionAsShape(s, d, junctionExaggeration);
-            // draw junction as bubble
-            if (drawBubble) {
-                drawJunctionAsBubble(s, d, junctionExaggeration);
-            }
-            // draw TLS
-            drawTLSIcon(s, d);
-            // draw elevation
-            drawElevation(s, d);
-            // pop layer Matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
-            // draw junction name
-            drawJunctionName(s, d);
-            // draw dotted contour for shape
-            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-            // draw dotted contour for bubble
-            if (drawBubble) {
-                myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-            }
+    // first check drawing boundary selection
+    if (checkDrawingBoundarySelection()) {
+        // draw boundaries
+        if (myJunctionInGrid) {
+            GLHelper::drawBoundary(s, getCenteringBoundary());
         }
-        // calculate contours only one time (needed when we're selecting using shape)
-        if (!gViewObjectsHandler.isElementSelected(this)) {
+        // get junction exaggeration
+        const double junctionExaggeration = getExaggeration(s);
+        // only continue if exaggeration is greater than 0
+        if (junctionExaggeration > 0) {
+            // get detail level
+            const auto d = s.getDetailLevel(junctionExaggeration);
+            // check if draw junction as shape
+            const bool drawBubble = drawAsBubble(s);
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForObjectUnderCursor) {
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+                // draw junction as shape
+                drawJunctionAsShape(s, d, junctionExaggeration);
+                // draw junction as bubble
+                if (drawBubble) {
+                    drawJunctionAsBubble(s, d, junctionExaggeration);
+                }
+                // draw TLS
+                drawTLSIcon(s, d);
+                // draw elevation
+                drawElevation(s, d);
+                // pop layer Matrix
+                GLHelper::popMatrix();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
+                // draw junction name
+                drawJunctionName(s, d);
+                // draw dotted contour for shape
+                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                // draw dotted contour for bubble
+                if (drawBubble) {
+                    myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                }
+            }
             // calculate junction contour (always before children)
             calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
             // draw Junction childs
