@@ -184,12 +184,10 @@ protected:
 
 private:
     /// @brief draw from arrow
-    void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                       const bool dottedElement) const;
+    void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
     /// @brief draw to arrow
-    void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                     const bool dottedElement) const;
+    void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
     /// @brief draw to arrow
     void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;

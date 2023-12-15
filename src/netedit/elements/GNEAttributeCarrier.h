@@ -99,8 +99,6 @@ public:
 
     /// @name Function related with contourdrawing (can be implemented in children)
     /// @{
-    // check if draw contour
-    bool checkDrawContour() const;
 
     /// @brief check if draw inspect contour (black/white)
     bool checkDrawInspectContour() const;

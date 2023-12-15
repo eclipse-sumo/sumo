@@ -1146,10 +1146,8 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
-    // check if this is a dotted element
-    const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
@@ -1195,8 +1193,8 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             // draw geometry
             GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
             // draw red arrows
-            drawFromArrow(s, segment->getLane(), segment, dottedElement);
-            drawToArrow(s, segment->getLane(), segment, dottedElement);
+            drawFromArrow(s, segment->getLane(), segment);
+            drawToArrow(s, segment->getLane(), segment);
             // draw end position
             drawEndPosition(s, d, segment, duplicateWidth);
             // Pop last matrix
@@ -1230,7 +1228,7 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myPlanElement->getTagProperty().getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
@@ -1374,8 +1372,7 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 
 
 void
-GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                                    const bool dottedElement) const {
+GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
     // draw ifcurrent amd next segment is placed over lanes
     if (segment->getNextLane()) {
         // get firstPosition (last position of current lane shape)
@@ -1387,7 +1384,7 @@ GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNE
         // move front
         glTranslated(0, 0, 4);
         // draw child line
-        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
+        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, myPlanElement->isAttributeCarrierSelected(), .05);
         // pop draw matrix
         GLHelper::popMatrix();
     }
@@ -1395,8 +1392,7 @@ GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNE
 
 
 void
-GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                                  const bool dottedElement) const {
+GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
     // draw the line if previos segment and current segment is placed over lanes
     if (segment->getPreviousLane()) {
         // get firstPosition (last position of current lane shape)
@@ -1408,7 +1404,7 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
         // move front
         glTranslated(0, 0, 4);
         // draw child line
-        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
+        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, myPlanElement->isAttributeCarrierSelected(), .05);
         // pop draw matrix
         GLHelper::popMatrix();
     }

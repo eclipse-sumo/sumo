@@ -126,14 +126,6 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 
 
 bool
-GNEAttributeCarrier::checkDrawContour() const {
-    return (checkDrawFromContour() || checkDrawToContour() ||
-            checkDrawRelatedContour() || checkDrawOverContour() ||
-            checkDrawInspectContour() || checkDrawFrontContour() ||
-            checkDrawDeleteContour() || checkDrawSelectContour());
-}
-
-bool
 GNEAttributeCarrier::checkDrawInspectContour() const {
     return myNet->getViewNet()->isAttributeCarrierInspected(this);
 }

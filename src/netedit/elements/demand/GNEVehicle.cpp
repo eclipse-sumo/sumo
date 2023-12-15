@@ -1041,10 +1041,9 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawContour = checkDrawContour();
     // check conditions
-    if (segment->getLane() && !s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment->getLane(), myTagProperty.getTag())) {
+    if (segment->getLane() && !s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || isAttributeCarrierSelected()) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width
@@ -1153,10 +1152,9 @@ GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPa
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawContour = checkDrawContour();
     // check conditions
-    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment, myTagProperty.getTag())) {
+    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || isAttributeCarrierSelected()) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // calculate width

@@ -541,11 +541,9 @@ GNEPathManager::PathDraw::clearPathDraw() {
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* lane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const GNELane* lane, SumoXMLTag tag) {
     // check conditions
-    if (dottedElement) {
-        return true;
-    } else if (s.drawForRectangleSelection) {
+    if (s.drawForObjectUnderCursor) {
         return true;
     } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
@@ -568,11 +566,9 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment* segment, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const Segment* segment, SumoXMLTag tag) {
     // check conditions
-    if (dottedElement) {
-        return true;
-    } else if (s.drawForRectangleSelection) {
+    if (s.drawForObjectUnderCursor) {
         return true;
     } else {
         // declare lane2lane

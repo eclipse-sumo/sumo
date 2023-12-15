@@ -420,7 +420,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get exaggeration
         const double exaggeration = getExaggeration(s);
         // get detail level
@@ -477,7 +477,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
             // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level
