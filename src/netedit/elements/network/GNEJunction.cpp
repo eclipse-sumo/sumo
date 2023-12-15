@@ -646,10 +646,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
         }
-        // calculate junction contour (always before children)
-        calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
-        // draw Junction childs
-        drawJunctionChildren(s, d);
+        // calculate contours only one time (needed when we're selecting using shape)
+        if (!gViewObjectsHandler.isElementSelected(this)) {
+            // calculate junction contour (always before children)
+            calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
+            // draw Junction childs
+            drawJunctionChildren(s, d);
+        }
     }
 }
 
@@ -1741,17 +1744,23 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVi
 void
 GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const double exaggeration, const bool drawBubble) const {
-    // always calculate for shape
-    myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), exaggeration);
-    // check if calculate contour for bubble
-    if (drawBubble) {
-        myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
-    }
-    // check geometry points if we're editing shape
-    if (myShapeEdited) {
-        myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
-                                                 s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
+    // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
+    if (gViewObjectsHandler.getSelectionBoundary().isInitialised() && gViewObjectsHandler.getSelectionBoundary().contains(myJunctionBoundary)) {
+        // simply add object in ViewObjectsHandler with full boundary
+        gViewObjectsHandler.addElementUnderCursor(this, false, true);
+    } else {
+        // always calculate for shape
+        myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), exaggeration);
+        // check if calculate contour for bubble
+        if (drawBubble) {
+            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
+        }
+        // check geometry points if we're editing shape
+        if (myShapeEdited) {
+            myNetworkElementContour.calculateContourGeometryPoints(s, d, this, myNBNode->getShape(), GNEContour::GeometryPoint::ALL,
+                                                     s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
+                                                     s.dottedContourSettings.segmentWidth);
+        }
     }
 }
 

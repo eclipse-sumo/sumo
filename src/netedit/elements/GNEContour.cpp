@@ -118,6 +118,7 @@ void
 GNEContour::calculateContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const GUIGlObject* glObject, const PositionVector& shape, GeometryPoint geometryPoints,
                                            double radius, const double scale, const double lineWidth) const {
+    return;
     // declare distance
     const auto scaledRadius = (radius * scale);
     // check if we're calculating the mouse position over geometry or drawing dotted geometry
@@ -336,16 +337,18 @@ PositionVector
 GNEContour::buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
                                const Position& pos, double radius, const double scale) const {
     // get resolution
-    int resolution = 1;
+    PositionVector circleShape;
+    // continue depending of resolution
     if (d <= GUIVisualizationSettings::Detail::CircleResolution32) {
-        resolution = 16;
+        circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, 16);
     } else if (d <= GUIVisualizationSettings::Detail::CircleResolution16) {
-        resolution = 8;
+        circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, 8);
     } else {
-        resolution = 4;
+        circleShape.push_back(Position(pos.x() - radius, pos.y() - radius));
+        circleShape.push_back(Position(pos.x() - radius, pos.y() + radius));
+        circleShape.push_back(Position(pos.x() + radius, pos.y() + radius));
+        circleShape.push_back(Position(pos.x() + radius, pos.y() - radius));
     }
-    // get vertex circle shape
-    const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, resolution);
     // calculate dotted geometry
     myDottedGeometries->at(0) = GUIDottedGeometry(s, d, circleShape, true);
     // update contour boundary

@@ -49,6 +49,18 @@ GUIViewObjectsHandler::clearSelectedElements() {
 }
 
 
+const Position&
+GUIViewObjectsHandler::getSelectionPosition() const {
+    return mySelectionPosition;
+}
+
+
+const Boundary&
+GUIViewObjectsHandler::getSelectionBoundary() const {
+    return mySelectionBoundary;
+}
+
+
 void
 GUIViewObjectsHandler::setSelectionPosition(const Position &pos) {
     // set position selection
@@ -249,65 +261,6 @@ GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail 
 }
 
 
-const GUIViewObjectsHandler::GLObjectsSortedContainer&
-GUIViewObjectsHandler::getSelectedObjects() const {
-    return mySortedSelectedObjects;
-}
-
-
-const std::vector<int>&
-GUIViewObjectsHandler::getGeometryPoints(const GUIGlObject* GLObject) const {
-    // avoid to insert duplicated elements
-    for (auto &elementLayer : mySortedSelectedObjects) {
-        for (auto &element : elementLayer.second) {
-            if (element.object == GLObject) {
-                return element.geometryPoints;
-            }
-        }
-    }
-    return myEmptyGeometryPoints;
-}
-
-
-const Position&
-GUIViewObjectsHandler::getPositionOverShape(const GUIGlObject* GLObject) const {
-    // avoid to insert duplicated elements
-    for (auto &elementLayer : mySortedSelectedObjects) {
-        for (auto &element : elementLayer.second) {
-            if (element.object == GLObject) {
-                return element.posOverShape;
-            }
-        }
-    }
-    return Position::INVALID;
-}
-
-
-void
-GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
-    ObjectContainer frontElement(nullptr);
-    // extract element
-    for (auto &elementLayer : mySortedSelectedObjects) {
-        auto it = elementLayer.second.begin();
-        while (it != elementLayer.second.end()) {
-            if (it->object == GLObject) {
-                // copy element to front element
-                frontElement.object = it->object;
-                frontElement.geometryPoints = it->geometryPoints;
-                // remove element from myElementsUnderCursor
-                it = elementLayer.second.erase(it);
-            } else {
-                it++;
-            }
-        }
-    }
-    // add element again wit a new layer
-    if (frontElement.object) {
-        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(frontElement);
-    }
-}
-
-
 bool
 GUIViewObjectsHandler::addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary) {
     // first check that object doesn't exist
@@ -391,6 +344,65 @@ GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const P
     }
     mySelectedObjects[GLObject] = false;
     return true;
+}
+
+
+const GUIViewObjectsHandler::GLObjectsSortedContainer&
+GUIViewObjectsHandler::getSelectedObjects() const {
+    return mySortedSelectedObjects;
+}
+
+
+const std::vector<int>&
+GUIViewObjectsHandler::getGeometryPoints(const GUIGlObject* GLObject) const {
+    // avoid to insert duplicated elements
+    for (auto &elementLayer : mySortedSelectedObjects) {
+        for (auto &element : elementLayer.second) {
+            if (element.object == GLObject) {
+                return element.geometryPoints;
+            }
+        }
+    }
+    return myEmptyGeometryPoints;
+}
+
+
+const Position&
+GUIViewObjectsHandler::getPositionOverShape(const GUIGlObject* GLObject) const {
+    // avoid to insert duplicated elements
+    for (auto &elementLayer : mySortedSelectedObjects) {
+        for (auto &element : elementLayer.second) {
+            if (element.object == GLObject) {
+                return element.posOverShape;
+            }
+        }
+    }
+    return Position::INVALID;
+}
+
+
+void
+GUIViewObjectsHandler::updateFrontElement(const GUIGlObject* GLObject) {
+    ObjectContainer frontElement(nullptr);
+    // extract element
+    for (auto &elementLayer : mySortedSelectedObjects) {
+        auto it = elementLayer.second.begin();
+        while (it != elementLayer.second.end()) {
+            if (it->object == GLObject) {
+                // copy element to front element
+                frontElement.object = it->object;
+                frontElement.geometryPoints = it->geometryPoints;
+                // remove element from myElementsUnderCursor
+                it = elementLayer.second.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
+    // add element again wit a new layer
+    if (frontElement.object) {
+        mySortedSelectedObjects[(double)GLO_FRONTELEMENT].push_back(frontElement);
+    }
 }
 
 /****************************************************************************/

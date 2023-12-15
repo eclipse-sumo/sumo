@@ -123,7 +123,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double containerStopExaggeration = getExaggeration(s);
         // check if draw moving geometry points
-        const int movingGeometryPoints = drawMovingGeometryPoints(false);
+        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // get detail level
         const auto d = s.getDetailLevel(containerStopExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

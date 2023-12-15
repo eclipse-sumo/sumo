@@ -65,6 +65,12 @@ public:
     /// @brief clear selected elements
     void clearSelectedElements();
 
+    /// @brief get selection position (usually the mouse position)
+    const Position &getSelectionPosition() const;
+
+    /// @brief get selection boundary (usually the mouse position)
+    const Boundary &getSelectionBoundary() const;
+
     /// @brief set selection position (usually the mouse position)
     void setSelectionPosition(const Position &pos);
 
@@ -92,6 +98,15 @@ public:
     /// @brief check (closed) shape element
     bool checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                            const PositionVector &shape);
+
+    /// @brief add element into list of elements under cursor
+    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
+
+    /// @brief add geometryPoint into list of elements under cursor
+    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
+
+    /// @brief add position over shape
+    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
@@ -132,15 +147,6 @@ protected:
 
     /// @brief map with selected elements and if was selected with full boundary (used only to avoid double seletions)
     std::map<const GUIGlObject*, bool> mySelectedObjects;
-
-    /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
-
-    /// @brief add geometryPoint into list of elements under cursor
-    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
-
-    /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos);
 
     /// @brief selection boundary
     Boundary mySelectionBoundary;
