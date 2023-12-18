@@ -185,7 +185,7 @@ def main(options, platform="x64"):
         shutil.copy(os.path.join(SUMO_HOME, "build_config", "pyproject.toml"),
                     os.path.join(SUMO_HOME, "pyproject.toml"))
         filter_setup_py(os.path.join(SUMO_HOME, "build_config", "setup-sumo.py"), os.path.join(SUMO_HOME, "setup.py"))
-        build.ProjectBuilder(SUMO_HOME).build("wheel", {"--plat-name":"win_amd64"})
+        build.ProjectBuilder(SUMO_HOME).build("wheel", {"--plat-name": "win_amd64"})
         f = glob.glob(os.path.join(SUMO_HOME, "dist", "eclipse_sumo-*"))[0]
         shutil.copy(f, os.path.join(options.remoteDir, "wheels",
                                     os.path.basename(f).replace("cp38-cp38", "py2.py3-none")))

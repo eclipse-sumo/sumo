@@ -46,7 +46,7 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
     polygonID = "jps.%s_%s" % (typename[9:], index)
 
     # Round the coordinates.
-    polygon =[(round(point[0], 9), round(point[1], 9)) for point in polygon]
+    polygon = [(round(point[0], 9), round(point[1], 9)) for point in polygon]
 
     # Check for equal consecutive points.
     cleanPolygon = [polygon[0]]
@@ -68,13 +68,13 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
         intersect = False
         for segment1, segment2 in itertools.combinations(segments, 2):
             if segment1.crosses(segment2):
-                    intersect = True
-                    print("Hint: segments [(%.9f, %.9f)] and [(%.9f, %.9f)] intersect each other."
-                            % (segment1.coords[0][0], segment1.coords[0][1], segment2.coords[1][0], segment2.coords[1][1]))
-        if intersect == False:
+                intersect = True
+                print("Hint: segments [(%.9f, %.9f)] and [(%.9f, %.9f)] intersect each other."
+                      % (segment1.coords[0][0], segment1.coords[0][1], segment2.coords[1][0], segment2.coords[1][1]))
+        if not intersect:
             duplicates = {point for point in cleanPolygon[:-1] if cleanPolygon[:-1].count(point) > 1}
             for point in duplicates:
-                print("Hint: point [(%.9f, %.9f)] appears at least twice." %(point[0], point[1]))
+                print("Hint: point [(%.9f, %.9f)] appears at least twice." % (point[0], point[1]))
 
     # Create the XML element.
     poly = " ".join(["%.9f,%.9f" % c[:2] for c in cleanPolygon])

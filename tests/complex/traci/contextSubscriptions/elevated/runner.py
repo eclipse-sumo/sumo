@@ -39,9 +39,9 @@ traci.start([sumoBinary,
              ])
 
 traci.poi.subscribeContext("poi0", tc.CMD_GET_VEHICLE_VARIABLE, 50,
-                               [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
+                           [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
 traci.poi.subscribeContext("poi300", tc.CMD_GET_VEHICLE_VARIABLE, 50,
-                               [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
+                           [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])
 
 for _ in range(10):
     traci.simulationStep()
