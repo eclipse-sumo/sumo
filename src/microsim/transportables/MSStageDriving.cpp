@@ -443,18 +443,8 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                     const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * (carriageLengthWithGap - pars.carriageGap);
                     myArrivalPos = frontPosOnLane - randomDoorOffset;
                 }
-
-                const double myCandidateArrivalPos = myArrivalPos + RandHelper::rand(-0.5*DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5*DEFAULT_CARRIAGE_DOOR_WIDTH);
-                const double laneLength = myVehicle->getLane()->getLength();
-                if (myCandidateArrivalPos > laneLength) {
-                    myArrivalPos = laneLength;
-                }
-                else if (myCandidateArrivalPos < 0) {
-                    myArrivalPos = 0;
-                }
-                else {
-                    myArrivalPos = myCandidateArrivalPos;
-                }
+                myArrivalPos += RandHelper::rand(-0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH);
+                myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
             }
         }
     } else {
