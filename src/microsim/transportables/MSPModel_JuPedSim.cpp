@@ -407,8 +407,8 @@ GEOSGeometry*
 MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape) {
     // Corner case.
     if (shape.size() == 1) {
-            WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
-            return nullptr;
+        WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
+        return nullptr;
     }
     // Make sure the shape is closed.
     if (shape.back() != shape.front()) {
@@ -436,13 +436,17 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
         if (cleanShape.size() == 3) {
-            WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
+            if (isInternalShape) {
+                WRITE_WARNINGF(TL("Polygon for junction '%' has been dilated as it is just a segment."), shapeID);
+            } else {
+                WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
+            }
             GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
             polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
             GEOSGeom_destroy(lineString);
         } else {
             if (isInternalShape) {
-                WRITE_WARNINGF(TL("Polygon '%' has been replaced by its convex hull as it is not simple."), shapeID);
+                WRITE_WARNINGF(TL("Polygon on junction '%' has been replaced by its convex hull as it is not simple."), shapeID);
                 polygon = GEOSConvexHull(polygon);
             } else {
                 WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is not simple."), shapeID);
@@ -511,9 +515,8 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                                     Position nextAnchor;
 
                                     if (edge->isNormal() && nextEdge->isNormal()) {
-                                        PositionVector walkingAreaShape = getSidewalk<MSEdge, MSLane>(walkingArea)->getShape();
-                                        std::string walkingAreaShapeID = getSidewalk<MSEdge, MSLane>(walkingArea)->getID();
-                                        walkingAreaGeom = createGeometryFromShape(walkingAreaShape, walkingAreaShapeID, true);
+                                        const PositionVector& walkingAreaShape = getSidewalk<MSEdge, MSLane>(walkingArea)->getShape();
+                                        walkingAreaGeom = createGeometryFromShape(walkingAreaShape, junction->getID(), true);
                                         if (walkingAreaGeom) {
                                             walkableAreas.push_back(walkingAreaGeom);
                                             continue;
