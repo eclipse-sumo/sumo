@@ -194,7 +194,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
 
     # get time windows
     time_windows = get_time_windows(reservations, fleet, end)
-    
+
     data = {}
     data['depot'] = 0  # node_id of the depot
     data['cost_matrix'] = cost_matrix
@@ -537,7 +537,7 @@ def get_arguments():
     ap.add_argument("-p", "--penalty-factor", type=float, default=PENALTY_FACTOR,
                     help="factor on penalty for rejecting requests")
     ap.add_argument("--trace-file", type=ap.file,
-                help="log file for TraCI debugging")
+                    help="log file for TraCI debugging")
     return ap.parse_args()
 
 
@@ -562,7 +562,7 @@ def check_set_arguments(arguments):
     if arguments.waiting_time < 0:
         raise ValueError(
             f"Wrong value for waiting time '{arguments.waiting_time}'. Value must be equal or greater than 0.")
-    
+
 
 if __name__ == "__main__":
 
