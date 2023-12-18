@@ -161,6 +161,7 @@ private:
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
+    static const double GEOS_BUFFERED_SEGMENT_WIDTH;
 
     void initialize();
     void tryPedestrianInsertion(PState* state, const Position& p);
@@ -170,7 +171,7 @@ private:
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
     static const MSEdge* getWalkingAreaInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
-    static GEOSGeometry* createGeometryFromShape(PositionVector shape);
+    static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape = false);
     static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const GEOSGeometry* geometry);
