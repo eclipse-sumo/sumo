@@ -46,6 +46,9 @@ public:
     /// @brief get contour boundary
     Boundary getContourBoundary() const;
 
+    /// @brief get calculated shape
+    const PositionVector &getCalculatedShape() const;
+
     /// @brief calculate contours
     /// @{
 
@@ -95,6 +98,11 @@ public:
     void calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                            const GUIGlObject* glObject, const PositionVector& shape, const double radius,
                                            const double scale, const bool calculatePosOverShape) const;
+
+    /// @brief calculate contour for edge geometry points
+    void calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                            const GNEEdge* edge, const double radius, const bool calculatePosOverShape,
+                                            const bool firstExtrem, const bool lastExtrem) const;
     /// @}
 
     /// @brief drawing contour functions
@@ -121,6 +129,9 @@ private:
     /// @brief contourboundary
     Boundary *myContourBoundary;
 
+    /// @brief calculated shape
+    PositionVector *myCalculatedShape;
+
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
 
@@ -128,30 +139,30 @@ private:
     /// @{
 
     /// @brief build contour around closed shape (ej. polygon)
-    PositionVector buildContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const PositionVector& shape, const double scale) const;
+    void buildContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                 const PositionVector& shape, const double scale) const;
 
     /// @brief build contour around extruded shape (ej. lane)
-    PositionVector buildContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                             const PositionVector& shape, const double extrusionWidth, const double scale,
-                                             const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const;
+    void buildContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                   const PositionVector& shape, const double extrusionWidth, const double scale,
+                                   const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const;
 
     /// @brief build contour around rectangle
-    PositionVector buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                                         const Position& pos, const double width, const double height, const double offsetX,
-                                         const double offsetY, const double rot, const double scale) const;
+    void buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+                              const Position& pos, const double width, const double height, const double offsetX,
+                              const double offsetY, const double rot, const double scale) const;
 
     /// @brief build contour aorund circle
-    PositionVector buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                      const Position& pos, double radius, const double scale) const;
+    void buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const Position& pos, double radius, const double scale) const;
 
     /// @brief build contour around edge
-    PositionVector buildContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                    const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const;
+    void buildContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                          const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const;
 
     /// @brief build contour between two from-to edgeds
-    PositionVector buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+    void buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                           const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
     
     /// @brief update contour boundary
     void updateContourBondary() const;
