@@ -897,13 +897,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
         if (glObject == myViewNet->getFrontGLObject()) {
             // insert at front
             container.POIs.insert(container.POIs.begin(), POI);
-            container.attributeCarriers.insert(container.attributeCarriers.begin(), POI);
-            container.GUIGlObjects.insert(container.GUIGlObjects.begin(), POI);
         } else {
             // insert at back
             container.POIs.push_back(POI);
-            container.attributeCarriers.push_back(POI);
-            container.GUIGlObjects.push_back(POI);
         }
     } else if ((glObject->getType() == GLO_POLYGON) || (glObject->getType() == GLO_JPS_WALKABLEAREA) || (glObject->getType() == GLO_JPS_OBSTACLE)) {
         // cast poly
@@ -912,13 +908,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
         if (glObject == myViewNet->getFrontGLObject()) {
             // insert at front
             container.polys.insert(container.polys.begin(), poly);
-            container.attributeCarriers.insert(container.attributeCarriers.begin(), poly);
-            container.GUIGlObjects.insert(container.GUIGlObjects.begin(), poly);
         } else {
             // insert at back
             container.polys.push_back(poly);
-            container.attributeCarriers.push_back(poly);
-            container.GUIGlObjects.push_back(poly);
         }
     }
 }
@@ -934,13 +926,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
         if (glObject == myViewNet->getFrontGLObject()) {
             // insert at front
             container.TAZs.insert(container.TAZs.begin(), TAZ);
-            container.attributeCarriers.insert(container.attributeCarriers.begin(), TAZ);
-            container.GUIGlObjects.insert(container.GUIGlObjects.begin(), TAZ);
         } else {
             // insert at back
             container.TAZs.push_back(TAZ);
-            container.attributeCarriers.push_back(TAZ);
-            container.GUIGlObjects.push_back(TAZ);
         }
     }
 }
