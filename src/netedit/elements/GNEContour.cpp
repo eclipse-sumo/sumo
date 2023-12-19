@@ -283,16 +283,22 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
         if (AC->checkDrawSelectContour()) {
             drawDottedContour(s, GUIDottedGeometry::DottedContourType::SELECT, lineWidth, addOffset);
         }
+        // move contour
+        if (AC->checkDrawMoveContour()) {
+            drawDottedContour(s, GUIDottedGeometry::DottedContourType::MOVE, lineWidth, addOffset);
+        }
     }
 }
 
 
 void
 GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                            const GUIGlObject* glObject, const PositionVector &shape, const double radius,
+                                            const GNEAttributeCarrier *AC, const PositionVector &shape, const double radius,
                                             const double scale, const double lineWidth) const {
     // first check if draw dotted contour
-    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
+    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) && AC->checkDrawMoveContour() ) {
+        // get gl object
+        const auto glObject = AC->getGUIGlObject();
         // get geometry points
         const auto &geometryPoints = gViewObjectsHandler.getGeometryPoints(glObject);
         // get temporal position over shape

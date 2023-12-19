@@ -75,6 +75,12 @@ GNEEdgeTemplate::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEEdgeTemplate::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEEdgeTemplate::updateGeometry() {
     throw InvalidArgument("cannot be called in templates");

@@ -113,6 +113,12 @@ GNEDataInterval::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEDataInterval::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEDataInterval::updateGeometry() {
     // nothing to update

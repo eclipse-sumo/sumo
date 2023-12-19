@@ -87,6 +87,12 @@ GNEAdditional::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEAdditional::getGUIGlObject() const {
+    return this;
+}
+
+
 const std::string
 GNEAdditional::getOptionalName() const {
     try {

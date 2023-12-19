@@ -91,6 +91,9 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    virtual const GUIGlObject* getGUIGlObject() const = 0;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

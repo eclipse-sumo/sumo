@@ -67,6 +67,12 @@ GNEGenericData::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEGenericData::getGUIGlObject() const {
+    return this;
+}
+
+
 GNEDataInterval*
 GNEGenericData::getDataIntervalParent() const {
     return myDataIntervalParent;

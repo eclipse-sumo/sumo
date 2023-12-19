@@ -49,6 +49,12 @@ GNELaneTemplate::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNELaneTemplate::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNELaneTemplate::updateGeometry() {
     throw InvalidArgument("cannot be called in templates");

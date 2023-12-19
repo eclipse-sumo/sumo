@@ -133,6 +133,12 @@ GNEDataSet::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEDataSet::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEDataSet::updateAttributeColors() {
     // first update attribute colors in data interval childrens

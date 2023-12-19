@@ -85,6 +85,12 @@ GNEDemandElement::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEDemandElement::getGUIGlObject() const {
+    return this;
+}
+
+
 const GUIGeometry&
 GNEDemandElement::getDemandElementGeometry() {
     return myDemandElementGeometry;

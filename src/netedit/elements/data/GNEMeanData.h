@@ -54,6 +54,9 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

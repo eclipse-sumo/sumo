@@ -114,7 +114,7 @@ public:
 
     /// @brief draw dotted contour for geometry points
     void drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                         const GUIGlObject* glObject, const PositionVector &shape, const double radius,
+                                         const GNEAttributeCarrier *AC, const PositionVector &shape, const double radius,
                                          const double scale, const double lineWidth) const;
 
     /// @brief draw innen contour (currently used only in walkingAreas)

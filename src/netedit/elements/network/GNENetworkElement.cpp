@@ -55,6 +55,12 @@ GNENetworkElement::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNENetworkElement::getGUIGlObject() const {
+    return this;
+}
+
+
 void
 GNENetworkElement::setShapeEdited(const bool value) {
     myShapeEdited = value;

@@ -148,6 +148,12 @@ GNEMeanData::getGUIGlObject() {
 }
 
 
+const GUIGlObject*
+GNEMeanData::getGUIGlObject() const {
+    return nullptr;
+}
+
+
 void
 GNEMeanData::updateGeometry() {
     // nothing to update
