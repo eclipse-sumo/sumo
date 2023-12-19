@@ -1387,8 +1387,6 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
                                                                       s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
-        } else {
-            
         }
     }
 }

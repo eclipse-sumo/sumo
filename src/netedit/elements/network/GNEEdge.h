@@ -470,11 +470,11 @@ private:
 
     /// @brief draw start extreme geometry point
     void drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const double circleWidth, const double exaggeration) const;
+                                const double geometryPointRadius, const double exaggeration) const;
 
     /// @brief draw end extreme geometry point
     void drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const double circleWidth, const double exaggeration) const;
+                              const double geometryPointRadius, const double exaggeration) const;
 
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
@@ -512,8 +512,8 @@ private:
     /// @brief process moving edge when none junction are selected
     GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
 
-    /// @brief get snap radius
-    double getSnapRadius(const bool squared) const;
+    /// @brief get geometry point radius
+    double getGeometryPointRadius() const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
