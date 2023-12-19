@@ -52,8 +52,11 @@ public:
         /// @brief vector with geometry points
         std::vector<int> geometryPoints;
 
-        /// @brief pos over shape
+        /// @brief position over shape
         Position posOverShape = Position::INVALID;
+
+        /// @brief offset of position over shape
+        double offset = 0;
     };
 
     /// @brief typedef
@@ -106,7 +109,7 @@ public:
     bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
 
     /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos);
+    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos, const double offset);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;

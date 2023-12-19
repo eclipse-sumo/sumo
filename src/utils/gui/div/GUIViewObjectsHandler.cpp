@@ -217,10 +217,11 @@ GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::De
     // only process if we're selecting a precise position
     if ((mySelectionPosition != Position::INVALID) && (d <= GUIVisualizationSettings::Detail::PreciseSelection)) {
         // obtain nearest position over shape
-        const auto nearestPos = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mySelectionPosition));
+        const auto nearestOffset = shape.nearest_offset_to_point2D(mySelectionPosition);
+        const auto nearestPos = shape.positionAtOffset2D(nearestOffset);
         // check distance nearest position and pos
         if (mySelectionPosition.distanceSquaredTo2D(nearestPos) <= (distance * distance)) {
-            return addPositionOverShape(GLObject, nearestPos);
+            return addPositionOverShape(GLObject, nearestPos, nearestOffset);
         } else {
             return false;
         }
@@ -318,7 +319,7 @@ GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, 
 
 
 bool
-GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos) {
+GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const Position &pos, const double offset) {
     // avoid to insert duplicated elements
     for (auto &elementLayer : mySortedSelectedObjects) {
         for (auto &element : elementLayer.second) {
@@ -326,7 +327,9 @@ GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const P
                 if (element.posOverShape != Position::INVALID) {
                     return false;
                 } else {
+                    // set position and offset over shape
                     element.posOverShape = pos;
+                    element.offset = offset;
                     return true;
                 }
             }

@@ -200,14 +200,39 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
                                                const bool firstExtrem, const bool lastExtrem) const {
     // first check if we're in drawForObjectUnderCursor
     if (s.drawForObjectUnderCursor && (gViewObjectsHandler.getSelectionPosition() != Position::INVALID)) {
+        // get edge geometry
+        const auto &edgeGeometry = edge->getNBEdge()->getGeometry();
+        // calculate last geometry point index
+        const int lastGeometryPointIndex = (int)edgeGeometry.size() - 1;
         // we have two cases: if cursor is within geometry, or cursor is outher geometry
         if (myCalculatedShape->around(gViewObjectsHandler.getSelectionPosition())) {
-            
+            // get squared radius
+            const auto squaredRadius = (radius * radius);
+            // obtain nearest position and offset over shape
+            const auto nearestOffset = edgeGeometry.nearest_offset_to_point2D(gViewObjectsHandler.getSelectionPosition());
+            const auto nearestPos = edgeGeometry.positionAtOffset2D(nearestOffset);
+            // check position within geometry of middle geometry points
+            for (int i = 1; i < lastGeometryPointIndex; i++) {
+                if (edgeGeometry[i].distanceSquaredTo(nearestPos) <= squaredRadius) {
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, radius);
+                }
+            }
+            // check extrems
+            if (firstExtrem) {
+                if (edgeGeometry[0].distanceSquaredTo(nearestPos) <= squaredRadius) {
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, 0, radius);
+                }
+            }
+            if (lastExtrem) {
+                if (edgeGeometry[lastGeometryPointIndex].distanceSquaredTo(nearestPos) <= squaredRadius) {
+                    gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, radius);
+                }
+            }
+            // if list of index is emprt, use nearestPos as pos over shape
+            if (calculatePosOverShape && gViewObjectsHandler.getGeometryPoints(edge).empty()) {
+                gViewObjectsHandler.addPositionOverShape(edge, nearestPos, nearestOffset);
+            }
         } else {
-            // get edge geometry
-            const auto &edgeGeometry = edge->getNBEdge()->getGeometry();
-            // calculate last geometry point index
-            const int lastGeometryPointIndex = (int)edgeGeometry.size() - 1;
             // check position within geometry of middle geometry points
             for (int i = 1; i < lastGeometryPointIndex; i++) {
                 gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, i, radius);
@@ -219,25 +244,8 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
             if (lastExtrem) {
                 gViewObjectsHandler.checkGeometryPoint(d, edge, edgeGeometry, lastGeometryPointIndex, radius);
             }
-            // check if calculate position over shape
-            if (calculatePosOverShape) {
-                gViewObjectsHandler.checkPositionOverShape(d, edge, edgeGeometry, radius);
-            }
         }
     }
-/*
-    // draw geometry points
-    myNetworkElementContour.calculateContourMiddleGeometryPoints(s, d, this, myNBEdge->getGeometry(), geometryPointRadius, exaggeration);
-    // check if darw from geometry point
-    if () {
-        myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getGeometry(), geometryPointRadius, exaggeration);
-    }
-    // check if draw to geometry point
-    if () {
-        myNetworkElementContour.calculateContourLastGeometryPoint(s, d, this, myNBEdge->getGeometry(), geometryPointRadius, exaggeration);
-    }
-*/
-
 }
 
 
