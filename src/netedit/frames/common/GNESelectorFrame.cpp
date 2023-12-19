@@ -1370,9 +1370,9 @@ GNESelectorFrame::clearCurrentSelection() const {
 
 
 bool
-GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get front AC
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = viewObjects.getAttributeCarrierFront();
     // check AC
     if (AC == nullptr) {
         return false;
@@ -1393,7 +1393,7 @@ GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // filter GLObjects by layer
-    auto filteredGLObjects = GNEViewNetHelper::filterElementsByLayer(objectsUnderCursor.getClickedGLObjects());
+    auto filteredGLObjects = GNEViewNetHelper::filterElementsByLayer(viewObjects.getGLObjects());
     // check if we have to open dialog
     if (filteredGLObjects.size() > 1) {
         myViewNet->openSelectDialogAtCursor(filteredGLObjects);

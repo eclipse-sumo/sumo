@@ -146,21 +146,21 @@ GNETAZRelDataFrame::~GNETAZRelDataFrame() {}
 
 
 bool
-GNETAZRelDataFrame::setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNETAZRelDataFrame::setTAZ(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // check if myFirstTAZElement is empty
     if (myFirstTAZ) {
         if (mySecondTAZ) {
             // both already defined
             return false;
-        } else if (objectsUnderCursor.getTAZFront()) {
-            mySecondTAZ = objectsUnderCursor.getTAZFront();
+        } else if (viewObjects.getTAZFront()) {
+            mySecondTAZ = viewObjects.getTAZFront();
             myLegend->setLabels(myFirstTAZ, mySecondTAZ);
             return true;
         } else {
             return false;
         }
-    } else if (objectsUnderCursor.getTAZFront()) {
-        myFirstTAZ = objectsUnderCursor.getTAZFront();
+    } else if (viewObjects.getTAZFront()) {
+        myFirstTAZ = viewObjects.getTAZFront();
         myLegend->setLabels(myFirstTAZ, mySecondTAZ);
         return true;
     } else {

@@ -680,8 +680,8 @@ GNEMoveFrame::~GNEMoveFrame() {}
 
 void
 GNEMoveFrame::processClick(const Position& /*clickedPosition*/,
-                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderCursor*/,
-                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderGrippedCursor*/) {
+                           const GNEViewNetHelper::ViewObjectsSelector& /*viewObjects*/,
+                           const GNEViewNetHelper::ViewObjectsSelector& /*objectsUnderGrippedCursor*/) {
     // currently unused
 }
 

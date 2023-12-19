@@ -188,7 +188,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // get link state color
             const auto linkStateColor = colorForLinksState(myState);
             // push layer matrix

@@ -283,9 +283,9 @@ public:
     void hide();
 
     /**@brief add Crossing element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void addCrossing(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief create crossing (used when user press ENTER key in Crossing mode)
     void createCrossingHotkey();

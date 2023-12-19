@@ -95,14 +95,14 @@ GNEPersonFrame::hide() {
 
 
 bool
-GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // first check that we clicked over an AC
-    if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
+    if (viewObjects.getAttributeCarrierFront() == nullptr) {
         return false;
     }
     // obtain tags (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
+    SumoXMLTag clickedACTag = viewObjects.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
@@ -120,15 +120,15 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        return myPlanCreator->addEdge(objectsUnderCursor.getLaneFront());
-    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
+        return myPlanCreator->addEdge(viewObjects.getLaneFront());
+    } else if (viewObjects.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
+        return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
+        return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
-        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
+        return myPlanCreator->addJunction(viewObjects.getJunctionFront());
     } else if (clickedACTag == SUMO_TAG_TAZ) {
-        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
+        return myPlanCreator->addTAZ(viewObjects.getTAZFront());
     } else {
         return false;
     }

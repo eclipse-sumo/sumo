@@ -414,14 +414,14 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
 
 
 void
-GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // disable update geometry
     myViewNet->getNet()->disableUpdateGeometry();
     // first check if there more than one clicked GL object under cursor
-    if (objectsUnderCursor.getClickedGLObjects().size() > 1) {
+    if (viewObjects.getGLObjects().size() > 1) {
         std::vector<GUIGlObject*> filteredGLObjects;
         // filter objects
-        for (const auto& glObject : objectsUnderCursor.getClickedGLObjects()) {
+        for (const auto& glObject : viewObjects.getGLObjects()) {
             if (glObject->isGLObjectLocked()) {
                 continue;
             }
@@ -436,9 +436,9 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         } else if (filteredGLObjects.size() > 0) {
             filteredGLObjects.front()->deleteGLObject();
         }
-    } else if ((objectsUnderCursor.getClickedGLObjects().size() > 0) &&
-               !objectsUnderCursor.getClickedGLObjects().front()->isGLObjectLocked()) {
-        objectsUnderCursor.getClickedGLObjects().front()->deleteGLObject();
+    } else if ((viewObjects.getGLObjects().size() > 0) &&
+               !viewObjects.getGLObjects().front()->isGLObjectLocked()) {
+        viewObjects.getGLObjects().front()->deleteGLObject();
     }
     // enable update geometry
     myViewNet->getNet()->enableUpdateGeometry();
@@ -448,19 +448,19 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
 
 
 bool
-GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get clicked position
     const Position clickedPosition = myViewNet->getPositionInformation();
     // filter elements with geometry points
-    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+    for (const auto& AC : viewObjects.getAttributeCarriers()) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-            objectsUnderCursor.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
-            objectsUnderCursor.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-            objectsUnderCursor.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+            viewObjects.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             return true;
         }
     }

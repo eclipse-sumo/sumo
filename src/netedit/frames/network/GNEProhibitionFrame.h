@@ -168,9 +168,9 @@ public:
     ~GNEProhibitionFrame();
 
     /**@brief handle prohibitions and set the relative coloring
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void handleProhibitionClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void handleProhibitionClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief show prohibition frame
     void show();

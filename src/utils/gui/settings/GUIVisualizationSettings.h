@@ -972,8 +972,8 @@ public:
     /// @brief the current selection scaling in netedit (set in SelectorFrame)
     double selectorFrameScale;
 
-    /// @brief whether drawing is performed for the purpose of selecting objects under cursor
-    bool drawForObjectUnderCursor;
+    /// @brief whether drawing is performed for the purpose of selecting objects in view using ViewObjectsHandler
+    bool drawForViewObjectsHandler;
 
     /// @brief whether drawing is performed for the purpose of selecting objects using a rectangle
     bool drawForRectangleSelection;

@@ -51,10 +51,10 @@ public:
     void show();
 
     /**@brief add wire element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if wire was successfully added
      */
-    bool addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;

@@ -57,10 +57,10 @@ public:
     void hide();
 
     /**@brief add container plan element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if element was successfully added
      */
-    bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addContainerPlanElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief reset selected container
     void resetSelectedContainer();

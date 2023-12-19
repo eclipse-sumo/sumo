@@ -278,7 +278,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw E2
             drawE2(s, d, E2Exaggeration);
             // draw lock icon
@@ -341,7 +341,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
             E2Geometry = segment->getLane()->getLaneGeometry();
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw E2 partial
             drawE2PartialLane(s, d, segment, offsetFront, E2Geometry, E2Exaggeration);
             // draw additional ID
@@ -373,7 +373,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         const GUIGeometry& E2Geometry = connectionExist? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
                                                          GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw E2 partial
             drawE2PartialJunction(s, d, onlyContour, offsetFront, E2Geometry, E2Exaggeration);
             // draw dotted contour

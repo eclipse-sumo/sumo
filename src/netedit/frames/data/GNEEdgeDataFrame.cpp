@@ -41,14 +41,14 @@ GNEEdgeDataFrame::~GNEEdgeDataFrame() {}
 
 
 bool
-GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& /*mouseButtonKeyPressed*/) {
+GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const GNEViewNetHelper::MouseButtonKeyPressed& /*mouseButtonKeyPressed*/) {
     // first check if we clicked over an edge
-    if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
+    if (viewObjects.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
+            if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == viewObjects.getEdgeFront())) {
                 // write warning
-                WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), objectsUnderCursor.getEdgeFront()->getID());
+                WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), viewObjects.getEdgeFront()->getID());
                 // abort edge data creation
                 return false;
             }
@@ -64,7 +64,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
             CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
             // finally create edgeData
             GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
-            dataHandler.buildEdgeData(genericDataBaseObject, objectsUnderCursor.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
+            dataHandler.buildEdgeData(genericDataBaseObject, viewObjects.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
             // delete intervalBaseObject (and genericDataBaseObject)
             delete intervalBaseObject;
             // edgeData created, then return true

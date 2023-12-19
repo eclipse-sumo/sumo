@@ -398,9 +398,9 @@ public:
     void clearCurrentSelection() const;
 
     /**@brief select attribute carrier (element)
-     * @param objectsUnderCursor objects under cursors
+     * @param viewObjects objects under cursors
      */
-    bool selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool selectAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief apply list of ids to the current selection according to Operation,
      * @note if setop==DEFAULT than the currently set mode (myOperation) is used

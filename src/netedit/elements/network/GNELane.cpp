@@ -468,7 +468,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // update lane drawing constan
     myDrawingConstants->update(s);
     // check drawing conditions
-    if (!s.drawForObjectUnderCursor) {
+    if (!s.drawForViewObjectsHandler) {
         // draw lane
         drawLane(s);
         // draw lock icon
@@ -1105,7 +1105,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     // check if draw children elements
-    if (s.drawForObjectUnderCursor || (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Additionals)) {
+    if (s.drawForViewObjectsHandler || (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Additionals)) {
         // draw additional children
         for (const auto& additional : getChildAdditionals()) {
             // check that ParkingAreas aren't draw two times

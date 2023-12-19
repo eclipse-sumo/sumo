@@ -404,7 +404,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             shapeSuperposed.move2side(0.5);
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw connection
             drawConnection(s, d, shapeSuperposed, connectionExaggeration);
             // draw lock icon

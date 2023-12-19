@@ -207,7 +207,7 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw over all edge's lanes
             for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
                 // Add a draw matrix

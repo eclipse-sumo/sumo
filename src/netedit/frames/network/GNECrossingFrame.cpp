@@ -593,20 +593,20 @@ GNECrossingFrame::hide() {
 
 
 void
-GNECrossingFrame::addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNECrossingFrame::addCrossing(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // If current element is a junction
-    if (objectsUnderCursor.getJunctionFront()) {
+    if (viewObjects.getJunctionFront()) {
         // change label
-        myJunctionInformation->updateCurrentJunctionLabel(objectsUnderCursor.getJunctionFront()->getID());
+        myJunctionInformation->updateCurrentJunctionLabel(viewObjects.getJunctionFront()->getID());
         // Enable edge selector and crossing parameters
-        myEdgeSelector->enableEdgeSelector(objectsUnderCursor.getJunctionFront());
-        myCrossingParameters->enableCrossingParameters(objectsUnderCursor.getJunctionFront()->getNBNode()->isTLControlled());
+        myEdgeSelector->enableEdgeSelector(viewObjects.getJunctionFront());
+        myCrossingParameters->enableCrossingParameters(viewObjects.getJunctionFront()->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
-    } else if (objectsUnderCursor.getEdgeFront()) {
+    } else if (viewObjects.getEdgeFront()) {
         // check if mark edge
-        if (!objectsUnderCursor.getEdgeFront()->isInvalidCandidate()) {
-            myCrossingParameters->markEdge(objectsUnderCursor.getEdgeFront());
+        if (!viewObjects.getEdgeFront()->isInvalidCandidate()) {
+            myCrossingParameters->markEdge(viewObjects.getEdgeFront());
         }
     } else {
         // set default label

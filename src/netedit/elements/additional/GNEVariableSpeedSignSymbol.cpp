@@ -122,7 +122,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(VSSExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw variable speed sign symbol
             drawVSSSymbol(s, d, VSSExaggeration);
             // draw parent and child lines

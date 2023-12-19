@@ -219,14 +219,14 @@ struct GNEViewNetHelper {
     };
 
     /// @brief class used to group all variables related with objects under cursor after a click over view
-    class ObjectsUnderCursor {
+    class ViewObjectsSelector {
 
     public:
         /// @brief constructor
-        ObjectsUnderCursor(GNEViewNet* viewNet);
+        ViewObjectsSelector(GNEViewNet* viewNet);
 
-        /// @brief update objects under cursor (using gObjectsInPosition)
-        void updateObjectUnderCursor();
+        /// @brief update objects (using gViewObjectsHandler)
+        void updateObjects();
 
         /// @brief filter (remove) edges
         void filterEdges();
@@ -236,12 +236,6 @@ struct GNEViewNetHelper {
 
         /// @brief filter locked elements (except the ignoreFilter)
         void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
-
-        /// @brief get front GUI GL ID or a pointer to nullptr
-        GUIGlID getGlIDFront() const;
-
-        /// @brief get front GUI GL object type or a pointer to nullptr
-        GUIGlObjectType getGlTypeFront() const;
 
         /// @brief get front attribute carrier or a pointer to nullptr
         const GUIGlObject* getGUIGlObjectFront() const;
@@ -303,28 +297,28 @@ struct GNEViewNetHelper {
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
 
-        /// @brief get vector with clicked GL objects
-        const std::vector<GUIGlObject*>& getClickedGLObjects() const;
+        /// @brief get vector with GL objects
+        const std::vector<GUIGlObject*>& getGLObjects() const;
 
-        /// @brief get vector with clicked ACs
-        const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
+        /// @brief get vector with ACs
+        const std::vector<GNEAttributeCarrier*>& getAttributeCarriers() const;
 
-        /// @brief get vector with clicked junctions
-        const std::vector<GNEJunction*>& getClickedJunctions() const;
+        /// @brief get vector with junctions
+        const std::vector<GNEJunction*>& getJunctions() const;
 
-        /// @brief get vector with clicked junctions
+        /// @brief get vector with edges
         const std::vector<GNEEdge*>& getEdges() const;
 
-        /// @brief get vector with clicked Demand Elements
-        const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
+        /// @brief get vector with Demand Elements
+        const std::vector<GNEDemandElement*>& getDemandElements() const;
 
     protected:
         /// @brief objects container
-        class ObjectsContainer {
+        class ViewObjectsContainer {
 
         public:
             /// @brief constructor
-            ObjectsContainer();
+            ViewObjectsContainer();
 
             /// @brief clear elements
             void clearElements();
@@ -332,101 +326,101 @@ struct GNEViewNetHelper {
             /// @brief filter elements
             void filterElements(const std::vector<const GUIGlObject*> &objects);
 
-            /// @brief vector with the clicked GUIGlObjects
+            /// @brief vector with the GUIGlObjects
             std::vector<GUIGlObject*> GUIGlObjects;
 
-            /// @brief vector with the clicked attribute carriers
+            /// @brief vector with the attribute carriers
             std::vector<GNEAttributeCarrier*> attributeCarriers;
 
-            /// @brief vector with the clicked network elements
+            /// @brief vector with the network elements
             std::vector<GNENetworkElement*> networkElements;
 
-            /// @brief vector with the clicked additional elements
+            /// @brief vector with the additional elements
             std::vector<GNEAdditional*> additionals;
 
-            /// @brief vector with the clicked demand elements
+            /// @brief vector with the demand elements
             std::vector<GNEDemandElement*> demandElements;
 
-            /// @brief vector with the clicked generic datas
+            /// @brief vector with the generic datas
             std::vector<GNEGenericData*> genericDatas;
 
-            /// @brief vector with the clicked junctions
+            /// @brief vector with the junctions
             std::vector<GNEJunction*> junctions;
 
-            /// @brief vector with the clicked edges
+            /// @brief vector with the  edges
             std::vector<GNEEdge*> edges;
 
-            /// @brief vector with the clicked lanes
+            /// @brief vector with the lanes
             std::vector<GNELane*> lanes;
 
-            /// @brief vector with the clicked crossings
+            /// @brief vector with the crossings
             std::vector<GNECrossing*> crossings;
 
-            /// @brief vector with the clicked walkingAreas
+            /// @brief vector with the walkingAreas
             std::vector<GNEWalkingArea*> walkingAreas;
 
-            /// @brief vector with the clicked connections
+            /// @brief vector with the connections
             std::vector<GNEConnection*> connections;
 
-            /// @brief vector with the clicked internal lanes
+            /// @brief vector with the internal lanes
             std::vector<GNEInternalLane*> internalLanes;
 
-            /// @brief vector with the clicked TAZ elements
+            /// @brief vector with the TAZ elements
             std::vector<GNETAZ*> TAZs;
 
-            /// @brief vector with the clicked POIs
+            /// @brief vector with the POIs
             std::vector<GNEPOI*> POIs;
 
-            /// @brief vector with the clicked polys
+            /// @brief vector with the polys
             std::vector<GNEPoly*> polys;
 
-            /// @brief vector with the clicked edge datas
+            /// @brief vector with the edge datas
             std::vector<GNEEdgeData*> edgeDatas;
 
-            /// @brief vector with the clicked edge relation datas
+            /// @brief vector with the edge relation datas
             std::vector<GNEEdgeRelData*> edgeRelDatas;
 
         private:
             /// @brief Invalidated copy constructor.
-            ObjectsContainer(const ObjectsContainer&) = delete;
+            ViewObjectsContainer(const ViewObjectsContainer&) = delete;
         };
 
         /// @brief pointer to viewNet
         const GNEViewNet* myViewNet;
 
         /// @brief objects container with selected objects
-        ObjectsContainer myObjects;
+        ViewObjectsContainer myViewObjects;
 
     private:
         /// @brief update network elements
-        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateNetworkElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update additional elements
-        void updateAdditionalElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateAdditionalElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update shape elements
-        void updateShapeElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateShapeElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update TAZ elements
-        void updateTAZElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateTAZElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update demand elements
-        void updateDemandElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateDemandElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update generic data elements
-        void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateGenericDataElements(ViewObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
         void processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer);
 
         /// @brief default constructor
-        ObjectsUnderCursor();
+        ViewObjectsSelector();
 
         /// @brief Invalidated copy constructor.
-        ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
+        ViewObjectsSelector(const ViewObjectsSelector&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ObjectsUnderCursor& operator=(const ObjectsUnderCursor&) = delete;
+        ViewObjectsSelector& operator=(const ViewObjectsSelector&) = delete;
     };
 
     /// @brief class used to group all variables related with mouse buttons and key pressed after certain events

@@ -882,9 +882,9 @@ GNEInspectorFrame::hide() {
 
 
 bool
-GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = viewObjects.getAttributeCarrierFront();
     // first check if we have clicked over an Attribute Carrier
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -900,11 +900,11 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                    inspectClickedElement(viewObjects, clickedPosition);
                 }
             } else if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
+                inspectClickedElement(viewObjects, clickedPosition);
             }
             // focus upper element of inspector frame
             focusUpperElement();
@@ -917,9 +917,9 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 
 
 bool
-GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = viewObjects.getAttributeCarrierFront();
     // first check if we have clicked over a demand element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -935,11 +935,11 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                    inspectClickedElement(viewObjects, clickedPosition);
                 }
             } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
+                inspectClickedElement(viewObjects, clickedPosition);
             }
             // focus upper element of inspector frame
             focusUpperElement();
@@ -952,9 +952,9 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
 
 
 bool
-GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = viewObjects.getAttributeCarrierFront();
     // first check if we have clicked over a data element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -970,11 +970,11 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
             if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
-                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                    inspectClickedElement(viewObjects, clickedPosition);
                 }
             } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
-                inspectClickedElement(objectsUnderCursor, clickedPosition);
+                inspectClickedElement(viewObjects, clickedPosition);
             }
             // focus upper element of inspector frame
             focusUpperElement();
@@ -1205,15 +1205,15 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 
 void
-GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
     // get front unlocked AC
-    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    const auto AC = viewObjects.getAttributeCarrierFront();
     // check if selection is blocked
     if (AC) {
         // inspect front element
         inspectSingleElement(AC);
         // show Overlapped Inspection module
-        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+        myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition);
     }
 }
 

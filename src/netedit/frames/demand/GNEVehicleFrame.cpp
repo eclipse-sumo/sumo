@@ -174,7 +174,7 @@ GNEVehicleFrame::hide() {
 
 
 bool
-GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // check template AC
     if (myVehicleTagSelector->getCurrentTemplateAC() == nullptr) {
         return false;
@@ -211,16 +211,16 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
     if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRoute()) {
-        return buildVehicleOverRoute(vehicleTag, objectsUnderCursor.getDemandElementFront());
-    } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
+        return buildVehicleOverRoute(vehicleTag, viewObjects.getDemandElementFront());
+    } else if (addEdge && viewObjects.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (addJunction && objectsUnderCursor.getJunctionFront()) {
+        return myPathCreator->addEdge(viewObjects.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+    } else if (addJunction && viewObjects.getJunctionFront()) {
         // add clicked junction in GNEPathCreator
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
-    } else if (addTAZ && objectsUnderCursor.getTAZFront()) {
+        return myPathCreator->addJunction(viewObjects.getJunctionFront());
+    } else if (addTAZ && viewObjects.getTAZFront()) {
         // add clicked TAZ in GNEPathCreator
-        return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
+        return myPathCreator->addTAZ(viewObjects.getTAZFront());
     } else {
         return false;
     }

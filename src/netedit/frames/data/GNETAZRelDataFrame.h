@@ -106,7 +106,7 @@ public:
     ~GNETAZRelDataFrame();
 
     /// @brief set clicked TAZ
-    bool setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool setTAZ(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief build TAZRelation data
     void buildTAZRelationData();

@@ -235,7 +235,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(crossingExaggeration);
         // check if draw geometry
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw crossing
             drawCrossing(s, d, NBCrossing, crossingWidth, crossingExaggeration);
             // draw TLS Links No

@@ -207,7 +207,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // radius depends if mouse is over element
             const double radius = gViewObjectsHandler.isElementSelected(this)? 1 : 0.5;
             // get color

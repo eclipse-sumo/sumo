@@ -596,7 +596,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     gaming(false),
     drawBoundaries(false),
     selectorFrameScale(1.),
-    drawForObjectUnderCursor(false),
+    drawForViewObjectsHandler(false),
     drawForRectangleSelection(false),
     forceDrawForRectangleSelection(false),
     disableDottedContours(false),
@@ -2387,7 +2387,7 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 bool
 GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
     const double size = MAX2(w, h);
-    if (drawForObjectUnderCursor) {
+    if (drawForViewObjectsHandler) {
         return true;
     } else {
         // for low computers 20. for high 10

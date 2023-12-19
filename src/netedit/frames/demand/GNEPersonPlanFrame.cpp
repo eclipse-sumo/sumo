@@ -102,21 +102,21 @@ GNEPersonPlanFrame::hide() {
 
 
 bool
-GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // first check that we clicked over an AC
-    if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
+    if (viewObjects.getAttributeCarrierFront() == nullptr) {
         return false;
     }
     // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
-        if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
+        if (viewObjects.getDemandElementFront() && viewObjects.getDemandElementFront()->getTagProperty().isPerson()) {
             // continue depending of number of demand elements under cursor
-            if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
+            if (viewObjects.getDemandElements().size() > 1) {
                 // Filter persons
-                myPersonSelector->setDemandElements(objectsUnderCursor.getClickedDemandElements());
+                myPersonSelector->setDemandElements(viewObjects.getDemandElements());
             } else {
                 // select new person
-                myPersonSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
+                myPersonSelector->setDemandElement(viewObjects.getDemandElementFront());
             }
             return true;
         } else {
@@ -130,18 +130,18 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // continue depending of marked elements
-    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() &&
-            (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
-    } else if ((myPlanSelector->markBusStops() || myPlanSelector->markTrainStops()) && objectsUnderCursor.getAdditionalFront() &&
-               (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
-    } else if (myPlanSelector->markEdges() && objectsUnderCursor.getLaneFront()) {
-        return myPlanCreator->addEdge(objectsUnderCursor.getLaneFront());
-    } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
-        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
-    } else if (myPlanSelector->markTAZs() && objectsUnderCursor.getTAZFront()) {
-        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
+    if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
+            (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
+    } else if ((myPlanSelector->markBusStops() || myPlanSelector->markTrainStops()) && viewObjects.getAdditionalFront() &&
+               (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+        return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
+    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
+        return myPlanCreator->addEdge(viewObjects.getLaneFront());
+    } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
+        return myPlanCreator->addJunction(viewObjects.getJunctionFront());
+    } else if (myPlanSelector->markTAZs() && viewObjects.getTAZFront()) {
+        return myPlanCreator->addTAZ(viewObjects.getTAZFront());
     } else {
         return false;
     }

@@ -395,7 +395,7 @@ GNEStopPlan::getACParametersMap() const {
 void
 GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForObjectUnderCursor) {
+    if (!s.drawForViewObjectsHandler) {
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Add layer matrix matrix
@@ -458,7 +458,7 @@ GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisual
 void
 GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForObjectUnderCursor) {
+    if (!s.drawForViewObjectsHandler) {
         // declare stop color
         const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Add layer matrix matrix

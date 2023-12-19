@@ -586,7 +586,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level from the first lane
         const auto d = myLanes.front()->getDrawingConstants()->getDetail();
         // check if draw details
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw geometry points
             drawEdgeGeometryPoints(s, d);
             // draw edge shape (a red line only visible if lane shape is strange)
@@ -2728,7 +2728,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
 void
 GNEEdge::drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // check if draw children elements
-    if (s.drawForObjectUnderCursor || (d <= GUIVisualizationSettings::Detail::Additionals)) {
+    if (s.drawForViewObjectsHandler || (d <= GUIVisualizationSettings::Detail::Additionals)) {
         // draw child additional
         for (const auto& additional : getChildAdditionals()) {
             additional->drawGL(s);

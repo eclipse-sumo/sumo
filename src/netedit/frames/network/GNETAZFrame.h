@@ -532,10 +532,10 @@ public:
 
     /**@brief process click over Viewnet
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something (select TAZ or add edge) was sucefully done
      */
-    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process selection of edges in view net
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);

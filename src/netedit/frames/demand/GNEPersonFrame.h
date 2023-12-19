@@ -56,10 +56,10 @@ public:
     void hide();
 
     /**@brief add vehicle element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if vehicle was successfully added
      */
-    bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get plan creator module
     GNEPlanCreator* getPlanCreator() const;

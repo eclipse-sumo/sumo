@@ -1492,7 +1492,7 @@ GNETAZFrame::hide() {
 
 
 bool
-GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     if (myDrawingShape->isDrawing()) {
@@ -1503,11 +1503,11 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (objectsUnderCursor.getTAZFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+    } else if ((myCurrentTAZ->getTAZ() == nullptr) || (viewObjects.getTAZFront() && myCurrentTAZ->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
         // if user click over an TAZ and there isn't changes pending, then select a new TAZ
-        if (objectsUnderCursor.getTAZFront()) {
+        if (viewObjects.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
-            myCurrentTAZ->setTAZ(objectsUnderCursor.getTAZFront());
+            myCurrentTAZ->setTAZ(viewObjects.getTAZFront());
             // update TAZStatistics
             myCurrentTAZ->getTAZ()->updateTAZStatistic();
             myTAZCommonStatistics->updateStatistics();
@@ -1515,20 +1515,20 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
         } else {
             return false;
         }
-    } else if (objectsUnderCursor.getEdgeFront()) {
+    } else if (viewObjects.getEdgeFront()) {
         // if toggle Edge is enabled, select edge. In other case create two new source/Sinks
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // create new source/Sinks or delete it
-            return addOrRemoveTAZMember(objectsUnderCursor.getEdgeFront());
+            return addOrRemoveTAZMember(viewObjects.getEdgeFront());
         } else {
             // first check if clicked edge was previously selected
-            if (myTAZSelectionStatistics->isEdgeSelected(objectsUnderCursor.getEdgeFront())) {
+            if (myTAZSelectionStatistics->isEdgeSelected(viewObjects.getEdgeFront())) {
                 // clear selected edges
                 myTAZSelectionStatistics->clearSelectedEdges();
             } else {
                 // iterate over TAZEdges saved in CurrentTAZ (it contains the Edge and Source/sinks)
                 for (const auto& TAZEdgeColor : myCurrentTAZ->getTAZEdges()) {
-                    if (TAZEdgeColor.edge == objectsUnderCursor.getEdgeFront()) {
+                    if (TAZEdgeColor.edge == viewObjects.getEdgeFront()) {
                         // clear current selection (to avoid having two or more edges selected at the same time using mouse clicks)
                         myTAZSelectionStatistics->clearSelectedEdges();
                         // now select edge

@@ -69,7 +69,7 @@ GNEWireFrame::show() {
 
 
 bool
-GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEWireFrame::addWire(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // first check that current selected wire is valid
     if (myWireTagSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText(TL("Current selected wire isn't valid."));
@@ -89,11 +89,11 @@ GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     // obtain attributes and values
     myWireAttributes->getAttributesAndValues(myBaseWire, true);
     // fill netedit attributes
-    if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, objectsUnderCursor.getLaneFront())) {
+    if (!myNeteditAttributes->getNeteditAttributesAndValues(myBaseWire, viewObjects.getLaneFront())) {
         return false;
     }
     if (tagProperties.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
-        return myConsecutiveLaneSelector->addLane(objectsUnderCursor.getLaneFront());
+        return myConsecutiveLaneSelector->addLane(viewObjects.getLaneFront());
     } else {
         // build wire over view
         return buildWireOverView(tagProperties);

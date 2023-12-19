@@ -379,11 +379,11 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 
 void
-GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // get lane front
-    GNELane* clickedLane = objectsUnderCursor.getLaneFrontNonLocked();
+    GNELane* clickedLane = viewObjects.getLaneFrontNonLocked();
     // iterate over lanes
-    for (const auto& lane : objectsUnderCursor.getLanes()) {
+    for (const auto& lane : viewObjects.getLanes()) {
         // if parent edge of lane is front element, update clickedLane
         if (lane->getParentEdge() == myViewNet->getFrontAttributeCarrier()) {
             clickedLane = lane;

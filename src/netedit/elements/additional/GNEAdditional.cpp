@@ -711,7 +711,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -775,7 +775,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         // calculate signPosition position
         Position signPosition = parentPosition;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // set position depending of indexes
             signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
             // calculate colors
@@ -1235,7 +1235,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, co
         const Position& pos, const double rot, const RGBColor& baseColor, const double fromAngle, const double toAngle,
         const bool ignoreShift) const {
     // check if draw geometry point
-    if (!s.drawForObjectUnderCursor && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
+    if (!s.drawForViewObjectsHandler && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
         // push matrix
         GLHelper::pushMatrix();
         // translated to front

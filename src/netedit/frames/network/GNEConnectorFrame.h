@@ -202,9 +202,9 @@ public:
     ~GNEConnectorFrame();
 
     /**@brief either sets the current lane or toggles the connection of the
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get pointer to ConnectionModifications modul
     ConnectionModifications* getConnectionModifications() const;

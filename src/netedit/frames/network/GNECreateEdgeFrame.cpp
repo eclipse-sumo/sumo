@@ -685,7 +685,7 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects,
                                  const bool oppositeEdge, const bool chainEdge) {
     // first check if there is an edge template, an edge type (default or custom)
     if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useDefaultEdgeTypeShort() &&
@@ -698,8 +698,8 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     } else {
         // obtain junction depending of gridEnabled
         GNEJunction* junction = nullptr;
-        if (objectsUnderCursor.getJunctionFront()) {
-            junction = objectsUnderCursor.getJunctionFront();
+        if (viewObjects.getJunctionFront()) {
+            junction = viewObjects.getJunctionFront();
         } else if (myObjectsUnderSnappedCursor.getJunctionFront()) {
             junction = myObjectsUnderSnappedCursor.getJunctionFront();
         }
@@ -843,7 +843,7 @@ GNECreateEdgeFrame::getJunctionSource() const {
 
 void
 GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
-    myObjectsUnderSnappedCursor.updateObjectUnderCursor(/*GUIGlObjects*/);
+    myObjectsUnderSnappedCursor.updateObjects(/*GUIGlObjects*/);
 }
 
 

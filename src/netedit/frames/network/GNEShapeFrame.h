@@ -111,10 +111,10 @@ public:
 
     /**@brief process click over Viewnet
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] ObjectsUnderCursor objects under cursor after click over view
+     * @param[in] viewObjects objects under cursor after click over view
      * @return AddShapeStatus with the result of operation
      */
-    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool& updateTemporalShape);
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects, bool& updateTemporalShape);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
@@ -145,13 +145,13 @@ protected:
     bool processClickPolygons(const Position& clickedPosition, bool& updateTemporalShape);
 
     /// @brief process click for POIs over view
-    bool processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process click for POIGeo
-    bool processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process click for POILanes
-    bool processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
 private:
     /// @brief shape tag selector

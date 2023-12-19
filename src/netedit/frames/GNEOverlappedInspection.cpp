@@ -72,11 +72,11 @@ GNEOverlappedInspection::~GNEOverlappedInspection() {}
 
 
 void
-GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
     // get cliked ACs
-    auto clickedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    auto clickedACs = viewObjects.getAttributeCarriers();
     // check if filter edges
     if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
         // iterate over clickedAcs and remove edges

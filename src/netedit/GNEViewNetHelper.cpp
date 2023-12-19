@@ -211,50 +211,50 @@ GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::ObjectsUnderCursor - methods
+// GNEViewNetHelper::ViewObjectsSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor(GNEViewNet* viewNet) :
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsSelector(GNEViewNet* viewNet) :
     myViewNet(viewNet) {
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
+GNEViewNetHelper::ViewObjectsSelector::updateObjects() {
     // clear elements
-    myObjects.clearElements();
+    myViewObjects.clearElements();
     // process GUIGLObjects using elements under cursor
     processGUIGlObjects(gViewObjectsHandler.getSelectedObjects());
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterEdges() {
+GNEViewNetHelper::ViewObjectsSelector::filterEdges() {
     // get all edges to filter
     std::vector<const GUIGlObject*> edges;
-    for (const auto &edge : myObjects.edges) {
+    for (const auto &edge : myViewObjects.edges) {
         edges.push_back(edge);
     }
-    myObjects.filterElements(edges);
+    myViewObjects.filterElements(edges);
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterLanes() {
+GNEViewNetHelper::ViewObjectsSelector::filterLanes() {
     // get all lanes to filter
     std::vector<const GUIGlObject*> lanes;
-    for (const auto &lane : myObjects.lanes) {
+    for (const auto &lane : myViewObjects.lanes) {
         lanes.push_back(lane);
     }
-    myObjects.filterElements(lanes);
+    myViewObjects.filterElements(lanes);
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter) {
+GNEViewNetHelper::ViewObjectsSelector::filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter) {
     std::vector<const GUIGlObject*> GUIGlObjects;
     // get all locked elements
-    for (const auto &GUIGlObject : myObjects.GUIGlObjects) {
+    for (const auto &GUIGlObject : myViewObjects.GUIGlObjects) {
         if (GUIGlObject->isGLObjectLocked()) {
             GUIGlObjects.push_back(GUIGlObject);
         }
@@ -271,34 +271,14 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUI
         }
     }
     // filter objects
-    myObjects.filterElements(GUIGlObjects);
-}
-
-
-GUIGlID
-GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
-    if (getGUIGlObjectFront()) {
-        return getGUIGlObjectFront()->getGlID();
-    } else {
-        return 0;
-    }
-}
-
-
-GUIGlObjectType
-GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
-    if (getGUIGlObjectFront()) {
-        return getGUIGlObjectFront()->getType();
-    } else {
-        return GLO_NETWORK;
-    }
+    myViewObjects.filterElements(GUIGlObjects);
 }
 
 
 const GUIGlObject*
-GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
-    if (myObjects.attributeCarriers.size() > 0) {
-        return myObjects.GUIGlObjects.front();
+GNEViewNetHelper::ViewObjectsSelector::getGUIGlObjectFront() const {
+    if (myViewObjects.attributeCarriers.size() > 0) {
+        return myViewObjects.GUIGlObjects.front();
     } else {
         return nullptr;
     }
@@ -306,9 +286,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
 
 
 GNEAttributeCarrier*
-GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
-    if (myObjects.attributeCarriers.size() > 0) {
-        return myObjects.attributeCarriers.front();
+GNEViewNetHelper::ViewObjectsSelector::getAttributeCarrierFront() const {
+    if (myViewObjects.attributeCarriers.size() > 0) {
+        return myViewObjects.attributeCarriers.front();
     } else {
         return nullptr;
     }
@@ -316,9 +296,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 
 
 GNENetworkElement*
-GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
-    if (myObjects.networkElements.size() > 0) {
-        return myObjects.networkElements.front();
+GNEViewNetHelper::ViewObjectsSelector::getNetworkElementFront() const {
+    if (myViewObjects.networkElements.size() > 0) {
+        return myViewObjects.networkElements.front();
     } else {
         return nullptr;
     }
@@ -326,9 +306,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
 
 
 GNEAdditional*
-GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
-    if (myObjects.additionals.size() > 0) {
-        return myObjects.additionals.front();
+GNEViewNetHelper::ViewObjectsSelector::getAdditionalFront() const {
+    if (myViewObjects.additionals.size() > 0) {
+        return myViewObjects.additionals.front();
     } else {
         return nullptr;
     }
@@ -336,9 +316,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
 
 
 GNEDemandElement*
-GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
-    if (myObjects.demandElements.size() > 0) {
-        return myObjects.demandElements.front();
+GNEViewNetHelper::ViewObjectsSelector::getDemandElementFront() const {
+    if (myViewObjects.demandElements.size() > 0) {
+        return myViewObjects.demandElements.front();
     } else {
         return nullptr;
     }
@@ -346,9 +326,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
 
 
 GNEGenericData*
-GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
-    if (myObjects.genericDatas.size() > 0) {
-        return myObjects.genericDatas.front();
+GNEViewNetHelper::ViewObjectsSelector::getGenericDataElementFront() const {
+    if (myViewObjects.genericDatas.size() > 0) {
+        return myViewObjects.genericDatas.front();
     } else {
         return nullptr;
     }
@@ -356,9 +336,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
 
 
 GNEJunction*
-GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
-    if (myObjects.junctions.size() > 0) {
-        return myObjects.junctions.front();
+GNEViewNetHelper::ViewObjectsSelector::getJunctionFront() const {
+    if (myViewObjects.junctions.size() > 0) {
+        return myViewObjects.junctions.front();
     } else {
         return nullptr;
     }
@@ -366,9 +346,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
 
 
 GNEEdge*
-GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
-    if (myObjects.edges.size() > 0) {
-        return myObjects.edges.front();
+GNEViewNetHelper::ViewObjectsSelector::getEdgeFront() const {
+    if (myViewObjects.edges.size() > 0) {
+        return myViewObjects.edges.front();
     } else {
         return nullptr;
     }
@@ -376,9 +356,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
 
 
 GNELane*
-GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
-    if (myObjects.lanes.size() > 0) {
-        return myObjects.lanes.front();
+GNEViewNetHelper::ViewObjectsSelector::getLaneFront() const {
+    if (myViewObjects.lanes.size() > 0) {
+        return myViewObjects.lanes.front();
     } else {
         return nullptr;
     }
@@ -386,9 +366,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
 
 
 GNELane*
-GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
-    if (myObjects.lanes.size() > 0) {
-        for (auto& lane : myObjects.lanes) {
+GNEViewNetHelper::ViewObjectsSelector::getLaneFrontNonLocked() const {
+    if (myViewObjects.lanes.size() > 0) {
+        for (auto& lane : myViewObjects.lanes) {
             if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) ||
                     !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
                 return lane;
@@ -403,15 +383,15 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
 
 
 const std::vector<GNELane*>&
-GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
-    return myObjects.lanes;
+GNEViewNetHelper::ViewObjectsSelector::getLanes() const {
+    return myViewObjects.lanes;
 }
 
 
 GNECrossing*
-GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
-    if (myObjects.crossings.size() > 0) {
-        return myObjects.crossings.front();
+GNEViewNetHelper::ViewObjectsSelector::getCrossingFront() const {
+    if (myViewObjects.crossings.size() > 0) {
+        return myViewObjects.crossings.front();
     } else {
         return nullptr;
     }
@@ -419,9 +399,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
 
 
 GNEWalkingArea*
-GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
-    if (myObjects.walkingAreas.size() > 0) {
-        return myObjects.walkingAreas.front();
+GNEViewNetHelper::ViewObjectsSelector::getWalkingAreaFront() const {
+    if (myViewObjects.walkingAreas.size() > 0) {
+        return myViewObjects.walkingAreas.front();
     } else {
         return nullptr;
     }
@@ -429,9 +409,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
 
 
 GNEConnection*
-GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
-    if (myObjects.connections.size() > 0) {
-        return myObjects.connections.front();
+GNEViewNetHelper::ViewObjectsSelector::getConnectionFront() const {
+    if (myViewObjects.connections.size() > 0) {
+        return myViewObjects.connections.front();
     } else {
         return nullptr;
     }
@@ -439,9 +419,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
 
 
 GNEInternalLane*
-GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
-    if (myObjects.internalLanes.size() > 0) {
-        return myObjects.internalLanes.front();
+GNEViewNetHelper::ViewObjectsSelector::getInternalLaneFront() const {
+    if (myViewObjects.internalLanes.size() > 0) {
+        return myViewObjects.internalLanes.front();
     } else {
         return nullptr;
     }
@@ -449,9 +429,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
 
 
 GNEPOI*
-GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
-    if (myObjects.POIs.size() > 0) {
-        return myObjects.POIs.front();
+GNEViewNetHelper::ViewObjectsSelector::getPOIFront() const {
+    if (myViewObjects.POIs.size() > 0) {
+        return myViewObjects.POIs.front();
     } else {
         return nullptr;
     }
@@ -459,9 +439,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
 
 
 GNEPoly*
-GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
-    if (myObjects.polys.size() > 0) {
-        return myObjects.polys.front();
+GNEViewNetHelper::ViewObjectsSelector::getPolyFront() const {
+    if (myViewObjects.polys.size() > 0) {
+        return myViewObjects.polys.front();
     } else {
         return nullptr;
     }
@@ -469,9 +449,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
 
 
 GNETAZ*
-GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
-    if (myObjects.TAZs.size() > 0) {
-        return myObjects.TAZs.front();
+GNEViewNetHelper::ViewObjectsSelector::getTAZFront() const {
+    if (myViewObjects.TAZs.size() > 0) {
+        return myViewObjects.TAZs.front();
     } else {
         return nullptr;
     }
@@ -479,9 +459,9 @@ GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
 
 
 GNEEdgeData*
-GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
-    if (myObjects.edgeDatas.size() > 0) {
-        return myObjects.edgeDatas.front();
+GNEViewNetHelper::ViewObjectsSelector::getEdgeDataElementFront() const {
+    if (myViewObjects.edgeDatas.size() > 0) {
+        return myViewObjects.edgeDatas.front();
     } else {
         return nullptr;
     }
@@ -489,49 +469,49 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
 
 
 GNEEdgeRelData*
-GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
-    if (myObjects.edgeRelDatas.size() > 0) {
-        return myObjects.edgeRelDatas.front();
+GNEViewNetHelper::ViewObjectsSelector::getEdgeRelDataElementFront() const {
+    if (myViewObjects.edgeRelDatas.size() > 0) {
+        return myViewObjects.edgeRelDatas.front();
     } else {
         return nullptr;
     }
 }
 
 const std::vector<GUIGlObject*>&
-GNEViewNetHelper::ObjectsUnderCursor::getClickedGLObjects() const {
-    return myObjects.GUIGlObjects;
+GNEViewNetHelper::ViewObjectsSelector::getGLObjects() const {
+    return myViewObjects.GUIGlObjects;
 }
 
 
 const std::vector<GNEAttributeCarrier*>&
-GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
-    return myObjects.attributeCarriers;
+GNEViewNetHelper::ViewObjectsSelector::getAttributeCarriers() const {
+    return myViewObjects.attributeCarriers;
 }
 
 
 const std::vector<GNEJunction*>&
-GNEViewNetHelper::ObjectsUnderCursor::getClickedJunctions() const {
-    return myObjects.junctions;
+GNEViewNetHelper::ViewObjectsSelector::getJunctions() const {
+    return myViewObjects.junctions;
 }
 
 
 const std::vector<GNEEdge*>&
-GNEViewNetHelper::ObjectsUnderCursor::getEdges() const {
-    return myObjects.edges;
+GNEViewNetHelper::ViewObjectsSelector::getEdges() const {
+    return myViewObjects.edges;
 }
 
 
 const std::vector<GNEDemandElement*>&
-GNEViewNetHelper::ObjectsUnderCursor::getClickedDemandElements() const {
-    return myObjects.demandElements;
+GNEViewNetHelper::ViewObjectsSelector::getDemandElements() const {
+    return myViewObjects.demandElements;
 }
 
 
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::ObjectsContainer() {}
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::ViewObjectsContainer() {}
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::clearElements() {
     // just clear all containers
     GUIGlObjects.clear();
     attributeCarriers.clear();
@@ -555,7 +535,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::filterElements(const std::vector<const GUIGlObject*> &objects) {
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::filterElements(const std::vector<const GUIGlObject*> &objects) {
     for (const auto &object : objects) {
         // remove from GUIGlObjects
         auto itGlObjects = GUIGlObjects.begin();
@@ -724,7 +704,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::filterElements(const std
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // get front AC
     const auto frontGLObject = myViewNet->getFrontGLObject();
     // cast specific network element
@@ -867,7 +847,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateAdditionalElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // get additional element
     auto additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(glObject, false);
     if (additionalElement) {
@@ -888,7 +868,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateShapeElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // cast specific shape
     if (glObject->getType() == GLO_POI) {
         // cast POI
@@ -917,7 +897,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateTAZElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // cast specific TAZ
     if (glObject->getType() == GLO_TAZ) {
         // cast TAZ
@@ -935,7 +915,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateDemandElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // get demandElement
     GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(glObject, false);
     if (demandElement) {
@@ -956,7 +936,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& con
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsContainer& container, const GUIGlObject* glObject) {
     // cast specific generic data
     switch (glObject->getType()) {
         case GLO_EDGEDATA: {
@@ -1004,23 +984,23 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer) {
+GNEViewNetHelper::ViewObjectsSelector::processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer) {
     // iterate over filtered edge objects
     for (const auto& glObjectLayer : objectsContainer) {
         for (const auto &glObject : glObjectLayer.second) {
             // update all elements by categories
-            updateNetworkElements(myObjects, glObject.object);
-            updateAdditionalElements(myObjects, glObject.object);
-            updateShapeElements(myObjects, glObject.object);
-            updateTAZElements(myObjects, glObject.object);
-            updateDemandElements(myObjects, glObject.object);
-            updateGenericDataElements(myObjects, glObject.object);
+            updateNetworkElements(myViewObjects, glObject.object);
+            updateAdditionalElements(myViewObjects, glObject.object);
+            updateShapeElements(myViewObjects, glObject.object);
+            updateTAZElements(myViewObjects, glObject.object);
+            updateDemandElements(myViewObjects, glObject.object);
+            updateGenericDataElements(myViewObjects, glObject.object);
         }
     }
 }
 
 
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsSelector() :
     myViewNet(nullptr) {
 }
 
@@ -1104,9 +1084,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     // get edited element
     const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
+    if (myViewNet->myViewObjectsSelector.getJunctionFront() && (myViewNet->myViewObjectsSelector.getJunctionFront() == editedElement)) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getJunctionFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1114,9 +1094,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getLaneFront() && (myViewNet->myObjectsUnderCursor.getLaneFront() == editedElement)) {
+    } else if (myViewNet->myViewObjectsSelector.getLaneFront() && (myViewNet->myViewObjectsSelector.getLaneFront() == editedElement)) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getLaneFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getLaneFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1124,9 +1104,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getCrossingFront() && (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
+    } else if (myViewNet->myViewObjectsSelector.getCrossingFront() && (myViewNet->myViewObjectsSelector.getCrossingFront() == editedElement)) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getCrossingFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getCrossingFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1134,9 +1114,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
+    } else if (myViewNet->myViewObjectsSelector.getConnectionFront() && (myViewNet->myViewObjectsSelector.getConnectionFront() == editedElement)) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getConnectionFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getConnectionFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1144,9 +1124,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() && (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() == editedElement)) {
+    } else if (myViewNet->myViewObjectsSelector.getWalkingAreaFront() && (myViewNet->myViewObjectsSelector.getWalkingAreaFront() == editedElement)) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getWalkingAreaFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getWalkingAreaFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1166,11 +1146,11 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
+    const GNEAttributeCarrier* frontAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
+    if (myViewNet->myViewObjectsSelector.getPolyFront() && (frontAC == myViewNet->myViewObjectsSelector.getPolyFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPolyFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1178,9 +1158,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getPOIFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPOIFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getPOIFront() && (frontAC == myViewNet->myViewObjectsSelector.getPOIFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPOIFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPOIFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1188,9 +1168,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getAdditionalFront() && (frontAC == myViewNet->myViewObjectsSelector.getAdditionalFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getAdditionalFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1198,11 +1178,11 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         } else {
             return false;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getJunctionFront() && (frontAC == myViewNet->myViewObjectsSelector.getJunctionFront())) {
         // check if over junction there is a geometry point
-        if (myViewNet->myObjectsUnderCursor.getEdgeFront() && (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
+        if (myViewNet->myViewObjectsSelector.getEdgeFront() && (myViewNet->myViewObjectsSelector.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation();
+            GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
                 myMoveOperations.push_back(moveOperation);
@@ -1212,7 +1192,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             }
         } else {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+            GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getJunctionFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
                 myMoveOperations.push_back(moveOperation);
@@ -1221,16 +1201,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
                 return false;
             }
         }
-    } else if (myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getEdgeFront() && (frontAC == myViewNet->myViewObjectsSelector.getEdgeFront())) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         if (myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
             // edit end point
-            myViewNet->myObjectsUnderCursor.getEdgeFront()->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
+            myViewNet->myViewObjectsSelector.getEdgeFront()->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
             // edge values wasn't calculated, then return false
             return false;
         } else {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation();
+            GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
                 myMoveOperations.push_back(moveOperation);
@@ -1239,9 +1219,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
                 return false;
             }
         }
-    } else if (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront())) {
+    } else if (myViewNet->myViewObjectsSelector.getLaneFront() && (frontAC == myViewNet->myViewObjectsSelector.getLaneFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getLaneFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getLaneFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1261,11 +1241,11 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
+    const GNEAttributeCarrier* frontAC = myViewNet->myViewObjectsSelector.getAttributeCarrierFront();
     // check demand element
-    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && (frontAC == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
+    if (myViewNet->myViewObjectsSelector.getDemandElementFront() && (frontAC == myViewNet->myViewObjectsSelector.getDemandElementFront())) {
         // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getDemandElementFront()->getMoveOperation();
+        GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getDemandElementFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1352,10 +1332,10 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // continue depending of clicked element
-    if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
+    if (myViewNet->myViewObjectsSelector.getJunctionFront()) {
         calculateJunctionSelection();
-    } else if (myViewNet->myObjectsUnderCursor.getEdgeFront()) {
-        calculateEdgeSelection(myViewNet->myObjectsUnderCursor.getEdgeFront());
+    } else if (myViewNet->myViewObjectsSelector.getEdgeFront()) {
+        calculateEdgeSelection(myViewNet->myViewObjectsSelector.getEdgeFront());
     }
 }
 
@@ -1651,7 +1631,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     myViewNet->updateObjectsInBoundary(boundary);
     // filter ACsInBoundary depending of current supermode
     std::set<GNEAttributeCarrier*> ACsFiltered;
-    for (const auto& AC : myViewNet->getObjectsUnderCursor().getClickedAttributeCarriers()) {
+    for (const auto& AC : myViewNet->getObjectsUnderCursor().getAttributeCarriers()) {
         if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
             if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
                 ACsFiltered.insert(AC);

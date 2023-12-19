@@ -57,10 +57,10 @@ public:
     void hide();
 
     /**@brief add person plan element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @return true if element was successfully added
      */
-    bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addPersonPlanElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief reset selected person
     void resetSelectedPerson();

@@ -256,11 +256,11 @@ public:
 
     /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const bool oppositeEdge, const bool chainEdge);
+    void processClick(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const bool oppositeEdge, const bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();
@@ -319,7 +319,7 @@ protected:
 
 private:
     /// @brief objects under snapped cursor
-    GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
+    GNEViewNetHelper::ViewObjectsSelector myObjectsUnderSnappedCursor;
 
     /// @brief source junction for new edge
     GNEJunction* myJunctionSource;

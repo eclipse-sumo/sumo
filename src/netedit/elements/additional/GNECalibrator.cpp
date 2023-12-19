@@ -436,7 +436,7 @@ void
 GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
         const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForObjectUnderCursor) {
+    if (!s.drawForViewObjectsHandler) {
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front

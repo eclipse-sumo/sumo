@@ -210,7 +210,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(spaceExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw space
             drawSpace(s, d, parkingSpaceWidth);
             // draw parent and child lines

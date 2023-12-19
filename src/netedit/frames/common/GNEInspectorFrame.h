@@ -318,24 +318,24 @@ public:
 
     /**@brief process click over Viewnet in Supermode Network
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief process click over Viewnet in Supermode Demand
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief process click over Viewnet in Supermode Data
      * @param[in] clickedPosition clicked position over ViewNet
-     * @param[in] objectsUnderCursor objects under cursors
+     * @param[in] viewObjects objects under cursors
      * @return true if something was sucefully done
      */
-    bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief Inspect a single element
     void inspectSingleElement(GNEAttributeCarrier* AC);
@@ -385,7 +385,7 @@ protected:
     FOX_CONSTRUCTOR(GNEInspectorFrame)
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
+    void inspectClickedElement(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition);
 
     /// @brief function called after set a valid attribute in AttributeEditor
     void attributeUpdated(SumoXMLAttr attribute);

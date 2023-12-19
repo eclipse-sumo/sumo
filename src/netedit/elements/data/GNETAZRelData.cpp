@@ -258,7 +258,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             const auto& color = setColor(s);
             // get flag for only draw contour
             const bool onlyDrawContour = !isGenericDataVisible();

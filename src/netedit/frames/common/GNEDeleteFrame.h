@@ -223,14 +223,14 @@ public:
     void removeSelectedAttributeCarriers();
 
     /**@brief remove attribute carrier (element)
-     * @param objectsUnderCursor objects under cursors
+     * @param viewObjects objects under cursors
      */
-    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void removeAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /**@brief remove geometry point
-     * @param objectsUnderCursor objects under cursors
+     * @param viewObjects objects under cursors
      */
-    bool removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get delete options modul
     DeleteOptions* getDeleteOptions() const;

@@ -635,7 +635,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if draw junction as shape
             const bool drawBubble = drawAsBubble(s);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
-            if (!s.drawForObjectUnderCursor) {
+            if (!s.drawForViewObjectsHandler) {
                 // push layer matrix
                 GLHelper::pushMatrix();
                 // translate to front
@@ -1722,7 +1722,7 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, const GUIVisual
 void
 GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // check if draw junction elements
-    if (s.drawForObjectUnderCursor || (d <= GUIVisualizationSettings::Detail::JunctionElement)) {
+    if (s.drawForViewObjectsHandler || (d <= GUIVisualizationSettings::Detail::JunctionElement)) {
         // draw crossings
         for (const auto& crossing : myGNECrossings) {
             crossing->drawGL(s);
@@ -1911,7 +1911,7 @@ void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check if there is another junction in the same position
     GNEJunction* secondJunction = nullptr;
-    const auto& clickedJunctions = myNet->getViewNet()->getObjectsUnderCursor().getClickedJunctions();
+    const auto& clickedJunctions = myNet->getViewNet()->getObjectsUnderCursor().getJunctions();
     for (auto it = clickedJunctions.begin(); (it != clickedJunctions.end()) && (secondJunction == nullptr); it++) {
         if (*it != this) {
             secondJunction = *it;

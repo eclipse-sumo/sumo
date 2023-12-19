@@ -161,7 +161,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(walkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // draw walking area
             drawWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration);
             // draw walkingArea name

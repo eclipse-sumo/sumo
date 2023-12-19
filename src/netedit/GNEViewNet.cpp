@@ -247,7 +247,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getGrid(), glVis, share),
     myEditModes(this),
     myTestingMode(this),
-    myObjectsUnderCursor(this),
+    myViewObjectsSelector(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -329,8 +329,8 @@ GNEViewNet::doInit() {}
 
 GUIGlID
 GNEViewNet::getToolTipID() {
-    if (myObjectsUnderCursor.getGUIGlObjectFront()) {
-        return myObjectsUnderCursor.getGUIGlObjectFront()->getGlID();
+    if (myViewObjectsSelector.getGUIGlObjectFront()) {
+        return myViewObjectsSelector.getGUIGlObjectFront()->getGlID();
     } else {
         return 0;
     }
@@ -464,9 +464,9 @@ GNEViewNet::viewUpdated() {
 }
 
 
-const GNEViewNetHelper::ObjectsUnderCursor&
+const GNEViewNetHelper::ViewObjectsSelector&
 GNEViewNet::getObjectsUnderCursor() const {
-    return myObjectsUnderCursor;
+    return myViewObjectsSelector;
 }
 
 
@@ -479,11 +479,11 @@ GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = true;
+    myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(boundary);
     // restore draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = false;
+    myVisualizationSettings->drawForViewObjectsHandler = false;
     // pop matrix
     GLHelper::popMatrix();
     // check if update front element
@@ -491,7 +491,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
         gViewObjectsHandler.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
+    myViewObjectsSelector.updateObjects();
 }
 
 
@@ -508,11 +508,11 @@ GNEViewNet::updateObjectsInPosition(const Position &pos) {
     // push matrix
     GLHelper::pushMatrix();
     // enable draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = true;
+    myVisualizationSettings->drawForViewObjectsHandler = true;
     // draw all GL elements within the small boundary
     drawGLElements(positionBoundary);
     // restore draw for object under cursor
-    myVisualizationSettings->drawForObjectUnderCursor = false;
+    myVisualizationSettings->drawForViewObjectsHandler = false;
     // pop matrix
     GLHelper::popMatrix();
     // check if update front element
@@ -520,7 +520,7 @@ GNEViewNet::updateObjectsInPosition(const Position &pos) {
         gViewObjectsHandler.updateFrontElement(myFrontAttributeCarrier->getGUIGlObject());
     }
     // after draw elements, update objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
+    myViewObjectsSelector.updateObjects();
 }
 
 
@@ -568,10 +568,10 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             // set clicked popup position
             myClickedPopupPosition = getPositionInformation();
             // create cursor popup dialog for mark front element
-            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT, this, myObjectsUnderCursor.getClickedGLObjects());
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT, this, myViewObjectsSelector.getGLObjects());
             // open popup dialog
             openPopupDialog();
-        } else if (myObjectsUnderCursor.getClickedGLObjects().empty()) {
+        } else if (myViewObjectsSelector.getGLObjects().empty()) {
             openObjectDialog({myNet});
         } else {
             // declare filtered objects
@@ -588,7 +588,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             bool connections = false;
             bool TLS = false;
             // fill filtered objects
-            for (const auto& glObject : myObjectsUnderCursor.getClickedGLObjects()) {
+            for (const auto& glObject : myViewObjectsSelector.getGLObjects()) {
                 // always avoid edges
                 if (glObject->getType() == GLO_EDGE) {
                     continue;
@@ -1219,7 +1219,7 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
-    myObjectsUnderCursor(this),
+    myViewObjectsSelector(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -1945,13 +1945,13 @@ GNEViewNet::checkOverLockedElement(const GUIGlObject* GLObject, const bool isSel
         return false;
     }
     // get front GLObject
-    const auto glObjectFront = myObjectsUnderCursor.getGUIGlObjectFront();
+    const auto glObjectFront = myViewObjectsSelector.getGUIGlObjectFront();
     // check if element is under cursor
     if (glObjectFront) {
         if (glObjectFront == GLObject) {
             return true;
         } else if (glObjectFront->getType() == GLObject->getType()) {
-            for (const auto &glObjectUnderCursor : myObjectsUnderCursor.getClickedGLObjects()) {
+            for (const auto &glObjectUnderCursor : myViewObjectsSelector.getGLObjects()) {
                 if (glObjectUnderCursor == GLObject){
                     return true;
                 }
@@ -2728,7 +2728,7 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         // declare filtered ACs
         std::vector<GNEAttributeCarrier*> filteredACs;
         // iterate over obtained GUIGlIDs
-        for (const auto& AC : myObjectsUnderCursor.getClickedAttributeCarriers()) {
+        for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
             if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                 if (myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                     filteredACs.push_back(AC);
@@ -5504,18 +5504,18 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_INSPECT: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.filterLanes();
+                myViewObjectsSelector.filterLanes();
             } else {
-                myObjectsUnderCursor.filterEdges();
+                myViewObjectsSelector.filterEdges();
             }
             // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // check if we're selecting a new parent for the current inspected element
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
-                myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myObjectsUnderCursor.getAttributeCarrierFront());
+                myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myViewObjectsSelector.getAttributeCarrierFront());
             } else {
                 // process left click in Inspector Frame
-                myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+                myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myViewObjectsSelector);
             }
             // process click
             processClick(eventData);
@@ -5524,26 +5524,26 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_DELETE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.filterLanes();
+                myViewObjectsSelector.filterLanes();
             } else {
-                myObjectsUnderCursor.filterEdges();
+                myViewObjectsSelector.filterEdges();
             }
             // now filter locked elements forcing excluding walkingAreas
-            myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
+            myViewObjectsSelector.filterLockedElements({GLO_WALKINGAREA});
             // continue depending of AC
-            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+            if (myViewObjectsSelector.getAttributeCarrierFront()) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
-                    myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
-                } else if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    myViewParent->getDeleteFrame()->removeGeometryPoint(myViewObjectsSelector);
+                } else if (myViewObjectsSelector.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // remove all selected attribute carriers
-                    if (!myObjectsUnderCursor.getAttributeCarrierFront()->getGUIGlObject()->isGLObjectLocked()) {
+                    if (!myViewObjectsSelector.getAttributeCarrierFront()->getGUIGlObject()->isGLObjectLocked()) {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     }
                 } else {
                     // remove attribute carrier under cursor
-                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
                 }
             } else {
                 // process click
@@ -5554,19 +5554,19 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_SELECT:
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.filterLanes();
+                myViewObjectsSelector.filterLanes();
             } else {
-                myObjectsUnderCursor.filterEdges();
+                myViewObjectsSelector.filterEdges();
             }
             // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myViewObjectsSelector)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5579,7 +5579,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // check what buttons are pressed
             if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                 // get edge under cursor
-                GNEEdge* edge = myObjectsUnderCursor.getEdgeFront();
+                GNEEdge* edge = myViewObjectsSelector.getEdgeFront();
                 if (edge) {
                     // obtain reverse edge
                     const auto oppositeEdges = edge->getOppositeEdges();
@@ -5601,7 +5601,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 }
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
-                        myObjectsUnderCursor,
+                        myViewObjectsSelector,
                         (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE),
                         (myNetworkViewOptions.menuCheckChainEdges->amChecked() == TRUE));
             }
@@ -5612,19 +5612,19 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.filterLanes();
+                myViewObjectsSelector.filterLanes();
             } else {
-                myObjectsUnderCursor.filterEdges();
+                myViewObjectsSelector.filterEdges();
             }
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
+            myViewObjectsSelector.filterLockedElements({GLO_WALKINGAREA});
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // remove geometry point
-                    if (myObjectsUnderCursor.getNetworkElementFront() == myEditNetworkElementShapes.getEditedNetworkElement()) {
-                        myObjectsUnderCursor.getNetworkElementFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
+                    if (myViewObjectsSelector.getNetworkElementFront() == myEditNetworkElementShapes.getEditedNetworkElement()) {
+                        myViewObjectsSelector.getNetworkElementFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     }
                 } else if (!myMoveSingleElementValues.beginMoveNetworkElementShape()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
@@ -5632,7 +5632,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 }
             } else {
                 // get AC under cursor
-                auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
+                auto AC = myViewObjectsSelector.getAttributeCarrierFront();
                 // check that AC is an network or additional element
                 if (AC && (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
                     // check if we're moving a set of selected items
@@ -5654,9 +5654,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_CONNECT: {
             // check if we're clicked over a non locked lane
-            if (myObjectsUnderCursor.getLaneFrontNonLocked()) {
+            if (myViewObjectsSelector.getLaneFrontNonLocked()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
-                myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
+                myViewParent->getConnectorFrame()->handleLaneClick(myViewObjectsSelector);
                 updateViewNet();
             }
             // process click
@@ -5664,9 +5664,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_TLS: {
-            if (myObjectsUnderCursor.getJunctionFront() || myObjectsUnderCursor.getAdditionalFront()) {
+            if (myViewObjectsSelector.getJunctionFront() || myViewObjectsSelector.getAdditionalFront()) {
                 // edit TLS in TLSEditor frame
-                myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myObjectsUnderCursor);
+                myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myViewObjectsSelector);
                 updateViewNet();
             }
             // process click
@@ -5678,7 +5678,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
                     WRITE_WARNING(TL("Shift + click to create two additionals in the same position"));
-                } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                } else if (myViewParent->getAdditionalFrame()->addAdditional(myViewObjectsSelector)) {
                     // save last mouse position
                     myLastClickedPosition = getPositionInformation();
                     // update view to show the new additional
@@ -5691,7 +5691,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_CROSSING: {
             // call function addCrossing from crossing frame
-            myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
+            myViewParent->getCrossingFrame()->addCrossing(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
@@ -5705,7 +5705,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // check if process click was successfully
-                    if (myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
+                    if (myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myViewObjectsSelector)) {
                         // view net must be always update
                         updateViewNet();
                     }
@@ -5721,11 +5721,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_SHAPE: {
             // avoid create shapes if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (!myObjectsUnderCursor.getPOIFront()) {
+                if (!myViewObjectsSelector.getPOIFront()) {
                     // declare processClick flag
                     bool updateTemporalShape = false;
                     // process click
-                    myViewParent->getShapeFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor, updateTemporalShape);
+                    myViewParent->getShapeFrame()->processClick(snapToActiveGrid(getPositionInformation()), myViewObjectsSelector, updateTemporalShape);
                     // view net must be always update
                     updateViewNet();
                     // process click depending of the result of "process click"
@@ -5741,9 +5741,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_PROHIBITION: {
-            if (myObjectsUnderCursor.getConnectionFront()) {
+            if (myViewObjectsSelector.getConnectionFront()) {
                 // shift key may pass connections, Control key allow conflicts.
-                myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
+                myViewParent->getProhibitionFrame()->handleProhibitionClick(myViewObjectsSelector);
                 updateViewNet();
             }
             // process click
@@ -5753,7 +5753,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_WIRE: {
             // avoid create wires if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                myViewParent->getWireFrame()->addWire(myObjectsUnderCursor);
+                myViewParent->getWireFrame()->addWire(myViewObjectsSelector);
                 // update view to show the new wire
                 updateViewNet();
             }
@@ -5791,12 +5791,12 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
             }
         } else if (myMouseButtonKeyPressed.shiftKeyPressed()) {
             // check if there is a lane in objects under cursor
-            if (myObjectsUnderCursor.getLaneFront()) {
+            if (myViewObjectsSelector.getLaneFront()) {
                 // if we clicked over an lane with shift key pressed, select or unselect it
-                if (myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
-                    myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
+                if (myViewObjectsSelector.getLaneFront()->isAttributeCarrierSelected()) {
+                    myViewObjectsSelector.getLaneFront()->unselectAttributeCarrier();
                 } else {
-                    myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
+                    myViewObjectsSelector.getLaneFront()->selectAttributeCarrier();
                 }
             }
         }
@@ -5834,14 +5834,14 @@ GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
 void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
     // get front AC
-    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
+    const auto AC = myViewObjectsSelector.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
@@ -5855,7 +5855,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     }
                 } else {
-                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
                 }
             } else {
                 // process click
@@ -5865,14 +5865,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_SELECT:
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myViewObjectsSelector)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5903,9 +5903,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_ROUTE: {
             // check if we clicked over a lane
-            if (myObjectsUnderCursor.getLaneFront()) {
+            if (myViewObjectsSelector.getLaneFront()) {
                 // Handle edge click
-                myViewParent->getRouteFrame()->addEdgeRoute(myObjectsUnderCursor.getLaneFront()->getParentEdge(), myMouseButtonKeyPressed);
+                myViewParent->getRouteFrame()->addEdgeRoute(myViewObjectsSelector.getLaneFront()->getParentEdge(), myMouseButtonKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -5913,7 +5913,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_VEHICLE: {
             // Handle click
-            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getVehicleFrame()->addVehicle(myViewObjectsSelector, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;
@@ -5922,7 +5922,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // Handle click
             if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
                 WRITE_WARNING(TL("Control + click to create two stop in the same position"));
-            } else if (myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+            } else if (myViewParent->getStopFrame()->addStop(myViewObjectsSelector, myMouseButtonKeyPressed)) {
                 // save last mouse position
                 myLastClickedPosition = getPositionInformation();
                 // update view to show the new additional
@@ -5934,28 +5934,28 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_PERSON: {
             // Handle click
-            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
+            myViewParent->getPersonFrame()->addPerson(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // Handle person plan click
-            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor);
+            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_CONTAINER: {
             // Handle click
-            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor);
+            myViewParent->getContainerFrame()->addContainer(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_CONTAINERPLAN: {
             // Handle container plan click
-            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor);
+            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
@@ -6002,17 +6002,17 @@ GNEViewNet::processMoveMouseDemand(const bool mouseLeftButtonPressed) {
 void
 GNEViewNet::processLeftButtonPressData(void* eventData) {
     // get AC
-    const auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
+    const auto AC = myViewObjectsSelector.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // process left click in Inspector Frame
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectSingleElement(AC);
             } else {
-                myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+                myViewParent->getInspectorFrame()->processDataSupermodeClick(getPositionInformation(), myViewObjectsSelector);
             }
             // process click
             processClick(eventData);
@@ -6027,7 +6027,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     }
                 } else {
-                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
                 }
             } else {
                 // process click
@@ -6037,14 +6037,14 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         }
         case DataEditMode::DATA_SELECT:
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements();
+            myViewObjectsSelector.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myViewObjectsSelector)) {
                     // process click
                     processClick(eventData);
                 }
@@ -6056,7 +6056,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_EDGEDATA:
             // avoid create edgeData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+                if (myViewParent->getEdgeDataFrame()->addEdgeData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -6067,7 +6067,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_EDGERELDATA:
             // avoid create edgeData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -6078,7 +6078,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_TAZRELDATA:
             // avoid create TAZData if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getTAZRelDataFrame()->setTAZ(myObjectsUnderCursor)) {
+                if (myViewParent->getTAZRelDataFrame()->setTAZ(myViewObjectsSelector)) {
                     // update view to show the new TAZ data
                     updateViewNet();
                 }

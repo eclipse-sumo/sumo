@@ -146,7 +146,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
         // get detail level
         const auto d = s.getDetailLevel(E1InstantExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color

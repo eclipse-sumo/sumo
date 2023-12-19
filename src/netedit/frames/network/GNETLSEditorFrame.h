@@ -583,9 +583,9 @@ public:
 
     /**@brief edits the traffic light for the given clicked junction
      * @param[in] clickedPosition clicked position
-     * @param[in] objectsUnderCursor The clicked objects under cursor
+     * @param[in] viewObjects The clicked objects under cursor
      */
-    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief check if modifications in TLS was saved
     bool isTLSSaved();

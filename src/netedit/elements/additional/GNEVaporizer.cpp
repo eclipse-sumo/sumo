@@ -138,7 +138,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(vaporizerExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForObjectUnderCursor) {
+        if (!s.drawForViewObjectsHandler) {
             // declare colors
             RGBColor vaporizerColor, centralLineColor;
             // set colors
