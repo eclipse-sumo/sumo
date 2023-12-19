@@ -369,8 +369,8 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIV
 void
 GNEContour::buildContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                     const PositionVector& shape, const double scale) const {
-    // reset calculated shape
-    myCalculatedShape->clear();
+    // set calculated shape
+    *myCalculatedShape = shape;
     // scale shape
     myCalculatedShape->scaleRelative(scale);
     // close
@@ -518,12 +518,7 @@ GNEContour::buildContourEdges(const GUIVisualizationSettings& /*s*/, const GUIVi
 
 void
 GNEContour::updateContourBondary() const {
-    myContourBoundary->reset();
-    for (const auto &dottedGeometry : *myDottedGeometries) {
-        if (dottedGeometry.getUnresampledShape().size() > 0) {
-            myContourBoundary->add(dottedGeometry.getUnresampledShape().getBoxBoundary());
-        }
-    }
+    *myContourBoundary = myCalculatedShape->getBoxBoundary();
 }
 
 
