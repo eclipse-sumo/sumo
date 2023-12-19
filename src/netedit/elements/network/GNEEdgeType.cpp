@@ -204,6 +204,12 @@ GNEEdgeType::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEEdgeType::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEEdgeType::getMoveOperation() {
     return nullptr;

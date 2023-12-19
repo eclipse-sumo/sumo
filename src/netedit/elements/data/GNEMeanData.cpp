@@ -196,6 +196,12 @@ GNEMeanData::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEMeanData::checkDrawMoveContour() const {
+    return false;
+}
+
+
 std::string
 GNEMeanData::getAttribute(SumoXMLAttr key) const {
     switch (key) {

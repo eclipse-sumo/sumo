@@ -162,6 +162,12 @@ GNEDataInterval::checkDrawSelectContour() const {
 
 
 bool
+GNEDataInterval::checkDrawMoveContour() const {
+    return false;
+}
+
+
+bool
 GNEDataInterval::isDataIntervalValid() const {
     return true;
 }

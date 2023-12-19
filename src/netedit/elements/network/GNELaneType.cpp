@@ -117,6 +117,12 @@ GNELaneType::checkDrawSelectContour() const {
 }
 
 
+bool
+GNELaneType::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNELaneType::getMoveOperation() {
     return nullptr;

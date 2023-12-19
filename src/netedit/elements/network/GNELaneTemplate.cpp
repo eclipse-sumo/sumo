@@ -91,6 +91,12 @@ GNELaneTemplate::checkDrawSelectContour() const {
 }
 
 
+bool
+GNELaneTemplate::checkDrawMoveContour() const {
+    return false;
+}
+
+
 std::string
 GNELaneTemplate::getAttribute(SumoXMLAttr key) const {
     return myLane->getAttribute(key);

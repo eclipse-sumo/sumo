@@ -117,6 +117,9 @@ public:
     /// @brief check if draw select contour (blue)
     virtual bool checkDrawSelectContour() const = 0;
 
+    /// @brief check if draw move contour (red)
+    virtual bool checkDrawMoveContour() const = 0;
+
     /// @}
 
     /// @name inherited from GUIGlObject

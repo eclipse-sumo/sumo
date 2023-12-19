@@ -142,6 +142,12 @@ GNEInternalLane::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEInternalLane::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEInternalLane::getMoveOperation() {
     // internal lanes cannot be moved

@@ -113,6 +113,12 @@ GNEWalkingArea::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEWalkingArea::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEWalkingArea::getMoveOperation() {
     // edit depending if shape is being edited

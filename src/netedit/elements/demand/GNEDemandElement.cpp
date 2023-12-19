@@ -227,7 +227,19 @@ GNEDemandElement::checkDrawSelectContour() const {
     } else {
         return false;
     }
+}
 
+
+bool
+GNEDemandElement::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+    } else {
+        return false;
+    }
 }
 
 

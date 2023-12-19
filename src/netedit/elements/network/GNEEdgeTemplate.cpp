@@ -117,6 +117,12 @@ GNEEdgeTemplate::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEEdgeTemplate::checkDrawMoveContour() const {
+    return false;
+}
+
+
 std::string
 GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
     return myEdge->getAttribute(key);

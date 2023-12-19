@@ -81,6 +81,9 @@ public:
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
 
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

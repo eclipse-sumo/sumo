@@ -349,6 +349,19 @@ GNEAdditional::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEAdditional::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);

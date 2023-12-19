@@ -149,6 +149,12 @@ GNEGenericData::checkDrawSelectContour() const {
 
 
 bool
+GNEGenericData::checkDrawMoveContour() const {
+    return false;
+}
+
+
+bool
 GNEGenericData::isGenericDataValid() const {
     return true;
 }

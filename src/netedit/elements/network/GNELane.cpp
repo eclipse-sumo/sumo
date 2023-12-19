@@ -410,6 +410,19 @@ GNELane::checkDrawSelectContour() const {
 }
 
 
+bool
+GNELane::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
 GNEMoveOperation*
 GNELane::getMoveOperation() {
     // edit depending if shape is being edited

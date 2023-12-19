@@ -238,6 +238,12 @@ GNEDataSet::checkDrawSelectContour() const {
 }
 
 
+bool
+GNEDataSet::checkDrawMoveContour() const {
+    return false;
+}
+
+
 void
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted
