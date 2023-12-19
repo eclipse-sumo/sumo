@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GUIBaseVehicleHelper.cpp
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    Feb 2018
 ///
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
@@ -90,9 +91,16 @@ static const double vehiclePoly_EmergencyLadder5[] =   { .05, .3, .0, .3, .0, -.
 static const double vehiclePoly_EmergencyLadder6[] =   { -.25, .3, -.2, .3, -.2, -.3, -.25, -.3, -10000 };
 static const double vehiclePoly_EmergencyLadder7[] =   { .25, .3, .2, .3, .2, -.3, .25, -.3, -10000 };
 
+/* add deltax=0.5 to all of them*/
+
 static const double vehiclePoly_scooterBase[] = { -.17, .3, -.2, .3, -.2, -.3, -.17, -.3, -10000 };
 static const double vehiclePoly_scooterBase2[] = { .27, .03, .28, .03, .28, -.03, .27, -.03, -10000 };
 static const double vehiclePoly_scooterBase3[] = { -.5, .6, .5, .6, .5, -.6, -.5, -.6, -10000 };
+/*
+static const double vehiclePoly_scooterBase[] = { .33, .3, .3, .3, .3, -.3, .33, -.3, -10000 };
+static const double vehiclePoly_scooterBase2[] = { .77, .03, .78, .03, .78, -.03, .77, -.03, -10000 };
+static const double vehiclePoly_scooterBase3[] = { 0, .6, 1, .6, 1, -.6, 0, -.6, -10000 };
+*/
 static const double vehiclePoly_aircraft[] = {0.633, -0.500, 0.609, -0.465, 0.563, -0.460, 0.517, -0.168, 0.413, -0.156, 0.509, -0.053, 0.509, 0.053, 0.413, -0.156, 0.413, 0.156, 0.385, -0.101, 0.385, 0.101, 0.354, -0.058, 0.354, 0.058, 0.109, -0.050, 0.109, 0.050, 0, -0.003, 0, 0.003, 0, 0.003, 0.633, 0.500, 0.633, 0.500, 0.609, 0.465, 0.563, 0.460, 0.517, 0.168, 0.413, 0.156, 0.509, 0.053, 0.385, 0.101, 0.326, 0.158, 0.326, 0.108, 0.413, 0.156, 0.385, 0.101, 0.509, 0.053, 0.509, -0.053, 0.761, 0.043, 0.761, -0.043, 0.830, 0.030, 0.830, -0.030, 0.952, -0.196, 0.933, -0.196, 0.907, -0.008, 0.830, 0.030, 0.933, 0.196, 0.952, 0.196, 0.907, 0.008, 0.830, 0.030, 0.907, -0.008, 1.000, 0.003, 0.907, 0.008, 0.354, -0.058, 0.509, -0.053, 0.413, -0.156, 0.385, -0.101, 0.326, -0.158, 0.326, -0.108, 0.385, -0.101, -10000};
 static const double vehiclePoly_aircraftEngines[] = {0.326, -0.158, 0.413, -0.156, 0.326, -0.108, 0.385, -0.101, 0.385, -0.101, 0.385, 0.101, 0.385, 0.101, 0.326, 0.108, 0.413, 0.156, 0.326, 0.158, -10000};
 //static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
@@ -538,20 +546,20 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::pushMatrix();
             // front small oval
             GLHelper::setColor(darker);
-            glTranslated(-0.20, 0, 0.15);
+            glTranslated(0.3, 0, 0.15);
             glScaled(0.04, 0.06, 0.7);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
             // handlebar
             GLHelper::pushMatrix();
-            glTranslated(0.0, 0, 0.1);
+            glTranslated(0.5, 0, 0.1);
             glColor3d(0.3, 0.3, 0.3);
             drawPoly(vehiclePoly_scooterBase, 5);
             GLHelper::popMatrix();
             // front oval
             GLHelper::pushMatrix();
             GLHelper::setColor(darker2);
-            glTranslated(-0.21, 0, 0.1);
+            glTranslated(0.29, 0, 0.1);
             glScaled(0.07, 0.08, 0.9);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
@@ -561,17 +569,17 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_scooterBase2, 5);
             // tail oval
             GLHelper::setColor(darker2);
-            glTranslated(0.21, 0, 0.1);
+            glTranslated(0.71, 0, 0.1);
             glScaled(0.07, 0.08, 0.9);
             GLHelper::drawFilledCircle(1, 20);
             GLHelper::popMatrix();
             // base oval
             GLHelper::pushMatrix();
             GLHelper::setColor(lighter);
+            glTranslated(0.5, 0, 0.1);
             glScaled(0.28, 0.14, 0.9);
             GLHelper::drawFilledCircle(1, 30);
             // center rectangle
-            glTranslated(0, 0, 0.1);
             GLHelper::setColor(current);
             drawPoly(vehiclePoly_scooterBase3, 5);
             GLHelper::popMatrix();
