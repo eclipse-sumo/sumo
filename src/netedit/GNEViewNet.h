@@ -81,7 +81,7 @@ public:
     void viewUpdated();
 
     /// @brief get objects under cursor
-    const GNEViewNetHelper::ViewObjectsSelector& getObjectsUnderCursor() const;
+    const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
 
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;

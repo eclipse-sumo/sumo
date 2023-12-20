@@ -198,7 +198,7 @@ GNEWireFrame::createBaseWireObject(const GNETagProperties& tagProperty) {
     // check if wire is a overheadWIre
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         // get wire under cursor
-        const GNEAdditional* wireUnderCursor = myViewNet->getObjectsUnderCursor().getAdditionalFront();
+        const GNEAdditional* wireUnderCursor = myViewNet->getViewObjectsSelector().getAdditionalFront();
         // if user click over a traction substation, mark int in ParentWireSelector
         if (wireUnderCursor && (wireUnderCursor->getTagProperty().getTag() == SUMO_TAG_TRACTION_SUBSTATION)) {
             // update parent wire selected

@@ -1632,7 +1632,7 @@ GNETAZFrame::shapeDrawed() {
             // get all edge IDs
             std::vector<std::string> edgeIDs;
             // get only edges with geometry around shape
-            for (const auto& edge : myViewNet->getObjectsUnderCursor().getEdges()) {
+            for (const auto& edge : myViewNet->getViewObjectsSelector().getEdges()) {
                 if (myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(edge, shape)) {
                     edgeIDs.push_back(edge->getID());
                 }

@@ -207,7 +207,7 @@ GNEConnection::checkDrawMoveContour() const {
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
         myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
-        return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
         return false;
     }

@@ -1599,7 +1599,7 @@ GNEViewNetHelper::SelectingArea::processEdgeRectangleSelection() {
         // obtain all elements in boundary
         myViewNet->updateObjectsInBoundary(rectangleBoundary);
         // return all edges
-        return myViewNet->getObjectsUnderCursor().getEdges();
+        return myViewNet->getViewObjectsSelector().getEdges();
     } else {
         return {};
     }
@@ -1631,7 +1631,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     myViewNet->updateObjectsInBoundary(boundary);
     // filter ACsInBoundary depending of current supermode
     std::set<GNEAttributeCarrier*> ACsFiltered;
-    for (const auto& AC : myViewNet->getObjectsUnderCursor().getAttributeCarriers()) {
+    for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
         if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
             if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
                 ACsFiltered.insert(AC);

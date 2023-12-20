@@ -297,32 +297,32 @@ GNEAdditional::checkDrawOverContour() const {
             const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over from-to TAZs
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
-                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
             }
         } else if (modes.isCurrentSupermodeDemand()) {
             // check if we're in person or personPlan modes
             if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTAZs()) ||
                     ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTAZs())) {
-                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
             }
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_BUS_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markBusStops()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
-            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTrainStops()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
-            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_CONTAINER_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in container or containerPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markContainerStops()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markContainerStops())) {
-            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     }
     return false;
@@ -363,7 +363,7 @@ GNEAdditional::checkDrawMoveContour() const {
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
         myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
-        return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
         return false;
     }

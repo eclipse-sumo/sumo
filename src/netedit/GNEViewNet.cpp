@@ -465,7 +465,7 @@ GNEViewNet::viewUpdated() {
 
 
 const GNEViewNetHelper::ViewObjectsSelector&
-GNEViewNet::getObjectsUnderCursor() const {
+GNEViewNet::getViewObjectsSelector() const {
     return myViewObjectsSelector;
 }
 

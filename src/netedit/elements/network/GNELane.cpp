@@ -377,7 +377,7 @@ GNELane::checkDrawOverContour() const {
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markEdges()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markEdges())) {
-            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     }
     return false;
@@ -412,15 +412,9 @@ GNELane::checkDrawSelectContour() const {
 
 bool
 GNELane::checkDrawMoveContour() const {
-    // get edit modes
-    const auto& editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in move mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
-        // only move the first element
-        return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
-    } else {
-        return false;
+    // only move if shape is being edited
+    if (myShapeEdited) {
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     }
 }
 

@@ -194,7 +194,7 @@ GNEDemandElement::checkDrawOverContour() const {
             const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over route
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleRoute()) {
-                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
             }
         } else if (modes.isCurrentSupermodeDemand()) {
             // check if we're in person or personPlan modes
@@ -202,7 +202,7 @@ GNEDemandElement::checkDrawOverContour() const {
                     ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markRoutes()) ||
                     ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markRoutes()) ||
                     ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markRoutes())) {
-                return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
             }
         }
     }
@@ -244,7 +244,7 @@ GNEDemandElement::checkDrawMoveContour() const {
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_MOVE) &&
         myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
-        return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
         return false;
     }

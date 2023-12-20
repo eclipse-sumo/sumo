@@ -286,7 +286,7 @@ GNEJunction::checkDrawOverContour() const {
                 ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markJunctions()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markJunctions()) ||
                 ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markJunctions())) {
-            return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     }
     return false;
@@ -327,7 +327,7 @@ GNEJunction::checkDrawMoveContour() const {
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
         myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
-        return myNet->getViewNet()->getObjectsUnderCursor().getGUIGlObjectFront() == this;
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
         return false;
     }
@@ -1911,7 +1911,7 @@ void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check if there is another junction in the same position
     GNEJunction* secondJunction = nullptr;
-    const auto& clickedJunctions = myNet->getViewNet()->getObjectsUnderCursor().getJunctions();
+    const auto& clickedJunctions = myNet->getViewNet()->getViewObjectsSelector().getJunctions();
     for (auto it = clickedJunctions.begin(); (it != clickedJunctions.end()) && (secondJunction == nullptr); it++) {
         if (*it != this) {
             secondJunction = *it;

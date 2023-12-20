@@ -382,7 +382,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     // check if additional is child
     if (tagProperty.isChild()) {
         // get additional under cursor
-        const GNEAdditional* additionalUnderCursor = myViewNet->getObjectsUnderCursor().getAdditionalFront();
+        const GNEAdditional* additionalUnderCursor = myViewNet->getViewObjectsSelector().getAdditionalFront();
         // if user click over an additional element parent, mark int in ParentAdditionalSelector
         if (additionalUnderCursor && (additionalUnderCursor->getTagProperty().getTag() == tagProperty.getParentTags().front())) {
             // update parent additional selected
