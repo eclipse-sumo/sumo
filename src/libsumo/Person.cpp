@@ -281,7 +281,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.departPos = INVALID_DOUBLE_VALUE;
     result.cost = INVALID_DOUBLE_VALUE;
     result.depart = stage->getDeparted() >= 0 ? STEPS2TIME(stage->getDeparted()) : INVALID_DOUBLE_VALUE;
-    result.travelTime = stage->getArrived() >= 0 ? STEPS2TIME(stage->getArrived() - stage->getDeparted()) : INVALID_DOUBLE_VALUE;
+    result.travelTime = stage->getArrived() >= 0 ? STEPS2TIME(stage->getArrived() - stage->getDeparted()) : STEPS2TIME(SIMSTEP - stage->getDeparted());
     // Some stage type dependant attributes
     switch (stage->getStageType()) {
         case MSStageType::DRIVING: {
