@@ -493,7 +493,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                     ignoreLocking = askContinueIfLock();
                     return true;
                 }
-            } else if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
+            } else if (mySelectorFrameParent->myViewNet->checkSelectEdges()) {
                 // check if edge selection is locked
                 if (ignoreLocking || !locks.isObjectLocked(GLO_EDGE, false)) {
                     if (onlyCount) {

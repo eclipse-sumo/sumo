@@ -386,26 +386,36 @@ GNELane::checkDrawOverContour() const {
 
 bool
 GNELane::checkDrawDeleteContour() const {
-    // get edit modes
-    const auto& editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in delete mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
-    } else {
+    // first check if we're selecting edges or lanes
+    if (myNet->getViewNet()->checkSelectEdges()) {
         return false;
+    } else {
+        // get edit modes
+        const auto& editModes = myNet->getViewNet()->getEditModes();
+        // check if we're in delete mode
+        if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+            return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+        } else {
+            return false;
+        }
     }
 }
 
 
 bool
 GNELane::checkDrawSelectContour() const {
-    // get edit modes
-    const auto& editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in select mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-        return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
-    } else {
+    // first check if we're selecting edges or lanes
+    if (myNet->getViewNet()->checkSelectEdges()) {
         return false;
+    } else {
+        // get edit modes
+        const auto& editModes = myNet->getViewNet()->getEditModes();
+        // check if we're in select mode
+        if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+            return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+        } else {
+            return false;
+        }
     }
 }
 

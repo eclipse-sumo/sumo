@@ -1300,6 +1300,18 @@ GNEViewNet::getRelDataAttrs() const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+
+bool
+GNEViewNet::checkSelectEdges() const {
+    if ((myNetworkViewOptions.selectEdges() && !myMouseButtonKeyPressed.shiftKeyPressed()) ||
+        (!myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // set lefthand and laneIcons
@@ -2730,11 +2742,11 @@ GNEViewNet::onCmdSelectPolygonElements(FXObject*, FXSelector, void*) {
         // iterate over obtained GUIGlIDs
         for (const auto& AC : myViewObjectsSelector.getAttributeCarriers()) {
             if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
+                if (checkSelectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                     filteredACs.push_back(AC);
                 }
             } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-                if (!myNetworkViewOptions.selectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
+                if (!checkSelectEdges() && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
                     filteredACs.push_back(AC);
                 }
             } else if ((AC != polygonUnderMouse) && myNet->getAttributeCarriers()->isNetworkElementAroundShape(AC, polygonUnderMouse->getShape())) {
@@ -3234,8 +3246,7 @@ GNEViewNet::updateCursor() {
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
         } else if (cursorInspect) {
             // special case for inspect lanes
-            if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
-                    myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
+            if (checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
                 // inspect lane cursor
                 setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
                 setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
@@ -3246,8 +3257,7 @@ GNEViewNet::updateCursor() {
             }
         } else if (cursorSelect) {
             // special case for select lanes
-            if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
-                    myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+            if (checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
                 // select lane cursor
                 setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
                 setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
@@ -5503,7 +5513,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
+            if (checkSelectEdges()) {
                 myViewObjectsSelector.filterLanes();
             } else {
                 myViewObjectsSelector.filterEdges();
@@ -5523,7 +5533,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_DELETE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
+            if (checkSelectEdges()) {
                 myViewObjectsSelector.filterLanes();
             } else {
                 myViewObjectsSelector.filterEdges();
@@ -5553,7 +5563,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_SELECT:
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
+            if (checkSelectEdges()) {
                 myViewObjectsSelector.filterLanes();
             } else {
                 myViewObjectsSelector.filterEdges();
@@ -5605,7 +5615,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
+            if (checkSelectEdges()) {
                 myViewObjectsSelector.filterLanes();
             } else {
                 myViewObjectsSelector.filterEdges();

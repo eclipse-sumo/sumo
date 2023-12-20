@@ -115,6 +115,9 @@ public:
     /// @brief return list of loaded edgeRelation and tazRelation attributes
     std::vector<std::string> getRelDataAttrs() const;
 
+    /// @brief check if select edges (toggle using button or shift)
+    bool checkSelectEdges() const;
+
     /// @brief open object dialog
     void openObjectDialogAtCursor(const FXEvent* ev);
 
