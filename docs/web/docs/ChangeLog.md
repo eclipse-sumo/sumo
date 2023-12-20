@@ -13,6 +13,8 @@ title: ChangeLog
   - Add color legend in person and container modes. #13139
   - Now netedit checks if repeated routed are valid before saving. #13503
   - Disable stopOffsetException row if stopOffset is 0. #14065
+  - General optimización of netedit for big networks. #13894
+  - Added red contour to moved elements. #14109
 
 - Other
   - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
