@@ -101,7 +101,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     /* We need to check whether an access stage is needed (or maybe even two).
        The general scheme is: If the prior stage ended at a stop and the next stage
        starts at an edge which is not the one the stop is at, but the stop has an access to it
-       we need an access stage. The same is true if prior ends at an edge, the next stage 
+       we need an access stage. The same is true if prior ends at an edge, the next stage
        is allowed to start at any stop the edge has access to.
        If we start at a stop or end at a stop no access is needed.
     */
@@ -309,6 +309,13 @@ MSTransportable::setSpeed(double speed) {
 }
 
 
+bool
+MSTransportable::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
+    const ConstMSEdgeVector& edges = newRoute->getEdges();
+    return true;
+}
+
+
 void
 MSTransportable::replaceVehicleType(MSVehicleType* type) {
     const SUMOVehicleClass oldVClass = myVType->getVehicleClass();
@@ -359,6 +366,18 @@ MSTransportable::getStageSummary(int stageIndex) const {
     assert(stageIndex < (int)myPlan->size());
     assert(stageIndex >= 0);
     return (*myPlan)[stageIndex]->getStageSummary(myAmPerson);
+}
+
+
+const std::set<SUMOTrafficObject::NumericalID>
+MSTransportable::getUpcomingEdgeIDs() const {
+    std::set<SUMOTrafficObject::NumericalID> result;
+    for (auto step = myStep; step != myPlan->end(); ++step) {
+        for (const MSEdge* const e : (*step)->getEdges()) {
+            result.insert(e->getNumericalID());
+        }
+    }
+    return result;
 }
 
 
@@ -457,7 +476,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
 }
 
 
-MSTransportableDevice*
+MSDevice*
 MSTransportable::getDevice(const std::type_info& type) const {
     for (MSTransportableDevice* const dev : myDevices) {
         if (typeid(*dev) == type) {
@@ -488,15 +507,18 @@ MSTransportable::getSlope() const {
     return edge->getLanes()[0]->getShape().slopeDegreeAtOffset(gp);
 }
 
+
 SUMOTime
-MSTransportable::getWaitingTime() const {
+MSTransportable::getWaitingTime(const bool /* accumulated */) const {
     return (*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep());
 }
+
 
 double
 MSTransportable::getMaxSpeed() const {
     return MIN2(getVehicleType().getMaxSpeed(), getVehicleType().getDesiredMaxSpeed() * getChosenSpeedFactor());
 }
+
 
 SUMOVehicleClass
 MSTransportable::getVClass() const {

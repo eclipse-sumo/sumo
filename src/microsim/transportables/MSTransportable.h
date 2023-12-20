@@ -94,7 +94,7 @@ public:
      */
     double getMaxSpeed() const;
 
-    SUMOTime getWaitingTime() const;
+    SUMOTime getWaitingTime(const bool accumulated=false) const;
 
     double getPreviousSpeed() const {
         return getSpeed();
@@ -244,6 +244,9 @@ public:
         return (*(myStep + next))->getEdges();
     }
 
+    /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
+    const std::set<NumericalID> getUpcomingEdgeIDs() const;
+
     /// @brief Return the total number stages in this person's plan
     inline int getNumStages() const {
         return (int)myPlan->size();
@@ -322,6 +325,17 @@ public:
         return myPlan->back()->getEdges().back();
     }
 
+    /** @brief Returns the end point for reroutes (usually the last edge of the route)
+     *
+     * @return The rerouting end point
+     */
+    const MSEdge* getRerouteDestination() const  {
+        return getArrivalEdge();
+    }
+
+    /// Replaces the current route by the given one
+    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+
     /** @brief Replaces the current vehicle type by the one given
     *
     * If the currently used vehicle type is marked as being used by this vehicle
@@ -332,7 +346,6 @@ public:
     */
     void replaceVehicleType(MSVehicleType* type);
 
-
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
     *
     * If the currently used vehicle type is already marked as being used by this vehicle
@@ -341,7 +354,6 @@ public:
     * @see MSTransportable::myVType
     */
     MSVehicleType& getSingularType();
-
 
     /// @brief return the bounding box of the person
     PositionVector getBoundingBox() const;
@@ -355,8 +367,8 @@ public:
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
-    /// @brief Returns a device of the given type if it exists or 0
-    MSTransportableDevice* getDevice(const std::type_info& type) const;
+    /// @brief Returns a device of the given type if it exists or nullptr if not
+    MSDevice* getDevice(const std::type_info& type) const;
 
     /// @brief set individual junction model paramete (not type related)
     void setJunctionModelParameter(const std::string& key, const std::string& value);

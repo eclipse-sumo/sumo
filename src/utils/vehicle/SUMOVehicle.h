@@ -24,7 +24,6 @@
 
 #include <vector>
 #include <typeinfo>
-#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
@@ -49,7 +48,6 @@ class SUMOSAXAttributes;
 class EnergyParams;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
-typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -114,9 +112,6 @@ public:
      * @return Whether the new route was accepted
      */
     virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
-
-    /// Replaces the current route by the given one
-    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -345,8 +340,6 @@ public:
 
     virtual void setChosenSpeedFactor(const double factor) = 0;
 
-    virtual SUMOTime getAccumulatedWaitingTime() const = 0;
-
     virtual SUMOTime getDepartDelay() const = 0;
 
     virtual SUMOTime getTimeLoss() const = 0;
@@ -361,9 +354,6 @@ public:
      * @return This vehicle's devices
      */
     virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
-
-    /// @brief Returns a device of the given type if it exists or 0
-    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
     /// @brief @return The index of the vehicle's associated RNG
     virtual int getRNGIndex() const = 0;

@@ -186,6 +186,9 @@ public:
         return getEdge();
     }
 
+    /// @brief returns the numerical ids of edges to travel
+    const std::set<SUMOTrafficObject::NumericalID> getUpcomingEdgeIDs() const;
+
     /** @brief Returns whether the vehicle stops at the given stopping place */
     bool stopsAt(MSStoppingPlace* stop) const;
 
@@ -249,6 +252,14 @@ public:
      */
     virtual ConstMSEdgeVector::const_iterator getRerouteOrigin() const {
         return myCurrEdge;
+    }
+
+    /** @brief Returns the end point for reroutes (usually the last edge of the route)
+     *
+     * @return The rerouting end point
+     */
+    virtual const MSEdge* getRerouteDestination() const {
+        return myRoute->getLastEdge();
     }
 
     /** @brief Returns the time loss in seconds
@@ -546,7 +557,7 @@ public:
     }
 
     /// @brief Returns a device of the given type if it exists, nullptr otherwise
-    MSVehicleDevice* getDevice(const std::type_info& type) const;
+    MSDevice* getDevice(const std::type_info& type) const;
 
 
     /** @brief Replaces the current vehicle type by the one given

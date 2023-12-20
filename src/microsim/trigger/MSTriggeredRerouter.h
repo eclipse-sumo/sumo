@@ -47,10 +47,10 @@ class MSParkingArea;
 // ===========================================================================
 /**
  * @class MSTriggeredRerouter
- * @brief Reroutes vehicles passing an edge
+ * @brief Reroutes traffic objects passing an edge
  *
- * A rerouter can be positioned on a list of edges and gives vehicles which
- *  arrive one of these edges a new route.
+ * A rerouter can be positioned on a list of edges and gives traffic objects which
+ *  enters one of these edges a new route.
  *
  * The new route may be either chosen from a set of routes where each is
  *  chosen with a certain probability, or newly computed, either by keeping
@@ -145,8 +145,8 @@ public:
      */
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
-    /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
-    const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
+    /// Returns the rerouting definition valid for the given time and object, nullptr if none
+    const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) const;
 
     /// Sets the edge permission if there are any defined in the closingEdge
     SUMOTime setPermissions(const SUMOTime currentTime);
@@ -211,12 +211,14 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
-    /** @brief Checks whether the detector measures vehicles of the given type.
+    /** @brief Checks whether the detector measures objects of the given type.
     *
-    * @param[in] veh the vehicle of which the type is checked.
+    * @param[in] obj the traffic object of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOVehicle& veh) const;
+    bool applies(const SUMOTrafficObject& obj) const;
+
+    static bool affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed);
 
     typedef std::map<std::string, double> ParkingParamMap_t;
     typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;

@@ -223,6 +223,16 @@ MSBaseVehicle::getEdge() const {
 }
 
 
+const std::set<SUMOTrafficObject::NumericalID>
+MSBaseVehicle::getUpcomingEdgeIDs() const {
+    std::set<SUMOTrafficObject::NumericalID> result;
+    for (auto e = myCurrEdge; e != myRoute->end(); ++e) {
+        result.insert((*e)->getNumericalID());
+    }
+    return result;
+}
+
+
 bool
 MSBaseVehicle::stopsAt(MSStoppingPlace* stop) const {
     if (stop == nullptr) {
@@ -924,7 +934,7 @@ MSBaseVehicle::getImpatience() const {
 }
 
 
-MSVehicleDevice*
+MSDevice*
 MSBaseVehicle::getDevice(const std::type_info& type) const {
     for (MSVehicleDevice* const dev : myDevices) {
         if (typeid(*dev) == type) {

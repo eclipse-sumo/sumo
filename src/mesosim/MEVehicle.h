@@ -268,7 +268,8 @@ public:
 
 
     /// @brief Returns the duration for which the vehicle was blocked
-    inline SUMOTime getWaitingTime() const {
+    inline SUMOTime getWaitingTime(const bool accumulated=false) const {
+        UNUSED_PARAMETER(accumulated);
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
     }
 
@@ -276,12 +277,6 @@ public:
         // slow-downs while driving are not modelled
         return getWaitingTime();
     }
-
-    /// @brief Returns the duration for which the vehicle was blocked
-    inline SUMOTime getAccumulatedWaitingTime() const {
-        return getWaitingTime();
-    }
-
 
     /// @brief Returns the earliest leave time for the current segment
     double getEventTimeSeconds() const {

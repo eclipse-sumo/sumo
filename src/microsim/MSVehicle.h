@@ -667,10 +667,14 @@ public:
      *
      * The value is reset if the vehicle moves faster than 0.1m/s
      * Intentional stopping does not count towards this time.
+     * If accumulated is true the time is aggregated over a configurable interval.
      * @return The time the vehicle is standing
      */
-    SUMOTime getWaitingTime() const {
-        return myWaitingTime;
+    SUMOTime getWaitingTime(const bool accumulated=false) const {
+        if (!accumulated) {
+            return myWaitingTime;
+        }
+        return myWaitingTimeCollector.cumulatedWaitingTime(MSGlobals::gWaitingTimeMemory);
     }
 
     /** @brief Returns the SUMOTime spent driving since startup (speed was larger than 0.1m/s)
@@ -701,21 +705,13 @@ public:
     }
 
 
-    /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s) within the last t millisecs
-     *
-     * @return The time the vehicle was standing within the configured memory interval
-     */
-    SUMOTime getAccumulatedWaitingTime() const {
-        return myWaitingTimeCollector.cumulatedWaitingTime(MSGlobals::gWaitingTimeMemory);
-    }
-
     /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s) within the last millisecs
      *
      * @return The time the vehicle was standing within the last t millisecs
      */
 
     double getAccumulatedWaitingSeconds() const {
-        return STEPS2TIME(getAccumulatedWaitingTime());
+        return STEPS2TIME(getWaitingTime(true));
     }
 
     /** @brief Returns the time loss in seconds

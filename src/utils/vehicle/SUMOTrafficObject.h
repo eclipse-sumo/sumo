@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -35,6 +36,11 @@ class SUMOVehicleParameter;
 class MSEdge;
 class MSLane;
 class Position;
+class MSDevice;
+class MSRoute;
+
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
+
 
 // ===========================================================================
 // class definitions
@@ -120,6 +126,9 @@ public:
     /// @brief returns the next edge (possibly an internal edge)
     virtual const MSEdge* getNextEdgePtr() const = 0;
 
+    /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
+    virtual const std::set<NumericalID> getUpcomingEdgeIDs() const = 0;
+
     /** @brief Returns the lane the object is currently at
      *
      * @return The current lane or nullptr if the object is not on a lane
@@ -128,6 +137,15 @@ public:
 
     /// @brief return index of edge within route
     virtual int getRoutePosition() const = 0;
+
+    /** @brief Returns the end point for reroutes (usually the last edge of the route)
+     *
+     * @return The rerouting end point
+     */
+    virtual const MSEdge* getRerouteDestination() const = 0;
+
+    /// Replaces the current route by the given one
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Returns the slope of the road at object's position in degrees
      * @return The slope
@@ -146,7 +164,7 @@ public:
      */
     virtual double getMaxSpeed() const = 0;
 
-    virtual SUMOTime getWaitingTime() const = 0;
+    virtual SUMOTime getWaitingTime(const bool accumulated=false) const = 0;
 
     /** @brief Returns the object's current speed
      * @return The object's speed
@@ -198,6 +216,9 @@ public:
 
     /// @brief whether this object is selected in the GUI
     virtual bool isSelected() const = 0;
+
+    /// @brief Returns a device of the given type if it exists or nullptr if not
+    virtual MSDevice* getDevice(const std::type_info& type) const = 0;
 
 
 };
