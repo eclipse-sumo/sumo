@@ -84,6 +84,12 @@ GNEParkingAreaReroute::fixAdditionalProblem() {
 }
 
 
+bool
+GNEParkingAreaReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEParkingAreaReroute::getMoveOperation() {
     // GNEParkingAreaReroutes cannot be moved

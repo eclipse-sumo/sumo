@@ -129,6 +129,12 @@ GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 }
 
 
+bool
+GNERouteProbe::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNERouteProbe::getMoveOperation() {
     // routeprobes cannot be moved

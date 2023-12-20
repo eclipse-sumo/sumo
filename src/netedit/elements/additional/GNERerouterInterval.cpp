@@ -100,6 +100,12 @@ GNERerouterInterval::fixAdditionalProblem() {
 }
 
 
+bool
+GNERerouterInterval::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNERerouterInterval::getMoveOperation() {
     // rerouter intervals cannot be moved

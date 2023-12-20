@@ -192,6 +192,12 @@ GNEOverheadWire::fixAdditionalProblem() {
 }
 
 
+bool
+GNEOverheadWire::checkDrawMoveContour() const {
+    return false;
+}
+
+
 void
 GNEOverheadWire::updateGeometry() {
     // compute path

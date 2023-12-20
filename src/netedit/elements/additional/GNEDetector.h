@@ -93,6 +93,14 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @brief get lane
     GNELane* getLane() const;
 

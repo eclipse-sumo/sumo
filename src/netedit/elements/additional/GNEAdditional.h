@@ -188,7 +188,7 @@ public:
     bool checkDrawSelectContour() const;
 
     /// @brief check if draw move contour (red)
-    bool checkDrawMoveContour() const;
+    virtual bool checkDrawMoveContour() const = 0;
 
     /// @}
 

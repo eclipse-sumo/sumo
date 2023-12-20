@@ -79,6 +79,12 @@ GNEDestProbReroute::fixAdditionalProblem() {
 }
 
 
+bool
+GNEDestProbReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEDestProbReroute::getMoveOperation() {
     // GNEDestProbReroutes cannot be moved

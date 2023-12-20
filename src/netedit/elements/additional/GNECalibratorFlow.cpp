@@ -115,6 +115,12 @@ GNECalibratorFlow::fixAdditionalProblem() {
 }
 
 
+bool
+GNECalibratorFlow::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNECalibratorFlow::getMoveOperation() {
     // calibrators flow cannot be moved

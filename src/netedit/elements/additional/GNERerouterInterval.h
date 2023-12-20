@@ -74,6 +74,14 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */

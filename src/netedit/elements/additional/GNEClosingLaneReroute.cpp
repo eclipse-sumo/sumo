@@ -86,6 +86,12 @@ GNEClosingLaneReroute::fixAdditionalProblem() {
 }
 
 
+bool
+GNEClosingLaneReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEClosingLaneReroute::getMoveOperation() {
     // GNEClosingLaneReroute cannot be moved

@@ -81,6 +81,21 @@ GNERerouterSymbol::fixAdditionalProblem() {
 }
 
 
+bool
+GNERerouterSymbol::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+        myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+        // only move the first element
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    } else {
+        return false;
+    }
+}
+
+
 void
 GNERerouterSymbol::updateGeometry() {
     // clear geometries

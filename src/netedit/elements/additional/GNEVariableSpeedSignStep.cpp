@@ -85,6 +85,12 @@ GNEVariableSpeedSignStep::getMoveOperation() {
 }
 
 
+bool
+GNEVariableSpeedSignStep::checkDrawMoveContour() const {
+    return false;
+}
+
+
 SUMOTime
 GNEVariableSpeedSignStep::getTime() const {
     return myTime;

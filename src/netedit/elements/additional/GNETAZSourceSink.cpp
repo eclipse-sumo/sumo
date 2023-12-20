@@ -92,6 +92,12 @@ GNETAZSourceSink::fixAdditionalProblem() {
 }
 
 
+bool
+GNETAZSourceSink::checkDrawMoveContour() const {
+    return false;
+}
+
+
 double
 GNETAZSourceSink::getDepartWeight() const {
     return myDepartWeight;

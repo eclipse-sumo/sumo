@@ -79,6 +79,14 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 

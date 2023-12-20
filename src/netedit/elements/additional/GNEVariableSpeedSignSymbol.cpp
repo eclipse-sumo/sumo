@@ -80,6 +80,12 @@ GNEVariableSpeedSignSymbol::fixAdditionalProblem() {
 }
 
 
+bool
+GNEVariableSpeedSignSymbol::checkDrawMoveContour() const {
+    return false;
+}
+
+
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry

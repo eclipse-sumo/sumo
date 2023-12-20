@@ -131,6 +131,14 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns the name of the parent object

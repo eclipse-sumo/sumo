@@ -70,6 +70,15 @@ public:
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
     void fixAdditionalProblem();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name Functions related with geometry of element

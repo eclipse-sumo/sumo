@@ -98,6 +98,12 @@ GNEVaporizer::fixAdditionalProblem() {
 }
 
 
+bool
+GNEVaporizer::checkDrawMoveContour() const {
+    return false;
+}
+
+
 void
 GNEVaporizer::updateGeometry() {
     // calculate perpendicular line

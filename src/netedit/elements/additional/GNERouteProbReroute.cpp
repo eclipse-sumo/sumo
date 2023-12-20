@@ -78,6 +78,12 @@ GNERouteProbReroute::fixAdditionalProblem() {
 }
 
 
+bool
+GNERouteProbReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNERouteProbReroute::getMoveOperation() {
     // GNERouteProbReroutes cannot be moved
