@@ -88,7 +88,7 @@ public:
 
     /// @brief check if mouse is within elements geometry (for circles)
     bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const Position &center, const double radius);
+                            const Position &center, const double radius, const Boundary &circleBoundary);
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,

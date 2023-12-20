@@ -163,10 +163,6 @@ private:
     /// @brief build contour between two from-to edgeds
     void buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                            const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
-    
-    /// @brief update contour boundary
-    void updateContourBondary() const;
-
     /// @}
 
     /// @brief draw dotted contour

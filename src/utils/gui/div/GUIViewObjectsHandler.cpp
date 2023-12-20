@@ -107,7 +107,7 @@ GUIViewObjectsHandler::checkBoundaryParentElement(const GUIGlObject* GLObject, c
 
 bool
 GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                          const Position &center, const double radius) {
+                                          const Position &center, const double radius, const Boundary &circleBoundary) {
     // first check that object doesn't exist
     if (isElementSelected(GLObject)) {
         return false;
@@ -118,16 +118,16 @@ GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail
         if (mySelectionBoundary.isInitialised()) {
             // continue depending of detail level
             if (d <= GUIVisualizationSettings::Detail::PreciseSelection) {
-                // make a boundary using center and radius
-                Boundary b;
-                b.add(center);
-                b.grow(radius);
+                // avoid empty boundaries
+                if (!circleBoundary.isInitialised()) {
+                    return false;
+                }
                 // check if selection boundary contains the centering boundary of object
                 if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
                     return addElementUnderCursor(GLObject, false, true);
                 }
                 // check if boundary overlaps
-                if (mySelectionBoundary.overlapsWith(b)) {
+                if (mySelectionBoundary.overlapsWith(circleBoundary)) {
                     return addElementUnderCursor(GLObject, false, false);
                 }
                 // check if the four boundary vertex are within circle
@@ -238,6 +238,10 @@ GUIViewObjectsHandler::checkShapeElement(const GUIGlObject* GLObject, const Posi
     if (isElementSelected(GLObject)) {
         return false;
     }else if (mySelectionBoundary.isInitialised()) {
+        // avoid invalid boundaries
+        if (!shapeBoundary.isInitialised()) {
+            return false;
+        }
         // check if selection boundary contains the centering boundary of object
         if (mySelectionBoundary.contains(shapeBoundary)) {
             return addElementUnderCursor(GLObject, false, true);
