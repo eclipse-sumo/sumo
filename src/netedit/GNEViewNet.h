@@ -599,6 +599,9 @@ protected:
     GUIGlID getToolTipID();
 
 private:
+    /// @brief variable use to select objects in view
+    GNEViewNetHelper::ViewObjectsSelector myViewObjectsSelector;
+
     /// @name structs related with modes and testing mode
     /// @{
 
@@ -607,6 +610,7 @@ private:
 
     /// @brief variable used to save variables related with testing mode
     GNEViewNetHelper::TestingMode myTestingMode;
+
     /// @}
 
     /// @name structs related with input (keyboard and mouse)
@@ -667,9 +671,6 @@ private:
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
-
-    /// @brief variable use to select objects in view
-    GNEViewNetHelper::ViewObjectsSelector myViewObjectsSelector;
 
     /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;

@@ -872,7 +872,7 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
         // get geometry point sizes
         const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
+        GUIGeometry::drawGeometryPoints(d, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // draw dotted contours for geometry points if we're in move mode
         if (moveMode) {

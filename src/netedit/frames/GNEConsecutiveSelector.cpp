@@ -232,7 +232,7 @@ GNEConsecutiveSelector::updateLaneColors() {
 
 
 void
-GNEConsecutiveSelector::drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const {
+GNEConsecutiveSelector::drawTemporalConsecutiveLanePath() const {
     // Only draw if there is at least one lane
     if (myLanePath.size() > 0) {
         // get widths

@@ -66,7 +66,7 @@ public:
     void updateLaneColors();
 
     /// @brief draw temporal consecutive lane path
-    void drawTemporalConsecutiveLanePath(const GUIVisualizationSettings& s) const;
+    void drawTemporalConsecutiveLanePath() const;
 
     /// @brief abort path creation
     void abortPathCreation();

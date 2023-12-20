@@ -526,7 +526,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
             // color
             const RGBColor darkerColor = crossingColor.changedBrightness(-32);
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, myCrossingGeometry.getShape(), darkerColor,
+            GUIGeometry::drawGeometryPoints(d, myCrossingGeometry.getShape(), darkerColor,
                                             s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
                                             myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }

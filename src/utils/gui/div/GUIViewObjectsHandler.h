@@ -99,8 +99,8 @@ public:
                                 const PositionVector &shape, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                           const PositionVector &shape);
+    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape,
+                           const Boundary &shapeBoundary);
 
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);

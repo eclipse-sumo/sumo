@@ -338,9 +338,9 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                                const PositionVector &shape, const RGBColor& color, const double radius,
-                                const double exaggeration, const bool editingElevation) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector &shape,
+                                const RGBColor& color, const double radius, const double exaggeration,
+                                const bool editingElevation) {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get exaggeratedRadio

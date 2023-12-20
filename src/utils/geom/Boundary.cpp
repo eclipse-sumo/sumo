@@ -178,6 +178,14 @@ Boundary::around(const Position& p, double offset) const {
 
 
 bool
+Boundary::around2D(const Position& p, double offset) const {
+    return
+        (p.x() <= myXmax + offset && p.x() >= myXmin - offset) &&
+        (p.y() <= myYmax + offset && p.y() >= myYmin - offset);
+}
+
+
+bool
 Boundary::overlapsWith(const AbstractPoly& p, double offset) const {
     if (
         // check whether one of my points lies within the given poly

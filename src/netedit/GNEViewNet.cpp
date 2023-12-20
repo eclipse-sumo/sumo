@@ -245,9 +245,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getGrid(), glVis, share),
+    myViewObjectsSelector(this),
     myEditModes(this),
     myTestingMode(this),
-    myViewObjectsSelector(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -1217,9 +1217,9 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
 
 
 GNEViewNet::GNEViewNet() :
+    myViewObjectsSelector(this),
     myEditModes(this),
     myTestingMode(this),
-    myViewObjectsSelector(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -1333,9 +1333,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
+        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
         // draw temporal overhead wires
-        myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath(*myVisualizationSettings);
+        myViewParent->getWireFrame()->getConsecutiveLaneSelector()->drawTemporalConsecutiveLanePath();
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal person plan route
@@ -5593,12 +5593,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     }
                 }
             } else if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                // check if we have to update objects under snapped cursor
-                if (myVisualizationSettings->showGrid) {
-                    myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor(getGUIGlObjectsUnderSnappedCursor());
-                } else {
-                    myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor({});
-                }
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
                         myViewObjectsSelector,

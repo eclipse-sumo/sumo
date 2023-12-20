@@ -415,6 +415,8 @@ GNELane::checkDrawMoveContour() const {
     // only move if shape is being edited
     if (myShapeEdited) {
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    } else {
+        return false;
     }
 }
 
@@ -1086,7 +1088,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         // move front
         glTranslated(0, 0, 1);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
+        GUIGeometry::drawGeometryPoints(myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
                                         s.colorSettings.editShapeColor.changedBrightness(-32),
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation());

@@ -2639,6 +2639,9 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
                     GLHelper::popMatrix();
                 }
             }
+            // draw dotted contour geometry points
+            myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(),
+                                                                       geometryPointRadius, exaggeration);
         }
     }
 }
@@ -2771,8 +2774,6 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
-        // get exaggeration
-        const auto exaggeration = myLanes.front()->getDrawingConstants()->getExaggeration();
         // check if edit extrems
         const bool forceDrawExtrems = myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getForceDrawGeometryPoints();
         const bool firstExtrem = forceDrawExtrems || (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());

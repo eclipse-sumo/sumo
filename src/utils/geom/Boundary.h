@@ -98,6 +98,9 @@ public:
     /// @brief Returns whether the boundary contains the given coordinate
     bool around(const Position& p, double offset = 0) const;
 
+    /// @brief Returns whether the boundary contains the given 2D coordinate
+    bool around2D(const Position& p, double offset = 0) const;
+
     /// @brief Returns whether the boundary overlaps with the given polygon
     bool overlapsWith(const AbstractPoly& poly, double offset = 0) const;
 

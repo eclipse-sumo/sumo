@@ -712,7 +712,7 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
         // draw shape points only in Network supemode
         if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius)) {
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, d, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
+            GUIGeometry::drawGeometryPoints(d, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
                                             s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
                                             myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }

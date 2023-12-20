@@ -166,8 +166,6 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get detail level
         const auto d = s.getDetailLevel(1);
-        // get flag for only draw contour
-        const bool onlyDrawContour = !isGenericDataVisible();
         // draw over all edge's lanes
         for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
             // get lane width

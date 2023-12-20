@@ -666,7 +666,6 @@ GNECreateEdgeFrame::Legend::~Legend() {}
 
 GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Create Edge")),
-    myObjectsUnderSnappedCursor(viewNet),
     myJunctionSource(nullptr) {
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
@@ -697,12 +696,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
         WRITE_WARNING(TL("Invalid lane attributes"));
     } else {
         // obtain junction depending of gridEnabled
-        GNEJunction* junction = nullptr;
-        if (viewObjects.getJunctionFront()) {
-            junction = viewObjects.getJunctionFront();
-        } else if (myObjectsUnderSnappedCursor.getJunctionFront()) {
-            junction = myObjectsUnderSnappedCursor.getJunctionFront();
-        }
+        GNEJunction* junction = viewObjects.getJunctionFront();
         // begin undo list
         if (!myViewNet->getUndoList()->hasCommandGroup()) {
             myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
@@ -838,12 +832,6 @@ GNECreateEdgeFrame::abortEdgeCreation() {
 const GNEJunction*
 GNECreateEdgeFrame::getJunctionSource() const {
     return myJunctionSource;
-}
-
-
-void
-GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
-    myObjectsUnderSnappedCursor.updateObjects(/*GUIGlObjects*/);
 }
 
 

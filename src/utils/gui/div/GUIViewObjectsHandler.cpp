@@ -140,7 +140,7 @@ GUIViewObjectsHandler::checkCircleElement(const GUIVisualizationSettings::Detail
                 return false;
             } else {
                 // check if center is within mySelectionBoundary
-                if (mySelectionBoundary.around(center)) {
+                if (mySelectionBoundary.around2D(center)) {
                     return addElementUnderCursor(GLObject, false, false);
                 } else {
                     return false;
@@ -192,7 +192,7 @@ GUIViewObjectsHandler::checkGeometryPoint(const GUIVisualizationSettings::Detail
             }
         } else {
             // check if center is within mySelectionBoundary
-            if (mySelectionBoundary.around(geometryPointPos)) {
+            if (mySelectionBoundary.around2D(geometryPointPos)) {
                 return addGeometryPointUnderCursor(GLObject, index);
             } else {
                 return false;
@@ -232,18 +232,18 @@ GUIViewObjectsHandler::checkPositionOverShape(const GUIVisualizationSettings::De
 
 
 bool
-GUIViewObjectsHandler::checkShapeElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                        const PositionVector &shape) {
+GUIViewObjectsHandler::checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape,
+                                         const Boundary &shapeBoundary) {
     // first check that object doesn't exist
     if (isElementSelected(GLObject)) {
         return false;
     }else if (mySelectionBoundary.isInitialised()) {
         // check if selection boundary contains the centering boundary of object
-        if (mySelectionBoundary.contains(GLObject->getCenteringBoundary())) {
+        if (mySelectionBoundary.contains(shapeBoundary)) {
             return addElementUnderCursor(GLObject, false, true);
         }
         // check if shape crosses to selection boundary
-        for (int i = 1; i < shape.size(); i++) {
+        for (int i = 1; i < (int)shape.size(); i++) {
             if (mySelectionBoundary.crosses(shape[i-1], shape[i])) {
                 return addElementUnderCursor(GLObject, false, false);
             }
@@ -274,7 +274,7 @@ GUIViewObjectsHandler::addElementUnderCursor(const GUIGlObject* GLObject, const 
         if (layer) {
             auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
             layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
-        } else {
+        } else if (GLObject) {
             auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
             layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         }
@@ -308,7 +308,7 @@ GUIViewObjectsHandler::addGeometryPointUnderCursor(const GUIGlObject* GLObject, 
         auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->geometryPoints.push_back(newIndex);
-    } else {
+    } else if (GLObject) {
         auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->geometryPoints.push_back(newIndex);
@@ -341,7 +341,7 @@ GUIViewObjectsHandler::addPositionOverShape(const GUIGlObject* GLObject, const P
         auto &layerContainer = mySortedSelectedObjects[layer->getShapeLayer() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->posOverShape = pos;
-    } else {
+    } else if (GLObject) {
         auto &layerContainer = mySortedSelectedObjects[GLObject->getType() * -1];
         auto it = layerContainer.insert(layerContainer.begin(), ObjectContainer(GLObject));
         it->posOverShape = pos;

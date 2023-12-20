@@ -377,7 +377,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
     // draw shape points only in Network supemode
     if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.junctionGeometryPointRadius)) {
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, d, myTesselation.getShape(), GLHelper::getColor().changedBrightness(-32),
+        GUIGeometry::drawGeometryPoints(d, myTesselation.getShape(), GLHelper::getColor().changedBrightness(-32),
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation());
     }

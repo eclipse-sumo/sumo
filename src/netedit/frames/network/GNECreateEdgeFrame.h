@@ -268,9 +268,6 @@ public:
     /// @brief get junction source for new edge
     const GNEJunction* getJunctionSource() const;
 
-    /// @brief update objects under snapped cursor
-    void updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
-
     /// @brief show create edge frame
     void show();
 
@@ -318,9 +315,6 @@ protected:
     void addBikelane(GNEEdge* edge, const std::string &bikelaneWidth) const;
 
 private:
-    /// @brief objects under snapped cursor
-    GNEViewNetHelper::ViewObjectsSelector myObjectsUnderSnappedCursor;
-
     /// @brief source junction for new edge
     GNEJunction* myJunctionSource;
 };

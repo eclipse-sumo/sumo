@@ -69,7 +69,7 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
         // calculate closed shape contour
         buildContourClosedShape(s, d, shape, scale);
         // check if position or bondary is within closed shape
-        gViewObjectsHandler.checkShapeElement(d, glObject, *myCalculatedShape);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
     }
 }
 
@@ -84,7 +84,7 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
         // calculate extruded shape
         buildContourExtrudedShape(s, d, shape, extrusionWidth, scale, closeFirstExtrem, closeLastExtrem, offset);
         // check if position or bondary is within extruded shape
-        gViewObjectsHandler.checkShapeElement(d, glObject, *myCalculatedShape);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
     }
 }
 
@@ -98,7 +98,7 @@ GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, co
         // calculate rectangle shape
         buildContourRectangle(s, d, pos, width, height, offsetX, offsetY, rot, scale);
         // check if position or bondary is within rectangle shape
-        gViewObjectsHandler.checkShapeElement(d, glObject, *myCalculatedShape);
+        gViewObjectsHandler.checkShapeElement(glObject, *myCalculatedShape, *myContourBoundary);
     }
 }
 
@@ -123,7 +123,7 @@ GNEContour::calculateContourEdge(const GUIVisualizationSettings& s, const GUIVis
         // calculate contour edge shape
         buildContourEdge(s, d, edge, closeFirstExtrem, closeLastExtrem);
         // check if position or bondary is within contour shape
-        gViewObjectsHandler.checkShapeElement(d, edge, *myCalculatedShape);
+        gViewObjectsHandler.checkShapeElement(edge, *myCalculatedShape, *myContourBoundary);
     }
 }
 
