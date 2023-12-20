@@ -300,7 +300,20 @@ GNEEdge::checkDrawDeleteContour() const {
         const auto& editModes = myNet->getViewNet()->getEditModes();
         // check if we're in delete mode
         if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-            return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+            // check lanes
+            for (const auto &lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                   (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                return true;
+            }
+            // nothing to draw
+            return false;
         } else {
             return false;
         }
@@ -318,7 +331,20 @@ GNEEdge::checkDrawSelectContour() const {
         const auto& editModes = myNet->getViewNet()->getEditModes();
         // check if we're in select mode
         if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-            return myNet->getViewNet()->checkOverLockedElement(this, mySelected);
+            // check lanes
+            for (const auto &lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                   (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                return true;
+            }
+            // nothing to draw
+            return false;
         } else {
             return false;
         }
@@ -346,8 +372,11 @@ GNEEdge::checkDrawMoveContour() const {
             (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
             return true;
         }
+        // nothing to draw
+        return false;
+    } else {
+        return false;
     }
-    return false;
 }
 
 

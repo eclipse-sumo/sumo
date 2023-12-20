@@ -3246,7 +3246,7 @@ GNEViewNet::updateCursor() {
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
         } else if (cursorInspect) {
             // special case for inspect lanes
-            if (checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
+            if (!checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
                 // inspect lane cursor
                 setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
                 setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
@@ -3257,7 +3257,7 @@ GNEViewNet::updateCursor() {
             }
         } else if (cursorSelect) {
             // special case for select lanes
-            if (checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+            if (!checkSelectEdges() && myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
                 // select lane cursor
                 setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
                 setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
