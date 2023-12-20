@@ -318,6 +318,16 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGL_SILENCE_DEPRECATION")
+    
+    # Xcode 15 on macOS sonoma complains about duplicate libraries for the linker, so we disable the warning for xcode >= 15
+    find_program(XCODEBUILD_EXECUTABLE xcodebuild)
+    if(XCODEBUILD_EXECUTABLE)
+        execute_process(COMMAND ${XCODEBUILD_EXECUTABLE} -version OUTPUT_VARIABLE XCODEBUILD_VER_OUTPUT OUTPUT_STRIP_TRAILING_WHITESPACE)
+        string(REGEX MATCH "Xcode ([0-9]+(\\.[0-9]+)*)" MATCH ${XCODEBUILD_VER_OUTPUT})
+        if(CMAKE_MATCH_1 VERSION_GREATER_EQUAL 15)
+            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-no_warn_duplicate_libraries")
+        endif()
+    endif()
 
     # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
     execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
