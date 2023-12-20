@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-08 12:42+0000\n"
+"PO-Revision-Date: 2023-12-21 13:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:294
@@ -5324,11 +5324,11 @@ msgstr "stacca punto di interesse dalla corsia"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3016
 msgid "reverse % '%'"
-msgstr ""
+msgstr "rivolta % '%'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3030
 msgid "add reverse '%'"
-msgstr ""
+msgstr "aggiungi '%' rivolta"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3059
 msgid "change edge Geometry Point position"
@@ -6014,23 +6014,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:582
 msgid "Route Chooser"
-msgstr ""
+msgstr "Selezione di itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:589
 msgid "Stop Chooser"
-msgstr ""
+msgstr "Selezione di fermate"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:600
 msgid "TLS Chooser"
-msgstr ""
+msgstr "Selezione di semafori"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:610
 msgid "Additional Chooser"
-msgstr ""
+msgstr "Selezione di elementi addizionali"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:633
 msgid "Poly Chooser"
-msgstr ""
+msgstr "Selezione di poligoni"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Additional.cpp:120
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:96
@@ -6073,7 +6073,7 @@ msgstr "Reimposta rimozione "
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Attribute.cpp:45
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Attribute.cpp:62
 msgid "change '%' attribute in % '%' to '%'"
-msgstr ""
+msgstr "aggiorna l'attributo '%' in % '%' al valore '%'"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Attribute.cpp:154
 msgid "Undo change "
@@ -6136,7 +6136,7 @@ msgstr "Reimposta rimozione di un passaggio pedonale"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
-msgstr ""
+msgstr "aggiungi chiave '%' in % '%'"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
@@ -8128,7 +8128,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2388
 msgid "Name of instant induction loop"
-msgstr ""
+msgstr "Nome del circuito di induzione istantaneo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2417
 msgid "RouteProbe"
@@ -8140,27 +8140,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2427
 msgid "The id of an edge in the simulation network"
-msgstr ""
+msgstr "Il codice identificativo di un arco nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2432
 msgid "The frequency in which to report the distribution"
-msgstr ""
+msgstr "La frequenza per emettere la distribuzione"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2438
 msgid "Name of route probe"
-msgstr ""
+msgstr "Nome del campione di itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2443
 msgid "The file for generated output"
-msgstr ""
+msgstr "L'archivio per i dati in uscita"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2448
 msgid "The time at which to start generating output"
-msgstr ""
+msgstr "L'ora a partire della quale vengono generati i dati in uscita"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2460
 msgid "VariableSpeedSign"
-msgstr ""
+msgstr "Limite dinamico di velocità"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2465
 msgid "The id of Variable Speed Signal"
@@ -8184,11 +8184,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2497
 msgid "VariableSpeedSign (lane)"
-msgstr ""
+msgstr "Limite dinamico di velocità (corsia)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2508
 msgid "VariableSpeedSign Step"
-msgstr ""
+msgstr "Passo di limite dinamico di velocità"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2518
 msgid "Speed"
@@ -8196,23 +8196,23 @@ msgstr "Velocità"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2530
 msgid "Calibrator"
-msgstr ""
+msgstr "Calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2535
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2594
 msgid "The id of Calibrator"
-msgstr ""
+msgstr "Il codice identificativo del Calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2540
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3186
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3209
 msgid "The id of edge in the simulation network"
-msgstr ""
+msgstr "Il codice identificativo dell'arco nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2545
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2604
 msgid "The position of the calibrator on the specified lane"
-msgstr ""
+msgstr "La posizione del Calibrator sulla corsia specificata"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2551
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2610
@@ -8223,7 +8223,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2557
 msgid "Name of Calibrator"
-msgstr ""
+msgstr "Il nome del Calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2562
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2621
@@ -8235,7 +8235,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2567
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2626
 msgid "The output file for writing calibrator information or NULL"
-msgstr ""
+msgstr "File in uscita per emettere informazioni del Calibrator oppure NULL"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2572
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2631
@@ -8251,7 +8251,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2589
 msgid "CalibratorLane"
-msgstr ""
+msgstr "Calibrator su corsia"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2599
 msgid "The id of lane in the simulation network"
@@ -8263,7 +8263,7 @@ msgstr "Il nome della corsia utilizzata dal Calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2648
 msgid "CalibratorFlow"
-msgstr ""
+msgstr "Calibrator di flusso"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2653
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3879
@@ -8493,17 +8493,21 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3067
 msgid "The name of the lane at which the POI is located at"
-msgstr ""
+msgstr "Il nome della corsia sulla quale si trova il punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3072
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr ""
+"La posizione sulla corsia specificata o nella rete in metri dove si trova il "
+"punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3085
 msgid "The lateral offset on the named lane at which the POI is located at"
 msgstr ""
+"Lo spostamento laterale sulla corsia specificata dove si trova il punto di "
+"interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3100
 msgid "PointOfInterestGeo"
@@ -8519,7 +8523,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3139
 msgid "TrafficAssignmentZones"
-msgstr ""
+msgstr "Zone di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3143
 msgid "The id of the TAZ"
@@ -8550,19 +8554,19 @@ msgstr "Il nome del punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3181
 msgid "TAZ Source"
-msgstr ""
+msgstr "Arco di origine nella zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3192
 msgid "Depart weight associated to this Edge"
-msgstr ""
+msgstr "Peso associato a questo arco per partenze"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3204
 msgid "TAZ Sink"
-msgstr ""
+msgstr "Arco di destinazione nella zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3215
 msgid "Arrival weight associated to this Edge"
-msgstr ""
+msgstr "Peso associato a questo arco per arrivi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3236
 msgid "TractionSubstation"
@@ -8877,7 +8881,7 @@ msgstr "Il codice identificativo della distribuzione di tipi di veicoli"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3731
 msgid "TripEdges"
-msgstr ""
+msgstr "Corsa tra archi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3737
 msgid "The ID of trip"
@@ -8943,7 +8947,7 @@ msgstr "Il nome della zona di assegnazione del traffico dove termina la corsa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3862
 msgid "VehicleRoute"
-msgstr ""
+msgstr "Itinerario di veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3868
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3915
@@ -8973,11 +8977,11 @@ msgstr "L'ora quando il veicolo deve entrare nella rete"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3909
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "Itinerario interno di veicolo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3951
 msgid "FlowEdges"
-msgstr ""
+msgstr "Flusso tra archi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3957
 msgid "The ID of the flow"
@@ -9057,7 +9061,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4117
 msgid "FlowEmbeddedRoute"
-msgstr ""
+msgstr "Flusso lungo un'itinerario interno"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4123
 msgid "The name of the flow"
@@ -9233,35 +9237,37 @@ msgstr "Fermata: fermata di contenitori"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4735
 msgid "PersonTrip: edge->edge"
-msgstr ""
+msgstr "Corsa di persone: arco->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4749
 msgid "PersonTrip: edge->taz"
-msgstr ""
+msgstr "Corsa di persone: arco->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4763
 msgid "PersonTrip: edge->junction"
-msgstr ""
+msgstr "Corsa di persone: arco->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4777
 msgid "PersonTrip: edge->busStop"
-msgstr ""
+msgstr "Corsa di persone: arco->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4791
 msgid "PersonTrip: edge->trainStop"
-msgstr ""
+msgstr "Corsa di persone: arco->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4806
 msgid "PersonTrip: taz->edge"
-msgstr ""
+msgstr "Corsa di persone: zona di assegnazione del traffico->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4820
 msgid "PersonTrip: taz->taz"
 msgstr ""
+"Corsa di persone: zona di assegnazione del traffico->zona di assegnazione "
+"del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4834
 msgid "PersonTrip: taz->junction"
-msgstr ""
+msgstr "Corsa di persone: zona di assegnazione del traffico->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4849
 msgid "PersonTrip: taz->busStop"
