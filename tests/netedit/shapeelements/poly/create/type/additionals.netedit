@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-20 13:18:28 by Eclipse SUMO netedit Version v1_16_0+2228-9f242c35b76
+<!-- generated on 2023-12-20 16:39:23 by Eclipse SUMO netedit Version v1_19_0+0526-effa408d743
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="po_0" type="&lt;&lt;poly_test&gt;&gt;" color="red" fill="0" layer="0.00" shape="-30.000000,10.000000 -30.000000,20.000000 -40.000000,20.000000 -40.000000,10.000000 -30.000000,10.000000"/>
+    <poly id="po_0" type="&lt;&lt;poly_test&gt;&gt;" color="red" fill="0" layer="0.00" shape="-30.000000,10.000000 -30.000000,20.000000 -50.000000,20.000000 -50.000000,10.000000 -30.000000,10.000000"/>
     <poly id="po_1" type="poly_test" color="red" fill="0" layer="0.00" shape="-10.000000,10.000000 -10.000000,20.000000 -20.000000,20.000000 -20.000000,10.000000 -10.000000,10.000000"/>
 </additional>

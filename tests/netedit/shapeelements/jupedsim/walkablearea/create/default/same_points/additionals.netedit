@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-02 08:40:33 by Eclipse SUMO netedit Version v1_18_0+0677-13ce7251e4f
+<!-- generated on 2023-12-20 16:51:09 by Eclipse SUMO netedit Version v1_19_0+0526-effa408d743
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- JuPedSim elements -->
-    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-30.000000,10.000000 -30.000000,20.000000 -40.000000,20.000000 -40.000000,10.000000 -30.000000,10.000000"/>
-    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-30.000000,10.000000 -30.000000,20.000000 -40.000000,20.000000 -40.000000,10.000000 -30.000000,10.000000"/>
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-30.000000,10.000000 -30.000000,20.000000 -50.000000,20.000000 -50.000000,10.000000 -30.000000,10.000000"/>
+    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-30.000000,10.000000 -30.000000,20.000000 -50.000000,20.000000 -50.000000,10.000000 -30.000000,10.000000"/>
 </additional>
