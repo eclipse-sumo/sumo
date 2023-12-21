@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-21 16:56+0000\n"
+"PO-Revision-Date: 2023-12-21 22:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12506,43 +12506,43 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:240
 msgid "Protect all"
-msgstr ""
+msgstr "Proteggi tutto"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:240
 msgid "Protect all elements"
-msgstr ""
+msgstr "Protegge tutti gli elementi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:242
 msgid "Unprotect all"
-msgstr ""
+msgstr "Rendi tutto accessibile"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:242
 msgid "Unprotect all elements"
-msgstr ""
+msgstr "Rende tutti gli elementi accessibili"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:244
 msgid "Protect additional elements"
-msgstr ""
+msgstr "Proteggi elementi addizionali"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:247
 msgid "Protect TAZ elements"
-msgstr ""
+msgstr "Proteggi zone di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:250
 msgid "Protect demand elements"
-msgstr ""
+msgstr "Proteggi elementi di domanda"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:253
 msgid "Protect data elements"
-msgstr ""
+msgstr "Proteggi elementi di dati"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:362
 msgid "remove selected items"
-msgstr ""
+msgstr "rimuovi elementi selezionati"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:48
 msgid "Element Set"
-msgstr ""
+msgstr "Insieme di elementi"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:76
 msgid "Invalid supermode"
