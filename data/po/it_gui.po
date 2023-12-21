@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-21 13:10+0000\n"
+"PO-Revision-Date: 2023-12-21 16:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8250,6 +8250,8 @@ msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
+"elenco di codici identificativi di tipi da considerare separati da spazi ("
+"lascia vuoto per considerare tutti i tipi)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2589
 msgid "CalibratorLane"
@@ -8275,12 +8277,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2658
 msgid "First calibrator flow departure time"
-msgstr ""
+msgstr "Ora della prima partenza del flusso calibrato"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2664
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5828
 msgid "End of departure interval"
-msgstr ""
+msgstr "Fine del periodo di partenza"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2674
 msgid "The id of the vehicle type to use for this calibrator flow"
@@ -8477,7 +8479,7 @@ msgstr "Angolo dell'immagine in gradi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3033
 msgid "PointOfInterest"
-msgstr ""
+msgstr "Punto di interesse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3038
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3062
@@ -8491,7 +8493,7 @@ msgstr "La posizione nella veduta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3057
 msgid "PointOfInterestLane"
-msgstr ""
+msgstr "Punto di interesse su corsia"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3067
 msgid "The name of the lane at which the POI is located at"
@@ -8513,7 +8515,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3100
 msgid "PointOfInterestGeo"
-msgstr ""
+msgstr "Punto di interesse geografico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3111
 msgid "The longitude position of the parking vehicle on the view"
@@ -9581,41 +9583,43 @@ msgstr "Partenza iniziale del flusso"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5834
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5855
 msgid "probability for emitting a flow each second"
-msgstr ""
+msgstr "probabilità per inserire un veicolo ogni secondo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5835
 msgid "(not together with vehsPerHour or period)"
-msgstr ""
+msgstr "(incompatibile con vehsPerHour e period)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5841
 msgid "Number of flows per hour, equally spaced"
-msgstr ""
+msgstr "Numero di veicoli per ora, ugualmente distribuiti"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5842
 msgid "(not together with period or probability or poisson)"
-msgstr ""
+msgstr "(incompatibile con period o probabilità o poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5848
 msgid "Insert equally spaced flows at that period"
-msgstr ""
+msgstr "Inserisce veicoli ugualmente distribuiti con questo periodo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5849
 msgid "(not together with vehsPerHour or probability or poisson)"
-msgstr ""
+msgstr "(incompatibile con vehsPerHour o probabilità o poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5856
 msgid "(not together with vehsPerHour or period or poisson)"
-msgstr ""
+msgstr "(incompatibile con vehsPerHour o period o poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5862
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr ""
+"Inserisce un numero di veicoli per secondo distribuito con questa rata "
+"Poisson"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5863
 msgid "(not together with period or vehsPerHour or probability)"
-msgstr ""
+msgstr "(incompatibile con period o vehsPerHour o probabilità)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5876
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
