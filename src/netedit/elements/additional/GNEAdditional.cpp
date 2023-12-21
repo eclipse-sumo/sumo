@@ -1218,7 +1218,7 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 void
 GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
         const Position& pos, const double rot, const RGBColor& baseColor, const double fromAngle, const double toAngle,
-        const bool ignoreShift) const {
+        const bool /* ignoreShift */) const {
     // check if draw geometry point
     if (!s.drawForViewObjectsHandler && (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
         // push matrix
