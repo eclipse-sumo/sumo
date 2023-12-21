@@ -191,7 +191,9 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     // let the vehicle move to the next edge
                     desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION);
                     // active move reminders (i.e. rerouters)
-                    desc.myVeh->enterLaneAtMove(desc.myVeh->succEdge(1)->getLanes()[0], true);
+                    const std::vector<MSLane*>* allowedLanes = nextEdge->allowedLanes(vclass);
+                    MSLane* laneToEnter = (allowedLanes != nullptr) ? allowedLanes->at(0) : nextEdge->getLanes()[0];
+                    desc.myVeh->enterLaneAtMove(laneToEnter, true);
                     // use current travel time to determine when to move the vehicle forward
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 }
