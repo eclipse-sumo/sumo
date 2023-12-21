@@ -49,6 +49,9 @@ public:
     SUMOTime execute(SUMOTime time);
 
     bool usingInternalLanes() override;
+    bool usingShortcuts() override {
+        return myHaveAdditionalWalkableAreas;
+    }
     void registerArrived();
     int getActiveNumber() override;
     void clearState() override;
@@ -150,7 +153,7 @@ private:
     std::vector<PState*> myPedestrianStates;
 
     GEOSGeometry* myGEOSPedestrianNetwork;
-    bool myIsPedestrianNetworkConnected;
+    bool myHaveAdditionalWalkableAreas;
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;

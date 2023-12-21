@@ -170,6 +170,8 @@ public:
         /// @brief distance walked on non-normal edges (i.e. walkingareas)
         double myInternalDistance;
 
+        static bool myWarnedInvalidTripinfo;
+
     private:
         /// @brief Invalidated copy constructor.
         MSPersonStage_Walking(const MSPersonStage_Walking&);

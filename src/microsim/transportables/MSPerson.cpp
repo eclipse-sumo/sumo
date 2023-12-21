@@ -48,6 +48,12 @@
 #include "MSPModel.h"
 
 // ===========================================================================
+// static member definition
+// ===========================================================================
+bool MSPerson::MSPersonStage_Walking::myWarnedInvalidTripinfo = false;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -267,6 +273,10 @@ MSPerson::MSPersonStage_Walking::walkDistance(bool partial) const {
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransportable* const person) const {
+    if (!myWarnedInvalidTripinfo && MSNet::getInstance()->getPersonControl().getMovementModel()->usingShortcuts()) {
+        WRITE_WARNING(TL("The pedestrian model uses infrastructure which is not in the network, timeLoss and routeLength may be invalid."));
+        myWarnedInvalidTripinfo = true;
+    }
     const double distance = walkDistance(true);
     const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;

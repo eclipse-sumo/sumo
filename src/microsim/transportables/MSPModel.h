@@ -140,6 +140,11 @@ public:
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
 
+    /// @brief whether travel times and distances can reliably be calculated from the network alone
+    virtual bool usingShortcuts() {
+        return false;
+    }
+
     /// @brief return the number of active objects
     virtual int getActiveNumber() = 0;
 

@@ -39,7 +39,6 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/shapes/ShapeContainer.h>
-#include "MSPModel_Striping.h"
 #include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
 
@@ -58,7 +57,7 @@ const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_l
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
-    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")) {
+    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myHaveAdditionalWalkableAreas(false) {
     initialize();
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }
@@ -564,6 +563,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
             GEOSGeometry* walkableArea = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
             if (walkableArea != nullptr) {
                 walkableAreas.push_back(walkableArea);
+                myHaveAdditionalWalkableAreas = true;
             }
         } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
             GEOSGeometry* additionalObstacle = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
@@ -602,8 +602,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     GEOSGeom_destroy(disjointAdditionalObstacles);
 
     if (!GEOSisSimple(finalWalkableAreas)) {
-        const std::string error = "Union of walkable areas minus union of obstacles is not a simple polygon.";
-        throw ProcessError(error);
+        throw ProcessError(TL("Union of walkable areas minus union of obstacles is not a simple polygon."));
     }
 
     return finalWalkableAreas;
@@ -731,7 +730,6 @@ MSPModel_JuPedSim::initialize() {
     initGEOS(nullptr, nullptr);
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     int nbrConnectedComponents = GEOSGetNumGeometries(myGEOSPedestrianNetwork);
-    myIsPedestrianNetworkConnected = nbrConnectedComponents == 1 ? true : false;
 
     // myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     // for (size_t i = 0; i < GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {

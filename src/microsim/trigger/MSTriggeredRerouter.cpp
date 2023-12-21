@@ -70,6 +70,7 @@ MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_k
 MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
