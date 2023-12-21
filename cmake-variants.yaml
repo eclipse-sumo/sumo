@@ -40,18 +40,6 @@ pythonBindings:
       long: Python (default)
       settings:
         ENABLE_PYTHON_BINDINGS: 'yes'
-    'brew-3.8':
-      short: Python 3.8 (brew)
-      long: macOS homebrew Python 3.8
-      settings:
-        ENABLE_PYTHON_BINDINGS: 'yes'
-        PYTHON_EXECUTABLE: "/usr/local/bin/python3.8"
-    'brew-3.9':
-      short: Python 3.9 (brew)
-      long: macOS homebrew Python 3.9
-      settings:
-        ENABLE_PYTHON_BINDINGS: 'yes'
-        PYTHON_EXECUTABLE: "/usr/local/bin/python3.9"
     'no':
       short: 'noPython'
       long: noPython
