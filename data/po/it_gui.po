@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-21 13:01+0000\n"
+"PO-Revision-Date: 2023-12-21 13:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3615,7 +3615,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:765
 msgid "Create TAZRelation elements."
-msgstr "Crea relazioni tra zone di assegnazione di traffico."
+msgstr "Crea relazioni tra zone di assegnazione del traffico."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:768
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:439
@@ -3675,7 +3675,7 @@ msgstr "Mostra elementi figli di elementi addizionali"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:885
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2458
 msgid "Show TAZ elements"
-msgstr "Mostra zone di assegnazione di traffico"
+msgstr "Mostra zone di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:890
 msgid "Selecting multiple edges automatically select their junctions"
@@ -5340,7 +5340,7 @@ msgstr "sposta un punto geometrico di un poligono"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3111
 msgid "change TAZ Geometry Point position"
-msgstr "sposta un punto geometrico di una zona di assegnazione di traffico"
+msgstr "sposta un punto geometrico di una zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3135
 msgid "reset end points of selected edges"
@@ -5752,7 +5752,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2996
 msgid "Toggle draw TAZ fill"
 msgstr ""
-"Attiva/disattiva di riempire le zone di assegnazione di traffico di colore"
+"Attiva/disattiva di riempire le zone di assegnazione del traffico di colore"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3002
 msgid "Toggle draw TAZRel only from"
@@ -8132,11 +8132,11 @@ msgstr "Nome del circuito di induzione istantaneo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2417
 msgid "RouteProbe"
-msgstr ""
+msgstr "Campione di itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2422
 msgid "The id of RouteProbe"
-msgstr ""
+msgstr "Il codice identificativo del campione di itinerari"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2427
 msgid "The id of an edge in the simulation network"
@@ -8231,6 +8231,8 @@ msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
 msgstr ""
+"Il codice identificativo del elemento campione di itinerari da usare per la "
+"distribuzione di itinerari dei veicoli da generare"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2567
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2626
@@ -8598,7 +8600,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3283
 msgid "List of consecutive lanes of the circuit"
-msgstr ""
+msgstr "Elenco di corsie consecutive del circuito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3288
 msgid "Starting position in the specified lane"
@@ -9271,69 +9273,71 @@ msgstr "Corsa di persone: zona di assegnazione del traffico->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4849
 msgid "PersonTrip: taz->busStop"
-msgstr ""
+msgstr "Corsa di persone: zona di assegnazione del traffico->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4863
 msgid "PersonTrip: taz->trainStop"
 msgstr ""
+"Corsa di persone: zona di assegnazione del traffico->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4878
 msgid "PersonTrip: junction->edge"
-msgstr ""
+msgstr "Corsa di persone: incrocio->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4892
 msgid "PersonTrip: junction->taz"
-msgstr ""
+msgstr "Corsa di persone: incrocio->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4906
 msgid "PersonTrip: junction->junction"
-msgstr ""
+msgstr "Corsa di persone: incrocio->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4920
 msgid "PersonTrip: junction->busStop"
-msgstr ""
+msgstr "Corsa di persone: incrocio->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4934
 msgid "PersonTrip: junction->trainStop"
-msgstr ""
+msgstr "Corsa di persone: incrocio->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4949
 msgid "PersonTrip: busStop->edge"
-msgstr ""
+msgstr "Corsa di persone: fermata di autobus->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4963
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4977
 msgid "PersonTrip: busStop->taz"
-msgstr ""
+msgstr "Corsa di persone: fermata di autobus->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4991
 msgid "PersonTrip: busStop->busStop"
-msgstr ""
+msgstr "Corsa di persone: fermata di autobus->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5005
 msgid "PersonTrip: busStop->trainStop"
-msgstr ""
+msgstr "Corsa di persone: fermata di autobus->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5020
 msgid "PersonTrip: trainStop->edge"
-msgstr ""
+msgstr "Corsa di persone: fermata ferroviaria->arco"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5034
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5048
 msgid "PersonTrip: trainStop->taz"
 msgstr ""
+"Corsa di persone: fermata ferroviaria->zona di assegnazione del traffico"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5062
 msgid "PersonTrip: trainStop->busStop"
-msgstr ""
+msgstr "Corsa di persone: fermata ferroviaria->fermata di autobus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5076
 msgid "PersonTrip: trainStop->trainStop"
-msgstr ""
+msgstr "Corsa di persone: fermata ferroviaria->fermata ferroviaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5098
 msgid "walk: edges"
-msgstr ""
+msgstr "Cammino lungo archi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5112
 msgid "walk: route"
@@ -9370,7 +9374,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5226
 msgid "Walk: taz->junction"
-msgstr ""
+msgstr "Cammino: zona di assegnazione del traffico->incrocio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5241
 msgid "Walk: taz->busStop"
@@ -14752,7 +14756,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIMessageWindow.cpp:243
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIMessageWindow.cpp:244
 msgid " time"
-msgstr ""
+msgstr " ora"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIMessageWindow.cpp:184
 msgid "Set breakpoint at %"
@@ -16326,7 +16330,7 @@ msgstr "Cambia lingua in francese. (fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "Cambia lingua in italiano. (it)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
@@ -16358,7 +16362,7 @@ msgstr "francese"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "italiano"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:388
 msgid "simplified chinese"
