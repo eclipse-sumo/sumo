@@ -180,7 +180,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             }
         }
         bool carUsed = false;
-        std::vector<MSNet::MSIntermodalRouter::TripItem> result;
+        std::vector<MSTransportableRouter::TripItem> result;
         int stageIndex = 1;
         double departPos = previous->getArrivalPos();
         MSStoppingPlace* const prevStop = previous->getDestinationStop();
@@ -191,7 +191,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                                                 departPos, myOriginStop == nullptr ? "" : myOriginStop->getID(),
                                                 myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                                                 transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
-            for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
+            for (std::vector<MSTransportableRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;

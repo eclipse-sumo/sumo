@@ -112,6 +112,9 @@ public:
     */
     virtual SumoRNG* getRNG() const = 0;
 
+    /// @brief @return The index of the associated RNG
+    virtual int getRNGIndex() const = 0;
+
     /** @brief Returns whether the object is at a stop
      * @return Whether it has stopped
      */

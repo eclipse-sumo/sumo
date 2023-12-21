@@ -394,8 +394,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
         return false;
     }
     // check whether the vehicle shall be rerouted
-    const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-    const MSTriggeredRerouter::RerouteInterval* const rerouteDef = getCurrentReroute(time, tObject);
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    const MSTriggeredRerouter::RerouteInterval* const rerouteDef = getCurrentReroute(now, tObject);
     if (rerouteDef == nullptr) {
         return true; // an active interval could appear later
     }
@@ -525,10 +525,10 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
             ConstMSEdgeVector edges;
-            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
+            MSVehicleRouter& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
-            router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+            router.compute(veh.getEdge(), newEdge, &veh, now, edges);
             if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
                 // destination unreachable due to closed intermediate edges. pick among alternative targets
                 RandomDistributor<MSEdge*> edgeProbs2 = rerouteDef->edgeProbs;
@@ -544,12 +544,11 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                         newEdge = lastEdge;
                         break;
                     }
-                    router.compute(
-                        veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+                    router.compute(veh.getEdge(), newEdge, &veh, now, edges);
                 }
 
             }
-            const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+            const double routeCost = router.recomputeCosts(edges, &veh, now);
             hasReroutingDevice
             ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
             : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
@@ -566,6 +565,12 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             }
         } else {
             // person rerouting here
+            std::vector<MSTransportableRouter::TripItem> result;
+            MSTransportableRouter& router = hasReroutingDevice
+                    ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
+                    : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
+            router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "", tObject.getParameter().arrivalPos, "",
+                           tObject.getMaxSpeed(), nullptr, 0, now, result);
         }
     }
     return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used

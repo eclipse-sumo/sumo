@@ -88,6 +88,11 @@ MSTransportable::getRNG() const {
     return getEdge()->getLanes()[0]->getRNG();
 }
 
+int
+MSTransportable::getRNGIndex() const {
+    return getEdge()->getLanes()[0]->getRNGIndex();
+}
+
 bool
 MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     MSStage* const prior = *myStep;

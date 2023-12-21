@@ -355,9 +355,6 @@ public:
      */
     virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
 
-    /// @brief @return The index of the vehicle's associated RNG
-    virtual int getRNGIndex() const = 0;
-
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 

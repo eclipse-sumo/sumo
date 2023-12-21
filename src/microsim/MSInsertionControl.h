@@ -26,7 +26,8 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "MSNet.h"
+#include <set>
+#include <microsim/MSRouterDefs.h>
 #include "MSVehicleContainer.h"
 
 
@@ -35,6 +36,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSVehicleControl;
+class SUMOVehicle;
 class SUMOVehicleParameter;
 
 
@@ -151,7 +153,7 @@ public:
     /// @brief return the number of pending emits for the given lane
     int getPendingEmits(const MSLane* lane);
 
-    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+    void adaptIntermodalRouter(MSTransportableRouter& router) const;
 
     /// @brief compute (optional) random offset to the departure time
     SUMOTime computeRandomDepartOffset() const;

@@ -30,6 +30,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
+#include <microsim/MSRouterDefs.h>
 #include "MSStage.h"
 
 
@@ -46,7 +47,6 @@ class SUMOVehicleParameter;
 class SUMOVehicle;
 class MSTransportableDevice;
 
-typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -147,6 +147,9 @@ public:
 
     /// @brief returns the associated RNG
     SumoRNG* getRNG() const;
+
+    /// @brief returns the index of the associated RNG
+    int getRNGIndex() const;
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;

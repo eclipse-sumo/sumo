@@ -19,8 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>

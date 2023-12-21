@@ -367,7 +367,7 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
 
 
 void
-MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
+MSInsertionControl::adaptIntermodalRouter(MSTransportableRouter& router) const {
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {

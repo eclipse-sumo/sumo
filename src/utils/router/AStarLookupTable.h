@@ -29,6 +29,7 @@
 #include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/router/ReversedEdge.h>
+#include <utils/router/SUMOAbstractRouter.h>
 
 #define UNREACHABLE (std::numeric_limits<double>::max() / 1000.0)
 

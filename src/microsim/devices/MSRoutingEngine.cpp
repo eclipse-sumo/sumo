@@ -60,7 +60,7 @@ SUMOTime MSRoutingEngine::myAdaptationInterval = -1;
 SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 bool MSRoutingEngine::myBikeSpeeds;
-MSRoutingEngine::MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
+MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
 std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
@@ -488,7 +488,7 @@ MSRoutingEngine::addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>&
+MSVehicleRouter&
 MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSEdgeVector& prohibited) {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
@@ -509,6 +509,30 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSE
 #endif
     myRouterProvider->getVehicleRouter(svc).prohibit(prohibited);
     return myRouterProvider->getVehicleRouter(svc);
+}
+
+
+MSTransportableRouter&
+MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const MSEdgeVector& prohibited) {
+    if (myRouterProvider == nullptr) {
+        initWeightUpdate();
+        initEdgeWeights(SVC_PEDESTRIAN);
+        initRouter();
+    }
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        auto& router = static_cast<MSEdgeControl::WorkerThread*>(threadPool.getWorkers()[rngIndex % MSGlobals::gNumThreads])->getIntermodalRouter();
+        router.prohibit(prohibited);
+        return router;
+    }
+#else
+    UNUSED_PARAMETER(rngIndex);
+#endif
+#endif
+    myRouterProvider->getIntermodalRouter().prohibit(prohibited);
+    return myRouterProvider->getIntermodalRouter();
 }
 
 

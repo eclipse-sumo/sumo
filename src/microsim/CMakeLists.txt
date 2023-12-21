@@ -59,6 +59,7 @@ set(microsim_STAT_SRCS
    MSRoute.h
    MSRouteHandler.cpp
    MSRouteHandler.h
+   MSRouterDefs.h
    MSStop.cpp
    MSStop.h
    MSStoppingPlace.cpp

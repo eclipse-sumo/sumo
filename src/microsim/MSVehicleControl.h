@@ -33,7 +33,7 @@
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include "MSNet.h"
+#include <microsim/MSRouterDefs.h>
 
 
 // ===========================================================================
@@ -47,8 +47,6 @@ class MSRoute;
 class MSVehicleType;
 class OutputDevice;
 class MSEdge;
-
-typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -543,7 +541,7 @@ public:
         return myMinDecelerationRail;
     }
 
-    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+    void adaptIntermodalRouter(MSTransportableRouter& router) const;
 
     /// @brief sets the demand scaling factor
     void setScale(double scale) {

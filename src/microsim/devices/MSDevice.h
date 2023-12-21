@@ -28,6 +28,7 @@
 #include <set>
 #include <random>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/Named.h>
