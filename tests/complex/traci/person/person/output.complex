@@ -1,4 +1,4 @@
-Using libsumo as traci as requested by environment variable.
+ Retrying in 1 seconds
 0.0: departed=() (0) arrived=() (0)
 step 0.0
 1.0: departed=('horiz', 'detour', 'detour2', 'newPerson') (4) arrived=() (0)
