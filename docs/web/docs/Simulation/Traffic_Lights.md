@@ -330,7 +330,7 @@ Detector activation states can optionally be written to the [TLS output](Output/
   <param key="passing-time" value="2.0"/>
   <param key="vTypes" value=""/>
   <param key="show-detectors" value="false"/>
-  <param key="file" value="NULL"/>
+  <param key="file" value="NUL"/>
   <param key="freq" value="300"/>
   <param key="jam-threshold" value="-1"/>
   <param key="detector-length" value="0"/>
