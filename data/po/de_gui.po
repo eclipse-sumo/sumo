@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-01 10:58+0000\n"
+"PO-Revision-Date: 2023-12-21 22:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:294
@@ -11273,7 +11273,7 @@ msgstr "ungültiges Elternelement der Person"
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:952
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1009
 msgid "invalid combination for personTrip"
-msgstr ""
+msgstr "ungültige Kombination für Personenfahrten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:661
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:761
@@ -11287,13 +11287,13 @@ msgstr "% in '%' hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:843
 msgid "invalid combination for ride"
-msgstr ""
+msgstr "ungültige Kombination für Mitfahrten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:950
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1007
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1098
 msgid "invalid container parent"
-msgstr ""
+msgstr "ungültiges Container-Elternelement"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1058
 msgid "invalid combination for person stop"
@@ -12168,7 +12168,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:75
 msgid "Force leng."
-msgstr ""
+msgstr "Länge durchsetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:83
 msgid "Center view"
@@ -12187,12 +12187,14 @@ msgid ""
 "Invalid position. Uncheck 'Force length' to create element with flexible "
 "length"
 msgstr ""
+"Ungültige Position. Wähle 'Länge durchsetzen' ab, um ein Element mit "
+"flexibler Länge zu erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:375
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:267
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:448
 msgid "Netedit Parameters Help"
-msgstr ""
+msgstr "Netedit Parameterhilfe"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:380
 msgid "- Reference point: Mark the initial position of the additional element."
@@ -14000,6 +14002,8 @@ msgstr "Kante erstellen"
 msgid ""
 "Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
+"Entweder den Standardkantentyp, eine kurze Kante, einen benutzerdefinierten "
+"Kantentyp oder eine Vorlage wählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:695
 msgid "Invalid edge attributes"
@@ -15078,11 +15082,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUICursorDialog.cpp:64
 msgid "Delete element"
-msgstr ""
+msgstr "Element entfernen"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUICursorDialog.cpp:66
 msgid "Select element"
-msgstr ""
+msgstr "Element auswählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUICursorDialog.cpp:68
 msgid "Mark front element"
