@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
@@ -220,8 +220,11 @@ def get_network_path(sumo_config):
     sumo_config = pathlib.Path(sumo_config)
     net_file = list(sumolib.xml.parse(sumo_config, "net-file"))
     net_filename = net_file[0].getAttribute("value")
-    net_path = sumo_config.parent / net_filename
-    return net_path
+    net_path = pathlib.Path(net_filename)
+    if net_path.is_absolute():
+        return net_path
+    else:
+        return sumo_config.parent / net_path
 
 def get_network_dimension(sumo_config, cost_type):
     """Get the rough network dimension."""
