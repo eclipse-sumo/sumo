@@ -28,6 +28,8 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <microsim/MSEdge.h>
+
 #include "MSRoutingEngine.h"
 #include "MSTransportableDevice_Routing.h"
 

@@ -25,6 +25,8 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEdge.h>
+
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"
