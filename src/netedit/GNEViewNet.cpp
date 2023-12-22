@@ -1312,7 +1312,7 @@ GNEViewNet::checkSelectEdges() const {
 }
 
 
-bool
+int
 GNEViewNet::getDrawingToggle() const {
     return myDrawingToggle;
 }
@@ -3292,10 +3292,10 @@ GNEViewNet::updateCursor() {
 int
 GNEViewNet::drawGLElements(const Boundary& bound) {
     // udpdate drawing toggle
-    if (myDrawingToggle) {
-        myDrawingToggle = false;
+    if (myDrawingToggle > 10000) {
+        myDrawingToggle = 0;
     } else {
-        myDrawingToggle = true;
+        myDrawingToggle++;
     }
     // set default scale
     myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);

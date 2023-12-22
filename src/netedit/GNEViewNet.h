@@ -116,7 +116,7 @@ public:
     std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief get draw toggle (used to avoid drawing junctions twice)
-    bool getDrawingToggle() const;
+    int getDrawingToggle() const;
 
     /// @brief check if select edges (toggle using button or shift)
     bool checkSelectEdges() const;
@@ -724,7 +724,7 @@ private:
     bool myCreatedPopup = false;
 
     /// @brief drawin toggle (used in drawGLElements to avoid draw elements twice)
-    bool myDrawingToggle = false;
+    int myDrawingToggle = 0;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

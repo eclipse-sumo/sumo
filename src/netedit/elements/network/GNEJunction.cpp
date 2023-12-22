@@ -63,7 +63,7 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
-    myDrawingToggle(new bool),
+    myDrawingToggle(new int),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myHasValidLogic(loaded),
     myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
