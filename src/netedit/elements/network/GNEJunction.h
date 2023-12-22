@@ -308,6 +308,9 @@ protected:
     /// @brief flag for check if junction is currently in grid
     bool myJunctionInGrid = true;
 
+    /// @brief drawing start (used to avoid double draws)
+    long *myDrawingStart;
+
     /// @brief variable used for draw circle contours
     GNEContour myCircleContour;
 

@@ -1312,6 +1312,12 @@ GNEViewNet::checkSelectEdges() const {
 }
 
 
+long
+GNEViewNet::getDrawingStart() const {
+    return myDrawingStart;
+}
+
+
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // set lefthand and laneIcons
@@ -3284,7 +3290,9 @@ GNEViewNet::updateCursor() {
 
 
 int
-GNEViewNet::drawGLElements(const Boundary& bound) const {
+GNEViewNet::drawGLElements(const Boundary& bound) {
+    // save draw start (needed for draw junctions
+    myDrawingStart = SysUtils::getCurrentMillis();
     // set default scale
     myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
     // calculate boundary extremes

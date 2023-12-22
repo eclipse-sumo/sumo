@@ -115,6 +115,9 @@ public:
     /// @brief return list of loaded edgeRelation and tazRelation attributes
     std::vector<std::string> getRelDataAttrs() const;
 
+    /// @brief get draw start (used for drawing junctions)
+    long getDrawingStart() const;
+
     /// @brief check if select edges (toggle using button or shift)
     bool checkSelectEdges() const;
 
@@ -720,6 +723,9 @@ private:
     /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
     bool myCreatedPopup = false;
 
+    /// @brief draw start (used in drawGLElements)
+    long myDrawingStart = 0;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -784,7 +790,7 @@ private:
     /// @{
 
     /// @brief draw all gl elements of netedit
-    int drawGLElements(const Boundary& bound) const;
+    int drawGLElements(const Boundary& bound);
 
     /// @brief draw grid and update grid button
     void drawGrid() const;
