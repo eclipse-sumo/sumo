@@ -1312,7 +1312,7 @@ GNEViewNet::checkSelectEdges() const {
 }
 
 
-long
+bool
 GNEViewNet::getDrawingToggle() const {
     return myDrawingToggle;
 }
