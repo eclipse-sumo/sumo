@@ -1313,8 +1313,8 @@ GNEViewNet::checkSelectEdges() const {
 
 
 long
-GNEViewNet::getDrawingStart() const {
-    return myDrawingStart;
+GNEViewNet::getDrawingToggle() const {
+    return myDrawingToggle;
 }
 
 
@@ -3291,8 +3291,12 @@ GNEViewNet::updateCursor() {
 
 int
 GNEViewNet::drawGLElements(const Boundary& bound) {
-    // save draw start (needed for draw junctions
-    myDrawingStart = SysUtils::getCurrentMillis();
+    // udpdate drawing toggle
+    if (myDrawingToggle) {
+        myDrawingToggle = false;
+    } else {
+        myDrawingToggle = true;
+    }
     // set default scale
     myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
     // calculate boundary extremes

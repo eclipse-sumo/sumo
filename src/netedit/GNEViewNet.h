@@ -115,8 +115,8 @@ public:
     /// @brief return list of loaded edgeRelation and tazRelation attributes
     std::vector<std::string> getRelDataAttrs() const;
 
-    /// @brief get draw start (used for drawing junctions)
-    long getDrawingStart() const;
+    /// @brief get draw toggle (used to avoid drawing junctions twice)
+    long getDrawingToggle() const;
 
     /// @brief check if select edges (toggle using button or shift)
     bool checkSelectEdges() const;
@@ -723,8 +723,8 @@ private:
     /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
     bool myCreatedPopup = false;
 
-    /// @brief draw start (used in drawGLElements)
-    long myDrawingStart = 0;
+    /// @brief drawin toggle (used in drawGLElements to avoid draw elements twice)
+    long myDrawingToggle = 0;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

@@ -63,7 +63,7 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
-    myDrawingStart(new long),
+    myDrawingToggle(new bool),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myHasValidLogic(loaded),
     myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
@@ -73,8 +73,8 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
 
 
 GNEJunction::~GNEJunction() {
-    // delete drawing start
-    delete myDrawingStart;
+    // delete drawing toggle
+    delete myDrawingToggle;
     // delete all GNECrossing
     for (const auto& crossing : myGNECrossings) {
         crossing->decRef();
@@ -623,8 +623,8 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    // first check drawing start and boundary selection
-    if ((*myDrawingStart != myNet->getViewNet()->getDrawingStart()) && checkDrawingBoundarySelection()) {
+    // first check drawing toggle and boundary selection
+    if ((*myDrawingToggle != myNet->getViewNet()->getDrawingToggle()) && checkDrawingBoundarySelection()) {
         // draw boundaries
         if (myJunctionInGrid) {
             GLHelper::drawBoundary(s, getCenteringBoundary());
@@ -671,8 +671,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw Junction childs
             drawJunctionChildren(s, d);
         }
-        // update drawing start
-        *myDrawingStart = myNet->getViewNet()->getDrawingStart();
+        // update drawing toggle
+        *myDrawingToggle = myNet->getViewNet()->getDrawingToggle();
     }
 }
 
