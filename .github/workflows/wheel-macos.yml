@@ -72,6 +72,9 @@ jobs:
         name: python-wheels
         path: dist
 
+  ###################
+  # testing wheels
+  ###################
   test-wheels:
     needs: [build-wheels]
     strategy:
@@ -152,10 +155,15 @@ jobs:
         path: texttesttmp.zip
         if-no-files-found: warn
 
+  ###################
+  # publishing wheels
+  ###################
   publish-wheels:
     if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
     needs: [test-wheels]
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
 
     steps:
     - uses: actions/download-artifact@v3
@@ -163,14 +171,12 @@ jobs:
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        packages-dir: python-wheels/
         repository-url: https://test.pypi.org/legacy/
         skip-existing: true
-        packages-dir: python-wheels/
 
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.PYPI_TOKEN }}
         packages-dir: python-wheels/
