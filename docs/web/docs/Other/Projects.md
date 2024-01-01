@@ -120,11 +120,11 @@ title: Projects
   layers, not their protocols in detail. This makes it especially fast
   and suitable for application developers.
 - [PedSUMO](https://github.com/M-Colley/pedsumo): PedSUMO is an enhancement to SUMO that explores the dynamic interaction between automated vehicles and pedestrians at unprioritized crossings, focusing on pedestrian behavior in response to vehicle-priority communication methods. This open-source project offers detailed algorithms, parameter insights, and an initial data analysis of Ingolstadt, Germany, paving the way for understanding the complex impact of automated vehicles in urban environments.
-  
+
 
 ### Past Projects
 
-- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=F0B31C15E28195C3869E05D0B20B4D70?doi=10.1.1.134.8437&rep=rep1&type=pdf)
+- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cottinghams.com/david/downloads/ciiCongestionPoster.pdf)
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,

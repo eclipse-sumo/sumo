@@ -26,9 +26,6 @@
     },
     {
       "pattern": "^https://www.baua.de/"
-    },
-    {
-      "pattern": "https://www.colliseum.eu/wiki/images/b/bf/Geschwindigkeiten%2C_Verz%C3%B6gerungen_und_Beschleunigungen_nicht_motorisierter%2C_ungesch%C3%BCtzter_Verkehrsteilnehmer_am_Beispiel_Fahrrad_und_Inlineskates.pdf"
     }
   ],
   "timeout": "10s",
