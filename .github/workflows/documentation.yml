@@ -10,7 +10,7 @@ on:
 
 jobs:
   ############################
-  # BUILDING THE DOCUMENTATION
+  # building the documentation
   ############################
   build-and-internal-link-check:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
 
 
   ############################
-  # CHECKING EXTERNAL LINKS
+  # checking external links
   ############################
   external-link-check:
     runs-on: ubuntu-latest
@@ -50,6 +50,11 @@ jobs:
     steps:
     - name: Cloning repository
       uses: actions/checkout@v3
+
+    - name: Lychee Link Checker
+      uses: lycheeverse/lychee-action@v1
+      with:
+        fail: true
 
     - name: Checking links in markdown files
       uses: gaurav-nelson/github-action-markdown-link-check@v1
