@@ -23,7 +23,7 @@ value is also shown in the table.
 <th><p>Variable</p></th>
 <th><p>ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -239,7 +239,7 @@ Some further messages require additional parameters.
 <th><p>Request ValueType</p></th>
 <th><p>Response ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>

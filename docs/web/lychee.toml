@@ -1,0 +1,8 @@
+# Maximum number of allowed redirects.
+max_redirects = 20
+
+# Proceed for server connections considered insecure (invalid TLS).
+insecure = true
+
+# Remap URI matching pattern to different URI.
+remap = ["%7B%7BSource%7D%7D file://"]

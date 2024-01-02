@@ -28,7 +28,7 @@ value is also shown in the table.
 <th><p>Variable</p></th>
 <th><p>ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -143,13 +143,13 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>signal states (0x5b)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the state of a vehicle's signals, see <a href="../TraCI/Vehicle_Signalling.html" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
+<td><p>An integer encoding the state of a vehicle's signals, see <a href="../TraCI/Vehicle_Signalling.md" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSignals">getSignals</a></p></td>
 </tr>
 <tr class="even">
 <td><p>routing mode (0x89)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
+<td><p>An integer encoding the <a href="../Simulation/Routing.md#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRoutingMode">getRoutingMode</a></p></td>
 </tr>
 <tr class="even">
@@ -353,12 +353,12 @@ value is also shown in the table.
 <tr class="even">
 <td><p>speed mode (0xb3)</p></td>
 <td><p>int bitset (see below)</p></td>
-<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="../TraCI/Change_Vehicle_State.html#speed_mode_0xb3" title="wikilink">set speedmode command</a> for details.</p></td>
+<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="../TraCI/Change_Vehicle_State.md#speed_mode_0xb3" title="wikilink">set speedmode command</a> for details.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSpeedMode">getSpeedMode</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>lane change mode (0xb6)</p></td>
-<td><p>int bitset (see <a href="../TraCI/Change_Vehicle_State.html#lane_change_mode_0xb6" title="wikilink">below</a>)</p></td>
+<td><p>int bitset (see <a href="../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6" title="wikilink">below</a>)</p></td>
 <td><p>Get information on how lane changing in general and lane changing requests by TraCI are performed.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeMode">getLaneChangeMode</a></p></td>
 </tr>
@@ -550,7 +550,7 @@ Some further messages require additional parameters.
 <th><p>Request ValueType</p></th>
 <th><p>Response ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -594,7 +594,7 @@ Return the lane change state for the vehicle.</p></td>
 <td><p>neighboring vehicles (0xbf)</p></td>
 <td><p>byte , <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
 <td><p>stringList <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
-<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html" title="wikilink">sublane model</a>)</p></td>
+<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.md" title="wikilink">sublane model</a>)</p></td>
 <td><p><a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
 </tr>
 <tr class="odd">
