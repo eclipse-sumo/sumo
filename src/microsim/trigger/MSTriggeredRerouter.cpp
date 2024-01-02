@@ -49,7 +49,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStop.h>
-#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSTriggeredRerouter.h"
@@ -566,12 +566,21 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             }
         } else {
             // person rerouting here
-            std::vector<MSTransportableRouter::TripItem> result;
+            std::vector<MSTransportableRouter::TripItem> items;
             MSTransportableRouter& router = hasReroutingDevice
                     ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
                     : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
-            router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "", tObject.getParameter().arrivalPos, "",
-                           tObject.getMaxSpeed(), nullptr, 0, now, result);
+            const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
+                                                tObject.getParameter().arrivalPos, "",
+                                                tObject.getMaxSpeed(), nullptr, 0, now, items);
+            if (success) {
+                MSPerson& p = static_cast<MSPerson&>(tObject);
+                for (const MSTransportableRouter::TripItem& it : items) {
+                    if (!it.edges.empty()) {
+                        p.reroute(it.edges, tObject.getPositionOnLane(), 0, 1);
+                    }
+                }
+            }
         }
     }
     return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
@@ -1261,4 +1270,6 @@ MSTriggeredRerouter::checkParkingRerouteConsistency() {
         }
     }
 }
+
+
 /****************************************************************************/

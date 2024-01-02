@@ -145,11 +145,14 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         pControl.erase(person);
         return;
     }
-    const MSLane* const lane = getSidewalk<MSEdge, MSLane>(getEdge());
-    if (lane != nullptr) {
-        for (MSMoveReminder* rem : lane->getMoveReminders()) {
-            if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane)) {
-                myMoveReminders.push_back(rem);
+    if (previous->getStageType() != MSStageType::WALKING || previous->getEdge() != getEdge()) {
+        // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
+        const MSLane* const lane = getSidewalk<MSEdge, MSLane>(getEdge());
+        if (lane != nullptr) {
+            for (MSMoveReminder* rem : lane->getMoveReminders()) {
+                if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane)) {
+                    myMoveReminders.push_back(rem);
+                }
             }
         }
     }
@@ -633,7 +636,7 @@ MSPerson::getNextEdgePtr() const {
 
 
 void
-MSPerson::reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
+MSPerson::reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
     assert(nextIndex > firstIndex);
     //std::cout << SIMTIME << " reroute person " << getID()
     //    << "  newEdges=" << toString(newEdges)

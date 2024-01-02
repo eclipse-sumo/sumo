@@ -316,8 +316,11 @@ MSTransportable::setSpeed(double speed) {
 
 bool
 MSTransportable::replaceRoute(ConstMSRoutePtr newRoute, const std::string& /* info */, bool /* onInit */, int /* offset */, bool /* addRouteStops */, bool /* removeStops */, std::string* /* msgReturn */) {
-    const ConstMSEdgeVector& edges = newRoute->getEdges();
-    return true;
+    if (isPerson()) {
+        static_cast<MSPerson*>(this)->reroute(newRoute->getEdges(), getPositionOnLane(), 0, 1);
+        return true;
+    }
+    return false;
 }
 
 
