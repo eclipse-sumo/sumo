@@ -3,3 +3,4 @@ Warning: Polygon 'jps.walkable_area_1' will be skipped as it is just a point.
 Warning: Polygon 'jps.walkable_area_2' had some equal consecutive points removed: 300.000000000,0.000000000 300.000000000,10.000000000
 Warning: While generating geometry 2 connected components were detected, 59.15% of total pedestrian area is covered by the first.
 Warning: Error while adding waypoint for person 'p_0': WayPoint (199.9, -1.6) not inside walkable area
+Warning: The pedestrian model uses infrastructure which is not in the network, timeLoss and routeLength may be invalid.
