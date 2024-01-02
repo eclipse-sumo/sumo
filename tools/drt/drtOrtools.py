@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
@@ -25,6 +25,7 @@ from __future__ import print_function
 from enum import Enum
 
 import os
+import pathlib
 import sys
 
 import numpy as np
@@ -38,6 +39,8 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
+SPEED_DEFAULT = 20 # default vehicle speed in m/s
+PENALTY_FACTOR = 5  # factor on penalty for rejecting requests
 
 class CostType(Enum):
     DISTANCE = 1
@@ -45,12 +48,12 @@ class CostType(Enum):
 
 
 def dispatch(reservations, fleet, time_limit, cost_type, drf, waiting_time, end,
-             fix_allocation, solution_requests, verbose):
+             fix_allocation, solution_requests, penalty, verbose):
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
     data = create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
-                             fix_allocation, solution_requests, verbose)
+                             fix_allocation, solution_requests, penalty, verbose)
     if verbose:
         print('Start solving the problem.')
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
@@ -61,7 +64,7 @@ def dispatch(reservations, fleet, time_limit, cost_type, drf, waiting_time, end,
 
 
 def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
-                      fix_allocation, solution_requests, verbose):
+                      fix_allocation, solution_requests, penalty, verbose):
     """Creates the data for the problem."""
     n_vehicles = len(fleet)
     # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
@@ -209,8 +212,38 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
     data['fix_allocation'] = fix_allocation
     data['max_time'] = end
     data['initial_routes'] = solution_requests
+    data['penalty'] = int(penalty)
     return data
 
+def get_network_path(sumo_config):
+    """Get path to SUMO network from config file."""
+    sumo_config = pathlib.Path(sumo_config)
+    net_file = list(sumolib.xml.parse(sumo_config, "net-file"))
+    net_filename = net_file[0].getAttribute("value")
+    net_path = pathlib.Path(net_filename)
+    if net_path.is_absolute():
+        return net_path
+    else:
+        return sumo_config.parent / net_path
+
+def get_network_dimension(sumo_config, cost_type):
+    """Get the rough network dimension."""
+    net_path = get_network_path(sumo_config)
+    net = sumolib.net.readNet(net_path)
+    # diameter of bounding box
+    diameter = net.getBBoxDiameter()
+    if cost_type.name == "DISTANCE":
+        dimension = diameter
+    if cost_type.name == "TIME":
+        # convert distance to time assuming default speed
+        dimension = diameter / SPEED_DEFAULT
+    return dimension
+
+def get_penalty(sumo_config, cost_type, penalty_factor=PENALTY_FACTOR):
+    """Define penalty for rejecting requests."""
+    dimension = get_network_dimension(sumo_config, cost_type)
+    penalty = dimension * penalty_factor
+    return int(penalty)
 
 def get_time_windows(reservations, fleet, end):
     """returns a list of pairs with earliest and latest time"""
@@ -348,13 +381,15 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     return solution_requests
 
 
-def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, waiting_time=900,
+def run(penalty, end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, waiting_time=900,
         fix_allocation=False, verbose=False):
     """
     Execute the TraCI control loop and run the scenario.
 
     Parameters
     ----------
+    penalty: int
+        Penalty for rejecting requests.
     end : int, optional
         Final time step of simulation. The default is 90000.
         This option can be ignored by giving a negative value.
@@ -455,7 +490,7 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, wai
             if verbose:
                 print("Solve CPDP")
             solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, waiting_time, int(end),
-                                         fix_allocation, solution_requests, verbose)
+                                         fix_allocation, solution_requests, penalty, verbose)
             if solution_requests is not None:
                 for index_vehicle, vehicle_requests in solution_requests.items():  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -502,6 +537,8 @@ def get_arguments():
                     "does not change anymore")
     ap.add_argument("-w", "--waiting-time", type=ap.time, default=900,
                     help="maximum waiting time to serve a request in s")
+    ap.add_argument("-p", "--penalty-factor", type=float, default=PENALTY_FACTOR,
+                    help="factor on penalty for rejecting requests")
     ap.add_argument("--trace-file", type=ap.file,
                     help="log file for TraCI debugging")
     return ap.parse_args()
@@ -540,5 +577,9 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([arguments.sumoBinary, "-c", arguments.sumo_config], traceFile=arguments.trace_file)
-    run(arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
+
+    # get penalty
+    penalty = get_penalty(arguments.sumo_config, arguments.cost_type, arguments.penalty_factor)
+
+    run(penalty, arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
         arguments.waiting_time, arguments.fix_allocation, arguments.verbose)
