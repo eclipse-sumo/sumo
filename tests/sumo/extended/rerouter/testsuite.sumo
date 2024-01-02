@@ -16,6 +16,9 @@ multiple_reroute
 # tests for using parkingZoneReroute
 parking
 
+# rerouting pedestrians
+person
+
 # combine closing rerouter with dest_prob rerouter.
 # Also test the special dest values 'keepDestination' and 'terminateRoute'.
 # Vehicles which's route do not take them across the closed edges should not be affected.
@@ -88,6 +91,5 @@ closingLane_all
 # using the same id twice
 duplicate_id
 
-# 
-# 	
+#
 destProb
