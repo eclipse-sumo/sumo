@@ -291,6 +291,7 @@ errors:unknown url type{REPLACE [Errno 2] No such file or directory}
 errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated{LINES 2}
 errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
