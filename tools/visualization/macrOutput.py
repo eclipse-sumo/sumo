@@ -14,6 +14,7 @@
 
 # @file    macrOutput.py
 # @author  Amirhosein Karbasi
+# @author  Mirko Barthauer
 # @date    2021-04-20
 
 
@@ -34,12 +35,8 @@ import sumolib  # noqa
 def main(args=None):
 
     ap = sumolib.options.ArgumentParser()
-    ap.add_argument("file", dest="file", category="input", type=ap.file, required=True, help="An XML input file")
+    ap.add_argument("file", category="input", type=ap.file, help="An XML input file")
     options = ap.parse_args(args=args)
-
-    if args is None or len(args) < 2:
-        print("Error: An xml file must be given as input")
-        sys.exit(1)
 
     df = pdx.read_xml(options.file, ['meandata'])
 
