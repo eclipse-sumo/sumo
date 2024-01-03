@@ -13,6 +13,7 @@
 
 # @file    tlsCycleAdaptation.py
 # @author  Yun-Pang Floetteroed
+# @author  Mirko Barthauer
 # @date    2017-05-10
 
 """
@@ -191,7 +192,7 @@ def getFlows(net, routeFiles, tlsList, begin, scale_fac, verbose, isSorted=False
         if parsed == 0:
             print("Warning: No vehicles parsed from %s." % file)
         elif verbose:
-            print("Parsed %s vehicles from %s." % (parsed, file))
+            print("Parsed %s vehicles passing traffic lights from %s." % (parsed, file))
     # scale up flow
     if scale_fac != 1.:
         for t in tlsList:
