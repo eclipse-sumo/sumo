@@ -40,11 +40,12 @@ below. Each person must have at least one stage in its plan.
 
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|
-| width               | float (s) | ≥0                 | 0.48            | The person's width [m]        |
-| length              | float (s) | ≥0                 | 0.21            | The person's netto-length (length) (in m)       |
+| width               | float (m) | ≥0                 | 0.48            | The person's width [m]        |
+| length              | float (m) | ≥0                 | 0.21            | The person's netto-length (length) [m]       |
+| height              | float (m) | ≥0                 | 1.72            | The person's height [m]      |
 | mingap              | float (s) | ≥0                 | 0.25            | Empty space after leader [m]                |
-| maxSpeed            | float (s) | ≥0                 | 10.44           | The person's absolute maximum velocity (in m/s)             |
-| desiredMaxSpeed     | float (s) | ≥0                 | 1.39            | The person's desired maximum velocity (in m/s)             |
+| maxSpeed            | float (s) | ≥0                 | 10.44           | The person's absolute maximum velocity [m/s]             |
+| desiredMaxSpeed     | float (s) | ≥0                 | 1.39            | The person's desired maximum velocity [m/s]             |
 | speedFactor         | float or [distribution spec](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#defining_a_normal_distribution_for_vehicle_speeds) | >0 | 1.0 | The persons expected multiplier for desiredMaxSpeed   |
 | speedDev          | float                 | ≥0      | 0.1      | The deviation of the speedFactor distribution |
 | color             | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors)  |          | "1,1,0" (yellow)    | This person type's color       |
