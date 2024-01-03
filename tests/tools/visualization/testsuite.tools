@@ -9,3 +9,4 @@ plot_summary
 plot_trajectories
 plotXMLAttributes
 plot_net_selection
+macrOutput
