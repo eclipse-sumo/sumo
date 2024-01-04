@@ -4,7 +4,7 @@ Warning: The period is less than 1 hour. The flows will be proportionally scaled
 the total number of tls: 6
 Begin time:68.38
 parsing route file: input_routes.rou.xml
-Parsed 92 vehicles from input_routes.rou.xml.
+Parsed 92 vehicles passing traffic lights from input_routes.rou.xml.
 Warning: the number of unused states at TLS joinedS_1: 22 (59 states, 37 connections)
 tl-logic ID: 10205342654
 phase: 0

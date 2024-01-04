@@ -4,7 +4,7 @@ Warning: The period is less than 1 hour. The flows will be proportionally scaled
 the total number of tls: 1
 Begin time:1.0
 parsing route file: input_routes.rou.xml
-Parsed 3205 vehicles from input_routes.rou.xml.
+Parsed 3205 vehicles passing traffic lights from input_routes.rou.xml.
 tl-logic ID: J5
 TLS: J5 --> the tl-indices with more than one major-green:[0]
 phase: 0

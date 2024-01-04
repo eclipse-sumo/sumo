@@ -1,7 +1,7 @@
 the total number of tls: 6
-Begin time:25200
+Begin time:25200.0
 parsing route file: input_routes.rou.xml
-Parsed 14256 vehicles from input_routes.rou.xml.
+Parsed 14256 vehicles passing traffic lights from input_routes.rou.xml.
 Warning: the number of unused states at TLS 1025888921: 20 (36 states, 16 connections)
 Warning: the number of unused states at TLS 1036849914: 4 (12 states, 8 connections)
 Warning: the number of unused states at TLS 1037005478: 8 (12 states, 4 connections)
