@@ -181,7 +181,7 @@ directions. To make a unidirectional track usable in both directions,
 4.  set the new edge as [Edge template](editModesCommon.md#edge_template)
 5.  make the edge bidirectional as explained above in [Make an existing track bidirectional](#make_an_existing_track_bidirectional)
 6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
-7.  continue to created edges. Each click will create bidirectional track
+7.  continue to create edges - each click will create bidirectional track
 
 ## Define rail signals that only affect one track direction
 
