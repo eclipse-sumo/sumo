@@ -13,7 +13,7 @@ language. Historically, this has led to a larger number of client
 implementations with varying levels of API completeness and only the python
 client was kept up-to-date by the core SUMO development team.
 
-The avoid this problem, Libtraci is provided as a SWIG compatible C++ client
+To avoid this problem, Libtraci is provided as a SWIG compatible C++ client
 library that is fully compatible with [Libsumo](Libsumo.md). It even uses the
 same header files as Libsumo.
 
