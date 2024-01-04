@@ -103,7 +103,7 @@ x, y = net.convertLonLat2XY(lon, lat)
 edges = net.getNeighboringEdges(x, y, radius)
 # pick the closest edge
 if len(edges) > 0:
-    distancesAndEdges = sorted([(dist, edge) for edge, dist in edges])
+    distancesAndEdges = sorted([(dist, edge) for edge, dist in edges], key=lambda x:x[0])
     dist, closestEdge = distancesAndEdges[0]
 ```
 
