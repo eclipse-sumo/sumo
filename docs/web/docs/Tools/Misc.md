@@ -70,7 +70,7 @@ external screen capture software or using the internal screenshot feature. The s
 
 Example:
 ```
-python tools/createScreenshotSequence.py --sumocfg test.sumocfg -o outDir --begin 600 --end 900 -p filePrefix --zoom 600:500;900:1000 --include-time
+python tools/createScreenshotSequence.py --sumocfg test.sumocfg -o outDir --begin 600 --end 900 -p filePrefix --zoom 600:500;900:1000 --translate 800:100,100;900:150,100 --include-time
 ```
 This will run the configuration file named by **--sumocfg** in sumo-gui and register a TraCI step listener for the screenshot process. The time interval when to take a screenshot of each time step
 can be limited to start only at **--begin** (s) or to end at **--end** (s). If the end time is not defined explicitly, the script runs the simulation either up to the end value from the configuration (if defined)
@@ -78,7 +78,11 @@ or further to the technical system limits. The screenshots are written to the di
 date/time when the simulation was started (**--include-time**). The standard file type is set to _png_ but can be set via **--image-format**. The file name contains a zero-padded counter number such that it can be sorted easily in
 post-production.
 
-Currently only the zoom can be animated in a linear manner using the **--zoom** option. The option value consists of pairs of time and zoom values (separator: colon) joined by semicolon.
+The available attributes to animate are:
+
+- Zoom using the **--zoom** option. The option value consists of pairs of time and zoom values (separator: colon) joined by semicolon.
+- Angle using the **--rotate** option. The option value consists of pairs of time and angle values (in degrees, separator: colon) joined by semicolon.
+- Offset/center position using the **--translate** option. The option value consists of pairs of time and position values (separator: colon, position dimensions separated by comma) joined by semicolon.
 
 # extractTest.py
 
