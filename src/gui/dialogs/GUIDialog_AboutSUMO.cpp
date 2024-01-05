@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,7 +55,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
     (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");

@@ -10789,7 +10789,7 @@ msgstr "'%' 不是有效的整数向量。"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:66
 msgid ""
-"Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr "版权（C）2001-2023德国宇航中心（DLR）等; https://sumo.dlr.de"
 

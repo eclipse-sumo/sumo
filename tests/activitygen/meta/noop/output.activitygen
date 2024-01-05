@@ -1,6 +1,6 @@
 Eclipse SUMO activitygen Version v1_15_0+1315-6cce7c5914f
  Build features: Linux-5.15.0-10056-tuxedo x86_64 GNU 11.3.0 Release FMI Proj GUI Intl SWIG GDAL FFmpeg OSG GL2PS Eigen
- Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
  License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
  Use --help to get the list of options.

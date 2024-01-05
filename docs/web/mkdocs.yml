@@ -7,7 +7,7 @@ use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
-copyright: "Copyright &copy; 2001-2023 German Aerospace Center (DLR) and others."
+copyright: "Copyright &copy; 2001-2024 German Aerospace Center (DLR) and others."
 
 nav:
   - Documentation: index.md

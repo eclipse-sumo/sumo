@@ -1,5 +1,5 @@
 REM Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-REM Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
+REM Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 REM This program and the accompanying materials are made available under the
 REM terms of the Eclipse Public License 2.0 which is available at
 REM https://www.eclipse.org/legal/epl-2.0/

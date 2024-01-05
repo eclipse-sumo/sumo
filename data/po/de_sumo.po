@@ -11926,10 +11926,10 @@ msgstr "'%' ist kein gültiger integer-Vektor."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:66
 msgid ""
-"Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
-"Copyright (C) 2001-2023 Deutsches Zentrum für Luft- und Raumfahrt (DLR) und "
+"Copyright (C) 2001-2024 Deutsches Zentrum für Luft- und Raumfahrt (DLR) und "
 "Andere; https://sumo.dlr.de"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:152

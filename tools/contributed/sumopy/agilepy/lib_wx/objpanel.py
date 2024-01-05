@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
