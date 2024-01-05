@@ -1301,6 +1301,12 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 }
 
 
+bool
+GNEViewNetHelper::MoveSingleElementValues::isMovingElements() const {
+    return myMoveOperations.size() > 0;
+}
+
+
 const GNEMoveOffset
 GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position
@@ -1409,6 +1415,12 @@ GNEViewNetHelper::MoveMultipleElementValues::resetMovingSelectedEdge() {
 double
 GNEViewNetHelper::MoveMultipleElementValues::getEdgeOffset() const {
     return myEdgeOffset;
+}
+
+
+bool
+GNEViewNetHelper::MoveMultipleElementValues::isMovingElements() const {
+    return myMoveOperations.size() > 0;
 }
 
 

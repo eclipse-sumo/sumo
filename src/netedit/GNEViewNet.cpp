@@ -1957,6 +1957,12 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
+GNEViewNet::isMovingElement() const {
+    return myMoveSingleElementValues.isMovingElements() || myMoveMultipleElementValues.isMovingElements();
+}
+
+
+bool
 GNEViewNet::checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const {
     // check if elemet is blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {

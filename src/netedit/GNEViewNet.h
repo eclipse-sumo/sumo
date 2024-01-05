@@ -534,6 +534,9 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if an element is being moved
+    bool isMovingElement() const;
+
     /// @brief check if given element is locked (used for drawing select and delete contour)
     bool checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const;
 

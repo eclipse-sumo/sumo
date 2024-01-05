@@ -359,7 +359,8 @@ GNEEdge::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         // check lanes
         for (const auto &lane : myLanes) {
             if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&

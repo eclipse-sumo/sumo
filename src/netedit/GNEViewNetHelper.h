@@ -1028,6 +1028,9 @@ struct GNEViewNetHelper {
         /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();
 
+        /// @brief check if there are moving elements
+        bool isMovingElements() const;
+
     protected:
         /// @brief calculate offset
         const GNEMoveOffset calculateMoveOffset() const;
@@ -1069,6 +1072,9 @@ struct GNEViewNetHelper {
 
         /// @brief edge offset
         double getEdgeOffset() const;
+
+        /// @brief check if there are moving elements
+        bool isMovingElements() const;
 
     protected:
         /// @brief calculate move offset
