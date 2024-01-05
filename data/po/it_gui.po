@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-12-21 22:03+0000\n"
+"PO-Revision-Date: 2024-01-05 13:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8124,7 +8124,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2373
 msgid "The id of Instant Induction Loop (E1Instant)"
-msgstr ""
+msgstr "Il codice identificativo del circuito induttivo (E1Instant)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2388
 msgid "Name of instant induction loop"
@@ -8220,6 +8220,8 @@ msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
 msgstr ""
+"Il periodo di aggregazione per calibrare i flussi. Il valore standard è "
+"identico a step-length"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2557
 msgid "Name of Calibrator"
@@ -8242,7 +8244,7 @@ msgstr "File in uscita per emettere informazioni del Calibrator oppure NULL"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2572
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2631
 msgid "A threshold value to detect and clear unexpected jamming"
-msgstr ""
+msgstr "Un valore soglia per scoprire e risolvere code inaspettate"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2578
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2637
@@ -9623,46 +9625,49 @@ msgstr "(incompatibile con period o vehsPerHour o probabilità)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5876
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "La capabilità di accelerazione di veicoli di questo tipo [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5882
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "La capabilità di decelerazione di veicoli di questo tipo [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5888
 msgid ""
 "The apparent deceleration of the vehicle as used by the standard model [m/"
 "s^2]"
 msgstr ""
+"La decelerazione apparente del veicolo come viene usata dal modello standard "
+"[m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5894
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
 msgstr ""
+"La massima decelerazione possibile fisicamente di questo veicolo [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5900
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5907
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "Parametro del modello di guida"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5913
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "SKRAUSSX parametro 1"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5918
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "SKRAUSSX parametro 2"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5923
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "SKRAUSSX parametro 3"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5928
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "SKRAUSSX parametro 4"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5933
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "SKRAUSSX parametro 5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5938
 msgid "EIDM Look ahead / preview parameter [s]"
