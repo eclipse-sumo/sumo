@@ -1008,10 +1008,10 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related with movement of single elements
-    struct MoveSingleElementValues {
+    struct MoveSingleElementModul {
 
         /// @brief constructor
-        MoveSingleElementValues(GNEViewNet* viewNet);
+        MoveSingleElementModul(GNEViewNet* viewNet);
 
         /// @brief begin move network elementshape
         bool beginMoveNetworkElementShape();
@@ -1047,10 +1047,10 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
-    struct MoveMultipleElementValues {
+    struct MoveMultipleElementModul {
 
         /// @brief constructor
-        MoveMultipleElementValues(GNEViewNet* viewNet);
+        MoveMultipleElementModul(GNEViewNet* viewNet);
 
         /// @brief begin move selection
         void beginMoveSelection();

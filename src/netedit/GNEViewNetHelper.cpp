@@ -1072,13 +1072,13 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 // GNEViewNetHelper::MoveSingleElementValues - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
+GNEViewNetHelper::MoveSingleElementModul::MoveSingleElementModul(GNEViewNet* viewNet) :
     myViewNet(viewNet) {
 }
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
+GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get edited element
@@ -1142,7 +1142,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
+GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
@@ -1237,7 +1237,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
+GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
@@ -1262,7 +1262,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
 
 
 void
-GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLeftButtonPressed) {
+GNEViewNetHelper::MoveSingleElementModul::moveSingleElement(const bool mouseLeftButtonPressed) {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
@@ -1287,7 +1287,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
 
 
 void
-GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
+GNEViewNetHelper::MoveSingleElementModul::finishMoveSingleElement() {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // finish all move operations
@@ -1302,16 +1302,16 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::isMovingElements() const {
+GNEViewNetHelper::MoveSingleElementModul::isMovingElements() const {
     return myMoveOperations.size() > 0;
 }
 
 
 const GNEMoveOffset
-GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
+GNEViewNetHelper::MoveSingleElementModul::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-    Position moveOffset = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition);
+    Position moveOffset = (myViewNet->getPositionInformation() - myViewNet->myMoveSingleElement.myRelativeClickedPosition);
     // calculate Z depending of moveElevation
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->amChecked() == TRUE) {
         // use Y as Z value and return Z move offset
@@ -1326,7 +1326,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOffset() const {
 // GNEViewNetHelper::MoveMultipleElementValues - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNet* viewNet) :
+GNEViewNetHelper::MoveMultipleElementModul::MoveMultipleElementModul(GNEViewNet* viewNet) :
     myViewNet(viewNet),
     myMovingSelectedEdge(false),
     myEdgeOffset(0) {
@@ -1334,7 +1334,7 @@ GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNe
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
+GNEViewNetHelper::MoveMultipleElementModul::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // continue depending of clicked element
@@ -1347,7 +1347,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftButtonPressed) {
+GNEViewNetHelper::MoveMultipleElementModul::moveSelection(const bool mouseLeftButtonPressed) {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // check if mouse button is pressed
@@ -1376,7 +1376,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
+GNEViewNetHelper::MoveMultipleElementModul::finishMoveSelection() {
     // calculate moveOffset
     const GNEMoveOffset moveOffset = calculateMoveOffset();
     // begin undo list
@@ -1395,37 +1395,37 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
 
 
 bool
-GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
+GNEViewNetHelper::MoveMultipleElementModul::isMovingSelection() const {
     return (myMoveOperations.size() > 0);
 }
 
 
 bool
-GNEViewNetHelper::MoveMultipleElementValues::isMovingSelectedEdge() const {
+GNEViewNetHelper::MoveMultipleElementModul::isMovingSelectedEdge() const {
     return myMovingSelectedEdge;
 }
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::resetMovingSelectedEdge() {
+GNEViewNetHelper::MoveMultipleElementModul::resetMovingSelectedEdge() {
     myMovingSelectedEdge = false;
 }
 
 
 double
-GNEViewNetHelper::MoveMultipleElementValues::getEdgeOffset() const {
+GNEViewNetHelper::MoveMultipleElementModul::getEdgeOffset() const {
     return myEdgeOffset;
 }
 
 
 bool
-GNEViewNetHelper::MoveMultipleElementValues::isMovingElements() const {
+GNEViewNetHelper::MoveMultipleElementModul::isMovingElements() const {
     return myMoveOperations.size() > 0;
 }
 
 
 const GNEMoveOffset
-GNEViewNetHelper::MoveMultipleElementValues::calculateMoveOffset() const {
+GNEViewNetHelper::MoveMultipleElementModul::calculateMoveOffset() const {
     // calculate moveOffset depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
     Position moveOffset = (myViewNet->getPositionInformation() - myClickedPosition);
@@ -1441,7 +1441,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateMoveOffset() const {
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
+GNEViewNetHelper::MoveMultipleElementModul::calculateJunctionSelection() {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
@@ -1466,7 +1466,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
+GNEViewNetHelper::MoveMultipleElementModul::calculateEdgeSelection(const GNEEdge* clickedEdge) {
     // first move all selected junctions
     const auto selectedJunctions = myViewNet->getNet()->getAttributeCarriers()->getSelectedJunctions();
     // iterate over selected junctions

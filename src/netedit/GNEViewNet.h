@@ -84,7 +84,7 @@ public:
     const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
 
     /// @brief get move multiple element values
-    const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
+    const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 
     /// @brief get objects in the given boundary
     void updateObjectsInBoundary(const Boundary &boundary);
@@ -644,6 +644,7 @@ private:
 
     /// @brief variable used to save checkable buttons for Supermode Data
     GNEViewNetHelper::DataCheckableButtons myDataCheckableButtons;
+
     /// @}
 
     /// @name structs related with view options
@@ -657,6 +658,7 @@ private:
 
     /// @brief variable used to save variables related with view options in supermode Data
     GNEViewNetHelper::DataViewOptions myDataViewOptions;
+
     /// @}
 
     /// @brief variable used to save IntervalBar
@@ -664,11 +666,13 @@ private:
 
     /// @name structs related with move elements
     /// @{
-    /// @brief variable used to save variables related with movement of single elements
-    GNEViewNetHelper::MoveSingleElementValues myMoveSingleElementValues;
 
-    /// @brief variable used to save variables related with movement of multiple elements
-    GNEViewNetHelper::MoveMultipleElementValues myMoveMultipleElementValues;
+    /// @brief modul used for moving single element
+    GNEViewNetHelper::MoveSingleElementModul myMoveSingleElement;
+
+    /// @brief modul used for moving multiple elements
+    GNEViewNetHelper::MoveMultipleElementModul myMoveMultipleElements;
+
     // @}
 
     /// @name structs related with Demand options
@@ -679,6 +683,7 @@ private:
 
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
+
     // @}
 
     /// @brief variable used for grouping all variables related with salve elements

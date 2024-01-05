@@ -256,8 +256,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myDemandViewOptions(this),
     myDataViewOptions(this),
     myIntervalBar(this),
-    myMoveSingleElementValues(this),
-    myMoveMultipleElementValues(this),
+    myMoveSingleElement(this),
+    myMoveMultipleElements(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
@@ -524,9 +524,9 @@ GNEViewNet::updateObjectsInPosition(const Position &pos) {
 }
 
 
-const GNEViewNetHelper::MoveMultipleElementValues&
+const GNEViewNetHelper::MoveMultipleElementModul&
 GNEViewNet::getMoveMultipleElementValues() const {
-    return myMoveMultipleElementValues;
+    return myMoveMultipleElements;
 }
 
 
@@ -1228,8 +1228,8 @@ GNEViewNet::GNEViewNet() :
     myDemandViewOptions(this),
     myDataViewOptions(this),
     myIntervalBar(this),
-    myMoveSingleElementValues(this),
-    myMoveMultipleElementValues(this),
+    myMoveSingleElement(this),
+    myMoveMultipleElements(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
     mySaveElements(this),
@@ -1958,7 +1958,7 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 bool
 GNEViewNet::isMovingElement() const {
-    return myMoveSingleElementValues.isMovingElements() || myMoveMultipleElementValues.isMovingElements();
+    return myMoveSingleElement.isMovingElements() || myMoveMultipleElements.isMovingElements();
 }
 
 
@@ -5526,7 +5526,7 @@ GNEViewNet::drawTestsCircle() const {
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // reset moving selected edge
-    myMoveMultipleElementValues.resetMovingSelectedEdge();
+    myMoveMultipleElements.resetMovingSelectedEdge();
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
@@ -5648,7 +5648,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     if (myViewObjectsSelector.getNetworkElementFront() == myEditNetworkElementShapes.getEditedNetworkElement()) {
                         myViewObjectsSelector.getNetworkElementFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     }
-                } else if (!myMoveSingleElementValues.beginMoveNetworkElementShape()) {
+                } else if (!myMoveSingleElement.beginMoveNetworkElementShape()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
                 }
@@ -5660,10 +5660,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
-                        myMoveMultipleElementValues.beginMoveSelection();
+                        myMoveMultipleElements.beginMoveSelection();
                         // update view
                         updateViewNet();
-                    } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
+                    } else if (!myMoveSingleElement.beginMoveSingleElementNetworkMode()) {
                         // process click  if there isn't movable elements (to move camera using drag an drop)
                         processClick(eventData);
                     }
@@ -5799,8 +5799,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
 void
 GNEViewNet::processLeftButtonReleaseNetwork() {
     // check moved items
-    if (myMoveMultipleElementValues.isMovingSelection()) {
-        myMoveMultipleElementValues.finishMoveSelection();
+    if (myMoveMultipleElements.isMovingSelection()) {
+        myMoveMultipleElements.finishMoveSelection();
     } else if (mySelectingArea.selectingUsingRectangle) {
         // check if we're creating a rectangle selection or we want only to select a lane
         if (mySelectingArea.startDrawing) {
@@ -5826,7 +5826,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
         mySelectingArea.finishRectangleSelection();
     } else {
         // finish moving of single elements
-        myMoveSingleElementValues.finishMoveSingleElement();
+        myMoveSingleElement.finishMoveSingleElement();
     }
 }
 
@@ -5840,15 +5840,15 @@ GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
         myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
     }
     // check what type of additional is moved
-    if (myMoveMultipleElementValues.isMovingSelection()) {
+    if (myMoveMultipleElements.isMovingSelection()) {
         // move entire selection
-        myMoveMultipleElementValues.moveSelection(mouseLeftButtonPressed);
+        myMoveMultipleElements.moveSelection(mouseLeftButtonPressed);
     } else if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
+        myMoveSingleElement.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 
@@ -5910,10 +5910,10 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 // check if we're moving a set of selected items
                 if (AC->isAttributeCarrierSelected()) {
                     // move selected ACs
-                    myMoveMultipleElementValues.beginMoveSelection();
+                    myMoveMultipleElements.beginMoveSelection();
                     // update view
                     updateViewNet();
-                } else if (!myMoveSingleElementValues.beginMoveSingleElementDemandMode()) {
+                } else if (!myMoveSingleElement.beginMoveSingleElementDemandMode()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
                 }
@@ -5993,8 +5993,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
 void
 GNEViewNet::processLeftButtonReleaseDemand() {
     // check moved items
-    if (myMoveMultipleElementValues.isMovingSelection()) {
-        myMoveMultipleElementValues.finishMoveSelection();
+    if (myMoveMultipleElements.isMovingSelection()) {
+        myMoveMultipleElements.finishMoveSelection();
     } else if (mySelectingArea.selectingUsingRectangle) {
         // check if we're creating a rectangle selection or we want only to select a lane
         if (mySelectingArea.startDrawing) {
@@ -6004,7 +6004,7 @@ GNEViewNet::processLeftButtonReleaseDemand() {
         mySelectingArea.finishRectangleSelection();
     } else {
         // finish moving of single elements
-        myMoveSingleElementValues.finishMoveSingleElement();
+        myMoveSingleElement.finishMoveSingleElement();
     }
 }
 
@@ -6016,7 +6016,7 @@ GNEViewNet::processMoveMouseDemand(const bool mouseLeftButtonPressed) {
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
+        myMoveSingleElement.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 
@@ -6127,8 +6127,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
 void
 GNEViewNet::processLeftButtonReleaseData() {
     // check moved items
-    if (myMoveMultipleElementValues.isMovingSelection()) {
-        myMoveMultipleElementValues.finishMoveSelection();
+    if (myMoveMultipleElements.isMovingSelection()) {
+        myMoveMultipleElements.finishMoveSelection();
     } else if (mySelectingArea.selectingUsingRectangle) {
         // check if we're creating a rectangle selection or we want only to select a lane
         if (mySelectingArea.startDrawing) {
@@ -6138,7 +6138,7 @@ GNEViewNet::processLeftButtonReleaseData() {
         mySelectingArea.finishRectangleSelection();
     } else {
         // finish moving of single elements
-        myMoveSingleElementValues.finishMoveSingleElement();
+        myMoveSingleElement.finishMoveSingleElement();
     }
 }
 
@@ -6150,7 +6150,7 @@ GNEViewNet::processMoveMouseData(const bool mouseLeftButtonPressed) {
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
+        myMoveSingleElement.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 
