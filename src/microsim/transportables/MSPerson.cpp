@@ -147,14 +147,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     }
     if (previous->getStageType() != MSStageType::WALKING || previous->getEdge() != getEdge()) {
         // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
-        const MSLane* const lane = getSidewalk<MSEdge, MSLane>(getEdge());
-        if (lane != nullptr) {
-            for (MSMoveReminder* rem : lane->getMoveReminders()) {
-                if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane)) {
-                    myMoveReminders.push_back(rem);
-                }
-            }
-        }
+        activateEntryReminders(person, true);
     }
     if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
         myExitTimes = new std::vector<SUMOTime>();
@@ -394,7 +387,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
 void
 MSPerson::MSPersonStage_Walking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
     MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
-    for (MSMoveReminder* rem : myMoveReminders) {
+    for (MSMoveReminder* const rem : myMoveReminders) {
         rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
         rem->notifyLeave(*person, lastPos, notification);
     }
@@ -402,12 +395,11 @@ MSPerson::MSPersonStage_Walking::activateLeaveReminders(MSTransportable* person,
 
 
 void
-MSPerson::MSPersonStage_Walking::activateEntryReminders(MSTransportable* person) {
-    const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
+MSPerson::MSPersonStage_Walking::activateEntryReminders(MSTransportable* person, const bool isDepart) {
+    const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
     if (nextLane != nullptr) {
-        for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
-            if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {
-                ;
+        for (MSMoveReminder* const rem : nextLane->getMoveReminders()) {
+            if (rem->notifyEnter(*person, isDepart ? MSMoveReminder::NOTIFICATION_DEPARTED : MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {
                 myMoveReminders.push_back(rem);
             }
         }

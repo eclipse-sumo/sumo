@@ -87,15 +87,12 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myHaveParkProbs(false) {
     myInstances[id] = this;
     // build actors
-    for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
+    for (const MSEdge* const e : edges) {
         if (MSGlobals::gUseMesoSim) {
-            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
-            s->addDetector(this);
-            continue;
+            MSGlobals::gMesoNet->getSegmentForEdge(*e)->addDetector(this);
         }
-        const std::vector<MSLane*>& destLanes = (*j)->getLanes();
-        for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-            (*i)->addMoveReminder(this);
+        for (MSLane* const lane : e->getLanes()) {
+            lane->addMoveReminder(this);
         }
     }
     if (off) {

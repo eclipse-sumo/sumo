@@ -107,6 +107,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         myModel->registerArrived();
         return 0;
     }
+    myParent.activateEntryReminders(myTransportable);
     return static_cast<PState*>(myParent.getState())->computeDuration(old, myParent, currentTime);
 }
 

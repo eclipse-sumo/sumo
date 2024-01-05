@@ -91,7 +91,11 @@ public:
     /// @brief move forward and return whether the transportable arrived
     virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0) = 0;
 
-    virtual void activateEntryReminders(MSTransportable* /*person*/) { }
+    /// @brief add the move reminders for the current lane on entry
+    virtual void activateEntryReminders(MSTransportable* person, const bool isDepart=false) {
+        UNUSED_PARAMETER(person);
+        UNUSED_PARAMETER(isDepart);
+    }
 
     /// @brief place transportable on a previously passed edge
     virtual void setRouteIndex(MSTransportable* const transportable, int routeOffset);

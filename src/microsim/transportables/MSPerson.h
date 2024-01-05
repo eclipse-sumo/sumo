@@ -124,7 +124,7 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr);
 
-        void activateEntryReminders(MSTransportable* person);
+        void activateEntryReminders(MSTransportable* person, const bool isDepart=false);
 
         void activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived);
 
