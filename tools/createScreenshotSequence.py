@@ -43,6 +43,12 @@ def getOptions(args=None):
                            default="", help="define a prefix of the screenshot filename")
     argParser.add_argument("--zoom",
                            help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
+    argParser.add_argument("--rotate",
+                           help="linear interpolation to rotation values in degrees (around Z axis) given the key frames \
+                           syntax t1:v1[;t2:v2 ...]")
+    argParser.add_argument("--translate",
+                           help="linear interpolation to the given view center points with the key frames syntax \
+                           t1:p1[;t2:p2 ...] where p1 is \"x,y\"")
     argParser.add_argument("--include-time", dest="includeTime", category="processing", action="store_true",
                            default=False,
                            help="whether to include the system time at simulation begin in the file name")
@@ -75,7 +81,17 @@ def main(options):
         zoomTargets = [(float(pair[:pair.index(":")]), float(pair[pair.index(":")+1:]))
                        for pair in options.zoom.split(";")]
         for t, value in zoomTargets:
-            listener.addZoomTarget(t, value)
+            listener.addTransformTarget(t, value, transform="zoom")
+    if options.rotate is not None:
+        rotateTargets = [(float(pair[:pair.index(":")]), float(pair[pair.index(":")+1:]))
+                       for pair in options.rotate.split(";")]
+        for t, value in rotateTargets:
+            listener.addTransformTarget(t, value, transform="rotate")
+    if options.translate is not None:
+        translateTargets = [(float(pair[:pair.index(":")]), [float(c) for c in pair[pair.index(":")+1:].split(",")])
+                       for pair in options.translate.split(";")]
+        for t, value in translateTargets:
+            listener.addTransformTarget(t, value, transform="translate")
     traci.addStepListener(listener)
     sumoEndTime = listener.getEndTime()
     t = float(traci.simulation.getOption("begin"))
@@ -84,6 +100,44 @@ def main(options):
         traci.simulationStep()
         t += simStep
     traci.close()
+
+class KeyFramedNumericAttribute(object):
+
+    InterpolationModes = ("linear",)
+
+    def __init__(self, initT, initValue):
+        self._interpolation = self.InterpolationModes[0]
+        self._dimensions = 1
+        self._targets = []
+        self.addTarget(initT, initValue)
+        print("initialised KeyFramedNumericAttribute with (%.2f, %s)" % (initT, str(initValue)))
+
+    def addTarget(self, t, value):
+        if isinstance(value, float):
+            value = [value]
+        self._targets.append((t, tuple(value)))
+        self._targets.sort(key=lambda x: x[0])
+        if len(value) > self._dimensions:
+            self._dimensions = len(value)
+            # TODO: recreate the targets tuples with additional value dimension
+
+    def hasKeyFrames(self):
+        return len(self._targets) > 1
+
+    def update(self, t):
+        if self.hasKeyFrames() and self._targets[1][0] < t:
+            self._targets.pop(0)
+
+    def get(self, t):
+        if self._interpolation == "linear":
+            reached = (t - self._targets[0][0]) / (self._targets[1][0] - self._targets[0][0])
+            deltaValue = [self._targets[1][1][dim] - self._targets[0][1][dim] for dim in range(self._dimensions)]
+            result = [self._targets[0][1][dim] + reached * deltaValue[dim] for dim in range(self._dimensions)]
+            if self._dimensions == 1:
+                return result[0]
+            else:
+                return tuple(result)
+        return 0
 
 
 class ScreenshotHelper(traci.StepListener):
@@ -98,21 +152,26 @@ class ScreenshotHelper(traci.StepListener):
         self._view = view
         self.__counter = 0
         self._recordIntervals = []
-        self._zoomTargets = []
         self._startTime = float(traci.simulation.getOption("begin"))
         self._endTime = float(traci.simulation.getOption("end"))
         self._simTime = self._startTime
         self._simStep = float(traci.simulation.getOption("step-length"))
-        self._initialZoom = traci.gui.getZoom(viewID=view)
+        self._zoom = KeyFramedNumericAttribute(self._startTime, traci.gui.getZoom(viewID=view))
+        self._rotate = KeyFramedNumericAttribute(self._startTime, traci.gui.getAngle(viewID=view))
+        self._translate = KeyFramedNumericAttribute(self._startTime, traci.gui.getOffset(viewID=view))
         if recordAll:
             self.addTimeInterval()
         self._imageCount = int((self._endTime - self._startTime) /
                                (float(traci.simulation.getOption("step-length")) * frequency))
         self._fileNameTemplate = "%s%0" + str(len(str(self._imageCount))) + "d.%s"
 
-    def addZoomTarget(self, timeKey, zoomValue):
-        self._zoomTargets.append((timeKey, zoomValue))
-        self._zoomTargets.sort(key=lambda x: x[0])
+    def addTransformTarget(self, timeKey, value, transform="zoom"):
+        if transform == "zoom":
+            self._zoom.addTarget(timeKey, value)
+        elif transform == "rotate":
+            self._rotate.addTarget(timeKey, value)
+        elif transform == "translate":
+            self._translate.addTarget(timeKey, value)
 
     def addTimeInterval(self, begin=None, end=None):
         if begin is None:
@@ -138,18 +197,20 @@ class ScreenshotHelper(traci.StepListener):
     def _updateTime(self):
         if self._recordIntervals[0][1] < self._simTime:
             self._recordIntervals.pop(0)
-        if len(self._zoomTargets) > 0 and self._zoomTargets[0][0] < self._simTime:
-            self._zoomTargets.pop(0)
+        self._zoom.update(self._simTime)
+        self._rotate.update(self._simTime)
+        self._translate.update(self._simTime)
 
     def step(self, t):
         self._updateTime()
         if len(self._recordIntervals) == 0:
             return False
-        if len(self._zoomTargets) > 0:
-            currentZoom = traci.gui.getZoom(viewID=self._view)
-            newZoom = currentZoom + (self._zoomTargets[0][1] - currentZoom) * \
-                self._simStep / (self._zoomTargets[0][0] - self._simTime)
-            traci.gui.setZoom(self._view, newZoom)
+        if self._zoom.hasKeyFrames():
+            traci.gui.setZoom(self._view, self._zoom.get(self._simTime))
+        if self._rotate.hasKeyFrames():
+            traci.gui.setAngle(self._view, self._rotate.get(self._simTime))
+        if self._translate.hasKeyFrames():
+            traci.gui.setOffset(self._view, *(self._translate.get(self._simTime)))
         if (self._simTime > self._recordIntervals[0][0] and self._simTime <= self._recordIntervals[0][1]
                 and self.__counter % self._frequency == 0):
             traci.gui.screenshot(self._view, os.path.join(self._outputDir, self._fileNameTemplate %
