@@ -148,7 +148,7 @@ def get_options(args=None):
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
-        "mapquest": "https://open.mapquestapi.com/staticmap/v4/getmap",
+        "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap"
     }
     options = optParser.parse_args(args=args)
