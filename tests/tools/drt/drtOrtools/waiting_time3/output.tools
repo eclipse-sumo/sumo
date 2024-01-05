@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -46,7 +47,7 @@ reservation 1 has a maximum (hard) pickup time at 100
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective: 11268
+Objective: 8834
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (1,58))
  ->  1 (L: 1, C: 588, T: (43,100))
