@@ -323,7 +323,7 @@ python tools/tileGet.py -n test.net.xml -t 10
 - Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
 ```
 python tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
-python tools/tileGet.py -n test.net.xml -t 10 --url open.mapquestapi.com/staticmap/v4/getmap --key YOURKEY
+python tools/tileGet.py -n test.net.xml -t 10 --url www.mapquestapi.com/staticmap/v5/map --key YOURKEY
 ```
 
 The generated setting file can be loaded in sumo-gui with:
