@@ -39,8 +39,9 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-SPEED_DEFAULT = 20 # default vehicle speed in m/s
+SPEED_DEFAULT = 20  # default vehicle speed in m/s
 PENALTY_FACTOR = 5  # factor on penalty for rejecting requests
+
 
 class CostType(Enum):
     DISTANCE = 1
@@ -215,6 +216,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
     data['penalty'] = int(penalty)
     return data
 
+
 def get_network_path(sumo_config):
     """Get path to SUMO network from config file."""
     sumo_config = pathlib.Path(sumo_config)
@@ -225,6 +227,7 @@ def get_network_path(sumo_config):
         return net_path
     else:
         return sumo_config.parent / net_path
+
 
 def get_network_dimension(sumo_config, cost_type):
     """Get the rough network dimension."""
@@ -239,11 +242,13 @@ def get_network_dimension(sumo_config, cost_type):
         dimension = diameter / SPEED_DEFAULT
     return dimension
 
+
 def get_penalty(sumo_config, cost_type, penalty_factor=PENALTY_FACTOR):
     """Define penalty for rejecting requests."""
     dimension = get_network_dimension(sumo_config, cost_type)
     penalty = dimension * penalty_factor
     return int(penalty)
+
 
 def get_time_windows(reservations, fleet, end):
     """returns a list of pairs with earliest and latest time"""

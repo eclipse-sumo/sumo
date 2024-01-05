@@ -32,6 +32,7 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 
+
 def main(args=None):
 
     ap = sumolib.options.ArgumentParser()
@@ -119,17 +120,20 @@ def main(args=None):
     plt.scatter(MD, MS)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Speed (Km/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Edge_vk.png"))
+    helpers.closeFigure(fig, ax, options,
+                        optOut=None if options.output is None else os.path.join(options.output, "Edge_vk.png"))
     fig, ax = helpers.openFigure(options)
     plt.scatter(MD, MF)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Flow (Veh/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Edge_qk.png"))
+    helpers.closeFigure(fig, ax, options,
+                        optOut=None if options.output is None else os.path.join(options.output, "Edge_qk.png"))
     fig, ax = helpers.openFigure(options)
     plt.scatter(MS, MF)
     plt.xlabel("Speed (Km/hr)")
     plt.ylabel("Flow (Veh/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Edge_qv.png"))
+    helpers.closeFigure(fig, ax, options,
+                        optOut=None if options.output is None else os.path.join(options.output, "Edge_qv.png"))
 
     # calculating meandensity,meanflow,meanspeed (density=laneDensity)
     i = 0
@@ -158,17 +162,20 @@ def main(args=None):
     plt.scatter(lMD, lMS)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Speed (Km/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Lane_vk.png"))
+    helpers.closeFigure(fig, ax, options, optOut=None if options.output is None else os.path.join(
+        options.output, "Lane_vk.png"))
     fig, ax = helpers.openFigure(options)
     plt.scatter(lMD, lMF)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Flow (Veh/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Lane_qk.png"))
+    helpers.closeFigure(fig, ax, options, optOut=None if options.output is None else os.path.join(
+        options.output, "Lane_qk.png"))
     fig, ax = helpers.openFigure(options)
     plt.scatter(lMS, lMF)
     plt.xlabel("Speed (Km/hr)")
     plt.ylabel("Flow (Veh/hr)")
-    helpers.closeFigure(fig, ax, options, optOut = None if options.output is None else os.path.join(options.output, "Lane_qv.png"))
+    helpers.closeFigure(fig, ax, options, optOut=None if options.output is None else os.path.join(
+        options.output, "Lane_qv.png"))
 
     # Build a csv file
     Macro_Features = {'Density': MD,
