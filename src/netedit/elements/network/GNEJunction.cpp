@@ -1894,6 +1894,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
+    // clear contour
+    myNetworkElementContour.clearContour();
     // set new position in NBNode without updating grid
     if (isShapeEdited()) {
         // set new shape

@@ -46,8 +46,8 @@ public:
     /// @brief get contour boundary
     Boundary getContourBoundary() const;
 
-    /// @brief get calculated shape
-    const PositionVector &getCalculatedShape() const;
+    /// @brief void clear contour
+    void clearContour();
 
     /// @brief calculate contours
     /// @{

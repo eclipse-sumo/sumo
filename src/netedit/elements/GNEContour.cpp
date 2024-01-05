@@ -62,6 +62,14 @@ GNEContour::getContourBoundary() const {
 
 
 void
+GNEContour::clearContour() {
+    myDottedGeometries->clear();
+    myContourBoundary->reset();
+    myCalculatedShape->clear();
+}
+
+
+void
 GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const PositionVector& shape, const double scale) const {
     // check if we're in drawForObjectUnderCursor
