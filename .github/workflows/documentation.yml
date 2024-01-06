@@ -56,11 +56,3 @@ jobs:
       with:
         fail: true
         args: -c docs/web/lychee.toml -n docs/web/docs/
-
-    - name: Checking links in markdown files
-      uses: gaurav-nelson/github-action-markdown-link-check@v1
-      with:
-        config-file: 'docs/web/.link_check_config.json'
-        use-quiet-mode: 'yes'
-        use-verbose-mode: 'no'
-        folder-path: 'docs/web/docs/'
