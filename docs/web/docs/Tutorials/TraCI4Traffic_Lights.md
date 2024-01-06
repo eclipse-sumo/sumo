@@ -62,7 +62,7 @@ makes use of the TraCI python API bundled with SUMO. A description of
 the API can be found at
 [TraCI/Interfacing_TraCI_from_Python](../TraCI/Interfacing_TraCI_from_Python.md).
 For a detailed list of available functions see the [pydoc generated
-documentation](https://sumo.dlr.de/daily/pydoc/traci.html).
+documentation](https://sumo.dlr.de/pydoc/traci.html).
 
 # Simulation
 

@@ -17,7 +17,7 @@ Changes the state of a induction loop. The values that can be changed and the pa
 
 | Variable | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
 |---------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| time (0x22) | double | Persistently overrides the measured time since detection with the given value. Setting a negative value resets the override.  | [overrideTimeSinceDetection](https://sumo.dlr.de/daily/pydoc/traci._inductionloop.html#InductionLoopDomain-overrideTimeSinceDetection) |
+| time (0x22) | double | Persistently overrides the measured time since detection with the given value. Setting a negative value resets the override.  | [overrideTimeSinceDetection](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-overrideTimeSinceDetection) |
 
 # compound message details
 

@@ -195,7 +195,7 @@ The following filter types are available:
 - VClass: Only return vehicles of the specified vClasses
 
 See the [pydoc
-documentation](https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
+documentation](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-addSubscriptionFilterCFManeuver)
 for detailed specifications.
 
 !!! caution

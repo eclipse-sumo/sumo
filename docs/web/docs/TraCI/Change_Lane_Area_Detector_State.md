@@ -17,4 +17,4 @@ Changes the state of a lane area detector. The values that can be changed and th
 
 | Variable | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
 |---------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| vehicle number (0x22) | integer | Persistently overrides the number of vehicles on the detector. Setting a negative value resets the override. | [overrideVehicleNumber](https://sumo.dlr.de/daily/pydoc/traci._lanearea.html#LaneAreaDomain-overrideVehicleNumber) |
+| vehicle number (0x22) | integer | Persistently overrides the number of vehicles on the detector. Setting a negative value resets the override. | [overrideVehicleNumber](https://sumo.dlr.de/pydoc/traci._lanearea.html#LaneAreaDomain-overrideVehicleNumber) |
