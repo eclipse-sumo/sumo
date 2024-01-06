@@ -66,7 +66,7 @@ These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_P
 # Other
 
 ## Curso de Simulação em Mobilidade
-[Udemy tutorial](https://www.udemy.com/ferramenta-de-microssimulacao-de-trafego-sumo/learn/v4/overview) in Portuguese courtesy of Ednardo Ferreira.
+[Udemy tutorial](https://www.udemy.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/) in Portuguese courtesy of Ednardo Ferreira.
 
 ## ITSC 2015
 

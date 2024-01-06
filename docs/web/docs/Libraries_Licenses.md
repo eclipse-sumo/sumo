@@ -85,7 +85,7 @@ can be omitted, but [sumo-gui](sumo-gui.md),
   - zlib - [self made license, free also for commercial use and
     binary distribution](https://www.zlib.net/zlib_license.html)
   - libpng - [self made license, comparable to
-    zlib](https://www.libpng.org/pub/png/src/libpng-LICENSE.txt)
+    zlib](http://www.libpng.org/pub/png/src/libpng-LICENSE.txt)
   - libjpeg - [self made license, free also for commercial use and
     binary
     distribution](https://github.com/winlibs/libjpeg/blob/master/README)

@@ -469,7 +469,7 @@ vehicle types).
 - (25): <https://de.wikipedia.org/wiki/Vespa_LX>
 - (26): <https://www.colliseum.net/wiki/Bremsversuche_mit_dem_Kleinkraftrad_S_50_/_S_51>
 - (27): <https://web.archive.org/web/20120622045505/https://www.unfallaufnahme.info/uebersichten-listen-und-tabellen/geschwindigkeiten-und-bremswege/index.html>
-- (28): <https://www.bmw-motorrad.de/>
+- (28): <https://de.wikipedia.org/wiki/BMW_R_1200_GS_K25>
 - (29): <https://web.archive.org/web/20140227232934/https://www.volkswagen.de/de/models/golf_7/trimlevel_overview.s9_trimlevel_detail.suffix.html/der-golf-cup~2Fcup.html>
 - (30): <https://web.archive.org/web/20160320031009/https://www.buchbinder.de/de/fahrzeuge.html>
 - (31): <https://www.colliseum.net/wiki/Lkw-Anfahrbeschleunigungswerte_f%C3%BCr_die_Praxis>

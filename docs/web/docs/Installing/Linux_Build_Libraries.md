@@ -52,7 +52,7 @@ Unix-like environments. Documentation can be found in the
 - [Manual for
   libtool](https://www.gnu.org/software/libtool/manual/libtool.html), and
 - the
-  [Autobook](https://sources.redhat.com/autobook/autobook/autobook_toc.html).
+  [Autobook](https://sourceware.org/autobook/).
 
 #### The Libraries
 

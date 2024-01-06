@@ -78,7 +78,7 @@ set FOX16=D:\libs\fox-1.6.36.
 - Warning: This is a little advanced, we were successful with libpng
 1.5.2 and 1.6.20 together with zlib 1.2.5 and 1.2.8
 - download zlib sources and libpng sources from
-[\[1\]](https://www.libpng.org/pub/png/libpng.html) and
+[\[1\]](http://www.libpng.org/pub/png/libpng.html) and
 [\[2\]](https://www.zlib.net/)
 - unzip all zips
 - there is no need to build zlib

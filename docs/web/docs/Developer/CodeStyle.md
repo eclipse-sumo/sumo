@@ -100,7 +100,7 @@ extended character information use TeX or HTML notation instead.
 ## Throw-declarations
 
 - We are not using throw-declarations, see:
-  <https://www.gotw.ca/publications/mill22.htm> (thanks to Björn
+  <http://www.gotw.ca/publications/mill22.htm> (thanks to Björn
   Hendriks); we'll remove the existing ones subsequently.
 
 ## Object Handling
@@ -193,7 +193,7 @@ following in mind:
 
 For further information about possible error sources and difficulties
 resulting in Python 3 compatibility see also
-<https://python3porting.com/> and
+<http://python3porting.com/> and
 <https://docs.python.org/3/howto/pyporting.html>
 
 ## Template

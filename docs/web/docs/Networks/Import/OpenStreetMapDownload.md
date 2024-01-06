@@ -56,7 +56,7 @@ filtering and editing of OSM Data.
 
 Larger amounts of OSM-data can be downloaded using a web browser or
 preferably with a program such as
-[wget](https://wget.addictivecode.org/). For detailed information refer
+[wget](http://wget.addictivecode.org/). For detailed information refer
 to the [API overview](https://wiki.openstreetmap.org/wiki/API)
 
 Downloading OSM-data via the API is a two step process: First you must
@@ -94,7 +94,7 @@ https://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552
 ```
 
 you can download your data by entering the URI in a web-browers or by
-using another program such as [wget](https://wget.addictivecode.org/).
+using another program such as [wget](http://wget.addictivecode.org/).
 
 ```
 wget.exe "https://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552" -O berlin.osm.xml

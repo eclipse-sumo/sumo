@@ -1,11 +1,11 @@
 # Maximum number of allowed redirects.
 max_redirects = 20
 
-# User agent to send with each request.
-user_agent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0"
-
 # Proceed for server connections considered insecure (invalid TLS).
 insecure = true
 
 # Remap URI matching pattern to different URI.
 remap = ["%7B%7BSource%7D%7D file://"]
+
+# Exclude URLs and mail addresses from checking (supports regex).
+exclude = ['^https://sumo\.dlr\.de/generate-documentation\.php', '^https://web\.archive\.org/web/', '^https://doi\.org/10', 'https://www\.researchgate\.net/publication/', 'https://www.udemy.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/']

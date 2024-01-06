@@ -120,14 +120,14 @@ connected driving in Hamburg.
 
 [SUMO simulation files for running 24h of car traffic in five large-scale cities](https://www.research-collection.ethz.ch/handle/20.500.11850/584669)
 
-# Further real-world scenarios
+# Outdated real-world scenarios
 
-- [Bologna Ringway](https://academic.lucabedogni.it/the-bologna-ringway-dataset/).
+- [Bologna Ringway](https://web.archive.org/web/20220707045650/https://academic.lucabedogni.it/the-bologna-ringway-dataset/).
     Scenario built within the [COLOMBO R&D
     project](https://web.archive.org/web/20170716120720/https://www.colombo-fp7.eu/).
 
 !!! caution
-    This scenario is known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. It is also quite jammed.
+    This scenario seems to have been removed and is only here for historical reference. It was known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. It is also quite jammed.
 
 # Synthetic scenarios
 
