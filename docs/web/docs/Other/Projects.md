@@ -6,7 +6,7 @@ title: Projects
 
 ### Current Projects
 
-- [MAVEN](https://www.maven-its.eu/) Managing Automated Vehicles
+- [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
