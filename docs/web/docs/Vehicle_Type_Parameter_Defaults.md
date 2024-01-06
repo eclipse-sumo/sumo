@@ -32,7 +32,7 @@ vehicle types).
     <th class="tg-dr3j">v<sub>max</sub> maxSpeed</th>
     <th class="tg-dr3j">v<sub>desMax</sub> desiredMaxSpeed</th>
     <th class="tg-dr3j">seats</th>
-    <th class="tg-dr3j"><a href="Models/Emissions/HBEFA3-based.html">emissionClass (HBEFA3)</a></th>
+    <th class="tg-dr3j"><a href="Models/Emissions/HBEFA3-based.md">emissionClass (HBEFA3)</a></th>
     <th class="tg-dr3j">speed deviation</th>
   </tr>
   <tr>

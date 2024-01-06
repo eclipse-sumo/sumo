@@ -83,7 +83,7 @@ The visualization of emergency vehicles is supported in
 white vehicle with the international sign for first aid is drawn.
 Alternatively, a police car or a fire brigade will be drawn when setting the vType-attribute `guiShape="police"` or `guiShape="firebrigade"`, respectively. Furthermore, a blue flashing light will be visible on the vehicle when setting the vType-attribute `vClass="emergency"`.
 
-![<File:Ev.png>](../images/Ev.png "File:Ev.png")
+![Ev.png](../images/Ev.png)
 
 # References
 

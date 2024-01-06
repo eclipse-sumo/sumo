@@ -30,7 +30,7 @@ all pedestrian lights) were also verified. See also
 </tr>
 <tr class="even">
 <td><p>Source</p></td>
-<td><p><a href="../../Tutorials/OSMActivityGen/eichstaett.osm.html" title="wikilink">Tutorials/OSMActivityGen/eichstaett.osm</a> by W. Bamberger.<br />
+<td><p><a href="../../Tutorials/OSMActivityGen/eichstaett.osm.md" title="wikilink">Tutorials/OSMActivityGen/eichstaett.osm</a> by W. Bamberger.<br />
 Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap contributors</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a></p></td>
 </tr>
 <tr class="odd">

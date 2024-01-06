@@ -115,7 +115,7 @@ and [jtrrouter](../jtrrouter.md) applications support the option **--randomize-f
 When this option is used, each vehicle defined by a `<flow>`-element will be
 given a random departure time which is equidistributed within the time
 interval of the flow. (By default vehicles of a flow are spaced equally
-in time). The departure times computed this way also achieve a [Poisson process](Poisson_point_process#Simulation)
+in time). The departure times computed this way also achieve a [Poisson process](#poisson_process)
 
 # Departure and arrival attributes
 

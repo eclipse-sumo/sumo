@@ -78,10 +78,10 @@ title: Projects
   University, Germany
 - [TraNS - Traffic and Network Simulation environment for design, implementation
   and realistic evaluation of VANET
-  applications](https://trans.epfl.ch)
+  applications](https://web.archive.org/web/20190512111856/http://lca.epfl.ch/projects/trans/)
   by Michal Piorkowski, Maxim Raya, Ada Lezama Lugo and Jean-Pierre
-  Hubaux from [Laboratory for Computer Communications and Applications
-  (LCA)](https://lcawww.epfl.ch), [EPFL](https://www.epfl.ch),
+  Hubaux from Laboratory for Computer Communications and Applications
+  (LCA), [EPFL](https://www.epfl.ch),
   Switzerland
   TraNS is the first open-source project providing a full-blown
   application-centric evaluation framework for VANETs. It has a unique

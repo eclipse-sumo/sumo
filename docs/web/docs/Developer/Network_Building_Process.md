@@ -290,9 +290,9 @@ following three cases must be distinguished:
 
 |                                                 |                                                      |
 | ----------------------------------------------- | ---------------------------------------------------- |
-| ![<File:laneShapeIntersectsWithNodeShape.png>](../images/LaneShapeIntersectsWithNodeShape.png "File:laneShapeIntersectsWithNodeShape.png") | The edge shape intersects with the node shape. Then, the shape is trimmed to the intersection point. This looks quite reasonable.                                                                          |
-| ![<File:laneShapeOutsideOfNodeShape.png>](../images/LaneShapeOutsideOfNodeShape.png "File:laneShapeOutsideOfNodeShape.png")                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
-| ![<File:laneShapeInsideOfNodeShape.png>](../images/LaneShapeInsideOfNodeShape.png "File:laneShapeInsideOfNodeShape.png")                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
+| ![laneShapeIntersectsWithNodeShape.png](../images/LaneShapeIntersectsWithNodeShape.png) | The edge shape intersects with the node shape. Then, the shape is trimmed to the intersection point. This looks quite reasonable.                                                                          |
+| ![laneShapeOutsideOfNodeShape.png](../images/LaneShapeOutsideOfNodeShape.png)                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
+| ![laneShapeInsideOfNodeShape.png](../images/LaneShapeInsideOfNodeShape.png)                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
 
 So I am wondering, what the right behavior of netconvert would be in
 the third case.

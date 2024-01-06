@@ -19,7 +19,7 @@ loops, that supply vehicle data classified into 5+1 vehicle types
 according to TLS\[2\]. An Overview about the test track and the position
 of the induction loops is given in Fig. 1.
 
-![Berlin.png](../../images/Berlin.png "Berlin.png")
+![Berlin.png](../../images/Berlin.png)
 
 ## Modelling within the SUMO-Package
 
@@ -67,13 +67,13 @@ within the simulation net as in reality. To assess if the congestion within the 
 shows the speed at the observation points, aggregated to intervals of
 one minute.
 
-![<File:Results1.jpg>](../../images/Results1.jpg "File:Results1.jpg")
-![<File:Results2.jpg>](../../images/Results2.jpg "File:Results2.jpg")
+![Results1.jpg](../../images/Results1.jpg)
+![Results2.jpg](../../images/Results2.jpg)
 
 Fig. 2: Speeds measured at observation points MQ 22 and MQ 32
 
-![<File:Results3.jpg>](../../images/Results3.jpg "File:Results3.jpg")
-![<File:Results4.jpg>](../../images/Results4.jpg "File:Results4.jpg")
+![Results3.jpg](../../images/Results3.jpg)
+![Results4.jpg](../../images/Results4.jpg)
 
 Fig. 3: Difference between measured and simulated speeds at observation
 points MQ 22 and MQ 32

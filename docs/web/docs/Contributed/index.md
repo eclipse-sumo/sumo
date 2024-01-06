@@ -73,7 +73,7 @@ The following extensions are managed and supported by other parties.
 
     connects SUMO to ns-3
 
-- [TraNS](https://trans.epfl.ch/)
+- [TraNS](https://web.archive.org/web/20190512111856/http://lca.epfl.ch/projects/trans/)
 
     connects SUMO to ns-2
 

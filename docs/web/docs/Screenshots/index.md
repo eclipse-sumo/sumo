@@ -22,7 +22,7 @@ title: Screenshots
 ## From 'TraNS'
 
 [<font color="#0174DF">Tra</font><font color="#FF0000">NS</font>
-website](https://trans.epfl.ch/)
+website](https://web.archive.org/web/20190512111856/http://lca.epfl.ch/projects/trans/)
 
 ![](../images/Trans.gif)Main TraNS v1.2 screen
 

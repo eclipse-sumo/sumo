@@ -1,6 +1,9 @@
 # Maximum number of allowed redirects.
 max_redirects = 20
 
+# User agent to send with each request.
+user_agent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0"
+
 # Proceed for server connections considered insecure (invalid TLS).
 insecure = true
 
