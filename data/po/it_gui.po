@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2024-01-05 13:23+0000\n"
+"PO-Revision-Date: 2024-01-08 15:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8106,12 +8106,16 @@ msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting) in s"
 msgstr ""
+"La soglia in secondi da oltrepassare finché un veicolo viene riconosciuto "
+"come fermo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2295
 msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr ""
+"Se nessun'avviso deve essere generato quando un veicolo passa sopra un "
+"rivelatore."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2308
 msgid "E3 DetEntry"
@@ -8592,11 +8596,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3269
 msgid "WireSection"
-msgstr ""
+msgstr "Sezione di catenaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3273
 msgid "Overhead wire segment ID"
-msgstr ""
+msgstr "Code identificativo della sezione di catenaria"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3278
 msgid "Substation to which the circuit is connected"
@@ -9671,7 +9675,7 @@ msgstr "SKRAUSSX parametro 5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5938
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "Parametro EIDM di previsione [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5944
 msgid "EIDM AP Reaction Time parameter [s]"
@@ -9679,31 +9683,35 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5950
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "Parametro per il processo Wiener dell'errore di guida [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5956
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "Parametro EIDM per il processo Wiener dell'errore di valutazione [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5962
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "Parametro EIDM per la freddezza [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5969
 msgid "EIDM leader speed estimation error parameter [-]"
 msgstr ""
+"Parametreo EIDM per l'errore di valutazione della velocità del veicolo "
+"davanti"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5975
 msgid "EIDM gap estimation error parameter [-]"
 msgstr ""
+"Parametro EIDM per l'errore di valutazione della distanza tra se e il "
+"veicolo davanti"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5981
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "Parametro EIDM per l'errore di guida [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5987
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "Parametro EIDM del sobbalzo massimo [m/s^3]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5993
 msgid ""
