@@ -1443,6 +1443,53 @@ NBEdgeCont::guessRoundabouts() {
 }
 
 
+int
+NBEdgeCont::extractRoundabouts() {
+    std::set<NBEdge*> candidateEdges;
+    for (const auto& edge : myEdges) {
+        NBEdge* const e = edge.second;
+        if (e->getJunctionPriority(e->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT || e->getJunctionPriority(e->getFromNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
+            candidateEdges.insert(e);
+        }
+    }
+    std::set<NBEdge*> visited;
+    int extracted = 0;
+    for (const auto& edgeIt : candidateEdges) {
+        EdgeVector loopEdges;
+        NBEdge* e = edgeIt;
+        if (visited.count(e) > 0) {
+            // already seen
+            continue;
+        }
+        loopEdges.push_back(e);
+        bool doLoop = true;
+        //
+        do {
+            if (std::find(visited.begin(), visited.end(), e) != visited.end()) {
+                if (loopEdges.size() > 1) {
+                    addRoundabout(EdgeSet(loopEdges.begin(), loopEdges.end()));
+                    ++extracted;
+                }
+                doLoop = false;
+                break;
+            }
+            visited.insert(e);
+            loopEdges.push_back(e);
+            const EdgeVector& outgoingEdges = e->getToNode()->getOutgoingEdges();
+            EdgeVector::const_iterator me = std::find_if(outgoingEdges.begin(), outgoingEdges.end(), [](const NBEdge* outgoingEdge) {
+                return outgoingEdge->getJunctionPriority(outgoingEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT;
+            });
+            if (me == outgoingEdges.end()) { // no closed loop
+                doLoop = false;
+            } else {
+                e = *me;
+            }
+        } while (doLoop);
+    }
+    return extracted;
+}
+
+
 double
 NBEdgeCont::formFactor(const EdgeVector& loopEdges) {
     PositionVector points;

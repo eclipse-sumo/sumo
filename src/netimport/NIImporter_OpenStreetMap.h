@@ -179,7 +179,8 @@ protected:
             myChangeForward(CHANGE_YES),
             myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
-            myCurrentIsRoad(false)
+            myCurrentIsRoad(false),
+            myAmInRoundabout(false)
         { }
 
         virtual ~Edge() {}
@@ -238,6 +239,8 @@ protected:
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
+        /// @brief Information whether this road is part of a roundabout
+        bool myAmInRoundabout;
         /// @brief Additionally tagged information
         std::map<std::string, std::string> myExtraTags;
         /// @brief turning direction (arrows printed on the road)

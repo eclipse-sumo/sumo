@@ -462,10 +462,14 @@ public:
     NBEdge* getByID(const std::string& edgeID) const;
 
     /** @brief Determines which edges belong to roundabouts and increases their priority
-     * @param[out] marked Edges which belong to a roundabout are stored here
      * @return The number of guessed roundabouts
      */
     int guessRoundabouts();
+
+    /** @brief Determines which edges have been marked as roundabouts and stores them internally
+     * @return The number of found roundabouts
+     */
+    int extractRoundabouts();
 
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing
