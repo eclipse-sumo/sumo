@@ -70,7 +70,7 @@ The script cadytsIterate.py expects at least three parameters: The
 Example for using the cadytsIterate.py:
 
 ```
-    cadytsIterate.py -n <NETFILE> -r <ROUTEALTERATIVESFILE> -d <REALFLOWSFILE>
+    cadytsIterate.py -n <NETFILE> -r <ROUTEALTERNATIVESFILE> -d <REALFLOWSFILE>
     -a <INT> (sets main weights aggregation period) -c <CADTYS-MODEL-PATH>
     -b <INT> (sets simulation begin) -e <INT> (sets simulation end)
 ```
@@ -84,7 +84,7 @@ The <REALFLOWS\>-file has to be a XML-file in form of:
     </measurements>
 ```
 
-The < ROUTEALTERATIVESFILE\> has to be a XML-file in form of:
+The < ROUTEALTERNATIVESFILE\> has to be a XML-file in form of:
 
 ```
     <route-alternatives>
