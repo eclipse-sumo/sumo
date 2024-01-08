@@ -300,8 +300,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
 
 - Documentation
   - Online documentation of
-    [TraCI4J](https://github.com/egueli/TraCI4J) can now be found at
-    [traci4j-javadoc](https://sumo.dlr.de/daily/javadoc/traci4j/)
+    [TraCI4J](https://github.com/egueli/TraCI4J) can now be found at traci4j-javadoc (outdated link removed)
   - The section on [Additional netconvert outputs was completely rewritten](../Networks/Further_Outputs.md#further_outputs).
   - Added a [new page on XML Validation](../XMLValidation.md)
   - Added [documentation for the C++ TraCI API client](../TraCI/C++TraCIAPI.md)
