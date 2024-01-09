@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2023-11-01 14:17+0000\n"
+"PO-Revision-Date: 2024-01-10 10:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5953,7 +5953,7 @@ msgstr "Alle Gleiskanten IDs von FILE in beide Richtungen nutzbar machen"
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:251
 msgid "Set edge priority values based on estimated main direction"
 msgstr ""
-"Kantenvorrangswerte basierend auf der geschätzten Hauptrichtung einstellen"
+"Kantenvorrangswerte basierend auf der geratenen Hauptrichtung einstellen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:254
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -6538,12 +6538,12 @@ msgstr "Erraten und setzten von Ein- und Ausfahrten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:361
 msgid "Guessed % bike lanes."
-msgstr "% Fahrrad-Fahrstreifen geschätzt."
+msgstr "% Radfahrstreifen geraten."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:372
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr "% Seitenwege geschätzt."
+msgstr "% Seitenwege geraten."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:382
 #, c-format
@@ -6573,7 +6573,7 @@ msgstr "Berechne Knotentypen"
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:447
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr "% Fußgängerfurten geschätzt."
+msgstr "% Fußgängerfurten geraten."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:475
 msgid "Computing priorities"
@@ -6585,11 +6585,11 @@ msgstr "Berechne angefahrene Kanten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:484
 msgid "Guessing and setting roundabouts"
-msgstr "Schätze und setze Kreisverkehre"
+msgstr "Rate und setze Kreisverkehre"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:487
 msgid " Guessed % roundabout(s)."
-msgstr " % Kreisverkehr(e) geschätzt."
+msgstr " % Kreisverkehr(e) geraten."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:493
 msgid "Computing approaching lanes"
