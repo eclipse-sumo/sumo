@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="cf_0" color="red" depart="0" begin="10.00" end="3600.00" containersPerHour="1200.00">
+    <containerFlow id="cf_0" color="red" departPos="0" begin="10.00" end="3600.00" containersPerHour="1200.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="cf_1" color="blue" depart="10" begin="12.00" end="3800.00" containersPerHour="11500.00">
+    <containerFlow id="cf_1" color="blue" departPos="10" begin="12.00" end="3800.00" containersPerHour="11500.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

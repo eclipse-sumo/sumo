@@ -84,12 +84,12 @@ def main(options):
             listener.addTransformTarget(t, value, transform="zoom")
     if options.rotate is not None:
         rotateTargets = [(float(pair[:pair.index(":")]), float(pair[pair.index(":")+1:]))
-                       for pair in options.rotate.split(";")]
+                         for pair in options.rotate.split(";")]
         for t, value in rotateTargets:
             listener.addTransformTarget(t, value, transform="rotate")
     if options.translate is not None:
         translateTargets = [(float(pair[:pair.index(":")]), [float(c) for c in pair[pair.index(":")+1:].split(",")])
-                       for pair in options.translate.split(";")]
+                            for pair in options.translate.split(";")]
         for t, value in translateTargets:
             listener.addTransformTarget(t, value, transform="translate")
     traci.addStepListener(listener)
@@ -100,6 +100,7 @@ def main(options):
         traci.simulationStep()
         t += simStep
     traci.close()
+
 
 class KeyFramedNumericAttribute(object):
 

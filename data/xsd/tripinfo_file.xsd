@@ -34,7 +34,7 @@
             <xsd:attribute name="arrivalPosLat" use="optional" type="floatType"/>
             <xsd:attribute name="arrivalSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeType"/>
-            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="waitingTime" use="required" type="timeType"/>
             <xsd:attribute name="waitingCount" use="required" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="stopTime" use="required" type="timeType"/>
@@ -122,9 +122,9 @@
 
     <xsd:element name="stop">
         <xsd:complexType>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="actType" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
@@ -135,7 +135,7 @@
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" use="required" type="timeTypeWithErrorValue"/> <!-- negative values indicate jumps -->
@@ -147,9 +147,9 @@
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" use="required" type="signedTimeType"/> <!-- negative values indicate jumps or shortcuts in jupedsim -->
             <xsd:attribute name="maxSpeed" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
@@ -158,10 +158,10 @@
     <xsd:element name="access">
         <xsd:complexType>
             <xsd:attribute name="stop" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="duration" type="nonNegativeFloatType"/>
-            <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
+            <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="routeLength" type="nonNegativeFloatTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -171,7 +171,7 @@
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" use="required" type="timeTypeWithErrorValue"/> <!-- negative values indicate jumps -->
@@ -180,12 +180,12 @@
 
     <xsd:element name="tranship">
         <xsd:complexType>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="maxSpeed" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
