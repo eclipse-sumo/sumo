@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2024-01-08 15:31+0000\n"
+"PO-Revision-Date: 2024-01-10 10:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9679,7 +9679,7 @@ msgstr "Parametro EIDM di previsione [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5944
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "Parametro EIDM per il tempo di reazione in un punto di azione [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5950
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
@@ -9718,41 +9718,49 @@ msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
 msgstr ""
+"Parametro EIDM della massima accelerazione negativa tra due punti di azione ("
+"valore soglia) [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5999
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
+"Parametro EIDM del tempo dalla partenza per giungere all'accelerazione "
+"massima [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6005
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "Parametro EIDM per appianare la curva di partenza [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6011
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "Parametro EIDM per spostare la curva di partenza [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6017
 msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration "
 "calculation [0/1]"
 msgstr ""
+"Parametro EIDM per includere la dinamica veicolare nel calcolo "
+"dell'accelerazione oppure no [0/1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6023
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
 msgstr ""
+"Parametro EIDM del numero di veicoli davanti prfesi in considerazione dal "
+"conducente (almeno 1!) [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6029
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6035
 msgid "Peter Wagner 2009 parameter"
-msgstr ""
+msgstr "Parametro Peter Wagner 2009"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6041
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6047
 msgid "IDMM parameter"
-msgstr ""
+msgstr "Parametreo IDMM"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6053
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6059
@@ -9764,12 +9772,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6095
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6101
 msgid "W99 parameter"
-msgstr ""
+msgstr "Parametro W99"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6107
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6112
 msgid "Wiedemann parameter"
-msgstr ""
+msgstr "Parametro Wiedemann"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6117
 msgid "MinGap factor parameter"
