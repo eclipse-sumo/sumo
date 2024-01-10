@@ -20,11 +20,12 @@
 import os
 import sys
 import warnings
+import itertools
+
 import numpy
 import ezdxf
 import pyproj
-import shapely
-import itertools
+from shapely.geometry import Polygon, LineString
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
@@ -61,10 +62,9 @@ def polygon_as_XML_element(polygon, typename, index, color, layer):
         print("Warning: polygon '%s' had some equal consecutive points removed: %s" % (polygonID, duplicates))
 
     # Check for simplicity and output hints.
-    simple = shapely.is_simple(shapely.Polygon(cleanPolygon))
-    if not simple:
+    if not Polygon(cleanPolygon).is_valid:
         print("Warning: polygon '%s' is not simple." % polygonID)
-        segments = list(map(shapely.LineString, zip(cleanPolygon[:-1], cleanPolygon[1:])))
+        segments = list(map(LineString, zip(cleanPolygon[:-1], cleanPolygon[1:])))
         intersect = False
         for segment1, segment2 in itertools.combinations(segments, 2):
             if segment1.crosses(segment2):
