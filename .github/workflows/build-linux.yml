@@ -51,7 +51,7 @@ jobs:
         sudo pip3 install texttest
 
     - name: Validate CITATION.cff
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: dieghernan/cff-validator@v2.3
       with:
         citation-path: sumo/CITATION.cff
@@ -130,14 +130,13 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: |
-        zip -r texttesttmp.zip ~/.texttest/tmp
+      run: zip -r texttesttmp.zip ~/.texttest/tmp
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v3
       with:
-        name: texttesttmp
+        name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: texttesttmp.zip
         if-no-files-found: warn
 
