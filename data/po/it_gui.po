@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2024-01-10 10:57+0000\n"
+"PO-Revision-Date: 2024-01-11 15:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3951,7 +3951,7 @@ msgstr "Contenitori"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1429
 msgid "Transports"
-msgstr ""
+msgstr "Trasporti"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1434
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:122
@@ -9781,27 +9781,27 @@ msgstr "Parametro Wiedemann"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6117
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "Parametro coefficiente minGap"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6122
 msgid "K parameter"
-msgstr ""
+msgstr "Parametro K"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6127
 msgid "Kerner Phi parameter"
-msgstr ""
+msgstr "Parametro Kerner Phi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6132
 msgid "IDM Delta parameter"
-msgstr ""
+msgstr "Parametro IDM Delta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6137
 msgid "IDM Stepping parameter"
-msgstr ""
+msgstr "Parametro IDM Stepping"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6142
 msgid "Train Types"
-msgstr ""
+msgstr "Tipi di treni"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6156
 msgid ""
