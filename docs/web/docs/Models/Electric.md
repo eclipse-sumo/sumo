@@ -65,7 +65,7 @@ An example of a vehicle with electric attribute (those are the values for a city
 </routes>
 ```
 
-The initial energy content of the battery (by default MaxBatKap/2) can
+The initial energy content of the battery (by default `0.5*maximumBatteryCapacity`) can
 be set in the vehicle definitions
 
 ```xml
