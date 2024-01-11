@@ -31,32 +31,19 @@ buildType:
       settings:
         CMAKE_BUILD_TYPE: Release
 
-pythonBindings:
-  default: 'default'
-  description: Enable Python bindings?
+bindings:
+  default: yes
+  description: Enable Python and Java bindings?
   choices:
-    'default':
-      short: Python (def.)
-      long: Python (default)
+    yes:
+      short: Bindings
+      long: Bindings enabled
       settings:
-        ENABLE_PYTHON_BINDINGS: 'yes'
-    'no':
-      short: 'noPython'
-      long: noPython
+        ENABLE_PYTHON_BINDINGS: yes
+        ENABLE_JAVA_BINDINGS: yes
+    no:
+      short: noBindings
+      long: Bindings not enabled
       settings:
-        ENABLE_PYTHON_BINDINGS: 'no'
-
-javaBindings:
-  default: 'no'
-  description: Enable Java bindings?
-  choices:
-    'no':
-      short: 'noJava'
-      long: noJava
-      settings:
-        ENABLE_JAVA_BINDINGS: 0
-    'default':
-      short: Java (def.)
-      long: Java default installation
-      settings:
-        ENABLE_JAVA_BINDINGS: 'yes'
+        ENABLE_JAVA_BINDINGS: no
+        ENABLE_PYTHON_BINDINGS: no
