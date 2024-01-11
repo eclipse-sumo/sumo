@@ -50,7 +50,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
+                double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                 const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -172,6 +172,9 @@ protected:
 
     /// @brief attribute to enable or disable inactive initially
     bool myOff;
+
+    /// @brief attribute to enable or disable request trigger
+    bool myOptional;
 
     /// @brief attribute to configure activation time threshold
     SUMOTime myTimeThreshold;

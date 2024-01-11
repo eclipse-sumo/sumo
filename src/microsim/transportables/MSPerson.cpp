@@ -42,6 +42,7 @@
 #include <microsim/MSRouteHandler.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include "MSPModel_Striping.h"
 #include "MSStageTrip.h"
 #include "MSPerson.h"
@@ -403,6 +404,24 @@ MSPerson::MSPersonStage_Walking::activateEntryReminders(MSTransportable* person,
                 myMoveReminders.push_back(rem);
             }
         }
+    }
+    if (knowsParameter("rerouter")) {
+        double minDist = std::numeric_limits<double>::max();
+        MSTriggeredRerouter* nearest = nullptr;
+        for (MSMoveReminder* const rem : myMoveReminders) {
+            MSTriggeredRerouter* rerouter = dynamic_cast<MSTriggeredRerouter*>(rem);
+            if (rerouter != nullptr) {
+                const double dist2 = rerouter->getPosition().distanceSquaredTo2D(person->getPosition());
+                if (dist2 < minDist) {
+                    nearest = rerouter;
+                    minDist = dist2;
+                }
+            }
+        }
+        if (nearest != nullptr) {
+            nearest->triggerRouting(*person, MSMoveReminder::NOTIFICATION_JUNCTION);
+        }
+        // TODO maybe removal of the reminders? Or can we rely on movetonextedge to clean everything up?
     }
 }
 

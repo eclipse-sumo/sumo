@@ -37,6 +37,7 @@ GNERerouter::GNERerouter(GNENet* net) :
 {}, {}, {}, {}, {}, {}),
 myProbability(0),
 myOff(false),
+myOptional(false),
 myTimeThreshold(0) {
     // reset default values
     resetDefaultValues();
@@ -44,7 +45,7 @@ myTimeThreshold(0) {
 
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-                         double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
+                         double probability, bool off, bool optional, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), name,
 {}, {}, {}, {}, {}, {}),
@@ -52,6 +53,7 @@ Parameterised(parameters),
 myPosition(pos),
 myProbability(probability),
 myOff(off),
+myOptional(optional),
 myTimeThreshold(timeThreshold),
 myVTypes(vTypes) {
     // update centering boundary without updating grid
@@ -83,6 +85,9 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     }
     if (myOff) {
         device.writeAttr(SUMO_ATTR_OFF, myOff);
+    }
+    if (myOptional) {
+        device.writeAttr(SUMO_ATTR_OPTIONAL, myOptional);
     }
     // write all rerouter interval
     for (const auto& rerouterInterval : getChildAdditionals()) {

@@ -90,7 +90,7 @@ protected:
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
-            double prob, bool off, SUMOTime timeThreshold,
+            double prob, bool off, bool optional, SUMOTime timeThreshold,
             const std::string& vTypes) override;
 
 

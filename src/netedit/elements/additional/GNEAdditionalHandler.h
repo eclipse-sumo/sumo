@@ -334,7 +334,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildRerouter(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos,
-                       const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off,
+                       const std::vector<std::string>& edgeIDs, const double prob, const std::string& name, const bool off, const bool optional,
                        const SUMOTime timeThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief builds a rerouter interval

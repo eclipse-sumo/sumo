@@ -75,14 +75,16 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 // method definitions
 // ===========================================================================
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
-        const MSEdgeVector& edges, double prob, bool off,
-        SUMOTime timeThreshold, const std::string& vTypes) :
+        const MSEdgeVector& edges, double prob, bool off, bool optional,
+        SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) :
     Named(id),
     MSMoveReminder(id),
     myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
     myAmInUserMode(false),
+    myAmOptional(optional),
+    myPosition(pos),
     myTimeThreshold(timeThreshold),
     myHaveParkProbs(false) {
     myInstances[id] = this;
@@ -379,9 +381,18 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 
 bool
+MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (myAmOptional) {
+        return true;
+    }
+    return triggerRouting(tObject, reason);
+}
+
+
+bool
 MSTriggeredRerouter::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
                                 double /*newPos*/, double /*newSpeed*/) {
-    return notifyEnter(veh, NOTIFICATION_JUNCTION);
+    return triggerRouting(veh, NOTIFICATION_JUNCTION);
 }
 
 
@@ -393,7 +404,7 @@ MSTriggeredRerouter::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/,
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason) {
     if (!applies(tObject)) {
         return false;
     }
@@ -571,12 +582,20 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
                                                 rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
                                                 tObject.getMaxSpeed(), nullptr, 0, now, items);
-            if (!rerouteDef->isVia && success) {
-                MSPerson& p = static_cast<MSPerson&>(tObject);
-                for (const MSTransportableRouter::TripItem& it : items) {
-                    if (!it.edges.empty()) {
-                        p.reroute(it.edges, tObject.getPositionOnLane(), 0, 1);
+            if (!rerouteDef->isVia) {
+                if (success) {
+                    for (const MSTransportableRouter::TripItem& it : items) {
+                        if (!it.edges.empty() && !edges.empty() && edges.back() == it.edges.front()) {
+                            edges.pop_back();
+                        }
+                        edges.insert(edges.end(), std::make_move_iterator(it.edges.begin()), std::make_move_iterator(it.edges.end()));
+                        if (!edges.empty()) {
+                            static_cast<MSPerson&>(tObject).reroute(edges, tObject.getPositionOnLane(), 0, 1);
+                        }
                     }
+                } else {
+                    // maybe the pedestrian model still finds a way (JuPedSim)
+                    static_cast<MSPerson&>(tObject).reroute({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, 1);
                 }
             }
         }
@@ -609,12 +628,15 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             }
         } else {
             // person rerouting here
-            MSTransportableRouter& router = hasReroutingDevice
-                    ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
-                    : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
-            const bool success = router.compute(newEdge, lastEdge, newEdge->getLength() / 2., "",
-                                                tObject.getParameter().arrivalPos, "",
-                                                tObject.getMaxSpeed(), nullptr, 0, now, items);
+            bool success = !items.empty();
+            if (success) {
+                MSTransportableRouter& router = hasReroutingDevice
+                        ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
+                        : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
+                success = router.compute(newEdge, lastEdge, newEdge->getLength() / 2., "",
+                                        tObject.getParameter().arrivalPos, "",
+                                        tObject.getMaxSpeed(), nullptr, 0, now, items);
+            }
             if (success) {
                 for (const MSTransportableRouter::TripItem& it : items) {
                     if (!it.edges.empty() && !edges.empty() && edges.back() == it.edges.front()) {
@@ -625,6 +647,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                 if (!edges.empty()) {
                     static_cast<MSPerson&>(tObject).reroute(edges, tObject.getPositionOnLane(), 0, 1);
                 }
+            } else {
+                // maybe the pedestrian model still finds a way (JuPedSim)
+                static_cast<MSPerson&>(tObject).reroute({tObject.getEdge(), newEdge, lastEdge}, tObject.getPositionOnLane(), 0, 1);
             }
         }
     }

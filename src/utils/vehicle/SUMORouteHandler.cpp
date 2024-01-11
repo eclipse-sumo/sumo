@@ -39,7 +39,6 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     SUMOSAXHandler(file, expectedRoot),
     myHardFail(hardFail),
     myVehicleParameter(nullptr),
-    myCurrentStop(nullptr),
     myLastDepart(-1),
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
@@ -95,6 +94,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // we set to nullptr to have a consistent state if the parsing fails
             myVehicleParameter = nullptr;
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail, false, false, myAllowInternalRoutes);
+            myParamStack.push_back(myVehicleParameter);
             if (element != SUMO_TAG_VEHICLE) {
                 addTransportable(attrs, element == SUMO_TAG_PERSON);
             }
@@ -121,6 +121,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     // open a route flow
                     openRouteFlow(attrs);
                 }
+                myParamStack.push_back(myVehicleParameter);
             }
             break;
         case SUMO_TAG_PERSONFLOW:
@@ -132,6 +133,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             // create a new flow
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes((SumoXMLTag)element, attrs, myHardFail, true, myBeginDefault, myEndDefault, myAllowInternalRoutes);
+            myParamStack.push_back(myVehicleParameter);
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null
@@ -141,6 +143,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             // create a new vType
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
+            myParamStack.push_back(myCurrentVType);
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);
@@ -152,7 +155,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             openRouteDistribution(attrs);
             break;
         case SUMO_TAG_STOP:
-            myCurrentStop = addStop(attrs);
+            myParamStack.push_back(addStop(attrs));
             break;
         case SUMO_TAG_TRIP: {
             // delete if myVehicleParameter isn't null
@@ -168,6 +171,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myActiveRouteID = "!" + myVehicleParameter->id;
                 // open trip
                 openTrip(attrs);
+                myParamStack.push_back(myVehicleParameter);
             }
             break;
         }
@@ -216,7 +220,7 @@ void
 SUMORouteHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_STOP:
-            myCurrentStop = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_ROUTE:
             closeRoute();
@@ -225,26 +229,31 @@ SUMORouteHandler::myEndElement(int element) {
             closeVType();
             delete myCurrentVType;
             myCurrentVType = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_PERSON:
             closePerson();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_PERSONFLOW:
             closePersonFlow();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_CONTAINER:
             closeContainer();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_CONTAINERFLOW:
             closeContainerFlow();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_VEHICLE:
             if (myVehicleParameter == nullptr) {
@@ -258,12 +267,14 @@ SUMORouteHandler::myEndElement(int element) {
                 closeVehicle();
                 delete myVehicleParameter;
                 myVehicleParameter = nullptr;
+                myParamStack.pop_back();
                 break;
             }
         case SUMO_TAG_FLOW:
             if (myVehicleParameter) {
                 closeFlow();
                 delete myVehicleParameter;
+                myParamStack.pop_back();
             }
             myVehicleParameter = nullptr;
             myInsertStopEdgesAt = -1;
@@ -272,6 +283,7 @@ SUMORouteHandler::myEndElement(int element) {
             closeTrip();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
+            myParamStack.pop_back();
             myInsertStopEdgesAt = -1;
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
@@ -279,6 +291,10 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_ROUTE_DISTRIBUTION:
             closeRouteDistribution();
+            break;
+        case SUMO_TAG_PERSONTRIP:
+        case SUMO_TAG_WALK:
+            myParamStack.pop_back();
             break;
         case SUMO_TAG_INTERVAL:
             myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));
@@ -358,13 +374,9 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     if (ok && (key.size() > 0)) {
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        // add parameter in current created element, or in myLoadedParameterised
-        if (myCurrentStop != nullptr) {
-            myCurrentStop->setParameter(key, val);
-        } else if (myVehicleParameter != nullptr) {
-            myVehicleParameter->setParameter(key, val);
-        } else if (myCurrentVType != nullptr) {
-            myCurrentVType->setParameter(key, val);
+        // add parameter in current created element
+        if (!myParamStack.empty()) {
+            myParamStack.back()->setParameter(key, val);
         }
     }
 }

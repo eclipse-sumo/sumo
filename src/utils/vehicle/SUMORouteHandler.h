@@ -209,8 +209,8 @@ protected:
     /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
 
-    /// @brief The currently parsed vehicle stop
-    Parameterised* myCurrentStop;
+    /// @brief The stack of currently parsed parameterised objects
+    std::vector<Parameterised*> myParamStack;
 
     /// @brief The insertion time of the vehicle read last
     SUMOTime myLastDepart;
@@ -251,7 +251,7 @@ protected:
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
 
-    /// @brief hierachy of elements being parsed
+    /// @brief hierarchy of elements being parsed
     std::vector<int> myElementStack;
 
     /// @brief whether references to internal routes are allowed in this context

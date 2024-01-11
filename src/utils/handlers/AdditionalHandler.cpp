@@ -509,6 +509,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                           obj->getDoubleAttribute(SUMO_ATTR_PROB),
                           obj->getStringAttribute(SUMO_ATTR_NAME),
                           obj->getBoolAttribute(SUMO_ATTR_OFF),
+                          obj->getBoolAttribute(SUMO_ATTR_OPTIONAL),
                           obj->getTimeAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD),
                           obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                           obj->getParameters());

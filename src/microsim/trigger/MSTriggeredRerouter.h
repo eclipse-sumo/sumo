@@ -70,8 +70,8 @@ public:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      */
     MSTriggeredRerouter(const std::string& id, const MSEdgeVector& edges,
-                        double prob, bool off, SUMOTime timeThreshold,
-                        const std::string& vTypes);
+                        double prob, bool off, bool optional, SUMOTime timeThreshold,
+                        const std::string& vTypes, const Position& pos=Position::INVALID);
 
 
     /** @brief Destructor */
@@ -147,6 +147,8 @@ public:
      */
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
+    bool triggerRouting(SUMOTrafficObject& veh, MSMoveReminder::Notification reason);
+
     /// Returns the rerouting definition valid for the given time and object, nullptr if none
     const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) const;
 
@@ -174,6 +176,10 @@ public:
     // @brief return whether this moveReminder triggers parking reroute
     bool isParkingRerouter() const {
         return myHaveParkProbs;
+    }
+
+    const Position& getPosition() {
+        return myPosition;
     }
 
     static double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
@@ -246,6 +252,12 @@ protected:
 
     /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;
+
+    /// Information whether the rerouting will only take place on request
+    bool myAmOptional;
+
+    /// Where are we located in the network
+    Position myPosition;
 
     // @brief waiting time threshold for activation
     SUMOTime myTimeThreshold;

@@ -971,6 +971,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
+    { "optional",               SUMO_ATTR_OPTIONAL },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },
