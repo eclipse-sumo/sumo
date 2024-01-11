@@ -1289,6 +1289,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const std::string originStopID = myActivePlan->empty() ?  "" : myActivePlan->back()->getStopDest();
         ROPerson::addTrip(*myActivePlan, myVehicleParameter->id, from, to, modeSet, types,
                           departPos, originStopID, arrivalPos, busStopID, walkFactor, group);
+        myParamStack.push_back(myActivePlan->back());
     }
 }
 
@@ -1333,6 +1334,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID);
         if (ok) {
             ROPerson::addWalk(*myActivePlan, myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
+            myParamStack.push_back(myActivePlan->back());
         }
     } else {
         addPersonTrip(attrs);

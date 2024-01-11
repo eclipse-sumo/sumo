@@ -294,7 +294,9 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PERSONTRIP:
         case SUMO_TAG_WALK:
-            myParamStack.pop_back();
+            if (myParamStack.size() == 2) {
+                myParamStack.pop_back();
+            }
             break;
         case SUMO_TAG_INTERVAL:
             myBeginDefault = string2time(OptionsCont::getOptions().getString("begin"));

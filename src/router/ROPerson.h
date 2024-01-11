@@ -23,6 +23,7 @@
 
 #include <string>
 #include <iostream>
+#include <utils/common/Parameterised.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
@@ -79,7 +80,7 @@ public:
      * @brief Every person has a plan comprising of multiple planItems
      *
      */
-    class PlanItem {
+    class PlanItem : public Parameterised {
     public:
         /// @brief Destructor
         virtual ~PlanItem() {}
