@@ -2,10 +2,10 @@
     <edgeData id="ed0" file="aggregated.xml" writeAttributes="arrived" detectPersons="walk"/>
 
     <rerouter id="rerouter" edges="beg">
-	   <interval begin="0" end="86400">
-		   <destProbReroute id="left" probability="1"/>
-		   <destProbReroute id="right" probability="1"/>
-		   <destProbReroute id="keepDestination" probability="1"/>
-	   </interval>
+        <interval begin="0" end="86400">
+            <destProbReroute id="left" probability="1"/>
+            <destProbReroute id="right" probability="1"/>
+            <destProbReroute id="keepDestination" probability="1"/>
+        </interval>
    </rerouter>
 </additional>
