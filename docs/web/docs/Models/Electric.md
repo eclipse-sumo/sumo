@@ -96,7 +96,7 @@ of bus stops were used for the implementation of charging stations.
 | friendlyPos | bool | true or false | false | Whether invalid charging station positions should be corrected automatically |
 | **power**           | float  (W) or (mg/s)  | power \> 0  | 0  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as mg/s)  |
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
-| **chargeInTransit** | bool       | 0 or 1                                                                                     | 0         | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
+| **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
 | chargeType | string | | normal | Charging type (normal, electric, fuel) |
 
