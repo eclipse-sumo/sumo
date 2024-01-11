@@ -141,8 +141,8 @@ def findParallel(options, net, stations):
     for station in stations.values():
         coords = sum(station.platforms, [])
         station.coord = (
-            sum([c[0] for c in coords]) / len(coords),
-            sum([c[1] for c in coords]) / len(coords))
+            round(sum([c[0] for c in coords]) / len(coords), 3),
+            round(sum([c[1] for c in coords]) / len(coords), 3))
 
         for edge, dist in net.getNeighboringEdges(station.coord[0], station.coord[1], options.parallelRadius):
             station.edges.add(edge)
