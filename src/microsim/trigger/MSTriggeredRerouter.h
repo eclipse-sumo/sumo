@@ -85,7 +85,7 @@ public:
      */
     struct RerouteInterval {
         /// unique ID for this interval
-        long long id;
+        long long int id;
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid
@@ -96,7 +96,7 @@ public:
         std::vector<MSLane*> closedLanes;
         /// The list of edges that are affect by closed lanes
         MSEdgeVector closedLanesAffected;
-        /// The distributions of new destinations to use
+        /// The distributions of new destinations or vias to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
         RandomDistributor<ConstMSRoutePtr> routeProbs;
@@ -104,6 +104,8 @@ public:
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
         RandomDistributor<ParkingAreaVisible> parkProbs;
+        /// The edge probs are vias and not destinations
+        bool isVia = false;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -251,24 +253,8 @@ protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
 
-    /// @name members used during loading
-    //@{
-
-    /// The first and the last time steps of the interval
-    SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
-    /// List of closed edges
-    MSEdgeVector myCurrentClosed;
-    /// List of closed lanes
-    std::vector<MSLane*> myCurrentClosedLanes;
-    /// List of permissions for closed edges
-    SVCPermissions myCurrentPermissions;
-    /// new destinations with probabilities
-    RandomDistributor<ParkingAreaVisible> myCurrentParkProb;
-    /// new destinations with probabilities
-    RandomDistributor<MSEdge*> myCurrentEdgeProb;
-    /// new routes with probabilities
-    RandomDistributor<ConstMSRoutePtr> myCurrentRouteProb;
-    //@}
+    /// used during loading
+    RerouteInterval myParsedRerouteInterval;
 
     /// whether this rerouter has loaded parkingReroute definitions
     bool myHaveParkProbs;

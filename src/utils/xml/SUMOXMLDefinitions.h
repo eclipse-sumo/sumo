@@ -125,6 +125,8 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTE_PROB_REROUTE,
     /// @brief entry for an alternative parking zone
     SUMO_TAG_PARKING_AREA_REROUTE,
+    /// @brief probability of a via fora reroute
+    SUMO_TAG_VIA_PROB_REROUTE,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief VSS Symbol

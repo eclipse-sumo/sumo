@@ -79,6 +79,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "closingLaneReroute",                     SUMO_TAG_CLOSING_LANE_REROUTE },
     { "routeProbReroute",                       SUMO_TAG_ROUTE_PROB_REROUTE },
     { "parkingAreaReroute",                     SUMO_TAG_PARKING_AREA_REROUTE },
+    { "viaProbReroute",                         SUMO_TAG_VIA_PROB_REROUTE },
     { "step",                                   SUMO_TAG_STEP },
     { "variableSpeedSign",                      SUMO_TAG_VSS },
     { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },
