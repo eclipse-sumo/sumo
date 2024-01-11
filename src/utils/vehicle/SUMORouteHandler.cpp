@@ -365,8 +365,6 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
             myVehicleParameter->setParameter(key, val);
         } else if (myCurrentVType != nullptr) {
             myCurrentVType->setParameter(key, val);
-        } else {
-            myLoadedParameterised.setParameter(key, val);
         }
     }
 }

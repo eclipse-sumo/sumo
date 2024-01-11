@@ -236,9 +236,6 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
-    /// @brief Parameterised used for saving loaded generic parameters that aren't saved in Vehicles or Vehicle Types
-    Parameterised myLoadedParameterised;
-
     /// @brief generates numerical ids
     IDSupplier myIdSupplier;
 
