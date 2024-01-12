@@ -39,8 +39,9 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/shapes/ShapeContainer.h>
-#include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
+#include "MSStageWalking.h"
+#include "MSPModel_JuPedSim.h"
 
 
 // #define DEBUG_GEOMETRY_GENERATION
@@ -276,7 +277,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
 
         MSPerson* person = state->getPerson();
-        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+        MSStageWalking* stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
         assert(stage != nullptr);
 
         // Updates the agent position.
