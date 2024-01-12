@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2024-01-10 10:57+0000\n"
+"PO-Revision-Date: 2024-01-12 12:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3149,17 +3149,20 @@ msgstr "Ungültige Halt-Information%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1230
 msgid "The edge '%' for a stop is not known%."
-msgstr ""
+msgstr "Die Kante '%' des Haltepunkts is unbekannt%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1244
 msgid "The lane '%' for a stop is not known%."
-msgstr ""
+msgstr "Der Fahrstreifen '%' des Haltepunkts ist unbekannt%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1261
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
 msgstr ""
+"Ein Halt muss entweder an einer Bushaltestelle, einer Ladestation, einem "
+"Oberleitungssegment, einem Container-Halt, einem Parkplatz, einer Kante oder "
+"einem Fahrstreifen platziert werden%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1272
 msgid "Deprecated attribute 'pos' in description of stop%."
