@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-12-05 22:24+0100\n"
-"PO-Revision-Date: 2024-01-11 15:06+0000\n"
+"PO-Revision-Date: 2024-01-12 12:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9808,61 +9808,77 @@ msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr ""
+"Distanza minima tra il veicolo e dei pedoni che camminano verso il punto di "
+"conflitto comune."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6162
 msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
+"Il tempo d'attesa accumulato dopodiché un veicolo entrera in un'incrocio "
+"benché protrebbe ostruire il passaggio."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6168
 msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr ""
+"I veicoli passeranno col giallo se la durata del giallo è più corta di "
+"questo valore soglia."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6174
 msgid ""
 "This value causes vehicles to violate a red light if the duration of the red "
 "phase is lower than the given threshold."
 msgstr ""
+"I veicoli passeranno col rosso se la durata del rosso è più corta di questo "
+"valore soglia."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6180
 msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
 "violating a red light."
 msgstr ""
+"Questo valore fa rallentare i veicoli mentre passano col rosso come "
+"configurato da jmDriveAfterRedTime."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6186
 msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
-msgstr ""
+msgstr "I veicoli ignorano la precedenza di altri con questa probabilità."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6192
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "Questo valore viene usato insieme a jmIgnoreFoeProb."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6193
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
+"Soltano veicoli con una velocità sotto o uguale a questo valore saranno "
+"ignorati."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6199
 msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr ""
+"Questo valore configura l'imperfezione di guida mentre si passa su un "
+"collegamento minore."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6205
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr ""
+"Questo valore definisce il tempo vuoto minimo quando si passa prima di un "
+"veicolo prioritario. "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6211
 msgid "Willingess of drivers to impede vehicles with higher priority"
-msgstr ""
+msgstr "Volontà di conducenti di impedire il passaggio di veicoli prioritari"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:6224
 msgid ""
