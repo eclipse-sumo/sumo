@@ -41,7 +41,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
 | propulsionEfficiency    | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
 | recuperationEfficiency  | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
-| stoppingThreshold       | float      | 0.1 (km/h)        | Minimum velocity to start charging                      |
+| stoppingThreshold       | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
