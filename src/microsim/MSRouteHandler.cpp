@@ -1123,6 +1123,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         const SUMOTime intendedDepart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
         arrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, agent + " '" + aid + "' takes a " + mode + " to edge '" + to->getID() + "'");
         myActiveTransportablePlan->push_back(new MSStageDriving(from, to, s, arrivalPos, st.getVector(), group, intendedVeh, intendedDepart));
+        myParamStack.push_back(myActiveTransportablePlan->back());
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
@@ -1688,11 +1689,13 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
         double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, cid.c_str(), ok,
                             cs == nullptr ? myActiveRoute.back()->getLength() : cs->getEndLanePosition());
         myActiveTransportablePlan->push_back(new MSStageTranship(myActiveRoute, cs, speed, departPos, arrivalPos));
+        myParamStack.push_back(myActiveTransportablePlan->back());
         myActiveRoute.clear();
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
     }
 }
+
 
 /****************************************************************************/

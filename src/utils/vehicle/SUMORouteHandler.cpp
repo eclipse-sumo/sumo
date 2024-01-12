@@ -293,6 +293,9 @@ SUMORouteHandler::myEndElement(int element) {
             closeRouteDistribution();
             break;
         case SUMO_TAG_PERSONTRIP:
+        case SUMO_TAG_RIDE:
+        case SUMO_TAG_TRANSPORT:
+        case SUMO_TAG_TRANSHIP:
         case SUMO_TAG_WALK:
             if (myParamStack.size() == 2) {
                 myParamStack.pop_back();
