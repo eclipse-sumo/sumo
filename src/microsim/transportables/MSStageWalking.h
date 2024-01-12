@@ -18,7 +18,7 @@
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
 ///
-// The class for modelling person-movements
+// A stage performing walking on a sequence of edges.
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -54,9 +54,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 // class definitions
 // ===========================================================================
 /**
- * A "real" stage performing the walking to an edge
- * The walking does not need any route as it is not simulated.
- * Only the duration is needed
+ * A stage performing walking on a sequence of edges. The real movements are part of the pedestrian model.
  */
 class MSStageWalking : public MSStageMoving {
 public:

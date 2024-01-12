@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Mon, 9 Jul 2001
 ///
-// The class for modelling person-movements
+// A stage performing walking on a sequence of edges.
 /****************************************************************************/
 #include <config.h>
 

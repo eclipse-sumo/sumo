@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Thu, 12 Jun 2014
 ///
-// The common superclass for modelling transportable objects like persons and containers
+// A stage performing the travelling by a transport system (cars, public transport)
 /****************************************************************************/
 #include <config.h>
 
