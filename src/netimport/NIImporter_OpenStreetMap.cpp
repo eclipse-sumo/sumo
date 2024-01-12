@@ -278,7 +278,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
         for (const auto& nodeIt : nc) {
             NBNode* const n = nodeIt.second;
-            if (n->knowsParameter("computePedestrianCrossing")) {
+            if (n->hasParameter("computePedestrianCrossing")) {
                 EdgeVector incomingEdges = n->getIncomingEdges();
                 EdgeVector outgoingEdges = n->getOutgoingEdges();
                 size_t incomingEdgesNo = incomingEdges.size();

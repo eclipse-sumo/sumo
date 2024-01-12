@@ -690,7 +690,7 @@ MSTriggeredRerouter::getUserProbability() const {
 double
 MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) {
     // get custom vehicle parameter
-    if (veh.getParameter().knowsParameter(param)) {
+    if (veh.getParameter().hasParameter(param)) {
         try {
             return StringUtils::toDouble(veh.getParameter().getParameter(param, "-1"));
         } catch (...) {
@@ -698,7 +698,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
         }
     } else {
         // get custom vType parameter
-        if (veh.getVehicleType().getParameter().knowsParameter(param)) {
+        if (veh.getVehicleType().getParameter().hasParameter(param)) {
             try {
                 return StringUtils::toDouble(veh.getVehicleType().getParameter().getParameter(param, "-1"));
             } catch (...) {

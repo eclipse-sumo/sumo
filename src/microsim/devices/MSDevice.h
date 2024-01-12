@@ -230,13 +230,13 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     bool haveByParameter = false;
     bool parameterGiven = false;
     const std::string key = "has." + deviceName + ".device";
-    if (v.getParameter().knowsParameter(key)) {
+    if (v.getParameter().hasParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getParameter().getParameter(key, "false"));
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+    } else if (v.getVehicleType().getParameter().hasParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
-    } else if (v.getVehicleType().getParameter().knowsParameter(prefix + ".probability")) {
+    } else if (v.getVehicleType().getParameter().hasParameter(prefix + ".probability")) {
         // override global options
         numberGiven = true;
         haveByNumber = RandHelper::rand(&myEquipmentRNG) < StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));

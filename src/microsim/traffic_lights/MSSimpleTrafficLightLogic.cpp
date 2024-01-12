@@ -55,7 +55,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
         myPhases[myStep]->myLastSwitch = SIMSTEP;
     }
     // the following initializations are only used by 'actuated' and 'delay_based' but do not affect 'static'
-    if (knowsParameter(toString(SUMO_ATTR_CYCLETIME))) {
+    if (hasParameter(toString(SUMO_ATTR_CYCLETIME))) {
         myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(Parameterised::getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
     }
     myCoordinated = StringUtils::toBool(Parameterised::getParameter("coordinated", "false"));

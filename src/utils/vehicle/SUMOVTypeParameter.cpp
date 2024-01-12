@@ -693,7 +693,7 @@ SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restr
 
 void
 SUMOVTypeParameter::initRailVisualizationParameters() {
-    if (knowsParameter("carriageLength")) {
+    if (hasParameter("carriageLength")) {
         carriageLength = StringUtils::toDouble(getParameter("carriageLength"));
         parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
     } else {
@@ -742,17 +742,17 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
                 break;
         }
     }
-    if (knowsParameter("locomotiveLength")) {
+    if (hasParameter("locomotiveLength")) {
         locomotiveLength = StringUtils::toDouble(getParameter("locomotiveLength"));
         parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
     } else if (locomotiveLength <= 0) {
         locomotiveLength = carriageLength;
     }
-    if (knowsParameter("carriageGap")) {
+    if (hasParameter("carriageGap")) {
         carriageGap = StringUtils::toDouble(getParameter("carriageGap"));
         parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
     }
-    if (knowsParameter("frontSeatPos")) {
+    if (hasParameter("frontSeatPos")) {
         frontSeatPos = StringUtils::toDouble(getParameter("frontSeatPos"));
         parametersSet |= VTYPEPARS_FRONT_SEAT_POS_SET;
     } else {
@@ -786,7 +786,7 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
         }
     }
 
-    if (knowsParameter("seatingWidth")) {
+    if (hasParameter("seatingWidth")) {
         seatingWidth = StringUtils::toDouble(getParameter("seatingWidth"));
         parametersSet |= VTYPEPARS_SEATING_WIDTH_SET;
     }

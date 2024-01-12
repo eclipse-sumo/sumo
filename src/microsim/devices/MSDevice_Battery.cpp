@@ -80,7 +80,7 @@ double
 MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal) {
     const std::string& oldParam = toString(attr);
     const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-    if (v.getParameter().knowsParameter(oldParam) || typeParams.knowsParameter(oldParam)) {
+    if (v.getParameter().hasParameter(oldParam) || typeParams.hasParameter(oldParam)) {
         WRITE_WARNINGF(TL("Battery device in vehicle '%s' still uses old parameter '%'. Please update to 'device.%'."), v.getID(), oldParam, paramName);
         if (v.getParameter().getParameter(oldParam, "-") == "-") {
             return typeParams.getDouble(oldParam, defaultVal);

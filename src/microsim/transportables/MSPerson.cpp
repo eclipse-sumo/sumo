@@ -407,7 +407,7 @@ MSPerson::MSPersonStage_Walking::activateEntryReminders(MSTransportable* person,
             }
         }
     }
-    if (knowsParameter("rerouter")) {
+    if (hasParameter("rerouter")) {
         double minDist = std::numeric_limits<double>::max();
         MSTriggeredRerouter* nearest = nullptr;
         for (MSMoveReminder* const rem : myMoveReminders) {

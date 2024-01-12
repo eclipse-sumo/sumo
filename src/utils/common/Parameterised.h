@@ -71,11 +71,11 @@ public:
      */
     void updateParameters(const Parameterised::Map& mapArg);
 
-    /**@brief Returns whether the parameter is known
+    /**@brief Returns whether the parameter is set
      * @param[in] key The key to ask for
      * @return Whether the key is known
      */
-    bool knowsParameter(const std::string& key) const;
+    bool hasParameter(const std::string& key) const;
 
     /**@brief Returns the value for a given key
      * @param[in] key The key to ask for
@@ -109,9 +109,6 @@ public:
 
     /// @brief set the inner key/value map in map<string, string> format
     void setParameters(const Parameterised& params);
-
-    /// @brief set the inner key/value map in map<string, string> format
-    void setParametersMap(const Parameterised::Map& paramsMap);
 
     /**@brief set the inner key/value map in string format "key1=value1|key2=value2|...|keyN=valueN"
      * @param[in] paramsString A serialized key-value map

@@ -3797,7 +3797,7 @@ NBEdge::append(NBEdge* e) {
     myGeom.append(e->myGeom);
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].customShape.append(e->myLanes[i].customShape);
-        if (myLanes[i].knowsParameter(SUMO_PARAM_ORIGID) || e->myLanes[i].knowsParameter(SUMO_PARAM_ORIGID)
+        if (myLanes[i].hasParameter(SUMO_PARAM_ORIGID) || e->myLanes[i].hasParameter(SUMO_PARAM_ORIGID)
                 || OptionsCont::getOptions().getBool("output.original-names")) {
             const std::string origID = myLanes[i].getParameter(SUMO_PARAM_ORIGID, getID());
             const std::string origID2 = e->myLanes[i].getParameter(SUMO_PARAM_ORIGID, e->getID());
@@ -3834,7 +3834,7 @@ NBEdge::append(NBEdge* e) {
     myTo = e->myTo;
     myTurnSignTarget = e->myTurnSignTarget;
     myToBorder = e->myToBorder;
-    if (e->knowsParameter("origTo")) {
+    if (e->hasParameter("origTo")) {
         setParameter("origTo", e->getParameter("origTo"));
     }
     if (e->mySignalPosition != Position::INVALID) {

@@ -96,7 +96,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
 
-    if (knowsParameter("hide-conditions")) {
+    if (hasParameter("hide-conditions")) {
         std::vector<std::string> hidden = StringTokenizer(getParameter("hide-conditions", "")).getVector();
         std::set<std::string> hiddenSet(hidden.begin(), hidden.end());
         for (auto item : myConditions) {
@@ -114,7 +114,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
             }
         }
     }
-    if (knowsParameter("extra-detectors")) {
+    if (hasParameter("extra-detectors")) {
         const std::string extraIDs = getParameter("extra-detectors", "");
         for (std::string customID : StringTokenizer(extraIDs).getVector()) {
             try {

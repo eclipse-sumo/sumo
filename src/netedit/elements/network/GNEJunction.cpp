@@ -1846,16 +1846,16 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
                 TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
                 // add special parameters values for NEMA
                 if (TLS->getType() == TrafficLightType::NEMA) {
-                    if (!TLS->knowsParameter("barrierPhases")) {
+                    if (!TLS->hasParameter("barrierPhases")) {
                         TLS->setParameter("barrierPhases", "4,8");
                     }
-                    if (!TLS->knowsParameter("barrier2Phases")) {
+                    if (!TLS->hasParameter("barrier2Phases")) {
                         TLS->setParameter("barrier2Phases", "2,6");
                     }
-                    if (!TLS->knowsParameter("ring1")) {
+                    if (!TLS->hasParameter("ring1")) {
                         TLS->setParameter("ring1", "0,2,0,4");
                     }
-                    if (!TLS->knowsParameter("ring2")) {
+                    if (!TLS->hasParameter("ring2")) {
                         TLS->setParameter("ring2", "0,6,0,8");
                     }
                 }

@@ -70,7 +70,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
         /* The actual battery capacity can be a parameter of the vehicle or its vehicle type.
            The vehicle parameter takes precedence over the type parameter. */
         std::string attrName = toString(SUMO_ATTR_ACTUALBATTERYCAPACITY);
-        if (vehicleParams.knowsParameter(attrName)) {
+        if (vehicleParams.hasParameter(attrName)) {
             const std::string abc = vehicleParams.getParameter(attrName, "-1");
             try {
                 actualBatteryCapacity = StringUtils::toDouble(abc);
@@ -78,7 +78,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
                 WRITE_WARNING("Invalid value '" + abc + "'for vehicle parameter '" + attrName + "'. Using the default of " + std::to_string(actualBatteryCapacity));
             }
         } else {
-            if (typeParams.knowsParameter(attrName)) {
+            if (typeParams.hasParameter(attrName)) {
                 const std::string abc = typeParams.getParameter(attrName, "-1");
                 try {
                     actualBatteryCapacity = StringUtils::toDouble(abc);
@@ -94,7 +94,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
         // obtain maximumBatteryCapacity
         double maximumBatteryCapacity = 0;
         attrName = toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY);
-        if (typeParams.knowsParameter(attrName)) {
+        if (typeParams.hasParameter(attrName)) {
             const std::string mbc = typeParams.getParameter(attrName, "-1");
             try {
                 maximumBatteryCapacity = StringUtils::toDouble(mbc);
@@ -108,7 +108,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
         // obtain overheadWireChargingPower
         double overheadWireChargingPower = 0;
         attrName = toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER);
-        if (typeParams.knowsParameter(attrName)) {
+        if (typeParams.hasParameter(attrName)) {
             const std::string ocp = typeParams.getParameter(attrName, "-1");
             try {
                 overheadWireChargingPower = StringUtils::toDouble(ocp);

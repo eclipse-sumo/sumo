@@ -865,7 +865,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             int odLane = laneIndexMap[std::make_pair(from, c.fromLane)];
                             //std::cout << "  fromLane=" << c.fromLane << " odLane=" << odLane << "\n";
                             if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
-                                if (c.knowsParameter("signalID")) {
+                                if (c.hasParameter("signalID")) {
                                     c.setParameter("signalID", c.getParameter("signalID") + " " + signal.id);
                                 } else {
                                     c.setParameter("signalID", signal.id);
@@ -910,7 +910,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 for (NBEdge::Connection& c : edge->getConnections()) {
                     int odLane = laneIndexMap[std::make_pair(edge, c.fromLane)];
                     if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
-                        if (c.knowsParameter("signalID")) {
+                        if (c.hasParameter("signalID")) {
                             c.setParameter("signalID", c.getParameter("signalID") + " " + signal.id);
                         } else {
                             c.setParameter("signalID", signal.id);

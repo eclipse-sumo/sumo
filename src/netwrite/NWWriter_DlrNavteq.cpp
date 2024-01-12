@@ -415,9 +415,9 @@ NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
 
 int
 NWWriter_DlrNavteq::getBrunnelType(const NBEdge* const edge) {
-    if (edge->knowsParameter("bridge")) {
+    if (edge->hasParameter("bridge")) {
         return 1;
-    } else if (edge->knowsParameter("tunnel")) {
+    } else if (edge->hasParameter("tunnel")) {
         return 4;
     } else if (edge->getTypeID() == "route.ferry") {
         return 10;

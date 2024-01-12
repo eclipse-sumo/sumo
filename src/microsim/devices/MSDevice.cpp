@@ -176,9 +176,9 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 std::string
 MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
     const std::string key = "device." + paramName;
-    if (v.getParameter().knowsParameter(key)) {
+    if (v.getParameter().hasParameter(key)) {
         return v.getParameter().getParameter(key, "");
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+    } else if (v.getVehicleType().getParameter().hasParameter(key)) {
         return v.getVehicleType().getParameter().getParameter(key, "");
     } else {
         if (oc.exists(key) && oc.isSet(key)) {

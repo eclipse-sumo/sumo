@@ -374,7 +374,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
     MSTrafficLightLogic* from, MSTrafficLightLogic* to, bool synchron)
     : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron) {
     int idx = 1;
-    while (myTo->knowsParameter("B" + toString(idx) + ".begin")) {
+    while (myTo->hasParameter("B" + toString(idx) + ".begin")) {
         StretchRange def;
         def.begin = string2time(myTo->getParameter("B" + toString(idx) + ".begin"));
         def.end = string2time(myTo->getParameter("B" + toString(idx) + ".end"));

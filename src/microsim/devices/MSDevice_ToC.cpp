@@ -193,13 +193,13 @@ std::string
 MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
     // Default of "" means no output
     std::string file = "";
-    if (v.getParameter().knowsParameter("device.toc.file")) {
+    if (v.getParameter().hasParameter("device.toc.file")) {
         try {
             file = v.getParameter().getParameter("device.toc.file", file);
         } catch (...) {
             WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.measures'"), v.getParameter().getParameter("device.toc.file", file));
         }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device.toc.file")) {
+    } else if (v.getVehicleType().getParameter().hasParameter("device.toc.file")) {
         try {
             file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
         } catch (...) {

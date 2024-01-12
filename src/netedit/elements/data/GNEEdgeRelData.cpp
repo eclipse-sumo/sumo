@@ -97,7 +97,7 @@ GNEEdgeRelData::getColorValue(const GUIVisualizationSettings& s, int activeSchem
         case 4:
             // by numerical attribute value
             try {
-                if (knowsParameter(s.relDataAttr)) {
+                if (hasParameter(s.relDataAttr)) {
                     return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
                 } else {
                     return GUIVisualizationSettings::MISSING_DATA;

@@ -1179,12 +1179,12 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
             col = c.getScheme().getColor(0);
             std::vector<RGBColor> tazColors;
             for (MSEdge* e : myEdge->getPredecessors()) {
-                if (e->isTazConnector() && e->knowsParameter("tazColor")) {
+                if (e->isTazConnector() && e->hasParameter("tazColor")) {
                     tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
                 }
             }
             for (MSEdge* e : myEdge->getSuccessors()) {
-                if (e->isTazConnector() && e->knowsParameter("tazColor")) {
+                if (e->isTazConnector() && e->hasParameter("tazColor")) {
                     tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
                 }
             }
@@ -1352,7 +1352,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             return getPendingEmits();
         case 31: {
             // by numerical edge param value
-            if (myEdge->knowsParameter(s.edgeParam)) {
+            if (myEdge->hasParameter(s.edgeParam)) {
                 try {
                     return StringUtils::toDouble(myEdge->getParameter(s.edgeParam, "0"));
                 } catch (NumberFormatException&) {
@@ -1368,7 +1368,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 32: {
             // by numerical lane param value
-            if (knowsParameter(s.laneParam)) {
+            if (hasParameter(s.laneParam)) {
                 try {
                     return StringUtils::toDouble(getParameter(s.laneParam, "0"));
                 } catch (NumberFormatException&) {

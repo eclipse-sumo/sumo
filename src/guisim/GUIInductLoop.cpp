@@ -59,7 +59,7 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
-    if (knowsParameter("hotkey")) {
+    if (hasParameter("hotkey")) {
         Command_Hotkey_InductionLoop::registerHotkey(getParameter("hotkey"), this);
     }
     // caller (GUINet) takes responsibility for pointer

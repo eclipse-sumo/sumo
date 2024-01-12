@@ -62,7 +62,7 @@ Parameterised::updateParameters(const Parameterised::Map& mapArg) {
 
 
 bool
-Parameterised::knowsParameter(const std::string& key) const {
+Parameterised::hasParameter(const std::string& key) const {
     return myMap.find(key) != myMap.end();
 }
 
@@ -147,12 +147,6 @@ Parameterised::getParametersStr(const std::string kvsep, const std::string sep) 
 void
 Parameterised::setParameters(const Parameterised& params) {
     myMap = params.getParametersMap();
-}
-
-
-void
-Parameterised::setParametersMap(const Parameterised::Map& paramsMap) {
-    myMap = paramsMap;
 }
 
 

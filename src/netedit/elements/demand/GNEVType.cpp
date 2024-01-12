@@ -1272,13 +1272,13 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.wasSet(VTYPEPARS_OSGFILE_SET)) {
         vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter.osgFile), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
         vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, newVTypeParameter.getParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter.knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
     // parse parameters

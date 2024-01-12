@@ -969,7 +969,7 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
 void
 NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings) {
     device.openTag("objects");
-    if (e->knowsParameter(ROAD_OBJECTS)) {
+    if (e->hasParameter(ROAD_OBJECTS)) {
         device.setPrecision(8); // geometry hdg requires higher precision
         PositionVector road = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
@@ -1006,13 +1006,13 @@ std::vector<NWWriter_OpenDrive::TrafficSign>
 NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi) {
     std::vector<TrafficSign> result;
     // check for maxspeed, stop, give_way and hazard
-    if (trafficSign == "maxspeed" && poi->knowsParameter("maxspeed")) {
+    if (trafficSign == "maxspeed" && poi->hasParameter("maxspeed")) {
         result.push_back(TrafficSign{ "OpenDrive", "maxspeed", "", poi->getParameter("maxspeed")});
     } else if (trafficSign == "stop") {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
     } else if (trafficSign == "give_way") {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
-    } else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
+    } else if (trafficSign == "hazard" && poi->hasParameter("hazard")) {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" });
     } else {
         if (trafficSign.find_first_of(",;") != std::string::npos) {
@@ -1146,12 +1146,12 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             }
             device.closeTag();
         }
-    } else if (e->knowsParameter(ROAD_OBJECTS)) {
+    } else if (e->hasParameter(ROAD_OBJECTS)) {
         PositionVector roadShape = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             PointOfInterest* poi = shc.getPOIs().get(id);
             if (poi != nullptr) {
-                if (poi->getShapeType() == "traffic_sign" && poi->knowsParameter("traffic_sign")) {
+                if (poi->getShapeType() == "traffic_sign" && poi->hasParameter("traffic_sign")) {
                     std::string traffic_sign_type = poi->getParameter("traffic_sign");
 
                     std::vector<TrafficSign> trafficSigns = parseTrafficSign(traffic_sign_type, poi);
@@ -1225,7 +1225,7 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
     std::set<std::string> assigned;
     for (auto it = ec.begin(); it != ec.end(); ++it) {
         NBEdge* e = it->second;
-        if (e->knowsParameter(ROAD_OBJECTS)) {
+        if (e->hasParameter(ROAD_OBJECTS)) {
             for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
                 assigned.insert(id);
             }
@@ -1370,30 +1370,30 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     device.openTag("object");
     device.writeAttr("id", p->getID());
     device.writeAttr("type", shapeType);
-    if (p->knowsParameter("name")) {
+    if (p->hasParameter("name")) {
         device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
     }
     device.writeAttr("s", edgeOffset);
     device.writeAttr("t", shapeType == "crosswalk" && !lefthand ? 0 : sideOffset);
     double hdg = -edgeAngle;
-    if (p->knowsParameter("hdg")) {
+    if (p->hasParameter("hdg")) {
         try {
             hdg = StringUtils::toDoubleSecure(p->getParameter("hdg", ""), 0);
         } catch (NumberFormatException&) {}
     }
     device.writeAttr("hdg", hdg);
-    if (p->knowsParameter("length")) {
+    if (p->hasParameter("length")) {
         try {
             device.writeAttr("length", StringUtils::toDoubleSecure(p->getParameter("length", ""), 0));
         } catch (NumberFormatException&) {}
     }
-    if (p->knowsParameter("width")) {
+    if (p->hasParameter("width")) {
         try {
             device.writeAttr("width", StringUtils::toDoubleSecure(p->getParameter("width", ""), 0));
         } catch (NumberFormatException&) {}
     }
     double height = 0;
-    if (p->knowsParameter("height")) {
+    if (p->hasParameter("height")) {
         try {
             height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
             device.writeAttr("height", height);

@@ -233,7 +233,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             }
                         }
                         previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
-                        if (knowsParameter("pushParam")) {
+                        if (hasParameter("pushParam")) {
                             previous->setParameters(*this);
                         }
                         transportable->appendStage(previous, stageIndex++);
@@ -251,7 +251,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             }
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
-                        if (knowsParameter("pushParam")) {
+                        if (hasParameter("pushParam")) {
                             previous->setParameters(*this);
                         }
                         transportable->appendStage(previous, stageIndex++);
@@ -261,7 +261,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             localArrivalPos = it->edges.back()->getLength();
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
-                        if (knowsParameter("pushParam")) {
+                        if (hasParameter("pushParam")) {
                             previous->setParameters(*this);
                         }
                         transportable->appendStage(previous, stageIndex++);
@@ -272,7 +272,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         carUsed = true;
                     } else {
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
-                        if (knowsParameter("pushParam")) {
+                        if (hasParameter("pushParam")) {
                             previous->setParameters(*this);
                         }
                         transportable->appendStage(previous, stageIndex++);

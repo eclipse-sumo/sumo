@@ -639,14 +639,10 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     } else if (myTLDef) {
-        // declare parametersMap
-        Parameterised::Map parametersMap;
-        // Generate an string using the following structure: "key1=value1|key2=value2|...
+        myTLDef->clearParameter();
         for (const auto& parameter : parameters) {
-            parametersMap[parameter.first] = parameter.second;
+            myTLDef->setParameter(parameter.first, parameter.second);
         }
-        // set setACParameters map
-        myTLDef->setParametersMap(parametersMap);
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);

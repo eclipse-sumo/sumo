@@ -752,7 +752,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(cs->getMyName());
         } else if (attrName == "lane") {
             return cs->getLane().getID();
-        } else if (cs->knowsParameter(attrName)) {
+        } else if (cs->hasParameter(attrName)) {
             return cs->getParameter(attrName);
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
@@ -792,7 +792,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(pa->getMyName());
         } else if (attrName == "lane") {
             return pa->getLane().getID();
-        } else if (pa->knowsParameter(attrName)) {
+        } else if (pa->hasParameter(attrName)) {
             return pa->getParameter(attrName);
         } else {
             throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
@@ -807,7 +807,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(bs->getMyName());
         } else if (attrName == "lane") {
             return bs->getLane().getID();
-        } else if (bs->knowsParameter(attrName)) {
+        } else if (bs->hasParameter(attrName)) {
             return bs->getParameter(attrName);
         } else {
             throw TraCIException("Invalid busStop parameter '" + attrName + "'");

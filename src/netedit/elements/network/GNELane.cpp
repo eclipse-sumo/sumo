@@ -1617,7 +1617,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
         case 12: {
             // by numerical edge param value
-            if (myParentEdge->getNBEdge()->knowsParameter(s.edgeParam)) {
+            if (myParentEdge->getNBEdge()->hasParameter(s.edgeParam)) {
                 try {
                     return StringUtils::toDouble(myParentEdge->getNBEdge()->getParameter(s.edgeParam, "0"));
                 } catch (NumberFormatException&) {
@@ -1633,7 +1633,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 13: {
             // by numerical lane param value
-            if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).knowsParameter(s.laneParam)) {
+            if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).hasParameter(s.laneParam)) {
                 try {
                     return StringUtils::toDouble(myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
                 } catch (NumberFormatException&) {

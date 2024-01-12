@@ -165,7 +165,7 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     }
     // build the wrapper
     GUITrafficLightLogicWrapper* tllw = new GUITrafficLightLogicWrapper(*myLogics, *tll);
-    if (tll->knowsParameter("hotkeyAbort")) {
+    if (tll->hasParameter("hotkeyAbort")) {
         Command_Hotkey_TrafficLight::registerHotkey(tll->getParameter("hotkeyAbort"), *tll);
     }
     // build the association link->wrapper
