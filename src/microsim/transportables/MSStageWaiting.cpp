@@ -53,7 +53,10 @@ MSStageWaiting::~MSStageWaiting() {}
 
 MSStage*
 MSStageWaiting::clone() const {
-    return new MSStageWaiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos, myActType, myType == MSStageType::WAITING_FOR_DEPART);
+    MSStage* const clon = new MSStageWaiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos,
+                                             myActType, myType == MSStageType::WAITING_FOR_DEPART);
+    clon->setParameters(*this);
+    return clon;
 }
 
 SUMOTime

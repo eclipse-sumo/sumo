@@ -70,8 +70,11 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
 
 MSStage*
 MSStageDriving::clone() const {
-    return new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
-                              myGroup, myIntendedVehicleID, myIntendedDepart);
+    MSStage* const clon = new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos,
+                                             std::vector<std::string>(myLines.begin(), myLines.end()),
+                                             myGroup, myIntendedVehicleID, myIntendedDepart);
+    clon->setParameters(*this);
+    return clon;
 }
 
 

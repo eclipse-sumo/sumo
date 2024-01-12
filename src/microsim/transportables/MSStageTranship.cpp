@@ -62,7 +62,9 @@ MSStageTranship::~MSStageTranship() {
 
 MSStage*
 MSStageTranship::clone() const {
-    return new MSStageTranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
+    MSStage* const clon = new MSStageTranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
+    clon->setParameters(*this);
+    return clon;
 }
 
 

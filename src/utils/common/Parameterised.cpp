@@ -146,23 +146,13 @@ Parameterised::getParametersStr(const std::string kvsep, const std::string sep) 
 
 void
 Parameterised::setParameters(const Parameterised& params) {
-    // first clear map
-    myMap.clear();
-    // set parameter
-    for (const auto& keyValue : params.getParametersMap()) {
-        setParameter(keyValue.first, keyValue.second);
-    }
+    myMap = params.getParametersMap();
 }
 
 
 void
 Parameterised::setParametersMap(const Parameterised::Map& paramsMap) {
-    // first clear map
-    myMap.clear();
-    // set parameter
-    for (const auto& keyValue : paramsMap) {
-        setParameter(keyValue.first, keyValue.second);
-    }
+    myMap = paramsMap;
 }
 
 

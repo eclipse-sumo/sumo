@@ -106,7 +106,9 @@ MSPerson::MSPersonStage_Walking::clone() const {
             departLane = route[0]->getNumLanes() - 1;
         }
     }
-    return new MSPersonStage_Walking("dummyID", route, myDestinationStop, myWalkingTime, mySpeed, departPos, arrivalPos, myDepartPosLat, departLane, myRouteID);
+    MSStage* clon = new MSPersonStage_Walking("dummyID", route, myDestinationStop, myWalkingTime, mySpeed, departPos, arrivalPos, myDepartPosLat, departLane, myRouteID);
+    clon->setParameters(*this);
+    return clon;
 }
 
 
