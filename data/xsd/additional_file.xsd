@@ -102,6 +102,12 @@
                                 <xsd:attribute name="visible" type="boolType"/>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="viaProbReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="idType" use="required"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:choice>
                     <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
                     <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
@@ -366,7 +372,8 @@
         <xsd:attribute name="pos" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="visible" type="boolType" use="optional"/>
-		<xsd:attribute name="off" type="boolType" use="optional"/>
+        <xsd:attribute name="off" type="boolType" use="optional"/>
+        <xsd:attribute name="optional" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
