@@ -6,15 +6,62 @@ title: Projects
 
 ### Current Projects
 
- - [ReTraSON](https://verkehrsforschung.dlr.de/de/projekte/retrason-infrastrukturelle-transformation-suedostniedersachsen)
-   Infrastrukturelle Transformation in SüdOstNiedersachsen
- - [SHOW](https://www.uitp.org/projects/show/)
- - [Spurplan](https://verkehrsforschung.dlr.de/de/projekte/sumo-spurplan-5-deadlock-aufbereitung-fuer-grossraeumige-szenarien)
- - [VMo4Orte](https://verkehrsforschung.dlr.de/de/projekte/vmo4orte)
- - [MoCKiii](https://verkehrsforschung.dlr.de/de/projekte/projekt-mockiii-visualisierte-verkehrsmittelnutzung-fuer-die-stadt-koeln)
+- [ReTraSON](https://verkehrsforschung.dlr.de/de/projekte/retrason-infrastrukturelle-transformation-suedostniedersachsen)
+   Infrastructure Transformation in Lower Saxony (German)
+
+- [SHOW](https://www.uitp.org/projects/show/)
+shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
+
+- [Spurplan](https://verkehrsforschung.dlr.de/de/projekte/sumo-spurplan-5-deadlock-aufbereitung-fuer-grossraeumige-szenarien)
+SUMO is being expanded and improved in various areas for modeling rail traffic
+
+- [VMo4Orte](https://verkehrsforschung.dlr.de/en/projects/vmo4orte)
+Development of solution modules that can be used to contribute to the transformation of the transport system
+
+- [MoCKiii](https://verkehrsforschung.dlr.de/de/projekte/projekt-mockiii-visualisierte-verkehrsmittelnutzung-fuer-die-stadt-koeln)
+Creation of a dash board with which the city of Cologne can easily detect the current traffic situation, changes in mobility behavior and the traffic situation in order to then be able to initiate suitable countermeasures
+
+- [KoKoVi] (https://verkehrsforschung.dlr.de/de/projekte/kokovi)
+Transport as a cooperative and networked system
+
+- [TAPAS] (https://verkehrsforschung.dlr.de/en/projects/tapas-model-future-demand-passenger-transport-urban-areas)
+Model for data on the future development of passenger transport demand in urban areas
+
 
 ### Past Projects
 
+- [ITS for Asia] (https://verkehrsforschung.dlr.de/en/projects/itsforasia)
+Monitoring intersections to identify accident spots
+
+- [Digitaler Knoten 4.0] (https://verkehrsforschung.dlr.de/de/projekte/digitaler-knoten-40)
+Investigation of networked, efficient and safe organization of mixed traffic situations
+
+- [UrMo Digital] (https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
+Investigation of mobility and logistics concepts under the influence of digitalization
+
+- [Local Traffic Safety Analyzer (LTSA)] (https://verkehrsforschung.dlr.de/de/projekte/local-traffic-safety-analyzer-ltsa)
+In terms of infrastructure, it recognizes and analyzes the road and provides movement lines (trajectories) as well as messages describing the situation for road users
+
+- [DATAMOST] (https://verkehrsforschung.dlr.de/en/projects/datamost-data-and-model-based-solutions-transformation-mobility)
+Data and Model-based Solutions for the Transformation of Mobility
+
+- [DIGEST] (https://verkehrsforschung.dlr.de/de/projekte/digest-digitaler-zwilling-des-verkehrssystems-strasse)
+Digital twin of the road transport system
+
+- [ALFRIED] (https://verkehrsforschung.dlr.de/de/projekte/automatisiertes-und-vernetztes-fahren-der-logistik-am-testfeld-friedrichshafen-kurz)
+Automatisiertes und vernetztes Fahren in der Logistik am Testfeld Friedrichshafen
+
+- [Spurplan-4] (https://verkehrsforschung.dlr.de/de/projekte/spurplan-4)
+Simulation of regional rail traffic for regular operations, disrupted operations and planning interventions
+
+- [VM50City] (https://verkehrsforschung.dlr.de/de/projekte/vm50kcity-automatisierung-und-digitalisierung-der-verkehrssteuerung-auf)
+Examination of established categories of measures for potential and feasibility for small and medium-sized cities
+
+- [eUVM] (https://verkehrsforschung.dlr.de/de/projekte/euvm-reduktion-von-luftschadstoffen-berlin-durch-optimiertes-verkehrsmanagement)
+Testing and implementing suitable measures to reduce traffic-related emissions
+
+- [AutomoVer] (https://verkehrsforschung.dlr.de/de/projekte/automatisierung-des-verkehrssystems)
+Development of guidance for decision-makers
 - [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
@@ -37,7 +84,9 @@ title: Projects
 - [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
 - [AMITRAN](https://web.archive.org/web/20180815190303/https://www.amitran.eu/)
+CO2 Assessment Methodology for ICT in Transport
 - [MODUM](https://web.archive.org/web/20180831121624/https://modum-project.eu/)
+Addresses the environmental footprint in the transport sector by developing a new approach for pro-active demand-responsive management of traffic
 - [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
 - [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
