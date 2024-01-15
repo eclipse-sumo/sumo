@@ -443,7 +443,7 @@ namespace PHEMlightdllV5 {
                 _fCHC = 0.825;
         }
         else {
-                VehicleClass->setErrMsg(std::string("The propolsion type is not known! (") + getFuelType() + std::string(")"));
+                VehicleClass->setErrMsg(std::string("The propulsion type is not known! (") + getFuelType() + std::string(")"));
                 return false;
         }
         return true;
