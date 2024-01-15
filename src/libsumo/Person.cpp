@@ -822,7 +822,7 @@ Person::moveTo(const std::string& personID, const std::string& laneID, double po
         case MSStageType::WALKING: {
             MSStageWalking* s = dynamic_cast<MSStageWalking*>(p->getCurrentStage());
             assert(s != 0);
-            s->getState()->moveTo(p, l, pos, posLat, SIMSTEP);
+            s->getPState()->moveTo(p, l, pos, posLat, SIMSTEP);
             break;
         }
         default:

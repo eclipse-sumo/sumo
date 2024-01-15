@@ -78,6 +78,8 @@ private:
         PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
         ~PState() override;
 
+        void reinit(MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
+
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         void setPosition(double x, double y);
 
@@ -87,8 +89,10 @@ private:
         double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
         void setAngle(double angle);
 
-        MSStageMoving* getStage();
-        MSPerson* getPerson();
+        MSStageMoving* getStage() const;
+        void setStage(MSStageMoving* const stage);
+
+        MSPerson* getPerson() const;
 
         void setLanePosition(double lanePosition);
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;

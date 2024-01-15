@@ -141,8 +141,8 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         }
     }
     MSTransportableControl& pControl = net->getPersonControl();
-    myState = pControl.getMovementModel()->add(person, this, now);
-    if (myState == nullptr) {
+    myPState = pControl.getMovementModel()->add(person, this, now);
+    if (myPState == nullptr) {
         pControl.erase(person);
         return;
     }
@@ -159,7 +159,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
 
 void
 MSStageWalking::abort(MSTransportable*) {
-    MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myState);
+    MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myPState);
 }
 
 
@@ -179,10 +179,11 @@ bool
 MSPerson::isJammed() const {
     MSStageWalking* stage = dynamic_cast<MSStageWalking*>(getCurrentStage());
     if (stage != nullptr) {
-        return stage->getState()->isJammed();
+        return stage->getPState()->isJammed();
     }
     return false;
 }
+
 
 double
 MSStageWalking::walkDistance(bool partial) const {
@@ -357,7 +358,7 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
     myLastEdgeEntryTime = currentTime;
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
     if (myCurrentInternalEdge != nullptr) {
-        myInternalDistance += (myState->getPathLength() == 0 ? myCurrentInternalEdge->getLength() : myState->getPathLength());
+        myInternalDistance += (myPState->getPathLength() == 0 ? myCurrentInternalEdge->getLength() : myPState->getPathLength());
     }
     if (arrived) {
         MSPerson* p = dynamic_cast<MSPerson*>(person);
@@ -450,7 +451,7 @@ MSStageWalking::getStageSummary(const bool /* isPerson */) const {
 void
 MSStageWalking::saveState(std::ostringstream& out) {
     out << " " << myDeparted << " " << (myRouteStep - myRoute.begin()) << " " << myLastEdgeEntryTime;
-    myState->saveState(out);
+    myPState->saveState(out);
 }
 
 
@@ -459,9 +460,9 @@ MSStageWalking::loadState(MSTransportable* transportable, std::istringstream& st
     int stepIdx;
     state >> myDeparted >> stepIdx >> myLastEdgeEntryTime;
     myRouteStep = myRoute.begin() + stepIdx;
-    myState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
-    if (myState->getLane() && !myState->getLane()->isNormal()) {
-        myCurrentInternalEdge = &myState->getLane()->getEdge();
+    myPState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
+    if (myPState->getLane() && !myPState->getLane()->isNormal()) {
+        myCurrentInternalEdge = &myPState->getLane()->getEdge();
         myCurrentInternalEdge->addTransportable(transportable);
     } else {
         (*myRouteStep)->addTransportable(transportable);

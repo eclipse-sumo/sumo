@@ -77,10 +77,10 @@ MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime no
     myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
     if (transportable->isPerson()) {
-        myState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
+        myPState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
         (*myRouteStep)->addTransportable(transportable);
     } else {
-        myState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
+        myPState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
         (*myRouteStep)->addTransportable(transportable);
     }
 }

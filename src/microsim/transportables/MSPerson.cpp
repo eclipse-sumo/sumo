@@ -222,7 +222,7 @@ MSPerson::getNextEdgePtr() const {
     if (getCurrentStageType() == MSStageType::WALKING) {
         MSStageWalking* walkingStage =  dynamic_cast<MSStageWalking*>(*myStep);
         assert(walkingStage != nullptr);
-        return walkingStage->getState()->getNextEdge(*walkingStage);
+        return walkingStage->getPState()->getNextEdge(*walkingStage);
     }
     return nullptr;
 }
@@ -322,8 +322,9 @@ MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
         case MSStageType::WALKING: {
             MSStageWalking* s = dynamic_cast<MSStageWalking*>(p->getCurrentStage());
             assert(s != nullptr);
-            s->getState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat, myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
-                                    MSNet::getInstance()->getCurrentTimeStep());
+            s->getPState()->moveToXY(p, myRemoteXYPos, myRemoteLane, myRemotePos, myRemotePosLat,
+                                     myRemoteAngle, myRemoteEdgeOffset, myRemoteRoute,
+                                     MSNet::getInstance()->getCurrentTimeStep());
         }
         break;
         default:

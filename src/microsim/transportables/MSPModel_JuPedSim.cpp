@@ -145,11 +145,6 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
     assert(person->getCurrentStageType() == MSStageType::WALKING);
-    for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
-        if (pstate->getPerson() == person) {
-            return pstate;
-        }
-    }
     Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     // First real stage, stage 0 is waiting.
@@ -181,46 +176,28 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
 
+    PositionVector waypoints;
+    for (const MSEdge* const e : stage->getEdges()) {
+        waypoints.push_back(getSidewalk<MSEdge, MSLane>(e)->getShape().positionAtOffset(e->getLength() / 2.));
+    }
+    waypoints.pop_back();  // arrival waypoint comes later
+    if (!waypoints.empty()) {
+        waypoints.erase(waypoints.begin());  // departure edge also does not need a waypoint
+    }
+    const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getDestination());
+    const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
+    waypoints.push_back(arrivalPosition);
+
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
     JPS_StageId startingStage = 0;
     JPS_StageId predecessor = 0;
-
-    int stageOffset = 1;
-    PositionVector waypoints;
-    while (person->getNumRemainingStages() > stageOffset) {
-        const MSStage* const next = person->getNextStage(stageOffset);
-        if (!next->isWalk()) {
-            break;
-        }
-        const MSStage* const prev = person->getNextStage(stageOffset - 1);
-        if (prev->getDestination() != next->getEdge()) {
-            // she is probably using an access
-            break;
-        }
-        double prevArrivalPos = prev->getArrivalPos();
-        if (prev->getDestinationStop() != nullptr) {
-            prevArrivalPos = prev->getDestinationStop()->getAccessPos(prev->getDestination());
-        }
-        waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prevArrivalPos));
-        if (!addWaypoint(journey, predecessor, waypoints.back(), person->getID())) {
+    for (const Position& p : waypoints) {
+        if (!addWaypoint(journey, predecessor, p, person->getID())) {
             return nullptr;
         }
         if (startingStage == 0) {
             startingStage = predecessor;
         }
-        stageOffset++;
-    }
-
-    const MSStage* const arrivalStage = person->getNextStage(stageOffset - 1);
-    const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(arrivalStage->getDestination());
-    const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(arrivalStage->getArrivalPos());
-    waypoints.push_back(arrivalPosition);
-
-    if (!addWaypoint(journey, predecessor, arrivalPosition, person->getID())) {
-        return nullptr;
-    }
-    if (startingStage == 0) {
-        startingStage = predecessor;
     }
     JPS_ErrorMessage message = nullptr;
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
@@ -230,23 +207,42 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         return nullptr;
     }
 
-    PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, startingStage, waypoints);
-    state->setLanePosition(stage->getDepartPos());
-    state->setPreviousPosition(departurePosition);
-    state->setPosition(departurePosition.x(), departurePosition.y());
-    state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
-    myPedestrianStates.push_back(state);
-    myNumActivePedestrians++;
-    tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
-
+    PState* state = nullptr;
+    for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
+        if (pstate->getPerson() == person) {
+            state = pstate;
+            break;
+        }
+    }
+    if (state == nullptr) {
+        state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, startingStage, waypoints);
+        state->setLanePosition(stage->getDepartPos());
+        state->setPreviousPosition(departurePosition);
+        state->setPosition(departurePosition.x(), departurePosition.y());
+        state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
+        myPedestrianStates.push_back(state);
+        myNumActivePedestrians++;
+    } else {
+        state->getStage()->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
+        state->reinit(stage, journey, journeyId, startingStage, waypoints);
+    }
+    if (state->isWaitingToEnter()) {
+        tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
+    } else {
+        JPS_Simulation_SwitchAgentJourney(myJPSSimulation, state->getAgentId(), journeyId, startingStage, &message);
+        if (message != nullptr) {
+            WRITE_WARNINGF(TL("Error while switching to a new journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
+            JPS_ErrorMessage_Free(message);
+            return nullptr;
+        }
+    }
     return state;
 }
 
 
 void
-MSPModel_JuPedSim::remove(MSTransportableStateAdapter* /* state */) {
-    // This function is called only when using TraCI.
-    // Not sure what to do here.
+MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
+    static_cast<PState*>(state)->setStage(nullptr);
 }
 
 
@@ -314,16 +310,20 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
 
         if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
-            while (!stage->moveToNextEdge(person, time, 1, nullptr));
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
-                registerArrived();
-                JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, state->getAgentId(), nullptr);
-                stateIt = myPedestrianStates.erase(stateIt);
+                // TODO this only works if the final stage is actually a walk
+                const bool finalStage = person->getNumRemainingStages() == 1;
+                while (!stage->moveToNextEdge(person, time, 1, nullptr));
+                if (finalStage) {
+                    registerArrived();
+                    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, state->getAgentId(), nullptr);
+                    stateIt = myPedestrianStates.erase(stateIt);
+                    continue;
+                }
             }
-        } else {
-            ++stateIt;
         }
+        ++stateIt;
     }
 
     JPS_ErrorMessage_Free(message);
@@ -819,6 +819,17 @@ MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
 }
 
 
+void
+MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId,
+                                  const PositionVector& waypoints) {
+    myStage = stage;
+    myJourney = journey;
+    myJourneyId = journeyId;
+    myStageId = stageId;
+    myWaypoints = waypoints;
+}
+
+
 MSPModel_JuPedSim::PState::~PState() {
     JPS_JourneyDescription_Free(myJourney);
 }
@@ -849,12 +860,18 @@ void MSPModel_JuPedSim::PState::setAngle(double angle) {
 }
 
 
-MSStageMoving* MSPModel_JuPedSim::PState::getStage() {
+MSStageMoving* MSPModel_JuPedSim::PState::getStage() const {
     return myStage;
 }
 
 
-MSPerson* MSPModel_JuPedSim::PState::getPerson() {
+void
+MSPModel_JuPedSim::PState::setStage(MSStageMoving* const stage) {
+    myStage = stage;
+}
+
+
+MSPerson* MSPModel_JuPedSim::PState::getPerson() const {
     return myPerson;
 }
 

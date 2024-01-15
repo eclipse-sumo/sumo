@@ -102,13 +102,13 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0; // descheduled
     }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getState()->getDirection(myParent, currentTime));
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getPState()->getDirection(myParent, currentTime));
     if (arrived) {
         myModel->registerArrived();
         return 0;
     }
     myParent.activateEntryReminders(myTransportable);
-    return static_cast<PState*>(myParent.getState())->computeDuration(old, myParent, currentTime);
+    return static_cast<PState*>(myParent.getPState())->computeDuration(old, myParent, currentTime);
 }
 
 

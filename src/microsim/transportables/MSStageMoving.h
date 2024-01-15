@@ -37,7 +37,7 @@ public:
     MSStageMoving(const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
                   const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
         MSStage(route.back(), toStop, arrivalPos, type),
-        myState(nullptr), myRoute(route), myRouteID(routeID), myRouteStep(myRoute.begin()),
+        myPState(nullptr), myRoute(route), myRouteID(routeID), myRouteStep(myRoute.begin()),
         mySpeed(speed), myDepartPos(departPos),
         myDepartPosLat(departPosLat), myDepartLane(departLane) {}
 
@@ -46,8 +46,12 @@ public:
 
     virtual const MSEdge* getNextRouteEdge() const = 0;
 
-    virtual MSTransportableStateAdapter* getState() const {
-        return myState;
+    inline MSTransportableStateAdapter* getPState() const {
+        return myPState;
+    }
+
+    inline void setPState(MSTransportableStateAdapter* pstate) {
+        myPState = pstate;
     }
 
     /// Returns the current edge
@@ -131,7 +135,7 @@ public:
 
 protected:
     /// @brief state that is to be manipulated by MSPModel
-    MSTransportableStateAdapter* myState;
+    MSTransportableStateAdapter* myPState;
 
     /// @brief The route of the container
     std::vector<const MSEdge*> myRoute;
