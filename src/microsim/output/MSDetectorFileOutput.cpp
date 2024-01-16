@@ -84,7 +84,7 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
             end = v.getRoute().end();
         } else if (veh.isPerson()) {
             const MSTransportable& p = dynamic_cast<const MSTransportable&>(veh);
-            route = p.getEdges(0);
+            route = p.getCurrentStage()->getEdges();
             it = route.begin() + p.getRoutePosition();
             end = route.end();
         }

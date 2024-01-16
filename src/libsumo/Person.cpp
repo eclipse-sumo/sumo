@@ -242,7 +242,7 @@ Person::getEdges(const std::string& personID, int nextStageIndex) {
         throw TraCIException("The negative stage index must refer to a valid previous stage.");
     }
     std::vector<std::string> edgeIDs;
-    for (auto& e : p->getEdges(nextStageIndex)) {
+    for (auto& e : p->getNextStage(nextStageIndex)->getEdges()) {
         if (e != nullptr) {
             edgeIDs.push_back(e->getID());
         }
@@ -788,7 +788,7 @@ Person::rerouteTraveltime(const std::string& personID) {
     if (newEdges.empty()) {
         throw TraCIException("Could not find new route for person '" + personID + "'.");
     }
-    ConstMSEdgeVector oldEdges = p->getEdges(firstIndex);
+    ConstMSEdgeVector oldEdges = p->getNextStage(firstIndex)->getEdges();
     assert(!oldEdges.empty());
     if (oldEdges.front()->getFunction() != SumoXMLEdgeFunc::NORMAL) {
         oldEdges.erase(oldEdges.begin());

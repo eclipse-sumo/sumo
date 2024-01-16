@@ -233,18 +233,11 @@ public:
         return *myStep;
     }
 
-    /// @brief Return the current stage
-    MSStage* getNextStage(int next) const {
-        assert(myStep + next >= myPlan->begin());
-        assert(myStep + next < myPlan->end());
-        return *(myStep + next);
-    }
-
-    /// @brief Return the edges of the nth next stage
-    ConstMSEdgeVector getEdges(int next) const {
-        assert(myStep + next < myPlan->end());
-        assert(myStep + next >= myPlan->begin());
-        return (*(myStep + next))->getEdges();
+    /// @brief Return the next (or previous) stage denoted by the offset
+    inline MSStage* getNextStage(int offset) const {
+        assert(myStep + offset >= myPlan->begin());
+        assert(myStep + offset < myPlan->end());
+        return *(myStep + offset);
     }
 
     /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
