@@ -728,7 +728,7 @@ RORouteHandler::closeContainer() {
         checkLastDepart();
         registerLastDepart();
     } else {
-        WRITE_WARNINGF(TL("Discarding container '%' because it's plan is empty"), myVehicleParameter->id);
+        WRITE_WARNINGF(TL("Discarding container '%' because its plan is empty"), myVehicleParameter->id);
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
@@ -745,7 +745,7 @@ void RORouteHandler::closeContainerFlow() {
         checkLastDepart();
         registerLastDepart();
     } else {
-        WRITE_WARNINGF(TL("Discarding containerFlow '%' because it's plan is empty"), myVehicleParameter->id);
+        WRITE_WARNINGF(TL("Discarding containerFlow '%' because its plan is empty"), myVehicleParameter->id);
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
