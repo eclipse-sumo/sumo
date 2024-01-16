@@ -59,8 +59,8 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  MSEdgeVector& edges, double prob, bool off, bool optional,
-                                 SUMOTime timeThreshold, const std::string& vTypes) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes,
+                                 SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }

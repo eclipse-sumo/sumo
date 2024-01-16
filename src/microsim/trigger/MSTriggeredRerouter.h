@@ -71,7 +71,7 @@ public:
      */
     MSTriggeredRerouter(const std::string& id, const MSEdgeVector& edges,
                         double prob, bool off, bool optional, SUMOTime timeThreshold,
-                        const std::string& vTypes, const Position& pos=Position::INVALID);
+                        const std::string& vTypes, const Position& pos);
 
 
     /** @brief Destructor */
