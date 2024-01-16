@@ -223,7 +223,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         myPedestrianStates.push_back(state);
         myNumActivePedestrians++;
     } else {
-        state->getStage()->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
         state->reinit(stage, journey, journeyId, startingStage, waypoints);
     }
     if (state->isWaitingToEnter()) {
@@ -242,7 +241,11 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
 
 void
 MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
-    static_cast<PState*>(state)->setStage(nullptr);
+    PState* pstate = static_cast<PState*>(state);
+    if (pstate->getStage() != nullptr) {
+        pstate->getStage()->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
+    }
+    pstate->setStage(nullptr);
 }
 
 
@@ -822,6 +825,9 @@ MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
 void
 MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId,
                                   const PositionVector& waypoints) {
+    if (myStage != nullptr) {
+        myStage->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
+    }
     myStage = stage;
     myJourney = journey;
     myJourneyId = journeyId;
