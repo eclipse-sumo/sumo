@@ -358,6 +358,12 @@
                                 <xsd:attribute name="visible" type="boolType"/>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="viaProbReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="idType" use="required"/>
+                                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:choice>
                     <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
                     <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>

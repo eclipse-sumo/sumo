@@ -892,6 +892,9 @@
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="personTrip">
                 <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="fromTaz" type="xsd:string"/>
@@ -920,6 +923,9 @@
             </xsd:element>
             <xsd:element name="ride">
                 <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
@@ -941,6 +947,9 @@
             </xsd:element>
             <xsd:element name="walk">
                 <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
                     <xsd:attribute name="route" type="xsd:string"/>
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
