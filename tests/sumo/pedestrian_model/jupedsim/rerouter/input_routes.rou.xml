@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-16 15:01:09 by Eclipse SUMO netedit Version v1_19_0+0632-d91e66721b8
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="DEFAULT_RAILTYPE" depart="0.00">
+        <route edges="E0"/>
+        <stop busStop="ts_0" duration="20" until="51.0"/>
+    </vehicle>
+    <personFlow id="pS5_4" begin="triggered" number="200">
+        <ride from="E0" trainStop="ts_0" lines="v_0"/>
+        <walk to="E1">
+            <param key="rerouter" value="nearest"/>
+            <param key="pushParam" value="1"/>
+        </walk>
+        <walk to="E4"/>
+    </personFlow>
+
+</routes>

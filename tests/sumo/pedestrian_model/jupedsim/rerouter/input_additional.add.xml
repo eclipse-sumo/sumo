@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-16 15:00:55 by Eclipse SUMO netedit Version v1_19_0+0632-d91e66721b8
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="ts_0" lane="E0_0" startPos="248.23" endPos="358.23">
+        <access lane="E1_0" pos="doors"/>
+    </trainStop>
+
+    <rerouter id="rerouter" edges="E1" pos="160" optional="1">
+        <interval begin="0" end="86400">
+            <viaProbReroute id="E3" probability="1"/>
+        </interval>
+   </rerouter>
+
+    <rerouter id="rerouter2" edges="E1" pos="120" optional="1">
+        <interval begin="0" end="86400">
+            <viaProbReroute id="E2" probability="1"/>
+        </interval>
+   </rerouter>
+
+    <edgeData id="ed0" file="aggregated.xml" writeAttributes="entered arrived" detectPersons="walk"/>
+
+    <!-- JuPedSim elements -->
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-62.960000,-79.480000 -62.960000,61.750000 253.690000,61.750000 253.690000,-79.480000 -62.960000,-79.480000"/>
+</additional>
