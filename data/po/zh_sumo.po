@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
-"PO-Revision-Date: 2023-12-04 13:15+0000\n"
+"PO-Revision-Date: 2024-01-17 13:09+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
@@ -10923,7 +10923,7 @@ msgstr "用载入的分区(TAZ)替换路口分区(junction-taz) '%'。"
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1647
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1647
 msgid "Skipping visualization of taz '%', polygon already exists."
-msgstr "跳过视觉化分区 '%', 多边形已存在。"
+msgstr "跳过可视化分区 '%', 多边形已存在。"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1678
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1678
