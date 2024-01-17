@@ -318,6 +318,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             const bool result = stage->moveToNextEdge(person, time, 1, nullptr);
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
+            stage->activateEntryReminders(person);
         }
 
         if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
