@@ -21,46 +21,46 @@ Development of solution modules that can be used to contribute to the transforma
 - [MoCKiii](https://verkehrsforschung.dlr.de/de/projekte/projekt-mockiii-visualisierte-verkehrsmittelnutzung-fuer-die-stadt-koeln)
 Creation of a dash board with which the city of Cologne can easily detect the current traffic situation, changes in mobility behavior and the traffic situation in order to then be able to initiate suitable countermeasures
 
-- [KoKoVi] (https://verkehrsforschung.dlr.de/de/projekte/kokovi)
+- [KoKoVi](https://verkehrsforschung.dlr.de/de/projekte/kokovi)
 Transport as a cooperative and networked system
 
-- [TAPAS] (https://verkehrsforschung.dlr.de/en/projects/tapas-model-future-demand-passenger-transport-urban-areas)
+- [TAPAS](https://verkehrsforschung.dlr.de/en/projects/tapas-model-future-demand-passenger-transport-urban-areas)
 Model for data on the future development of passenger transport demand in urban areas
 
 
 ### Past Projects
 
-- [ITS for Asia] (https://verkehrsforschung.dlr.de/en/projects/itsforasia)
+- [ITS for Asia](https://verkehrsforschung.dlr.de/en/projects/itsforasia)
 Monitoring intersections to identify accident spots
 
-- [Digitaler Knoten 4.0] (https://verkehrsforschung.dlr.de/de/projekte/digitaler-knoten-40)
+- [Digitaler Knoten 4.0](https://verkehrsforschung.dlr.de/de/projekte/digitaler-knoten-40)
 Investigation of networked, efficient and safe organization of mixed traffic situations
 
-- [UrMo Digital] (https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
+- [UrMo Digital](https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
 Investigation of mobility and logistics concepts under the influence of digitalization
 
-- [Local Traffic Safety Analyzer (LTSA)] (https://verkehrsforschung.dlr.de/de/projekte/local-traffic-safety-analyzer-ltsa)
+- [Local Traffic Safety Analyzer (LTSA)](https://verkehrsforschung.dlr.de/de/projekte/local-traffic-safety-analyzer-ltsa)
 In terms of infrastructure, it recognizes and analyzes the road and provides movement lines (trajectories) as well as messages describing the situation for road users
 
-- [DATAMOST] (https://verkehrsforschung.dlr.de/en/projects/datamost-data-and-model-based-solutions-transformation-mobility)
+- [DATAMOST](https://verkehrsforschung.dlr.de/en/projects/datamost-data-and-model-based-solutions-transformation-mobility)
 Data and Model-based Solutions for the Transformation of Mobility
 
-- [DIGEST] (https://verkehrsforschung.dlr.de/de/projekte/digest-digitaler-zwilling-des-verkehrssystems-strasse)
+- [DIGEST](https://verkehrsforschung.dlr.de/de/projekte/digest-digitaler-zwilling-des-verkehrssystems-strasse)
 Digital twin of the road transport system
 
-- [ALFRIED] (https://verkehrsforschung.dlr.de/de/projekte/automatisiertes-und-vernetztes-fahren-der-logistik-am-testfeld-friedrichshafen-kurz)
+- [ALFRIED](https://verkehrsforschung.dlr.de/de/projekte/automatisiertes-und-vernetztes-fahren-der-logistik-am-testfeld-friedrichshafen-kurz)
 Automatisiertes und vernetztes Fahren in der Logistik am Testfeld Friedrichshafen
 
-- [Spurplan-4] (https://verkehrsforschung.dlr.de/de/projekte/spurplan-4)
+- [Spurplan-4](https://verkehrsforschung.dlr.de/de/projekte/spurplan-4)
 Simulation of regional rail traffic for regular operations, disrupted operations and planning interventions
 
-- [VM50City] (https://verkehrsforschung.dlr.de/de/projekte/vm50kcity-automatisierung-und-digitalisierung-der-verkehrssteuerung-auf)
+- [VM50City](https://verkehrsforschung.dlr.de/de/projekte/vm50kcity-automatisierung-und-digitalisierung-der-verkehrssteuerung-auf)
 Examination of established categories of measures for potential and feasibility for small and medium-sized cities
 
-- [eUVM] (https://verkehrsforschung.dlr.de/de/projekte/euvm-reduktion-von-luftschadstoffen-berlin-durch-optimiertes-verkehrsmanagement)
+- [eUVM](https://verkehrsforschung.dlr.de/de/projekte/euvm-reduktion-von-luftschadstoffen-berlin-durch-optimiertes-verkehrsmanagement)
 Testing and implementing suitable measures to reduce traffic-related emissions
 
-- [AutomoVer] (https://verkehrsforschung.dlr.de/de/projekte/automatisierung-des-verkehrssystems)
+- [AutomoVer](https://verkehrsforschung.dlr.de/de/projekte/automatisierung-des-verkehrssystems)
 Development of guidance for decision-makers
 - [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
