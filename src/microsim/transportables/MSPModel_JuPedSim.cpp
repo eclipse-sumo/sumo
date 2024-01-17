@@ -277,7 +277,15 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         MSPerson* person = state->getPerson();
         MSStageWalking* stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
-        assert(stage != nullptr);
+        if (stage == nullptr) {
+            // It seems we kept the state for another stage but the new stage is not a walk.
+            // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
+            // We cannot check this earlier because when the old stage ends the next stage might not know yet whether it will be a walk.
+            registerArrived();
+            JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, state->getAgentId(), nullptr);
+            stateIt = myPedestrianStates.erase(stateIt);
+            continue;
+        }
 
         // Updates the agent position.
         auto agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
