@@ -999,7 +999,7 @@ MAX(0, MIN(1.0, baseImpatience + waitingTime / timeToMaxImpatience))
 
 Where baseImpatience is configured by setting the vType-attribute
 *impatience* and timeToMaxImpatience is set using the option **--time-to-impatience** (default
-300s). Setting this option to 0 disables impatience growth. The value of baseImpatience may be negative to slow the growth of
+180s). Setting this option to 0 disables impatience growth. The value of baseImpatience may be negative to slow the growth of
 the dynamically computed impatience. It may also be defined with the
 value **off** to prevent drivers from becoming impatient.
 
