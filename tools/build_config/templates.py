@@ -27,8 +27,8 @@ from __future__ import absolute_import
 import sys
 import os
 import re
+import subprocess
 from os.path import dirname, join
-from subprocess import check_output, CalledProcessError
 from glob import glob
 
 # list of folders and tools
@@ -337,33 +337,38 @@ def generateTemplate(app, appBin):
     print("Obtaining " + app + " template")
     # obtain template piping stdout using check_output
     try:
-        template = formatBinTemplate(check_output([appBin, "--save-template", "stdout"], universal_newlines=True))
-    except CalledProcessError as e:
+        template = formatBinTemplate(subprocess.check_output([appBin, "--save-template", "stdout"], universal_newlines=True))
+    except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
     # join variable and formatted template
     return 'const std::string %sTemplate = "%s";\n' % (app, template)
 
 
-def generateToolTemplate(toolDir, toolPath):
+def generateToolTemplates(toolDir, toolPaths):
     """
     @brief generate tool template
     """
-    toolName = os.path.basename(toolPath)[:-3]
-    # create templateTool
-    d = os.path.dirname(toolPath)
-    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
-    print("Obtaining '" + toolName + "' tool template.")
-    # obtain template piping stdout using check_output
-    try:
-        with open(os.devnull, "w") as null:
-            template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
-                                    stderr=null, universal_newlines=True)
-        # join variable and formatted template
-        return templateTool + formatToolTemplate(template) + '),\n'
-    except CalledProcessError as e:
-        print("Cannot generate tool template for %s: '%s'." % (toolName, e), file=sys.stderr)
-    return templateTool + '""),\n'
+    procs = []
+    result = ""
+    for toolPath in toolPaths:
+        toolName = os.path.basename(toolPath)[:-3]
+        print("Obtaining '" + toolName + "' tool template.")
+        # obtain template piping stdout using check_output
+        procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
+    for p, toolPath in zip(procs, toolPaths):
+        toolName = os.path.basename(toolPath)[:-3]
+        d = os.path.dirname(toolPath)
+        result += 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
+        stdout, stderr = p.communicate()
+        if p.returncode:
+            print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
+            result += '""''),\n'
+        else:
+            result += formatToolTemplate(stdout)
+        result += '),\n'
+    return result
 
 
 def checkMod(toolDir, reference):
@@ -392,8 +397,7 @@ def main():
             buildTemplateToolHeader(templateHeaderFile)
             # generate Tool templates
             print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
-            for tool in TOOLS:
-                print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
+            print(generateToolTemplates(toolDir, TOOLS), file=templateHeaderFile)
             print("};\n", file=templateHeaderFile)
             # generate sumo Template
             print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
