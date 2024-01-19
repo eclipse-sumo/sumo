@@ -39,6 +39,13 @@ marouter reads OD matrices and creates route files. These route files
 contain route distributions between traffic assignment zones. Each route
 in the distribution is a fully specified list of network edges.
 
+The number of paths to choose from in each iteration can be configured using
+the **--paths** option. Marouter will use a penalty based method to find multiple paths
+which adds a given penalty to every edge of the previously shortest path and then
+recalculates. If the penalty is too small it might not find a new path by this method
+so the resulting number of paths may be smaller than the number wished for.
+You can configure the penalty using **--paths.penalty** (the default is 1).
+
 ## Capacity-constraint (volume-delay) function
 
 marouter uses a hard-coded capacity-constraint function based on speed
