@@ -940,7 +940,10 @@ class VehicleDomain(VTypeDomain):
 
     def couldChangeLane(self, vehID, direction, state=None):
         """couldChangeLane(string, int) -> bool
-        Return whether the vehicle could change lanes in the specified direction
+        Return whether the vehicle could change lanes in the specified direction.
+        This reflects the state after the last try to change lanes.
+        If you want to execute changeLane as a result of the evaluation of this function
+        it is not guaranteed to work because vehicle movements occur first.
         """
         if state is None:
             state, stateTraCI = self.getLaneChangeState(vehID, direction)
@@ -952,6 +955,9 @@ class VehicleDomain(VTypeDomain):
     def wantsAndCouldChangeLane(self, vehID, direction, state=None):
         """wantsAndCouldChangeLane(string, int) -> bool
         Return whether the vehicle wants to and could change lanes in the specified direction
+        This reflects the state after the last try to change lanes.
+        If you want to execute changeLane as a result of the evaluation of this function
+        it is not guaranteed to work because vehicle movements occur first.
         """
         if state is None:
             state, stateTraCI = self.getLaneChangeState(vehID, direction)

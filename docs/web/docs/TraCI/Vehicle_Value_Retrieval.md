@@ -586,7 +586,7 @@ Some further messages require additional parameters.
 <td><p>change lane information (0x13)</p></td>
 <td><p>compound , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
 <td><p>int, int <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
-<td><p>Return whether the vehicle could change lanes in the specified direction (right: -1, left: 1. sublane-change within current lane: 0).<br />
+<td><p>Return whether the vehicle could change lanes in the specified direction in the previous step (right: -1, left: 1. sublane-change within current lane: 0).<br />
 Return the lane change state for the vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeState">getLaneChangeState</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-couldChangeLane">couldChangeLane</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-wantsAndCouldChangeLane">wantsAndCouldChangeLane</a></p></td>
 </tr>
