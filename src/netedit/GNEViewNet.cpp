@@ -612,7 +612,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
                     }
                 }
             } else if (TLS) {
-                // filter all elements except TLLogi
+                // filter all elements except TLLogic
                 while (it != filteredGLObjects.end()) {
                     if ((*it)->getType() != GLO_TLLOGIC) {
                         it = filteredGLObjects.erase(it);

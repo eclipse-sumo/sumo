@@ -552,7 +552,7 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
 
 
 std::vector<GUIGlObject*>
-GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects) const {
+GUISUMOAbstractView::filterInternalLanes(const std::vector<GUIGlObject*>& objects) const {
     // count number of internal lanes
     size_t internalLanes = 0;
     for (const auto& object : objects) {
@@ -1245,7 +1245,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             filteredObjectsUnderCursor.push_back(GLObject);
         }
         // filter internal lanes
-        filteredObjectsUnderCursor = filterInernalLanes(filteredObjectsUnderCursor);
+        filteredObjectsUnderCursor = filterInternalLanes(filteredObjectsUnderCursor);
         // remove duplicated elements using an unordered set
         auto itDuplicated = filteredObjectsUnderCursor.begin();
         std::unordered_set<GUIGlObject*> unorderedSet;
@@ -1289,7 +1289,7 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, 
             std::vector<GUIGlObject*> filteredGLObjects;
             // fill filtered objects
             for (const auto& glObject : objects) {
-                // compare type with first eleement type
+                // compare type with first element type
                 if (glObject->getType() == objects.front()->getType()) {
                     filteredGLObjects.push_back(glObject);
                 }

@@ -520,7 +520,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound);
 
     /// @brief filter internal lanes in Objects under cursor
-    std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*>& objects) const;
+    std::vector<GUIGlObject*> filterInternalLanes(const std::vector<GUIGlObject*>& objects) const;
 
     /// @brief invokes the tooltip for the given object
     bool showToolTipFor(const GUIGlID idToolTip);
