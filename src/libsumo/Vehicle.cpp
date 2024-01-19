@@ -1994,7 +1994,7 @@ Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
     if (veh != nullptr) {
         veh->setLateralPositionOnLane(posLat);
     } else {
-        WRITE_ERROR("updateBestLanes not applicable for meso");
+        WRITE_ERROR("setLateralLanePosition not applicable for meso");
     }
 }
 
