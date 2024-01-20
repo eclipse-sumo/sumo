@@ -11,3 +11,9 @@ repos:
         exclude: '.*\.rtf'
     -   id: check-yaml
     -   id: check-added-large-files
+-   repo: https://github.com/igrr/astyle_py.git
+    rev: v1.0.5
+    hooks:
+    -   id: astyle_py
+        args: [--style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type]
+        exclude: 'src/foreign/.*'
