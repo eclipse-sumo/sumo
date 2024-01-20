@@ -140,7 +140,7 @@ void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E1InstantExaggeration = getExaggeration(s);
         // get detail level
@@ -182,7 +182,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
         }
         // draw dotted contour
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
-                                                           myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
     }
 }
 

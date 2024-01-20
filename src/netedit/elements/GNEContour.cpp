@@ -84,9 +84,9 @@ GNEContour::calculateContourClosedShape(const GUIVisualizationSettings& s, const
 
 void
 GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                          const GUIGlObject* glObject, const PositionVector& shape, const double extrusionWidth,
-                                          const double scale, const bool closeFirstExtrem, const bool closeLastExtrem,
-                                          const double offset) const {
+        const GUIGlObject* glObject, const PositionVector& shape, const double extrusionWidth,
+        const double scale, const bool closeFirstExtrem, const bool closeLastExtrem,
+        const double offset) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate extruded shape
@@ -99,8 +99,8 @@ GNEContour::calculateContourExtrudedShape(const GUIVisualizationSettings& s, con
 
 void
 GNEContour::calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const GUIGlObject* glObject, const Position& pos, const double width, const double height,
-                                           const double offsetX, const double offsetY, const double rot, const double scale) const {
+        const GUIGlObject* glObject, const Position& pos, const double width, const double height,
+        const double offsetX, const double offsetY, const double rot, const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // calculate rectangle shape
@@ -146,8 +146,8 @@ GNEContour::calculateContourEdges(const GUIVisualizationSettings& s, const GUIVi
 
 void
 GNEContour::calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                               const GUIGlObject* glObject, const PositionVector& shape, double radius,
-                                               const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, double radius,
+        const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
         // check position within geometry of first geometry point
@@ -158,8 +158,8 @@ GNEContour::calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s
 
 void
 GNEContour::calculateContourLastGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                              const GUIGlObject* glObject, const PositionVector& shape, double radius,
-                                              const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, double radius,
+        const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (shape.size() > 0)) {
         // check position within geometry of last geometry point
@@ -170,8 +170,8 @@ GNEContour::calculateContourLastGeometryPoint(const GUIVisualizationSettings& s,
 
 void
 GNEContour::calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                                 const GUIGlObject* glObject, const PositionVector& shape, double radius,
-                                                 const double scale) const {
+        const GUIGlObject* glObject, const PositionVector& shape, double radius,
+        const double scale) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // check position within geometry of middle geometry points
@@ -186,8 +186,8 @@ GNEContour::calculateContourMiddleGeometryPoints(const GUIVisualizationSettings&
 
 void
 GNEContour::calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                              const GUIGlObject* glObject, const PositionVector& shape, double radius,
-                                              const double scale, const bool calculatePosOverShape) const {
+        const GUIGlObject* glObject, const PositionVector& shape, double radius,
+        const double scale, const bool calculatePosOverShape) const {
     // check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler) {
         // check position within geometry of middle geometry points
@@ -204,12 +204,12 @@ GNEContour::calculateContourAllGeometryPoints(const GUIVisualizationSettings& s,
 
 void
 GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                               const GNEEdge* edge, const double radius, const bool calculatePosOverShape,
-                                               const bool firstExtrem, const bool lastExtrem) const {
+        const GNEEdge* edge, const double radius, const bool calculatePosOverShape,
+        const bool firstExtrem, const bool lastExtrem) const {
     // first check if we're in drawForObjectUnderCursor
     if (s.drawForViewObjectsHandler && (gViewObjectsHandler.getSelectionPosition() != Position::INVALID)) {
         // get edge geometry
-        const auto &edgeGeometry = edge->getNBEdge()->getGeometry();
+        const auto& edgeGeometry = edge->getNBEdge()->getGeometry();
         // calculate last geometry point index
         const int lastGeometryPointIndex = (int)edgeGeometry.size() - 1;
         // we have two cases: if cursor is within geometry, or cursor is outher geometry
@@ -259,7 +259,7 @@ GNEContour::calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s
 
 void
 GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const GNEAttributeCarrier *AC, const double lineWidth, const bool addOffset) const {
+                               const GNEAttributeCarrier* AC, const double lineWidth, const bool addOffset) const {
     // first check if draw dotted contour
     if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours)) {
         // basic contours
@@ -301,20 +301,20 @@ GNEContour::drawDottedContours(const GUIVisualizationSettings& s, const GUIVisua
 
 void
 GNEContour::drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                            const GNEAttributeCarrier *AC, const PositionVector &shape, const double radius,
-                                            const double scale, const double lineWidth) const {
+        const GNEAttributeCarrier* AC, const PositionVector& shape, const double radius,
+        const double scale, const double lineWidth) const {
     // first check if draw dotted contour
-    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) && AC->checkDrawMoveContour() ) {
+    if (!s.disableDottedContours && (d <= GUIVisualizationSettings::Detail::DottedContours) && AC->checkDrawMoveContour()) {
         // get gl object
         const auto glObject = AC->getGUIGlObject();
         // get geometry points
-        const auto &geometryPoints = gViewObjectsHandler.getGeometryPoints(glObject);
+        const auto& geometryPoints = gViewObjectsHandler.getGeometryPoints(glObject);
         // get temporal position over shape
-        const auto &posOverShape = gViewObjectsHandler.getPositionOverShape(glObject);
+        const auto& posOverShape = gViewObjectsHandler.getPositionOverShape(glObject);
         // either draw geometry points or position over shape
         if (geometryPoints.size() > 0) {
             // draw every geometry point
-            for (const auto &geometryPoint : geometryPoints) {
+            for (const auto& geometryPoint : geometryPoints) {
                 // create circle shape
                 const auto circleShape = GUIGeometry::getVertexCircleAroundPosition(shape[geometryPoint], radius * scale, 16);
                 // calculate dotted geometry
@@ -397,7 +397,7 @@ GNEContour::buildContourClosedShape(const GUIVisualizationSettings& s, const GUI
 
 
 void
-GNEContour::buildContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+GNEContour::buildContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                       const PositionVector& shape, const double extrusionWidth, const double scale,
                                       const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const {
     // reset calculated shape
@@ -423,10 +423,10 @@ GNEContour::buildContourExtrudedShape(const GUIVisualizationSettings& s, const G
                 myDottedGeometries->at(2).getFrontPosition()
             }, false);
         }
-        for (const auto &position : myDottedGeometries->at(0).getUnresampledShape()) {
+        for (const auto& position : myDottedGeometries->at(0).getUnresampledShape()) {
             myCalculatedShape->push_back(position);
         }
-        for (const auto &position : myDottedGeometries->at(2).getUnresampledShape()) {
+        for (const auto& position : myDottedGeometries->at(2).getUnresampledShape()) {
             myCalculatedShape->push_back(position);
         }
         // update contour boundary
@@ -438,7 +438,7 @@ GNEContour::buildContourExtrudedShape(const GUIVisualizationSettings& s, const G
 
 
 void
-GNEContour::buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+GNEContour::buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                   const Position& pos, const double width, const double height, const double offsetX,
                                   const double offsetY, const double rot, const double scale) const {
     // reset calculated shape
@@ -469,7 +469,7 @@ GNEContour::buildContourRectangle(const GUIVisualizationSettings& s, const GUIVi
 
 
 void
-GNEContour::buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+GNEContour::buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                const Position& pos, double radius, const double scale) const {
     // reset calculated shape
     myCalculatedShape->clear();
@@ -499,7 +499,7 @@ GNEContour::buildContourCircle(const GUIVisualizationSettings& s, const GUIVisua
 
 
 void
-GNEContour::buildContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+GNEContour::buildContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                              const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const {
     // reset calculated shape
     myCalculatedShape->clear();
@@ -528,10 +528,10 @@ GNEContour::buildContourEdge(const GUIVisualizationSettings& s, const GUIVisuali
         }, false);
     }
     // update calculated shape
-    for (const auto &position : myDottedGeometries->at(0).getUnresampledShape()) {
+    for (const auto& position : myDottedGeometries->at(0).getUnresampledShape()) {
         myCalculatedShape->push_back(position);
     }
-    for (const auto &position : myDottedGeometries->at(2).getUnresampledShape()) {
+    for (const auto& position : myDottedGeometries->at(2).getUnresampledShape()) {
         myCalculatedShape->push_back(position);
     }
     // update contour boundary
@@ -557,7 +557,7 @@ GNEContour::drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeomet
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw dotted geometries
-    for (const auto &dottedGeometry : *myDottedGeometries) {
+    for (const auto& dottedGeometry : *myDottedGeometries) {
         dottedGeometry.drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth, addOffset);
     }
     // pop matrix

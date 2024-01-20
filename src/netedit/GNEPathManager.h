@@ -60,7 +60,7 @@ public:
         ~Segment();
 
         /// @brief getcontour associated with segment
-        GNEContour *getContour() const;
+        GNEContour* getContour() const;
 
         /// @brief check if segment is the first path's segment
         bool isFirstSegment() const;
@@ -118,7 +118,7 @@ public:
         bool myLabelSegment;
 
         /// @brief contour associated with segment
-        GNEContour *myContour;
+        GNEContour* myContour;
 
     private:
         /// @brief default constructor

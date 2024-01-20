@@ -468,8 +468,8 @@ enum class GUIIcon {
     POIICON_PIN,
     POIICON_NATURE,
     POIICON_HOTEL,
-	POIICON_FUEL,
-	POIICON_CHARGING_STATION,
+    POIICON_FUEL,
+    POIICON_CHARGING_STATION,
     /// @}
 
     /// @name juPedSim elements

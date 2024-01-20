@@ -40,8 +40,8 @@
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
                       GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+                                myParentJunction(parentJunction),
+myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -157,7 +157,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
     if ((myParentJunction->getNBNode()->getShape().area() > 4) &&
-        (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
+            (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // get detail level
         const auto d = s.getDetailLevel(walkingAreaExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -350,7 +350,7 @@ GNEWalkingArea::drawWalkingArea(const GUIVisualizationSettings& s, const GUIVisu
 
 bool
 GNEWalkingArea::drawInContourMode() const {
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // check modes
     if (!modes.isCurrentSupermodeNetwork()) {
         return false;

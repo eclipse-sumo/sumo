@@ -335,7 +335,7 @@ private:
     GUIGeometry myLaneGeometry;
 
     /// @brief LaneDrawingConstants
-    DrawingConstants *myDrawingConstants;
+    DrawingConstants* myDrawingConstants;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

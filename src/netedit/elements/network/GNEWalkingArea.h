@@ -185,7 +185,7 @@ private:
     /// @brief draw walking area
     void drawWalkingArea(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                          const PositionVector& shape, const double exaggeration) const;
-    
+
     /// @brief check if draw walking area in contour mode
     bool drawInContourMode() const;
 

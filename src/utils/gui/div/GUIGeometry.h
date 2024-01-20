@@ -103,7 +103,7 @@ public:
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
-    static void drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector &shape,
+    static void drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector& shape,
                                    const RGBColor& color, const double radius, const double exaggeration,
                                    const bool editingElevation);
 

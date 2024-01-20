@@ -280,10 +280,10 @@ GLHelper::drawRectangle(const Position& center, const double width, const double
     GLHelper::pushMatrix();
     glTranslated(center.x(), center.y(), 0);
     glBegin(GL_QUADS);
-        glVertex2d(-halfWidth, halfHeight);
-        glVertex2d(-halfWidth, -halfHeight);
-        glVertex2d(halfWidth, -halfHeight);
-        glVertex2d(halfWidth , halfHeight);
+    glVertex2d(-halfWidth, halfHeight);
+    glVertex2d(-halfWidth, -halfHeight);
+    glVertex2d(halfWidth, -halfHeight);
+    glVertex2d(halfWidth, halfHeight);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
@@ -298,10 +298,10 @@ GLHelper::drawBoxLine(const Position& beg, double rot, double visLength,
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
-        glVertex2d(-width - offset, 0);
-        glVertex2d(-width - offset, -visLength);
-        glVertex2d(width - offset, -visLength);
-        glVertex2d(width - offset, 0);
+    glVertex2d(-width - offset, 0);
+    glVertex2d(-width - offset, -visLength);
+    glVertex2d(width - offset, -visLength);
+    glVertex2d(width - offset, 0);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
@@ -318,10 +318,10 @@ GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
     glTranslated((beg2.x() + beg1.x())*.5, (beg2.y() + beg1.y())*.5, 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
-        glVertex2d(-width, 0);
-        glVertex2d(-width, -visLength);
-        glVertex2d(width, -visLength);
-        glVertex2d(width, 0);
+    glVertex2d(-width, 0);
+    glVertex2d(-width, -visLength);
+    glVertex2d(width, -visLength);
+    glVertex2d(width, 0);
     glEnd();
     GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
@@ -513,8 +513,8 @@ GLHelper::drawLine(const Position& beg, const Position& end) {
 
 
 void
-GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d,const double radius,
-        double beg, double end) {
+GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d, const double radius,
+                                    double beg, double end) {
     // get current resolution level
     switch (d) {
         case GUIVisualizationSettings::Detail::CircleResolution32:
@@ -553,10 +553,10 @@ GLHelper::drawFilledCircleDetailled(const GUIVisualizationSettings::Detail d, co
             // draw only a square
             GLHelper::pushMatrix();
             glBegin(GL_QUADS);
-                glVertex2d(-radius, radius);
-                glVertex2d(-radius, -radius);
-                glVertex2d(radius, -radius);
-                glVertex2d(radius, radius);
+            glVertex2d(-radius, radius);
+            glVertex2d(-radius, -radius);
+            glVertex2d(radius, -radius);
+            glVertex2d(radius, radius);
             glEnd();
             GLHelper::popMatrix();
 #ifdef CHECK_ELEMENTCOUNTER
@@ -872,8 +872,8 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
                 glBegin(GL_QUADS);
                 glVertex2d(-halfWidth - offset, -t);
                 glVertex2d(-halfWidth - offset, -t - length);
-                glVertex2d( halfWidth - offset, -t - length);
-                glVertex2d( halfWidth - offset, -t);
+                glVertex2d(halfWidth - offset, -t - length);
+                glVertex2d(halfWidth - offset, -t);
                 glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
                 myVertexCounter += 4;
@@ -884,8 +884,8 @@ GLHelper::drawCrossTies(const PositionVector& geom, const std::vector<double>& r
             glBegin(GL_QUADS);
             glVertex2d(-halfWidth - offset, 0);
             glVertex2d(-halfWidth - offset, -lengths.back());
-            glVertex2d( halfWidth - offset, -lengths.back());
-            glVertex2d( halfWidth - offset, 0);
+            glVertex2d(halfWidth - offset, -lengths.back());
+            glVertex2d(halfWidth - offset, 0);
             glEnd();
 #ifdef CHECK_ELEMENTCOUNTER
             myVertexCounter += 4;

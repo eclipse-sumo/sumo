@@ -268,7 +268,7 @@ public:
 
 
     /// @brief Returns the duration for which the vehicle was blocked
-    inline SUMOTime getWaitingTime(const bool accumulated=false) const {
+    inline SUMOTime getWaitingTime(const bool accumulated = false) const {
         UNUSED_PARAMETER(accumulated);
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
     }

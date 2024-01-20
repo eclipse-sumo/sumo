@@ -1015,17 +1015,17 @@ GNEStop::drawIndex() const {
 
 
 void
-GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor &color,
-        const double width, const double exaggeration) const {
+GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const RGBColor& color,
+                          const double width, const double exaggeration) const {
     // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
-                            myDemandElementGeometry.getShapeRotations(),
-                            myDemandElementGeometry.getShapeLengths(),
-                            exaggeration * 0.1, 0, width);
+                           myDemandElementGeometry.getShapeRotations(),
+                           myDemandElementGeometry.getShapeLengths(),
+                           exaggeration * 0.1, 0, width);
     GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
-                            myDemandElementGeometry.getShapeRotations(),
-                            myDemandElementGeometry.getShapeLengths(),
-                            exaggeration * 0.1, 0, width * -1);
+                           myDemandElementGeometry.getShapeRotations(),
+                           myDemandElementGeometry.getShapeLengths(),
+                           exaggeration * 0.1, 0, width * -1);
     // Add a detail matrix
     GLHelper::pushMatrix();
     // move to geometry front
@@ -1067,8 +1067,8 @@ GNEStop::drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizat
 
 
 void
-GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor &color,
-        const double width, const double exaggeration) const {
+GNEStop::drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor& color,
+                                   const double width, const double exaggeration) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
     GUIGeometry::drawGeometry(d, myDemandElementGeometry, width);
     // only draw text if isn't being drawn for selecting

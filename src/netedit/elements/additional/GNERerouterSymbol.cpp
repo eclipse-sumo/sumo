@@ -87,7 +87,7 @@ GNERerouterSymbol::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -165,7 +165,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
             myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, 0, 3,
-                                                               symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }
 }

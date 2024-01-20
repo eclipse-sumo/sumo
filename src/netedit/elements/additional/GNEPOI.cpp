@@ -305,7 +305,7 @@ GNEPOI::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -576,10 +576,10 @@ GNEPOI::drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSetting
         // draw inner polygon
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
-                                                myShapeWidth.length2D(), myShapeHeight.length2D());
+                                             myShapeWidth.length2D(), myShapeHeight.length2D());
         } else {
             GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
-                                                myShapeWidth.length2D(), myShapeHeight.length2D());
+                                             myShapeWidth.length2D(), myShapeHeight.length2D());
         }
         // draw an orange square mode if there is an image(see #4036)
         if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {

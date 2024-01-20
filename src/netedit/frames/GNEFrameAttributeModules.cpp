@@ -536,7 +536,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         myAttributeButton->setTipText(TL("Open dialog for editing vClasses"));
         myAttributeButton->setHelpText(TL("Open dialog for editing vClasses"));
         // check if disable
-        if (!attributeEnabled ||disableRow) {
+        if (!attributeEnabled || disableRow) {
             myAttributeButton->disable();
         }
     } else if (myACAttr.isColor()) {

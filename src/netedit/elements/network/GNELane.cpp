@@ -73,11 +73,11 @@ GNELane::DrawingConstants::DrawingConstants(const GNELane* lane) :
 void
 GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
     // get lane struct
-    const auto &laneStruct = myLane->myParentEdge->getNBEdge()->getLaneStruct(myLane->getIndex());
+    const auto& laneStruct = myLane->myParentEdge->getNBEdge()->getLaneStruct(myLane->getIndex());
     // get selection scale
     const double selectionScale = myLane->isAttributeCarrierSelected() || myLane->myParentEdge->isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
     // get lane width
-    const double laneWidth = (laneStruct.width == -1? SUMO_const_laneWidth : laneStruct.width);
+    const double laneWidth = (laneStruct.width == -1 ? SUMO_const_laneWidth : laneStruct.width);
     // calculate exaggeration
     myExaggeration = selectionScale * s.laneWidthExaggeration;
     // get detail level
@@ -157,12 +157,12 @@ GNELane::DrawingConstants::drawSuperposed() const {
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
                       GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-    myParentEdge(edge),
-    myIndex(index),
-    myDrawingConstants(new DrawingConstants(this)),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this){
+                                myParentEdge(edge),
+                                myIndex(index),
+                                myDrawingConstants(new DrawingConstants(this)),
+                                mySpecialColor(nullptr),
+                                mySpecialColorValue(-1),
+myLane2laneConnections(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -171,12 +171,12 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
                       GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-    myParentEdge(nullptr),
-    myIndex(-1),
-    myDrawingConstants(nullptr),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+myParentEdge(nullptr),
+myIndex(-1),
+myDrawingConstants(nullptr),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 
 
@@ -1029,11 +1029,11 @@ GNELane::drawLane(const GUIVisualizationSettings& s) const {
     } else if (myShapeColors.size() > 0) {
         // draw geometry with own colors
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
-                                    myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
+                                  myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
     } else {
         // draw geometry with current color
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
-                                    myDrawingConstants->getOffset());
+                                  myDrawingConstants->getOffset());
     }
     // if lane is selected, draw a second lane over it
     drawSelectedLane(s);
@@ -1192,7 +1192,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // check draw conditions
     if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
         // get connections
-        const auto &connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+        const auto& connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get number of links
         const int noLinks = (int)connections.size();
         // only continue if there is links
@@ -1211,7 +1211,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
                 const double x2 = x1 - (double)(width / 2.);
                 // get link index
                 const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
-                                        connections[s.lefthand ? noLinks - 1 - i : i]);
+                                      connections[s.lefthand ? noLinks - 1 - i : i]);
                 // draw link index
                 GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
                 // update x1
@@ -1230,7 +1230,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     if ((myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) && s.drawLinkTLIndex.show(myParentEdge->getToJunction()) &&
             (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
         // get connections
-        const auto &connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+        const auto& connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get numer of links
         const int noLinks = (int)connections.size();
         // only continue if there are links
@@ -1388,8 +1388,8 @@ GNELane::drawLane2LaneConnections() const {
         }
         const Position& endPos = it.toEdge->getLaneShape(it.toLane)[0];
         glBegin(GL_LINES);
-            glVertex2d(startPos.x(), startPos.y());
-            glVertex2d(endPos.x(), endPos.y());
+        glVertex2d(startPos.x(), startPos.y());
+        glVertex2d(endPos.x(), endPos.y());
         glEnd();
         GLHelper::drawTriangleAtEnd(startPos, endPos, (double) 1.5, (double) .2);
     }
@@ -1403,11 +1403,11 @@ GNELane::calculateLaneContour(const GUIVisualizationSettings& s) const {
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentEdge)) {
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                                                myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
+                myDrawingConstants->getDrawingWidth(), 1, true, true, myDrawingConstants->getOffset());
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, myDrawingConstants->getDetail(), this, myLaneGeometry.getShape(),
-                                                                      s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
+                    s.neteditSizeSettings.laneGeometryPointRadius, myDrawingConstants->getExaggeration(), true);
         }
     }
 }
@@ -1689,10 +1689,10 @@ GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
         glRotated(rot, 0, 0, 1);
         glTranslated(0, laneStopOffset.getOffset(), 0);
         glBegin(GL_QUADS);
-            glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.0);
-            glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.2);
-            glVertex2d(myDrawingConstants->getDrawingWidth(), 0.2);
-            glVertex2d(myDrawingConstants->getDrawingWidth(), 0.0);
+        glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.0);
+        glVertex2d(-myDrawingConstants->getDrawingWidth(), 0.2);
+        glVertex2d(myDrawingConstants->getDrawingWidth(), 0.2);
+        glVertex2d(myDrawingConstants->getDrawingWidth(), 0.0);
         glEnd();
         GLHelper::popMatrix();
     }
@@ -1734,9 +1734,9 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
                 const double length = MIN2(width * 0.5, myLaneGeometry.getShapeLengths()[i] - subWidth);
                 // draw triangle
                 glBegin(GL_TRIANGLES);
-                    glVertex2d(sideOffset, -subWidth - length);
-                    glVertex2d(sideOffset - width * 0.25, -subWidth);
-                    glVertex2d(sideOffset + width * 0.25, -subWidth);
+                glVertex2d(sideOffset, -subWidth - length);
+                glVertex2d(sideOffset - width * 0.25, -subWidth);
+                glVertex2d(sideOffset + width * 0.25, -subWidth);
                 glEnd();
             }
             // pop triangle matrix

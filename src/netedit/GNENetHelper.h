@@ -535,7 +535,7 @@ struct GNENetHelper {
          * @param[in] id The attribute carrier related with the dataInterval element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier *AC, bool hardFail = true) const;
+        GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
         const std::map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
@@ -729,7 +729,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief insert data interval in container
-        void insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval);
+        void insertDataInterval(const GNEAttributeCarrier* AC, GNEDataInterval* dataInterval);
 
         /// @brief delete data interval of container
         void deleteDataInterval(GNEDataInterval* dataInterval);

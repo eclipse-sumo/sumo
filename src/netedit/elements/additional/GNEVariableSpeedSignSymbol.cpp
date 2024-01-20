@@ -195,7 +195,7 @@ GNEVariableSpeedSignSymbol::getHierarchyName() const {
 
 void
 GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                          const double exaggeration) const {
+        const double exaggeration) const {
     // start drawing symbol
     GLHelper::pushMatrix();
     // translate to front

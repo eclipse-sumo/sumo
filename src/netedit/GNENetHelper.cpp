@@ -416,7 +416,7 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 
 GNEJunction*
 GNENetHelper::AttributeCarriers::retrieveJunction(const GUIGlObject* glObject, bool hardFail) const {
-    for (const auto &junctionPair : myJunctions) {
+    for (const auto& junctionPair : myJunctions) {
         if (junctionPair.second.first == glObject) {
             return junctionPair.second.second;
         }
@@ -692,7 +692,7 @@ GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFa
 
 GNEEdge*
 GNENetHelper::AttributeCarriers::retrieveEdge(const GUIGlObject* glObject, bool hardFail) const {
-    for (const auto &edgePair : myEdges) {
+    for (const auto& edgePair : myEdges) {
         if (edgePair.second.first == glObject) {
             return edgePair.second.second;
         }
@@ -1021,8 +1021,8 @@ GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTa
 GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all additionals
-    for (const auto &additionalTag : myAdditionals){
-        for (const auto &additionalPair : additionalTag.second) {
+    for (const auto& additionalTag : myAdditionals) {
+        for (const auto& additionalPair : additionalTag.second) {
             if (additionalPair.first == glObject) {
                 return additionalPair.second;
             }
@@ -1370,8 +1370,8 @@ GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> 
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all demand elements
-    for (const auto &demandElementTag : myDemandElements){
-        for (const auto &demandElementPair : demandElementTag.second) {
+    for (const auto& demandElementTag : myDemandElements) {
+        for (const auto& demandElementPair : demandElementTag.second) {
             if (demandElementPair.first == glObject) {
                 return demandElementPair.second;
             }
@@ -1886,7 +1886,7 @@ GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) co
 
 
 GNEDataInterval*
-GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier *AC, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier* AC, bool hardFail) const {
     if (myDataIntervals.count(AC)) {
         return myDataIntervals.at(AC);
     } else if (hardFail) {
@@ -1904,7 +1904,7 @@ GNENetHelper::AttributeCarriers::getDataIntervals() const {
 
 
 void
-GNENetHelper::AttributeCarriers::insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval) {
+GNENetHelper::AttributeCarriers::insertDataInterval(const GNEAttributeCarrier* AC, GNEDataInterval* dataInterval) {
     if (myDataIntervals.count(AC) > 0) {
         throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
     } else {
@@ -1934,8 +1934,8 @@ GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterva
 GNEGenericData*
 GNENetHelper::AttributeCarriers::retrieveGenericData(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all genericDatas
-    for (const auto &genericDataTag : myGenericDatas){
-        for (const auto &genericDataPair : genericDataTag.second) {
+    for (const auto& genericDataTag : myGenericDatas) {
+        for (const auto& genericDataPair : genericDataTag.second) {
             if (genericDataPair.first == glObject) {
                 return genericDataPair.second;
             }

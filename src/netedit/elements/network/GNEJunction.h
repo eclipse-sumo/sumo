@@ -309,7 +309,7 @@ protected:
     bool myJunctionInGrid = true;
 
     /// @brief drawing toggle (used to avoid double draws)
-    int *myDrawingToggle;
+    int* myDrawingToggle;
 
     /// @brief variable used for draw circle contours
     GNEContour myCircleContour;

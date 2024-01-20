@@ -59,11 +59,11 @@ bool MSStageWalking::myWarnedInvalidTripinfo = false;
 // method definitions
 // ===========================================================================
 MSStageWalking::MSStageWalking(const std::string& personID,
-        const ConstMSEdgeVector& route,
-        MSStoppingPlace* toStop,
-        SUMOTime walkingTime, double speed,
-        double departPos, double arrivalPos, double departPosLat, int departLane,
-        const std::string& routeID) :
+                               const ConstMSEdgeVector& route,
+                               MSStoppingPlace* toStop,
+                               SUMOTime walkingTime, double speed,
+                               double departPos, double arrivalPos, double departPosLat, int departLane,
+                               const std::string& routeID) :
     MSStageMoving(route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane, MSStageType::WALKING),
     myWalkingTime(walkingTime),
     myExitTimes(nullptr),

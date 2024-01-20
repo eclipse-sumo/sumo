@@ -234,7 +234,7 @@ GNEPoly::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -828,7 +828,7 @@ GNEPoly::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 
 void
 GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                     const RGBColor &color, const double exaggeration) const {
+                     const RGBColor& color, const double exaggeration) const {
     // check if we're drawing a polygon or a polyline
     if (getFill()) {
         // draw inner polygon
@@ -848,7 +848,7 @@ GNEPoly::drawPolygon(const GUIVisualizationSettings& s, const GUIVisualizationSe
 
 void
 GNEPoly::drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const RGBColor &color, const double exaggeration) const {
+                            const RGBColor& color, const double exaggeration) const {
     // push contour matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -864,7 +864,7 @@ GNEPoly::drawPolygonContour(const GUIVisualizationSettings& s, const GUIVisualiz
 
 void
 GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const RGBColor &color, const double exaggeration) const {
+                            const RGBColor& color, const double exaggeration) const {
     // draw shape points only in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // check if we're in move mode
@@ -877,7 +877,7 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
         // draw dotted contours for geometry points if we're in move mode
         if (moveMode) {
             myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointSize,
-                                                                exaggeration, s.dottedContourSettings.segmentWidthSmall);
+                    exaggeration, s.dottedContourSettings.segmentWidthSmall);
         }
     }
 }

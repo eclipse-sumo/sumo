@@ -670,7 +670,7 @@ public:
      * If accumulated is true the time is aggregated over a configurable interval.
      * @return The time the vehicle is standing
      */
-    SUMOTime getWaitingTime(const bool accumulated=false) const {
+    SUMOTime getWaitingTime(const bool accumulated = false) const {
         if (!accumulated) {
             return myWaitingTime;
         }

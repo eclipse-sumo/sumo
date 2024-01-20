@@ -61,13 +61,13 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-        myJunctionParent(junctionParent),
-        myState(state),
-        myStateTarget(myState),
-        myEditor(editor),
-        myTlIndex(tlIndex),
-    myPopup(nullptr) {
+                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+                                myJunctionParent(junctionParent),
+                                myState(state),
+                                myStateTarget(myState),
+                                myEditor(editor),
+                                myTlIndex(tlIndex),
+myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -80,11 +80,11 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctio
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
                       GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-    myJunctionParent(nullptr),
-    myState(0),
-    myEditor(0),
-    myTlIndex(0),
-    myPopup(nullptr) {
+myJunctionParent(nullptr),
+myState(0),
+myEditor(0),
+myTlIndex(0),
+myPopup(nullptr) {
 }
 
 
@@ -214,7 +214,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myInternalLaneGeometry.getShape(),
-                                                              s.connectionSettings.connectionWidth, 1, true, true, 0);
+                s.connectionSettings.connectionWidth, 1, true, true, 0);
     }
 }
 

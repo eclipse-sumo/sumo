@@ -162,7 +162,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
-                                                           myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
+                myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
     }
 }
 
@@ -244,7 +244,7 @@ GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEEntryExitDetector::drawBody(const GUIVisualizationSettings::Detail d,
-        const RGBColor &color, const double exaggeration) const {
+                               const RGBColor& color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::Additionals) {
         // Push polygon matrix
@@ -297,7 +297,7 @@ GNEEntryExitDetector::drawBody(const GUIVisualizationSettings::Detail d,
 
 void
 GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings::Detail d,
-        const RGBColor &color, const double exaggeration) const {
+                                    const RGBColor& color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // Push matrix
@@ -334,7 +334,7 @@ GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings::Detail d,
 
 void
 GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings::Detail d,
-        const RGBColor &color, const double exaggeration) const {
+                                 const RGBColor& color, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::Text) {
         // Push matrix

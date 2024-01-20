@@ -205,7 +205,7 @@ GNEConnection::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -682,8 +682,8 @@ GNEConnection::getConnectionColor(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                              const PositionVector &shape, const double exaggeration) const {
+GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const PositionVector& shape, const double exaggeration) const {
     // get color
     RGBColor connectionColor = getConnectionColor(s);
     // Push layer matrix
@@ -725,7 +725,7 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
 
 
 void
-GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor &color) const {
+GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor& color) const {
     if (s.showLaneDirection) {
         // Push matrix
         GLHelper::pushMatrix();
@@ -746,7 +746,7 @@ GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const RGB
 
 
 void
-GNEConnection::drawEdgeValues(const GUIVisualizationSettings& s, const PositionVector &shape) const {
+GNEConnection::drawEdgeValues(const GUIVisualizationSettings& s, const PositionVector& shape) const {
     // check if edge value has to be shown
     if (s.edgeValue.show(this)) {
         const NBEdge::Connection& nbCon = getNBEdgeConnection();
@@ -761,8 +761,8 @@ GNEConnection::drawEdgeValues(const GUIVisualizationSettings& s, const PositionV
 
 
 void
-GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                                          const PositionVector &shape, const double exaggeration) const {
+GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+        const PositionVector& shape, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
         // calculate connection shape contour
@@ -770,7 +770,7 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, s.neteditSizeSettings.connectionGeometryPointRadius,
-                                                                      exaggeration, true);
+                    exaggeration, true);
         }
     }
 }

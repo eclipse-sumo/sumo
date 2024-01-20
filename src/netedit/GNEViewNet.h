@@ -87,10 +87,10 @@ public:
     const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 
     /// @brief get objects in the given boundary
-    void updateObjectsInBoundary(const Boundary &boundary);
+    void updateObjectsInBoundary(const Boundary& boundary);
 
     /// @brief get objects in the given position
-    void updateObjectsInPosition(const Position &pos);
+    void updateObjectsInPosition(const Position& pos);
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to

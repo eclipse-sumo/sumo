@@ -69,16 +69,16 @@ public:
     void clearSelectedElements();
 
     /// @brief get selection position (usually the mouse position)
-    const Position &getSelectionPosition() const;
+    const Position& getSelectionPosition() const;
 
     /// @brief get selection boundary (usually the mouse position)
-    const Boundary &getSelectionBoundary() const;
+    const Boundary& getSelectionBoundary() const;
 
     /// @brief set selection position (usually the mouse position)
-    void setSelectionPosition(const Position &pos);
+    void setSelectionPosition(const Position& pos);
 
     /// @brief set selection boundary (usually the mouse position)
-    void setSelectionBoundary(const Boundary &boundary);
+    void setSelectionBoundary(const Boundary& boundary);
 
     /// @brief check if element was already selected
     bool isElementSelected(const GUIGlObject* GLObject) const;
@@ -88,19 +88,19 @@ public:
 
     /// @brief check if mouse is within elements geometry (for circles)
     bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const Position &center, const double radius, const Boundary &circleBoundary);
+                            const Position& center, const double radius, const Boundary& circleBoundary);
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const PositionVector &shape, const int index, const double radius);
+                            const PositionVector& shape, const int index, const double radius);
 
     /// @brief check if mouse is within geometry point
     bool checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                const PositionVector &shape, const double distance);
+                                const PositionVector& shape, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector &shape,
-                           const Boundary &shapeBoundary);
+    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector& shape,
+                           const Boundary& shapeBoundary);
 
     /// @brief add element into list of elements under cursor
     bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
@@ -109,7 +109,7 @@ public:
     bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
 
     /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position &pos, const double offset);
+    bool addPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double offset);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;

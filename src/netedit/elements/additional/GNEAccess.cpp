@@ -192,7 +192,7 @@ GNEAccess::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -224,7 +224,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // radius depends if mouse is over element
-            const double radius = gViewObjectsHandler.isElementSelected(this)? 1 : 0.5;
+            const double radius = gViewObjectsHandler.isElementSelected(this) ? 1 : 0.5;
             // get color
             RGBColor accessColor;
             if (drawUsingSelectColor()) {

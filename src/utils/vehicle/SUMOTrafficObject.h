@@ -167,7 +167,7 @@ public:
      */
     virtual double getMaxSpeed() const = 0;
 
-    virtual SUMOTime getWaitingTime(const bool accumulated=false) const = 0;
+    virtual SUMOTime getWaitingTime(const bool accumulated = false) const = 0;
 
     /** @brief Returns the object's current speed
      * @return The object's speed

@@ -119,7 +119,7 @@ public:
     Position getBackPosition() const;
 
     /// @brief get simple shape (the shape without resampling)
-    const PositionVector &getUnresampledShape() const;
+    const PositionVector& getUnresampledShape() const;
 
 private:
     /// @brief calculate shape rotations and lengths

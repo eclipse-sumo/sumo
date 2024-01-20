@@ -62,11 +62,11 @@
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
                       GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myDrawingToggle(new int),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myHasValidLogic(loaded),
-    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
+                                myNBNode(nbn),
+                                myDrawingToggle(new int),
+                                myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+                                myHasValidLogic(loaded),
+myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -328,7 +328,7 @@ GNEJunction::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -585,21 +585,21 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
         myJunctionBoundary.grow(5);
     }
     // add boundaries of all connections, walking areas and crossings
-    for (const auto &edge : myGNEIncomingEdges) {
-        for (const auto &connection : edge->getGNEConnections()) {
+    for (const auto& edge : myGNEIncomingEdges) {
+        for (const auto& connection : edge->getGNEConnections()) {
             const auto boundary = connection->getCenteringBoundary();
             if (boundary.isInitialised()) {
                 myJunctionBoundary.add(boundary);
             }
         }
     }
-    for (const auto &crossing : myGNECrossings) {
+    for (const auto& crossing : myGNECrossings) {
         const auto boundary = crossing->getCenteringBoundary();
         if (boundary.isInitialised()) {
             myJunctionBoundary.add(boundary);
         }
     }
-    for (const auto &walkingArea : myGNEWalkingAreas) {
+    for (const auto& walkingArea : myGNEWalkingAreas) {
         const auto boundary = walkingArea->getCenteringBoundary();
         if (boundary.isInitialised()) {
             myJunctionBoundary.add(boundary);
@@ -1652,7 +1652,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
         }
         // draw shape points only in Network supermode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.junctionGeometryPointRadius)) {
+                s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.junctionGeometryPointRadius)) {
             // get mouse position
             const auto mousePos = myNet->getViewNet()->getPositionInformation();
             // set color
@@ -1684,8 +1684,8 @@ void
 GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // draw TLS icon if isn't being drawn for selecting
     if ((d <= GUIVisualizationSettings::Detail::TLSIcon) && myNBNode->isTLControlled() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-        !myAmTLSSelected && !s.drawForRectangleSelection) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
+            !myAmTLSSelected && !s.drawForRectangleSelection) {
         GLHelper::pushMatrix();
         const Position pos = myNBNode->getPosition();
         glTranslated(pos.x(), pos.y(), 2.2);
@@ -1777,7 +1777,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         // check geometry points if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.connectionGeometryPointRadius,
-                                                                      exaggeration, true);
+                    exaggeration, true);
         }
     }
 }

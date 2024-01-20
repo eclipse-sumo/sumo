@@ -534,8 +534,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
             MSVehicleRouter& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
-                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
+                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
+                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
             router.compute(veh.getEdge(), newEdge, &veh, now, edges);
             if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
                 // destination unreachable due to closed intermediate edges. pick among alternative targets
@@ -564,9 +564,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
                 if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
-                                            << " newEdges=" << toString(edges)
-                                            << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                            << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+                                             << " newEdges=" << toString(edges)
+                                             << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
+                                             << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
 #endif
                 if (useNewRoute && newArrivalPos != -1) {
                     // must be called here because replaceRouteEdges may also set the arrivalPos
@@ -577,8 +577,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         } else {
             // person rerouting here
             MSTransportableRouter& router = hasReroutingDevice
-                    ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
-                    : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
+                                            ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
+                                            : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
             const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
                                                 rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
                                                 tObject.getMaxSpeed(), nullptr, 0, now, items);
@@ -608,20 +608,20 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 edges.pop_back();
             }
             MSVehicleRouter& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
-                    : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
+                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
+                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
             router.compute(newEdge, lastEdge, &veh, now, edges);
             const double routeCost = router.recomputeCosts(edges, &veh, now);
             hasReroutingDevice
             ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
             : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
             const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
-    #ifdef DEBUG_REROUTER
+#ifdef DEBUG_REROUTER
             if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
-                                        << " newEdges=" << toString(edges)
-                                        << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                        << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
-    #endif
+                                         << " newEdges=" << toString(edges)
+                                         << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
+                                         << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+#endif
             if (useNewRoute && newArrivalPos != -1) {
                 // must be called here because replaceRouteEdges may also set the arrivalPos
                 veh.setArrivalPos(newArrivalPos);
@@ -631,11 +631,11 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             bool success = !items.empty();
             if (success) {
                 MSTransportableRouter& router = hasReroutingDevice
-                        ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
-                        : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
+                                                ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), rerouteDef->closed)
+                                                : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, rerouteDef->closed);
                 success = router.compute(newEdge, lastEdge, newEdge->getLength() / 2., "",
-                                        tObject.getParameter().arrivalPos, "",
-                                        tObject.getMaxSpeed(), nullptr, 0, now, items);
+                                         tObject.getParameter().arrivalPos, "",
+                                         tObject.getMaxSpeed(), nullptr, 0, now, items);
             }
             if (success) {
                 for (const MSTransportableRouter::TripItem& it : items) {
@@ -1303,7 +1303,7 @@ MSTriggeredRerouter::applies(const SUMOTrafficObject& obj) const {
 
 bool
 MSTriggeredRerouter::affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed) {
-    for (const MSEdge* const e: closed) {
+    for (const MSEdge* const e : closed) {
         if (edgeIndices.count(e->getNumericalID()) > 0) {
             return true;
         }

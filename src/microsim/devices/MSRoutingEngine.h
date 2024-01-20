@@ -97,8 +97,8 @@ public:
 
     /// @brief return the vehicle router instance
     static MSVehicleRouter& getRouterTT(const int rngIndex,
-            SUMOVehicleClass svc,
-            const MSEdgeVector& prohibited = MSEdgeVector());
+                                        SUMOVehicleClass svc,
+                                        const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief return the person router instance
     static MSTransportableRouter& getIntermodalRouterTT(const int rngIndex,

@@ -95,8 +95,8 @@ GeomHelper::nearest_offset_on_line_to_point2D(const Position& lineStart,
     // scalar product equals length of orthogonal projection times length of vector being projected onto
     // dividing the scalar product by the distance gives the relative position
     const double u = (((p.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
-                        ((p.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
-                        ) / lineLength2D;
+                      ((p.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
+                     ) / lineLength2D;
     if (u < 0. || u > lineLength2D) {  // closest point does not fall within the line segment
         if (perpendicular) {
             return INVALID_OFFSET;

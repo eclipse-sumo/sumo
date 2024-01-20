@@ -67,16 +67,17 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE),
-        {net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
-         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())},
-        {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE), {
+    net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
+        net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
+},
+{}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -301,15 +302,15 @@ GNEEdge::checkDrawDeleteContour() const {
         // check if we're in delete mode
         if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
             // check lanes
-            for (const auto &lane : myLanes) {
+            for (const auto& lane : myLanes) {
                 if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
-                   (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
                     return true;
                 }
             }
             // check edge
             if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
-                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
                 return true;
             }
             // nothing to draw
@@ -332,15 +333,15 @@ GNEEdge::checkDrawSelectContour() const {
         // check if we're in select mode
         if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
             // check lanes
-            for (const auto &lane : myLanes) {
+            for (const auto& lane : myLanes) {
                 if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
-                   (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
                     return true;
                 }
             }
             // check edge
             if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
-                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
                 return true;
             }
             // nothing to draw
@@ -360,17 +361,17 @@ GNEEdge::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         // check lanes
-        for (const auto &lane : myLanes) {
+        for (const auto& lane : myLanes) {
             if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
-               (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
                 return true;
             }
         }
         // check edge
         if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
-            (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
+                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
             return true;
         }
         // nothing to draw
@@ -2530,7 +2531,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // push geometry point drawing matrix
             GLHelper::pushMatrix();
             // translate to front depending of big points
-            glTranslated(0, 0, bigGeometryPoints? GLO_GEOMETRYPOINT : GLO_LANE + 1);
+            glTranslated(0, 0, bigGeometryPoints ? GLO_GEOMETRYPOINT : GLO_LANE + 1);
             // set color
             GLHelper::setColor(geometryPointColor);
             // move to geometryPointPos
@@ -2554,14 +2555,14 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
         }
         // draw dotted contour geometry points
         myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBEdge->getGeometry(), geometryPointRadius,
-                                                                exaggeration, s.dottedContourSettings.segmentWidthSmall);
+                exaggeration, s.dottedContourSettings.segmentWidthSmall);
     }
 }
 
 
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const double geometryPointRadius, const double exaggeration) const {
+                                const double geometryPointRadius, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get first geometry point
@@ -2617,7 +2618,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
             }
             // draw dotted contour geometry points
             myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(),
-                                                                       geometryPointRadius, exaggeration);
+                    geometryPointRadius, exaggeration);
         }
     }
 }
@@ -2625,7 +2626,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const double geometryPointRadius, const double exaggeration) const {
+                              const double geometryPointRadius, const double exaggeration) const {
     // check detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
         // get first geometry point
@@ -2681,7 +2682,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
             }
             // draw dotted contour geometry points
             myNetworkElementContour.calculateContourFirstGeometryPoint(s, d, this, myNBEdge->getInnerGeometry(),
-                                                                       geometryPointRadius, exaggeration);
+                    geometryPointRadius, exaggeration);
         }
     }
 }
@@ -2836,7 +2837,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
         // get all TAZ source/sinks vinculated with this edge
         for (const auto& additional : getChildAdditionals()) {
             if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
-                (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
+                    (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
                 TAZSourceSinks.push_back(additional);
             }
         }
@@ -2893,7 +2894,7 @@ void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // avoid draw for railways
     if ((d <= GUIVisualizationSettings::Detail::LaneDetails) && !myLanes.front()->getDrawingConstants()->drawAsRailway() &&
-        (gViewObjectsHandler.markedFirstGeometryPoint == this)) {
+            (gViewObjectsHandler.markedFirstGeometryPoint == this)) {
         // push draw matrix
         GLHelper::pushMatrix();
         // translate to front depending of big points
@@ -2927,7 +2928,7 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualization
 bool
 GNEEdge::drawBigGeometryPoints() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // continue depending of conditions
     if (!editModes.isCurrentSupermodeNetwork()) {
         return false;

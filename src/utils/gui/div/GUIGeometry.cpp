@@ -291,7 +291,7 @@ GUIGeometry::drawGeometry(const GUIVisualizationSettings::Detail d, const GUIGeo
     // continue depending of detail level
     if (d <= GUIVisualizationSettings::Detail::GeometryBoxLines) {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), colors, width, 0, offset);
-    } else{
+    } else {
         // set first color
         GLHelper::setColor(*colors.begin());
         // set width
@@ -338,7 +338,7 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector &shape,
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector& shape,
                                 const RGBColor& color, const double radius, const double exaggeration,
                                 const bool editingElevation) {
     // check detail level

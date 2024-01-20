@@ -71,8 +71,8 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
 MSStage*
 MSStageDriving::clone() const {
     MSStage* const clon = new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos,
-                                             std::vector<std::string>(myLines.begin(), myLines.end()),
-                                             myGroup, myIntendedVehicleID, myIntendedDepart);
+            std::vector<std::string>(myLines.begin(), myLines.end()),
+            myGroup, myIntendedVehicleID, myIntendedDepart);
     clon->setParameters(*this);
     return clon;
 }
@@ -434,7 +434,7 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 const double totalLength = myVehicle->getVehicleType().getLength();
                 const int numCarriages = MAX2(1, 1 + (int)((totalLength - pars.locomotiveLength) / (pars.carriageLength + pars.carriageGap) + 0.5));
                 const int firstPassengerCarriage = numCarriages == 1
-                                                || (myVehicle->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
+                                                   || (myVehicle->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
                 const int randomCarriage = RandHelper::rand(numCarriages - firstPassengerCarriage) + firstPassengerCarriage;
                 const double positionOnLane = myVehicle->getPositionOnLane();
                 if (randomCarriage == 0) {

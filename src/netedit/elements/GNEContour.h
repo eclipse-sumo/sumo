@@ -78,7 +78,7 @@ public:
     /// @brief calculate contour between two consecutive edges
     void calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
-    
+
     /// @brief calculate contour for first geometry point
     void calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                             const GUIGlObject* glObject, const PositionVector& shape, const double radius,
@@ -91,8 +91,8 @@ public:
 
     /// @brief calculate contour for middle geometry point
     void calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                              const GUIGlObject* glObject, const PositionVector& shape, const double radius,
-                                              const double scale) const;
+            const GUIGlObject* glObject, const PositionVector& shape, const double radius,
+            const double scale) const;
 
     /// @brief calculate contour for all geometry points
     void calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -110,15 +110,15 @@ public:
 
     /// @brief draw dotted contours (basics, select, delete, inspect...)
     void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                            const GNEAttributeCarrier *AC, const double lineWidth, const bool addOffset) const;
+                            const GNEAttributeCarrier* AC, const double lineWidth, const bool addOffset) const;
 
     /// @brief draw dotted contour for geometry points
     void drawDottedContourGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                         const GNEAttributeCarrier *AC, const PositionVector &shape, const double radius,
+                                         const GNEAttributeCarrier* AC, const PositionVector& shape, const double radius,
                                          const double scale, const double lineWidth) const;
 
     /// @brief draw innen contour (currently used only in walkingAreas)
-    void drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
+    void drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const PositionVector& shape, const double scale, const double lineWidth) const;
     /// @}
 
@@ -127,10 +127,10 @@ private:
     std::vector<GUIDottedGeometry>* myDottedGeometries;
 
     /// @brief contourboundary
-    Boundary *myContourBoundary;
+    Boundary* myContourBoundary;
 
     /// @brief calculated shape
-    PositionVector *myCalculatedShape;
+    PositionVector* myCalculatedShape;
 
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
@@ -148,9 +148,9 @@ private:
                                    const bool closeFirstExtrem, const bool closeLastExtrem, const double offset) const;
 
     /// @brief build contour around rectangle
-    void buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, 
-                              const Position& pos, const double width, const double height, const double offsetX,
-                              const double offsetY, const double rot, const double scale) const;
+    void buildContourRectangle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                               const Position& pos, const double width, const double height, const double offsetX,
+                               const double offsetY, const double rot, const double scale) const;
 
     /// @brief build contour aorund circle
     void buildContourCircle(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

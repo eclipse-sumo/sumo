@@ -1476,7 +1476,7 @@ NBEdgeCont::extractRoundabouts() {
             visited.insert(e);
             loopEdges.push_back(e);
             const EdgeVector& outgoingEdges = e->getToNode()->getOutgoingEdges();
-            EdgeVector::const_iterator me = std::find_if(outgoingEdges.begin(), outgoingEdges.end(), [](const NBEdge* outgoingEdge) {
+            EdgeVector::const_iterator me = std::find_if(outgoingEdges.begin(), outgoingEdges.end(), [](const NBEdge * outgoingEdge) {
                 return outgoingEdge->getJunctionPriority(outgoingEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT;
             });
             if (me == outgoingEdges.end()) { // no closed loop

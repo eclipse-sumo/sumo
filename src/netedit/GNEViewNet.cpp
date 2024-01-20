@@ -471,7 +471,7 @@ GNEViewNet::getViewObjectsSelector() const {
 
 
 void
-GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
+GNEViewNet::updateObjectsInBoundary(const Boundary& boundary) {
     // clear post drawing elements
     gViewObjectsHandler.clearSelectedElements();
     // set selection boundary in gObjectsInPosition
@@ -496,7 +496,7 @@ GNEViewNet::updateObjectsInBoundary(const Boundary &boundary) {
 
 
 void
-GNEViewNet::updateObjectsInPosition(const Position &pos) {
+GNEViewNet::updateObjectsInPosition(const Position& pos) {
     // clear post drawing elements
     gViewObjectsHandler.clearSelectedElements();
     // set selection position in gObjectsInPosition
@@ -1011,7 +1011,7 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string bodyA = TL(" lanes will be restricted for ");
             const std::string bodyB = TL(". Continue?");
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(mapOfEdgesAndLanes.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+                                                   (toString(mapOfEdgesAndLanes.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -1089,7 +1089,7 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
             const std::string bodyA = TL(" restrictions for ");
             const std::string bodyB = TL(" will be added. Continue?");
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+                                                   (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -1181,7 +1181,7 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string bodyA = TL(" restrictions for ");
             const std::string bodyB = TL(" will be removed. Continue?");
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+                                                   (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -1304,7 +1304,7 @@ GNEViewNet::getRelDataAttrs() const {
 bool
 GNEViewNet::checkSelectEdges() const {
     if ((myNetworkViewOptions.selectEdges() && !myMouseButtonKeyPressed.shiftKeyPressed()) ||
-        (!myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed())) {
+            (!myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed())) {
         return true;
     } else {
         return false;
@@ -1975,8 +1975,8 @@ GNEViewNet::checkOverLockedElement(const GUIGlObject* GLObject, const bool isSel
         if (glObjectFront == GLObject) {
             return true;
         } else if (glObjectFront->getType() == GLObject->getType()) {
-            for (const auto &glObjectUnderCursor : myViewObjectsSelector.getGLObjects()) {
-                if (glObjectUnderCursor == GLObject){
+            for (const auto& glObjectUnderCursor : myViewObjectsSelector.getGLObjects()) {
+                if (glObjectUnderCursor == GLObject) {
                     return true;
                 }
             }
@@ -2002,7 +2002,7 @@ GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object, false);
             if (junction) {
                 return junction;
@@ -2017,7 +2017,7 @@ GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject.object, false);
             if (connection) {
                 return connection;
@@ -2032,7 +2032,7 @@ GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject.object, false);
             if (crossing) {
                 return crossing;
@@ -2047,7 +2047,7 @@ GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingArea(glObject.object, false);
             if (walkingArea) {
                 return walkingArea;
@@ -2062,7 +2062,7 @@ GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.object, false);
             if (edge) {
                 return edge;
@@ -2077,7 +2077,7 @@ GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject.object, false);
             if (lane) {
                 return lane;
@@ -2092,7 +2092,7 @@ GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(glObject.object, false);
             if (additionalElement) {
                 return additionalElement;
@@ -2107,7 +2107,7 @@ GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(glObject.object, false);
             if (demandElement) {
                 return demandElement;
@@ -2122,7 +2122,7 @@ GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     // get first object that can be parsed to poly element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.object, false));
             if (polygon) {
                 return polygon;
@@ -2137,7 +2137,7 @@ GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     // get first object that can be parsed to POI element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.object, false));
             if (POI) {
                 return POI;
@@ -2152,7 +2152,7 @@ GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     // get first object that can be parsed to TAZ element
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.object, false));
             if (TAZ) {
                 return TAZ;

@@ -207,7 +207,7 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             }
             for (const auto& demandElement : sortedElements) {
                 myDemandElementsComboBox->appendIconItem(demandElement.first.c_str(), demandElement.second->getACIcon(),
-                                                         demandElement.second->getTagProperty().getBackGroundColor());
+                        demandElement.second->getTagProperty().getBackGroundColor());
             }
         }
     }

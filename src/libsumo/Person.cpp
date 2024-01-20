@@ -285,8 +285,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.travelTime = INVALID_DOUBLE_VALUE;
     if (stage->getArrived() >= 0) {
         result.travelTime = STEPS2TIME(stage->getArrived() - stage->getDeparted());
-    }
-    else if (stage->getDeparted() >= 0) {
+    } else if (stage->getDeparted() >= 0) {
         result.travelTime = STEPS2TIME(SIMSTEP - stage->getDeparted());
     }
 

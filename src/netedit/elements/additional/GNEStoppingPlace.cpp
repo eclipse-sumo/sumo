@@ -159,7 +159,7 @@ GNEStoppingPlace::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -323,7 +323,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std:
 
 void
 GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration, const RGBColor& baseColor,
-        const RGBColor& signColor, const std::string& word) const {
+                           const RGBColor& signColor, const std::string& word) const {
     // only draw in level 2
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // calculate middle point
@@ -361,16 +361,16 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
 
 void
 GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                                const double width, const bool movingGeometryPoints) const {
+        const double width, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
             myAdditionalContour.calculateContourFirstGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                                                                   s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
         if (movingGeometryPoints && (myEndPosition != INVALID_DOUBLE)) {
             myAdditionalContour.calculateContourLastGeometryPoint(s, d, this, myAdditionalGeometry.getShape(),
-                                                                  s.neteditSizeSettings.additionalGeometryPointRadius, 1);
+                    s.neteditSizeSettings.additionalGeometryPointRadius, 1);
         }
     } else {
         // don't exaggerate contour

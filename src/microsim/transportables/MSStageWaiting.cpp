@@ -54,7 +54,7 @@ MSStageWaiting::~MSStageWaiting() {}
 MSStage*
 MSStageWaiting::clone() const {
     MSStage* const clon = new MSStageWaiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos,
-                                             myActType, myType == MSStageType::WAITING_FOR_DEPART);
+            myActType, myType == MSStageType::WAITING_FOR_DEPART);
     clon->setParameters(*this);
     return clon;
 }

@@ -189,8 +189,8 @@ GNEMoveElement::GNEMoveElement() :
 
 
 GNEMoveOperation*
-GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, 
-                                            const bool maintainShapeClosed) {
+GNEMoveElement::calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape,
+        const bool maintainShapeClosed) {
     // get moved geometry points
     const auto geometryPoints = gViewObjectsHandler.getGeometryPoints(obj);
     // get pos over shape

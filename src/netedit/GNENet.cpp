@@ -1165,7 +1165,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 bool
 GNENet::checkJunctionPosition(const Position& pos) {
     // Check that there isn't another junction in the same position as Pos
-    for (auto &junction : myAttributeCarriers->getJunctions()) {
+    for (auto& junction : myAttributeCarriers->getJunctions()) {
         if (junction.second.second->getPositionInView() == pos) {
             return false;
         }
@@ -1447,7 +1447,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     oldPos = pos;
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
-    for (auto &junction : myAttributeCarriers->getJunctions()) {
+    for (auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second.second->getPositionInView() == pos) && (cluster.find(junction.second.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             WRITE_DEBUG("Opening FXMessageBox 'Join non-selected junction'");
@@ -1507,12 +1507,12 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         it->setLogicValid(false, undoList);
     }
     // remap edges
-    for (auto &incomingEdge : allIncoming) {
+    for (auto& incomingEdge : allIncoming) {
         GNEChange_Attribute::changeAttribute(myAttributeCarriers->getEdges().at(incomingEdge->getID()).second, SUMO_ATTR_TO, joined->getID(), undoList);
     }
 
     EdgeSet edgesWithin;
-    for (auto &outgoingEdge : allOutgoing) {
+    for (auto& outgoingEdge : allOutgoing) {
         // delete edges within the cluster
         GNEEdge* edge = myAttributeCarriers->getEdges().at(outgoingEdge->getID()).second;
         if (edge->getToJunction() == joined) {
@@ -1559,7 +1559,7 @@ bool
 GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // obtain current net's crossings
     std::vector<GNECrossing*> myNetCrossings;
-    for (const auto &junction : myAttributeCarriers->getJunctions()) {
+    for (const auto& junction : myAttributeCarriers->getJunctions()) {
         myNetCrossings.reserve(myNetCrossings.size() + junction.second.second->getGNECrossings().size());
         myNetCrossings.insert(myNetCrossings.end(), junction.second.second->getGNECrossings().begin(), junction.second.second->getGNECrossings().end());
     }
@@ -1612,7 +1612,7 @@ void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("clear junctions"));
     std::vector<GNEJunction*> toRemove;
-    for (auto &junction : myAttributeCarriers->getJunctions()) {
+    for (auto& junction : myAttributeCarriers->getJunctions()) {
         if (junction.second.second->getNBNode()->getEdges().size() == 0) {
             toRemove.push_back(junction.second.second);
         }

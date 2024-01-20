@@ -267,13 +267,13 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-bool 
+bool
 GNECalibrator::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -449,7 +449,7 @@ GNECalibrator::getHierarchyName() const {
 
 void
 GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
-        const Position& pos, const double rot) const {
+                                    const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForViewObjectsHandler) {
         // push layer matrix
@@ -497,7 +497,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUI
     }
     // draw dotted contour
     myAdditionalContour.calculateContourRectangleShape(s, d, this, pos, s.additionalSettings.calibratorWidth,
-                                                       s.additionalSettings.calibratorHeight * 0.5, 0, 0, rot, exaggeration);
+            s.additionalSettings.calibratorHeight * 0.5, 0, 0, rot, exaggeration);
 }
 
 void

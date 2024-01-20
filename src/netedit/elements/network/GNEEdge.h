@@ -490,10 +490,10 @@ private:
 
     /// @brief draw children
     void drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
-    
+
     /// @brief calculate contours
     void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
-    
+
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
 

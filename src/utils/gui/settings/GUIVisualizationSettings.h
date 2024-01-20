@@ -542,38 +542,38 @@ public:
 
     enum class Detail : int {
         Level0 = 0,
-            CircleResolution32 = 0,     // circle resolution = 32
-            DrawPolygonTesselation = 0, // draw polygons tesselated
-            LaneDetails = 0,            // offset, icons, indicators...
-            Text = 0,                   // draw text (E2, routes...)
-            VehiclePoly = 0,            // draw vehicles as polygons
-            JunctionElementDetails = 0, // draw junction elements with high detail (crossings, connections..)
-            LockedIcons = 0,            // draw lock icons
+        CircleResolution32 = 0,     // circle resolution = 32
+        DrawPolygonTesselation = 0, // draw polygons tesselated
+        LaneDetails = 0,            // offset, icons, indicators...
+        Text = 0,                   // draw text (E2, routes...)
+        VehiclePoly = 0,            // draw vehicles as polygons
+        JunctionElementDetails = 0, // draw junction elements with high detail (crossings, connections..)
+        LockedIcons = 0,            // draw lock icons
 
         Level1 = 1,
-            CircleResolution16 = 1,         // circle resolution = 16
-            VehicleBox = 1,                 // vehicles as boxes
-            AdditionalDetails = 1,          // stoppingPlace signs, EntryExit arrows...
-            GeometryPoint = 1,              // draw geometry points
-            JunctionElement = 1,            // crossings, walking area, connections and internal lanes
-            DottedContoursResampled = 1,    // resample dotted contours
-            PreciseSelection = 1,           // precise selection using boundaries
+        CircleResolution16 = 1,         // circle resolution = 16
+        VehicleBox = 1,                 // vehicles as boxes
+        AdditionalDetails = 1,          // stoppingPlace signs, EntryExit arrows...
+        GeometryPoint = 1,              // draw geometry points
+        JunctionElement = 1,            // crossings, walking area, connections and internal lanes
+        DottedContoursResampled = 1,    // resample dotted contours
+        PreciseSelection = 1,           // precise selection using boundaries
 
         Level2 = 2,
-            CircleResolution8 = 2,  // circle resolution = 8
-            DrawPolygonSquare = 2,  // draw polygons as squares
-            VehicleTriangle = 2,    // draw vehicles as triangles
-            Names = 2,              // draw element names
-            Additionals = 2,        // draw additional elements
-            DottedContours = 2,     // draw dotted contours
-            GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry
+        CircleResolution8 = 2,  // circle resolution = 8
+        DrawPolygonSquare = 2,  // draw polygons as squares
+        VehicleTriangle = 2,    // draw vehicles as triangles
+        Names = 2,              // draw element names
+        Additionals = 2,        // draw additional elements
+        DottedContours = 2,     // draw dotted contours
+        GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry
 
         Level3 = 3,
-            CircleResolution4 = 3,  // draw circle resolution as squares
-            TLSIcon = 3,            // draw TLS icons
+        CircleResolution4 = 3,  // draw circle resolution as squares
+        TLSIcon = 3,            // draw TLS icons
 
         Level4 = 4,
-            GeometryBoxSimpleLine = 4,  // draw lines with width = 1 instead boxes in GUIGeometry::drawGeometry
+        GeometryBoxSimpleLine = 4,  // draw lines with width = 1 instead boxes in GUIGeometry::drawGeometry
     };
 
     /// @brief constructor

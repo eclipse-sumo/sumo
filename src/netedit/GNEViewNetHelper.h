@@ -324,7 +324,7 @@ struct GNEViewNetHelper {
             void clearElements();
 
             /// @brief filter elements
-            void filterElements(const std::vector<const GUIGlObject*> &objects);
+            void filterElements(const std::vector<const GUIGlObject*>& objects);
 
             /// @brief vector with the GUIGlObjects
             std::vector<GUIGlObject*> GUIGlObjects;

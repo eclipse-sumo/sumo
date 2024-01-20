@@ -468,7 +468,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         }
         // calculate contour
         segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, exaggeration,
-                                                             segment->isFirstSegment(), segment->isLastSegment(), 0);
+                segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
 
@@ -479,17 +479,17 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
-            // Obtain exaggeration of the draw
+        // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(routeExaggeration);
-            // get route width
+        // get route width
         const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // check if connection to next lane exist
         const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
         // get geometry
-        const GUIGeometry& routeGeometry = connectionExist? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
-                                                         GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
+        const GUIGeometry& routeGeometry = connectionExist ? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
+                                           GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // draw route partial
@@ -749,7 +749,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
 void
 GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                const GNEPathManager::Segment* segment, const double offsetFront,
-                               const GUIGeometry &geometry, const double exaggeration) const {
+                               const GUIGeometry& geometry, const double exaggeration) const {
     // get route width
     const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // push layer matrix
@@ -776,8 +776,8 @@ GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisua
         const Position arrivalPos = segment->getNextLane()->getLaneShape().front();
         // draw box line
         GLHelper::drawBoxLine(arrivalPos,
-                                RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
-                                firstPosition.distanceTo2D(arrivalPos), .05);
+                              RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                              firstPosition.distanceTo2D(arrivalPos), .05);
         // pop draw matrix
         GLHelper::popMatrix();
     }
@@ -788,7 +788,7 @@ GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisua
 
 void
 GNERoute::drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                   const double offsetFront, const GUIGeometry &geometry, const double exaggeration) const {
+                                   const double offsetFront, const GUIGeometry& geometry, const double exaggeration) const {
     const bool invalid = geometry.getShape().length() == 2;
     // get route width
     const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;

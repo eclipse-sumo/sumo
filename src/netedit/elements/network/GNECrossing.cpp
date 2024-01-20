@@ -40,7 +40,7 @@
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
                   myParentJunction(nullptr),
-    myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
+myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,9 +48,9 @@ GNECrossing::GNECrossing(GNENet* net) :
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING,
                       SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myCrossingEdges(crossingEdges),
-    myTemplateNBCrossing(nullptr) {
+myParentJunction(parentJunction),
+myCrossingEdges(crossingEdges),
+myTemplateNBCrossing(nullptr) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -153,7 +153,7 @@ GNECrossing::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -522,7 +522,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
         }
         // draw shape points only in Network supemode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-            s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
+                s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
             // color
             const RGBColor darkerColor = crossingColor.changedBrightness(-32);
             // draw geometry points
@@ -540,20 +540,15 @@ RGBColor
 GNECrossing::getCrossingColor(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const {
     if (myShapeEdited) {
         return s.colorSettings.editShapeColor;
-    }
-    else if (drawUsingSelectColor()) {
+    } else if (drawUsingSelectColor()) {
         return s.colorSettings.selectedCrossingColor;
-    }
-    else if (!crossing->valid) {
+    } else if (!crossing->valid) {
         return s.colorSettings.crossingInvalidColor;
-    }
-    else if (crossing->priority) {
+    } else if (crossing->priority) {
         return s.colorSettings.crossingPriorityColor;
-    }
-    else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return s.laneColorer.getSchemes()[0].getColor(8);
-    }
-    else {
+    } else {
         return s.colorSettings.crossingColor;
     }
 }
@@ -600,9 +595,9 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
         myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
         // check if calculate contour for geometry points
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(), 
-                                                                      s.neteditSizeSettings.crossingGeometryPointRadius,
-                                                                      exaggeration, true);
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(),
+                    s.neteditSizeSettings.crossingGeometryPointRadius,
+                    exaggeration, true);
         }
     }
 }

@@ -124,7 +124,7 @@ GNERerouter::checkDrawMoveContour() const {
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
     if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
-        (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
     } else {
@@ -170,19 +170,19 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     updateGeometry();
     // add shape boundary
     myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-/*
-    // add positions of all childrens (intervals and symbols)
-    for (const auto& additionalChildren : getChildAdditionals()) {
-        myAdditionalBoundary.add(additionalChildren->getPositionInView());
-        for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
-            myAdditionalBoundary.add(rerouterElement->getPositionInView());
-            // special case for parking area rerouter
-            if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
-                myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getCenteringBoundary());
+    /*
+        // add positions of all childrens (intervals and symbols)
+        for (const auto& additionalChildren : getChildAdditionals()) {
+            myAdditionalBoundary.add(additionalChildren->getPositionInView());
+            for (const auto& rerouterElement : additionalChildren->getChildAdditionals()) {
+                myAdditionalBoundary.add(rerouterElement->getPositionInView());
+                // special case for parking area rerouter
+                if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
+                    myAdditionalBoundary.add(rerouterElement->getParentAdditionals().at(1)->getCenteringBoundary());
+                }
             }
         }
-    }
-*/
+    */
     // grow
     myAdditionalBoundary.grow(5);
     // add additional into RTREE again

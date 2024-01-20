@@ -351,7 +351,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         }
         // calculate contour and draw dotted geometry
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, E2Geometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration,
-                                                          segment->isFirstSegment(), segment->isLastSegment(), 0);
+                segment->isFirstSegment(), segment->isLastSegment(), 0);
     }
 }
 
@@ -370,8 +370,8 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         // check if connection to next lane exist
         const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
         // get geometry
-        const GUIGeometry& E2Geometry = connectionExist? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
-                                                         GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
+        const GUIGeometry& E2Geometry = connectionExist ? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
+                                        GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // draw E2 partial
@@ -585,7 +585,7 @@ GNELaneAreaDetector::drawE2(const GUIVisualizationSettings& s, const GUIVisualiz
 void
 GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                        const GNEPathManager::Segment* segment, const double offsetFront,
-                                       const GUIGeometry &geometry, const double exaggeration) const {
+                                       const GUIGeometry& geometry, const double exaggeration) const {
     // obtain color
     const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
     // push layer matrix
@@ -641,10 +641,10 @@ GNELaneAreaDetector::drawE2PartialLane(const GUIVisualizationSettings& s, const 
 
 void
 GNELaneAreaDetector::drawE2PartialJunction(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const bool onlyContour, const double offsetFront, const GUIGeometry &geometry,
-                                           const double exaggeration) const {
+        const bool onlyContour, const double offsetFront, const GUIGeometry& geometry,
+        const double exaggeration) const {
     const bool invalid = geometry.getShape().length() == 2;
-    const double width = s.detectorSettings.E2Width * exaggeration * (invalid? 0.5 : 1);
+    const double width = s.detectorSettings.E2Width * exaggeration * (invalid ? 0.5 : 1);
     // Add a draw matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin

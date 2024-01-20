@@ -232,7 +232,7 @@ void
 GNEViewNetHelper::ViewObjectsSelector::filterEdges() {
     // get all edges to filter
     std::vector<const GUIGlObject*> edges;
-    for (const auto &edge : myViewObjects.edges) {
+    for (const auto& edge : myViewObjects.edges) {
         edges.push_back(edge);
     }
     myViewObjects.filterElements(edges);
@@ -243,7 +243,7 @@ void
 GNEViewNetHelper::ViewObjectsSelector::filterLanes() {
     // get all lanes to filter
     std::vector<const GUIGlObject*> lanes;
-    for (const auto &lane : myViewObjects.lanes) {
+    for (const auto& lane : myViewObjects.lanes) {
         lanes.push_back(lane);
     }
     myViewObjects.filterElements(lanes);
@@ -254,13 +254,13 @@ void
 GNEViewNetHelper::ViewObjectsSelector::filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter) {
     std::vector<const GUIGlObject*> GUIGlObjects;
     // get all locked elements
-    for (const auto &GUIGlObject : myViewObjects.GUIGlObjects) {
+    for (const auto& GUIGlObject : myViewObjects.GUIGlObjects) {
         if (GUIGlObject->isGLObjectLocked()) {
             GUIGlObjects.push_back(GUIGlObject);
         }
     }
     // apply ignore filter
-    for (const auto &ignoredType : ignoreFilter) {
+    for (const auto& ignoredType : ignoreFilter) {
         auto it = GUIGlObjects.begin();
         while (it != GUIGlObjects.end()) {
             if ((*it)->getType() == ignoredType) {
@@ -535,8 +535,8 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::clearElements() {
 
 
 void
-GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::filterElements(const std::vector<const GUIGlObject*> &objects) {
-    for (const auto &object : objects) {
+GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::filterElements(const std::vector<const GUIGlObject*>& objects) {
+    for (const auto& object : objects) {
         // remove from GUIGlObjects
         auto itGlObjects = GUIGlObjects.begin();
         while (itGlObjects != GUIGlObjects.end()) {
@@ -987,7 +987,7 @@ void
 GNEViewNetHelper::ViewObjectsSelector::processGUIGlObjects(const GUIViewObjectsHandler::GLObjectsSortedContainer& objectsContainer) {
     // iterate over filtered edge objects
     for (const auto& glObjectLayer : objectsContainer) {
-        for (const auto &glObject : glObjectLayer.second) {
+        for (const auto& glObject : glObjectLayer.second) {
             // update all elements by categories
             updateNetworkElements(myViewObjects, glObject.object);
             updateAdditionalElements(myViewObjects, glObject.object);

@@ -431,7 +431,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     cleanShape.push_back(shape[0]);
     PositionVector duplicates;
     for (int i = 1; i < (int)shape.size(); i++) {
-        if (shape[i] != shape[i-1]) {
+        if (shape[i] != shape[i - 1]) {
             cleanShape.push_back(shape[i]);
         } else {
             duplicates.push_back(shape[i]);
@@ -772,7 +772,7 @@ MSPModel_JuPedSim::initialize() {
     }
     if (nbrConnectedComponents > 1) {
         WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the first."),
-            nbrConnectedComponents, maxArea/totalArea*100.0, "%");
+                       nbrConnectedComponents, maxArea / totalArea * 100.0, "%");
     }
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");

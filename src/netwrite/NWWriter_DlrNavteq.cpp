@@ -140,7 +140,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont
         avoid.insert(avoid.end(), reservedNodeIDs.begin(), reservedNodeIDs.end());
     }
     IDSupplier idSupplier("", avoid);
-    for (const auto& edgeIt: ec) {
+    for (const auto& edgeIt : ec) {
         const NBEdge* const e = edgeIt.second;
         PositionVector geom = e->getGeometry();
         if (geom.size() > 2) {
@@ -167,9 +167,9 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont
             if (geom.size() > 2) { // move2side might have changed the number of nodes
                 std::string internalNodeID = e->getID();
                 if (internalNodeID == UNDEFINED
-                    || (nc.retrieve(internalNodeID) != nullptr)
-                    || reservedNodeIDs.count(internalNodeID) > 0
-                    ) {
+                        || (nc.retrieve(internalNodeID) != nullptr)
+                        || reservedNodeIDs.count(internalNodeID) > 0
+                   ) {
                     // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
                     if (numericalIDs) {
                         internalNodeID = idSupplier.getNext();

@@ -230,10 +230,10 @@ protected:
 
     /// @brief draw stop over lane
     void drawStopOverLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                          const RGBColor &color, const double width, const double exaggeration) const;
+                          const RGBColor& color, const double width, const double exaggeration) const;
 
     /// @brief draw stop over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor &color,
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings::Detail d, const RGBColor& color,
                                    const double width, const double exaggeration) const;
 
 private:

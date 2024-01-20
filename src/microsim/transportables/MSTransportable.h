@@ -94,7 +94,7 @@ public:
      */
     double getMaxSpeed() const;
 
-    SUMOTime getWaitingTime(const bool accumulated=false) const;
+    SUMOTime getWaitingTime(const bool accumulated = false) const;
 
     double getPreviousSpeed() const {
         return getSpeed();

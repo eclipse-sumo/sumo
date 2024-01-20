@@ -928,8 +928,8 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         for (const auto& demandElementTag : demandElements) {
             for (const auto& demandElement : demandElementTag.second) {
                 if (demandElement.second->getTagProperty().isVehicleStop() ||
-                    demandElement.second->getTagProperty().isVehicleWaypoint() ||
-                    demandElement.second->getTagProperty().isPlanStop()) {
+                        demandElement.second->getTagProperty().isVehicleWaypoint() ||
+                        demandElement.second->getTagProperty().isPlanStop()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || demandElement.second->isAttributeCarrierSelected()) {

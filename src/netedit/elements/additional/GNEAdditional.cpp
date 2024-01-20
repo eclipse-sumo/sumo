@@ -835,10 +835,10 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
 bool
 GNEAdditional::drawMovingGeometryPoints(const bool ignoreShift) const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (modes.isCurrentSupermodeNetwork() && (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        (ignoreShift || myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
+            (ignoreShift || myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed())) {
         return true;
     } else {
         return false;
@@ -1005,16 +1005,16 @@ GNEAdditional::calculateContourPolygons(const GUIVisualizationSettings& s, const
         myAdditionalContour.calculateContourClosedShape(s, d, this, myAdditionalGeometry.getShape(), 1);
     } else {
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                                                 exaggeration, true, true, 0);
+                exaggeration, true, true, 0);
     }
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if draw geometry points
     if (editModes.isCurrentSupermodeNetwork() && !myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // check if we're in move mode
         const bool moveMode = (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // get geometry point radius (size depends if we're in move mode)
-        const double geometryPointRaidus = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode? 1 : 0.5);
+        const double geometryPointRaidus = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // calculate contour geometry points
         myAdditionalContour.calculateContourAllGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), geometryPointRaidus, exaggeration, moveMode);
     }
