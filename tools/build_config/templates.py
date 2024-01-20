@@ -364,7 +364,7 @@ def generateToolTemplates(toolDir, toolPaths):
         stdout, stderr = p.communicate()
         if p.returncode:
             print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
-            result += '""''),\n'
+            result += '""'
         else:
             result += formatToolTemplate(stdout)
         result += '),\n'
