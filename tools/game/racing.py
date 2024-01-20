@@ -52,7 +52,7 @@ except ImportError:
 
 # Check for playsound import
 try:
-    import playsound # noqa
+    import playsound  # noqa
 except ImportError:
     sys.stderr.write("playsound not installed. Sounds will not be played on collisions.\n")
     playsound = None

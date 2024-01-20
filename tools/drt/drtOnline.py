@@ -117,9 +117,9 @@ def find_dua_times(options):
     with open("temp_dua/dua_file.xml", "w+") as dua_file:
         dua_file.write("<routes>\n")
         for comb_edges in list(combination_edges):
-            dua_file.write('\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+            dua_file.write('    <trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
                            % (comb_edges[0], comb_edges[1], comb_edges[0], comb_edges[1]))
-            dua_file.write('\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+            dua_file.write('    <trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
                            % (comb_edges[1], comb_edges[0], comb_edges[1], comb_edges[0]))
         dua_file.write("</routes>\n")
 
@@ -176,13 +176,11 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
     # add constraints
     for index in range(veh_num):
         prob += pl.lpSum([veh_constraints[i][index] * Trips_vars[i]
-                         for i in order_trips]) <= 1, \
-                         "Max_1_trip_per_vehicle_%s" % index
+                         for i in order_trips]) <= 1, "Max_1_trip_per_vehicle_%s" % index
 
     for index in range(res_num):
         prob += pl.lpSum([res_constraints[i][index] * Trips_vars[i]
-                         for i in order_trips]) <= 1, \
-                         "Max_1_trip_per_reservation_%s" % index
+                         for i in order_trips]) <= 1, "Max_1_trip_per_reservation_%s" % index
 
     prob += pl.lpSum([sum(veh_constraints[i]) * Trips_vars[i]
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
@@ -440,8 +438,7 @@ def main():
                 for idx, trip_id in enumerate(trips):
                     # routes[route] = [travel_time, veh_bin, res_bin, value]
                     # TODO specific cost for vehicle can be consider here
-                    bonus_cost = (sum(routes[trip_id][2]) + 1) * \
-                                  options.cost_per_trip
+                    bonus_cost = (sum(routes[trip_id][2]) + 1) * options.cost_per_trip
                     # generate dict with costs
                     costs.update({idx: routes[trip_id][0] + bonus_cost})
                     # generate dict with vehicle used in the trip

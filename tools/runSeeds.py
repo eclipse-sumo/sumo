@@ -44,7 +44,7 @@ def get_options(args=None):
     ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True,
                   type=ap.sumoconfig_file_list,
                   help="configuration to run or comma-separated list of configurations")
-    ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
+    ap.add_option("-a", "--application", category="processing", default=sumolib.checkBinary("sumo"), metavar="FILE",
                   help="application to run or comma-separated list of applications")
     ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)

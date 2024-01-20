@@ -337,7 +337,8 @@ def generateTemplate(app, appBin):
     print("Obtaining " + app + " template")
     # obtain template piping stdout using check_output
     try:
-        template = formatBinTemplate(subprocess.check_output([appBin, "--save-template", "stdout"], universal_newlines=True))
+        template = formatBinTemplate(subprocess.check_output(
+            [appBin, "--save-template", "stdout"], universal_newlines=True))
     except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""

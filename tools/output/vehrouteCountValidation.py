@@ -104,6 +104,7 @@ def get_options(args=None):
 
 class Routes:
     """dummy class to allow using the same methods as routeSampler.py"""
+
     def __init__(self):
         self.unique = []
 

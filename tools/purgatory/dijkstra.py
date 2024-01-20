@@ -256,4 +256,4 @@ class DijkstraRouter(handler.ContentHandler):
             return D[dest]
         else:
             raise ("No path between %s and %s found" %
-                  (start.getID(), dest.getID()))
+                   (start.getID(), dest.getID()))

@@ -17,3 +17,8 @@ repos:
     -   id: astyle_py
         args: [--style=java --unpad-paren --pad-header --pad-oper --add-brackets --indent-switches --align-pointer=type]
         exclude: 'src/foreign/.*'
+-   repo: https://github.com/hhatto/autopep8
+    rev: v2.0.4
+    hooks:
+    -   id: autopep8
+        args: ['--max-line-length', '120', '--in-place']

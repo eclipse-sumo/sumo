@@ -353,7 +353,7 @@ def validate_rel_flow(routes_by_start_d, flow_d):
                 continue
             else:
                 # check if the time frame starts are the same
-                assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]),\
+                assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]), \
                     "\nPROBLEM: flow count and relative flow time frames are not aligned\n\t"\
                     "for VISSIM start link id: " + start_link
         # copy back modifications
