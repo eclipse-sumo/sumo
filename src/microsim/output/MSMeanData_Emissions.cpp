@@ -67,18 +67,18 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double frontOnLane, const double /*timeOnLane*/, const double meanSpeedFrontOnLane, const double /*meanSpeedVehicleOnLane*/, const double travelledDistanceFrontOnLane, const double /*travelledDistanceVehicleOnLane*/, const double /*meanLengthOnLane*/) {
     if (myParent != nullptr && !myParent->vehicleApplies(veh)) {
         return;
     }
     if (veh.isVehicle()) {
-        sampleSeconds += timeOnLane;
-        travelledDistance += travelledDistanceVehicleOnLane;
+        sampleSeconds += frontOnLane;
+        travelledDistance += travelledDistanceFrontOnLane;
         const double a = veh.getAcceleration();
         myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
                               // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
-                              meanSpeedVehicleOnLane, a, veh.getSlope(),
-                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
+                              meanSpeedFrontOnLane, a, veh.getSlope(),
+                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), frontOnLane);
     }
 }
 
