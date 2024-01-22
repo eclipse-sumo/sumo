@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 13:01:42 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+<!-- generated on 2024-01-22 09:44:22 by Eclipse SUMO sumo Version v1_14_1+11363-50b43697ca8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,9 +58,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="1/0to2/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
-        <edge id="1/1to0/1" sampledSeconds="4192.10" CO_abs="198.070775" CO2_abs="6864858.806828" HC_abs="1237.775831" PMx_abs="397.183763" NOx_abs="10855.894848" fuel_abs="2162162.849723" electricity_abs="0"
-            CO_normed="1.417041" CO2_normed="49112.662370" HC_normed="8.855312" PMx_normed="2.841537" NOx_normed="77.665384" fuel_normed="15468.573647" electricity_normed="0"
-            traveltime="41.70" CO_perVeh="1.970120" CO2_perVeh="68281.640823" HC_perVeh="12.311595" PMx_perVeh="3.950607" NOx_perVeh="107.978668" fuel_perVeh="21506.054423" electricity_perVeh="0"/>
+        <edge id="1/1to0/1" sampledSeconds="4170.60" CO_abs="198.070775" CO2_abs="6828743.839704" HC_abs="1231.451743" PMx_abs="395.078317" NOx_abs="10798.592952" fuel_abs="2150788.042588" electricity_abs="0"
+            CO_normed="1.417041" CO2_normed="48854.288201" HC_normed="8.810068" PMx_normed="2.826474" NOx_normed="77.255434" fuel_normed="15387.195853" electricity_normed="0"
+            traveltime="41.71" CO_perVeh="1.980708" CO2_perVeh="68287.438397" HC_perVeh="12.314517" PMx_perVeh="3.950783" NOx_perVeh="107.985930" fuel_perVeh="21507.880426" electricity_perVeh="0"/>
         <edge id="1/1to1/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="1/1to1/2" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
@@ -79,9 +79,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="2/0to3/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
-        <edge id="2/1to1/1" sampledSeconds="8666.25" CO_abs="26742.562381" CO2_abs="9376769.721670" HC_abs="2731.381572" PMx_abs="483.084515" NOx_abs="14325.053296" fuel_abs="2953315.835352" electricity_abs="0"
-            CO_normed="191.321988" CO2_normed="67083.408184" HC_normed="19.540886" PMx_normed="3.456090" NOx_normed="102.484483" fuel_normed="21128.650650" electricity_normed="0"
-            traveltime="86.02" CO_perVeh="265.434862" CO2_perVeh="93069.674657" HC_perVeh="27.110487" PMx_perVeh="4.794884" NOx_perVeh="142.184152" fuel_perVeh="29313.308539" electricity_perVeh="0"/>
+        <edge id="2/1to1/1" sampledSeconds="8600.00" CO_abs="26636.700781" CO2_abs="9303339.403087" HC_abs="2710.374668" PMx_abs="479.374987" NOx_abs="14214.662716" fuel_abs="2930188.166414" electricity_abs="0"
+            CO_normed="190.564632" CO2_normed="66558.072041" HC_normed="19.390598" PMx_normed="3.429551" NOx_normed="101.694725" fuel_normed="20963.190380" electricity_normed="0"
+            traveltime="86.00" CO_perVeh="266.367008" CO2_perVeh="93033.394031" HC_perVeh="27.103747" PMx_perVeh="4.793750" NOx_perVeh="142.146627" fuel_perVeh="29301.881664" electricity_perVeh="0"/>
         <edge id="2/1to2/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="2/1to2/2" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
@@ -100,9 +100,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="3/0to4/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
-        <edge id="3/1to2/1" sampledSeconds="8535.55" CO_abs="25984.346608" CO2_abs="9291100.189531" HC_abs="2686.130516" PMx_abs="479.871808" NOx_abs="14204.668861" fuel_abs="2926333.304814" electricity_abs="0"
-            CO_normed="185.897551" CO2_normed="66470.510100" HC_normed="19.217150" PMx_normed="3.433105" NOx_normed="101.623227" fuel_normed="20935.611879" electricity_normed="0"
-            traveltime="84.72" CO_perVeh="257.909147" CO2_perVeh="92219.356720" HC_perVeh="26.661345" PMx_perVeh="4.762996" NOx_perVeh="140.989269" fuel_perVeh="29045.491859" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="8469.31" CO_abs="25878.485009" CO2_abs="9217669.870949" HC_abs="2665.123612" PMx_abs="476.162280" NOx_abs="14094.278281" fuel_abs="2903205.635877" electricity_abs="0"
+            CO_normed="185.140195" CO2_normed="65945.173958" HC_normed="19.066862" PMx_normed="3.406566" NOx_normed="100.833469" fuel_normed="20770.151608" electricity_normed="0"
+            traveltime="84.69" CO_perVeh="258.784850" CO2_perVeh="92176.698709" HC_perVeh="26.651236" PMx_perVeh="4.761623" NOx_perVeh="140.942783" fuel_perVeh="29032.056359" electricity_perVeh="0"/>
         <edge id="3/1to3/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="3/1to3/2" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
@@ -119,9 +119,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="4/0to4/1" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
-        <edge id="4/1to3/1" sampledSeconds="6865.34" CO_abs="15161.075831" CO2_abs="8260576.635924" HC_abs="2112.750440" PMx_abs="441.513449" NOx_abs="12743.623500" fuel_abs="2601758.837460" electricity_abs="0"
-            CO_normed="108.465566" CO2_normed="59097.925058" HC_normed="15.115067" PMx_normed="3.158681" NOx_normed="91.170597" fuel_normed="18613.536993" electricity_normed="0"
-            traveltime="68.67" CO_perVeh="151.648670" CO2_perVeh="82626.422965" HC_perVeh="21.132788" PMx_perVeh="4.416239" NOx_perVeh="127.468102" fuel_perVeh="26024.094398" electricity_perVeh="0"/>
+        <edge id="4/1to3/1" sampledSeconds="6800.64" CO_abs="15055.214231" CO2_abs="8189181.659956" HC_abs="2092.410625" PMx_abs="437.889707" NOx_abs="12636.031953" fuel_abs="2579272.220467" electricity_abs="0"
+            CO_normed="107.708210" CO2_normed="58587.150190" HC_normed="14.969551" PMx_normed="3.132756" NOx_normed="90.400865" fuel_normed="18452.662945" electricity_normed="0"
+            traveltime="68.54" CO_perVeh="151.728035" CO2_perVeh="82531.435223" HC_perVeh="21.087535" PMx_perVeh="4.413099" NOx_perVeh="127.347261" fuel_perVeh="25994.177077" electricity_perVeh="0"/>
         <edge id="4/1to4/0" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
             CO_normed="0" CO2_normed="0" HC_normed="0" PMx_normed="0" NOx_normed="0" fuel_normed="0" electricity_normed="0"/>
         <edge id="4/1to4/2" sampledSeconds="0.00" CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="0"
