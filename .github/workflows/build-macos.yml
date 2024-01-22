@@ -40,6 +40,7 @@ jobs:
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
+        brew install --overwrite python@3.12
         brew install xerces-c fox proj gdal gl2ps ccache googletest
 #        python3 -m pip install texttest
 
