@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
-"PO-Revision-Date: 2024-01-17 13:09+0000\n"
+"PO-Revision-Date: 2024-01-23 06:43+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -3492,12 +3492,12 @@ msgstr "%'%'的计划已断开（%!=%）。"
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
-msgstr ""
+msgstr "%'%'的计划已断开连接（停止范围%-%不包含先前的到达位置%）。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1342
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1339
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
-msgstr ""
+msgstr "%'%' 的属性 “via” 中缺少停靠边。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1363
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1208
@@ -3566,7 +3566,7 @@ msgstr "在解释出发侧向位置(departPosLat)时,找不到人员'%' 步行�
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1603
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1598
 msgid "The type '%' for % '%' is not known."
-msgstr ""
+msgstr "%'%' 的类型 '%' 未知。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1626
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1621
@@ -3831,17 +3831,17 @@ msgstr "器件'%'不能保存状态"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:204
 msgid ""
 "Invalid distribution / float value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的参数 '%' 的分布或浮点值无效。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice.cpp:218
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:216
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的参数 '%' 的布尔值无效。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice.cpp:230
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:228
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的参数 '%' 的时间值无效。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:65
@@ -3891,7 +3891,7 @@ msgstr "跟踪非电动汽车的燃料消耗"
 msgid ""
 "Battery device in vehicle '%s' still uses old parameter '%'. Please update "
 "to 'device.%'."
-msgstr ""
+msgstr "车辆 '%s' 中的电池设备仍使用旧参数 '%'。请更新到 'device.%'。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:116
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:129
@@ -3924,7 +3924,7 @@ msgstr "设置其他司机对蓝光和警笛声的反应距离"
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:61
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
-msgstr ""
+msgstr "以给定系数减小反应车辆的 minGap 参数"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:70
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:70
@@ -5327,7 +5327,7 @@ msgstr "移动到XY(moveToXY)被目前的移动模式(movement model)忽略"
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:107
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_JuPedSim.cpp:115
 msgid "Error while adding person '%' as JuPedSim agent: %"
-msgstr ""
+msgstr "将人员 '%' 添加为 JuPedSim 中的智能体: % 时出错"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:120
 msgid "Error while adding waypoint for person '%': %"
