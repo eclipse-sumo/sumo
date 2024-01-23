@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
-"PO-Revision-Date: 2023-12-21 22:03+0000\n"
+"PO-Revision-Date: 2024-01-23 14:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10950,6 +10951,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
+"Fluss des Calibrator '%' kann nicht geschrieben werden, da nur genau eines "
+"der Attribute type, vehsPerHour oder speed aktiviert sein darf"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:176
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
@@ -11315,15 +11318,15 @@ msgstr "ungültiges Container-Elternelement"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1058
 msgid "invalid combination for person stop"
-msgstr ""
+msgstr "ungültige Kombination für einen Personenhalt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1100
 msgid "invalid combination for containerStop"
-msgstr ""
+msgstr "ungültige Kombination für einen Container-Halt"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1133
 msgid "Stops needs a parent"
-msgstr ""
+msgstr "Der Halt benötigt ein Elternelement"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1185
 msgid "Containers don't support stops at busStops or trainStops"
@@ -11493,15 +11496,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:277
 msgid "Trips (only %)"
-msgstr ""
+msgstr "Fahrten (nur %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:280
 msgid "Flows (only %)"
-msgstr ""
+msgstr "Flüsse (nur %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:289
 msgid "Vehicles (embedded route)"
-msgstr ""
+msgstr "Fahrzeuge (interne Route)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 msgid "RouteFlows"
@@ -12167,23 +12170,23 @@ msgstr "Netedit-Attribute"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:55
 msgid "Reference Left"
-msgstr ""
+msgstr "Referenzposition links"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
 msgid "Reference Right"
-msgstr ""
+msgstr "Referenzposition rechts"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:58
 msgid "Extended Left"
-msgstr ""
+msgstr "Erweiterung links"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:59
 msgid "Extended Right"
-msgstr ""
+msgstr "Erweiterung rechts"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:60
 msgid "Extended"
-msgstr ""
+msgstr "Erweiterung"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:75
 msgid "Force leng."
@@ -12230,29 +12233,32 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
-msgstr ""
+msgstr "  - Referenzposition links: Führt zu startPos = 70 und endPos = 100."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:384
 msgid "  - Reference Right: will have startPos = 100 and endPos = 130."
-msgstr ""
+msgstr "  - Referenzposition rechts: Führt zu startPos = 100 und endPos = 130."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:385
 msgid "  - Center: will have startPos = 85 and endPos = 115."
-msgstr ""
+msgstr "  - Mitte: Führt zu startPos = 85 und endPos = 115."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:387
 msgid ""
 "  - Extended Left: will have startPos = 85 and endPos until lane's length."
 msgstr ""
+"  - Erweiterung links: Führt zu startPos = 85 und endPos am Fahrstreifenende."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:388
 msgid "  - Extended Right: will have startPos from start and endPos = 115."
 msgstr ""
+"  - Erweiterung rechts: Führt zu startPos am Fahrstreifenbeginn und endPos = "
+"115."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:389
 msgid ""
 "  - Extended: will have startPos from start and endPos until lane's length."
-msgstr ""
+msgstr "  - Erweiterung: Belegt die gesamte Fahrstreifenlänge."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:391
 msgid ""
