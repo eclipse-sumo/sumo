@@ -44,6 +44,7 @@ jobs:
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
+        brew install --overwrite python@3.12
         brew install xerces-c fox proj gdal gl2ps ccache
 
     - name: ccache

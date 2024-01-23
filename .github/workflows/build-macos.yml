@@ -21,7 +21,6 @@ jobs:
       matrix:
         os: [macos-12, macos-13]
     runs-on: ${{ matrix.os }}
-#    runs-on: macos-11
     env:
       CCACHE_COMPILERTYPE: clang
 
