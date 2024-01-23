@@ -193,6 +193,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     JPS_StageId predecessor = 0;
     for (const Position& p : waypoints) {
         if (!addWaypoint(journey, predecessor, p, person->getID())) {
+            JPS_JourneyDescription_Free(journey);
             return nullptr;
         }
         if (startingStage == 0) {
@@ -326,10 +327,11 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk
                 const bool finalStage = person->getNumRemainingStages() == 1;
+                const JPS_AgentId agentID = state->getAgentId();
                 while (!stage->moveToNextEdge(person, time, 1, nullptr));
                 if (finalStage) {
                     registerArrived();
-                    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, state->getAgentId(), nullptr);
+                    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
                     stateIt = myPedestrianStates.erase(stateIt);
                     continue;
                 }
