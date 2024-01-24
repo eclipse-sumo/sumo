@@ -103,6 +103,7 @@ jobs:
     - name: Examples and extra tests
       if: matrix.build_type == 'extra' && github.repository == 'DLR-TS/sumo'
       run: |
+        python -m pip install -r sumo/tools/req_ci.txt
         python -m pip install -r sumo/tools/requirements.txt
         cd sumo/build_msvc
         cmake --build . --config Release --target examples

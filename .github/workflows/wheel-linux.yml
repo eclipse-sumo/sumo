@@ -99,6 +99,7 @@ jobs:
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
+        python -m pip install -r sumo/tools/req_ci.txt
         python -m pip install -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast
 
