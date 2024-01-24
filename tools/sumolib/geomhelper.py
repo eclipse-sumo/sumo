@@ -212,12 +212,12 @@ def isWithin(pos, shape):
     for i in range(0, len(shape) - 1):
         p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
         p2 = ((shape[i + 1][0] - pos[0]), (shape[i + 1][1] - pos[1]))
-        angle = angle + angle2D(p1, p2)
+        angle += math.fabs(angle2D(p1, p2))
     i = len(shape) - 1
     p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
     p2 = ((shape[0][0] - pos[0]), (shape[0][1] - pos[1]))
-    angle = angle + angle2D(p1, p2)
-    return math.fabs(angle) >= math.pi
+    angle += math.fabs(angle2D(p1, p2))
+    return angle >= math.pi
 
 
 def sideOffset(fromPos, toPos, amount):
