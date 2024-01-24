@@ -671,16 +671,6 @@ MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
 }
 
 
-double
-MSPModel_JuPedSim::getHoleArea(const GEOSGeometry* hole) {
-    double area;
-    GEOSGeometry* linearRingAsPolygon = GEOSGeom_createPolygon(GEOSGeom_clone(hole), nullptr, 0);
-    GEOSArea(linearRingAsPolygon, &area);
-    GEOSGeom_destroy(linearRingAsPolygon);
-    return area;
-}
-
-
 void
 MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
@@ -689,9 +679,10 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
     std::vector<PositionVector> holes;
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
     if (nbrInteriorRings != -1) {
+        double area = -1.;
         for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
             const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-            double area = getHoleArea(linearRing);
+            GEOSArea(linearRing, &area);
             if (area > GEOS_MIN_AREA) {
                 PositionVector hole = getCoordinates(linearRing);
                 holes.push_back(hole);
@@ -715,9 +706,10 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon) {
     // Handle the interior polygons (holes).
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
     if (nbrInteriorRings != -1) {
+        double area = -1.;
         for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
             const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-            double area = getHoleArea(linearRing);
+            GEOSArea(linearRing, &area);
             if (area > GEOS_MIN_AREA) {
                 std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
                 JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
