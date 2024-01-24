@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-10 01:32:44.500127 by gtfs2pt.py v1_17_0+0210-cfdd103a36f
+<!-- generated on 2024-01-24 16:06:01.009608 by gtfs2pt.py v1_19_0+0671-d383aea243b
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -40,6 +40,8 @@
     <busStop id="109244.9" lane="4463796#1_0" startPos="374.04" endPos="387.04" friendlyPos="true" name="Wernsdorfer Str. (Berlin)"/>
     <busStop id="109244.10" lane="4463796#3_0" startPos="74.48" endPos="87.48" friendlyPos="true" name="Intercamping (Berlin)"/>
     <busStop id="109244.11" lane="38416189#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Berlin, Schmöckwitzwerder"/>
+    <busStop id="109244.13" lane="38415026#2_0" startPos="63.64" endPos="76.63" friendlyPos="true" name="Wernsdorf, Dorfaue"/>
+    <busStop id="280370.10" lane="-38415026#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wernsdorf, Dorfaue"/>
     <busStop id="280370.12" lane="-38416189#0_0" startPos="28.75" endPos="41.75" friendlyPos="true" name="Berlin, Schmöckwitzwerder"/>
     <busStop id="280370.13" lane="-4463796#3_0" startPos="62.56" endPos="75.56" friendlyPos="true" name="Intercamping (Berlin)"/>
     <busStop id="280370.14" lane="-4463796#1_0" startPos="69.86" endPos="82.86" friendlyPos="true" name="Wernsdorfer Str. (Berlin)"/>
@@ -74,7 +76,7 @@
     <busStop id="281396.8" lane="-59226983#0_0" startPos="194.81" endPos="207.81" friendlyPos="true" name="Wildau, Westkorso"/>
     <busStop id="281396.9" lane="36852342#0_0" startPos="8.42" endPos="21.42" friendlyPos="true" name="Zeuthen, Fontaneallee"/>
     <busStop id="281396.10" lane="36852342#1_0" startPos="145.99" endPos="158.99" friendlyPos="true" name="Zeuthen, Seniorenstift"/>
-    <busStop id="109298.7" lane="-131942163#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waltersdorf (bei Berlin), Weidenweg"/>
+    <busStop id="109298.7" lane="-131942163#1_0" startPos="6.67" endPos="19.67" friendlyPos="true" name="Waltersdorf (bei Berlin), Weidenweg"/>
     <busStop id="109298.8" lane="-107370599#2_0" startPos="5.31" endPos="18.31" friendlyPos="true" name="Schulzendorf (LDS), Waldstr."/>
     <busStop id="109298.9" lane="-107370597#8_0" startPos="47.22" endPos="60.22" friendlyPos="true" name="Schulzendorf (LDS), Lindenstr."/>
     <busStop id="109298.10" lane="-107370597#4_0" startPos="125.00" endPos="138.00" friendlyPos="true" name="Schulzendorf (LDS), A.-Bebel-Str."/>
@@ -123,6 +125,7 @@
     <busStop id="151740.1" lane="-220911301#0_0" startPos="32.31" endPos="45.31" friendlyPos="true" name="Waltersdorfer Str. (Berlin)"/>
     <busStop id="151740.2" lane="-46101882#3_0" startPos="66.17" endPos="79.17" friendlyPos="true" name="Zur Gartenstadt (Berlin)"/>
     <busStop id="151740.3" lane="-46101882#0_0" startPos="48.88" endPos="61.88" friendlyPos="true" name="Sausenberger Str. (Berlin)"/>
+    <busStop id="151784.2" lane="450661504#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Drössestr. (Berlin)"/>
     <busStop id="151784.3" lane="450661504#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Gartenstadtweg (Berlin)"/>
     <busStop id="151784.4" lane="658716827#0_0" startPos="21.23" endPos="33.64" friendlyPos="true" name="S Grünau (Berlin) [Richterstr.]"/>
     <busStop id="151987.4" lane="46101882#0_0" startPos="117.09" endPos="130.09" friendlyPos="true" name="Sausenberger Str. (Berlin)"/>
@@ -174,6 +177,7 @@
     <busStop id="202253.2" lane="-62450101#0_0" startPos="15.24" endPos="28.24" friendlyPos="true" name="Alt-Müggelheim (Berlin)"/>
     <busStop id="236553.9" lane="-169076541#2_0" startPos="18.81" endPos="31.81" friendlyPos="true" name="S Grünau (Berlin) [Wassersportallee]"/>
     <busStop id="236553.10" lane="-52153733#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wassersportallee (Berlin)"/>
+    <busStop id="236553.11" lane="-528663684#0_0" startPos="115.42" endPos="128.41" friendlyPos="true" name="Regattastr./Schule (Berlin)"/>
     <busStop id="236569.13" lane="52153733#1_0" startPos="34.54" endPos="47.54" friendlyPos="true" name="Wassersportallee (Berlin)"/>
     <busStop id="236569.14" lane="169076541#2_0" startPos="46.90" endPos="59.90" friendlyPos="true" name="S Grünau (Berlin) [Wassersportallee]"/>
     <busStop id="236569.16" lane="-40337452#0_0" startPos="143.12" endPos="156.12" friendlyPos="true" name="Waltersdorfer Str./Parchwitzer Str. (Berlin)"/>

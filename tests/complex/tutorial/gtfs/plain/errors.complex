@@ -39,22 +39,33 @@ Warning: Non-static traffic light '7465967542' does not define variable phase le
 Warning: 9 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '109241' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
-Warning! Disconnected route '109242' between '38416189#0' and '35630851#3', no path found. Keeping longer part.
-Warning! Disconnected route '109244' between '38416189#0' and '35630851#3', no path found. Keeping longer part.
-Warning! Disconnected route '280056' between '38416189#0' and '35630851#3', no path found. Keeping longer part.
-Warning! Disconnected route '280370' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
-Warning! Disconnected route '281591' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
-Warning! Disconnected route '281867' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
-Warning! Disconnected route '285265' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
+Warning! Disconnected route '109241' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Fixed connection 109242 4
+Warning! Disconnected route '109242' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
+Warning! Fixed connection 109244 4
+Warning! Disconnected route '109244' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
+Warning! Fixed connection 280056 4
+Warning! Disconnected route '280056' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
+Warning! Disconnected route '280370' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Fixed connection 280370 4
+Warning! Disconnected route '281591' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Fixed connection 281591 4
+Warning! Disconnected route '281867' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Fixed connection 281867 4
+Warning! Disconnected route '285265' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
 Warning! Fixed connection 281979 26
 Warning! Fixed connection 284866 26
-Warning! Disconnected route '2442' between '-35630851#3' and '19508631#0', no path found. Keeping longer part.
-Warning! Disconnected route '284973' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
+Warning! Disconnected route '2437' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
+Warning! Disconnected route '2442' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Disconnected route '280229' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Disconnected route '282230' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Disconnected route '283946' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
+Warning! Disconnected route '283947' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
+Warning! Disconnected route '284973' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
 Warning! Fixed connection 202043 11
 Warning! Fixed connection 202125 14
-Warning! Disconnected route '236553' between '-52153733#1' and '-32204604#1', no path found. Keeping longer part.
-Warning! Disconnected route '236569' between '445947592' and '52153733#1', no path found. Keeping longer part.
+Warning! Disconnected route '236553' between '-528663684#0' and '-32204604#1', no path found. Keeping longer part.
+Warning! Disconnected route '236569' between '445947592' and '-528663684#0', no path found. Keeping longer part.
 Warning! Fixed connection 236759 55
 Warning! No net resources/gtfs/ferry.net.xml
 Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
