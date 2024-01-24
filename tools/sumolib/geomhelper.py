@@ -208,6 +208,7 @@ def minAngleDegreeDiff(d1, d2):
 
 
 def isWithin(pos, shape):
+    """Returns whether the given pos coordinate is inside the polygon shape defined in anticlockwise order."""
     angle = 0.
     for i in range(0, len(shape) - 1):
         p1 = ((shape[i][0] - pos[0]), (shape[i][1] - pos[1]))
