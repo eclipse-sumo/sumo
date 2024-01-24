@@ -531,7 +531,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
                             ntd.state = (char)link->getState();
                             result.push_back(ntd);
                         }
-                        seen += allowed->front()->getLength();
+                        seen += allowed->front()->getLength() + link->getInternalLengthsAfter();
                         break;
                     }
                 }
