@@ -455,13 +455,16 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
             } else {
                 WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
             }
-            GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
+            GEOSGeometry* lineString = GEOSGeom_createLineString(GEOSCoordSeq_clone(coordinateSequence));
+            GEOSGeom_destroy(polygon);
             polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
             GEOSGeom_destroy(lineString);
         } else {
             if (isInternalShape) {
                 WRITE_WARNINGF(TL("Polygon on junction '%' has been replaced by its convex hull as it is not simple."), shapeID);
-                polygon = GEOSConvexHull(polygon);
+                GEOSGeometry* hull = GEOSConvexHull(polygon);
+                GEOSGeom_destroy(polygon);
+                polygon = hull;
             } else {
                 WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is not simple."), shapeID);
                 polygon = nullptr;
