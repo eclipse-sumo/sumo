@@ -346,29 +346,36 @@ def generateTemplate(app, appBin):
     return 'const std::string %sTemplate = "%s";\n' % (app, template)
 
 
-def generateToolTemplates(toolDir, toolPaths):
+def generateToolTemplates(toolDir, toolPaths, verbose):
     """
     @brief generate tool template
     """
+    print("Obtaining tool templates.")
     procs = []
     result = ""
     for toolPath in toolPaths:
         toolName = os.path.basename(toolPath)[:-3]
-        print("Obtaining '" + toolName + "' tool template.")
+        if verbose:
+            print("Obtaining '" + toolName + "' tool template.")
         # obtain template piping stdout using check_output
         procs.append(subprocess.Popen([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
                                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True))
+    failed = []
     for p, toolPath in zip(procs, toolPaths):
         toolName = os.path.basename(toolPath)[:-3]
         d = os.path.dirname(toolPath)
         result += 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
         stdout, stderr = p.communicate()
         if p.returncode:
-            print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
+            failed.append(toolName)
+            if verbose:
+                print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
             result += '""'
         else:
             result += formatToolTemplate(stdout)
         result += '),\n'
+    if failed:
+        print("Could not generate tool templates for %s." % (", ".join(failed)), file=sys.stderr)
     return result
 
 
@@ -393,12 +400,11 @@ def main():
     toolDir = join(dirname(__file__), '..')
     if not os.path.exists("templates.h") or checkMod(toolDir, "templates.h"):
         # write templates.h
-        with open("templates.h", 'w') as templateHeaderFile:
-            # generate templateTool header
+        with open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
             buildTemplateToolHeader(templateHeaderFile)
-            # generate Tool templates
+            is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
             print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
-            print(generateToolTemplates(toolDir, TOOLS), file=templateHeaderFile)
+            print(generateToolTemplates(toolDir, TOOLS, is_debug), file=templateHeaderFile)
             print("};\n", file=templateHeaderFile)
             # generate sumo Template
             print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
