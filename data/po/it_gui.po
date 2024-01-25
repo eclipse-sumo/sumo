@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
-"PO-Revision-Date: 2024-01-12 12:52+0000\n"
+"PO-Revision-Date: 2024-01-25 12:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13352,51 +13353,51 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
-msgstr ""
+msgstr "Clicca su un parcheggio per crearci una fermata."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr ""
+msgstr "Clicca su una corsia per crearci una fermata."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
-msgstr ""
+msgstr "Non ci sono elementi padri per fermate in questa rete."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
-msgstr ""
+msgstr "Il tipo di fermata selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:197
 msgid "Selected % '%' as stop parent."
-msgstr ""
+msgstr "% '%' è stato selezionato come elemento padre della fermata."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:200
 msgid "Selected Stop parent isn't valid."
-msgstr ""
+msgstr "L'elemento padre di fermate selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:206
 msgid "Current selected Stop parent isn't valid."
-msgstr ""
+msgstr "L'elemento padre di fermate selezionato attualmente è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
-msgstr ""
+msgstr "Il tipo di fermata attualmente selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:352
 msgid "Stop must be placed over a route's edge"
-msgstr ""
+msgstr "La fermata deve essere posizionata su un arco usato per degli itinerari"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:365
 msgid "Stop must be placed over an embedded route's edge"
-msgstr ""
+msgstr "La fermata deve essere posizionata su un arco di un'itinerario interno"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
-msgstr ""
+msgstr "Distribuzioni di tipi"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
-msgstr ""
+msgstr "Tipo attuale"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:203
 msgid "Type Editor"
