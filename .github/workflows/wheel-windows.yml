@@ -84,6 +84,13 @@ jobs:
         python tools\build_config\version.py tools\build_config\setup-libsumo.py tools\setup.py
         python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
 
+    - name: Uploading artifacts
+      if: matrix.build_type == 'libsumo'
+      uses: actions/upload-artifact@v4
+      with:
+        name: libsumo-python-${{ matrix.python_version }}-wheels
+        path: dist
+
     - name: Building SUMO Wheels
       if: matrix.build_type == 'sumo'
       run: |
@@ -97,9 +104,10 @@ jobs:
         python -c "import glob, os; f = glob.glob(\`"dist/eclipse_sumo-*\`")[0]; os.rename(f, f.replace(\`"cp38-cp38\`", \`"py2.py3-none\`"))"
 
     - name: Uploading artifacts
+      if: matrix.build_type == 'sumo'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.build_type }}-python-${{ matrix.python_version }}-wheels
+        name: sumo-python-wheels
         path: dist
 
     - name: Plain libsumo tests
@@ -135,7 +143,7 @@ jobs:
       run: git fetch --tags --force
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
 
     - name: Configuring Python
       uses: actions/setup-python@v5
@@ -145,7 +153,7 @@ jobs:
     - name: Preparing Python environment
       run: |
         python -m pip install texttest
-        python -m pip install (Get-ChildItem -Filter python-sumo-wheels/eclipse_sumo*).FullName
+        python -m pip install (Get-ChildItem -Filter sumo-python-wheels/eclipse_sumo*).FullName
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
@@ -169,8 +177,7 @@ jobs:
       run: |
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
         python -m pip install (Get-ChildItem -Filter python-sumo-wheels/sumolib-*).FullName (Get-ChildItem -Filter python-sumo-wheels/traci-*).FullName
-        $PYTHON_VERSION="${{ matrix.python_version }}".subString(2)
-        python -m pip install --user (Get-ChildItem -Filter python-libsumo-wheels/libsumo-*cp3$PYTHON_VERSION*).FullName
+        python -m pip install (Get-ChildItem -Filter libsumo-python-${{ matrix.python_version }}-wheels/libsumo-*).FullName
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
     - name: Compressing test results
@@ -196,7 +203,7 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
 
     # this step removes the sumolib and traci packages which linux takes care of
     - name: Moving artifacts

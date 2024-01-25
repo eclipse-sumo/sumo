@@ -92,7 +92,7 @@ jobs:
       run: git fetch --tags --force
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
 
     - name: Configuring Python
       uses: actions/setup-python@v5
@@ -136,8 +136,7 @@ jobs:
     - name: Running libsumo tests
       run: |
         python3 -m pip install tools/dist/sumolib-* tools/dist/traci-*
-        PYTHON_VERSION=${{ matrix.python_version }}
-        python3 -m pip install python-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
+        python3 -m pip install python-${{ matrix.python_version }}-wheels/libsumo-*
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
@@ -165,7 +164,7 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
 
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
