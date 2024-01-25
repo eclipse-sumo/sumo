@@ -238,7 +238,7 @@ def get(args=None):
                     maptype = 'maptype=' + options.maptype
                 request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
                            (options.url, size, c[0], c[1], z, maptype, options.key))
-                print(request)
+                # print(request)
                 filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
                 urllib.urlretrieve(request, filename)
                 if os.stat(filename).st_size < options.min_file_size:
