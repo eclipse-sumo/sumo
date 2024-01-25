@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: sumo
         fetch-depth: 0
@@ -62,7 +62,7 @@ jobs:
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
@@ -134,14 +134,14 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: texttesttmp.zip
         if-no-files-found: warn
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin

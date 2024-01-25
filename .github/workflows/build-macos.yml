@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: sumo
         fetch-depth: 0
@@ -70,13 +70,13 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: macOS
         path: sumo/bin
 
     - name: Uploading FMI 2.0 FMU artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: sumo-fmi2-darwin64
         path: sumo/bin/sumo-fmi2-darwin64.fmu

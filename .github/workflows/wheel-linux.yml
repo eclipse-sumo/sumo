@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -55,13 +55,13 @@ jobs:
     #     entrypoint: tools/build_config/build_wheels.sh
 
     # - name: Uploading raw wheels (without auditwheel being applied)
-    #   uses: actions/upload-artifact@v3
+    #   uses: actions/upload-artifact@v4
     #   with:
     #     name: manylinux-raw-wheels
     #     path: dist
 
     - name: Uploading artifacts (Python wheels)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: manylinux-wheels
         path: wheelhouse
@@ -79,7 +79,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v3
@@ -124,7 +124,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: texttesttmp-${{ matrix.python_version }}
         path: texttesttmp.zip

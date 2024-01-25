@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -45,7 +45,7 @@ jobs:
       run: git fetch --tags --force
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: DLR-TS/SUMOLibraries
         path: sumolibraries
@@ -57,7 +57,7 @@ jobs:
         architecture: x64
 
     - name: "Set up compiler cache"
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
         key: ${{ matrix.build_type }}-${{ matrix.python_version }}-${{ github.head_ref }}-${{ github.run_number }}
@@ -97,7 +97,7 @@ jobs:
         python -c "import glob, os; f = glob.glob(\`"dist/eclipse_sumo-*\`")[0]; os.rename(f, f.replace(\`"cp38-cp38\`", \`"py2.py3-none\`"))"
 
     - name: Uploading artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: python-${{ matrix.build_type }}-wheels
         path: dist
@@ -127,7 +127,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -179,7 +179,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: texttesttmp-${{ matrix.python_version }}
         path: D:/tt.zip

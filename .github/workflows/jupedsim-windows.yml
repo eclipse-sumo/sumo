@@ -27,7 +27,7 @@ jobs:
 
     steps:
     - name: Cloning jupedsim
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
@@ -40,13 +40,13 @@ jobs:
         cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
 
     - name: Uploading artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jupedsim-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: jupedsim-install-${{ matrix.build_config }}
 
     - name: Cloning SUMO
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: sumo
         fetch-depth: 0
@@ -57,7 +57,7 @@ jobs:
         git fetch --tags --force
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: DLR-TS/SUMOLibraries
         path: sumolibraries
@@ -83,7 +83,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: texttesttmp-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: D:/texttest/tt.zip
