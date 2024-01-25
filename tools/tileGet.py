@@ -83,6 +83,33 @@ def worker(options, request, filename):
         raise ValueError("small file")
 
 
+def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
+    zoom = 18
+    numTiles = options.tiles + 1
+    while numTiles > options.tiles:
+        zoom -= 1
+        sx, sy = fromLatLonToTile(north, west, zoom)
+        ex, ey = fromLatLonToTile(south, east, zoom)
+        numTiles = (ex - sx + 1) * (ey - sy + 1)
+
+    opener = urllib.build_opener()
+    opener.addheaders = [('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4)')]
+    urllib.install_opener(opener) 
+
+    for x in range(sx, ex + 1):
+        for y in range(sy, ey + 1):
+            request = "%s/%s/%s/%s.png" % (options.url, zoom, x, y)
+            filename = os.path.join(options.output_dir, "%s%s_%s.png" % (options.prefix, x, y))
+            worker(options, request, filename)
+            if net is not None:
+                lat, lon = fromTileToLatLon(x, y, zoom)
+                upperLeft = net.convertLonLat2XY(lon, lat)
+                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+                center = net.convertLonLat2XY(lon, lat)
+                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                      (os.path.basename(filename), center[0], center[1],
+                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+
 def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
     numTiles = options.tiles + 1
@@ -149,7 +176,8 @@ def get_options(args=None):
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
-        "google": "https://maps.googleapis.com/maps/api/staticmap"
+        "google": "https://maps.googleapis.com/maps/api/staticmap",
+        "openstreetmap": "https://tile.openstreetmap.org"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
@@ -195,6 +223,8 @@ def get(args=None):
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options, west, south, east, north, decals, net)
+        elif "openstreetmap" in options.url:
+            retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net)
         else:
             b = west
             for i in range(options.tiles):
@@ -208,7 +238,7 @@ def get(args=None):
                     maptype = 'maptype=' + options.maptype
                 request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
                            (options.url, size, c[0], c[1], z, maptype, options.key))
-    #            print(request)
+                print(request)
                 filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
                 urllib.urlretrieve(request, filename)
                 if os.stat(filename).st_size < options.min_file_size:
