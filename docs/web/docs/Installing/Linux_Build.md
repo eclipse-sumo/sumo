@@ -16,11 +16,12 @@ To be able to run SUMO on Linux, just follow these steps:
 For ubuntu this boils down to
 
 ```
- sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
- git clone --recursive https://github.com/eclipse-sumo/sumo
- export SUMO_HOME="$PWD/sumo"
- cmake -B build .
- cmake --build build -j$(nproc)
+sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
+git clone --recursive https://github.com/eclipse-sumo/sumo
+cd sumo
+export SUMO_HOME="$PWD"
+cmake -B build .
+cmake --build build -j$(nproc)
 ```
 
 Each of these steps is described in more detail and with possible
