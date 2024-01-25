@@ -219,11 +219,11 @@ GNEJunction::checkDrawToContour() const {
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // get junction source
             const auto junctionSource = createEdgeFrame->getJunctionSource();
-            // check if we're over a destiny junction
+            // check if we're over a destination junction
             if (junctionSource) {
                 // don't create edges with the same from-to junction
                 if ((junctionSource != this) && gViewObjectsHandler.isElementSelected(this)) {
-                    // this junction can be a destiny junction
+                    // this junction can be a destination junction
                     return true;
                 }
             }
@@ -2031,16 +2031,16 @@ GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoun
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
     for (const auto& edge : getChildEdges()) {
-        // Add source and destiny junctions
+        // Add source and destination junctions
         affectedJunctions.insert(edge->getFromJunction());
         affectedJunctions.insert(edge->getToJunction());
         // Obtain neighbors of Junction source
         for (const auto& junctionSourceEdge : edge->getFromJunction()->getChildEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
-        // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getToJunction()->getChildEdges()) {
-            affectedEdges.insert(junctionDestinyEdge);
+        // Obtain neighbors of Junction destination
+        for (const auto& junctionDestinationEdge : edge->getToJunction()->getChildEdges()) {
+            affectedEdges.insert(junctionDestinationEdge);
         }
     }
     // reset walking areas of affected edges

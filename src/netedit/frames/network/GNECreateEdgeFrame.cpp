@@ -739,7 +739,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             }
             update();
         } else {
-            // make sure that junctions source and destiny are different
+            // make sure that junctions source and destination are different
             if (myJunctionSource != junction) {
                 // may fail to prevent double edges
                 GNEEdge* newEdge = myViewNet->getNet()->createEdge(myJunctionSource, junction, nullptr, myViewNet->getUndoList());

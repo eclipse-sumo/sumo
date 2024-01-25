@@ -8333,7 +8333,7 @@ msgid "Lane ID"
 msgstr "Şerit Kimliği"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2834
-msgid "DestinyProbabilityReroute"
+msgid "DestinationProbabilityReroute"
 msgstr "DestinyProbabilityReroute"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2845

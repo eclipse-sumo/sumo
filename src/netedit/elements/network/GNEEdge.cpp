@@ -800,7 +800,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     for (const auto& edge : getFromJunction()->getGNEOutgoingEdges()) {
         edge->updateGeometry();
     }
-    // invalidate junction destiny shape
+    // invalidate junction destination shape
     getToJunction()->invalidateShape();
     // iterate over second parent junction edges and update geometry
     for (const auto& edge : getToJunction()->getGNEIncomingEdges()) {
@@ -1211,9 +1211,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_TO: {
             if (value != getAttribute(key)) {
                 undoList->begin(this, "change  " + getTagStr() + "  attribute");
-                // Remove edge from crossings of junction destiny
+                // Remove edge from crossings of junction destination
                 removeEdgeFromCrossings(getToJunction(), undoList);
-                // continue changing destiny junction
+                // continue changing destination junction
                 GNEJunction* originalSecondParentJunction = getToJunction();
                 getToJunction()->setLogicValid(false, undoList);
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -1301,7 +1301,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
-            // check that is a valid ID and is different of ID of junction destiny
+            // check that is a valid ID and is different of ID of junction destination
             if (value == getFromJunction()->getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
@@ -1876,7 +1876,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SHAPE_END: {
-            // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
+            // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destination position) and set it back to edge
             Position newShapeEnd;
             if (value == "") {
                 newShapeEnd = getToJunction()->getNBNode()->getPosition();
@@ -1980,7 +1980,7 @@ void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
     undoList->begin(this, "change number of " + toString(SUMO_TAG_LANE) +  "s");
-    // invalidate logic of source/destiny edges
+    // invalidate logic of source/destination edges
     getFromJunction()->setLogicValid(false, undoList);
     getToJunction()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
@@ -2075,11 +2075,11 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     */
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
         fromEdge->remakeGNEConnections();
     }
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& toEdge : getToJunction()->getChildEdges()) {
         toEdge->remakeGNEConnections();
     }
@@ -2128,11 +2128,11 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     */
     // Remake connections of this edge
     remakeGNEConnections();
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
         fromEdge->remakeGNEConnections();
     }
-    // remake connections of all edges of junction source and destiny
+    // remake connections of all edges of junction source and destination
     for (const auto& toEdge : getToJunction()->getChildEdges()) {
         toEdge->remakeGNEConnections();
     }

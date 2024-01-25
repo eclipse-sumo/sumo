@@ -1705,7 +1705,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             for (const auto& crossing : edge->getFromJunction()->getGNECrossings()) {
                 ACToSelect.push_back(crossing);
             }
-            // select junction destiny and all their connections crossings
+            // select junction destination and all their connections crossings
             ACToSelect.push_back(edge->getToJunction());
             for (const auto& connection : edge->getToJunction()->getGNEConnections()) {
                 ACToSelect.push_back(connection);

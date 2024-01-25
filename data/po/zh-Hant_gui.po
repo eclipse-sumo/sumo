@@ -8183,7 +8183,7 @@ msgid "Lane ID"
 msgstr "車道識別名(ID)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2834
-msgid "DestinyProbabilityReroute"
+msgid "DestinationProbabilityReroute"
 msgstr "改道到新目的地機率的改道器"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2845

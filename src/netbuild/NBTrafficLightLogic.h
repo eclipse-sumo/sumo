@@ -316,8 +316,8 @@ public:
     }
 
     /// @brief copy phase values in other
-    void copyPhase(const int origin, const int destiny) {
-        myPhases.at(destiny) = myPhases.at(origin);
+    void copyPhase(const int origin, const int destination) {
+        myPhases.at(destination) = myPhases.at(origin);
     }
 
     /// @brief Returns the offset of first switch

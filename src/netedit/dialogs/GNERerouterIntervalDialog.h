@@ -135,7 +135,7 @@ protected:
     /// @brief button for add new closing reroutes
     FXButton* myAddClosingReroutes;
 
-    /// @brief button for add new destiny probability reroutes
+    /// @brief button for add new destination probability reroutes
     FXButton* myAddDestProbReroutes;
 
     /// @brief button for add new route probability reroutes
@@ -150,7 +150,7 @@ protected:
     /// @brief list with closing reroutes
     FXTable* myClosingRerouteTable;
 
-    /// @brief list with destiny probability reroutes
+    /// @brief list with destination probability reroutes
     FXTable* myDestProbRerouteTable;
 
     /// @brief list with route probability reroute
@@ -183,7 +183,7 @@ protected:
     /// @brief flag to check if closing reroutes are valid
     bool myClosingReroutesValid;
 
-    /// @brief flag to check if Destiny probability reroutes are valid
+    /// @brief flag to check if Destination probability reroutes are valid
     bool myDestProbReroutesValid;
 
     /// @brief flag to check if parkingAreaReroutes are valid
@@ -199,7 +199,7 @@ private:
     /// @brief update data of closing reroute table
     void updateClosingReroutesTable();
 
-    /// @brief update data of destiny probability reroute table
+    /// @brief update data of destination probability reroute table
     void updateDestProbReroutesTable();
 
     /// @brief update data of probability reroutes table

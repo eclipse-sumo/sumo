@@ -10,8 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
 "PO-Revision-Date: 2024-01-23 14:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8426,7 +8425,7 @@ msgid "Lane ID"
 msgstr "Fahrstreifen-ID"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2834
-msgid "DestinyProbabilityReroute"
+msgid "DestinationProbabilityReroute"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2845
@@ -12237,7 +12236,8 @@ msgstr "  - Referenzposition links: Führt zu startPos = 70 und endPos = 100."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:384
 msgid "  - Reference Right: will have startPos = 100 and endPos = 130."
-msgstr "  - Referenzposition rechts: Führt zu startPos = 100 und endPos = 130."
+msgstr ""
+"  - Referenzposition rechts: Führt zu startPos = 100 und endPos = 130."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:385
 msgid "  - Center: will have startPos = 85 and endPos = 115."
@@ -12247,13 +12247,14 @@ msgstr "  - Mitte: Führt zu startPos = 85 und endPos = 115."
 msgid ""
 "  - Extended Left: will have startPos = 85 and endPos until lane's length."
 msgstr ""
-"  - Erweiterung links: Führt zu startPos = 85 und endPos am Fahrstreifenende."
+"  - Erweiterung links: Führt zu startPos = 85 und endPos am "
+"Fahrstreifenende."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:388
 msgid "  - Extended Right: will have startPos from start and endPos = 115."
 msgstr ""
-"  - Erweiterung rechts: Führt zu startPos am Fahrstreifenbeginn und endPos = "
-"115."
+"  - Erweiterung rechts: Führt zu startPos am Fahrstreifenbeginn und endPos ="
+" 115."
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:389
 msgid ""

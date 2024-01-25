@@ -407,9 +407,9 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
         int currentLane = 0;
         while (currentLane < ((int)lanes.size() - 1)) {
             int nextLane = -1;
-            // iterate over outgoing edges of destiny junction of edge's lane
+            // iterate over outgoing edges of destination junction of edge's lane
             for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
-                // iterate over lanes of outgoing edges of destiny junction of edge's lane
+                // iterate over lanes of outgoing edges of destination junction of edge's lane
                 for (int j = 0; (j < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getLanes().size()) && (nextLane == -1); j++) {
                     // check if lane correspond to the next lane of "lanes"
                     if (lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getLanes().at(j) == lanes.at(currentLane + 1)) {
@@ -2831,7 +2831,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::NO_PARENTS,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::DESTPROBREROUTE, currentTag, TL("DestinyProbabilityReroute"),
+                                      GUIIcon::DESTPROBREROUTE, currentTag, TL("DestinationProbabilityReroute"),
         {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,

@@ -1288,7 +1288,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
         }
         // apply offset
         glTranslated(myDrawingConstants->getOffset(), 0, 0);
-        // get destiny node
+        // get destination node
         const NBNode* dest = myParentEdge->getNBEdge()->myTo;
         // draw all links iterating over connections
         for (const auto& connection : myParentEdge->getNBEdge()->myConnections) {

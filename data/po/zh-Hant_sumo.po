@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-01-16 15:19+0100\n"
+"POT-Creation-Date: 2024-01-25 11:28+0100\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hant/>\n"
@@ -909,14 +909,14 @@ msgstr "'%' 人員受交通控制界面(TraCI)的控制而被移除"
 msgid "Found % meanData definitions with id '%'."
 msgstr "已找到 % 平均資料(meanData)定義,其識別名(ID)為 '%'。"
 
-#: D:\Repos\sumo/src\libsumo\Person.cpp:543
+#: D:\Repos\sumo/src\libsumo\Person.cpp:542
 #, c-format
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% "
 "instead."
 msgstr "出發時間 % 發生在過去;人員為 '%';使用目前時間 % 將其取代。"
 
-#: D:\Repos\sumo/src\libsumo\Person.cpp:942
+#: D:\Repos\sumo/src\libsumo\Person.cpp:941
 #: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1744
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr "無法決定在車道'%'上側向位置為 % 的位置。"
@@ -4264,69 +4264,73 @@ msgstr ""
 msgid "Error while setting transition for person '%': %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:161
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:156
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:228
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:206
 msgid "Error while adding a journey for person '%': %"
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:234
+msgid "Error while switching to a new journey for person '%': %"
 msgstr ""
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:261
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:410
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:424
 msgid "Polygon '%' will be skipped as it is just a point."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:429
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:443
 msgid "Polygon '%' had some equal consecutive points removed: %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:440
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:454
 #, c-format
 msgid "Polygon for junction '%' has been dilated as it is just a segment."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:442
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:456
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:449
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:464
 #, c-format
 msgid ""
 "Polygon on junction '%' has been replaced by its convex hull as it is not "
 "simple."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:452
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:469
 msgid "Polygon '%' will be skipped as it is not simple."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:606
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:623
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:762
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:779
 #, c-format
 msgid ""
 "While generating geometry % connected components were detected, %% of total "
 "pedestrian area is covered by the first."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:775
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:792
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:784
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:801
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:790
+#: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:807
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -4373,7 +4377,7 @@ msgstr "使用路徑分配(routeDistribution) '%' 調整複製的步行的抵達
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr "使用路徑分配(routeDistribution) '%' 調整複製的步行的出發車道(departLane)"
 
-#: D:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:274
+#: D:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:275
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."

@@ -8408,7 +8408,7 @@ msgid "Lane ID"
 msgstr "ID del carril"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2834
-msgid "DestinyProbabilityReroute"
+msgid "DestinationProbabilityReroute"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2845

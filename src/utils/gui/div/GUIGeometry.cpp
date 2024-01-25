@@ -393,7 +393,7 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
     if (!s.drawForRectangleSelection) {
         // calculate rotation
         const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
-        // calculate distance between origin and destiny
+        // calculate distance between origin and destination
         const double distanceSquared = parent.distanceSquaredTo2D(child);
         // Add a draw matrix for details
         GLHelper::pushMatrix();
@@ -449,7 +449,7 @@ void
 GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
                            const RGBColor& color, const bool drawEntire, const double lineWidth) {
     if (!s.drawForRectangleSelection) {
-        // calculate distance between origin and destiny
+        // calculate distance between origin and destination
         const double distanceSquared = child.distanceSquaredTo2D(parent);
         // calculate subline width
         const double sublineWidth = (lineWidth * 0.8);

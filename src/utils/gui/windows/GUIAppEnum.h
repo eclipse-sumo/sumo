@@ -1441,7 +1441,7 @@ enum {
     MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE,
     /// @brief change table route closing reroute
     MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,
-    /// @brief change table destiny probability reroute
+    /// @brief change table destination probability reroute
     MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,
     /// @brief change table route probability reroute
     MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,
@@ -1455,7 +1455,7 @@ enum {
     MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE,
     /// @brief add closing reroute
     MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE,
-    /// @brief add destiny probability route
+    /// @brief add destination probability route
     MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE,
     /// @brief add route probability route
     MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE,

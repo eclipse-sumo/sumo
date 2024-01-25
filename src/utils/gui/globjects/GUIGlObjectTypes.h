@@ -106,7 +106,7 @@ enum GUIGlObjectType {
     GLO_REROUTER_CLOSINGLANEREROUTE = 116,
     /// @brief a parking area reroute
     GLO_REROUTER_PARKINGAREAREROUTE = 117,
-    /// @brief a destiny probability reroute
+    /// @brief a destination probability reroute
     GLO_REROUTER_DESTPROBREROUTE = 118,
     /// @brief a route probability reroute
     GLO_REROUTER_ROUTEPROBREROUTE = 119,

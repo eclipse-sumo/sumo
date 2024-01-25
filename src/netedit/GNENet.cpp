@@ -469,7 +469,7 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     if (edge->getFromJunction()->getNBNode()->isTLControlled() && (edge->getFromJunction()->getGNEOutgoingEdges().size() <= 1)) {
         edge->getFromJunction()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
-    // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
+    // if junction destination is a TLS and after deletion will have only an edge, remove TLS
     if (edge->getToJunction()->getNBNode()->isTLControlled() && (edge->getToJunction()->getGNEIncomingEdges().size() <= 1)) {
         edge->getToJunction()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
@@ -584,10 +584,10 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("delete connection"));
     // obtain NBConnection to remove
     NBConnection deleted = connection->getNBConnection();
-    GNEJunction* junctionDestiny = connection->getEdgeFrom()->getToJunction();
-    junctionDestiny->markAsModified(undoList);
+    GNEJunction* junctionDestination = connection->getEdgeFrom()->getToJunction();
+    junctionDestination->markAsModified(undoList);
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
-    junctionDestiny->invalidateTLS(undoList, deleted);
+    junctionDestination->invalidateTLS(undoList, deleted);
     // remove connection requires always a recompute (due geometry and connections)
     requireRecompute();
     undoList->end();
