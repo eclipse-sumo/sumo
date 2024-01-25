@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-16 15:19+0100\n"
-"PO-Revision-Date: 2024-01-25 12:05+0000\n"
+"PO-Revision-Date: 2024-01-25 13:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13715,27 +13715,27 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:358
 msgid "Edit Connections"
-msgstr ""
+msgstr "Modifica collegamenti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:424
 msgid "modify connections"
-msgstr ""
+msgstr "modifica collegamenti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:475
 msgid "Pedestrian connections are generated automatically"
-msgstr ""
+msgstr "I collegamenti pedonali vengono generati automaticamente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:477
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "Autorizzazioni delle classe di veicoli incompatibili tra loro"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:479
 msgid "Another lane from the same edge already connects to that lane"
-msgstr ""
+msgstr "Un'altra corsia dello stesso arco è già collegata a quella corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:487
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "Destazione invalida per collegamenti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:74
 msgid "Template selector"
@@ -13747,7 +13747,7 @@ msgstr "Crea arco standard"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Create default edge short"
-msgstr ""
+msgstr "Crea arco standard corto"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:85
 msgid "Disallow for pedestrians"
@@ -13759,7 +13759,7 @@ msgstr "Aggiungi marciapiede"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:89
 msgid "Add bikelane"
-msgstr ""
+msgstr "Aggiungi corsia per ciclisti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 msgid "Use edgeType/template"
@@ -14060,12 +14060,12 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = metti una longitudine valida"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:74
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:143
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = metti una latitudine valida"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:120
 msgid "Create GEO POI"
@@ -14073,80 +14073,82 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:172
 msgid "Using clipboard"
-msgstr ""
+msgstr "Usando gli appunti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:289
 msgid "Current selected shape isn't valid."
-msgstr ""
+msgstr "La forma attualmente selezionata è invalida."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:337
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "La forma poligonale non può essere lasciata vuota"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:498
 msgid "POILane can be only placed over lanes"
 msgstr ""
+"Un punto di interesse collegato a delle corsie può essere posizionato "
+"unicamente su delle corsie"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:161
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:205
 msgid "No TAZ selected"
-msgstr ""
+msgstr "Nessuna zona di assegnazione del traffico selezionata"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:174
 msgid "Current TAZ: "
-msgstr ""
+msgstr "Zona di assegnazione del traffico attuale: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:337
 msgid "Invalid TAZ Child"
-msgstr ""
+msgstr "Elemento figlio di zone di assegnazione del traffico invalido"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:346
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "Statistiche di zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:349
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:888
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiche"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:376
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1129
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- Numero di archi: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:377
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1134
 msgid "- Min source: "
-msgstr ""
+msgstr "- Minimo del traffico di origine: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:378
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1135
 msgid "- Max source: "
-msgstr ""
+msgstr "- Massimo del traffico di origine: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:379
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1136
 msgid "- Average source: "
-msgstr ""
+msgstr "- Media del traffico di origine: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:381
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1138
 msgid "- Min sink: "
-msgstr ""
+msgstr "- Minimo del traffico di destinazione: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:382
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1139
 msgid "- Max sink: "
-msgstr ""
+msgstr "- Massimo del traffico di destinazione: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:383
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1140
 msgid "- Average sink: "
-msgstr ""
+msgstr "- Media del traffico di destinazione: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:387
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "Nessuna zona di assegnazione del traffico selezionata"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:399
 msgid "Confirm changes"
