@@ -143,5 +143,5 @@ jobs:
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v4
       with:
-        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
+        name: linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
         path: sumo/bin
