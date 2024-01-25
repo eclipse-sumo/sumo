@@ -51,7 +51,7 @@ jobs:
         path: sumolibraries
 
     - name: Configuring Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python_version }}
         architecture: x64
@@ -99,7 +99,7 @@ jobs:
     - name: Uploading artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: python-${{ matrix.build_type }}-wheels
+        name: ${{ matrix.build_type }}-python-${{ matrix.python_version }}-wheels
         path: dist
 
     - name: Plain libsumo tests
@@ -138,7 +138,7 @@ jobs:
       uses: actions/download-artifact@v3
 
     - name: Configuring Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python_version }}
 
