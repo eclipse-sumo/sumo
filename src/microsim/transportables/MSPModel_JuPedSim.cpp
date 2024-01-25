@@ -188,12 +188,12 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
     waypoints.push_back(arrivalPosition);
 
-    JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
+    JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
     JPS_StageId startingStage = 0;
     JPS_StageId predecessor = 0;
     for (const Position& p : waypoints) {
-        if (!addWaypoint(journey, predecessor, p, person->getID())) {
-            JPS_JourneyDescription_Free(journey);
+        if (!addWaypoint(journeyDesc, predecessor, p, person->getID())) {
+            JPS_JourneyDescription_Free(journeyDesc);
             return nullptr;
         }
         if (startingStage == 0) {
@@ -201,7 +201,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         }
     }
     JPS_ErrorMessage message = nullptr;
-    JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
+    JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journeyDesc, &message);
+    JPS_JourneyDescription_Free(journeyDesc);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding a journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
@@ -216,7 +217,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         }
     }
     if (state == nullptr) {
-        state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, startingStage, waypoints);
+        state = new PState(static_cast<MSPerson*>(person), stage, journeyId, startingStage, waypoints);
         state->setLanePosition(stage->getDepartPos());
         state->setPreviousPosition(departurePosition);
         state->setPosition(departurePosition.x(), departurePosition.y());
@@ -224,7 +225,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         myPedestrianStates.push_back(state);
         myNumActivePedestrians++;
     } else {
-        state->reinit(stage, journey, journeyId, startingStage, waypoints);
+        state->reinit(stage, journeyId, startingStage, waypoints);
     }
     if (state->isWaitingToEnter()) {
         tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
@@ -270,7 +271,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
-            Position p = state->getPosition(*state->getStage(), time) + Position(RandHelper::rand(-.5, .5), RandHelper::rand(-.5, .5));
+            Position p = state->getPosition(*state->getStage(), time);
+            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -829,21 +832,20 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
-                                  JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId,
+                                  JPS_JourneyId journeyId, JPS_StageId stageId,
                                   const PositionVector& waypoints)
-    : myPerson(person), myStage(stage), myJourney(journey), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
+    : myPerson(person), myStage(stage), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
       myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
 
 
 void
-MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId,
+MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId,
                                   const PositionVector& waypoints) {
     if (myStage != nullptr) {
         myStage->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
     }
     myStage = stage;
-    myJourney = journey;
     myJourneyId = journeyId;
     myStageId = stageId;
     myWaypoints = waypoints;
@@ -851,7 +853,6 @@ MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyDescription j
 
 
 MSPModel_JuPedSim::PState::~PState() {
-    JPS_JourneyDescription_Free(myJourney);
 }
 
 

@@ -75,10 +75,10 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
         ~PState() override;
 
-        void reinit(MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
+        void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         void setPosition(double x, double y);
@@ -134,8 +134,6 @@ private:
     private:
         MSPerson* myPerson;
         MSStageMoving* myStage;
-        /// @brief handle to the JPS journey, only needed for freeing the memory later
-        JPS_JourneyDescription myJourney;
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
