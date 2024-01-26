@@ -228,7 +228,7 @@ def get(args=None):
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options, west, south, east, north, decals, net)
-        elif "openstreetmap" in options.url:
+        elif "openstreetmap" in options.url or "geofabrik" in options.url:
             retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net)
         else:
             b = west
