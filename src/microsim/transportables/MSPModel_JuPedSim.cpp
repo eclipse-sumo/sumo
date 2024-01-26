@@ -323,6 +323,11 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
             stage->activateEntryReminders(person);
+            JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+            const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
+            if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+                JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+            }
         }
 
         if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
