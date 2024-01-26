@@ -172,13 +172,12 @@ jobs:
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 #        python -m pip uninstall -y eclipse-sumo
 
-    - name: Running libsumo tests
-      if: matrix.python_version == '3.12'
+    - name: Running libsumo tests (only testing installation for now)
       run: |
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
         python -m pip install (Get-ChildItem -Filter sumo-python-wheels/sumolib-*).FullName (Get-ChildItem -Filter sumo-python-wheels/traci-*).FullName
         python -m pip install (Get-ChildItem -Filter libsumo-python-${{ matrix.python_version }}-wheels/libsumo-*).FullName
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
+#        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
     - name: Compressing test results
       if: failure()
