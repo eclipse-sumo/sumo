@@ -4,8 +4,8 @@ title: Object Context Subscription
 
 # Introduction
 
-Context subscriptions are allowing the obtaining of specific values from
-surrounding objects of a certain so called "EGO" object. With these
+Context subscriptions allow to obtain specific values from
+surrounding objects of a certain so-called "EGO" object. With these
 data one can determine the traffic status around that EGO object. Such
 an EGO Object can be any possible Vehicle, inductive loop,
 points-of-interest, and such like. A vehicle driving through a city, for
