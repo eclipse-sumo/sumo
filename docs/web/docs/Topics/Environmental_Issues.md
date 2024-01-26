@@ -160,7 +160,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 - The tool [traceExporter.py](../Tools/TraceExporter.md) converts
   SUMO's [fcd-output](../Simulation/Output/FCDOutput.md) into
   files that can be directly read by the
-  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)[\[2\]](#references)
+  [PHEM](https://www.itna.tugraz.at/en/research/areas/em/)[\[2\]](#references)
   application. A [tutorial on generating trace files (including PHEM
   input files)](../Tutorials/Trace_File_Generation.md) using this
   tool is available.
@@ -183,7 +183,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
     8th of January 2014.
 
 2.  [*Emissionen und Energieverbrauch von
-    Antriebskonzepten*](https://www.ivt.tugraz.at/en/research/areas/em/)
+    Antriebskonzepten*](https://www.itna.tugraz.at/en/research/areas/em/)
     (German). Institute for Internal Combustion Engines and
     Thermodynamics at Graz University of Technology. Last visited on 8th
     of January 2014.
