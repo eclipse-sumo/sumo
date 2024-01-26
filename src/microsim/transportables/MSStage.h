@@ -73,6 +73,9 @@ public:
     /// destructor
     virtual ~MSStage();
 
+    /// initialization, e.g. for param-related events
+    virtual void init(MSTransportable* /*transportable*/) {};
+    
     /// returns the destination edge
     const MSEdge* getDestination() const;
 

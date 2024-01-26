@@ -57,6 +57,7 @@ MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const doubl
 
 MSStage::~MSStage() {}
 
+
 const MSEdge*
 MSStage::getDestination() const {
     return myDestination;

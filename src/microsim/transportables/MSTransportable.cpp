@@ -55,6 +55,9 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
     myStep = myPlan->begin();
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);
+    for (MSStage* const stage : * myPlan) {
+        stage->init(this);
+    }
 }
 
 

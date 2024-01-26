@@ -22,6 +22,7 @@
 
 #include <set>
 #include <cassert>
+#include <utils/common/Command.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Position.h>
@@ -76,6 +77,9 @@ public:
 
     /// abort this stage (TraCI)
     void abort(MSTransportable* t);
+
+    /// initialization, e.g. for param-related events
+    void init(MSTransportable* transportable);
 
     /// Returns the current edge
     const MSEdge* getEdge() const;
@@ -209,6 +213,7 @@ protected:
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
+    Command* myReservationCommand;
 
 private:
     /// brief register waiting person (on proceed or loadState)
@@ -220,5 +225,18 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSStageDriving& operator=(const MSStageDriving&) = delete;
+
+private:
+    class BookReservation : public Command {
+    public:
+        BookReservation(MSTransportable* transportable, SUMOTime earliestPickupTime, MSStageDriving* stage) :
+            myTransportable(transportable), myEarliestPickupTime(earliestPickupTime), myStage(stage) {}
+        SUMOTime execute(SUMOTime currentTime);
+        
+    private:
+        MSTransportable* myTransportable;
+        SUMOTime myEarliestPickupTime;
+        MSStageDriving* myStage;
+    };
 
 };

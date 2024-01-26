@@ -168,6 +168,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
                               const std::set<std::string>& lines,
                               SUMOTime reservationTime,
                               SUMOTime pickupTime,
+                              SUMOTime earliestPickupTime,
                               const MSEdge* from, double fromPos,
                               const MSEdge* to, double toPos,
                               const std::string& group) {
@@ -187,7 +188,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     if (myDispatchCommand == nullptr) {
         initDispatch();
     }
-    myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
+    myDispatcher->addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, to, toPos, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
 }
 
 void

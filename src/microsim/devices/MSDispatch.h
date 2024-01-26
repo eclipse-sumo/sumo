@@ -48,6 +48,7 @@ struct Reservation {
                 const std::vector<MSTransportable*>& _persons,
                 SUMOTime _reservationTime,
                 SUMOTime _pickupTime,
+                SUMOTime _earliestPickupTime,
                 const MSEdge* _from, double _fromPos,
                 const MSEdge* _to, double _toPos,
                 const std::string& _group,
@@ -56,6 +57,7 @@ struct Reservation {
         persons(_persons.begin(), _persons.end()),
         reservationTime(_reservationTime),
         pickupTime(_pickupTime),
+        earliestPickupTime(_earliestPickupTime),
         from(_from),
         fromPos(_fromPos),
         to(_to),
@@ -70,6 +72,7 @@ struct Reservation {
     std::set<MSTransportable*> persons;
     SUMOTime reservationTime;
     SUMOTime pickupTime;
+    SUMOTime earliestPickupTime;
     const MSEdge* from;
     double fromPos;
     const MSEdge* to;
@@ -124,6 +127,7 @@ public:
     virtual Reservation* addReservation(MSTransportable* person,
                                         SUMOTime reservationTime,
                                         SUMOTime pickupTime,
+                                        SUMOTime earliestPickupTime,
                                         const MSEdge* from, double fromPos,
                                         const MSEdge* to, double toPos,
                                         std::string group,

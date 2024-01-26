@@ -70,6 +70,7 @@ Reservation*
 MSDispatch::addReservation(MSTransportable* person,
                            SUMOTime reservationTime,
                            SUMOTime pickupTime,
+                           SUMOTime earliestPickupTime,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
                            std::string group,
@@ -110,7 +111,7 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     if (!added) {
-        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, from, fromPos, to, toPos, group, line);
+        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, earliestPickupTime, from, fromPos, to, toPos, group, line);
         myGroupReservations[group].push_back(newRes);
         result = newRes;
     }

@@ -47,6 +47,7 @@ public:
     Reservation* addReservation(MSTransportable* person,
                                 SUMOTime reservationTime,
                                 SUMOTime pickupTime,
+                                SUMOTime earliestPickupTime,
                                 const MSEdge* from, double fromPos,
                                 const MSEdge* to, double toPos,
                                 std::string group,

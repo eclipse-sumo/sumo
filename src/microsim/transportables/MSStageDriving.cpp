@@ -27,6 +27,7 @@
 #include <utils/router/PedestrianRouter.h>
 #include <utils/router/IntermodalRouter.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSStop.h>
@@ -37,6 +38,7 @@
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
+#include <microsim/devices/MSDispatch.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel.h>
@@ -58,12 +60,14 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
     myVehicleVClass(SVC_IGNORING),
     myVehicleDistance(-1.),
     myTimeLoss(-1),
+    myWaitingPos(-1),
     myWaitingSince(-1),
     myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
     myOriginStop(nullptr),
     myIntendedVehicleID(intendedVeh),
-    myIntendedDepart(intendedDepart) {
+    myIntendedDepart(intendedDepart),
+    myReservationCommand(nullptr) {
 }
 
 
@@ -78,6 +82,20 @@ MSStageDriving::clone() const {
 
 
 MSStageDriving::~MSStageDriving() {}
+
+
+void
+MSStageDriving::init(MSTransportable* transportable) {
+    if (hasParameter("earliestPickupTime")) {
+        SUMOTime reservationTime = MSNet::getInstance()->getCurrentTimeStep();
+        if (hasParameter("reservationTime")) {
+            reservationTime = string2time(getParameter("reservationTime"));
+        }
+        SUMOTime earliestPickupTime = string2time(getParameter("earliestPickupTime"));
+        myReservationCommand = new BookReservation(transportable, earliestPickupTime, this);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myReservationCommand, reservationTime);
+    }
+}
 
 
 const MSEdge*
@@ -285,7 +303,11 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
                 }
             }
         }
-        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+        // Create reservation only if not already created by previous reservationTime
+        if (myReservationCommand == nullptr) {
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+        }
+
     }
     if (transportable->isPerson()) {
         MSNet::getInstance()->getPersonControl().addWaiting(myWaitingEdge, transportable);
@@ -581,5 +603,14 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
     }
 }
 
+// ---------------------------------------------------------------------------
+// MSStageDriving::BookReservation method definitions
+// ---------------------------------------------------------------------------
+SUMOTime
+MSStageDriving::BookReservation::execute(SUMOTime currentTime) {
+    MSDevice_Taxi::addReservation(myTransportable, myStage->getLines(), currentTime, currentTime, myEarliestPickupTime, myStage->myOrigin, myStage->myOrigin->getLength()/2, myStage->getDestination(), myStage->getArrivalPos(), myStage->myGroup);
+    // do not repeat if execution fails
+    return 0;
+}
 
 /****************************************************************************/
