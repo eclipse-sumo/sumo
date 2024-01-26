@@ -59,7 +59,7 @@ SUMO includes the following emission models:
   v2.1 emissions data base;
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
-  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)[\[2\]](#references)
+  [PHEM](https://www.itna.tugraz.at/en/research/areas/em/)[\[2\]](#references)
   emission model.
 
 Both models implement different vehicle emission classes. These classes

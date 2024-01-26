@@ -206,7 +206,7 @@ PollutantsInterface::Helper::getCoastingDecel.
 The tool [traceExporter.py](../Tools/TraceExporter.md) converts
 SUMO's [fcd-output](../Simulation/Output/FCDOutput.md) into files
 that can be directly read by the
-[PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
+[PHEM](https://www.itna.tugraz.at/en/research/areas/em/)
 application. A [tutorial on generating trace files (including PHEM input
 files)](../Tutorials/Trace_File_Generation.md) using this tool is
 available.
