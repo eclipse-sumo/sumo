@@ -1,5 +1,8 @@
 two_edges
 
+# This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
+speed_change
+
 # Test the geometry checks regarding non-simple polygons
 geometry_check
 
