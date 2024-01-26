@@ -170,13 +170,16 @@ jobs:
       run: |
         $env:TEXTTEST_CI_APPS = "-ts meta"
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
-#        python -m pip uninstall -y eclipse-sumo
+        python -m pip uninstall -y eclipse-sumo
 
-    - name: Running libsumo tests (only testing installation for now)
+    - name: Installing libsumo
       run: |
-        $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
         python -m pip install (Get-ChildItem -Filter sumo-python-wheels/sumolib-*).FullName (Get-ChildItem -Filter sumo-python-wheels/traci-*).FullName
-        python -m pip install (Get-ChildItem -Filter libsumo-python-${{ matrix.python_version }}-wheels/libsumo-*).FullName
+        python -m pip install --user (Get-ChildItem -Filter libsumo-python-${{ matrix.python_version }}-wheels/libsumo-*).FullName
+
+#    - name: Running libsumo tests
+#      run: |
+#        $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
 #        tests\runCiTests.bat $env:pythonLocation\Scripts\texttestc.py
 
     - name: Compressing test results
