@@ -292,13 +292,13 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
 
         // Updates the agent position.
-        auto agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
+        const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
         state->setPreviousPosition(state->getPosition(*stage, DELTA_T));
-        const auto position = JPS_Agent_GetPosition(agent);
+        const JPS_Point position = JPS_Agent_GetPosition(agent);
         state->setPosition(position.x, position.y);
 
         // Updates the agent direction.
-        const auto orientation = JPS_Agent_GetOrientation(agent);
+        const JPS_Point orientation = JPS_Agent_GetOrientation(agent);
         state->setAngle(atan2(orientation.y, orientation.x));
 
         // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
@@ -306,7 +306,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         ConstMSEdgeVector route = stage->getEdges();
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
-        double bestDistance = std::numeric_limits<double>::max();
+        const double bestDistance = std::numeric_limits<double>::max();
         MSLane* candidateLane = nullptr;
         double candidateLaneLongitudinalPosition = 0.0;
         int routeOffset = 0;
