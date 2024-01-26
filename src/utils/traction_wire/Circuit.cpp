@@ -610,8 +610,8 @@ bool Circuit::_solveNRmethod() {
     // vals are now the solution x of the circuit
     deployResults(vals, &removable_ids);
 
-    delete eqn;
-    delete vals;
+    delete[] eqn;
+    delete[] vals;
     return true;
 }
 
