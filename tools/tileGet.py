@@ -13,6 +13,7 @@
 
 # @file    tileGet.py
 # @author  Michael Behrisch
+# @author  Robert Hilbrich
 # @date    2019-12-11
 
 from __future__ import absolute_import
@@ -92,9 +93,10 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
         ex, ey = fromLatLonToTile(south, east, zoom)
         numTiles = (ex - sx + 1) * (ey - sy + 1)
 
-    opener = urllib.build_opener()
-    opener.addheaders = [('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4)')]
-    urllib.install_opener(opener) 
+    if options.user_agent:
+        opener = urllib.build_opener()
+        opener.addheaders = [('User-agent', options.user_agent)]
+        urllib.install_opener(opener) 
 
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
@@ -169,10 +171,13 @@ def get_options(args=None):
                          help="map type (roadmap, satellite, hybrid, terrain)")
     optParser.add_option("-u", "--url", category="processing", default="arcgis",
                          help="Download from the given tile server")
+    optParser.add_option("-a", "--user-agent", category="processing", 
+                         help="user agent string to be used when downloading tiles")
     optParser.add_option("-f", "--min-file-size", category="processing", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
     optParser.add_option("-j", "--parallel-jobs", category="processing", type=int, default=8,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
+    
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
