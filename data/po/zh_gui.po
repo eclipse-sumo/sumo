@@ -1179,48 +1179,48 @@ msgstr "显示所有路径"
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:365
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:368
 msgid "Draw looped routes"
-msgstr ""
+msgstr "绘制环形路径"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:372
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "隐藏最佳车道"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:374
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "显示最佳车道"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 msgid "Hide Link Items"
-msgstr ""
+msgstr "隐藏连接项"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:379
 msgid "Show Link Items"
-msgstr ""
+msgstr "显示连接项"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 msgid "Start Tracking"
-msgstr ""
+msgstr "开始跟踪"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:385
 msgid "Stop Tracking"
-msgstr ""
+msgstr "停止跟踪"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:387
 msgid "Select Foes"
-msgstr ""
+msgstr "选择冲突连接"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
-msgstr ""
+msgstr "选择乘客/货物"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
-msgstr ""
+msgstr "结束驻停"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 msgid "Stop"
-msgstr "停止"
+msgstr "驻停"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:392
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1263
@@ -1353,7 +1353,7 @@ msgstr "充电延迟 [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge type"
-msgstr ""
+msgstr "充电类型"
 
 #: D:\Repos\sumo/src\guisim\GUIChargingStation.cpp:102
 #: D:\Repos\sumo/src\guisim\GUIContainer.cpp:175
@@ -1860,7 +1860,7 @@ msgstr "路网规模超过1光年。请重新考虑您的输入。\n"
 #: D:\Repos\sumo/src\guisim\GUINet.cpp:470
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:163
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "将视图边界的地理坐标复制到剪贴板"
 
 #: D:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
