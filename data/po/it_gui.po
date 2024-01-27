@@ -12468,39 +12468,39 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:49
 msgid "Drawing"
-msgstr ""
+msgstr "Disegno"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:53
 msgid "Start drawing"
-msgstr ""
+msgstr "Inizia a disegnare"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:54
 msgid "Stop drawing"
-msgstr ""
+msgstr "Finisci di disegnare"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:55
 msgid "Abort drawing"
-msgstr ""
+msgstr "Cancella il disegno"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 msgid "'Start drawing' or ENTER to create a shape."
-msgstr ""
+msgstr "'Inizia a disegnare' o ENTER per creare una forma."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "'Stop drawing' or ENTER to finish shape creation."
-msgstr ""
+msgstr "'Finisci di disegnare' o ENTER per finire la creazione di una forma."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 msgid "'Abort drawing' or ESC to abort shape creation."
-msgstr ""
+msgstr "'Cancella il disegno' o ESC per cancellare la creazione di una forma."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
-msgstr ""
+msgstr "'Shift + Clic' per rimuovere l'ultimo punto inserito."
 
 #: D:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:134
 msgid "A new point cannot be added if drawing wasn't started"
-msgstr ""
+msgstr "Non si può aggiungere un punto prima di iniziare il disegno"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:62
 msgid "Hierarchy"
