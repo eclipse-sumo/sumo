@@ -2061,39 +2061,39 @@ msgstr "期望最大速度 [m/s]"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "切换到 '%'"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "关闭相位切换"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
-msgstr ""
+msgstr "跟踪相位"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
-msgstr ""
+msgstr "显示相位"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Hide Detectors"
-msgstr ""
+msgstr "隐藏检测器"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Show Detectors"
-msgstr ""
+msgstr "显示检测器"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:202
 msgid "Phase: %"
-msgstr ""
+msgstr "相位: %"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:205
 msgid "Phase name: %"
-msgstr ""
+msgstr "相位名称: %"
 
 #: D:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
@@ -2194,7 +2194,7 @@ msgstr "车道上的时间间隔 [s]"
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:134
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "等待时间（累计，% s）[s]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
@@ -3056,7 +3056,7 @@ msgstr "存储整合路口的记录（允许连接点重现）。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
-msgstr ""
+msgstr "重新加载"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:265
@@ -3410,7 +3410,7 @@ msgstr "创建交叉口和道路。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Traffic light"
-msgstr ""
+msgstr "交通信号灯"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Modes traffic lights over junctions."
@@ -3419,7 +3419,7 @@ msgstr "模式 交通信号位于路口。"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1411
 msgid "Connection"
-msgstr ""
+msgstr "连接"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 msgid "Modes connections between lanes."
