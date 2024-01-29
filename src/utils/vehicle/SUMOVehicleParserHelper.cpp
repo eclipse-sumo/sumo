@@ -841,6 +841,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_EMISSIONCLASS) + " with name '" + parsedEmissionClass + "' doesn't exist.");
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_MASS)) {
+            bool ok = true;
+            const double mass = attrs.get<double>(SUMO_ATTR_MASS, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (mass < 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_MASS) + " must be equal or greater than 0");
+            } else {
+                vType->mass = mass;
+                vType->parametersSet |= VTYPEPARS_MASS_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
             bool ok = true;
             const std::string impatienceStr = attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vType->id.c_str(), ok);

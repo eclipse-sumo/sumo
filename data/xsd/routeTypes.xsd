@@ -41,6 +41,7 @@
         <xsd:attribute name="guiShape" type="xsd:string"/>
         <xsd:attribute name="width" type="positiveFloatType"/>
         <xsd:attribute name="height" type="positiveFloatType"/>
+        <xsd:attribute name="mass" type="positiveFloatType"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
