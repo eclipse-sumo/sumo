@@ -32,28 +32,26 @@ else:
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-    import sumolib  # noqa
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+import sumolib  # noqa
 
 
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
-    ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
+    ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
     ap.add_option("-k", "--configuration", category="input", metavar="FILE", required=True,
                   type=ap.sumoconfig_file_list,
                   help="configuration to run or comma-separated list of configurations")
-    ap.add_option("-a", "--application", category="processing", default=sumolib.checkBinary("sumo"), metavar="FILE",
+    ap.add_option("-a", "--application", metavar="FILE",
                   help="application to run or comma-separated list of applications")
-    ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
+    ap.add_option("-p", "--output-prefix",  default="SEED.", dest="prefix",
                   help="output prefix",)
     ap.add_option("--no-folders", action="store_true", category="output", default=False, dest="noFolders",
                   help=("do not create folders to distinguish multiple configurations or applications" +
                         "but use prefixes instead"))
-    ap.add_option("--seeds", category="processing", default="0:10",
+    ap.add_option("--seeds", default="0:10",
                   help="which seeds to run")
-    ap.add_option("--threads", category="processing", type=int, default=1,
+    ap.add_option("--threads", type=int, default=1,
                   help="number of parallel processes")
     # parse options
     options, unknown_args = ap.parse_known_args(args=args)
@@ -72,7 +70,10 @@ def get_options(args=None):
         sys.stderr.write("Error: application '%s' not found\n" % options.application)
         sys.exit()
 
-    options.application = options.application.split(',')
+    if options.application is None:
+        options.application = [sumolib.checkBinary("sumo")]
+    else:
+        options.application = options.application.split(',')
     options.configuration = options.configuration.split(',')
 
     for cfg in options.configuration:
