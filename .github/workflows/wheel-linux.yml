@@ -99,7 +99,7 @@ jobs:
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
-        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python -m pip install -r tools/req_ci.txt; fi
+        python -m pip install -r tools/req_ci.txt
         python -m pip install -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast
 
