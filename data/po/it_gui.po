@@ -15007,7 +15007,7 @@ msgstr "Colora secondo origine e destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1344
 msgid "Color by Source - Sink"
-msgstr ""
+msgstr "Colora secondo la differenza tra origine e destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1613
 msgid "TAZ shape needs at least three points"
