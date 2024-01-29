@@ -85,6 +85,8 @@ def main(args=None):
             print("The replace string for the search string '%s' is missing. The named search string will be neglected."
                   % options.replace[-1])
             options.replace = options.replace[:-1]
+        # update newline chars in input
+        options.replace = [replaceInput.replace("\\n", "\n") for replaceInput in options.replace]
         for i in range(0, len(options.replace), 2):
             if options.strict:
                 replaceRules.append((options.replace[i], options.replace[i+1],
@@ -198,6 +200,9 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
                                                  len(options.placeholder) + len(str(i)))
                 i += 1
         for replaceRule in replaceRules:
+            if entry.msgstr.startswith("There is unsaved"):
+                print("%s newline %s origin string %s" % (entry.msgstr, "\n" in entry.msgstr, entry.msgstr ==
+                      "There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?"))
             if options.strict and replaceRule[0] == entry.msgstr:
                 replaced = replaceRule[1]
             elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]):  # starts with ...
