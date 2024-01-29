@@ -306,7 +306,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         ConstMSEdgeVector route = stage->getEdges();
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
-        const double bestDistance = std::numeric_limits<double>::max();
+        double bestDistance = std::numeric_limits<double>::max();
         MSLane* candidateLane = nullptr;
         double candidateLaneLongitudinalPosition = 0.0;
         int routeOffset = 0;
