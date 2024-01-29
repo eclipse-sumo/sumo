@@ -99,6 +99,7 @@ of bus stops were used for the implementation of charging stations.
 | **chargeInTransit** | bool       | true or false                                                                              | false  | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
 | chargeType | string | | normal | Charging type (normal, electric, fuel) |
+| parkingArea         | string     | valid parkingArea id                                                                       |        | id of the parking the charging station should be positioned on (optional) - vehicles will only charge after reaching the parking
 
 Charging stations are defined in additional using the following format:
 
