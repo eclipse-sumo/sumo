@@ -1874,6 +1874,11 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Waiting time before start charging"),
                                               "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKINGAREA,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              TL("Parking area the charging station is located"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {

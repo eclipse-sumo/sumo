@@ -24,6 +24,7 @@
 #include <cassert>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicle.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/devices/MSDevice_Battery.h>
@@ -72,6 +73,14 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
 }
 
 
+MSChargingStation::MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
+                                     double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
+    MSChargingStation(chargingStationID, const_cast<MSLane&>(parkingArea->getLane()), parkingArea->getBeginLanePosition(), parkingArea->getEndLanePosition(),
+                      name, chargingPower, efficency, chargeInTransit, chargeDelay, chargeType, waitingTime) {
+    myParkingArea = parkingArea;
+}
+
+
 MSChargingStation::~MSChargingStation() {
 }
 
@@ -114,6 +123,11 @@ MSChargingStation::getChargeType() const {
 SUMOTime
 MSChargingStation::getWaitingTime() const {
     return myWaitingTime;
+}
+
+
+const MSParkingArea* MSChargingStation::getParkingArea() const {
+    return myParkingArea;
 }
 
 

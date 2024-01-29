@@ -54,6 +54,10 @@ public:
                       const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
                       SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
 
+    MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
+                      double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
+                      SUMOTime waitingTime);
+
     /// @brief destructor
     ~MSChargingStation();
 
@@ -74,6 +78,11 @@ public:
 
     /// @brief Get waiting time
     SUMOTime getWaitingTime() const;
+
+    /** @brief Get the parking area the charging station is placed on
+     * @return pointer to the parking area or nullptr
+     */
+    const MSParkingArea* getParkingArea() const;
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
@@ -163,6 +172,9 @@ protected:
 
     /// @brief total energy charged by this charging station
     double myTotalCharge = 0;
+
+    /// @brief parkingArea the charging station is placed on
+    const MSParkingArea* myParkingArea;
 
     /// @brief map with the charges of this charging station (key = vehicleID)
     std::map<std::string, std::vector<Charge> > myChargeValues;

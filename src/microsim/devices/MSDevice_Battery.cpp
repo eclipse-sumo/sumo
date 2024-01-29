@@ -212,7 +212,8 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     if (chargingStationID != "") {
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
         MSChargingStation* const cs = static_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION));
-        if ((veh.getSpeed() < myStoppingThreshold) || cs->getChargeInTransit()) {
+        const MSParkingArea* pa = cs->getParkingArea();
+        if (((veh.getSpeed() < myStoppingThreshold) || cs->getChargeInTransit()) && (pa == nullptr || veh.isParking())) {
             // Set Flags Stopped/intransit to
             if (veh.getSpeed() < myStoppingThreshold) {
                 // vehicle ist almost stopped, then is charging stopped

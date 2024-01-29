@@ -311,6 +311,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
                                  obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
+                                 obj->getStringAttribute(SUMO_ATTR_PARKING_AREA),
                                  obj->getParameters());
             break;
         case SUMO_TAG_PARKING_AREA:
@@ -867,6 +868,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const std::string chargeType = attrs.getOpt<std::string>(SUMO_ATTR_CHARGETYPE, id.c_str(), parsedOk, "normal");
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, TIME2STEPS(900));
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const std::string parkingAreaID = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, id.c_str(), parsedOk, "");
+
     // check charge type
     if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
         writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
@@ -890,6 +893,7 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CHARGETYPE, chargeType);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_WAITINGTIME, waitingTime);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_PARKING_AREA, parkingAreaID);
     }
 }
 
