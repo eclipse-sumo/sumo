@@ -14942,15 +14942,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:875
 msgid "Selection Statistics"
-msgstr ""
+msgstr "Statistiche della selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:879
 msgid "Source"
-msgstr ""
+msgstr "Origine"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:884
 msgid "Sink"
-msgstr ""
+msgstr "Destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:916
 msgid "TAZEdgeColor already selected"
@@ -14995,15 +14995,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1338
 msgid "Color by Source"
-msgstr ""
+msgstr "Colora secondo l'origine"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1340
 msgid "Color by Sink"
-msgstr ""
+msgstr "Colora secondo la destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1342
 msgid "Color by Source + Sink"
-msgstr ""
+msgstr "Colora secondo origine e destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1344
 msgid "Color by Source - Sink"
