@@ -1875,7 +1875,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKINGAREA,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("Parking area the charging station is located"));
         myTagProperties[currentTag].addAttribute(attrProperty);
