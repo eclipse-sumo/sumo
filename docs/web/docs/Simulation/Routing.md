@@ -137,7 +137,7 @@ The travel time is needed to compute at which time a certain edge is reached so 
 When setting the options **--weight-file** and **--weight-attribute**, additional routing efforts are read
 according to the specified attribute. These are only used when calling
 the TraCI function [reroute by effort](../TraCI/Change_Vehicle_State.md). The assumed efforts
-along a vehicles route are are time-based values and the time is
+along a vehicles route are time-based values and the time is
 computed based on the travel time values described above. The effort can
 also be set using *traci.edge.setEffort*.
 
