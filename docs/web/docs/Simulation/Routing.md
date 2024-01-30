@@ -118,6 +118,7 @@ As a consequence:
 By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
 The travel time can either be computed from the speed limits and vehicle maximum speed, it can be estimated at runtime from the simulation state or it can be loaded from a data file. The latter option allows defining travel times for the future.
 An example for the relevance of future travel times would be this:
+
 - a vehicle departs for a long trip at a time where there is no jamming
 - it is known that parts of the network will be jammed later
 - the route of the vehicle computed at departure time can circumvent the jam because the routing algorithm is aware that by the time those edges are reached they will be jammed.
