@@ -62,20 +62,16 @@ def get_options(args=None):
     else:
         options.seeds = list(map(int, options.seeds.split(",")))
 
-    if not options.configuration:
-        sys.stderr.write("Error: option configuration is mandatory\n")
-        sys.exit()
-
-    if hasattr(shutil, "which") and not shutil.which(options.application):
-        sys.stderr.write("Error: application '%s' not found\n" % options.application)
-        sys.exit()
-
     if options.application is None:
         options.application = [sumolib.checkBinary("sumo")]
     else:
         options.application = options.application.split(',')
-    options.configuration = options.configuration.split(',')
+    for app in options.application:
+        if hasattr(shutil, "which") and not shutil.which(app):
+            sys.stderr.write("Error: application '%s' not found\n" % app)
+            sys.exit()
 
+    options.configuration = options.configuration.split(',')
     for cfg in options.configuration:
         if not os.path.exists(cfg):
             sys.stderr.write("Error: configuration '%s' not found\n" % cfg)
