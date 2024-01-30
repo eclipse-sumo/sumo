@@ -168,13 +168,13 @@ protected:
     SUMOTime myWaitingTime = 0;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
-    bool myChargingVehicle;
+    bool myChargingVehicle = false;
 
     /// @brief total energy charged by this charging station
     double myTotalCharge = 0;
 
     /// @brief parkingArea the charging station is placed on
-    const MSParkingArea* myParkingArea;
+    const MSParkingArea* myParkingArea = nullptr;
 
     /// @brief map with the charges of this charging station (key = vehicleID)
     std::map<std::string, std::vector<Charge> > myChargeValues;
