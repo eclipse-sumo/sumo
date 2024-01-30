@@ -202,7 +202,8 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
         for replaceRule in replaceRules:
             if entry.msgstr.startswith("There is unsaved"):
                 print("%s newline %s origin string %s" % (entry.msgstr, "\n" in entry.msgstr, entry.msgstr ==
-                      "There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?"))
+                      "There is unsaved changes in current edited traffic light.\n"
+                                                          "Do you want to save it before changing mode?"))
             if options.strict and replaceRule[0] == entry.msgstr:
                 replaced = replaceRule[1]
             elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]):  # starts with ...
