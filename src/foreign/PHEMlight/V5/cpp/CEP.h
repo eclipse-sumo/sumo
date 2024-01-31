@@ -65,15 +65,8 @@ namespace PHEMlightdllV5 {
         void setCalcType(const std::string& value);
 
     public:
-        const eNormalizingType&  getNormalizingType() const;
-        void setNormalizingType(const eNormalizingType&  value);
-
         const double&  getRatedPower() const;
         void setRatedPower(const double&  value);
-        const double&  getNormalizingPower() const;
-        void setNormalizingPower(const double&  value);
-        const double&  getDrivingPower() const;
-        void setDrivingPower(const double&  value);
         double getAuxPower() const {
             return _auxPower * getRatedPower();
         }

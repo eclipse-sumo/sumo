@@ -142,18 +142,8 @@ namespace PHEMlightdllV5 {
         }
 
         // looping through matrix and assigning values for pollutants
-        double pollutantMultiplyer = 1;
-        setNormalizingPower(CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV")));
-        setDrivingPower(getNormalizingPower());
-        if (getHeavyVehicle()) {
-            setNormalizingPower(getRatedPower());
-            setNormalizingType(eNormalizingType_RatedPower);
-            pollutantMultiplyer = getRatedPower();
-        }
-        else {
-            setNormalizingPower(getDrivingPower());
-            setNormalizingType(eNormalizingType_DrivingPower);
-        }
+        const double pollutantMultiplyer = getHeavyVehicle() ? getRatedPower() : 1.;
+        const double normalizingPower = getHeavyVehicle() ? getRatedPower() : CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV"));
 
         _powerPatternPollutants = std::vector<double>();
         _normailzedPowerPatternPollutants = std::vector<double>();
@@ -168,7 +158,7 @@ namespace PHEMlightdllV5 {
 
                 if (j == 0) {
                     _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-                    _powerPatternPollutants.push_back(matrixPollutants[i][j] * getNormalizingPower());
+                    _powerPatternPollutants.push_back(matrixPollutants[i][j] * normalizingPower);
                 }
                 else {
                     pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
@@ -213,36 +203,12 @@ namespace PHEMlightdllV5 {
         privateCalcType = value;
     }
 
-    const CEP::eNormalizingType& CEP::getNormalizingType() const {
-        return privateNormalizingType;
-    }
-
-    void CEP::setNormalizingType(const eNormalizingType& value) {
-        privateNormalizingType = value;
-    }
-
     const double& CEP::getRatedPower() const {
         return privateRatedPower;
     }
 
     void CEP::setRatedPower(const double& value) {
         privateRatedPower = value;
-    }
-
-    const double& CEP::getNormalizingPower() const {
-        return privateNormalizingPower;
-    }
-
-    void CEP::setNormalizingPower(const double& value) {
-        privateNormalizingPower = value;
-    }
-
-    const double& CEP::getDrivingPower() const {
-        return privateDrivingPower;
-    }
-
-    void CEP::setDrivingPower(const double& value) {
-        privateDrivingPower = value;
     }
 
     double CEP::CalcPower(double speed, double acc, double gradient, bool HBEV) {
