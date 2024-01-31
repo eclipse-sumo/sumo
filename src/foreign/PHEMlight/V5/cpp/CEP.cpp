@@ -198,10 +198,6 @@ namespace PHEMlightdllV5 {
         privateCalcType = value;
     }
 
-    bool CEP::isHBEV() const {
-        return getFuelType() == Constants::strBEV || getFuelType() == Constants::strHybrid;
-    }
-
     const double& CEP::getRatedPower() const {
         return privateRatedPower;
     }
@@ -258,7 +254,7 @@ namespace PHEMlightdllV5 {
         return power;
     }
 
-    double CEP::GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass) {
+    double CEP::GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower) {
         //Declaration
         std::vector<double>* emissionCurve = nullptr;
         std::vector<double>* powerPattern = nullptr;
@@ -295,7 +291,7 @@ namespace PHEMlightdllV5 {
             emissionCurve = &_cepCurvePollutants[pollutant];
             powerPattern = &_normalizedPowerPatternPollutants;
             if (!getHeavyVehicle()) {
-                normalizingPower = CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV"));
+                normalizingPower = drivingPower;
             }
         }
 
@@ -418,16 +414,14 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEP::GetDecelCoast(double speed, double acc, double gradient) {
+    double CEP::getFMot(const double speed) {
+        if (speed < 10e-2) {
+            return 0.;
+        }
         //Declaration
         int upperIndex;
         int lowerIndex;
 
-        if (speed < Constants::SPEED_DCEL_MIN) {
-            return speed / Constants::SPEED_DCEL_MIN * GetDecelCoast(Constants::SPEED_DCEL_MIN, acc, gradient);
-        }
-
-        double rotCoeff = GetRotationalCoeffecient(speed);
         FindLowerUpperInPattern(lowerIndex, upperIndex, _speedPatternRotational, speed);
         double iGear = Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _gearTransmissionCurve[lowerIndex], _gearTransmissionCurve[upperIndex]);
 
@@ -437,13 +431,16 @@ namespace PHEMlightdllV5 {
         double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
         FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);
+        return (-Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]) * getRatedPower() * 1000 / speed) / Constants::getDRIVE_TRAIN_EFFICIENCY();
+    }
 
-        double fMot = 0;
+    double CEP::GetDecelCoast(double speed, double acc, double gradient) {
 
-        if (speed >= 10e-2) {
-            fMot = (-Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]) * getRatedPower() * 1000 / speed) / Constants::getDRIVE_TRAIN_EFFICIENCY();
+        if (speed < Constants::SPEED_DCEL_MIN) {
+            return speed / Constants::SPEED_DCEL_MIN * GetDecelCoast(Constants::SPEED_DCEL_MIN, acc, gradient);
         }
-
+        double fMot = getFMot(speed);
+        double rotCoeff = GetRotationalCoeffecient(speed);
         double fRoll = (_resistanceF0 + _resistanceF1 * speed + std::pow(_resistanceF2 * speed, 2) + std::pow(_resistanceF3 * speed, 3) + std::pow(_resistanceF4 * speed, 4)) * (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST;
 
         double fAir = _cWValue * _crossSectionalArea * Constants::AIR_DENSITY_CONST * 0.5 * std::pow(speed, 2);

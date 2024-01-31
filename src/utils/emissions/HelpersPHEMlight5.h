@@ -95,7 +95,7 @@ private:
     * @param[in] v The vehicle's current velocity
     * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
     */
-    double getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v) const;
+    double getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower) const;
 
     /** @brief Returns the total power needed.
      * @param[in] currCep the emission class

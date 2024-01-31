@@ -120,14 +120,27 @@ EnergyParams::getDouble(SumoXMLAttr attr) const {
 }
 
 
+double
+EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
+    auto it = myMap.find(attr);
+    if (it != myMap.end()) {
+        return it->second;
+    }
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getDouble(attr);
+    }
+    return def;
+}
+
+
 const std::vector<double>&
 EnergyParams::getDoubles(SumoXMLAttr attr) const {
-    if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDoubles(attr);
-    }
     auto it = myVecMap.find(attr);
     if (it != myVecMap.end()) {
         return it->second;
+    }
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getDoubles(attr);
     }
     throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
 }
@@ -135,12 +148,12 @@ EnergyParams::getDoubles(SumoXMLAttr attr) const {
 
 const CharacteristicMap&
 EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
-    if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getCharacteristicMap(attr);
-    }
     auto it = myCharacteristicMapMap.find(attr);
     if (it != myCharacteristicMapMap.end()) {
         return it->second;
+    }
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getCharacteristicMap(attr);
     }
     throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
 }

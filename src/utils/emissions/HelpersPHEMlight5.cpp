@@ -110,8 +110,8 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
 
 
 double
-HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v) const {
-    return currCep->GetEmission(e, p, v, &myHelper);
+HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower) const {
+    return currCep->GetEmission(e, p, v, &myHelper, drivingPower);
 }
 
 
@@ -119,7 +119,7 @@ double
 HelpersPHEMlight5::calcPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const {
     // copy of CEP::CalcPower
     const double power = calcWheelPower(currCep, v, a, slope, param) / PHEMlightdllV5::Constants::_DRIVE_TRAIN_EFFICIENCY;
-    if (!currCep->isHBEV()) {
+    if (!(currCep->getCalcType() == "HEV" || currCep->getCalcType() == "BEV")) {
         return power + currCep->getAuxPower();
     }
     return power;
@@ -161,8 +161,22 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
 
 
 double
-HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
-    return myCEPs.find(c)->second->GetDecelCoast(v, a, slope);
+HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
+    PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
+    // this is a copy of CEP::GetDecelCoast
+    if (v < PHEMlightdllV5::Constants::SPEED_DCEL_MIN) {
+        return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
+    }
+    const double rotFactor = currCep->GetRotationalCoeffecient(v);
+    const double mass = currCep->getVehicleMass();
+    const double load = currCep->getVehicleLoading();
+    const double cw = currCep->getCrossSectionalArea() * currCep->getCWValue();
+
+    const double fRoll = currCep->getResistance(v, true) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
+    const double fAir = cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST * 0.5 * std::pow(v, 2);
+    const double fGrad = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100;
+
+    return -(currCep->getFMot(v) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
 }
 
 
@@ -176,42 +190,44 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
     PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
     const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope, param);
     const bool isBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV;
-    const bool isHybrid = currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
+    const bool isHybrid = currCep->getCalcType() == PHEMlightdllV5::Constants::strHybrid;
     const double power_raw = calcPower(currCep, corrSpeed, corrAcc, slope, param);
     const double power = isHybrid ? calcWheelPower(currCep, corrSpeed, corrAcc, slope, param) : currCep->CalcEngPower(power_raw);
 
-    if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
+    if (!isBEV && corrAcc < getCoastingDecel(c, corrSpeed, corrAcc, slope, param) &&
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
         return 0.;
     }
+    // TODO: this is probably only needed for non-heavy vehicles, so if execution speed becomes an issue
+    const double drivingPower = calcPower(currCep, PHEMlightdllV5::Constants::NORMALIZING_SPEED, PHEMlightdllV5::Constants::NORMALIZING_ACCELARATION, 0, param);
     switch (e) {
         case PollutantsInterface::CO:
-            return getEmission(currCep, "CO", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "CO", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::CO2:
-            return currCep->GetCO2Emission(getEmission(currCep, "FC", power, corrSpeed),
-                                           getEmission(currCep, "CO", power, corrSpeed),
-                                           getEmission(currCep, "HC", power, corrSpeed), &myHelper) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetCO2Emission(getEmission(currCep, "FC", power, corrSpeed, drivingPower),
+                                           getEmission(currCep, "CO", power, corrSpeed, drivingPower),
+                                           getEmission(currCep, "HC", power, corrSpeed, drivingPower), &myHelper) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::HC:
-            return getEmission(currCep, "HC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "HC", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::NO_X:
-            return getEmission(currCep, "NOx", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "NOx", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::PM_X:
-            return getEmission(currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "PM", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
             if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
-                return getEmission(currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
+                return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / 836. / SECONDS_PER_HOUR * 1000.;
             }
             if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
-                return getEmission(currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
+                return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / 742. / SECONDS_PER_HOUR * 1000.;
             }
             if (isBEV) {
                 return 0.;
             }
-            return getEmission(currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
+            return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
             if (isBEV) {
-                return (getEmission(currCep, "FC_el", power, corrSpeed) + currCep->getAuxPower()) / SECONDS_PER_HOUR * 1000.;
+                return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower) + currCep->getAuxPower()) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;
     }

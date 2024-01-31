@@ -63,7 +63,6 @@ namespace PHEMlightdllV5 {
         void setFuelType(const std::string& value);
         const std::string&  getCalcType() const;
         void setCalcType(const std::string& value);
-        bool isHBEV() const;
 
     public:
         const double&  getRatedPower() const;
@@ -86,9 +85,13 @@ namespace PHEMlightdllV5 {
         double getCWValue() const {
             return _cWValue;
         }
-        double getResistance(const double speed) const {
+        double getResistance(const double speed, const bool full=false) const {
+            if (full) {
+                return _resistanceF0 + _resistanceF1 * speed + std::pow(_resistanceF2 * speed, 2) + std::pow(_resistanceF3 * speed, 3) + std::pow(_resistanceF4 * speed, 4);
+            }
             return _resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4);
         }
+        double getFMot(const double speed);
 
     protected:
         double _massVehicle;
@@ -136,7 +139,7 @@ namespace PHEMlightdllV5 {
 
         double CalcEngPower(double power);
 
-        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass);
+        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower);
 
         double GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass);
 

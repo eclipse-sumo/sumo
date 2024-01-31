@@ -63,6 +63,7 @@ public:
     void setDouble(SumoXMLAttr attr, double value);
 
     double getDouble(SumoXMLAttr attr) const;
+    double getDoubleOptional(SumoXMLAttr attr, const double def) const;
 
     /**@brief Returns the value for a given key
      * @param[in] key The key to ask for
