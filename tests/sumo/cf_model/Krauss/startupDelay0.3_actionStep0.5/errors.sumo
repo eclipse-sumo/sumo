@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle '0'; waited too long (yield), lane=':C_11_0', time=308.00.
+Warning: Vehicle '0' ends teleporting on edge 'CW', time=308.00.
+Warning: Vehicle '0' performs emergency braking on lane 'CW_1' with decel=138.90, wished=4.50, severity=29.87, time=308.10.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='WC_0', time=625.60.
+Warning: Vehicle '0' ends teleporting on edge 'CS', time=625.60.
+Warning: Vehicle '0' performs emergency braking on lane 'CS_1' with decel=138.90, wished=4.50, severity=29.87, time=625.70.

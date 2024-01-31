@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="default" carFollowModel="Krauss" startupDelay="0.3"/>
+    <vehicle id="0" type="default" depart="0" departSpeed="max">
+        <route edges="SC CW WC CS" repeat="3"/>
+    </vehicle>
+    <flow id="1" begin="0" period="exp(0.2)" end="500">
+        <route edges="NC CS"/>
+    </flow>
+</routes>

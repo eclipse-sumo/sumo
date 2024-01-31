@@ -21,3 +21,6 @@ sigma1_step0.1_sigmaStep1_ballistic
 
 # stuck at low speed (#11165)
 startupDelay0.5_low_accel
+
+# stuck at low speed (#14229)
+startupDelay0.3_actionStep0.5
