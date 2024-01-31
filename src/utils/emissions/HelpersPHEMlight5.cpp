@@ -116,11 +116,45 @@ HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& 
 
 
 double
-HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
+HelpersPHEMlight5::calcPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const {
+    // copy of CEP::CalcPower
+    const double power = calcWheelPower(currCep, v, a, slope, param) / PHEMlightdllV5::Constants::_DRIVE_TRAIN_EFFICIENCY;
+    if (!currCep->isHBEV()) {
+        return power + currCep->getAuxPower();
+    }
+    return power;
+}
+
+
+double
+HelpersPHEMlight5::calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+    // copy of CEP::CalcWheelPower
+    const double rotFactor = currCep->GetRotationalCoeffecient(v);
+    const double mass = currCep->getVehicleMass();
+    const double massRot = currCep->getVehicleMassRot();
+    const double load = currCep->getVehicleLoading();
+    const double cw = currCep->getCrossSectionalArea() * currCep->getCWValue();
+
+    double power = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * currCep->getResistance(v) * v;
+    power += (cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST / 2) * std::pow(v, 3);
+    power += (mass * rotFactor + massRot + load) * a * v;
+    power += (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope * 0.01 * v;
+    return power / 1000.;
+}
+
+
+double
+HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
     PHEMlightdllV5::CEP* currCep = myCEPs.count(c) == 0 ? nullptr : myCEPs.find(c)->second;
     if (currCep != nullptr) {
-        const bool isHBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV || currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
-        return v == 0.0 ? 0.0 : MIN2(a, currCep->GetMaxAccel(v, slope, isHBEV));
+        if (v == 0.) {
+            return 0.;
+        }
+        // this is a copy of CEP::GetMaxAccel
+        const double rotFactor = currCep->GetRotationalCoeffecient(v);
+        const double pMaxForAcc = currCep->GetPMaxNorm(v) * currCep->getRatedPower() - calcPower(currCep, v, 0, slope, param);
+        const double maxAcc = (pMaxForAcc * 1000) / ((currCep->getVehicleMass() * rotFactor + currCep->getVehicleMassRot() + currCep->getVehicleLoading()) * v);
+        return MIN2(a, maxAcc);
     }
     return a;
 }
@@ -140,17 +174,16 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
     const double corrSpeed = MAX2(0.0, v);
     assert(myCEPs.count(c) == 1);
     PHEMlightdllV5::CEP* const currCep = myCEPs.find(c)->second;
-    const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
+    const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope, param);
     const bool isBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV;
     const bool isHybrid = currCep->getFuelType() == PHEMlightdllV5::Constants::strHybrid;
-    const double power_raw = currCep->CalcPower(corrSpeed, corrAcc, slope, isBEV || isHybrid);
-    const double power = isHybrid ? currCep->CalcWheelPower(corrSpeed, corrAcc, slope) : currCep->CalcEngPower(power_raw);
+    const double power_raw = calcPower(currCep, corrSpeed, corrAcc, slope, param);
+    const double power = isHybrid ? calcWheelPower(currCep, corrSpeed, corrAcc, slope, param) : currCep->CalcEngPower(power_raw);
 
     if (!isBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
         return 0.;
     }
-    const std::string& fuelType = currCep->getFuelType();
     switch (e) {
         case PollutantsInterface::CO:
             return getEmission(currCep, "CO", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
@@ -165,19 +198,19 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
         case PollutantsInterface::PM_X:
             return getEmission(currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            if (myVolumetricFuel && fuelType == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
+            if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
                 return getEmission(currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
             }
-            if (myVolumetricFuel && fuelType == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
+            if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
                 return getEmission(currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
             }
-            if (fuelType == PHEMlightdllV5::Constants::strBEV) {
+            if (isBEV) {
                 return 0.;
             }
             return getEmission(currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
-            if (fuelType == PHEMlightdllV5::Constants::strBEV) {
+            if (isBEV) {
                 return (getEmission(currCep, "FC_el", power, corrSpeed) + currCep->getAuxPower()) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;

@@ -63,12 +63,31 @@ namespace PHEMlightdllV5 {
         void setFuelType(const std::string& value);
         const std::string&  getCalcType() const;
         void setCalcType(const std::string& value);
+        bool isHBEV() const;
 
     public:
         const double&  getRatedPower() const;
         void setRatedPower(const double&  value);
         double getAuxPower() const {
             return _auxPower * getRatedPower();
+        }
+        double getVehicleMass() const {
+            return _massVehicle;
+        }
+        double getVehicleLoading() const {
+            return _vehicleLoading;
+        }
+        double getVehicleMassRot() const {
+            return _vehicleMassRot;
+        }
+        double getCrossSectionalArea() const {
+            return _crossSectionalArea;
+        }
+        double getCWValue() const {
+            return _cWValue;
+        }
+        double getResistance(const double speed) const {
+            return _resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4);
         }
 
     protected:
@@ -142,7 +161,6 @@ namespace PHEMlightdllV5 {
     public:
         double GetMaxAccel(double speed, double gradient, bool HBEV);
 
-    private:
         double GetPMaxNorm(double speed);
 
         //--------------------------------------------------------------------------------------------------

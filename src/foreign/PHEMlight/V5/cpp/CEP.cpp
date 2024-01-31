@@ -198,6 +198,10 @@ namespace PHEMlightdllV5 {
         privateCalcType = value;
     }
 
+    bool CEP::isHBEV() const {
+        return getFuelType() == Constants::strBEV || getFuelType() == Constants::strHybrid;
+    }
+
     const double& CEP::getRatedPower() const {
         return privateRatedPower;
     }
