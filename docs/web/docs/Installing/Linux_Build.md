@@ -318,18 +318,18 @@ In this section, you will learn how to build the latest version of the pedestria
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v1.0.3, you would need to type:
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v1.0.5, you would need to type:
 
 ``` bash
 cd jupedsim
-git checkout tags/v1.0.3
+git checkout v1.0.5
 cd ..
 ```
 
-Outside the repository directory, but at the same level, you will need two directories `jupedsim-build` and `jupedsim-install`, so type:
+Outside the repository directory, but at the same level, you will build and install in two directories `jupedsim-build` and `jupedsim-install`, which get created automatically by the following commands:
 
 ``` bash
-cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=../jupedsim-install jupedsim
+cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
 cmake --build jupedsim-build
 cmake --install jupedsim-build
 ```
