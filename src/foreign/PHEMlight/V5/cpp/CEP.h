@@ -94,10 +94,8 @@ namespace PHEMlightdllV5 {
         double _effectiveWheelDiameter;
 
         std::vector<double> _speedPatternRotational;
-        std::vector<double> _powerPatternFCvalues;
         std::vector<double> _normalizedPowerPatternFCvalues;
-        std::vector<double> _normailzedPowerPatternPollutants;
-        std::vector<double> _powerPatternPollutants;
+        std::vector<double> _normalizedPowerPatternPollutants;
 
         std::map<std::string, std::vector<double> > _cepCurveFCvalues;
         std::map<std::string, std::vector<double> > _normedCepCurveFCvalues;
@@ -137,7 +135,7 @@ namespace PHEMlightdllV5 {
 
 
     private:
-        void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value);
+        void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value, double scale=1.);
 
         double Interpolate(double px, double p1, double p2, double e1, double e2);
 

@@ -110,7 +110,6 @@ namespace PHEMlightdllV5 {
         _dragNormTable = Vehicle->getFLDData()->getDragCurve()["pe_drag_norm"];
 
         // Looping through matrix and assigning values for FC values
-        _powerPatternFCvalues = std::vector<double>();
         _normalizedPowerPatternFCvalues = std::vector<double>();
 
         int headerFCCount = (int)headerLineFCvalues.size();
@@ -122,7 +121,6 @@ namespace PHEMlightdllV5 {
 
                 if (j == 0) {
                     _normalizedPowerPatternFCvalues.push_back(matrixFCvalues[i][j]);
-                    _powerPatternFCvalues.push_back(matrixFCvalues[i][j] * getRatedPower());
                 }
                 else {
                     FCvaluesMeasures[j - 1].push_back(matrixFCvalues[i][j] * getRatedPower());
@@ -143,10 +141,8 @@ namespace PHEMlightdllV5 {
 
         // looping through matrix and assigning values for pollutants
         const double pollutantMultiplyer = getHeavyVehicle() ? getRatedPower() : 1.;
-        const double normalizingPower = getHeavyVehicle() ? getRatedPower() : CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV"));
 
-        _powerPatternPollutants = std::vector<double>();
-        _normailzedPowerPatternPollutants = std::vector<double>();
+        _normalizedPowerPatternPollutants = std::vector<double>();
         _cepNormalizedCurvePollutants = std::map<std::string, std::vector<double> >();
 
         int headerCount = (int)headerLinePollutants.size();
@@ -157,8 +153,7 @@ namespace PHEMlightdllV5 {
                 }
 
                 if (j == 0) {
-                    _normailzedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
-                    _powerPatternPollutants.push_back(matrixPollutants[i][j] * normalizingPower);
+                    _normalizedPowerPatternPollutants.push_back(matrixPollutants[i][j]);
                 }
                 else {
                     pollutantMeasures[j - 1].push_back(matrixPollutants[i][j] * pollutantMultiplyer);
@@ -249,11 +244,11 @@ namespace PHEMlightdllV5 {
     }
 
     double CEP::CalcEngPower(double power) {
-        if (power < _powerPatternFCvalues.front()) {
-            return _powerPatternFCvalues.front();
+        if (power < _normalizedPowerPatternFCvalues.front() * getRatedPower()) {
+            return _normalizedPowerPatternFCvalues.front() * getRatedPower();
         }
-        if (power > _powerPatternFCvalues.back()) {
-            return _powerPatternFCvalues.back();
+        if (power > _normalizedPowerPatternFCvalues.back() * getRatedPower()) {
+            return _normalizedPowerPatternFCvalues.back() * getRatedPower();
         }
 
         return power;
@@ -261,8 +256,8 @@ namespace PHEMlightdllV5 {
 
     double CEP::GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass) {
         //Declaration
-        std::vector<double> emissionCurve;
-        std::vector<double> powerPattern;
+        std::vector<double>* emissionCurve = nullptr;
+        std::vector<double>* powerPattern = nullptr;
 
         // bisection search to find correct position in power pattern
         int upperIndex;
@@ -287,35 +282,39 @@ namespace PHEMlightdllV5 {
             return 0;
         }
 
+        double normalizingPower = getRatedPower();
         if (_cepCurveFCvalues.find(pollutant) != _cepCurveFCvalues.end()) {
-            emissionCurve = _cepCurveFCvalues[pollutant];
-            powerPattern = _powerPatternFCvalues;
+            emissionCurve = &_cepCurveFCvalues[pollutant];
+            powerPattern = &_normalizedPowerPatternFCvalues;
         }
         else if (_cepCurvePollutants.find(pollutant) != _cepCurvePollutants.end()) {
-            emissionCurve = _cepCurvePollutants[pollutant];
-            powerPattern = _powerPatternPollutants;
+            emissionCurve = &_cepCurvePollutants[pollutant];
+            powerPattern = &_normalizedPowerPatternPollutants;
+            if (!getHeavyVehicle()) {
+                normalizingPower = CalcPower(Constants::NORMALIZING_SPEED, Constants::NORMALIZING_ACCELARATION, 0, (getCalcType() == "HEV" || getCalcType() == "BEV"));
+            }
         }
 
-        if (emissionCurve.empty()) {
+        if (emissionCurve == nullptr || emissionCurve->empty()) {
             VehicleClass->setErrMsg(std::string("Empty emission curve for ") + pollutant + std::string(" found!"));
             return 0;
         }
-        if (emissionCurve.size() == 1) {
-            return emissionCurve[0];
+        if (emissionCurve->size() == 1) {
+            return emissionCurve->front();
         }
 
         // in case that the demanded power is smaller than the first entry (smallest) in the power pattern the first is returned (should never happen)
-        if (power <= powerPattern.front()) {
-            return emissionCurve[0];
+        if (power <= powerPattern->front() * normalizingPower) {
+            return emissionCurve->front();
         }
 
         // if power bigger than all entries in power pattern return the last (should never happen)
-        if (power >= powerPattern.back()) {
-            return emissionCurve.back();
+        if (power >= powerPattern->back() * normalizingPower) {
+            return emissionCurve->back();
         }
 
-        FindLowerUpperInPattern(lowerIndex, upperIndex, powerPattern, power);
-        return Interpolate(power, powerPattern[lowerIndex], powerPattern[upperIndex], emissionCurve[lowerIndex], emissionCurve[upperIndex]);
+        FindLowerUpperInPattern(lowerIndex, upperIndex, *powerPattern, power, normalizingPower);
+        return Interpolate(power, (*powerPattern)[lowerIndex] * normalizingPower, (*powerPattern)[upperIndex] * normalizingPower, (*emissionCurve)[lowerIndex], (*emissionCurve)[upperIndex]);
     }
 
     double CEP::GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass) {
@@ -459,17 +458,17 @@ namespace PHEMlightdllV5 {
         return Interpolate(speed, _speedPatternRotational[lowerIndex], _speedPatternRotational[upperIndex], _speedCurveRotational[lowerIndex], _speedCurveRotational[upperIndex]);
     }
 
-    void CEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value) {
+    void CEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value, double scale) {
         lowerIndex = 0;
         upperIndex = 0;
 
-        if (value <= pattern.front()) {
+        if (value <= pattern.front() * scale) {
             lowerIndex = 0;
             upperIndex = 0;
             return;
         }
 
-        if (value >= pattern.back()) {
+        if (value >= pattern.back() * scale) {
             lowerIndex = (int)pattern.size() - 1;
             upperIndex = (int)pattern.size() - 1;
             return;
@@ -481,12 +480,12 @@ namespace PHEMlightdllV5 {
         lowerIndex = 0;
 
         while (upperIndex - lowerIndex > 1) {
-            if (pattern[middleIndex] == value) {
+            if (pattern[middleIndex] * scale == value) {
                 lowerIndex = middleIndex;
                 upperIndex = middleIndex;
                 return;
             }
-            else if (pattern[middleIndex] < value) {
+            else if (pattern[middleIndex] * scale < value) {
                 lowerIndex = middleIndex;
                 middleIndex = (upperIndex - lowerIndex) / 2 + lowerIndex;
             }
@@ -494,10 +493,6 @@ namespace PHEMlightdllV5 {
                 upperIndex = middleIndex;
                 middleIndex = (upperIndex - lowerIndex) / 2 + lowerIndex;
             }
-        }
-
-        if (pattern[lowerIndex] <= value && value < pattern[upperIndex]) {
-            return;
         }
     }
 
