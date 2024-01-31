@@ -176,7 +176,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 
 !!! note
-    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim)
+    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim)
 
 # The Macports Approach (legacy)
 
