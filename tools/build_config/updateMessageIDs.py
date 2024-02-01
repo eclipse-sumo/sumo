@@ -137,7 +137,9 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
                 for occurrence, lineNr in entry.occurrences:
                     if occurrence not in fileReplaceCommands:
                         fileReplaceCommands[occurrence] = []
-                    fileReplaceCommands[occurrence].append((entry.msgid, entry.msgstr, int(lineNr)))
+                    # newline conversion between polib and source code
+                    fileReplaceCommands[occurrence].append((entry.msgid.replace(
+                        "\n", "\\n"), entry.msgstr.replace("\n", "\\n"), int(lineNr)))
                     replaceIDs.append(entry)
 
         # apply the changes to the source code
