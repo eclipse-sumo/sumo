@@ -32,6 +32,7 @@
 #include "microsim/output/MSE2Collector.h"
 #include "MSPhaseDefinition.h"
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -51,6 +52,7 @@ enum class LightState {
     GreenXfer,
     GreenRest,
 };
+
 
 // ===========================================================================
 // class definitions
@@ -102,6 +104,7 @@ public:
               const std::map<std::string, std::string>& parameter,
               const std::string& basePath);
 
+
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
@@ -122,6 +125,7 @@ public:
      */
     const MSPhaseDefinition& getCurrentPhaseDef() const override;
     /// @}
+
 
     void activateProgram() override;
     void deactivateProgram() override;
@@ -151,6 +155,7 @@ public:
      * @return SUMOTime
      */
     SUMOTime ModeCycle(SUMOTime a, SUMOTime b);
+
 
     /**
      * @brief returns the IDs of the phase's controlled lanes.
@@ -216,6 +221,7 @@ public:
     inline SUMOTime getTimeInCycle() const {
         return (simTime - cycleRefPoint - offset) % myCycleLength;
     }
+
 
     /// @brief set the active phase
     void setActivePhase(PhasePtr phase);
@@ -377,6 +383,7 @@ protected:
     /// @brief storing the detector info in a vector
     std::vector<DetectorInfo> myDetectorInfoVector;
 
+
     /// @brief return whether there is a major link from the given lane in the given phase
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
 
@@ -516,6 +523,7 @@ protected:
         }
     }
 
+
     /// @brief calculate the initial phases for the TS2 style controller to start in
     void calculateInitialPhasesTS2();
     /// @brief calculate the initial phases for Type 170
@@ -533,6 +541,7 @@ protected:
         }
     }
 };
+
 
 /**
  * @class NEMAPhase
@@ -616,6 +625,7 @@ public:
     inline std::vector<MSE2Collector*> getDetectors() const {
         return myDetectorInfo.detectors;
     }
+
 
     /// @brief sets the detectors for the phase
     inline void setDetectors(std::vector<MSE2Collector*> detectors) {
@@ -720,7 +730,7 @@ public:
     bool readyToSwitch;
 
     /**
-     * @brief Get the Transition Time give the current simulation time and phase state
+     * @brief Get the Transition Time
      *
      * @param controller
      * @return SUMOTime
@@ -865,6 +875,7 @@ private:
     PhaseTransitionLogic* lastTransitionDecision;
 
 };
+
 
 /**
  * @class PhaseTransitionLogic

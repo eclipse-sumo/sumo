@@ -41,6 +41,7 @@
 #include <netload/NLDetectorBuilder.h>
 #include "NEMAController.h"
 
+
 // ===========================================================================
 // parameter defaults definitions
 // ===========================================================================
@@ -281,10 +282,12 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
         defaultP[1]->forceEnter(this);
     }
 
+
 #ifdef DEBUG_NEMA
     //print to check the rings and barriers active phase
     std::cout << "After init, active ring1 phase is " << myActivePhaseObjs[0]->phaseName << std::endl;
     std::cout << "After init, active ring2 phase is " << myActivePhaseObjs[1]->phaseName << std::endl;
+
 
     //print to check the phase definition is correct
     std::cout << "Print to check NEMA phase definitions\n";
@@ -299,10 +302,12 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
     }
 #endif
 
+
 #ifdef DEBUG_NEMA
     std::cout << "After init, r1/r2 barrier phase = " << defaultBarrierPhases[0][1]->phaseName << " and " << defaultBarrierPhases[1][1]->phaseName << std::endl;
     std::cout << "After init, r1/r2 coordinate phase = " << defaultBarrierPhases[0][0]->phaseName << " and " << defaultBarrierPhases[1][0]->phaseName << std::endl;
 #endif
+
 
 #ifdef DEBUG_NEMA
     std::cout << "R1State = " << myActivePhaseObjs[0]->phaseName << " and its state = " << std::to_string((int)myActivePhaseObjs[0]->getCurrentState()) << std::endl;
@@ -637,6 +642,7 @@ NEMALogic::setNewSplits(std::vector<double> newSplits) {
     }
 }
 
+
 void
 NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
     for (auto& p : myPhaseObjs) {
@@ -647,17 +653,20 @@ NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
     }
 }
 
+
 void
 NEMALogic::setNewCycleLength(double newCycleLength) {
     // set the controller's next cycle length. This will be implemented when implementTraciChanges is called
     myNextCycleLength = TIME2STEPS(newCycleLength);
 }
 
+
 void
 NEMALogic::setNewOffset(double newOffset) {
     // set the controller's offset. This will be implemented when implementTraciChanges is called
     myNextOffset = TIME2STEPS(newOffset);
 }
+
 
 std::vector<int> NEMALogic::readParaFromString(std::string s) {
     std::vector<int> output;
@@ -696,6 +705,7 @@ int NEMALogic::measureRingDistance(int p1, int p2, int ringNum) {
     return d;
 }
 
+
 SUMOTime
 NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
     SUMOTime c = a - b;
@@ -707,6 +717,7 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
     }
     return c;
 }
+
 
 void
 NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex) {
@@ -747,6 +758,7 @@ NEMALogic::hasMajor(const std::string& state, const LaneVector& lanes) const {
     return false;
 }
 
+
 void
 NEMALogic::activateProgram() {
     MSTrafficLightLogic::activateProgram();
@@ -778,6 +790,7 @@ int NEMALogic::string2int(std::string s) {
     return ret;
 }
 
+
 const std::string
 NEMALogic::getParameter(const std::string& key, const std::string defaultValue) const {
     if (StringUtils::startsWith(key, "NEMA.")) {
@@ -804,6 +817,7 @@ NEMALogic::getParameter(const std::string& key, const std::string defaultValue) 
         return Parameterised::getParameter(key, defaultValue);
     }
 }
+
 
 void
 NEMALogic::setParameter(const std::string& key, const std::string& value) {
@@ -1090,6 +1104,7 @@ NEMALogic::getNextPhases(TransitionPairs& transitions) {
     }
 }
 
+
 std::string
 NEMALogic::composeLightString() {
     // FIX with plan to support #10742
@@ -1116,6 +1131,7 @@ NEMALogic::composeLightString() {
     }
     return out;
 }
+
 
 SUMOTime
 NEMALogic::trySwitch() {
@@ -1181,6 +1197,7 @@ NEMALogic::trySwitch() {
         p->clearMyDetectors();
     }
 
+
 #ifdef FUZZ_TESTING
     // Basic Assertion to ensure that the Barrier is not crossed
     assert(myActivePhaseObjs[0]->barrierNum == myActivePhaseObjs[1]->barrierNum);
@@ -1189,6 +1206,7 @@ NEMALogic::trySwitch() {
     // return the simulation timestep, as this controller must be checked every simulation step
     return DELTA_T;
 }
+
 
 void
 NEMALogic::implementTraciChanges(void) {
@@ -1204,6 +1222,7 @@ NEMALogic::implementTraciChanges(void) {
         queuedTraciChanges = false;
     }
 }
+
 
 // ===========================================================================
 // NEMAPhase Definitions
@@ -1287,6 +1306,7 @@ NEMAPhase::recalculateTiming(void) {
     maxGreenDynamic = myCorePhase->maxDuration;
     vehExt = myCorePhase->vehext;
 }
+
 
 // TODO: this can be computed once.
 char
@@ -1718,6 +1738,7 @@ PhaseTransitionLogic::coordBase(NEMALogic* controller) {
     return false;
 }
 
+
 bool
 PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
     if (freeBase(controller)) {
@@ -1741,6 +1762,7 @@ PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
     }
     return false;
 }
+
 
 bool
 PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
