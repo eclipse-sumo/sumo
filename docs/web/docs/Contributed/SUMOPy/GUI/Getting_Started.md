@@ -32,7 +32,7 @@ information.
 There is a test scenario in the SUMOPy distribution which is located in
 
 ```
-SUMOHOME/tools/contributed/sumopy/testscenario
+SUMO_HOME/tools/contributed/sumopy/testscenario
 ```
 
 The quickest way to obtain results from a simulation is to import
@@ -46,7 +46,7 @@ demo.net.xml demo.poly.xml demo.rou.xml
 are located in directory
 
 ```
-SUMOHOME/tools/contributed/sumopy/testscenario
+SUMO_HOME/tools/contributed/sumopy/testscenario
 ```
 
 then a new scenario can be created by importing these files into SUMOPy
