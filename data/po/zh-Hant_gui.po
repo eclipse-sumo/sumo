@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-01-16 15:19+0100\n"
+"POT-Creation-Date: 2024-01-30 08:12+0100\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1098,7 +1098,7 @@ msgid "Clea&r"
 msgstr "清除"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:129
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2505
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2510
 msgid "Time"
 msgstr "時間"
 
@@ -2569,8 +2569,8 @@ msgstr "路網"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2891
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3418
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2896
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3423
 msgid "Route"
 msgstr "路徑"
 
@@ -3488,7 +3488,7 @@ msgid "Create Routes."
 msgstr "建立路徑。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3428
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3433
 msgid "Route distribution"
 msgstr "路徑分配"
 
@@ -3526,7 +3526,7 @@ msgid "Create stops."
 msgstr "建立停靠點。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:715
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4449
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4454
 msgid "Person"
 msgstr "人員"
 
@@ -3543,7 +3543,7 @@ msgid "Create person plans."
 msgstr "建立人員旅運計畫。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:721
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4495
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4500
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:182
 msgid "Container"
 msgstr "貨櫃"
@@ -3569,7 +3569,7 @@ msgid "Create edgeData elements."
 msgstr "建立edgeData 元素。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6830
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6835
 msgid "EdgeRelation"
 msgstr "路段關係"
 
@@ -3578,7 +3578,7 @@ msgid "Create edgeRelation elements."
 msgstr "建立edgeRelation元素。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6851
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6856
 msgid "TAZRelation"
 msgstr "起迄關係"
 
@@ -4082,7 +4082,7 @@ msgid "PoI"
 msgstr "興趣點(PoI)"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2951
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2956
 msgid "Polygon"
 msgstr "多邊形"
 
@@ -7080,7 +7080,7 @@ msgid "The id of the node"
 msgstr "節點的識別名(id)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:933
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1977
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1982
 msgid "The x-y-z position of the node on the plane in meters"
 msgstr "在平面上節點的x,y,z位置(以公尺為單位)"
 
@@ -7201,9 +7201,9 @@ msgid ""
 msgstr "此車道上所有車道的車道寬度 (以公尺為單位) (用於視覺化)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1112
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2785
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2839
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6527
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2790
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2844
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6532
 msgid "Edge ID"
 msgstr "路段識別名(ID)"
 
@@ -7466,9 +7466,9 @@ msgstr "公車站應位於的車道的名稱"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1582
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1649
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1753
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1901
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4167
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4313
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1906
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4172
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4318
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
 msgstr "車道上的起始位置(車道上較低位置)(以公尺為單位)"
@@ -7476,10 +7476,10 @@ msgstr "車道上的起始位置(車道上較低位置)(以公尺為單位)"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1587
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1654
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1758
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1906
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4172
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4318
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6532
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1911
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4177
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4323
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6537
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
@@ -7494,18 +7494,18 @@ msgstr "公車停靠站(busStop)的名稱"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1723
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1768
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1834
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1933
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2056
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2140
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2223
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2315
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2345
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2395
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3069
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3292
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4177
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4323
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6742
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1938
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2061
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2145
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2228
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2320
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2350
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2400
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3074
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3297
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4182
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4328
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6747
 msgid ""
 "If set, no error will be reported if element is placed behind the lane."
 msgstr "如果設定，若元素放置在車道後面，不會報告任何錯誤。"
@@ -7520,18 +7520,18 @@ msgstr "相反地，它將放置在距離車道盡頭 0.1 米處或 0.1位置(po
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1725
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1770
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1836
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1935
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2058
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2142
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2225
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2317
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2347
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2397
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3071
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3294
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4179
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4325
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6744
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1940
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2063
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2147
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2230
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2322
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2352
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2402
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3076
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3299
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4184
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4330
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6749
 msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
@@ -7580,18 +7580,18 @@ msgstr "火車站(trainStop)名稱"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1724
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1769
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1835
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1934
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2057
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2141
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2224
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2316
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2346
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2396
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3070
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3293
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4178
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4324
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6743
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1939
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2062
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2146
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2229
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2321
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2351
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2401
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3075
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3298
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4183
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4329
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6748
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr "相反地，它將放置在距離車道末端 0.1 米處或 0.1 米位置，"
@@ -7706,2343 +7706,2347 @@ msgstr "電池充電類型"
 msgid "Waiting time before start charging"
 msgstr "開始充電前的等待時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1886
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1880
+msgid "Parking area the charging station is located"
+msgstr ""
+
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1891
 msgid "ParkingArea"
 msgstr "停車區域"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1891
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1896
 msgid "The id of ParkingArea"
 msgstr "停車場的id"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1896
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1901
 msgid "The name of the lane the Parking Area shall be located at"
 msgstr "停車場所在的車道名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1911
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1916
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr "離開停車場時，車輛駛離的車道位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1916
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1921
 msgid "Name of parkingArea"
 msgstr "停車場名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1921
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1926
 msgid " The number of parking spaces for road-side parking"
 msgstr " 路邊停車位數量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1932
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr "如果設定，車輛將停在車道上，從而減少容量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1941
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1987
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1946
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1992
 msgid "The width of the road-side parking spaces"
 msgstr "路邊停車位的寬度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1947
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1952
 msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) /"
 " roadsideCapacity"
 msgstr "路邊停車位的長度。預設情況下為（終點位置 - 開始位置）/路邊容量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1953
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1997
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1958
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2002
 msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
 msgstr "路邊停車位相對於車道的角度，正值表示順時針方向"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1959
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1964
 msgid "Enable or disable lefthand position"
 msgstr "啟用或禁用左側位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1972
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1977
 msgid "ParkingSpace"
 msgstr "停車位"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1982
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1987
 msgid "Name of parking space"
 msgstr "停車位名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1992
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1997
 msgid "The length of the road-side parking spaces"
 msgstr "路邊停車位的長度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2002
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2007
 msgid "The slope of the road-side parking spaces"
 msgstr "路邊停車位的坡度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2015
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2020
 msgid "E1 InductionLoop"
 msgstr "E1 感應環路偵測器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2020
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2025
 msgid "The id of E1"
 msgstr "E1 的id"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2025
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2080
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2305
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2335
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2370
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2030
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2085
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2310
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2340
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2375
 msgid ""
 "The id of the lane the detector shall be laid on. The lane must be a part of"
 " the network used"
 msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2030
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2375
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2035
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2380
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
 msgstr "偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2035
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2096
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2179
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2254
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6912
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2040
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2101
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2184
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2259
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6917
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
 msgstr "在匯總週期內偵測器採集的值應相加"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2041
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2046
 msgid "Name of induction loop"
 msgstr "偵測器名稱"
-
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2046
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2112
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2195
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2265
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2385
-msgid "The path to the output file"
-msgstr "輸出檔案的路徑"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2051
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2117
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2200
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2270
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2390
+msgid "The path to the output file"
+msgstr "輸出檔案的路徑"
+
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2056
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2122
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2205
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2275
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2395
 msgid "Space separated list of vehicle type ids to consider"
 msgstr "要考慮的車輛類型ID的空格分隔清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2070
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2075
 msgid "E2 LaneAreaDetector"
 msgstr "E2 車道區域偵測器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2075
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2080
 msgid "The id of E2"
 msgstr "E2的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2085
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2169
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2310
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2340
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2090
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2174
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2315
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2345
 msgid "The position on the lane the detector shall be laid on in meters"
 msgstr "偵測器在車道上的位置應以米為單位"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2090
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2095
 msgid "The length of the detector in meters"
 msgstr "偵測器的長度（以米為單位）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2102
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2185
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2107
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2190
 msgid "The traffic light that triggers aggregation when switching"
 msgstr "切換時觸發聚合(aggregation)的紅綠燈"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2107
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2112
 msgid "Name of lane area detector"
 msgstr "車道區域偵測器名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2122
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2205
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2127
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2210
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
 msgstr "時間為基礎的閾值用來定義車輛必須停等多少時間才會被認為是停等"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2128
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2211
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2281
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2133
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2216
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2286
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
 msgstr "速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2134
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2217
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2139
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2222
 msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
 msgstr "車輛到下一個停等的車輛得最大距離(公尺), 此距離用於計算該車輛是否被視為堵塞的參與者"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2154
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2159
 msgid "E2 MultiLaneAreaDetector"
 msgstr "E2 多車道區域偵測器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2159
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2164
 msgid "The id of Multilane E2"
 msgstr "多車道偵測器E2 (Multilane E2)的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2164
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2169
 msgid "The sequence of lane ids in which the detector shall be laid on"
 msgstr "偵測器應放置的車道識別名(ID)順序"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2174
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2179
 msgid "The end position on the lane the detector shall be laid on in meters"
 msgstr "偵測器在車道上的終點位置 (公尺為單位)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2190
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2195
 msgid "Name of Multilane E2 detector"
 msgstr "多車道偵測器E2 (Multilane E2) 名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2238
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2243
 msgid "E3 EntryExitDetector"
 msgstr "E3 進出偵測器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2243
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2248
 msgid "The id of E3"
 msgstr "E3的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2248
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2462
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3237
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2253
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2467
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3242
 msgid "X-Y position of detector in editor (Only used in netedit)"
 msgstr "在編輯器(editor)內,偵測器的x,y位置 (只用於netedit)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2260
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2265
 msgid "Name of Entry Exit detector"
 msgstr "進出(Entry Exit)偵測器名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2275
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2280
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting) in s"
 msgstr "以時間為基礎的閾值, 用來定義車輛必須停等多少時間才會被認為是停等"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2287
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2292
 msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr "當車輛到達偵測器區域時, 是否不發出警告。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2300
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2305
 msgid "E3 DetEntry"
 msgstr "E3 偵測器進入截面 (DetEntry)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2330
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2360
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2335
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2365
 msgid "E3 DetExit"
 msgstr "E3 偵測器離開截面 (DetExit)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2365
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2370
 msgid "The id of Instant Induction Loop (E1Instant)"
 msgstr "即時偵測器(E1Instant)的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2380
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2385
 msgid "Name of instant induction loop"
 msgstr "即時偵測器(instant induction loop)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2409
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2414
 msgid "RouteProbe"
 msgstr "路徑探測(RouteProbe)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2414
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2419
 msgid "The id of RouteProbe"
 msgstr "路徑取樣(RouteProbe)的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2419
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2424
 msgid "The id of an edge in the simulation network"
 msgstr "模擬路網內的路段識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2424
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2429
 msgid "The frequency in which to report the distribution"
 msgstr "報告分佈的頻率"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2430
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2435
 msgid "Name of route probe"
 msgstr "路徑取樣(route probe)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2435
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2440
 msgid "The file for generated output"
 msgstr "用於儲存輸出(output)的檔案"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2440
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2445
 msgid "The time at which to start generating output"
 msgstr "開始產生輸出的時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2452
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2457
 msgid "VariableSpeedSign"
 msgstr "可變速標誌"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2457
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2462
 msgid "The id of Variable Speed Signal"
 msgstr "可變速度號誌的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2468
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2473
 msgid "List of Variable Speed Sign lanes"
 msgstr "設有可變速度標誌的車道清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2473
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2478
 msgid "Name of Variable Speed Signal"
 msgstr "可變速度號誌的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2478
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2483
 msgid ""
 "Space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr "考慮的車輛類型 ID , 並以空格分隔的清單（空的(empty)表示影響所有類型）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2489
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2494
 msgid "VariableSpeedSign (lane)"
 msgstr "可變速標誌 (車道)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2500
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2505
 msgid "VariableSpeedSign Step"
 msgstr "可變速標誌 (步長)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2510
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2515
 msgid "Speed"
 msgstr "速度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2522
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2527
 msgid "Calibrator"
 msgstr "校估器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2527
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2586
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2532
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2591
 msgid "The id of Calibrator"
 msgstr "校估器(Calibrator)的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2532
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3178
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3201
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2537
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3183
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3206
 msgid "The id of edge in the simulation network"
 msgstr "模擬路網內的路段的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2537
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2596
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2542
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2601
 msgid "The position of the calibrator on the specified lane"
 msgstr "在指定車道上的校估器(calibrator)的位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2543
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2602
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2548
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2607
 msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
 msgstr "用於校估流量時的聚合時間區間(aggregation interval)。預設值為步長"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2549
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2554
 msgid "Name of Calibrator"
 msgstr "校估器名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2554
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2613
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2559
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2618
 msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
 msgstr "決定所產生車輛的路徑分布的routeProbe元素的識別名稱(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2559
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2618
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2564
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2623
 msgid "The output file for writing calibrator information or NULL"
 msgstr "用於寫入校估資訊或是無效資訊(NULL)的輸出檔案"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2564
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2623
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2569
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2628
 msgid "A threshold value to detect and clear unexpected jamming"
 msgstr "用於偵測及清除無預期阻塞的閾值"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2570
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2629
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2575
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2634
 msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr "考慮的車輛類型 ID , 並以空格分隔的清單（空的(empty)表示影響所有類型）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2581
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2586
 msgid "CalibratorLane"
 msgstr "校估器車道 (CalibratorLane)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2591
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2596
 msgid "The id of lane in the simulation network"
 msgstr "模擬路網內的路段的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2608
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2613
 msgid "Name of calibrator lane"
 msgstr "校估器所在車道的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2640
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2645
 msgid "CalibratorFlow"
 msgstr "校估器車流 (CalibratorFlow)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2645
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3871
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2650
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3876
 msgid "The id of the route the vehicle shall drive along"
 msgstr "車輛行駛路徑的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2650
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2655
 msgid "First calibrator flow departure time"
 msgstr "第一個校估器流量離開時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2656
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5820
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2661
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5825
 msgid "End of departure interval"
 msgstr "出發區間結束"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2666
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2671
 msgid "The id of the vehicle type to use for this calibrator flow"
 msgstr "用於此校估器流量的車輛類型的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2672
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2677
 msgid "Number of vehicles per hour, equally spaced"
 msgstr "每小時車輛數,等間距"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2678
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2683
 msgid "Vehicle's speed"
 msgstr "車速"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2690
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2695
 msgid "Rerouter"
 msgstr "路徑重新導引器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2696
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2701
 msgid "The id of Rerouter"
 msgstr "改道裝置的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2701
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2706
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
 msgstr "車輛應改道的路段識別名(id)或是清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2706
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2711
 msgid "X,Y position in editor (Only used in netedit)"
 msgstr "編輯器中的 X,Y 位置（僅用於netedit ）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2712
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2717
 msgid "Name of Rerouter"
 msgstr "改道裝置名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2717
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2722
 msgid "The probability for vehicle rerouting (0-1)"
 msgstr "車輛重新搜尋路徑(rerouting)機率(0-1)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2723
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2728
 msgid ""
 "The waiting time threshold (in s) that must be reached to activate rerouting"
 " (default -1 which disables the threshold)"
 msgstr "啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, 表示禁用此閾值)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2729
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2734
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
 msgstr "受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影響)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2734
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2739
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
 msgstr "路徑重新搜尋裝置(rerouter)是否最初應處於非活動狀態（並在 gui 中開啟）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2746
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2751
 msgid "Rerouter (Edge)"
 msgstr "路徑重新導引器(車道)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2757
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2762
 msgid "Rerouter Interval"
 msgstr "路徑重新導引器 (區間)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2762
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2767
 msgid "Begin"
 msgstr "開始"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2768
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2773
 msgid "End"
 msgstr "結束"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2780
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2785
 msgid "ClosingReroute"
 msgstr "關閉路徑重新導引"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2791
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2818
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2796
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2823
 msgid "allowed vehicles"
 msgstr "允許的車輛"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2796
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2823
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2801
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2828
 msgid "disallowed vehicles"
 msgstr "不允許的車輛"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2807
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2812
 msgid "ClosingLaneReroute"
 msgstr "關閉車道改道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2812
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2817
 msgid "Lane ID"
 msgstr "車道識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2834
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2839
 msgid "DestinationProbabilityReroute"
 msgstr "改道到新目的地機率的改道器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2845
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2868
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2897
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2850
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2873
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2902
 msgid "SUMO Probability"
 msgstr "SUMO機率"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2857
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2862
 msgid "ParkingAreaReroute"
 msgstr "至替代停車區的改道器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2862
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2867
 msgid "ParkingArea ID"
 msgstr "停車區域識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2874
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2879
 msgid "Enable or disable visibility for parking area reroutes"
 msgstr "啟用或是禁用於停車區域重新搜尋路徑的可見性( visibility)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2886
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2891
 msgid "RouteProbabilityReroute"
 msgstr "改道到新路徑機率的改道器"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2909
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2914
 msgid "Vaporizer"
 msgstr "蒸發"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2914
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2919
 msgid "Edge in which vaporizer is placed"
 msgstr "設置蒸發裝置(vaporizer)的路段"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2919
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2924
 msgid "Start Time"
 msgstr "開始時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2925
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2930
 msgid "End Time"
 msgstr "結束時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2931
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2936
 msgid "Name of vaporizer"
 msgstr "蒸發裝置名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2956
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2961
 msgid "The id of the polygon"
 msgstr "多邊形物件的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2961
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2966
 msgid "The shape of the polygon"
 msgstr "多邊形物件的形狀"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2966
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2971
 msgid "The RGBA color with which the polygon shall be displayed"
 msgstr "應被顯示的多邊形物件的顏色(RGBA)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2972
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2977
 msgid "An information whether the polygon shall be filled"
 msgstr "多邊形物件是否被填滿的資訊"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2978
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2983
 msgid "The default line width for drawing an unfilled polygon"
 msgstr "繪製未填滿的多邊形的預設線寬"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2984
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2989
 msgid "The layer in which the polygon lies"
 msgstr "多邊形物件所在的圖層"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2990
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2995
 msgid "A typename for the polygon"
 msgstr "多邊形物件的類型名稱(typename)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2996
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3001
 msgid "Polygon's name"
 msgstr "多邊形的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3001
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3006
 msgid "A bitmap to use for rendering this polygon"
 msgstr "用於呈現此多邊形的點陣圖"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3007
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5711
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3012
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5716
 msgid "Enable or disable use image file as a relative path"
 msgstr "允許或禁止使用圖像檔案作為相對路徑"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3013
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5717
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3018
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5722
 msgid "Angle of rendered image in degree"
 msgstr "呈現的圖像的角度 (以度為單位)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3025
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3030
 msgid "PointOfInterest"
 msgstr "興趣點"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3030
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3054
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3097
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3035
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3059
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3102
 msgid "The id of the POI"
 msgstr "興趣點的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3035
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3040
 msgid "The position in view"
 msgstr "視圖中的位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3049
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3054
 msgid "PointOfInterestLane"
 msgstr "興趣點車道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3059
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3064
 msgid "The name of the lane at which the POI is located at"
 msgstr "興趣點所在車道的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3064
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3069
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr "興趣點在已命名車道或路網的位置(以公尺為單位)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3077
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3082
 msgid "The lateral offset on the named lane at which the POI is located at"
 msgstr "興趣點所在的已命名車道的側向偏移值(lateral offset)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3092
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3097
 msgid "PointOfInterestGeo"
 msgstr "興趣點地理位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3103
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3108
 msgid "The longitude position of the parking vehicle on the view"
 msgstr "視圖中停車車輛的經度位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3108
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3113
 msgid "The latitude position of the parking vehicle on the view"
 msgstr "視圖中停車車輛的緯度位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3131
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3136
 msgid "TrafficAssignmentZones"
 msgstr "交通指派分區"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3135
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3140
 msgid "The id of the TAZ"
 msgstr "交通分區(TAZ)的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3140
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3145
 msgid "The shape of the TAZ"
 msgstr "交通分區(TAZ)的形狀"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3145
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3150
 msgid "TAZ center"
 msgstr "交通分區(TAZ)中心"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3150
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3155
 msgid "An information whether the TAZ shall be filled"
 msgstr "交通分區(TAZ)是否應被填滿的資訊"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3156
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3161
 msgid "The RGBA color with which the TAZ shall be displayed"
 msgstr "應被顯示的交通分區(TAZ)的顏色(RGBA)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3162
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5682
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3167
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5687
 msgid "Name of POI"
 msgstr "興趣點的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3173
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3178
 msgid "TAZ Source"
 msgstr "交通分區起點"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3184
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3189
 msgid "Depart weight associated to this Edge"
 msgstr "與此路段相關的出發權重(depart weight)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3196
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3201
 msgid "TAZ Sink"
 msgstr "交通分區迄點"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3207
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3212
 msgid "Arrival weight associated to this Edge"
 msgstr "與此路段相關的抵達權重(arrival weight)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3228
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3233
 msgid "TractionSubstation"
 msgstr "牽引變電站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3232
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3237
 msgid "Traction substation ID"
 msgstr "牽引變電站的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3243
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3248
 msgid "Voltage of at connection point for the overhead wire"
 msgstr "用於架空電線的接觸點的電壓"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3249
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3254
 msgid "Current limit of the feeder line"
 msgstr "饋電導線的電流限制"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3261
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3266
 msgid "WireSection"
 msgstr "架空線段"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3265
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3270
 msgid "Overhead wire segment ID"
 msgstr "架空電線區段識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3270
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3275
 msgid "Substation to which the circuit is connected"
 msgstr "電路所連接的變電站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3275
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3280
 msgid "List of consecutive lanes of the circuit"
 msgstr "電路(circuit)所在的連續車道清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3280
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3285
 msgid "Starting position in the specified lane"
 msgstr "在指定車道上的開始位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3286
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3291
 msgid "Ending position in the specified lane"
 msgstr "在指定車道上的結束位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3300
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3305
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr "限制設置架空電線的內車道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3311
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3316
 msgid "OverheadWireClamp"
 msgstr "架空線夾"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3315
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3320
 msgid "Overhead wire clamp ID"
 msgstr "架空電線夾的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3320
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3325
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr "與架空電線夾起點連接的架空電線區段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3325
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
 msgstr "架空電線開始夾(overheadWireIDStartClamp)的架空電線區段車道的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
 msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp"
 " is connected"
 msgstr "與架空電線夾終點連結的架空電線區段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3340
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
 msgstr "架空電線終點夾(overheadWireIDEndClamp)的架空電線區段車道的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3355
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3360
 msgid "JuPedSim WalkableArea"
 msgstr "JuPedSim 步行區"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3360
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3365
 msgid "The id of the walkable area"
 msgstr "可ˋ步行區域的識別號(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3365
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3370
 msgid "The shape of the walkable area"
 msgstr "可步行區域的形狀"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3371
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3376
 msgid "Walkable area's name"
 msgstr "可步行區域的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3382
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3387
 msgid "JuPedSim Obstacle"
 msgstr "JuPedSim 障礙物"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3387
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3392
 msgid "The id of the obstacle"
 msgstr "障礙物的識別號(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3392
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3397
 msgid "The shape of the obstacle"
 msgstr "障礙物的形狀"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3398
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3403
 msgid "Obstacle's name"
 msgstr "障礙物的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3423
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3428
 msgid "The id of Route"
 msgstr "路徑識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3433
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3484
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3489
 msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using"
 " spaces"
 msgstr "車輛行經的路段(使用空格分隔)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3489
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3494
 msgid "This route's color"
 msgstr "路徑的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3494
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3448
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3499
 msgid "The number of times that the edges of this route shall be repeated"
 msgstr "此路徑上的路段應該重複的次數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3449
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3500
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3454
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3505
 msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr "在定義帶有停靠點的重複路徑時，這些停靠點使用 until 屬性，"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3450
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3501
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3455
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3506
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
 msgstr "每次重複時,時間將通過週期時間'cycleTime'向前移動"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3462
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3467
 msgid "RouteDistribution"
 msgstr "路徑分配"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3467
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3472
 msgid "The id of route distribution"
 msgstr "路徑分布的識別號(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3478
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3483
 msgid "RouteEmbedded"
 msgstr "內部路徑"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3513
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3518
 msgid "VehicleType"
 msgstr "車輛類型"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3518
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3523
 msgid "type ID"
 msgstr "類型識別號(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3523
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
 msgid "Type distribution"
 msgstr "類型分配"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3533
 msgid "An abstract vehicle class"
 msgstr "抽象的車輛類別"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3535
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3540
 msgid "This type's color"
 msgstr "這個類型的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3540
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3545
 msgid "The vehicle's netto-length (length) [m]"
 msgstr "車輛的淨長度(長度)[公尺]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3545
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3550
 msgid "Empty space after leader [m]"
 msgstr "領前者(leader)後的空白空間[公尺]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3550
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3555
 msgid "The vehicle's maximum velocity [m/s]"
 msgstr "車輛的最大速度[公尺/秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3555
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3560
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr "車輛預期的車道速度限制乘數(multiplicator) (或一個分佈說明符(specifier))"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3560
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3565
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "車輛所需的最大速度 (與 speedFactor 交互作用)。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3561
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3566
 msgid ""
 "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr "適用於沒有速度限制的情況 (腳踏車, 某些高速公路） [m/s]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3566
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3571
 msgid "An abstract emission class"
 msgstr "抽象的排放物類別"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3572
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3577
 msgid "How this vehicle is rendered"
 msgstr "此車輛如何被呈現"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3578
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3583
 msgid "The vehicle's width [m] (only used for drawing)"
 msgstr "車輛寬度 [公尺] (只用於繪製)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3584
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3589
 msgid "The vehicle's height [m] (only used for drawing)"
 msgstr "車輛長度 [公尺] (只用於繪製)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3590
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3595
 msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow"
 " functional coloring)"
 msgstr "用於呈現此類別車輛的圖像檔案(應為灰階標度以允許功能性著色)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3595
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3600
 msgid "The model used for changing lanes"
 msgstr "用於車道變換的模式"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3602
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3607
 msgid "The model used for car-following"
 msgstr "使用的跟車模式"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3609
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3614
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
 msgstr "車輛能運載的人數(不含自動駕駛車的駕駛者)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3614
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3619
 msgid "The number of containers the vehicle can transport"
 msgstr "車輛能載運的貨櫃(containers)數量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3619
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
 msgid "The time required by a person to board the vehicle"
 msgstr "乘客上車需要的時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3625
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3630
 msgid "The time required to load a container onto the vehicle"
 msgstr "將貨櫃(container)裝載到車輛上所需的時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3631
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3636
 msgid "The preferred lateral alignment when using the sublane-model"
 msgstr "使用sublane模式時的優先選擇的側向對齊方式"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3638
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3643
 msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
 msgstr "使用sublane模式時, 在速差為50公里/小時下的最小側向間距"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3644
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3649
 msgid "The maximum lateral speed when using the sublane-model"
 msgstr "使用sublane模式時, 最大側向速度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3650
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3655
 msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr "車輛執行決策邏輯（加速和車道變化）的時間區間長度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3656
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3661
 msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
 msgstr "在沒有明確機率的情況下, 加入到分佈中的機率"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3662
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3667
 msgid "3D model file for this class"
 msgstr "用於此類別的三維模式"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3667
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3672
 msgid "Carriage lengths"
 msgstr "車廂長度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3672
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3677
 msgid "Locomotive lengths"
 msgstr "火車長度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3677
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3682
 msgid "Gap between carriages"
 msgstr "車廂之間的距離"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3698
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3703
 msgid "VehicleTypeDistribution"
 msgstr "車輛類型分配"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3703
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3708
 msgid "The id of VehicleType distribution"
 msgstr "車輛類型(VehicleType)分布的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3723
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3728
 msgid "TripEdges"
 msgstr "路段之間的旅次"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3729
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3734
 msgid "The ID of trip"
 msgstr "旅次的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3734
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3781
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3823
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3739
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3786
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3828
 msgid "The id of the vehicle type to use for this trip"
 msgstr "用於此旅次的車輛類型識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3740
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3745
 msgid "The ID of the edge the trip starts at"
 msgstr "旅次開始的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3745
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3750
 msgid "The ID of the edge the trip ends at"
 msgstr "旅次結束的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3750
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3755
 msgid "List of intermediate edge ids which shall be part of the trip"
 msgstr "應作為旅次一部分的中間路段的清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3758
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3800
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3842
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3763
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3805
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3847
 msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
 msgstr "使用旅次定義所產生的(第一個)旅次出發時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3770
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3775
 msgid "TripJunctions"
 msgstr "路口之間的旅次"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3776
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3818
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3781
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3823
 msgid "The id of trip"
 msgstr "旅次識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3787
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3792
 msgid "The name of the junction the trip starts at"
 msgstr "旅次開始的路口的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3792
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3797
 msgid "The name of the junction the trip ends at"
 msgstr "旅次結束的路口的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3812
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3817
 msgid "TripTAZs"
 msgstr "交通分區之間的旅次"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3829
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3834
 msgid "The name of the TAZ the trip starts at"
 msgstr "旅次開始的交通分區(TAZ)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3834
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3839
 msgid "The name of the TAZ the trip ends at"
 msgstr "旅次結束的交通分區(TAZ)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3854
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3859
 msgid "VehicleRoute"
 msgstr "車輛路徑"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3860
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3907
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3865
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3912
 msgid "The ID of the vehicle"
 msgstr "車輛的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3865
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3912
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3870
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3917
 msgid "The id of the vehicle type to use for this vehicle"
 msgstr "使用此車輛的車輛類型識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3876
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3918
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3881
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3923
 msgid "The index of the edge within route the vehicle starts at"
 msgstr "在路徑上, 車輛開始的路段的索引(index)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3881
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3923
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3886
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3928
 msgid "The index of the edge within route the vehicle ends at"
 msgstr "在路徑上, 車輛結束的路段的索引(index)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3889
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3931
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3894
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3936
 msgid "The time step at which the vehicle shall enter the network"
 msgstr "車輛應進入路網時的時間步長(time step)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3901
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3906
 msgid "VehicleEmbeddedRoute"
 msgstr "車輛內部路徑"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3943
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3948
 msgid "FlowEdges"
 msgstr "路段之間的流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3949
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3954
 msgid "The ID of the flow"
 msgstr "流量的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3954
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3998
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4037
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4076
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4120
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3959
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4003
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4042
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4081
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4125
 msgid "The id of the flow type to use for this flow"
 msgstr "用於此流量的流量類型的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3960
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3965
 msgid "The ID of the edge the flow starts at"
 msgstr "流量開始的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3965
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3970
 msgid "The ID of the edge the flow ends at"
 msgstr "流量結束的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3970
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3975
 msgid "List of intermediate edge ids which shall be part of the flow"
 msgstr "流量使用的中間路段的識別名(id)清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3987
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3992
 msgid "FlowJunctions"
 msgstr "路口之間的流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3993
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4032
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4071
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3998
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4037
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4076
 msgid "The id of the flow"
 msgstr "流量識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4004
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4009
 msgid "The name of the junction the flow starts at"
 msgstr "流量開始的路口的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4009
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4014
 msgid "The name of the junction the flow ends at"
 msgstr "流量結束的路口的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4026
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4031
 msgid "FlowTAZs"
 msgstr "交通分區之間的流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4043
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4048
 msgid "The name of the TAZ the flow starts at"
 msgstr "旅次流量(flow)開始的交通分區(TAZ)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4048
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4053
 msgid "The name of the TAZ the flow ends at"
 msgstr "旅次流量(flow)結束的交通分區(TAZ)的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4065
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4070
 msgid "FlowRoute"
 msgstr "路徑流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4082
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4087
 msgid "The id of the route the flow shall drive along"
 msgstr "流量應該行經的路徑的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4087
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4126
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4092
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4131
 msgid "The index of the edge within route the flow starts at"
 msgstr "流量在其路徑上開始的路段的索引(index)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4092
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4131
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4097
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4136
 msgid "The index of the edge within route the flow ends at"
 msgstr "流量在其路徑上結束的路段的索引(index)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4109
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4114
 msgid "FlowEmbeddedRoute"
 msgstr "內部路徑流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4115
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4120
 msgid "The name of the flow"
 msgstr "流量的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4157
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4162
 msgid "StopLane"
 msgstr "車道上停靠"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4162
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4167
 msgid "The name of the lane the stop shall be located at"
 msgstr "停靠站應位於的車道的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4185
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4190
 msgid "The lateral offset on the named lane at which the vehicle must stop"
 msgstr "車輛必須停靠於指定車道的側向偏移值"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4199
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4204
 msgid "StopBusStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4204
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4209
 msgid "BusStop associated with this stop"
 msgstr "與此停靠點相關的公車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4218
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4223
 msgid "StopTrainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4223
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4228
 msgid "TrainStop associated with this stop"
 msgstr "與此停靠站相關的火車站(TrainStop)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4237
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4242
 msgid "StopContainerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4242
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4247
 msgid "ContainerStop associated with this stop"
 msgstr "與此停靠點相關的貨櫃停靠點(ContainerStop)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4256
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4261
 msgid "StopChargingStation"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4261
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4266
 msgid "ChargingStation associated with this stop"
 msgstr "與此停靠點相關的充電站(ChargingStation)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4275
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4280
 msgid "StopParkingArea"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4280
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4285
 msgid "ParkingArea associated with this stop"
 msgstr "與此停靠點相關的停車區域"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4303
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4308
 msgid "WaypointLane"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4308
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4313
 msgid "The name of the lane the waypoint shall be located at"
 msgstr "定位點(waypoint)應位於的車道的名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4331
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4336
 msgid ""
 "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr "車輛必須在已指定車道上定點的側向偏移值"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4345
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4350
 msgid "WaypointBusStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4350
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4355
 msgid "BusWaypoint associated with this waypoint"
 msgstr "與此定位點相關的公車定點(BusWaypoint)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4364
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4369
 msgid "WaypointTrainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4369
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4374
 msgid "TrainWaypoint associated with this waypoint"
 msgstr "與此中繼點相關的火車中繼點(TrainWaypoint )"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4383
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4388
 msgid "WaypointContainerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4388
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4393
 msgid "ContainerWaypoint associated with this waypoint"
 msgstr "與此定位點相關的貨櫃定點(ContainerWaypoint)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4402
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4407
 msgid "WaypointChargingStation"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4407
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4412
 msgid "ChargingStation associated with this waypoint"
 msgstr "與此定點相關的充電站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4421
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4426
 msgid "WaypointParkingArea"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4426
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4431
 msgid "ParkingArea associated with this waypoint"
 msgstr "與此定點相關的停車場區域"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4457
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4462
 msgid "The time step at which the person shall enter the network"
 msgstr "人員應進入路網的時間步長"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4470
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4475
 msgid "PersonFlow"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4502
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4507
 msgid "The time step at which the container shall enter the network"
 msgstr "貨櫃(container)應該進入路網的時間步長(time step)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4514
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4519
 msgid "ContainerFlow"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4539
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4544
 msgid "Transport: edge->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4553
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4558
 msgid "Transport: edge->containerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4567
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4572
 msgid "Transport: containerStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4581
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4586
 msgid "Transport: containerStop->containerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4604
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4609
 msgid "Tranship: edge->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4619
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4624
 msgid "Tranship: edge->containerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4634
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4639
 msgid "Tranship: containerStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4649
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4654
 msgid "Tranship: containerStop->containerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4664
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4669
 msgid "Tranship: edges"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4688
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5618
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4693
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5623
 msgid "Stop: edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4703
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4708
 msgid "Stop: containerStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4727
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4732
 msgid "PersonTrip: edge->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4741
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4746
 msgid "PersonTrip: edge->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4755
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4760
 msgid "PersonTrip: edge->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4769
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4774
 msgid "PersonTrip: edge->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4783
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4788
 msgid "PersonTrip: edge->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4798
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4803
 msgid "PersonTrip: taz->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4812
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4817
 msgid "PersonTrip: taz->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4826
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4831
 msgid "PersonTrip: taz->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4841
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4846
 msgid "PersonTrip: taz->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4855
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4860
 msgid "PersonTrip: taz->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4870
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4875
 msgid "PersonTrip: junction->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4884
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4889
 msgid "PersonTrip: junction->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4898
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4903
 msgid "PersonTrip: junction->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4912
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4917
 msgid "PersonTrip: junction->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4926
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4931
 msgid "PersonTrip: junction->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4941
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4946
 msgid "PersonTrip: busStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4955
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4969
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4960
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4974
 msgid "PersonTrip: busStop->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4983
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4988
 msgid "PersonTrip: busStop->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4997
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5002
 msgid "PersonTrip: busStop->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5012
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5017
 msgid "PersonTrip: trainStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5026
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5040
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5031
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5045
 msgid "PersonTrip: trainStop->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5054
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5059
 msgid "PersonTrip: trainStop->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5068
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5073
 msgid "PersonTrip: trainStop->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5090
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5095
 msgid "walk: edges"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5104
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5109
 msgid "walk: route"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5119
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5124
 msgid "Walk: edge->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5133
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5138
 msgid "Walk: edge->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5147
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5152
 msgid "Walk: edge->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5161
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5166
 msgid "Walk: edge->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5175
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5180
 msgid "Walk: edge->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5190
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5195
 msgid "Walk: taz->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5204
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5209
 msgid "Walk: taz->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5218
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5223
 msgid "Walk: taz->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5233
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5238
 msgid "Walk: taz->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5247
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5252
 msgid "Walk: taz->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5262
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5267
 msgid "Walk: junction->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5276
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5281
 msgid "Walk: junction->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5290
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5295
 msgid "Walk: junction->junction"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5304
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5309
 msgid "Walk: junction->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5318
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5323
 msgid "Walk: junction->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5333
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5338
 msgid "Walk: busStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5347
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5361
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5352
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5366
 msgid "Walk: busStop->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5375
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5380
 msgid "Walk: busStop->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5389
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5394
 msgid "Walk: busStop->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5404
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5409
 msgid "Walk: trainStop->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5418
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5432
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5423
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5437
 msgid "Walk: trainStop->taz"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5446
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5451
 msgid "Walk: trainStop->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5460
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5465
 msgid "Walk: trainStop->trainStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5482
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5487
 msgid "Ride: edge->edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5496
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5501
 msgid "Ride: edge->busStop"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5510
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5515
 msgid "Ride: edge->trainStop"
 msgstr "搭車：路段->火車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5525
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5530
 msgid "Ride: busStop->edge"
 msgstr "搭車：公車站->路段"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5539
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5544
 msgid "Ride: busStop->busStop"
 msgstr "搭車：公車站->公車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5553
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5558
 msgid "Ride: busStop->trainStop"
 msgstr "搭車：公車站->火車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5568
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5573
 msgid "Ride: trainStop->edge"
 msgstr "搭車：火車站->路段"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5582
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5587
 msgid "Ride: train->busStop"
 msgstr "搭車：火車->公車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5596
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5601
 msgid "Ride: train->trainStop"
 msgstr "搭車：火車->火車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5633
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5638
 msgid "Stop: busStop"
 msgstr "停靠站: 公車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5648
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5653
 msgid "Stop: trainStop"
 msgstr "停靠站: 火車站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5663
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5668
 msgid "The color with which the POI shall be displayed"
 msgstr "應被顯示的興趣點的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5669
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5674
 msgid "A typename for the POI"
 msgstr "興趣點的類型名稱(typename)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5675
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5680
 msgid "POI Icon"
 msgstr "興趣點圖標(POI Icon)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5687
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5692
 msgid "The layer of the POI for drawing and selecting"
 msgstr "用於繪製或選擇的興趣點的圖層"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5693
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5698
 msgid "Width of rendered image in meters"
 msgstr "呈現的圖像的寬度(以公尺為單位)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5699
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5704
 msgid "Height of rendered image in meters"
 msgstr "呈現的圖像的高度(以公尺為單位)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5705
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5710
 msgid "A bitmap to use for rendering this POI"
 msgstr "用於呈現此興趣點的點陣圖"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5730
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5735
 msgid "This vehicle's color"
 msgstr "此車輛的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5736
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5741
 msgid "The lane on which the vehicle shall be inserted"
 msgstr "車輛應該被置入的車道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5742
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5747
 msgid "The position at which the vehicle shall enter the net"
 msgstr "車輛應進入路網時的所在位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5748
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5753
 msgid "The speed with which the vehicle shall enter the network"
 msgstr "車輛進入路網時的應有速度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5754
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5759
 msgid "The lane at which the vehicle shall leave the network"
 msgstr "車輛應離開路網時的所在車道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5760
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5765
 msgid "The position at which the vehicle shall leave the network"
 msgstr "車輛離開路網時的應有位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5766
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5771
 msgid "The speed with which the vehicle shall leave the network"
 msgstr "車輛離該路網時的應有速度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5772
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5777
 msgid ""
 "A string specifying the id of a public transport line which can be used when"
 " specifying person rides"
 msgstr "當指定人員乘車(ride)時, 一個用於指定公共運輸路線的識別名的字串"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5777
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5782
 msgid "The number of occupied seats when the vehicle is inserted"
 msgstr "當車輛被置入路網時,已佔用的座位數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5783
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5788
 msgid "The number of occupied container places when the vehicle is inserted"
 msgstr "車輛置入時, 已被佔用的貨櫃數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5789
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5794
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
 msgstr "車輛進入路網時於出發車道的側向位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5795
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5800
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
 msgstr "車輛抵達時於抵達車道的側向位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5801
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5806
 msgid "Insertion checks"
 msgstr "插入檢查"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5814
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5819
 msgid "First flow departure time"
 msgstr "第一個流量的出發時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5826
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5847
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5831
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5852
 msgid "probability for emitting a flow each second"
 msgstr "每秒注入流量的機率"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5827
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5832
 msgid "(not together with vehsPerHour or period)"
 msgstr "（不與 vehsPerHour 或週期一起使用）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5833
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5838
 msgid "Number of flows per hour, equally spaced"
 msgstr "每小時流量的數量,等間隔"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5834
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5839
 msgid "(not together with period or probability or poisson)"
 msgstr "（不與週期,機率或帕松分布(poisson)一起使用）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5840
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5845
 msgid "Insert equally spaced flows at that period"
 msgstr "在該周期內注入等間距的流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5841
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5846
 msgid "(not together with vehsPerHour or probability or poisson)"
 msgstr "（不與 vehsPerHour , 機率或帕松(poisson)分配一起使用）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5848
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5853
 msgid "(not together with vehsPerHour or period or poisson)"
 msgstr "（不與 vehsPerHour ,週期或帕松(poisson)分配一起使用）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5854
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5859
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr "根據帕松(poisson)分配注入率, 每秒注入預期車輛的流量"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5855
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5860
 msgid "(not together with period or vehsPerHour or probability)"
 msgstr "（不與週期, 每小時車輛數(vehsPerHour)或機率一起使用）"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5868
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5873
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
 msgstr "此類型車輛的加速能力 [公尺/平方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5874
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5879
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
 msgstr "此類型車輛的減速能力[公尺/平方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5880
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5885
 msgid ""
 "The apparent deceleration of the vehicle as used by the standard model "
 "[m/s^2]"
 msgstr "標準模式使用的車輛視在減速 [公尺/平方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5886
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5891
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
 msgstr "車輛的最大物理可能減速度 [公尺/平方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5892
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5899
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5897
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5904
 msgid "Car-following model parameter"
 msgstr "跟車模式變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5905
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5910
 msgid "SKRAUSSX parameter 1"
 msgstr "SKRAUSSX變數1"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5910
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5915
 msgid "SKRAUSSX parameter 2"
 msgstr "SKRAUSSX變數2"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5915
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5920
 msgid "SKRAUSSX parameter 3"
 msgstr "SKRAUSSX變數3"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5920
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5925
 msgid "SKRAUSSX parameter 4"
 msgstr "SKRAUSSX變數4"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5925
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5930
 msgid "SKRAUSSX parameter 5"
 msgstr "SKRAUSSX變數5"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5930
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5935
 msgid "EIDM Look ahead / preview parameter [s]"
 msgstr "EIDM 前瞻/預覽變數 [秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5936
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5941
 msgid "EIDM AP Reaction Time parameter [s]"
 msgstr "EIDM AP 反應時間變數 [秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5942
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5947
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
 msgstr "駕駛誤差的EIDM 維納過程(Wiener process)變數 [秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5948
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5953
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
 msgstr "預測錯誤的EIDM 維納過程(Wiener process)變數 [秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5954
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5959
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
 msgstr "改善的IDM模式的EIDM 冷卻度參數 [-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5961
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5966
 msgid "EIDM leader speed estimation error parameter [-]"
 msgstr "EIDM前領車速度的預測錯誤變數[-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5967
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5972
 msgid "EIDM gap estimation error parameter [-]"
 msgstr "EIDM 間距預測錯誤變數 [-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5973
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5978
 msgid "EIDM driving error parameter [-]"
 msgstr "EIDM 駕駛錯誤變數 [-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5979
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5984
 msgid "EIDM maximal jerk parameter [m/s^3]"
 msgstr "EIDM 最大急衝變數 [公尺/立方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5985
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5990
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) "
 "[m/s^2]"
 msgstr "在兩個動作點(action points)之間的EIDM模式最大負加速度（閾值） [公尺/平方秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5991
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5996
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr "在啟動//行駛後車輛達到最大加速度的EIDM時間變數[秒]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5997
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6002
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
 msgstr "EIDM 啟動/起步曲線平坦度變數 [-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6003
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6008
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
 msgstr "EIDM 啟動/起步曲線的偏移變數 [-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6009
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6014
 msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration"
 " calculation [0/1]"
 msgstr "EIDM 變數，如果模式應將車輛動力學納入加速度計算 [0/1]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6015
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6020
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
 msgstr "EIDM 參數, 有多少車輛被納入驅動程序的預覽計算（至少總是 1！）[-]"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6021
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6027
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6026
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6032
 msgid "Peter Wagner 2009 parameter"
 msgstr "彼得·華格納 (Peter Wagner) 2009 變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6033
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6039
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6038
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6044
 msgid "IDMM parameter"
 msgstr "IDMM變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6045
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6051
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6057
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6063
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6069
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6075
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6081
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6087
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6093
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6050
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6056
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6062
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6068
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6074
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6080
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6086
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6092
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6098
 msgid "W99 parameter"
 msgstr "W99 變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6099
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6104
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6109
 msgid "Wiedemann parameter"
 msgstr "魏德曼(Wiedemann)變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6109
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6114
 msgid "MinGap factor parameter"
 msgstr "最小間距(MinGap)因素變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6114
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6119
 msgid "K parameter"
 msgstr "K 變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6119
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6124
 msgid "Kerner Phi parameter"
 msgstr "克納(Kerner)斐(Phi)變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6124
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6129
 msgid "IDM Delta parameter"
 msgstr "IDM 德爾塔(Delta)變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6129
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6134
 msgid "IDM Stepping parameter"
 msgstr "IDM步進變數"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6134
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6139
 msgid "Train Types"
 msgstr "火車類型"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6148
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6153
 msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr "行人走向與自我(ego)車輛的衝突點的最小距離。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6154
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6159
 msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr "即使這可能會導致擁塞，車輛將駛進路口的累積等待時間。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6160
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6165
 msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr "如果黃燈相位的時間低於給定的閾值，則此值會導致車輛闖黃燈。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6166
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6171
 msgid ""
 "This value causes vehicles to violate a red light if the duration of the red"
 " phase is lower than the given threshold."
 msgstr "如果紅燈相位的時間低於給定的閾值，則此值會導致車輛闖紅燈。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6172
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6177
 msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
 " violating a red light."
 msgstr "此值會導致受 jmDriveAfterRedTime 影響的車輛在闖紅燈時減速。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6178
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6183
 msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr "此值會導致車輛忽略具有給定機率的行駛路權的對手(foe)車輛。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6184
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6189
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
 msgstr "此值與 jmIgnoreFoeProb 聯合使用。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6185
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6190
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr "只有速度低於或等於給定值的車輛才能被忽略。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6191
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6196
 msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr "此值用於設定駕駛者在經過次要路段時, 不完善的駕駛情況(磨蹭 dawdling) 。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6197
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6202
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr "此值定義在優先車輛前面超車時的最小時間間隔。 "
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6203
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6208
 msgid "Willingess of drivers to impede vehicles with higher priority"
 msgstr "駕駛員阻礙具有更高優先權車輛的意願"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6216
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6221
 msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr "渴望進行策略性車道變換的程度。較高的值會導致較早的車道變換。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6222
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6227
 msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
 msgstr "進行合作性的車道變換的意願。較低的值會導致合作減少。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6228
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6233
 msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr "渴望進行車道變化以提高速度的程度。值越高，車道變換越多。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6234
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6239
 msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr "渴望遵循靠右的義務的程度。值越高，車道變換越早。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6240
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6245
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
 msgstr "渴望使用已設定( configured)的車道內側向對齊方式的程度。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6241
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6246
 msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
 msgstr "值越高，則犧牲速度以進行對齊(alignment)的意願就越高。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6247
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6252
 msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr "渴望利用對向車道超車的程度。值越高，車道變換越多。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6253
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6258
 msgid "Willingness to encroach laterally on other drivers."
 msgstr "側向的侵犯干擾其他駕駛者的意願。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6259
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6264
 msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr "側向地侵犯干擾其他駕駛者的最小側向間距(也可以用lcPushy來定義)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6265
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6270
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr "接受目標車道上較低的前後間距的意願。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6271
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6276
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
 msgstr "用於修改lcAssertive和lcPushy的動態系數。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6277
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6282
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr "達到最大不耐煩的時間(1)。每當車道變換被阻止時，不耐煩的程度就會增加。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6283
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6288
 msgid "Maximum lateral acceleration per second."
 msgstr "每秒最大側向加速度。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6289
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6294
 msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the"
 " left is necessary (relative to right lookahead)."
 msgstr "當需要向左變換（相對於向右前看）時, 用於設定策略性向前看距離的係數(factor)。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6295
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6300
 msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr "當為了提高速豆而向左或向右變換時, 為了設定閾值不對稱的係數。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6301
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6306
 msgid "Upper bound on lateral speed when standing."
 msgstr "站立時側向速度的上限。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6307
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6312
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr "移動時側向速度上限的計算為lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6313
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6318
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the "
 "alignment"
 msgstr "在車輛路徑上，到即將轉彎的距離，低於該距離的對齊方式"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6314
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6319
 msgid "should be dynamically adapted to match the turn direction."
 msgstr "應該動態地調整以符合轉彎方向。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6320
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6325
 msgid "The probability for violating rules gainst overtaking on the right."
 msgstr "違反規則的機率以能進行右側超車。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6326
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6331
 msgid "Time threshold for the willingness to change right."
 msgstr "願意向右變換的時間閾值。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6332
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6337
 msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr "渴望超車的速度差異係數在改變車道之前（閾值 = 係數*速限）。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6347
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6352
 msgid "The name of the person"
 msgstr "人員名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6352
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6357
 msgid "The id of the person type to use for this person"
 msgstr "為此人員使用的人員類型識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6358
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6363
 msgid "This person's color"
 msgstr "此人員的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6364
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6369
 msgid "The position at which the person shall enter the net"
 msgstr "人員進入路網時的位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6377
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6382
 msgid "The name of the container"
 msgstr "貨櫃名稱"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6382
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6387
 msgid "The id of the container type to use for this container"
 msgstr "此貨櫃的貨櫃類型識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6388
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6393
 msgid "This container's color"
 msgstr "此貨櫃的顏色"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6401
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6722
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6406
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6727
 msgid "Minimum duration for stopping"
 msgstr "最短停靠時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6408
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6729
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6413
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6734
 msgid "The time step at which the route continues"
 msgstr "路徑繼續時的時間長度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6414
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6419
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr "如果設定一個非負數的時間值,則停等的時間可以被延長 最多以秒為單位的延長值"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6421
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6426
 msgid "Whether a person or container or both may end the stop"
 msgstr "是否一個人員或是集裝箱或是兩者均可結束於停靠站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6428
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6433
 msgid "List of elements that must board the vehicle before it may continue"
 msgstr "在車輛繼續之前，必須登上車輛的元素清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6433
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6438
 msgid "Joins this train to another upon reaching the stop"
 msgstr "到達車站後, 轉搭這列火車到另一列火車"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6439
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6444
 msgid "List of elements that can board the vehicle before it may continue"
 msgstr "在車輛繼續之前，可以登上車輛的元素清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6444
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6449
 msgid "Whether the vehicle stops on the road or beside"
 msgstr "車輛是否停在路上或是路肩"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6451
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6456
 msgid "Activity displayed for stopped person in GUI and output files"
 msgstr "在 GUI 和輸出檔案中，顯示停止人員的活動"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6456
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6461
 msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr "使用於車輛的的參數，用於追蹤於循環大眾運輸路線上的旅次識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6461
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6466
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr "設定到達此停靠站的車輛的新路線屬性 (對於循環大眾運輸路線)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6467
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6472
 msgid "Speed to be kept while driving between startPos and endPos"
 msgstr "在開始位置(startPos)和 結束位置(endPos)之間行駛時要保持的速度"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6473
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6478
 msgid ""
 "Whether the stop may be skipped if no passengers wants to embark or "
 "disembark"
 msgstr "如果沒有乘客要上下車，是否可以跳過該站"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6480
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6485
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
 msgstr "如果應該從該停靠點跳到下一個路徑路段，則轉移(transfer)時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6486
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6491
 msgid "Splits the train upon reaching the stop"
 msgstr "到達車站後, 將火車分開"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6502
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6507
 msgid "list of consecutive edges"
 msgstr "連續路段列表"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6507
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6512
 msgid "Arrival position on the last edge"
 msgstr "最後路段上的到達位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6514
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6519
 msgid "Route ID"
 msgstr "路徑識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6519
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6524
 msgid "Arrival position on the destination edge"
 msgstr "目的地路段上的抵達位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6538
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6543
 msgid "Bus stop ID"
 msgstr "公車站識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6544
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6549
 msgid "Train stop ID"
 msgstr "火車站識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6550
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6555
 msgid "Container stop ID"
 msgstr "貨櫃站識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6557
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6562
 msgid "Edge start ID"
 msgstr "路段起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6563
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6568
 msgid "TAZ start ID"
 msgstr "交通分區起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6569
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6574
 msgid "Junction start ID"
 msgstr "路口起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6575
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6580
 msgid "BuStop start ID"
 msgstr "公車站起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6581
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6632
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6586
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6637
 msgid "TrainStop start ID"
 msgstr "火車站起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6587
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6638
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6592
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6643
 msgid "ContainerStop start ID"
 msgstr "貨櫃站起點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6594
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6599
 msgid "Edge end ID"
 msgstr "路段迄點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6601
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6606
 msgid "The position at which the tranship shall enter the net"
 msgstr "轉運應進入路網時的位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6607
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6612
 msgid "arrival position on the destination edge"
 msgstr "目標路段上的抵達位置"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6614
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6619
 msgid "TAZ end ID"
 msgstr "交通分區迄點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6620
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6625
 msgid "Junction end ID"
 msgstr "路口迄點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6626
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6631
 msgid "BuStop end ID"
 msgstr "公車站迄點識別號"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6651
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6656
 msgid "List of possible vehicle types to take"
 msgstr "可供使用的車輛類型的清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6656
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6661
 msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr "可能的交通運具清單。無論此值如何，步行始終是可能的"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6661
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6666
 msgid "list of vehicle alternatives to take for the person trip"
 msgstr "人旅次可以使用的替代車輛清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6681
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6686
 msgid "list of vehicle alternatives to take for the ride"
 msgstr "乘車時可以使用的替代車輛清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6695
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6700
 msgid "list of vehicle alternatives to take for the transport"
 msgstr "運送的替代車輛清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6709
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6714
 msgid "speed of the container for this tranship in m/s"
 msgstr "貨櫃(container)的轉運速度(公尺/秒)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6735
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6740
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr "在GUI及輸出檔案中為停等人員顯示的活動 "
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6765
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6770
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 msgid "DataSet"
 msgstr "資料集"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6770
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6775
 msgid "Data set ID"
 msgstr "資料集合識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6783
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6788
 msgid "DataInterval"
 msgstr "資料區間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6789
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6794
 msgid "Interval ID"
 msgstr "區間識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6795
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6800
 msgid "Data interval begin time"
 msgstr "資料區間開始時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6801
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6806
 msgid "Data interval end time"
 msgstr "資料區間結束時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6814
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6819
 msgid "EdgeRelationSingle"
 msgstr "單一路段關係(EdgeRelationSingle)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6819
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6824
 msgid "edge ID"
 msgstr "路段識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6835
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6840
 msgid "The ID of the edge the edgeRel starts at"
 msgstr "路段關係(edgeRel)開始的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6840
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6845
 msgid "The ID of the edge the edgeRel ends at"
 msgstr "路段關係(edgeRel)結束的路段的識別名(ID)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6857
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6862
 msgid "The name of the TAZ the TAZRel starts at"
 msgstr "交通分區(TAZ)的名稱,其分區關係(TAZRel)開始於"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6862
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6867
 msgid "The name of the TAZ the TAZRel ends at"
 msgstr "TAZ的名稱,其TAZRel結束於"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6873
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6878
 msgid "MeanDataEdge"
 msgstr "路段為主的平均資料(MeanDataEdge)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6887
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6892
 msgid "MeanDataLane"
 msgstr "車道為主的平均資料(MeanDataLane)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6902
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6907
 msgid "The id of this set of measurements"
 msgstr "此測量值集合的識別名(id)"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6907
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6912
 msgid "The path to the output file. The path may be relative"
 msgstr "輸出檔案的路徑。路徑可能可以是相對路徑"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6917
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6922
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr "開始寫出的時間。如果沒有給定，將使用模擬開始的時間。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6922
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6927
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr "結束寫出的時間。如果沒有給定，將使用模擬結束的時間。"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6927
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6932
 msgid ""
 "If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr "如果設定為真值(true)，則在此區間未被車輛使用的路段及車道將不會被寫出"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6934
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6939
 msgid "If set, junction internal edges/lanes will be written as well"
 msgstr "如果設定，路口內部路段/車道將也被寫出"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6940
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6945
 msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr "如果僅發生非常小的移動, 則寫出以秒為單位最長旅行時間"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6946
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6951
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr "如果路段/車道最多具有這麼多取樣秒數，則考慮此未使用的路段/車道"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6952
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6957
 msgid "The maximum speed to consider a vehicle halting;"
 msgstr "考慮車輛停止的最大速度;"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6958
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6963
 msgid "space separated list of vehicle type ids to consider"
 msgstr "考慮以空白分隔的車輛類型清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6963
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6968
 msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr "是否應該對所有進入路段/車道的車輛在聚合時間區間內進行匯總內進行匯總"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6969
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6974
 msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr "是否應該紀錄行人,而非車輛。允許值為 行走"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6974
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6979
 msgid "List of attribute names that shall be written"
 msgstr "應寫入的屬性名稱清單"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6979
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6984
 msgid "Restrict output to the given list of edge ids"
 msgstr "僅對給定清單內的路段識別名(ID)輸出結果"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6984
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6989
 msgid "Restrict output to the given list of edges given in file"
 msgstr "僅對給定檔案內的路段識別名(ID)輸出結果"
 
-#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6989
+#: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6994
 msgid ""
 "Whether the traffic statistic of all edges shall be aggregated into a single"
 " value"
@@ -10758,7 +10762,7 @@ msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr "無法重複路線; 前端路段和最後路段未連接"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:738
-#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1842
+#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1846
 msgid "copy % '%'"
 msgstr "複製 % '%'"
 
@@ -11072,15 +11076,15 @@ msgstr "旅次"
 msgid "Flows"
 msgstr "流量"
 
-#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:822
+#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:826
 msgid "Invalid vehicle tag"
 msgstr "無效的車輛標記(tag)"
 
-#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2350
+#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2354
 msgid "departPos of %"
 msgstr "%的出發位置"
 
-#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
+#: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2364
 msgid "arrivalPos of %"
 msgstr "%的抵達位置"
 
@@ -11088,11 +11092,11 @@ msgstr "%的抵達位置"
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "無法設定屬性 '%' (交通號誌(tls)損壞)"
 
-#: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2343
+#: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2344
 msgid "Could not compute smooth shape for edge '%'"
 msgstr "無法計算路段 '%' 的平滑形狀"
 
-#: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2361
+#: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2362
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr "無法計算路段 '%' 的平滑高程"
 
@@ -13994,7 +13998,7 @@ msgstr "儲存更改的交通號誌"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:198
 msgid ""
-"There is unsaved changes in current edited traffic light.\n"
+"There are unsaved changes in the currently edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
 "在目前編輯的交通號誌中有未儲存的更改。\n"
