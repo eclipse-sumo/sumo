@@ -117,12 +117,21 @@ MSCFModel_CC::performAutoLaneChange(MSVehicle* const veh) const {
     int traciState = state.first;
     if (traciState & LCA_LEFT && traciState & LCA_SPEEDGAIN) {
         // we can gain by moving left. check that all vehicles can move left
-        if (!(state.first & LCA_BLOCKED)) {
+        // bit 1: query lateral direction (left:0, right:1)
+        // bit 2: query longitudinal direction (followers:0, leaders:1)
+        // bit 3: blocking (return all:0, return only blockers:1)
+        auto leftFollowers = libsumo::Vehicle::getNeighbors(veh->getID(), 0b100); //leftFollowers 000 + blocking 100
+        auto leftLeaders = libsumo::Vehicle::getNeighbors(veh->getID(), 0b110); //leftLeaders 010 + blocking 100
+        bool noNeighOnTheLeft = leftFollowers.empty() && leftLeaders.empty();
+        if (!(state.second & LCA_BLOCKED) && noNeighOnTheLeft) {
             // leader is not blocked. check all the members
             canChange = true;
             for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
                 const std::pair<int, int> mState = libsumo::Vehicle::getLaneChangeState(m->second, +1);
-                if (mState.first & LCA_BLOCKED) {
+                leftFollowers = libsumo::Vehicle::getNeighbors(m->second, 0b100); //leftFollowers 000 + blocking 100
+                leftLeaders = libsumo::Vehicle::getNeighbors(m->second, 0b110); //leftLeaders 010 + blocking 100
+                noNeighOnTheLeft = leftFollowers.empty() && leftLeaders.empty();
+                if (mState.second & LCA_BLOCKED || !noNeighOnTheLeft) {
                     canChange = false;
                     break;
                 }
@@ -140,12 +149,21 @@ MSCFModel_CC::performAutoLaneChange(MSVehicle* const veh) const {
     traciState = state.first;
     if (traciState & LCA_RIGHT && traciState & LCA_KEEPRIGHT) {
         // we should move back right. check that all vehicles can move right
-        if (!(state.first & LCA_BLOCKED)) {
+        // bit 1: query lateral direction (left:0, right:1)
+        // bit 2: query longitudinal direction (followers:0, leaders:1)
+        // bit 3: blocking (return all:0, return only blockers:1)
+        auto rightFollowers = libsumo::Vehicle::getNeighbors(veh->getID(), 0b101); //rightFollowers 001 = 1 + blocking 100
+        auto rightLeaders = libsumo::Vehicle::getNeighbors(veh->getID(), 0b111); //rightLeaders 011 = 3 + blocking 100
+        bool noNeighOnTheRight = rightFollowers.empty() && rightLeaders.empty();
+        if (!(state.second & LCA_BLOCKED) && noNeighOnTheRight) {
             // leader is not blocked. check all the members
             canChange = true;
             for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
                 const std::pair<int, int> mState = libsumo::Vehicle::getLaneChangeState(m->second, -1);
-                if (mState.first & LCA_BLOCKED) {
+                rightFollowers = libsumo::Vehicle::getNeighbors(m->second, 0b101); //rightFollowers 001 = 1 + blocking 100
+                rightLeaders = libsumo::Vehicle::getNeighbors(m->second, 0b111); //rightLeaders 011 = 3 + blocking 100
+                noNeighOnTheRight = rightFollowers.empty() && rightLeaders.empty();
+                if (mState.second & LCA_BLOCKED || !noNeighOnTheRight) {
                     canChange = false;
                     break;
                 }
