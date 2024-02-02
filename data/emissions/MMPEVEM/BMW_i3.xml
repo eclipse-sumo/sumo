@@ -23,7 +23,7 @@
 
 
 <routes>
-  <vType actionStepLength="1.0" color="blue" emissionClass="MMPEVEM" id="BMW_i3" vClass="passenger">
+  <vType color="blue" emissionClass="MMPEVEM" id="BMW_i3" vClass="passenger">
     <param key="has.battery.device" value="true"/>
     <param key="device.battery.capacity" value="39000"/>
     <param key="device.battery.maxPower" value="125000"/>

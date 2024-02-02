@@ -23,7 +23,7 @@
 
 
 <routes>
-  <vType actionStepLength="1.0" color="blue" emissionClass="MMPEVEM" id="VW_eUp" vClass="passenger">
+  <vType color="blue" emissionClass="MMPEVEM" id="VW_eUp" vClass="passenger">
     <param key="has.battery.device" value="true"/>
     <param key="device.battery.capacity" value="32300"/>
     <param key="device.battery.maxPower" value="61000"/>
