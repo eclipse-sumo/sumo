@@ -459,7 +459,7 @@ MSVehicleType::check() {
                 || StringUtils::toBool(myParameter.getParameter("has.battery.device", "false")))) {
         myParameter.emissionClass = PollutantsInterface::getClassByName("Energy");
         myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
-        WRITE_WARNINGF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
+        WRITE_MESSAGEF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
                        getID());
     }
 }
