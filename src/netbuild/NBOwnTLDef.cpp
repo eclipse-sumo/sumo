@@ -823,6 +823,34 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
     }
 
+    // check for coherent signal sequence and remove yellow if preceded and followed by green
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& allPhases = logic->getPhases();
+    const int phaseCount = (int)allPhases.size();
+    const int stateSize = (int)logic->getNumLinks();
+    for (int i = 0; i < phaseCount; ++i) {
+        std::string currState = allPhases[i].state;
+        const int prevIndex = (i == 0) ? phaseCount - 1 : i - 1;
+        const std::string prevState = allPhases[prevIndex].state;
+        const std::string nextState = allPhases[(i + 1) % phaseCount].state;
+        bool updatedState = false;
+        for (int i1 = 0; i1 < stateSize; ++i1) {
+            if (currState[i1] == 'y' && (nextState[i1] == 'g' || nextState[i1] == 'G') && (prevState[i1] == 'g' || prevState[i1] == 'G')) {
+                LinkState ls = (nextState[i1] == prevState[i1]) ? (LinkState)prevState[i1] : (LinkState)'g';
+                logic->setPhaseState(i, i1, ls);
+                updatedState = true;
+            }
+        }
+#ifdef DEBUG_PHASES
+        if (DEBUGCOND) {
+            if (updatedState) {
+                std::cout << getID() << " state of phase index " << i <<  " was patched due to yellow in between green\n";
+            }
+
+        }
+#endif
+    }
+
+
     myRightOnRedConflictsReady = true;
     // this computation only makes sense for single nodes
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
