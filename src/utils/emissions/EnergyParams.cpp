@@ -38,13 +38,38 @@ const EnergyParams* EnergyParams::myDefault = nullptr;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
+EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) :
+    EnergyParams(typeParams != nullptr ? typeParams->emissionClass : EMISSION_CLASS_UNSPECIFIED) {
+    if (typeParams != nullptr) {
+        for (auto item : myMap) {
+            myMap[item.first] = typeParams->getDouble(toString(item.first), item.second);
+        }
+        for (auto item : myVecMap) {
+            myVecMap[item.first] = typeParams->getDoubles(toString(item.first), item.second);
+        }
+        for (auto item : myCharacteristicMapMap) {
+            std::string characteristicMapString = typeParams->getParameter(toString(item.first), "");
+            if (characteristicMapString != "") {
+                myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
+            }
+        }
+        myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
+        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
+    }
+}
+
+
+EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_SHUT_OFF_STOP] = 300.;
     myMap[SUMO_ATTR_SHUT_OFF_AUTO] = std::numeric_limits<double>::max();
     myMap[SUMO_ATTR_DURATION] = -1.;
     myMap[SUMO_ATTR_PARKING] = 0.;
     myMap[SUMO_ATTR_WAITINGTIME] = -1.;
 
+    if (c != EMISSION_CLASS_UNSPECIFIED && StringUtils::startsWith(PollutantsInterface::getName(c), "PHEMlight5/")) {
+        return;
+    }
     // default values from
     // https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
     myMap[SUMO_ATTR_VEHICLEMASS] = 1830.;
@@ -73,28 +98,10 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
     myMap[SUMO_ATTR_NOMINALBATTERYVOLTAGE] = 396.0;       // [V]
     myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
 
-    if (typeParams != nullptr) {
-        for (auto item : myMap) {
-            myMap[item.first] = typeParams->getDouble(toString(item.first), item.second);
-        }
-        for (auto item : myVecMap) {
-            myVecMap[item.first] = typeParams->getDoubles(toString(item.first), item.second);
-        }
-        for (auto item : myCharacteristicMapMap) {
-            std::string characteristicMapString = typeParams->getParameter(toString(item.first), "");
-            if (characteristicMapString != "") {
-                myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
-            }
-        }
-        myMap[SUMO_ATTR_MASS] = typeParams->mass;
-        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
-        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
-    } else {
-        const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
-        myMap[SUMO_ATTR_MASS] = defaultValues.mass;
-        myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
-        myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
-    }
+    const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
+    myMap[SUMO_ATTR_MASS] = defaultValues.mass;
+    myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
+    myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
 }
 
 

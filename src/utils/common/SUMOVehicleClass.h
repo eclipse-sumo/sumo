@@ -236,6 +236,9 @@ extern const SVCPermissions SVC_UNSPECIFIED;
  */
 typedef int SUMOEmissionClass;
 
+/// @brief emission class not specified
+extern const SVCPermissions EMISSION_CLASS_UNSPECIFIED;
+
 // ===========================================================================
 // Stop Offsets
 // ===========================================================================

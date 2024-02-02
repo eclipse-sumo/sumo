@@ -120,20 +120,20 @@ HelpersPHEMlight5::calcPower(PHEMlightdllV5::CEP* currCep, const double v, const
     // copy of CEP::CalcPower
     const double power = calcWheelPower(currCep, v, a, slope, param) / PHEMlightdllV5::Constants::_DRIVE_TRAIN_EFFICIENCY;
     if (!(currCep->getCalcType() == "HEV" || currCep->getCalcType() == "BEV")) {
-        return power + currCep->getAuxPower();
+        return power + param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower());
     }
     return power;
 }
 
 
 double
-HelpersPHEMlight5::calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+HelpersPHEMlight5::calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const {
     // copy of CEP::CalcWheelPower
     const double rotFactor = currCep->GetRotationalCoeffecient(v);
-    const double mass = currCep->getVehicleMass();
+    const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
     const double massRot = currCep->getVehicleMassRot();
     const double load = currCep->getVehicleLoading();
-    const double cw = currCep->getCrossSectionalArea() * currCep->getCWValue();
+    const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
 
     double power = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * currCep->getResistance(v) * v;
     power += (cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST / 2) * std::pow(v, 3);
@@ -152,8 +152,11 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
         }
         // this is a copy of CEP::GetMaxAccel
         const double rotFactor = currCep->GetRotationalCoeffecient(v);
+        const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
+        const double massRot = currCep->getVehicleMassRot();
+        const double load = currCep->getVehicleLoading();
         const double pMaxForAcc = currCep->GetPMaxNorm(v) * currCep->getRatedPower() - calcPower(currCep, v, 0, slope, param);
-        const double maxAcc = (pMaxForAcc * 1000) / ((currCep->getVehicleMass() * rotFactor + currCep->getVehicleMassRot() + currCep->getVehicleLoading()) * v);
+        const double maxAcc = (pMaxForAcc * 1000) / ((mass * rotFactor + massRot + load) * v);
         return MIN2(a, maxAcc);
     }
     return a;
@@ -168,9 +171,9 @@ HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, c
         return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
     }
     const double rotFactor = currCep->GetRotationalCoeffecient(v);
-    const double mass = currCep->getVehicleMass();
+    const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
     const double load = currCep->getVehicleLoading();
-    const double cw = currCep->getCrossSectionalArea() * currCep->getCWValue();
+    const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
 
     const double fRoll = currCep->getResistance(v, true) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
     const double fAir = cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST * 0.5 * std::pow(v, 2);
@@ -227,7 +230,8 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
         }
         case PollutantsInterface::ELEC:
             if (isBEV) {
-                return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower) + currCep->getAuxPower()) / SECONDS_PER_HOUR * 1000.;
+                const double auxPower = param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower());
+                return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower) + auxPower) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;
     }

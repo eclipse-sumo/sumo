@@ -24,10 +24,10 @@
 #include <version.h>
 #endif
 
-#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -37,7 +37,6 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -206,30 +205,39 @@ main(int argc, char** argv) {
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
-        EnergyParams energyParams;
+        SUMOEmissionClass emissionClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
+        std::unique_ptr<EnergyParams> energyParams;
         std::map<std::string, SUMOVTypeParameter*> vTypes;
-        if (oc.isSet("vtype")) {
+        if (oc.isSet("vtype") || oc.isSet("additional-files")) {
             if (!oc.isSet("additional-files")) {
                 throw ProcessError(TL("Option --vtype requires option --additional-files for loading vehicle types"));
             }
             if (!oc.isUsableFileList("additional-files")) {
                 throw ProcessError();
             }
-            for (auto file : oc.getStringVector("additional-files")) {
+            for (const std::string& file : oc.getStringVector("additional-files")) {
                 VTypesHandler typesHandler(file, vTypes);
                 if (!XMLSubSys::runParser(typesHandler, file)) {
                     throw ProcessError(TLF("Loading of % failed.", file));
                 }
             }
-            if (vTypes.count(oc.getString("vtype")) == 0) {
-                throw ProcessError(TLF("Vehicle type '%' is not defined", oc.getString("vtype")));
+            if (!oc.isSet("vtype") && vTypes.size() != 1) {
+                throw ProcessError(TL("Vehicle type is not unique."));
             }
-            energyParams = EnergyParams(vTypes[oc.getString("vtype")]);
+            const auto vTypeIt = oc.isSet("vtype") ? vTypes.find(oc.getString("vtype")) : vTypes.begin();
+            if (vTypeIt == vTypes.end()) {
+                throw ProcessError(TLF("Vehicle type '%' is not defined.", oc.getString("vtype")));
+            }
+            if (oc.isDefault("emission-class")) {
+                emissionClass = vTypeIt->second->emissionClass;
+            }
+            energyParams = std::make_unique<EnergyParams>(vTypeIt->second);
+        } else {
+            energyParams = std::make_unique<EnergyParams>(emissionClass);
         }
 
-        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, &energyParams, attributes, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), emissionClass, energyParams.get(), attributes, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
@@ -266,7 +274,7 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", defaultClass, &energyParams, attributes, t, v, a, s)) {
+                        if (handler.writeEmissions(*out, "", emissionClass, energyParams.get(), attributes, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;

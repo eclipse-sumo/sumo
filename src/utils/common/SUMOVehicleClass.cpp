@@ -150,6 +150,8 @@ const SVCPermissions SVCAll = 2 * (int)SUMOVehicleClass_MAX - 1; // all relevant
 
 const SVCPermissions SVC_UNSPECIFIED = -1;
 
+const SUMOEmissionClass EMISSION_CLASS_UNSPECIFIED = -1;
+
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
 const std::string DEFAULT_BIKETYPE_ID("DEFAULT_BIKETYPE");
