@@ -47,6 +47,13 @@ public:
      */
     HelpersEnergy();
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return always "Electricity"
+     */
+    std::string getFuel(const SUMOEmissionClass /* c */) const {
+        return "Electricity";
+    }
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *

@@ -59,6 +59,12 @@ public:
      */
     SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return the fuel type
+     */
+    std::string getFuel(const SUMOEmissionClass c) const;
+
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity

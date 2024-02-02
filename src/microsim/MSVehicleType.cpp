@@ -453,7 +453,17 @@ MSVehicleType::check() {
                            toString(getVehicleClass()), getID());
         }
     }
+    if (!myParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET) && !OptionsCont::getOptions().getBool("device.battery.track-fuel")
+            && (OptionsCont::getOptions().getFloat("device.battery.probability") == 1.
+                || myParameter.getDouble("device.battery.probability", -1.) == 1.
+                || StringUtils::toBool(myParameter.getParameter("has.battery.device", "false")))) {
+        myParameter.emissionClass = PollutantsInterface::getClassByName("Energy");
+        myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        WRITE_WARNINGF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
+                       getID());
+    }
 }
+
 
 void
 MSVehicleType::setAccel(double accel) {

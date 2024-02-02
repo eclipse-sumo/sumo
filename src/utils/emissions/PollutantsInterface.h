@@ -298,7 +298,7 @@ public:
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
-     * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
+     * @return "Diesel", "Gasoline", "HybridDiesel", "HybridGasoline", or "Electricity"
      */
     static std::string getFuel(const SUMOEmissionClass c);
 

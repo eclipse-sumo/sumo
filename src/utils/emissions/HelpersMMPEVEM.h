@@ -51,6 +51,14 @@ public:
      */
     HelpersMMPEVEM();
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return always "Electricity"
+     */
+    std::string getFuel(const SUMOEmissionClass /* c */) const {
+        return "Electricity";
+    }
+
     /**
      * \brief Compute the amount of emitted pollutants for an emission class in a
      *        given state.

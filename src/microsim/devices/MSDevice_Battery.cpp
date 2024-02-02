@@ -131,19 +131,12 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
         myStoppingThreshold = stoppingThreshold;
     }
 
-    EnergyParams* const params = myHolder.getEmissionParameters();
-    params->checkParam(SUMO_ATTR_VEHICLEMASS, getID());
-    params->checkParam(SUMO_ATTR_FRONTSURFACEAREA, getID());
-    params->checkParam(SUMO_ATTR_AIRDRAGCOEFFICIENT, getID());
-    params->checkParam(SUMO_ATTR_INTERNALMOMENTOFINERTIA, getID());
-    params->checkParam(SUMO_ATTR_RADIALDRAGCOEFFICIENT, getID());
-    params->checkParam(SUMO_ATTR_ROLLDRAGCOEFFICIENT, getID());
-    params->checkParam(SUMO_ATTR_CONSTANTPOWERINTAKE, getID());
-    params->checkParam(SUMO_ATTR_PROPULSIONEFFICIENCY, getID());
-    params->checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY, getID());
-    params->checkParam(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION, getID());
-
-    myTrackFuel = !PollutantsInterface::getEnergyHelper().includesClass(holder.getVehicleType().getEmissionClass()) && OptionsCont::getOptions().getBool("device.battery.track-fuel");
+    myTrackFuel = PollutantsInterface::getFuel(holder.getVehicleType().getEmissionClass()) != "Electricity" && OptionsCont::getOptions().getBool("device.battery.track-fuel");
+    if (!myTrackFuel && !holder.getVehicleType().getParameter().wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+        WRITE_WARNINGF(TL("The battery device is active for vehicle '%' but no emission class is set. "
+                          "Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!"),
+                       holder.getID());
+    }
 }
 
 
@@ -169,14 +162,15 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     EnergyParams* const params = myHolder.getEmissionParameters();
     if (getMaximumBatteryCapacity() != 0) {
         params->setDouble(SUMO_ATTR_ANGLE, myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle()));
-        if (myTrackFuel) {
-            // [ml]
-            myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(), PollutantsInterface::FUEL, veh.getSpeed(), veh.getAcceleration(),
-                                                    veh.getSlope(), params) * TS;
-        } else {
-            // [Wh]
+        if (!myTrackFuel && !veh.getVehicleType().getParameter().wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+            // no explicit emission class, we fall back to the energy model; a warning has been issued on creation
             myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(),
                        veh.getSlope(), params) * TS;
+        } else {
+            myConsum = PollutantsInterface::compute(veh.getVehicleType().getEmissionClass(),
+                                                    myTrackFuel ? PollutantsInterface::FUEL : PollutantsInterface::ELEC,
+                                                    veh.getSpeed(), veh.getAcceleration(),
+                                                    veh.getSlope(), params) * TS;
         }
         if (veh.isParking()) {
             // recuperation from last braking step is ok but further consumption should cease

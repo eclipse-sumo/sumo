@@ -109,6 +109,23 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
 }
 
 
+std::string
+HelpersPHEMlight5::getFuel(const SUMOEmissionClass c) const {
+    const std::string name = myEmissionClassStrings.getString(c);
+    std::string fuel = "Gasoline";
+    if (name.find("_D_") != std::string::npos) {
+        fuel = "Diesel";
+    }
+    if (name.find("_BEV_") != std::string::npos) {
+        fuel = "Electricity";
+    }
+    if (name.find("_HEV") != std::string::npos) {
+        fuel = "Hybrid" + fuel;
+    }
+    return fuel;
+}
+
+
 double
 HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower) const {
     return currCep->GetEmission(e, p, v, &myHelper, drivingPower);
