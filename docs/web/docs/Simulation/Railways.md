@@ -387,12 +387,12 @@ Furthermore the following functions are available for rail signals:
 
 Constraints can be queried and modified via TraCI:
 
-- getConstraints(tlsID, tripId=""): Returns the list of rail signal constraints for the given rail signal. If tripId is not "", only constraints with the given tripId are returned. Otherwise, all constraints are returned
-- getConstraintsByFoe(foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returned
-- addConstraint(tlsID, tripId, foeSignal, foeId, type=0, limit=0): add constraint with the given values (type 0 is a predecessor constraint, 1 insertion predecessor, 2 foe insertion, ...)
-- swapConstraints(tlsID, tripId, foeSignal, foeId):  Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock.
-- removeConstraints(tlsID, tripId, foeSignal, foeId): remove constraints with the given values. Any combination of inputs may be set to "" to act as a wildcard filter """
-- updateConstraints(vehID, tripId=""): remove any constraints related to the given tripId if the vehicle with the given vehID no longer passes the respective rail signals (i.e. after rerouting).
+- `getConstraints(tlsID, tripId="")`: Returns the list of rail signal constraints for the given rail signal. If tripId is not "", only constraints with the given tripId are returned. Otherwise, all constraints are returned
+- `getConstraintsByFoe(foeSignal, foeId="")`: Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returned
+- `addConstraint(tlsID, tripId, foeSignal, foeId, type=0, limit=0)`: add constraint with the given values (type 0 is a predecessor constraint, 1 insertion predecessor, 2 foe insertion, ...)
+- `swapConstraints(tlsID, tripId, foeSignal, foeId)`:  Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock.
+- `removeConstraints(tlsID, tripId, foeSignal, foeId)`: remove constraints with the given values. Any combination of inputs may be set to "" to act as a wildcard filter """
+- `updateConstraints(vehID, tripId="")`: remove any constraints related to the given tripId if the vehicle with the given vehID no longer passes the respective rail signals (i.e. after rerouting).
   - if tripId is the empty string, the current tripId param of the vehicle is used
   - if the tripId would have changed in the part of the route affected by rerouting, the function must be called once for each individual tripId involved.
 
