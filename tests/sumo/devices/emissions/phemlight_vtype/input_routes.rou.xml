@@ -1,11 +1,11 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="PHEMlight5_veh" emissionClass="PHEMlight5/PC_BEV_GEN1" vClass="passenger" speedDev="0" sigma="0">
+    <vType id="PHEMlight5_veh" emissionClass="PHEMlight5/PC_EU4_G" vClass="passenger" speedDev="0" sigma="0">
 		<param key="constantPowerIntake" value="360"/>	
 		<param key="airDragCoefficient" value="0.28"/>
 		<param key="frontSurfaceArea" value="2.54"/>
 		<param key="vehicleMass" value="2124"/>
 	</vType>
-    <vType id="PHEMlight5_orig" emissionClass="PHEMlight5/PC_BEV_GEN1" vClass="passenger" speedDev="0" sigma="0"/>
+    <vType id="PHEMlight5_orig" emissionClass="PHEMlight5/PC_EU4_G" vClass="passenger" speedDev="0" sigma="0"/>
 	<route id="route0" edges="beg middle end rend"/>
     <vehicle id="0" type="PHEMlight5_veh" route="route0" depart="0.0" color="red" departSpeed="max"/>
     <vehicle id="1" type="PHEMlight5_orig" route="route0" depart="36.0" color="green" departSpeed="max"/>
