@@ -635,8 +635,11 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value=""/>
+                    <xsd:enumeration value="pin"/>
+                    <xsd:enumeration value="tree"/>
                     <xsd:enumeration value="hotel"/>
-                    <xsd:enumeration value="nature"/>
+                    <xsd:enumeration value="fuel"/>
+                    <xsd:enumeration value="charging_station"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
