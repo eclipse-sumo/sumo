@@ -137,7 +137,7 @@ HelpersPHEMlight5::calcPower(PHEMlightdllV5::CEP* currCep, const double v, const
     // copy of CEP::CalcPower
     const double power = calcWheelPower(currCep, v, a, slope, param) / PHEMlightdllV5::Constants::_DRIVE_TRAIN_EFFICIENCY;
     if (!(currCep->getCalcType() == "HEV" || currCep->getCalcType() == "BEV")) {
-        return power + param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower());
+        return power + param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower() * 1000.) / 1000.;
     }
     return power;
 }
@@ -247,7 +247,7 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
         }
         case PollutantsInterface::ELEC:
             if (isBEV) {
-                const double auxPower = param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower());
+                const double auxPower = param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower() * 1000.) / 1000.;
                 return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower) + auxPower) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;

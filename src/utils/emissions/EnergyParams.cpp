@@ -68,6 +68,10 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_WAITINGTIME] = -1.;
 
     if (c != EMISSION_CLASS_UNSPECIFIED && StringUtils::startsWith(PollutantsInterface::getName(c), "PHEMlight5/")) {
+        myMap[SUMO_ATTR_VEHICLEMASS] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_FRONTSURFACEAREA] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = INVALID_DOUBLE;
         return;
     }
     // default values from
@@ -130,7 +134,7 @@ EnergyParams::getDouble(SumoXMLAttr attr) const {
 double
 EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
     auto it = myMap.find(attr);
-    if (it != myMap.end()) {
+    if (it != myMap.end() && it->second != INVALID_DOUBLE) {
         return it->second;
     }
     if (mySecondaryParams != nullptr) {
