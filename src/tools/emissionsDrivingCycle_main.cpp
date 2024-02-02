@@ -231,9 +231,9 @@ main(int argc, char** argv) {
             if (oc.isDefault("emission-class")) {
                 emissionClass = vTypeIt->second->emissionClass;
             }
-            energyParams = std::make_unique<EnergyParams>(vTypeIt->second);
+            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
         } else {
-            energyParams = std::make_unique<EnergyParams>(emissionClass);
+            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(emissionClass));
         }
 
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
