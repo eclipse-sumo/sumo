@@ -134,7 +134,7 @@ EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
         return it->second;
     }
     if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDouble(attr);
+        return mySecondaryParams->getDoubleOptional(attr, def);
     }
     return def;
 }
