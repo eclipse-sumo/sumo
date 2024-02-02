@@ -95,7 +95,7 @@ title: ChangeLog
     - fixed crash when parsing heterogeneous content. #13556
   - traceExporter.py: kepler-JSON now generates correct timestamps. #13522, #13550
   - duaIterate.py: fixed corner case with empty output file after first iteration. #13840
-  - mapDetectors.py: can now handles multiple lanes with the same distance. #13845
+  - mapDetectors.py: now handles multiple lanes with the same distance. #13845
   - fixed index in sumolib.net.node.Node.forbids. #13857
   - osmWebWizard.py: Fixed error when requesting an amount of 0 vehicles for a mode. #13947, #13787
   - convert_detectors2SUMO.py: Syntax error fixed which made the script unusable. #13650
