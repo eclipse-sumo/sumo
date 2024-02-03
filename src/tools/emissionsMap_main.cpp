@@ -24,15 +24,16 @@
 #include <version.h>
 #endif
 
-#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <string>
 #include <ctime>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/emissions/EnergyParams.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
@@ -44,11 +45,6 @@
 // ===========================================================================
 // functions
 // ===========================================================================
-
-
-/* -------------------------------------------------------------------------
- * main
- * ----------------------------------------------------------------------- */
 void single(const std::string& of, const std::string& className, SUMOEmissionClass c,
             double vMin, double vMax, double vStep,
             double aMin, double aMax, double aStep,
@@ -61,10 +57,11 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     if (!o.good()) {
         throw ProcessError(TLF("Could not open file '%' for writing.", of));
     }
+    EnergyParams energyParams(c);
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
-                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, nullptr);
+                const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, &energyParams);
                 o << v << ";" << a << ";" << s << ";" << "CO" << ";" << result.CO << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "CO2" << ";" << result.CO2 << std::endl;
                 o << v << ";" << a << ";" << s << ";" << "HC" << ";" << result.HC << std::endl;
