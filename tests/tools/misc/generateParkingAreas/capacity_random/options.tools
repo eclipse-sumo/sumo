@@ -1,0 +1,6 @@
+-n net.net.xml -o out.add.xml 
+--min 0 
+--max 2 
+--random-capacity
+--keep-all
+tools/generateParkingAreas.py

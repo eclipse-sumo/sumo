@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,18 +23,11 @@
 #include <config.h>
 
 #define LIBTRACI 1
-#include <netload/NLDetectorBuilder.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TrafficLight.h>
 #include "Domain.h"
 
-// TODO remove the following line once the implementation is mature
-#ifdef _MSC_VER
-#pragma warning(disable: 4100)
-#else
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
 
 namespace libtraci {
 
@@ -63,6 +56,7 @@ TrafficLight::getRedYellowGreenState(const std::string& tlsID) {
 
 std::vector<libsumo::TraCILogic>
 TrafficLight::getAllProgramLogics(const std::string& tlsID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_COMPLETE_DEFINITION_RYG, tlsID);
     std::vector<libsumo::TraCILogic> result;
     int numLogics = ret.readInt();
@@ -112,6 +106,7 @@ TrafficLight::getControlledLanes(const std::string& tlsID) {
 
 std::vector<std::vector<libsumo::TraCILink> >
 TrafficLight::getControlledLinks(const std::string& tlsID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
     ret.readInt();
@@ -195,6 +190,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     std::vector<libsumo::TraCISignalConstraint> result;
     tcpip::Storage content;
     StoHelp::writeTypedString(content, tripId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT, tlsID, &content);
     ret.readInt(); // components
     // number of items
@@ -209,6 +205,11 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -219,6 +220,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     std::vector<libsumo::TraCISignalConstraint> result;
     tcpip::Storage content;
     StoHelp::writeTypedString(content, foeId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_BYFOE, foeSignal, &content);
     ret.readInt(); // components
     // number of items
@@ -233,6 +235,11 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -278,7 +285,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
     StoHelp::writeTypedInt(content, logic.type);
     StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
     StoHelp::writeCompound(content, (int)logic.phases.size());
-    for (const libsumo::TraCIPhase* const phase : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
         StoHelp::writeCompound(content, 6);
         StoHelp::writeTypedDouble(content, phase->duration);
         StoHelp::writeTypedString(content, phase->state);
@@ -298,15 +305,28 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
 }
 
 
+void
+TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId, const int type, const int limit) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, tripId);
+    StoHelp::writeTypedString(content, foeSignal);
+    StoHelp::writeTypedString(content, foeId);
+    StoHelp::writeTypedInt(content, type);
+    StoHelp::writeTypedInt(content, limit);
+    Dom::set(libsumo::TL_CONSTRAINT_ADD, tlsID, &content);
+}
+
+
 std::vector<libsumo::TraCISignalConstraint>
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
     std::vector<libsumo::TraCISignalConstraint> result;
     tcpip::Storage content;
-    content.writeByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(3);
+    StoHelp::writeCompound(content, 3);
     StoHelp::writeTypedString(content, tripId);
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_SWAP, tlsID, &content);
     ret.readInt(); // components
     // number of items
@@ -321,6 +341,11 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -330,12 +355,48 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 void
 TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
     tcpip::Storage content;
-    content.writeByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(3);
+    StoHelp::writeCompound(content, 3);
     StoHelp::writeTypedString(content, tripId);
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
+}
+
+void
+TrafficLight::updateConstraints(const std::string& vehID, std::string tripId) {
+    Dom::setString(libsumo::TL_CONSTRAINT_UPDATE, vehID, tripId);
+}
+
+std::string
+to_string(const std::vector<double>& value) {
+    std::ostringstream tmp;
+    for (double d : value) {
+        tmp << d << " ";
+    }
+    std::string tmp2 = tmp.str();
+    tmp2.pop_back();
+    return tmp2;
+}
+
+
+void
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>& splits) {
+    setParameter(tlsID, "NEMA.splits", to_string(splits));
+}
+
+void
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", to_string(maxGreens));
+}
+
+void
+TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", std::to_string(cycleLength));
+}
+
+void
+TrafficLight::setNemaOffset(const std::string& tlsID, double offset) {
+    setParameter(tlsID, "NEMA.offset", std::to_string(offset));
 }
 
 

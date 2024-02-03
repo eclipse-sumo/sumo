@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -127,11 +127,11 @@ void
 RODFRouteCont::setID(RODFRouteDesc& desc) const {
     std::pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
     desc.routename = c.first->getID() + "_to_" + c.second->getID();
-    if (myConnectionOccurences.find(c) == myConnectionOccurences.end()) {
-        myConnectionOccurences[c] = 0;
+    if (myConnectionOccurrences.find(c) == myConnectionOccurrences.end()) {
+        myConnectionOccurrences[c] = 0;
     } else {
-        myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
-        desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
+        myConnectionOccurrences[c] = myConnectionOccurrences[c] + 1;
+        desc.routename = desc.routename + "_" + toString(myConnectionOccurrences[c]);
     }
 }
 

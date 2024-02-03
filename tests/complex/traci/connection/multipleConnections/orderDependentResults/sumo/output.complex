@@ -10,7 +10,7 @@ Starting process 2 (order: 2) with steplength 1.0
   client connected
 Loading net-file from 'input_net.net.xml' ... done (4ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Process 1:
    stepping (step 1)...
    Retrieving position for vehicle 'horiz' -> 5.1 on lane '2fi_0'
@@ -1496,7 +1496,7 @@ Starting process 2 (order: 8) with steplength 1.0
   client connected
 Loading net-file from 'input_net.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Process 2:
    stepping (step 1)...
    Retrieving position for vehicle 'horiz' -> 5.1 on lane '2fi_0'

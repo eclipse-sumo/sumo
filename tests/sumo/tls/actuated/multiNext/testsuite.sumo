@@ -1,0 +1,24 @@
+# test for approximating a dual-ring controller by using the actuated branching logic
+dualring_simple
+
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on maximum green time for selected links
+dualring_simple_linkMaxDur
+
+# test for approximating a dual-ring controller by using the actuated branching logic, including constraints on minimum green time for selected links
+dualring_simple_linkMinDur
+
+# test for approximating a dual-ring controller by using the actuated branching logic
+dualring
+
+# only switch to side direction on request
+request_or_skip
+
+# request arms have a permissive left turn that gets stalled out
+request_or_skip_blocked_left
+
+# request arms have a permissive left turn that gets stalled out,
+# the stalled arm has robust detection due to increased detector length
+request_or_skip_blocked_left_detLength
+
+# This test checks that the dynamic phase skipping feature works correctly relatively to detected traffic on a bicycle lane.
+bike_skip

@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing lane -->
+    <chargingStation id="chargingStation_0" startPos="15" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid lane -->
+    <chargingStation id="chargingStation_1" lane="dummyLane" startPos="15" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- valid lane -->
+    <chargingStation id="chargingStation_2" lane="center1_1" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" friendlyPos="false"/>
+
+</additional>

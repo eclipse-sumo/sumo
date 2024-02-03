@@ -1,0 +1,11 @@
+-n net.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+--no-step-log
+--step-length 0.1
+--collision.action warn
+--fcd-output fcd.xml
+--device.fcd.explicit ego
+--fcd-output.max-leader-distance 100
+--fcd-output.attributes speed,acceleration,leaderGap,x
+-e 5

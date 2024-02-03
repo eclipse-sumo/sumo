@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,8 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <utils/geom/GeomHelper.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 
@@ -47,6 +49,7 @@ ContextSubscriptionResults Lane::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Lane::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     MSLane::insertIDs(ids);
     return ids;
@@ -60,31 +63,35 @@ Lane::getIDCount() {
 
 
 std::string
-Lane::getEdgeID(std::string laneID) {
+Lane::getEdgeID(const std::string& laneID) {
     return getLane(laneID)->getEdge().getID();
 }
 
 
 double
-Lane::getLength(std::string laneID) {
+Lane::getLength(const std::string& laneID) {
     return getLane(laneID)->getLength();
 }
 
 
 double
-Lane::getMaxSpeed(std::string laneID) {
+Lane::getMaxSpeed(const std::string& laneID) {
     return getLane(laneID)->getSpeedLimit();
 }
 
+double
+Lane::getFriction(const std::string& laneID) {
+    return getLane(laneID)->getFrictionCoefficient();
+}
 
 int
-Lane::getLinkNumber(std::string laneID) {
+Lane::getLinkNumber(const std::string& laneID) {
     return (int)getLane(laneID)->getLinkCont().size();
 }
 
 
 std::vector<TraCIConnection>
-Lane::getLinks(std::string laneID) {
+Lane::getLinks(const std::string& laneID) {
     std::vector<TraCIConnection> v;
     const MSLane* const lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -106,7 +113,7 @@ Lane::getLinks(std::string laneID) {
 
 
 std::vector<std::string>
-Lane::getAllowed(std::string laneID) {
+Lane::getAllowed(const std::string& laneID) {
     SVCPermissions permissions = getLane(laneID)->getPermissions();
     if (permissions == SVCAll) {  // special case: write nothing
         permissions = 0;
@@ -116,13 +123,25 @@ Lane::getAllowed(std::string laneID) {
 
 
 std::vector<std::string>
-Lane::getDisallowed(std::string laneID) {
+Lane::getDisallowed(const std::string& laneID) {
     return getVehicleClassNamesList(invertPermissions((getLane(laneID)->getPermissions()))); // negation yields disallowed
 }
 
 
+std::vector<std::string>
+Lane::getChangePermissions(const std::string& laneID, const int direction) {
+    if (direction == libsumo::LANECHANGE_LEFT) {
+        return getVehicleClassNamesList(getLane(laneID)->getChangeLeft());
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
+        return getVehicleClassNamesList(getLane(laneID)->getChangeRight());
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
+    }
+}
+
+
 TraCIPositionVector
-Lane::getShape(std::string laneID) {
+Lane::getShape(const std::string& laneID) {
     TraCIPositionVector pv;
     const PositionVector& shp = getLane(laneID)->getShape();
     for (PositionVector::const_iterator pi = shp.begin(); pi != shp.end(); ++pi) {
@@ -137,72 +156,72 @@ Lane::getShape(std::string laneID) {
 
 
 double
-Lane::getWidth(std::string laneID) {
+Lane::getWidth(const std::string& laneID) {
     return getLane(laneID)->getWidth();
 }
 
 
 double
-Lane::getCO2Emission(std::string laneID) {
-    return getLane(laneID)->getCO2Emissions();
+Lane::getCO2Emission(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO2>();
 }
 
 
 double
-Lane::getCOEmission(std::string laneID) {
-    return getLane(laneID)->getCOEmissions();
+Lane::getCOEmission(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO>();
 }
 
 
 double
-Lane::getHCEmission(std::string laneID) {
-    return getLane(laneID)->getHCEmissions();
+Lane::getHCEmission(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::HC>();
 }
 
 
 double
-Lane::getPMxEmission(std::string laneID) {
-    return getLane(laneID)->getPMxEmissions();
+Lane::getPMxEmission(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::PM_X>();
 }
 
 
 double
-Lane::getNOxEmission(std::string laneID) {
-    return getLane(laneID)->getNOxEmissions();
+Lane::getNOxEmission(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::NO_X>();
 }
 
 double
-Lane::getFuelConsumption(std::string laneID) {
-    return getLane(laneID)->getFuelConsumption();
+Lane::getFuelConsumption(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::FUEL>();
 }
 
 
 double
-Lane::getNoiseEmission(std::string laneID) {
+Lane::getNoiseEmission(const std::string& laneID) {
     return getLane(laneID)->getHarmonoise_NoiseEmissions();
 }
 
 
 double
-Lane::getElectricityConsumption(std::string laneID) {
-    return getLane(laneID)->getElectricityConsumption();
+Lane::getElectricityConsumption(const std::string& laneID) {
+    return getLane(laneID)->getEmissions<PollutantsInterface::ELEC>();
 }
 
 
 double
-Lane::getLastStepMeanSpeed(std::string laneID) {
+Lane::getLastStepMeanSpeed(const std::string& laneID) {
     return getLane(laneID)->getMeanSpeed();
 }
 
 
 double
-Lane::getLastStepOccupancy(std::string laneID) {
+Lane::getLastStepOccupancy(const std::string& laneID) {
     return getLane(laneID)->getNettoOccupancy();
 }
 
 
 double
-Lane::getLastStepLength(std::string laneID) {
+Lane::getLastStepLength(const std::string& laneID) {
     const MSLane* lane = getLane(laneID);
     double length = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -218,13 +237,13 @@ Lane::getLastStepLength(std::string laneID) {
 
 
 double
-Lane::getWaitingTime(std::string laneID) {
+Lane::getWaitingTime(const std::string& laneID) {
     return getLane(laneID)->getWaitingSeconds();
 }
 
 
 double
-Lane::getTraveltime(std::string laneID) {
+Lane::getTraveltime(const std::string& laneID) {
     const MSLane* lane = getLane(laneID);
     double meanSpeed = lane->getMeanSpeed();
     if (meanSpeed != 0) {
@@ -236,12 +255,13 @@ Lane::getTraveltime(std::string laneID) {
 
 
 int
-Lane::getLastStepVehicleNumber(std::string laneID) {
+Lane::getLastStepVehicleNumber(const std::string& laneID) {
     return (int)getLane(laneID)->getVehicleNumber();
 }
 
+
 int
-Lane::getLastStepHaltingNumber(std::string laneID) {
+Lane::getLastStepHaltingNumber(const std::string& laneID) {
     const MSLane* lane = getLane(laneID);
     int halting = 0;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -256,7 +276,7 @@ Lane::getLastStepHaltingNumber(std::string laneID) {
 
 
 std::vector<std::string>
-Lane::getLastStepVehicleIDs(std::string laneID) {
+Lane::getLastStepVehicleIDs(const std::string& laneID) {
     const MSLane* lane = getLane(laneID);
     std::vector<std::string> vehIDs;
     const MSLane::VehCont& vehs = lane->getVehiclesSecure();
@@ -289,7 +309,7 @@ Lane::getInternalFoes(const std::string& laneID) {
     std::vector<const MSLane*>::const_iterator it;
     std::vector<std::string> foeIDs;
 
-    if (lane->isInternal() && lane->getLinkCont().size() > 0) {
+    if ((lane->isInternal() || lane->isCrossing()) && lane->getLinkCont().size() > 0) {
         MSLink* link = lane->getLinkCont().front();
         foeLanes = &link->getFoeLanes();
 
@@ -303,55 +323,89 @@ Lane::getInternalFoes(const std::string& laneID) {
 
 const std::vector<std::string>
 Lane::getPendingVehicles(const std::string& laneID) {
-    getLane(laneID); // validate laneID
+    MSLane* const l = getLane(laneID); // validate laneID
     std::vector<std::string> vehIDs;
     for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
-        if (veh->getLane() != nullptr && veh->getLane()->getID() == laneID) {
+        if (veh->getLane() == l) {
             vehIDs.push_back(veh->getID());
         }
     }
     return vehIDs;
 }
 
+
+double
+Lane::getAngle(const std::string& laneID, double relativePosition) {
+    double angle;
+    MSLane* lane = getLane(laneID);
+    if (relativePosition == libsumo::INVALID_DOUBLE_VALUE) {
+        Position start = lane->getShape().front();
+        Position end = lane->getShape().back();
+        angle = start.angleTo2D(end);
+    } else {
+        angle = lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(relativePosition));
+    }
+
+    return GeomHelper::naviDegree(angle);
+}
+
+
 void
-Lane::setAllowed(std::string laneID, std::string allowedClass) {
+Lane::setAllowed(const std::string& laneID, std::string allowedClass) {
     setAllowed(laneID, std::vector<std::string>({allowedClass}));
 }
 
 
 void
-Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+Lane::setAllowed(const std::string& laneID, std::vector<std::string> allowedClasses) {
+    MSLane* const l = getLane(laneID);
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
 }
 
 
 void
-Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+Lane::setDisallowed(const std::string& laneID, std::string disallowedClasses) {
+    setDisallowed(laneID, std::vector<std::string>({disallowedClasses}));
+}
+
+
+void
+Lane::setDisallowed(const std::string& laneID, std::vector<std::string> disallowedClasses) {
+    MSLane* const l = getLane(laneID);
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedTargets();
+}
+
+
+void
+Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> allowedClasses, const int direction) {
+    MSLane* const l = getLane(laneID);
+    if (direction == libsumo::LANECHANGE_LEFT) {
+        l->setChangeLeft(parseVehicleClasses(allowedClasses));
+    } else if (direction == libsumo::LANECHANGE_RIGHT) {
+        l->setChangeRight(parseVehicleClasses(allowedClasses));
+    } else {
+        throw TraCIException("Invalid direction for change permission (must be " + toString(libsumo::LANECHANGE_LEFT) + " or " + toString(libsumo::LANECHANGE_RIGHT));
     }
 }
 
 
 void
-Lane::setMaxSpeed(std::string laneID, double speed) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setMaxSpeed(speed);
+Lane::setMaxSpeed(const std::string& laneID, double speed) {
+    getLane(laneID)->setMaxSpeed(speed, false, true);
 }
 
 
 void
-Lane::setLength(std::string laneID, double length) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setLength(length);
+Lane::setLength(const std::string& laneID, double length) {
+    getLane(laneID)->setLength(length);
+}
+
+
+void
+Lane::setFriction(const std::string& laneID, double friction) {
+    getLane(laneID)->setFrictionCoefficient(friction);
 }
 
 
@@ -366,21 +420,20 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Lane)
 
 void
 Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setParameter(key, value);
+    getLane(laneID)->setParameter(key, value);
 }
 
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 
 
-const MSLane*
+MSLane*
 Lane::getLane(const std::string& id) {
-    const MSLane* r = MSLane::dictionary(id);
-    if (r == nullptr) {
+    MSLane* const lane = MSLane::dictionary(id);
+    if (lane == nullptr) {
         throw TraCIException("Lane '" + id + "' is not known");
     }
-    return r;
+    return lane;
 }
 
 
@@ -411,10 +464,15 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLength(objID));
         case VAR_MAXSPEED:
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getFriction(objID));
         case LANE_ALLOWED:
             return wrapper->wrapStringList(objID, variable, getAllowed(objID));
         case LANE_DISALLOWED:
             return wrapper->wrapStringList(objID, variable, getDisallowed(objID));
+        case LANE_CHANGES:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringList(objID, variable, getChangePermissions(objID, paramData->readByte()));
         case VAR_CO2EMISSION:
             return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
         case VAR_COEMISSION:
@@ -453,6 +511,9 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case VAR_ANGLE:
+            paramData->readUnsignedByte();
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -72,23 +72,25 @@ def writeRerouterDefinition(fdo, edge, t, rerouter):
 
 def writeRerouter(edge, t, rerouter, embedded):
     fdo = open("rerouter.xml", "w")
-    fdo.write(
-        '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=' +
-        '"http://sumo.dlr.de/xsd/additional_file.xsd">\n\n')
+    fdo.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    fdo.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+              + ' xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+
+    definition_file = "input_definition.def.xml"
     if embedded:
         fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
         writeRerouterDefinition(fdo, edge, t, rerouter)
         fdo.write('</rerouter>\n')
     else:
-        fdo.write(
-            '<rerouter id="rerouter" edges="%s" file="input_definition.def.xml"/>\n' % (edge))
+        fdo.write('<rerouter id="rerouter" edges="%s">\n' % (edge))
+        fdo.write('  <include href="%s"/>\n' % definition_file)
+        fdo.write('</rerouter>\n')
+
     fdo.write('</additional>\n')
     fdo.close()
     if not embedded:
-        fdo = open("input_definition.def.xml", "w")
-        fdo.write('<rerouter>\n\n')
+        fdo = open(definition_file, "w")
         writeRerouterDefinition(fdo, edge, t, rerouter)
-        fdo.write('</rerouter>\n\n')
         fdo.close()
 
 
@@ -138,9 +140,9 @@ def verify(vehroutes, edge):
             entryTime, leaveTime = getTimeOnEdge(
                 fr.edges.split(), fr.exitTimes.split(), edge, float(v.depart))
         if entryTime >= t[1] and entryTime < t[2] and not wasRerouted:
-            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s, %s)" % (
+            print("Vehicle '%s' entering at %s was not rerouted; times (%s, %s, %s)" % (
                 v.id, entryTime, t[0], t[1], t[2]))
-            sys.exit()
+            return
         if wasRerouted and (entryTime < t[1] and entryTime >= t[2]):
             print("Vehicle '%s' entering at %s was rerouted though the rerouter was off; times (%s, %s, %s)" % (
                 v.id, entryTime, t[0], t[1], t[2]))

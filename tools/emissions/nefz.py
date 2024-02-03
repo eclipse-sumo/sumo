@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -161,6 +161,6 @@ for c in [NEFZ1, NEFZ1, NEFZ1, NEFZ1, NEFZ2]:
 fdo = open("nefz.csv", "w")
 pv = 0
 for i in range(0, len(ts)):
-    fdo.write("%s;%s;%s\n" % (ts[i], vs[i] * 3.6, pv - vs[i]))
+    fdo.write("%s;%s;%s\n" % (ts[i], round(vs[i] * 3.6, 2), round(vs[i] - pv, 7)))
     pv = vs[i]
 fdo.close()

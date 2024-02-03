@@ -17,22 +17,38 @@ vehicle:
 
 - the vehicle stood too long in front of an intersection (message:
   "*...'; waited too long, lane='...*")
-- the vehicle has collided with his leader (message: "*...';
+- the vehicle has [collided](Safety.md#collisions) with his leader (message: "*...';
   collision, lane='...*")
+- the vehicle is performing a [jump](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)
 
 ## Waiting too long, aka Grid-locks
 
 In the case a vehicle is standing at the first position in front of an
-intersection, SUMO counts the number of steps the vehicle's velocity
+intersection (or all the vehicles before it have a scheduled stop), SUMO counts the number of steps the vehicle's velocity
 stays below 0.1m/s. These steps are the "waiting time". In the case the
 vehicle moves with a larger speed, this counter is reset. In the case
 the vehicle waited longer than a certain threshold value (default 300
 seconds), the vehicle is assumed to be in grid-lock and teleported onto
-the next free edge on its route. The threshold value can be configure
-using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
-positive, teleporting due to grid-lock is disabled. Note that for
+the next free edge on its route.
+Note that for
 vehicles which have a stop as part of their route, the time spent
 stopping is not counted towards their waiting time.
+
+If there is enough space on the subsequent edge of
+the vehicle's route, the vehicle will be directly assigned (teleported) to the respective
+available space. Vehicle insertion will use depart method "free" (anywhere on the lane with the least traffic)
+and attempt to insert the vehicle with it's maximum allowed speed.
+The insertion space must allow for all necessary safety gaps of the vehicle itself and it's follower vehicle, though the speed may be reduced if it helps with insertion.
+
+If the vehicle cannot be inserted immediately,it will be held outside the road network in a special 'teleporting-buffer' and (virtually) traverse the next edge with the average speed of that edge (minimum  m/s). After this virtual travel time has passed, the next attempt at re-inserting the vehicle into the network is made one edge further along it's route. This procedure repeats until the vehicle has been re-inserted or the end of the route is reached.
+In the latter case, the vehicle is removed from the simulation.
+While the vehicle is in the teleporting buffer it remains invisible.
+
+The threshold value can be configure
+using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds.
+
+!!! note
+    Setting **--time-to-teleport** to a negative value, disables teleporting due to gridlock.
 
 There are different reasons why a vehicle cannot continue with its
 route. Every time a vehicle teleports due to grid-lock one of the
@@ -44,6 +60,16 @@ following reasons is given:
   find a gap in the prioritized traffic
 - **jam** The vehicle is stuck on a priority road and there is no
   space on the next edge.
+
+Related options are
+
+- **--max-num-teleport**
+- **--time-to-teleport.highways**: teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
+- **--time-to-teleport.highways.min-speed**: configure threshold for above option
+- **--time-to-teleport.disconnected**: teleport earlier when the route is disconnected
+- **--time-to-teleport.bidi**: teleport earlier when on a bidi-edge (as this is more prone to dead-lock)
+- **--time-to-teleport.ride**: teleports [persons that are waiting for a ride](../Specification/Persons.md#riding) rather than vehicles.
+- **--time-to-teleport.remove**: remove teleporting vehicles directly
 
 Unfortunately, grid-locks are rather common in congested simulation
 scenarios. You can solve this only by [improving traffic flow, either by
@@ -69,11 +95,11 @@ this:
 
 By default, SUMO uses a collision-free model. However, due to bugs,
 network problems or deliberate configuration,
-[collisions may occur](../Simulation/Safety.md#collisions). The default behavior of SUMO is to immediately teleport the rear vehicle onto the next edge of it's route (or remove it, when already on it's final edge). This behavior can be [configured to avoid or delay teleporting](../Simulation/Safety.md#collisions). 
+[collisions may occur](../Simulation/Safety.md#collisions). The default behavior of SUMO is to immediately teleport the rear vehicle onto the next edge of it's route (or remove it, when already on it's final edge). This behavior can be [configured to avoid or delay teleporting](../Simulation/Safety.md#collisions).
 
 To avoid collisions, observe the simulation
 [sumo-gui](../sumo-gui.md) at the location and time of the
-collision. Check if some of the [that may cause a collision are present
+collision. Check if some of the [things that may cause a collision are present
 in your network](../Simulation/Safety.md#deliberately_causing_collisions).
 
 # What is happening while a vehicle teleports

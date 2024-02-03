@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 ///
 // Tests the class NBHeightMapper
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <netbuild/NBHeightMapper.h>
@@ -61,5 +62,3 @@ TEST_F(NBHeightMapperTest, test_method_getZ) {
     EXPECT_DOUBLE_EQ(2., hm.getZ(Position(1.5, 0.5)));
     //EXPECT_DOUBLE_EQ(0.5, hm.getZ(Position(0.5, 0.5, 100)));
 }
-
-

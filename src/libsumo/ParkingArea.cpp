@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,16 +91,16 @@ ParkingArea::getVehicleIDs(const std::string& stopID) {
 
 std::string
 ParkingArea::getParameter(const std::string& stopID, const std::string& param) {
-    const MSStoppingPlace* s = getParkingArea(stopID);
-    return s->getParameter(param, "");
+    return getParkingArea(stopID)->getParameter(param, "");
 }
+
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ParkingArea)
 
+
 void
 ParkingArea::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
-    MSStoppingPlace* s = getParkingArea(stopID);
-    s->setParameter(key, value);
+    getParkingArea(stopID)->setParameter(key, value);
 }
 
 
@@ -109,11 +109,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(ParkingArea, PARKINGAREA)
 
 MSStoppingPlace*
 ParkingArea::getParkingArea(const std::string& id) {
-    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_PARKING_AREA);
-    if (s == nullptr) {
-        throw TraCIException("ParkingArea '" + id + "' is not known");
-    }
-    return s;
+    return Helper::getStoppingPlace(id, SUMO_TAG_PARKING_AREA);
 }
 
 

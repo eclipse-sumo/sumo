@@ -1,8 +1,11 @@
 # no calculation of new routes
-skip_new_routes
-
-# no calculation of new routes
 keep-route-probability_1
+
+# keep old routes, only keep 1 route in alternative set
+keep-route-probability_1_maxAlt1
+
+# keep old routes, only keep 1 route in alternative set, value of "last" becomes invalid.
+keep-route-probability_1_maxAlt1b
 
 # calculation of new routes for all
 keep-route-probability_0

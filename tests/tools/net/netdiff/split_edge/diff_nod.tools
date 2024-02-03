@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-12-15 07:18:48.641802 by netdiff.py v1_8_0+0245-a8a7ca15b4
+
+<!-- generated on 2023-01-26 23:21:39.704065 by netdiff.py v1_15_0+1985-a4f015c
   options: source.net.xml dest.net.xml diff
 -->
-<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
     <node id="gneJ2" type="priority" x="50.00" y="0.00"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,11 +26,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class OptionsCont;
 class NBNetBuilder;
 class Position;
 class OutputDevice;
-
 
 // ===========================================================================
 // class definitions
@@ -40,19 +40,19 @@ class OutputDevice;
  * @brief Sets and checks options for netwrite; saves the network
  */
 class NWFrame {
+
 public:
     /// @brief Inserts options used by the network writer
-    static void fillOptions(bool forNetgen);
+    static void fillOptions(OptionsCont& oc, bool forNetgen);
 
-    /** @brief Checks set options from the OptionsCont-singleton for being valid
+    /** @brief Checks set options for being valid
      * @return Whether needed options are set and have proper values
      */
-    static bool checkOptions();
+    static bool checkOptions(OptionsCont& oc);
 
     /// @brief Writes the network stored in the given net builder
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
     /// @brief Writes the given position to device in long format (one attribute per dimension)
     static void writePositionLong(const Position& pos, OutputDevice& dev);
-
 };

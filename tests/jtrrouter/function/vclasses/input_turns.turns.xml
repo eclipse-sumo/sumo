@@ -2,9 +2,9 @@
 <!-- generated on 2020-02-17 13:27:48.266822 by turnFile2EdgeRelations.py v1_5_0+0118-a6ba6eb
   options: -t input_turns.turns.xml -o tmp.xml
 -->
-<edgeRelations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgerelations_file.xsd">
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval begin="0" end="10000">
         <edgeRelation from="beg" to="beg2left" probability=".5"/>
         <edgeRelation from="beg" to="middle" probability="0.5"/>
     </interval>
-</edgeRelations>
+</data>

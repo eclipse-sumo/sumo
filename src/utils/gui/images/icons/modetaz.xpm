@@ -1,0 +1,25 @@
+/* XPM */
+static const char *modetaz_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+". c gray100",
+"x c black",
+"= c green",
+/* pixels */
+"................",
+"xxxxx..x...xxxxx",
+"..x...xxx......x",
+"..x...x.x.....x.",
+"..x..xx.xx...x..",
+"..x..xxxxx..x...",
+"..x..x...x.x....",
+"..x..x...x.xxxxx",
+"................",
+"xxxxxxxxxxxxxxxx",
+"================",
+"================",
+"=..==..==..==..=",
+"================",
+"================",
+"xxxxxxxxxxxxxxxx"
+};

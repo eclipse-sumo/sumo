@@ -1,0 +1,3 @@
+Error: Invalid Car-Following-Model Attribute tauLast. Cannot be parsed to float
+Error: Invalid parsing embedded VType
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/carfollowingmodel_params/cf_pwagner2009_taulast/routes.rou.xml failed.

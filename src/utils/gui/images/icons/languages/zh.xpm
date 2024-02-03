@@ -1,0 +1,23 @@
+/* XPM */
+static const char *language_zh_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 14 3 1",
+"  c #E60011",
+". c #ED1C24",
+"X c None",
+/* pixels */
+"XXX XXXXX XXXXXX",
+"XXX    XX     XX",
+"XX X XXX XX XXXX",
+"X XXX X XXXX XXX",
+"XXX XXXXXXXXXXXX",
+"XXXX X        XX",
+"XX.XXXXXXXXXX XX",
+"XX.XX      XX XX",
+"XX.XX XXXX XX XX",
+"XX.XX      XX XX",
+"XX.XX XXXX XX XX",
+"XX.XX      XX XX",
+"XX.XXXXXXXXXX XX",
+"XX.XXXXXXXX   XX"
+};

@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_drawjunctionshapes_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+". c #CC0000",
+"X c None",
+/* pixels */
+"XXXXXX    XXXXXX",
+"XXXXXX    XXXXXX",
+"XXXXXX....XXXXXX",
+"XXXXXX....XXXXXX",
+"XXXXXX....XXXXXX",
+"XXXXX......XXXXX",
+"  ............  ",
+"  ............  ",
+"  ............  ",
+"  ............  ",
+"XXXXX......XXXXX",
+"XXXXXX....XXXXXX",
+"XXXXXX....XXXXXX",
+"XXXXXX....XXXXXX",
+"XXXXXX    XXXXXX",
+"XXXXXX    XXXXXX"
+};

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 31 14:06:57 2020 by Eclipse SUMO Version v1_5_0+1032-50dde386b3
+<!-- generated on 2022-06-18 12:23:16 by Eclipse SUMO sumo Version v1_13_0+0980-15ac9f724ae
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -42,15 +46,15 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" CO2_abs="38020.000000" NOx_normed="1.877250" fuel_perVeh="36.319257"/>
-        <edge id="4/1to3/1" CO2_abs="84488.888889" NOx_normed="4.171667" fuel_perVeh="36.319257"/>
+        <edge id="3/1to2/1" CO2_abs="38020.000000" NOx_normed="1.877250" fuel_perVeh="26948.888889"/>
+        <edge id="4/1to3/1" CO2_abs="84488.888889" NOx_normed="4.171667" fuel_perVeh="26948.888889"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="2/1to1/1" CO2_abs="80264.444444" NOx_normed="3.963083" fuel_perVeh="36.319257"/>
-        <edge id="3/1to2/1" CO2_abs="46468.888889" NOx_normed="2.294417" fuel_perVeh="36.319257"/>
+        <edge id="2/1to1/1" CO2_abs="80264.444444" NOx_normed="3.963083" fuel_perVeh="26948.888889"/>
+        <edge id="3/1to2/1" CO2_abs="46468.888889" NOx_normed="2.294417" fuel_perVeh="26948.888889"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" CO2_abs="61254.444444" NOx_normed="6.048917" fuel_perVeh="36.319257"/>
-        <edge id="2/1to1/1" CO2_abs="4224.444444" NOx_normed="0.417167" fuel_perVeh="36.319257"/>
+        <edge id="1/1to0/1" CO2_abs="61254.444444" NOx_normed="6.048917" fuel_perVeh="26948.888889"/>
+        <edge id="2/1to1/1" CO2_abs="4224.444444" NOx_normed="0.417167" fuel_perVeh="26948.888889"/>
     </interval>
 </meandata>

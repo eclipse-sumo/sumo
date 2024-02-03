@@ -73,6 +73,3 @@ A stop pauses the vehicle in a given position of the lane's stop. A Stop can be 
 Persons represent pedestrians in NETEDIT networks. All persons need a person plan, and this person plan can be either a Walk, a person trip, a ride or a stop. A  person plan can start or end from an edge or a busStop.
 
 ![](../images/GNEPedestrian.png)
-
-
-

@@ -1,0 +1,43 @@
+<routes>
+  <trip id="a" color="96,169,64" depart="217:14:07:42" departPos="stop">
+    <param key="productLine" value="S1"/>
+    <stop tripId="7137" line="S1" busStop="TS" arrival="217:14:02:12" until="217:14:07:12" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TSV" arrival="217:14:20:36" until="217:14:21:12" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TSRO" arrival="217:14:22:42" until="217:14:23:12" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TGOL" arrival="217:14:27:54" until="217:14:28:24" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TBO" arrival="217:14:29:54" until="217:14:30:24" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="THUB" arrival="217:14:32:06" until="217:14:32:36" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TEHN" arrival="217:14:35:00" until="217:14:35:30" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TGT" arrival="217:14:38:12" until="217:14:38:42" duration="0:00:20"/>
+    <stop tripId="7137" line="S1" busStop="TNUF" arrival="217:14:40:48" until="217:14:41:18" duration="0:00:20"/>
+  </trip>
+  <trip id="b" color="96,169,64" depart="217:14:07:42" departPos="stop">
+    <stop tripId="7144" line="S1" busStop="THE" arrival="217:14:45:14" until="217:15:16:12" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TNUF" arrival="217:15:19:24" until="217:15:19:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TGT" arrival="217:15:22:00" until="217:15:22:30" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TEHN" arrival="217:15:25:12" until="217:15:25:42" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="THUB" arrival="217:15:28:06" until="217:15:28:36" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TBO" arrival="217:15:30:24" until="217:15:30:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TGOL" arrival="217:15:32:24" until="217:15:32:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSRO" arrival="217:15:37:48" until="217:15:38:18" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSV" arrival="217:15:40:24" until="217:15:40:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TS" arrival="217:15:54:24" until="217:15:59:12" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSC" arrival="217:16:02:24" until="217:16:02:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSNS" arrival="217:16:05:06" until="217:16:05:36" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSUH" arrival="217:16:07:06" until="217:16:07:36" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TSOM" arrival="217:16:09:42" until="217:16:10:12" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TEME" arrival="217:16:11:54" until="217:16:12:24" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TE" arrival="217:16:14:18" until="217:16:14:48" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TOES" arrival="217:16:16:42" until="217:16:17:12" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TEZL" arrival="217:16:19:12" until="217:16:19:42" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TACH" arrival="217:16:21:24" until="217:16:21:54" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TP" arrival="217:16:24:18" until="217:16:24:48" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TWER" arrival="217:16:27:48" until="217:16:28:18" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TWD" arrival="217:16:31:48" until="217:16:32:18" duration="0:00:20"/>
+    <stop tripId="7144" line="S1" busStop="TKTO" arrival="217:16:35:48" until="217:16:36:18" duration="0:00:20"/>
+    <stop tripId="7151" line="S1" busStop="TKT" arrival="217:16:39:20" until="217:16:51:12" duration="0:00:20" />
+    <stop tripId="7151" line="S1" busStop="TKTO" arrival="217:16:53:42" until="217:16:54:12" duration="0:00:20"/>
+    <stop tripId="7151" line="S1" busStop="TWD" arrival="217:16:58:00" until="217:16:58:30" duration="0:00:20"/>
+    <stop tripId="7151" line="S1" busStop="TWER" arrival="217:17:01:24" until="217:17:01:54" duration="0:00:20"/>
+  </trip>
+</routes>

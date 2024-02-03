@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -43,13 +43,13 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Additional", "busStop", "id", "=busStop_IDToRemove2")
 netedit.deleteSelectedItems()
 
-# select all busStops with startPos greather than 15
+# select all busStops with startPos greater than 15
 netedit.selectItems("Additional", "busStop", "startPos", ">14")
 
 # change to remove mode
 netedit.modificationModeRemove()
 
-# select all busStops with startPos greather than 25
+# select all busStops with startPos greater than 25
 netedit.selectItems("Additional", "busStop", "startPos", ">24")
 
 # change to add mode and remove selected busStops
@@ -68,11 +68,8 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Additional", "busStop", "lines", "linetoRemove")
 netedit.deleteSelectedItems()
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

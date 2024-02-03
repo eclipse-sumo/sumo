@@ -1,5 +1,10 @@
 personTrip
+basic_randomize
 basic
+
+# using a distribution of types
+typeDist
+walk_poisson
 
 # use edges instead of from and to
 edges

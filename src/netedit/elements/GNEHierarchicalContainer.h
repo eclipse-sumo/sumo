@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,8 +30,6 @@ class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
-class GNEShape;
-class GNETAZElement;
 class GNEDemandElement;
 class GNEGenericData;
 class GNEHierarchicalElement;
@@ -53,8 +51,6 @@ public:
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas);
 
@@ -106,12 +102,6 @@ private:
     /// @brief vector of parent additionals
     std::vector<GNEAdditional*> myParentAdditionals;
 
-    /// @brief vector of parent shapes
-    std::vector<GNEShape*> myParentShapes;
-
-    /// @brief vector of parent TAZElements
-    std::vector<GNETAZElement*> myParentTAZElements;
-
     /// @brief vector of parent demand elements
     std::vector<GNEDemandElement*> myParentDemandElements;
 
@@ -129,12 +119,6 @@ private:
 
     /// @brief vector with the child additional
     std::vector<GNEAdditional*> myChildAdditionals;
-
-    /// @brief vector with the child lanes
-    std::vector<GNEShape*> myChildShapes;
-
-    /// @brief vector with the child TAZ Elements
-    std::vector<GNETAZElement*> myChildTAZElements;
 
     /// @brief vector with the child demand elements
     std::vector<GNEDemandElement*> myChildDemandElements;

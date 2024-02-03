@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,8 +46,12 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         myTrainParams = initFreightParams();
     } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
+    } else if (trainType.compare("MireoPlusB") == 0) {
+        myTrainParams = initMireoPlusB2TParams();
+    } else if (trainType.compare("MireoPlusH") == 0) {
+        myTrainParams = initMireoPlusH2TParams();
     } else {
-        WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
+        WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);
         throw ProcessError();
     }
     // override with user values
@@ -69,7 +73,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 MSCFModel_Rail::~MSCFModel_Rail() { }
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
-                                   double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+                                   double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
 
     // followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
     // system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter
@@ -81,7 +85,7 @@ double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, dou
         gap = MAX2(0.0, gap + veh->getVehicleType().getMinGap() - 50);
     }
 
-    const double vsafe = maximumSafeStopSpeed(gap, myDecel, speed, false, TS); // absolute breaking distance
+    const double vsafe = maximumSafeStopSpeed(gap, myDecel, speed, false, TS, false); // absolute breaking distance
     const double vmin = minNextSpeed(speed, veh);
     const double vmax = maxNextSpeed(speed, veh);
 
@@ -131,7 +135,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
         }
     }
 
-    double maxNextSpeed = speed + a * DELTA_T / 1000.;
+    double maxNextSpeed = speed + ACCEL2SPEED(a);
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
@@ -145,7 +149,7 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
     const double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
     const double totalRes = res + gr; //kN
     const double a = myTrainParams.decl + totalRes / myTrainParams.rotWeight;
-    const double vMin = speed - a * DELTA_T / 1000.;
+    const double vMin = speed - ACCEL2SPEED(a);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MAX2(vMin, 0.);
     } else {
@@ -208,7 +212,7 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 //    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
 //    return speed + a * DELTA_T / 1000.;
-    WRITE_ERROR("function call not allowd for rail model. Exiting!");
+    WRITE_ERROR("function call not allowed for rail model. Exiting!");
     throw ProcessError();
 }
 
@@ -223,7 +227,7 @@ double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,
-                                 const bool onInsertion) const {
+                                 const bool onInsertion, const CalcReason /*usage*/) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -249,11 +253,11 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
         return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
-        WRITE_ERROR("Anything else than semi implicit euler update is not yet implemented. Exiting!");
+        WRITE_ERROR(TL("Anything else than semi implicit euler update is not yet implemented. Exiting!"));
         throw ProcessError();
     }
 }
 
-double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS), maxNextSpeed(speed, veh));
+double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS, false), maxNextSpeed(speed, veh));
 }

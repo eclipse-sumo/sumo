@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-31 10:26:13 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd2.xml"/>
+        <vehroute-output value="vehroutes2.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="50.00"/>
+    <timestep time="51.00"/>
+    <timestep time="52.00"/>
+    <timestep time="53.00"/>
+    <timestep time="54.00"/>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="60.00"/>
+    <timestep time="61.00"/>
+    <timestep time="62.00"/>
+    <timestep time="63.00"/>
+    <timestep time="64.00"/>
+    <timestep time="65.00"/>
+    <timestep time="66.00"/>
+    <timestep time="67.00"/>
+    <timestep time="68.00"/>
+    <timestep time="69.00"/>
+    <timestep time="70.00"/>
+    <timestep time="71.00"/>
+    <timestep time="72.00"/>
+    <timestep time="73.00"/>
+    <timestep time="74.00"/>
+    <timestep time="75.00"/>
+    <timestep time="76.00"/>
+    <timestep time="77.00"/>
+    <timestep time="78.00"/>
+    <timestep time="79.00"/>
+    <timestep time="80.00"/>
+    <timestep time="81.00"/>
+    <timestep time="82.00"/>
+    <timestep time="83.00"/>
+    <timestep time="84.00"/>
+    <timestep time="85.00"/>
+    <timestep time="86.00"/>
+    <timestep time="87.00"/>
+    <timestep time="88.00"/>
+    <timestep time="89.00"/>
+    <timestep time="90.00"/>
+    <timestep time="91.00"/>
+    <timestep time="92.00"/>
+    <timestep time="93.00"/>
+    <timestep time="94.00"/>
+    <timestep time="95.00"/>
+    <timestep time="96.00"/>
+    <timestep time="97.00"/>
+    <timestep time="98.00"/>
+    <timestep time="99.00"/>
+    <timestep time="100.00">
+        <person id="p2" x="785.49" y="401.65" angle="270.00" speed="1.39" pos="10.00" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="101.00">
+        <person id="p2" x="784.30" y="401.65" angle="270.00" speed="1.39" pos="11.22" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="102.00">
+        <person id="p2" x="783.11" y="401.65" angle="270.00" speed="1.39" pos="12.44" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="103.00">
+        <person id="p2" x="781.92" y="401.65" angle="270.00" speed="1.39" pos="13.66" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="104.00">
+        <person id="p2" x="780.73" y="401.65" angle="270.00" speed="1.39" pos="14.88" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="105.00">
+        <person id="p2" x="779.53" y="401.65" angle="270.00" speed="1.39" pos="16.10" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="106.00">
+        <person id="p2" x="778.34" y="401.65" angle="270.00" speed="1.39" pos="17.32" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="107.00">
+        <person id="p2" x="777.15" y="401.65" angle="270.00" speed="1.39" pos="18.54" edge="2/1to1/1" slope="0.00"/>
+    </timestep>
+    <timestep time="108.00"/>
+</fcd-export>

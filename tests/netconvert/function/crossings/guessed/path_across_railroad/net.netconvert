@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-01-25 08:45:37 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,14 +31,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-293458.92,-5709017.82" convBoundary="0.00,0.00,1099.87,614.72" origBoundary="11.984784,51.476682,12.342589,51.531167" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -77,10 +81,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="696.46,544.84 695.69,546.06 694.91,546.48 694.09,546.10 693.26,544.92"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="3.20" shape="691.25,572.92 694.44,572.77 694.44,572.77 697.64,572.62"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="3.20" shape="691.25,572.92 694.44,572.77 697.64,572.62"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="7.76" width="3.20" shape="703.84,553.78 702.92,550.71 702.92,550.71 702.00,547.65 698.06,544.80 694.86,544.88 694.86,544.88 691.66,544.97"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="7.76" width="3.20" shape="703.84,553.78 702.92,550.71 702.00,547.65 698.06,544.80 694.86,544.88 691.66,544.97"/>
     </edge>
 
     <edge id="CE" from="C" to="3032658464" priority="1" type="highway.track" shape="695.08,553.06 714.13,547.35 761.31,540.32 883.86,531.99 958.43,525.11 1065.00,510.97 1099.87,505.88">
@@ -132,7 +136,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9" response="0000100001" foes="0000100001" cont="0"/>
     </junction>
 
-    <connection from="CE" to="EC" fromLane="0" toLane="0" via=":3032658464_0_0" dir="t" state="="/>
+    <connection from="CE" to="EC" fromLane="0" toLane="0" via=":3032658464_0_0" dir="t" state="M"/>
     <connection from="CN" to="NC" fromLane="0" toLane="0" via=":408481556_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="0" toLane="0" via=":635894914_0_0" dir="t" state="M"/>
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" dir="r" state="m"/>

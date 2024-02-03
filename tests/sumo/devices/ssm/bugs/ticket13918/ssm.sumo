@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-10-18 18:12:39 by Eclipse SUMO sumo Version v1_14_1+10328-ceb737dd7d7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.25"/>
+    </time>
+
+    <processing>
+        <extrapolate-departpos value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.probability value="1"/>
+        <device.ssm.measures value="TTC"/>
+        <device.ssm.range value="200"/>
+        <device.ssm.file value="ssm.xml"/>
+    </ssm_device>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="170.75" end="174.75" ego="flow_1.26" foe="flow_0.2">
+        <minTTC time="174.25" position="4272.57,101.78" type="20" value="0.37" speed="21.22"/>
+    </conflict>
+    <conflict begin="172.25" end="174.75" ego="flow_1.26" foe="flow_0.5">
+        <minTTC time="174.25" position="4238.27,101.79" type="20" value="1.67" speed="21.22"/>
+    </conflict>
+    <conflict begin="170.75" end="174.75" ego="flow_0.2" foe="flow_1.26">
+        <minTTC time="174.25" position="4272.57,101.78" type="20" value="0.37" speed="22.37"/>
+    </conflict>
+    <conflict begin="172.25" end="174.75" ego="flow_0.5" foe="flow_1.26">
+        <minTTC time="174.25" position="4238.27,101.79" type="20" value="1.67" speed="29.56"/>
+    </conflict>
+    <conflict begin="482.75" end="487.00" ego="flow_0.110" foe="flow_1.89">
+        <minTTC time="486.50" position="1780.02,101.92" type="20" value="0.30" speed="17.62"/>
+    </conflict>
+    <conflict begin="482.50" end="483.00" ego="flow_1.86" foe="flow_0.115">
+        <minTTC time="482.50" position="1367.58,102.09" type="20" value="0.65" speed="28.87"/>
+    </conflict>
+    <conflict begin="482.50" end="483.00" ego="flow_0.115" foe="flow_1.86">
+        <minTTC time="482.50" position="1367.58,102.09" type="20" value="0.65" speed="23.92"/>
+    </conflict>
+    <conflict begin="482.75" end="487.00" ego="flow_1.89" foe="flow_0.110">
+        <minTTC time="486.50" position="1780.02,101.92" type="20" value="0.30" speed="20.57"/>
+    </conflict>
+</SSMLog>

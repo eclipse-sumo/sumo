@@ -1,3 +1,6 @@
+# import public transport using shorter path between stops
+gtfs2pt_fcd_empty
+
 # import public transport using routes from osm and repairing them with duarouter
 gtfs2pt_osm_repair
 
@@ -6,6 +9,9 @@ gtfs2pt_osm_no_repair
 
 # import public transport using shorter path between stops
 gtfs2pt_fcd
+
+# import public transport using shorter path between stops
+gtfs2pt_fcd_sort
 
 # converts GTFS data into fcd traces
 gtfs2fcd

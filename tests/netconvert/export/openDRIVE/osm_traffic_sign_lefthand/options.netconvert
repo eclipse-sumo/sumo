@@ -1,0 +1,1 @@
+--sumo-net-file input_net.net.xml --opendrive-output foreign.net --polygon-files input_shapes.add.xml --opendrive-output.shape-match-dist 10000 --lefthand

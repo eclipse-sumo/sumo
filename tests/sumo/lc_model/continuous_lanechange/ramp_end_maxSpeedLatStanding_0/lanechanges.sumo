@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 15:31:55 by Eclipse SUMO sumo Version v1_15_0+1163-053c4cf
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lanechange.duration value="3"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="merge.9" type="t0" time="40.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="128.49" reason="strategic" leaderGap="2.60" leaderSecureGap="0.10" leaderSpeed="0.10" followerGap="10.05" followerSecureGap="5.28" followerSpeed="9.39" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.8" type="t0" time="41.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="135.99" reason="strategic|urgent" leaderGap="10.30" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="17.65" followerSecureGap="5.28" followerSpeed="9.39" origLeaderGap="2.50" origLeaderSecureGap="0.10" origLeaderSpeed="0.00"/>
+    <change id="merge.18" type="t0" time="42.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="60.29" reason="speedGain" leaderGap="8.66" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.19" type="t0" time="42.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="52.69" reason="strategic" leaderGap="2.60" leaderSecureGap="0.10" leaderSpeed="0.10" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.16" type="t0" time="43.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="75.59" reason="speedGain" leaderGap="5.28" leaderSecureGap="0.00" leaderSpeed="11.92" followerGap="10.20" followerSecureGap="0.10" followerSpeed="0.10" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.17" type="t0" time="43.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="67.99" reason="strategic" leaderGap="2.60" leaderSecureGap="0.10" leaderSpeed="0.10" followerGap="2.60" followerSecureGap="0.10" followerSpeed="0.10" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.0" type="t0" time="44.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="5.85" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="47.21" followerSecureGap="5.90" followerSpeed="5.20" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.15" type="t0" time="44.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="83.29" reason="speedGain" leaderGap="6.14" leaderSecureGap="0.00" leaderSpeed="8.56" followerGap="2.60" followerSecureGap="0.10" followerSpeed="0.10" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.14" type="t0" time="45.00" from="beg_0" to="beg_1" dir="1" speed="0.10" pos="90.98" reason="strategic" leaderGap="2.60" leaderSecureGap="0.10" leaderSpeed="4.16" followerGap="2.60" followerSecureGap="0.10" followerSpeed="0.10" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.18" type="t0" time="45.00" from="beg_1" to="beg_0" dir="-1" speed="0.10" pos="60.58" reason="speedGain" leaderGap="17.80" leaderSecureGap="0.10" leaderSpeed="0.10" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.60" origLeaderSecureGap="0.10" origLeaderSpeed="0.10"/>
+    <change id="merge.7" type="t0" time="47.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="143.49" reason="speedGain" leaderGap="3.98" leaderSecureGap="0.00" leaderSpeed="2.78" followerGap="7.48" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="merge.1" type="t0" time="48.00" from="beg_0" to="beg_1" dir="1" speed="4.70" pos="195.80" reason="strategic|urgent" leaderGap="7.70" leaderSecureGap="1.90" leaderSpeed="5.20" followerGap="28.42" followerSecureGap="5.93" followerSpeed="5.21" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.2" type="t0" time="49.00" from="beg_0" to="beg_1" dir="1" speed="4.70" pos="188.30" reason="strategic|urgent" leaderGap="7.20" leaderSecureGap="2.40" leaderSpeed="4.70" followerGap="15.70" followerSecureGap="5.93" followerSpeed="5.21" origLeaderGap="7.20" origLeaderSecureGap="2.40" origLeaderSpeed="4.70"/>
+    <change id="merge.3" type="t0" time="50.00" from="beg_0" to="beg_1" dir="1" speed="4.70" pos="180.80" reason="strategic|urgent" leaderGap="7.20" leaderSecureGap="2.40" leaderSpeed="4.70" followerGap="7.49" followerSecureGap="0.00" followerSpeed="0.71" origLeaderGap="7.20" origLeaderSecureGap="2.40" origLeaderSpeed="4.70"/>
+    <change id="merge.4" type="t0" time="54.00" from="beg_0" to="beg_1" dir="1" speed="3.41" pos="180.27" reason="strategic|urgent" leaderGap="7.03" leaderSecureGap="0.00" leaderSpeed="5.30" followerGap="5.48" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.5" type="t0" time="58.00" from="beg_0" to="beg_1" dir="1" speed="5.20" pos="179.05" reason="strategic|urgent" leaderGap="8.50" leaderSecureGap="0.00" leaderSpeed="8.66" followerGap="7.36" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.6" type="t0" time="60.00" from="beg_0" to="beg_1" dir="1" speed="4.70" pos="162.28" reason="strategic|urgent" leaderGap="6.70" leaderSecureGap="1.90" leaderSpeed="5.20" followerGap="5.20" followerSecureGap="0.81" followerSpeed="0.81" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.10" type="t0" time="61.00" from="beg_0" to="beg_1" dir="1" speed="3.09" pos="142.58" reason="strategic|urgent" leaderGap="5.60" leaderSecureGap="0.77" leaderSpeed="2.70" followerGap="3.40" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="17.80" origLeaderSecureGap="0.57" origLeaderSpeed="4.70"/>
+    <change id="merge.11" type="t0" time="65.00" from="beg_0" to="beg_1" dir="1" speed="5.20" pos="138.81" reason="strategic|urgent" leaderGap="8.02" leaderSecureGap="0.00" leaderSpeed="7.74" followerGap="5.20" followerSecureGap="2.42" followerSpeed="2.42" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.12" type="t0" time="68.00" from="beg_0" to="beg_1" dir="1" speed="3.35" pos="130.76" reason="strategic|urgent" leaderGap="6.70" leaderSecureGap="0.00" leaderSpeed="7.80" followerGap="6.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.13" type="t0" time="71.00" from="beg_0" to="beg_1" dir="1" speed="7.53" pos="133.93" reason="strategic|urgent" leaderGap="13.86" leaderSecureGap="1.30" leaderSpeed="8.55" followerGap="5.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.18" type="t0" time="75.00" from="beg_0" to="beg_1" dir="1" speed="8.75" pos="131.07" reason="strategic|urgent" leaderGap="14.59" leaderSecureGap="0.51" leaderSpeed="10.40" followerGap="5.53" followerSecureGap="0.00" followerSpeed="0.78" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

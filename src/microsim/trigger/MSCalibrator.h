@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@
 #include <microsim/MSRouteHandler.h>
 #include <microsim/output/MSMeanData_Net.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <microsim/trigger/MSTrigger.h>
 
 
 // ===========================================================================
@@ -45,7 +44,7 @@ class MSRouteProbe;
  * @class MSCalibrator
  * @brief Calibrates the flow on a segment to a specified one
  */
-class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput, public Parameterised {
+class MSCalibrator : public MSRouteHandler, public Command, public MSDetectorFileOutput {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
@@ -85,11 +84,6 @@ public:
     /** the implementation of the MSTrigger / Command interface.
         Calibrating takes place here. */
     virtual SUMOTime execute(SUMOTime currentTime);
-
-    const std::string& getID() const {
-        /// @note: nedded to resolve ambiguity between MStrigger::getID() and MSDetectorFileOutput::getID()
-        return MSTrigger::getID();
-    }
 
     /// @brief cleanup remaining data structures
     static void cleanup();
@@ -150,6 +144,19 @@ protected:
         SUMOTime execute(SUMOTime currentTime) {
             return myCalibrator->execute(currentTime);
         }
+
+        /** @brief Reschedule or deschedule the command when quick-loading state
+         *
+         * The implementations should return -1 if the command shall not be re-scheduled,
+         *  or a value >= 0 that describe the new time at which the command
+         *  shall be executed again.
+         *
+         * @param[in] currentTime The current simulation time
+         * @param[in] execTime The time at which the command would have been executed
+         * @param[in] newTime The simulation time at which the simulation is restarted
+         * @return The time at which the command shall be executed again
+         */
+        SUMOTime shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime);
 
     private:
         MSCalibrator* myCalibrator;
@@ -337,8 +344,8 @@ protected:
 
     /* @brief objects which need to live longer than the MSCalibrator
      * instance which created them */
-    static std::vector<MSMoveReminder*> LeftoverReminders;
-    static std::vector<SUMOVehicleParameter*> LeftoverVehicleParameters;
+    static std::vector<MSMoveReminder*> myLeftoverReminders;
+    static std::vector<SUMOVehicleParameter*> myLeftoverVehicleParameters;
     static std::map<std::string, MSCalibrator*> myInstances;
 
 };

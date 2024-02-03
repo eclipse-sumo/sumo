@@ -1,0 +1,3 @@
+Error: Attribute 'to' in definition of flow 'flow_1' is empty.
+Error: Could not build flow in netedit; edge doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow.25Jan182728.9825/netedit.daily.demand.flow/demandelements/flow/load/to/routes.rou.xml failed.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib  # noqa
@@ -37,29 +36,26 @@ def generateTrace(route, step, x=0., y=0.):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-    optParser.add_option("-n", "--net",
-                         help="SUMO network to use (mandatory)", metavar="FILE")
-    optParser.add_option("-2", "--net2",
-                         help="immediately match routes to a second network", metavar="FILE")
-    optParser.add_option("-r", "--routes",
-                         help="route file to use (mandatory)", metavar="FILE")
-    optParser.add_option("-s", "--step", default="10",
-                         type="float", help="distance between successive trace points")
-    optParser.add_option("-d", "--delta", default="1", type="float",
-                         help="maximum distance between edge and trace points when matching to the second net")
-    optParser.add_option("-x", "--x-offset", default=0.,
-                         type="float", help="offset to add to traces")
-    optParser.add_option("-y", "--y-offset", default=0.,
-                         type="float", help="offset to add to traces")
-    optParser.add_option("-o", "--output",
-                         help="trace or route output (mandatory)", metavar="FILE")
-    (options, args) = optParser.parse_args()
-
-    if not options.output or not options.net or not options.routes:
-        optParser.exit("missing input or output")
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-v", "--verbose", action="store_true",
+                    default=False, help="tell me what you are doing")
+    ap.add_argument("-n", "--net", category="input", type=ap.net_file,
+                    required=True, help="SUMO network to use (mandatory)", metavar="FILE")
+    ap.add_argument("-2", "--net2", category="input", type=ap.net_file,
+                    help="immediately match routes to a second network", metavar="FILE")
+    ap.add_argument("-r", "--routes", category="input", type=ap.route_file,
+                    required=True, help="route file to use (mandatory)", metavar="FILE")
+    ap.add_argument("-s", "--step", default="10",
+                    type=float, help="distance between successive trace points")
+    ap.add_argument("-d", "--delta", default="1", type=float,
+                    help="maximum distance between edge and trace points when matching to the second net")
+    ap.add_argument("-x", "--x-offset", default=0.,
+                    type=float, help="offset to add to traces")
+    ap.add_argument("-y", "--y-offset", default=0.,
+                    type=float, help="offset to add to traces")
+    ap.add_argument("-o", "--output", category="output", type=ap.file,
+                    required=True, help="trace or route output (mandatory)", metavar="FILE")
+    options = ap.parse_args()
 
     if options.verbose:
         print("Reading net ...")

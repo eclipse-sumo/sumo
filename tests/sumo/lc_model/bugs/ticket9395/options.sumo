@@ -1,0 +1,5 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--fcd-output fcd.xml
+--time-to-teleport 10
+--no-step-log

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -68,7 +68,8 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred,
+                       double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -78,7 +79,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -136,14 +137,14 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    double _v(const MSVehicle* veh, double predSpeed, double gap) const;
+    double _v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
     double fullspeed(double v, double vpref, double dx, double bx) const; // also 'WUNSCH'
     double following(double sign) const; // also 'FOLGEN'
-    double approaching(double dv, double dx, double abx) const;  // also 'BREMSBX'
-    double emergency(double dv, double dx) const; // also 'BREMSAX'
+    double approaching(double dv, double dx, double abx, double predAccel) const;  // also 'BREMSBX'
+    double emergency(double dv, double dx, double predAccel, double v, double gap, double abx, double bx) const; // also 'BREMSAX'
     /// @}
 
 private:
@@ -165,6 +166,9 @@ private:
     /// @brief The vehicle's minimum acceleration [m/s^2] // also b_null
     const double myMinAccel;
 
+    /// @brief The maximum deceleration when approaching
+    const double myMaxApproachingDecel;
+
     /// @brief free-flow distance in m
     static const double D_MAX;
     /// @}
@@ -173,4 +177,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);
 };
-

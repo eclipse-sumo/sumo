@@ -1,0 +1,7 @@
+Parsing log.txt
+.
+read 5 lines
+waiting worst 10 edges:  [('3/1to2/1', 2), ('2/1to1/1', 1)]
+waiting total: 3
+collisions worst 10 edges:  []
+collisions total: 0

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="v0" begin="0" period="2" number="20" from="beg" to="end3" departEdge="42">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </flow>
+</routes>

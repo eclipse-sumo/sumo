@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-05-07 16:17:06.294911 by randomTrips.py v1_6_0+0130-3278b0c76f
-  options: -n net.net.xml -b 8:0:0 -e 9:0:0 -p 360
+
+<!-- generated on 2022-07-07 10:55:32.707471 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <begin value="8:0:0"/>
+    <end value="9:0:0"/>
+    <net-file value="net.net.xml"/>
+    <period value="360.0"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="28800.00" from="3si" to="1o"/>
     <trip id="1" depart="29160.00" from="2fi" to="1si"/>

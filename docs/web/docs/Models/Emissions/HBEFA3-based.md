@@ -17,7 +17,7 @@ implement only the following, major ones:
 ## Vehicle Emission Classes
 
 The vehicle classes below map directly to vehicle classes supplied by
-[HBEFA](http://www.hbefa.net/). This is a major difference to the
+[HBEFA](https://www.hbefa.net/). This is a major difference to the
 clustering done with [HBEFA
 2.1](../../Models/Emissions/HBEFA-based.md). Note, that within HBEFA
 these classes are aggregates of more specific vehicle classes. To use

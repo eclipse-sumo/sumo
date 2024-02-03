@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-30 09:15:10 by Eclipse SUMO sumo Version v1_12_0+1760-67fbbcd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="51690"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1760-67fbbcd" time="1.00" type="micro">
+    <route id="!0" state="0" edges="WC CE"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="0" depart="0.00" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262144 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="routing_0" state="0"/>
+    </vehicle>
+    <lane id="WC_0">
+        <vehicles value="0"/>
+    </lane>
+    <tlLogic id="C" programID="0" phase="0" duration="1000"/>
+</snapshot>

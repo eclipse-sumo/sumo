@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,16 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathLegendModule.h>
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNERoute;
 
 // ===========================================================================
 // class definitions
@@ -44,7 +53,7 @@ public:
     // class RouteModeSelector
     // ===========================================================================
 
-    class RouteModeSelector : protected FXGroupBox {
+    class RouteModeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNERouteFrame::RouteModeSelector)
 
@@ -84,26 +93,29 @@ public:
         GNERouteFrame* myRouteFrameParent;
 
         /// @brief comboBox with the list of route modes
-        FXComboBox* myRouteModeMatchBox;
+        MFXComboBoxIcon* myRouteModeMatchBox = nullptr;
 
         /// @brief comboBox with the list of VClass
-        FXComboBox* myVClassMatchBox;
+        MFXComboBoxIcon* myVClassMatchBox = nullptr;
 
         /// @brief current selected route mode
-        RouteMode myCurrentRouteMode;
+        RouteMode myCurrentRouteMode = RouteMode::NONCONSECUTIVE_EDGES;
+
+        /// @brief route template
+        GNERoute* myRouteTemplate = nullptr;
 
         /// @brief flag to check if VClass is Valid
-        bool myValidVClass;
+        bool myValidVClass = true;
 
         /// @brief list of Route modes that will be shown in Match Box
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNERouteFrame();
@@ -117,27 +129,33 @@ public:
     /**@brief add route edge
     * @param edge edge to be added
     * @param mouseButtonKeyPressed key pressed during click
-    * @return true if element was sucesfully added
+    * @return true if element was successfully added
     */
     bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get path creator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    /// @brief get path creator module
+    GNEPathCreator* getPathCreator() const;
 
 protected:
     /// @brief create path
-    void createPath();
+    bool createPath(const bool useLastRoute);
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief route base object
+    CommonXMLStructure::SumoBaseObject* myRouteBaseObject;
+
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal route attributes
-    GNEFrameAttributesModuls::AttributesCreator* myRouteAttributes;
+    GNEAttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief path legend modul
-    GNEFrameModuls::PathLegend* myPathLegend;
+    GNEPathLegendModule* myPathLegend;
 };

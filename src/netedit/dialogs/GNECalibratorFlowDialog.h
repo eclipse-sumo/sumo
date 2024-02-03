@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,10 @@ class GNECalibratorFlow;
 
 /**
  * @class GNECalibratorFlowDialog
- * @brief Dialog for edit rerouter intervals
+ * @brief Dialog for editing calibrator flows
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 
 class GNECalibratorFlowDialog : public GNEAdditionalDialog {
@@ -73,10 +76,10 @@ protected:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief ComboBox for Type
-    FXComboBox* myComboBoxVehicleType;
+    MFXComboBoxIcon* myComboBoxVehicleType;
 
     /// @brief TextField for Route
-    FXComboBox* myComboBoxRoute;
+    MFXComboBoxIcon* myComboBoxRoute;
 
     /// @brief TextField for VehsPerHour
     FXTextField* myTextFieldVehsPerHour;
@@ -139,4 +142,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&) = delete;
 };
-

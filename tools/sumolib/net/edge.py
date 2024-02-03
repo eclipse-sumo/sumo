@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -54,6 +54,7 @@ class Edge:
         self._type = edgeType
         self._params = {}
         self._bidi = None
+        self._selected = False
 
     def getName(self):
         return self._name
@@ -158,7 +159,7 @@ class Edge:
 
     def getBoundingBox(self, includeJunctions=True):
         xmin, ymin, xmax, ymax = sumolib.geomhelper.addToBoundingBox(self.getShape(includeJunctions))
-        assert(xmin != xmax or ymin != ymax or self._function == "internal")
+        assert xmin != xmax or ymin != ymax or self._function == "internal"
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosDist(self, point, perpendicular=False):
@@ -185,6 +186,12 @@ class Edge:
     def getLanes(self):
         return self._lanes
 
+    def select(self, value=True):
+        self._selected = value
+
+    def isSelected(self):
+        return self._selected
+
     def rebuildShape(self):
         numLanes = len(self._lanes)
         if numLanes % 2 == 1:
@@ -192,19 +199,18 @@ class Edge:
         else:
             self._shape3D = []
             minLen = -1
-            for l in self._lanes:
-                if minLen == -1 or minLen > len(l.getShape()):
-                    minLen = len(l._shape)
+            for _lane in self._lanes:
+                if minLen == -1 or minLen > len(_lane.getShape()):
+                    minLen = len(_lane.getShape())
             for i in range(minLen):
                 x = 0.
                 y = 0.
                 z = 0.
-                for l in self._lanes:
-                    x += l.getShape3D()[i][0]
-                    y += l.getShape3D()[i][1]
-                    z += l.getShape3D()[i][2]
-                self._shape3D.append(
-                    (x / float(numLanes), y / float(numLanes), z / float(numLanes)))
+                for _lane in self._lanes:
+                    x += _lane.getShape3D()[i][0]
+                    y += _lane.getShape3D()[i][1]
+                    z += _lane.getShape3D()[i][2]
+                self._shape3D.append((x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
         if self._function in ["crossing", "walkingarea"]:
             self._shapeWithJunctions3D = self._shape3D
@@ -216,10 +222,9 @@ class Edge:
                 self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
-        self._shape = [(x, y) for x, y, z in self._shape3D]
-        self._shapeWithJunctions = [(x, y)
-                                    for x, y, z in self._shapeWithJunctions3D]
-        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]
+        self._shape = [(x, y) for x, y, z in self._shape3D]  # noqa
+        self._shapeWithJunctions = [(x, y) for x, y, z in self._shapeWithJunctions3D]  # noqa
+        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]  # noqa
 
     def getLength(self):
         return self._lanes[0].getLength()
@@ -236,12 +241,19 @@ class Edge:
     def getBidi(self):
         return self._bidi
 
-    def is_fringe(self, connections=None):
+    def is_fringe(self, connections=None, checkJunctions=False):
         """true if this edge has no incoming or no outgoing connections (except turnarounds)
            If connections is given, only those connections are considered"""
         if connections is None:
-            return self.is_fringe(self._incoming) or self.is_fringe(self._outgoing)
+            return (self.is_fringe(self._incoming, checkJunctions) or
+                    self.is_fringe(self._outgoing, checkJunctions))
         else:
+            if checkJunctions:
+                assert connections is not None
+                if connections == self._incoming:
+                    return self.getFromNode().getFringe() is not None
+                elif connections == self._outgoing:
+                    return self.getToNode().getFringe() is not None
             cons = sum([c for c in connections.values()], [])
             return len([c for c in cons if c._direction != Connection.LINKDIR_TURN]) == 0
 

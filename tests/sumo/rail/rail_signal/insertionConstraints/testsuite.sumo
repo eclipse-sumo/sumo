@@ -1,6 +1,9 @@
 # Copy of wait_for_one
 wait_for_one
 
+# deactivated insertion constraint
+wait_for_one_inactive
+
 # signal isn't at the end of the insertion edge but on the next edge
 signal_on_next_edge
 
@@ -9,3 +12,6 @@ wait_for_one_same_departEdge
 
 # constrain insertion after parking-stop
 parking
+
+# delay insertion of one vehicle until another has been inserted
+insertionOrder

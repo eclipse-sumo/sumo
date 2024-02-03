@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
 
 #include <iterator>
 #include <microsim/MSEdge.h>
@@ -25,8 +26,10 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSInsertionControl.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/Lane.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include "Edge.h"
 
@@ -44,6 +47,7 @@ ContextSubscriptionResults Edge::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Edge::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     MSEdge::insertIDs(ids);
     return ids;
@@ -126,7 +130,7 @@ double
 Edge::getCO2Emission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCO2Emissions();
+        sum += lane->getEmissions<PollutantsInterface::CO2>();
     }
     return sum;
 }
@@ -136,7 +140,7 @@ double
 Edge::getCOEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCOEmissions();
+        sum += lane->getEmissions<PollutantsInterface::CO>();
     }
     return sum;
 }
@@ -146,7 +150,7 @@ double
 Edge::getHCEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getHCEmissions();
+        sum += lane->getEmissions<PollutantsInterface::HC>();
     }
     return sum;
 }
@@ -156,7 +160,7 @@ double
 Edge::getPMxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getPMxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::PM_X>();
     }
     return sum;
 }
@@ -166,7 +170,7 @@ double
 Edge::getNOxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getNOxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::NO_X>();
     }
     return sum;
 }
@@ -176,7 +180,7 @@ double
 Edge::getFuelConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getFuelConsumption();
+        sum += lane->getEmissions<PollutantsInterface::FUEL>();
     }
     return sum;
 }
@@ -199,7 +203,7 @@ double
 Edge::getElectricityConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getElectricityConsumption();
+        sum += lane->getEmissions<PollutantsInterface::ELEC>();
     }
     return sum;
 }
@@ -214,6 +218,11 @@ Edge::getLastStepVehicleNumber(const std::string& edgeID) {
 double
 Edge::getLastStepMeanSpeed(const std::string& edgeID) {
     return getEdge(edgeID)->getMeanSpeed();
+}
+
+double
+Edge::getMeanFriction(const std::string& edgeID) {
+    return getEdge(edgeID)->getMeanFriction();
 }
 
 
@@ -274,6 +283,14 @@ Edge::getPendingVehicles(const std::string& edgeID) {
     return vehIDs;
 }
 
+
+double
+Edge::getAngle(const std::string& edgeID, double relativePosition) {
+    const std::vector<MSLane*>& lanes = getEdge(edgeID)->getLanes();
+    return lanes.empty() ? libsumo::INVALID_DOUBLE_VALUE : Lane::getAngle(lanes.front()->getID(), relativePosition);
+}
+
+
 std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
     return getEdge(edgeID)->getParameter(param, "");
@@ -284,16 +301,26 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Edge)
 
 
 void
-Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    SVCPermissions permissions = parseVehicleClasses(classes);
-    setAllowedSVCPermissions(edgeID, permissions);
+Edge::setAllowed(const std::string& edgeID, std::string allowedClasses) {
+    setAllowedSVCPermissions(edgeID, parseVehicleClasses(allowedClasses));
 }
 
 
 void
-Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    SVCPermissions permissions = invertPermissions(parseVehicleClasses(classes));
-    setAllowedSVCPermissions(edgeID, permissions);
+Edge::setAllowed(const std::string& edgeID, std::vector<std::string> allowedClasses) {
+    setAllowedSVCPermissions(edgeID, parseVehicleClasses(allowedClasses));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::string disallowedClasses) {
+    setAllowedSVCPermissions(edgeID, invertPermissions(parseVehicleClasses(disallowedClasses)));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::vector<std::string> disallowedClasses) {
+    setAllowedSVCPermissions(edgeID, invertPermissions(parseVehicleClasses(disallowedClasses)));
 }
 
 
@@ -304,9 +331,6 @@ Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
     e->rebuildAllowedLanes();
-    for (MSEdge* const pred : e->getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
 }
 
 
@@ -329,6 +353,12 @@ Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     }
 }
 
+void
+Edge::setFriction(const std::string& edgeID, double friction) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
+        lane->setFrictionCoefficient(friction);
+    }
+}
 
 void
 Edge::setParameter(const std::string& edgeID, const std::string& name, const std::string& value) {
@@ -391,6 +421,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
         case LAST_STEP_MEAN_SPEED:
             return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getMeanFriction(objID));
         case LAST_STEP_OCCUPANCY:
             return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
         case LAST_STEP_VEHICLE_HALTING_NUMBER:
@@ -403,6 +435,9 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapString(objID, variable, getStreetName(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case VAR_ANGLE:
+            paramData->readUnsignedByte();
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

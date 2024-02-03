@@ -1,0 +1,15 @@
+-tp appdata=netedit.gui
+demandelements/waypoint/busstop/create/extension
+demandelements/waypoint/busstop/create/line
+demandelements/waypoint/busstop/create/tripid
+demandelements/waypoint/busstop/inspect/parking
+demandelements/waypoint/chargingstation/create/permitted
+demandelements/waypoint/chargingstation/create/speed
+demandelements/waypoint/chargingstation/inspect_selection/acttype
+demandelements/waypoint/containerstop/inspect/parking
+demandelements/waypoint/lane/create/duration
+demandelements/waypoint/lane/inspect/endposerrorScreenshot/differenterrorScreenshot/newerrorScreenshot/newerrorScreenshot/newerrorScreenshot/newerrorScreenshot/new
+demandelements/waypoint/lane/inspect/extension
+demandelements/waypoint/parkingarea/create/until
+demandelements/waypoint/trainstop/inspect/tripid
+demandelements/waypoint/trainstop/inspect_selection/extension

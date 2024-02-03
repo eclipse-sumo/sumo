@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ class MSRailSignal;
 class MSStateHandler : public MSRouteHandler {
 public:
     /// @brief standard constructor
-    MSStateHandler(const std::string& file, const SUMOTime offset, bool onlyReadTime = false);
+    MSStateHandler(const std::string& file, const SUMOTime offset);
 
     /// @brief standard destructor
     virtual ~MSStateHandler();
@@ -52,7 +52,7 @@ public:
      *
      * @param[in] file The file to write the state into
      */
-    static void saveState(const std::string& file, SUMOTime step);
+    static void saveState(const std::string& file, SUMOTime step, bool usePrefix = true);
 
     /// @brief get time
     SUMOTime getTime() const {
@@ -126,9 +126,6 @@ private:
 
     /// @brief the last object that potentially carries parameters
     Parameterised* myLastParameterised;
-
-    /// @brief whether the handler should abort parsing (via Exception) after parsing the time
-    bool myOnlyReadTime;
 
     /// @brief vehicles that shall be removed when loading state
     std::set<std::string> myVehiclesToRemove;

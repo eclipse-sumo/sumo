@@ -5,8 +5,9 @@ title: Statistic Output
 # Instantiating within the Simulation
 
 Statistic output is activated by setting the simulation option **--statistic-output** {{DT_FILE}} on the command line or in a *.sumocfg* file.
-The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options
-**--duration-log.statistics** or **--tripinfo-output** are set.
+
+!!! note
+    The elements `vehicleTripStatistics`, `pedestrianStatistics`, `rideStatistics` and `transportStatistics` are only generated when either of the options **--duration-log.statistics** or **--tripinfo-output** are set.
 
 # Generated Output
 
@@ -14,10 +15,12 @@ The generated XML file looks like this:
 
 ```xml
 <statistics>
+    <performance ''ATTRIBUTES''.../>
     <vehicles ''ATTRIBUTES''.../>
     <teleports ''ATTRIBUTES''.../>
     <safety ''ATTRIBUTES''.../>
     <persons ''ATTRIBUTES''.../>
+    <personTeleports ''ATTRIBUTES''.../>
     <vehicleTripStatistics ''ATTRIBUTES''.../>
     <pedestrianStatistics ''ATTRIBUTES''.../>
     <rideStatistics ''ATTRIBUTES''.../>
@@ -27,22 +30,38 @@ The generated XML file looks like this:
 
 The following output attributes are generated:
 
+## performance
+
+| Attribute Name              | Value Type | Description                                                                  |
+| --------------------------- | ---------- | ---------------------------------------------------------------------------- |
+| **clockBegin**              | time       | Unix time (or hh:mm:ss if `--human-readable-time` is set) when the simulation started                      |
+| **clockEnd**                | time       | Unix time (or hh:mm:ss if `--human-readable-time` is set) when simulation ended                                                 |
+| **clockDuration**           | time       | Time spent executing the simulation (clockEnd - clockBegin)              |
+| **traciDuration**           | s          | Time spent using TraCI |
+| **realTimeFactor**          | #          | Factor describing the (simulated / real) time relation |
+| **vehicleUpdatesPerSecond** | #          | Vehicles present in the simulation per second |
+| **personUpdatesPerSecond**  | #          | Persons present in the simulation per second |
+| **begin**                   | int (time) | Begin time of the simulation |
+| **end**                     | int (time) | End time of the simulation |
+| **duration**                | int (time) | Duration of the simulation (begin - end) |
+
+
 ## vehicles
 
 | Attribute Name | Value Type | Description                                                                  |
 | -------------- | ---------- | ---------------------------------------------------------------------------- |
 | **loaded**     | #          | Number of vehicles that were loaded into the simulation                      |
-| **inserted**   | #          | Number of vehicles inserted                                                  |
-| **running**    | #          | Number of vehicles that were running                                         |
-| **waiting**    | #          | Number of vehicles which were waiting for insertion (could not be inserted)  |
+| **inserted**   | #          | Number of vehicles inserted                                                 |
+| **running**    | #          | Number of vehicles that were running at simulation end                                        |
+| **waiting**    | #          | Number of vehicles with delayed insertion that were still waiting for insertion at simulation end |
 
 
 ## teleports
 
-| Attribute Name  | Value Type | Description                                                                                                                        |
-| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **total**       | #          | The total number of teleportations that occured                                                                                    |
-| **jam**         | #          | Number of teleportations due to traffic jam                                                                                        |
+| Attribute Name  | Value Type | Description                                                            |
+| --------------- | ---------- | -------------------------------------------------------------------------------------------------- |
+| **total**       | #          | The total number of teleportations that occurred                                                    |
+| **jam**         | #          | Number of teleportations due to traffic jam                                                          |
 | **yield**       | #          | Number of teleportations due to yield (vehicle is stuck on a low-priority road and did not find a gap in the prioritized traffic)  |
 | **wrongLane**   | #          | Number of teleportations due to the vehicle being stuck on a lane which has no connection to the next edge on its route            |
 
@@ -64,6 +83,15 @@ The following output attributes are generated:
 | **jammed**     | #          | Number of persons that were jammed during the simulation  |
 
 
+## personTeleports
+
+| Attribute Name | Value Type | Description                                                |
+| -------------- | ---------- | ---------------------------------------------------------- |
+| **total**      | #          | Total number of person teleports that occurred             |
+| **abortWait**  | #          | Number of teleports due to excessive waiting for a ride    |
+| **wrongDest**  | #          | Number of teleports due to riding to the wrong destination |
+
+
 ## vehicleTripStatistics
 
 | Attribute Name         | Value Type | Description                                                                                 |
@@ -75,6 +103,8 @@ The following output attributes are generated:
 | **timeLoss**           | s          | The average time lost due to driving slower than desired (includes waitingTime)             |
 | **departDelay**        | s          | The average time vehicles had to wait before starting their journeys                        |
 | **departDelayWaiting** | s          | The average waiting time of vehicles which could not be inserted due to lack of road space  |
+| **totalTravelTime**    | s          | The total travel time of all vehicles |
+| **totalDepartDelay**   | s          | The total depart delay of all vehicles  |
 
 
 ## pedestrianStatistics
@@ -118,13 +148,15 @@ The following output attributes are generated:
 
 ## Fair Traveltime comparison between simulations
 When comparing simulations with a fixed end-time, those simulations may differ in the number of departed and arrived vehicles. In this case, care must be taken to include the "missing" vehicles in a comparison, since many outputs only include arrived vehicles by default.
-The include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
+To include statistics for these vehicles, the options **--tripinfo-output.write-unfinished --duration-log.statistics** must be set.
 The general idea is to add up the travel time (duration) and the time that was spent waiting for departure (departDelay) for all vehicles that were defined in the input.
 
-Since the statistic output only provides averages, we must multiply those values with the corresponding counts:
+To simplify comparison between simulations that have the same number of vehicles, the attributes 'totalTravelTime' and 'totalDepartDelay' are provided.
+
+An alternative way to compute the sum of travel time and delays is to multiply the averages:
 
 ```
-totalTravelTime = 
+totalTravelTimeAndDelay =
      vehicles.inserted * (vehicleTripStatistics.duration + vehicleTripStatistics.departDelay)
    + vehicles.waiting * vehicleTripStatistics.departDelayWaiting
 ```

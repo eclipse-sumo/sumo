@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,62 +34,35 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-bool GUIMessageWindow::myLocateLinks = true;
 
+bool GUIMessageWindow::myLocateLinks = true;
+SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
+FXHiliteStyle* GUIMessageWindow::myStyles = new FXHiliteStyle[8];
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GUIMessageWindow) GUIMessageWindowMap[] = {
+    FXMAPFUNC(SEL_KEYPRESS, 0, GUIMessageWindow::onKeyPress),
+};
+
+FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(GUIMessageWindowMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow) :
     FXText(parent, nullptr, 0, 0, 0, 0, 0, 50),
-    myStyles(new FXHiliteStyle[8]),
+    myMainWindow(mainWindow),
     myErrorRetriever(nullptr),
     myMessageRetriever(nullptr),
     myWarningRetriever(nullptr) {
     setStyled(true);
     setEditable(false);
-    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
-    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
-    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
-    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
-    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
-    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
-    // set separator style
-    myStyles[0].normalForeColor = blue;
-    myStyles[0].normalBackColor = white;
-    myStyles[0].selectForeColor = white;
-    myStyles[0].selectBackColor = blue;
-    myStyles[0].hiliteForeColor = blue;
-    myStyles[0].hiliteBackColor = white;
-    myStyles[0].activeBackColor = white;
-    myStyles[0].style = 0;
-    // set message text style
-    myStyles[1] = myStyles[0];
-    myStyles[1].normalForeColor = green;
-    myStyles[1].selectBackColor = green;
-    myStyles[1].hiliteForeColor = green;
-    myStyles[4] = myStyles[1];
-    myStyles[4].style = STYLE_UNDERLINE;
-    // set error text style
-    myStyles[2] = myStyles[0];
-    myStyles[2].normalForeColor = red;
-    myStyles[2].selectBackColor = red;
-    myStyles[2].hiliteForeColor = red;
-    myStyles[5] = myStyles[2];
-    myStyles[5].style = STYLE_UNDERLINE;
-    // set warning text style
-    myStyles[3] = myStyles[0];
-    myStyles[3].normalForeColor = yellow;
-    myStyles[3].selectBackColor = yellow;
-    myStyles[3].hiliteForeColor = yellow;
-    myStyles[6] = myStyles[3];
-    myStyles[6].style = STYLE_UNDERLINE;
-    // set GLDebug text style
-    myStyles[7] = myStyles[0];
-    myStyles[7].normalForeColor = fuchsia;
-    myStyles[7].selectBackColor = fuchsia;
-    myStyles[7].hiliteForeColor = fuchsia;
-    //
+    // fill styles
+    fillStyles();
+    // set styles
     setHiliteStyles(myStyles);
 }
 
@@ -127,10 +100,49 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 type = "parkingArea";
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
-            return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
+            const std::string typedID = type + ":" + id;
+            const GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(typedID);
+            //std::cout << " getActiveStringObject '" << typedID << "' o=" << (o == nullptr ? "NULL" : o->getMicrosimID()) << "\n";
+            return o;
         }
     }
     return nullptr;
+}
+
+SUMOTime
+GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXint /*lineS*/, const FXint /*lineE*/) const {
+    const FXint end = text.find(" ", pos + 1);
+    std::string time;
+    if (end >= 0) {
+        time = text.mid(pos, end - pos).text();
+    } else {
+        time = text.mid(pos, text.length() - pos).text();
+        if (time.empty()) {
+            return -1;
+        }
+        if (time.back() == '\n') {
+            time.pop_back();
+        }
+        if (time.empty()) {
+            return -1;
+        }
+        if (time.back() == '.') {
+            time.pop_back();
+        }
+    }
+    if (time.empty()) {
+        return -1;
+    }
+    if (time.front() == ' ') {
+        time = time.substr(1);
+    }
+    //std::cout << "text='" << text.text() << "' pos=" << pos << " time='" << time << "'\n";
+    try {
+        //std::cout << "  SUMOTime=" << string2time(time) << "\n";
+        return string2time(time);
+    } catch (...) {
+        return -1;
+    }
 }
 
 
@@ -152,6 +164,28 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
             }
+        } else {
+            const int lookback = MIN2(pos, 20);
+            const int start = MAX2(lineStart(pos), pos - lookback);
+            const FXString candidate = text.mid(start, lineEnd(pos) - start);
+            FXint timePos = candidate.find(TL(" time"));
+            if (timePos > -1) {
+                timePos += (int)std::string(TL(" time")).size() + 1;
+                SUMOTime t = -1;
+                if (pos >= 0 && pos > start + timePos) {
+                    t = getTimeString(candidate, timePos, 0, (int)candidate.length());
+                    if (t >= 0) {
+                        t += myBreakPointOffset;
+                        std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
+                        if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
+                            breakpoints.push_back(t);
+                            std::sort(breakpoints.begin(), breakpoints.end());
+                            myMainWindow->setBreakpoints(breakpoints);
+                            myMainWindow->setStatusBarText(TLF("Set breakpoint at %", time2string(t)));
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -165,23 +199,23 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     // build the styled message
     FXint style = 1;
     switch (eType) {
-        case EVENT_DEBUG_OCCURRED:
+        case GUIEventType::DEBUG_OCCURRED:
             // color: blue
             style = 0;
             break;
-        case EVENT_GLDEBUG_OCCURRED:
+        case GUIEventType::GLDEBUG_OCCURRED:
             // color: fuchsia
             style = 7;
             break;
-        case EVENT_ERROR_OCCURRED:
+        case GUIEventType::ERROR_OCCURRED:
             // color: red
             style = 2;
             break;
-        case EVENT_WARNING_OCCURRED:
+        case GUIEventType::WARNING_OCCURRED:
             // color: yellow
             style = 3;
             break;
-        case EVENT_MESSAGE_OCCURRED:
+        case GUIEventType::MESSAGE_OCCURRED:
             // color: green
             style = 1;
             break;
@@ -204,6 +238,25 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
                 text.erase(0, pos);
             }
             pos = text.find("'", pos + 1);
+        }
+        // find time links
+        pos = text.find(TL(" time"));
+        const int timeTerm = (int)std::string(TL(" time")).size() + 1;
+        SUMOTime t = -1;
+        if (pos >= 0) {
+            t = getTimeString(text, pos + timeTerm, 0, text.length());
+        }
+        if (t >= 0) {
+            FXString insText = text.left(pos + timeTerm);
+            FXText::appendStyledText(insText, style + 1);
+            text.erase(0, pos + timeTerm);
+            pos = text.find(" ");
+            if (pos < 0) {
+                pos = text.rfind(".");
+            }
+            insText = text.left(pos);
+            FXText::appendStyledText(insText, style + 4);
+            text.erase(0, pos);
         }
     }
     // insert rest of the message
@@ -247,11 +300,11 @@ void
 GUIMessageWindow::registerMsgHandlers() {
     if (myMessageRetriever == nullptr) {
         // initialize only if registration is requested
-        myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
-        myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);
-        myDebugRetriever = new MsgOutputDevice(this, EVENT_DEBUG_OCCURRED);
-        myGLDebugRetriever = new MsgOutputDevice(this, EVENT_GLDEBUG_OCCURRED);
-        myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURRED);
+        myMessageRetriever = new MsgOutputDevice(this, GUIEventType::MESSAGE_OCCURRED);
+        myErrorRetriever = new MsgOutputDevice(this, GUIEventType::ERROR_OCCURRED);
+        myDebugRetriever = new MsgOutputDevice(this, GUIEventType::DEBUG_OCCURRED);
+        myGLDebugRetriever = new MsgOutputDevice(this, GUIEventType::GLDEBUG_OCCURRED);
+        myWarningRetriever = new MsgOutputDevice(this, GUIEventType::WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
@@ -270,5 +323,67 @@ GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }
 
+
+long
+GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    FXEvent* e = (FXEvent*) ptr;
+    // permit ctrl+a, ctrl+c
+    if (e->state & CONTROLMASK) {
+        return FXText::onKeyPress(o, sel, ptr);
+    }
+    return 0;
+}
+
+
+FXHiliteStyle*
+GUIMessageWindow::getStyles() {
+    return myStyles;
+}
+
+
+void
+GUIMessageWindow::fillStyles() {
+    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
+    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
+    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
+    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
+    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
+    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
+    // set separator style
+    myStyles[0].normalForeColor = blue;
+    myStyles[0].normalBackColor = white;
+    myStyles[0].selectForeColor = white;
+    myStyles[0].selectBackColor = blue;
+    myStyles[0].hiliteForeColor = blue;
+    myStyles[0].hiliteBackColor = white;
+    myStyles[0].activeBackColor = white;
+    myStyles[0].style = 0;
+    // set message text style
+    myStyles[1] = myStyles[0];
+    myStyles[1].normalForeColor = green;
+    myStyles[1].selectBackColor = green;
+    myStyles[1].hiliteForeColor = green;
+    myStyles[4] = myStyles[1];
+    myStyles[4].style = STYLE_UNDERLINE;
+    // set error text style
+    myStyles[2] = myStyles[0];
+    myStyles[2].normalForeColor = red;
+    myStyles[2].selectBackColor = red;
+    myStyles[2].hiliteForeColor = red;
+    myStyles[5] = myStyles[2];
+    myStyles[5].style = STYLE_UNDERLINE;
+    // set warning text style
+    myStyles[3] = myStyles[0];
+    myStyles[3].normalForeColor = yellow;
+    myStyles[3].selectBackColor = yellow;
+    myStyles[3].hiliteForeColor = yellow;
+    myStyles[6] = myStyles[3];
+    myStyles[6].style = STYLE_UNDERLINE;
+    // set GLDebug text style
+    myStyles[7] = myStyles[0];
+    myStyles[7].normalForeColor = fuchsia;
+    myStyles[7].selectBackColor = fuchsia;
+    myStyles[7].hiliteForeColor = fuchsia;
+}
 
 /****************************************************************************/

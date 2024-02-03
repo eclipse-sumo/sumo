@@ -2,7 +2,7 @@
 title: Visual Studio Code
 ---
 
-Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ (among other programming languages) on Windows, Linux and macOS. 
+Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ (among other programming languages) on Windows, Linux and macOS.
 
 In this document, we describe how Visual Studio Code can be installed and which plugins should be used to work with the SUMO code base.
 
@@ -13,15 +13,16 @@ In this document, we describe how Visual Studio Code can be installed and which 
 The proprietary binaries for Visual Studio Code can be downloaded from [here](https://code.visualstudio.com/). There are also open source binaries which can be downloaded from [here](https://vscodium.com) (MIT license).
 
 
-
 ## Plugins
 
 The standard installation of Visual Studio Code does provide only basic support for source code editing in C/C++ and Python. For this purpose, Visual Studio Code can be extended with plugins to provide additional functionality. We recommend (at least) the following plugins:
 
 * **C/C++** from Microsoft to simplify code browsing, enable code completion and debugging
-* **CMake Tools** from Microsoft to benefit from CMake build support 
-* **Python** by Microsoft to benefit from code browing, code completion and debugging in Python
+* **CMake Tools** from Microsoft to benefit from CMake build support
+* **Python** by Microsoft to benefit from code browsing, code completion and debugging in Python
 * **CMake** by twxs to have support for the CMake specification language when editing `CMakeLists.txt` files
+
+You do not need to select them manually. Usually it is also fine if you open some .cpp and some .py file and just install the plugins Visual Studio Code recommends.
 
 ![Visual Studio Code Recommended Plugins](../images/VSCodePlugins.png)
 
@@ -37,12 +38,12 @@ Please note, that you can set these settings either for the **user** or for the 
 
 We would recommend to modify the following settings:
 
-* **Cmake: Build Directory**: set to your out of source build directory, e.g. `${workspaceFolder}/build/vscode`
+* **Cmake: Build Directory**: set to your out of source build directory, e.g. `${workspaceFolder}/build/vscode/${buildType}`
 * **Cmake: Parallel Jobs**: if you have multiple CPUs or multiple CPU cores, set to a value of `2 * N`, whereas `N` denotes the number of cores on your machine, e.g. `2`
 
 ## Working with the SUMO Repository
 
-You can now open the local SUMO git repository in Visual Studio Code with `File` -> `Open ...` and point it to the directory of the repository. 
+You can now open the local SUMO git repository in Visual Studio Code with `File` -> `Open ...` and point it to the directory of the repository.
 
 ### CMake Configuration
 
@@ -50,13 +51,13 @@ The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file 
 
 ![Visual Studio Code CMake Configuration Output](../images/VSCodeCmakeConfig.png)
 
-You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are referred to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`. 
+You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are referred to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`.
 
-SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO. 
+SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO.
 
 ### CMake Build
 
-A build can be triggered either by using the command palette (`CMake: Build`) or by pressing `F7`. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by pressing `Shift+F7`. You can follow the build results in the output window in the lower half. 
+A build can be triggered either by using the command palette (`CMake: Build`) or by pressing `F7`. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by pressing `Shift+F7`. You can follow the build results in the output window in the lower half.
 
 ### Running and Debugging
 
@@ -87,7 +88,7 @@ A simple configuration to launch `sumo` can be seen here:
 }
 ```
 
-!!! note 
+!!! note
     If you try to launch `sumo-gui` with a run configuration on macOS, the launch will fail because it cannot find the proper `DISPLAY` variable of the XQuartz server instance. A workaround seems to be to define a `preLaunchTask` in the configuration above which exports the `DISPLAY` variable for the debugging session. However, this needs more testing.
 
 ## General Remarks

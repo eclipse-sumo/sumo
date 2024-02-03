@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,31 +21,25 @@ from __future__ import print_function
 import os
 import sys
 import codecs
-import optparse
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     from sumolib.output import parse
+    from sumolib.options import ArgumentParser
+    from sumolib.miscutils import intIfPossible
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-def intIfPossible(val):
-    if int(val) == val:
-        return int(val)
-    else:
-        return val
-
-
 def get_options(args=None):
-    optParser = optparse.OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-r", "--input-file", dest="infile",
                          help="the input route file (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          help="the output route file (mandatory)")
     optParser.add_option("-d", "--depart-offset", dest="offset",
-                         type="float", help="the depart offset to apply")
+                         type=float, help="the depart offset to apply")
     optParser.add_option("-i", "--depart-interval", dest="interval",
                          help="time intervals a,b,c,d where all vehicles departing in the interval" +
                          "[a,b[ are mapped to the interval [c,d[")
@@ -53,7 +47,7 @@ def get_options(args=None):
                          default=False, help="whether ids should be modified as well")
     optParser.add_option("--heterogeneous", dest="heterogeneous",
                          action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
-                                                                  "(i.e. vehicles with embeded and referenced routes)")
+                                                                  "(i.e. vehicles with embedded and referenced routes)")
     optParser.add_option("--depart-edges", dest="depart_edges",
                          help="only modify departure times of vehicles departing on the given edges")
     optParser.add_option("--depart-edges.file", dest="depart_edges_file",
@@ -65,15 +59,14 @@ def get_options(args=None):
                          help="only modify departure times of vehicles arriving on edges or lanes in the " +
                               "given selection file")
 
-    (options, args) = optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
     if options.infile is None or options.outfile is None:
         optParser.print_help()
         sys.exit()
 
     if ((options.offset is None and options.interval is None) or
             (options.offset is not None and options.interval is not None)):
-        print(
-            "Either one of the options --depart-offset or --depart-interval must be given")
+        print("Either one of the options --depart-offset or --depart-interval must be given")
         sys.exit()
 
     if options.offset is not None:
@@ -88,14 +81,15 @@ def get_options(args=None):
     if options.depart_edges_file is not None:
         if options.depart_edges is None:
             options.depart_edges = []
-        for line in open(options.depart_edges_file):
-            line = line.strip()
-            if line.startswith("edge:"):
-                options.depart_edges.append(line[5:])
-            elif line.startswith("lane:"):
-                options.depart_edges.append(line[5:-2])
-            else:
-                options.depart_edges.append(line)
+        with open(options.depart_edges_file) as depart_edges:
+            for line in depart_edges:
+                line = line.strip()
+                if line.startswith("edge:"):
+                    options.depart_edges.append(line[5:])
+                elif line.startswith("lane:"):
+                    options.depart_edges.append(line[5:-2])
+                else:
+                    options.depart_edges.append(line)
 
     if options.arrival_edges is not None:
         options.arrival_edges = options.arrival_edges.split(',')
@@ -215,4 +209,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(get_options(sys.argv))
+    main(get_options())

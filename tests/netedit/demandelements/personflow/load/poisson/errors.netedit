@@ -1,0 +1,5 @@
+Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
+Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
+Error: Invalid rate parameter for exponentially distributed period in the definition of personFlow 'p_3'.
+Error: Invalid rate parameter for exponentially distributed period in the definition of personFlow 'p_4'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.25Jan182728.9838/netedit.daily.demand.personflow/demandelements/personflow/load/poisson/routes.rou.xml failed.

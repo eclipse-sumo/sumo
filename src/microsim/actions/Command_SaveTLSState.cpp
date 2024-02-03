@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,10 +33,12 @@
 // method definitions
 // ===========================================================================
 Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants& logics,
-        OutputDevice& od)
-    : myOutputDevice(od), myLogics(logics) {
+        OutputDevice& od, bool saveDetectors, bool saveConditions) :
+    myOutputDevice(od),
+    myLogics(logics),
+    mySaveDetectors(saveDetectors),
+    mySaveConditions(saveConditions) {
     MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(this);
-    myOutputDevice.writeXMLHeader("tlsStates", "tlsstates_file.xsd");
 }
 
 
@@ -46,11 +48,51 @@ Command_SaveTLSState::~Command_SaveTLSState() {
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) {
-    myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
-                   << "\" id=\"" << myLogics.getActive()->getID()
-                   << "\" programID=\"" << myLogics.getActive()->getProgramID()
-                   << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-                   << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
+    if (!myOutputDevice.wroteHeader()) {
+        // delay writing header to ensure tls is initialized
+        std::map<SumoXMLAttr, std::string> attrs;
+        if (mySaveDetectors) {
+            std::vector<std::string> IDs;
+            for (auto item : myLogics.getActive()->getDetectorStates()) {
+                IDs.push_back(item.first);
+            }
+            attrs[SUMO_ATTR_DETECTORS] = joinToString(IDs, " ");
+
+        }
+        if (mySaveConditions) {
+            std::vector<std::string> IDs;
+            for (auto item : myLogics.getActive()->getConditions()) {
+                IDs.push_back(item.first);
+            }
+            attrs[SUMO_ATTR_CONDITIONS] = joinToString(IDs, " ");
+        }
+        myOutputDevice.writeXMLHeader("tlsStates", "tlsstates_file.xsd", attrs);
+    }
+    myOutputDevice.openTag("tlsState");
+    myOutputDevice.writeAttr(SUMO_ATTR_TIME, time2string(currentTime));
+    myOutputDevice.writeAttr(SUMO_ATTR_ID, myLogics.getActive()->getID());
+    myOutputDevice.writeAttr(SUMO_ATTR_PROGRAMID, myLogics.getActive()->getProgramID());
+    myOutputDevice.writeAttr(SUMO_ATTR_PHASE, myLogics.getActive()->getCurrentPhaseIndex());
+    myOutputDevice.writeAttr(SUMO_ATTR_STATE, myLogics.getActive()->getCurrentPhaseDef().getState());
+    if (!myLogics.getActive()->getCurrentPhaseDef().getName().empty()) {
+        myOutputDevice.writeAttr(SUMO_ATTR_NAME, myLogics.getActive()->getCurrentPhaseDef().getName());
+    }
+    if (mySaveDetectors) {
+        std::vector<int> states;
+        for (auto item : myLogics.getActive()->getDetectorStates()) {
+            states.push_back((int)item.second);
+        }
+        myOutputDevice.writeAttr(SUMO_ATTR_DETECTORS, joinToString(states, " "));
+
+    }
+    if (mySaveConditions) {
+        std::vector<double> states;
+        for (auto item : myLogics.getActive()->getConditions()) {
+            states.push_back(item.second);
+        }
+        myOutputDevice.writeAttr(SUMO_ATTR_CONDITIONS, joinToString(states, " "));
+    }
+    myOutputDevice.closeTag();
     return DELTA_T;
 }
 

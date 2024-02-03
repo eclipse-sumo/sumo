@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -59,60 +59,61 @@ class WeightsReader(ContentHandler):
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-n", "--net", dest="net", metavar="FILE",
-                         help="Defines the network to read")
-    optParser.add_option("-i", "--dump-inputs", dest="dumps", metavar="FILE",
-                         help="Defines the dump-output files to use as input")
-    optParser.add_option("-m", "--measures", dest="measures",
-                         default="speed,entered", help="Define which measure to plot")
-    optParser.add_option("--min-width", dest="minWidth",
-                         type="float", default=.5, help="Defines the minimum edge width")
-    optParser.add_option("--max-width", dest="maxWidth",
-                         type="float", default=3, help="Defines the maximum edge width")
-    optParser.add_option("--log-colors", dest="logColors", action="store_true",
-                         default=False, help="If set, colors are log-scaled")
-    optParser.add_option("--log-widths", dest="logWidths", action="store_true",
-                         default=False, help="If set, widths are log-scaled")
-    optParser.add_option("--min-color-value", dest="colorMin",
-                         type="float", default=None,
-                         help="If set, defines the minimum edge color value")
-    optParser.add_option("--max-color-value", dest="colorMax",
-                         type="float", default=None,
-                         help="If set, defines the maximum edge color value")
-    optParser.add_option("--min-width-value", dest="widthMin",
-                         type="float", default=None,
-                         help="If set, defines the minimum edge width value")
-    optParser.add_option("--max-width-value", dest="widthMax",
-                         type="float", default=None,
-                         help="If set, defines the maximum edge width value")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False,
-                         help="If set, the script says what it's doing")
-    optParser.add_option("--color-bar-label", dest="colorBarLabel", default="",
-                         help="The label to put on the color bar")
+    ap = sumolib.options.ArgumentParser()
+    ap.add_option("-n", "--net", dest="net", metavar="FILE", required=True, type=ap.net_file,
+                  help="Defines the network to read")
+    ap.add_option("-i", "--dump-inputs", dest="dumps", metavar="FILE", required=True, type=ap.edgedata_file,
+                  help="Defines the dump-output files to use as input")
+    ap.add_option("-m", "--measures", dest="measures",
+                  default="speed,entered", help="Define which measure to plot")
+    ap.add_option("--min-width", dest="minWidth", type=float, default=.5,
+                  help="Defines the minimum edge width")
+    ap.add_option("--max-width", dest="maxWidth",
+                  type=float, default=3, help="Defines the maximum edge width")
+    ap.add_option("--log-colors", dest="logColors", action="store_true",
+                  default=False, help="If set, colors are log-scaled")
+    ap.add_option("--log-widths", dest="logWidths", action="store_true",
+                  default=False, help="If set, widths are log-scaled")
+    ap.add_option("--min-color-value", dest="colorMin",
+                  type=float, default=None,
+                  help="If set, defines the minimum edge color value")
+    ap.add_option("--max-color-value", dest="colorMax",
+                  type=float, default=None,
+                  help="If set, defines the maximum edge color value")
+    ap.add_option("--min-width-value", dest="widthMin",
+                  type=float, default=None,
+                  help="If set, defines the minimum edge width value")
+    ap.add_option("--max-width-value", dest="widthMax",
+                  type=float, default=None,
+                  help="If set, defines the maximum edge width value")
+    ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
+                  default=False,
+                  help="If set, the script says what it's doing")
+    ap.add_option("--color-bar-label", dest="colorBarLabel", default="",
+                  help="The label to put on the color bar")
+    ap.add_option("--internal", action="store_true",
+                  default=False, help="include internal edges in generated shapes")
 
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
-    helpers.addNetOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
+    helpers.addNetOptions(ap)
 
     # Override the help string for the output option
-    outputOpt = optParser.get_option("--output")
+    outputOpt = ap.get_option("output")
     outputOpt.help = ("Comma separated list of filename(s) the figure shall be written to; " +
                       "for multiple time intervals use '%s' in the filename as a " +
                       "placeholder for the beginning of the time interval")
 
     # parse
-    options, _ = optParser.parse_args(args=args)
+    options = ap.parse_args(args=args)
 
     if options.net is None:
         print("Error: a network to load must be given.")
         return 1
     if options.verbose:
         print("Reading network from '%s'" % options.net)
-    net = sumolib.net.readNet(options.net)
+    net = sumolib.net.readNet(options.net, withInternal=options.internal)
 
     if options.measures is None:
         print("Error: a dump file must be given.")
@@ -125,7 +126,7 @@ def main(args=None):
     colorMeasure = options.measures.split(",")[0]
     if colorDump:
         if options.verbose:
-            print("Reading colors from '%s'" % colorDump)
+            print("Reading colors from '%s' (attribute:%s)" % (colorDump, colorMeasure))
         hc = WeightsReader(colorMeasure)
         sumolib.output.parse_sax(colorDump, hc)
         times = hc._edge2value
@@ -135,7 +136,7 @@ def main(args=None):
         widthDump = dumps[1]
         widthMeasure = options.measures.split(",")[1]
         if options.verbose:
-            print("Reading widths from '%s'" % widthDump)
+            print("Reading width attribute from '%s' (attribute:%s)" % (widthDump, widthMeasure))
         hw = WeightsReader(widthMeasure)
         sumolib.output.parse_sax(widthDump, hw)
         times = hw._edge2value
@@ -222,6 +223,9 @@ def main(args=None):
         if options.verbose:
             print("Width values are between %s and %s" %
                   (minWidthValue, maxWidthValue))
+        if hw and (minWidthValue is None or maxWidthValue is None):
+            print("Skipping interval %s without data" % t)
+            continue
 
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')
@@ -229,13 +233,14 @@ def main(args=None):
 
         # drawing the legend, at least for the colors
         norm = matplotlib.colors.LogNorm if options.logColors else matplotlib.colors.Normalize
-        sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(options.colormap),
+        sm = plt.cm.ScalarMappable(cmap=helpers.getColorMap(options),
                                    norm=norm(vmin=minColorValue, vmax=maxColorValue))
 
-        # "fake up the array of the scalar mappable. Urgh..."
-        # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
-        sm._A = []
-        color_bar = plt.colorbar(sm)
+        if sys.version_info.major < 3:
+            # "fake up the array of the scalar mappable. Urgh..."
+            # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+            sm._A = []
+        color_bar = plt.colorbar(sm, ax=ax)
         color_bar.set_label(options.colorBarLabel)
 
         # Should we also save the figure to a file / list of files (comma
@@ -262,4 +267,7 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main()
+    except ValueError as e:
+        sys.exit(e)

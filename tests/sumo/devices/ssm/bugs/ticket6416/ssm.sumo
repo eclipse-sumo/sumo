@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 10 01:50:57 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
+<!-- generated on 2023-06-08 21:18:51 by Eclipse SUMO sumo Version v1_17_0+0868-0ea1cad2dc1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,25 +41,31 @@ SPDX-License-Identifier: EPL-2.0
 
 <SSMLog>
     <conflict begin="1.00" end="11.00" ego="trip_0" foe="trip_1">
-        <minTTC time="5.00" position="3933.02,4411.35" type="11" value="0.40"/>
-        <maxDRAC time="5.00" position="3933.02,4411.35" type="11" value="3.19"/>
-        <PET time="NA" position="NA" type="NA" value="NA"/>
+        <minTTC time="5.00" position="3933.02,4411.35" type="11" value="0.40" speed="2.66"/>
+        <maxDRAC time="5.00" position="3933.02,4411.35" type="11" value="3.25" speed="2.66"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <minPPET time="5.00" position="3933.02,4411.35" type="111" value="-0.44" speed="2.66"/>
+        <maxMDRAC time="4.00" position="3935.65,4412.44" type="10" value="17.59" speed="4.98"/>
     </conflict>
     <conflict begin="3.00" end="12.00" ego="trip_0" foe="trip_2">
-        <minTTC time="5.00" position="3935.00,4412.48" type="10" value="2.28"/>
-        <maxDRAC time="4.00" position="3935.00,4412.48" type="10" value="2.15"/>
-        <PET time="9.38" position="3933.02,4411.35" type="17" value="1.60"/>
+        <minTTC time="5.00" position="3935.65,4412.44" type="10" value="2.23" speed="2.66"/>
+        <maxDRAC time="4.00" position="3935.65,4412.44" type="10" value="2.19" speed="4.98"/>
+        <PET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <minPPET time="3.00" position="3935.65,4412.44" type="10" value="1.72" speed="6.78"/>
+        <maxMDRAC time="5.00" position="3935.65,4412.44" type="10" value="4.66" speed="2.66"/>
     </conflict>
     <conflict begin="4.00" end="15.00" ego="trip_0" foe="trip_3">
-        <minTTC time="10.00" position="3933.90,4412.28" type="111" value="0.00"/>
-        <maxDRAC time="5.00" position="3935.00,4412.48" type="10" value="1.14"/>
-        <PET time="9.38" position="3933.90,4412.28" type="111" value="0.00"/>
+        <minTTC time="5.00" position="3935.65,4412.44" type="10" value="3.64" speed="2.66"/>
+        <maxDRAC time="5.00" position="3935.65,4412.44" type="10" value="1.15" speed="2.66"/>
+        <PET time="11.45" position="3933.02,4411.35" type="17" value="1.53" speed="5.75"/>
+        <minPPET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
+        <maxMDRAC time="5.00" position="3935.65,4412.44" type="10" value="2.39" speed="2.66"/>
     </conflict>
     <globalMeasures ego="trip_0">
-        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00 15.00 16.00 17.00 18.00 19.00 20.00 21.00 22.00"/>
-        <BRSpan values="0.00 0.00 0.00 0.00 1.80 2.31 2.52 0.03 0.10 0.00 0.00 0.00 0.00 0.00 0.00 0.46 0.00 0.00 0.77 0.00 0.00 0.00 0.50"/>
+        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00 15.00 16.00 17.00 18.00 19.00 20.00 21.00 22.00 23.00 24.00"/>
+        <BRSpan values="0.00 0.00 0.00 0.00 1.80 2.31 2.52 0.03 0.10 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.46 0.00 0.00 0.77 0.00 0.00 0.00 0.50"/>
         <maxBR time="6.00" position="3932.20,4410.94" value="2.52"/>
-        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
-        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
     </globalMeasures>
 </SSMLog>

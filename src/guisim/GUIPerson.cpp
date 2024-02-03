@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,10 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/transportables/MSPModel_Striping.h>
+#include <microsim/transportables/MSStageWaiting.h>
+#include <microsim/transportables/MSStageWalking.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ScopedLocker.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -150,7 +154,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
     GUIPerson* person = static_cast<GUIPerson*>(myObject);
     MSStage* stage = person->getCurrentStage();
     stage->abort(person);
-    stage->getEdge()->removePerson(person);
+    stage->getEdge()->removeTransportable(person);
     if (stage->getDestinationStop() != nullptr) {
         stage->getDestinationStop()->removeTransportable(person);
     }
@@ -165,7 +169,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
 
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSPerson(pars, vtype, plan, speedFactor),
-    GUIGlObject(GLO_PERSON, pars->id),
+    GUIGlObject(GLO_PERSON, pars->id, GUIIconSubSys::getIcon(GUIIcon::PERSON)),
     myLock(true)
 { }
 
@@ -212,7 +216,7 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowTypeParamsPopupEntry(ret);
     GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -222,19 +226,22 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("stage", true, new FunctionBindingString<GUIPerson>(this, &MSTransportable::getCurrentStageDescription));
+    ret->mkItem(TL("stage"), true, new FunctionBindingString<GUIPerson>(this, &MSTransportable::getCurrentStageDescription));
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
-    ret->mkItem("stage index", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
-    ret->mkItem("start edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
-    ret->mkItem("dest edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
-    ret->mkItem("arrivalPos [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
-    ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
-    ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
-    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
-    ret->mkItem("speed factor", false, getSpeedFactor());
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
-    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
-    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
+    ret->mkItem(TL("stage index"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
+    ret->mkItem(TL("start edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
+    ret->mkItem(TL("dest edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
+    ret->mkItem(TL("dest stop [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
+    ret->mkItem(TL("arrival position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
+    ret->mkItem(TL("edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
+    ret->mkItem(TL("position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
+    ret->mkItem(TL("speed [m/s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
+    ret->mkItem(TL("speed factor"), false, getChosenSpeedFactor());
+    ret->mkItem(TL("angle [degree]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
+    ret->mkItem(TL("waiting time [s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem(TL("vehicle [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
+    ret->mkItem(TL("stop duration [s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStopDuration));
+    ret->mkItem(TL("desired depart [s]"), false, time2string(getParameter().depart));
     // close building
     ret->closeBuilding(&getParameter());
     return ret;
@@ -242,20 +249,23 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
-                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // add items
-    ret->mkItem("Type Information:", false, "");
-    ret->mkItem("type [id]", false, myVType->getID());
-    ret->mkItem("length", false, myVType->getLength());
-    ret->mkItem("width", false, myVType->getWidth());
-    ret->mkItem("height", false, myVType->getHeight());
-    ret->mkItem("minGap", false, myVType->getMinGap());
-    ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
-    // close building
+GUIPerson::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myVType->getID());
+    ret->mkItem(TL("length"), false, myVType->getLength());
+    ret->mkItem(TL("width"), false, myVType->getWidth());
+    ret->mkItem(TL("height"), false, myVType->getHeight());
+    ret->mkItem(TL("minGap"), false, myVType->getMinGap());
+    ret->mkItem(TL("mass [kg]"), false, myVType->getMass());
+    ret->mkItem(TL("desired max speed [m/s]"), false, myVType->getDesiredMaxSpeed());
+    ret->mkItem(TL("maximum speed [m/s]"), false, myVType->getMaxSpeed());
     ret->closeBuilding(&(myVType->getParameter()));
     return ret;
+}
+
+
+double
+GUIPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.personSize.getExaggeration(s, this, s.personQuality == 1 ? 40 : 80);
 }
 
 
@@ -271,22 +281,22 @@ GUIPerson::getCenteringBoundary() const {
 
 void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
-    Position p1 = getGUIPosition();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
+    Position p1 = getGUIPosition(&s);
     double angle = getGUIAngle();
     glTranslated(p1.x(), p1.y(), getType());
     // set person color
     setColor(s);
     // scale
-    const double exaggeration = s.personSize.getExaggeration(s, this, 80);
+    const double exaggeration = getExaggeration(s);
     glScaled(exaggeration, exaggeration, 1);
     switch (s.personQuality) {
         case 0:
             GUIBasePersonHelper::drawAction_drawAsTriangle(angle, getVehicleType().getLength(), getVehicleType().getWidth());
             break;
         case 1:
-            GUIBasePersonHelper::drawAction_drawAsCircle(getVehicleType().getLength(), getVehicleType().getWidth(), s.scale * exaggeration);
+            GUIBasePersonHelper::drawAction_drawAsCircle(angle, getVehicleType().getLength(), getVehicleType().getWidth(), s.scale * exaggeration);
             break;
         case 2:
             GUIBasePersonHelper::drawAction_drawAsPoly(angle, getVehicleType().getLength(), getVehicleType().getWidth());
@@ -294,55 +304,45 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
         case 3:
         default:
             GUIBasePersonHelper::drawAction_drawAsImage(angle, getVehicleType().getLength(), getVehicleType().getWidth(),
-                    getVehicleType().getImgFile(), getVehicleType().getGuiShape(), exaggeration);
+                    getVehicleType().getImgFile(), getVehicleType().getGuiShape(), 1);
             break;
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 #ifdef GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS
     drawAction_drawWalkingareaPath(s);
 #endif
     drawName(p1, s.scale, s.personName, s.angle);
-    if (s.personValue.show) {
+    if (s.personValue.show(this)) {
         Position p2 = p1 + Position(0, 0.6 * s.personName.scaledSize(s.scale));
         const double value = getColorValue(s, s.personColorer.getActive());
         GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 
 void
 GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const {
-    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+    MSStageWalking* stage = dynamic_cast<MSStageWalking*>(getCurrentStage());
     if (stage != nullptr) {
         setColor(s);
-        MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getState());
+        MSPModel_Striping::PState* stripingState = dynamic_cast<MSPModel_Striping::PState*>(stage->getPState());
         if (stripingState != nullptr) {
             const MSPModel_Striping::WalkingAreaPath* waPath = stripingState->myWalkingAreaPath;
             if (waPath != nullptr) {
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(0, 0, getType());
                 GLHelper::drawBoxLines(waPath->shape, 0.05);
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
     }
 }
 
-bool
-GUIPerson::isJammed() const {
-    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-    if (stage != nullptr) {
-        return stage->getState()->isJammed();
-    }
-    return false;
-}
-
-
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_WALKINGAREA_PATH)) {
         drawAction_drawWalkingareaPath(s);
@@ -353,18 +353,19 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             RGBColor current = GLHelper::getColor();
             RGBColor darker = current.changedBrightness(-51);
             GLHelper::setColor(darker);
-            MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
+            MSStageWalking* stage = dynamic_cast<MSStageWalking*>(getCurrentStage());
             assert(stage != 0);
-            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double exaggeration = getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
+            const bool s2 = s.secondaryShape;
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
-                GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+                GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
             }
         }
     }
-    glPopMatrix();
-    glPopName();
+    GLHelper::popMatrix();
+    GLHelper::popName();
 }
 
 
@@ -376,50 +377,52 @@ GUIPerson::setPositionInVehicle(const GUIBaseVehicle::Seat& pos) {
 
 void
 GUIPerson::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col;
     const GUIColorer& c = s.personColorer;
-    if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+    if (!setFunctionalColor(c.getActive(), this, col)) {
+        col = c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
+    GLHelper::setColor(col);
 }
 
 
 bool
-GUIPerson::setFunctionalColor(int activeScheme) const {
+GUIPerson::setFunctionalColor(int activeScheme, const MSPerson* person, RGBColor& col) {
     switch (activeScheme) {
         case 0: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (person->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                col = person->getParameter().color;
                 return true;
             }
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (person->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                col = person->getVehicleType().getColor();
                 return true;
             }
             return false;
         }
         case 2: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (person->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                col = person->getParameter().color;
                 return true;
             }
             return false;
         }
         case 3: {
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (person->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                col = person->getVehicleType().getColor();
                 return true;
             }
             return false;
         }
         case 9: { // color by angle
-            double hue = GeomHelper::naviDegree(getAngle());
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            double hue = GeomHelper::naviDegree(person->getAngle());
+            col = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
         case 10: { // color randomly (by pointer)
-            const double hue = (double)((long long int)this % 360); // [0-360]
-            const double sat = (((long long int)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            const double hue = (double)((long long int)person % 360); // [0-360]
+            const double sat = (double)(((long long int)person / 360) % 67) / 100. + 0.33; // [0.33-1]
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
         default:
@@ -432,7 +435,14 @@ double
 GUIPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 4:
-            return getSpeed();
+            switch (getCurrentStageType()) {
+                case MSStageType::WAITING:
+                    return -1;
+                case MSStageType::WAITING_FOR_DEPART:
+                    return -2;
+                default:
+                    return getSpeed();
+            }
         case 5:
             if (isWaiting4Vehicle()) {
                 return 5;
@@ -459,6 +469,15 @@ GUIPerson::getEdgePos() const {
     return MSPerson::getEdgePos();
 }
 
+int
+GUIPerson::getDirection() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return MSPModel::UNDEFINED_DIRECTION;
+    }
+    return MSPerson::getDirection();
+}
+
 
 Position
 GUIPerson::getPosition() const {
@@ -471,16 +490,27 @@ GUIPerson::getPosition() const {
 
 
 Position
-GUIPerson::getGUIPosition() const {
+GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
     FXMutexLock locker(myLock);
     if (hasArrived()) {
         return Position::INVALID;
     }
-    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
-        return myPositionInVehicle.pos;
-    } else {
-        return MSPerson::getPosition();
+    if (getCurrentStageType() == MSStageType::DRIVING) {
+        if (!isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
+            return myPositionInVehicle.pos;
+        } else if (isWaiting4Vehicle()
+                   && s != nullptr
+                   && s->gaming
+                   && getCurrentStage()->getOriginStop() != nullptr
+                   && s->addSize.getExaggeration(*s, nullptr) > 1) {
+            // shift position away from stop center
+            Position pos = MSPerson::getPosition();
+            Position ref = getCurrentStage()->getOriginStop()->getCenterPos();
+            Position shifted = ref + (pos - ref) * s->personSize.getExaggeration(*s, this);
+            return shifted;
+        }
     }
+    return MSPerson::getPosition();
 }
 
 
@@ -534,7 +564,8 @@ GUIPerson::getStageIndexDescription() const {
     if (hasArrived()) {
         return "arrived";
     }
-    return toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1);
+    // there is always the "start" stage which we do not count here because it is not strictly part of the plan
+    return toString(getCurrentStageIndex()) + " of " + toString(getNumStages() - 1);
 }
 
 
@@ -568,6 +599,50 @@ GUIPerson::getDestinationEdgeID() const {
 }
 
 
+std::string
+GUIPerson::getDestinationStopID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    MSStoppingPlace* destStop = getCurrentStage()->getDestinationStop();
+    if (destStop != nullptr) {
+        return destStop->getID();
+    } else {
+        return "";
+    }
+}
+
+
+std::string
+GUIPerson::getVehicleID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    SUMOVehicle* veh = getCurrentStage()->getVehicle();
+    if (veh != nullptr) {
+        return veh->getID();
+    } else {
+        return "";
+    }
+}
+
+
+double
+GUIPerson::getStopDuration() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
+    if (getCurrentStage()->getStageType() == MSStageType::WAITING) {
+        return STEPS2TIME(dynamic_cast<MSStageWaiting*>(getCurrentStage())->getStopEnd() - SIMSTEP);
+    } else {
+        return -1;
+    }
+}
+
+
 double
 GUIPerson::getStageArrivalPos() const {
     FXMutexLock locker(myLock);
@@ -579,6 +654,8 @@ GUIPerson::getStageArrivalPos() const {
 
 bool
 GUIPerson::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
+    // acquire lock before locking the person to avoid mutual deadlock (#9468)
+    ScopedLocker<const MSEdge, true> edgeLocker(*getEdge());
     FXMutexLock locker(myLock);
     return MSTransportable::proceed(net, time, vehicleArrived);
 }

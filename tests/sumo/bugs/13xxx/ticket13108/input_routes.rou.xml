@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+<personFlow id="pf1" begin="10" end="20"  number="1" >
+    <walk from="E0" trainStop="ts_E3" />
+	<stop trainStop="ts_E3" until="100" />  <!--  removing this stop removes the crash at the end of the simulation. -->
+	<ride to="E8" lines="LO286"/>
+</personFlow> 
+
+ <vType id="T1"  length="12" vClass="rail" />
+
+ <trip id="LO286" type="T1" depart="30" from="E1" to="E8" via="E3 E5 E6" >
+    <stop trainStop="ts_E3" until="200"/>
+    <param key="has.fcd.device" value="false"/>
+ </trip>
+
+
+
+
+ </routes>

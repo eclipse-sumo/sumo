@@ -1,0 +1,2 @@
+Error: Flow 'v0' has invalid departEdge index 42 for route with 6 edges.
+Quitting (on error).

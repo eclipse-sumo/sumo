@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,10 +27,18 @@
 #include <cstdio>
 #include <cstring>
 #include <regex>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
 #include "StringUtils.h"
 
 
@@ -38,6 +46,7 @@
 // static member definitions
 // ===========================================================================
 std::string StringUtils::emptyString;
+XERCES_CPP_NAMESPACE::XMLLCPTranscoder* StringUtils::myLCPTranscoder = nullptr;
 
 
 // ===========================================================================
@@ -55,13 +64,22 @@ StringUtils::prune(const std::string& str) {
 
 
 std::string
-StringUtils::to_lower_case(std::string str) {
-    for (int i = 0; i < (int)str.length(); i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] = str[i] + 'a' - 'A';
-        }
+StringUtils::pruneZeros(const std::string& str, int max) {
+    const std::string::size_type endpos = str.find_last_not_of("0");
+    if (endpos != std::string::npos && str.back() == '0') {
+        std::string res = str.substr(0, MAX2((int)str.size() - max, (int)endpos + 1));
+        return res;
     }
     return str;
+}
+
+std::string
+StringUtils::to_lower_case(const std::string& str) {
+    std::string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) {
+        return (char)::tolower(c);
+    });
+    return s;
 }
 
 
@@ -69,13 +87,13 @@ std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;
-    for (int i = 0; i < (int)str.length(); i++) {
-        const unsigned char c = str[i];
-        if (c < 128) {
-            result += c;
+    for (const auto& c : str) {
+        const unsigned char uc = (unsigned char)c;
+        if (uc < 128) {
+            result += uc;
         } else {
-            result += (char)(0xc2 + (c > 0xbf));
-            result += (char)((c & 0x3f) + 0x80);
+            result += (char)(0xc2 + (uc > 0xbf));
+            result += (char)((uc & 0x3f) + 0x80);
         }
     }
     return result;
@@ -99,16 +117,12 @@ StringUtils::convertUmlaute(std::string str) {
 }
 
 
-
 std::string
-StringUtils::replace(std::string str, const char* what,
-                     const char* by) {
-    const std::string what_tmp(what);
-    const std::string by_tmp(by);
+StringUtils::replace(std::string str, const std::string& what, const std::string& by) {
     std::string::size_type idx = str.find(what);
-    const int what_len = (int)what_tmp.length();
+    const int what_len = (int)what.length();
     if (what_len > 0) {
-        const int by_len = (int)by_tmp.length();
+        const int by_len = (int)by.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
             idx = str.find(what, idx + by_len);
@@ -118,7 +132,50 @@ StringUtils::replace(std::string str, const char* what,
 }
 
 
-std::string StringUtils::substituteEnvironment(std::string str) {
+std::string
+StringUtils::substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef) {
+    std::string s = str;
+    if (timeRef != nullptr) {
+        const std::string::size_type localTimeIndex = str.find("${LOCALTIME}");
+        const std::string::size_type utcIndex = str.find("${UTC}");
+        const bool isUTC = utcIndex != std::string::npos;
+        if (localTimeIndex != std::string::npos || isUTC) {
+            const time_t rawtime = std::chrono::system_clock::to_time_t(*timeRef);
+            char buffer [80];
+            struct tm* timeinfo = isUTC ? gmtime(&rawtime) : localtime(&rawtime);
+            strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S.", timeinfo);
+            auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(*timeRef);
+            auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(*timeRef - seconds);
+            const std::string micro = buffer + toString(microseconds.count());
+            if (isUTC) {
+                s.replace(utcIndex, 6, micro);
+            } else {
+                s.replace(localTimeIndex, 12, micro);
+            }
+        }
+    }
+    const std::string::size_type pidIndex = str.find("${PID}");
+    if (pidIndex != std::string::npos) {
+#ifdef WIN32
+        s.replace(pidIndex, 6, toString(::GetCurrentProcessId()));
+#else
+        s.replace(pidIndex, 6, toString(::getpid()));
+#endif
+    }
+    if (std::getenv("SUMO_LOGO") == nullptr) {
+        s = replace(s, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
+    }
+    const std::string::size_type tildeIndex = str.find("~");
+    if (tildeIndex == 0) {
+        s.replace(0, 1, "${HOME}");
+    }
+    s = replace(s, ",~", ",${HOME}");
+#ifdef WIN32
+    if (std::getenv("HOME") == nullptr) {
+        s = replace(s, "${HOME}", "${USERPROFILE}");
+    }
+#endif
+
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
     //       - .+? looks for the shortest match (non-greedy)
@@ -127,7 +184,7 @@ std::string StringUtils::substituteEnvironment(std::string str) {
 
     // Are there any variables in this string?
     std::smatch match;
-    std::string strIter = str;
+    std::string strIter = s;
 
     // Loop over the entire value string and look for variable names
     while (std::regex_search(strIter, match, envVarExpr)) {
@@ -140,32 +197,12 @@ std::string StringUtils::substituteEnvironment(std::string str) {
         }
 
         // Replace the variable placeholder with its value in the original string
-        str = std::regex_replace(str, std::regex("\\$\\{" + varName + "\\}"), varValue);
+        s = std::regex_replace(s, std::regex("\\$\\{" + varName + "\\}"), varValue);
 
         // Continue the loop with the remainder of the string
         strIter = match.suffix();
     }
-
-    return str;
-}
-
-std::string
-StringUtils::toTimeString(int time) {
-    std::ostringstream oss;
-    if (time < 0) {
-        oss << "-";
-        time = -time;
-    }
-    char buffer[10];
-    sprintf(buffer, "%02i:", (time / 3600));
-    oss << buffer;
-    time = time % 3600;
-    sprintf(buffer, "%02i:", (time / 60));
-    oss << buffer;
-    time = time % 60;
-    sprintf(buffer, "%02i", time);
-    oss << buffer;
-    return oss.str();
+    return s;
 }
 
 
@@ -182,6 +219,12 @@ StringUtils::endsWith(const std::string& str, const std::string suffix) {
     } else {
         return false;
     }
+}
+
+
+std::string
+StringUtils::padFront(const std::string& str, int length, char padding) {
+    return std::string(MAX2(0, length - (int)str.size()), padding) + str;
 }
 
 
@@ -370,20 +413,21 @@ StringUtils::toBool(const std::string& sData) {
     if (sData.length() == 0) {
         throw EmptyData();
     }
-    std::string s = sData;
-    // Don't use std::transform(..., ::tolower) due a C4244 Warning in MSVC17
-    for (int i = 0; i < (int)s.length(); i++) {
-        s[i] = (char)::tolower((char)s[i]);
-    }
+    const std::string s = to_lower_case(sData);
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
-    } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
-        return false;
-    } else {
-        throw BoolFormatException(s);
     }
+    if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
+        return false;
+    }
+    throw BoolFormatException(s);
 }
 
+MMVersion
+StringUtils::toVersion(const std::string& sData) {
+    std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
+    return MMVersion(toInt(parts.front()), toDouble(parts.back()));
+}
 
 std::string
 StringUtils::transcode(const XMLCh* const data, int length) {
@@ -410,6 +454,39 @@ StringUtils::transcode(const XMLCh* const data, int length) {
 
 
 std::string
+StringUtils::transcodeFromLocal(const std::string& localString) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            return transcode(myLCPTranscoder->transcode(localString.c_str()));
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return localString;
+}
+
+
+std::string
+StringUtils::transcodeToLocal(const std::string& utf8String) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            XERCES_CPP_NAMESPACE::TranscodeFromStr utf8(reinterpret_cast<const XMLByte*>(utf8String.c_str()), utf8String.size(), "UTF-8");
+            return myLCPTranscoder->transcode(utf8.str());
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return utf8String;
+}
+
+
+std::string
 StringUtils::trim_left(const std::string s, const std::string& t) {
     std::string result = s;
     result.erase(0, s.find_first_not_of(t));
@@ -428,5 +505,9 @@ StringUtils::trim(const std::string s, const std::string& t) {
     return trim_right(trim_left(s, t), t);
 }
 
+void
+StringUtils::resetTranscoder() {
+    myLCPTranscoder = nullptr;
+}
 
 /****************************************************************************/

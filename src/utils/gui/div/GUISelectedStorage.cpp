@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,10 +24,11 @@
 #include <algorithm>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include "GUISelectedStorage.h"
-#include "GUIDialog_GLChosenEditor.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/ToString.h>
+
+#include "GUISelectedStorage.h"
+#include "GUIDialog_GLChosenEditor.h"
 
 
 // ===========================================================================
@@ -112,7 +113,7 @@ void
 GUISelectedStorage::select(GUIGlID id, bool update) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::select (id=%).", toString(id)));
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -129,7 +130,7 @@ void
 GUISelectedStorage::deselect(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::deselect (id=%).", toString(id)));
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -146,7 +147,7 @@ void
 GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::toggleSelection (id=%).", toString(id)));
     }
 
     bool selected = isSelected(object->getType(), id);
@@ -183,6 +184,14 @@ GUISelectedStorage::clear() {
 }
 
 
+void
+GUISelectedStorage::notifyChanged() {
+    if (myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
+    }
+}
+
+
 std::set<GUIGlID>
 GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type, int maxErrors) {
     std::set<GUIGlID> result;
@@ -199,6 +208,9 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
         strm >> line;
         if (line.length() == 0) {
             continue;
+        }
+        if (StringUtils::startsWith(line, "node:")) {
+            line = StringUtils::replace(line, "node:", "junction:");
         }
 
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);

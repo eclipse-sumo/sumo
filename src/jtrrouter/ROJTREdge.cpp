@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ ROJTREdge::addFollowerProbability(ROJTREdge* follower, double begTime,
                                   double endTime, double probability) {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if (i == myFollowingDefs.end()) {
-        WRITE_ERROR("The edges '" + getID() + "' and '" + follower->getID() + "' are not connected.");
+        WRITE_ERRORF(TL("The edges '%' and '%' are not connected."), getID(), follower->getID());
         return;
     }
     (*i).second->add(begTime, endTime, probability);
@@ -111,7 +111,7 @@ ROJTREdge::setTurnDefaults(const std::vector<double>& defs) {
     // store in less common multiple
     for (int i = 0; i < (int)defs.size(); ++i) {
         for (int j = 0; j < (int)myFollowingEdges.size(); ++j) {
-            tmp[i * myFollowingEdges.size() + j] = (double)(defs[i] / 100.0 / (myFollowingEdges.size()));
+            tmp[i * myFollowingEdges.size() + j] = defs[i] / 100. / (double)myFollowingEdges.size();
         }
     }
     // parse from less common multiple

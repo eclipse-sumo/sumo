@@ -1,0 +1,3 @@
+Error: Attribute 'off' in definition of rerouter 'rerouter_0' is empty.
+Error: Attribute 'off' in definition of rerouter 'rerouter_1' Invalid Bool Format dummyoff.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouter\load\off\additionals.add.xml failed.

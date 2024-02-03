@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,14 +15,13 @@
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
+from __future__ import print_function
 import os
 import sys
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
-from sort_routes import sort_departs  # noqa
 
 
 def get_options(args=None):
@@ -55,7 +54,7 @@ def main(options):
         pos = None
         edges = []
         speed = None
-        startTime = None
+#        startTime = None
         ttFF = None
         lane = None
         seenVehs = 0
@@ -73,8 +72,8 @@ def main(options):
                     edges = [str(int(float(e))) for e in line.split(":")[-1].split()]
                 elif vehLine == 5:
                     speed = line.split()[-1]
-                elif vehLine == 6:
-                    startTime = line.split()[-1]
+#                elif vehLine == 6:
+#                    startTime = line.split()[-1]
                 elif vehLine == 7:
                     ttFF = line.split()[-1]
 
@@ -87,7 +86,7 @@ def main(options):
                         print('    <vehicle id="%s" depart="0" departPos="%s" departSpeed="%s" departLane="%s">' %
                               (vehID, pos, speed, lane), file=outf)
                         outf.write('        <route edges="%s"/>\n' % ' '.join(edges))
-                        #outf.write('        <param key="startTime" value="%s"/>\n' % startTime)
+#                        outf.write('        <param key="startTime" value="%s"/>\n' % startTime)
                         outf.write('        <param key="ttFF" value="%s"/>\n' % ttFF)
                         outf.write('    </vehicle>\n')
 

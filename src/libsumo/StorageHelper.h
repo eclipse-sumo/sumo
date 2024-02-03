@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,6 +93,29 @@ public:
         return size;
     }
 
+    static bool readBool(tcpip::Storage& ret, const std::string& error = "") {
+        if (ret.readUnsignedByte() != libsumo::TYPE_UBYTE && error != "") {
+            throw TraCIException(error);
+        }
+        return ret.readUnsignedByte() != 0;
+    }
+
+    static void readStage(tcpip::Storage& inputStorage, libsumo::TraCIStage& stage, const std::string& error = "") {
+        stage.type = readTypedInt(inputStorage, error);
+        stage.vType = readTypedString(inputStorage, error);
+        stage.line = readTypedString(inputStorage, error);
+        stage.destStop = readTypedString(inputStorage, error);
+        stage.edges = readTypedStringList(inputStorage, error);
+        stage.travelTime = readTypedDouble(inputStorage, error);
+        stage.cost = readTypedDouble(inputStorage, error);
+        stage.length = readTypedDouble(inputStorage, error);
+        stage.intended = readTypedString(inputStorage, error);
+        stage.depart = readTypedDouble(inputStorage, error);
+        stage.departPos = readTypedDouble(inputStorage, error);
+        stage.arrivalPos = readTypedDouble(inputStorage, error);
+        stage.description = readTypedString(inputStorage, error);
+    }
+
 
     static void writeTypedByte(tcpip::Storage& content, int value) {
         content.writeUnsignedByte(libsumo::TYPE_BYTE);
@@ -138,6 +161,23 @@ public:
         }
     }
 
+    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
+        writeCompound(outputStorage, 13);
+        outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        outputStorage.writeInt(stage.type);
+        writeTypedString(outputStorage, stage.vType);
+        writeTypedString(outputStorage, stage.line);
+        writeTypedString(outputStorage, stage.destStop);
+        writeTypedStringList(outputStorage, stage.edges);
+        writeTypedDouble(outputStorage, stage.travelTime);
+        writeTypedDouble(outputStorage, stage.cost);
+        writeTypedDouble(outputStorage, stage.length);
+        writeTypedString(outputStorage, stage.intended);
+        writeTypedDouble(outputStorage, stage.depart);
+        writeTypedDouble(outputStorage, stage.departPos);
+        writeTypedDouble(outputStorage, stage.arrivalPos);
+        writeTypedString(outputStorage, stage.description);
+    }
 
 };
 

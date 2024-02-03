@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,12 +32,14 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+
 #include "RGBColor.h"
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 const RGBColor RGBColor::RED = RGBColor(255, 0, 0, 255);
 const RGBColor RGBColor::GREEN = RGBColor(0, 255, 0, 255);
 const RGBColor RGBColor::BLUE = RGBColor(0, 0, 255, 255);
@@ -54,17 +56,42 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);
 
 // random colors do not affect the simulation. No initialization is necessary
-std::mt19937 RGBColor::myRNG;
+SumoRNG RGBColor::myRNG("color");
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RGBColor::RGBColor()
-    : myRed(0), myGreen(0), myBlue(0), myAlpha(0) {}
+
+RGBColor::RGBColor(bool valid)
+    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
 
 
 RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
-    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
+    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha), myValid(true) {}
+
+
+unsigned char
+RGBColor::red() const {
+    return myRed;
+}
+
+
+unsigned char
+RGBColor::green() const {
+    return myGreen;
+}
+
+
+unsigned char
+RGBColor::blue() const {
+    return myBlue;
+}
+
+
+unsigned char
+RGBColor::alpha() const {
+    return myAlpha;
+}
 
 
 void
@@ -73,6 +100,25 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
     myGreen = g;
     myBlue = b;
     myAlpha = a;
+    myValid = true;
+}
+
+
+void
+RGBColor::setAlpha(unsigned char alpha) {
+    myAlpha = alpha;
+}
+
+
+void
+RGBColor::setValid(const bool value) {
+    myValid = value;
+}
+
+
+bool
+RGBColor::isValid() const {
+    return myValid;
 }
 
 
@@ -108,6 +154,9 @@ operator<<(std::ostream& os, const RGBColor& col) {
     if (col == RGBColor::GREY) {
         return os << "grey";
     }
+    if (col == RGBColor::INVISIBLE) {
+        return os << "invisible";
+    }
     os << static_cast<int>(col.myRed) << ","
        << static_cast<int>(col.myGreen) << ","
        << static_cast<int>(col.myBlue);
@@ -120,13 +169,13 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return myRed == c.myRed && myGreen == c.myGreen && myBlue == c.myBlue && myAlpha == c.myAlpha;
+    return (myRed == c.myRed) && (myGreen == c.myGreen) && (myBlue == c.myBlue) && (myAlpha == c.myAlpha) && (myValid == c.myValid);
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return myRed != c.myRed || myGreen != c.myGreen || myBlue != c.myBlue || myAlpha != c.myAlpha;
+    return (myRed != c.myRed) || (myGreen != c.myGreen) || (myBlue != c.myBlue) || (myAlpha != c.myAlpha) || (myValid != c.myValid);
 }
 
 
@@ -138,6 +187,12 @@ RGBColor::invertedColor() const {
     const unsigned char b = (unsigned char)(255  - (int)myBlue);
     // return inverted RBColor
     return RGBColor(r, g, b, myAlpha);
+}
+
+
+SumoRNG*
+RGBColor::getColorRNG() {
+    return &myRNG;
 }
 
 
@@ -162,6 +217,14 @@ RGBColor::changedBrightness(int change, int toChange) const {
         }
     }
 }
+
+
+RGBColor
+RGBColor::changedAlpha(int change) const {
+    int alpha = MIN2(MAX2((int)myAlpha + change, 0), 255);
+    return RGBColor(myRed, myGreen, myBlue, (unsigned char)alpha);
+}
+
 
 RGBColor
 RGBColor::multiply(double factor) const {
@@ -255,7 +318,7 @@ RGBColor::parseColor(std::string coldef) {
                 }
             }
         } else {
-            throw EmptyData();
+            throw FormatException("Invalid color definition '" + coldef + "'");
         }
     }
     return RGBColor(r, g, b, a);
@@ -306,6 +369,9 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, double
 
 RGBColor
 RGBColor::fromHSV(double h, double s, double v) {
+    h = MIN2(MAX2(h, 0.), 360.);
+    s = MIN2(MAX2(s, 0.), 1.);
+    v = MIN2(MAX2(v, 0.), 1.);
     h /= 60.;
     const int i = int(floor(h));
     double f = h - i;
@@ -316,8 +382,8 @@ RGBColor::fromHSV(double h, double s, double v) {
     const unsigned char n = static_cast<unsigned char>(v * (1 - s * f) * 255. + 0.5);
     const unsigned char vv = static_cast<unsigned char>(v * 255. + 0.5);
     switch (i) {
-        case 6:
         case 0:
+        case 6:
             return RGBColor(vv, n, m, 255);
         case 1:
             return RGBColor(n, vv, m, 255);

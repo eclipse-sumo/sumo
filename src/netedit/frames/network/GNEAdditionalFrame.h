@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,13 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================
@@ -33,320 +39,61 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
-    // class SelectorParentLanes
-    // ===========================================================================
-
-    class SelectorParentLanes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
-    public:
-        /// @brief constructor
-        SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~SelectorParentLanes();
-
-        /// @brief show SelectorParentLanes modul
-        void showSelectorParentLanesModul();
-
-        /// @brief hide SelectorParentLanes
-        void hideSelectorParentLanesModul();
-
-        /// @brief start selection of consecutive lanes
-        void startConsecutiveLaneSelector(GNELane* lane, const Position& clickedPosition);
-
-        /// @brief stop selection of consecutive lanes
-        bool stopConsecutiveLaneSelector();
-
-        /// @brief abort selection of consecutive lanes
-        void abortConsecutiveLaneSelector();
-
-        /// @brief return true if lane can be selected as consecutive lane
-        bool addSelectedLane(GNELane* lane, const Position& clickedPosition);
-
-        /// @brief remove last added point
-        void removeLastSelectedLane();
-
-        /// @brief return true if modul is selecting lane
-        bool isSelectingLanes() const;
-
-        /// @brief return true if modul is shown
-        bool isShown() const;
-
-        /// @brief get current selected lanes
-        const std::vector<std::pair<GNELane*, double> >& getSelectedLanes() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press stop selection button
-        long onCmdStopSelection(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press abort selection button
-        long onCmdAbortSelection(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(SelectorParentLanes)
-
-    private:
-        /// @brief pointer to additionalFrameParent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief button for stop selecting
-        FXButton* myStopSelectingButton;
-
-        /// @brief button for abort selecting
-        FXButton* myAbortSelectingButton;
-
-        /// @brief Vector with the selected lanes and the clicked position
-        std::vector<std::pair<GNELane*, double> > mySelectedLanes;
-
-        /// @brief Vector with the colored lanes
-        std::vector<GNELane*> myCandidateLanes;
-
-        /// @brief check if certain lane is selected
-        bool isLaneSelected(GNELane* lane) const;
-    };
-
-    // ===========================================================================
-    // class SelectorChildEdges
+    // class EdgeTypeSelector
     // ===========================================================================
 
-    class SelectorChildEdges : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorChildEdges)
+    class E2MultilaneLegendModule : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        SelectorChildEdges(GNEAdditionalFrame* additionalFrameParent);
+        E2MultilaneLegendModule(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~SelectorChildEdges();
+        ~E2MultilaneLegendModule();
 
-        /// @brief get list of selecte id's in string format
-        std::vector<std::string> getEdgeIdsSelected() const;
+        /// @brief show Legend modul
+        void showE2MultilaneLegend();
 
-        /// @brief Show SelectorChildEdges Modul
-        void showSelectorChildEdgesModul(std::string search = "");
-
-        /// @brief hide SelectorChildEdges Modul
-        void hideSelectorChildEdgesModul();
-
-        /// @brief Update use selectedEdges
-        void updateUseSelectedEdges();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user trigger checkBox of useSelectedEdges
-        long onCmdUseSelectedEdges(FXObject*, FXSelector, void*);
-
-        /// @brief called when user type in search box
-        long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
-
-        /// @brief called when user select a edge of the list
-        long onCmdSelectEdge(FXObject*, FXSelector, void*);
-
-        /// @brief called when clear selection button is pressed
-        long onCmdClearSelection(FXObject*, FXSelector, void*);
-
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(SelectorChildEdges)
-
-    private:
-        /// @brief pointer to additional frame parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief CheckBox for selected edges
-        FXCheckButton* myUseSelectedEdgesCheckButton;
-
-        /// @brief List of SelectorChildEdges
-        FXList* myList;
-
-        /// @brief text field for search edge IDs
-        FXTextField* myEdgesSearch;
-
-        /// @brief button for clear selection
-        FXButton* myClearEdgesSelection;
-
-        /// @brief button for invert selection
-        FXButton* myInvertEdgesSelection;
+        /// @brief hide Legend modul
+        void hideE2MultilaneLegend();
     };
 
     // ===========================================================================
-    // class SelectorChildLanes
+    // class HelpCreationModule
     // ===========================================================================
 
-    class SelectorChildLanes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorChildLanes)
+    class HelpCreationModule : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        SelectorChildLanes(GNEAdditionalFrame* additionalFrameParent);
+        HelpCreationModule(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~SelectorChildLanes();
+        ~HelpCreationModule();
 
-        /// @brief get list of selecte lane ids in string format
-        std::vector<std::string> getLaneIdsSelected() const;
+        /// @brief show Legend modul
+        void showHelpCreationModule(SumoXMLTag XMLTag);
 
-        /// @brief Show list of SelectorChildLanes Modul
-        void showSelectorChildLanesModul(std::string search = "");
-
-        /// @brief hide SelectorChildLanes Modul
-        void hideSelectorChildLanesModul();
-
-        // @brief Update use selectedLanes
-        void updateUseSelectedLanes();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user trigger checkBox of useSelectedLanes
-        long onCmdUseSelectedLanes(FXObject*, FXSelector, void*);
-
-        /// @brief called when user type in search box
-        long onCmdTypeInSearchBox(FXObject*, FXSelector, void*);
-
-        /// @brief called when user select a lane of the list
-        long onCmdSelectLane(FXObject*, FXSelector, void*);
-
-        /// @brief called when clear selection button is pressed
-        long onCmdClearSelection(FXObject*, FXSelector, void*);
-
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(SelectorChildLanes)
+        /// @brief hide Legend modul
+        void hideHelpCreationModule();
 
     private:
-        /// @brief pointer to additional frame parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
+        /// @brief add translated string
+        std::string addTLString(const std::string& str);
 
-        /// @brief CheckBox for selected lanes
-        FXCheckButton* myUseSelectedLanesCheckButton;
+        /// @brief help label
+        FXLabel* myHelpLabel = nullptr;
 
-        /// @brief List of SelectorChildLanes
-        FXList* myList;
-
-        /// @brief text field for search lane IDs
-        FXTextField* myLanesSearch;
-
-        /// @brief button for clear selection
-        FXButton* clearLanesSelection;
-
-        /// @brief button for invert selection
-        FXButton* invertLanesSelection;
-    };
-
-    // ===========================================================================
-    // class E2MultilaneLaneSelector
-    // ===========================================================================
-
-    class E2MultilaneLaneSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::E2MultilaneLaneSelector)
-
-    public:
-        /// @brief default constructor
-        E2MultilaneLaneSelector(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~E2MultilaneLaneSelector();
-
-        /// @brief show E2MultilaneLaneSelector
-        void showE2MultilaneLaneSelectorModul();
-
-        /// @brief show E2MultilaneLaneSelector
-        void hideE2MultilaneLaneSelectorModul();
-
-        /// @brief add lane
-        bool addLane(GNELane* lane);
-
-        /// @brief draw candidate lanes with special color (Only for candidates, special and conflicted)
-        bool drawCandidateLanesWithSpecialColor() const;
-
-        /// @brief update lane colors
-        void updateLaneColors();
-
-        /// @brief draw temporal E2Multilane
-        void drawTemporalE2Multilane(const GUIVisualizationSettings& s) const;
-
-        /// @brief create path
-        bool createPath();
-
-        /// @brief abort path creation
-        void abortPathCreation();
-
-        /// @brief remove path element
-        void removeLastElement();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user click over button "Finish route creation"
-        long onCmdCreatePath(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove las inserted lane"
-        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over check button "show candidate lanes"
-        long onCmdShowCandidateLanes(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief fox need this
-        FOX_CONSTRUCTOR(E2MultilaneLaneSelector)
-
-        /// @brief update InfoRouteLabel
-        void updateInfoRouteLabel();
-
-        /// @brief clear lanes (and restore colors)
-        void clearPath();
-
-        /// @brief current additional frame parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief vector with lanes and clicked positions
-        std::vector<std::pair<GNELane*, double> > myLanePath;
-
-        /// @brief label with route info
-        FXLabel* myInfoRouteLabel;
-
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted element
-        FXButton* myRemoveLastInsertedElement;
-
-        /// @brief CheckBox for show candidate lanes
-        FXCheckButton* myShowCandidateLanes;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        E2MultilaneLaneSelector(E2MultilaneLaneSelector*) = delete;
-
-        /// @brief Invalidated assignment operator.
-        E2MultilaneLaneSelector& operator=(E2MultilaneLaneSelector*) = delete;
+        /// @brief map with tags and their associated help
+        std::map<SumoXMLTag, std::string> myHelpMap;
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEAdditionalFrame();
@@ -355,33 +102,36 @@ public:
     void show();
 
     /**@brief add additional element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if additional was sucesfully added
+     * @param viewObjects collection of objects under cursor after click over view
+     * @return true if additional was successfully added
      */
-    bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addAdditional(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
-    /// @brief show selector child lane and update use selected edges/lanes
-    void showSelectorChildLanesModul();
+    /// @brief get edges selector
+    GNENetworkSelector* getEdgesSelector() const;
 
-    /// @brief get consecutive Lane Selector
-    GNEAdditionalFrame::SelectorParentLanes* getConsecutiveLaneSelector() const;
+    /// @brief get edges selector
+    GNENetworkSelector* getLanesSelector() const;
 
-    /// @brief getConsecutive Lane Selector
-    GNEAdditionalFrame::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
+    /// @brief get consecutive lane selector
+    GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
+
+    /// @brief get Netedit parameter
+    GNENeteditAttributes* getNeteditAttributes() const;
+
+    /// @brief create path
+    bool createPath(const bool useLastRoute);
 
 protected:
     /// @brief SumoBaseObject used for create additional
-    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
+    CommonXMLStructure::SumoBaseObject* myBaseAdditional = nullptr;
 
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
 private:
     // @brief create baseAdditionalObject
     bool createBaseAdditionalObject(const GNETagProperties& tagProperty);
-
-    /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetworkElement* networkElement) const;
 
     /// @brief build common additional attributes
     bool buildAdditionalCommonAttributes(const GNETagProperties& tagValues);
@@ -396,26 +146,29 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModuls::TagSelector* myAdditionalTagSelector;
+    GNETagSelector* myAdditionalTagSelector = nullptr;
 
     /// @brief internal additional attributes
-    GNEFrameAttributesModuls::AttributesCreator* myAdditionalAttributes;
+    GNEAttributesCreator* myAdditionalAttributes = nullptr;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes = nullptr;
 
-    /// @brief Modul for select parent lanes (currently only consecutives)
-    SelectorParentLanes* mySelectorParentLanes;
+    /// @brief Module for select a single parent additional
+    GNESelectorParent* mySelectorAdditionalParent = nullptr;
 
-    /// @brief Modul for select a single parent additional
-    GNEFrameModuls::SelectorParent* myParentAdditional;
+    /// @brief Module for select edges
+    GNENetworkSelector* myEdgesSelector = nullptr;
 
-    /// @brief Modul for select child edges
-    SelectorChildEdges* mySelectorChildEdges;
+    /// @brief Module for select lanes
+    GNENetworkSelector* myLanesSelector = nullptr;
 
-    /// @brief Modul for select child lanes
-    SelectorChildLanes* mySelectorChildLanes;
+    /// @brief Module for select consecutive lanes
+    GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
 
-    /// @brief Modul for E2Multilane lane selector
-    E2MultilaneLaneSelector* myE2MultilaneLaneSelector;
+    /// @brief Module for show additional help legend
+    HelpCreationModule* myHelpCreationModule = nullptr;
+
+    /// @brief Module for show E2 Detector legend
+    E2MultilaneLegendModule* myE2MultilaneLegendModule = nullptr;
 };

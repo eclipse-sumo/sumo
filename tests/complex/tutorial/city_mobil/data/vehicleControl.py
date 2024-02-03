@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,14 +19,13 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import subprocess
 import random
 import sys
 import os
 from optparse import OptionParser
 
 from constants import PREFIX, DOUBLE_ROWS, STOP_POS, SLOTS_PER_ROW, SLOT_LENGTH, BUS_CAPACITY, BREAK_DELAY
-from constants import CYBER_CAPACITY, PORT
+from constants import CYBER_CAPACITY
 import statistics
 
 if 'SUMO_HOME' in os.environ:
@@ -75,6 +74,7 @@ class Setting:
     manager = None
     verbose = False
     cyber = False
+    breakstep = None
 
 
 setting = Setting()
@@ -99,15 +99,13 @@ def init(manager):
     optParser.add_option("-t", "--test", action="store_true",
                          default=False, help="Run in test mode")
     options, _ = optParser.parse_args()
-    sumoExe = os.environ.get("SUMO_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo'))
+    sumoExe = sumolib.checkBinary('sumo')
     if options.gui:
-        sumoExe = os.environ.get("GUISIM_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui'))
+        sumoExe = sumolib.checkBinary('sumo-gui')
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
-    sumoProcess = subprocess.Popen(
-        [sumoExe, sumoConfig], stdout=sys.stdout, stderr=sys.stderr)
-    traci.init(PORT)
+    traci.start([sumoExe, "-c", sumoConfig])
     traci.simulation.subscribe()
     setting.manager = manager
     setting.verbose = options.verbose
@@ -119,7 +117,6 @@ def init(manager):
         statistics.evaluate(options.test)
     finally:
         traci.close()
-        sumoProcess.wait()
 
 
 def getCapacity():

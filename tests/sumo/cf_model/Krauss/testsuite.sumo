@@ -1,0 +1,23 @@
+# test step-length effect on dawdling (sigma)
+sigma1_step1
+
+# test step-length effect on dawdling (sigma)
+sigma1_step0.1
+
+# test step-length effect on dawdling (sigma)
+sigma1_step0.1_actionStep1
+
+# test step-length effect on dawdling (sigma)
+sigma1_step0.1_sigmaStep1
+
+# test unsuitable sigmaStep
+sigma1_step0.1_sigmaStep0.75
+
+# test step-length effect on dawdling (sigma)
+sigma1_step1_ballistic
+
+# test step-length effect on dawdling (sigma)
+sigma1_step0.1_sigmaStep1_ballistic
+
+# stuck at low speed (#11165)
+startupDelay0.5_low_accel

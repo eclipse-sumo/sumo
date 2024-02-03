@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@
 
 class MSVehicleMock : public MSVehicle {
 public:
-    MSVehicleMock(SUMOVehicleParameter* pars, const MSRoute* route,
+    MSVehicleMock(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                   MSVehicleType* type, const double speedFactor):
         MSVehicle(pars, route, type, speedFactor) {}
 
@@ -51,7 +51,7 @@ protected :
     MSVehicleType* type;
     SUMOVehicleParameter* defs;
     MSVehicle* veh;
-    MSRoute* route;
+    ConstMSRoutePtr route;
     MSEdge* edge;
     MSLane* lane;
     double accel;
@@ -73,12 +73,12 @@ protected :
         //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";
         ConstMSEdgeVector edges;
         MSEdge* dummyEdge = new MSEdge("dummy", 0, SumoXMLEdgeFunc::NORMAL, "", "", -1, 0);
-        MSLane* dummyLane = new MSLane("dummy_0", 50 / 3.6, 100, dummyEdge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, SVCAll, SVCAll, 0, false, "");
+        MSLane* dummyLane = new MSLane("dummy_0", 50 / 3.6, 1., 100, dummyEdge, 0, PositionVector(), SUMO_const_laneWidth, SVCAll, SVCAll, SVCAll, 0, false, "");
         std::vector<MSLane*> lanes;
         lanes.push_back(dummyLane);
         dummyEdge->initialize(&lanes);
         edges.push_back(dummyEdge);
-        route = new MSRoute("dummyRoute", edges, true, 0, defs->stops);
+        route = std::make_shared<MSRoute>("dummyRoute", edges, true, nullptr, defs->stops);
         MSGlobals::gActionStepLength = DELTA_T;
         type = MSVehicleType::build(typeDefs);
         veh = new MSVehicleMock(defs, route, type, 1);
@@ -90,7 +90,6 @@ protected :
     virtual void TearDown() {
         delete veh;
         delete type;
-        delete route;
     }
 };
 
@@ -116,6 +115,3 @@ TEST_F(MSCFModel_IDMTest, test_method_getSecureGap) {
         }
     }
 }
-
-
-

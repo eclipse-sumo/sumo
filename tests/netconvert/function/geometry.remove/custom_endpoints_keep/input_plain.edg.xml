@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-08 09:21:51 by Eclipse SUMO netedit Version v1_17_0+0120-285d85c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <new-network value="false"/>
+    </netedit>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E0" from="J0" to="clusterJ1_J2" priority="-1" numLanes="1" speed="13.89" shape="0.00,112.50 0.00,37.50"/>
+    <edge id="E1" from="clusterJ1_J2" to="clusterJ3_J4" priority="-1" numLanes="1" speed="13.89" shape="25.00,12.50 87.50,12.50"/>
+    <edge id="E3" from="clusterJ3_J4" to="J5" priority="-1" numLanes="1" speed="13.89" shape="125.00,12.50 200.00,12.50"/>
+</edges>

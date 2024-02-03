@@ -15,7 +15,6 @@ street_names
 
 # import original ids
 orig_names
-write_numerical_ids
 
 # testing timerestrictions
 timerestriction
@@ -36,3 +35,4 @@ version_6.1
 
 # overwriting edge type
 type
+duplicate_id_ignore

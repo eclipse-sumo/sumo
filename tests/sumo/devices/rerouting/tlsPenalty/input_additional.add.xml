@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-24 16:42:22 by Eclipse SUMO netedit Version v1_12_0+1649-870e1bc
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <e3Detector id="detour" pos="95.26,-14.99" freq="36000" file="detector.xml">
+        <detExit lane="g_0" pos="88.94"/>
+        <detEntry lane="e_0" pos="0.72"/>
+    </e3Detector>
+    <e3Detector id="main" pos="84.72,-10.44" freq="36000" file="detector.xml">
+        <detExit lane="c_1" pos="92.25"/>
+        <detExit lane="c_0" pos="92.22"/>
+        <detEntry lane="b_1" pos="0.56"/>
+        <detEntry lane="b_0" pos="0.70"/>
+    </e3Detector>
+</additional>

@@ -71,11 +71,20 @@ taz_astar_landmark_empty
 auto_trip_with_stop
 auto_trip_single_edge_depart_beyond_arrival
 
+# two stops on the same edge in driving order
+two_stops_same_edge
+
+# two stops on the same edge in reverse driving order (requires loop)
+two_stops_same_edge_looped
+
 # factor edge-priority into routing search
 priority-factor
 
 # track separate speeds for bicycles
 bike-speeds
+
+# using stops and via at the same time
+stops_via
 
 # Errors on assignment
 errors

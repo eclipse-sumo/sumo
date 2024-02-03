@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,14 +31,14 @@ import sys
 import csv
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 
 
 def readValues(file, verbose, columns):
     ret = {}
-    with open(file, 'rb') as f:
+    with open(file) as f:
         if verbose:
             print("Reading '%s'..." % f)
         reader = csv.reader(f, delimiter=';')
@@ -55,19 +55,18 @@ def readValues(file, verbose, columns):
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-i", "--input", dest="input", metavar="FILE",
-                         help="Defines the input file to use")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
-    optParser.add_option("-c", "--columns", dest="columns",
-                         default=None, help="Defines which columns shall be plotted")
+    ap = ArgumentParser()
+    ap.add_argument("-i", "--input", dest="input", category="input", type=ap.file, metavar="FILE",
+                    required=True, help="Defines the input file to use")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                    default=False, help="If set, the script says what it's doing")
+    ap.add_argument("--columns", dest="columns",
+                    default=None, help="Defines which columns shall be plotted")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, _ = optParser.parse_args(args=args)
+    options = ap.parse_args(args=args)
 
     if options.input is None:
         print("Error: an input file must be given")
@@ -89,9 +88,15 @@ def main(args=None):
         if options.columns is not None:
             ci = options.columns.index(i)
         c = helpers.getColor(options, ci, len(nums))
-        plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), color=c)
+        addArgs = {"linestyle": options.linestyle, "color": c}
+        if options.marker is not None:
+            addArgs["marker"] = options.marker
+        plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), **addArgs)
     helpers.closeFigure(fig, ax, options)
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main(sys.argv[1:])
+    except ValueError as e:
+        sys.exit(e)

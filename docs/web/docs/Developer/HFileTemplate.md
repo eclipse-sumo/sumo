@@ -4,7 +4,7 @@ title: HFileTemplate
 
 ```cpp
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see <https://eclipse.org/sumo>
+// Eclipse SUMO, Simulation of Urban MObility; see <https://eclipse.dev/sumo>
 // Copyright (C) <YEAR OF CREATION>-<CURRENT YEAR> German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -82,7 +82,7 @@ public:
 
     /** @brief some functions can throw exceptions but don't use throw declarations
      * @param[in] parameter1 description of the parameter
-     * @throw <exceptionName> description of the situation that provoque an exception
+     * @throw <exceptionName> description of the situation that provokes an exception
      * @return description of the returned value
      */
     bool setParameter1(<type> parameter1) const;

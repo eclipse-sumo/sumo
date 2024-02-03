@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <utils/foxtools/fxheader.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 
 
 // ===========================================================================
@@ -37,7 +38,7 @@
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow {
+class GUIDialog_Breakpoints : public FXMainWindow, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 
@@ -45,7 +46,7 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock);
+    GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock, const SUMOTime simBegin);
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints();
@@ -65,6 +66,9 @@ public:
     /// @brief Called when the user presses the Clear-button
     long onCmdClear(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user clicks a time link in the message window
+    long onCmdUpdateBreakpoints(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user presses the Close-button
     long onCmdClose(FXObject*, FXSelector, void*);
 
@@ -74,12 +78,14 @@ public:
 
     virtual void layout();
 
+    /// @brief Rebuilds the entire list
+    void rebuildList();
+
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIDialog_Breakpoints)
 
 private:
-    /// @brief Rebuilds the entire list
-    void rebuildList();
 
     /** @brief Builds a text representation of the items in the list
      * @return Breakpoints encoded as a string
@@ -90,11 +96,14 @@ private:
     FXTable* myTable;
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIApplicationWindow* myParent;
 
     /// @brief List of breakpoints
     std::vector<SUMOTime>* myBreakpoints;
 
     /// @brief Lock for modifying the list of breakpoints
     FXMutex* myBreakpointLock;
+
+    /// @brief simulation begin
+    SUMOTime mySimBegin;
 };

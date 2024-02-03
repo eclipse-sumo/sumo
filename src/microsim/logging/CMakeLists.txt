@@ -1,5 +1,6 @@
 set(microsim_logging_STAT_SRCS
     CastingFunctionBinding.h
+    CastingFunctionBinding_Param.h
     FuncBinding_IntParam.h
     FuncBinding_StringParam.h
     FunctionBinding.h

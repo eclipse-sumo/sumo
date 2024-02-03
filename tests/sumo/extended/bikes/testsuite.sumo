@@ -1,3 +1,9 @@
+# intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
+bikeDepartDelay
+
+# intersection connected with edges only for bike and pedestrian; a pedestrian is walking with acc in front of the bike and the bike makes unnecessary emergency braking
+bikeUnnecessaryEmergencyBraking
+
 # bike lane ends at tls and merges with vehicle lanes going straight
 tls_merge_straight
 

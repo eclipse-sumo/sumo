@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
@@ -20,7 +20,7 @@
 ///
 //
 /****************************************************************************/
-
+#include <config.h>
 
 #include "CEP.h"
 #include "Constants.h"
@@ -232,7 +232,7 @@ namespace PHEMlightdll {
         std::vector<double> emissionCurve;
         std::vector<double> powerPattern;
 
-        // bisection search to find correct position in power pattern	
+        // bisection search to find correct position in power pattern
         int upperIndex;
         int lowerIndex;
 
@@ -383,7 +383,7 @@ namespace PHEMlightdll {
             return;
         }
 
-        // bisection search to find correct position in power pattern	
+        // bisection search to find correct position in power pattern
         int middleIndex = ((int)pattern.size() - 1) / 2;
         upperIndex = (int)pattern.size() - 1;
         lowerIndex = 0;

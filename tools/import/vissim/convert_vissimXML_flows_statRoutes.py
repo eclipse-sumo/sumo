@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2015-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2015-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,14 @@ see also:
 from __future__ import absolute_import
 from __future__ import print_function
 
-import argparse
+import os
+import sys
 from xml.dom import minidom
-import numpy as np
 from xml.dom.minidom import Document
+import numpy as np
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def _dict_from_node_attributes(node):
@@ -117,7 +121,7 @@ def parse_length(xmldoc):
     """parses the vehicle type lengths from the VISSIM data
     :param xmldoc:  input VISSIM xml
     :type xmldoc:   xml.dom.minidom.Document
-    :return:    map of lenghts by str(numeric type)
+    :return:    map of lengths by str(numeric type)
     :rtype:     dict
     """
     len_d = dict()
@@ -282,7 +286,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
 
 
 def calc_route_probability(routes_by_start_d, flow_d):
-    """computes the route probabilies
+    """computes the route probabilities
     :param routes_by_start_d:   map by start link id with route dicts as values
     :type routes_by_start_d:    dict
     :param flow_d:      vissim vehicle in-flow data
@@ -349,7 +353,7 @@ def validate_rel_flow(routes_by_start_d, flow_d):
                 continue
             else:
                 # check if the time frame starts are the same
-                assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]),\
+                assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]), \
                     "\nPROBLEM: flow count and relative flow time frames are not aligned\n\t"\
                     "for VISSIM start link id: " + start_link
         # copy back modifications
@@ -479,17 +483,17 @@ def create_flow_elems(routes_by_start_d, flow_d, root):
 
 # MAIN
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
+    op = sumolib.options.ArgumentParser(
         description='road network conversion utility for static route flows'
         ' (VISSIM.inpx to SUMO); generates SUMO routes definition file from'
         ' given inpx and derived (by netconvert) SUMO net.')
-    parser.add_argument('--output-file', '-o', default='routes.rou.xml',
-                        help='output file name (default: %(default)s)')
-    parser.add_argument('--vissim-file', '-V', dest="vissim_file", required=True,
-                        help='VISSIM inpx file path')
-    parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", required=True,
-                        help='SUMO net file path')
-    args = parser.parse_args()
+    op.add_argument('--output-file', '-o', default='routes.rou.xml', category="output", type=op.route_file,
+                    help='output file name (default: %(default)s)')
+    op.add_argument('--vissim-file', '-V', dest="vissim_file", category="input", required=True, type=op.file,
+                    help='VISSIM inpx file path')
+    op.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", category="input", required=True, type=op.net_file,
+                    help='SUMO net file path')
+    args = op.parse_args()
     # print("\n", args, "\n")
 
     #
@@ -562,7 +566,7 @@ if __name__ == '__main__':
     create_flow_elems(routes_by_start_d, flow_d, routes_Elem)
     print('OK.\n---')
 
-    print('* wrinting output:')
+    print('* writing output:')
     # write the data into a .rou.xml file
     out_Fn = args.output_file
     if not out_Fn.endswith('.xml'):

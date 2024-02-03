@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:00 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-21 10:40:06 by Eclipse SUMO netconvert Version v1_11_0+1356-4cd8f70
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,15 +48,15 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,-100.00,100.00,-100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id="-gneE7" from="gneJ10" to="gneJ8" priority="-1" spreadType="center" shape="100.00,-100.00 40.00,-100.00 0.00,-100.00" bidi="gneE7">
-        <lane id="-gneE7_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,-100.00 40.00,-100.00 0.00,-100.00"/>
+    <edge id="-gneE7" from="gneJ10" to="gneJ8" priority="-1" spreadType="center" shape="100.00,-100.00 80.00,-100.00 60.00,-100.00 40.00,-100.00 0.00,-100.00" bidi="gneE7">
+        <lane id="-gneE7_0" index="0" allow="rail" speed="27.78" length="100.00" shape="100.00,-100.00 80.00,-100.00 60.00,-100.00 40.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id="gneE7" from="gneJ8" to="gneJ10" priority="-1" spreadType="center" shape="0.00,-100.00 40.00,-100.00 100.00,-100.00" bidi="-gneE7">
-        <lane id="gneE7_0" index="0" allow="rail" speed="27.78" length="100.00" shape="0.00,-100.00 40.00,-100.00 100.00,-100.00"/>
+    <edge id="gneE7" from="gneJ8" to="gneJ10" priority="-1" spreadType="center" shape="0.00,-100.00 40.00,-100.00 60.00,-100.00 80.00,-100.00 100.00,-100.00" bidi="-gneE7">
+        <lane id="gneE7_0" index="0" allow="rail" speed="27.78" length="100.00" shape="0.00,-100.00 40.00,-100.00 60.00,-100.00 80.00,-100.00 100.00,-100.00"/>
     </edge>
 
     <junction id="gneJ10" type="dead_end" x="100.00" y="-100.00" incLanes="gneE7_0" intLanes="" shape="100.00,-101.60 100.00,-98.40 100.00,-101.60 100.00,-98.40"/>

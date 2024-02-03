@@ -1,0 +1,36 @@
+Warning: Ignoring loaded location attribute nr. 2 for tracking of original location
+Warning: Edge '-186888644#0' occurred at least twice in the input.
+Warning: Edge '-186888644#1' occurred at least twice in the input.
+Warning: Edge '-25653599#3' occurred at least twice in the input.
+Warning: Edge '-30001406#5' occurred at least twice in the input.
+Warning: Edge '-315121049#1' occurred at least twice in the input.
+Warning: Could not add program '0' for traffic light 'GS_10712629312'
+Warning: Could not add program '0' for traffic light 'GS_10712629331'
+Warning: Junction '10367262' occurred at least twice in the input.
+Warning: Junction '10712629312' occurred at least twice in the input.
+Warning: Junction '10712629331' occurred at least twice in the input.
+Warning: Junction '1538384838' occurred at least twice in the input.
+Warning: Junction '264161811' occurred at least twice in the input.
+Warning: Removing invalid connection from edge '-186888644#0' to edge '-951930363'
+Warning: Removing invalid connection from edge '-186888644#1' to edge '-25653599#3'
+Warning: Removing invalid connection from edge '-25653599#3' to edge '-315121049#1'
+Warning: Removing invalid connection from edge '-25653599#3' to edge '315121059#0'
+Warning: Removing invalid connection from edge '-25653599#3' to edge '25653599#0'
+Warning: Found sharp turn with radius 8.00 at the start of edge '-4354348#1'.
+Warning: Found sharp turn with radius 8.00 at the end of edge '4354348#0'.
+Warning: Edge '-140407867#0' is not connected to outgoing edges at junction '1538384838'.
+Warning: Lane '1084508685_0' is not connected from any incoming edge at junction '296393408'.
+Warning: Lane '140407867#0_0' is not connected from any incoming edge at junction '1538384838'.
+Warning: Edge '30001406#4' is not connected to outgoing edges at junction '296393408'.
+Warning: Non-static traffic light 'GS_cluster_10713909088_10717662074' does not define variable phase length.
+Warning: Edge '-1138000381' has a grade of 25.53%.
+Warning: Edge '-186888644#0' has a grade of 16.87%.
+Warning: Edge '-25653599#10' has a grade of 10.89%.
+Warning: Edge '-25653599#11' has a grade of 22.00%.
+Warning: Edge '-25653599#14' has a grade of 36.33%.
+Warning: Unused state in tlLogic 'GS_10011891', program '0' at tl-index 0
+Warning: Unused state in tlLogic 'GS_10712629312', program '0' at tl-index 12
+Warning: 42 total messages of type: Edge '%' has a grade of %%.
+Warning: 19 total messages of type: Edge '%' occurred at least twice in the input.
+Warning: 9 total messages of type: Junction '%' occurred at least twice in the input.
+Warning: 18 total messages of type: Removing invalid connection from edge '%' to edge '%'

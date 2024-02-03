@@ -1,3 +1,0 @@
-Warning: Essential filename attribute 'file' of e2Detector with ID 'E2_01' is missing; e2Detector cannot be created
-Warning: Format of essential filename attribute 'file' of e2Detector with ID 'E2_02' is invalid; Filename contains invalid characters; e2Detector cannot be created
-Warning: Format of essential filename attribute 'file' of e2Detector with ID 'E2_03' is invalid; Filename cannot be empty; e2Detector cannot be created

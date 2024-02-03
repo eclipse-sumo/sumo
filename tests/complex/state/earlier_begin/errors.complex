@@ -1,0 +1,3 @@
+Warning: State was written at a different time=25.00 than the begin time 0!
+Error: Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files
+Quitting (on error).

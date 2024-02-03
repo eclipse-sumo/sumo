@@ -1,3 +1,12 @@
+function(setTestProperties targetname)
+    set_target_properties(${targetname} PROPERTIES OUTPUT_NAME ${targetname}${BINARY_SUFFIX})
+    set_target_properties(${targetname} PROPERTIES OUTPUT_NAME_DEBUG ${targetname}${BINARY_SUFFIX}D)
+    add_dependencies(${targetname} install_dll install_test_dll)
+    set_property(TARGET ${targetname} PROPERTY FOLDER "test_exe")
+    add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
+    target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${TCMALLOC_LIBRARY} ${GTEST_BOTH_LIBRARIES})
+endfunction()
+
 add_subdirectory(utils)
 add_subdirectory(microsim)
 add_subdirectory(netbuild)

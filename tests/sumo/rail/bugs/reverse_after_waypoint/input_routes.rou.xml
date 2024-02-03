@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-02 17:31:21 by Eclipse SUMO netedit Version v1_12_0+0227-d401ef1
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail" length="20"/>
+    <vehicle id="v_0" type="train" depart="0.00">
+        <route edges="E0 E1 -E1 -E0"/>
+        <stop edge="E1" speed="5"/>
+    </vehicle>
+</routes>

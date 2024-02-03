@@ -1,0 +1,9 @@
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
+Error: Invalid duration or end time is given for a stop at 'parkingArea'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.26Jan095536.11267/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/containertrigger/routes.rou.xml failed.

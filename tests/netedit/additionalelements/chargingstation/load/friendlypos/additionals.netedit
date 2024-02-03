@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-13 15:54:40 by Eclipse SUMO netedit Version v1_16_0+0157-fcef944c26c
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <chargingStation id="chargingStation_1" name="chargingStation" lane="center1_1" startPos="15.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_2" name="chargingStation" lane="center1_1" startPos="-20.00" endPos="-10.00" friendlyPos="true" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_3" name="chargingStation" lane="center1_1" startPos="200.00" endPos="300.00" friendlyPos="true" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_4" name="chargingStation" lane="center1_1" startPos="50.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
+    <chargingStation id="chargingStation_5" name="chargingStation" lane="center1_1" startPos="20.00" endPos="20.00" friendlyPos="true" chargeDelay="5000"/>
+</additional>

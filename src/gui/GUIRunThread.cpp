@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,12 +48,21 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                           FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(app, parent),
-      myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
-      mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
+GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent, double& simDelay,
+                           MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    MFXSingleEventThread(app, parent),
+    myNet(nullptr),
+    myHalting(true),
+    myQuit(false),
+    mySimulationInProgress(false),
+    myOk(true),
+    myHaveSignaledEnd(false),
+    mySimDelay(simDelay),
+    myEventQue(eq),
+    myEventThrow(ev),
+    myLastEndMillis(-1),
+    myLastBreakMillis(0),
+    myAmLibsumo(false) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -96,13 +105,13 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
         if (std::string(e2.what()) != std::string("Process Error") && std::string(e2.what()) != std::string("")) {
             WRITE_ERROR(e2.what());
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
@@ -115,38 +124,13 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
 
 FXint
 GUIRunThread::run() {
-    long beg = 0;
-    long end = -1;
     // perform an endless loop
     while (!myQuit) {
-        // if the simulation shall be perfomed, do it
-        if (!myHalting && myNet != nullptr && myOk) {
-            beg = SysUtils::getCurrentMillis();
-            if (end != -1) {
-                getNet().setIdleDuration((int)(beg - end));
-            }
-            // check whether we shall stop at this step
-            myBreakpointLock.lock();
-            const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
-            myBreakpointLock.unlock();
-            // do the step
-            makeStep();
-            waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
-            // stop if wished
-            if (haltAfter) {
-                stop();
-            }
-            // wait if wanted (delay is per simulated second)
-            long wait = (long)(mySimDelay * TS);
-            end = SysUtils::getCurrentMillis();
-            getNet().setSimDuration((int)(end - beg));
-            wait -= (end - beg);
-            if (wait > 0) {
-                sleep(wait);
-            }
+        if (myAmLibsumo) {
+            myApp->run();
         } else {
-            // sleep if the simulation is not running
-            sleep(50);
+            // if the simulation shall be performed, do it
+            tryStep();
         }
     }
     // delete a maybe existing simulation at the end
@@ -156,9 +140,53 @@ GUIRunThread::run() {
 
 
 void
+GUIRunThread::tryStep() {
+    if (!myHalting && myNet != nullptr && myOk) {
+        const long beg = SysUtils::getCurrentMillis();
+        if (myLastEndMillis != -1) {
+            getNet().setIdleDuration((int)(beg - myLastEndMillis));
+        }
+        // check whether we shall stop at this step
+        myBreakpointLock.lock();
+        const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
+        myBreakpointLock.unlock();
+        // stop after this step if wished
+        if (haltAfter) {
+            stop();
+        }
+        // stop the execution when only a single step should have been performed
+        if (mySingle) {
+            myHalting = true;
+        }
+        // do the step
+        makeStep();
+        waitForSnapshots(myNet->getCurrentTimeStep() - DELTA_T);
+        // wait if wanted (delay is per simulated second)
+        long wait = (long)(mySimDelay * TS);
+        myLastEndMillis = SysUtils::getCurrentMillis();
+        getNet().setSimDuration((int)(myLastEndMillis - beg));
+        wait -= (myLastEndMillis - beg);
+        if (wait > 0) {
+            myLastBreakMillis = myLastEndMillis;
+            sleep(wait);
+#ifndef WIN32
+        } else if (myLastEndMillis - myLastBreakMillis > 1000) {
+            // ensure redraw event is successful at least once per second (#9028)
+            sleep(100);
+            myLastBreakMillis = myLastEndMillis;
+#endif
+        }
+    } else {
+        // sleep if the simulation is not running
+        sleep(50);
+    }
+}
+
+
+void
 GUIRunThread::makeStep() {
     GUIEvent* e = nullptr;
-    // simulation is being perfomed
+    // simulation is being performed
     mySimulationInProgress = true;
     // execute a single step
     try {
@@ -173,7 +201,7 @@ GUIRunThread::makeStep() {
         myEventThrow.signal();
 
         e = nullptr;
-        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime));
+        MSNet::SimulationState state = myNet->adaptToState(myNet->simulationState(mySimEndTime), myAmLibsumo);
         switch (state) {
             case MSNet::SIMSTATE_LOADING:
             case MSNet::SIMSTATE_END_STEP_REACHED:
@@ -194,11 +222,6 @@ GUIRunThread::makeStep() {
         if (e != nullptr) {
             myEventQue.push_back(e);
             myEventThrow.signal();
-            myHalting = true;
-        }
-        // stop the execution when only a single step should have
-        //  been performed
-        if (mySingle) {
             myHalting = true;
         }
         // simulation step is over
@@ -247,7 +270,7 @@ GUIRunThread::singleStep() {
 void
 GUIRunThread::begin() {
     // report the begin when wished
-    WRITE_MESSAGE("Simulation started with time: " + time2string(mySimStartTime));
+    WRITE_MESSAGEF(TL("Simulation started with time: %."), time2string(mySimStartTime));
     myOk = true;
 }
 
@@ -260,7 +283,7 @@ GUIRunThread::stop() {
 
 
 bool
-GUIRunThread::simulationAvailable() const {
+GUIRunThread::networkAvailable() const {
     return myNet != nullptr;
 }
 
@@ -268,6 +291,8 @@ GUIRunThread::simulationAvailable() const {
 void
 GUIRunThread::deleteSim() {
     myHalting = true;
+    // flush aggregated warnings
+    MsgHandler::getWarningInstance()->clear();
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
@@ -277,7 +302,9 @@ GUIRunThread::deleteSim() {
     if (myNet != nullptr) {
         myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage(myNet->simulationState(mySimEndTime)));
     }
-    while (mySimulationInProgress);
+    while (mySimulationInProgress) {
+        sleep(50);
+    }
     delete myNet;
     GUIGlObjectStorage::gIDStorage.clear();
     myNet = nullptr;

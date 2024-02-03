@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,12 +27,14 @@
 #include <map>
 #include <algorithm>
 #include <iterator>
+#include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -76,13 +78,13 @@ NLEdgeControlBuilder::beginEdgeParsing(
 
 MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
-                              double maxSpeed, double length,
+                              double maxSpeed, double friction, double length,
                               const PositionVector& shape, double width,
                               SVCPermissions permissions,
                               SVCPermissions changeLeft, SVCPermissions changeRight,
                               int index, bool isRampAccel,
                               const std::string& type) {
-    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
+    MSLane* lane = new MSLane(id, maxSpeed, friction, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
     myLaneStorage->push_back(lane);
     myCurrentLaneIndex = index;
     return lane;
@@ -90,15 +92,13 @@ NLEdgeControlBuilder::addLane(const std::string& id,
 
 
 void
-NLEdgeControlBuilder::addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
-
+NLEdgeControlBuilder::addStopOffsets(const StopOffset& stopOffset) {
     if (myCurrentLaneIndex == -1) {
-        setDefaultStopOffsets(stopOffsets);
+        setDefaultStopOffset(stopOffset);
     } else {
-        updateCurrentLaneStopOffsets(stopOffsets);
+        updateCurrentLaneStopOffset(stopOffset);
     }
 }
-
 
 
 std::string
@@ -113,42 +113,41 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 
 
 void
-NLEdgeControlBuilder::updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
-    assert(myLaneStorage->size() != 0);
-    if (stopOffsets.size() == 0) {
-        return;
+NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
+    if (myLaneStorage->size() == 0) {
+        throw ProcessError("myLaneStorage cannot be empty");
     }
-    if (myLaneStorage->back()->getStopOffsets().size() != 0) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for lane " << myLaneStorage->back()->getIndex() << " on edge " << myActiveEdge->getID() << "!";
-        WRITE_WARNING(ss.str())
-    } else {
-        myLaneStorage->back()->setStopOffsets(stopOffsets);
+    if (stopOffset.isDefined()) {
+        if (myLaneStorage->back()->getLaneStopOffsets().isDefined()) {
+            WRITE_WARNING("Duplicate stopOffset definition for lane " + toString(myLaneStorage->back()->getIndex()) +
+                          " on edge " + myActiveEdge->getID() + "!")
+        } else {
+            myLaneStorage->back()->setLaneStopOffset(stopOffset);
+        }
     }
 }
 
 
 void
-NLEdgeControlBuilder::setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
-    if (myCurrentDefaultStopOffsets.size() != 0) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << ". Ignoring duplicate specification.";
-        WRITE_WARNING(ss.str())
+NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset& stopOffsets) {
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        WRITE_WARNING("Duplicate stopOffset definition for edge " + myActiveEdge->getID() + ". Ignoring duplicate specification.")
     } else {
-        myCurrentDefaultStopOffsets = stopOffsets;
+        myCurrentDefaultStopOffset = stopOffsets;
     }
 }
 
 
 void
 NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
-    assert(myActiveEdge != 0);
-    if (myCurrentDefaultStopOffsets.size() == 0) {
-        return;
+    if (myActiveEdge == nullptr) {
+        throw ProcessError("myActiveEdge cannot be nullptr");
     }
-    for (MSLane* l : *myLaneStorage) {
-        if (l->getStopOffsets().size() == 0) {
-            l->setStopOffsets(myCurrentDefaultStopOffsets);
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        for (const auto& l : *myLaneStorage) {
+            if (!l->getLaneStopOffsets().isDefined()) {
+                l->setLaneStopOffset(myCurrentDefaultStopOffset);
+            }
         }
     }
 }
@@ -156,7 +155,7 @@ NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
 
 void
 NLEdgeControlBuilder::addNeigh(const std::string id) {
-    myLaneStorage->back()->addNeigh(id);
+    myOppositeLanes.push_back({myLaneStorage->back(), id});
 }
 
 
@@ -168,7 +167,7 @@ NLEdgeControlBuilder::closeEdge() {
     copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
     myLaneStorage->clear();
     myActiveEdge->initialize(lanes);
-    myCurrentDefaultStopOffsets.clear();
+    myCurrentDefaultStopOffset.reset();
     return myActiveEdge;
 }
 
@@ -180,20 +179,42 @@ NLEdgeControlBuilder::closeLane() {
 
 
 MSEdgeControl*
-NLEdgeControlBuilder::build(double networkVersion) {
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->closeBuilding();
+NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
+    if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+        MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
     }
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->buildLaneChanger();
+    // connecting opposite lanes must happen before MSEdge::closeBuilding
+    for (auto item : myOppositeLanes) {
+        MSLane* oppo = MSLane::dictionary(item.second);
+        if (oppo == nullptr) {
+            WRITE_ERRORF("Unknown neigh lane '%' for lane '%'", item.second, item.first->getID());
+        } else {
+            item.first->setOpposite(oppo);
+        }
+    }
+    // consistency check
+    for (auto item : myOppositeLanes) {
+        if (item.first->getOpposite() != nullptr && item.first->getOpposite()->getOpposite() != item.first) {
+            WRITE_WARNINGF(TL("Asymmetrical neigh lane '%' for lane '%'"), item.second, item.first->getID());
+            item.first->getOpposite()->setOpposite(item.first);
+        }
+    }
+    for (MSEdge* const edge : myEdges) {
+        edge->closeBuilding();
+    }
+    for (MSEdge* const edge : myEdges) {
+        edge->rebuildAllowedTargets(false);
+        // segment building depends on the finished list of successors (for multi-queue)
+        if (MSGlobals::gUseMesoSim && !edge->getLanes().empty()) {
+            MSGlobals::gMesoNet->buildSegmentsFor(*edge, OptionsCont::getOptions());
+        }
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {
-        for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-            MSEdge* edge = *i1;
+        for (MSEdge* const edge : myEdges) {
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getNumPredecessors() != 1) {
-                    throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
+                    throw ProcessError(TLF("Internal edge '%' is not properly connected (probably a manually modified net.xml).", edge->getID()));
                 }
                 if (edge->getSuccessors()[0]->isRoundabout() || edge->getPredecessors()[0]->isRoundabout()) {
                     edge->markAsRoundabout();
@@ -202,20 +223,24 @@ NLEdgeControlBuilder::build(double networkVersion) {
         }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
-    if (myBidiEdges.size() > 0 || networkVersion > 1.0) {
+    if (myBidiEdges.size() > 0 || networkVersion > MMVersion(1, 0)) {
         for (auto& item : myBidiEdges) {
             item.first->checkAndRegisterBiDirEdge(item.second);
         }
-        //WRITE_MESSAGE("Loaded " + toString(myBidiEdges.size()) + " bidirectional edges");
+        //WRITE_MESSAGEF(TL("Loaded % bidirectional edges"), toString(myBidiEdges.size()));
     } else {
         // legacy network
         for (MSEdge* e : myEdges) {
             e->checkAndRegisterBiDirEdge();
         }
+    }
+    // take into account bidi lanes when deciding on whether an edge allows changing
+    for (MSEdge* const edge : myEdges) {
+        edge->buildLaneChanger();
     }
     return new MSEdgeControl(myEdges);
 }

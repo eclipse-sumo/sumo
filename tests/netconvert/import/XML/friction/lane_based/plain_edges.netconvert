@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-16 09:44:23 by Eclipse SUMO netconvert Version v1_13_0+0900-c694ddf4e0e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="1fi" from="1" to="m1" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="1o" from="0" to="1" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="1si" from="m1" to="0" priority="3" numLanes="3" speed="13.89"/>
+    <edge id="2fi" from="2" to="m2" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="2o" from="0" to="2" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="2si" from="m2" to="0" priority="3" numLanes="3" speed="13.89"/>
+    <edge id="3fi" from="3" to="m3" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="3o" from="0" to="3" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="3si" from="m3" to="0" priority="3" numLanes="3" speed="13.89"/>
+    <edge id="4fi" from="4" to="m4" priority="2" numLanes="2" speed="11.11"/>
+    <edge id="4o" from="0" to="4" priority="1" numLanes="1" speed="11.11"/>
+    <edge id="4si" from="m4" to="0" priority="3" numLanes="3" speed="13.89"/>
+</edges>

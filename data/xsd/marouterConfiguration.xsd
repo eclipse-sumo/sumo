@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO marouter Version v1_8_0+1985-b3699bc617
+<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO marouter Version v1_18_0+2421-58d8177730f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -24,15 +24,20 @@
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-year" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-temperature" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="od-matrix-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="od-amitran-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="tazrelation-attribute" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-adaption" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="taz-param" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-taz" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -41,28 +46,35 @@
         <xsd:all>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="all-pairs-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="keep-vtype-distributions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="named-routes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="all-pairs-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="processingTopicType">
         <xsd:all>
-            <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="capacities.default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing.vtypes" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vtype" type="strOptionType" minOccurs="0"/>
@@ -122,7 +134,12 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="stats-period" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

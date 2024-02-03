@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,11 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
-#include "GNEElementSet.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -37,27 +37,29 @@ FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchAttribute, FXGroupBox, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
+FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBox(elementSet->getSelectorFrameParent()->getContentFrame(), "Match Attribute", GUIDesignGroupBoxFrame),
+    MFXGroupBoxModule(elementSet->getSelectorFrameParent(), TL("Match Attribute")),
     myElementSet(elementSet),
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
-    // Create MatchTagBox for tags
-    myMatchTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
-    // Create listBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for tags
+    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+            this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for Attributes
+    myMatchAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+            this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
-    myMatchString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
-    myMatchStringButton = new FXButton(this, "Apply selection", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
+    myMatchStringButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply selection"), "", "", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Set default value for Match string
     myMatchString->setText(defaultValue.c_str());
 }
@@ -92,30 +94,36 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
+    // declare flag for proj
+    const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // get tags for the given element set
+    std::vector<GNETagProperties> tagPropertiesStrings;
     if (type == (GNEElementSet::Type::NETWORK)) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
     } else if (type == GNEElementSet::Type::TAZ) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
-    } else if (type == GNEElementSet::Type::DATA) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
+    } else if (type == GNEElementSet::Type::GENERICDATA) {
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     } else {
-        throw ProcessError("Unkown set");
+        throw ProcessError(TL("Unknown set"));
+    }
+    // now filter to allow only drawables and proj
+    myTagPropertiesString.clear();
+    for (const auto& tagProperty : tagPropertiesStrings) {
+        if (tagProperty.isDrawable() && (!tagProperty.requireProj() || proj)) {
+            myTagPropertiesString.push_back(tagProperty);
+        }
     }
     // update tag
     updateTag();
     // update attribute
     updateAttribute();
-
-
-    // @ToDo: Here can be placed a button to set the default value
-
     // show groupbox
     show();
 }
@@ -136,9 +144,9 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
     // iterate over tags
     for (const auto& tagString : myTagPropertiesString) {
-        if (tagString.second == myMatchTagComboBox->getText().text()) {
+        if (tagString.getFieldString() == myMatchTagComboBox->getText().text()) {
             // set valid tag
-            myCurrentTag = tagString.first.getTag();
+            myCurrentTag = tagString.getTag();
             // set valid color
             myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         }
@@ -152,35 +160,26 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain a copy of item attributes vinculated with current tag
-    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     // obtain tag property (only for improve code legibility)
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     // add an extra AttributeValues to allow select ACs using as criterium "parameters"
     GNEAttributeProperties extraAttrProperty;
     extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARAMETERS,
                         GNEAttributeProperties::AttrProperty::STRING,
                         "Parameters");
     tagPropertiesCopy.addAttribute(extraAttrProperty);
-    // add extra attribute if item can block movement
-    if (tagValue.canBlockMovement()) {
-        // add an extra AttributeValues to allow select ACs using as criterium "block movement"
-        extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
-                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
-                            "Block movement",
-                            "false");
-        tagPropertiesCopy.addAttribute(extraAttrProperty);
-    }
     // add extra attribute if item can close shape
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
-                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
                             "Close shape",
                             "true");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
-    if (tagValue.isSlave()) {
+    if (tagValue.isChild()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
                             GNEAttributeProperties::AttrProperty::STRING,
@@ -212,7 +211,7 @@ long
 GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
@@ -265,31 +264,31 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
     help
-            << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-            << "  according to the current 'Modification Mode'.\n"
-            << "     1. Select an object type from the first input box\n"
-            << "     2. Select an attribute from the second input box\n"
-            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
+            << TL("  according to the current 'Modification Mode'.\n")
+            << TL("     1. Select an object type from the first input box\n")
+            << TL("     2. Select an attribute from the second input box\n")
+            << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
             << "\n"
-            << "- The empty expression matches all objects\n"
-            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << TL("- The empty expression matches all objects\n")
+            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
+            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
             << "\n"
-            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-            << "     '=' matches if string is an exact match.\n"
-            << "     '!' matches if string is not a substring.\n"
-            << "     '^' matches if string is not an exact match.\n"
+            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
+            << TL("     '' (no operator) matches if string is a substring of that object's attribute.\n")
+            << TL("     '=' matches if string is an exact match.\n")
+            << TL("     '!' matches if string is not a substring.\n")
+            << TL("     '^' matches if string is not an exact match.\n")
             << "\n"
-            << "- Examples:\n"
-            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << TL("- Examples:\n")
+            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
+            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
+            << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -298,7 +297,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");
@@ -326,18 +325,16 @@ GNEMatchAttribute::updateTag() {
     // itreate over myTagPropertiesString
     for (int i = 0; i < (int)myTagPropertiesString.size(); i++) {
         // add tag in combo Box
-        myMatchTagComboBox->appendItem(myTagPropertiesString.at(i).second.c_str());
+        myMatchTagComboBox->appendIconItem(myTagPropertiesString.at(i).getFieldString().c_str(), GUIIconSubSys::getIcon(myTagPropertiesString.at(i).getGUIIcon()));
         // check tag index
-        if (myTagPropertiesString.at(i).first.getTag() == myCurrentTag) {
+        if (myTagPropertiesString.at(i).getTag() == myCurrentTag) {
             tagIndex = i;
         }
     }
-    // set num visible items
-    myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
     // check tagIndex
     if (tagIndex == -1) {
         myMatchTagComboBox->setCurrentItem(0);
-        myCurrentTag = myTagPropertiesString.front().first.getTag();
+        myCurrentTag = myTagPropertiesString.front().getTag();
     } else {
         myMatchTagComboBox->setCurrentItem(tagIndex);
     }
@@ -349,7 +346,7 @@ GNEMatchAttribute::updateAttribute() {
     // first check if tag is valid
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // now continue with attributes
-        const auto& tagProperty = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+        const auto& tagProperty = GNEAttributeCarrier::getTagProperty(myCurrentTag);
         // set color and enable items
         myMatchAttrComboBox->enable();
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -358,40 +355,33 @@ GNEMatchAttribute::updateAttribute() {
         int attrIndex = -1;
         // fill attribute combo box
         for (int i = 0; i < (int)tagProperty.getNumberOfAttributes(); i++) {
-            myMatchAttrComboBox->appendItem(tagProperty.at(i).getAttrStr().c_str());
+            myMatchAttrComboBox->appendIconItem(tagProperty.at(i).getAttrStr().c_str());
             // check attr index
             if (tagProperty.at(i).getAttr() == myCurrentAttribute) {
                 attrIndex = i;
             }
         }
-        // Add extra attribute "Parameter"
-        myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
-        if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
-            attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
-        }
-        // check if item can block movement
-        if (tagProperty.canBlockMovement()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
-            if (myCurrentAttribute == GNE_ATTR_BLOCK_MOVEMENT) {
+        // Check if are allowed "Parameter"
+        if (tagProperty.hasParameters()) {
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARAMETERS).c_str());
+            if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can close shape
         if (tagProperty.canCloseShape()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
             if (myCurrentAttribute == GNE_ATTR_CLOSE_SHAPE) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can have parent
-        if (tagProperty.isSlave()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+        if (tagProperty.isChild()) {
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARENT).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARENT) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
-        // set num visible items
-        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
         // check attrIndex
         if (attrIndex == -1) {
             myMatchAttrComboBox->setCurrentItem(0);

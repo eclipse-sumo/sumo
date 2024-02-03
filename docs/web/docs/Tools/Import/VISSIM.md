@@ -114,7 +114,7 @@ Beginnzeiten der Zeitintervalle sind in Millisekunden angegeben und die
 Verkehrsstärke hat die Einheit Fz/h. Eine Zuflussdefinition sieht in
 VISSIM wie folgt aus:
 
-```
+```xml
   <vehicleInput anmFlag="false" link="9" name="Parkplatz 30221" no="1">
      <timeIntVehVols>
         <timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="6" volType="STOCHASTIC" volume="48.000000"/>
@@ -135,7 +135,7 @@ durch die angeführte Streckenfolge gegeben, welche durch den XML-tag
 `<linkSeq>` eingeleitet wird. Eine Routendefinition zeigt folgendes
 Beispiel:
 
-```
+```xml
 <vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="9" name="Parkplatz 30221" no="1" pos="1.000000">
      <vehicleRouteStatic destLink="205" destPos="20.916000" name="" no="113" relFlow="2 0:4.000000, 2 900000:6.990000, 2 1800000:9.990000, 2 2700000:9.990000, 2 3600000:12.660000, 2 4500000:16.330000, 2 5400000:20.990000, 2 6300000:15.660000, 2 7200000:16.660000, 2 8100000:16.330000">
         <linkSeq>
@@ -160,7 +160,7 @@ Wahrscheinlichkeit definiert. Die Summe der Wahrscheinlichkeiten aller
 Routen muss immer 1 ergeben und die Referenzierung auf eine
 Routen-Verteilung erfolgt über deren eindeutige ID:
 
-```
+```xml
   <routeDistribution id="81_900.0">
      <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 124" id="163" probability="0.372751499001"/>
      <route edges="81 83 210 211 268 117 76 115 213 212 114 265 203 204 263 109 52 188 297 190 296 186 70 298 238 299 239 72 " id="181" probability="0.125916055963"/>
@@ -176,7 +176,7 @@ Fahrzeugtypen an und müssen vorher definiert werden. Wie bei der
 Routen-Verteilung erfolgt die Referenzierung auch hier über die
 eindeutige ID:
 
-```
+```xml
 <vTypeDistribution id="6">
    <vType accel="3.500000" id="t1001_D6" length="4.454081632653061" maxSpeed="14.722222222222221" probability="0.900000"/>
    <vType accel="7.300000" id="t1002_D6" length="10.086636363636364" maxSpeed="14.722222222222221" vClass="truck" probability="0.100000"/>
@@ -191,7 +191,7 @@ wird des Weiteren noch eine zuvor definierte Routen-Verteilung, eine
 Fahrzeugtypen-Verteilung sowie eine ID zugeordnet. Zuflüsse werden in
 SUMO wie folgt definiert:
 
-```
+```xml
 <flow begin="0.0" color="1,1,0" end="900.0" id="fl81_st0.0" route="81_0.0" type="6" vehsPerHour="94.56"/>
 <flow begin="900.0" color="1,1,0" end="1800.0" id="fl81_st900.0" route="81_900.0" type="6" vehsPerHour="120.08"/>
 <flow begin="1800.0" color="1,1,0" end="2700.0" id="fl108_st1800.0" route="108_1800.0" type="6" vehsPerHour="161.88"/>
@@ -199,7 +199,7 @@ SUMO wie folgt definiert:
 
 Allgemeine Informationen zur Definition von Routen und Zuflüssen finden
 sich unter
-<http://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
+<https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>
 (zuletzt geprüft am 28.07.2015).
 
 ## Umsetzung
@@ -257,7 +257,7 @@ definiert. Diese sind als Attribut des Kindelementes
 `<signalOutputConfigurationElement>` vorzufinden. Eine
 Lichtsignalanlagen-Definition sieht in VISSIM wie folgt aus:
 
-```
+```xml
 <signalController active="true" cycTm="0.000000" cycTmIsVar="true" debug="false" guiFile="VISSIG_GUI.dll" name="VLSA 301 (WienerStr./JudendorferStr.)" no="301" offset="0.000000" progFile="VISSIG_Controller.dll" progNo="1" scDetRecFile="VISSIM_302.ldp" scDetRecShortNam="false" sigTmsTabAutoConfig="true" supplyFile1="vissig.config" supplyFile2="TestsiteGraz_v01301.sig" supplyFile3="" type="FIXEDTIME">
      <sGs>
         <signalGroup amber="0.000000" greenFlsh="0.000000" minGreen="0.000000" minRed="0.000000" name="11GR" no="1" redAmber="0.000000" type="NORMAL"/>
@@ -279,7 +279,7 @@ Lichtsignalgeber aller Lichtsignalanlagen. Diese sind einem Fahrstreifen
 einer Strecke zugewiesen und gehören zu einer zuvor definierten
 Signalgruppe:
 
-```
+```xml
 <signalHeads>
      <signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="223 1" localNo="6" name="" no="1" pos="98.115000" sg="305 6" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
      <signalHead allPedTypes="true" allVehTypes="true" complRate="1.000000" dischRecAct="false" isBlockSig="false" lane="276 3" localNo="5" name="" no="2" pos="82.377000" sg="305 5" slowDownDist="3.000000" type="CIRCULAR" vAmberBlock="0.000000"/>
@@ -292,7 +292,7 @@ Die Signalphasen werden in der `.sig-Datei` über ihre ID referenziert.
 Welche ID zu welcher Phase gehört, wird am Anfang der Datei wie folgt
 definiert:
 
-```
+```xml
  <signaldisplays>
      <display id="1" name="Red" state="RED"/>
      <display id="2" name="Red/Amber" state="REDAMBER"/>
@@ -306,7 +306,7 @@ fixe Signalsequenzen verwendet, die ebenfalls am Anfang der `.sig-Datei`
 zu finden sind. Diese definieren die Abfolge der Phasen und die
 Referenzierung erfolgt über die jeweilige ID:
 
-```
+```xml
  <signalsequences>
      <signalsequence id="5" name="Red-Red/Amber-Green-Flashing Green-Amber">
         <state display="1" isFixedDuration="false" isClosed="true" defaultDuration="1000" />
@@ -325,7 +325,7 @@ Referenzierung erfolgt über die jeweilige ID:
 Anschließend erfolgt die Definition aller Signalprogramme und deren
 Umlaufzeiten:
 
-```
+```xml
 <prog id="1" cycletime="80000" switchpoint="0" offset="13000" intergreens="0" fitness="0.000000" vehicleCount="0" name="Morgenprogramm S 2.7"/>
 ```
 
@@ -333,7 +333,7 @@ Die Definition der Signalgruppen besteht aus den Beginnzeiten der Rot-
 und Grünphase und den Zeitdauern der restlichen Phasen, welche sich in
 der zugehörigen Signalsequenz befinden:
 
-```
+```xml
 <sg sg_id="1" signal_sequence="5">
      <cmds>
         <cmd display="3" begin="13000" />
@@ -370,7 +370,7 @@ Schaltung, welche durch eine Zeitspanne in Sekunden und einen Zustand
 gekennzeichnet sind. Jeder Buchstabe des `states` definiert den
 aktuellen Zustand eines Fahrstreifens:
 
-```
+```xml
 <tlLogic id="69" type="static" programID="Tagesprogramm S 5.3" offset="0.00">
      <phase duration="20.00" state="Grrr"/>
      <phase duration="20.00" state="yyyy"/>
@@ -385,7 +385,7 @@ Zusätzlich muss jede *Connection*, die von einer Lichtsignalanlage
 beeinflusst wird, dieser auch zugewiesen werden. Hierfür wird dem
 Attribut `tl` die ID der jeweiligen LSA zugeteilt:
 
-```
+```xml
  <connection dir="r" from="117" fromLane="0" to="88" toLane="0" via=":69_1_0" tl="69" linkIndex="2" state="o"/>
   <connection dir="s" from="117" fromLane="0" to="76" toLane="0" via=":69_2_0" tl="69" linkIndex="3" state="o"/>
   <connection dir="s" from="117" fromLane="1" to="76" toLane="1" via=":69_2_1" tl="69" linkIndex="1" state="o"/>
@@ -398,7 +398,7 @@ soll, muss als solche definiert werden. Dies geschieht über das Attribut
 *junction* eine LSA zugewiesen so muss der `type` auf “’traffic_light”’
 gesetzt werden:
 
-```
+```xml
 <junction id="69" incLanes="89_0 117_0 117_1" intLanes=":69_0_0 :69_1_0 :69_2_0 :69_2_1" shape="3276.61,1952.22 3277.64,1946.15 3275.74,1944.30 3269.32,1943.27 3265.23,1952.29 3274.96,1953.43" type="traffic_light" x="3273.91" y="1947.87">
      <request cont="0" foes="1100" index="0" response="1100"/>
      <request cont="0" foes="0000" index="1" response="0000"/>
@@ -417,7 +417,7 @@ Während der Simulation können die Signalprogramme entweder in dem GUI
 per Hand oder durch das Kindelement `<wautSwitch>` zu einem angegebenen
 Zeitpunkt verändert werden:
 
-```
+```xml
   <WAUT refTime="0" id="myWAUT" startProg="weekday_night">
      <wautSwitch time="21600" to="weekday_day"/>
      <wautSwitch time="79200" to="weekday_night"/>
@@ -425,7 +425,7 @@ Zeitpunkt verändert werden:
 ```
 
 Nähere Beschreibungen zur Definition von Lichtsignalanlagen befinden
-sich unter <http://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
+sich unter <https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html> (zuletzt
 geprüft am 28.07.2015).
 
 ## Umsetzung
@@ -475,7 +475,7 @@ Querschnittsmessungen werden in VISSIM durch den XML-tag
 Detektoren ist durch den jeweiligen Fahrstreifen der Strecke sowie deren
 Laufmeter gegeben:
 
-```
+```xml
 <dataCollectionPoint lane="108 1" name="301.41" no="1" pos="162.558473"/>
 <dataCollectionPoint lane="262 4" name="301.12" no="10" pos="32.960054"/>
 ```
@@ -484,7 +484,7 @@ Resezeitmessungen sind in VISSIM nicht fahrstreifen- sondern
 streckenbezogen. Hierfür wird die Strecke und der Laufmeter für den
 Start- und Endpunkt festgelegt:
 
-```
+```xml
   <vehicleTravelTimeMeasurement name="Wienerstrasse_Sueden" no="1">
      <start link="207" pos="239.836000"/>
      <end link="126" pos="12.867000"/>
@@ -498,9 +498,9 @@ Querschnittsmessungen in VISSIM. Zur Positionierung werden ebenfalls
 Fahrstreifen und Laufmeter angegeben. Es ist jedoch zusätzlich möglich
 das Zeitintervall zu definieren, in dem die Daten aggregiert werden.
 
-```
-  <inductionLoop file="ind_out.xml" freq="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
-  <inductionLoop file="ind_out.xml" freq="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
+```xml
+  <inductionLoop file="ind_out.xml" period="900" id="1_301.41" lane="108_0" pos="162.554736186"/>
+  <inductionLoop file="ind_out.xml" period="900" id="33_359.21" lane="123_0" pos="28.1962390136"/>
 ```
 
 Wie bei den Induktionsschleifen sind auch die Reisezeitmessungen durch
@@ -509,8 +509,8 @@ muss sich jedoch im Gegensatz zu VISSIM die Reisezeitmessung nicht auf
 die ganze Strecke beziehen, da definiert wird, welche Fahrstreifen
 berücksichtigt werden sollen.
 
-```
-  <entryExitDetector file="time_out.xml" freq="900" id="1">
+```xml
+  <entryExitDetector file="time_out.xml" period="900" id="1">
      <detEntry lane="207_0" pos="239.753789696"/>
      <detEntry lane="207_1" pos="241.370532161"/>
      <detExit lane="126_0" pos="23.2884507277"/>

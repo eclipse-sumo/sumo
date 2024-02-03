@@ -6,15 +6,15 @@ title: Assign
 
 ## duaIterate.py
 
-"duaIterate.py" helps you to perform the computation of a dynamic user
-assignment (DUA). It works by alternatingly running the simulation to
+"duaIterate.py" helps you to perform the computation of a [dynamic user
+assignment (DUA)](../Demand/Dynamic_User_Assignment.md). It works by alternatingly running the simulation to
 discover travel times and then assigning alternative routes to some of
 the vehicles according to these travel times. This is repeated for a
 defined number of iteration steps. At least two files have to be given
 as input the script: a SUMO-network and a set of trip definitions. A
 stochastic user-equilibrium (UE)traffic state is not guaranteed after
 the assignment. Increasing the number of iteration steps increases the
-likelyhood of convergence to equilibrium.
+likelihood of convergence to equilibrium.
 
 Within each iteration step, the script generates a configuration file
 for the [duarouter](../duarouter.md) application and starts it with
@@ -37,6 +37,21 @@ start it with the "--help" option.
 python tools/assign/duaIterate.py -n <PATH_TO_SUMO_NET> -t <PATH_TO_TRIPS>
 ```
 
+### Loading vehicle types from an additional file
+
+If the file `vtypes.add.xml` defines vehicle types that are needed by the traffic demand input for duaIterate.py, the following options must be set
+
+**--additional vtypes.add.xml duarouter--vtype-output dummy.xml duarouter--additional-files vtypes.add.xml**
+
+The first option passes it's arguments only to the [sumo](../sumo.md) process. The other options are passed to [duarouter](../duarouter.md) and ensure that the types are read but are not written to the route output file (since they would then be loaded twice by sumo resulting in an error).
+
+!!! caution
+    Options, prefixed with **duarouter--** must be the last in the list of all options
+
+
+## duaIterateMix.py
+This tool is designed to solve the multiclass traffic assignment problem for mixed traffic flow. Most of the options in this tool are similar to those in [duaIterate.py](#duaiteratepy), with a few exceptions. To solve the multiclass traffic assignment problem, you need to provide two demand files. Use the option `-t` to specify the demand for UE-seeking vehicles, and use the option `-r` to specify the demand for SO-seeking vehicles. To obtain the multiclass traffic assignment solution, you should set the following options: `--mix`, `--marginal-cost`, and `--marginal-cost.exp`.
+
 ## duaIterate_analysis.py
 
 To check the evolution of different simulation parameters during the dua
@@ -54,7 +69,7 @@ Cadyts calibration tool, developed by Gunnar Flötteröd at EPFL,
 Switzerland. With this script, route choices will be adjusted according
 to given link counts. The validation work of the calibration between
 SUMO and Cadyts is work in progress. You will need to download
-[Cadyts](https://github.com/gunnarfloetteroed/java) separately and add a 
+[Cadyts](https://github.com/gunnarfloetteroed/java) separately and add a
 reference to the jar file to the call.
 
 ```
@@ -104,7 +119,7 @@ where -m: matrix file name
       -z: district file name
       -t: name of the file containing traffic flow time series (optional); If not specified, the defined 
           daily matrix will be regularly divided into 24 hours.
-      -o: output directoy name and the respective path
+      -o: output directory name and the respective path
 ```
 
 ## costFunctionChecker.py

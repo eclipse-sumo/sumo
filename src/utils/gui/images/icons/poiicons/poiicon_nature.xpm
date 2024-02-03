@@ -1,0 +1,25 @@
+/* XPM */
+static const char *poiicon_nature_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+". c gray99",
+"X c None",
+/* pixels */
+"XXXXXXXX XXXXXXX",
+"XXXXXXX   XXXXXX",
+"XXXXXX     XXXXX",
+"XXXXX       XXXX",
+"XXXX         XXX",
+"XXXXX.     XXXXX",
+"XXXXX       XXXX",
+"XXXX         XXX",
+"XXX           XX",
+"XXXXX       XXXX",
+"XXXX         XXX",
+"XXX           XX",
+"XX             X",
+"XXX           XX",
+"XXXXXXX   XXXXXX",
+"XXXXXXX   XXXXXX"
+};

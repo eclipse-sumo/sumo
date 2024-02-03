@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-03 20:39:07 by Eclipse SUMO sumo Version v1_14_1+2214-c901407
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.range value="50"/>
+        <person-device.btsender.explicit value="left"/>
+        <person-device.btreceiver.explicit value="right"/>
+    </communication>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="right" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="2340.00" arrivalPos="250.00" duration="2340.00" routeLength="3250.00" timeLoss="0.00" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="left" depart="3.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="3.00" departPos="0.00" arrival="2354.00" arrivalPos="250.00" duration="2351.00" routeLength="3262.36" timeLoss="2.10" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>

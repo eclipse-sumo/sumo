@@ -1,4 +1,4 @@
-Loading configuration ... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -11,7 +11,7 @@ set offset (400.0, 400.0)
 get offset (400.0, 400.0)
 set schema ('real world')
 get schema real world
-visible boundary ((-805.859375, -230.0), (1605.859375, 1030.0))
+visible boundary ((-809.6875, -232.0), (1609.6875, 1032.0))
 has view View #0 True
 has view 'foo' False
 track vehicle 'horiz'
@@ -27,3 +27,8 @@ veh selected: False
 edge selected: False
 veh selected: True
 edge selected: True
+screenshot dimensions (500, 500, 4)
+adding view
+views ('View #0', 'newView')
+removing view
+views ('View #0',)

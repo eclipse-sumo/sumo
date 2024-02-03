@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-06 08:45:28 by Eclipse SUMO netedit Version v1_10_0+0501-f324373
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/home/erdm_ja/scr1/sumo/tests/netconvert/function/turnarounds/default_bike_lane/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE0" from="gneJ0" to="right0" priority="-1" numLanes="1" speed="13.89" allow="pedestrian bicycle"/>
+    <edge id="-gneE1" from="left0" to="gneJ1" priority="-1" numLanes="1" speed="13.89" allow="bicycle"/>
+    <edge id="A0A1" from="A0" to="A1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="A0B0" from="A0" to="B0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="A0bottom0" from="A0" to="bottom0" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="A0left0" from="A0" to="left0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="A1A0" from="A1" to="A0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="A1B1" from="A1" to="B1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="A1left1" from="A1" to="left1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="A1top0" from="A1" to="top0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="B0A0" from="B0" to="A0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="B0right0" from="B0" to="right0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="B1A1" from="B1" to="A1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="B1right1" from="B1" to="right1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="B1top1" from="B1" to="top1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="bottom0A0" from="bottom0" to="A0" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="gneE0" from="right0" to="gneJ0" priority="-1" numLanes="1" speed="13.89" allow="pedestrian bicycle"/>
+    <edge id="gneE1" from="gneJ1" to="left0" priority="-1" numLanes="1" speed="13.89" allow="bicycle"/>
+    <edge id="gneE2" from="top0" to="gneJ2" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="gneE3" from="gneJ3" to="top1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="gneE4" from="gneJ4" to="right0" priority="-1" numLanes="1" speed="13.89" allow="pedestrian"/>
+    <edge id="left0A0" from="left0" to="A0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="left1A1" from="left1" to="A1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="right0B0" from="right0" to="B0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="right1B1" from="right1" to="B1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="top0A1" from="top0" to="A1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="top1B1" from="top1" to="B1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="bicycle" width="1.00"/>
+        <lane index="1"/>
+    </edge>
+</edges>

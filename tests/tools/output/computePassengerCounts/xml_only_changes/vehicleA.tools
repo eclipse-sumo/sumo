@@ -1,0 +1,11 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+
+<vehicle id="vehicleA">
+    <step time="9.0" number="10"/>
+    <step time="10.0" number="5"/>
+    <step time="15.0" number="5"/>
+    <step time="20.0" number="5"/>
+    <step time="40.0" number="11"/>
+    <step time="60.0" number="11"/>
+    <step time="80.0" number="14"/>
+</vehicle>

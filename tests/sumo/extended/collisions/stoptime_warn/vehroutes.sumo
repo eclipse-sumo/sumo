@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 21 22:18:12 2020 by Eclipse SUMO sumo Version v1_8_0+0328-b6798442480
+<!-- generated on 2022-10-27 10:32:58 by Eclipse SUMO sumo Version v1_14_1+1999-59f18b4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,10 +22,6 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <precision value="3"/>
-        <netstate-dump.precision value="3"/>
-        <emission-output.precision value="3"/>
-        <battery-output.precision value="3"/>
-        <elechybrid-output.precision value="3"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -38,7 +39,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -48,66 +48,66 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="horizontal.0" type="SUMO_DEFAULT_TYPE" depart="0.000" arrival="90.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="19.830" endPos="19.830" duration="10.000"/>
+        <stop lane="2o_0" startPos="19.830" endPos="19.830" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.0" type="SUMO_DEFAULT_TYPE" depart="0.000" arrival="94.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="17.580" endPos="17.580" duration="10.000"/>
+        <stop lane="2o_0" startPos="17.580" endPos="17.580" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="horizontal.1" type="SUMO_DEFAULT_TYPE" depart="4.000" arrival="96.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="14.829" endPos="14.829" duration="10.000"/>
+        <stop lane="2o_0" startPos="14.829" endPos="14.829" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.1" type="SUMO_DEFAULT_TYPE" depart="4.000" arrival="100.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="12.579" endPos="12.579" duration="10.000"/>
+        <stop lane="2o_0" startPos="12.579" endPos="12.579" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="horizontal.2" type="SUMO_DEFAULT_TYPE" depart="8.000" arrival="115.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="10.000"/>
-        <stop lane="2o_0" startPos="14.628" endPos="14.628" duration="10.000"/>
+        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="10.000" collision="1"/>
+        <stop lane="2o_0" startPos="14.628" endPos="14.628" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.2" type="SUMO_DEFAULT_TYPE" depart="8.000" arrival="116.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="7.578" endPos="7.578" duration="10.000"/>
-        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="10.000"/>
+        <stop lane="2o_0" startPos="7.578" endPos="7.578" duration="10.000" collision="1"/>
+        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="horizontal.3" type="SUMO_DEFAULT_TYPE" depart="12.000" arrival="120.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="10.000"/>
-        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="10.000"/>
+        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="10.000" collision="1"/>
+        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.3" type="SUMO_DEFAULT_TYPE" depart="12.000" arrival="123.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="10.000"/>
-        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="10.000"/>
+        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="10.000" collision="1"/>
+        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="horizontal.4" type="SUMO_DEFAULT_TYPE" depart="16.000" arrival="138.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="2.376" endPos="2.376" duration="10.000"/>
+        <stop lane="2o_0" startPos="2.376" endPos="2.376" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.4" type="SUMO_DEFAULT_TYPE" depart="16.000" arrival="141.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="0.126" endPos="0.126" duration="10.000"/>
+        <stop lane="2o_0" startPos="0.126" endPos="0.126" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="horizontal.5" type="SUMO_DEFAULT_TYPE" depart="20.000" arrival="157.000">
         <route edges="1si 2o"/>
-        <stop lane="2o_0" startPos="3.125" endPos="3.125" duration="10.000"/>
+        <stop lane="2o_0" startPos="3.125" endPos="3.125" duration="10.000" collision="1"/>
     </vehicle>
 
     <vehicle id="always_right.5" type="SUMO_DEFAULT_TYPE" depart="20.000" arrival="160.000">
         <route edges="3si 2o"/>
-        <stop lane="2o_0" startPos="0.875" endPos="0.875" duration="10.000"/>
+        <stop lane="2o_0" startPos="0.875" endPos="0.875" duration="10.000" collision="1"/>
     </vehicle>
 
 </routes>

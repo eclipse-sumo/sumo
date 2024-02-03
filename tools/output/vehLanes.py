@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,14 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
+from sumolib.options import ArgumentParser  # noqa
+
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("netstate", help="Netstate Dump File")
+    optParser.add_argument("out", help="Output file")
+    return optParser.parse_args()
 
 
 def trackLanes(netstate, out):
@@ -66,6 +74,5 @@ def trackLanes(netstate, out):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        sys.exit("call %s <netstate-dump> <output-file>" % sys.argv[0])
-    trackLanes(*sys.argv[1:])
+    options = parse_args()
+    trackLanes(options.netstate, options.out)

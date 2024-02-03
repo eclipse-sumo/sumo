@@ -1,6 +1,0 @@
-Error: Attribute 'id' is missing in definition of flow
-Error: Attribute 'id' in definition of a flow is empty.
-Error: Invalid flow id ''.
-Error: Invalid flow id 'id with spaces'. Contains invalid characters.
-Error: There is another flowRoute with the same ID='flow_valid'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Aug102157.12256\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.

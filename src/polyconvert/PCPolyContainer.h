@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,8 +91,8 @@ public:
      */
     bool add(PointOfInterest* poi, bool ignorePruning = false);
 
-
-    void addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
+    /// @brief add lane pos
+    void addLanePos(const std::string& poiID, const std::string& laneID, const double lanePos, const bool friendlyPos, const double lanePosLat);
 
     /** @brief Saves the stored polygons and pois into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
@@ -117,15 +117,25 @@ public:
      */
     int getEnumIDFor(const std::string& key);
 
-
 private:
-
+    /// @brief LanePos
     struct LanePos {
-        LanePos() {}
-        LanePos(const std::string& _laneID, double _pos, double _posLat) :
-            laneID(_laneID), pos(_pos), posLat(_posLat) {}
+        /// @brief default constructor
+        LanePos();
+
+        /// @brief parameter constructor
+        LanePos(const std::string& laneID, double pos, bool friendlyPos, double posLat);
+
+        /// @brief laneID
         std::string laneID;
+
+        /// @brief pos over lane
         double pos;
+
+        /// @brief friendly position
+        bool friendlyPos;
+
+        /// @brief pos lateral over lane
         double posLat;
     };
 
@@ -144,14 +154,12 @@ private:
     /// @brief List of names of polygons/pois that shall be removed
     std::vector<std::string> myRemoveByNames;
 
+    /// @brief write DLR TDP Header
     static void writeDlrTDPHeader(OutputDevice& device, const OptionsCont& oc);
 
-private:
     /// @brief Invalidated copy constructor
     PCPolyContainer(const PCPolyContainer& s);
 
     /// @brief Invalidated assignment operator
-    PCPolyContainer& operator=(const PCPolyContainer& s);
-
-
+    PCPolyContainer& operator=(const PCPolyContainer& s) = delete;
 };

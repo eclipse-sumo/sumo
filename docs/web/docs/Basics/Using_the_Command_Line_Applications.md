@@ -85,6 +85,16 @@ Please note that an abbreviation is indicated using a single '-'.
 !!! note
     Not all abbreviations have the same meaning across the applications from the SUMO-suite.
 
+If you want to append options to a list of values given in a
+[configuration file](#configuration_files_vs_command_line_parameter) you will use the following syntax:
+
+```
++a myAdditional.add.xml
+```
+
+Please note that you can use the abbreviated or the non-abbreviated name here but always a single '+'.
+This will only work for lists of strings or numbers.
+
 ## Option Value Types
 
 The SUMO applications know what kind of a value they expect to be set.
@@ -176,7 +186,8 @@ In addition to a configuration file, further command line parameter can
 also be given on the command line. If a parameter is set within the
 named configuration file as well as given on the command line, the value
 given on the command line is used (overwrites the one within the
-configuration file). If you want to disable a boolean option which was
+configuration file) unless you use the '+' syntax described above.
+If you want to disable a boolean option which was
 enabled in the configuration file, you need to give the "false" value on
 the command line explicitly, like **--verbose false**
 
@@ -204,11 +215,15 @@ In either case, if further information on the parameters is wanted, one
 can also pass the option **--save-commented**. Then, some further comments on each parameter
 are generated.
 
+!!! note
+    SUMO applications will quit after saving a configuration. The application has to be called a second time to run the configuration.
+
 ## Environment variables in Configuration Files
 
-It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**. For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
+It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**.
+For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
-```
+```xml
 <configuration>
     <input>
         <net-file value="${NETFILENAME}.net.xml"/>
@@ -216,10 +231,32 @@ It is possible to refer to environment variables in configuration files. The syn
 </configuration>
 ```
 
+There are also some special values you can use here which aren't environment variables:
+
+- **${LOCALTIME}** refers to the local time when the configuration has been loaded
+- **${UTC}** same as **${LOCALTIME}** but in universal coordinated time
+- **${PID}** process id of the running application
+- **${SUMO_LOGO}** will be replaced ${SUMO_HOME}/data/logo/sumo-128x138.png (only if it is not set, useful for background images)
+- **~** will be replaced by ${HOME} (also see next item)
+- **${HOME}** on Windows will be replaced by ${USERPROFILE} (only if it is not set)
+
+The expansion of environment variables will not happen if you are only writing a new configuration.
+
 # Common Options
 
 The applications from the SUMO suite share several options. They are
 given in the following.
+
+## Configuration Options
+
+| Option | Description |
+|--------|-------------|
+| **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
+| **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
+| **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
+| **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
+| **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
 
 ## Reporting Options
 
@@ -235,6 +272,7 @@ given in the following.
 | **-l** {{DT_FILE}}<br>**--log** {{DT_FILE}}  | Writes all messages to FILE (implies verbose)  |
 | **--message-log** {{DT_FILE}}  | Writes all non-error messages to FILE (implies verbose)  |
 | **--error-log** {{DT_FILE}}  | Writes all warnings and errors to FILE  |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 The logging options **--log** and **--message-log** also enable the verbose output but only into
 the given file (unless **--verbose** was given as well). Errors get always printed to
@@ -246,6 +284,12 @@ the XML parser. This performs a basic validation of the input and is
 highly recommended especially for beginners because it easily finds
 spelling mistakes in the input which otherwise might be silently
 ignored. Validation is only performed if the [XML-schema is declared within the input file](../XMLValidation.md).
+
+The **--language** option sets the language for messages, warnings and the GUI elements. The translation is still very incomplete
+thus by default the language is set to "C", which means untranslated. The parameter accepts a two letter language code
+such as *tr* or *de*. If it is explicitly set to the empty string, it will try to determine the language from
+environment variables as described in the [gettext documentation](https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html).
+If you want to contribute to translations please have a look at the [translation documentation](../Developer/Translating.md).
 
 ## Random Number Options
 

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 29 09:20:59 2021 by Eclipse SUMO netconvert Version v1_8_0+0818-11209bc3f3
+<!-- generated on 2023-11-15 15:11:52 by Eclipse SUMO netconvert Version v1_19_0+0170-2560452700f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,13 +31,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="10.00,-40.00" convBoundary="0.00,0.00,70.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -41,16 +45,16 @@ SPDX-License-Identifier: EPL-2.0
     <type id="c" priority="1" numLanes="1" speed="11.11"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="9.86" length="8.84" shape="12.13,24.80 9.88,25.01 7.80,25.62 5.90,26.65 4.17,28.10"/>
+        <lane id=":gneJ0_0_0" index="0" speed="9.95" length="9.00" shape="12.13,24.80 9.49,24.89 7.67,25.31 6.09,26.30 4.17,28.10"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" speed="11.98" length="13.25" shape="12.13,21.60 8.36,20.94 5.97,19.21 4.10,16.82 1.90,14.17"/>
+        <lane id=":gneJ0_1_0" index="0" speed="11.79" length="12.81" shape="12.13,21.60 10.44,21.14 8.18,19.74 5.33,17.42 1.90,14.17"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="4.67" shape="12.13,21.60 10.93,20.80 10.53,20.00 10.93,19.20 12.13,18.40"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="9.86" length="8.84" shape="4.17,11.90 5.90,13.35 7.80,14.38 9.88,14.99 12.13,15.20"/>
+        <lane id=":gneJ0_3_0" index="0" speed="9.95" length="9.00" shape="4.17,11.90 6.09,13.70 7.67,14.69 9.49,15.11 12.13,15.20"/>
     </edge>
     <edge id=":gneJ0_4" function="internal">
         <lane id=":gneJ0_4_0" index="0" speed="9.06" length="18.47" shape="4.17,11.90 7.20,15.95 8.21,20.00 7.20,24.05 4.17,28.10"/>
@@ -80,7 +84,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ1_3_0" index="0" speed="7.77" length="13.31" shape="68.10,14.17 65.91,17.08 65.18,20.00 65.91,22.92 68.10,25.83"/>
     </edge>
     <edge id=":gneJ1_4" function="internal">
-        <lane id=":gneJ1_4_0" index="0" speed="11.79" length="12.81" shape="68.10,14.17 64.67,17.42 61.82,19.74 59.56,21.14 57.87,21.60"/>
+        <lane id=":gneJ1_4_0" index="0" speed="11.98" length="13.25" shape="68.10,14.17 65.90,16.82 64.03,19.21 61.64,20.94 57.87,21.60"/>
     </edge>
     <edge id=":gneJ1_5" function="internal">
         <lane id=":gneJ1_5_0" index="0" speed="3.65" length="4.67" shape="68.10,14.17 66.68,14.45 65.83,14.17 65.55,13.32 65.83,11.90"/>

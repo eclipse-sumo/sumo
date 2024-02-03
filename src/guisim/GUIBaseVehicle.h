@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,10 +84,22 @@ public:
      */
     virtual Position getPosition(const double offset = 0) const = 0;
 
+    /** @brief Return current position taking into account secondary shape
+     * @param[in] offset optional offset in longitudinal direction
+     * @return The current position (in cartesian coordinates)
+     */
+    virtual Position getVisualPosition(bool s2, const double offset = 0) const = 0;
+
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
      */
     virtual double getAngle() const = 0;
+
+    /** @brief Returns the vehicle's direction in radians taking into account
+     * secondary shape
+     * @return The vehicle's current angle
+     */
+    virtual double getVisualAngle(bool s2) const = 0;
 
     /// @brief return the current angle in navigational degrees
     double getNaviDegree() const {
@@ -109,7 +121,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    virtual void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const = 0;
+    virtual void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const = 0;
 
     /// @brief retrieve information about the current stop state
     virtual std::string getStopInfo() const = 0;
@@ -163,6 +175,9 @@ public:
 
     /// @brief notify object about popup menu removal
     void removedPopupMenu();
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -281,8 +296,10 @@ public:
         long onCmdShowLFLinkItems(FXObject*, FXSelector, void*);
         /// @brief Called if all routes of the vehicle shall be hidden
         long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
-        /// @brief Called when show a vehicles foes
+        /// @brief Called to show (select) a vehicles foes
         long onCmdShowFoes(FXObject*, FXSelector, void*);
+        /// @brief Called to select all riding persons and containers
+        long onCmdSelectTransported(FXObject*, FXSelector, void*);
         /// @brief Called when removing the vehicle
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
         /// @brief Called when toggling stop state
@@ -301,19 +318,21 @@ public:
      */
     enum VisualisationFeatures {
         /// @brief show vehicle's best lanes
-        VO_SHOW_BEST_LANES = 1,
+        VO_SHOW_BEST_LANES = 1 << 0,
         /// @brief show vehicle's current route
-        VO_SHOW_ROUTE = 2,
+        VO_SHOW_ROUTE = 1 << 1,
         /// @brief show all vehicle's routes
-        VO_SHOW_ALL_ROUTES = 4,
+        VO_SHOW_ALL_ROUTES = 1 << 2,
         /// @brief LFLinkItems
-        VO_SHOW_LFLINKITEMS = 8,
+        VO_SHOW_LFLINKITEMS = 1 << 3,
         /// @brief draw vehicle outside the road network
-        VO_DRAW_OUTSIDE_NETWORK = 16,
+        VO_DRAW_OUTSIDE_NETWORK = 1 << 4,
         /// @brief show vehicle's current continued from the current position
-        VO_SHOW_FUTURE_ROUTE = 32,
+        VO_SHOW_FUTURE_ROUTE = 1 << 5,
         /// @brief show vehicle's routes without loops
-        VO_SHOW_ROUTE_NOLOOP = 64
+        VO_SHOW_ROUTE_NOLOOP = 1 << 6,
+        /// @brief track the vehicle (only needed for cleaning up)
+        VO_TRACK = 1 << 7
     };
 
     /// @brief Enabled visualisations, per view
@@ -327,15 +346,24 @@ public:
      */
     void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future = false, bool noLoop = false) const;
 
+    void drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const;
 
+    void drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const;
     /// @}
+
+    const MSBaseVehicle& getVehicle() {
+        return myVehicle;
+    }
+
+    /// @brief gets the size multiplier value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);
 
 protected:
 
-    /// @brief sets the color according to the currente settings
+    /// @brief sets the color according to the current settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief returns the seat position for the person with the given index
@@ -354,6 +382,9 @@ protected:
 
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
+
+    /// @brief whether to reverse trains in their reversed state
+    bool drawReversed(const GUIVisualizationSettings& s) const;
 
 
 protected:

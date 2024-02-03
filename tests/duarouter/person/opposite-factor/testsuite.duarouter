@@ -1,0 +1,17 @@
+# walk a corner
+default
+
+# walk a corner
+factor_0.5
+
+# walk a corner
+factor_1
+
+# walk a corner
+sidewalk_default
+
+# walk a corner
+sidewalk_factor_0.5
+
+# walk a corner
+sidewalk_factor_1

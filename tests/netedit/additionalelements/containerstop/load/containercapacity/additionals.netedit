@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-10 09:57:15 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="containerStop_01" name="containerStop" lane="center1_1" startPos="25.00" endPos="35.00"/>
+    <containerStop id="containerStop_05" name="containerStop" lane="center1_1" startPos="25.00" endPos="35.00"/>
+</additional>

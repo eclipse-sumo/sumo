@@ -2,5 +2,6 @@
     <e3Detector id="0" freq="100" file="NUL">
         <detEntry lane="2fi_0" pos="10"/>
         <detExit lane="2fi_0" pos="30"/>
+        <param key="loadedFromXML" value="1339"/>
     </e3Detector>
 </additional>

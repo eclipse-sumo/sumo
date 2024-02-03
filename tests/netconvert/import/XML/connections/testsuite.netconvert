@@ -97,3 +97,12 @@ unconnected
 
 # make sure that parallel left turns all use the same curve
 parallel_left_turns
+
+# indirect left turn for bicycles at traffic light
+indirect_left
+
+# indirect left turn for bicycles at uncontrolled intersection
+indirect_left_priority
+
+# set custom edgeType for connection
+edgeType

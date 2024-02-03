@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,6 +101,8 @@ public:
          * (onLeaveLane sets amOnNet=false if reason>=NOTIFICATION_TELEPORT) */
         /// @brief The vehicle is being teleported
         NOTIFICATION_TELEPORT,
+        /// @brief The vehicle continues being teleported past an edge
+        NOTIFICATION_TELEPORT_CONTINUATION,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
         /// @brief The vehicle needs another parking area
@@ -181,6 +183,12 @@ public:
         return true;
     }
 
+    /// @brief called to update state for parking vehicles
+    virtual void notifyParking() {}
+
+    /// @brief called to update state for stopped vehicles
+    virtual void notifyStopEnded() {}
+
     /** @brief Called if the vehicle leaves the reminder's lane
      *
      * Informs if vehicle leaves reminder lane (due to lane change, removal
@@ -234,14 +242,14 @@ public:
                                     const double travelledDistanceFrontOnLane,
                                     const double travelledDistanceVehicleOnLane,
                                     const double meanLengthOnLane) {
-        UNUSED_PARAMETER(meanLengthOnLane);
-        UNUSED_PARAMETER(travelledDistanceFrontOnLane);
-        UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
-        UNUSED_PARAMETER(meanSpeedVehicleOnLane);
-        UNUSED_PARAMETER(meanSpeedFrontOnLane);
+        UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(frontOnLane);
         UNUSED_PARAMETER(timeOnLane);
-        UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(meanSpeedFrontOnLane);
+        UNUSED_PARAMETER(meanSpeedVehicleOnLane);
+        UNUSED_PARAMETER(travelledDistanceFrontOnLane);
+        UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
+        UNUSED_PARAMETER(meanLengthOnLane);
     }
 
     void setDescription(const std::string& description) {
@@ -250,6 +258,11 @@ public:
 
     const std::string& getDescription() const {
         return myDescription;
+    }
+
+    // @brief return whether this moveReminder triggers parking reroute
+    virtual bool isParkingRerouter() const {
+        return false;
     }
 
 protected:

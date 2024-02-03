@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,13 +23,6 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
-#ifndef LIBTRACI
-#ifndef SWIGJAVA
-#ifndef SWIGPYTHON
-#include <microsim/traffic_lights/MSTLLogicControl.h>
-#endif
-#endif
-#endif
 
 // ===========================================================================
 // class declarations
@@ -78,8 +71,10 @@ public:
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic);
 
+    static void addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId, const int type = 0, const int limit = 0);
     static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
+    static void updateConstraints(const std::string& vehID, std::string tripId = "");
 
     // aliases for backward compatibility
     inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
@@ -88,27 +83,34 @@ public:
     inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
         setProgramLogic(tlsID, logic);
     }
+
+    static void setNemaSplits(const std::string& tlsID, const std::vector<double>& splits);
+    static void setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens);
+    static void setNemaCycleLength(const std::string& tlsID,  double cycleLength);
+    static void setNemaOffset(const std::string& tlsID, double offset);
+
 #ifndef LIBTRACI
+#ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
+    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint);
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
-    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& tripId, const std::string& foeId, const std::string& foeSignal);
+    static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
-
-private:
-#ifndef SWIGJAVA
-#ifndef SWIGPYTHON
-    static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
-#endif
-#endif
+    static std::vector<std::string> getFutureTripIds(const std::string vehID);
+    static void swapParameters(MSRailSignalConstraint* c);
+    static void swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2);
+    static void swapParameters(TraCISignalConstraint& c);
+    static void swapParameters(TraCISignalConstraint& c, const std::string& key1, const std::string& key2);
+    static std::vector<std::pair<std::string, std::string> > getSwapParams(int constraintType);
 
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 #endif
     /// @brief invalidated standard constructor
     TrafficLight() = delete;

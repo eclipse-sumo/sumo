@@ -1,0 +1,4 @@
+Error: Attribute 'containerCapacity' in definition of vType 'vType0' Invalid Number Format (long long integer format) dummyContainerCapacity.
+Error: containerCapacity must be equal or greater than 0
+Error: Attribute 'containerCapacity' in definition of vType 'vType2' Invalid Number Format (long long integer format) 4.5.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/containercapacity/routes.rou.xml failed.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:21:01.454845 by generateContinuousRerouters.py v1_13_0+1343-240e5d48340
+  options: -n net.net.xml -o out.add.xml -b 10 -e 2500
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="gneE1_gneE2" edges="gneE1 gneE2 gneE3 gneE0 gneE1"/>
+    <route id="gneE1_gneE4" edges="gneE1 gneE4 gneE5 gneE7"/>
+    <rerouter id="rr_gneE1" edges="gneE1">
+        <interval begin="10" end="2500">
+            <routeProbReroute id="gneE1_gneE2" probability="20.0"/>
+            <routeProbReroute id="gneE1_gneE4" probability="30.0"/>
+        </interval>
+    </rerouter>
+</additional>

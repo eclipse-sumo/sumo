@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-04 16:01:15 by Eclipse SUMO netconvert Version v1_18_0+0064-44003d8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="10"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="0" to="4" fromLane="1" toLane="1"/>
+
+    <connection from="1" to="5" fromLane="2" toLane="2"/>
+
+    <connection from="2" to="0" fromLane="1" toLane="1"/>
+    <connection from="2" to="1" fromLane="1" toLane="1"/>
+    <connection from="2" to="1" fromLane="2" toLane="2"/>
+    <connection from="2" to="7" fromLane="2" toLane="1"/>
+    <connection from="2" to="6" fromLane="2" toLane="2"/>
+
+    <connection from="3" to="6" fromLane="1" toLane="1"/>
+    <connection from="3" to="6" fromLane="1" toLane="2"/>
+    <connection from="3" to="0" fromLane="1" toLane="1"/>
+    <connection from="3" to="1" fromLane="1" toLane="2"/>
+    <connection from="3" to="7" fromLane="1" toLane="1"/>
+
+    <connection from="4" to="1" fromLane="1" toLane="1"/>
+    <connection from="4" to="7" fromLane="1" toLane="1"/>
+    <connection from="4" to="6" fromLane="1" toLane="2"/>
+    <connection from="4" to="0" fromLane="1" toLane="1"/>
+
+    <connection from="5" to="7" fromLane="1" toLane="1"/>
+    <connection from="5" to="6" fromLane="1" toLane="1"/>
+    <connection from="5" to="6" fromLane="2" toLane="2"/>
+    <connection from="5" to="0" fromLane="2" toLane="1"/>
+    <connection from="5" to="1" fromLane="2" toLane="2"/>
+
+    <connection from="6" to="2" fromLane="2" toLane="2"/>
+
+    <connection from="7" to="3" fromLane="1" toLane="1"/>
+
+</connections>

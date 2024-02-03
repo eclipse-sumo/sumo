@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-26 23:21:40.164640 by netdiff.py v1_15_0+1985-a4f015c
+  options: -c input_config.xml
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Copied Elements -->
+    <!-- Deleted Elements -->
+    <delete from="CW" fromLane="1" to="WC" toLane="1"/>
+    <delete from="EC" fromLane="0" to="CW" toLane="0"/>
+    <delete from="EC" fromLane="1" to="CW" toLane="1"/>
+    <delete from="NC" fromLane="0" to="CW" toLane="0"/>
+    <delete from="SC" fromLane="1" to="CW" toLane="1"/>
+    <!-- disconnected edge implicitly loses connections when deleted: <delete from="WC"/> -->
+    <!-- Created Elements -->
+    <connection from="EC" fromLane="1" to="CN" toLane="1" />
+    <!-- Changed Elements -->
+</connections>

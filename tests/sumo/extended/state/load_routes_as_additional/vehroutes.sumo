@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 23 13:47:06 2020 by Eclipse SUMO sumo Version v1_7_0+0189-628139e3d6
+<!-- generated on 2022-03-31 09:56:47 by Eclipse SUMO sumo Version v1_12_0+1800-1448304
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="v0" type="type1" depart="0.00" line="line1" arrival="32.00">
         <route edges="beg middle end"/>
-        <stop lane="middle_0" duration="0.00"/>
+        <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
 

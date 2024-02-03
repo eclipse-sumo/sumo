@@ -1,3 +1,0 @@
-Error: Invalid arrivalPosLat definition for vehicle 'vehicle_0';
- must be one of ("right", "center", "left", or a float)
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\arrivalPosLat\input_routes.rou.xml failed.

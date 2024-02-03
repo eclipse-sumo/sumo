@@ -1,0 +1,27 @@
+/* XPM */
+static const char *vclass_small_ship_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c #2560B5",
+". c #6F7C91",
+"X c #00A2E8",
+"o c gray63",
+"O c None",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO",
+"OOOooOOOOOOOOOOO",
+"OOooooooOOOOOOOO",
+"OOoOooOoOOOOOOOO",
+"OOoooooooOOOOOOO",
+"OOOOOOOOOO.....O",
+"O..............O",
+"O.............OO",
+"OOOOO......OOOOO",
+"OXXXXOO..OOXXXXO",
+"XX  XXXOOXXX  XX",
+"  OO  XXXX  OO  ",
+"OOOOOO    OOOOOO",
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO"
+};

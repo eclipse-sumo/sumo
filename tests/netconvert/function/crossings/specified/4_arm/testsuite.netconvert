@@ -1,0 +1,121 @@
+# 4 arm junction with crossings on all sides
+complete
+
+# this is net3.net.xml in the sumo test suite
+cycles_green_verge
+
+# 4 arm junction with crossings on all sides, built for a left-hand network
+complete_lefthand
+
+# 4 arm junction with crossings on all sides. Set a cycle time that cannot be met
+complete_cycletime
+
+# slanted 4 arm junction with crossings on all sides
+slanted_complete
+
+# 4 arm junction without crossing but with walkingareas
+0_walkingareas
+
+# 4 arm junction without crossing but with walkingareas re-import from net.xml
+0_walkingareas_sumonet
+
+# 4 arm junction with crossings on all sides and custom tl indices
+customTLIndex
+
+# 4 arm junction with crossings on all sides and custom tl indices for both directions
+customTLIndex2
+
+# 4 arm junction with 1 crossing
+1_crossing
+
+# 4 arm junction with 1 crossing (with custom shape)
+1_customshape
+
+# 4 arm junction with 1 crossing (with custom shape), shifted by normalization
+1_customshape_normalized
+
+# 4 arm junction with crossings on 2 opposite sides
+2_opposite
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians permitted on all lanes)
+2_opposite_invalid
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians prohibited on all lanes)
+2_opposite_invalid_noSidewalk
+
+# 4 arm junction with crossings on 2 opposite sides. Road permissions are invalid (pedestrians prohibited on all lanes and there is only 1 sidwalk)
+2_opposite_invalid_1Sidewalk
+
+# 4 arm junction with 2 crossings on neighboring sides
+2_neighboring
+2_neighboring_corner_detail
+
+# without green verge
+2_neighboring_corner_detail_noverge
+
+# crossings have intermediate walking areas
+3_neighboring_split
+
+# custom walking area shapes
+3_neighboring_split_customshape
+
+# test custom walking area shapes and shifting the network
+3_neighboring_split_customshape_shifted
+
+# custom walking area shapes, shifter by user defined offset
+3_neighboring_split_customshape_shifted2
+
+# custom walking area width
+3_neighboring_split_customsWidth
+mixed_priority
+
+# reimport .net.xml and keep the crossings with their original priorities
+mixed_priority_from_sumonet
+
+# crossing positions should not be affected by offset of non-pedestrian lanes
+endOffset
+
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane
+outer_bikelane
+
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (bike lane allows pedestrian)
+outer_bikelane2
+
+# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (extra edge to model bike lane)
+outer_bikelane3
+
+# a sidewalk is to the left of a road lane
+leftsidewalk
+
+# a sidewalk is located between two road lanes
+enclosed_sidewalk
+
+# a sidewalk is located between two road lanes of the same edge
+enclosed_sidewalk2
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings
+pedscramble
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings (no green verge)
+pedscramble2
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings
+pedscramble_slanted
+
+# 4 arm junction with crossings on all sides and additional diagonal crossings (using custom shape)
+pedscramble_custom
+
+# 4 arm junction with crossings on all sides and type traffic_light_right_on_red
+right_on_red
+
+# duplicated crossings shall be rejected
+duplicate
+
+# underlying priority junction has a turning priority road but tls layout is oncoming.  Related to #7764
+bent_priority_tls_oncoming
+
+# large walkingarea should not bulge out into the driving space (#9485)
+large_walkingarea
+
+# 4 arm junction with crossings on all sides and fringe nodes on the outer arms
+complete_fringe

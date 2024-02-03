@@ -1,0 +1,6 @@
+<routes>
+    <route id="r0" edges="gneE0"/>
+    <vehicle id="v0" depart="0" route="r0" departLane="1" departPosLat="left"/>
+    <vehicle id="push" depart="0" route="r0" departLane="2" departPosLat="right"/>
+    <vehicle id="blocker" depart="0" route="r0" departLane="0"/>
+</routes>

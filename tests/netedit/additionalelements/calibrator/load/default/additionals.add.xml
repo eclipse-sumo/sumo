@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- default calibrator -->
+    <calibrator id="calibrator01" edge="center0" pos="0.00" period="100.00" output="calibrator01.txt"/>
+
+</additional>

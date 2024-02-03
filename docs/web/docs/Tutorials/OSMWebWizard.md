@@ -15,7 +15,7 @@ in the sumo-gui.
 # Requirements
 
 - [SUMO](../Installing/index.md) installation
-- [Python](http://www.python.org) (\>= 2.7) installation
+- [Python](https://www.python.org) (\>= 2.7) installation
 
 # Getting started
 
@@ -36,12 +36,12 @@ should open showing a map excerpt of central Berlin.
 
 You may zoom and pan to the area of your interest. Caution: if the map
 excerpt covers a very large area, the simulation might become slow or
-even unresponsive. We suggest to choose a similar zoom level as in the
+even unresponsive. We suggest choosing a similar zoom level as in the
 initial view.
 
-In the next step, you select the actual area for which you want to
+In the next step, you select the actual area for which you wish to
 generate the simulation scenario. The area selection will be activated
-by clicking the check box *Select Area* at the blue area selection panel
+by clicking the checkbox *Select Area* at the blue area selection panel
 on the right side of the map.
 
 ![wz02.jpg](../images/Wz02.png "wz02.png")
@@ -55,7 +55,7 @@ the next step.
 
 The infrastructure import from OSM into the SUMO simulation are affected by different Wizard options
 
-* by default a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
+* by default the "Add Polygon" checkbox is checked and a road traffic simulation is generated but all types of roads and rails will be imported as well (cycle paths, footpaths, railways etc)
 * if the checkbox "left-hand Traffic" is enabled, the network will be built with left hand traffic rules. For most geographic regions where this is required, this feature will be enabled automatically but if it does not work, this option can be used as a remedy.
 * if the checkbox "Car-only Network" is enabled, then only roads that permit passenger car traffic will be included. This can be used to reduce the network size and also helps to reduce intersection complexity
 * if the checkbox "Import Public Transport" is enabled, then busStops and trainStops will be exported. Also busses, trams and trains will be generated that follow the public transport routes defined in OSM (but they will follow synthetic schedules).
@@ -78,7 +78,7 @@ distribution, which is influenced by two parameters:
 - Every time a new vehicle is generated, the OSM Web Wizard randomly
 chooses a departure and arrival edge for the vehicle. The *Through
 Traffic Factor* defines how many times it is more likely for an edge
-at the boundary of the simulation area being chosen compared to an
+at the boundary of the simulation area being chosen, compared to an
 edge entirely located inside the simulation area. A big value for
 the *Through Traffic Factor* implies that many vehicles depart and
 arrive at the boundary of the simulation area, which corresponds to
@@ -96,11 +96,29 @@ hour and lane-kilometer. Assuming
 
 The next step is generating and running the scenario.
 
+# Road-Type Selection
+
+In the Road-Type tab of the OSM Web Wizard one can define which road types
+to be downloaded and rendered.
+
+![wz01.jpg](../images/Wz05.png "wz05.png")
+
+For example, one can only choose motorways, primary,
+secondary and tertiary to simulate major traffic.
+This impacts the file size of the OSM map data.
+
+By default, all road types are checked which implies downloading and rendering
+all roads.
+Unchecking the "Add Polygon" checkbox in the Demand Generation section disables
+downloading and rendering non-road objects like buildings, waterways, etc. resulting
+in a smaller file size.
+
+
 # Generating and Running the scenario
 
 The complete scenario will be generated automatically once *Generate
 Scenario* in the control panel has been clicked. The scenario generation
-takes a couple of seconds or minutes (depending, among others, on the
+takes a couple of seconds or minutes (depending, among other factors, on the
 size of the scenario). Once the scenario generation process has
 finished, the sumo-gui starts and the simulation can be started by
 pressing the *Play* button.
@@ -133,3 +151,7 @@ data. The contents of the directory look like this:
 You may now edit those files and re-run the simulation. To learn more
 about the SUMO scenario files, please consult the other
 [Tutorials](index.md) as well.
+
+Please note that depending on your SUMO version some of these files may have an additional *.gz* suffix.
+The SUMO tools (including sumo-gui and netedit) will still be able to process them but to view or modify
+them in a text editor you will need to unzip them (for instance with gunzip or 7z).

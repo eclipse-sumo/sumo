@@ -1,0 +1,4 @@
+Error: Attribute 'endPos' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummyEndPos.
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Invalid position over lane.
+Error: Could not build parkingArea with ID 'parkingArea_3' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\endpos\additionals.add.xml failed.

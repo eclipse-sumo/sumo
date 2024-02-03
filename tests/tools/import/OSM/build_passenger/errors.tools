@@ -1,11 +1,36 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurence for edge '81096583').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurence for edge '135777011').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '143308535').
-Warning: Discarding unusable type 'highway.construction' (first occurence for edge '190461577').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurrence for edge '81096583').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurrence for edge '135777011').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '143308535').
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '190461577').
+Warning: Removing pt stop '1704693343' on non existing edge '158236729#0'.
+Warning: Removing pt stop '1704693369' on non existing edge '220198810#3'.
+Warning: Removing pt stop '1704693381' on non existing edge '220198810#0'.
+Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 164: S Flughafen Berlin-Schönefeld => S Kaulsdorf' in relation 228027 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 162: S Adlershof => U Rudow' in relation 1226998 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 162: U Rudow => S Adlershof' in relation 1227007 seems to be split, only keeping first part.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: Removed invalid stop '1704693381' from line '2077946'.
+Warning: Removed invalid stop '1704693369' from line '2077946'.
+Warning: Removed invalid stop '1704693343' from line '2077947'.
+Warning: Removed invalid stop '1704693343' from line '2077981'.
+Warning: Removed invalid stop '1704693381' from line '2077982'.
+Warning: Removing pt stop '1704693343' on non existing edge ''.
+Warning: Removing pt stop '1704693369' on non existing edge ''.
+Warning: Removed 6 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '2697454308'.
+Warning: Converting invalid rail_crossing to priority junction '2697454310'.
+Warning: Converting invalid rail_crossing to priority junction '2697454311'.
+Warning: Converting invalid rail_crossing to priority junction '2697454312'.
+Warning: Converting invalid rail_crossing to priority junction '443598344'.
+Warning: 6 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 8 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
+Warning: 6 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 9 total messages of type: Removing pt stop '%' on non existing edge '%'.

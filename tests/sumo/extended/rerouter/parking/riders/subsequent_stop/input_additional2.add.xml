@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	
+	<rerouter id="rr1" edges="C0C1">
+        <interval begin="0.0" end="86400">
+            <parkingAreaReroute id="parkC0C1" visible="true"/>
+            <parkingAreaReroute id="parkD1D2" visible="true"/>
+            <parkingAreaReroute id="parkA1A2" visible="true"/>
+        </interval>
+    </rerouter>
+</additional>

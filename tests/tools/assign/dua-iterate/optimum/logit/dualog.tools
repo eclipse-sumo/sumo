@@ -1,105 +1,95 @@
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '0/iteration_000_input_routes.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '0/iteration_000.sumocfg']
-Loading configuration ... done.
-Loading net-file from '0/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '0/dua_dump_000.add.xml' ... done (0ms).
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_1+0278-1608e5c started with time: 0.00
-Simulation ended at time: 481.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00.
+Simulation ended at time: 484.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 200):
  RouteLength: 794.97
  Speed: 7.98
- Duration: 144.60
- WaitingTime: 37.85
- TimeLoss: 86.70
+ Duration: 146.66
+ WaitingTime: 46.11
+ TimeLoss: 88.78
  DepartDelay: 0.00
 
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '1/iteration_001_input_routes_000.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '1/iteration_001.sumocfg']
-Loading configuration ... done.
-Loading net-file from '1/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '1/dua_dump_001.add.xml' ... done (0ms).
+['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_1+0278-1608e5c started with time: 0.00
-Simulation ended at time: 481.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00.
+Simulation ended at time: 484.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 200):
  RouteLength: 794.97
  Speed: 7.98
- Duration: 144.60
- WaitingTime: 37.85
- TimeLoss: 86.70
+ Duration: 146.66
+ WaitingTime: 46.11
+ TimeLoss: 88.78
  DepartDelay: 0.00
 
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '2/iteration_002_input_routes_001.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '2/iteration_002.sumocfg']
-Loading configuration ... done.
-Loading net-file from '2/../input_net.net.xml' ... done (0ms).
-Loading additional-files from '2/dua_dump_002.add.xml' ... done (1ms).
+['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_1+0278-1608e5c started with time: 0.00
-Simulation ended at time: 481.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00.
+Simulation ended at time: 484.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 200):
  RouteLength: 794.97
  Speed: 7.98
- Duration: 144.60
- WaitingTime: 37.85
- TimeLoss: 86.70
+ Duration: 146.66
+ WaitingTime: 46.11
+ TimeLoss: 88.78
  DepartDelay: 0.00
 
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '3/iteration_003_input_routes_002.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '3/iteration_003.sumocfg']
-Loading configuration ... done.
-Loading net-file from '3/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '3/dua_dump_003.add.xml' ... done (1ms).
+['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_1+0278-1608e5c started with time: 0.00
-Simulation ended at time: 481.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00.
+Simulation ended at time: 484.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 200):
  RouteLength: 794.97
  Speed: 7.98
- Duration: 144.60
- WaitingTime: 37.85
- TimeLoss: 86.70
+ Duration: 146.66
+ WaitingTime: 46.11
+ TimeLoss: 88.78
  DepartDelay: 0.00
 
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', '4/iteration_004_input_routes_003.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/sumo', '-c', '4/iteration_004.sumocfg']
-Loading configuration ... done.
-Loading net-file from '4/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '4/dua_dump_004.add.xml' ... done (0ms).
+['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_1+0278-1608e5c started with time: 0.00
-Simulation ended at time: 481.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00.
+Simulation ended at time: 484.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 200):
  RouteLength: 794.97
  Speed: 7.98
- Duration: 144.60
- WaitingTime: 37.85
- TimeLoss: 86.70
+ Duration: 146.66
+ WaitingTime: 46.11
+ TimeLoss: 88.78
  DepartDelay: 0.00
 

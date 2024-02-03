@@ -1,9 +1,0 @@
-Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
-Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
-Error: Attribute 'period' in definition of flow 'flow_2' is not a time value.
-Error: flow cannot be created
-Error: Attribute 'period' in definition of flow 'flow_3' is empty.
-Error: flow cannot be created
-Error: Invalid repetition rate in the definition of flow 'flow_4'.
-Error: Invalid repetition rate in the definition of flow 'flow_5'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.3_from_16Feb165957.10892\netedit.gui\demandElements\routeflow\load\period\input_routes.rou.xml failed.

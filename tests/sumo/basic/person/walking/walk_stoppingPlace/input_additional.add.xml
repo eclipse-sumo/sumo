@@ -1,0 +1,7 @@
+<add>
+    <busStop id="bs" lane="beg_0" startPos="10" endPos="20"/>
+    <parkingArea id="pa" lane="beg_0" startPos="30" endPos="40" roadsideCapacity="1"/>
+    <chargingStation id="cs" lane="beg_0" startPos="50" endPos="60"/>
+    <containerStop id="cts" lane="beg_0" startPos="70" endPos="80"/>
+    <trainStop id="ts" lane="beg_0" startPos="90" endPos="100"/>
+</add>

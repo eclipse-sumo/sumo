@@ -1,0 +1,48 @@
+Loading net-file from 'input_net.net.xml' ... done (22ms).
+Loading done.
+Simulation version v1_17_0+1033-3845634 started with time: 0.00.
+Simulation ended at time: 1328.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 1.68s
+ Real time factor: 791.418
+ UPS: 162735.995232
+Vehicles: 
+ Inserted: 2000
+ Running: 0
+ Waiting: 0
+Statistics (avg of 2000):
+ RouteLength: 464.29
+ Speed: 4.23
+ Duration: 136.53
+ WaitingTime: 67.30
+ TimeLoss: 100.24
+ DepartDelay: 4.25
+
+DijkstraRouter answered 5601 queries and explored 36.60 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.01ms on average).
+Loading net-file from 'input_net.net.xml' ... done (23ms).
+Loading done.
+Simulation version v1_17_0+1033-3845634 started with time: 0.00.
+Simulation ended at time: 1328.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 1.45s
+ Real time factor: 914.601
+ UPS: 188065.426997
+Vehicles: 
+ Inserted: 2000
+ Running: 0
+ Waiting: 0
+Statistics (avg of 2000):
+ RouteLength: 464.29
+ Speed: 4.23
+ Duration: 136.53
+ WaitingTime: 67.30
+ TimeLoss: 100.24
+ DepartDelay: 0.00
+
+<     <performance clockBegin="1687241075.26" clockEnd="1687241076.94" clockDuration="1.68" traciDuration="0.00" realTimeFactor="791.42" vehicleUpdatesPerSecond="162736.00" personUpdatesPerSecond="0.00" begin="0.00" end="1328.00" duration="1328.00"/>
+>     <performance clockBegin="1687241076.99" clockEnd="1687241078.45" clockDuration="1.45" traciDuration="1.06" realTimeFactor="914.60" vehicleUpdatesPerSecond="188065.43" personUpdatesPerSecond="0.00" begin="0.00" end="1328.00" duration="1328.00"/>
+<     <vehicleTripStatistics count="2000" routeLength="464.29" speed="4.23" duration="136.53" waitingTime="67.30" timeLoss="100.24" departDelay="4.25" departDelayWaiting="-1.00" totalTravelTime="273071.00" totalDepartDelay="8492.00"/>
+>     <vehicleTripStatistics count="2000" routeLength="464.29" speed="4.23" duration="136.53" waitingTime="67.30" timeLoss="100.24" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="273071.00" totalDepartDelay="0.00"/>

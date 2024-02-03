@@ -1,0 +1,7 @@
+-n motorway.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+--lanechange-output lanechanges.xml
+--ignore-route-errors
+--no-step-log
+--step-length 0.05

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-15 23:29:52.505222 by turnCount2EdgeCount.py v1_5_0+0092-24382ab578
+  options: -t input_turns.xml -o edgedata.xml <doubleminus>edgedata-attribute count
+-->
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <edge id="-58.121.42" count="4"/>
+    <edge id="45" count="3"/>
+    <edge id="-31.80.00" count="15"/>
+    <edge id="-92.180.00" count="1"/>
+    <edge id="-131" count="6"/>
+</meandata>

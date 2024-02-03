@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,10 +77,26 @@ public:
          * @param[in] beg The begin of the interval the weight is valid for
          * @param[in] end The end of the interval the weight is valid for
          */
-        virtual void addEdgeWeight(const std::string& id, double val, double beg, double end) const = 0;
+        virtual void addEdgeWeight(const std::string& id, double val, double beg, double end) const {
+            UNUSED_PARAMETER(id);
+            UNUSED_PARAMETER(val);
+            UNUSED_PARAMETER(beg);
+            UNUSED_PARAMETER(end);
+        }
 
         virtual void addEdgeRelWeight(const std::string& from, const std::string& to,
                                       double val, double beg, double end) const {
+            UNUSED_PARAMETER(from);
+            UNUSED_PARAMETER(to);
+            UNUSED_PARAMETER(val);
+            UNUSED_PARAMETER(beg);
+            UNUSED_PARAMETER(end);
+        }
+
+        /// @note: note sure why the other functions are const
+        virtual void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+                                     double val, double beg, double end) {
+            UNUSED_PARAMETER(intervalID);
             UNUSED_PARAMETER(from);
             UNUSED_PARAMETER(to);
             UNUSED_PARAMETER(val);
@@ -178,11 +194,17 @@ private:
     /// @brief Parses the data of an edge or lane for the previously read times
     void tryParse(const SUMOSAXAttributes& attrs, bool isEdge);
 
-    /// @brief Parses the data of an edgeRel for the previously read times
+    /// @brief Parses the data of an edgeRelation for the previously read times
     void tryParseEdgeRel(const SUMOSAXAttributes& attrs);
+
+    /// @brief Parses the data of an tazRelation for the previously read times
+    void tryParseTazRel(const SUMOSAXAttributes& attrs);
 
     /// @brief List of definitions what shall be read and whereto stored while parsing the file
     std::vector<ToRetrieveDefinition*> myDefinitions;
+
+    /// @brief the id of the interval being parsed
+    std::string myCurrentID;
 
     /// @brief the begin of the time period that is currently processed
     double myCurrentTimeBeg;

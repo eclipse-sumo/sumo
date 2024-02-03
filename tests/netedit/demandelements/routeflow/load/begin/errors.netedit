@@ -1,0 +1,7 @@
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
+Error: Attribute 'begin' in definition of flow 'flow_1' is empty.
+Error: Invalid begin time for flow 'flow_2';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Negative begin time in the definition of flow 'flow_3'.
+Error: Flow 'flow_4' ends before its begin time.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.routeflow.25Jan182728.9856/netedit.daily.demand.routeflow/demandelements/routeflow/load/begin/routes.rou.xml failed.

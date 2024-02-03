@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-12 22:06:39.822338 by netdiff.py v1_14_1+0970-4b73876
+<configuration>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <source value="source.net.xml"/>
+    <write-shapes value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="301292612" type="node" shape="45.57,61.54 48.33,55.65 48.34,49.92 42.06,48.24 40.22,49.33 37.06,62.05" fill="True" layer="11" color="red"/>
+    <poly id="38919945" type="node" shape="37.77,62.22 40.92,49.51 39.73,47.67 33.32,46.55 30.73,52.74 30.38,55.92" fill="True" layer="11" color="red"/>
+    <poly id="56231397" type="node" shape="51.43,53.00 54.14,47.09 53.23,45.04 47.02,43.10 41.59,44.10 40.79,47.19 41.28,51.17 47.55,52.85" fill="True" layer="11" color="red"/>
+    <poly id="59993001" type="node" shape="41.30,47.33 42.11,44.23 37.69,41.53 31.39,39.93 29.30,42.11 28.96,45.29 33.19,47.31 39.59,48.43" fill="True" layer="11" color="red"/>
+    <poly id="27441168" type="edge" shape="41.19,45.64 41.70,45.78" fill="False" layer="10" color="red"/>
+    <poly id="27441189" type="edge" shape="39.35,55.86 38.64,55.69" fill="False" layer="10" color="red"/>
+    <poly id="27445003" type="edge" shape="45.20,49.08 44.41,52.00" fill="False" layer="10" color="red"/>
+    <poly id="6137245" type="edge" shape="36.40,47.87 36.52,47.11" fill="False" layer="10" color="red"/>
+</additional>

@@ -1,0 +1,4 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--lanechange.duration 3 --tripinfo-output tripinfos.xml
+--lanechange-output lanechanges.xml
+--netstate-output rawdump.xml

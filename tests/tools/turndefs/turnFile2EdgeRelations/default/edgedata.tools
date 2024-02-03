@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-17 13:27:11.628169 by turnFile2EdgeRelations.py v1_5_0+0118-a6ba6eb
+
+<!-- generated on 2022-10-01 00:23:18.948613 by turnFile2EdgeRelations.py v1_14_1+1393-660608810b1
   options: -t input_turns.xml -o edgedata.xml <doubleminus>turn-attribute count
 -->
-<edgeRelations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgerelations_file.xsd">
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval begin="0.0" end="99.0">
+        <!--  some comment  -->
         <edgeRelation from="-58.121.42" to="64" count="1"/>
         <edgeRelation from="-58.121.42" to="-31" count="3"/>
         <edgeRelation from="45" to="-68" count="3"/>
@@ -12,6 +15,7 @@
         <edgeRelation from="-31.80.00" to="-23" count="13"/>
         <edgeRelation from="-92.180.00" to="-60" count="1"/>
         <edgeRelation from="-131" to="-131.180.00" count="6"/>
+        <!--  some other comment  -->
         <edgeRelation from="-23.80.00" to="-11" count="12"/>
         <edgeRelation from="-23.80.00" to="109" count="6"/>
         <edgeRelation from="-23.80.00" to="23" count="1"/>
@@ -143,4 +147,4 @@
         <edgeRelation from="-27.80.00" to="27" count="2"/>
         <edgeRelation from="-27.80.00" to="-3" count="17"/>
     </interval>
-</edgeRelations>
+</data>

@@ -1,2 +1,3 @@
-Warning:  Removing self-looping edge '2'
-Warning: 1 self-looping edge(s) removed.
+Warning: Ignoring self-looped edge '2' at junction 'dr'
+Error: No edges loaded.
+Quitting (on error).

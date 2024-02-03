@@ -1,0 +1,20 @@
+<edgedata>
+    <interval begin="0" end="1000000" id="routeStats">
+        <edge id="-142575691#0" departed="45" arrived="0" delta="-45"/>
+        <edge id="142575691#0" departed="0" arrived="105" delta="105"/>
+        <edge id="142575692#0" departed="61" arrived="116" delta="55"/>
+        <edge id="142575692#2" departed="0" arrived="103" delta="103"/>
+        <edge id="142575693#0" departed="73" arrived="0" delta="-73"/>
+        <edge id="143308542#0" departed="118" arrived="0" delta="-118"/>
+        <edge id="143308542#2" departed="137" arrived="53" delta="-84"/>
+        <edge id="143308542#4" departed="93" arrived="83" delta="-10"/>
+        <edge id="143308542#5" departed="69" arrived="94" delta="25"/>
+        <edge id="143308542#6" departed="0" arrived="127" delta="127"/>
+        <edge id="143308546#0" departed="190" arrived="0" delta="-190"/>
+        <edge id="143308546#1" departed="187" arrived="59" delta="-128"/>
+        <edge id="143308546#3" departed="146" arrived="73" delta="-73"/>
+        <edge id="143308546#7" departed="60" arrived="121" delta="61"/>
+        <edge id="143308546#8" departed="50" arrived="159" delta="109"/>
+        <edge id="143308546#9" departed="0" arrived="136" delta="136"/>
+    </interval>
+</edgedata>

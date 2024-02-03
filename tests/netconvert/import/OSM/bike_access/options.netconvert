@@ -1,0 +1,3 @@
+ --osm-files osm.xml,osm2.xml
+ --osm.extra-attributes all
+--osm.bike-access

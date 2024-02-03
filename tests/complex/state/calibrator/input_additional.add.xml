@@ -1,0 +1,7 @@
+<add>
+    <route id="r0" edges="SC CN"/>
+    <vType id="car" sigma="0"/>
+    <calibrator id="cali" edge="SC" pos="20">
+        <flow begin="0.00" end="32.00" route="r0" vehsPerHour="360" speed="33.33" type="car" departPos="random_free" departSpeed="max"/>
+    </calibrator>
+</add>

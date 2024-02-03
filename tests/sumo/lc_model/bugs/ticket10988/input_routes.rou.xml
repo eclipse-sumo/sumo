@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 29.06.2021 17:26:04 by Eclipse SUMO netedit Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\05_Daten_fuer_Simulationen\Test_New_KeepRight\Slope_calculation.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\05_Daten_fuer_Simulationen\Test_New_KeepRight\Slope_calculation.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\05_Daten_fuer_Simulationen\Test_New_KeepRight\Slope_calculation.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="vType_0" carFollowModel="Krauss" sigma="0.0" speedFactor="normc(1.00,0.01,0.99,1.01)"/>
+	<vType id="vType_1" carFollowModel="Krauss" sigma="0.0" speedFactor="normc(0.75,0.01,.74,0.76)"/>
+    <trip id="vehicle_0" type="vType_0" depart="0.00" departLane="1" departSpeed="max" departPos="615.0" from="N_ES159" to="NE2"/>
+	<trip id="vehicle_2" type="vType_1" depart="0.00" departLane="0" departSpeed="max" departPos="655.0" from="N_ES159" to="NE2"/>
+	<trip id="vehicle_1" type="vType_0" depart="0.00" departLane="0" departSpeed="max" departPos="640.0" from="N_ES159" to="NE2"/>
+</routes>

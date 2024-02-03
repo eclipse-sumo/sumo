@@ -17,7 +17,7 @@ python tools\route\routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
 python tools\route\routecheck.py <net> <vehicletypes+routes>
 ```
 
-If a route is broken (or disconnected), the tool gives a warning, e.g.: "Warning: 
+If a route is broken (or disconnected), the tool gives a warning, e.g.: "Warning:
 Route for vehicle 0 disconnected between startEdge and endEdge"
 
 If **--fix** (**-f**) is given, routes are tried to be repaired
@@ -117,7 +117,7 @@ Filtering stopping places is also supported by setting the options **--additiona
 # splitRouteFiles.py
 
 This script splits a list of route files (e.g. coming from [duarouter](../duarouter.md))
-by start time. If a detector file is given, the routes will be also split by 
+by start time. If a detector file is given, the routes will be also split by
 the edges with detectors. Example:
 
 ```
@@ -125,7 +125,7 @@ python tools/route/splitRouteFiles.py <route-files>
 ```
 
 As default, the routes will be split in steps of 900 seconds. This can be changed
-with the option **-s**. 
+with the option **-s**.
 The detector file can be loaded with the option **-f**. Example:
 
 ```
@@ -221,7 +221,7 @@ python tools/route/route2alts.py <route-file>
 
 # countEdgeUsage.py
 
-Generates a visualization file for investigating traffic patterns in a
+Generates a [visualization](../sumo-gui.md#visualizing_edge-related_data) file for investigating traffic patterns in a
 route file.
 
 ```
@@ -255,7 +255,7 @@ python tools/addParkingAreaStops2Routes.py -r <route-file> -p <parking-areas
 
 The stop will be added to the vehicles route, if the id of the given parking area is part of the vehicle id. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -270,7 +270,7 @@ The stop will be added to the vehicles route, if the id of the given parking are
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p ParkingAreaA -d 3600 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <vehicle id="0_parkingAreaA" depart="0">
       <route edges="e1 e2 e3"/>
@@ -288,7 +288,7 @@ Note, that the lane of that parking area must belong to one of the edges
 
 # addParkingAreaStops2Trips.py
 
-Add a stop over parking in all trips given in input file 
+Add a stop over parking in all trips given in input file
 
 ```
 python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
@@ -296,7 +296,7 @@ python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-
 
 The stop will be added to the trip route.
 
-```
+```xml
 <routes>
     <trip id="vehicle_0" depart="0.00" from="WC" to="CN"/>
 </routes>
@@ -306,7 +306,7 @@ The stop will be added to the trip route.
 python tools/route/addParkingAreaStops2Routes.py -r <route-file> -p <parkings-file> -d 1800 [-o <output-file>]
 ```
 
-```
+```xml
 <routes>
     <trip depart="0.00" from="WC" id="vehicle_0" to="CN">
         <stop duration="1800" parkingArea="parkingArea_WC_3_0"/>
@@ -320,7 +320,7 @@ Note, that the lane of that parking area must belong to one of the edges
 
 # addStops2Routes.py
 
-Declares vehicles to stop at the end of their route.
+Declares vehicles to stop at the end of their route (or at some other defined / random location).
 
 ```
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -d <stop duration in seconds> -u <stop until time>
@@ -328,7 +328,7 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 
 Either the "duration" or "until" for stop must be given. Using the option **-p**, the vehicle stops besides the road without blocking other vehicles. Example:
 
-```
+```xml
 <routes>
     <vehicle id="0" depart="0">
       <route edges="e1 e2 e3"/>
@@ -340,7 +340,7 @@ Either the "duration" or "until" for stop must be given. Using the option **-p**
 python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vType-file> -o <output-file> -p --duration 1800 --until 12:0:0
 ```
 
-```
+```xml
 <routes>
     <vehicle depart="0" id="0" type="type1">
         <route edges="SC CN"/>
@@ -349,12 +349,35 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 </routes>
 ```
 
+## Random stopping
+
+The following options can be used to randomize the added stops:
+
+- **--probability**: Randomly adds a stop for each vehicle with probability in `[0,1]`
+- **--reledge random**: Adds stop on a random edge along the route
+- **--relpos random**: Adds stop on random offset along the edge
+- **--lane random**: Adds stop on random (permitted) lane of the stop edge
+
+## Stationary traffic
+
+Instead of modifying a given route file by adding stops, the tool can also synthesize vehicles to fill up a given list of parkingAreas. This requires the option **--parking-areas FILE** to be set. The generated vehicles will have a stop with the configured duration/until time and leave the simulation after stopping.
+
+- **--abs-occupancy** : generate the given number of vehicles for each parkingArea
+- **--rel-occupancy** : generate vehicles to fill each parkingArea to the given relative capacity
+- **--abs-free** : generate vehicles to have the given number of free spaces for each parking area
+
+## Further Options
+
+- **--parking-areas FILE**: Load additional file with parking area definitions. If the final edge of a vehicle has a parkingArea, this will be used as the destination
+- **--person-duration**, **--person-until**: if set, any persons in the input will receive a `<stop>` as the last element of their plan
+- **--start-at-stop**: if set, vehicle routes will be shortened so they start at the final edge. This can be used to define stationary traffic which fills up parkingAreas without driving around.
+
 # vehicle2flow.py
 
 This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
 
 ```
-python tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
+python tools/route/vehicles2flow.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
 ```
 
 # tracegenerator.py
@@ -382,18 +405,24 @@ vehicle1:363.66,497.79 2008.64,498.82
 vehicle2:363.66,497.79 1498.46,989.78 2008.64,498.82
 ```
 
+As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`) are supported.
+
 The output is a standard sumo route file
 
-```
+```xml
 <routes>
     <route id="vehicle1" edges="beg rend"/>
     <route id="vehicle2" edges="beg left2end rend"/>
 </routes>
 ```
 
-The option --geo enables the conversion of the input coordinates with
-the parameters given in the network. The mapping algorithm is also
-available in the python library function sumolib.route.mapTrace.
+The option **--geo** enables the conversion of the input coordinates with
+the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using
+the option **--vehicle-class**, the mapping algorithm will consider only edges where
+this vehicle class is allowed. If the network contains many multi-lane edges, it
+may be beneficial to increase the accepted **--delta** distance between trace points and
+the edge reference line. The mapping algorithm is also available in the
+python library function sumolib.route.mapTrace.
 
 # tlsCycleAdaptation.py
 
@@ -434,6 +463,10 @@ The implausibility score is a weighted sum of individual measures of implausibil
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
 
+!!! caution
+    When using a route file with named routes (i.e. flowrouter **--routes-output**), the option **--standalone** must be set.
+
+
 # addStopDelay.py
 
 This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
@@ -447,12 +480,38 @@ By setting option **--probability FLOAT**, stops only receive a delay with the g
 
 # checkStopOrder.py
 
-This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
+This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurrence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
 ```
 python tools/route/checkStopOrder.py -r <route-file>
 ```
 
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
+The option accepts a list of stops and also the `*` wildcard to generate a combined table for multiple busStops (i.e belonging to the same station).
+
+The resulting stop table may look as in the below example, where the columns correspond to the [attributes of the stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) execpt for the following two columns:
+- **veh**: the id of the vehicle to which this stop belongs
+- **flags**:
+  - p: parking
+  - F: first stop of the vehicle
+  - L: last stop of the vehicle
+  - w: waypoint
+  - o: vehicle is overtaken (some other vehicle arrives later at the same stop and departs earlier)
+  - O: vehicle ovetakes (some other vehicle arrives earlier and departs later)
+
+```
+# busStop: stop_A,stop_B
+arrival  until	    veh      tripId	started	  ended	    flags	busStop
+12:20:30  12:24:12  H2303_6  4199   12:23:22	12:26:23		    stop_B
+12:21:42  12:21:42  H2303_8  11010  12:25:15	12:25:15	F	    stop_A
+12:50:36  12:53:48  H2303_7  11023  12:50:26	12:52:57		    stop_B
+13:20:36  13:23:42  H2303_9  11073			                      stop_B
+13:35:00  13:38:42  H2303_8  11025			                      stop_B
+13:36:24  13:36:24  H2303_3  11012			                      stop_A
+14:04:36  14:07:24  Z2602_2  1435			                        stop_B
+14:21:12  14:24:12  H2303_1  11027		                        stop_B
+14:35:18  14:37:18  H3458_2  28915	                       		stop_B
+14:51:36  14:54:12  Z1351_9  2075			                        stop_B
+```
 
 # splitRandom.py
 
@@ -460,3 +519,21 @@ This tool splits a route file in two different route files
 ```
 python tools/route/splitRandom.py -r <route-file> -a <first output file> -b <second output file> -n <number of trips in second file>
 ```
+
+# addTAZ.py
+
+This tool adds 'fromTaz' and 'toTaz' information to vehicles in a route file.
+```
+python tools/route/addTAZ.py -r <route-file> -a <taz-file> -o <output-file>
+```
+
+# route2OD.py
+
+This tool generates a [tazRelation-file (OD-Matrix)](../Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file.
+```
+python tools/route/route2OD.py -r <route-file> -a <taz-file> -o <output-file>
+```
+
+Not only route file but also trip file can be used as input. The tool will firstly try to find the start edge and the end edge of each trip or flows and match them to the respective origin and destination TAZ according to the input taz-file. The counts of the TAZ-relations will be calculated and saved. If only TAZ-information in the given trip or route file is available, this tool will directly calculate TAZ-based OD relation counts without using the information in the given taz-file, which connection edges locate in each TAZ. If the option **--edge-relations** is set, edge-based relation counts will be calculated and saved, only when start/end edge information is available.
+
+When option **--interval TIME** (short **-i**) is set, the OD-Matrix will be split into time slices of the given duration.

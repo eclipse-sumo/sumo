@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid edge (missing) -->
+    <calibrator id="calibrator01" pos="12.00" period="100.00" output="calibrator01.txt"/>
+
+    <!-- non valid edge (dummy) -->
+    <calibrator id="calibrator02" edge="dummyEdge" pos="14.00" period="100.00" output="calibrator02.txt"/>
+
+    <!-- valid edge (different) -->
+    <calibrator id="calibrator03" lane="center1_0" pos="16.00" period="100.00" output="calibrator03.txt"/>
+
+</additional>

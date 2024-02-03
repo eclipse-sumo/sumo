@@ -2,6 +2,6 @@
 [Reported by leo at 19Mai13:12:41]
 search_string:speed="0.00000000000000000000000000000000"
 trigger_on_absence:1
-search_file:output
+search_file:fcd
 ignore_other_errors:1
 brief_description:#3126

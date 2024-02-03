@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,7 +60,7 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("xml");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open xml-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open xml-file '%'.", *file));
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {
@@ -102,10 +102,10 @@ PCLoaderXML::myStartElement(int element,
     if (myTypeMap.has(type)) {
         const PCTypeMap::TypeDef& def = myTypeMap.get(type);
         discard = def.discard;
-        setDefaults(def.prefix, def.color, def.layer, def.allowFill);
+        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill);
     } else {
         setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
-                    myOptions.getFloat("layer"), myOptions.getBool("fill"));
+                    myOptions.getString("icon"), myOptions.getFloat("layer"), myOptions.getBool("fill"));
     }
     if (!discard) {
         if (element == SUMO_TAG_POI) {
@@ -119,8 +119,8 @@ PCLoaderXML::myStartElement(int element,
 
 
 Position
-PCLoaderXML::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    static_cast<PCPolyContainer&>(myShapeContainer).addLanePos(poiID, laneID, lanePos, lanePosLat);
+PCLoaderXML::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, bool friendlyPos, double lanePosLat) {
+    static_cast<PCPolyContainer&>(myShapeContainer).addLanePos(poiID, laneID, lanePos, friendlyPos, lanePosLat);
     return Position::INVALID;
 }
 

@@ -21,12 +21,13 @@ options or
 parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (i.e. **--device.fcd.probability 0.25**) the set of vehicles which generate fcd output can be reduced.
 The output period can be set by using option **--device.fcd.period** {{DT_TIME}}.
+To delay output (i.e. until some warm-up time has passed), the option **--device.fcd.begin** {{DT_TIME}} may be used.
 
 ## Generated Output
 
 The generated XML file looks like this:
 
-```
+```xml
 <fcd-export>
 
   <timestep time="<TIME_STEP>">
@@ -72,7 +73,7 @@ precision of 6 decimal places (changeable by setting option **--precision.geo**)
 Any persons or container in the simulation will cause output of he
 following form:
 
-```
+```xml
 <fcd-export>
 
   <timestep time="<TIME_STEP>">
@@ -105,6 +106,18 @@ Output can be restricted to specific vehicle types or vehicle ids by [controllin
 --device.fcd.explicit ego
 ```
 
+The following example restricts fcd-output to a single flow out of the whole simulation
+
+```
+--device.fcd.probability 0 ...
+```
+
+```xml
+<flow ...>
+   <param key="has.fcd.device" value="true"/>
+</flow>
+```
+
 ### Restricting the locations
 Output can be restricted to a specific set of edges by loading a list of edges from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format for
 this is the same as the one when saving selections in  [netedit](../../Netedit/index.md):
@@ -114,8 +127,13 @@ edge:id2
 ...
 ```
 
+### Restricting the locations by shape
+
+Output can be restricted to vehicles within a specified area by setting a list of `<poly>` ids with option **--fcd-output.filter-shapes**.
+The [polygon shapes](../Shapes.md) must have been loaded from an additional file.
+
 ### Restricting output by sensor range
-When not all vehicles are equipped with an **fcd**-device, other ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
+When not all vehicles are equipped with an **fcd**-device, other vehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
 ## Further Options
 
@@ -125,14 +143,52 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
   information](../../TraCI/Vehicle_Signalling.md) to the output
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage-mileage-chainage) information to the output
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
-- **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance
+- **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
 - **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and carfollowmodel parameters as well as arbitrary user-define values)
-- **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output).
-  - The special attribute `vehicle` may be given to add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
+- **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
+  - **all**: enables all attributes
+  - **vehicle**: add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
+  - **odometer**: write odometer value for each vehicle (distance driven since departure)
+  - **posLat**: write lateral position on lane for each vehicle
 
 ## NOTES
 
 In combination with the given geometry of the vehicles (shapes) you can
 build some nice animations, e.g [NASA
-WorldWind](http://worldwind.arc.nasa.gov/java/) or [Google
-Earth](http://earth.google.com).
+WorldWind](https://worldwind.arc.nasa.gov/java/) or [Google
+Earth](https://earth.google.com).
+
+## Visualization example
+
+### Accelerations versus distances
+
+<img src="../../images/Plot_trajectories.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#accelerations_versus_distances).
+
+### All trajectories over time
+
+<img src="../../images/allXY_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#all_trajectories_over_time_1).
+
+<img src="../../images/allLocations_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#all_trajectories_over_time_2).
+
+### Selected trajectories over time
+
+<img src="../../images/vehLocations_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#selected_trajectories_over_time_1).
+
+<img src="../../images/selectXY_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#selected_trajectories_over_time_2).
+
+
+### FCD based speeds over time
+
+<img src="../../images/timeSpeed_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speeds_over_time).

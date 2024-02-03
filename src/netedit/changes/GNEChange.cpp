@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// The reification of a NETEDIT editing operation (see command pattern)
+// The reification of a netedit editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo
 /****************************************************************************/
 
@@ -25,21 +25,26 @@
 // FOX-declarations
 // ===========================================================================
 
-FXIMPLEMENT_ABSTRACT(GNEChange, FXCommand, nullptr, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange, FXObject, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEChange::GNEChange(bool forward, const bool selectedElement) :
-    myForward(forward),
-    mySelectedElement(selectedElement) {}
-
-
-GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+GNEChange::GNEChange(Supermode supermode, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
-    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()) {
+    next(nullptr) {
+}
+
+
+GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
+    mySupermode(supermode),
+    myForward(forward),
+    mySelectedElement(selectedElement),
+    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()),
+    next(nullptr) {
     // get all hierarchical elements (Parents and children)
     const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
     // save all hierarchical containers
@@ -52,30 +57,37 @@ GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, 
 GNEChange::~GNEChange() {}
 
 
-FXuint
+int
 GNEChange::size() const {
+    // by default, 1
     return 1;
 }
 
 
-FXString
-GNEChange::undoName() const {
-    return "Undo";
+Supermode
+GNEChange::getSupermode() const {
+    return mySupermode;
 }
 
 
-FXString
-GNEChange::redoName() const {
-    return "Redo";
+bool
+GNEChange::canMerge() const {
+    return false;
 }
 
 
-void
-GNEChange::undo() {}
+bool
+GNEChange::mergeWith(GNEChange*) {
+    return false;
+}
 
 
-void
-GNEChange::redo() {}
+GNEChange::GNEChange() :
+    mySupermode(Supermode::NETWORK),
+    myForward(false),
+    mySelectedElement(false),
+    next(nullptr) {
+}
 
 
 void

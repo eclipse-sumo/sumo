@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 14:23:43 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->
+    <route id="CRoute" edges="center0 center1"/>
+    <!-- Calibrators -->
+    <calibrator id="calibratorFlows" edge="center0" pos="20.00" period="100.00" output="calibratorFlows.txt">
+        <flow type="DEFAULT_VEHTYPE" begin="0.00" speed="10.00" end="100.00" route="CRoute" vehsPerHour="250.00"/>
+    </calibrator>
+</additional>

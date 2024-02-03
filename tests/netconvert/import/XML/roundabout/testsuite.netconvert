@@ -1,2 +1,5 @@
 # specified one roundabout
 basic
+
+# 2-lane roundabout with explicit exit connections from the inner lane
+multi_lane

@@ -1,0 +1,25 @@
+/* XPM */
+static const char *vtype_bike_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c gray25",
+". c red",
+"X c None",
+/* pixels */
+"XXXXX XXXXXXXXXX",
+"XXXX XXXXX XXXXX",
+"XXXX       XXXXX",
+"XXXX  XXXX  XXXX",
+"X    X XXX     X",
+" XX X X XX X XX ",
+" XX X X      XX ",
+" XXXX XXXX XXXX ",
+" XXXX XXXX XXXX ",
+"X    XXXXXX    X",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"X...X.X.X..X..XX",
+"XX.XX...X..X.XXX",
+"XX.XXX.XX.XX..XX",
+"XXXXXXXXXXXXXXXX"
+};

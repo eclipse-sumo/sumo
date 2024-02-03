@@ -13,7 +13,7 @@ the gap below the minGap. By setting the option **--collision.mingap-factor** th
 reduced. When setting **--collision.mingap-factor 0**, only *physical collisions* (i.e. front and back
 bumper meet or overlap) are registered.
 
-When setting the option **--collisions.check-junctions**, collisions between vehicles on the same
+When setting the option **--collision.check-junctions**, collisions between vehicles on the same
 intersection are also checked by detecting overlap of the vehicles
 shapes.
 
@@ -34,18 +34,27 @@ time before the *collision action* takes place. This allows for pile-ups
 and traffic disturbance. To enable stopping, the option **--collision.stoptime** {{DT_TIME}} must be set
 with the stopping time in seconds.
 
+## Intermodal Collisions
+
+The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisiosn raise warning by default.
+
+The behavior can be changed by setting the options **--intermodal-collision.action** and **--intermodal-collision.stoptime** which work like the vehicle-on-vehicle collision options described above.
+
 !!! note
     The pedestrian model *striping* detects collisions between pedestrians. This only serves to detect issues with the model.
 
 ## Deliberately causing collisions
 
-To force collisions at a set time, TraCI must be used. Besides setting
-the speed, it is also necessary to disable safety checks using [the
-commands speedMode and
-laneChangeMode](../TraCI/Change_Vehicle_State.md).
+A simple way to create collisions  is by using TraCI to override save speeds (with `traci.vehicle.setSpeed`) or forcing unsafe lane changes.
+To create collisions in this way it is also necessary to disable safety checks using [the
+commands speedMode and laneChangeMode](../TraCI/Change_Vehicle_State.md).
+
+Alternatively, various models within SUMO may be configured to making driving less safe.
+This can be used to create collisions with some probability
+(or with certainty if vehicle stops are used to force unexpected braking in a critical situation).
 
 ### Collisions during car-following
-Rear-end collisiosn during normal driving may be caused by any of the following:
+Rear-end collisions during normal driving may be caused by any of the following:
 
 - vehicles with a value of *tau* that is lower than the simulation step
 size (default 1s) when using the default Krauss model.
@@ -53,16 +62,18 @@ size (default 1s) when using the default Krauss model.
 - vehicles with an *apparentDecel* parameter that is lower than their *decel* parameter (causing other drivers to misjudge their deceleration capabilities)
 - [driver imperfection modelled with the
   *driverstate*-device](../Driver_State.md)
+- The [carFollowModel EIDM](../Car-Following-Models/EIDM.md) natively includes [parameters for driving errors](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters) that can be used to provoke dangerous situations and collisions
+- Disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) and then configure insertion with high speed and small gap
 
 ### Collisions related to lane-changing
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
 
-Side collosions can be caused by
+Side collisions can be caused by
 - configuring lateral imperfection with vType parameter *lcSigma*
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
 
-Unsafe changing can be caused by configuringlower gap acceptance with parameter
+Unsafe changing can be caused by configuring a lower gap acceptance with parameter
 - *lcAssertive* (the acceptable gap is computed by dividing the safe gap by lcAssertive)
 
 ### Collisions at Intersections
@@ -79,7 +90,7 @@ parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_mod
     - vehicular foes as long as they are not in the way
     - any pedestrian foes
   - *junctionModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))
-  - *junctionModel.ignoreTypess*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
+  - *junctionModel.ignoreTypes*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))
 - yellow phases which are too short in relation to the vehicle speed
 (giving insufficient time to come to a stop). By default this causes
 strong braking (*Warning: emergency braking*) potentially followed
@@ -135,7 +146,7 @@ decisions during different simulation steps. During simulation steps
 without decision-making, vehicle positions are updated according to the
 previously computed acceleration. Lateral dynamics (when using the
 sublane model) use a dynamic acceleration curve that to complete the
-current lateral driving manoeuvre.
+current lateral driving manoeuver.
 
 The action step length can be defined in any of the following ways:
 
@@ -210,7 +221,7 @@ behavior. For a description see
   acceleration is assumed. (higher values cause reduced acceleration
   and thus decrease time gaps and safety)
 - jmTimegapMinor: Minimum time gap when passing a minor link ahead of
-  a prioritzed vehicle (lower values decrease safety)
+  a prioritized vehicle (lower values decrease safety)
 
 # Safety-Related Outputs
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,7 +84,7 @@ public:
      * @param[in] parameters Parameters defined for the policy
      */
     MSSOTLPolicy(std::string name,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
     /** @brief Constructor when the policy is a low-level policy used by an high level policy
      * @param[in] name The name of the policy
      * @param[in] desirabilityAlgorithm The desirability algorithm to be used for this policy
@@ -96,7 +96,7 @@ public:
      * @param[in] parameters Parameters defined for the policy
      */
     MSSOTLPolicy(std::string name, MSSOTLPolicyDesirability* desirabilityAlgorithm,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
     virtual ~MSSOTLPolicy();
 
     virtual bool canRelease(SUMOTime elapsed, bool thresholdPassed, bool pushButtonPressed,
@@ -124,4 +124,3 @@ public:
 
     double computeDesirability(double vehInMeasure, double vehOutMeasure);
 };
-

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,24 +19,26 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GNEViewNetHelper.h"
 
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/settings/GUIPropertyScheme.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEFrame;
+class GNENet;
+class GNEUndoList;
+class GNEViewParent;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GNEViewNet
- * Microsocopic view at the simulation
+ * Microscopic view at the simulation
  */
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
@@ -52,7 +54,7 @@ public:
      * @param[in] app main windows
      * @param[in] viewParent viewParent of this viewNet
      * @param[in] net traffic net
-     * @param[in] undoList pointer to UndoList modul
+     * @param[in] undoList pointer to UndoList module
      * @param[in] glVis a reference to GLVisuals
      * @param[in] share a reference to FXCanvas
      */
@@ -63,20 +65,32 @@ public:
     /// @brief destructor
     ~GNEViewNet();
 
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
+
     /// @brief builds the view toolbars
     void buildViewToolBars(GUIGlChildWindow* v);
 
     /// @brief Mark the entire GNEViewNet to be repainted later
     void updateViewNet() const;
 
-    /// @brief set supermode Network (used after load/create new network)
-    void forceSupermodeNetwork();
+    /// @brief force supermode network(used after load/create new network)
+    void forceSupemodeNetwork();
 
-    /// @brief get AttributeCarriers in Boundary
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
+    /// @brief called when view is updated
+    void viewUpdated();
 
     /// @brief get objects under cursor
-    const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
+    const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
+
+    /// @brief get move multiple element values
+    const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
+
+    /// @brief get objects in the given boundary
+    void updateObjectsInBoundary(const Boundary& boundary);
+
+    /// @brief get objects in the given position
+    void updateObjectsInPosition(const Position& pos);
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -89,7 +103,8 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                           bool hide = false, double hideThreshold = 0.);
+                           bool hide = false, double hideThreshold = 0,
+                           bool hide2 = false, double hideThreshold2 = 0);
 
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
@@ -97,8 +112,23 @@ public:
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
 
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    std::vector<std::string> getRelDataAttrs() const;
+
+    /// @brief get draw toggle (used to avoid drawing junctions twice)
+    int getDrawingToggle() const;
+
+    /// @brief check if select edges (toggle using button or shift)
+    bool checkSelectEdges() const;
+
     /// @brief open object dialog
-    void openObjectDialog();
+    void openObjectDialogAtCursor(const FXEvent* ev);
+
+    /// @brief open delete dialog at cursor
+    void openDeleteDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects);
+
+    /// @brief open select dialog at cursor
+    void openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects);
 
     // save visualization settings
     void saveVisualizationSettings() const;
@@ -118,10 +148,10 @@ public:
     /// @brief get data view options
     const GNEViewNetHelper::DataViewOptions& getDataViewOptions() const;
 
-    /// @brief get Key Pressed modul
+    /// @brief get Key Pressed module
     const GNEViewNetHelper::MouseButtonKeyPressed& getMouseButtonKeyPressed() const;
 
-    /// @brief get Edit Shape modul
+    /// @brief get Edit Shape module
     const GNEViewNetHelper::EditNetworkElementShapes& getEditNetworkElementShapes() const;
 
     /// @name overloaded handlers
@@ -131,6 +161,12 @@ public:
 
     /// @brief called when user releases mouse's left button
     long onLeftBtnRelease(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press mouse's left button
+    long onMiddleBtnPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when user releases mouse's left button
+    long onMiddleBtnRelease(FXObject*, FXSelector, void*);
 
     /// @brief called when user press mouse's right button
     long onRightBtnPress(FXObject*, FXSelector, void*);
@@ -170,6 +206,9 @@ public:
     /// @brief add reversed edge
     long onCmdAddReversedEdge(FXObject*, FXSelector, void*);
 
+    /// @brief add reversed edge disconnected
+    long onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*);
+
     /// @brief change geometry endpoint
     long onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*);
 
@@ -191,6 +230,12 @@ public:
     /// @brief reset custom edge lengths
     long onCmdResetLength(FXObject*, FXSelector, void*);
 
+    /// @brief use edge as template
+    long onCmdEdgeUseAsTemplate(FXObject*, FXSelector, void*);
+
+    /// @brief apply template to edge
+    long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
@@ -203,11 +248,20 @@ public:
     /// @brief open closed polygon
     long onCmdOpenPolygon(FXObject*, FXSelector, void*);
 
+    /// @brief select elements within polygon boundary
+    long onCmdSelectPolygonElements(FXObject*, FXSelector, void*);
+
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
-    /// @brief transform POI to POILane, and viceversa
+    /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
+
+    /// @brief reverse current demand element
+    long onCmdReverse(FXObject*, FXSelector, void*);
+
+    /// @brief add a reverse demand element
+    long onCmdAddReverse(FXObject*, FXSelector, void*);
 
     /// @brief set custom geometry point
     long onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*);
@@ -218,8 +272,14 @@ public:
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
+    /// @brief edit lane shape
+    long onCmdEditLaneShape(FXObject*, FXSelector, void*);
+
     /// @brief reset custom shapes of selected lanes
     long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
+
+    /// @brief reset oppositeLane of current lane
+    long onCmdResetOppositeLane(FXObject*, FXSelector, void*);
 
     /// @brief add/remove/restrict lane
     long onCmdLaneOperation(FXObject*, FXSelector sel, void*);
@@ -229,6 +289,9 @@ public:
 
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
+
+    /// @brief edit junction shape
+    long onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*);
 
     /// @brief edit junction shape
     long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
@@ -251,17 +314,35 @@ public:
     /// @brief convert junction to roundabout
     long onCmdConvertRoundabout(FXObject*, FXSelector, void*);
 
+    /// @brief enter to convert junction to roundabout
+    long onEnterConvertRoundabout(FXObject*, FXSelector, void*);
+
+    /// @brief leave to convert junction to roundabout
+    long onLeaveConvertRoundabout(FXObject*, FXSelector, void*);
+
     /// @brief clear junction connections
     long onCmdClearConnections(FXObject*, FXSelector, void*);
 
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
 
+    /// @brief add TLS
+    long onCmdAddTLS(FXObject*, FXSelector, void*);
+
+    /// @brief add Join TLS
+    long onCmdAddJoinTLS(FXObject*, FXSelector, void*);
+
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit connection shape
+    long onCmdSmoothConnectionShape(FXObject*, FXSelector, void*);
+
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
+
+    /// @brief edit walkingArea shape
+    long onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*);
 
     /// @name View options network call backs
     /// @{
@@ -275,6 +356,12 @@ public:
     /// @brief toggle hide connections
     long onCmdToggleHideConnections(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show additional sub-elements
+    long onCmdToggleShowAdditionalSubElements(FXObject*, FXSelector, void*);
+
+    /// @brief toggle show TAZ elements
+    long onCmdToggleShowTAZElements(FXObject*, FXSelector, void*);
+
     /// @brief toggle extend selection
     long onCmdToggleExtendSelection(FXObject*, FXSelector, void*);
 
@@ -283,6 +370,9 @@ public:
 
     /// @brief toggle show grid
     long onCmdToggleShowGrid(FXObject*, FXSelector, void*);
+
+    /// @brief toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief toggle draw vehicles in begin position or spread in lane
     long onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector, void*);
@@ -305,6 +395,9 @@ public:
     /// @brief toggle hide non inspected demand elements
     long onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief toggle hide non inspected demand elements
+    long onCmdToggleShowOverlappedRoutes(FXObject*, FXSelector, void*);
+
     /// @brief toggle hide shapes in super mode demand
     long onCmdToggleHideShapes(FXObject*, FXSelector, void*);
 
@@ -317,6 +410,12 @@ public:
     /// @brief toggle lock person in super mode demand
     long onCmdToggleLockPerson(FXObject*, FXSelector, void*);
 
+    /// @brief toggle show all container plans in super mode demand
+    long onCmdToggleShowAllContainerPlans(FXObject*, FXSelector, void*);
+
+    /// @brief toggle lock container in super mode demand
+    long onCmdToggleLockContainer(FXObject*, FXSelector, void*);
+
     /// @brief toggle show additionals in super mode data
     long onCmdToggleShowAdditionals(FXObject*, FXSelector, void*);
 
@@ -328,6 +427,18 @@ public:
 
     /// @brief toggle show demand elements (data)
     long onCmdToggleShowDemandElementsData(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZRel drawing
+    long onCmdToggleTAZRelDrawing(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZdrawFill
+    long onCmdToggleTAZDrawFill(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZRez only from
+    long onCmdToggleTAZRelOnlyFrom(FXObject*, FXSelector, void*);
+
+    /// @brief toggle TAZRez only to
+    long onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -349,8 +460,8 @@ public:
     /// @brief change end in interval bar
     long onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*);
 
-    /// @brief change attribute in interval bar
-    long onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*);
+    /// @brief change parameter in interval bar
+    long onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -365,6 +476,9 @@ public:
 
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
+
+    /// @brief called when a new view is set
+    long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
 
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
@@ -396,6 +510,9 @@ public:
     /// @brief get inspected attribute carriers
     const std::vector<GNEAttributeCarrier*>& getInspectedAttributeCarriers() const;
 
+    /// @brief get lock manager
+    GNEViewNetHelper::LockManager& getLockManager();
+
     /// @brief set inspected attributeCarrier
     void setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
@@ -408,17 +525,32 @@ public:
     /// @brief get front attributeCarrier
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
 
+    /// @brief get front glObject
+    const GUIGlObject* getFrontGLObject() const;
+
     /// @brief set front attributeCarrier
-    void setFrontAttributeCarrier(const GNEAttributeCarrier* AC);
+    void setFrontAttributeCarrier(GNEAttributeCarrier* AC);
 
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
-    /// @brief check if lock icon should be visible
-    bool showLockIcon() const;
+    /// @brief check if an element is being moved
+    bool isMovingElement() const;
 
-    /// @brief set staturBar text
+    /// @brief check if given element is locked (used for drawing select and delete contour)
+    bool checkOverLockedElement(const GUIGlObject* GLObject, const bool isSelected) const;
+
+    /// @brief get last created route
+    GNEDemandElement* getLastCreatedRoute() const;
+
+    /// @brief set last created route
+    void setLastCreatedRoute(GNEDemandElement* lastCreatedRoute);
+
+    /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
+
+    /// @brief reset last clicked position
+    void resetLastClickedPosition();
 
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
@@ -438,6 +570,30 @@ public:
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
 
+    /// @brief ask about change supermode
+    bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
+
+    /// @brief check if we're selecting detectors in TLS mode
+    bool selectingDetectorsTLSMode() const;
+
+    /// @brief check if we're selecting junctions in TLS mode
+    bool selectingJunctionsTLSMode() const;
+
+    /// @brief get variable used to save elements
+    GNEViewNetHelper::SaveElements& getSaveElements();
+
+    /// @brief get variable used to switch between time formats
+    GNEViewNetHelper::TimeFormat& getTimeFormat();
+
+    /// @brief restrict lane
+    bool restrictLane(GNELane* lane, SUMOVehicleClass vclass);
+
+    /// @brief add restricted lane
+    bool addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool insertAtFront);
+
+    /// @brief remove restricted lane
+    bool removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass);
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -448,7 +604,13 @@ protected:
     /// @brief called after some features are already initialized
     void doInit();
 
+    /// @brief returns the id of object under cursor to show their tooltip
+    GUIGlID getToolTipID();
+
 private:
+    /// @brief variable use to select objects in view
+    GNEViewNetHelper::ViewObjectsSelector myViewObjectsSelector;
+
     /// @name structs related with modes and testing mode
     /// @{
 
@@ -457,6 +619,7 @@ private:
 
     /// @brief variable used to save variables related with testing mode
     GNEViewNetHelper::TestingMode myTestingMode;
+
     /// @}
 
     /// @name structs related with input (keyboard and mouse)
@@ -465,8 +628,6 @@ private:
     /// @brief variable used to save key status after certain events
     GNEViewNetHelper::MouseButtonKeyPressed myMouseButtonKeyPressed;
 
-    /// @brief variable use to save all pointers to objects under cursor after a click
-    GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderCursor;
     /// @}
 
     /// @name structs related with checkable buttons
@@ -483,6 +644,7 @@ private:
 
     /// @brief variable used to save checkable buttons for Supermode Data
     GNEViewNetHelper::DataCheckableButtons myDataCheckableButtons;
+
     /// @}
 
     /// @name structs related with view options
@@ -496,6 +658,7 @@ private:
 
     /// @brief variable used to save variables related with view options in supermode Data
     GNEViewNetHelper::DataViewOptions myDataViewOptions;
+
     /// @}
 
     /// @brief variable used to save IntervalBar
@@ -503,11 +666,13 @@ private:
 
     /// @name structs related with move elements
     /// @{
-    /// @brief variable used to save variables related with movement of single elements
-    GNEViewNetHelper::MoveSingleElementValues myMoveSingleElementValues;
 
-    /// @brief variable used to save variables related with movement of multiple elements
-    GNEViewNetHelper::MoveMultipleElementValues myMoveMultipleElementValues;
+    /// @brief modul used for moving single element
+    GNEViewNetHelper::MoveSingleElementModul myMoveSingleElement;
+
+    /// @brief modul used for moving multiple elements
+    GNEViewNetHelper::MoveMultipleElementModul myMoveMultipleElements;
+
     // @}
 
     /// @name structs related with Demand options
@@ -518,34 +683,56 @@ private:
 
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
+
     // @}
 
-    /// @brief variable used to save elements
+    /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;
 
-    /// @brief variable used to save variables related with selecting areas
+    /// @brief variable used for grouping all variables related with switch time
+    GNEViewNetHelper::TimeFormat myTimeFormat;
+
+    /// @brief variable used for grouping all variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
     GNEViewNetHelper::EditNetworkElementShapes myEditNetworkElementShapes;
 
+    /// @brief lock manager
+    GNEViewNetHelper::LockManager myLockManager;
+
     /// @brief view parent
-    GNEViewParent* myViewParent;
+    GNEViewParent* myViewParent = nullptr;
 
     /// @brief Pointer to current net. (We are not responsible for deletion)
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief the current frame
-    GNEFrame* myCurrentFrame;
+    GNEFrame* myCurrentFrame = nullptr;
 
     /// @brief a reference to the undolist maintained in the application
-    GNEUndoList* myUndoList;
+    GNEUndoList* myUndoList = nullptr;
 
     /// @brief current inspected attribute carrier
     std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
-    const GNEAttributeCarrier* myFrontAttributeCarrier;
+    GNEAttributeCarrier* myFrontAttributeCarrier = nullptr;
+
+    /// @brief last created route
+    GNEDemandElement* myLastCreatedRoute = nullptr;
+
+    /// @brief draw preview roundabout
+    bool myDrawPreviewRoundabout = false;
+
+    /// @brief last clicked position
+    Position myLastClickedPosition = Position::INVALID;
+
+    /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
+    bool myCreatedPopup = false;
+
+    /// @brief drawin toggle (used in drawGLElements to avoid draw elements twice)
+    int myDrawingToggle = 0;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
@@ -559,35 +746,14 @@ private:
     /// @brief updates Data mode specific controls
     void updateDataModeSpecificControls();
 
-    /// @brief delete all currently selected junctions
-    void deleteSelectedJunctions();
+    /// @brief delete given network attribute carriers
+    void deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
-    /// @brief delete all currently selected lanes
-    void deleteSelectedLanes();
+    /// @brief delete given demand attribute carriers
+    void deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
-    /// @brief delete all currently selected edges
-    void deleteSelectedEdges();
-
-    /// @brief delete all currently selected additionals
-    void deleteSelectedAdditionals();
-
-    /// @brief delete all currently selected demand elements
-    void deleteSelectedDemandElements();
-
-    /// @brief delete all currently selected generic data elements
-    void deleteSelectedGenericDatas();
-
-    /// @brief delete all currently selected crossings
-    void deleteSelectedCrossings();
-
-    /// @brief delete all currently selected connections
-    void deleteSelectedConnections();
-
-    /// @brief delete all currently selected shapes
-    void deleteSelectedShapes();
-
-    /// @brief delete all currently selected TAZ Elements
-    void deleteSelectedTAZElements();
+    /// @brief delete data attribute carriers
+    void deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();
@@ -604,8 +770,14 @@ private:
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
 
+    /// @brief try to retrieve a walkingArea at popup position
+    GNEWalkingArea* getWalkingAreaAtPopupPosition();
+
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
+
+    /// @brief try to retrieve a demand element at popup position
+    GNEDemandElement* getDemandElementAtPopupPosition();
 
     /// @brief try to retrieve a polygon at popup position
     GNEPoly* getPolygonAtPopupPosition();
@@ -616,16 +788,7 @@ private:
     /// @brief try to retrieve a TAZ at popup position
     GNETAZ* getTAZAtPopupPosition();
 
-    /// @brief restrict lane
-    bool restrictLane(SUMOVehicleClass vclass);
-
-    /// @brief add restricted lane
-    bool addRestrictedLane(SUMOVehicleClass vclass);
-
-    /// @brief remove restricted lane
-    bool removeRestrictedLane(SUMOVehicleClass vclass);
-
-    /// @brief Auxiliar function used by onLeftBtnPress(...)
+    /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);
 
     /// @brief update cursor after every click/key press/release
@@ -634,14 +797,36 @@ private:
     /// @brief draw functions
     /// @{
 
-    /// @brief draw connections between lane candidates during selecting lane mode in Additional mode
-    void drawLaneCandidates() const;
+    /// @brief draw all gl elements of netedit
+    int drawGLElements(const Boundary& bound);
+
+    /// @brief draw grid and update grid button
+    void drawGrid() const;
 
     /// @brief draw temporal polygon shape in Polygon Mode
-    void drawTemporalDrawShape() const;
+    void drawTemporalDrawingShape() const;
 
     /// @brief draw temporal junction in create edge mode
     void drawTemporalJunction() const;
+
+    /// @brief draw temporal split junction in create edge mode
+    void drawTemporalSplitJunction() const;
+
+    /// @brief draw temporal roundabout
+    void drawTemporalRoundabout() const;
+
+    /// @brief draw temporal E1 TLS Lines
+    void drawTemporalE1TLSLines() const;
+
+    /// @brief draw temporal Junction TLS Lines
+    void drawTemporalJunctionTLSLines() const;
+
+    /// @brief draw circle in testing mode (needed for grid)
+    void drawNeteditAttributesReferences();
+
+    /// @brief draw circle in testing mode (needed for grid)
+    void drawTestsCircle() const;
+
     /// @}
 
     /// @brief mouse process functions

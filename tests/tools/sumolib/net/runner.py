@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ def printSorted(d):
 net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
 lane = net.getLane("SC_0")
 lane2 = net.getLane("CN_0")
-print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([l.getID() for l in lane2.getIncoming()]))))
+print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([li.getID() for li in lane2.getIncoming()]))))
 
 print("connections from %s:\n%s" % (
     lane.getID(),
@@ -51,12 +51,12 @@ print("connections from %s:\n%s" % (internal_lane.getID(),
                                     '\n'.join(map(str, internal_lane_cons))))
 internal_lane_incoming = sorted(internal_lane.getIncoming())
 print("lanes to %s: %s" % (internal_lane.getID(),
-                           ' '.join([l.getID() for l in internal_lane_incoming])))
-assert(internal_edge.getFunction() == 'internal')
-assert(internal_edge.isSpecial())
-assert(internal_lane.getEdge().isSpecial())
-assert(internal_edge.getFromNode().getID() == "C")
-assert(internal_edge.getToNode().getID() == "C")
+                           ' '.join([li.getID() for li in internal_lane_incoming])))
+assert internal_edge.getFunction() == 'internal'
+assert internal_edge.isSpecial()
+assert internal_lane.getEdge().isSpecial()
+assert internal_edge.getFromNode().getID() == "C"
+assert internal_edge.getToNode().getID() == "C"
 
 # params
 print("edgeParams",     printSorted(net.getEdge("CE").getParams()))
@@ -66,8 +66,8 @@ print("junctionParams", printSorted(net.getNode("C").getParams()))
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
 
 # functions
-print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)])))
-print("getNeighboringLanes", ' '.join(sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)])))
+print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, _ in net.getNeighboringEdges(100, 0, 10)])))
+print("getNeighboringLanes", ' '.join(sorted([ln.getID() for ln, _ in net.getNeighboringLanes(100, 0, 10)])))
 print("getNeighboringNodes only for incoming edges",
       ' '.join(sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)])))
 print("getNeighboringNodes only for outgoing edges",

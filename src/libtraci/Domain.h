@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,7 @@
 
 
 #define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
+const int CLASS::DOMAIN_ID(libsumo::CMD_GET_##DOMAIN##_VARIABLE); \
 void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
     libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, -1, -1, varIDs, params); \
 } \
@@ -107,29 +108,32 @@ namespace libtraci {
 template<int GET, int SET>
 class Domain {
 public:
-    static tcpip::Storage& get(int var, const std::string& id, tcpip::Storage* add = nullptr, int expectedType = libsumo::TYPE_COMPOUND) {
-        tcpip::Storage& result = libtraci::Connection::getActive().doCommand(GET, var, id, add);
-        libtraci::Connection::getActive().check_commandGetResult(result, GET, expectedType);
-        return result;
+    static inline tcpip::Storage& get(int var, const std::string& id, tcpip::Storage* add = nullptr, int expectedType = libsumo::TYPE_COMPOUND) {
+        return libtraci::Connection::getActive().doCommand(GET, var, id, add, expectedType);
     }
 
     static int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_UBYTE).readUnsignedByte();
     }
 
     static int getByte(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_BYTE).readByte();
     }
 
     static int getInt(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_INTEGER).readInt();
     }
 
     static double getDouble(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_DOUBLE).readDouble();
     }
 
     static libsumo::TraCIPositionVector getPolygon(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, libsumo::TYPE_POLYGON);
         libsumo::TraCIPositionVector ret;
         int size = result.readUnsignedByte();
@@ -147,6 +151,7 @@ public:
     }
 
     static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
         libsumo::TraCIPosition p;
         p.x = result.readDouble();
@@ -155,6 +160,7 @@ public:
     }
 
     static libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
         libsumo::TraCIPosition p;
         p.x = result.readDouble();
@@ -164,14 +170,22 @@ public:
     }
 
     static std::string getString(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_STRING).readString();
     }
 
     static std::vector<std::string> getStringVector(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         return get(var, id, add, libsumo::TYPE_STRINGLIST).readStringList();
     }
 
+    static std::vector<double> getDoubleVector(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+        return get(var, id, add, libsumo::TYPE_DOUBLELIST).readDoubleList();
+    }
+
     static libsumo::TraCIColor getCol(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, libsumo::TYPE_COLOR);
         libsumo::TraCIColor c;
         c.r = (unsigned char)result.readUnsignedByte();
@@ -182,6 +196,7 @@ public:
     }
 
     static libsumo::TraCIStage getTraCIStage(int var, const std::string& id, tcpip::Storage* add = nullptr) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add);
         libsumo::TraCIStage s;
         result.readInt(); // components
@@ -202,6 +217,7 @@ public:
     }
 
     static void set(int var, const std::string& id, tcpip::Storage* add) {
+        std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         libtraci::Connection::getActive().doCommand(SET, var, id, add);
     }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -67,7 +67,7 @@ def getInputFiles(DATA_DIR):
     return netfile, closedLaneFile, shapefile, viewfile
 
 
-def generateRouteFile(DATA_DIR, i, j, k, l, rList, code):
+def generateRouteFile(DATA_DIR, ia, rt, rr, md, rList, code):
     routeID = rList[0]
     edges = rList[1]
     if len(edges.split(' ')) > 1:
@@ -77,12 +77,12 @@ def generateRouteFile(DATA_DIR, i, j, k, l, rList, code):
         start = edges
         end = edges
     # define the route file
-    fname = 'input_routes_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '.rou.xml'
+    fname = 'input_routes_%s_%s_%s_%s.rou.xml' % (ia, rt, rr, md)
     routefile = os.path.join(DATA_DIR, fname)
 
     # define the ssm output file
     outputdir = checkDir(DATA_DIR, outputDirName)
-    fname = 'ssm_%s_%s_%s_%s.xml' % (i, j, k, l)
+    fname = 'ssm_%s_%s_%s_%s.xml' % (ia, rt, rr, md)
     ssmfile = os.path.join(outputdir, fname)
 
     fd = open(routefile, 'w')
@@ -109,7 +109,7 @@ guiShape="passenger/van" driverState="true"/>
             <param key="has.ssm.device" value="true"/>
             <param key="device.ssm.measures" value="TTC DRAC PET"/>
             <param key="device.ssm.file" value="%s"/>
-        </flow>""" % (routeID, edges, routeID, i, j, k, l, ssmfile), file=fd)
+        </flow>""" % (routeID, edges, routeID, ia, rt, rr, md, ssmfile), file=fd)
     if code == "UC1_1":
         print("""    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="100" color="white">
                 <param key="has.toc.device" value="false"/>
@@ -125,13 +125,13 @@ guiShape="passenger/van" driverState="true"/>
     return routefile
 
 
-def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFile, shapefile):
+def setAddOutputFiles(DATA_DIR, outputDirName, freq, ia, rt, rr, md, t, closedLaneFile, shapefile):
     outputdir = checkDir(DATA_DIR, outputDirName)
     # set set additional file
-    addfile = os.path.join(DATA_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" % (i, j, k, l, t))
-    edgeFile = os.path.join(outputDirName, "edges_%s_%s_%s_%s_%s_%s.xml" % (freq, i, j, k, l, t))
-    emissionFile = os.path.join(outputDirName, "emissions_%s_%s_%s_%s_%s_%s.xml" % (freq, i, j, k, l, t))
-    laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" % (freq, i, j, k, l, t))
+    addfile = os.path.join(DATA_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" % (ia, rt, rr, md, t))
+    edgeFile = os.path.join(outputDirName, "edges_%s_%s_%s_%s_%s_%s.xml" % (freq, ia, rt, rr, md, t))
+    emissionFile = os.path.join(outputDirName, "emissions_%s_%s_%s_%s_%s_%s.xml" % (freq, ia, rt, rr, md, t))
+    laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" % (freq, ia, rt, rr, md, t))
     fd = open(addfile, 'w')
     print("""
     <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
@@ -150,7 +150,7 @@ xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     # set the output files
     for prefix in ['fcd', 'summary', 'lanechange', 'log']:
-        fname = prefix + '_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '_' + str(t) + '.xml'
+        fname = prefix + '_%s_%s_%s_%s_%s.xml' % (ia, rt, rr, md, t)
         if prefix == 'fcd':
             fcdfile = os.path.join(outputdir, fname)
         elif prefix == 'summary':
@@ -163,12 +163,12 @@ xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     return addfiles, fcdfile, summaryfile, lcfile, logfile
 
 
-def printParameterSet(i, j, k, l, t):
-    print("initialAwareness: %s" % (i))
-    print("responseTime: %s" % (j))
-    print("recoveryRate: %s" % (k))
-    print("mrmDecel: %s" % (l))
-    print("timeUntilMRM: %s" % (t))
+def printParameterSet(ia, rt, rr, md, t):
+    print("initialAwareness: %s" % ia)
+    print("responseTime: %s" % rt)
+    print("recoveryRate: %s" % rr)
+    print("mrmDecel: %s" % md)
+    print("timeUntilMRM: %s" % t)
 
 
 if __name__ == "__main__":
@@ -190,20 +190,21 @@ if __name__ == "__main__":
         netfile, closedLaneFile, shapefile, viewfile = getInputFiles(DATA_DIR)
 
         # generate the route file and the additional files for each scenario and run the simulation
-        for i in initialAwareness:
-            for j in responseTime:
-                for k in recoveryRate:
-                    for l in mrmDecel:
+        for ia in initialAwareness:
+            for rt in responseTime:
+                for rr in recoveryRate:
+                    for md in mrmDecel:
                         if routeMap[code]:
-                            routefile = generateRouteFile(DATA_DIR, i, j, k, l, routeMap[code], code)
+                            routefile = generateRouteFile(DATA_DIR, ia, rt, rr, md, routeMap[code], code)
                         else:
                             print("Error: no route information exists.")
 
                         for t in timeUntilMRM:
                             addfiles, fcdfile, summaryfile, lcfile, logfile = setAddOutputFiles(
-                                DATA_DIR, outputDirName, options.frequency, i, j, k, l, t, closedLaneFile, shapefile)
+                                DATA_DIR, outputDirName, options.frequency, ia, rt, rr, md, t,
+                                closedLaneFile, shapefile)
                             if options.verbose:
-                                printParameterSet(i, j, k, l, t)
+                                printParameterSet(ia, rt, rr, md, t)
 
                             cmd = [
                                 'python',

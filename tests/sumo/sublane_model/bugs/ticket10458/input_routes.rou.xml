@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-07 09:49:27 by Eclipse SUMO netedit Version v1_12_0+2009-12c4140
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike" vClass="bicycle"/>
+    <flow id="b" type="bike" begin="0.00" number="6" end="1" departPosLat="free" arrivalLane="0" departPos="-1">
+        <route edges="E0 E1"/>
+    </flow>
+</routes>

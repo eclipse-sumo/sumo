@@ -1,5 +1,33 @@
+# tests involving triggered stops
+triggered
+
+# tests for stopping on junction
+junction
+parking
+
+# stop at parkingArea with onRoad=true (no rerouting involved)
+parkingArea_onRoad
+
+# skip stops if possible
+onDemand
+
+# routes and trips with intentional gaps
+jumps
+
+# adapt speed in response to known stop arrival time
+arrival
+
 # Tests whether stops can be handled
 simple_stop
+
+# define stop at start of edge
+close_to_start
+
+# define stop at start of edge
+very_close_to_start
+
+# stop on position 0 of a lane
+at_start
 
 # tests  behavior when duration 0 is set
 duration_0
@@ -12,9 +40,6 @@ until_and_duration
 
 # Tests whether stops can be in wrong order
 out_of_order
-
-# Tests handling out-of-order busstops
-busstop_out_of_order_ignore
 
 # Tests whether stops can be on cyclic routes
 cyclic_route
@@ -34,28 +59,6 @@ second_near_end1
 # As second_near_end1, but the last stop is on a lane which can not be used to continue the route
 second_near_end2
 
-# stop on position 0 of a lane
-at_start
-
-# Tests whether parking can be handled
-parking
-
-# test stop timing
-parking_until
-
-# vehicle cannot resume from parking immediately due to traffic on the road
-parking_delay_insertion
-
-# A vehicle with a triggered stop will not be teleported. To avoid the following vehicles from being deadlocked, triggered vehicles should be automatically set to 'parking'
-# (see ticket 420)
-triggered_defaults_to_parking
-
-# test behavior of a vehicle with triggered stop as well as stop duration
-triggered_duration
-
-# test behavior of a vehicle with triggered stop as well as stop duration, the person does not come and eventually the stop is aborted
-triggered_duration_abort
-
 # Tests whether stopped vehicles can be overtaken
 overtaking
 
@@ -68,14 +71,6 @@ teleport_across_stopped
 # waiting for the stop to be free
 occupied
 
-# expecting persons
-simple_stop_expecting0
-simple_stop_expecting1
-simple_stop_expecting2
-
-# wait for 2 persons but also wait at least 250s
-simple_stop_expecting2_duration
-
 # teleport should remove stops from the list
 teleport
 teleport_multihop
@@ -83,24 +78,6 @@ teleport_multihop
 # stops interacting with best lanes computation
 bestLaneStop
 bestLaneStop0
-
-# error handling
-not_allowed
-too_short
-too_close
-until_order
-
-# tests  defining a stop on an internal lane
-on_junction
-
-# tests  defining a stop on an invalid internal lane
-on_junction_invalid
-
-# tests  defining a stop on an invalid internal lane
-on_junction_invalid2
-
-# tests  defining a stop on an internal lane
-on_junction_trip
 
 # stop is before departPos and must be used on the second time the it is reached
 looped_route
@@ -117,17 +94,11 @@ flow_until
 # Tests for flexible assignment of stopping positions (#3937)
 busstop_stopping_position_assignment
 
-# Tests for flexible assignment of stopping positions (#3937)
-busstop_stopping_position_assignment_parking
-
-# provide more parking length than the distance between endPos and startPos
-busstop_parkingLength
-
-# check consistency of stop positions and depar/arrival position
-departPos_arrivalPos
+# test defining a custom stop position at a long busStop
+busstop_customPos
 
 # long stopping times should not trigger teleport, but teleports should possible after the stop
 long_stop
 
-# custom departPos at parkingArea
-parkingArea_departPos
+# stop with lateral offset
+posLat

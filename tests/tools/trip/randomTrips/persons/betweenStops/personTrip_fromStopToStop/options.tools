@@ -1,0 +1,6 @@
+-n net2.net.xml -s 42 --persontrips -e 10 --min-distance 1 --trip-attributes
+'departPos="random" color="red" modes="public"'
+--route-file out.rou.xml
+--additional-files input_additional.add.xml
+--from-stops 'busStop'
+--to-stops 'busStop'

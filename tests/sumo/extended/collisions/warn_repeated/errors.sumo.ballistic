@@ -1,0 +1,4 @@
+Warning: Vehicle 'c'; collision with vehicle 'v', lane='SC_0', gap=-2.78', latGap=-1.27, time=8.50 stage=move.
+Warning: Vehicle 'v'; collision with vehicle 'c', lane='SC_0', gap=-7.15', latGap=-0.20, time=9.50 stage=move.
+Warning: Vehicle 'c'; collision with vehicle 'v', lane='CN_0', gap=-1.20', latGap=-0.20, time=32.50 stage=move.
+Warning: Vehicle 'c'; collision with vehicle 'v', lane='CN_0', gap=-1.20', latGap=-0.20, time=220.50 stage=move.

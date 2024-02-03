@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,7 +110,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                   const double numLanes, const double defaultTravelTime,
+                   const double numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
     protected:
@@ -161,7 +161,9 @@ public:
                        const bool withInternal, const bool trackVehicles, const int detectPersons,
                        const double maxTravelTime, const double minSamples,
                        const double haltSpeed, const std::string& vTypes,
-                       const std::string& writeAttributes);
+                       const std::string& writeAttributes,
+                       const std::vector<MSEdge*>& edges,
+                       bool aggregate);
 
 
     /// @brief Destructor

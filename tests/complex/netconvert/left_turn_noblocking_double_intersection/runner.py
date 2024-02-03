@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -54,9 +54,10 @@ subprocess.call(args_sumo)
 
 # vehicles should have completed their trips
 complete = False
-for line in open(trips_output):
-    if 'veh0' in line:
-        complete = True
+with open(trips_output) as to:
+    for line in to:
+        if 'veh0' in line:
+            complete = True
 
 if complete:
     print('test passed. no blocking occured')

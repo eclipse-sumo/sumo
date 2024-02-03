@@ -10,3 +10,6 @@ filterDistricts
 
 # tests for generating a grid of districts for any network
 gridDistricts
+
+# segment a network based on public transport stations (stops with the same name)
+stationDistricts

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,17 +21,12 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 if "SUMO_HOME" in os.environ:
-    sumoHome = os.environ["SUMO_HOME"]
-sys.path.append(os.path.join(sumoHome, "tools"))
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
-sumoBinary = os.environ.get(
-    "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-netconvertBinary = os.environ.get(
-    "NETCONVERT_BINARY", os.path.join(sumoHome, 'bin', 'netconvert'))
+sumoBinary = sumolib.checkBinary('sumo')
+netconvertBinary = sumolib.checkBinary('netconvert')
 
 subprocess.call([netconvertBinary, "-n", "input_nodes.nod.xml",
                  "-e", "input_edges.edg.xml"], stdout=sys.stdout, stderr=sys.stderr)

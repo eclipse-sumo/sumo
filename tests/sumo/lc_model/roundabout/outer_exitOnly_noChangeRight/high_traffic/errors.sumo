@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'ES.1'; waited too long (wrong lane), lane='EC_0', time=343.00.
+Warning: Vehicle 'ES.1' ends teleporting on edge 'RNW', time=349.00.
+Warning: Teleporting vehicle 'ES.46'; waited too long (wrong lane), lane='EC_0', time=754.00.
+Warning: Vehicle 'ES.46' ends teleporting on edge 'REN', time=755.00.
+Warning: Teleporting vehicle 'WE.52'; waited too long (wrong lane), lane='WC_0', time=923.00.
+Warning: Vehicle 'WE.52' ends teleporting on edge 'RWS', time=926.00.
+Warning: Teleporting vehicle 'ES.51'; waited too long (wrong lane), lane='EC_0', time=1060.00.
+Warning: Vehicle 'ES.51' ends teleporting on edge 'REN', time=1061.00.

@@ -1,0 +1,147 @@
+Step: 0
+Step: 1
+Subscription Departed vehicles: v0
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 2
+Subscription Departed vehicles: v1
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(14.7234,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 3
+Subscription Departed vehicles: v2
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(29.4468,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(13.033,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 11.791
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 4
+Subscription Departed vehicles: v3
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(44.1702,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(26.066,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 11.791
+   variable id: 66  value: TraCIPosition(11.791,-4.8)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 10.2907
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 5
+Subscription Departed vehicles: v4
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(58.8936,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(39.099,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 12.0812
+   variable id: 66  value: TraCIPosition(23.8722,-1.6)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 10.2907
+   variable id: 66  value: TraCIPosition(10.2907,-4.8)
+Vehicle Subscription: id=v4
+   variable id: 64  value: 8.72064
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 6
+Subscription Departed vehicles: v5
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(73.617,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(52.1319,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 13.8812
+   variable id: 66  value: TraCIPosition(37.7534,-1.6)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 12.0907
+   variable id: 66  value: TraCIPosition(22.3815,-4.8)
+Vehicle Subscription: id=v4
+   variable id: 64  value: 8.72064
+   variable id: 66  value: TraCIPosition(8.72064,-4.8)
+Vehicle Subscription: id=v5
+   variable id: 64  value: 6.72031
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 7
+Subscription Departed vehicles: v6
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(88.3404,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(65.1649,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 14.0345
+   variable id: 66  value: TraCIPosition(51.7878,-1.6)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 13.8907
+   variable id: 66  value: TraCIPosition(36.2722,-4.8)
+Vehicle Subscription: id=v4
+   variable id: 64  value: 10.5206
+   variable id: 66  value: TraCIPosition(19.2413,-4.8)
+Vehicle Subscription: id=v5
+   variable id: 64  value: 6.72031
+   variable id: 66  value: TraCIPosition(6.72031,-4.8)
+Vehicle Subscription: id=v6
+   variable id: 64  value: 4.07997
+   variable id: 66  value: TraCIPosition(0,-4.8)
+Step: 8
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(103.064,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(78.1979,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 14.0345
+   variable id: 66  value: TraCIPosition(65.8223,-1.6)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 15.0039
+   variable id: 66  value: TraCIPosition(51.2761,-4.8)
+Vehicle Subscription: id=v4
+   variable id: 64  value: 12.3206
+   variable id: 66  value: TraCIPosition(31.5619,-4.8)
+Vehicle Subscription: id=v5
+   variable id: 64  value: 8.52031
+   variable id: 66  value: TraCIPosition(15.2406,-4.8)
+Vehicle Subscription: id=v6
+   variable id: 64  value: 4.07997
+   variable id: 66  value: TraCIPosition(4.07997,-4.8)
+Step: 9
+Subscription Departed vehicles: v7
+Vehicle Subscription: id=v0
+   variable id: 64  value: 14.7234
+   variable id: 66  value: TraCIPosition(117.787,-4.8)
+Vehicle Subscription: id=v1
+   variable id: 64  value: 13.033
+   variable id: 66  value: TraCIPosition(91.2309,-4.8)
+Vehicle Subscription: id=v2
+   variable id: 64  value: 14.0345
+   variable id: 66  value: TraCIPosition(79.8567,-1.6)
+Vehicle Subscription: id=v3
+   variable id: 64  value: 14.6105
+   variable id: 66  value: TraCIPosition(65.8867,-4.8)
+Vehicle Subscription: id=v4
+   variable id: 64  value: 14.1206
+   variable id: 66  value: TraCIPosition(45.6826,-4.8)
+Vehicle Subscription: id=v5
+   variable id: 64  value: 10.3203
+   variable id: 66  value: TraCIPosition(25.5609,-4.8)
+Vehicle Subscription: id=v6
+   variable id: 64  value: 5.87997
+   variable id: 66  value: TraCIPosition(9.95993,-4.8)
+Vehicle Subscription: id=v7
+   variable id: 64  value: 4.91945
+   variable id: 66  value: TraCIPosition(0,-4.8)

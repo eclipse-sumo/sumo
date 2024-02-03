@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,9 @@
 // Andre Stebens - Traffic simulation with the Wiedemann model
 // Werner - Integration von Fahrzeugfolge- und Fahrstreifenwechselmodellen in die Nachtfahrsimulation LucidDrive
 // Olstam, Tapani - Comparison of Car-following models
+// Higgs, B. et.al - Analysis of theWiedemann car following model over different speeds using naturalistic data.
+// Ahmed, H.U.; Huang, Y.; Lu, P. - A Review of Car-Following Models and Modeling Tools forHuman and Autonomous-Ready Driving Behaviors in Micro-Simulation
+
 /****************************************************************************/
 #include <config.h>
 
@@ -40,6 +43,10 @@
 // magic constant proposed by Wiedemann (based on real world measurements)
 const double MSCFModel_Wiedemann::D_MAX = 150;
 
+#define B_MIN_MULT 0
+#define B_MIN_ADD  -1
+#define PRED_DECEL_MULT 0.5
+#define PRED_DECEL_MULT_EMERGENCY 0.55
 
 // ===========================================================================
 // method definitions
@@ -50,7 +57,8 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myEstimation(vtype->getParameter().getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5)),
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
-    myMinAccel(0.2 * myAccel) { // +noise?
+    myMinAccel(0.2 * myAccel),
+    myMaxApproachingDecel((myDecel + myEmergencyDecel) / 2) {
     // Wiedemann does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
@@ -69,13 +77,13 @@ MSCFModel_Wiedemann::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
-    return _v(veh, predSpeed, gap2pred);
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
+    return _v(veh, predSpeed, gap2pred, pred != nullptr ? pred->getAcceleration() : 0);
 }
 
 
 double
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
@@ -108,7 +116,7 @@ MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* c
 
 
 double
-MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) const {
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const double v = veh->getSpeed();
@@ -123,36 +131,51 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     const double sdv = sdv_root * sdv_root;
     const double cldv = sdv * ex * ex;
     const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15, veh->getRNG()));
+    // D_MAX is too low to brake safely when driving at speeds above 36m/s
+    const double dmax = MAX2(D_MAX, brakeGap(v, myDecel, 0));
     // select the regime, get new acceleration, compute new speed based
     double accel;
+    int branch = 0;
     if (dx <= abx) {
-        accel = emergency(dv, dx);
+        accel = emergency(dv, dx, predAccel, v, gap, abx, bx);
+        branch = 1;
     } else if (dx < sdx) {
         if (dv > cldv) {
-            accel = approaching(dv, dx, abx);
+            accel = approaching(dv, dx, abx, predAccel);
+            branch = 2;
         } else if (dv > opdv) {
             accel = following(vars->accelSign);
+            branch = 3;
         } else {
             accel = fullspeed(v, vpref, dx, abx);
+            branch = 4;
         }
     } else {
-        if (dv > sdv && dx < D_MAX) { //@note other versions have an disjunction instead of conjunction
-            accel = approaching(dv, dx, abx);
+        if (dv > sdv && dx < dmax) { //@note other versions have an disjunction instead of conjunction
+            accel = approaching(dv, dx, abx, predAccel);
+            branch = 5;
         } else {
             accel = fullspeed(v, vpref, dx, abx);
+            branch = 6;
         }
     }
-    // since we have hard constrainst on accel we may as well use them here
+    // since we have hard constraints on accel we may as well use them here
+#ifdef DEBUG_V
+    const double rawAccel = accel;
+#endif
     accel = MAX2(MIN2(accel, myAccel), -myEmergencyDecel);
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
 #ifdef DEBUG_V
-    if (veh->isSelected()) {
+    if (veh->isSelected() && !MSGlobals::gComputeLC) {
         std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID()
-                  << " predSpeed=" << predSpeed << " gap=" << gap
+                  << " v=" << v << " pV=" << predSpeed << " pA=" << predAccel << " gap=" << gap
                   << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
                   << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
+                  << " branch=" << branch << " rawAccel=" << rawAccel
                   << " accel=" << accel << " vNew=" << vNew << "\n";
     }
+#else
+    UNUSED_PARAMETER(branch);
 #endif
     return vNew;
 }
@@ -178,22 +201,28 @@ MSCFModel_Wiedemann::following(double sign) const {
 
 
 double
-MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
+MSCFModel_Wiedemann::approaching(double dv, double dx, double abx, double predAccel) const {
     // there is singularity in the formula. we do the sanity check outside
     assert(abx < dx);
-    return 0.5 * dv * dv / (abx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
+    // @note: the original model does not have a limit on maximum deceleration here.
+    // We add this to avoid cascading emergency deceleration
+    // also, the multiplier on predAccel is always 1 in the original model
+    return MAX2(0.5 * dv * dv / (abx - dx) + predAccel * PRED_DECEL_MULT, -myMaxApproachingDecel);
 }
 
 
 double
-MSCFModel_Wiedemann::emergency(double dv, double  dx) const {
+MSCFModel_Wiedemann::emergency(double dv, double dx, double predAccel, double v, double gap, double abx, double bx) const {
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
+    //
+    // predAccel is called b_(n-1) in the literature and it's multipleir is always 1
+
     if (dx > myAX) {
-        double accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
-        // one would assume that in an emergency accel must be negative. However the
-        // wiedemann formula allows for accel = 0 whenever dv = 0
-        assert(accel <= 0);
+        const double bmin = B_MIN_ADD + B_MIN_MULT * v;
+        const double accel = (0.5 * dv * dv / (myAX - dx)
+                              + predAccel * PRED_DECEL_MULT_EMERGENCY
+                              + bmin * (abx - gap) / bx);
         return accel;
     } else {
         return -myEmergencyDecel;

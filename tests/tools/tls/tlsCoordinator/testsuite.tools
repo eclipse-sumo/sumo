@@ -4,6 +4,9 @@
 # two tls with a split long edge in between
 2tls_intermediate_node
 
+# two tls with a rail crossing in between
+2tls_rail_crossing
+
 # coordinate plans loaded from an additional file
 2tls_add
 basic
@@ -19,3 +22,6 @@ basic
 
 # 4 flows in a grid network that cannot be coordinate full (different demand levels)
 4flows_b
+
+# continue on disconnected routes
+disconnected

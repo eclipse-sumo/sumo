@@ -1,3 +1,8 @@
+Warning: Removing pt stop '1135629312' on non existing edge '20429655'.
+Warning: Removing pt stop '1135629321' on non existing edge '673222183#1'.
+Warning: Removing pt stop '262253942' on non existing edge '24221008'.
+Warning: Removing pt stop '6403485667' on non existing edge '683648284#0'.
+Warning: Converting invalid rail_crossing to priority junction '7188001147'.
 Warning: The traffic light '7001612211' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '7001612211'
 Warning: Speed of straight connection '98385800#0_0->146666974_0' reduced by 5.73 due to turning radius of 12.09 (length=12.75, angle=79.69).

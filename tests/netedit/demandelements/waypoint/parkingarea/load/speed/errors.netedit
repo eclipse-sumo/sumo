@@ -1,0 +1,6 @@
+Error: Attribute 'speed' in definition of a stop is empty.
+Error: Speed cannot be negative for stop at 'parkingAreaA'
+Error: Attribute 'speed' in definition of a stop Invalid Number Format (double) dummySpeed.
+Error: Speed cannot be negative for stop at 'parkingAreaA'
+Error: Speed cannot be negative for stop at 'parkingAreaA'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.2_from_21Jul154626.49274/netedit.gui/demandelements/waypoint/parkingarea/load/speed/routes.rou.xml failed.

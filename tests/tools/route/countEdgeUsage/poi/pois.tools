@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:16:54.506092 by countEdgeUsage.py v1_13_0+1343-240e5d48340
+  options: routes.rou.xml <doubleminus>output-file out.rou.xml -n input_net.net.xml -p pois.add.xml
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="-142575691#0" lon="13.531263" lat="52.429818">
+        <param key="departed" value="45"/>
+        <param key="arrived" value="0"/>
+    </poi>
+    <poi id="142575691#0" lon="13.530996" lat="52.429919">
+        <param key="departed" value="0"/>
+        <param key="arrived" value="105"/>
+    </poi>
+    <poi id="142575692#0" lon="13.529488" lat="52.429606">
+        <param key="departed" value="61"/>
+        <param key="arrived" value="116"/>
+    </poi>
+    <poi id="142575692#2" lon="13.528760" lat="52.430283">
+        <param key="departed" value="0"/>
+        <param key="arrived" value="103"/>
+    </poi>
+    <poi id="142575693#0" lon="13.527038" lat="52.432033">
+        <param key="departed" value="73"/>
+        <param key="arrived" value="0"/>
+    </poi>
+    <poi id="143308542#0" lon="13.526873" lat="52.428795">
+        <param key="departed" value="118"/>
+        <param key="arrived" value="0"/>
+    </poi>
+    <poi id="143308542#2" lon="13.529334" lat="52.429308">
+        <param key="departed" value="137"/>
+        <param key="arrived" value="53"/>
+    </poi>
+    <poi id="143308542#4" lon="13.530163" lat="52.429614">
+        <param key="departed" value="93"/>
+        <param key="arrived" value="83"/>
+    </poi>
+    <poi id="143308542#5" lon="13.530887" lat="52.429952">
+        <param key="departed" value="69"/>
+        <param key="arrived" value="94"/>
+    </poi>
+    <poi id="143308542#6" lon="13.531040" lat="52.430023">
+        <param key="departed" value="0"/>
+        <param key="arrived" value="127"/>
+    </poi>
+    <poi id="143308546#0" lon="13.531253" lat="52.430365">
+        <param key="departed" value="190"/>
+        <param key="arrived" value="0"/>
+    </poi>
+    <poi id="143308546#1" lon="13.530626" lat="52.430083">
+        <param key="departed" value="187"/>
+        <param key="arrived" value="59"/>
+    </poi>
+    <poi id="143308546#3" lon="13.529875" lat="52.429733">
+        <param key="departed" value="146"/>
+        <param key="arrived" value="73"/>
+    </poi>
+    <poi id="143308546#7" lon="13.529212" lat="52.429428">
+        <param key="departed" value="60"/>
+        <param key="arrived" value="121"/>
+    </poi>
+    <poi id="143308546#8" lon="13.529115" lat="52.429391">
+        <param key="departed" value="50"/>
+        <param key="arrived" value="159"/>
+    </poi>
+    <poi id="143308546#9" lon="13.529010" lat="52.429360">
+        <param key="departed" value="0"/>
+        <param key="arrived" value="136"/>
+    </poi>
+</additional>

@@ -27,7 +27,7 @@ title: Name of the Article
 ---
 ```
 
-<font color="red">If you want to create an fresh new article, please consider first seeing the source code of any existing article, to learn and get some basic notions.</font> 
+<font color="red">If you want to create an fresh new article, please consider first seeing the source code of any existing article, to learn and get some basic notions.</font>
 
 
 
@@ -50,7 +50,20 @@ Sections and subsections in a document are marked by using the `#` character.
 #### This is a sub section, equivalent to <h4\>
 
 
+<br><br>
+# **CSS classes, IDs and key/value pairs**
 
+Markdown allows to use css classes, ids and key/value pairs: <https://python-markdown.github.io/extensions/attr_list/>
+
+Custom classes:
+
+- `.cellNoWrap` : Avoid a line break (useful in tables).
+
+## Example
+
+```
+{: #someid .someclass somekey='some value' }
+```
 
 <br><br>
 # **Styling text**
@@ -108,7 +121,7 @@ Here are some expressions that need an escape character:
 # **Images**
 
 All images must be saved in the [images directory]({{Source}}docs/web/docs/images).
-To insert an image, just use the usual Markdown syntax: 
+To insert an image, just use the usual Markdown syntax:
 
 ```
 ![<alt>](images/Wikicommons_rail_fast.jpg "<title>")
@@ -164,24 +177,24 @@ To separate columns, just use a pipe `|`.
 In order to insert Mathematical expressions (symbols or equations), you should write them in [LaTeX format](https://en.wikibooks.org/wiki/LaTeX/Mathematics). Math elements are being displayed as images, using a html `<img>` element.
 Just replace `<HERE>` with your math expression in the following html element:
 
-`<img src="http://latex.codecogs.com/gif.latex?<HERE>" border="0" style="margin:0;"/>`
+`<img src="https://latex.codecogs.com/gif.latex?<HERE>" border="0" style="margin:0;"/>`
 
 
 ## Example
 ```
-<img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
 ```
 ***will display:***
 
-<img src="http://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?R" border="0" style="margin:0;"/>
 
 <hr>
 ```
-<img src="http://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
 ```
 ***will display:***
 
-<img src="http://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
+<img src="https://latex.codecogs.com/gif.latex?F(x)=\int^a_b\frac{1}{3}x^3" border="0" style="margin:0;"/>
 
 
 
@@ -206,7 +219,7 @@ In order to make writing this Documentation easier, we implemented some Macros. 
 {{Version}}
 
 !!! note
-    The full list of available Macros can be found [here](https://github.com/eclipse/sumo/blob/master/docs/web/mkdocs.yml) at the end in the `extra` section.
+    The full list of available Macros can be found [here](https://github.com/eclipse-sumo/sumo/blob/main/docs/web/mkdocs.yml) at the end in the `extra` section.
 
 !!! caution
     Macros do not work inside inline code or code blocks.
@@ -216,18 +229,18 @@ In order to make writing this Documentation easier, we implemented some Macros. 
 # **Links**
 
 When linking to a page within this Documentation, please consider the absolute path to the Markdown file.
-<font color="red">Do not forget to add the `.md` extension to every internal link.</font> 
+<font color="red">Do not forget to add the `.md` extension to every internal link.</font>
 
 Links to external pages will display an arrow at the end (e.g. [DLR](https://www.dlr.de)).
 
 ## **Links to files in the SUMO GitHub repo**
 
-Using the \{\{Source\}\} Macro, linking to files in the official SUMO repository on GitHub is as easy as: 
+Using the \{\{Source\}\} Macro, linking to files in the official SUMO repository on GitHub is as easy as:
 
 - \[Read the gitignore file\](\{\{Source\}\}.gitignore) [Read the gitignore file]({{Source}}.gitignore)
 
 !!! note
-    The \{\{Source\}\} macro is equivalent to https://github.com/eclipse/sumo/blob/master/ including the `/` at the end. Please analyze the following example:
+    The \{\{Source\}\} macro is equivalent to https://github.com/eclipse-sumo/sumo/blob/main/ including the `/` at the end. Please analyze the following example:
 
 - \[\{\{SUMO\}\}/src/sumo_main.cpp\](\{\{Source\}\}src/sumo_main.cpp) [{{SUMO}}/src/sumo_main.cpp]({{Source}}src/sumo_main.cpp)
 
@@ -272,7 +285,7 @@ Go to [sumo-gui](sumo-gui.md), [netconvert options](netconvert.md#options) or [N
 
 <https://www.dlr.de> or [DLR](https://www.dlr.de)
 ```
-- \[Read the gitignore file\](\{\{Source\}\}.gitignore) 
+- \[Read the gitignore file\](\{\{Source\}\}.gitignore)
 - \[\{\{SUMO\}\}/src/sumo_main.cpp\](\{\{Source\}\}src/sumo_main.cpp)
 
 ***will display:***
@@ -319,10 +332,10 @@ Inside a **Note** element you can use Markdown syntax to insert links, stylize t
 ## Example
 ```
 !!! note
-    When citing SUMO in general please use our current reference 
-    publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/124092/); 
-    Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, 
-    Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. 
+    When citing SUMO in general please use our current reference
+    publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/124092/);
+    Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd,
+    Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner.
     IEEE Intelligent Transportation Systems Conference (ITSC) 2018.
 
 !!! caution

@@ -1,0 +1,3 @@
+Error: Attribute 'file' is missing in definition of laneAreaDetector 'multiLaneAreaDetector_0'.
+Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_1' in netedit; Filename is invalid.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e2multilanedetector/load/file/additionals.add.xml failed.

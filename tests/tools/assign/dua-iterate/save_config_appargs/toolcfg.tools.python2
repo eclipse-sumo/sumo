@@ -1,0 +1,6 @@
+<configuration>
+    <last-step value="5"/>
+    <net-file value="input_net.net.xml"/>
+    <remaining_args value="sumo--lanechange.duration 3 sumo--time-to-teleport=-1"/>
+    <trips value="input_trips.trips.xml"/>
+</configuration>

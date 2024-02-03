@@ -1,5 +1,15 @@
 basic
 
+# overtaking a slower vehicle on the right (or not)
+overtaking_right
+
+# tests for changing to gain speed
+speedGain
+
+# test cooperative changing
+cooperative
+strategic
+
 # tests for overtaking and merging at ramps
 motorway
 
@@ -12,6 +22,15 @@ roundabout
 
 # testing opposite-direction driving
 opposite_direction_driving
+
+# test latAlignment configuration
+latAlignment
+
+# bicycles merge from a wide road lane onto a narrow bike lane
+width_transition
+
+# test vehicles moving in opposite directions on the same edge
+bidiEdge
 
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes

@@ -1,0 +1,5 @@
+Error: Attribute 'id' is missing in definition of a trainStop.
+Error: Could not build trainStop with ID 'ID with spaces' in netedit; ID contains invalid characters.
+Error: Could not build trainStop with ID 'trainStop_00' in netedit; Declared twice.
+Error: Could not build busStop with ID 'trainStop_00' in netedit; Declared twice.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jun142637.24400\netedit.gui\additionalelements\trainstop\load\id\additionals.add.xml failed.

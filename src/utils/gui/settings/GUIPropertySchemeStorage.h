@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@
 #include <vector>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/foxtools/MFXIconComboBox.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 #include <utils/foxtools/MFXUtils.h>
 #include "GUIPropertyScheme.h"
 
@@ -55,9 +55,9 @@ public:
     virtual ~GUIPropertySchemeStorage() { }
 
     /// @brief Fills the given combobox with the names of available colorings
-    void fill(MFXIconComboBox& cb) {
+    void fill(MFXComboBoxIcon& cb) {
         for (const auto& scheme : mySchemes) {
-            cb.appendIconItem(scheme.getName().c_str(),
+            cb.appendIconItem(scheme.getTranslatedName().c_str(),
                               scheme.getIcon() == GUIIcon::EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()),
                               MFXUtils::getFXColor(scheme.getBackgroundColor()));
         }
@@ -104,9 +104,9 @@ public:
         }
     }
 
-    void save(OutputDevice& dev) const {
+    void save(OutputDevice& dev, const std::string& prefix = "") const {
         for (typename std::vector<T>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
-            i->save(dev);
+            i->save(dev, prefix);
         }
     }
 

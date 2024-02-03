@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,9 +34,11 @@ class GNEVariableSpeedSignStep;
  * @class GNEVariableSpeedSign
  * allows the simulation of variable speed signs
  */
-class GNEVariableSpeedSign : public GNEAdditional {
+class GNEVariableSpeedSign : public GNEAdditional, public Parameterised {
 
 public:
+    /// @brief default Constructor
+    GNEVariableSpeedSign(GNENet* net);
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -45,37 +47,68 @@ public:
      * @param[in] name VSS name
      * @param[in] parameters generic parameters
      * @param[in] vTypes list of vehicle types to be affected
-     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, 
-                         const std::vector<std::string> &vTypes, const std::map<std::string, std::string> &parameters,
-                         bool blockMovement);
+    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
+                         const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
+
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
 
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
@@ -86,10 +119,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -102,6 +137,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -111,21 +149,17 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
 protected:

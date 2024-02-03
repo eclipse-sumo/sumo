@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-27 23:00:27 by Eclipse SUMO sumo Version v1_16_0+1707-833d692
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <personinfo-output value="personinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="101.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="10.00" departPos="0.00" arrival="111.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="20.00" departPos="0.00" arrival="121.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="30.00" departPos="0.00" arrival="131.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="40.00" departPos="0.00" arrival="141.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="50.00" departPos="0.00" arrival="151.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="60.00" departPos="0.00" arrival="161.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="70.00" departPos="0.00" arrival="171.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.8" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="80.00" departPos="0.00" arrival="181.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="p.9" depart="90.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="90.00" departPos="0.00" arrival="191.00" arrivalPos="45.98" duration="101.00" routeLength="137.93" timeLoss="1.69" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>

@@ -18,11 +18,11 @@ The vehicle class of a vehicle is defined by first defining a [vehicle
 type](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 with the appropriate [vehicle
 class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
-and then[assigning that type to the
+and then [assigning that type to the
 vehicle](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes).
 An example is given below:
 
-```
+```xml
 <routes>
   <vType id="myType" vClass="bus"/>
 
@@ -53,9 +53,10 @@ classes. This definition is either
   [OpenStreetMap](../Networks/Import/OpenStreetMap.md) according
   to a [customizable
   heuristic](../Networks/Import/OpenStreetMap.md#recommended_typemaps).
-- or set via [netedit](../Netedit/index.md#inspect). Convenience
+- set via [netedit](../Netedit/index.md#inspect). Convenience
   features exist [for adding bicycle lanes, bus lanes and
   sidewalks](../Netedit/index.md#restricted_lanes).
+- changed during the simulation using [TraCI](../TraCI/Change_Lane_State.md).
 
 For visualizing access permissions, either
 [sumo-gui](../sumo-gui.md#road_access_permissions) or

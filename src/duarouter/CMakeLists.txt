@@ -9,7 +9,7 @@ set(duarouter_SRCS
 add_executable(duarouter ${duarouter_SRCS})
 set_target_properties(duarouter PROPERTIES OUTPUT_NAME duarouter${BINARY_SUFFIX})
 set_target_properties(duarouter PROPERTIES OUTPUT_NAME_DEBUG duarouter${BINARY_SUFFIX}D)
-target_link_libraries(duarouter router ${commonvehiclelibs})
-add_dependencies(duarouter generate-version-h)
+target_link_libraries(duarouter router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
+add_dependencies(duarouter generate-version-h install_dll)
 
 install(TARGETS duarouter RUNTIME DESTINATION bin)

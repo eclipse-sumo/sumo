@@ -7,10 +7,9 @@ title: neteditUsageExamples
 ## Reducing the extent of the network
 
 1.  switch to [selection mode](editModesCommon.md#select)
-2.  enable the *auto-select junctions* checkbox in the top menu bar
+2.  enable the *auto-select junctions* checkbox in the top menu bar (enabled by default since version 1.9.0)
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
-4.  invert the selection with the *Invert* button
-5.  delete the inverted selection using the *<DELETE\>* key
+4.  press the *Reduce* button
 
 !!! caution
     If the checkbox *auto-select junctions* is not set, and connections are not visible during the rectangle selection, all connections will be removed during the *invert+delete* steps.
@@ -21,6 +20,14 @@ Either
 
 - load the additional file when cutting and then save the reduced additional file or
 - open the reduced network and load the original additional file. All objects outside the reduced network will be discarded with a warning.
+
+## Making curved roads
+
+1. switch to [selection mode](editModesCommon.md#select)
+2. click on both directional edges once to select them
+3. switch to [move mode](editModesCommon.md#move)
+4. click and drag to add / change geometry points (affecting both edges at the same time)
+5. (optionally) [smooth both edges](neteditPopupFunctions.md#smooth_edge) at the same time
 
 ## Specifying the complete geometry of an edge including endpoints
 
@@ -63,6 +70,15 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
+### Restoring edge geometry to its default state
+
+The reverse operation to *Setting a custom geometry endpoint* as explained above is *Restoring the geometry endpoint* and it may be accomplished in any of the following ways:
+
+- delete the edge attributes `shapeStart` and `shapeEnd`
+- right-click on an edge and from the *edge operations* menu select *Restore geometry endpoint* (this only restores the end near the click)
+- right-click on an edge and select *Reset edge endpoints*
+- In move-mode, shift-click on a custom endpoint (a geometry point marked with `S` or `E`)
+
 ## Setting connection attributes
 
 1.  after opening the network press F5 to compute connection objects
@@ -74,13 +90,20 @@ This will create a single joined junction but keep the endpoints at the original
 1. set junction attribute 'radius' to the desired roundabout radius
 2. right-click on junction and select 'Convert to roundabout'
 
+## Converting a roundabout into a simple intersection
+
+1. select all junctions that are part of the roundabout
+2. join selected junctions (F7)
+3. select all edges that connected to the joined intersection
+4. right-click selection and select 'edge operations'->'restore geometry endpoints'
+
 ## Converting an intersection into a roundabout (old manual method)
 
 1.  For each of the 'legs' of the intersection do a right click and select 'split edges in both directions' at some distance from the
     intersection (this will be the radius of the roundabout)
 2.  Delete the central intersection
 3.  Connect the new intersections with one-way roads going in a circle
-4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](editModesCommon.md#move) to make it more rounded. 
+4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](editModesCommon.md#move) to make it more rounded.
     You can also use the function 'smooth edge' from the edge context menu.
 5.  Check for correct right of way (the inside edge should have priority over the entering edges). This should work by default but may fail if the shape of the roundabout is not 'round' enough. Either correct the geometry or assign a higher priority value to the roundabout roads (compared to the adjoining roads)
 
@@ -158,12 +181,72 @@ directions. To make a unidirectional track usable in both directions,
 4.  set the new edge as [Edge template](editModesCommon.md#edge_template)
 5.  make the edge bidirectional as explained above in [Make an existing track bidirectional](#make_an_existing_track_bidirectional)
 6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
-7.  continue to created edges. Each click will create bidirectional track
+7.  continue to create edges - each click will create bidirectional track
+
+## Define rail signals that only affect one track direction
+
+If a piece of railway track is [modelled for train operations in both directions](#creating_bidirectional_railway_tracks), any rail signal defined on this *bidi*-track will affect both direction of travel by default.
+To change this, the following steps have to be taken:
+
+1. ensure that [edges for both directions of travel are visible](../Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit)
+2. [set connection attribute](#setting_connection_attributes) `uncontrolled=True` for the connection that shall not be controlled
 
 ## Creating a zipper merge
 
-1. use inspect mode to set junction type to 'zipper'
+1. use inspect mode to set junction type to 'zipper'.
 2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with CTRL+Click to override conflict protection.
 3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
+
+## Simplify TLS program state after changing connections
+
+After deleting connections at a junction of type traffic_light, the traffic light program will remain unchanged by default.
+This stability implies that the length of the phase state may be longer than needed and the list of used can contain gaps (where the unused states are).
+To clean up the states:
+
+1. enter traffic light mode (T)
+2. click on the junction
+3. press the 'Clean States' button (this shortens the state and re-assigns indices to controlled connections)
+4. save the program
+5. recompute the network (F5) to see updated tls indices (when inspecting connections or drawing 'tls link index')
+
+## Deleting all sidewalks
+
+1. enter select mode (S)
+2. in the [Match Attribute](editModesCommon.md#match_attribute) controls select:
+  - Object type: Lane
+  - Attribute: allow
+  - Value: "=pedestrian"
+3. press the `<del>` key
+
+## Duplicating rightmost lane on all edges
+
+There are several solutions. The first one is as follows:
+
+1. toggle selection to work on lanes by default rather than edges (press Alt+5 when in select mode)
+2. select the desired lanes
+3. apply duplication by right clicking and going into lane operations
+
+The second solution is as follows:
+
+1. select the desired edges and go to the selection mode
+2. in selection panel on the left click: 'select children'
+3. toggle selection modification mode to 'keep'
+4. select lanes by attribute index=0 then apply selection
+5. apply duplication by right clicking and going into lane operations
+
+There is also another solution in case you want to add special lanes to your edges:
+
+1. select edges with the help of the select mode
+2. after right clicking use lane operation 'add restricted lane'
+
+
+## Building a [Two-Way-Left-Turn-lane](https://en.wikipedia.org/wiki/Reversible_lane#Turn_lanes_and_flush_medians)
+
+1. create a network with two lanes in each direction (on the road that should have a TWLT)
+2. select all edges that belong to that road using *select mode*
+3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit ENTER)
+  - explanation: This makes it so that the inside lanes in both directions are directly on top of each other
+4. go to inspect mode and inspect the selection of edges
+5. activate the 'isBidi' checkbox

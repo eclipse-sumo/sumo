@@ -19,10 +19,10 @@
             <xsd:attribute name="edge" use="optional" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="xsd:string"/>
             <xsd:attribute name="parking" use="required" type="boolType"/>
-            <xsd:attribute name="started" use="required" type="xsd:float"/>
-            <xsd:attribute name="ended" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="delay" use="required" type="xsd:float"/>
-            <xsd:attribute name="arrivalDelay" use="optional" type="xsd:float"/>
+            <xsd:attribute name="started" use="required" type="floatType"/>
+            <xsd:attribute name="ended" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="delay" use="optional" type="floatType"/>
+            <xsd:attribute name="arrivalDelay" use="optional" type="floatType"/>
             <xsd:attribute name="initialPersons" use="required" type="nonNegativeIntType"/>
             <xsd:attribute name="loadedPersons" use="required" type="nonNegativeIntType"/>
             <xsd:attribute name="unloadedPersons" use="required" type="nonNegativeIntType"/>
@@ -36,6 +36,7 @@
             <xsd:attribute name="tripId" use="optional" type="xsd:string"/>
             <xsd:attribute name="line" use="optional" type="xsd:string"/>
             <xsd:attribute name="split" use="optional" type="xsd:string"/>
+            <xsd:attribute name="usedEnded" use="optional" type="boolType"/>
         </xsd:complexType>
     </xsd:element>
 

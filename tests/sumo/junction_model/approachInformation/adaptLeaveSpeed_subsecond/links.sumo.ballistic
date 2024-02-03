@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Oct 14 11:34:00 2016 by SUMO Version dev-SVN-r21661
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<link-output>
+    <timestep id="0.00"/>
+    <timestep id="1.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.58" arrivalTimeBraking="34.58" leaveTime="5.56" arrivalSpeed="9.17" arrivalSpeedBraking="0.00" leaveSpeed="10.08" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.79" arrivalTimeBraking="34.80" leaveTime="5.73" arrivalSpeed="9.59" arrivalSpeedBraking="0.00" leaveSpeed="10.47" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="5.00" arrivalTimeBraking="35.00" leaveTime="5.90" arrivalSpeed="10.00" arrivalSpeedBraking="0.00" leaveSpeed="10.84" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="5.20" arrivalTimeBraking="5.20" leaveTime="6.07" arrivalSpeed="10.39" arrivalSpeedBraking="-nan" leaveSpeed="11.20" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="5.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="5.56" arrivalTimeBraking="5.64" leaveTime="6.52" arrivalSpeed="9.32" arrivalSpeedBraking="6.98" leaveSpeed="10.21" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="6.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="6.16" arrivalTimeBraking="6.17" leaveTime="7.92" arrivalSpeed="4.52" arrivalSpeedBraking="4.09" leaveSpeed="6.16" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="7.00"/>
+    <timestep id="8.00"/>
+    <timestep id="9.00"/>
+</link-output>

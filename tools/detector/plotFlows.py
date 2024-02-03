@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    plotFlows.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2017-12-01
 
 from __future__ import absolute_import
@@ -21,7 +22,6 @@ import math
 import sys
 import os
 
-from optparse import OptionParser
 import matplotlib.pyplot as plt
 
 import detector
@@ -33,42 +33,47 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = OptionParser()
-    optParser.add_option("-d", "--detector-file", dest="detfile",
-                         help="read detectors from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
-                         help="which column contains flows", metavar="STRING")
-    optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
-                         default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-    optParser.add_option("-i", "--interval", type="int", default=60, help="aggregation interval in minutes")
-    optParser.add_option("--long-names", action="store_true", dest="longnames",
-                         default=False, help="do not use abbreviated names for detector groups")
-    optParser.add_option("--edge-names", action="store_true", dest="edgenames",
-                         default=False, help="include detector group edge name in output")
-    optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
-    optParser.add_option("-e", "--end", type="float", default=None, help="end time in minutes")
-    optParser.add_option("-o", "--csv-output", dest="csv_output", help="write plot data with prefix", metavar="FILE")
-    optParser.add_option("--extension", help="extension for saving plots", default="png")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all")
-    optParser.add_option("-t", "--type-filter", dest="typefilter", help="only show selected types")
-    optParser.add_option("-r", "--reference-flow", dest="reference",
-                         help="reference flow file that should not be grouped", metavar="FILE")
-    optParser.add_option("--id-filter", dest="idfilter", help="filter detector ids")
-    optParser.add_option("--single-plot", action="store_true", dest="singleplot",
-                         default=False, help="put averything in a single plot")
-    # optParser.add_option("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
-    optParser.add_option("-m", "--max-files", type="int", dest="maxfiles", help="limit number of input files")
-    optParser.add_option("-n", "--no-legend", dest="nolegend", action="store_true",
-                         default=False, help="dont draw legend")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    options, args = optParser.parse_args(args=args)
-    options.flowfiles = args
+    parser = sumolib.options.ArgumentParser()
+    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=parser.additional_file,
+                        help="read detectors from FILE (mandatory)", metavar="FILE")
+    parser.add_argument("-c", "--flow-column", dest="flowcol", default="qPKW", type=str,
+                        help="which column contains flows", metavar="STRING")
+    parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
+                        default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+    parser.add_argument("-i", "--interval", type=parser.time,
+                        default=60, help="aggregation interval in minutes")
+    parser.add_argument("--long-names", action="store_true", dest="longnames",
+                        default=False, help="do not use abbreviated names for detector groups")
+    parser.add_argument("--edge-names", action="store_true", dest="edgenames",
+                        default=False, help="include detector group edge name in output")
+    parser.add_argument("-b", "--begin", type=parser.time, default=0, help="begin time in minutes")
+    parser.add_argument("-e", "--end", type=parser.time, default=None, help="end time in minutes")
+    parser.add_argument("-o", "--csv-output", dest="csv_output", type=str,
+                        help="write plot data with prefix", category="output", metavar="FILE")
+    parser.add_argument("--extension", help="extension for saving plots", default="png", type=str, category="output")
+    parser.add_argument("-s", "--show", action="store_true", default=False, help="show plot directly")
+    parser.add_argument("-g", "--group-by", dest="groupby",
+                        help="group detectors (all, none, type) ", default="all", type=str)
+    parser.add_argument("-t", "--type-filter", dest="typefilter", type=str, help="only show selected types")
+    parser.add_argument("-r", "--reference-flow", dest="reference", type=parser.file,
+                        help="reference flow file that should not be grouped", metavar="FILE")
+    parser.add_argument("--id-filter", dest="idfilter", type=str, help="filter detector ids")
+    parser.add_argument("--single-plot", action="store_true", dest="singleplot",
+                        default=False, help="put averything in a single plot")
+    # parser.add_argument("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
+    parser.add_argument("-m", "--max-files", type=int, dest="maxfiles",
+                        category="input", help="limit number of input files")
+    parser.add_argument("-n", "--no-legend", dest="nolegend", action="store_true",
+                        default=False, help="dont draw legend")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    parser.add_argument("flowfiles", help="read flows from FILE(s) (mandatory)", nargs="+",
+                        category="input", type=parser.file, metavar="FILE+")
+    options = parser.parse_args()
     if options.maxfiles is not None:
         options.flowfiles = options.flowfiles[:options.maxfiles]
     print(options.flowfiles)
     if not options.detfile or not options.flowfiles:
-        optParser.print_help()
+        parser.print_help()
         sys.exit()
     return options
 
@@ -150,7 +155,7 @@ def main(options):
             for edge, group in detReader.getGroups():
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert(len(group.timeline) <= len(data))
+                assert (len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
             allData.append(data)
@@ -164,7 +169,7 @@ def main(options):
                 for edge, group in detReader.getGroups():
                     if options.idfilter is not None and options.idfilter not in group.ids[0]:
                         continue
-                    assert(len(group.timeline) <= len(data))
+                    assert (len(group.timeline) <= len(data))
                     if group.type == detType:
                         for i, (flow, speed) in enumerate(group.timeline):
                             addToDataList(data, i, flow)
@@ -181,7 +186,7 @@ def main(options):
                     continue
                 if options.idfilter is not None and options.idfilter not in group.ids[0]:
                     continue
-                assert(len(group.timeline) <= len(data))
+                assert (len(group.timeline) <= len(data))
                 for i, (flow, speed) in enumerate(group.timeline):
                     addToDataList(data, i, flow)
                 allData.append(data)

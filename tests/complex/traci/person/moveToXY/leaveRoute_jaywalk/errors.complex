@@ -1,2 +1,2 @@
-Warning: Vehicle 'SN.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=12.00.
+Warning: Vehicle 'SN.4' performs emergency braking on lane 'SC_4' with decel=9.00, wished=4.50, severity=1.00, time=12.00.
 Warning: Vehicle 'SN.4' collision with person 'p0', lane='SC_4', gap=-0.84, time=12.00, stage=move.

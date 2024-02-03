@@ -1,4 +1,7 @@
-Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.2 s.) to the adjusted value 2 s.
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.20 s.) to the adjusted value 2.00 s.
 Warning: Given action step length 2 for vehicle type 'DEFAULT_VEHTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
 Warning: Action step length '2.00' is used for vehicle type 'DEFAULT_VEHTYPE' but step-method.ballistic was not set. Setting it now to avoid collisions.
-Warning: Vehicle 'horiz' performs emergency braking with decel=-2.20 wished=1.10 severity=1.00, time=6.00.
+Error: Answered with error to command 0xc5: Invalid junctionModel parameter 'junctionModel.dummy' for type 'DEFAULT_VEHTYPE'
+Error: Answered with error to command 0xc5: Invalid junctionModel parameter 'junctionModel.speed' for type 'DEFAULT_VEHTYPE'
+Error: Answered with error to command 0xc5: Invalid junctionModel parameter value 'notANumber' for type 'DEFAULT_VEHTYPE (should be numeric)'
+Warning: Vehicle 'horiz' performs emergency braking on lane '2fi_0' with decel=2.20, wished=1.10, severity=1.00, time=6.00.

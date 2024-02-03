@@ -1,20 +1,23 @@
 Warning: Ambiguity in turnarounds computation at junction '469115178'.
 Warning: Found sharp turn with radius 5.46 at the start of edge '-166213710'.
-Warning: Found sharp turn with radius 4.94 at the end of edge '-625737141'.
 Warning: Found angle of 100.10 degrees at edge '627097696', segment 3.
 Warning: Shape for junction '280598629' has distance 29.64 to its given position.
 Warning: Lane '410322842_0' is not connected from any incoming edge at junction '5907970920'.
 Warning: Edge '627097989' is not connected to outgoing edges at junction '5907970920'.
 Warning: 4 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 11 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 11 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 22 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 2 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
-Warning: Found sharp turn with radius 7.94 at the end of edge '627097884'.
-Warning: Found sharp turn with radius 8.15 at the start of edge '627097904'.
+Warning: Ambiguity in turnarounds computation at junction '469115178'.
+Warning: Found sharp turn with radius 5.46 at the start of edge '-166213710'.
+Warning: Found angle of 100.10 degrees at edge '627097696', segment 3.
 Warning: Shape for junction '280598629' has distance 29.64 to its given position.
-Warning: Lane '627098067_3' is not connected from any incoming edge at junction '5907970888'.
-Warning: 4 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 2 total messages of type: Found sharp turn with radius % at the start of edge '%'.
-Warning: 4 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: Lane '410322842_0' is not connected from any incoming edge at junction '5907970920'.
+Warning: Edge '627097989' is not connected to outgoing edges at junction '5907970920'.
+Warning: 4 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 22 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 2 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning! No mapping library found, falling back to tracemapper.

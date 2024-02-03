@@ -1,1 +1,2 @@
-Error: Answered with error to command 0xc4: Route replacement failed for veh0
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xc4: Route replacement failed for vehicle 'veh0' (current edge 'e_m5' not found in new route).

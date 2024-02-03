@@ -1,0 +1,9 @@
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
+Error: Invalid duration or end time is given for a stop at 'containerStop'
+Error: Attribute 'containerTriggered' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'containerStop'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
+Error: Invalid duration or end time is given for a stop at 'containerStop'
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
+Error: Invalid duration or end time is given for a stop at 'containerStop'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.containerstop.26Jan095536.11260/netedit.daily.demand.waypoint.containerstop/demandelements/waypoint/containerstop/load/containertrigger/routes.rou.xml failed.

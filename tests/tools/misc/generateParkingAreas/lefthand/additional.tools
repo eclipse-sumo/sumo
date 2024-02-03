@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-24 17:32:32.828741 by generateParkingAreas.py v1_17_0+0460-7219e2f
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <space-length value="8.0"/>
+    <min value="1"/>
+    <max value="7"/>
+    <lefthand value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="paE1" lane="E1_2" roadsideCapacity="7" length="8.0" lefthand="true"/>
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,12 +42,14 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #endif
+#include <libsumo/Helper.h>
 #include <mesosim/MEVehicleControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_ToC.h>
+#include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -55,9 +57,11 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <traci-server/TraCIServer.h>
 
 #include "NLHandler.h"
+#include "NLNetShapeHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
@@ -78,7 +82,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
     if (edge != nullptr) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the effort for the unknown edge '%'."), id);
     }
 }
 
@@ -93,7 +97,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
     if (edge != nullptr) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the travel time for the unknown edge '%'."), id);
     }
 }
 
@@ -121,38 +125,47 @@ NLBuilder::build() {
     if (!load("net-file", true)) {
         return false;
     }
-    if (myXMLHandler.networkVersion() == 0.) {
-        throw ProcessError("Invalid network, no network version declared.");
+    if (myXMLHandler.networkVersion() == MMVersion(0, 0)) {
+        throw ProcessError(TL("Invalid network, no network version declared."));
     }
     // check whether the loaded net agrees with the simulation options
     if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
-        WRITE_WARNING("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
+        WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
     }
     buildNet();
+    if (myOptions.isSet("alternative-net-file")) {
+        for (std::string fname : myOptions.getStringVector("alternative-net-file")) {
+            const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading alternative net from '" + fname + "'");
+            NLNetShapeHandler nsh(fname, myNet);
+            if (!XMLSubSys::runParser(nsh, fname, true)) {
+                WRITE_MESSAGE("Loading of alternative net failed.");
+                return false;
+            }
+            nsh.sortInternalShapes();
+            PROGRESS_TIME_MESSAGE(before);
+        }
+    }
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
 
-    // load additional net elements (sources, detectors, ...)
-    if (myOptions.isSet("additional-files")) {
-        if (!load("additional-files")) {
-            return false;
-        }
-        // load shapes with separate handler
-        NLShapeHandler sh("", myNet.getShapeContainer());
-        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
-            return false;
-        }
-        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
-            myNet.getEdgeControl().setAdditionalRestrictions();
-        }
-        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
-            myNet.getEdgeControl().setMesoTypes();
-            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
-                tll->initMesoTLSPenalties();
+    bool stateBeginMismatch = false;
+    if (myOptions.isSet("load-state")) {
+        // first, load only the time
+        const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
+        if (myOptions.isDefault("begin")) {
+            myOptions.set("begin", time2string(stateTime));
+            if (TraCIServer::getInstance() != nullptr) {
+                TraCIServer::getInstance()->stateLoaded(stateTime);
+            }
+        } else {
+            if (stateTime != string2time(myOptions.getString("begin"))) {
+                WRITE_WARNINGF(TL("State was written at a different time=% than the begin time %!"), time2string(stateTime), myOptions.getString("begin"));
+                stateBeginMismatch = true;
             }
         }
     }
+
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction
         const MSJunctionControl& junctions = myNet.getJunctionControl();
@@ -160,7 +173,7 @@ NLBuilder::build() {
             const std::string sinkID = it->first + "-sink";
             const std::string sourceID = it->first + "-source";
             if (MSEdge::dictionary(sinkID) == nullptr && MSEdge::dictionary(sourceID) == nullptr) {
-                // sink must be built and addd before source
+                // sink must be built and added before source
                 MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
                 MSEdge* source = myEdgeBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
                 sink->setOtherTazConnector(source);
@@ -181,10 +194,42 @@ NLBuilder::build() {
                     }
                 }
             } else {
-                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
+                WRITE_WARNINGF(TL("A TAZ with id '%' already exists. Not building junction TAZ."), it->first)
             }
         }
     }
+
+    // load additional net elements (sources, detectors, ...)
+    if (myOptions.isSet("additional-files")) {
+        if (!load("additional-files")) {
+            return false;
+        }
+        // load shapes with separate handler
+        NLShapeHandler sh("", myNet.getShapeContainer());
+        if (!ShapeHandler::loadFiles(myOptions.getStringVector("additional-files"), sh)) {
+            return false;
+        }
+        if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
+            myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
+            myNet.getEdgeControl().setMesoTypes();
+            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
+                tll->initMesoTLSPenalties();
+            }
+        }
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
+    }
+    // init tls after all detectors have been loaded
+    myJunctionBuilder.postLoadInitialization();
+    // declare meandata set by options
+    buildDefaultMeanData("edgedata-output", "DEFAULT_EDGEDATA", false);
+    buildDefaultMeanData("lanedata-output", "DEFAULT_LANEDATA", true);
+
+    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
+        throw ProcessError(TL("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files"));
+    }
+
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
@@ -210,7 +255,7 @@ NLBuilder::build() {
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
         for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
             // report about loading when wished
-            WRITE_MESSAGE("Loading weights from '" + *i + "'...");
+            WRITE_MESSAGEF(TL("Loading weights from '%'..."), *i);
             // parse the file
             if (!XMLSubSys::runParser(handler, *i)) {
                 return false;
@@ -219,21 +264,13 @@ NLBuilder::build() {
     }
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
+        myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
         const std::string& f = myOptions.getString("load-state");
         long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
-        if (myOptions.isDefault("begin")) {
-            myOptions.set("begin", time2string(h.getTime()));
-            if (TraCIServer::getInstance() != nullptr) {
-                TraCIServer::getInstance()->stateLoaded(h.getTime());
-            }
-        }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
-        }
-        if (h.getTime() != string2time(myOptions.getString("begin"))) {
-            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -247,7 +284,7 @@ NLBuilder::build() {
     if (myOptions.getBool("tls.all-off")) {
         myNet.getTLSControl().switchOffAll();
     }
-    WRITE_MESSAGE("Loading done.");
+    WRITE_MESSAGE(TL("Loading done."));
     return true;
 }
 
@@ -262,8 +299,18 @@ NLBuilder::init(const bool isLibsumo) {
         SystemFrame::close();
         return nullptr;
     }
-    SystemFrame::checkOptions();
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
+    SystemFrame::checkOptions(oc);
+    std::string validation = oc.getString("xml-validation");
+    std::string routeValidation = oc.getString("xml-validation.routes");
+    if (isLibsumo) {
+        if (oc.isDefault("xml-validation")) {
+            validation = "never";
+        }
+        if (oc.isDefault("xml-validation.routes")) {
+            routeValidation = "never";
+        }
+    }
+    XMLSubSys::setValidation(validation, oc.getString("xml-validation.net"), routeValidation);
     if (!MSFrame::checkOptions()) {
         throw ProcessError();
     }
@@ -286,7 +333,7 @@ NLBuilder::init(const bool isLibsumo) {
     // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
     if (isLibsumo) {
-        libsumo::Helper::registerVehicleStateListener();
+        libsumo::Helper::registerStateListener();
     }
 
     NLEdgeControlBuilder eb;
@@ -308,6 +355,7 @@ NLBuilder::init(const bool isLibsumo) {
     throw ProcessError();
 }
 
+
 void
 NLBuilder::initRandomness() {
     RandHelper::initRandGlobal();
@@ -315,8 +363,10 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     RandHelper::initRandGlobal(OUProcess::getRNG());
     RandHelper::initRandGlobal(MSDevice_ToC::getResponseTimeRNG());
+    RandHelper::initRandGlobal(MSDevice_BTreceiver::getRecognitionRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
 }
+
 
 void
 NLBuilder::buildNet() {
@@ -339,7 +389,7 @@ NLBuilder::buildNet() {
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
-                throw ProcessError("Wrong number of state file names!");
+                throw ProcessError(TL("Wrong number of state file names!"));
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
@@ -350,13 +400,9 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + timeStamp + suffix);
             }
         }
-    } catch (IOError& e) {
-        delete edges;
-        delete junctions;
-        delete routeLoaders;
-        delete tlc;
-        throw ProcessError(e.what());
     } catch (ProcessError&) {
+        MSEdge::clear();
+        MSLane::clear();
         delete edges;
         delete junctions;
         delete routeLoaders;
@@ -378,9 +424,9 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
     }
     std::vector<std::string> files = myOptions.getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE(TLF("Loading % from '%'", mmlWhat, *fileIt));
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt, isNet)) {
-            WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
+            WRITE_MESSAGEF(TL("Loading of % failed."), mmlWhat);
             return false;
         }
         PROGRESS_TIME_MESSAGE(before);
@@ -398,7 +444,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::isReadable(*fileIt)) {
-                throw ProcessError("The route file '" + *fileIt + "' is not accessible.");
+                throw ProcessError(TLF("The route file '%' is not accessible.", *fileIt));
             }
         }
         // open files for reading
@@ -409,5 +455,24 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     return loaders;
 }
 
+
+void
+NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string& id, bool useLanes) {
+    if (OptionsCont::getOptions().isSet(optionName)) {
+        if (useLanes && MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+            WRITE_WARNING(TL("LaneData requested for mesoscopic simulation but --meso-lane-queue is not active. Falling back to edgeData."));
+            useLanes = false;
+        }
+        try {
+            myDetectorBuilder.createEdgeLaneMeanData(id, -1, 0, -1, "traffic", useLanes, false, false,
+                    false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,
+                    OptionsCont::getOptions().getString(optionName));
+        } catch (InvalidArgument& e) {
+            WRITE_ERROR(e.what());
+        } catch (IOError& e) {
+            WRITE_ERROR(e.what());
+        }
+    }
+}
 
 /****************************************************************************/

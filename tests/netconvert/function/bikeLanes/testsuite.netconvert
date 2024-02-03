@@ -2,7 +2,13 @@
 guess
 
 # guess bike lanes using plain xml input
-guess_width_sidewalks
+guess_with_sidewalks
+
+# guess bike lanes using .net.xml input
+guess_sumonet
+
+# guess bike lanes using plain xml input
+guess_with_guess_sidewalks
 
 # guess bike lanes but prevent one edge from receiving a sidewalks 
 guess_disable1

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,14 +91,14 @@ getTurningDefaults(OptionsCont& oc) {
     std::vector<double> ret;
     std::vector<std::string> defs = oc.getStringVector("turn-defaults");
     if (defs.size() < 2) {
-        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
+        throw ProcessError(TL("The defaults for turnings must be a tuple of at least two numbers divided by ','."));
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
             double val = StringUtils::toDouble(*i);
             ret.push_back(val);
         } catch (NumberFormatException&) {
-            throw ProcessError("A turn default is not numeric.");
+            throw ProcessError(TL("A turn default is not numeric."));
         }
     }
     return ret;
@@ -140,7 +140,7 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
         for (std::vector<std::string>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             ROJTREdge* edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge == nullptr) {
-                throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
+                throw ProcessError(TLF("The edge '%' declared as a sink is not known.", *i));
             }
             edge->setSink();
         }
@@ -166,7 +166,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0, 0, "dijkstra"), nullptr);
-    loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+    const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
+    loader.processRoutes(string2time(oc.getString("begin")), end,
                          string2time(oc.getString("route-steps")), net, provider);
     net.cleanup();
 }
@@ -178,8 +179,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios.");
+    oc.setApplicationDescription(TL("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios."));
     oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
@@ -193,7 +193,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
         if (!ROJTRFrame::checkOptions()) {

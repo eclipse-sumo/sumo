@@ -1,0 +1,3 @@
+Error: Attribute 'speedDev' in definition of vType 'vType0' Invalid Number Format (double) dummySpeedDev.
+Error: speedDev must be equal or greater than 0
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/speeddev/routes.rou.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <microsim/MSEdge.h>
+
 #include "MSRoutingEngine.h"
 #include "MSTransportableDevice_Routing.h"
 
@@ -43,7 +45,7 @@ MSTransportableDevice_Routing::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("rerouting", "Routing", oc, true);
     oc.doRegister("person-device.rerouting.period", new Option_String("0", "TIME"));
     oc.addSynonyme("person-device.rerouting.period", "person-device.routing.period", true);
-    oc.addDescription("person-device.rerouting.period", "Routing", "The period with which the person shall be rerouted");
+    oc.addDescription("person-device.rerouting.period", "Routing", TL("The period with which the person shall be rerouted"));
 }
 
 

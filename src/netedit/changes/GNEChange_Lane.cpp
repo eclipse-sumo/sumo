@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
-    GNEChange(true, false),
+    GNEChange(Supermode::NETWORK, true, false),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
@@ -45,7 +45,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
 
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(lane, forward, lane->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, lane, forward, lane->isAttributeCarrierSelected()),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
@@ -110,7 +110,7 @@ GNEChange_Lane::undo() {
         myEdge->addLane(myLane, myLaneAttrs, false);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -148,25 +148,25 @@ GNEChange_Lane::redo() {
         myEdge->removeLane(myLane, myRecomputeConnections);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
-FXString
+std::string
 GNEChange_Lane::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_LANE)).c_str();
+        return (TL("Undo create lane '") + myLane->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return (TL("Undo delete lane '") + myLane->getID() + "'");
     }
 }
 
 
-FXString
+std::string
 GNEChange_Lane::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_LANE)).c_str();
+        return (TL("Redo create lane '") + myLane->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_LANE)).c_str();
+        return (TL("Redo delete lane '") + myLane->getID() + "'");
     }
 }

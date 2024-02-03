@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // TraCI4J module
 // Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
 // This program and the accompanying materials are made available under the
@@ -258,6 +258,7 @@ public class SumoTraciConnection {
      */
     public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
         InterruptedException {
+        System.err.println("TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.");
 
         this.remote = true;
         socket = new Socket();
@@ -319,8 +320,7 @@ public class SumoTraciConnection {
      *             at it.
      */
     public void runServer(int _remotePort) throws IOException {
-
-
+        System.err.println("TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.");
 
         if (!this.remote) {
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXBaseObject.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXBaseObject.h>
 #include <utils/foxtools/fxheader.h>
 
 
@@ -29,38 +29,50 @@
  * As events are distinguished by their number, here is the enumeration
  * of our custom events
  */
-enum GUIEventType {
+enum class GUIEventType {
     /// @brief send when a simulation has been loaded
-    EVENT_SIMULATION_LOADED,
+    SIMULATION_LOADED,
 
     /// @brief send when a simulation step has been performed
-    EVENT_SIMULATION_STEP,
+    SIMULATION_STEP,
 
     /// @brief send when a message occured
-    EVENT_MESSAGE_OCCURRED,
+    MESSAGE_OCCURRED,
 
     /// @brief send when a warning occured
-    EVENT_WARNING_OCCURRED,
+    WARNING_OCCURRED,
 
     /// @brief send when a error occured
-    EVENT_ERROR_OCCURRED,
+    ERROR_OCCURRED,
 
     /// @brief send when a debug occured
-    EVENT_DEBUG_OCCURRED,
+    DEBUG_OCCURRED,
 
     /// @brief send when a gldebug occured
-    EVENT_GLDEBUG_OCCURRED,
+    GLDEBUG_OCCURRED,
 
     /// @brief send when a status change occured
-    EVENT_STATUS_OCCURRED,
+    STATUS_OCCURRED,
+
+    /**@brief Send when a new should be opened (via TraCI) */
+    ADD_VIEW,
+
+    /**@brief Send when a view should be closed (via TraCI) */
+    CLOSE_VIEW,
 
     /**@brief Send when the simulation is over;
      * @note The reason and the time step are stored within the event
     */
-    EVENT_SIMULATION_ENDED,
+    SIMULATION_ENDED,
+
+    /// @brief send when a tool produces output
+    OUTPUT_OCCURRED,
+
+    /// @brief send when a tool finishes
+    TOOL_ENDED,
 
     /// @brief End of events list; use this to define new
-    EVENT_END
+    END
 };
 
 

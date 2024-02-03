@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@ public:
     MSCFModel_Rail(const MSVehicleType* vtype);
 
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
-                       double predMaxDecel, const MSVehicle* const pred = 0) const;
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
     virtual int getModelID() const;
 
@@ -57,7 +57,12 @@ public:
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
-                     const bool onInsertion) const;
+                     const bool onInsertion, const CalcReason usage = CalcReason::CURRENT) const;
+
+    bool startupDelayStopped() const {
+        // starup delay in trains is dominated by inertia + brake delay and thus applies to any kind of stopping
+        return true;
+    }
 
 private:
 
@@ -80,7 +85,7 @@ private:
 
 
 public:
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //
@@ -671,7 +676,6 @@ private:
         map[120] = 140.2;
         return map;
     }
-
     LookUpMap initRB425Traction() const {
         LookUpMap map;
         map[0] = 150;
@@ -730,8 +734,123 @@ private:
         return params;
     }
 
+    LookUpMap initMireoPlusB2TTraction() const {
+        LookUpMap map;
+        map[0] = 106.15;
+        map[10] = 106.15;
+        map[20] = 106.15;
+        map[30] = 106.15;
+        map[40] = 106.15;
+        map[50] = 106.15;
+        map[60] = 103.73;
+        map[70] = 88.70;
+        map[80] = 77.47;
+        map[90] = 68.76;
+        map[100] = 61.82;
+        map[110] = 56.15;
+        map[120] = 51.43;
+        map[130] = 47.44;
+        map[140] = 44.03;
+        map[150] = 41.07;
+        map[160] = 38.49;
+        return map;
+    }
+
+
+    LookUpMap initMireoPlusB2TResistance() const {
+        LookUpMap map;
+        map[0] = 1.01;
+        map[10] = 1.09;
+        map[20] = 1.27;
+        map[30] = 1.55;
+        map[40] = 1.93;
+        map[50] = 2.41;
+        map[60] = 2.99;
+        map[70] = 3.67;
+        map[80] = 4.46;
+        map[90] = 5.34;
+        map[100] = 6.34;
+        map[110] = 7.44;
+        map[120] = 8.64;
+        map[130] = 9.96;
+        map[140] = 11.38;
+        map[150] = 12.91;
+        map[160] = 14.56;
+        return map;
+    }
+
+    TrainParams initMireoPlusB2TParams() const {
+        TrainParams params;
+        params.weight = 105.5;
+        params.mf = 1.05;
+        params.length = 46.56;
+        params.decl = 1.1;
+        params.vmax = 160 / 3.6;
+        params.recovery = 0.3;
+        params.rotWeight = params.weight * params.mf;
+        params.traction = initMireoPlusB2TTraction();
+        params.resistance = initMireoPlusB2TResistance();
+        return params;
+    }
+
+    LookUpMap initMireoPlusH2TTraction() const {
+        LookUpMap map;
+        map[0] = 104.50;
+        map[10] = 104.50;
+        map[20] = 104.50;
+        map[30] = 104.50;
+        map[40] = 104.50;
+        map[50] = 104.50;
+        map[60] = 102.00;
+        map[70] = 87.43;
+        map[80] = 76.50;
+        map[90] = 68.00;
+        map[100] = 61.20;
+        map[110] = 55.64;
+        map[120] = 51.00;
+        map[130] = 47.08;
+        map[140] = 43.71;
+        map[150] = 40.80;
+        map[160] = 38.25;
+        return map;
+    }
+
+
+    LookUpMap initMireoPlusH2TResistance() const {
+        LookUpMap map;
+        map[0] = 1.01;
+        map[10] = 1.09;
+        map[20] = 1.27;
+        map[30] = 1.55;
+        map[40] = 1.93;
+        map[50] = 2.41;
+        map[60] = 2.99;
+        map[70] = 3.67;
+        map[80] = 4.45;
+        map[90] = 5.34;
+        map[100] = 6.34;
+        map[110] = 7.43;
+        map[120] = 8.64;
+        map[130] = 9.95;
+        map[140] = 11.38;
+        map[150] = 12.91;
+        map[160] = 14.56;
+        return map;
+    }
+
+    TrainParams initMireoPlusH2TParams() const {
+        TrainParams params;
+        params.weight = 105.4;
+        params.mf = 1.05;
+        params.length = 46.56;
+        params.decl = 1.1;
+        params.vmax = 160 / 3.6;
+        params.recovery = 0.3;
+        params.rotWeight = params.weight * params.mf;
+        params.traction = initMireoPlusH2TTraction();
+        params.resistance = initMireoPlusH2TResistance();
+        return params;
+    }
 //    void initVehicleVariables(const MSVehicle *const pVehicle, MSCFModel_Rail::VehicleVariables *pVariables)const;
 
 };
-
-

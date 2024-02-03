@@ -1,1 +1,1 @@
-input_data.xml tools/output/attributeStats.py 
+-e tripinfo -a timeLoss input_data.xml tools/output/attributeStats.py 

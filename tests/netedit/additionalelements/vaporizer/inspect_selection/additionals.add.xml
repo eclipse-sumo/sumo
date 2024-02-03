@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- vaporizer A -->
+    <vaporizer id="center0" begin="5.00" end="15.00"/>
+
+    <!-- vaporizer B -->
+    <vaporizer id="center1" begin="5.00" end="15.00"/>
+</additional>

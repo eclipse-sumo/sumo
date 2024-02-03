@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,39 +28,37 @@ import os
 import sys
 import codecs
 
-from optparse import OptionParser
 from collections import defaultdict
 import sort_routes
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.output import parse, parse_fast  # noqa
-    from sumolib.net import readNet  # noqa
+    import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-def get_options(args=sys.argv[1:]):
-    USAGE = """Usage %prog [options] <new_net.xml> <trips> [<trips2> ...]
+def get_options(args=None):
+    USAGE = """Usage %(prog)s [options] <new_net.xml> <trips> [<trips2> ...]
 If the given routes contain exit times these will be used to compute new
 departure times. If the option --orig-net is given departure times will be
 extrapolated based on edge-lengths and maximum speeds multiplied with --speed-factor"""
-    optParser = OptionParser(usage=USAGE)
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    optParser.add_option("-o", "--trips-output", help="output trip file")
-    optParser.add_option("-a", "--additional-input", help="additional file for taz (must already be cut)")
-    optParser.add_option("-b", "--big", action="store_true", default=False,
-                         help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
-    options, args = optParser.parse_args(args=args)
-    try:
-        options.network = args[0]
-        options.routeFiles = args[1:]
-    except Exception:
-        sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
-    options.output = options.trips_output
-    return options
+    optParser = sumolib.options.ArgumentParser(usage=USAGE)
+    optParser.add_argument("-v", "--verbose", action="store_true",
+                           default=False, help="Give more output")
+    optParser.add_argument("-o", "--trips-output", dest="output", category='output',
+                           help="output trip file")
+    optParser.add_argument("-a", "--additional-input", category='input',
+                           help="additional file for taz (must already be cut)")
+    optParser.add_argument("-b", "--big", action="store_true", default=False,
+                           help="Perform out-of-memory sort using module sort_routes "
+                                "(slower but more memory efficient)")
+    optParser.add_argument("network", category='input', help="Provide an input network")
+    optParser.add_argument("routeFiles", nargs="*", category='input',
+                           help="If the given routes contain exit times, "
+                                "these will be used to compute new departure times")
+    return optParser.parse_args(args=args)
 
 
 def cut_trips(aEdges, options, validTaz):
@@ -70,7 +68,7 @@ def cut_trips(aEdges, options, validTaz):
 
     for routeFile in options.routeFiles:
         print("Parsing trips from %s" % routeFile)
-        for trip in parse(routeFile, 'trip'):
+        for trip in sumolib.xml.parse(routeFile, 'trip'):
             num_trips += 1
             if trip.attr_from is not None and trip.attr_from not in areaEdges:
                 continue
@@ -89,7 +87,7 @@ def cut_trips(aEdges, options, validTaz):
         num_persontrips = 0
         from_ok = 0
         to_ok = 0
-        for person in parse(routeFile, 'person'):
+        for person in sumolib.xml.parse(routeFile, 'person'):
             num_persons += 1
             if person.walk is not None:
                 ignored_planitems['walk'] += len(person.walk)
@@ -138,7 +136,7 @@ def writer(file, trip):
 
 
 def main(options):
-    net = readNet(options.network)
+    net = sumolib.net.readNet(options.network)
     edges = set([e.getID() for e in net.getEdges()])
     print("Valid area contains %s edges" % len(edges))
 
@@ -164,7 +162,7 @@ def main(options):
 
     validTaz = set()
     if options.additional_input:
-        for taz in parse(options.additional_input, 'taz'):
+        for taz in sumolib.xml.parse(options.additional_input, 'taz'):
             validTaz.add(taz.id)
 
     if options.big:

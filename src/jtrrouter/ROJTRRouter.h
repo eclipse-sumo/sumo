@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,15 +77,6 @@ public:
      */
     bool compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
                  SUMOTime time, ConstROEdgeVector& into, bool silent = false);
-
-
-    /** @brief Recomputes the costs of a route
-     * @param[in] edges The route
-     * @param[in] v The vehicle that belongs to the route
-     * @param[in] msTime The departure time of the vehicle
-     * @return The route costs
-     */
-    double recomputeCosts(const ConstROEdgeVector& edges, const ROVehicle* const v, SUMOTime msTime) const;
     /// @}
 
 private:

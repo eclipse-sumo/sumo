@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="SUMO_DEFAULT_TYPE" sigma="0"/>
+   <route id="1to2" edges="1fi 2o"/>
+   <route id="3to2" edges="3fi 2o"/>
+   <flow id="1to2" route="1to2" begin="0" period="5" end="100"/>
+   <flow id="3to2" route="3to2" begin="0" period="7" end="100"/>
+</routes>

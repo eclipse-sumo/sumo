@@ -1,0 +1,12 @@
+Error: Attribute 'id' is missing in definition of vehicle
+Error: vehicle cannot be created
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Attribute 'id' in definition of a vehicle is empty.
+Error: Invalid vehicle id ''.
+Error: vehicle cannot be created
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
+Error: vehicle cannot be created
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: There is another vehicleWithRoute with the same ID='vehicle_valid'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.25Jan182728.9940/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/id/routes.rou.xml failed.

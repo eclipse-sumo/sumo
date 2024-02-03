@@ -1,5 +1,2 @@
-Warning: Target lane 'SN2_0' has multiple connections from 'EW1'.
-Warning: Target lane 'NS2_0' has multiple connections from 'EW1'.
-Warning: Target lane 'NS2_0' has multiple connections from 'WE1'.
-Warning: Target lane 'SN2_0' has multiple connections from 'WE1'.
 Warning: Custom shape has distance 1.54 to incoming lane for connection EW1_0->NS2_0.
+Warning: Unused state in tlLogic '_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8', program '0' at tl-index 6

@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="C" programID="0">
+        <param key="yellow-time" value="8.0"/>
+    </tlLogic>
+
+    <timedEvent type="SaveTLSStates" source="C" dest="tls_state.xml"/>
+</additional>

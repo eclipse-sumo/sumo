@@ -1,13 +1,13 @@
 site_name: SUMO Documentation
 site_url: https://sumo.dlr.de/docs/
-repo_url: https://github.com/eclipse/sumo/
-edit_uri: edit/master/docs/web/docs/
+repo_url: https://github.com/eclipse-sumo/sumo/
+edit_uri: edit/main/docs/web/docs/
 site_description: SUMO Documentation
 use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
-copyright: "Copyright &copy; 2001-2021 German Aerospace Center (DLR) and others."
+copyright: "Copyright &copy; 2001-2024 German Aerospace Center (DLR) and others."
 
 nav:
   - Documentation: index.md
@@ -17,8 +17,7 @@ nav:
   - Publications: Publications.md
   - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
-  - Contact: https://eclipse.org/sumo/contact/
+  - Contact: https://eclipse.dev/sumo/contact/
 
 theme:
   name: mkdocs
@@ -31,9 +30,23 @@ theme:
 plugins:
   - git-revision-date:
       as_datetime: true
+  - unused_files:
+      dir: images
+      excluded_files:
+        - apple-touch-icon.png
+        - favicon.ico
+        - image-facebook.jpg
+        - mkdocs-grid.png
+        - sumo-logo.png
+        - sumo-logo.svg
   - macros
+  - redirects:
+      redirect_maps:
+          "ChangeLog/index.md" : "ChangeLog.md"
+          "Contact.md" : "https://eclipse.dev/sumo/contact/"
 
 markdown_extensions:
+  - attr_list
   - admonition
   - pymdownx.tilde
   - meta
@@ -54,10 +67,11 @@ markdown_extensions:
       user: eclipse
       repo: sumo
   - plantuml_markdown
+  - codehilite
 
 extra:
-    Version: 1.9.2
-    ReleaseDate: 18.05.2021
+    Version: 1.19.0
+    ReleaseDate: 07.11.2023
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
@@ -74,8 +88,9 @@ extra:
     DT_PROJ_DEF: '[*&lt;PROJ_DEFINITION&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_Routes: '[*&lt;ROUTES_FILE&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_STR: '[*&lt;STRING&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
+    DT_STR_LIST: '[*&lt;STRING&lbrack; &rbrack;&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_TIME: '[*&lt;TIME&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
-    Source: 'https://github.com/eclipse/sumo/blob/master/'
+    Source: 'https://github.com/eclipse-sumo/sumo/blob/main/'
     SUMO: '***&lt;SUMO_HOME&gt;***'
-    SUMOUSERConference: '[SUMO User Conference](https://eclipse.org/sumo/conference)'
+    SUMOUSERConference: '[SUMO User Conference](https://eclipse.dev/sumo/conference)'

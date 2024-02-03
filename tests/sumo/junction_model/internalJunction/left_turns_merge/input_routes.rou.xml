@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ta" sigma="0" maxSpeed="6" decel="6"/>
+    <vType id="tb" sigma="0" accel="3" decel="2"/>
+    <route id="r0" edges="NC CW"/>
+    <vehicle id="a" type="ta" depart="0.00" route="r0" departLane="0" departPos="-0.1"/>
+    <vehicle id="b" type="tb" depart="0.00" route="r0" departLane="1" departPos="-0.1" departSpeed="max"/>
+</routes>

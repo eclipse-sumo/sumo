@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-05 22:45:25 by Eclipse SUMO sumo Version v1_14_1+0851-e3ca057
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <end value="1200"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="persontrip_car" depart="2.00" arrival="156.00">
+        <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car_0"/>
+    </person>
+
+    <vehicle id="persontrip_car_0" depart="triggered" arrivalPos="200.00" arrivalSpeed="0.00" arrival="156.00">
+        <route edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
+    </vehicle>
+
+</routes>

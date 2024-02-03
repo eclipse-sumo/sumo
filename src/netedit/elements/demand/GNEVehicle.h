@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,22 +15,20 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Representation of vehicles in NETEDIT
+// Representation of vehicles in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementFlow.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicle
- */
-class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
+
+class GNEVehicle : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
     /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
@@ -49,7 +47,7 @@ public:
         ~GNESingleVehiclePopupMenu();
 
         /// @brief Called to transform the current vehicle to another vehicle type
-        long onCmdTransform(FXObject* obj, FXSelector, void*);
+        long onCmdTransform(FXObject*, FXSelector sel, void*);
 
     protected:
         /// @brief default constructor needed by FOX
@@ -58,24 +56,6 @@ public:
     private:
         /// @brief current vehicle
         GNEVehicle* myVehicle;
-
-        /// @brief menu command for transform to vehicle
-        FXMenuCommand* myTransformToVehicle;
-
-        /// @brief menu command for transform to vehicle with an embedded route
-        FXMenuCommand* myTransformToVehicleWithEmbeddedRoute;
-
-        /// @brief menu command for transform to route flow
-        FXMenuCommand* myTransformToRouteFlow;
-
-        /// @brief menu command for transform to route flow with an embedded route
-        FXMenuCommand* myTransformToRouteFlowWithEmbeddedRoute;
-
-        /// @brief menu command for transform to trip
-        FXMenuCommand* myTransformToTrip;
-
-        /// @brief menu command for transform to flow
-        FXMenuCommand* myTransformToFlow;
     };
 
     /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
@@ -95,7 +75,7 @@ public:
         ~GNESelectedVehiclesPopupMenu();
 
         /// @brief Called to transform the current vehicle to another vehicle type
-        long onCmdTransform(FXObject* obj, FXSelector, void*);
+        long onCmdTransform(FXObject* obj, FXSelector sel, void*);
 
     protected:
         /// @brief default constructor needed by FOX
@@ -105,82 +85,55 @@ public:
         /// @brief current selected vehicles
         std::vector<GNEVehicle*> mySelectedVehicles;
 
+        /// @brief selected menu commands
+        std::map<FXObject*, SumoXMLTag> myRestrictedMenuCommands;
+
         /// @brief tag of clicked vehicle
         SumoXMLTag myVehicleTag;
-
-        /// @brief menu command for transform to vehicle
-        FXMenuCommand* myTransformToVehicle;
-
-        /// @brief menu command for transform to vehicle with an embedded route
-        FXMenuCommand* myTransformToVehicleWithEmbeddedRoute;
-
-        /// @brief menu command for transform to route flow
-        FXMenuCommand* myTransformToRouteFlow;
-
-        /// @brief menu command for transform to route flow with an embedded route
-        FXMenuCommand* myTransformToRouteFlowWithEmbeddedRoute;
-
-        /// @brief menu command for transform to trip
-        FXMenuCommand* myTransformToTrip;
-
-        /// @brief menu command for transform to flow
-        FXMenuCommand* myTransformToFlow;
-
-        /// @brief menu command for transform all selected vehicles to vehicle
-        FXMenuCommand* myTransformAllVehiclesToVehicle;
-
-        /// @brief menu command for transform all selected vehicles to vehicle with an embedded route
-        FXMenuCommand* myTransformAllVehiclesToVehicleWithEmbeddedRoute;
-
-        /// @brief menu command for transform all selected vehicles to route flow
-        FXMenuCommand* myTransformAllVehiclesToRouteFlow;
-
-        /// @brief menu command for transform all selected vehicles to route flow with an embedded route
-        FXMenuCommand* myTransformAllVehiclesToRouteFlowWithEmbeddedRoute;
-
-        /// @brief menu command for transform all selected vehicles to trip
-        FXMenuCommand* myTransformAllVehiclesToTrip;
-
-        /// @brief menu command for transform all selected vehicles to flow
-        FXMenuCommand* myTransformAllVehiclesToFlow;
     };
+
+    /// @brief default constructor
+    GNEVehicle(SumoXMLTag tag, GNENet* net);
 
     /// @brief default constructor for vehicles and routeFlows without embedded routes
     GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor for vehicles and routeFlows without embedded routes
-    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief parameter constructor for vehicles and routeFlows with embedded routes (note: After creation create immediately a embedded route referencing this vehicle)
-    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
-    /// @brief default constructor for trips and Flows
-    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
+    /// @brief default constructor for trips and Flows over edges
+    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge);
 
-    /// @brief parameter constructor for trips and Flows
-    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const SUMOVehicleParameter& vehicleParameters);
+    /// @brief parameter constructor for trips and Flows over junctions
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief default constructor for trips and Flows over junctions
+    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction);
+
+    /// @brief parameter constructor for trips and Flows over junctions
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief parameter constructor for trips and Flows over TAZs
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEVehicle();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    std::string getBegin() const;
-
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    bool isDemandElementValid() const;
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
+    Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
@@ -205,6 +158,14 @@ public:
 
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with drawing
+    /// @{
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -222,6 +183,9 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
@@ -245,22 +209,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -331,11 +292,20 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
+
+    /// @brief create a copy of the given vehicle
+    static GNEDemandElement* copyVehicle(const GNEVehicle* originalVehicle);
 
 protected:
+    /// @brief variable used for draw vehicle contours
+    GNEContour myVehicleContour;
+
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
+
+    /// @brier get sumo vehicle parameter
+    const SUMOVehicleParameter& getSUMOVehicleParameter() const;
 
 private:
     /// @brief vehicle arrival position radius
@@ -344,20 +314,14 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
+    void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief draw stack label
-    void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

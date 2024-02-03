@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -25,12 +25,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "AGActivities.h"
-#include "AGWorkAndSchool.h"
-#include "AGFreeTime.h"
-#include "../city/AGTime.h"
 #include <sstream>
 #include <utils/common/RandHelper.h>
+#include <activitygen/city/AGTime.h>
+#include "AGWorkAndSchool.h"
+#include "AGFreeTime.h"
+#include "AGActivities.h"
 
 #define REBUILD_ITERATION_LIMIT 2
 

@@ -2,20 +2,25 @@ import_config_file:../config_all
 binary:test.py
 use_case_record_mode:GUI
 virtual_display_wm_executable:fluxbox
+virtual_display_extra_args:-dpi 100 -shmem
 
 copy_test_path:test.py
-copy_test_path:input_net.netccfg
-copy_test_path:input_net.net.xml
-copy_test_path:input_net.con.xml
-copy_test_path:input_net.edg.xml
-copy_test_path:input_net.nod.xml
-copy_test_path:input_net.tll.xml
-copy_test_path:input_net.net.xml
-copy_test_path:input_net_loadedmanually.net.xml
-copy_test_path:input_additionals.add.xml
-copy_test_path:input_routes.rou.xml
-copy_test_path:input_vtypes.rou.xml
-copy_test_path:input_datas.dat.xml
+copy_test_path:netedit.netecfg
+copy_test_path:net.net.xml
+copy_test_path:net.netccfg
+copy_test_path:net.net.xml
+copy_test_path:net.con.xml
+copy_test_path:net.edg.xml
+copy_test_path:net.nod.xml
+copy_test_path:net.tll.xml
+copy_test_path:net.net.xml
+copy_test_path:net_loadedmanually.net.xml
+copy_test_path:netedit_loadedmanually.netecfg
+copy_test_path:sumo_loadedmanually.sumocfg
+copy_test_path:additionals.add.xml
+copy_test_path:routes.rou.xml
+copy_test_path:vtypes.rou.xml
+copy_test_path:datas.dat.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -23,30 +28,42 @@ copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:sumo.sumocfg
+copy_test_path:errorScreenshot.png
 
 [collate_file]
 net:net.net.xml
+net:netedit.net.xml
+net:net_loadedmanually.net.xml
+configmanually:netedit_savedmanually.netecfg
+configmanually:sumo_savedmanually.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
-additionals:additionals.xml
-routes:routes.xml
-datas:datas.xml
+additionals:additionals.add.xml
+additionals:netedit.add.xml
+routes:routes.rou.xml
+routes:netedit.rou.xml
+datas:datas.dat.xml
+datas:netedit.dat.xml
+meandatas:meandatas.dat.xml
+meandatas:netedit.med.dat.xml
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
 selection:selection.txt
+errorScreenshot:errorScreenshot.png
 
 [run_dependent_text]
 net:<!--{[->]}-->
-additionals:<!--{[->]}-->
+additionals:<!-- generated{[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 additionals:\\{REPLACE /}
-routes:<!--{[->]}-->
+routes:<!-- generated{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
-datas:<!--{[->]}-->
+configmanually:<!-- generated{[->]}-->
+datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
 netcon:<!--{[->]}-->
@@ -66,12 +83,15 @@ errors:*** 9 leaks found
 errors:delete: freed
 errors:java{LINES 1}
 errors:Java{LINES 1}
+errors:X connection to
 errors:Could not load{LINES 1}
 errors:Debug: Modules:
 errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 errors:\\{REPLACE /}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}
+log:Discarding invalid crossing{LINES 1}
+log:Invalid pedestrian topology{LINES 1}
 
 [floating_point_tolerance]
 net:0.0101

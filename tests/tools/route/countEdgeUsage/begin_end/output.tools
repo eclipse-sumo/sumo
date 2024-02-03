@@ -1,2 +1,2 @@
-200.0-460.0 departEdges: count 4, min 1.00 (NC), max 5.00 (WC), mean 2.25 Q1 1.00, median 2.00, Q3 5.00
-200.0-460.0 arrivalEdges: count 3, min 1.00 (CN), max 5.00 (CS), mean 3.00 Q1 1.00, median 3.00, Q3 5.00
+200.0-460.0 departEdges: count 4, min 1.00 (NC), max 5.00 (WC), mean 2.25, Q1 1.00, median 2.00, Q3 5.00
+200.0-460.0 arrivalEdges: count 3, min 1.00 (CN), max 5.00 (CS), mean 3.00, Q1 1.00, median 3.00, Q3 5.00

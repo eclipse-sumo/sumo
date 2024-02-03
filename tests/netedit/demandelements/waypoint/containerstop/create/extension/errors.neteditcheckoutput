@@ -1,0 +1,3 @@
+Warning: Vehicle 'trip' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.59, offset=10.51), time=18.00.
+Warning: Vehicle 'trip' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=1.88), time=19.00.
+Warning: Vehicle 'trip' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=1.87), time=20.00.

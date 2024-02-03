@@ -1,0 +1,4 @@
+Error: emissionClass with name 'dummyEmissionClass' doesn't exist.
+Error: Attribute 'emissionClass' in definition of vType 'vType1' is empty.
+Error: emissionClass with name '' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/emissionclass/routes.rou.xml failed.

@@ -1,0 +1,1 @@
+--fleet-size 1 -f out.rou.xml -s osm_bbox.osm.xml -o out.add.xml tools/import/osm/osmTaxiStop.py

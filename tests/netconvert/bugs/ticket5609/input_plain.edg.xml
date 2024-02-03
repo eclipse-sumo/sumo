@@ -106,32 +106,6 @@
         </lane>
         <param key="origTo" value="3491058798"/>
     </edge>
-    <edge id="60062720#2" from="2789468447" to="6137626911" name="Weenatunnel" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="2930.51,1895.76 2989.56,1915.35" spreadType="center">
-        <lane index="0" allow="pedestrian" width="3.00">
-            <param key="origId" value="60062720"/>
-        </lane>
-        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
-            <param key="origId" value="60062720"/>
-        </lane>
-        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
-            <param key="origId" value="60062720"/>
-        </lane>
-    </edge>
-    <edge id="651826250#4" from="6111940735" to="6111940662" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
-        <lane index="0">
-            <param key="origId" value="651826250"/>
-        </lane>
-    </edge>
-    <edge id="651826255#14" from="6111940735" to="6111940662" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
-        <lane index="0">
-            <param key="origId" value="651826255"/>
-        </lane>
-    </edge>
-    <edge id="651826255#7" from="2610339334" to="6111940013" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" shape="2997.88,1897.01 2998.27,1897.80 2998.78,1898.52 2999.41,1899.13 3000.14,1899.64 3000.94,1900.01 3003.27,1903.94 2998.97,1902.34 2994.97,1901.53 2990.37,1900.88 2984.10,1900.43 2975.81,1900.17 2971.56,1900.31 2970.00,1900.10 2968.62,1899.56 2967.58,1898.62 2966.32,1896.90 2965.70,1895.68 2965.14,1894.06 2964.81,1892.08 2964.71,1885.73 2964.84,1879.14" spreadType="center" width="2.00" allow="pedestrian">
-        <lane index="0">
-            <param key="origId" value="651826255"/>
-        </lane>
-    </edge>
     <edge id="655043404" from="2351978970" to="2351978961" priority="15" type="railway.tram" numLanes="1" speed="16.67" spreadType="center" allow="tram">
         <lane index="0">
             <param key="origId" value="655043404"/>

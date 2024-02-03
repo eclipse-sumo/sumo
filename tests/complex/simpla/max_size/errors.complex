@@ -1,0 +1,4 @@
+WARNING: No attributes found for tag 'vehicleSelectors'. (Config)
+WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)
+WARNING: Given speedFactor -1.0 is invalid. Using default value. (Config)
+WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)

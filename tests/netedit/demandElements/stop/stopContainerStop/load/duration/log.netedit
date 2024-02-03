@@ -1,6 +1,0 @@
-Error: Attribute 'duration' in definition of a stop is not a real number.
-Error: Invalid duration or end time is given for a stop at 'containerStop' in trip 'trip'.
-Error: Attribute 'duration' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop at 'containerStop' in trip 'trip'.
-Error: Invalid duration or end time is given for a stop at 'containerStop' in trip 'trip'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep092712.14488\netedit.gui\demandElements\stop\stopContainerStop\load\duration\input_routes.rou.xml failed.

@@ -1,0 +1,2 @@
+Error: A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane in container 'cf_0'.
+Quitting (on error).

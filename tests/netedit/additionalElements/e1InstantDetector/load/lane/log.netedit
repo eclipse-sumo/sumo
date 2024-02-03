@@ -1,2 +1,0 @@
-Warning: Essential unique string attribute 'lane' of instantInductionLoop with ID 'E1_01' is missing; instantInductionLoop cannot be created
-Warning: The lane 'dummyLane' to use within the instantInductionLoop 'E1_02' is not known.

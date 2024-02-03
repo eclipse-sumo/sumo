@@ -3,7 +3,7 @@
     <route id="r0" edges="beg middle end"/>
 
     <vehicle id="v0" type="t0" route="r0" depart="0">
-        <stop edge="beg" until="5" started="1" ended="3"/>
+        <stop edge="beg" until="5" started="1" ended="3" triggered="false"/>
     </vehicle>
 
 </routes>

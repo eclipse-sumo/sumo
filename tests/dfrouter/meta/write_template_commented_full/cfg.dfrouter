@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
+<!-- generated on 2023-09-01 10:46:08 by Eclipse SUMO dfrouter Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>
@@ -81,10 +84,10 @@
         <!-- Saves rerouter definitions for sink detectors to FILE -->
         <end-reroute-output value="" type="FILE"/>
 
-        <!--  -->
+        <!-- Write induction loop definitions for the given detector positions to FILE -->
         <validation-output value="" type="FILE"/>
 
-        <!--  -->
+        <!-- Add source detectors to the validation output -->
         <validation-output.add-sources value="false" type="BOOL"/>
 
     </output>
@@ -144,16 +147,16 @@
         <!-- Write calibrators to FILE -->
         <calibrator-output value="false" synonymes="write-calibrators" type="BOOL"/>
 
-        <!--  -->
+        <!-- Include routes in the output which have no vehicles -->
         <include-unused-routes value="false" type="BOOL"/>
 
-        <!--  -->
+        <!-- Checks whether detectors with calculated flow 0 can attract additional traffic -->
         <revalidate-flows value="false" type="BOOL"/>
 
         <!-- Removes empty detectors from the list -->
         <remove-empty-detectors value="false" type="BOOL"/>
 
-        <!--  -->
+        <!-- Whether edges with unknown status can prevent an edge from becoming a source -->
         <strict-sources value="false" type="BOOL"/>
 
         <!-- Try to determine further inflows to an inbetween detector when computing split probabilities -->
@@ -210,10 +213,10 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
@@ -230,6 +233,15 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
         <!-- Lists detectors with no flow (enable -v) -->
         <report-empty-detectors value="false" type="BOOL"/>

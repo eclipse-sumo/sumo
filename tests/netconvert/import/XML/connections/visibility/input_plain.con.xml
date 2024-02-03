@@ -44,8 +44,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="SC" to="CW" fromLane="1" toLane="1" visibility="40"/>
 
     <connection from="WC" to="CS" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" visibility="50"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" visibility="51"/>
     <connection from="WC" to="CN" fromLane="1" toLane="1"/>
 
 </connections>

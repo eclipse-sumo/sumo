@@ -1,0 +1,6 @@
+Error: Invalid departure time for vehicle 'vehicle_0';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Negative departure time in the definition of vehicle 'vehicle_1'.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\vehicle_embedded\load\depart\routes.rou.xml failed.

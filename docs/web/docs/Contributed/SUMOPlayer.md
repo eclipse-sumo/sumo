@@ -16,7 +16,7 @@ title: SUMOPlayer
     # This is file gives a brief overview on SUMPlayer usage.
     # SUMOPlayer can be used to play SUMO network-dump files
     # in realtime (if possible) to latitude/longitude coordinates.
-    # It can be customized in any way by implemting
+    # It can be customized in any way by implementing
     # de.psi.telco.sumoplayer.SUMOLocationListener
     # SEE:
     # public interface SUMOLocationListener {
@@ -73,7 +73,7 @@ title: SUMOPlayer
 You can run the player as following:
 
 ```
-sumo ... --no-step-log --netstate-dump - | java -jar SUMOPlayer.jar -d - -c <propability> -n <used_network_file> ...
+sumo ... --no-step-log --netstate-dump - | java -jar SUMOPlayer.jar -d - -c <probability> -n <used_network_file> ...
 ```
 
 ("-" redirects the dump to stdout)

@@ -48,6 +48,12 @@ stops_bidi_between
 # import a network where the public transport line contains a direction reversal at a side branch
 stops_reverse_en_route
 
+# avoid adding bidi edges if connectivity can "reasonably" be achieved without them
+stops_bidiPenalty
+
+# add bidirectional edges at disconnected stops and nothing else
+stops_minimal
+
 # repair track direction before the first and after the last stop based on terminal line edges (virtual stops)
 # 
 beyond_stops
@@ -55,5 +61,18 @@ beyond_stops
 # assign edge priority based on main direction
 direction-priority
 
+# extend edge priority based on loaded priorities and main direction
+extend-priority
+
+# extend edge priority based on loaded priorities and main direction.
+# Not all low-priority edges are bidirectional
+extend-priority2
+
+# extend edge priority based on loaded priorities and main direction (all edges are bidi)
+extend-priority_bidi
+
 # road connections should not be affect by railway repair
 road_connections
+
+# tests for extending existing bidi-edges with explicit filter
+extendBidi_filter

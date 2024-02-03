@@ -76,10 +76,10 @@
     #pragma clang diagnostic ignored "-Wsuggest-destructor-override"
 
     #pragma clang diagnostic ignored "-Wswitch-enum"
-	
-	#pragma clang diagnostic ignored "-Wglobal-constructors"
-	
-	#pragma clang diagnostic ignored "-Wexit-time-destructors"
+
+    #pragma clang diagnostic ignored "-Wglobal-constructors"
+
+    #pragma clang diagnostic ignored "-Wexit-time-destructors"
 
     /* CLANG in Windows */
     #endif
@@ -101,6 +101,24 @@
     #pragma warning(disable: 4251)
     /* Disable integer overflow in arithmetics warnings */
     #pragma warning(disable: 26451)
+    /* Disable inline function warnings */
+    #pragma warning(disable: 4514 4710)
+    /* Disable byte padding warnings */
+    #pragma warning(disable: 4820)
+    /* Disable unhandled switch case warnings (which get triggered even with a default branch) */
+    #pragma warning(disable: 4061)
+    /* Disable implicitly deleted assignment operator / constructor warnings */
+    #pragma warning(disable: 4623 4625 4626 5026 5027)
+    /* Disable casting int to unsigned warnings which get triggered by almost every access to a vector by index */
+    #pragma warning(disable: 4365)
+    /* Disable spectre warnings */
+    #pragma warning(disable: 5045)
+    /* Disable undefined macro in #if warnings */
+    #pragma warning(disable: 4668)
+    /* Disable class layout warnings */
+    #pragma warning(disable: 4371)
+    /* Disable potential exception in C function warnings */
+    #pragma warning(disable: 5039)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
@@ -136,17 +154,11 @@
         /* Define for dynamic Fox linkage */
         #define FOXDLL 1
 
-        /* Define default constructor for FOX moduls (MinGW32) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
-    /* Linux and OS */
-    #else
-
-        /* Define default constructor for FOX moduls (Linux and OS) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
     /* MinGW32 */
     #endif
+
+    /* Define default constructor for FOX moduls */
+    #define FOX_CONSTRUCTOR(classname) classname() {}
 
 /* Visual Studio */
 #endif
@@ -164,14 +176,17 @@
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
 
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
+
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JPS
+/* defined and set to version if JuPedSim is available */
+#cmakedefine JPS_VERSION @JPS_VERSION@
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
@@ -189,7 +204,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.9.2"
+    #define VERSION_STRING "1.19.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */
@@ -197,6 +212,10 @@
 
 /* defines the epsilon to use on position comparison */
 #define POSITION_EPS 0.1
+
+/* defines the epsilon to use on input speed comparison, considering default
+* output precision */
+#define SPEED_EPS 0.01
 
 /* Define length for Xerces 3. */
 #define XERCES3_SIZE_t XMLSize_t

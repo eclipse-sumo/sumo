@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -11,7 +10,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    darpSolver.py
+# @file    darpSolvers.py
 # @author  Giuliana Armellini
 # @date    2021-05-27
 
@@ -22,9 +21,13 @@ Methods available: exhaustive_search and simple_rerouting
 Track progress https://github.com/eclipse/sumo/issues/8256
 """
 
+from __future__ import print_function
 import os
 import sys
-import time
+try:
+    from time import perf_counter
+except ImportError:
+    from time import clock as perf_counter
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -98,9 +101,8 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             res1p_res2p = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
                                               res2.fromEdge))
             if res1p_res2p is None:
-                res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge,
-                                            veh_type,
-                                            routingMode=options.routing_mode).travelTime) # noqa
+                res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
+                                            routingMode=options.routing_mode).travelTime)
             res1p_res2p += veh_time_pickup
         else:
             res1p_res2p = res1p_res2p[0]
@@ -109,13 +111,13 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                                                      res1.toEdge))
         if res2p_res1d is None:
             res2p_res1d = int(findRoute(res2.fromEdge, res1.toEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
+                                        routingMode=options.routing_mode).travelTime)
         res2p_res1d += veh_time_dropoff
 
         res1d_res2d = pairs_dua_times.get("%s_%s" % (res1.toEdge, res2.toEdge))
         if res1d_res2d is None:
             res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
+                                        routingMode=options.routing_mode).travelTime)
         res1d_res2d += veh_time_dropoff
 
         # check if time windows constrains are fulfilled
@@ -211,7 +213,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                                                   res1.fromEdge))
                 if res2p_res1p is None:
                     res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge,
-                                      veh_type, routingMode=options.routing_mode).travelTime) # noqa
+                                      veh_type, routingMode=options.routing_mode).travelTime)
                 res2p_res1p += veh_time_pickup
             else:
                 res2p_res1p = res2p_res1p[0]
@@ -220,7 +222,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                                                   res2.toEdge))
                 if res1d_res2d is None:
                     res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge,
-                                      veh_type, routingMode=options.routing_mode).travelTime) # noqa
+                                      veh_type, routingMode=options.routing_mode).travelTime)
                 res1d_res2d += veh_time_dropoff
             else:
                 res1d_res2d = res1d_res2d[0]
@@ -252,7 +254,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                                           res2.fromEdge))
         if res1d_res2p is None:
             res1d_res2p = int(findRoute(res1.toEdge, res2.fromEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime) # noqa
+                                        routingMode=options.routing_mode).travelTime)
         res1d_res2p += veh_time_pickup
 
         # check if time windows constrains are fulfilled
@@ -269,7 +271,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                                           res1.fromEdge))
         if res2d_res1p is None:
             res2d_res1p = int(findRoute(res2.toEdge, res1.fromEdge, veh_type,
-                                        routingMode=options.routing_mode).travelTime)  # noqa
+                                        routingMode=options.routing_mode).travelTime)
         res2d_res1p += veh_time_pickup
 
         # check if time windows constrains are fulfilled
@@ -278,7 +280,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             rv_dict[pair] = [res2d_res1p, 1, [res2.id, res1.id]]
 
 
-def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+def get_rv(options, res_id_new, res_id_picked, res_all,
            veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
            veh_edges, pairs_dua_times):
     """
@@ -287,9 +289,12 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
     vehicle with the required travel time, the number of passengers picked up
     or dropped off and the reservation id and/or vehicle id of the pair.
     """
-    # remove reservations already served
+    # remove reservations already served or rejected due to processing time
+    id_current = []
+    [id_current.extend(veh_id) for veh_id in veh_edges.values()]
+    id_current.extend(res_all.keys())
     [rv_dict.pop(key) for key in list(rv_dict)
-        if set(res_id_served) & set(rv_dict[key][2])]
+     if set(rv_dict[key][2]) - set(id_current)]
 
     res_rv_remove = []
     res_all_remove = []
@@ -305,14 +310,14 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
                                                   res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
+                                            routingMode=options.routing_mode).travelTime
                 if step+pickup_time > res.tw_pickup[1]:
                     # if vehicle arrives to late
                     continue
                 # if vehicle on time, add to rv graph
                 for veh_id in vehicles:
                     route_id = '%s_%sy' % (veh_id, res_id)
-                    rv_dict[route_id] = [pickup_time+veh_time_pickup, 1, [veh_id, res_id]]  # noqa
+                    rv_dict[route_id] = [pickup_time+veh_time_pickup, 1, [veh_id, res_id]]
                     res_possible = True
 
             if not res_possible:
@@ -328,7 +333,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
 
             # add direct route pair
             route_id = '%sy_%sz' % (res_id, res_id)  # y: pickup / z: drop off
-            rv_dict[route_id] = [res.direct+veh_time_dropoff, -1, [res_id, res_id]]  # noqa
+            rv_dict[route_id] = [res.direct+veh_time_dropoff, -1, [res_id, res_id]]
 
             # add reservation-reservation pairs
             reservations2 = set(res_all.keys()) ^ set(res_all_remove)
@@ -358,7 +363,7 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
                                                   res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
+                                            routingMode=options.routing_mode).travelTime
                 if step+pickup_time <= res.tw_pickup[1]:
                     # if vehicle on time, add to rv graph
                     for veh_id in vehicles:
@@ -397,10 +402,10 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
                                                   res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
-                                            routingMode=options.routing_mode).travelTime # noqa
+                                            routingMode=options.routing_mode).travelTime
                 rv_dict[route_id][0] = pickup_time+veh_time_pickup
-                if options.debug and step+pickup_time > res.tw_pickup[1]:  # Debug only # noqa
-                    print("Time window surpassed by", step+pickup_time - res.tw_pickup[1]) # noqa
+                if options.verbose and step+pickup_time > res.tw_pickup[1]:  # Debug only
+                    print("Time window surpassed by", step+pickup_time - res.tw_pickup[1])
 
         elif res_id in res_id_picked:
             # if reservation picked up, delete pick-up pair
@@ -416,22 +421,22 @@ def get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
                                                res.toEdge))
             if dropoff_time is None:
                 dropoff_time = int(findRoute(from_edge, res.toEdge, veh_type,
-                                             routingMode=options.routing_mode).travelTime)  # noqa
+                                             routingMode=options.routing_mode).travelTime)
             route_id = '%s_%sz' % (res.vehicle, res_id)
-            rv_dict[route_id] = [dropoff_time+veh_time_dropoff, -1, [res.vehicle, res_id]]  # noqa
+            rv_dict[route_id] = [dropoff_time+veh_time_dropoff, -1, [res.vehicle, res_id]]
         else:
             print("Error: Reservation state not considered")
 
     # remove rejected, served and picked up reservations from rv graph
     if res_rv_remove:
-        [rv_dict.pop(key) for key in list(rv_dict) if set(res_rv_remove) & set(key.split("_"))] # noqa
+        [rv_dict.pop(key) for key in list(rv_dict) if set(res_rv_remove) & set(key.split("_"))]
 
     # remove rejected reservations from res_all
     if res_all_remove:
         [res_all.pop(key) for key in res_all_remove]
 
 
-def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
+def simple_rerouting(options, res_id_unassigned, res_id_picked,
                      res_all, fleet, rv_dict, step):
     """
     Search possible trips allowing vehicles to change their trip in real time
@@ -439,9 +444,15 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
     """
     rtv_dict = {}
     trip_id = {}
+    # remove reservations already served or rejected due to processing time
+    id_current = []
+    id_current.extend(fleet)
+    id_current.extend(res_all.keys())
+    [rv_dict.pop(key) for key in list(rv_dict)
+     if set(rv_dict[key][2]) - set(id_current)]
+
     # list with all not served requests needed for res_bin for ILP
     rtv_res = list(res_all.keys())
-    rtv_res = list(set(rtv_res) - set(res_id_served))
     for veh_id in fleet:
         veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
         veh_bin[fleet.index(veh_id)] = 1
@@ -453,7 +464,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
         res_assigned_veh = [res_id for res_id, res in res_all.items()
                             if res.vehicle == veh_id]
 
-        filter_valid = res_id_unassigned.copy()  # add unassigned reservations
+        filter_valid = list(res_id_unassigned)  # add unassigned reservations
         filter_valid.append(veh_id)  # add vehicle element
         filter_valid.extend(res_assigned_veh)  # add reservations assigned
 
@@ -508,8 +519,8 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
                     # check if pick up before drop off
                     stops = trip_new.split("_")
                     # consider picked requests
-                    trip_pick = res_picked_veh.copy()
-                    trip_pick.extend([stop[:-1] for stop in trip_new.split('_')[1:]  # noqa
+                    trip_pick = list(res_picked_veh)
+                    trip_pick.extend([stop[:-1] for stop in trip_new.split('_')[1:]
                                      if stop.endswith("y")])
                     trip_drop = [stop[:-1] for stop in trip_new.split('_')[1:]
                                  if stop.endswith("z")]
@@ -566,7 +577,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
                         stop_tw = res_all[stop_id[:-1]].tw_dropoff
                         if trip_time > stop_tw[1]:
                             continue  # maximum stop time surpass
-                        # TODO trip_time < stop_tw[0] only relevant if drop off time definition is implemented # noqa
+                        # TODO trip_time < stop_tw[0] only relevant if drop off time definition is implemented
 
                     # add trip id
                     trip_id[trip_new] = [trip_time, pax]
@@ -598,7 +609,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked, res_id_served,
             # if one vehicle problem, assign the fastest trip with
             # max reservations served (equivalent to minor trip_cost)
             trips_list = list(rtv_dict.keys())
-            costs_list = [value[3] for trip, value in rtv_dict.items()]
+            costs_list = [value[3] for key, value in rtv_dict.items()]
             trip_index = costs_list.index(min(costs_list))
             trip_id = trips_list[trip_index]
             return {trip_id: rtv_dict[trip_id]}, rtv_res
@@ -617,7 +628,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
     # trip means [trip_id, trip_time, trip_pax]
     trip_id, trip_time, trip_pax = trip
     for pair in pairs:
-        if (time.perf_counter() - start_time) > options.rtv_time:
+        if (perf_counter() - start_time) > options.rtv_time:
             # limit trip search time
             break
         if pair.split("_")[0] != trip_id.split("_")[-1]:
@@ -628,7 +639,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
         # check if pick up before drop off
         stops = new_trip_id.split("_")
         # consider picked requests
-        trip_pick = res_picked_veh.copy()
+        trip_pick = list(res_picked_veh)
         trip_pick.extend([stop[:-1] for stop in new_trip_id.split('_')[1:]
                          if stop.endswith("y")])
         trip_drop = [stop[:-1] for stop in new_trip_id.split('_')[1:]
@@ -681,7 +692,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
             stop_tw = res_all[stop_id[:-1]].tw_dropoff
             if new_trip_time > stop_tw[1]:
                 continue  # max stop time surpass
-            # TODO trip_time < stop_tw[0] only relevant if drop off time definition is implemented # noqa
+            # TODO trip_time < stop_tw[0] only relevant if drop off time definition is implemented
 
         # add trip id to tree
         trips_tree.append([new_trip_id, new_trip_time, new_trip_pax])
@@ -724,7 +735,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
     for vehicles in veh_edges.values():
         # equivalent vehicles must be on same edge
         if len(vehicles) > 1:
-            vehicles_capacity = [traci.vehicle.getPersonCapacity(veh_id) for veh_id in vehicles] # noqa
+            vehicles_capacity = [traci.vehicle.getPersonCapacity(veh_id) for veh_id in vehicles]
             vehicles_idle = [veh_id in idle_veh for veh_id in vehicles]
             vehicles_unique = []
             for veh_idx, veh_id in enumerate(vehicles):
@@ -737,7 +748,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                     continue
                 for compare_veh in range(veh_idx+1):
                     if (vehicles_idle[compare_veh] and
-                       vehicles_capacity[veh_idx] == vehicles_capacity[compare_veh]): # noqa
+                       vehicles_capacity[veh_idx] == vehicles_capacity[compare_veh]):
                         # if vehicles idle and same capacity -> equivalent
                         vehicles_unique.append(vehicles[compare_veh])
                         break
@@ -756,7 +767,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
             res_assigned_veh = [res_id for res_id, res in res_all.items()
                                 if res.vehicle == veh_id]
 
-            filter_valid = res_id_unassigned.copy()  # add unassigned
+            filter_valid = list(res_id_unassigned)  # add unassigned
             filter_valid.append(veh_id)  # add vehicle
             filter_valid.extend(res_assigned_veh)  # add assigned reservations
 
@@ -778,11 +789,11 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                 # detours should be consider. Ex: tt 1 2 equivalent to tt 3 1 2
                 for next_stop in traci.vehicle.getStops(veh_id):
                     next_act = next_stop.actType.split(",")[0].split(" ")[0]
-                    next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1] # noqa
+                    next_id = next_stop.actType.split(",")[0].split(" ")[-1][1:-1]
                     if next_act == 'pickup' and next_id in res_id_picked:
                         # person already picked up, consider next stop
                         continue
-                    elif next_act == 'dropOff' and next_id not in res_all.keys(): # noqa
+                    elif next_act == 'dropOff' and next_id not in res_all.keys():
                         # person already dropped off, consider next stop
                         continue
                     else:
@@ -799,18 +810,18 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                             break
             if not trips_tree[i]:
                 # if vehicle not assigned or no valid stop found, consider all
-                trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs # noqa
+                trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
                                  if pair.split("_")[0] == veh_id]
 
-            start_time = time.perf_counter()
+            start_time = perf_counter()
             while trips_tree[i]:
                 # exhaustive search
                 trips_tree.append([])
                 for trip in trips_tree[i]:
-                    trips_tree[i + 1], rtv_dict = search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,  # noqa
-                                                               rv_dict, rtv_res, veh_capacity, veh_bin, rtv_dict,  # noqa
-                                                               trips_tree[i + 1], options, start_time)  # noqa
-                    if (time.perf_counter() - start_time) > options.rtv_time:
+                    trips_tree[i + 1], rtv_dict = search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
+                                                               rv_dict, rtv_res, veh_capacity, veh_bin, rtv_dict,
+                                                               trips_tree[i + 1], options, start_time)
+                    if (perf_counter() - start_time) > options.rtv_time:
                         memory_problems.append(False)
                         break
                 del trips_tree[i][:]
@@ -826,7 +837,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
 
             veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
             veh_bin[fleet.index(veh_id)] = 1
-            copy_rtv_keys = [key for key in rtv_dict.keys() if key.split("_")[0] == equal_veh_id] # noqa
+            copy_rtv_keys = [key for key in rtv_dict.keys() if key.split("_")[0] == equal_veh_id]
             for key in copy_rtv_keys:
                 new_trip_id = key.replace(equal_veh_id, veh_id)
                 trip_time = rtv_dict[key][0]
@@ -849,7 +860,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
 
 
 def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
-         res_all, res_id_new, res_id_unassigned, res_id_picked, res_id_served,
+         res_all, res_id_new, res_id_unassigned, res_id_picked,
          veh_edges, pairs_dua_times):
     """
     Run specified solver
@@ -865,27 +876,27 @@ def main(options, step, fleet, veh_type, veh_time_pickup, veh_time_dropoff,
     if options.darp_solver == 'exhaustive_search':
 
         # search reservation-vehicles pairs (RV-Graph)
-        get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+        get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
                veh_edges, pairs_dua_times)
 
         # search trips (RTV-Graph)
-        rtv_dict, rtv_res, exact_sol = exhaustive_search(options, res_id_unassigned, res_id_picked,  # noqa
-                                                         res_all, fleet, rv_dict, step,  # noqa
-                                                         exact_sol, veh_edges)  # noqa
+        rtv_dict, rtv_res, exact_sol = exhaustive_search(options, res_id_unassigned, res_id_picked,
+                                                         res_all, fleet, rv_dict, step,
+                                                         exact_sol, veh_edges)
 
         return (rtv_dict, rtv_res, exact_sol)
 
     elif options.darp_solver == 'simple_rerouting':
 
         # search reservation-vehicles pairs (RV-Graph)
-        get_rv(options, res_id_new, res_id_picked, res_id_served, res_all,
+        get_rv(options, res_id_new, res_id_picked, res_all,
                veh_type, veh_time_pickup, veh_time_dropoff, rv_dict, step,
                veh_edges, pairs_dua_times)
 
         # search trips (RTV-Graph)
         rtv_dict, rtv_res = simple_rerouting(options, res_id_unassigned,
-                                             res_id_picked, res_id_served,
+                                             res_id_picked,
                                              res_all, fleet, rv_dict, step)
 
         return (rtv_dict, rtv_res, [False])

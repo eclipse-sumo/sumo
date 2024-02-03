@@ -14,7 +14,7 @@ If You use SUMO, please tell us about your
 The content of this Documentation is freely editable. In order to edit a certain page, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
 Here is a short help on [editing articles](Editing_Articles.md). You can also [Build](Developer/Documentation_Build.md) the documentation locally, or [Download](https://sumo.dlr.de/sumo_documentation.zip) a copy.
 
-This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
+This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version and can be viewed by opening {{SUMO}}/docs/userdoc/index.html.
 
 # Introduction
 
@@ -46,10 +46,11 @@ This Documentation is continuously updated and always refers to the latest devel
     - [from ArcView (shapefiles)](Networks/Import/ArcView.md)
     - [from DlrNavTeq](Networks/Import/DlrNavteq.md)
     - [from Robocup Simulation League](Networks/Import/RoboCup.md)
-  - [Importing SUMO networks](Networks/Import/SUMO_Road_Networks.md)
+  - [Importing SUMO networks and Patching](Networks/Import/SUMO_Road_Networks.md)
   - [Building networks for motorway simulation](Simulation/Motorways.md#building_a_network_for_motorway_simulation)
   - [Building networks for pedestrian simulation](Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation)
   - [Further netconvert options](Networks/Further_Options.md)
+  - [Exporting non-SUMO networks](Networks/Export.md)
   - [Additional output](Networks/Further_Outputs.md)
 - [Creating and modifying networks with netedit](Netedit/index.md)
 - [Including elevation data](Networks/Elevation.md)
@@ -80,6 +81,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 - [Random Trips](Tools/Trip.md#randomtripspy)
 - [Multi-modal random traffic](Tools/Import/OSM.md#osmwebwizardpy)
+- [GTFS data](Tools/Import/GTFS.md)
 
 # Simulation
 
@@ -90,7 +92,8 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Simulation output overview](Simulation/Output/index.md)
 
 ## TraCI (On-line Interaction)
-- [TraCI overview](TraCI.md)
+- [TraCI overview](TraCI.md) - The **Tra**ffic **C**ontrol **I**nterface
+- [Libsumo](Libsumo.md) - Using sumo as a library
 
 ## Traffic Management and Other Structures
 
@@ -98,7 +101,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Public Transport](Simulation/Public_Transport.md)
 - [Variable Speed Signs](Simulation/Variable_Speed_Signs.md)
 - [Rerouter / Alternative Route Signage](Simulation/Rerouter.md)
-- [Vaporizer](Simulation/Vaporizer.md) (deprecated, use Calibrator instead)
+- [Vaporizer](Simulation/Vaporizer.md) (deprecated, use [Calibrator](Simulation/Calibrator.md) instead)
 - [Dynamic calibration of flow and speed and type](Simulation/Calibrator.md)
 - [Parking areas](Simulation/ParkingArea.md)
 - [Turnarounds](Simulation/Turnarounds.md)
@@ -129,6 +132,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Vehicle speed](Simulation/VehicleSpeed.md)
 - [Vehicle insertion](Simulation/VehicleInsertion.md)
 - [Vehicle permissions (access restrictions)](Simulation/VehiclePermissions.md)
+- [Road capacity](Simulation/RoadCapacity.md)
 - [Intersection dynamics](Simulation/Intersections.md)
 - [Randomness](Simulation/Randomness.md)
 - [Routing and Re-routing](Simulation/Routing.md)
@@ -137,6 +141,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Safety](Simulation/Safety.md)
 - [Mesoscopic model](Simulation/Meso.md)
 - [Lengths and Distances](Simulation/Distances.md)
+- [Friction](Simulation/Friction.md)
 
 ## Common Problems
 
@@ -201,4 +206,4 @@ Some people extended SUMO or built tools to make it more usable. Not all of thes
 - [Glossary](Other/Glossary.md)
 - [FAQ](FAQ.md)
 - [Known File Extensions](Other/File_Extensions.md)
-
+- [List of all XML-elements and attributes](Netedit/attribute_help.md) supported by [netedit](Netedit/index.md)

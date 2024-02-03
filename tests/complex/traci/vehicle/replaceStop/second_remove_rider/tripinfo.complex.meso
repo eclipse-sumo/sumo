@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-28 08:44:37 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional4.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49293"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="ego" depart="0.00" departLane="" departPos="0.00" departSpeed="13.03" departDelay="0.00" arrival="162.00" arrivalLane="" arrivalPos="92.10" arrivalSpeed="13.03" duration="162.00" routeLength="546.60" waitingTime="0.00" waitingCount="0" stopTime="120.00" timeLoss="120.00" rerouteNo="1" devices="tripinfo_ego routing_ego" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="rider" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+        <stop duration="0.00" arrival="0.00" arrivalPos="51.95" actType="waiting"/>
+        <ride waitingTime="167.54" vehicle="alternative" depart="167.54" arrival="174.00" arrivalPos="0.00" duration="6.46" routeLength="90.60" timeLoss="0.00"/>
+    </personinfo>
+    <tripinfo id="alternative" depart="100.00" departLane="" departPos="0.00" departSpeed="14.03" departDelay="0.00" arrival="319.00" arrivalLane="" arrivalPos="92.10" arrivalSpeed="14.03" duration="219.00" routeLength="546.60" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="180.00" rerouteNo="1" devices="tripinfo_alternative routing_alternative person_alternative" vType="DEFAULT_VEHTYPE" speedFactor="1.01" vaporized=""/>
+</tripinfos>

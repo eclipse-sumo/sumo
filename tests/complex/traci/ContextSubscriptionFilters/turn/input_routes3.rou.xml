@@ -1,0 +1,28 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="WC CN"/>
+    <route id="r1" edges="WC CE"/>
+    <route id="r2" edges="WC CS"/>
+    <route id="r3" edges="NC CW"/>
+    <route id="r4" edges="NC CE"/>
+    <route id="r5" edges="NC CS"/>
+    <route id="r6" edges="EC CW"/>
+    <route id="r7" edges="EC CN"/>
+    <route id="r8" edges="EC CS"/>
+    <route id="r9" edges="SC CW"/>
+    <route id="r10" edges="SC CN"/>
+    <route id="r11" edges="SC CE"/>
+
+    <vehicle id="ego" route="r0" depart="0" departPos="0" color="red"/>
+    <vehicle id="v3" route="r3" depart="0" departPos="0" />
+    <vehicle id="v6" route="r6" depart="0" departPos="0" />
+    <vehicle id="v9" route="r9" depart="0" departPos="0" />
+    <vehicle id="v1" route="r1" depart="5" departPos="0"/>
+    <vehicle id="v4" route="r4" depart="5" departPos="0" />
+    <vehicle id="v7" route="r7" depart="5" departPos="0" />
+    <vehicle id="v10" route="r10" depart="5" departPos="0" />
+    <vehicle id="v2" route="r2" depart="10" departPos="0"/>
+    <vehicle id="v5" route="r5" depart="10" departPos="0"/>
+    <vehicle id="v8" route="r8" depart="10" departPos="0"/>
+    <vehicle id="v11" route="r11" depart="10" departPos="0"/>
+
+</routes>

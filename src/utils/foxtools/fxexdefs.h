@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,13 +42,6 @@
  */
 using namespace FX;
 #endif
-
-// Disable warnings on extern before template instantiation for the Microsoft compiler.
-// see "HOWTO: Exporting STL Components Inside & Outside of a Class" on the microsoft website
-#if defined(WIN32) && defined(_MSC_VER)
-#pragma warning (disable : 4231)
-#endif
-
 
 // implement CALLBACK for unix
 #ifndef CALLBACK
@@ -288,13 +281,13 @@ typedef void* FXThreadHandle;       // handle to a thread
 typedef void* FXThreadMutex;        // handle to a mutex
 typedef void* FXThreadCondition;    // handle to a condition variable
 typedef void* FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle* FXThreadEventHandle;  // handle to a thread event object
+typedef FXInputHandle* MFXThreadEventHandle;  // handle to a thread event object
 #else
 typedef HANDLE FXThreadHandle;       // handle to a thread
 typedef HANDLE FXThreadMutex;        // handle to a mutex
 typedef HANDLE FXThreadCondition;    // handle to a condition variable
 typedef HANDLE FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle FXThreadEventHandle;  // handle to a thread event object
+typedef FXInputHandle MFXThreadEventHandle;  // handle to a thread event object
 #endif
 
 // dynamic library loading
@@ -311,4 +304,3 @@ extern FXAPI const FXuchar fxexversion[3];
 } // namespace FXEX
 
 #endif // FXEXDEFS_H
-

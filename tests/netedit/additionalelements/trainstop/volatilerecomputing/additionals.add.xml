@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-10 10:15:24 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="bs_0" lane="center0_0" startPos="35.00" endPos="45.00"/>
+    <trainStop id="bs_1" lane="center0_0" startPos="5.00" endPos="15.00"/>
+    <trainStop id="bs_10" lane="bot_0" startPos="10.00" endPos="20.00"/>
+    <trainStop id="bs_11" lane="bot_0" startPos="30.00" endPos="40.00"/>
+    <trainStop id="bs_2" lane="center1_0" startPos="5.00" endPos="15.00"/>
+    <trainStop id="bs_3" lane="center1_0" startPos="35.00" endPos="45.00"/>
+    <trainStop id="bs_4" lane="center1_1" startPos="30.00" endPos="40.00"/>
+    <trainStop id="bs_5" lane="center1_1" startPos="10.00" endPos="20.00"/>
+    <trainStop id="bs_6" lane="center0_1" startPos="30.00" endPos="40.00"/>
+    <trainStop id="bs_7" lane="center0_1" startPos="10.00" endPos="20.00"/>
+    <trainStop id="bs_8" lane="top_0" startPos="30.00" endPos="40.00"/>
+    <trainStop id="bs_9" lane="top_0" startPos="10.00" endPos="20.00"/>
+</additional>

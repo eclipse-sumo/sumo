@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-01 08:13:00 by Eclipse SUMO sumo Version v1_14_1+0740-0a959d4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <tls.actuated.show-detectors value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="0" programID="01" phase="0" state="srrsrGsrrsrG" name="1+5"/>
+    <tlsState time="6.00" id="0" programID="01" phase="1" state="srrsrysrrsry" name="1+5"/>
+    <tlsState time="10.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="1+5"/>
+    <tlsState time="12.00" id="0" programID="01" phase="1" state="srrGGgsrrGGg" name="2+6"/>
+    <tlsState time="207.00" id="0" programID="01" phase="0" state="srryyysrryyy" name="2+6"/>
+    <tlsState time="211.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="213.00" id="0" programID="01" phase="0" state="GGgsrrsGgsrr" name="4+8"/>
+    <tlsState time="229.00" id="0" programID="01" phase="1" state="yyysrrsyysrr" name="4+8"/>
+    <tlsState time="233.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="235.00" id="0" programID="01" phase="1" state="srrsrgsrrGGG" name="1+6"/>
+    <tlsState time="244.00" id="0" programID="01" phase="0" state="srrsrgsrrGGy" name="1+6"/>
+    <tlsState time="248.00" id="0" programID="01" phase="1" state="srrsrgsrrGGr" name="1+6"/>
+    <tlsState time="250.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
+</tlsStates>

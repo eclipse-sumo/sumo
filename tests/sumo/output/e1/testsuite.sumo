@@ -25,8 +25,18 @@ two_vehicles_diff_length
 # as above, but divided by type
 two_vehicles_diff_length__split
 
+# multiple vehicles on the same induction loop
+multi_occupancy
+persons
+
+# filter detector vehicles by their oupcoming route
+nextEdges
+
 # Testing error cases
 errors
 
 # filtering by vTypeDistribution id
 vTypeDist
+
+# freq is missing
+freq_missing

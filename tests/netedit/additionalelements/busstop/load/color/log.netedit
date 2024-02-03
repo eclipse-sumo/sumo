@@ -1,0 +1,3 @@
+Error: Attribute 'color' in definition of busStop 'busStop_02' Invalid color definition 'dummyparkinglength'.
+Error: Attribute 'color' in definition of busStop 'busStop_03' Invalid color definition '-7'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.busstop.01Dec143640.87140/netedit.daily.additional.busstop/additionalelements/busstop/load/color/additionals.add.xml failed.

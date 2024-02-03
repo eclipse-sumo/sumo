@@ -1,0 +1,7 @@
+Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_4'.
+Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_5'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr130940.160\netedit.gui\demandelements\routeflow\load\poisson\routes.rou.xml failed.

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 21 14:52:31 2020 by Eclipse SUMO sumo Version v1_7_0+0158-e9358957e7
+<!-- generated on 2022-12-01 00:37:12 by Eclipse SUMO sumo Version v1_15_0+0683-3c2629d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,33 +41,24 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="B.A">
         <link linkIndex="0" from="T12_0_0" to=":B.A_1_0">
-            <driveWay edges="T13_0 T14_0 T15_0 T16_0">
+            <driveWay edges="T13_0 T14_0 T15_0 T16_0 T17_0 T18_0" core="4">
                 <forward lanes=":B.A_1_0 T13_0_0 :w3_2_0 T14_0_0 :B.P2_1_0 T15_0_0"/>
                 <bidi lanes=":B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0"/>
-                <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0 :w4_1_0"/>
-                <protectingSwitches links="w4_1"/>
+                <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.P1_0"/>
             </driveWay>
-            <driveWay edges="T13_0 T4_0 T5_0 T6_0">
+            <driveWay edges="T13_0 T4_0 T5_0 T6_0 T17_0 T18_0" core="4">
                 <forward lanes=":B.A_1_0 T13_0_0 :w3_3_0 T4_0_0 :B.P1_1_0 T5_0_0"/>
                 <bidi lanes=":B.A_0_0 T13_1_0 :w3_0_0 T4_1_0 :B.P1_0_0 T5_1_0 :B.N1_0_0 T6_1_0 :w4_0_0"/>
-                <flank lanes=":w3_1_0 T14_1_0 :B.P2_0_0 :w4_0_0"/>
-                <protectingSwitches links="w4_0"/>
+                <flank lanes=":w3_1_0 T14_1_0 :B.P2_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.P2_0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="B.F">
-        <link linkIndex="0" from="T18_1_0" to=":B.F_0_0">
-            <driveWay edges="T17_1 T6_1 T5_1 T4_1 T13_1 T12_1">
-                <forward lanes=":B.F_0_0 T17_1_0 :w4_0_0 T6_1_0 :B.N1_0_0 T5_1_0"/>
-                <bidi lanes=":B.F_1_0 T17_0_0 :w4_3_0 T6_0_0 :B.N1_1_0 T5_0_0 :B.P1_1_0 T4_0_0 :w3_3_0"
-                    deadlockCheck="T13_0_0 :B.A_1_0 T12_0_0"/>
-                <flank lanes=":w4_2_0 T16_0_0 :B.N2_1_0"/>
-                <protectingSwitches links="w3_3"/>
-                <conflictLinks signals="B.N2_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="T18_1_0" to=":B.F_0_0"/>
     </railSignal>
     <railSignal id="B.N1">
         <link linkIndex="0" from="T5_0_0" to=":B.N1_1_0">
@@ -88,15 +83,7 @@ SPDX-License-Identifier: EPL-2.0
         </link>
     </railSignal>
     <railSignal id="B.P1">
-        <link linkIndex="0" from="T5_1_0" to=":B.P1_0_0">
-            <driveWay edges="T4_1 T13_1 T12_1">
-                <forward lanes=":B.P1_0_0 T4_1_0 :w3_0_0 T13_1_0 :B.A_0_0 T12_1_0"/>
-                <bidi lanes=":B.P1_1_0 T4_0_0 :w3_3_0 T13_0_0 :B.A_1_0 T12_0_0"/>
-                <flank lanes=":w3_1_0 T14_1_0 :B.P2_0_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="B.P2_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="T5_1_0" to=":B.P1_0_0"/>
     </railSignal>
     <railSignal id="B.P2">
         <link linkIndex="0" from="T15_1_0" to=":B.P2_0_0">

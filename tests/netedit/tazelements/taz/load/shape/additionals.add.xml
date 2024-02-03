@@ -1,0 +1,23 @@
+<additionals>
+    <!-- non valid shape (missing) -->
+    <taz id="TAZ_01" color="green"/>
+
+    <!-- non valid shape (dummy) -->
+    <taz id="TAZ_02" color="green" shape="dummyShape"/>
+
+    <!-- non valid valid shape (duplicated points)-->
+    <taz id="TAZ_03" color="green" shape="10.00,-40.00 20.00,-40.00 20.00,-50.00 20.00,-50.00 10.00,-50.00 10.00,-50.00 10.00,-40.00"/>
+
+    <!-- valid valid shape (only 1 point)-->
+    <taz id="TAZ_04" color="green" shape="40.00,-40.00"/>
+
+    <!-- valid valid shape 3 points, area 0-->
+    <taz id="TAZ_05" color="green" shape="-70.00,40.00 -60.00,40.00 -70.00,40.00 -60.00,40.00"/>
+
+    <!-- valid shape (only 2 points)-->
+    <taz id="TAZ_06" color="green" shape="-70.00,20.00 -60.00,20.00"/>
+
+    <!-- valid shape (duplicated with TAZ_0 shape) -->
+    <taz id="TAZ_07" color="green" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+</additionals>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,8 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred,
+                               double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -73,7 +74,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the model's name
@@ -143,7 +144,7 @@ private:
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual double dawdle(double speed, std::mt19937* rng) const;
+    virtual double dawdle(double speed, SumoRNG* rng) const;
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
@@ -156,5 +157,3 @@ protected:
     double myTmp1, myTmp2, myTmp3, myTmp4, myTmp5;
 
 };
-
-

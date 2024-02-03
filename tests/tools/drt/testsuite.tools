@@ -1,11 +1,4 @@
-# tests for multiple vehicle problem
-2taxis_10persons
+drtOnline
 
-# tests for travel times pre-calculation with duarouter
-dua_pairs
-
-# tests for one vehicle problem
-oneVehicle
-
-# test for setting different stop duration for pickup/dropoff passengers
-stop_duration
+# Tests for the tool 'drtOrtools.py', which provides a drt with the help of the OR-Tools library.
+drtOrtools

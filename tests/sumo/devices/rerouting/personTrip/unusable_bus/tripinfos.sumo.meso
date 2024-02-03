@@ -42,11 +42,11 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="bus.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="214.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.0 routing_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.1" depart="300.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="514.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.1 routing_bus.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.2" depart="600.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="814.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.2 routing_bus.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="901.00" arrivalPos="250.00" duration="901.00" routeLength="1250.00" timeLoss="1.00" maxSpeed="1.39"/>
     </personinfo>
     <tripinfo id="bus.3" depart="900.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="1114.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.3 routing_bus.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="1260.00" arrivalPos="250.00" duration="1260.00" routeLength="1750.00" timeLoss="0.00" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-23 16:22:51 by Eclipse SUMO netedit Version v1_16_0+0659-f7c8a084c16
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Other additionals -->
+    <vaporizer id="E0" begin="0.00" end="3600.00"/>
+    <vaporizer id="E1" begin="0.00" end="3600.00"/>
+    <vaporizer id="E4" begin="0.00" end="3600.00"/>
+    <vaporizer id="E5" begin="0.00" end="3600.00"/>
+    <vaporizer id="bot" begin="0.00" end="3600.00"/>
+    <vaporizer id="center0" begin="0.00" end="3600.00"/>
+    <vaporizer id="center1" begin="0.00" end="3600.00"/>
+    <vaporizer id="top" begin="0.00" end="3600.00"/>
+</additional>

@@ -3,7 +3,7 @@ title: Nightly Build
 ---
 
 There are two main scripts responsible for the nightly build process
-which are [{{SUMO}}/tools/build/dailyUpdateMakeGCC.sh]({{Source}}tools/build/dailyUpdateMakeGCC.sh) (for the linux part) and [{{SUMO}}/tools/build/dailyBuildMSVC.py]({{Source}}tools/build/dailyBuildMSVC.py) for Windows. Essentially they both
+which are [{{SUMO}}/tools/build_config/dailyUpdateMakeGCC.sh]({{Source}}tools/build_config/dailyUpdateMakeGCC.sh) (for the linux part) and [{{SUMO}}/tools/build_config/dailyBuildMSVC.py]({{Source}}tools/build_config/dailyBuildMSVC.py) for Windows. Essentially they both
 perform the following steps:
 
 1.  git pull
@@ -36,9 +36,9 @@ account since the build is currently in a private project.
 ## Continuous integration
 
 There are continuous integration builds on
-[Travis](https://travis-ci.org/eclipse/sumo) and on
+[GitHub](https://github.com/eclipse-sumo/sumo/actions/) and on
 [AppVeyor](https://ci.appveyor.com/project/eclipsewebmaster/sumo).
-Both are configured such that they cancel a running build when a 
+Both are configured such that they cancel a running build when a
 new commit occurs, so we do not have build results for all commits
 (but we avoid a large backlog this way).
 
@@ -47,9 +47,9 @@ message (red cross, yellow circle or green tick) and choose details
 for the build in question.
 
 The AppVeyor build also provides the binaries as download (currently
-for about six months after the commit). To download choose details 
-using the marker (as above) for the commit from 
-https://github.com/eclipse/sumo/commits/master and then choose the 
+for about six months after the commit). To download choose details
+using the marker (as above) for the commit from
+https://github.com/eclipse-sumo/sumo/commits/main and then choose the
 Visual Studio version in question (when in doubt use the latest version)
 and click on artifacts where a bin.zip should be available.
 

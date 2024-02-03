@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2006
 ///
-// Some OS-dependant functions to ease cliboard manipulation
+// Some OS-dependant functions to ease clipboard manipulation
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -30,10 +30,10 @@
 // ===========================================================================
 /**
  * @class GUIUserIO
- * @brief Some OS-dependant functions to ease cliboard manipulation
+ * @brief Some OS-dependant functions to ease clipboard manipulation
  *
  * This helper contains only one function by now. It is used to store a text
- *  snipplet permanently within Windows-clipboard. This method is necessary,
+ *  snippet permanently within Windows-clipboard. This method is necessary,
  *  because FOX only implements the Linux/UNIX-text copying scheme where
  *  a marked text is copied. This does not work as soon as the widget with
  *  the marked text is destroyed or when the selection is lost. Because this

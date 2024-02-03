@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  
+    <vType id="default" speedDev="0.1"/>
+    <route edges="E0" id="r0"/>
+    <flow id="f" type="default" begin="0.00" route="r0" end="3600.00" departSpeed="avg" departLane="best" vehsPerHour="8000" arrivalPos="500"/>
+  </routes>

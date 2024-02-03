@@ -1,0 +1,26 @@
+# edit attribute type
+type
+
+id
+
+pos
+
+shape
+
+radius
+
+keepclear
+
+rightofway
+
+fringe
+
+name
+
+tltype
+
+tllayout
+
+tl
+
+parameters

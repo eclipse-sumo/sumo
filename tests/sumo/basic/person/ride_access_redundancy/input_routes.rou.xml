@@ -1,0 +1,13 @@
+<routes>
+   <vType id="tt" sigma="0" vClass="rail"/>
+   <person id="person0" depart="0" departPos="90">
+        <walk from="a" to="b" trainStop="stopE" lines="v0"/>
+        <ride from="b" to="f" lines="train"/>
+    </person>
+   <trip id="train" type="tt" depart="0" departSpeed="max" departPos="300">
+       <stop trainStop="stopE" duration="20"/>
+       <stop trainStop="stopF" duration="20"/>
+    </trip>
+    
+
+</routes>

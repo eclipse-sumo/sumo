@@ -1,2 +1,2 @@
-Error: Attribute 'freq' in definition of e3Detector '4/1to3/1' is not a time value.
+Error: Attribute 'freq' in definition of e3Detector '4/1to3/1' is not a valid time value.
 Quitting (on error).

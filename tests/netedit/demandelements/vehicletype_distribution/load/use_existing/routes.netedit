@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-11 09:29:59 by Eclipse SUMO netedit Version v1_18_0+0243-ec3d052f7e8
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="v1" probability="2.00" sigma="0"/>
+    <vType id="v2" probability="1.00" sigma="0"/>
+    <vTypeDistribution id="vt1" vTypes="v1 v2" probabilities="2.00 1.00"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="1" type="vt1" begin="0.00" number="10" period="2.00">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </flow>
+</routes>

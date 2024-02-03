@@ -1,8 +1,17 @@
 # split a train into two parts
 split
 
+# split a train into two parts without specifing the departPos of the train that is created by splitting
+split_departPosDefault
+
 # join two train parts into a single train
 join
+
+# join two train parts into a single train (but the other train never comes)
+join_fail
+
+# join two train parts into a single train (but the other train never comes)
+join_fail_abort
 
 # join two train parts into a single train. Make sure that the rail model can close the gap
 join_RB425
@@ -12,3 +21,9 @@ join_signal
 
 # the front part of the train is joined to the rear part (the rear part keeps its id)
 join_front
+
+# the front part of the train is joined to the rear part but front part is already on another edge
+join_front_further
+
+# the front part of the train is joined to the rear part but front part is already on another edge
+join_front_route_invalid

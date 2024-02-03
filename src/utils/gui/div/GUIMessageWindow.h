@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <string>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/events/GUIEvent.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -49,12 +50,13 @@ class GUIGlObject;
  * Each time a new message is passed, the window is reopened.
  */
 class GUIMessageWindow : public FXText {
+    FXDECLARE(GUIMessageWindow)
 public:
     /** @brief Constructor
      *
      * @param[in] parent The parent window
      */
-    GUIMessageWindow(FXComposite* parent);
+    GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow);
 
     /// @brief Destructor
     ~GUIMessageWindow();
@@ -94,9 +96,30 @@ public:
         return myLocateLinks;
     }
 
+    /// @brief switch locate links on and off
+    static void setBreakPointOffset(SUMOTime val) {
+        myBreakPointOffset = val;
+    }
+
+    /// @brief ask whether locate links is enabled
+    static SUMOTime getBreakPointOffset() {
+        return myBreakPointOffset;
+    }
+
+    /// @brief handle keys
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief The text colors used
+    static FXHiliteStyle* getStyles();
+
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUIMessageWindow)
+
 private:
     /// @brief class MsgOutputDevice
     class MsgOutputDevice : public OutputDevice {
+
     public:
         /// @brief constructor
         MsgOutputDevice(GUIMessageWindow* msgWindow, GUIEventType type) :
@@ -131,12 +154,23 @@ private:
     /// @brief get active string object
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
-private:
+    /// @brief get time string object
+    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+
+    /// @brief fill styles
+    void fillStyles();
+
+    /// @brief main window
+    GUIMainWindow* myMainWindow;
+
     /// @brief whether messages are linked to the GUI elements
     static bool myLocateLinks;
 
+    /// @brief Offset when creating breakpoint by clicking on time links
+    static SUMOTime myBreakPointOffset;
+
     /// @brief The text colors used
-    FXHiliteStyle* myStyles;
+    static FXHiliteStyle* myStyles;
 
     /// @brief The instances of message retriever encapsulations
     OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;

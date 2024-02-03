@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,12 +48,11 @@ public:
     /** @brief Parses the given command line arguments
      *
      * @param[in] oc The options container to fill
-     * @param[in] argc The number of given command line arguments
-     * @param[in] argv The command line arguments
+     * @param[in] args The command line arguments
      * @return Whether the parsing was successfull
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(int argc, char** argv);
+    static bool parse(const std::vector<std::string>& args, const bool ignoreAppenders = false);
 
 private:
     /** @brief parses the previous arguments
@@ -64,43 +63,17 @@ private:
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(const char* arg1, const char* arg2, bool& ok);
+    static int check(const std::string& arg1, const std::string* const arg2, bool& ok, const bool ignoreAppenders);
 
 
     /** @brief Returns the whether the given token is an option
      *
-     * The given token is assumed to be an option if it starts with a '-'.
+     * The given token is assumed to be an option if it starts with a '-' or a '+'.
      *
      * @param[in] arg1 The token to check
      * @return Whether the token is an option
      */
-    static bool checkParameter(const char* arg1);
-
-
-    /** @brief returns the whether the given token is an abbreviation
-     *
-     * The given token is assumed to be an option if it starts with two '-'.
-     *
-     * @param[in] arg1 The token to check
-     * @return Whether the token is an abbreviation
-     */
-    static bool isAbbreviation(const char* arg1);
-
-
-    /** @brief Converts char* to string
-     *
-     * @param[in] arg The c-string to convert
-     * @return The string converted into a std::string
-     */
-    static std::string convert(const char* arg);
-
-
-    /** @brief converts char to string
-     *
-     * @param[in] abbr The char to convert
-     * @return The char converted into a std::string
-     */
-    static std::string convert(char abbr);
+    static bool checkParameter(const std::string& arg1);
 
 
     /** @brief Extracts the parameter directly attached to an option
@@ -112,7 +85,7 @@ private:
      * @param[in] arg The token to parse
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg);
+    static bool processNonBooleanSingleSwitch(OptionsCont& oc, const std::string& arg, const bool append);
 
 
 };

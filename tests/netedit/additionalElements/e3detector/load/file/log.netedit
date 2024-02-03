@@ -1,9 +1,0 @@
-Warning: Essential filename attribute 'file' of e3Detector with ID 'e3Detector_0' is missing; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.
-Warning: Format of essential filename attribute 'file' of e3Detector with ID 'e3Detector_1' is invalid; Filename contains invalid characters; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.
-Warning: Format of essential filename attribute 'file' of e3Detector with ID 'e3Detector_2' is invalid; Filename cannot be empty; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.

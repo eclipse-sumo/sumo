@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EdgeType, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edgeType
 GNEChange_EdgeType::GNEChange_EdgeType(GNEEdgeType* edgeType, bool forward):
-    GNEChange(edgeType, forward, edgeType->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, edgeType, forward, edgeType->isAttributeCarrierSelected()),
     myEdgeType(edgeType) {
     edgeType->incRef("GNEChange_EdgeType");
 }
@@ -51,7 +51,7 @@ GNEChange_EdgeType::~GNEChange_EdgeType() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' GNEChange_EdgeType");
         // make sure that edgeType isn't in net before removing
-        if (myEdgeType->getNet()->getAttributeCarriers()->edgeTypeExist(myEdgeType)) {
+        if (myEdgeType->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeType->getID(), false)) {
             // delete edgeType from net
             myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
         }
@@ -79,7 +79,7 @@ GNEChange_EdgeType::undo() {
         myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // enable save networkElements
-    myEdgeType->getNet()->requireSaveNet(true);
+    myEdgeType->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -101,25 +101,25 @@ GNEChange_EdgeType::redo() {
         myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // enable save networkElements
-    myEdgeType->getNet()->requireSaveNet(true);
+    myEdgeType->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
-FXString
+std::string
 GNEChange_EdgeType::undoName() const {
     if (myForward) {
-        return "Undo create edgeType";
+        return TL("Undo create edgeType '") + myEdgeType->getID() + "'";
     } else {
-        return "Undo delete edgeType";
+        return TL("Undo delete edgeType '") + myEdgeType->getID() + "'";
     }
 }
 
 
-FXString
+std::string
 GNEChange_EdgeType::redoName() const {
     if (myForward) {
-        return "Redo create laneType";
+        return TL("Redo create edgeType '") + myEdgeType->getID() + "'";
     } else {
-        return "Redo delete laneType";
+        return TL("Redo delete edgeType '") + myEdgeType->getID() + "'";
     }
 }

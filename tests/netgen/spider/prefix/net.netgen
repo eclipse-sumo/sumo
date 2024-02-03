@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:07 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-02 20:22:47 by Eclipse SUMO netgenerate Version v1_10_0+1799-3994fee9d71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="161.80,190.21" convBoundary="0.00,0.00,361.80,380.42" origBoundary="-161.80,-190.21,200.00,190.21" projParameter="!"/>
 
@@ -357,8 +357,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B2C2" to="foo_C2C3" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B2C2" to="foo_C2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B3A1" to="foo_A1B4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B3A1" to="foo_A1B5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="foo_B3A1" to="foo_A1B1" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="foo_B3A1" to="foo_A1B5" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="foo_B3A1" to="foo_A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B3A1" to="foo_A1B2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B3A1" to="foo_A1B3" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_B3B2" to="foo_B2A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -373,7 +373,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B3C3" to="foo_C3C4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B3C3" to="foo_C3B3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B4A1" to="foo_A1B5" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B4A1" to="foo_A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="foo_B4A1" to="foo_A1B1" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="foo_B4A1" to="foo_A1B4" fromLane="0" toLane="0" dir="t" state="M"/>

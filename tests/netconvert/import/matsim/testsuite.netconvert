@@ -15,3 +15,9 @@
 
 # The network from the "equil" example with an additional self loop
 0_3_0_equil_selfloop
+
+# The network from the "equil" example from MATSIM 0.3.0 with XML validation
+0_3_0_equil_validation
+
+# The network from the "equil" example from MATSIM 0.3.0
+0_3_0_equil_validation_local

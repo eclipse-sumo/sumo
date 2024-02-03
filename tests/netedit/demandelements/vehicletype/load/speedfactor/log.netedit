@@ -1,0 +1,6 @@
+Error: Invalid format of distribution parameterized
+Error: Invalid speed distribution when parsing vType 'vType1' (distribution mean -3.00 is smaller than lower boundary 0.20)
+Error: Invalid speed distribution when parsing vType 'vType2' (distribution mean 0.00 is smaller than lower boundary 0.20)
+Error: Invalid speed distribution when parsing vType 'vType3' (distribution mean 12.00 is larger than upper boundary 2.00)
+Error: Invalid speed distribution when parsing vType 'vType4' (distribution mean 4.50 is larger than upper boundary 2.00)
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Apr090840.8708\netedit.gui\demandelements\vehicletype\load\speedfactor\routes.rou.xml failed.

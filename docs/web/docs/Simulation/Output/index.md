@@ -23,9 +23,8 @@ can convert any of them to a flat-file (CSV) format which can be opened
 with most spread-sheet software. If you need a more compressed but still
 "standardized" binary version, you can use
 [xml2protobuf.py](../../Tools/Xml.md#xml2protobufpy). Furthermore all
-files can use a [custom binary
-format](Binary.md) which is triggered by the
-file extension .sbx.
+files can be written and read in compressed form (gzip) which is triggered by the
+file extension .gz.
 
 ## Separating outputs of repeated runs
 
@@ -53,7 +52,7 @@ found by following its link.
   informations for all edges, lanes and vehicles (good for
   visualisation purposes)
 - [vtk output](VTKOutput.md): generates
-  Files in the well known [VTK](http://www.vtk.org/) (Visualization
+  Files in the well known [VTK](https://www.vtk.org/) (Visualization
   Toolkit) format, to show the positions the speed value for every
   vehicle
 - [fcd output](FCDOutput.md): Floating Car
@@ -116,7 +115,7 @@ There is no dedicated output format for traffic at junctions. Instead junction r
   or separate the approaching edges and to include or exclude the
   junction interior. (area-based detection on edges)
 
-Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can be manually aggregated to obtain the flow at at a junction.
+Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can be aggregated to obtain the flow at at a junction by using edgeData attribute `edges` and `aggregate="true"`.
 
 ## vehicle-based information
 
@@ -137,9 +136,9 @@ Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can b
 
 ## simulation(network)-based information
 
-- [simulation state statistics](Summary.md):
+- [simulation state summary statistics](Summary.md):
   information about the current state of the simulation (vehicle count etc.)
-- [simulation state person statistics](PersonSummary.md):
+- [simulation state person summary statistics](PersonSummary.md):
   information about the current state of persons the simulation (person count etc.)
 - [statistic output](StatisticOutput.md):
   overall statistics of the simulation (vehicles, teleports, safety, persons, vehicleTripStatistics, rideStatistics, etc.)
@@ -178,6 +177,21 @@ controlled railSignal link the following information is generated:
   - **conflictLinks**: all controlled links that enter the conflict
     area (forwardBlock, bidiBlock, backwardBlock) from outside,
     encoded as *<SIGNALID\>_<LINKINDEX\>*
+
+# Commandline Output (step-log)
+
+By default, sumo will print some "heartbeat" information to indicate that it is still running. The following information will be printed every 100 simulation steps:
+
+- Step #: current simulation time
+- duration of the latest step in (**ms**)
+- real-time factor (step-length / duration). (**RT**)
+- number of vehicles updated per second (**UPS**)
+- **TraCI:** time spent with TraCI processing in the current step (including external script)
+- **vehicles TOT**: number of vehicles that departed so far
+- **ACT**: number of currently running vehicles
+- **BUF**: number of vehicles with delayed insertion
+
+This output can be disabled with the option **--no-step-log**. It's period can be configured with the option **--step-log.period TIME**.
 
 # Commandline Output (verbose)
 
@@ -229,7 +243,7 @@ If the simulation contained persons the following output will be added:
   time*. If one hour is simulated in 360 seconds the real time factor
   is 10.
 - UPS: (updates per second). The number of vehicle updates that were
-  performed on average per second of computation time. If a single 
+  performed on average per second of computation time. If a single
   vehicle update takes on average one millisecond, this will be 1000.
 
 If routing took place in the simulation, Each routing algorithm instance
@@ -288,7 +302,7 @@ following output will be added:
 - Aborted rides: rides that could not be completed because no suitable
   vehicle was available
 
-You can also take a look at [statistic output](StatisticOutput.md) for a more overall statistics of the entire simulation, including those mentioned above and additional ones safety-, ride- and transport-related. 
+You can also take a look at [statistic output](StatisticOutput.md) for a more overall statistics of the entire simulation, including those mentioned above and additional ones safety-, ride- and transport-related.
 
 When setting this option and using [sumo-gui](../../sumo-gui.md), the
 network parameter dialog will also show a running average for these

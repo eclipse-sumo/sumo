@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ void
 NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load names of edges too keep from '" + file + "'.");
+        throw ProcessError(TLF("Could not load names of edges too keep from '%'.", file));
     }
     while (strm.good()) {
         std::string name;
@@ -104,7 +104,7 @@ void
 NBHelpers::loadPrefixedIDsFomFile(const std::string& file, const std::string prefix, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load IDs from '" + file + "'.");
+        throw ProcessError(TLF("Could not load IDs from '%'.", file));
     }
     while (strm.good()) {
         std::string prefixedID;
@@ -120,14 +120,14 @@ NBHelpers::interpretLaneID(const std::string& lane_id, std::string& edge_id, int
     // assume lane_id = edge_id + '_' + index
     const std::string::size_type sep_index = lane_id.rfind('_');
     if (sep_index == std::string::npos) {
-        WRITE_ERROR("Invalid lane id '" + lane_id + "' (missing '_').");
+        WRITE_ERRORF(TL("Invalid lane id '%' (missing '_')."), lane_id);
     }
     edge_id = lane_id.substr(0, sep_index);
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
         index = StringUtils::toInt(index_string);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
+        WRITE_ERRORF(TL("Invalid lane index '%' for lane '%'."), index_string, lane_id);
     }
 }
 

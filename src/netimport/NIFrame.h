@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,25 +25,29 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
+class OptionsCont;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class NIFrame
  * @brief Sets and checks options for netimport
  */
 class NIFrame {
+
 public:
     /** @brief Inserts options used by the network importer and network building modules
      *
      * Calls "NBNetBuilder::insertNetBuildOptions" for inserting network
      *  building options.
      */
-    static void fillOptions(bool forNetedit = false);
+    static void fillOptions(OptionsCont& oc, bool forNetedit = false);
 
-
-    /** @brief Checks set options from the OptionsCont-singleton for being valid
+    /** @brief Checks set options for being valid
      * @return Whether all needed options are set
      * @todo Unused currently; repair/fill
      */
-    static bool checkOptions();
-
-
+    static bool checkOptions(OptionsCont& oc);
 };

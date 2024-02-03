@@ -1,4 +1,0 @@
-Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_02' is not of type int.
-Error: Could not build containerStop with ID 'containerStop_03' in netedit; attribute personCapacity cannot be negative.
-Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_04' is not of type int.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun093044.7108\netedit.gui\additionalElements\containerstop\load\personcapacity\input_additionals.add.xml failed.

@@ -33,7 +33,7 @@ described at [sumo#mesoscopic](../sumo.md#mesoscopic)
 
 # Model Description
 
-The simulation model is based on the work of [Eissfeldt, Vehicle-based modelling of traffic](http://kups.ub.uni-koeln.de/1274/). The original
+The simulation model is based on the work of [Eissfeldt, Vehicle-based modelling of traffic](https://kups.ub.uni-koeln.de/1274/). The original
 model was focused on motorway traffic. The current implementation
 contains significant extensions to support the simulation of
 heterogeneous urban traffic as well.
@@ -48,6 +48,7 @@ Only a few vType parameters affect the mesoscopic simulation. They are listed be
 - speedFactor, speedDev (see [Further Congestion Effects](#further_congestion_effects))
 - [impatience](#impatience)
 - accel,decel (only for computing junction passing time when the [microscopic junction model](#junction_model) is active)
+- tau
 
 ## Longitudinal Model
 
@@ -72,17 +73,19 @@ differently for each of the four distinct possible cases. The behavior
 for each case is configured using the options
 
 - **meso-tauff**: minimum headway when traveling from free segment to
-  free segment
+  free segment (default *1.13*)
 - **meso-taufj**: minimum headway when traveling from free segment to
-  jammed segment
+  jammed segment (default *1.13*)
 - **meso-taujf**: minimum headway when traveling from jammed segment
-  to free segment
+  to free segment (default *1.73*)
 - **meso-taujj**: headway for 'spaces' to travel backwards through the
   jam. When a segment is completely occupied the actual headway is
-  VEHICLE_NUMBER \* taujj.
+  VEHICLE_NUMBER \* taujj. (default *1.4*)
 
 The headways are scaled according to the inverse of the lane number
 (with three lanes, the headways are divided by 3).
+
+Each of these values is multiplied with the 'tau' configure in the vehicle type (`vType`) of the considered vehicle (default 'tau' is *1*).
 
 !!! note
     The values tauff, taufj and taujf denote net-time gaps (vehicle front bumper to leader back-bumper). The actual gross time gap is computed from this by taking into account the vehicle length.
@@ -97,7 +100,7 @@ meso-tauff is lower than meso-taujf.
 
 For each queue (also called segment in the GUI) an occupancy threshold
 value determines whether that queue is *jammed* or *free*. The following
-numerical values are supported for option **--meso-jam-treshold** {{DT_FLOAT}}:
+numerical values are supported for option **--meso-jam-threshold** {{DT_FLOAT}}:
 
 - value = -1: Threshold is computed so that vehicles driving at the
   speed limit do not jam. This is the default behavior which is
@@ -123,7 +126,7 @@ On multi-lane edges, [overtaking can be enabled](#lateral_model) to reduce this 
 
 ### Jam-Resolution
 
-The option **--meso-recheck** {{DT_TIME}} can be used to delay traffic flow into a fully occupied segment. Whenever a vehicle cannot move into the next segment because it is full, the given value acts as a time delay before checking again whether the segment has capacity to receive another vehicle. By default this delay is set to 0. 
+The option **--meso-recheck** {{DT_TIME}} can be used to delay traffic flow into a fully occupied segment. Whenever a vehicle cannot move into the next segment because it is full, the given value acts as a time delay before checking again whether the segment has capacity to receive another vehicle. By default this delay is set to 0.
 
 ## Lateral Model
 
@@ -175,7 +178,7 @@ greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
 headway = defaultHeadway / greenFraction
 ```
 
-Note, that the maximum flow cannot exceed the value at permenant green light regardless of penalty value.
+Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.
 
 ### Penalty at uncontrolled intersections
 
@@ -185,12 +188,12 @@ junction control is active for that link)
 
 ### Impatience
 
-Vehicles that reach an [impatience](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#impatience) value of 1 (maximum) can pass an intersection regardless of foe traffic with higher priority. The time to reach maximum impatience can be configured with option **--time-to-impatience** {{DT_TIME}}. 
+Vehicles that reach an [impatience](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#impatience) value of 1 (maximum) can pass an intersection regardless of foe traffic with higher priority. The time to reach maximum impatience can be configured with option **--time-to-impatience** {{DT_TIME}}.
 
 ## Configuration by edge type
 
 The model parameters described above can be customized for each edge type id by loading the following configuration from an additional file:
-```
+```xml
 <additional>
     <type id="highway.motorway" ...>
         <meso tauff="1.13" taufj="1.13" taujf="1.73" taujj="1.4" jamThreshold="-1"
@@ -200,6 +203,11 @@ The model parameters described above can be customized for each edge type id by 
 </additional>
 ```
 All attributes are optional and default to the value of the option with the corresponding option name. (i.e. tauff ~ **meso-tauff**, tlsPenalty ~ **meso-tls-penalty**, ...).
+
+## Multimodal simulation
+
+By default, meso is meant to be used for road vehicles (i.e. cars and trucks). To make use of bicycles and edges that do not permit paasenger cars, option **--meso-lane-queue** must be set.
+This will turn every lane into a distinct queue instead of treating parallel lanes as a single queue.
 
 ## Outputs
 
@@ -211,7 +219,7 @@ differ somewhat:
     will be treated like `<edgeData>`-output.
   - [netstate-dump](../Simulation/Output/RawDump.md) will
     report vehicles as child elements of `<edge>` instead of `<lane>`.
-- Induction loops write attributes that are similar to meanData output
+- Induction loops write attributes that are similar to [`<edgeData>`-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) output
 
 The following outputs are not supported:
 

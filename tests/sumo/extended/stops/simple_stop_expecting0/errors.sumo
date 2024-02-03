@@ -1,3 +1,0 @@
-Warning: Person 'p1' aborted waiting for 1 at edge '1to2'.
-Warning: Person 'p2' aborted waiting for 1 at edge '1to2'.
-Warning: Vehicle 'veh0' aborted waiting for a person or container that will never come.

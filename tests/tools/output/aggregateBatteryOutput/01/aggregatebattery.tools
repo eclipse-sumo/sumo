@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.164763 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 1
+-->
+
+<battery-export>
+    <timestep interval="0-0">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="1-1">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="2-2">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="3-3">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="4-4">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="5-5">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="6-6">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="7-7">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="8-8">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="9-9">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="10-10">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="11-11">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="12-12">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="13-13">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="14-14">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="15-15">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="16-16">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="17-17">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="18-18">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="19-19">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="20-20">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="21-21">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="22-22">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="23-23">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="24-24">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="25-25">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="26-26">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="27-27">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="28-28">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="29-29">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="30-30">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="31-31">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="32-32">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="33-33">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="34-34">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="35-35">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="36-36">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="37-37">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="38-38">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="39-39">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="40-40">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="41-41">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="42-42">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="43-43">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="44-44">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="45-45">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="46-46">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="47-47">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="48-48">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="49-49">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="50-50">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="51-51">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="52-52">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="53-53">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="54-54">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="55-55">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="56-56">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="57-57">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="58-58">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="59-59">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="60-60">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="61-61">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="62-62">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="63-63">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="64-64">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="65-65">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="66-66">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="67-67">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="68-68">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="69-69">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="70-70">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="71-71">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="72-72">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="73-73">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="74-74">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="75-75">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="76-76">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="77-77">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="78-78">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="79-79">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="80-80">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="81-81">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="82-82">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="83-83">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="84-84">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="85-85">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="86-86">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="87-87">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="88-88">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="89-89">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="90-90">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="91-91">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="92-92">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="93-93">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="94-94">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="95-95">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="96-96">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="97-97">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="98-98">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="99-99">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="100-100">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="101-101">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="102-102">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="103-103">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="104-104">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="105-105">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="106-106">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="107-107">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="108-108">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="109-109">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="110-110">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="111-111">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="112-112">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="113-113">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="114-114">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="115-115">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="116-116">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="117-117">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="118-118">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="119-119">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="120-120">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="121-121">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="122-122">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="123-123">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="124-124">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="125-125">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="126-126">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="127-127">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="128-128">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="129-129">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="130-130">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="131-131">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="132-132">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="133-133">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="134-134">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="135-135">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="136-136">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="137-137">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="138-138">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="139-139">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="140-140">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="141-141">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="142-142">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="143-143">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="144-144">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="145-145">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="146-146">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="147-147">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="148-148">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="149-149">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="150-150">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="151-151">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="152-152">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="153-153">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="154-154">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="155-155">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="156-156">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="157-157">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="158-158">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="159-159">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="160-160">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="161-161">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="162-162">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="163-163">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="164-164">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="165-165">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="166-166">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="167-167">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="168-168">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="169-169">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="170-170">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="171-171">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="172-172">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="173-173">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="174-174">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="175-175">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="176-176">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="177-177">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="178-178">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="179-179">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="180-180">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="181-181">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="182-182">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="183-183">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="184-184">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="185-185">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="186-186">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="187-187">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="188-188">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="189-189">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="190-190">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="191-191">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="192-192">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="193-193">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="194-194">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="195-195">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="196-196">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="197-197">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="198-198">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="199-199">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="200-200">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="201-201">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="202-202">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="203-203">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="204-204">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="205-205">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="206-206">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="207-207">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="208-208">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="209-209">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="210-210">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="211-211">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="212-212">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="213-213">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="214-214">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="215-215">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="216-216">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="217-217">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="218-218">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="219-219">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="220-220">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="221-221">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="222-222">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="223-223">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="224-224">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="225-225">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="226-226">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="227-227">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="228-228">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="229-229">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="230-230">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="231-231">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="232-232">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="233-233">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="234-234">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="235-235">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="236-236">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="237-237">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="238-238">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="239-239">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="240-240">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="241-241">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="242-242">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="243-243">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="244-244">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="245-245">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="246-246">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="247-247">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="248-248">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="249-249">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="250-250">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="251-251">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="252-252">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="253-253">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="254-254">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="255-255">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="256-256">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="257-257">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="258-258">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="259-259">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="260-260">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="261-261">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="262-262">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="263-263">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="264-264">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="265-265">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="266-266">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="267-267">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="268-268">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="269-269">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="270-270">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="271-271">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="272-272">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="273-273">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="274-274">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="275-275">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="276-276">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="277-277">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="278-278">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="279-279">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="280-280">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="281-281">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="282-282">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="283-283">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="284-284">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="285-285">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="286-286">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="287-287">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="288-288">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="289-289">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="290-290">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="291-291">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="292-292">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="293-293">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="294-294">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="295-295">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="296-296">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="297-297">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="298-298">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="299-299">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="300-300">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="301-301">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="302-302">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="303-303">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="304-304">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="305-305">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="306-306">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="307-307">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="308-308">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="309-309">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="310-310">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="311-311">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="312-312">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="313-313">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="314-314">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="315-315">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="316-316">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="317-317">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="318-318">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="319-319">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="320-320">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="321-321">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="322-322">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="323-323">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="324-324">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="325-325">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="326-326">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="327-327">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="328-328">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="329-329">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="330-330">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="331-331">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="332-332">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="333-333">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="334-334">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="335-335">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="336-336">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="337-337">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="338-338">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="339-339">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="340-340">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="341-341">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="342-342">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="343-343">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="344-344">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="345-345">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="346-346">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="347-347">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="348-348">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="349-349">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="350-350">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="351-351">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="352-352">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="353-353">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="354-354">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="355-355">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="356-356">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="357-357">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="358-358">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="359-359">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="360-360">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="361-361">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="362-362">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="363-363">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="364-364">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="365-365">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="366-366">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="367-367">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="368-368">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="369-369">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="370-370">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="371-371">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="372-372">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="373-373">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="374-374">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="375-375">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="376-376">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="377-377">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="378-378">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="379-379">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="380-380">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="381-381">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="382-382">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="383-383">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="384-384">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="385-385">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="386-386">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="387-387">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+    <timestep interval="388-388">
+        <vehicle id="veh0" energyConsumed="1.0" totalEnergyConsumed="1.0" totalEnergyRegenerated="1.0" energyChargedInTransit="1.0" energyChargedStopped="1.0" timeStopped="0.0" aggregateNumber="1.0"/>
+    </timestep>
+</battery-export>

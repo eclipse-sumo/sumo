@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 14:00:23 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="E1_A" name="DetectorA" lane="center0_1" pos="6.00" period="120.00" file="fileA.txt" vTypes="Type1 Type2 Type3">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </inductionLoop>
+    <inductionLoop id="E1_B" name="DetectorB" lane="center1_1" pos="10.00" period="90.00" file="fileB.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </inductionLoop>
+</additional>

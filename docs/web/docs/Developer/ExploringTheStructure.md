@@ -4,9 +4,9 @@ title: Exploring the structure
 
 # Introduction
 
-Each night a documentation of the C++ source code is generated with the tool [Doxygen](http://www.doxygen.nl/).
+Each night a documentation of the C++ source code is generated with the tool [Doxygen](https://www.doxygen.nl/).
 The result is accessible via [inline code documentation
-  (doxygen)](http://sumo.dlr.de/daily/doxygen/).
+  (doxygen)](https://sumo.dlr.de/daily/doxygen/).
 
 # Looking for a class by name
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,7 +65,7 @@ public:
     virtual ~MSRouteHandler();
 
     /// @brief get parsing RNG
-    static std::mt19937* getParsingRNG() {
+    static SumoRNG* getParsingRNG() {
         return &myParsingRNG;
     }
 
@@ -153,7 +153,7 @@ protected:
     MSStoppingPlace* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
@@ -162,10 +162,7 @@ protected:
     void addWalk(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson);
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
@@ -190,11 +187,23 @@ protected:
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
 
+    /// @brief whether the active route is stored indefinitely (used by state loader)
+    bool myActiveRoutePermanent;
+
+    /// @brief The time at which this route was replaced (from vehroute-output)
+    SUMOTime myActiveRouteReplacedAtTime;
+
+    /// @brief The index at which this route was replaced (from vehroute-output)
+    int myActiveRouteReplacedIndex;
+
     /// @brief The type of the current object
     ObjectTypeEnum myActiveType;
 
     /// @brief The name of the current object type
     std::string myActiveTypeName;
+
+    /// @brief Wether an object with 'via'-attribute is being parsed
+    bool myHaveVia;
 
     /// @brief The plan of the current transportable (person or container)
     MSTransportable::MSTransportablePlan* myActiveTransportablePlan;
@@ -209,7 +218,7 @@ protected:
     std::string myCurrentVTypeDistributionID;
 
     /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
@@ -217,8 +226,14 @@ protected:
     /// @brief whether a state file is being loaded
     bool myAmLoadingState;
 
+    /// @brief prefix when copying vehicles with --scale
+    std::string myScaleSuffix;
+
+    /// @brief whether loaded rerouting events shall be replayed
+    bool myReplayRerouting;
+
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static std::mt19937 myParsingRNG;
+    static SumoRNG myParsingRNG;
 
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
@@ -234,19 +249,18 @@ private:
     void closeTransportable();
 
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    int addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+
+    double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
 
     /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
-    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
+    ConstMSRoutePtr addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPermanent);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
-
-    /// @brief Check if vtype of given transportable exists
-    void checkTransportableType();
 
     /// @brief Processing of a transport
     void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);

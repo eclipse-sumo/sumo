@@ -1,0 +1,21 @@
+/* XPM */
+static const char * rarify_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 13 2 1",
+" 	c None",
+"!	c black",
+/* pixels */
+"              ! ",
+"                ",
+"                ",
+"! !!  !! ! !!!!!",
+" ! !    ! ! ! ! ",
+" !    !!! !   ! ",
+" !   !  ! !   ! ",
+" !   !  ! !   ! ",
+" !!   !!! !!  ! ",
+"                ",
+"                ",
+"                ",
+"                "
+};

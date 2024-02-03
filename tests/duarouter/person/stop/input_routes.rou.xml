@@ -1,6 +1,6 @@
 <routes>
     <person id="p0" depart="0">
-        <stop lane="beg_0" duration="10"/>
+        <stop lane="beg_0" duration="10" actType="custom"/>
         <walk edges="beg middle end"/>
     </person>
     <person id="p1" depart="0">

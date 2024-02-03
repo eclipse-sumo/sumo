@@ -1,0 +1,3 @@
+<add>
+    <e2Detector id="det" lane="WC_1" pos="0" endPos="-1" file="detector.xml" freq="10"/>
+</add>

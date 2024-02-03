@@ -33,6 +33,9 @@ roundabout_with_nearby_nodes
 # A node should not be added to the cluster if any of the edges within the cluster would then nexceed maxDist.
 preserve_long_edge
 
+# A node should not be added to the cluster if any of the edges within the cluster would then exceed maxDist.
+preserve_long_edge2
+
 # joined junctions should not have multiple incoming edges with the same angle or multiple outgoing edges with the same angle
 same_angle_nojoin
 
@@ -41,6 +44,9 @@ adlershof_dlr
 
 # find joinable circle in complex cluster
 circle4
+
+# test whether long-edge-pruning interferes with circle search
+circle4_long_edge
 
 # find joinable circle in complex cluster
 circle2

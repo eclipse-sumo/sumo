@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version='0.6' generator='JOSM'>
+  <bounds minlat='48.8644589' minlon='9.2308867' maxlat='48.8648471' maxlon='9.2326784' origin='CGImap 0.8.8 (721022 spike-08.openstreetmap.org)' />
+  <node id='51558775' timestamp='2014-12-08T20:31:39Z' uid='149097' user='AlexanderF' visible='true' version='8' changeset='27342480' lat='48.8650302' lon='9.2238941' />
+  <node id='51558779' timestamp='2014-12-08T20:31:39Z' uid='149097' user='AlexanderF' visible='true' version='7' changeset='27342480' lat='48.8648386' lon='9.224642' />
+  <node id='51558784' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='7' changeset='24718519' lat='48.8645855' lon='9.2256958' />
+  <node id='51558788' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='7' changeset='24718519' lat='48.8644047' lon='9.2265267' />
+  <node id='51558791' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='8' changeset='24718519' lat='48.8642829' lon='9.2275246' />
+  <node id='51558797' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='7' changeset='24718519' lat='48.864344' lon='9.2289323' />
+  <node id='51558808' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='7' changeset='24718519' lat='48.8645703' lon='9.2306547' />
+  <node id='51558814' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='6' changeset='24718519' lat='48.8648167' lon='9.2325832' />
+  <node id='51558823' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='5' changeset='24718519' lat='48.8650863' lon='9.2347529' />
+  <node id='82730024' timestamp='2016-09-03T22:11:27Z' uid='35560' user='Peilscheibe' visible='true' version='10' changeset='41897132' lat='48.8647484' lon='9.2250791' />
+  <node id='267757581' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='4' changeset='24718519' lat='48.8643258' lon='9.2270046' />
+  <node id='313533779' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='4' changeset='24718519' lat='48.8648527' lon='9.2328514' />
+  <node id='567160474' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='3' changeset='24718519' lat='48.8649089' lon='9.2332762' />
+  <node id='943646252' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='3' changeset='24718519' lat='48.8642874' lon='9.2283592' />
+  <node id='943646403' timestamp='2014-08-13T08:56:56Z' uid='2196733' user='Luftig' visible='true' version='4' changeset='24718519' lat='48.8642731' lon='9.2279711' />
+  <way id='24574260' timestamp='2021-12-30T19:53:38Z' uid='37608' user='micha_k' visible='true' version='11' changeset='115580629'>
+    <nd ref='51558823' />
+    <nd ref='567160474' />
+    <nd ref='313533779' />
+    <nd ref='51558814' />
+    <nd ref='51558808' />
+    <nd ref='51558797' />
+    <nd ref='943646252' />
+    <nd ref='943646403' />
+    <nd ref='51558791' />
+    <nd ref='267757581' />
+    <nd ref='51558788' />
+    <nd ref='51558784' />
+    <nd ref='82730024' />
+    <nd ref='51558779' />
+    <nd ref='51558775' />
+    <tag k='cycleway:both' v='no' />
+    <tag k='highway' v='secondary' />
+    <tag k='maxspeed' v='80' />
+    <tag k='note' v='Maxspeed auf 80 reduziert wegen Mapdust #150371' />
+    <tag k='ref' v='L 1144' />
+    <tag k='sidewalk' v='no' />
+    <tag k='surface' v='asphalt' />
+    <tag k='lane_markings' v='yes' />
+    <tag k='divider' v='double_solid_line' />
+  </way>
+</osm>

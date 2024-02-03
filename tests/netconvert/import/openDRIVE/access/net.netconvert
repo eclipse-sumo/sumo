@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-09 15:52:24 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <opendrive-output value="foreign.net"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
+
+    <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+
+    <edge id=":1#1_0" function="internal">
+        <lane id=":1#1_0_0" index="0" allow="bus" speed="13.89" length="0.30" width="3.00" shape="10.15,1.50 9.85,1.50"/>
+    </edge>
+    <edge id=":1#1_1" function="internal">
+        <lane id=":1#1_1_0" index="0" allow="bus" speed="13.89" length="0.30" width="3.00" shape="9.85,-1.50 10.15,-1.50"/>
+    </edge>
+    <edge id=":1#2_0" function="internal">
+        <lane id=":1#2_0_0" index="0" allow="bus" speed="13.89" length="0.30" width="3.00" shape="30.15,1.50 29.85,1.50"/>
+    </edge>
+    <edge id=":1#2_1" function="internal">
+        <lane id=":1#2_1_0" index="0" allow="bus" speed="13.89" length="0.30" width="3.00" shape="29.85,-1.50 30.15,-1.50"/>
+    </edge>
+
+    <edge id="-1#0" from="1.begin" to="1#1" priority="1" type="driving">
+        <lane id="-1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.85" width="3.00" shape="0.00,-1.50 9.85,-1.50" type="driving"/>
+    </edge>
+    <edge id="-1#1" from="1#1" to="1#2" priority="1" type="driving">
+        <lane id="-1#1_0" index="0" allow="bus" speed="13.89" length="19.70" width="3.00" shape="10.15,-1.50 29.85,-1.50" type="driving"/>
+    </edge>
+    <edge id="-1#2" from="1#2" to="1.end" priority="1" type="driving">
+        <lane id="-1#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.85" width="3.00" shape="30.15,-1.50 50.00,-1.50" type="driving"/>
+    </edge>
+    <edge id="1#0" from="1#1" to="1.begin" priority="1" type="driving">
+        <lane id="1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.85" width="3.00" shape="9.85,1.50 0.00,1.50" type="driving"/>
+    </edge>
+    <edge id="1#1" from="1#2" to="1#1" priority="1" type="driving">
+        <lane id="1#1_0" index="0" allow="bus" speed="13.89" length="19.70" width="3.00" shape="29.85,1.50 10.15,1.50" type="driving"/>
+    </edge>
+    <edge id="1#2" from="1.end" to="1#2" priority="1" type="driving">
+        <lane id="1#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.85" width="3.00" shape="50.00,1.50 30.15,1.50" type="driving"/>
+    </edge>
+
+    <junction id="1#1" type="priority" x="10.00" y="0.00" incLanes="1#1_0 -1#0_0" intLanes=":1#1_0_0 :1#1_1_0" shape="10.15,3.00 10.15,-3.00 9.85,-3.00 9.85,3.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="1#2" type="priority" x="30.00" y="0.00" incLanes="1#2_0 -1#1_0" intLanes=":1#2_0_0 :1#2_1_0" shape="30.15,3.00 30.15,-3.00 29.85,-3.00 29.85,3.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1#0_0" intLanes="" shape="0.00,0.00 0.00,3.00 0.00,0.00"/>
+    <junction id="1.end" type="dead_end" x="50.00" y="0.00" incLanes="-1#2_0" intLanes="" shape="50.00,0.00 50.00,-3.00 50.00,0.00"/>
+
+    <connection from="-1#0" to="-1#1" fromLane="0" toLane="0" via=":1#1_1_0" dir="s" state="M"/>
+    <connection from="-1#1" to="-1#2" fromLane="0" toLane="0" via=":1#2_1_0" dir="s" state="M"/>
+    <connection from="1#1" to="1#0" fromLane="0" toLane="0" via=":1#1_0_0" dir="s" state="M"/>
+    <connection from="1#2" to="1#1" fromLane="0" toLane="0" via=":1#2_0_0" dir="s" state="M"/>
+
+    <connection from=":1#1_0" to="1#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1#1_1" to="-1#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1#2_0" to="1#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1#2_1" to="-1#2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

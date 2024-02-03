@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -139,6 +139,11 @@ public:
 
     inline void setTimePenalty(double value) {
         myTimePenalty = value;
+    }
+
+    /// @brief return whether this edge is a normal edge
+    inline bool isNormal() const {
+        return myFunction == SumoXMLEdgeFunc::NORMAL;
     }
 
     /// @brief return whether this edge is an internal edge
@@ -461,7 +466,7 @@ public:
             const SUMOVTypeParameter* const type = veh->getType();
             const double vMax = MIN2(type->maxSpeed, edge->mySpeed);
             const double accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
-            ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time)); // @todo: give correct slope
+            ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time), nullptr); // @todo: give correct slope
         }
         return ret;
     }
@@ -484,13 +489,12 @@ public:
     /** @brief Returns all ROEdges */
     static const ROEdgeVector& getAllEdges();
 
-    /// @brief Returns the number of edges
-    static int dictSize() {
-        return (int)myEdges.size();
-    };
-
     static void setGlobalOptions(const bool interpolate) {
         myInterpolate = interpolate;
+    }
+
+    static void disableTimelineWarning() {
+        myHaveTTWarned = true;
     }
 
     /// @brief return the coordinates of the center of the given stop

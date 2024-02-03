@@ -25,6 +25,9 @@ emission
 # in SUMO configuration files, it is now possible to add enviromment variables with the syntax ${VAR_NAME} and have it replaced with values from the environment. This test checks the proper behavior
 envVarSubstitution
 
+# test several command line options with and without SUMO_HOME
+xmlValidation
+
 # testing 'extended' sumo features
 extended
 
@@ -45,3 +48,16 @@ meso
 
 # parallelization tests
 parallel
+
+# test insertion capacity for different options and departure attributes
+insertionCapacity
+
+# run a simulation with rerouting and write vehroute-output.
+# Then re-run the simulation with the saved vehroutes as input
+vehroute-roundtrip
+
+# testing option parsing
+options
+
+# testing replay of fcd data
+fcdReplay

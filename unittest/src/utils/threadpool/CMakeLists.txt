@@ -1,6 +1,4 @@
-add_executable(testthreadpool
-        ThreadPoolTest.cpp
-        )
+add_executable(testthreadpool ThreadPoolTest.cpp)
 set_property(TARGET testthreadpool PROPERTY FOLDER "test_exe")
 add_test(testthreadpool ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testthreadpool)
 

@@ -1,0 +1,7 @@
+Error: Attribute 'end' is missing in definition of a interval.
+Error: 'closingReroute' must be defined within the definition of a 'interval' (found '').
+Error: Attribute 'end' in definition of a interval is not a valid time value.
+Error: 'closingReroute' must be defined within the definition of a 'interval' (found '').
+Error: Could not build interval with ID 'rerouter_0' in netedit; begin is greater than end.
+Error: Attempted to retrieve non-existant rerouter interval
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092838.16002/netedit.gui/additionalelements/rerouterelements/interval/load/end/additionals.add.xml failed.

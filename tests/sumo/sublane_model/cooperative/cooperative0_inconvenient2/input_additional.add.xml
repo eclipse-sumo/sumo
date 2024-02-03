@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <vType id="ego" sigma="0" lcKeepRight="0" lcCooperative="0"/>
+   <vType id="neigh" sigma="0" lcKeepRight="0"/>
+   <vType id="slow" sigma="0" lcKeepRight="0" lcSpeedGain="0"/>
+
+   <variableSpeedSign id="vs_0" lanes="beg_2" pos="1.46,7.92">
+       <step time="0.00" speed="8.33"/>
+   </variableSpeedSign>
+
+   <flow id="slow" begin="0" period="10" end="100" departSpeed="max" departLane="2" arrivalLane="2" type="slow" departPos="200">
+       <route edges="beg"/>
+   </flow>
+</additional>

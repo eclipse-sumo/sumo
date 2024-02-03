@@ -5,8 +5,11 @@ priority
 constraints
 insertionConstraints
 
-# switch from block signaling to moving block
+# switch from block signaling to moving block by inserting a traffic light node
 end_block_mode
+
+# tests for moving block operation
+moving_block
 
 # a forking rail line without a signal at the fork. a warning should appear
 fork_without_signal
@@ -95,3 +98,12 @@ stopped_link_conflict
 
 # a stopped train on parallel track should not block a train without stop from entering the subsequent section
 stopped_link_conflict2
+
+# approach to conflict link must be guaranteed within some limits (regardless of brakeGap or number of intermediate junctions)
+conflict_lookahead
+
+# expose crash from loading order of files via #13412
+route_as_additional
+
+# insertion checks do not prevent deadlock (related to case2 of #12085)
+deadlock_insertion

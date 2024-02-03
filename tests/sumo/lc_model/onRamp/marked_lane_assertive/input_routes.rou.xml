@@ -1,7 +1,0 @@
-<routes>
-    <vType id="t0" speedDev="0.1" lcAssertive="1.5"/>
-    <route id="main" edges="beg2 merge end" color="blue"/>
-    <route id="onRamp" edges="onRamp merge end" color="red"/>
-    <flow id="main"   type="t0" begin="0" end="1000" route="main"   departSpeed="max" departPos="-200" departLane="free" probability="0.7"/>
-    <flow id="onRamp" type="t0" begin="0" end="1000" route="onRamp" departSpeed="max" probability="0.2"/>
-</routes>

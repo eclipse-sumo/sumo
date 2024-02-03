@@ -1,0 +1,14 @@
+<routes>
+    <vType id="t0" sigma="0" speedDev="0.1"/>
+
+    <flow id="foe" type="t0" begin="0" end="45" period="2" departPos="10" departSpeed="max" arrivalPos="50">
+        <route edges="WC CE"/>
+        <param key="has.tripinfo.device" value="false"/>
+    </flow>
+    <person id="ego" depart="7" departPos="-10" arrivalPos="10">
+        <walk edges="SC CN"/>
+    </person>
+    <person id="ego2" depart="9" departPos="10" arrivalPos="-10">
+        <walk edges="CN SC"/>
+    </person>
+</routes>

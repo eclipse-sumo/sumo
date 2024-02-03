@@ -1,0 +1,11 @@
+ Retrying in 1 seconds
+t=1.0 laneIndex=0 state(1)=([], [])
+t=2.0 laneIndex=0 state(1)=([], ['stay', 'TraCI'])
+t=3.0 laneIndex=0 state(1)=([], ['stay', 'TraCI'])
+t=4.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=5.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=6.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=7.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=8.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=9.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])
+t=10.0 laneIndex=0 state(1)=(['left', 'strategic', 'urgent'], ['stay', 'strategic', 'TraCI'])

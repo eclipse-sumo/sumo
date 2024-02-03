@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,14 +38,17 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 
 /// @brief constructor for creating an edge
-GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
-    GNEChange(forward, false),
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID) :
+    GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),
     myTlDef(tlDef),
     myForceInsert(forceInsert) {
     myJunction->incRef("GNEChange_TLS");
     if (myTlDef == nullptr) {
-        assert(forward);
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
         if (myJunction->getNBNode()->isTLControlled()) {
@@ -54,6 +57,38 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
         }
         myTlDef = new NBOwnTLDef(tlID == "" ? myJunction->getMicrosimID() : tlID, 0, type);
     }
+}
+
+
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
+                             bool forceInsert, const std::string tlID) :
+    GNEChange(Supermode::NETWORK, forward, false),
+    myJunction(junction),
+    myTlDef(tlDef),
+    myForceInsert(forceInsert) {
+    myJunction->incRef("GNEChange_TLS");
+    if (myTlDef == nullptr) {
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
+        if (myJunction->getNBNode()->isTLControlled()) {
+            // copy existing type
+            type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();
+        }
+        myTlDef = new NBOwnTLDef(tlID == "" ? myJunction->getMicrosimID() : tlID, 0, type);
+    }
+}
+
+
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string& newID) :
+    GNEChange(Supermode::NETWORK, true, false),
+    myJunction(junction),
+    myTlDef(tlDef),
+    myForceInsert(false),
+    myOldID(tlDef->getID()),
+    myNewID(newID) {
+    myJunction->incRef("GNEChange_TLS");
 }
 
 
@@ -70,54 +105,82 @@ GNEChange_TLS::~GNEChange_TLS() {
 void
 GNEChange_TLS::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // remove traffic light from junction
-        myJunction->removeTrafficLight(myTlDef);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // remove traffic light from junction
+            myJunction->removeTrafficLight(myTlDef);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
+            // set old ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
+        }
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // add traffic light to junction
-        myJunction->addTrafficLight(myTlDef, myForceInsert);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // add traffic light to junction
+            myJunction->addTrafficLight(myTlDef, myForceInsert);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
+            // set new ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
+        }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
 void
 GNEChange_TLS::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // add traffic light to junction
-        myJunction->addTrafficLight(myTlDef, myForceInsert);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // add traffic light to junction
+            myJunction->addTrafficLight(myTlDef, myForceInsert);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
+            // set new ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
+        }
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // remove traffic light from junction
-        myJunction->removeTrafficLight(myTlDef);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // remove traffic light from junction
+            myJunction->removeTrafficLight(myTlDef);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
+            // set old ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
+        }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
-FXString
+std::string
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return (TL("Undo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return (TL("Undo delete TLS '") + myJunction->getID() + "'");
     }
 }
 
 
-FXString
+std::string
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return (TL("Redo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT)).c_str();
+        return (TL("Redo delete TLS '") + myJunction->getID() + "'");
     }
 }

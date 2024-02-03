@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-29 06:38:35 by Eclipse SUMO sumo Version v1_14_1+0609-b824a61
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="60539"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="0" depart="0.00" departLane="WC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="CE_0" arrivalPos="91.95" arrivalSpeed="14.72" duration="54.00" routeLength="194.90" waitingTime="34.00" waitingCount="1" stopTime="0.00" timeLoss="40.52" rerouteNo="0" devices="tripinfo_0 routing_0" vType="car" speedFactor="1.06" vaporized=""/>
+    <personinfo id="p1" depart="0.00" type="ped" speedFactor="0.94">
+        <walk depart="0.00" departPos="0.00" arrival="117.00" arrivalPos="45.98" duration="117.00" routeLength="137.93" timeLoss="11.16" maxSpeed="1.30"/>
+    </personinfo>
+</tripinfos>

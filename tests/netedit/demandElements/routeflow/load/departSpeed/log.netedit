@@ -1,6 +1,0 @@
-Error: Invalid departSpeed definition for flow 'flow_0';
- must be one of ("random", "max", or a float>=0)
-Error: Invalid departSpeed definition for flow 'flow_1';
- must be one of ("random", "max", or a float>=0)
-Error: Invalid departSpeed used in flowRoute 'flow_3'. 500.00 is greater than vTypemaxSpeed
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Aug102157.12256\netedit.gui\demandElements\routeflow\load\departSpeed\input_routes.rou.xml failed.

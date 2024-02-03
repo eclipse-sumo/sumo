@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:25 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:51 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -64,10 +64,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ3_4_0" index="0" speed="13.89" length="14.40" shape="12.80,-1.60 27.20,-1.60"/>
     </edge>
     <edge id=":gneJ3_5" function="internal">
-        <lane id=":gneJ3_5_0" index="0" speed="13.89" length="5.93" shape="12.80,-1.60 16.65,-1.05 18.40,-0.00"/>
+        <lane id=":gneJ3_5_0" index="0" speed="13.89" length="4.07" shape="12.80,-1.60 16.65,-1.05 16.80,-0.96"/>
     </edge>
     <edge id=":gneJ3_6" function="internal">
-        <lane id=":gneJ3_6_0" index="0" speed="13.89" length="8.26" shape="18.40,-0.00 19.40,0.60 21.05,3.35 21.60,7.20"/>
+        <lane id=":gneJ3_6_0" index="0" speed="13.89" length="10.13" shape="16.80,-0.96 19.40,0.60 21.05,3.35 21.60,7.20"/>
     </edge>
 
     <edge id="gneE1" from="gneJ2" to="gneJ3" priority="1">
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ4" type="dead_end" x="40.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="40.00,0.00 40.00,-3.20 40.00,0.00"/>
     <junction id="gneJ5" type="dead_end" x="20.00" y="20.00" incLanes="gneE5_0" intLanes="" shape="20.00,20.00 23.20,20.00 20.00,20.00"/>
 
-    <junction id=":gneJ3_6_0" type="internal" x="18.40" y="-0.00" incLanes=":gneJ3_5_0 gneE4_0" intLanes=":gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0"/>
+    <junction id=":gneJ3_6_0" type="internal" x="16.80" y="-0.96" incLanes=":gneJ3_5_0 gneE4_0" intLanes=":gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0"/>
 
     <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" via=":gneJ3_4_0" tl="gneJ3" linkIndex="2" dir="s" state="O"/>
     <connection from="gneE1" to="gneE5" fromLane="0" toLane="0" via=":gneJ3_5_0" tl="gneJ3" linkIndex="5" dir="l" state="o"/>

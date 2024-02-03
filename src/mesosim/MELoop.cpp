@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         if (onSegment != nullptr) {
             onSegment->send(veh, toSegment, qIdx, leaveTime, reason);
         } else {
-            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.",
+            WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."),
                            veh->getID(), veh->getEdge()->getID(), time2string(leaveTime));
         }
         veh->setSegment(toSegment); // signal arrival
@@ -96,10 +96,17 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
     if (entry == leaveTime && (ignoreLink || veh->mayProceed())) {
         if (onSegment != nullptr) {
-            onSegment->send(veh, toSegment, qIdx, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
+            if (veh->getQueIndex() == MESegment::PARKING_QUEUE) { // parking or just aborted parking
+                if (veh->isParking()) {
+                    veh->processStop();
+                }
+                veh->getEdge()->getLanes()[0]->removeParking(veh);  // TODO for GUI only
+            } else {
+                onSegment->send(veh, toSegment, qIdx, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
+            }
             toSegment->receive(veh, qIdx, leaveTime, false, ignoreLink, &onSegment->getEdge() != &toSegment->getEdge());
         } else {
-            WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%':%, time %.",
+            WRITE_WARNINGF(TL("Vehicle '%' ends teleporting on edge '%':%, time=%."),
                            veh->getID(), toSegment->getEdge().getID(), toSegment->getIndex(), time2string(leaveTime));
             // this is not quite correct but suffices for interrogation by
             // subsequent methods (veh->getSpeed() needs segment != 0)
@@ -122,7 +129,7 @@ void
 MELoop::checkCar(MEVehicle* veh) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
-    MESegment* const toSegment = nextSegment(onSegment, veh);
+    MESegment* const toSegment = veh->getQueIndex() == MESegment::PARKING_QUEUE ? onSegment : nextSegment(onSegment, veh);
     const bool teleporting = (onSegment == nullptr); // is the vehicle currently teleporting?
     // @note reason is only evaluated if toSegment == nullptr
     const SUMOTime nextEntry = changeSegment(veh, leaveTime, toSegment, MSMoveReminder::NOTIFICATION_ARRIVED, teleporting);
@@ -133,15 +140,15 @@ MELoop::checkCar(MEVehicle* veh) {
         teleportVehicle(veh, toSegment);
         return;
     }
-    if (veh->getBlockTime() == SUMOTime_MAX) {
+    if (veh->getBlockTime() == SUMOTime_MAX && !veh->isStopped()) {
         veh->setBlockTime(leaveTime);
     }
     if (nextEntry == SUMOTime_MAX) {
         // all usable queues on the next segment are full
         SUMOTime newEventTime = MAX3(toSegment->getEventTime() + 1, leaveTime + 1, leaveTime + myFullRecheckInterval);
         if (MSGlobals::gTimeToGridlock > 0) {
-            // if teleporting is enabled, make sure we look at the vehicle when the the gridlock-time is up
-            newEventTime = MIN2(newEventTime, veh->getBlockTime() + MSGlobals::gTimeToGridlock + 1);
+            // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
+            newEventTime = MAX2(MIN2(newEventTime, veh->getBlockTime() + MSGlobals::gTimeToGridlock + 1), leaveTime + DELTA_T);
         }
         veh->setEventTime(newEventTime);
     } else {
@@ -156,6 +163,17 @@ void
 MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
+    if (MSGlobals::gRemoveGridlocked) {
+        WRITE_WARNINGF(TL("Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."),
+                       veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(),
+                       time2string(leaveTime));
+        MSNet::getInstance()->getVehicleControl().registerTeleportJam();
+        int qIdx = 0;
+        onSegment->send(veh, nullptr, qIdx, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+        veh->setSegment(nullptr);
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+        return;
+    }
     const bool teleporting = (onSegment == nullptr); // is the vehicle already teleporting?
     // try to find a place on the current edge
     MESegment* teleSegment = toSegment->getNextSegment();
@@ -166,7 +184,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
     if (teleSegment != nullptr) {
         if (!teleporting) {
             // we managed to teleport in a single jump
-            WRITE_WARNINGF("Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, time %.",
+            WRITE_WARNINGF(TL("Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, time=%."),
                            veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(),
                            teleSegment->getEdge().getID(), teleSegment->getIndex(), time2string(leaveTime));
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
@@ -176,7 +194,7 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
         if (!teleporting) {
             int qIdx = 0;
             // announce start of multi-step teleport, arrival will be announced in changeSegment()
-            WRITE_WARNINGF("Teleporting vehicle '%'; waited too long, from edge '%':%, time %.",
+            WRITE_WARNINGF(TL("Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."),
                            veh->getID(), onSegment->getEdge().getID(), onSegment->getIndex(), time2string(leaveTime));
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
@@ -213,26 +231,29 @@ MELoop::clearState() {
     myLeaderCars.clear();
 }
 
-void
+
+bool
 MELoop::removeLeaderCar(MEVehicle* v) {
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
+    const auto candIt = myLeaderCars.find(v->getEventTime());
+    if (candIt != myLeaderCars.end()) {
+        std::vector<MEVehicle*>& cands = candIt->second;
+        auto it = find(cands.begin(), cands.end(), v);
+        if (it != cands.end()) {
+            cands.erase(it);
+            return true;
+        }
     }
+    return false;
 }
+
 
 void
 MELoop::vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason) {
     int qIdx = 0;
     v->getSegment()->send(v, nullptr, qIdx, MSNet::getInstance()->getCurrentTimeStep(), reason);
-    // try removeLeaderCar
-    std::vector<MEVehicle*>& cands = myLeaderCars[v->getEventTime()];
-    auto it = find(cands.begin(), cands.end(), v);
-    if (it != cands.end()) {
-        cands.erase(it);
-    }
+    removeLeaderCar(v);
 }
+
 
 MESegment*
 MELoop::nextSegment(MESegment* s, MEVehicle* v) {
@@ -266,7 +287,7 @@ MELoop::numSegmentsFor(const double length, const double sLength) {
 
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
-    const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
+    const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
     const double length = e.getLength();
     const int numSegments = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
     const double slength = length / (double)numSegments;
@@ -288,12 +309,12 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
 
 
 void
-MELoop::updateSegementsForEdge(const MSEdge& e) {
+MELoop::updateSegmentsForEdge(const MSEdge& e) {
     if (e.getNumericalID() < (int)myEdges2FirstSegments.size()) {
-        const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
+        const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
         MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
         while (s != nullptr) {
-            s->initSegment(edgeType, e);
+            s->initSegment(edgeType, e, s->getCapacity());
             s = s->getNextSegment();
         }
     }

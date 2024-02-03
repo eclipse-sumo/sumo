@@ -1,0 +1,3 @@
+Error: Attribute 'lineWidth' in definition of poly 'poly_1' Invalid Number Format (double) dummyLineWidth.
+Error: Could not build poly with ID 'poly_2' in netedit; Attribute lineWidth cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.22May115309.2092/netedit.daily.shape/shapeelements/poly/load/linewidth/additionals.add.xml failed.

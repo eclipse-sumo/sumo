@@ -1,0 +1,11 @@
+Error: Lanes 'center1_0' and 'E5_1' are not consecutive in definition of e2Detector 'e2_0'
+Error: Lanes 'E4_1' and 'center0_0' are not consecutive in definition of e2Detector 'e2_1'
+Error: Lanes 'top_0' and 'E0_1' are not consecutive in definition of e2Detector 'e2_2'
+Error: Lanes 'center1_1' and 'center0_1' are not consecutive in definition of e2Detector 'e2_3'
+Error: Lanes 'E1_1' and 'bot_0' are not consecutive in definition of e2Detector 'e2_4'
+Error: Lanes 'bot_0' and 'E4_1' are not consecutive in definition of e2Detector 'e2_5'
+Error: Lanes 'E5_1' and 'top_0' are not consecutive in definition of e2Detector 'e2_6'
+Error: Lanes 'E0_1' and 'center1_0' are not consecutive in definition of e2Detector 'e2_7'
+Error: Lanes 'center0_0' and 'E1_1' are not consecutive in definition of e2Detector 'e2_8'
+Error: Lanes 'center0_1' and 'center1_1' are not consecutive in definition of e2Detector 'e2_9'
+Quitting (on error).

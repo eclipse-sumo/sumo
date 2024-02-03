@@ -109,7 +109,7 @@ Using python tools, conversion of .net.xml files into further formats is support
   information or filter stops when reducing the network size.
 - [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction): Automatically updated when reducing network extent.
-- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Import/OpenDRIVE.md))
+- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#embedding_road_objects))
 - [Elevation Data files](Networks/Elevation.md#including_elevation_data_in_a_network)
 
 ## Export
@@ -130,6 +130,8 @@ The following list ouf output is explained in more detail at
   road-side parking can be imported from OSM)
 - Railway topology output: A file for analyzing the topology of
   railway networks in regard to bi-directional track usage
+- [OpenDrive road objects](Networks/Further_Outputs.md#opendrive_road_objects)
+- [VISUM districts](Networks/Further_Outputs.md#visum-districts)
 
 # Options
 
@@ -148,6 +150,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -187,13 +190,15 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
-| **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
+| **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
 | **--dlr-navteq.precision** {{DT_INT}} | The network coordinates are written with the specified level of output precision; *default:* **2** |
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
@@ -205,6 +210,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
 | **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.lefthand-left** {{DT_BOOL}} | Write lanes in lefthand networks on the left side (positive indices); *default:* **false** |
+| **--opendrive-output.shape-match-dist** {{DT_FLOAT}} | Match loaded shapes to the closest edge within FLOAT and export as road objects; *default:* **-1** |
 
 ### Projection
 
@@ -224,7 +231,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
-| **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h (some); *default:* **false** |
+| **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h; *default:* **false** |
 | **--construction-date** {{DT_STR}} | Use YYYY-MM-DD date to determine the readiness of features under construction |
 | **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
 | **--plain.extend-edge-shape** {{DT_BOOL}} | If edge shapes do not end at the node positions, extend them; *default:* **false** |
@@ -235,11 +242,12 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--dismiss-vclasses** {{DT_BOOL}} | Removes vehicle class restrictions from imported edges; *default:* **false** |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
-| **--geometry.remove.keep-edges.explicit** {{DT_STR[]}} | Ensure that the given list of edges is not modified |
+| **--geometry.remove.keep-edges.explicit** {{DT_STR_LIST}} | Ensure that the given list of edges is not modified |
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.keep-ptstops** {{DT_BOOL}} | Ensure that edges with public transport stops are not modified; *default:* **false** |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
 | **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
+| **--geometry.remove.max-junction-size** {{DT_FLOAT}} | Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints; *default:* **-1** |
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.min-dist** {{DT_FLOAT}} | reduces too similar geometry points; *default:* **-1** |
 | **--geometry.max-angle** {{DT_FLOAT}} | Warn about edge geometries with an angle above DEGREES in successive segments; *default:* **99** |
@@ -254,7 +262,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ptline.match-dist** {{DT_FLOAT}} | Matches stops outside the road network to the referencing pt line when below the given distance; *default:* **100** |
 | **--ptstop-output.no-bidi** {{DT_BOOL}} | Skips automatic generation of stops on the bidi-edge of a loaded stop; *default:* **false** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
-| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
+| **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge geometries with a grade above the warning threshold.; *default:* **true** |
 | **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default:* **false** |
 | **--offset.x** {{DT_FLOAT}} | Adds FLOAT to net x-positions; *default:* **0** |
 | **--offset.y** {{DT_FLOAT}} | Adds FLOAT to net y-positions; *default:* **0** |
@@ -263,8 +271,9 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
 | **--roundabouts.visibility-distance** {{DT_FLOAT}} | Default visibility when approaching a roundabout; *default:* **9** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
-| **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **false** |
+| **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
 | **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
+| **--fringe.guess.speed-threshold** {{DT_FLOAT}} | Guess disconnected edges above the given speed as outer fringe; *default:* **13.8889** |
 | **--lefthand** {{DT_BOOL}} | Assumes left-hand traffic on the network; *default:* **false** |
 | **--edges.join** {{DT_BOOL}} | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default:* **false** |
 | **--speed.offset** {{DT_FLOAT}} | Modifies all edge speeds by adding FLOAT; *default:* **0** |
@@ -280,11 +289,14 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.lanewidth** {{DT_FLOAT}} | The default width of lanes; *default:* **-1** |
 | **--default.spreadtype** {{DT_STR}} | The default method for computing lane shapes from edge shapes; *default:* **right** |
 | **-S** {{DT_FLOAT}}<br> **--default.speed** {{DT_FLOAT}} | The default speed on an edge (in m/s); *default:* **13.89** |
+| **--default.friction** {{DT_FLOAT}} | The default friction on an edge; *default:* **1** |
 | **-P** {{DT_INT}}<br> **--default.priority** {{DT_INT}} | The default priority of an edge; *default:* **-1** |
 | **--default.type** {{DT_STR}} | The default edge type |
 | **--default.sidewalk-width** {{DT_FLOAT}} | The default width of added sidewalks; *default:* **2** |
 | **--default.bikelane-width** {{DT_FLOAT}} | The default width of added bike lanes; *default:* **1** |
 | **--default.crossing-width** {{DT_FLOAT}} | The default width of a pedestrian crossing; *default:* **4** |
+| **--default.crossing-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian crossing (in m/s); *default:* **2.78** |
+| **--default.walkingarea-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian walkingarea (in m/s); *default:* **2.78** |
 | **--default.allow** {{DT_STR}} | The default for allowed vehicle classes |
 | **--default.disallow** {{DT_STR}} | The default for disallowed vehicle classes |
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
@@ -296,20 +308,22 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
-| **--tls.discard-loaded** {{DT_BOOL}} | Does not instatiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
-| **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
-| **--tls.set** {{DT_STR[]}} | Interprets STR[] as list of junctions to be controlled by TLS |
-| **--tls.unset** {{DT_STR[]}} | Interprets STR[] as list of junctions to be not controlled by TLS |
+| **--tls.discard-loaded** {{DT_BOOL}} | Does not instantiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
+| **--tls.set** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be controlled by TLS |
+| **--tls.unset** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
 | **--tls.guess.threshold** {{DT_FLOAT}} | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default:* **69.4444** |
 | **--tls.taz-nodes** {{DT_BOOL}} | Sets district nodes as tls-controlled; *default:* **false** |
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |
 | **--tls.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining traffic lights (defaults to 20); *default:* **20** |
+| **--tls.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of tls ids to exclude from joining |
 | **--tls.uncontrolled-within** {{DT_BOOL}} | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default:* **false** |
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.guess-signals** {{DT_BOOL}} | Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks; *default:* **false** |
 | **--tls.guess-signals.dist** {{DT_FLOAT}} | Distance for interpreting nodes as signal locations; *default:* **25** |
+| **--tls.guess-signals.slack** {{DT_INT}} | Number of uncontrolled entry edges to accept and still consider the central node as a traffic light; *default:* **0** |
 | **--tls.cycle.time** {{DT_INT}} | Use INT as cycle duration; *default:* **90** |
 | **--tls.green.time** {{DT_INT}} | Use INT as green phase duration; *default:* **31** |
 | **-D** {{DT_FLOAT}}<br> **--tls.yellow.min-decel** {{DT_FLOAT}} | Defines smallest vehicle deceleration; *default:* **3** |
@@ -319,11 +333,14 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.allred.time** {{DT_INT}} | Set INT as fixed time for intermediate red phase after every switch; *default:* **0** |
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
+| **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
+| **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
 | **--tls.scramble.time** {{DT_INT}} | Use INT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |
-| **--tls.half-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by half-phase |
-| **--tls.quarter-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by quarter-phase |
+| **--tls.half-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by half-phase |
+| **--tls.quarter-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by quarter-phase |
 | **--tls.default-type** {{DT_STR}} | TLSs with unspecified type will use STR as their algorithm; *default:* **static** |
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
 | **--tls.no-mixed** {{DT_BOOL}} | Avoid phases with green and red signals for different connections from the same lane; *default:* **false** |
@@ -331,6 +348,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
+| **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
 
 ### Ramp Guessing
 
@@ -342,8 +360,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ramps.min-highway-speed** {{DT_FLOAT}} | Treat edges with speed < FLOAT as no highways; *default:* **21.9444** |
 | **--ramps.ramp-length** {{DT_FLOAT}} | Use FLOAT as ramp-length; *default:* **100** |
 | **--ramps.min-weave-length** {{DT_FLOAT}} | Use FLOAT as minimum ramp-length; *default:* **50** |
-| **--ramps.set** {{DT_STR[]}} | Tries to handle the given edges as ramps |
-| **--ramps.unset** {{DT_STR[]}} | Do not consider the given edges as ramps |
+| **--ramps.set** {{DT_STR_LIST}} | Tries to handle the given edges as ramps |
+| **--ramps.unset** {{DT_STR_LIST}} | Do not consider the given edges as ramps |
 | **--ramps.no-split** {{DT_BOOL}} | Avoids edge splitting; *default:* **false** |
 
 ### Edge Removal
@@ -351,18 +369,18 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **--keep-edges.min-speed** {{DT_FLOAT}} | Only keep edges with speed in meters/second > FLOAT; *default:* **-1** |
-| **--remove-edges.explicit** {{DT_STR[]}} | Remove edges in STR[] |
-| **--keep-edges.explicit** {{DT_STR[]}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.explicit** {{DT_STR_LIST}} | Remove edges in STR[] |
+| **--keep-edges.explicit** {{DT_STR_LIST}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
 | **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.postload** {{DT_BOOL}} | Remove edges after joining; *default:* **false** |
-| **--keep-edges.in-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
-| **--keep-edges.in-geo-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
-| **--keep-edges.by-vclass** {{DT_STR[]}} | Only keep edges which allow one of the vclasses in STR[] |
-| **--remove-edges.by-vclass** {{DT_STR[]}} | Remove edges which allow only vclasses from STR[] |
-| **--keep-edges.by-type** {{DT_STR[]}} | Only keep edges where type is in STR[] |
+| **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
+| **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-edges.by-vclass** {{DT_STR_LIST}} | Only keep edges which allow one of the vclasses in STR[] |
+| **--remove-edges.by-vclass** {{DT_STR_LIST}} | Remove edges which allow only vclasses from STR[] |
+| **--keep-edges.by-type** {{DT_STR_LIST}} | Only keep edges where type is in STR[] |
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
-| **--remove-edges.by-type** {{DT_STR[]}} | Remove edges where type is in STR[] |
+| **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
 
 ### Unregulated Nodes
@@ -370,7 +388,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **--keep-nodes-unregulated** {{DT_BOOL}} | All nodes will be unregulated; *default:* **false** |
-| **--keep-nodes-unregulated.explicit** {{DT_STR[]}} | Do not regulate nodes in STR[] |
+| **--keep-nodes-unregulated.explicit** {{DT_STR_LIST}} | Do not regulate nodes in STR[] |
 | **--keep-nodes-unregulated.district-nodes** {{DT_BOOL}} | Do not regulate district nodes; *default:* **false** |
 
 ### Junctions
@@ -378,6 +396,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **--junctions.right-before-left.speed-threshold** {{DT_FLOAT}} | Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s); *default:* **13.6111** |
+| **--junctions.left-before-right** {{DT_BOOL}} | Build left-before-right junctions instead of right-before-left junctions; *default:* **false** |
 | **--no-internal-links** {{DT_BOOL}} | Omits internal links; *default:* **false** |
 | **--no-turnarounds** {{DT_BOOL}} | Disables building turnarounds; *default:* **false** |
 | **--no-turnarounds.tls** {{DT_BOOL}} | Disables building turnarounds at tls-controlled junctions; *default:* **false** |
@@ -388,19 +407,22 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--no-left-connections** {{DT_BOOL}} | Disables building connections to left; *default:* **false** |
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
-| **--junctions.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of junctions to exclude from joining |
+| **--junctions.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to exclude from joining |
 | **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
+| **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
 | **--junctions.join-turns** {{DT_BOOL}} | Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning; *default:* **false** |
-| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2); *default:* **5.5** |
+| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2); *default:* **5.5** |
 | **--junctions.limit-turn-speed.min-angle** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.; *default:* **15** |
 | **--junctions.limit-turn-speed.min-angle.railway** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.; *default:* **35** |
 | **--junctions.limit-turn-speed.warn.straight** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT; *default:* **5** |
 | **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default:* **22** |
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
+| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
+| **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |
 | **--check-lane-foes.all** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (everywhere); *default:* **false** |
@@ -413,7 +435,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--sidewalks.guess.max-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed equal or below the given limit; *default:* **13.89** |
 | **--sidewalks.guess.min-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed above the given limit; *default:* **5.8** |
 | **--sidewalks.guess.from-permissions** {{DT_BOOL}} | Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed; *default:* **false** |
-| **--sidewalks.guess.exclude** {{DT_STR[]}} | Do not guess sidewalks for the given list of edges |
+| **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
@@ -427,7 +449,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--bikelanes.guess.max-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed equal or below the given limit; *default:* **22.22** |
 | **--bikelanes.guess.min-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed above the given limit; *default:* **5.8** |
 | **--bikelanes.guess.from-permissions** {{DT_BOOL}} | Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed; *default:* **false** |
-| **--bikelanes.guess.exclude** {{DT_STR[]}} | Do not guess bikelanes for the given list of edges |
+| **--bikelanes.guess.exclude** {{DT_STR_LIST}} | Do not guess bikelanes for the given list of edges |
 
 ### Railway
 
@@ -436,33 +458,41 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.signals.discard** {{DT_BOOL}} | Discard all railway signal information loaded from other formats than plain-xml; *default:* **false** |
 | **--railway.topology.repair** {{DT_BOOL}} | Repair topology of the railway network; *default:* **false** |
 | **--railway.topology.repair.minimal** {{DT_BOOL}} | Repair topology of the railway network just enough to let loaded public transport lines to work; *default:* **false** |
-| **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
+| **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
 | **--railway.topology.repair.stop-turn** {{DT_BOOL}} | Add turn-around connections at all loaded stops.; *default:* **false** |
+| **--railway.topology.repair.bidi-penalty** {{DT_FLOAT}} | Penalty factor for adding new bidi edges to connect public transport stops; *default:* **1.2** |
 | **--railway.topology.all-bidi** {{DT_BOOL}} | Make all rails usable in both direction; *default:* **false** |
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
 | **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
+| **--railway.topology.extend-priority** {{DT_BOOL}} | Extend loaded edge priority values based on estimated main direction; *default:* **false** |
+| **--railway.signal.guess.by-stops** {{DT_BOOL}} | Guess signals that guard public transport stops; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
-| **--railway.max-accesses** {{DT_INT}} | The maximum roud accesses registered per rail stops; *default:* **5** |
+| **--railway.max-accesses** {{DT_INT}} | The maximum road accesses registered per rail stops; *default:* **5** |
 | **--railway.access-factor** {{DT_FLOAT}} | The walking length of the access is computed as air-line distance multiplied by FLOAT; *default:* **1.5** |
 
 ### Formats
 
 | Option | Description |
 |--------|-------------|
-| **--discard-params** {{DT_STR[]}} | Remove the list of keys from all params |
-| **--ignore-change-restrictions** {{DT_STR[]}} | List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions); *default:* **authority** |
+| **--discard-params** {{DT_STR_LIST}} | Remove the list of keys from all params |
+| **--ignore-change-restrictions** {{DT_STR_LIST}} | List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions); *default:* **authority** |
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
-| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
+| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
+| **--osm.bike-access** {{DT_BOOL}} | Import bike lanes and fix directions and permissions on bike paths; *default:* **false** |
+| **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |
+| **--osm.crossings** {{DT_BOOL}} | Import crossings; *default:* **false** |
+| **--osm.turn-lanes** {{DT_BOOL}} | Import turning arrows from OSM to help with connection building; *default:* **false** |
 | **--osm.stop-output.length** {{DT_FLOAT}} | The default length of a public transport stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |
 | **--osm.stop-output.length.tram** {{DT_FLOAT}} | The default length of a tram stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.train** {{DT_FLOAT}} | The default length of a train stop in FLOAT m; *default:* **200** |
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
-| **--osm.extra-attributes** {{DT_STR[]}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **bridge,tunnel,layer,postal_code** |
+| **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
+| **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
 | **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSIM-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
@@ -471,9 +501,11 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--shapefile.type-id** {{DT_STR}} | Read type ids from column STR |
 | **--shapefile.laneNumber** {{DT_STR}} | Read lane number from column STR |
 | **--shapefile.speed** {{DT_STR}} | Read speed from column STR |
+| **--shapefile.length** {{DT_STR}} | Read custom edge length from column STR |
+| **--shapefile.width** {{DT_STR}} | Read total edge width from column STR |
 | **--shapefile.name** {{DT_STR}} | Read (non-unique) name from column STR |
 | **--shapefile.node-join-dist** {{DT_FLOAT}} | Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available); *default:* **0** |
-| **--shapefile.add-params** {{DT_STR[]}} | Add the list of field names as edge params |
+| **--shapefile.add-params** {{DT_STR_LIST}} | Add the list of field names as edge params |
 | **--shapefile.use-defaults-on-failure** {{DT_BOOL}} | Uses edge type defaults on problems; *default:* **false** |
 | **--shapefile.all-bidirectional** {{DT_BOOL}} | Insert edges in both directions; *default:* **false** |
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guess the proper projection; *default:* **false** |
@@ -500,6 +532,10 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--opendrive.advance-stopline** {{DT_FLOAT}} | Allow stop lines to be built beyond the start of the junction if the geometries allow so; *default:* **0** |
 | **--opendrive.min-width** {{DT_FLOAT}} | The minimum lane width for determining start or end of variable-width lanes; *default:* **1.8** |
 | **--opendrive.internal-shapes** {{DT_BOOL}} | Import internal lane shapes; *default:* **false** |
+| **--opendrive.position-ids** {{DT_BOOL}} | Sets edge-id based on road-id and offset in m (legacy); *default:* **false** |
+| **--opendrive.lane-shapes** {{DT_BOOL}} | Use custom lane shapes to compensate discarded lane types; *default:* **false** |
+| **--opendrive.signal-groups** {{DT_BOOL}} | Use the OpenDRIVE controller information for the generated signal program; *default:* **false** |
+| **--opendrive.ignore-misplaced-signals** {{DT_BOOL}} | Ignore traffic signals which do not control any driving lane; *default:* **false** |
 
 ### Report
 
@@ -509,13 +545,16 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--ignore-errors.connections** {{DT_BOOL}} | Continue on invalid connections; *default:* **false** |
 | **--show-errors.connections-first-try** {{DT_BOOL}} | Show errors in connections at parsing; *default:* **false** |
@@ -565,5 +604,4 @@ may be issued during network building.
 | Warning: For node '...': could not compute shape.                                                         | The shape of the junction area could not be computed                                                                                             | Inspect the mentioned node and maybe [provide a custom node shape](Networks/PlainXML.md#node_descriptions).                                               |
 | Warning: Junction shape for '...' has distance ... to its given position.                                 | The shape and location of the junction area is suspicious.                                                                                       | Inspect the mentioned node and maybe [provide a custom node shape](Networks/PlainXML.md#node_descriptions). Warning may be suppressed by setting option **--geometry.junction-mismatch-threshold**. |
 | Warning: The traffic light '...' does not control any links; it will not be build.                        | The traffic light at the given node sits at a junction without connections or the node was removed altogether.                                   | Inspect the mentioned node if it still exists. Can usually be ignored.                                                                                                                               |
-| Warning: Splitting vector close to end ...                                                                | A geometry computation somewhere deep in the code is suspicious. Often related to computation of internal lanes at intersections with bad shape. | Ignore for lack of sufficient information (or try to narrow down the problem by building smaller sections of the network).                                                                           |
 | Warning: Splitting vector close to end ...                                                                | A geometry computation somewhere deep in the code is suspicious. Often related to computation of internal lanes at intersections with bad shape. | Ignore for lack of sufficient information (or try to narrow down the problem by building smaller sections of the network).                                                                           |

@@ -1,0 +1,4 @@
+<routes>
+    <vType id="type1" vClass="ship"/>
+    <trip id="0" type="type1" depart="0" color="1,0,0" from="SC" to="CN"/>
+</routes>

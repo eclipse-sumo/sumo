@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,9 +24,48 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/Named.h>
 #include "IntermodalTrip.h"
+
+// ===========================================================================
+// function definitions
+// ===========================================================================
+template <class E, class L>
+inline const L* getSidewalk(const E* edge, SUMOVehicleClass svc = SVC_PEDESTRIAN) {
+    if (edge == nullptr) {
+        return nullptr;
+    }
+    // prefer lanes that are exclusive to pedestrians
+    const std::vector<L*>& lanes = edge->getLanes();
+    for (const L* const lane : lanes) {
+        if (lane->getPermissions() == svc) {
+            return lane;
+        }
+    }
+    for (const L* const lane : lanes) {
+        if (lane->allowsVehicleClass(svc)) {
+            return lane;
+        }
+    }
+    if (svc != SVC_PEDESTRIAN) {
+        // persons should always be able to use the sidewalk
+        for (const L* const lane : lanes) {
+            if (lane->getPermissions() == SVC_PEDESTRIAN) {
+                return lane;
+            }
+        }
+        for (const L* const lane : lanes) {
+            if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+                return lane;
+            }
+        }
+    }
+    return nullptr;
+}
+
 
 
 // ===========================================================================
@@ -156,6 +195,7 @@ public:
     }
 
     inline void setLength(const double length) {
+        assert(length >= 0);
         myLength = length;
     }
 

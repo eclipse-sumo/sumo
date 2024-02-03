@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,13 +23,14 @@ of the CityMobil parking lot.
 """
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
 import random
 import subprocess
 import os
 import sys
 from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, STOP_POS, SLOTS_PER_ROW, SLOT_WIDTH
 from constants import SLOT_LENGTH, SLOT_FOOT_LENGTH, CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
-from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY, PORT
+from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -234,7 +235,7 @@ print("""<routes>
     <flow id="c" type="cybercar" begin="50" period="100" number="%s">
         <route edges="cyberin"/>
     </flow>
-</routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses), file=routes)
+</routes>""" % (TOTAL_CAPACITY // CYBER_CAPACITY - numBusses), file=routes)
 routes.close()
 
 stops = open("%s.add.xml" % PREFIX, "w")
@@ -281,9 +282,8 @@ for period in range(5, 50, 5):
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
-        <remote-port value="%s"/>
     </input>
-</configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX, PORT), file=config)
+</configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()
     print("simpleManager.py -d %s" % period, file=bat)
     print("simpleManager.py -b 120 -d %s" % period, file=breakbat)
@@ -296,9 +296,8 @@ for period in range(5, 50, 5):
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
-        <remote-port value="%s"/>
     </input>
-</configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX, PORT), file=config)
+</configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()
     print("agentManager.py -c -d %s" % period, file=bat)
     print("agentManager.py -c -b 120 -d %s" % period, file=breakbat)

@@ -1,0 +1,28 @@
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [290.9669845476892, -88.5383101458865])
+Cannot compute track ordering for edge '142019441#2' because it runs orthogonal to the main line (intersects: [299.4103526938561, -98.89319089626952])
+Cannot compute track ordering for edge '-56693791#0' because it runs orthogonal to the main line (intersects: [514.34838448136, -224.05724693879893])
+Cannot compute track ordering for edge '636850729#2' because it runs orthogonal to the main line (intersects: [-497.10948454799654, -607.6429526739521, -705.6350193276885])
+Cannot compute track ordering for edge '636850730' because it runs orthogonal to the main line (intersects: [-488.1983802506875, -628.5373683323123, -686.5034025774657])
+Optimization failed
+Warning: Found angle of 180.00 degrees at edge '-427588057#0', segment 0.
+Warning: Found sharp turn with radius 0.00 at the start of edge '-427588057#0'.
+Warning: Found sharp turn with radius 8.42 at the start of edge '-56693794'.
+Warning: Found angle of 180.00 degrees at edge '427588057#0', segment 1.
+Warning: Found sharp turn with radius 0.00 at the end of edge '427588057#0'.
+Warning: Found sharp turn with radius 8.42 at the end of edge '56693794'.
+Warning: Found sharp turn with radius 7.38 at the start of edge '852701224'.
+Warning: Shape for junction '709048127' has distance 28.25 to its given position.
+Warning: Edge '-427588055' is not connected to outgoing edges at junction '709048127'.
+Warning: Edge '-427588056' is not connected to outgoing edges at junction '709048127'.
+Warning: Lane '-56693785_0' is not connected from any incoming edge at junction '5055609931'.
+Warning: Lane '-56693786#0_0' is not connected from any incoming edge at junction '709048055'.
+Warning: Lane '-56693787#0_0' is not connected from any incoming edge at junction '5055609931'.
+Warning: Lane '-56693812_0' is not connected from any incoming edge at junction '709048112'.
+Warning: Lane '-56693819_0' is not connected from any incoming edge at junction '709048055'.
+Warning: Speed of turning connection '56693802_0->56693810#3_0' reduced by 40.49 due to turning radius of 2.84 (length=4.82, angle=170.53).
+Warning: Connection '56693786#1_0->56693779#3_0' is only 0.00m short.
+Warning: Connection '56693806#6_0->56693792#2_0' is only 0.10m short.
+Warning: Speed of turning connection '56693783_0->56693806#3_0' reduced by 41.66 due to turning radius of 1.41 (length=1.47, angle=174.00).
+Warning: Speed of turning connection '56693787#2_0->56693779#4_0' reduced by 41.57 due to turning radius of 1.50 (length=1.69, angle=172.83).
+Warning: Connection '852701224_0->636850731#1_0' is only 0.09m short.
+Warning: 8 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

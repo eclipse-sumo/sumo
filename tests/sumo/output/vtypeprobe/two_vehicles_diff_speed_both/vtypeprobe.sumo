@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:05:06 by SUMO Version dev-SVN-r21978
+<!-- generated on 2022-02-24 10:05:39 by Eclipse SUMO sumo Version v1_12_0+0842-114413a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,13 +18,22 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="130"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -29,54 +43,54 @@ SPDX-License-Identifier: EPL-2.0
 
 <vehicle-type-probes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/vtypeprobe_file.xsd">
     <timestep time="0.00" id="test1" vType="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="100.00" x="1497.63" y="401.65" speed="10.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="100.00" x="1497.62" y="401.65" lat="48.836229" lon="11.090806" speed="10.00"/>
     </timestep>
     <timestep time="10.00" id="test1" vType="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="200.00" x="1400.00" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="145.00" x="1453.69" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="200.00" x="1400.00" y="401.65" lat="48.836253" lon="11.089476" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="145.00" x="1453.69" y="401.65" lat="48.836240" lon="11.090208" speed="9.00"/>
     </timestep>
     <timestep time="20.00" id="test1" vType="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="300.00" x="1302.38" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="235.00" x="1365.83" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="300.00" x="1302.38" y="401.65" lat="48.836277" lon="11.088147" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="235.00" x="1365.83" y="401.65" lat="48.836261" lon="11.089011" speed="9.00"/>
     </timestep>
     <timestep time="30.00" id="test1" vType="">
-        <vehicle id="0" lane="4/1to3/1_0" pos="400.00" x="1204.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="4/1to3/1_0" pos="325.00" x="1277.97" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="4/1to3/1_0" pos="400.00" x="1204.75" y="401.65" lat="48.836301" lon="11.086817" speed="10.00"/>
+        <vehicle id="1" lane="4/1to3/1_0" pos="325.00" x="1277.97" y="401.65" lat="48.836283" lon="11.087815" speed="9.00"/>
     </timestep>
     <timestep time="40.00" id="test1" vType="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="100.00" x="1097.63" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="15.00" x="1180.61" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="100.00" x="1097.62" y="401.65" lat="48.836328" lon="11.085359" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="15.00" x="1180.61" y="401.65" lat="48.836307" lon="11.086489" speed="9.00"/>
     </timestep>
     <timestep time="50.00" id="test1" vType="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="200.00" x="1000.00" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="105.00" x="1092.74" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="200.00" x="1000.00" y="401.65" lat="48.836352" lon="11.084029" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="105.00" x="1092.74" y="401.65" lat="48.836329" lon="11.085292" speed="9.00"/>
     </timestep>
     <timestep time="60.00" id="test1" vType="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="300.00" x="902.38" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="195.00" x="1004.88" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="300.00" x="902.38" y="401.65" lat="48.836376" lon="11.082700" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="195.00" x="1004.88" y="401.65" lat="48.836350" lon="11.084096" speed="9.00"/>
     </timestep>
     <timestep time="70.00" id="test1" vType="">
-        <vehicle id="0" lane="3/1to2/1_0" pos="400.00" x="804.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="285.00" x="917.02" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="3/1to2/1_0" pos="400.00" x="804.75" y="401.65" lat="48.836400" lon="11.081370" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="285.00" x="917.02" y="401.65" lat="48.836372" lon="11.082899" speed="9.00"/>
     </timestep>
     <timestep time="80.00" id="test1" vType="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="100.00" x="697.63" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="3/1to2/1_0" pos="375.00" x="829.16" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="100.00" x="697.62" y="401.65" lat="48.836426" lon="11.079911" speed="10.00"/>
+        <vehicle id="1" lane="3/1to2/1_0" pos="375.00" x="829.16" y="401.65" lat="48.836394" lon="11.081703" speed="9.00"/>
     </timestep>
     <timestep time="90.00" id="test1" vType="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="200.00" x="600.00" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="65.00" x="731.79" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="200.00" x="600.00" y="401.65" lat="48.836450" lon="11.078582" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="65.00" x="731.79" y="401.65" lat="48.836418" lon="11.080377" speed="9.00"/>
     </timestep>
     <timestep time="100.00" id="test1" vType="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="300.00" x="502.38" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="155.00" x="643.93" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="300.00" x="502.38" y="401.65" lat="48.836474" lon="11.077252" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="155.00" x="643.93" y="401.65" lat="48.836439" lon="11.079180" speed="9.00"/>
     </timestep>
     <timestep time="110.00" id="test1" vType="">
-        <vehicle id="0" lane="2/1to1/1_0" pos="400.00" x="404.75" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="245.00" x="556.07" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="2/1to1/1_0" pos="400.00" x="404.75" y="401.65" lat="48.836498" lon="11.075923" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="245.00" x="556.07" y="401.65" lat="48.836461" lon="11.077984" speed="9.00"/>
     </timestep>
     <timestep time="120.00" id="test1" vType="">
-        <vehicle id="0" lane="1/1to0/1_0" pos="100.00" x="297.63" y="401.65" speed="10.00"/>
-        <vehicle id="1" lane="2/1to1/1_0" pos="335.00" x="468.21" y="401.65" speed="9.00"/>
+        <vehicle id="0" lane="1/1to0/1_0" pos="100.00" x="297.62" y="401.65" lat="48.836524" lon="11.074464" speed="10.00"/>
+        <vehicle id="1" lane="2/1to1/1_0" pos="335.00" x="468.21" y="401.65" lat="48.836482" lon="11.076787" speed="9.00"/>
     </timestep>
 </vehicle-type-probes>

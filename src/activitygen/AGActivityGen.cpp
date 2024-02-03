@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -43,7 +43,7 @@
 void
 AGActivityGen::importInfoCity() {
     AGActivityGenHandler handler(city, net);
-    PROGRESS_BEGIN_MESSAGE("Reading input");
+    PROGRESS_BEGIN_MESSAGE(TL("Reading input"));
     if (!XMLSubSys::runParser(handler, inputFile)) {
         PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
@@ -51,36 +51,36 @@ AGActivityGen::importInfoCity() {
         PROGRESS_DONE_MESSAGE();
     }
 
-    PROGRESS_BEGIN_MESSAGE("Consolidating statistics");
+    PROGRESS_BEGIN_MESSAGE(TL("Consolidating statistics"));
     city.statData.consolidateStat(); //some maps are still not
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Building street representation");
+    PROGRESS_BEGIN_MESSAGE(TL("Building street representation"));
     city.completeStreets();
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Generating work positions");
+    PROGRESS_BEGIN_MESSAGE(TL("Generating work positions"));
     city.generateWorkPositions();
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Building bus lines");
+    PROGRESS_BEGIN_MESSAGE(TL("Building bus lines"));
     city.completeBusLines();
     PROGRESS_DONE_MESSAGE();
 
 
-    PROGRESS_BEGIN_MESSAGE("Generating population");
+    PROGRESS_BEGIN_MESSAGE(TL("Generating population"));
     city.generatePopulation();
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Allocating schools");
+    PROGRESS_BEGIN_MESSAGE(TL("Allocating schools"));
     city.schoolAllocation();
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Allocating work places");
+    PROGRESS_BEGIN_MESSAGE(TL("Allocating work places"));
     city.workAllocation();
     PROGRESS_DONE_MESSAGE();
 
-    PROGRESS_BEGIN_MESSAGE("Allocating car places");
+    PROGRESS_BEGIN_MESSAGE(TL("Allocating car places"));
     city.carAllocation();
     PROGRESS_DONE_MESSAGE();
 }

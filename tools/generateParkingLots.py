@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -53,9 +53,9 @@ def get_options(args=None):
     optParser.add_option("-c", "--connecting-edge", dest="connEdge",
                          help="define the connecting edge of the parking lot")
     optParser.add_option("-s", "--start-position", dest="start", type="int",
-                         default=0, help="define the begin position of the enterance/exit of the parking lot")
+                         default=0, help="define the begin position of the entrance/exit of the parking lot")
     optParser.add_option("-e", "--end-position", dest="end", type="int",
-                         default=2, help="define the end position of the enterance/exit of the parking lot")
+                         default=2, help="define the end position of the entrance/exit of the parking lot")
     optParser.add_option("-l", "--space-length", dest="length", type="int",
                          default=5, help="define the length of each parking space")
     optParser.add_option("-a", "--space-angle", dest="angle", type="int",
@@ -157,7 +157,7 @@ def main(options):
                     if options.rotation != 0:
                         y += movingY
             else:
-                # No rotation degree is considered.
+                # No rotation degree is considered
                 x += options.xdist
                 y += options.ydist
             i += 1

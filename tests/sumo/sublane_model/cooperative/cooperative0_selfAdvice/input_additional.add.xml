@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <vType id="ego" sigma="0" lcKeepRight="0" lcCooperative="0"/>
+   <vType id="neigh" sigma="0" lcKeepRight="0" lcCooperative="0" speedFactor="0.99"/>
+
+   <rerouter id="closeLane" edges="beg">
+       <interval begin="0" end="3600">
+           <closingLaneReroute id="beg_2" allow="authority"/>
+       </interval>
+   </rerouter>
+</additional>

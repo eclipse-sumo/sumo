@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,17 +23,13 @@ import os
 import subprocess
 import sys
 import shutil
-import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 netconvertBinary = sumolib.checkBinary('netconvert')
-
-PORT = random.randint(8000, 50000)
-DELTA_T = 1
 
 srcRoot = os.path.join(os.path.dirname(sys.argv[0]), "data")
 roots = []
@@ -51,30 +47,26 @@ for root in sorted(roots):
     shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
-    sumoProcess = subprocess.Popen(
-        "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-    traci.init(PORT)
-    step = 0
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
     traci.simulationStep()
-    step += 1
     lanes = traci.vehicle.getBestLanes("0")
     sys.stdout.flush()
-    for l in lanes:
-        print("lane %s:" % (l[0]))
-        print("  length: %s" % (l[1]))
-        print("  offset: %s" % (l[3]))
-        print("  allowsContinuation: %s" % (l[4]))
-        print("  over: %s" % (l[5],))
+    for la in lanes:
+        print("lane %s:" % la[0])
+        print("  length:", la[1])
+        print("  offset:", la[3])
+        print("  allowsContinuation:", la[4])
+        print("  over:", la[5])
     traci.close()
     sys.stdout.flush()
 
-    fdi = open(root + "/expected.txt")
-    for i, l in enumerate(lanes):
-        vals = fdi.readline().strip().split()
-        length = int(vals[0])
-        if ((int(l[1]) + 500) / 500) * 500 == length:
-            print("lane %s ok" % i)
-        else:
-            print("lane %s mismatches" % i)
+    with open(os.path.join(root, "expected.txt")) as fdi:
+        for i, l in enumerate(lanes):
+            vals = fdi.readline().strip().split()
+            length = float(vals[0])
+            if abs(float(l[1]) - length) < 100:
+                print("lane %s ok" % i)
+            else:
+                print("lane %s mismatches" % i)
     print("-" * 70)
     print("")

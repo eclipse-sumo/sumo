@@ -1,4 +1,4 @@
-# get statistics on route lenghts
+# get statistics on route lengths
 basic
 
 # get statistics on route departs
@@ -9,3 +9,6 @@ numEdges
 
 # compare two sets of routes for the same vehicles
 diff
+
+# get statistics on travel speed in route
+speed

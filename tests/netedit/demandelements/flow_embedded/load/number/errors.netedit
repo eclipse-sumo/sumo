@@ -1,0 +1,11 @@
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_0'.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Attribute 'number' in definition of flow 'flow_1' Invalid Number Format (long long integer format) dummyNumber.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Attribute 'number' in definition of flow 'flow_2' is empty.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Negative repetition number in the definition of flow 'flow_3'.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Attribute 'number' in definition of flow 'flow_4' Invalid Number Format (long long integer format) 12.5.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_embedded.26Jan095535.11201/netedit.daily.demand.flow_embedded/demandelements/flow_embedded/load/number/routes.rou.xml failed.

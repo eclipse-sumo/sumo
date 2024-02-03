@@ -1,1 +1,1 @@
-$SUMO_HOME/tests *.turns.xml tools/build/schemaCheck.py
+$SUMO_HOME/tests *.turns.xml tools/build_config/schemaCheck.py

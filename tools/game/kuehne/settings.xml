@@ -1,7 +1,7 @@
 <viewsettings>
     <delay value="100"/>
     <viewport zoom="200" x="150" y="150"/>
-    <decal filename="dlr.gif" centerX="150" centerY="150" width="50" height="50" rotation="0.00"/>
+    <decal file="dlr.gif" centerX="150" centerY="150" width="50" height="50" rotation="0.00"/>
     <scheme name="game_kuehne">
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="0.20,0.50,0.20"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-28 23:36:12 by Eclipse SUMO sumo Version v1_14_1+0599-1f6d24a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <save-state.times value="10"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="20.00" departLane="3/1to2/1_0" departPos="3.10" departSpeed="0.00" departDelay="0.00" arrival="177.00" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="9.38" duration="157.00" routeLength="1196.90" waitingTime="17.00" waitingCount="1" stopTime="0.00" timeLoss="28.55" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="persontrip_car" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+        <ride waitingTime="176.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>

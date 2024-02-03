@@ -4,7 +4,7 @@ title: dfrouter
 
 # From 30.000 feet
 
-**dfrouter** uses induction loop values to compute vehicle routes that
+**dfrouter** (*"detector flow router"*) uses induction loop values to compute vehicle routes that
 may be used by [sumo](sumo.md).
 
 - **Purpose:** Building vehicle routes from induction loop counts
@@ -12,7 +12,7 @@ may be used by [sumo](sumo.md).
 - **Input (mandatory):**
 
   A) a road network as generated via [netconvert](netconvert.md) or [netgenerate](netgenerate.md), see [Building Networks](index.md#network_building)
-  
+
   B) induction loop definitions
 
   C) induction loop measures
@@ -32,7 +32,7 @@ The complete list of options is given in the following.
 
 You may use a XML schema definition file for setting up a dfrouter
 configuration:
-[dfrouterConfiguration.xsd](http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
+[dfrouterConfiguration.xsd](https://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
 
 ### Configuration
 
@@ -44,6 +44,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -75,8 +76,8 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--emitters-poi-output** {{DT_FILE}} | Saves emitter positions as pois to FILE |
 | **--variable-speed-sign-output** {{DT_FILE}} | Saves variable seed sign definitions for sink detectors to FILE |
 | **--end-reroute-output** {{DT_FILE}} | Saves rerouter definitions for sink detectors to FILE |
-| **--validation-output** {{DT_FILE}} |  |
-| **--validation-output.add-sources** {{DT_BOOL}} | *default:* **false** |
+| **--validation-output** {{DT_FILE}} | Write induction loop definitions for the given detector positions to FILE |
+| **--validation-output.add-sources** {{DT_BOOL}} | Add source detectors to the validation output; *default:* **false** |
 
 ### Processing
 
@@ -91,7 +92,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--keep-longer-routes** {{DT_BOOL}} | Keeps routes even if a shorter one exists; *default:* **false** |
 | **--max-search-depth** {{DT_INT}} | Number of edges to follow a route without passing a detector; *default:* **30** |
 | **--emissions-only** {{DT_BOOL}} | Writes only emission times; *default:* **false** |
-| **--disallowed-edges** {{DT_STR[]}} | Do not route on these edges |
+| **--disallowed-edges** {{DT_STR_LIST}} | Do not route on these edges |
 | **--vclass** {{DT_STR}} | Only route on edges allowing the given vclass; *default:* **ignoring** |
 | **--keep-turnarounds** {{DT_BOOL}} | Allow turnarounds as route continuations; *default:* **false** |
 | **--min-route-length** {{DT_FLOAT}} | Minimum distance in meters between start and end node of every route; *default:* **-1** |
@@ -100,10 +101,10 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--time-offset** {{DT_TIME}} | Subtracts TIME seconds from (scaled) flow times; *default:* **0** |
 | **--time-step** {{DT_TIME}} | Expected distance between two successive data sets; *default:* **60** |
 | **--calibrator-output** {{DT_BOOL}} | Write calibrators to FILE; *default:* **false** |
-| **--include-unused-routes** {{DT_BOOL}} | *default:* **false** |
-| **--revalidate-flows** {{DT_BOOL}} | *default:* **false** |
+| **--include-unused-routes** {{DT_BOOL}} | Include routes in the output which have no vehicles; *default:* **false** |
+| **--revalidate-flows** {{DT_BOOL}} | Checks whether detectors with calculated flow 0 can attract additional traffic; *default:* **false** |
 | **--remove-empty-detectors** {{DT_BOOL}} | Removes empty detectors from the list; *default:* **false** |
-| **--strict-sources** {{DT_BOOL}} | *default:* **false** |
+| **--strict-sources** {{DT_BOOL}} | Whether edges with unknown status can prevent an edge from becoming a source; *default:* **false** |
 | **--respect-concurrent-inflows** {{DT_BOOL}} | Try to determine further inflows to an inbetween detector when computing split probabilities; *default:* **false** |
 | **--scale** {{DT_FLOAT}} | Scale factor for flows; *default:* **1** |
 
@@ -139,13 +140,16 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--report-empty-detectors** {{DT_BOOL}} | Lists detectors with no flow (enable -v); *default:* **false** |
 | **--print-absolute-flows** {{DT_BOOL}} | Prints aggregated detector flows; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of route parsing step; *default:* **false** |
@@ -161,5 +165,3 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
-
-

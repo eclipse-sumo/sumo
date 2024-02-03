@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <mesosim/MESegment.h>
 #include "MSLane.h"
+#include "MSNet.h"
 #include "MSParkingArea.h"
 #include "MSStoppingPlace.h"
 #include "MSStop.h"
@@ -31,12 +33,15 @@
 // ===========================================================================
 double
 MSStop::getEndPos(const SUMOVehicle& veh) const {
-    if (busstop != nullptr) {
-        return busstop->getLastFreePos(veh);
+    const double brakePos = veh.getEdge() == getEdge() ? veh.getPositionOnLane() + veh.getBrakeGap() : 0;
+    if ((pars.parametersSet & STOP_END_SET) != 0) {
+        return pars.endPos;
+    } else if (busstop != nullptr) {
+        return busstop->getLastFreePos(veh, brakePos);
     } else if (containerstop != nullptr) {
-        return containerstop->getLastFreePos(veh);
+        return containerstop->getLastFreePos(veh, brakePos);
     } else if (parkingarea != nullptr) {
-        return parkingarea->getLastFreePos(veh);
+        return parkingarea->getLastFreePos(veh, brakePos);
     } else if (chargingStation != nullptr) {
         return chargingStation->getLastFreePos(veh);
     } else if (overheadWireSegment != nullptr) {
@@ -45,6 +50,20 @@ MSStop::getEndPos(const SUMOVehicle& veh) const {
     return pars.endPos;
 }
 
+const MSEdge*
+MSStop::getEdge() const {
+    if (lane != nullptr) {
+        return &lane->getEdge();
+    } else if (segment != nullptr) {
+        return &segment->getEdge();
+    }
+    return nullptr;
+}
+
+double
+MSStop::getReachedThreshold() const {
+    return isOpposite ? lane->getOppositePos(pars.endPos) - (pars.endPos - pars.startPos) : pars.startPos;
+}
 
 std::string
 MSStop::getDescription() const {
@@ -85,6 +104,7 @@ MSStop::write(OutputDevice& dev) const {
     if (pars.started >= 0 && (pars.parametersSet & STOP_STARTED_SET) == 0) {
         dev.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     }
+    pars.writeParams(dev);
     dev.closeTag();
 }
 
@@ -104,5 +124,44 @@ MSStop::initPars(const SUMOVehicleParameter::Stop& stopPar) {
 }
 
 
+int
+MSStop::getStateFlagsOld() const {
+    return ((reached ? 1 : 0) + 2 * pars.getFlags());
+}
+
+
+SUMOTime
+MSStop::getMinDuration(SUMOTime time) const {
+    if (MSGlobals::gUseStopEnded && pars.ended >= 0) {
+        return pars.ended - time;
+    }
+    if (pars.until >= 0) {
+        if (duration == -1) {
+            return pars.until - time;
+        } else {
+            return MAX2(duration, pars.until - time);
+        }
+    } else {
+        return duration;
+    }
+}
+
+
+SUMOTime
+MSStop::getUntil() const {
+    return MSGlobals::gUseStopEnded && pars.ended >= 0 ? pars.ended : pars.until;
+}
+
+
+double
+MSStop::getSpeed() const {
+    return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;
+}
+
+
+bool
+MSStop::isInRange(const double pos, const double tolerance) const {
+    return pars.startPos - tolerance <= pos && pars.endPos + tolerance >= pos;
+}
 
 /****************************************************************************/

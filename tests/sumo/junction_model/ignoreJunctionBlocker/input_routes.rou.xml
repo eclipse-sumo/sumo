@@ -2,17 +2,16 @@
 
 <routes>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vType id="long" sigma="0" length="15"/>
+    <vType id="long" sigma="0" length="25"/>
 
     <route id="EW" edges="EC CW"/>
     <route id="WE" edges="WC CE"/>
     <route id="SN" edges="SC CN"/>
 
-    <vehicle id="sudden_stop" route="EW" depart="0">
+    <vehicle id="sudden_stop" route="EW" depart="0" type="long">
         <stop lane="CW_0" endPos="9" duration="400"/>
     </vehicle>
 
-    <vehicle id="EW" route="EW" depart="2" type="long"/>
     <vehicle id="SN" route="SN" depart="12"/>
     <vehicle id="WE" route="WE" depart="15"/>
 

@@ -1,7 +1,0 @@
-Error: Invalid departSpeed definition for vehicle 'vehicle_0';
- must be one of ("random", "max", or a float>=0)
-Error: Invalid departSpeed definition for vehicle 'vehicle_1';
- must be one of ("random", "max", or a float>=0)
-Error: Invalid departSpeed used in vehicle 'vehicle_3'. 500.00 is greater than vTypemaxSpeed
-Error: Invalid route '' used in vehicle 'vehicle_3'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Feb102920.8424\netedit.gui\demandElements\vehicle_embedded\load\departSpeed\input_routes.rou.xml failed.

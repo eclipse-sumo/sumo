@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Mar  8 00:01:22 2015 by SUMO polyconvert Version dev-SVN-r18045
+<!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,12 +13,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.scale value="5"/>
+        <proj.scale value="1e-05"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <report>
@@ -30,8 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="366409.52,5779457.25,368618.12,5785981.13" origBoundary="1304488.000000,5214996.000000,1307959.000000,5220806.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
-    <poly id="noname#0" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="366409.52,5785981.13 366432.18,5785933.78 366549.39,5785893.89"/>
-    <poly id="noname#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="368142.04,5779782.62 368577.01,5779457.25 368611.66,5779576.52 368618.12,5779768.88"/>
+    <poly id="noname#0" type="unknown" color="51,128,255" fill="0" layer="-1.000000" geo="1" shape="13.044880,52.208060 13.045230,52.207640 13.046960,52.207310"/>
+    <poly id="noname#1" type="unknown" color="51,128,255" fill="0" layer="-1.00" geo="1" shape="13.072630,52.152780 13.079110,52.149960 13.079570,52.151040 13.079590,52.152770"/>
 </additional>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-03 15:05:31 by Eclipse SUMO netconvert Version v1_14_1+0811-cd5789d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J2" priority="-1" shape="0.00,0.00 100.00,0.00 200.00,0.00">
+        <lane id="E0_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 100.00,-1.60 200.00,-1.60"/>
+    </edge>
+    <edge id="E2" from="J0" to="J2" priority="-1" shape="0.00,0.00 100.00,0.00 200.00,0.00">
+        <lane id="E2_0" index="0" allow="tram" speed="13.89" length="200.00" shape="0.00,-1.60 100.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20 0.00,0.00 0.00,-3.20"/>
+    <junction id="J2" type="dead_end" x="200.00" y="0.00" incLanes="E0_0 E2_0" intLanes="" shape="200.00,-3.20 200.00,0.00 200.00,-3.20 200.00,0.00"/>
+
+</net>

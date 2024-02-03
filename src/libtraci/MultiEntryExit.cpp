@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,6 +48,30 @@ MultiEntryExit::getIDCount() {
 }
 
 
+std::vector<std::string>
+MultiEntryExit::getEntryLanes(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_LANES, detID);
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getExitLanes(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_EXIT_LANES, detID);
+}
+
+
+std::vector<double>
+MultiEntryExit::getEntryPositions(const std::string& detID) {
+    return Dom::getDoubleVector(libsumo::VAR_POSITION, detID);
+}
+
+
+std::vector<double>
+MultiEntryExit::getExitPositions(const std::string& detID) {
+    return Dom::getDoubleVector(libsumo::VAR_EXIT_POSITIONS, detID);
+}
+
+
 int
 MultiEntryExit::getLastStepVehicleNumber(const std::string& detID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, detID);
@@ -69,6 +93,30 @@ MultiEntryExit::getLastStepVehicleIDs(const std::string& detID) {
 int
 MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_TRAVELTIME, detID);
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER, detID);
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_TIMELOSS, detID);
+}
+
+
+int
+MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_VEHICLE_NUMBER, detID);
 }
 
 

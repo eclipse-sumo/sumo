@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -68,9 +68,9 @@ NILoader::~NILoader() {}
 
 void
 NILoader::load(OptionsCont& oc) {
+    bool ok = true;
     // load types first
-    NIXMLTypesHandler* handler =
-        new NIXMLTypesHandler(myNetBuilder.getTypeCont());
+    NIXMLTypesHandler handler(myNetBuilder.getTypeCont());
     if (!oc.isSet("type-files")) {
         std::vector<std::string> files;
         if (oc.isSet("osm-files")) {
@@ -79,9 +79,9 @@ NILoader::load(OptionsCont& oc) {
         if (oc.isSet("opendrive-files")) {
             files.push_back(opendriveTypemap);
         }
-        NITypeLoader::load(handler, files, "types", true);
+        ok &= NITypeLoader::load(handler, files, "types", true);
     } else {
-        NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+        ok &= NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
     }
     // try to load height data so it is ready for use by other importers
     NBHeightMapper::loadIfSet(oc);
@@ -100,44 +100,48 @@ NILoader::load(OptionsCont& oc) {
                 oc.getBool("tls.guess-signals"));
         int removed = myNetBuilder.getTLLogicCont().getNumExtracted();
         if (removed > 0) {
-            WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights before loading plain-XML");
+            WRITE_MESSAGEF(TL(" Removed % traffic lights before loading plain-XML"), toString(removed));
         }
     }
     if (oc.getBool("railway.signals.discard")) {
         myNetBuilder.getNodeCont().discardRailSignals();
     }
-    loadXML(oc);
+    ok &= loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size() == 0) {
-        throw ProcessError("No nodes loaded.");
+        throw ProcessError(TL("No nodes loaded."));
     }
     if (myNetBuilder.getEdgeCont().size() == 0) {
-        throw ProcessError("No edges loaded.");
+        throw ProcessError(TL("No edges loaded."));
     }
     if (!myNetBuilder.getEdgeCont().checkConsistency(myNetBuilder.getNodeCont())) {
         throw ProcessError();
     }
+    if (!ok && !oc.getBool("ignore-errors")) {
+        throw ProcessError();
+    }
+    // configure default values that depend on other values
+    myNetBuilder.getNodeCont().applyConditionalDefaults();
     // report loaded structures
-    WRITE_MESSAGE(" Import done:");
+    WRITE_MESSAGE(TL(" Import done:"));
     if (myNetBuilder.getDistrictCont().size() > 0) {
-        WRITE_MESSAGE("   " + toString(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
+        WRITE_MESSAGEF(TL("   % districts loaded."), toString(myNetBuilder.getDistrictCont().size()));
     }
-    WRITE_MESSAGE("   " + toString(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
+    WRITE_MESSAGEF(TL("   % nodes loaded."), toString(myNetBuilder.getNodeCont().size()));
     if (myNetBuilder.getTypeCont().size() > 0) {
-        WRITE_MESSAGE("   " + toString(myNetBuilder.getTypeCont().size()) + " types loaded.");
+        WRITE_MESSAGEF(TL("   % types loaded."), toString(myNetBuilder.getTypeCont().size()));
     }
-    WRITE_MESSAGE("   " + toString(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
-    if (myNetBuilder.getEdgeCont().getNoEdgeSplits() > 0) {
-        WRITE_MESSAGE(
-            "The split of edges was performed " + toString(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
+    WRITE_MESSAGEF(TL("   % edges loaded."), toString(myNetBuilder.getEdgeCont().size()));
+    if (myNetBuilder.getEdgeCont().getNumEdgeSplits() > 0) {
+        WRITE_MESSAGEF(TL("The split of edges was performed % times."), toString(myNetBuilder.getEdgeCont().getNumEdgeSplits()));
     }
 
     //TODO: uncomment the following lines + adapt tests! [Gregor March '17]
 //  if (myNetBuilder.getPTStopCont().size() > 0) {
-//    WRITE_MESSAGE("   " + toString(myNetBuilder.getPTStopCont().size()) + " pt stops loaded.");
+//    WRITE_MESSAGEF(TL("   % pt stops loaded."), toString(myNetBuilder.getPTStopCont().size()));
 //  }
     if (GeoConvHelper::getProcessing().usingGeoProjection()) {
-        WRITE_MESSAGE("Proj projection parameters used: '" + GeoConvHelper::getProcessing().getProjString() + "'.");
+        WRITE_MESSAGEF(TL("Proj projection parameters used: '%'."), GeoConvHelper::getProcessing().getProjString());
     }
 }
 
@@ -147,60 +151,49 @@ NILoader::load(OptionsCont& oc) {
 bool
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
-    bool ok = NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                                 myNetBuilder.getTLLogicCont(), oc),
-                                 oc.getStringVector("node-files"), "nodes");
+    NIXMLNodesHandler nodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+                                   myNetBuilder.getTLLogicCont(), oc);
+    bool ok = NITypeLoader::load(nodesHandler, oc.getStringVector("node-files"), "nodes");
     // load the edges
     if (ok) {
-        ok = NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-                                myNetBuilder.getEdgeCont(),
-                                myNetBuilder.getTypeCont(),
-                                myNetBuilder.getDistrictCont(),
-                                myNetBuilder.getTLLogicCont(),
-                                oc),
-                                oc.getStringVector("edge-files"), "edges");
+        NIXMLEdgesHandler edgesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+                                       myNetBuilder.getTypeCont(), myNetBuilder.getDistrictCont(),
+                                       myNetBuilder.getTLLogicCont(), oc);
+        ok = NITypeLoader::load(edgesHandler, oc.getStringVector("edge-files"), "edges");
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
+        WRITE_WARNINGF(TL("Deprecated vehicle class(es) '%' in input edge files."), toString(deprecatedVehicleClassesSeen));
     }
     // load the connections
     if (ok) {
-        ok = NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
-                                myNetBuilder.getNodeCont(),
-                                myNetBuilder.getTLLogicCont()),
-                                oc.getStringVector("connection-files"), "connections");
+        NIXMLConnectionsHandler connectionsHandler(myNetBuilder.getEdgeCont(),
+                myNetBuilder.getNodeCont(), myNetBuilder.getTLLogicCont());
+        ok = NITypeLoader::load(connectionsHandler, oc.getStringVector("connection-files"), "connections");
     }
     // load traffic lights (needs to come last, references loaded edges and connections)
     if (ok) {
-        ok = NITypeLoader::load(new NIXMLTrafficLightsHandler(
-                                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
-                                oc.getStringVector("tllogic-files"), "traffic lights");
+        NIXMLTrafficLightsHandler tlHandler(myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont());
+        ok = NITypeLoader::load(tlHandler, oc.getStringVector("tllogic-files"), "traffic lights");
     }
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
     if (ok && oc.exists("ptstop-files")) {
-        ok = NITypeLoader::load(new NIXMLPTHandler(
-                                    myNetBuilder.getEdgeCont(),
-                                    myNetBuilder.getPTStopCont(),
-                                    myNetBuilder.getPTLineCont()),
-                                oc.getStringVector("ptstop-files"), "public transport stops");
+        NIXMLPTHandler ptHandler(myNetBuilder.getEdgeCont(),
+                                 myNetBuilder.getPTStopCont(), myNetBuilder.getPTLineCont());
+        ok = NITypeLoader::load(ptHandler, oc.getStringVector("ptstop-files"), "public transport stops");
     }
 
     // load public transport lines (used as input when repairing railroad topology)
     if (ok && oc.exists("ptline-files")) {
-        ok = NITypeLoader::load(new NIXMLPTHandler(
-                                    myNetBuilder.getEdgeCont(),
-                                    myNetBuilder.getPTStopCont(),
-                                    myNetBuilder.getPTLineCont()),
-                                oc.getStringVector("ptline-files"), "public transport lines");
+        NIXMLPTHandler ptHandler(myNetBuilder.getEdgeCont(),
+                                 myNetBuilder.getPTStopCont(), myNetBuilder.getPTLineCont());
+        ok = NITypeLoader::load(ptHandler, oc.getStringVector("ptline-files"), "public transport lines");
     }
 
     // load shapes for output formats that embed shape data
     if (ok && oc.exists("polygon-files")) {
-        ok = NITypeLoader::load(new NIXMLShapeHandler(
-                                    myNetBuilder.getShapeCont(),
-                                    myNetBuilder.getEdgeCont()),
-                                oc.getStringVector("polygon-files"), "polygon data");
+        NIXMLShapeHandler shapeHandler(myNetBuilder.getShapeCont(), myNetBuilder.getEdgeCont());
+        ok = NITypeLoader::load(shapeHandler, oc.getStringVector("polygon-files"), "polygon data");
     }
     return ok;
 }

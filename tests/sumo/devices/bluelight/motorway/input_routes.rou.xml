@@ -1,0 +1,7 @@
+<routes>
+    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" jmDriveRedSpeed="1"/>
+
+    <trip id="rescue" type="rescue" from="beg" to="end3" depart="0" departSpeed="max"/>
+
+
+</routes>

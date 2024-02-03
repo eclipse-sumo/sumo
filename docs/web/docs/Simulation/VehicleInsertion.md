@@ -62,6 +62,9 @@ congested network with lots of vehicles which cannot be inserted variant
 could switch to 2) using the option **--sloppy-insert** Since version 0.18.0, variant 2) is
 the default and one may switch to 1) using the option **--eager-insert**.
 
+!!! caution
+    If there are many edges with delayed insertion, the additional insertion attempts in every simulation step can slow down a simulation
+
 ## Investigating insertion delay
 
 Using [sumo-gui](../sumo-gui.md) several options exist for showing
@@ -69,13 +72,13 @@ insertion delay:
 
 - Color vehicles *by insertion delay*
 - Color Streets *by insertion backlog*
-- Opening Vehicle statistics lists the number of *insertion-backloged
+- Opening Vehicle statistics lists the number of *insertion-backlogged
   vehicles* for the whole network.
 - The parameter Dialog for individual vehicles lists *desired depart*
   and *depart delay*
-  
+
 ## Effect of simulation step-length
-Insertion attemps can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
+Insertion attempts can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
 By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
 
 - the step-length can be reduced
@@ -86,22 +89,22 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 
 ## Forcing Insertion / Avoiding depart delay
 
-- Make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
-- Insert with `departSpeed="max"`: vehicle speeds at insertion will be adjusted to the
-  maximum safe speed that allows insertion at the specified time to
-  succeed
-- Insert with `departPos="last"`: vehicle position will be adjusted to the maximum
-  position behind the leader vehicle that allows driving with the
-  given speed (or maximum allowed speed when using `departSpeed="max"`)
+The following remedies are generally recommended to improve insertion flow:
+
+- On multi-lane roads, make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
+- set option **--extrapolate-departpos**
+- insert with `departSpeed="avg"` or `departSpeed="last"` (see [capacity comparison](RoadCapacity.md#further_headway_effects))
+
+For specialized use cases the following tips may help to achieve even more insertions:
+
+- alternatively: Use `departPos="last"` in combination with `departSpeed="desired"` : vehicle position will be adjusted to the maximum
+  position behind the leader vehicle that allows driving with the desired speed
 - insert with a fixed departSpeed (numerical value) and set option **--ignore-route-errors**.
   Vehicles will be inserted with unsafe speeds at the specified time
   if emergency-braking would still allow collision-free dynamics
-- use
-  [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c)
-  or
-  [traci.vehicle.moveToXY](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4)
-  to force the vehicle into the network at the specified time and
-  place.
+- disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes)
+- use [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c) or [traci.vehicle.moveToXY](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4)
+  to force the vehicle into the network at the specified time and  place.
 
 ## Global options that affect Departure
 
@@ -127,3 +130,4 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 - The departure edge can be determined at run-time when using [Traffic
   Assignment Zones
   (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)
+- [Table of insertion capacity achievable with different options and insertion attributes](RoadCapacity.md#further_headway_effects)

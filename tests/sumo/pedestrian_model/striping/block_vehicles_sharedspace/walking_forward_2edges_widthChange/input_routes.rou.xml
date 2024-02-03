@@ -1,0 +1,9 @@
+<routes>    
+    <vType id="bike" sigma="0" vClass="bicycle" latAlignment="right"/>
+    <vehicle id="v0" type="bike" speedFactor="2.0" depart="0" departPos="-28" departSpeed="max">
+        <route edges="SC CN"/>
+    </vehicle>
+    <person id="p0" depart="2" departPos="0.0">
+        <walk edges="CN" arrivalPos="-0.01" departPosLat="1.2"/>
+    </person>
+</routes>

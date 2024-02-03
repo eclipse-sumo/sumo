@@ -8,4 +8,4 @@
 8.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=-2.84217094304e-14  nextTLS=('C', 10, 11.950000000000003, 'G')  leader=('', -1.0)
 inconsistent hint failed: x=104.95, x2=101.65,   y=90, y2=90.0,   lane=None, lane2=SC_1, pos=None, pos2=90.0   posLat=None posLat2=0.0
 9.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=1.42108547152e-14  nextTLS=('C', 10, 1.9500000000000028, 'G')  leader=('', -1.0)
-10.0  lane=SC_0  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=4.72308707316  nextTLS=('C', 10, 71.95, 'G')  leader=('', -1.0)
+10.0  lane=SC_0  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=4.7234  nextTLS=('C', 10, 71.95, 'G')  leader=('', -1.0)

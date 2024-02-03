@@ -1,0 +1,192 @@
+cff-version: 1.2.0
+authors:
+  - name: "Alessio Bonfietti"
+  - name: "Alex Voronov"
+  - name: "Alexander Brummer"
+  - name: "Alexander Weidinger"
+  - name: "Ali Rostami"
+  - name: "Amirhosein Karbasi"
+  - name: "Andreas Gaubatz"
+  - name: "Andreas Kendziorra"
+  - name: "Andrei Alexandrescu"
+  - name: "Angelo Banse"
+  - name: "Anna Chiara Bellini"
+  - name: "Axel Wegener"
+  - name: "Behzad Bamdad Mehrabani"
+  - name: "Benjamin Couéraud"
+  - name: "Benjamin Striner"
+  - name: "Bernd Lehmann"
+  - name: "Bill Baxter"
+  - name: "Bjoern Hendriks"
+  - name: "Caner Ipek"
+  - name: "Christian Roessel"
+  - name: "Christian Schmidt"
+  - name: "Christoph Sommer"
+  - name: "Claudius Ellsel"
+  - name: "Clemens Honomichl"
+  - name: "Costin Chiriac"
+  - name: "Daniel Krajzewicz"
+  - name: "Danilot Teta Boyom"
+  - name: "Danny Behnecke"
+  - name: "David C."
+  - name: "David Rusu"
+  - name: "Dominik Buse"
+  - name: "Dominik Salles"
+  - name: "Eric Melde"
+  - name: "Eric Nicolay"
+  - name: "Erik Newton"
+  - name: "Erik Tunsch"
+  - name: "Evamarie Wiessner"
+  - name: "Farkas Tamás Gábor"
+  - name: "Federico Caselli"
+  - name: "Felix Brack"
+  - name: "Fredrik Jagenheim"
+  - name: "Friedemann Wesner"
+  - name: "Georg Hertkorn"
+  - name: "Gerald Richter"
+  - name: "Gianfilippo Slager"
+  - name: "Gregor Laemmel"
+  - name: "Gregory Albiston"
+  - name: "Harald Schaefer"
+  - name: "Hollow Man"
+  - name: "Hongsheng Cui"
+  - name: "Ioan-Alexandru Stef"
+  - name: "Jakob Erdmann"
+  - name: "Jakob Stigloher"
+  - name: "Jakub Sevcik"
+  - name: "Jan Prikryl"
+  - name: "Jannis Mainczyk"
+  - name: "Jerome Haerri"
+  - name: "Jim Div"
+  - name: "Joerg Schweizer"
+  - name: "Johannes Rummel"
+  - name: "Julia Ringel"
+  - name: "Karl Schrab"
+  - name: "Karol Stosiek"
+  - name: "Kevin Badalian"
+  - name: "Kevin Tee"
+  - name: "Lara Codeca"
+  - name: "Lara Kaiser"
+  - name: "Laura Bieker-Walz"
+  - name: "Leander Flamm"
+  - name: "Lena Kalleske"
+  - name: "Leonhard Luecken"
+  - name: "Lukas Grohmann"
+  - name: "Lukas Hartjen"
+  - name: "Lyle Johnson"
+  - name: "Maik Drozdzynski"
+  - name: "Manuel Montero"
+  - name: "Marek Heinrich"
+  - name: "Maria Giuliana Armellini"
+  - name: "Mario Krumnow"
+  - name: "Marius Dupuis"
+  - name: "Markus Hartinger"
+  - name: "Martin Dippold"
+  - name: "Martin Taraz"
+  - name: "Mathew Robertson"
+  - name: "Matthew Fullerton"
+  - name: "Matthias Heppner"
+  - name: "Matthias Roeckl"
+  - name: "Matthias Schwamborn"
+  - name: "Matthias Wagner"
+  - name: "Max Schettler"
+  - name: "Maximilian Wittmann"
+  - name: "Maximiliano Bottazzi"
+  - name: "Maxwell Schrader"
+  - name: "Melanie Weber"
+  - name: "Michael Behrisch"
+  - name: "Michael Ernst"
+  - name: "Michele Segata"
+  - name: "Miguel Liebe"
+  - name: "Mirco Sturari"
+  - name: "Mirko Barthauer"
+  - name: "Moritz Gütlein"
+  - name: "Necip Güzel"
+  - name: "Niklas Freund"
+  - name: "Nikolaus Furian"
+  - name: "Pablo Alvarez Lopez"
+  - name: "Peter Mieth"
+  - name: "Peter Wagner"
+  - name: "Philip Ritzer"
+  - name: "Pieter Loof"
+  - name: "Piotr Woznica"
+  - name: "Qichao Wang"
+  - name: "Quentin Bragard"
+  - name: "Raphael Riebl"
+  - name: "Riccardo Belletti"
+  - name: "Robbin Blokpoel"
+  - name: "Robert Hilbrich"
+  - name: "Ronald Nippold"
+  - name: "Sandesh Uppoor"
+  - name: "Sascha Krieg"
+  - name: "Sebastian Ehmann"
+  - name: "Simon Levente"
+  - name: "Srishti Dhamija"
+  - name: "Stephan Beutelschiess"
+  - name: "Sven Jankofsky"
+  - name: "Tamas Kurczveil"
+  - name: "Tarek Chouaki"
+  - name: "Thimor Bohn"
+  - name: "Thomas Lockhart"
+  - name: "Tianxin Li"
+  - name: "Tino Morenz"
+  - name: "Tobias Jacobowitz"
+  - name: "Tobias Mayer"
+  - name: "Tobias Rink"
+  - name: "Tucker Alban"
+  - name: "Vijay Jaisankar"
+  - name: "Walter Bamberger"
+  - name: "Wolfgang Schnerring"
+  - name: "Xiaoxu Bei"
+  - name: "Yun-Pang Flötteröd"
+message: "If you use this software, please cite both the conference paper from preferred-citation and the software itself."
+title: "Eclipse SUMO - Simulation of Urban MObility"
+abstract: "Simulation of Urban MObility (SUMO) is an open source, highly portable, microscopic traffic simulation package designed to handle large road networks and different modes of transport. It is mainly developed by employees of the Institute of Transportation Systems at the German Aerospace Center."
+keywords:
+  - simulation
+  - microscopic
+  - traffic
+date-released: "2023-11-07"
+version: 1.19.0
+doi: 10.5281/zenodo.10077626
+repository-code: "https://github.com/eclipse-sumo/sumo"
+type: software
+url: "https://www.eclipse.dev/sumo/"
+identifiers:
+  - description: "The GitHub tag"
+    type: url
+    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_19_0"
+  - description: "The download folder"
+    type: url
+    value: "https://sumo.dlr.de/releases/1.19.0/"
+license:
+  - "EPL-2.0"
+  - "GPL-2.0-or-later"
+license-url: "https://www.eclipse.org/legal/epl-2.0/"
+preferred-citation:
+  authors:
+    - family-names: Alvarez Lopez
+      given-names: Pablo
+    - family-names: Behrisch
+      given-names: Michael
+    - family-names: Bieker-Walz
+      given-names: Laura
+    - family-names: Erdmann
+      given-names: Jakob
+    - family-names: Flötteröd
+      given-names: Yun-Pang
+    - family-names: Hilbrich
+      given-names: Robert
+    - family-names: Lücken
+      given-names: Leonhard
+    - family-names: Rummel
+      given-names: Johannes
+    - family-names: Wagner
+      given-names: Peter
+    - family-names: Wiessner
+      given-names: Evamarie
+  title: "Microscopic Traffic Simulation using SUMO"
+  type: "conference-paper"
+contact:
+  - email: sumo-user@eclipse.org
+    name: "Eclipse SUMO - Simulation of Urban MObility"

@@ -1,0 +1,5 @@
+Error: Attribute 'extension' in definition of a stop is not a valid time value.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingAreaA'
+Error: Attribute 'extension' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingAreaA'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.2_from_21Jul154626.49274/netedit.gui/demandelements/waypoint/parkingarea/load/extension/routes.rou.xml failed.

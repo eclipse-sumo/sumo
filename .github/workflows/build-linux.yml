@@ -1,23 +1,20 @@
 name: linux
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
-    - cron:  '5 1 * * *'
+    - cron:  '5 0 * * *'
 
 jobs:
-  ###########################
-  # BUILDING ON LINUX
-  ###########################
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -26,17 +23,18 @@ jobs:
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
+        jps_version: ['v1.0.5']
+        # include:
+        #   - build_type: full
+        #     jps_version: master
+        #     compiler: gcc
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: sumo
         fetch-depth: 0
- 
-    - uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
 
     - name: Fetching SUMO tags
       run: |
@@ -46,131 +44,104 @@ jobs:
     - name: Preparing Build System
       run: |
         sudo apt-get update
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig openjdk-8-jdk maven ccache
+        sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev
+        sudo apt-get install libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig
+        sudo apt-get install maven ccache libv8-dev gettext
         sudo pip3 install texttest
 
-    - name: Preparing Gtest
-      run: |
-        pushd /usr/src/gtest
-        sudo mkdir build
-        cd build
-        if [[ "${{ matrix.compiler }}" == "gcc" ]]; then sudo CC=gcc CXX=g++ cmake ..; fi
-        if [[ "${{ matrix.compiler }}" == "clang" ]]; then sudo CC=clang CXX=clang++ cmake ..; fi
-        sudo make
-        find . -name 'libgtest*' | xargs sudo cp --target-dir /usr/lib/
+    - name: Validate CITATION.cff
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: dieghernan/cff-validator@v2.3
+      with:
+        citation-path: sumo/CITATION.cff
 
-    - name: Building SUMO
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+
+    - name: Cloning jupedsim
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: Building libjupedsim
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build 
+        sudo apt-get install libgeos-dev
+        cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        cmake --install jupedsim-build --config Release
+
+    - name: Configuring SUMO
+      run: |
+        mkdir -p sumo/cmake-build
+        cd sumo/cmake-build
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
-        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
-        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
-        make -j4
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi
 
     - name: Building Traas
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
         make traas
 
-    - name: Installing SUMO
+    - name: Setting up SonarQube
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: warchant/setup-sonar-scanner@v8
+
+    - name: Building SUMO with SonarQube wrapper
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+        cd ..
+        sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
+
+    - name: Building and Installing SUMO
+      if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
+      run: |
+        cd sumo/cmake-build
+        make -j4
         sudo make install
 
     - name: Building Examples and Tests
-      if: matrix.build_type == 'full'
+      if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
       run: |
-        sudo apt-get install python3-pyproj python3-rtree python3-pulp
-        sudo pip3 install ezdxf
+        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf python3-pyperclip python3-polib
+        python -m pip install -r sumo/tools/req_ci.txt
+        python -m pip install -r sumo/tools/requirements.txt
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
+    - name: Extra tests
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      run: |
+        sudo apt-get install python2
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
+        sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+        sumo/tests/runTests.sh -b ci -a tools.python2.ci
+
+    - name: Compressing test results
+      if: failure()
+      run: zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
+        path: texttesttmp.zip
+        if-no-files-found: warn
+
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
-        name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
+        name: linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
         path: sumo/bin
-
-    - name: Building FMU Compliance Checker
-      if: matrix.build_type == 'full'
-      run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
-        cd fmuChecker
-        mkdir build
-        cd build
-        cmake ..
-        make install test
-
-    - name: Checking sumo-fmi2.fmu
-      if: matrix.build_type == 'full'
-      run: |
-        cd sumo
-        ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu 
-
-    - name: Uploading FMI 2.0 FMU artifacts
-      if: matrix.build_type == 'full'
-      uses: actions/upload-artifact@v1
-      with:
-        name: sumo-fmi2-linux64
-        path: sumo/bin/sumo-fmi2-linux64.fmu 
-
-  ###################
-  # BUILDING wheels
-  ###################
-  build-manylinux-wheels:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Cloning SUMO
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
-    - name: Fetching SUMO tags
-      run: |
-        git fetch --tags --force
-
-    - name: Building Python wheels
-      uses: docker://quay.io/pypa/manylinux2014_x86_64
-      with:
-        entrypoint: tools/build/build_wheels.sh
-
-    - name: Uploading artifacts (Python wheels)
-      uses: actions/upload-artifact@v1
-      with:
-        name: manylinux-wheels
-        path: wheelhouse
-
-  ###################
-  # PUBLISHING wheels
-  ###################
-  publish-wheels:
-    needs: [build-manylinux-wheels]
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/download-artifact@v2
-
-    - name: Moving artifacts
-      run: |
-        ls -lR
-        mkdir dist
-        mv ./*-wheels/* dist
-
-    - name: Publish to Test PyPI
-      if: github.event_name == 'schedule'
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        skip_existing: true
-
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PYPI_TOKEN }}
-
-      

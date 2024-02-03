@@ -1,1 +1,4 @@
-Error! Providing two networks and junction lists is mandatory
+usage: districtMapper.py [-h] [-c FILE] [-C FILE] [--save-template FILE] [-v]
+                         -1 FILE -2 FILE [-o FILE] [-p FILE] -a JUNCTIONS1 -b
+                         JUNCTIONS2 [--color COLOR]
+districtMapper.py: error: the following arguments are required: -1/--net-file1, -2/--net-file2, -a/--junctions1, -b/--junctions2

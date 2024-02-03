@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="t1" length="0.3" minGap="0.2" maxSpeed="7" width="0.5"/>
+    <vType id="t1" length="0.3" minGap="0.2" maxSpeed="7" width="0.5" vClass="pedestrian"/>
     <person id="0" depart="0" type="t1" departPos="100">
         <walk edges="4/1to3/1 3/1to2/1" arrivalPos="-0.01"/>
     </person>

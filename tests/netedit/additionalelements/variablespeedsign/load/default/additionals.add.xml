@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <variableSpeedSign id="variableSpeedSign_0" lanes="center0_0 center1_0"/>
+
+</additional>

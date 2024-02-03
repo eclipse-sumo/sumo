@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,12 +28,12 @@
  * @brief A few system-specific functions
  */
 class SysUtils {
+
 public:
     /** @brief Returns the current time in milliseconds
      * @return Current time
      */
     static long getCurrentMillis();
-
 
 #ifdef WIN32
     /** @brief Returns the CPU ticks (windows only)
@@ -44,7 +44,9 @@ public:
     static long getWindowsTicks();
 #endif
 
-
     /// @brief run a shell command without popping up any windows (particuarly on win32)
     static unsigned long runHiddenCommand(const std::string& cmd);
+
+    /// @brie get modified time
+    static long long getModifiedTime(const std::string& fname);
 };

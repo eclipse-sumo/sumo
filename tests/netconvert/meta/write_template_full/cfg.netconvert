@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-04-23 10:14:03 by Eclipse SUMO netconvert Version v1_9_0+0191-e1fbe42
+<!-- generated on 2023-10-23 20:43:20 by Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -8,6 +8,7 @@
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
         <save-configuration value="" synonymes="C save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL" help="Enforce relative paths when saving the configuration"/>
         <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
         <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
         <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
@@ -43,13 +44,15 @@
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
-        <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <plain-output.lanes value="false" type="BOOL" help="Write all lanes and their attributes even when they are not customized"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
+        <dlr-navteq.version value="6.5" type="STR" help="The dlr-navteq output format version to write"/>
         <dlr-navteq.precision value="2" type="INT" help="The network coordinates are written with the specified level of output precision"/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
@@ -61,6 +64,8 @@
         <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
         <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.lefthand-left value="false" type="BOOL" help="Write lanes in lefthand networks on the left side (positive indices)"/>
+        <opendrive-output.shape-match-dist value="-1" type="FLOAT" help="Match loaded shapes to the closest edge within FLOAT and export as road objects"/>
     </output>
 
     <projection>
@@ -76,7 +81,7 @@
     </projection>
 
     <processing>
-        <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
+        <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h"/>
         <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
@@ -92,6 +97,7 @@
         <geometry.remove.keep-ptstops value="false" type="BOOL" help="Ensure that edges with public transport stops are not modified"/>
         <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes when their length is below min-length"/>
         <geometry.remove.width-tolerance value="0" type="FLOAT" help="Allow merging edges with differing lane widths if the difference is below FLOAT"/>
+        <geometry.remove.max-junction-size value="-1" type="FLOAT" help="Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="-1" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
@@ -106,7 +112,7 @@
         <ptline.match-dist value="100" type="FLOAT" help="Matches stops outside the road network to the referencing pt line when below the given distance"/>
         <ptstop-output.no-bidi value="false" type="BOOL" help="Skips automatic generation of stops on the bidi-edge of a loaded stop"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
-        <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
+        <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge geometries with a grade above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
@@ -115,8 +121,9 @@
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
-        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <opposites.guess.fix-lengths value="true" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
+        <fringe.guess.speed-threshold value="13.8889" type="FLOAT" help="Guess disconnected edges above the given speed as outer fringe"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
@@ -130,11 +137,14 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
         <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.friction value="1" synonymes="friction" type="FLOAT" help="The default friction on an edge"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
         <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
+        <default.crossing-speed value="2.78" type="FLOAT" help="The default speed &apos;limit&apos; on a pedestrian crossing (in m/s)"/>
+        <default.walkingarea-speed value="2.78" type="FLOAT" help="The default speed &apos;limit&apos; on a pedestrian walkingarea (in m/s)"/>
         <default.allow value="" type="STR" help="The default for allowed vehicle classes"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
@@ -144,8 +154,8 @@
     </building_defaults>
 
     <tls_building>
-        <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than plain-XML"/>
-        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
+        <tls.discard-loaded value="false" type="BOOL" help="Does not instantiate traffic lights loaded from other formats than plain-XML"/>
+        <tls.discard-simple value="false" type="BOOL" help="Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
         <tls.set value="" synonymes="explicite-tls" type="STR[]" help="Interprets STR[] as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR[]" help="Interprets STR[] as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
@@ -154,10 +164,12 @@
         <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.join-exclude value="" type="STR[]" help="Interprets STR[] as list of tls ids to exclude from joining"/>
         <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
         <tls.ignore-internal-junction-jam value="false" type="BOOL" help="Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended"/>
         <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
         <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
+        <tls.guess-signals.slack value="0" type="INT" help="Number of uncontrolled entry edges to accept and still consider the central node as a traffic light"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
         <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
         <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
@@ -167,6 +179,9 @@
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
+        <tls.nema.vehExt value="2" type="INT" help="Set INT as fixed time for intermediate vehext phase after every switch"/>
+        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yellow phase after every switch"/>
+        <tls.nema.red value="2" type="INT" help="Set INT as fixed time for intermediate NEMA red phase after every switch"/>
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
         <tls.scramble.time value="5" type="INT" help="Use INT as green phase duration for pedestrian scramble phase (s)."/>
@@ -179,6 +194,7 @@
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
         <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
         <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
+        <tls.rebuild value="false" type="BOOL" help="rebuild all traffic light plans in the network"/>
     </tls_building>
 
     <ramp_guessing>
@@ -218,6 +234,7 @@
 
     <junctions>
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT" help="Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)"/>
+        <junctions.left-before-right value="false" type="BOOL" help="Build left-before-right junctions instead of right-before-left junctions"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
@@ -230,17 +247,20 @@
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
         <junctions.join-exclude value="" type="STR[]" help="Interprets STR[] as list of junctions to exclude from joining"/>
         <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
+        <max-join-ids value="4" type="INT" help="Abbreviate junction or TLS id if it joins more than INT junctions"/>
         <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>
         <junctions.join-turns value="false" type="BOOL" help="Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning"/>
-        <junctions.limit-turn-speed value="5.5" type="FLOAT" help="Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)"/>
+        <junctions.limit-turn-speed value="5.5" type="FLOAT" help="Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2)"/>
         <junctions.limit-turn-speed.min-angle value="15" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.min-angle.railway value="35" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT" help="Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT"/>
         <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
+        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (ignoring edge overlap)"/>
+        <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
         <check-lane-foes.all value="false" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"/>
@@ -270,13 +290,16 @@
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
         <railway.topology.repair.minimal value="false" type="BOOL" help="Repair topology of the railway network just enough to let loaded public transport lines to work"/>
-        <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle"/>
+        <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle"/>
         <railway.topology.repair.stop-turn value="false" type="BOOL" help="Add turn-around connections at all loaded stops."/>
+        <railway.topology.repair.bidi-penalty value="1.2" type="FLOAT" help="Penalty factor for adding new bidi edges to connect public transport stops"/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
         <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
+        <railway.topology.extend-priority value="false" type="BOOL" help="Extend loaded edge priority values based on estimated main direction"/>
+        <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
-        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum roud accesses registered per rail stops"/>
+        <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
     </railway>
 
@@ -286,15 +309,20 @@
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
-        <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed."/>
+        <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed."/>
         <osm.oneway-spread-right value="false" type="BOOL" help="Whether one-way roads should be spread to the side instead of centered"/>
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
+        <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL" help="Import bike lanes and fix directions and permissions on bike paths"/>
+        <osm.sidewalks value="false" type="BOOL" help="Import sidewalks"/>
+        <osm.crossings value="false" type="BOOL" help="Import crossings"/>
+        <osm.turn-lanes value="false" type="BOOL" help="Import turning arrows from OSM to help with connection building"/>
         <osm.stop-output.length value="25" type="FLOAT" help="The default length of a public transport stop in FLOAT m"/>
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
-        <osm.all-attributes value="false" type="BOOL" help="Whether additional attributes shall be imported"/>
-        <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
+        <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
+        <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
+        <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
         <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
@@ -303,6 +331,8 @@
         <shapefile.type-id value="" synonymes="arcview.type-id" type="STR" help="Read type ids from column STR"/>
         <shapefile.laneNumber value="" type="STR" help="Read lane number from column STR"/>
         <shapefile.speed value="" type="STR" help="Read speed from column STR"/>
+        <shapefile.length value="" type="STR" help="Read custom edge length from column STR"/>
+        <shapefile.width value="" type="STR" help="Read total edge width from column STR"/>
         <shapefile.name value="" type="STR" help="Read (non-unique) name from column STR"/>
         <shapefile.node-join-dist value="0" type="FLOAT" help="Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)"/>
         <shapefile.add-params value="" type="STR[]" help="Add the list of field names as edge params"/>
@@ -332,6 +362,10 @@
         <opendrive.advance-stopline value="0" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>
         <opendrive.internal-shapes value="false" type="BOOL" help="Import internal lane shapes"/>
+        <opendrive.position-ids value="false" type="BOOL" help="Sets edge-id based on road-id and offset in m (legacy)"/>
+        <opendrive.lane-shapes value="false" type="BOOL" help="Use custom lane shapes to compensate discarded lane types"/>
+        <opendrive.signal-groups value="false" type="BOOL" help="Use the OpenDRIVE controller information for the generated signal program"/>
+        <opendrive.ignore-misplaced-signals value="false" type="BOOL" help="Ignore traffic signals which do not control any driving lane"/>
     </formats>
 
     <report>
@@ -339,13 +373,16 @@
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
-        <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
+        <language value="C" type="STR" help="Language to use in messages"/>
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <ignore-errors.connections value="false" type="BOOL" help="Continue on invalid connections"/>
         <show-errors.connections-first-try value="false" type="BOOL" help="Show errors in connections at parsing"/>

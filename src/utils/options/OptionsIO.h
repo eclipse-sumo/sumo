@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@
 
 #include <vector>
 #include <string>
-#include <utils/common/UtilExceptions.h>
+#include <chrono>
 
 
 // ===========================================================================
@@ -61,7 +61,7 @@ public:
     /** @brief Return the number of command line arguments
      */
     static int getArgC() {
-        return myArgC;
+        return (int)myArgs.size();
     }
 
 
@@ -96,9 +96,15 @@ public:
      */
     static std::string getRoot(const std::string& filename);
 
+    /** @brief Return the time stamp of the last init
+     */
+    static const std::chrono::time_point<std::chrono::system_clock>& getLoadTime() {
+        return myLoadTime;
+    }
+
 
 private:
-    static int myArgC;
-    static char** myArgV;
+    static std::vector<std::string> myArgs;
+    static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 
 };

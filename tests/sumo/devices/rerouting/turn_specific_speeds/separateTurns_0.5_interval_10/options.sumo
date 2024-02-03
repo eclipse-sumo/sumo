@@ -1,0 +1,8 @@
+--no-step-log 
+--duration-log.statistics 
+--net-file=net.net.xml 
+-r input_routes.rou.xml 
+-a input_additional.add.xml
+--device.rerouting.adaptation-interval 10
+--device.rerouting.adaptation-steps 18
+--weights.separate-turns 0.5

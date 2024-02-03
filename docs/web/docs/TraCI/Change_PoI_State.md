@@ -26,7 +26,7 @@ changed, the parameter which must be given are also shown in the table.
 | angle (0x43)      | float                              | sets the angle for the rendered image file                                                               | [setAngle](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-setAngle)         |
 | ADD (0x80)        | PoI-definition, see below          | Adds the defined PoI                                                                                     | [add](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-add)                   |
 | REMOVE (0x81)     | int (layer), see below             | Removes the defined PoI                                                                                  | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
-| highlight (0x6c)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
+| highlight (0x6c)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [highlight](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-highlight)             |
 |                   |                                    |                                                                                                          |                                                                                  |
 
 
@@ -49,7 +49,7 @@ The message contents are as following:
 
 |          ubyte          |    double    |    double    |
 | :---------------------: | :----------: | :----------: |
-| value type *position2D* | x-coordinate | y-ccordinate |
+| value type *position2D* | x-coordinate | y-coordinate |
 
 ### ADD (0x80)
 
@@ -59,6 +59,7 @@ The message contents are as following:
 
 If the PoI could not been added because another one with the same ID
 already exists within the layer, an error message is generated.
+Please note that, if an image has been passed (through the `imgFile` attribute), the resultant color of the POI is a combination of the image's native color and the value of `color` passed. In this case, passing `color` as (255,255,255) will result in the POI having the same colors as that of the image passed.
 
 ### REMOVE (0x81)
 

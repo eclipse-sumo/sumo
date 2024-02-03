@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-13 14:38:26 by Eclipse SUMO netedit Version v1_11_0+0530-089e411
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="vehicle_0" depart="0.00" from="-5134673#2" to="40916540" departSpeed="max" departPos="-2">
+        <stop parkingArea="40916540_0" duration="60.00" parking="1" actType="waiting"/>
+    </trip>
+</routes>

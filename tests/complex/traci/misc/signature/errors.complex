@@ -1,0 +1,12 @@
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:47: UserWarning: Use of deprecated parameter lcm in function setLaneChangeMode, use laneChangeMode instead.
+  traci.vehicle.setLaneChangeMode("horiz", lcm=0)
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:49: UserWarning: Use of deprecated parameter objID in function setParameter, use objectID instead.
+  traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:50: UserWarning: Use of deprecated parameter param in function setParameter, use key instead.
+  traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:51: UserWarning: Use of deprecated parameter objID in function setParameter, use objectID instead.
+  traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:51: UserWarning: Use of deprecated parameter param in function setParameter, use key instead.
+  traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
+/home/micha/sumo/tests/../tests/complex/traci/misc/signature/runner.py:53: UserWarning: Use of deprecated parameter param in function setParameter, use key instead.
+  traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")

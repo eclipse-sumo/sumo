@@ -1,0 +1,2 @@
+-n input_taz.taz.xml -d input_od_v.fma -o trips.trips.xml
+--scale 0.5

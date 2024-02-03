@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # zoom in central node
 netedit.setZoom("100", "0", "200")
@@ -35,27 +35,26 @@ netedit.setZoom("100", "0", "200")
 netedit.createEdgeMode()
 
 # Create one way edge
-netedit.leftClick(referencePosition, 62, 225)
-netedit.leftClick(referencePosition, 590, 225)
+netedit.leftClick(referencePosition, 237, 234)
+netedit.leftClick(referencePosition, 758, 234)
 
 # change to move mode
 netedit.moveMode()
 
 # Try to move to origin position
-netedit.moveElement(referencePosition, 326, 226, 62, 226)
+netedit.moveElement(referencePosition, 497, 241, 237, 241)
 
 # Now move to top
-netedit.moveElement(referencePosition, 326, 226, 326, -15)
+netedit.moveElement(referencePosition, 237, 234, 237, 9)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

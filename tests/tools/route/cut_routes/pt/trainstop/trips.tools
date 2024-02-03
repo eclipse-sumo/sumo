@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:16:51.707602 by cutRoutes.py v1_13_0+1343-240e5d48340
+  options: input_net.net.xml input_routes2.rou.xml -o trips.trips.xml <doubleminus>orig-net net.net.xml <doubleminus>pt-input input_routes.rou.xml <doubleminus>pt-output out.rou.xml -a input_additional.add.xml <doubleminus>stops-output out.xml
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person depart="0.00" id="walk_ride">
+        <ride busStop="4032629820" from="161159325#0" lines="140:0"/>
+    </person>
+    <person depart="0.00" id="ride_walk">
+        <ride from="53356539#0" lines="140:1" to="4710636#2"/>
+    </person>
+</routes>

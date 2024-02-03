@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,9 +37,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con)
-    : SUMOSAXHandler("Detector-Defintion"),
-      myOptions(oc),  myContainer(con) {}
+PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) :
+    SUMOSAXHandler(),
+    myOptions(oc),
+    myContainer(con),
+    myOverwriteType(!oc.isDefault("type"))
+{}
 
 
 PCTypeDefHandler::~PCTypeDefHandler() {}
@@ -55,17 +58,18 @@ PCTypeDefHandler::myStartElement(int element,
         if (!ok) {
             return;
         }
+        const std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myOptions.getString("icon"));
         const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getFloat("layer"));
         const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
         const bool allowFill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myOptions.getBool("fill"));
-        const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
+        const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOverwriteType ? myOptions.getString("type") : id);
         const std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
         const std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
-        if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
-            WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
+        if (!myContainer.add(id, type, color, prefix, icon, layer, angle, imgFile, discard, allowFill)) {
+            WRITE_ERRORF(TL("Could not add polygon type '%' (probably the id is already used)."), id);
         }
     }
 }

@@ -5,6 +5,10 @@ stopOffsets
 connections
 customTLS
 
+# network with one actuated and one static tls,
+# test rebuilding with different tlType
+rebuild_tlType
+
 # handle them!
 internal_lanes
 
@@ -90,9 +94,18 @@ short_edge
 # merge 2 networks without geo-referencing that are shifted appropriately
 merge
 
+# merge 2 networks without geo-referencing that are shifted appropriately.  Networks overlap (with identical ids)
+merge_overlap
+
 # merge 2 geo-referenced networks
 merge_geo
 merge_geo_overlap
+
+# see #12824
+merge_geo_overlap2
+
+# load geo-encoded patch into geo network
+patch_geo
 
 # re-import limited speed on junctions based on radius
 limit-turn-speed
@@ -108,3 +121,9 @@ elevation
 
 # load a network with junction names and write it to plain-xml and .net.xml
 junction_name
+
+# use stored option in network (#4397)
+internalJunctionVehicleWidth
+
+# load bidi attribute from input network
+bidi

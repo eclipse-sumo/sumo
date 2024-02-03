@@ -1,0 +1,3 @@
+Error: Attribute 'chargeDelay' in definition of chargingStation 'chargingStation_1' is not a valid time value.
+Error: Could not build chargingStation with ID 'chargingStation_2' in netedit; Attribute chargeDelay cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/chargingstation/load/chargedelay/additionals.add.xml failed.

@@ -14,7 +14,7 @@ parameter must be supplied:
 A call may look like this:
 
 ```
-jtrrouter --flow-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
+jtrrouter --route-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
   --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
 ```
 
@@ -29,13 +29,13 @@ jtrrouter --flow-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --ne
 | Type of content    | turn and sink definitions |
 | Open format?       | Yes                       |
 | SUMO specific?     | Yes                       |
-| XML Schema         | [edgerelations_file.xsd](http://sumo.dlr.de/xsd/edgerelations_file.xsd)           |
+| XML Schema         | [edgerelations_file.xsd](https://sumo.dlr.de/xsd/edgerelations_file.xsd)           |
 
 To describe the turn definitions, one has to write an XML file. Within
 this file, for each interval and each edge the list of percentages to
 use a certain follower edge has to be given. An example:
 
-```
+```xml
 <edgeRelations>
    <interval begin="0" end="3600">
       <edgeRelation from="myEdge0" to="myEdge1" probability="0.2"/>
@@ -86,7 +86,7 @@ all networks have sink edges defined, one can support a list of edges to
 be declared as sinks using **--sinks <EDGE_ID\>[,<EDGE_ID\>\]***. You may also add your sink definitions to a
 turn-file (XML only):
 
-```
+```xml
 <turns>
    ... some further turning definitions as above ...
 
@@ -108,8 +108,12 @@ single difference: as it is not known where the vehicle will leave the
 network as the route it uses is randomly computed, the route must be
 specified using attribute *from* and attribute *to* must be omitted:
 
-```
-<flow id="0" from="A" begin="0" end="3600" probability="0.5"/>
+```xml
+<routes>
+   <flow id="example0" from="A" begin="0" end="3600" probability="0.5"/>
+   <flow id="example1" ... />
+   ....
+</routes>
 ```
 
 ### Random Flows

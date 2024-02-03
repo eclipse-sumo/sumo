@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-05-19 13:03:43.266728 by $Id$ v1_9_2+0025-2180a6a
+
+<!-- generated on 2022-12-20 14:07:17.392841 by scheduleStats.py v1_15_0+1154-8389b7e
   options: -r input_routes.rou.xml -s input_stops.xml <doubleminus>xml-output out.xml <doubleminus>histogram 10
 -->
+
 <scheduleStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/scheduleStats_file.xsd">
-    <statistic description="depart delay" min="0.0" minLabel="t0_stop_a" max="176.0" maxLabel="t3_stop_i" mean="54.2" Q1="0.0" median="0.0" Q3="149.0" meanAbs="54.2" medianAbs="0.0">
+    <statistic description="depart delay" count="8" min="0.0" minLabel="t0_stop_a" max="176.0" maxLabel="t3_stop_i" mean="54.2" Q1="0.0" median="0.0" Q3="149.0" meanAbs="54.2" medianAbs="0.0">
         <hist key="0.0" value="5"/>
         <hist key="110.0" value="1"/>
         <hist key="150.0" value="1"/>

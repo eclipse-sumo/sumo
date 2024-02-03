@@ -40,9 +40,9 @@ Once the vClass "bicycle" is chosen, the following parameters, which can still b
  - max. deceleration = 3 m/s^2
  - emergency deceleration = 7 m/s^2
  - Length = 1.6 m
- - max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and worksarounds below)
+ - max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and workarounds below)
 
-The vaules of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
+The values of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
 
 - latAlignment = "right" (cyclists ride on the right side of their lane)
 - carFollowModel = IDM (if smoothed acceleration is desired)
@@ -66,7 +66,7 @@ The vaules of some other parameters for bicycles are different from those for ve
   - define multiple vehicle types with different 'maxSpeed' for the bicycle fleet. This can be done efficiently with [Tool createVehTypeDistribution](../Tools/Misc.md#createvehtypedistributionpy)
   speed distribution for bicycles there are several options
   - define a meaningful speed limit for bicycle lanes (only useful if bikes always mostly use dedicated lanes)
-  - define [vClass-specific speed limits for bicycles](../Networks/PlainXML.md#vehicle-class_specific_speed_limits) on all edges where bicycles are used 
+  - define [vClass-specific speed limits for bicycles](../Networks/PlainXML.md#vehicle-class_specific_speed_limits) on all edges where bicycles are used
 
 One way for overcoming most of these problems is to control bicycle
 movements at intersections with an [external control
@@ -88,29 +88,30 @@ In this case, persons walking at high speed are used.
 ## Automatic import
 
 The import of bicycle lanes from OpenStreetMap is supported since
-version 0.24.0. To use this, [an appropriate
-typemap](../Networks/Import/OpenStreetMap.md#recommended_typemaps)
-must be loaded.
+version 0.24.0. Since version 1.17.0 you can enable them using
+the option **--osm.bike-access**. The earlier
+[typemap approach](../Networks/Import/OpenStreetMap.md#recommended_typemaps)
+can still be used (also together with the option to modify bike lane widths).
 
 ## Generating a network with bike lanes
 
-A bike lane is a lane which only permits the vClass *bicycle*. There are various different options for generating a network with bike lanes which are explained below. All of these options recognize the presence of an existing bike lane and will not add another lane in that case. 
+A bike lane is a lane which only permits the vClass *bicycle*. There are various different options for generating a network with bike lanes which are explained below. All of these options recognize the presence of an existing bike lane and will not add another lane in that case.
 
 ### Explicit specification of additional lanes
 
 Bike lanes may be defined explicitly in plain XML input when describing edges [edges
-(plain.edg.xml)](../Networks/PlainXML.md#lane-specific_definitions). This is done by defining an additional lane which only permits the vClass “bicycle” and setting the appropriate width. In this case it may be useful to disallow bicycles on other lanes. Also, any pre-exisiting connection definitions must be modified to account for the new bike lane. 
+(plain.edg.xml)](../Networks/PlainXML.md#lane-specific_definitions). This is done by defining an additional lane which only permits the vClass “bicycle” and setting the appropriate width. In this case it may be useful to disallow bicycles on other lanes. Also, any pre-existing connection definitions must be modified to account for the new bike lane.
 
 ### Explicit specification of bike lanes
 
-Alternatively to the above method, the `<edge>`-attribute [`bikeLanWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
+Alternatively to the above method, the `<edge>`-attribute [`bikeLaneWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
 
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of bicycle permissions from non-bike lanes
 
-### Type-base generation
+### Type-based generation
 
-When importing edges with defined types, it is also possible to declare that certain types should receive a sidewalk. This can be used to automatically generate bike lanes for residential streets while omitting them for motorways when importing OSM data. 
+When importing edges with defined types, it is also possible to declare that certain types should receive a sidewalk. This can be used to automatically generate bike lanes for residential streets while omitting them for motorways when importing OSM data.
 
 ```xml
 <types>
@@ -122,7 +123,7 @@ When importing edges with defined types, it is also possible to declare that cer
 </types>
 ```
 
-A special type file that imports bike lanes based on additional OSM attributes can be found in [{{SUMO}}/data/typemap/osmNetconvertBicycle.typ.xml]({{Source}}data/typemap/osmNetconvertBicycle.typ.xml). This is to be preferred for importing bike lanes from OSM as it uses more accurate data. 
+A special type file that imports bike lanes based on additional OSM attributes can be found in [{{SUMO}}/data/typemap/osmNetconvertBicycle.typ.xml]({{Source}}data/typemap/osmNetconvertBicycle.typ.xml). This is to be preferred for importing bike lanes from OSM as it uses more accurate data.
 
 
 ### Heuristic generation
@@ -138,11 +139,11 @@ A third option which can be used if no edge types are available is a heuristic b
 
 ### Permission-based generation
 
-Option **--bikelanes.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a bike lane for all edges which allow bicycles on any of their lanes. The option **--bikelanes.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]* applies here as well. 
+Option **--bikelanes.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a bike lane for all edges which allow bicycles on any of their lanes. The option **--bikelanes.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]* applies here as well.
 
 ### Adding bike lanes with [netedit](../Netedit/index.md)
 
-To add bike lanes to a set of edges in [netedit](../Netedit/index.md) select these and right click on them. From the context-menu select *lane operations->add restricted lane->Bikelane*. 
+To add bike lanes to a set of edges in [netedit](../Netedit/index.md) select these and right click on them. From the context-menu select *lane operations->add restricted lane->Bikelane*.
 
 ## Notes on Right-of-Way rules
 
@@ -152,17 +153,36 @@ right-of-way rules and builds internal junctions where appropriate.
 
 Likewise, left-turning bicycles one a bicycle lane (on the right side of
 the road) must yield to straight-going vehicles.
-    
+
 ## Indirect left turn
-In reality, left-turning bicycles may move in two stages
-1. move straight across
+In reality, left-turning bicycles may move in two stages:
+1. move straight across, and then
 2. turn 90° left and then move straight across
 
 By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Netedit/index.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/index.md#setting_connection_attributes).
 
-To define a controlled in direct turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
-The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controlls the movement of vehicles (or pedestrians) going straight from right to left.
-    
+To define a controlled indirect turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic light according to the 'linkIndex' attribute of the connection.
+The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achieved by activating the [Sublane-Model](../Simulation/SublaneModel.md).
+
+Sometimes, bicycles/motorpads do not wait side by side properly. The following parameters can help to solve/improve this issue.
+
+- latAlignment="nice"
+- minGapLat="0.1"
+
+## Short overview
+
+| Input                                           | Desired output                 | Options to use        |
+|-------------------------------------------------|--------------------------------|-----------------------|
+| shapefile or other data without bicycle info    | no bicycle infrastructure      | none                  |
+|                                                 | bicycle lanes where applicable | **--bikelanes.guess** |
+| OpenStreetMap                                   | no bicycle infrastructure      | none                  |
+|                                                 | bicycle lanes as in the input  | **--osm.bike-access** |
+|                                                 | guessed bicycle lanes (discarding input) | a typemap which gives a bikelane width to all street types which should receive one or **--bikelanes.guess** |
+
+The options above only apply to adding further lanes for existing streets or foot paths. Separate bike paths are always imported
+(if the typemap or other filter options do not prevent it).
+
+
 # Bicycle routing
 
 When [routing bicycles in the simulation](../Demand/Automatic_Routing.md) the option **--device.rerouting.bike-speeds** can be used to enable separate tracking of bicycle speeds. This ensure that routing for bicycles which can use a dedicated bicycle lane is not affected by jammed cars.

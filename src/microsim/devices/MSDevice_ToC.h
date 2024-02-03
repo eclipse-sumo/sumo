@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -173,7 +173,7 @@ public:
         return myOutputFile != nullptr;
     }
 
-    static std::mt19937* getResponseTimeRNG() {
+    static SumoRNG* getResponseTimeRNG() {
         return &myResponseTimeRNG;
     }
 private:
@@ -369,7 +369,7 @@ private:
     static std::vector<std::vector<double> > lookupResponseTimeVariances;
 
     /// @brief Random generator for ToC devices
-    static std::mt19937 myResponseTimeRNG;
+    static SumoRNG myResponseTimeRNG;
 
     /// @brief Samples a random driver response time from a truncated Gaussian with
     /// parameters according to the lookup tables

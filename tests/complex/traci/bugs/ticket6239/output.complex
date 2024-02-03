@@ -1,0 +1,18 @@
+run  0
+ Retrying in 1 seconds
+0.0 arrived ()
+0.0 departed ()
+19.0 arrived ('v0',)
+19.0 departed ()
+run  1
+ Retrying in 1 seconds
+0.0 arrived ()
+0.0 departed ()
+19.0 arrived ('v0',)
+19.0 departed ()
+run  2
+ Retrying in 1 seconds
+0.0 arrived ()
+0.0 departed ()
+19.0 arrived ('v0',)
+19.0 departed ()

@@ -3,3 +3,12 @@ plain
 
 # two lanes in a simple net without lane queue
 no_queue
+
+# closing 2 lanes from a 3-lane road which results in reduced flow even in meso
+closingLane
+
+# two lanes in a simple net with lane queues	
+edgeData
+
+# two lanes in a simple net with lane queues	
+laneData

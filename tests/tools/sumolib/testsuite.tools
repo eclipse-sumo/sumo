@@ -1,3 +1,6 @@
+# parsing XML and accessing objects
+xml
+
 # parsing a network and accessing objects
 net
 
@@ -6,10 +9,16 @@ net_short_internal
 
 # parsing a network and accessing objects
 net_roundabout
+
+# parsing a network and accessing objects
+net_intermodal
 sumolib3d
 
 # unit tests for functions in init
 init
+
+# unit tests for functions from the miscutils module
+miscutils
 geomhelper
 
 # parsing a network working with tlLogic
@@ -24,14 +33,11 @@ getShortestRoute
 # finding routes in a railway network
 getShortestRoute_rail
 
-# parsing XML and accessing objects
-xml
-
-# parsing nested XML
-xml.parse_nested
-
-# parsing nested XML with ignored lines
-xml.parse_nested2
+# finding fastest routes
+getFastestRoute
 
 # testing statistics 
 statistics
+
+# read polygons
+shapes

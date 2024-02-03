@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ Reservation::getID() const {
 // MSDispatch methods
 // ===========================================================================
 
-MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
+MSDispatch::MSDispatch(const Parameterised::Map& params) :
     Parameterised(params),
     myOutput(nullptr),
     myReservationCount(0) {
@@ -56,6 +56,15 @@ MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
     }
 }
 
+MSDispatch::~MSDispatch() {
+    for (auto item : myGroupReservations) {
+        for (Reservation* res : item.second) {
+            delete res;
+        }
+    }
+    myGroupReservations.clear();
+}
+
 
 Reservation*
 MSDispatch::addReservation(MSTransportable* person,
@@ -64,6 +73,7 @@ MSDispatch::addReservation(MSTransportable* person,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
                            std::string group,
+                           const std::string& line,
                            int maxCapacity,
                            int maxContainerCapacity) {
     // no new reservation nedded if the person can be added to an existing group
@@ -84,7 +94,7 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
-                    WRITE_WARNINGF("Mixing reservations of persons and containers with the same group is not supported for % and %",
+                    WRITE_WARNINGF(TL("Mixing reservations of persons and containers with the same group is not supported for % and %"),
                                    (*res->persons.begin())->getID(), person->getID());
                 }
                 if ((person->isPerson() && (int)res->persons.size() >= maxCapacity) ||
@@ -100,7 +110,7 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     if (!added) {
-        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, from, fromPos, to, toPos, group);
+        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, from, fromPos, to, toPos, group, line);
         myGroupReservations[group].push_back(newRes);
         result = newRes;
     }
@@ -187,11 +197,11 @@ MSDispatch::servedReservation(const Reservation* res) {
     }
     auto it = myGroupReservations.find(res->group);
     if (it == myGroupReservations.end()) {
-        throw ProcessError("Inconsistent group reservations.");
+        throw ProcessError(TL("Inconsistent group reservations."));
     }
     auto it2 = std::find(it->second.begin(), it->second.end(), res);
     if (it2 == it->second.end()) {
-        throw ProcessError("Inconsistent group reservations (2).");
+        throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
     myRunningReservations.insert(*it2);
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;
@@ -212,8 +222,8 @@ MSDispatch::fulfilledReservation(const Reservation* res) {
 SUMOTime
 MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) {
     ConstMSEdgeVector edges;
-    router.compute(taxi->getHolder().getEdge(), taxi->getHolder().getPositionOnLane(),
-                   res.from, res.fromPos, &taxi->getHolder(), t, edges);
+    router.compute(taxi->getHolder().getEdge(), taxi->getHolder().getPositionOnLane() - NUMERICAL_EPS,
+                   res.from, res.fromPos, &taxi->getHolder(), t, edges, true);
     return TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), t));
 }
 
@@ -227,22 +237,22 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
                               double& timeDirect) {
     ConstMSEdgeVector edges;
     if (timeDirect < 0) {
-        router.compute(from, fromPos, to, toPos, &taxi->getHolder(), t, edges);
-        timeDirect = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, toPos, t);
+        router.compute(from, fromPos, to, toPos, &taxi->getHolder(), t, edges, true);
+        timeDirect = router.recomputeCostsPos(edges, &taxi->getHolder(), fromPos, toPos, t);
         edges.clear();
     }
 
-    router.compute(from, fromPos, via, viaPos, &taxi->getHolder(), t, edges);
+    router.compute(from, fromPos, via, viaPos, &taxi->getHolder(), t, edges, true);
     const double start = STEPS2TIME(t);
-    const double leg1 = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, viaPos, t);
+    const double leg1 = router.recomputeCostsPos(edges, &taxi->getHolder(), fromPos, viaPos, t);
 #ifdef DEBUG_DETOUR
     std::cout << "        leg1=" << toString(edges) << " startPos=" << fromPos << " toPos=" << viaPos << " time=" << leg1 << "\n";
 #endif
     const double wait = MAX2(0.0, STEPS2TIME(viaTime) - (start + leg1));
     edges.clear();
     const SUMOTime timeContinue = TIME2STEPS(start + leg1 + wait);
-    router.compute(via, viaPos, to, toPos, &taxi->getHolder(), timeContinue, edges);
-    const double leg2 = router.recomputeCosts(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
+    router.compute(via, viaPos, to, toPos, &taxi->getHolder(), timeContinue, edges, true);
+    const double leg2 = router.recomputeCostsPos(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
     const double timeDetour = leg1 + wait + leg2;
 #ifdef DEBUG_DETOUR
     std::cout << "        leg2=" << toString(edges) << " startPos=" << viaPos << " toPos=" << toPos << " time=" << leg2 << "\n";

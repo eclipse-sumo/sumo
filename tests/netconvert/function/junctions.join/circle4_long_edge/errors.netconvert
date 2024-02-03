@@ -1,0 +1,7 @@
+Warning: Reducing junction cluster 1068800000,1500100000,1514300000,1826900000,1949400000,2227200000,3248000000,3279500000,3302000000,3333600000,3455300000,3757200000,3822400000,3890100000,4100000000,4116400000,4481400000,769800000,896400000 (7 incoming edges).
+Warning: Speed of straight connection '4455_0->6467_0' reduced by 17.47 due to turning radius of 19.35 (length=11.08, angle=49.22).
+Warning: Speed of straight connection '4455_1->6467_1' reduced by 16.43 due to turning radius of 23.41 (length=13.51, angle=49.22).
+Warning: Speed of straight connection '66614_0->60909_0' reduced by 13.30 due to turning radius of 38.11 (length=13.98, angle=36.47).
+Warning: Speed of straight connection '66614_1->60909_1' reduced by 12.43 due to turning radius of 42.86 (length=15.76, angle=36.47).
+Warning: Speed of turning connection '-72413_0->22727_2' reduced by 22.55 due to turning radius of 4.97 (length=5.36, angle=88.66).
+Warning: 10 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

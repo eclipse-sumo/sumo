@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -112,7 +112,7 @@ public:
     /// @brief /edit parkingAreaReroute
     long onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*);
 
-    /// @brief called when begin or endis changed
+    /// @brief called when begin or end is changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
 
     /// @}
@@ -135,7 +135,7 @@ protected:
     /// @brief button for add new closing reroutes
     FXButton* myAddClosingReroutes;
 
-    /// @brief button for add new destiny probability reroutes
+    /// @brief button for add new destination probability reroutes
     FXButton* myAddDestProbReroutes;
 
     /// @brief button for add new route probability reroutes
@@ -150,7 +150,7 @@ protected:
     /// @brief list with closing reroutes
     FXTable* myClosingRerouteTable;
 
-    /// @brief list with destiny probability reroutes
+    /// @brief list with destination probability reroutes
     FXTable* myDestProbRerouteTable;
 
     /// @brief list with route probability reroute
@@ -183,7 +183,7 @@ protected:
     /// @brief flag to check if closing reroutes are valid
     bool myClosingReroutesValid;
 
-    /// @brief flag to check if Destiny probability reroutes are valid
+    /// @brief flag to check if Destination probability reroutes are valid
     bool myDestProbReroutesValid;
 
     /// @brief flag to check if parkingAreaReroutes are valid
@@ -199,10 +199,10 @@ private:
     /// @brief update data of closing reroute table
     void updateClosingReroutesTable();
 
-    /// @brief update data of destiny probabilitry reroute table
+    /// @brief update data of destination probability reroute table
     void updateDestProbReroutesTable();
 
-    /// @brief update data of probabilitry reroutes table
+    /// @brief update data of probability reroutes table
     void updateRouteProbReroutesTable();
 
     /// @brief update data of parkingAreaReroute table
@@ -214,4 +214,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&) = delete;
 };
-

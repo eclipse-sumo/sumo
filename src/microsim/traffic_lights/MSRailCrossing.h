@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,10 @@ public:
      */
     MSRailCrossing(MSTLLogicControl& tlcontrol,
                    const std::string& id, const std::string& programID, SUMOTime delay,
-                   const std::map<std::string, std::string>& parameters);
+                   const Parameterised::Map& parameters);
+
+    /// @brief Destructor
+    ~MSRailCrossing();
 
 
     /** @brief Initialises the rail signal with information about adjacent rail signals
@@ -52,9 +55,8 @@ public:
      */
     void init(NLDetectorBuilder& nb);
 
-
-    /// @brief Destructor
-    ~MSRailCrossing();
+    /**@brief Sets a parameter and updates internal constants */
+    void setParameter(const std::string& key, const std::string& value);
 
     /// @name Handling of controlled links
     /// @{
@@ -144,12 +146,21 @@ protected:
 
 
     /// @brief minimum time gap between closing the crossing (end of yellow time) and train passing the crossing
-    SUMOTime mySecurityGap;
+    SUMOTime myTimeGap;
+
+    /// @brief minimum distance between the train and the crossing which triggers closing (-1 means time only)
+    double mySpaceGap;
 
     /// @brief minimum green time
     SUMOTime myMinGreenTime;
 
-    /// @brief minimum green time
+    /// @brief red time after the train has left
+    SUMOTime myOpeningDelay;
+
+    /// @brief red-yellow time after the delay while opening
+    SUMOTime myOpeningTime;
+
+    /// @brief yellow time
     SUMOTime myYellowTime;
 
 };

@@ -16,3 +16,27 @@ ticket5097
 
 # delayed lane change when trying to avoid counter-lane-change deadlock for IDM model
 ticket5124
+
+# lane change decision should be independent of step length
+ticket8804
+
+# lcSigma should not cause deadlock
+ticket9395
+
+# intermediate bus lane
+ticket10512
+
+# counter lanechange with bus
+ticket10763
+
+# unsafe lane changing on junction causes emergency braking 
+ticket10988
+
+# excessive emergency braking at discontinuity in bestlaneoffset
+ticket11695
+
+# delayed lane change while decelerating
+ticket12108
+
+# counter lane change deadlock at busstop
+ticket12320

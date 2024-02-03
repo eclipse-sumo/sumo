@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,9 +19,19 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
+import os
 import sys
 import re
 from collections import defaultdict
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.options import ArgumentParser  # noqa
+
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("logfile", type=optParser.file, category="input", help="log file")
+    return optParser.parse_args()
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
@@ -36,38 +46,39 @@ def parse_log(logfile, edges=True, aggregate=3600):
     # counts per step
     waitingStepCounts = defaultdict(lambda: 0)
     collisionStepCounts = defaultdict(lambda: 0)
-    for index, line in enumerate(open(logfile)):
-        try:
-            if "Warning: Teleporting vehicle" in line:
-                # figure out whether its micro or meso
-                match = reFrom.search(line)
-                if match is None:
-                    edge = reFromMeso.search(line).group(1)
-                else:
-                    edge = match.group(1)
-                    if edges:
-                        edge = edge[:-2]
-                timeMatch = reTime.search(line)
-                if timeMatch:
-                    time = int(timeMatch.group(1))
-                else:
-                    timeMatch = reHRTime.search(line)
-                    time = (24 * 3600 * int(timeMatch.group(1))
-                            + 3600 * int(timeMatch.group(2))
-                            + 60 * int(timeMatch.group(3))
-                            + int(timeMatch.group(4)))
-                if "collision" in line:
-                    collisionCounts[edge] += 1
-                    collisionStepCounts[time / aggregate] += 1
-                else:
-                    waitingCounts[edge] += 1
-                    waitingStepCounts[time / aggregate] += 1
-        except Exception:
-            print(sys.exc_info())
-            sys.exit("error when parsing line '%s'" % line)
-        if index % 1000 == 0:
-            sys.stdout.write(".")
-            sys.stdout.flush()
+    with open(logfile) as log:
+        for index, line in enumerate(log):
+            try:
+                if "Warning: Teleporting vehicle" in line:
+                    # figure out whether its micro or meso
+                    match = reFrom.search(line)
+                    if match is None:
+                        edge = reFromMeso.search(line).group(1)
+                    else:
+                        edge = match.group(1)
+                        if edges:
+                            edge = edge[:-2]
+                    timeMatch = reTime.search(line)
+                    if timeMatch:
+                        time = int(timeMatch.group(1))
+                    else:
+                        timeMatch = reHRTime.search(line)
+                        time = (24 * 3600 * int(timeMatch.group(1))
+                                + 3600 * int(timeMatch.group(2))
+                                + 60 * int(timeMatch.group(3))
+                                + int(timeMatch.group(4)))
+                    if "collision" in line:
+                        collisionCounts[edge] += 1
+                        collisionStepCounts[time // aggregate] += 1
+                    else:
+                        waitingCounts[edge] += 1
+                        waitingStepCounts[time // aggregate] += 1
+            except Exception:
+                print(sys.exc_info())
+                sys.exit("error when parsing line '%s'" % line)
+            if index % 1000 == 0:
+                sys.stdout.write(".")
+                sys.stdout.flush()
     print()
     print("read %s lines" % index)
 
@@ -87,8 +98,8 @@ def main(logfile):
     print_counts(collisionCounts, 'collisions')
     # generate plot
     if len(waitingStepCounts) + len(collisionStepCounts) > 0:
-        min_step = min(waitingStepCounts.keys() + collisionStepCounts.keys())
-        max_step = max(waitingStepCounts.keys() + collisionStepCounts.keys())
+        min_step = min(list(waitingStepCounts.keys()) + list(collisionStepCounts.keys()))
+        max_step = max(list(waitingStepCounts.keys()) + list(collisionStepCounts.keys()))
         plotfile = logfile + '.plot'
         with open(plotfile, 'w') as f:
             f.write(("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title " +
@@ -104,4 +115,4 @@ def main(logfile):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main(parse_args().logfile)

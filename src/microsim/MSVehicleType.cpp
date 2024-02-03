@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,6 +37,7 @@
 #include "cfmodels/MSCFModel_KraussOrig1.h"
 #include "cfmodels/MSCFModel_KraussPS.h"
 #include "cfmodels/MSCFModel_KraussX.h"
+#include "cfmodels/MSCFModel_EIDM.h"
 #include "cfmodels/MSCFModel_SmartSK.h"
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
@@ -44,6 +45,7 @@
 #include "cfmodels/MSCFModel_W99.h"
 #include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_CACC.h"
+#include "MSInsertionControl.h"
 #include "MSVehicleControl.h"
 #include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
@@ -60,8 +62,10 @@ int MSVehicleType::myNextIndex = 0;
 // ===========================================================================
 MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
     myParameter(parameter),
+    myEnergyParams(&parameter),
     myWarnedActionStepLengthTauOnce(false),
     myWarnedActionStepLengthBallisticOnce(false),
+    myWarnedStepLengthTauOnce(false),
     myIndex(myNextIndex++),
     myCarFollowModel(nullptr),
     myOriginalType(nullptr) {
@@ -82,8 +86,8 @@ MSVehicleType::~MSVehicleType() {
 
 
 double
-MSVehicleType::computeChosenSpeedDeviation(std::mt19937* rng, const double minDev) const {
-    return MAX2(minDev, myParameter.speedFactor.sample(rng));
+MSVehicleType::computeChosenSpeedDeviation(SumoRNG* rng, const double minDev) const {
+    return roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom);
 }
 
 
@@ -160,12 +164,20 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) {
     myParameter.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
 }
 
+
 void
-MSVehicleType::setPreferredLateralAlignment(LateralAlignment latAlignment) {
-    myParameter.latAlignment = latAlignment;
+MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset) {
+    myParameter.latAlignmentProcedure = latAlignment;
+    myParameter.latAlignmentOffset = latAlignmentOffset;
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
+void
+MSVehicleType::setScale(double value) {
+    myParameter.scale = value;
+    MSInsertionControl& insertControl = MSNet::getInstance()->getInsertionControl();
+    insertControl.updateScale(getID());
+}
 
 void
 MSVehicleType::setDefaultProbability(const double& prob) {
@@ -202,7 +214,7 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 void
 MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
-    assert(actionStepLength >= 0.);
+    assert(actionStepLength >= 0);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 
     if (myParameter.actionStepLength == actionStepLength) {
@@ -244,6 +256,13 @@ MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
 
 
 void
+MSVehicleType::setMass(double mass) {
+    myParameter.mass = mass;
+    myParameter.parametersSet |= VTYPEPARS_MASS_SET;
+}
+
+
+void
 MSVehicleType::setColor(const RGBColor& color) {
     myParameter.color = color;
     myParameter.parametersSet |= VTYPEPARS_COLOR_SET;
@@ -262,14 +281,24 @@ MSVehicleType::setWidth(const double& width) {
 
 void
 MSVehicleType::setImpatience(const double impatience) {
-    if (myOriginalType != nullptr && impatience < 0) {
-        myParameter.impatience = myOriginalType->getImpatience();
-    } else {
-        myParameter.impatience = impatience;
-    }
+    myParameter.impatience = impatience;
     myParameter.parametersSet |= VTYPEPARS_IMPATIENCE_SET;
 }
 
+
+void
+MSVehicleType::setBoardingDuration(SUMOTime duration, bool isPerson) {
+    if (myOriginalType != nullptr && duration < 0) {
+        myParameter.boardingDuration = myOriginalType->getBoardingDuration(isPerson);
+    } else {
+        if (isPerson) {
+            myParameter.boardingDuration = duration;
+        } else {
+            myParameter.loadingDuration = duration;
+        }
+    }
+    myParameter.parametersSet |= VTYPEPARS_BOARDING_DURATION;
+}
 
 void
 MSVehicleType::setShape(SUMOVehicleShape shape) {
@@ -289,10 +318,10 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     const double apparentDecel = from.getCFParam(SUMO_ATTR_APPARENTDECEL, decel);
 
     if (emergencyDecel < decel) {
-        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") should be higher than 'decel' (" + toString(decel) + ") for vType '" + from.id + "'.");
+        WRITE_WARNINGF(TL("Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType '%'."), toString(emergencyDecel), toString(decel), from.id);
     }
     if (emergencyDecel < apparentDecel) {
-        WRITE_WARNING("Value of 'emergencyDecel' (" + toString(emergencyDecel) + ") is lower than 'apparentDecel' (" + toString(apparentDecel) + ") for vType '" + from.id + "' may cause collisions.");
+        WRITE_WARNINGF(TL("Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType '%' may cause collisions."), toString(emergencyDecel), toString(apparentDecel), from.id);
     }
 
     switch (from.cfModel) {
@@ -313,6 +342,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_KRAUSSX:
             vtype->myCarFollowModel = new MSCFModel_KraussX(vtype);
+            break;
+        case SUMO_TAG_CF_EIDM:
+            vtype->myCarFollowModel = new MSCFModel_EIDM(vtype);
             break;
         case SUMO_TAG_CF_SMART_SK:
             vtype->myCarFollowModel = new MSCFModel_SmartSK(vtype);
@@ -347,8 +379,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
     }
     // init Rail visualization parameters
-    vtype->initRailVisualizationParameters();
-    vtype->check();
+    vtype->myParameter.initRailVisualizationParameters();
     return vtype;
 }
 
@@ -409,7 +440,30 @@ MSVehicleType::check() {
         WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
                        , STEPS2TIME(myParameter.actionStepLength), getID())
     }
+    if (!myWarnedStepLengthTauOnce && TS > getCarFollowModel().getHeadwayTime()
+            && !MSGlobals::gUseMesoSim) {
+        myWarnedStepLengthTauOnce = true;
+        WRITE_WARNINGF(TL("Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions."),
+                       getCarFollowModel().getHeadwayTime(), getID());
+    }
+    if (MSGlobals::gUseMesoSim && getVehicleClass() != SVC_PEDESTRIAN && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+        SVCPermissions ignoreVClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass"));
+        if ((ignoreVClasses & getVehicleClass()) != 0) {
+            WRITE_WARNINGF(TL("Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation"),
+                           toString(getVehicleClass()), getID());
+        }
+    }
+    if (!myParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET) && !OptionsCont::getOptions().getBool("device.battery.track-fuel")
+            && (OptionsCont::getOptions().getFloat("device.battery.probability") == 1.
+                || myParameter.getDouble("device.battery.probability", -1.) == 1.
+                || StringUtils::toBool(myParameter.getParameter("has.battery.device", "false")))) {
+        myParameter.emissionClass = PollutantsInterface::getClassByName("Energy");
+        myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+        WRITE_MESSAGEF(TL("The battery device is active for vType '%' but no emission class is set. The emission class Energy/unknown will be used, please consider setting an explicit emission class!"),
+                       getID());
+    }
 }
+
 
 void
 MSVehicleType::setAccel(double accel) {
@@ -464,50 +518,5 @@ MSVehicleType::setTau(double tau) {
     myCarFollowModel->setHeadwayTime(tau);
     myParameter.cfParameter[SUMO_ATTR_TAU] = toString(tau);
 }
-
-
-void
-MSVehicleType::initRailVisualizationParameters() {
-    if (myParameter.knowsParameter("carriageLength")) {
-        myParameter.carriageLength = StringUtils::toDouble(myParameter.getParameter("carriageLength"));
-    } else if (myParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
-        switch (myParameter.shape) {
-            case SVS_BUS_FLEXIBLE:
-                myParameter.carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
-                myParameter.carriageGap = 0;
-                break;
-            case SVS_RAIL:
-                myParameter.carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-                break;
-            case SVS_RAIL_CAR:
-                myParameter.carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-                break;
-            case SVS_RAIL_CARGO:
-                myParameter.carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
-                break;
-            case SVS_TRUCK_SEMITRAILER:
-                myParameter.carriageLength = 13.5;
-                myParameter.locomotiveLength = 2.5;
-                myParameter.carriageGap = 0.5;
-                break;
-            case SVS_TRUCK_1TRAILER:
-                myParameter.carriageLength = 6.75;
-                myParameter.locomotiveLength = 2.5 + 6.75;
-                myParameter.carriageGap = 0.5;
-                break;
-            default:
-                break;
-        }
-    }
-    if (myParameter.knowsParameter("locomotiveLength")) {
-        myParameter.locomotiveLength = StringUtils::toDouble(myParameter.getParameter("locomotiveLength"));
-    } else if (myParameter.locomotiveLength <= 0) {
-        myParameter.locomotiveLength = myParameter.carriageLength;
-    }
-    if (myParameter.knowsParameter("carriageGap")) {
-        myParameter.carriageGap = StringUtils::toDouble(myParameter.getParameter("carriageGap"));
-    }
-}
-
 
 /****************************************************************************/

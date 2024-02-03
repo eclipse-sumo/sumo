@@ -1,0 +1,3 @@
+read 25 TAZ
+read 10 vehicles
+Wrote 10 OD-pairs (10 distinct) in 2 intervals (10 vehicles total)

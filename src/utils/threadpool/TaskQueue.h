@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2020-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,16 @@
 
 #include <condition_variable>
 #include <functional>
-#include <future>
 #include <queue>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355 5204 5220) // mask warnings in MSVCs ppl-stdlib
+#endif
+#include <future>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 
 template <typename C>
 class TaskBase {

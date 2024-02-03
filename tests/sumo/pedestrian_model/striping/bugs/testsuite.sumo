@@ -32,5 +32,18 @@ ticket5257
 # dealing with short internal lanes
 ticket5661
 
+# pedestrian stops on junction despite moving away from vehicle
+ticket7853
+
 # jammed bike and pedestrian
 ticket8417
+
+# invalid arrivalPos interpretation
+ticket11674
+
+# invalid distance output
+ticket11983
+
+# cross the street going straight on the right side of the road	but the crossing is shifted sideways with regard to the sidewalk and the walkingarea is very short
+# (#12456)
+ticket12456

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-06 10:20:47 by Eclipse SUMO netedit Version v1_18_0+2429-1a41f4aa074
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101816.11344\netedit.gui\netelements\edges\move\selected_both_to_junction\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="25.00,0.00" convBoundary="0.00,-10.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ0_0" function="internal">
+        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.65,1.46 -0.77,1.22 -1.46,0.65 -1.42,-0.24 -0.65,-1.46"/>
+    </edge>
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,-11.60 51.20,-10.80 51.60,-10.00 51.20,-9.20 50.00,-8.40"/>
+    </edge>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" shape="0.00,0.00 22.50,-10.00 50.00,-10.00">
+        <lane id="gneE0_0" index="0" speed="13.89" length="52.80" shape="-0.65,-1.46 22.16,-11.60 50.00,-11.60"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1" shape="50.00,-10.00 22.50,-10.00 0.00,0.00">
+        <lane id="gneE1_0" index="0" speed="13.89" length="51.44" shape="50.00,-8.40 22.84,-8.40 0.65,1.46"/>
+    </edge>
+
+    <tlLogic id="gneJ0" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3"  state="y"/>
+    </tlLogic>
+    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3"  state="y"/>
+    </tlLogic>
+
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="-0.00,0.00 1.30,2.92 -0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="-10.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,-10.00 50.00,-13.20 50.00,-10.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
+    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
+
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

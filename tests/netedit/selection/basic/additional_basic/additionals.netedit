@@ -1,68 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.12.2020 05:15:24 by Eclipse SUMO netedit Version 1.8.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Dec130924.10204\netedit.gui\selection\basic\additional_basic\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2023-01-25 18:31:37 by Eclipse SUMO netedit Version v1_15_0+1949-962673d476a
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="busStop_12" lane="gneE1_0" startPos="15.00" endPos="20.00" lines="line1 line2"/>
+    <busStop id="busStop_13" lane="gneE1_0" startPos="20.00" endPos="25.00" lines="line1 line2"/>
+    <busStop id="busStop_14" lane="gneE1_0" startPos="25.00" endPos="30.00" lines="line1 line2"/>
+    <busStop id="busStop_15" lane="gneE1_0" startPos="30.00" endPos="35.00" lines="line1 line2"/>
     <busStop id="busStop_18" lane="gneE1_0" startPos="45.00" endPos="50.00" lines="line1 line2"/>
-    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <!-- Shapes -->
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000 10.000000,20.000000"/>
     <poly id="poly_1" color="green" fill="1" layer="0.00" shape="40.000000,20.000000 40.000000,10.000000 50.000000,10.000000 50.000000,20.000000 40.000000,20.000000"/>
     <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="40.00" width="0.00" height="0.00"/>
     <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="10.00" width="0.00" height="0.00"/>
     <poi id="POI_2" color="red" layer="3.00" x="10.00" y="-10.00" width="0.00" height="0.00"/>
     <poi id="POI_3" color="red" layer="3.00" x="40.00" y="-10.00" width="0.00" height="0.00"/>
+    <!-- TAZs -->
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
 </additional>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-31 14:22:09 by Eclipse SUMO netedit Version v1_12_0+1820-2462241
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,409.93,1500.00,605.21" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="500.00" shape="0.00,498.40 498.50,498.40"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" speed="27.80" length="500.00" shape="1001.50,498.40 1500.00,498.40"/>
+    </edge>
+    <edge id="left" from="beg" to="end" priority="1" length="540.00" shape="500.00,500.00 762.06,605.21 1000.00,500.00">
+        <lane id="left_0" index="0" speed="13.89" length="540.00" shape="505.47,500.47 762.03,603.47 995.07,500.43"/>
+    </edge>
+    <edge id="right" from="beg" to="end" priority="2" length="550.00" shape="500.00,500.00 768.47,409.93 1000.00,500.00">
+        <lane id="right_0" index="0" speed="13.89" length="550.00" shape="505.59,496.44 768.51,408.23 994.97,496.33"/>
+    </edge>
+
+    <tlLogic id="end" type="static" programID="0" offset="0">
+        <phase duration="42" state="Gr"/>
+        <phase duration="3"  state="yr"/>
+        <phase duration="42" state="rG"/>
+        <phase duration="3"  state="ry"/>
+    </tlLogic>
+
+    <junction id="absBeg" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,500.00 0.00,496.80"/>
+    <junction id="absEnd" type="dead_end" x="1500.00" y="500.00" incLanes="end_0" intLanes="" shape="1500.00,496.80 1500.00,500.00"/>
+    <junction id="beg" type="priority" x="500.00" y="500.00" incLanes="beg_0" intLanes="" shape="504.88,501.96 506.07,498.99 506.10,497.95 505.08,494.92 498.50,496.80 498.50,500.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="end" type="traffic_light" x="1000.00" y="500.00" incLanes="right_0 left_0" intLanes="" shape="1001.50,500.00 1001.50,496.80 995.55,494.84 994.39,497.82 994.42,498.97 995.71,501.90">
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
+    </junction>
+
+    <connection from="beg" to="right" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="beg" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left" to="end" fromLane="0" toLane="0" tl="end" linkIndex="1" dir="s" state="o"/>
+    <connection from="right" to="end" fromLane="0" toLane="0" tl="end" linkIndex="0" dir="s" state="O"/>
+
+</net>

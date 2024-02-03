@@ -56,6 +56,8 @@
 
 body {
 padding-top: 50px;
+font-size: .95em;
+line-height: 1.4;
 background: #f6f6f6; /* for incompatible Browsers  */
 background:var(--body-bg-color);
 color: #495057; /* for incompatible Browsers  */
@@ -146,8 +148,8 @@ pointer-events: none;
 h1 {
 color: #444; /* for incompatible Browsers  */
 color: var(--h-color);
-font-weight: 400;
-font-size: 42px;
+font-size: 1.9em;
+font-weight: 700;
 }
 
 h2, h3, h4, h5, h6 {
@@ -169,15 +171,6 @@ overflow-x: auto;
 
 code.code-large, .rst-content tt.code-large {
 font-size: 90%;
-}
-
-code {
-padding: 2px 5px;
-background: #fff;
-border: solid 1px #e1e4e5;
-color: #333;
-white-space: pre-wrap;
-word-wrap: break-word;
 }
 
 pre code {
@@ -258,8 +251,8 @@ transform: scale(1, 1);
 
 /* First level of nav */
 .bs-sidenav {
-padding-top:    10px;
-padding-bottom: 10px;
+padding-top: 0;
+padding-bottom: 0;
 border-radius: 5px;
 width: 100%;
 }
@@ -299,7 +292,7 @@ font-size: 90%;
 }
 
 .headerlink {
-font-family: FontAwesome;
+font-family: 'FontAwesome', sans-serif;
 font-size: 14px;
 display: none;
 padding-left: .5em;
@@ -361,13 +354,6 @@ color: var(--note-conference-color);
 background-color: #abdd8b; /* for incompatible Browsers  */
 background-color: var(--note-conference-bg-color);
 border-color: #338033;
-}
-
-.admonition.convention {
-color: #000;
-background-color: #cfc;
-padding: .5em;
-border: 1px dashed #8f8;
 }
 
 .admonition.incomplete {
@@ -473,16 +459,6 @@ border-color: var(--body-color);
 background-color: #abdd8b;
 }
 
-.bs-sidenav {
-padding-top: 0;
-padding-bottom: 0;
-}
-
-body {
-font-size: .95em;
-line-height: 1.4;
-}
-
 .container {
 max-width: 1400px;
 }
@@ -518,9 +494,11 @@ background-color: var(--code-bg);
 border: 1px solid var(--code-border-color);
 border-radius: 2px;
 padding: 1px 4px;
-font-family: monospace,monospace;
+font-family: monospace,monospace; /* little hack */
 color: #333;
 color: var(--code-color);
+white-space: pre-wrap;
+word-wrap: break-word;
 }
 
 .hljs {
@@ -529,6 +507,7 @@ border-radius: 3px;
 border: 1px solid #ddd !important;
 padding: 12px 8px;
 color: var(--hljs-color);
+min-height: 37px;
 }
 
 .hljs-tag,
@@ -566,11 +545,6 @@ h1, h2 {
 border-bottom: 1px solid #919699;
 padding-bottom: 1px;
 margin-bottom: .4em;
-}
-
-h1 {
-font-size: 1.9em;
-font-weight: 700;
 }
 
 h2 {
@@ -612,7 +586,6 @@ margin-top: 10px;
 pointer-events:none;
 border:10px;
 border-color: #aaa;
-border-radius:50%;
 margin-bottom: 10px;
 border-radius: 50%;
 -webkit-border-radius: 50%;
@@ -636,11 +609,21 @@ td {
 border: 1px solid #dee2e6;
 }
 
+td:nth-child(1) {
+word-break: keep-all !important;
+white-space: nowrap;
+}
+
+.cellNoWrap {
+white-space:nowrap !important;
+}
+
 thead th {
 vertical-align: center;
 text-align: center;
 background: #dfd; /* for incompatible Browsers  */
 background: var(--thead-color);
+word-break: keep-all !important;
 }
 
 .table th, .table td {
@@ -717,4 +700,53 @@ color: #338033;
 .task-list-item {
 position: relative;
 list-style-type: none;
+}
+
+/* COPY CODE BLOCKS - based on https://www.roboleary.net/2022/01/13/copy-code-to-clipboard-blog.html */
+.codehilite > pre {
+position:relative;
+}
+
+.copyCodeButton {
+position:absolute;
+top:5px;
+right:5px;
+
+padding:.15rem;
+background-color:#bcbabb30;
+color: #1e1e1e;
+border:ridge 1px #7b7b7c;
+border-radius:5px;
+text-shadow:#c4c4c4 0 0 2px;
+}
+
+.copyCodeButton:hover {
+cursor:pointer;
+background-color:#bcbabb;
+}
+/* ---- */
+
+.tutorial-video {
+width: 560px;
+/* height: 315px; */
+}
+
+.video-container {
+position: relative;
+text-decoration: none;
+display: inline-block;
+text-align: center;
+}
+
+.centered {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.video-text {
+background-color:rgba(0, 0, 0, 0.5);
+color: #fff;
+padding: 3px;
 }

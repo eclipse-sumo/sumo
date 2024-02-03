@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -153,6 +153,14 @@ public:
     /// @brief whether opposite left turns intersect
     bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
                                   const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+
+    /// @brief whether straight and indirect left turn are in conflict
+    bool indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                  const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+
+    /// @brief whether straight connections are in conflict via bidirectional lane use
+    bool bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
+                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
     /// @brief whether there are conflicting streams of traffic at this node

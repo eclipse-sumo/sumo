@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 18:32:59 2020 by Eclipse SUMO sumo Version v1_7_0+1296-45fee5e4a0
+<!-- generated on 2022-02-11 11:28:55 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -52,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="device.rerouting" begin="0.00" end="20.00">
-        <edge id="beg" traveltime="21.22" traveltimeBike="21.22"/>
+        <edge id="beg" traveltime="21.42" traveltimeBike="21.42"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
@@ -61,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="20.00" end="40.00">
-        <edge id="beg" traveltime="27.37" traveltimeBike="27.37"/>
+        <edge id="beg" traveltime="27.54" traveltimeBike="27.54"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
@@ -70,171 +75,171 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="40.00" end="60.00">
-        <edge id="beg" traveltime="35.37" traveltimeBike="35.37"/>
+        <edge id="beg" traveltime="35.51" traveltimeBike="35.51"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="69.52" traveltimeBike="69.52"/>
+        <edge id="middle" traveltime="69.53" traveltimeBike="69.53"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="60.00" end="80.00">
-        <edge id="beg" traveltime="43.73" traveltimeBike="43.73"/>
+        <edge id="beg" traveltime="43.83" traveltimeBike="43.83"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="130.27" traveltimeBike="130.27"/>
+        <edge id="middle" traveltime="130.31" traveltimeBike="130.31"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="80.00" end="100.00">
-        <edge id="beg" traveltime="50.58" traveltimeBike="50.58"/>
+        <edge id="beg" traveltime="51.46" traveltimeBike="51.46"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="221.44" traveltimeBike="221.44"/>
+        <edge id="middle" traveltime="231.50" traveltimeBike="231.50"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="100.00" end="120.00">
-        <edge id="beg" traveltime="54.88" traveltimeBike="54.88"/>
+        <edge id="beg" traveltime="56.36" traveltimeBike="56.36"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="249.16" traveltimeBike="249.16"/>
+        <edge id="middle" traveltime="263.85" traveltimeBike="263.85"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="120.00" end="140.00">
-        <edge id="beg" traveltime="57.32" traveltimeBike="57.32"/>
+        <edge id="beg" traveltime="59.17" traveltimeBike="59.17"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="249.89" traveltimeBike="249.89"/>
+        <edge id="middle" traveltime="262.05" traveltimeBike="262.05"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="140.00" end="160.00">
-        <edge id="beg" traveltime="58.62" traveltimeBike="58.62"/>
+        <edge id="beg" traveltime="59.57" traveltimeBike="59.57"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="111.74" traveltimeBike="111.74"/>
+        <edge id="middle" traveltime="133.93" traveltimeBike="133.93"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="160.00" end="180.00">
-        <edge id="beg" traveltime="59.29" traveltimeBike="59.29"/>
+        <edge id="beg" traveltime="59.78" traveltimeBike="59.78"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="137.88" traveltimeBike="137.88"/>
+        <edge id="middle" traveltime="153.59" traveltimeBike="153.59"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="180.00" end="200.00">
-        <edge id="beg" traveltime="59.63" traveltimeBike="59.63"/>
+        <edge id="beg" traveltime="59.88" traveltimeBike="59.88"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="156.15" traveltimeBike="156.15"/>
+        <edge id="middle" traveltime="165.75" traveltimeBike="165.75"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="200.00" end="220.00">
-        <edge id="beg" traveltime="71.74" traveltimeBike="71.74"/>
+        <edge id="beg" traveltime="71.91" traveltimeBike="71.91"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="167.23" traveltimeBike="167.23"/>
+        <edge id="middle" traveltime="172.58" traveltimeBike="172.58"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="220.00" end="240.00">
-        <edge id="beg" traveltime="79.84" traveltimeBike="79.84"/>
+        <edge id="beg" traveltime="79.95" traveltimeBike="79.95"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="173.38" traveltimeBike="173.38"/>
+        <edge id="middle" traveltime="176.21" traveltimeBike="176.21"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="240.00" end="260.00">
-        <edge id="beg" traveltime="84.61" traveltimeBike="84.61"/>
+        <edge id="beg" traveltime="84.68" traveltimeBike="84.68"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="176.63" traveltimeBike="176.63"/>
+        <edge id="middle" traveltime="178.09" traveltimeBike="178.09"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="260.00" end="280.00">
-        <edge id="beg" traveltime="87.22" traveltimeBike="87.22"/>
+        <edge id="beg" traveltime="87.26" traveltimeBike="87.26"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="end" traveltime="17.99" traveltimeBike="17.99"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="178.30" traveltimeBike="178.30"/>
+        <edge id="middle" traveltime="179.04" traveltimeBike="179.04"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="280.00" end="300.00">
         <edge id="beg" traveltime="29.82" traveltimeBike="29.82"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="24.51" traveltimeBike="24.51"/>
+        <edge id="end" traveltime="24.49" traveltimeBike="24.49"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.14" traveltimeBike="179.14"/>
+        <edge id="middle" traveltime="179.52" traveltimeBike="179.52"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="300.00" end="320.00">
         <edge id="beg" traveltime="22.44" traveltimeBike="22.44"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="38.40" traveltimeBike="38.40"/>
+        <edge id="end" traveltime="38.42" traveltimeBike="38.42"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.57" traveltimeBike="179.57"/>
+        <edge id="middle" traveltime="179.76" traveltimeBike="179.76"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="320.00" end="340.00">
         <edge id="beg" traveltime="19.97" traveltimeBike="19.97"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="53.46" traveltimeBike="53.46"/>
+        <edge id="end" traveltime="53.49" traveltimeBike="53.49"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.79" traveltimeBike="179.79"/>
+        <edge id="middle" traveltime="179.88" traveltimeBike="179.88"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="340.00" end="360.00">
         <edge id="beg" traveltime="18.92" traveltimeBike="18.92"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="67.08" traveltimeBike="67.08"/>
+        <edge id="end" traveltime="67.10" traveltimeBike="67.10"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.89" traveltimeBike="179.89"/>
+        <edge id="middle" traveltime="179.94" traveltimeBike="179.94"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="360.00" end="380.00">
         <edge id="beg" traveltime="18.44" traveltimeBike="18.44"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="76.87" traveltimeBike="76.87"/>
+        <edge id="end" traveltime="76.88" traveltimeBike="76.88"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.95" traveltimeBike="179.95"/>
+        <edge id="middle" traveltime="179.97" traveltimeBike="179.97"/>
         <edge id="rend" traveltime="17.99" traveltimeBike="17.99"/>
     </interval>
     <interval id="device.rerouting" begin="380.00" end="400.00">
         <edge id="beg" traveltime="18.21" traveltimeBike="18.21"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="82.92" traveltimeBike="82.92"/>
+        <edge id="end" traveltime="82.93" traveltimeBike="82.93"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.97" traveltimeBike="179.97"/>
+        <edge id="middle" traveltime="179.98" traveltimeBike="179.98"/>
         <edge id="rend" traveltime="29.98" traveltimeBike="29.98"/>
     </interval>
     <interval id="device.rerouting" begin="400.00" end="420.00">
         <edge id="beg" traveltime="18.10" traveltimeBike="18.10"/>
         <edge id="beg2left" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="end" traveltime="86.31" traveltimeBike="86.31"/>
+        <edge id="end" traveltime="86.32" traveltimeBike="86.32"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
         <edge id="middle" traveltime="179.99" traveltimeBike="179.99"/>
@@ -246,7 +251,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="end" traveltime="88.12" traveltimeBike="88.12"/>
         <edge id="left" traveltime="35.88" traveltimeBike="35.88"/>
         <edge id="left2end" traveltime="17.94" traveltimeBike="17.94"/>
-        <edge id="middle" traveltime="179.99" traveltimeBike="179.99"/>
+        <edge id="middle" traveltime="180.00" traveltimeBike="180.00"/>
         <edge id="rend" traveltime="59.98" traveltimeBike="59.98"/>
     </interval>
     <interval id="device.rerouting" begin="440.00" end="460.00">

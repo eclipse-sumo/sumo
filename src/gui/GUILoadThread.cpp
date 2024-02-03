@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -51,6 +51,7 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
 #include <mesogui/GUIMEVehicleControl.h>
+#include <libsumo/Helper.h>
 #include <traci-server/TraCIServer.h>
 #include "TraCIServerAPI_GUI.h"
 #include "GUIApplicationWindow.h"
@@ -63,9 +64,9 @@
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
-                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
-      myEventThrow(ev) {
+                             MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev, const bool isLibsumo)
+    : MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+      myEventThrow(ev), myAmLibsumo(isLibsumo) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
@@ -85,7 +86,9 @@ GUILoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    if (!OptionsCont::getOptions().getBool("no-warnings")) {
+        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    }
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
@@ -102,33 +105,37 @@ GUILoadThread::run() {
             OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");
+                myParent->addRecentConfig(FXPath::absolute(myFile.c_str()));
+
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
+                myParent->addRecentNetwork(FXPath::absolute(myFile.c_str()));
             }
             myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
-            myParent->addRecentFile(FXPath::absolute(myFile.c_str()));
         }
         myTitle = myFile;
-        // within gui-based applications, nothing is reported to the console
-        MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
-        MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-        MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        if (!myAmLibsumo) {
+            // within gui-based applications, nothing is reported to the console
+            MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
+            MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+            MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+        }
         // do this once again to get parsed options
         if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
             // must be done before calling initOutputOptions (which checks option "verbose")
             // but initOutputOptions must come before checkOptions (so that warnings are printed)
-            oc.set("verbose", "true");
+            oc.setDefault("verbose", "true");
         }
         MsgHandler::initOutputOptions();
         if (!MSFrame::checkOptions()) {
             throw ProcessError();
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
-        GUIGlobals::gRunAfterLoad = oc.getBool("start");
+        GUIGlobals::gRunAfterLoad = oc.getBool("start") || (myAmLibsumo && std::getenv("LIBSUMO_GUI") != nullptr);
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
-        GUIGlobals::gTrackerInterval = oc.getFloat("tracker-interval");
+        GUIGlobals::gTrackerInterval = STEPS2TIME(string2time(oc.getString("tracker-interval")));
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -170,6 +177,9 @@ GUILoadThread::run() {
         execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         TraCIServer::openSocket(execs);
+        if (myAmLibsumo) {
+            libsumo::Helper::registerStateListener();
+        }
 
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);
@@ -193,7 +203,7 @@ GUILoadThread::run() {
 #endif
             if (oc.isSet("edgedata-files")) {
                 if (!oc.isUsableFileList("edgedata-files")) {
-                    WRITE_ERROR("Could not load edgedata-files '" + oc.getString("edgedata-files") + "'");
+                    WRITE_ERRORF(TL("Could not load edgedata-files '%'"), oc.getString("edgedata-files"));
                 } else {
                     for (const std::string& file : oc.getStringVector("edgedata-files")) {
                         net->loadEdgeData(file);

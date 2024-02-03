@@ -1,0 +1,23 @@
+# ego vehicle must overtake slow moving vehicles on both sides (urban road)
+default
+
+# keepRight changing disabled to get a base case for evaluating speedGain changing (used by subsequent tests)
+keepRight0
+
+# lcSpeedGain=2 (earlier changing)
+speedGain2
+
+# disable changing
+speedGain0
+
+# symmetrical speedGain threshold for left and right
+lcSpeedGainRight1
+
+# test different lookahead values
+keepRight0_speedGainLookahead0
+
+# test different lookahead values
+keepRight0_speedGainLookahead5
+
+# neighboring lane permits higher speed and ego should change
+laneSpeed_higher

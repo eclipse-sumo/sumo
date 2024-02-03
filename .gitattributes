@@ -19,6 +19,7 @@
 *.csv  text eol=lf
 *.txt  text eol=lf
 *.tcl  text eol=lf
+*.po  text eol=lf
 
 *.complex     text eol=lf
 *.dfrouter    text eol=lf
@@ -47,11 +48,13 @@ visum.net     text eol=lf
 
 # Declare files that will always have CRLF line endings on checkout.
 *.bat     text eol=crlf
+*.wxs     text eol=crlf
 
 # Denote all files that are truly binary and should not be modified.
 png.complex binary
 png.sumo binary
 png2.sumo binary
+errorScreenshot.netedit binary
 *.ico binary
 *.png binary
 *.jpg binary
@@ -65,4 +68,3 @@ png2.sumo binary
 /.gitignore export-ignore
 /.gitmodules export-ignore
 /.travis.yml export-ignore
-/tests export-ignore

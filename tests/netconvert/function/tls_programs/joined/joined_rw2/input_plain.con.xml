@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-27 14:57:56 by Eclipse SUMO netconvert Version v1_17_0+1298-ea9252c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="0" to="46" fromLane="1" toLane="1"/>
+    <connection from="0" to="35" fromLane="1" toLane="1"/>
+    <connection from="0" to="5" fromLane="1" toLane="1"/>
+    <connection from="0" to="16" fromLane="1" toLane="1"/>
+
+    <connection from="1" to="15" fromLane="0" toLane="0"/>
+
+    <connection from="10" to="6" fromLane="0" toLane="0"/>
+
+    <connection from="12"/>
+
+    <connection from="14" to="9" fromLane="0" toLane="0"/>
+
+    <connection from="15" to="14" fromLane="0" toLane="0"/>
+
+    <connection from="16" to="0" fromLane="1" toLane="1"/>
+
+    <connection from="17" to="18" fromLane="0" toLane="0"/>
+
+    <connection from="18" to="19" fromLane="0" toLane="0"/>
+
+    <connection from="19"/>
+
+    <connection from="2" to="1" fromLane="0" toLane="0"/>
+
+    <connection from="21" to="16" fromLane="1" toLane="1"/>
+    <connection from="21" to="46" fromLane="1" toLane="1"/>
+    <connection from="21" to="35" fromLane="1" toLane="1"/>
+    <connection from="21" to="5" fromLane="1" toLane="1"/>
+
+    <connection from="22" to="30" fromLane="0" toLane="0"/>
+
+    <connection from="29" to="34" fromLane="0" toLane="0"/>
+
+    <connection from="3" to="2" fromLane="0" toLane="0"/>
+
+    <connection from="30" to="29" fromLane="0" toLane="0"/>
+
+    <connection from="31" to="5" fromLane="1" toLane="1"/>
+    <connection from="31" to="16" fromLane="1" toLane="1"/>
+    <connection from="31" to="46" fromLane="1" toLane="1"/>
+    <connection from="31" to="35" fromLane="1" toLane="1"/>
+
+    <connection from="32" to="48" fromLane="0" toLane="0"/>
+
+    <connection from="33" to="32" fromLane="0" toLane="0"/>
+
+    <connection from="34" to="33" fromLane="0" toLane="0"/>
+
+    <connection from="35" to="42" fromLane="1" toLane="1"/>
+
+    <connection from="36" to="37" fromLane="0" toLane="0"/>
+
+    <connection from="39" to="20" fromLane="1" toLane="1"/>
+    <connection from="39" to="47" fromLane="1" toLane="1"/>
+    <connection from="39" to="12" fromLane="1" toLane="1"/>
+
+    <connection from="43" to="31" fromLane="1" toLane="1"/>
+
+    <connection from="46" to="20" fromLane="1" toLane="1"/>
+    <connection from="46" to="47" fromLane="1" toLane="1"/>
+    <connection from="46" to="12" fromLane="1" toLane="1"/>
+
+    <connection from="48" to="17" fromLane="0" toLane="0"/>
+
+    <connection from="5"/>
+
+    <connection from="6" to="7" fromLane="0" toLane="0"/>
+
+    <connection from="7" to="8" fromLane="0" toLane="0"/>
+
+    <connection from="8"/>
+
+    <connection from="9" to="10" fromLane="0" toLane="0"/>
+
+    <crossing node="105" edges="31" priority="1" width="4.00" linkIndex="1"/>
+    <crossing node="108" edges="35" priority="1" width="4.00" linkIndex="1"/>
+    <crossing node="122" edges="33 9 7 30" priority="1" width="4.00" linkIndex="4"/>
+    <crossing node="126" edges="12 39" priority="1" width="4.00" linkIndex="26"/>
+    <crossing node="126" edges="47" priority="1" width="4.00" linkIndex="27"/>
+    <crossing node="126" edges="18 2" priority="1" width="4.00" linkIndex="28"/>
+    <crossing node="126" edges="20" priority="1" width="4.00" linkIndex="30"/>
+    <crossing node="126" edges="15" priority="1" width="4.00" linkIndex="29"/>
+    <crossing node="126" edges="46" priority="1" width="4.00" linkIndex="31"/>
+    <crossing node="126" edges="14 32" priority="1" width="4.00" linkIndex="32"/>
+    <crossing node="127" edges="8 22" priority="1" width="4.00" linkIndex="33"/>
+    <crossing node="127" edges="32 14" priority="1" width="4.00" linkIndex="34"/>
+    <crossing node="127" edges="46" priority="1" width="4.00" linkIndex="35"/>
+    <crossing node="127" edges="16 0" priority="1" width="4.00" linkIndex="36"/>
+    <crossing node="127" edges="5 21" priority="1" width="4.00" linkIndex="37"/>
+</connections>

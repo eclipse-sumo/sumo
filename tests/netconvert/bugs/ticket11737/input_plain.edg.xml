@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-06 11:00:12 by Eclipse SUMO netedit Version v1_14_1+1311-ab8f708ab1e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-148050455#1" from="gneJ21" to="276184048" name="Ringlerstraße" priority="3" numLanes="3" speed="8.33" shape="5774.96,5651.20 5780.13,5643.80 5785.15,5633.56 5799.09,5613.90">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="148050455"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="148050455"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="148050455"/>
+        </lane>
+    </edge>
+    <edge id="-30399663#1" from="gneJ21" to="3238957553" name="Ringlerstraße" priority="3" numLanes="1" speed="13.89" shape="5769.74,5679.61 5767.71,5684.66 5766.56,5689.17 5762.01,5707.90" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="30399663"/>
+        </lane>
+    </edge>
+    <edge id="-gneE61" from="gneJ21" to="gneJ220" priority="-1" numLanes="2" speed="13.89" width="2.00">
+        <lane index="0" allow="pedestrian"/>
+        <lane index="1" allow="bicycle"/>
+    </edge>
+    <edge id="148050455#1" from="276184048" to="gneJ21" name="Ringlerstraße" priority="3" numLanes="4" speed="8.33" shape="5799.09,5613.90 5785.15,5633.56 5780.13,5643.80 5778.49,5651.86">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="148050455"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="148050455"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="148050455"/>
+        </lane>
+        <lane index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="148050455"/>
+        </lane>
+    </edge>
+    <edge id="25344441#1" from="7610014963" to="335525557" priority="1" numLanes="1" speed="2.78" shape="5813.15,5674.60 5811.25,5677.23 5808.10,5681.71" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="25344441"/>
+        </lane>
+    </edge>
+    <edge id="28639688#1" from="gneJ21" to="335525557" name="Hindenburgstraße" priority="12" numLanes="4" speed="13.89" shape="5792.84,5667.31 5808.84,5680.41" spreadType="center">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="28639688"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="28639688"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="28639688"/>
+        </lane>
+        <lane index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="28639688"/>
+        </lane>
+    </edge>
+    <edge id="30399663#1" from="3238957553" to="gneJ21" name="Ringlerstraße" priority="3" numLanes="5" speed="13.89" shape="5762.01,5707.90 5765.40,5678.73">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="30399663"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="30399663"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="30399663"/>
+        </lane>
+        <lane index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="30399663"/>
+        </lane>
+        <lane index="4" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="30399663"/>
+        </lane>
+    </edge>
+    <edge id="54169280#0" from="gneJ21" to="683260410" name="Hindenburgstraße" priority="12" numLanes="4" speed="13.89" shape="5756.64,5670.68 5745.05,5666.51 5740.75,5665.07" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="54169280"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="54169280"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="54169280"/>
+        </lane>
+        <lane index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="54169280"/>
+        </lane>
+    </edge>
+    <edge id="737320747#4.146" from="gneJ30" to="gneJ21" name="Hindenburgstraße" priority="12" numLanes="5" speed="13.89" shape="5727.24,5645.98 5760.98,5656.95" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="737320747"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="737320747"/>
+        </lane>
+        <lane index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="737320747"/>
+        </lane>
+        <lane index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="737320747"/>
+        </lane>
+        <lane index="4" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="737320747"/>
+        </lane>
+    </edge>
+    <edge id="gneE12" from="gneJ18" to="gneJ21" priority="-1" numLanes="3" speed="13.89" shape="5798.34,5683.88 5786.19,5679.50" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE61" from="gneJ220" to="gneJ21" priority="-1" numLanes="2" speed="13.89" width="2.00">
+        <lane index="0" allow="pedestrian"/>
+        <lane index="1" allow="bicycle"/>
+    </edge>
+
+
+</edges>

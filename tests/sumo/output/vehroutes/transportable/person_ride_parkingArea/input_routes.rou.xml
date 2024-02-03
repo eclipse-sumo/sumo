@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="car" from="beg" to="end" depart="0">
+		<stop busStop="beg_0" until="10"/>
+		<stop busStop="left_0" until="110"/>
+		<stop busStop="end_0" until="210"/>
+	</trip>
+    <person id="p0" depart="0">
+        <ride from="beg" parkingArea="pEnd" lines="car"/>
+    </person>
+</routes>

@@ -6,34 +6,43 @@ skip_commits:
 
 environment:
     matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-          ver: 2013
-          generator: "Visual Studio 12 2013"
-          configuration: Release
-          PYTHON: C:\Python37-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           ver: 2015
-          generator: "Visual Studio 14 2015"
+          generator: "Visual Studio 14 2015 Win64"
           configuration: Release
-          PYTHON: C:\Python37-x64
+          PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
-          generator: "Visual Studio 15 2017"
+          generator: "Visual Studio 15 2017 Win64"
           configuration: Release
-          PYTHON: C:\Python37-x64
+          PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
-          PYTHON: C:\Python37-x64
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
+          PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
           PYTHON: C:\Python27-x64
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+          ver: 2022
+          generator: "Visual Studio 17 2022"
+          configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
+          PYTHON: C:\Python38-x64
+        # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+        #   ver: 2022
+        #   generator: "Ninja"
+        #   configuration: Release
+        #   cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
+        #   PYTHON: C:\Python38-x64
 
 install:
-    - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
+    - git clone --depth 1 https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
     - "%PYTHON%\\python.exe -m pip install wheel"
 
@@ -41,9 +50,9 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
     - mkdir build_msvc%ver% &&
       cd build_msvc%ver% &&
-      cmake .. -G"%generator%" -A x64 -DPYTHON_EXECUTABLE=%PYTHON%\python.exe &&
-      cmake --build . --config %configuration% && cd .. &&
-      %PYTHON%\python.exe tools\build\setup-libsumo.py bdist_wheel
+      cmake .. -G"%generator%" -DPYTHON_EXECUTABLE=%PYTHON%\python.exe %cmake_opts% &&
+      cmake --build . --config %configuration% -j 4 && cd .. &&
+      %PYTHON%\python.exe tools\build_config\setup-libsumo.py bdist_wheel
 
 
 matrix:

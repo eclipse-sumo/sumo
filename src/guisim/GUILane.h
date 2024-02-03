@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,6 +39,7 @@
 class GUINet;
 class MSVehicle;
 class MSNet;
+class TesselatedPolygon;
 #ifdef HAVE_OSG
 namespace osg {
 class Geometry;
@@ -62,6 +63,7 @@ public:
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
+     * @param[in] friction The initial friction on this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
@@ -71,7 +73,7 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    GUILane(const std::string& id, double maxSpeed,
+    GUILane(const std::string& id, double maxSpeed, double friction,
             double length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, double width,
             SVCPermissions permissions,
@@ -87,10 +89,15 @@ public:
      * @note Inherited from GUIGlObject
      * @return This object's parent id
      */
-    std::string getParentName() const {
+    std::string getParentName() const override {
         return getEdge().getID();
     }
 
+    void addSecondaryShape(const PositionVector& shape) override;
+
+    double getLengthGeometryFactor(bool secondaryShape) const override {
+        return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
+    }
 
     /// @name Access to vehicles
     /// @{
@@ -104,7 +111,7 @@ public:
      * @return The vehicles on this lane
      * @see MSLane::getVehiclesSecure
      */
-    const VehCont& getVehiclesSecure() const;
+    const VehCont& getVehiclesSecure() const override;
 
 
     /** @brief Allows to use the container for microsimulation again
@@ -112,7 +119,7 @@ public:
      * Unlocks "myLock" preventing usage by microsimulation.
      * @see MSLane::releaseVehicles
      */
-    void releaseVehicles() const;
+    void releaseVehicles() const override;
     /// @}
 
 
@@ -122,33 +129,33 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void planMovements(const SUMOTime t);
+    void planMovements(const SUMOTime t) override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void setJunctionApproaches(const SUMOTime t) const;
+    void setJunctionApproaches(const SUMOTime t) const override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void executeMovements(const SUMOTime t);
+    void executeMovements(const SUMOTime t) override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void integrateNewVehicles();
+    void integrateNewVehicles() override;
     ///@}
 
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void detectCollisions(SUMOTime timestep, const std::string& stage);
+    void detectCollisions(SUMOTime timestep, const std::string& stage) override;
 
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
+    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify) override;
 
     /// @brief remove parking vehicle
-    void removeParking(MSVehicle* veh);
+    void removeParking(MSBaseVehicle* veh) override;
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -157,13 +164,12 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    double setPartialOccupation(MSVehicle* v);
+    double setPartialOccupation(MSVehicle* v) override;
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
      */
-    void resetPartialOccupation(MSVehicle* v);
-
+    void resetPartialOccupation(MSVehicle* v) override;
 
     /// @name inherited from GUIGlObject
     //@{
@@ -175,9 +181,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -186,32 +190,32 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
-
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
-
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
+
+    double getClickPriority() const override;
     //@}
 
-
-
-    const PositionVector& getShape() const;
-    const std::vector<double>& getShapeRotations() const;
-    const std::vector<double>& getShapeLengths() const;
+    const PositionVector& getShape(bool secondary) const override;
+    const std::vector<double>& getShapeRotations(bool secondary) const;
+    const std::vector<double>& getShapeLengths(bool secondary) const;
 
     double firstWaitingTime() const;
+
+    /// @brief whether any of the neighboring lanes is not a bidi-lane
+    bool neighLaneNotBidi() const;
 
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
@@ -223,7 +227,7 @@ public:
     void drawJunctionChangeProhibitions() const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
+    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed, bool s2) const;
 
     /// @brief draw intersection positions of foe internal lanes with this one
     void debugDrawFoeIntersections() const;
@@ -263,10 +267,19 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
+
+    /// @brief gets the color value according to the current scheme index including values for things that set the color indirectly
+    double getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const;
+
+    /// @brief return color value based on cached settings
+    double getColorValueForTracker() const;
+
+    /// @brief gets the scaling value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme, bool s2) const;
 
     /// @brief whether this lane is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /* @brief sets the color according to the current scheme index and some lane function
      * @param[in] id override active scheme when calling from meso gui
@@ -276,10 +289,9 @@ public:
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
-
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
-    void swapAfterLaneChange(SUMOTime t);
+    void swapAfterLaneChange(SUMOTime t) override;
 
     /** @brief Inserts the vehicle into this lane, and informs it about entering the network
      *
@@ -293,18 +305,19 @@ protected:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
-                                    const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
+    void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
+                            const MSLane::VehCont::iterator& at,
+                            MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) override;
 
 private:
     /// @brief helper methods
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const;
-    void drawArrows() const;
-    void drawLane2LaneConnections(double exaggeration) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link,
+                      const PositionVector& shape, double x1, double x2) const;
+    void drawArrows(bool secondaryShape) const;
+    void drawLane2LaneConnections(double exaggeration, bool s2) const;
 
 
     /// @brief add intermediate points at segment borders
@@ -314,9 +327,10 @@ private:
     double getPendingEmits() const;
 
 private:
-
-    /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme) const;
+    void initRotations(const PositionVector& shape,
+                       std::vector<double>& rotations,
+                       std::vector<double>& lengths,
+                       std::vector<RGBColor>& colors);
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;
@@ -330,17 +344,24 @@ private:
     /// @brief whether this lane or its parent edge is selected in the GUI
     bool isLaneOrEdgeSelected() const;
 
+    std::vector<RGBColor>& getShapeColors(bool secondary) const;
+
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
+    std::vector<double> myShapeRotations2;
 
     /// The lengths of the shape parts
     std::vector<double> myShapeLengths;
+    std::vector<double> myShapeLengths2;
 
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
+    mutable std::vector<RGBColor> myShapeColors2;
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
+    /// @brief the shape indices where the meso segment changes (for segmentsIndex > 0)
+    std::vector<int> mySegmentStartIndex;
 
     /// @brief Half of lane width, for speed-up
     double myHalfLaneWidth;
@@ -349,7 +370,13 @@ private:
     double myQuarterLaneWidth;
 
     /// @brief the time distance from a particular edge
-    double myReachability;
+    double myReachability = INVALID_DOUBLE;
+
+    /// @brief list of parkingAreas on this lane
+    mutable std::vector<MSParkingArea*>* myParkingAreas;
+
+    /// @brief An object that stores the tesselation
+    mutable TesselatedPolygon* myTesselation;
 
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;
@@ -357,6 +384,13 @@ private:
 
     /// @brief state for dynamic lane closings
     bool myAmClosed;
+
+    /// @brief secondary shape for visualization
+    PositionVector myShape2;
+    double myLengthGeometryFactor2;
+
+    /// @brief cached for tracking color value
+    static GUIVisualizationSettings* myCachedGUISettings;
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

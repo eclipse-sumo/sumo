@@ -1,0 +1,3 @@
+Warning: Invalid approach information to rail signal 'junction 'B1', link 5' after rerouting for vehicle 'ego' first driveway edge 'B1C1' time=5.00.
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane, disconnected), lane='A1B1_0', time=118.00.
+Warning: Vehicle 'ego' ends teleporting on edge 'B2C2', time=118.00.

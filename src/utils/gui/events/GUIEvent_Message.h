@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,27 +37,30 @@ class GUIEvent_Message : public GUIEvent {
 public:
     /// constructor
     GUIEvent_Message(const std::string& msg)
-        : GUIEvent(EVENT_STATUS_OCCURRED), myMsg(msg) {
+        : GUIEvent(GUIEventType::STATUS_OCCURRED), myMsg(msg) {
     }
+
+    GUIEvent_Message(GUIEventType type, const std::string& msg):
+        GUIEvent(type), myMsg(msg) {}
 
     /// constructor
     GUIEvent_Message(MsgHandler::MsgType type, const std::string& msg)
-        : GUIEvent(EVENT_MESSAGE_OCCURRED), myMsg(msg) {
+        : GUIEvent(GUIEventType::MESSAGE_OCCURRED), myMsg(msg) {
         switch (type) {
             case MsgHandler::MsgType::MT_MESSAGE:
-                myType = EVENT_MESSAGE_OCCURRED;
+                myType = GUIEventType::MESSAGE_OCCURRED;
                 break;
             case MsgHandler::MsgType::MT_WARNING:
-                myType = EVENT_WARNING_OCCURRED;
+                myType = GUIEventType::WARNING_OCCURRED;
                 break;
             case MsgHandler::MsgType::MT_ERROR:
-                myType = EVENT_ERROR_OCCURRED;
+                myType = GUIEventType::ERROR_OCCURRED;
                 break;
             case MsgHandler::MsgType::MT_DEBUG:
-                myType = EVENT_DEBUG_OCCURRED;
+                myType = GUIEventType::DEBUG_OCCURRED;
                 break;
             case MsgHandler::MsgType::MT_GLDEBUG:
-                myType = EVENT_GLDEBUG_OCCURRED;
+                myType = GUIEventType::GLDEBUG_OCCURRED;
                 break;
             default:
                 throw 1;

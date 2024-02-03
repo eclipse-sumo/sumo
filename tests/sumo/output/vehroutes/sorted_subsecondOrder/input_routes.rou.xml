@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-01 20:45:00 by Eclipse SUMO duarouter Version v1_12_0+0179-34fe5c8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml"/>
+        <alternatives-output value="input_routes.rou.alt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="9" depart="0.00" departLane="best" departSpeed="max">
+        <route edges="SC CE"/>
+    </vehicle>
+    <vehicle id="8" depart="0.10" departLane="best" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="7" depart="0.20" departLane="best" departSpeed="max">
+        <route edges="SC CS"/>
+    </vehicle>
+    <vehicle id="6" depart="0.30" departLane="best" departSpeed="max">
+        <route edges="WC CE"/>
+    </vehicle>
+    <vehicle id="5" depart="0.40" departLane="best" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="4" depart="0.50" departLane="best" departSpeed="max">
+        <route edges="EC CS"/>
+    </vehicle>
+    <vehicle id="3" depart="0.60" departLane="best" departSpeed="max">
+        <route edges="EC CE"/>
+    </vehicle>
+    <vehicle id="2" depart="0.70" departLane="best" departSpeed="max">
+        <route edges="SC CS"/>
+    </vehicle>
+    <vehicle id="1" depart="0.80" departLane="best" departSpeed="max">
+        <route edges="EC CS"/>
+    </vehicle>
+    <vehicle id="0" depart="0.90" departLane="best" departSpeed="max">
+        <route edges="WC CE"/>
+    </vehicle>
+</routes>

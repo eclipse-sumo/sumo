@@ -1,0 +1,2 @@
+Error: Could not build interval with begin '0' and end '3600000' in 'rerouter_0' due overlapping.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/rerouterelements/interval/load/duplicated/additionals.add.xml failed.

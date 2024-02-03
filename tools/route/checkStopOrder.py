@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
+import fnmatch
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -38,7 +39,7 @@ else:
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-r", "--route-files", dest="routeFiles",
+    parser.add_argument("-r", "--route-files", category='input', dest="routeFiles",
                         help="Input route file")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
@@ -46,8 +47,10 @@ def get_options(args=None):
                         help="Do not report conflicts with parking vehicles")
     parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
                         help="Use stop arrival+duration instead of 'until' to compute overtaking")
+    parser.add_argument("--filter-ids", category="processing", dest="filterIDs",
+                        help="only consider stops for vehicles in the given list of ids")
     parser.add_argument("--stop-table", dest="stopTable",
-                        help="Print timetable information for the given busStop")
+                        help="Print timetable information for the given list of busStops")
 
     options = parser.parse_args(args=args)
     if options.routeFiles:
@@ -55,6 +58,9 @@ def get_options(args=None):
     else:
         print("Argument --route-files is mandatory", file=sys.stderr)
         sys.exit()
+
+    if options.filterIDs:
+        options.filterIDs = set(options.filterIDs.split(','))
 
     return options
 
@@ -68,8 +74,11 @@ def main(options):
         for vehicle in sumolib.xml.parse(routefile, ['vehicle', 'trip'], heterogeneous=True):
             if vehicle.stop is None:
                 continue
+            if options.filterIDs and vehicle.id not in options.filterIDs:
+                continue
             lastUntil = None
-            for stop in vehicle.stop:
+            stops = list(vehicle.stop)
+            for i, stop in enumerate(stops):
                 isParking = stop.parking in ["true", "True", "1"]
                 if isParking and options.ignoreParking:
                     continue
@@ -98,30 +107,55 @@ def main(options):
                 flags = ''
                 if isParking:
                     flags += "p"
-                stopTimes[stop.busStop].append((arrival, until, vehicle.id,
-                    stop.getAttributeSecure("tripId", ""),
-                    stop.getAttributeSecure("started", ""),
-                    stop.getAttributeSecure("ended", ""),
-                    flags
-                    ))
+                if i == 0:
+                    flags += "F"
+                if i == len(stops) - 1:
+                    flags += "L"
+                if float(stop.getAttributeSecure("speed", "0")) > 0:
+                    flags += "w"
+                stopTimes[stop.busStop].append([arrival, until, vehicle.id,
+                                                stop.getAttributeSecure("tripId", ""),
+                                                stop.getAttributeSecure("started", ""),
+                                                stop.getAttributeSecure("ended", ""),
+                                                flags
+                                                ])
 
     for stop, times in stopTimes.items():
         times.sort()
         for i, (a, u, v, t, s, e, f) in enumerate(times):
-            for a2, u2, v2, t2, s2, e2, f in times[i + 1:]:
+            for i2, (a2, u2, v2, t2, s2, e2, f2) in enumerate(times[i + 1:]):
                 if u2 <= u:
+                    times[i][-1] += "o"
+                    times[i + 1 + i2][-1] += "O"
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
 
     if options.stopTable:
-        if options.stopTable in stopTimes:
-            times = stopTimes[options.stopTable]
-            print("# busStop: %s" % options.stopTable)
-            print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags")
-            for a, u, v, t, s, e, f in sorted(times):
-                print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f))
-        else:
-            print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+        times = []
+        stopIDs = []
+        for stopID in options.stopTable.split(','):
+            if stopID in stopTimes:
+                stopIDs.append(stopID)
+            elif "*" in stopID:
+                for candID in sorted(stopTimes.keys()):
+                    if fnmatch.fnmatch(candID, stopID):
+                        stopIDs.append(candID)
+            else:
+                print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
+
+        for stopID in stopIDs:
+            times += [t + [stopID] for t in stopTimes[stopID]]
+
+        if stopIDs:
+            print("# busStop: %s" % ','.join(stopIDs))
+            if len(stopIDs) == 1:
+                print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags")
+                for a, u, v, t, s, e, f, i in sorted(times):
+                    print("%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f))
+            else:
+                print("arrival\tuntil\tveh\ttripId\tstarted\tended\tflags\tbusStop")
+                for a, u, v, t, s, e, f, i in sorted(times):
+                    print("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t, s, e, f, i))
 
 
 if __name__ == "__main__":

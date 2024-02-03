@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,7 +69,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
         SUMOTime closestTime = SUMOTime_MAX;
         bool tooEarly = false;
         for (auto* taxi : available) {
-            if (remainingCapacity(taxi, res) < 0) {
+            if (remainingCapacity(taxi, res) < 0 || !taxi->compatibleLine(res)) {
                 continue;
             }
             SUMOTime travelTime = computePickupTime(now, taxi, *res, router);
@@ -155,7 +155,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
         for (Reservation* res : activeReservations) {
             SUMOTime recheck = SUMOTime_MAX;
             for (auto* taxi : available) {
-                if (remainingCapacity(taxi, res) < 0) {
+                if (remainingCapacity(taxi, res) < 0 || !taxi->compatibleLine(res)) {
                     continue;
                 }
                 SUMOTime travelTime = computePickupTime(now, taxi, *res, router);

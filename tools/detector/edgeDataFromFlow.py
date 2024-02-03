@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    edgeDataFromFlow.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2020-02-27
 
 """
@@ -33,24 +34,25 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
+from sumolib.options import ArgumentParser  # noqa
 DEBUG = False
 
 
 def get_options(args=None):
-    parser = sumolib.options.ArgumentParser(description="Convert detector flow file to edgeData format")
-    parser.add_argument("-d", "--detector-file", dest="detfile",
+    parser = ArgumentParser(description="Convert detector flow file to edgeData format")
+    parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
                         help="read detectors from FILE", metavar="FILE")
-    parser.add_argument("-f", "--detector-flow-file", dest="flowfile",
+    parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=ArgumentParser.file,
                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
-    parser.add_argument("-o", "--output-file", dest="output",
+    parser.add_argument("-o", "--output-file", dest="output", category="output", type=ArgumentParser.edgedata_file,
                         help="output edgeData FILE (mandatory)", metavar="FILE")
-    parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
-                        help="which columns contains flows", metavar="STRING")
-    parser.add_argument("-b", "--begin", default=0,
+    parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW", type=str,
+                        help="which columns contains flows (specified via column header)", metavar="STRING")
+    parser.add_argument("-b", "--begin", default=0, type=ArgumentParser.time,
                         help="custom begin time (minutes or H:M:S)")
-    parser.add_argument("-e", "--end", default=1440,
+    parser.add_argument("-e", "--end", default=1440, type=ArgumentParser.time,
                         help="custom end time (minutes or H:M:S)")
-    parser.add_argument("-i", "--interval", default=1440,
+    parser.add_argument("-i", "--interval", default=1440, type=ArgumentParser.time,
                         help="custom aggregation interval (minutes or H:M:S)")
     parser.add_argument("--cadyts", action="store_true",
                         default=False, help="generate output in cadyts format")

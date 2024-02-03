@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,7 +52,7 @@
 void
 PCNetProjectionLoader::load(const std::string& file, double scale) {
     if (!FileHelpers::isReadable(file)) {
-        throw ProcessError("Could not open net-file '" + file + "'.");
+        throw ProcessError(TLF("Could not open net-file '%'.", file));
     }
     // build handler and parser
     PCNetProjectionLoader handler(scale);
@@ -61,14 +61,14 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file)) {
         delete parser;
-        throw ProcessError("Can not read XML-file '" + handler.getFileName() + "'.");
+        throw ProcessError(TLF("Can not read XML-file '%'.", handler.getFileName()));
     }
     // parse
     while (parser->parseNext() && !handler.hasReadAll());
     // clean up
     PROGRESS_TIME_MESSAGE(before);
     if (!handler.hasReadAll()) {
-        throw ProcessError("Could not find projection parameter in net.");
+        throw ProcessError(TL("Could not find projection parameter in net."));
     }
     delete parser;
 }

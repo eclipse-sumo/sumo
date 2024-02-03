@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,6 +38,7 @@ class MESegment;
 class MSBaseVehicle;
 class GUILane;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -64,7 +65,7 @@ public:
     ~GUIEdge();
 
     /// Has to be called after all edges were built and all connections were set
-    virtual void closeBuilding();
+    virtual void closeBuilding() override;
 
     /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
@@ -83,8 +84,6 @@ public:
     /// returns the enumerated lane (!!! why not private with a friend?)
     MSLane& getLane(int laneNo);
 
-
-
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
         !!! should be within another class */
@@ -102,8 +101,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns an own parameter window
@@ -113,8 +111,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -122,46 +119,59 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /// @brief Returns the street name
-    const std::string getOptionalName() const;
+    const std::string getOptionalName() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
-
-    void addPerson(MSTransportable* p) const {
+    void addTransportable(MSTransportable* t) const override {
         FXMutexLock locker(myLock);
-        MSEdge::addPerson(p);
+        MSEdge::addTransportable(t);
     }
 
-    void removePerson(MSTransportable* p) const {
+    void removeTransportable(MSTransportable* t) const override {
         FXMutexLock locker(myLock);
-        MSEdge::removePerson(p);
+        MSEdge::removeTransportable(t);
     }
 
+    /// @name Access to persons
+    /// @{
 
-    void addContainer(MSTransportable* c) const {
-        FXMutexLock locker(myLock);
-        MSEdge::addContainer(c);
+    /** @brief Returns this edge's persons set; locks it for microsimulation
+     *  @brief Avoids the creation of new vector as in getSortedPersons
+     *
+     * @return
+     * Please note that it is necessary to release the person container
+     *  afterwards using "releasePersons".
+     * @return This edge's persons.
+     */
+    const std::set<MSTransportable*, ComparatorNumericalIdLess>& getPersonsSecure() const {
+        myLock.lock();
+        return myPersons;
     }
 
-    void removeContainer(MSTransportable* c) const {
-        FXMutexLock locker(myLock);
-        MSEdge::removeContainer(c);
+    /** @brief Allows to use the container for microsimulation again
+     *
+     * Unlocks "myLock" preventing usage by microsimulation.
+     */
+    void releasePersons() const {
+        myLock.unlock();
     }
+    /// @}
 
     double getAllowedSpeed() const;
     /// @brief return meanSpead divided by allowedSpeed
@@ -177,10 +187,10 @@ public:
     bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme) const;
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);
@@ -188,12 +198,12 @@ public:
     void drawMesoVehicles(const GUIVisualizationSettings& s) const;
 
     /// @brief grant exclusive access to the mesoscopic state
-    void lock() const {
+    void lock() const override {
         myLock.lock();
     }
 
     /// @brief release exclusive access to the mesoscopic state
-    void unlock() const {
+    void unlock() const override {
         myLock.unlock();
     }
 
@@ -217,7 +227,7 @@ public:
     }
 
     /// @brief whether this lane is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
@@ -225,6 +235,8 @@ public:
     /// @brief whether to highlight this edge as a dead-end edge
     bool myShowDeadEnd;
 
+    /// @brief get number of vehicles waiting for departure on this edge
+    double getPendingEmits() const;
 
 private:
     /// @brief invalidated copy constructor

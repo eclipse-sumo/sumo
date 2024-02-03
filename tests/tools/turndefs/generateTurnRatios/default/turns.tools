@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-04-25 11:28:19.875140 by generateTurnRatios.py v1_5_0+1290-9cc1249378
+
+<!-- generated on 2022-07-07 11:19:38.790005 by generateTurnRatios.py v1_13_0+1343-240e5d48340
   options: -r input_routes.rou.xml -o turns.xml -v
 -->
-<edgeRelations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgerelations_file.xsd">
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="generated" begin="0.0" end="99.0">
         <edgeRelation from="-109" to="-109.80.00" count="10"/>
         <edgeRelation from="-109.80.00" to="-11" count="9"/>
@@ -143,4 +145,4 @@
         <edgeRelation from="75.121.42" to="-75" count="1"/>
         <edgeRelation from="75.121.42" to="120" count="3"/>
     </interval>
-</edgeRelations>
+</data>

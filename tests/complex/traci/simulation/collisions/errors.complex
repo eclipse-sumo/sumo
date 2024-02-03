@@ -1,7 +1,6 @@
 Warning: Teleporting vehicle 'c1'; collision with vehicle 'v1', lane='SC_4', gap=-7.50, time=4.00 stage=move.
 Warning: Teleporting vehicle 'c0'; collision with vehicle 'v0', lane='SC_3', gap=-7.50, time=4.00 stage=move.
-Warning: Vehicle 'c0' ends teleporting on edge 'CN', time 4.00.
-Warning: Vehicle 'c1' ends teleporting on edge 'CN', time 4.00.
+Warning: Vehicle 'c0' ends teleporting on edge 'CN', time=4.00.
+Warning: Vehicle 'c1' ends teleporting on edge 'CN', time=4.00.
 Warning: Vehicle 'c3' collision with person 'pWE.37', lane='EC_0', gap=-0.16, time=15.00, stage=move.
 Warning: Vehicle 'c2' collision with person 'pWE.3', lane=':C_3_0', time=16.00, stage=move.
-Warning: Vehicle 'c2' collision with person 'pWE.3', lane=':C_3_0', time=17.00, stage=events.

@@ -1,0 +1,3 @@
+Error: Attribute 'speed' in definition of flow 'CFlow01' is empty.
+Error: Attribute 'speed' in definition of flow 'CFlow02' Invalid Number Format (double) dummy.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibratorflow\load\speed\additionals.add.xml failed.

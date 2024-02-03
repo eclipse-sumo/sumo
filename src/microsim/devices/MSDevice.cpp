@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,8 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEdge.h>
+
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"
@@ -33,6 +35,7 @@
 #include "MSDevice_BTreceiver.h"
 #include "MSDevice_BTsender.h"
 #include "MSDevice_Example.h"
+#include "MSDevice_StationFinder.h"
 #include "MSDevice_Battery.h"
 #include "MSDevice_SSM.h"
 #include "MSDevice_ToC.h"
@@ -45,13 +48,14 @@
 #include "MSTransportableDevice_Routing.h"
 #include "MSTransportableDevice_FCD.h"
 #include "MSRoutingEngine.h"
+#include "MSDevice_Friction.h"
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
-std::mt19937 MSDevice::myEquipmentRNG;
+SumoRNG MSDevice::myEquipmentRNG("deviceEquipment");
 
 // ===========================================================================
 // debug flags
@@ -69,9 +73,10 @@ void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
     MSDevice_Emissions::insertOptions(oc);
-    MSDevice_BTreceiver::insertOptions(oc);
-    MSDevice_BTsender::insertOptions(oc);
+    MSVehicleDevice_BTreceiver::insertOptions(oc);
+    MSVehicleDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
+    MSDevice_StationFinder::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
     MSDevice_ToC::insertOptions(oc);
@@ -83,9 +88,12 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_GLOSA::insertOptions(oc);
     MSDevice_Tripinfo::insertOptions(oc);
     MSDevice_Vehroutes::insertOptions(oc);
+    MSDevice_Friction::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
+    MSTransportableDevice_BTsender::insertOptions(oc);
+    MSTransportableDevice_BTreceiver::insertOptions(oc);
 }
 
 
@@ -103,10 +111,12 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
     MSDevice_Emissions::buildVehicleDevices(v, into);
-    MSDevice_BTreceiver::buildVehicleDevices(v, into);
-    MSDevice_BTsender::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTreceiver::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
-    MSDevice_Battery::buildVehicleDevices(v, into);
+    const size_t numBefore = into.size();
+    MSDevice_StationFinder::buildVehicleDevices(v, into);
+    MSDevice_Battery::buildVehicleDevices(v, into, into.size() == numBefore ? nullptr : static_cast<MSDevice_StationFinder*>(into.back()));
     MSDevice_SSM::buildVehicleDevices(v, into);
     MSDevice_ToC::buildVehicleDevices(v, into);
     MSDevice_DriverState::buildVehicleDevices(v, into);
@@ -115,6 +125,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_ElecHybrid::buildVehicleDevices(v, into);
     MSDevice_Taxi::buildVehicleDevices(v, into);
     MSDevice_GLOSA::buildVehicleDevices(v, into);
+    MSDevice_Friction::buildVehicleDevices(v, into);
 }
 
 
@@ -122,6 +133,8 @@ void
 MSDevice::buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into) {
     MSTransportableDevice_Routing::buildDevices(p, into);
     MSTransportableDevice_FCD::buildDevices(p, into);
+    MSTransportableDevice_BTsender::buildDevices(p, into);
+    MSTransportableDevice_BTreceiver::buildDevices(p, into);
 }
 
 
@@ -151,7 +164,7 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
 
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
-    WRITE_WARNING("Device '" + getID() + "' cannot save state");
+    WRITE_WARNINGF(TL("Device '%' cannot save state"), getID());
 }
 
 
@@ -161,11 +174,11 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 
 
 std::string
-MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required) {
+MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
     const std::string key = "device." + paramName;
-    if (v.getParameter().knowsParameter(key)) {
+    if (v.getParameter().hasParameter(key)) {
         return v.getParameter().getParameter(key, "");
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+    } else if (v.getVehicleType().getParameter().hasParameter(key)) {
         return v.getVehicleType().getParameter().getParameter(key, "");
     } else {
         if (oc.exists(key) && oc.isSet(key)) {
@@ -185,26 +198,36 @@ MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::strin
 
 
 double
-MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required) {
-    const std::string key = "device." + paramName;
-    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
-        return StringUtils::toDouble(val);
-    } catch (...) {
-        WRITE_ERROR("Invalid float value '" + val + "'for parameter '" + key + "'");
+        return Distribution_Parameterized(val).sample();
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid distribution / float value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }
 
 
 bool
-MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required) {
-    const std::string key = "device." + paramName;
-    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return StringUtils::toBool(val);
-    } catch (...) {
-        WRITE_ERROR("Invalid bool value '" + val + "'for parameter '" + key + "'");
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid boolean value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
+        return deflt;
+    }
+}
+
+
+SUMOTime
+MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+    try {
+        return string2time(val);
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid time value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }

@@ -9,7 +9,7 @@ amount of bulk material, an arbitrary amount of animals etc.
 # Containers
 
 A container moves through the net by being transported by a vehicle or
-being transhiped between two stops. A container element has child
+being transhipped between two stops. A container element has child
 elements defining stages of its plan. The stages are a connected
 sequence of [transport](#transports),
 [tranship](#tranships) and
@@ -28,8 +28,8 @@ below. Each container must have at least one stage in its plan.
 
 | Attribute | Type      | Range               | Default | Remark |
 | --------- | --------- | ------------------- | ------- | ------ |
-| id        | string    | valid XML ids       | \-      |        |
-| depart    | float(s)  | ≥0                  | \-      |        |
+| **id**    | string    | valid XML ids       | \-      |        |
+| **depart**| float(s)  | ≥0                  | \-      |        |
 | type      | string    | any declared vType  |         |        |
 | color     | rgb color |                     |         |        |
 
@@ -49,17 +49,21 @@ elements of plan definitions.
 
 | Attribute     | Type   | Range                     | Default | Remark                                                 |
 | ------------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
-| from          | string | valid edge ids            | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
-| to            | string | valid edge ids            | \-      | id of the destination edge                             |
-| containerStop | string | valid container stop ids  | \-      | id of the destination stop                             |
-| lines         | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| from      | string | valid edge ids                | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
+| to        | string | valid edge ids                | \-      | id of the destination edge                             |
+| lines     | list   | valid line or vehicle ids or *ANY* | ANY   | list of vehicle alternatives to take for the transport |
+| containerStop | string | valid container stop ids  | \-      | id of the destination stop (allows to omit *to*)       |
 | arrivalPos    |float(m)|                           | \-1     | arrival position on the destination edge               |
 
-The route to take is defined by the vehicle.
+The vehicle to use has to exist already and the route to take is defined by the vehicle. The vehicle needs to have capacity to transport additional containers (see [vType attribute containerCapacity](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#available_vtype_attributes)). The container is loaded into the vehicle if it stops on the 'from' edge and any of the following conditions are met
 
-A given container stop may serve as a replacement for a destination edge and
-arrival position. If an arrival position is given nevertheless it has to
-be inside the range of the stop.
+- the 'line' attribute of the vehicle or the 'id' of the vehicle is given in the list defined by the 'lines' attribute of the `transport` OR the lines attribute contains 'ANY' and the vehicle stops at the destination 'containerStop' of the `transport` (or at the destination edge if no destination containerStop is defined).
+- the vehicle has a triggered stop and the container position is within the range of startpos,endPos of the stop.
+- the vehicle has a timed stop and the container is waiting within 10m of the vehicle position
+
+The position of the container is either it's departPos or the arrival position of the preceding plan element
+
+A given container stop (or any other stopping place) may serve as a replacement for a destination edge and arrival position. If an arrival position is given nevertheless it has to be inside the range of the stop.
 
 A transport of a container works similar to a [ride](Persons.md#rides) of a person.
 
@@ -83,7 +87,7 @@ are child elements of plan definitions.
 You can define either a list of "edges" to travel or a "from" and a "to"
 edge. In the former case, only the first and the last edge will be
 considered. Instead of a "to" edge a container stop can be defined.
-If there is a move entry bevore, the "from" edge can be left.
+If there is a move entry before, the "from" edge can be left out.
 The container will move straight from the first edge to last
 edge. In the latter case, the container will from straight from the edge
 "from" to the edge "to" or the container stop "containerStop".
@@ -91,7 +95,7 @@ edge. In the latter case, the container will from straight from the edge
 ## Stops
 
 Stops define a delay until the next element of a plan is started. They
-can be used to model containers beeing stored in a storage place,
+can be used to model containers being stored in a storage place,
 harbour or anything else. A [container
 stop](Logistics.md#container_stops) can be used to
 modal that storage place in the network (similar to a [bus stop for

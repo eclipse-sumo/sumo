@@ -6,3 +6,6 @@ kshortest
 
 # Spreads 100 vehicles over an hour
 100vehs_hour
+
+# Spreads 100 vehicles over an hour split in two matrices
+2times50vehs

@@ -1,0 +1,13 @@
+# Maximum number of allowed redirects.
+max_redirects = 20
+
+# Proceed for server connections considered insecure (invalid TLS).
+insecure = true
+
+# Remap URI matching pattern to different URI.
+remap = ['%7B%7BVersion%7D%7D 1.19.0']
+
+# Exclude URLs and mail addresses from checking (supports regex).
+exclude = ['%7B%7BSource%7D%7D', '^https://sumo\.dlr\.de/pydoc/', '^https://sumo\.dlr\.de/generate-documentation\.php', '^https://sumo\.dlr\.de/xsd/SCHEMA_FILE',
+           '^https://web\.archive\.org/web/', '^https://doi\.org/10', 'https://www\.researchgate\.net/publication/',
+           '^https://www\.udemy\.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/']

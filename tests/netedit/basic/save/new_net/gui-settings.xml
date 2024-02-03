@@ -1,6 +1,6 @@
 <viewsettings>
     <scheme name="testing">
         <background backgroundColor="white" showGrid="1" gridXSize="10.0" gridYSize="10.0"/>
-		<viewport zoom="200" x="50" y="50"/>
+        <viewport zoom="200" x="50" y="50"/>
     </scheme>
 </viewsettings>

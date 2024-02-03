@@ -1,0 +1,4 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x busStop -y started
+--xticks-file data.txt
+tools/visualization/plotXMLAttributes.py

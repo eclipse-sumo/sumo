@@ -6,13 +6,31 @@ lateralCollision
 
 # tests for vehicle mapping
 moveToXY
+moveTo
+changeLane
+
+# same tests as in changeLane suite but with sublane model
+changeLane_subLane
+
+# various tests for changeSublane (using sublane model)
+changeSublane
 
 # Tests the openGap() method.
 openGap
+
+# add or update stops
+setStop
 replaceStop
+insertStop
 
 # test taxi API
 taxi
+
+# test adding vehicles
+add
+
+# test traci access to cfmodel features
+cfmodel
 
 # Tests the vehicle API
 vehicle
@@ -38,6 +56,12 @@ distance_after_reroute
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# test retrieval of upcoming links
+getNextLinks
+
+# test retrieval of function joes
+getJunctionFoes
+
 # Tests traci.vehicle.getNeighbors() method
 getNeighbors
 
@@ -46,21 +70,6 @@ getNeighborsSublane
 
 # Tests traci.vehicle.getNeighbors() method
 getNeighborsOpposite
-
-# use changeLaneRelative to change to the opposite side and back
-changeOpposite
-
-# test changeLane and changeLaneRelative
-changeLane
-
-# test relative lane changes
-changeRelative
-
-# test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
-changeRelative_invalid
-
-# use changeLaneRelative to change to the opposite side and back using the default laneChangeMode
-changeOpposite_default
 
 # test estimated public transport stop delay
 stopDelay
@@ -73,9 +82,6 @@ stopDelay2
 
 # compare getFollowSpeed and actual speed
 getFollowSpeed
-
-# check whether vehicles moved with moveTo can register on a detector
-moveTo_detector
 
 # retrieve stops with limits
 getStops
@@ -91,13 +97,17 @@ slowDown
 
 # test timing of slowDown command
 slowDown_subsecond
+
+# test timing of setAcceleration command
+setAcceleration
+
+# test speed response curve on setting speedFactor
+setSpeedFactor_IDM
 getFollower
+getLeader
 
 # test access to driverstate parameters
 driverstate
-
-# add vehicle with route on internal
-add_internal
 
 # test setRoute with internal edges
 setRoute_internal
@@ -105,5 +115,14 @@ setRoute_internal
 # test ignoring specific foes ids and foe types
 junctionModel.ignore
 
-# add a vehicle with triggered departure
-departTriggered
+# test bit5 (ignore foes within junction)
+ignoreJunctionFoes
+
+# retrieve vehicles that are not visible in the network
+getInvisible
+
+# retrieve tripinfo statistics
+tripinfoRetrieval
+
+# retrieving TLS info with multiple links
+getNextTLS

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -47,10 +47,10 @@ def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", s
     speedIdx = -1
     timeIdx = -1
     with open(flowFile) as f:
-        for l in f:
-            if ';' not in l:
+        for fl in f:
+            if ';' not in fl:
                 continue
-            flowDef = [e.strip() for e in l.split(';')]
+            flowDef = [e.strip() for e in fl.split(';')]
             if detIdx == -1 and detCol in flowDef:
                 # init columns
                 detIdx = flowDef.index(detCol)
@@ -152,12 +152,12 @@ class DetectorGroupData:
 
 class DetectorReader(handler.ContentHandler):
 
-    def __init__(self, detFile=None, laneMap={}):
+    def __init__(self, detFile=None, laneMap=None):
         self._edge2DetData = defaultdict(list)
         self._det2edge = {}
         self._currentGroup = None
         self._currentEdge = None
-        self._laneMap = laneMap
+        self._laneMap = {} if laneMap is None else laneMap
         if detFile:
             parser = make_parser()
             parser.setContentHandler(self)
@@ -247,10 +247,10 @@ class DetectorReader(handler.ContentHandler):
     def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time"):
         timeIdx = 1
         with open(flowFile) as f:
-            for l in f:
-                if ';' not in l:
+            for fl in f:
+                if ';' not in fl:
                     continue
-                flowDef = [e.strip() for e in l.split(';')]
+                flowDef = [e.strip() for e in fl.split(';')]
                 if det in flowDef:
                     if time in flowDef:
                         timeIdx = flowDef.index(time)

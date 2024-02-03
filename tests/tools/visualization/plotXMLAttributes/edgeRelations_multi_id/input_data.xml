@@ -1,0 +1,36 @@
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0.0" end="3600.0">
+        <edgeRelation from="-31" to="-36" count="18"/>
+        <edgeRelation from="-31" to="48" count="3"/>
+        <edgeRelation from="-36" to="-2" count="19"/>
+        <edgeRelation from="-36" to="-60" count="3"/>
+        <edgeRelation from="-40" to="-26" count="17"/>
+        <edgeRelation from="-40" to="2" count="2"/>
+    </interval>
+    <interval id="generated" begin="3600" end="7200">
+        <edgeRelation from="-19" to="-40" count="576"/>
+        <edgeRelation from="-2" to="-26" count="288"/>
+        <edgeRelation from="-25#0" to="-25#1" count="42"/>
+        <edgeRelation from="-25#1" to="-9" count="42"/>
+        <edgeRelation from="-31" to="-36" count="320"/>
+        <edgeRelation from="-31" to="48" count="42"/>
+        <edgeRelation from="-36" to="-2" count="247"/>
+        <edgeRelation from="-36" to="-60" count="119"/>
+        <edgeRelation from="-40" to="-26" count="288"/>
+        <edgeRelation from="-40" to="2" count="288"/>
+    </interval>
+    <interval id="generated" begin="7200" end="10800">
+        <edgeRelation from="-19" to="-40" count="715"/>
+        <edgeRelation from="-2" to="-26" count="1667"/>
+        <edgeRelation from="-2" to="-55" count="2"/>
+        <edgeRelation from="-25#0" to="-25#1" count="16"/>
+        <edgeRelation from="-25#1" to="-9" count="16"/>
+        <edgeRelation from="-31" to="-36" count="1427"/>
+        <edgeRelation from="-31" to="48" count="66"/>
+        <edgeRelation from="-36" to="-2" count="1460"/>
+        <edgeRelation from="-36" to="-60" count="54"/>
+        <edgeRelation from="-40" to="-26" count="597"/>
+        <edgeRelation from="-40" to="-55" count="1"/>
+        <edgeRelation from="-40" to="2" count="117"/>
+    </interval>
+</data>

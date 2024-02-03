@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -178,7 +178,7 @@ public:
     void writeOutput(SUMOTime step, bool closing);
 
     /** @brief Remove all vehicles before quick-loading state */
-    void clearState();
+    void clearState(SUMOTime step);
 
 protected:
     /// @name Structures needed for assigning detectors to intervals
@@ -201,14 +201,13 @@ protected:
     /// @brief The detectors map, first by detector type, then using NamedObjectCont (@see NamedObjectCont)
     std::map<SumoXMLTag, NamedObjectCont< MSDetectorFileOutput*> > myDetectors;
 
-
     /// @brief Map that hold DetectorFileVec for given intervals
     Intervals myIntervals;
 
     /// @brief The map that holds the last call for each sample interval
     std::map<IntervalsKey, SUMOTime> myLastCalls;
 
-    /// @brief List of meanData  detectors
+    /// @brief List of meanData detectors
     std::map<std::string, std::vector<MSMeanData*> > myMeanData;
 
     /// @brief An empty container to return in getTypedDetectors() if no detectors of the asked type exist

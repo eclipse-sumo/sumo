@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,13 @@
 
 #include <netedit/frames/GNEFrame.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNECrossing;
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -37,14 +44,14 @@ public:
     // class CurrentJunction
     // ===========================================================================
 
-    class CurrentJunction : protected FXGroupBox {
+    class JunctionInformation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        CurrentJunction(GNECrossingFrame* crossingFrameParent);
+        JunctionInformation(GNECrossingFrame* crossingFrameParent);
 
         /// @brief destructor
-        ~CurrentJunction();
+        ~JunctionInformation();
 
         /// @brief set current junction label
         void updateCurrentJunctionLabel(const std::string& junctionID);
@@ -58,7 +65,7 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : protected FXGroupBox {
+    class EdgesSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::EdgesSelector)
 
@@ -94,6 +101,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(EdgesSelector)
 
     private:
@@ -117,7 +125,7 @@ public:
     // class CrossingParameters
     // ===========================================================================
 
-    class CrossingParameters : protected FXGroupBox {
+    class CrossingParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CrossingParameters)
 
@@ -171,14 +179,21 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CrossingParameters)
 
     private:
         /// @brief pointer to GNECrossingFrame parent
         GNECrossingFrame* myCrossingFrameParent;
 
+        /// @brief crossing template
+        GNECrossing* myCrossingTemplate;
+
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
+
+        /// @brief current invalid edges
+        std::vector<GNEEdge*> myCurrentInvalidEdges;
 
         /// @brief Label for edges
         FXLabel* myCrossingEdgesLabel;
@@ -209,7 +224,7 @@ public:
     // class CreateCrossing
     // ===========================================================================
 
-    class CreateCrossing : protected FXGroupBox {
+    class CreateCrossing : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CreateCrossing)
 
@@ -230,6 +245,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(CreateCrossing)
 
     private:
@@ -240,11 +256,25 @@ public:
         FXButton* myCreateCrossingButton;
     };
 
+    // ===========================================================================
+    // class Information
+    // ===========================================================================
+
+    class Information : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNECrossingFrame* crossingFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNECrossingFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECrossingFrame();
@@ -253,26 +283,33 @@ public:
     void hide();
 
     /**@brief add Crossing element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void addCrossing(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief create crossing (used when user press ENTER key in Crossing mode)
     void createCrossingHotkey();
 
+    /// @brief clear edges (used when user press ESC key in Crossing mode)
+    void clearEdgesHotkey();
+
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECrossingFrame)
 
 private:
-    /// @brief current junction modul
-    GNECrossingFrame::CurrentJunction* myCurrentJunction;
+    /// @brief junction information modul
+    GNECrossingFrame::JunctionInformation* myJunctionInformation = nullptr;
 
     /// @brief edge selector modul
-    GNECrossingFrame::EdgesSelector* myEdgeSelector;
+    GNECrossingFrame::EdgesSelector* myEdgeSelector = nullptr;
 
     /// @brief crossing parameters modul
-    GNECrossingFrame::CrossingParameters* myCrossingParameters;
+    GNECrossingFrame::CrossingParameters* myCrossingParameters = nullptr;
 
     /// @brief create crossing modul
-    GNECrossingFrame::CreateCrossing* myCreateCrossing;
+    GNECrossingFrame::CreateCrossing* myCreateCrossing = nullptr;
+
+    /// @brief information modul
+    GNECrossingFrame::Information* myInformation = nullptr;
 };

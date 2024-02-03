@@ -37,8 +37,8 @@ The generated file look like this:
     </vehicle>
 
     <person id="<PERSON_ID>" depart="<INSERTION_TIME>" arrival="<ARRIVAL_TIME>">
-        <ride from="..." to="..." lines="..." [ended="<END_TIME>"]/>
-        <walk edges="..." speed="..." [exitTimes="<EXIT_TIMES>"]/>
+        <ride from="..." to="..." lines="..." [started="<START_TIME>" ended="<END_TIME>"]/>
+        <walk edges="..." speed="..." [exitTimes="<EXIT_TIMES>" started="<START_TIME>" ended="<END_TIME>"]/>
     </person>
 
     ... information about further vehicles and persons ...
@@ -46,7 +46,7 @@ The generated file look like this:
 </routes>
 ```
 
-| Name              | Type            | Description                                                                                 |
+| Name              | Type/Unit       | Description                                                                                 |
 | ----------------- | --------------- | ------------------------------------------------------------------------------------------- |
 | id                | (vehicle) id    | The id of the vehicle this entry describes                                                  |
 | type              | vehicle type id | The id of the vehicle type if different from the default                                    |
@@ -55,13 +55,17 @@ The generated file look like this:
 | routeLength       | m               | The total length of the vehicle's route (if activated by the vehroutes.route-length option) |
 | replacedOnEdge    | (edge) id       | The edge the vehicle was on when the described route was replaced                           |
 | replacedAtTime    | s               | The time step of this replacement                                                           |
-| <PREVIOUS_ROUTE\> | \[(edge) id\]+  | The replaced route                                                                          |
-| <LAST_ROUTE\>     | \[(edge) id\]+  | The final vehicle route                                                                     |
-| <EXIT_TIMES\>     | \[time in s\]+  | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
-| <END_TIME\>       | s               | The leave time for the edge in the ride (or transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
+| edges             | \[(edge) id\]   | The replaced route                                                                          |
+| route edges       | \[(edge) id\]   | The final vehicle route                                                                     |
+| exitTimes         | \[time in s\]   | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
+| ended             | s               | The arrival time for the walk or ride (or tranship/transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
+| started           | s               | The departure time for the walk or the time when the ride vehicle has been entered and starts to drive again (also for tranship/transport with containers), if enabled with the option **--vehroute-output.exit-times**  |
 
 !!! note
     Additional attributes of the vehicle are also included if they were set.
+
+!!! note
+    Only finished trips are saved in the vehroute file as default. With the option **-vehroute-output.write-unfinished** unfinished trips can be saved as well. They can be identified in the file when (1) the option --vehroute-output.exit-times is set to true: the started and ended values are -1.; or (2) the option --vehroute-output.route-length is set to true: the routeLength value = -1; If following walks exist, their routeLengths will be still reported.
 
 Both the previous and the final routes are complete, that means that
 they contain all the edges the vehicle was meant to pass as long as the
@@ -87,6 +91,7 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 
 ## Further Options
 
+- **--personroute-output FILE**: Writes output for persons/containers to a separate FILE
 - **--vehroute-output.exit-times**: Write the exit times for all edges, the attributes 'started' and 'ended' for stops and include attribute 'ended' for rides.
 - **--vehroute-output.last-route**: Only write the final route (if the vehicle was rerouted during the simulation)
 - **--vehroute-output.sorted**:     Sorts the written vehicles by departure time
@@ -94,7 +99,17 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.cost**:       Write attribute 'cost' for all routes
 - **--vehroute-output.intended-depart**: Use the intended departure time rather than the actual departure time (in case of departure delays)
 - **--vehroute-output.route-length**: Write total route length as attribute 'length'
-- **--vehroute-output.write-unfinished**:   Write vehroute output for vehicles which have not reached their destination at the end of the simulation
+- **--vehroute-output.write-unfinished**:   Write vehroute output for vehicles and persons which have not reached their destination at the end of the simulation
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
 - **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
 - **--vehroute-output.stop-edges**:   Include information about edges between stops
+- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had it's departSpeed set)
+- **--vehroute-output.internal**:   Include internal edges in the output. Note, that such routes are not suitable for being loaded by sumo or duarouter!
+
+## Visualization example
+
+### departure times versus arrival times
+
+<img src="../../images/vehroute_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#departure_times_versus_arrival_times).

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,7 +42,7 @@ public:
     /** @brief Inserts options used by routing applications into the OptionsCont-singleton
      * @param[in] oc The options container to fill
      */
-    static void fillOptions(OptionsCont& oc);
+    static void fillOptions(OptionsCont& oc, const bool isDUA = false, const bool isMA = false);
 
 
     /** @brief Checks whether options are valid

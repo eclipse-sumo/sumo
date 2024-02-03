@@ -1,0 +1,57 @@
+Parsing types from 'D:\Repos\sumo\/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (499ms).
+Parsing edges from osm-file 'osm.xml' ... done (599ms).
+Removing duplicate edges ... done.
+Parsing relations from osm-file 'osm.xml' ... 
+done (224ms).
+ Removed 30 traffic lights before loading plain-XML
+ Import done:
+   468 nodes loaded.
+   33 types loaded.
+   944 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops ... done (3ms).
+Processing public transport stops ... done (19ms).
+Revising public transport stops based on pt lines ... 
+done (31ms).
+Align pt stop id signs with corresponding edge id signs ... done (0ms).
+Joining junction clusters ... 
+done (170ms).
+ Joined 20 junction cluster(s).
+Removing empty nodes and geometry nodes ... done (146ms).
+   96 nodes removed.
+Moving network to origin ... done (1440ms).
+Computing turning directions ... done (44ms).
+Assigning nodes to traffic lights ... done (62ms).
+Sorting nodes' edges ... done (26ms).
+Computing node shapes ... done (1350ms).
+Computing edge shapes ... done (631ms).
+Computing node types ... done (25ms).
+Computing priorities ... done (24ms).
+Computing approached edges ... done (63ms).
+Guessing and setting roundabouts ... done (3ms).
+Computing approaching lanes ... done (414ms).
+Dividing of lanes on approached lanes ... done (213ms).
+Processing turnarounds ... done (35ms).
+Rechecking of lane endings ... done (15ms).
+Computing traffic light control information ... done (14ms).
+Computing node logics ... done (1452ms).
+Computing traffic light logics ... done (110ms).
+ 4 traffic light(s) computed.
+Find accesses for pt rail stops ... done (28ms).
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Dead-end junctions          : 33
+  Priority junctions          : 206
+  Right-before-left junctions : 85
+  Traffic light junctions      : 4
+  Rail signal junctions      : 1
+ Network boundaries:
+  Original boundary  : 13.46,52.42,13.58,52.46
+  Applied offset     : -395408.93,-5809112.45
+  Converted boundary : 0.00,0.00,5580.65,3531.77
+-----------------------------------------------------
+Writing network ... done (1659ms).
+Success.

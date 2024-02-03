@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tFirst" speedDev="0.0" sigma="0"/>
+    <route id="r0" edges="0"/>
+    <vehicle id="first" type="tFirst" depart="0" route="r0" departSpeed="max"/>
+</routes>

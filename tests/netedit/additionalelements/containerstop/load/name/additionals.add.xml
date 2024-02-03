@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid name -->
+    <containerStop id="containerStop_00" lane="center1_1" startPos="5" endPos="10" name=";;;%%$$$" lines="line1 line2" friendlyPos="false"/>
+
+    <!-- valid name -->
+    <containerStop id="containerStop_00" lane="center1_1" startPos="5" endPos="10" name="custom Name" lines="line1 line2" friendlyPos="false"/>
+
+</additional>

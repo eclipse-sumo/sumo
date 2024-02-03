@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // A dialog for set Geometry Points
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -55,12 +54,12 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for X,Y
     FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThick75);
+    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThickedFixed(75));
     myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldXY->setText(toString(*pos).c_str());
     // create frame for lon,lat
     FXHorizontalFrame* lonLatFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(lonLatFrame, "lon,lat,[Z]", nullptr, GUIDesignLabelThick75);
+    new FXLabel(lonLatFrame, "lon,lat,[Z]", nullptr, GUIDesignLabelThickedFixed(75));
     myTextFieldLonLat = new FXTextField(lonLatFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // check if enable geo coordinates
     if (myGeo) {
@@ -73,9 +72,9 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(43));
-    myCancelButton = new FXButton(buttonsFrame, "\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(43));
-    myResetButton = new FXButton(buttonsFrame,  "\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(43));
+    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("close accepting changes"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(43));
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("close discarding changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(43));
+    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("reset to previous values"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(43));
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create
     create();
@@ -103,7 +102,7 @@ GNEGeometryPointDialog::onCmdChangeGeometryPoint(FXObject* sender, FXSelector, v
             myTextFieldXY->killFocus();
             // obtain position
             *myPos = GNEAttributeCarrier::parse<Position>(myTextFieldXY->getText().text());
-            // check if there is geo coordiantes
+            // check if there is geo coordinates
             if (myGeo) {
                 // calculate geo position
                 Position geoPos = *myPos;

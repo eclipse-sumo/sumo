@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <set>
 #include <random>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/Named.h>
@@ -85,7 +86,7 @@ public:
     */
     static void buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into);
 
-    static std::mt19937* getEquipmentRNG() {
+    static SumoRNG* getEquipmentRNG() {
         return &myEquipmentRNG;
     }
 
@@ -148,9 +149,6 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 
-    /// @brief called to update state for parking vehicles
-    virtual void notifyParking() {}
-
 protected:
     /// @name Helper methods for device assignment
     /// @{
@@ -177,9 +175,10 @@ protected:
 
     /// @name Helper methods for parsing parameters
     /// @{
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
-    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
+    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required = false);
+    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required = false);
+    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required = false);
+    static SUMOTime getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required = false);
     /// @}
 
 private:
@@ -187,7 +186,7 @@ private:
     static std::map<std::string, std::set<std::string> > myExplicitIDs;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
-    static std::mt19937 myEquipmentRNG;
+    static SumoRNG myEquipmentRNG;
 
 
 private:
@@ -231,12 +230,16 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     bool haveByParameter = false;
     bool parameterGiven = false;
     const std::string key = "has." + deviceName + ".device";
-    if (v.getParameter().knowsParameter(key)) {
+    if (v.getParameter().hasParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getParameter().getParameter(key, "false"));
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
+    } else if (v.getVehicleType().getParameter().hasParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
+    } else if (v.getVehicleType().getParameter().hasParameter(prefix + ".probability")) {
+        // override global options
+        numberGiven = true;
+        haveByNumber = RandHelper::rand(&myEquipmentRNG) < StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));
     }
     //std::cout << " deviceName=" << deviceName << " holder=" << v.getID()
     //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName

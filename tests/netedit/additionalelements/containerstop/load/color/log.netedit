@@ -1,0 +1,3 @@
+Error: Attribute 'color' in definition of containerStop 'containerStop_02' Invalid color definition 'dummyparkinglength'.
+Error: Attribute 'color' in definition of containerStop 'containerStop_03' Invalid color definition '-7'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.01Dec143640.87140/netedit.daily.additional.containerstop/additionalelements/containerstop/load/color/additionals.add.xml failed.

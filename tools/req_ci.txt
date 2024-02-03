@@ -1,0 +1,4 @@
+# these requirements are used to make sure the tests run only with versions known to work on GitHub actions
+# the "normal" requirements should be used in addition
+ortools==9.5.2237; python_version < '3.12'
+pandas<2.2.0

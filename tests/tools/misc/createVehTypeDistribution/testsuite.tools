@@ -23,3 +23,6 @@ negative_constant
 
 # capped normal speed distribution
 cappedNormal_speed
+
+# see #9777
+minimal

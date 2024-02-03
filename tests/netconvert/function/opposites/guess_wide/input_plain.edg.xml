@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="EW" from="E" to="W" priority="1" numLanes="1" speed="13.89" width="8"/>
+    <edge id="WE" from="W" to="E" priority="1" numLanes="1" speed="13.89" width="8"/>
+</edges>

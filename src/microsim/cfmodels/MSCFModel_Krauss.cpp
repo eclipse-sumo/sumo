@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,12 +39,25 @@
 #define DEBUG_COND (veh->isSelected())
 #define DEBUG_DRIVER_ERRORS
 
+MSCFModel_Krauss::VehicleVariables::VehicleVariables(SUMOTime dawdleStep)
+    : accelDawdle(1e6), updateOffset(SIMSTEP % dawdleStep + DELTA_T) { }
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
-    MSCFModel_KraussOrig1(vtype) {
+    MSCFModel_KraussOrig1(vtype),
+    myDawdleStep(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA_STEP, TS))) {
+    if (myDawdleStep % DELTA_T != 0) {
+        SUMOTime rem = myDawdleStep % DELTA_T;
+        if (rem < DELTA_T / 2) {
+            myDawdleStep += -rem;
+        } else {
+            myDawdleStep += DELTA_T - rem;
+        }
+        WRITE_WARNINGF(TL("Rounding 'sigmaStep' to % for vType '%'"), STEPS2TIME(myDawdleStep), vtype->getID());
+
+    }
 }
 
 
@@ -56,23 +69,47 @@ MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double v
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
                           : myDawdle);
-    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
+    double vDawdle;
+    if (myDawdleStep > DELTA_T) {
+        VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+        if (SIMSTEP % myDawdleStep == vars->updateOffset) {
+            const double vD = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
+            const double a1 = SPEED2ACCEL(vMax - veh->getSpeed());
+            const double a2 = SPEED2ACCEL(vD - vMax);
+            const double accelMax = (veh->getLane()->getVehicleMaxSpeed(veh) - veh->getSpeed()) / STEPS2TIME(myDawdleStep);
+            // avoid exceeding maxSpeed before the next sigmaStep
+            vars->accelDawdle = MIN2(a1, accelMax) + a2;
+            vDawdle = veh->getSpeed() + ACCEL2SPEED(vars->accelDawdle);
+            //std::cout << SIMTIME << " v=" << veh->getSpeed() << " updated vD=" << vD<< " a1=" << a1 << " a2=" << a2 << " aM=" << accelMax << " accelDawdle=" << vars->accelDawdle << " vDawdle=" << vDawdle << "\n";
+        } else {
+            const double safeAccel = SPEED2ACCEL(vMax - veh->getSpeed());
+            const double accel = MIN2(safeAccel, vars->accelDawdle);
+            vDawdle = MAX2(vMin, MIN2(vMax, veh->getSpeed() + ACCEL2SPEED(accel)));
+            //std::cout << SIMTIME << " v=" << veh->getSpeed() << " safeAccel=" << safeAccel << " accel=" << accel << " vDawdle=" << vDawdle << "\n";
+        }
+    } else {
+        vDawdle = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
+        //const double accel1 = SPEED2ACCEL(vMax - veh->getSpeed());
+        //const double accel2 = SPEED2ACCEL(vDawdle - vMax);
+        //std::cout << SIMTIME << " v=" << veh->getSpeed() << " updated vDawdle=" << vDawdle << " a1=" << accel1 << " a2=" << accel2 << " accelDawdle=" << SPEED2ACCEL(vDawdle - veh->getSpeed()) << "\n";
+    }
     return vDawdle;
 }
 
 
 double
-MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
     applyHeadwayPerceptionError(veh, speed, gap);
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    const bool relaxEmergency = usage != FUTURE; // do not relax insertionStopSpeed
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs(), relaxEmergency), maxNextSpeed(speed, veh));
 }
 
 
 double
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     //gDebugFlag1 = DEBUG_COND;
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
@@ -90,7 +127,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
 }
 
 double
-MSCFModel_Krauss::dawdle2(double speed, double sigma, std::mt19937* rng) const {
+MSCFModel_Krauss::dawdle2(double speed, double sigma, SumoRNG* rng) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.

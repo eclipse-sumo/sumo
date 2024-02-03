@@ -1,148 +1,67 @@
-Warning: Teleporting vehicle '1.0'; collision with vehicle '1.34', lane='a_0', gap=-0.07, time=33.00 stage=move.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=37.00.
-Warning: Teleporting vehicle '1.16'; collision with vehicle '1.15', lane='a_0', gap=-0.20, time=65.00 stage=move.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=69.00.
-Warning: Teleporting vehicle '1.19'; collision with vehicle '1.18', lane='a_0', gap=-0.61, time=69.00 stage=move.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=123.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=124.00.
-Warning: Teleporting vehicle '1.12'; collision with vehicle '1.11', lane='a_0', gap=-0.44, time=124.00 stage=move.
-Warning: Teleporting vehicle '1.3'; collision with vehicle '1.2', lane='a_0', gap=-0.05, time=157.00 stage=move.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=183.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=209.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=228.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=248.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=276.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=277.00.
-Warning: Teleporting vehicle '1.25'; collision with vehicle '1.24', lane='a_0', gap=-0.12, time=277.00 stage=move.
-Warning: Vehicle '1.0' ends teleporting on edge 'b', time 483.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=511.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=528.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=545.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=578.00.
-Warning: Vehicle '1.3' ends teleporting on edge 'a', time 615.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=621.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=629.00.
-Warning: Teleporting vehicle '1.31'; collision with vehicle '1.30', lane='a_0', gap=-0.11, time=658.00 stage=move.
-Warning: Vehicle '1.16' ends teleporting on edge 'a', time 661.00.
-Warning: Vehicle '1.19' ends teleporting on edge 'a', time 663.00.
-Warning: Vehicle '1.25' ends teleporting on edge 'a', time 669.00.
-Warning: Vehicle '1.12' ends teleporting on edge 'b', time 754.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=761.00.
-Warning: Teleporting vehicle '1.18'; collision with vehicle '1.17', lane='a_0', gap=-0.89, time=761.00 stage=move.
-Warning: Vehicle '1.18' ends teleporting on edge 'a', time 779.00.
-Warning: Teleporting vehicle '1.1'; collision with vehicle '1.34', lane='a_0', gap=-1.02, time=804.00 stage=move.
-Warning: Teleporting vehicle '1.30'; collision with vehicle '1.29', lane='a_0', gap=-0.40, time=811.00 stage=move.
-Warning: Vehicle '1.1' ends teleporting on edge 'b', time 926.00.
-Warning: Vehicle '1.30' ends teleporting on edge 'b', time 928.00.
-Warning: Vehicle '1.31' ends teleporting on edge 'b', time 930.00.
-Warning: Teleporting vehicle '1.28'; collision with vehicle '1.27', lane='a_0', gap=-0.48, time=932.00 stage=move.
-Warning: Teleporting vehicle '1.10'; collision with vehicle '1.9', lane='a_0', gap=-0.12, time=938.00 stage=move.
-Warning: Vehicle '1.28' ends teleporting on edge 'b', time 952.00.
-Warning: Vehicle '1.10' ends teleporting on edge 'b', time 956.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=979.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1008.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1018.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1023.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1034.00.
-Warning: Teleporting vehicle '1.23'; collision with vehicle '1.22', lane='a_0', gap=-0.20, time=1037.00 stage=move.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1069.00.
-Warning: Teleporting vehicle '1.0'; collision with vehicle '1.12', lane='a_0', gap=-1.42, time=1069.00 stage=move.
-Warning: Vehicle '1.0' ends teleporting on edge 'b', time 1078.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1084.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1096.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1097.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1098.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1110.00.
-Warning: Vehicle '1.23' ends teleporting on edge 'b', time 1127.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1130.00.
-Warning: Teleporting vehicle '1.27'; collision with vehicle '1.26', lane='a_0', gap=-0.16, time=1243.00 stage=move.
-Warning: Teleporting vehicle '1.31'; collision with vehicle '1.30', lane='a_0', gap=-1.08, time=1245.00 stage=move.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1247.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1342.00.
-Warning: Vehicle '1.27' ends teleporting on edge 'b', time 1358.00.
-Warning: Vehicle '1.31' ends teleporting on edge 'b', time 1360.00.
-Warning: Teleporting vehicle '1.1'; collision with vehicle '1.30', lane='a_0', gap=-1.24, time=1387.00 stage=move.
-Warning: Vehicle '1.1' ends teleporting on edge 'a', time 1402.00.
-Warning: Teleporting vehicle '1.32'; collision with vehicle '1.18', lane='a_0', gap=-0.20, time=1412.00 stage=move.
-Warning: Teleporting vehicle '1.10'; collision with vehicle '1.15', lane='a_0', gap=-0.66, time=1412.00 stage=move.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1503.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1504.00.
-Warning: Teleporting vehicle '1.28'; collision with vehicle '1.15', lane='a_0', gap=-0.44, time=1504.00 stage=move.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1530.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1533.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1533.00.
-Warning: Teleporting vehicle '1.13'; collision with vehicle '1.11', lane='a_0', gap=-1.35, time=1534.00 stage=move.
-Warning: Teleporting vehicle '1.11'; collision with vehicle '1.9', lane='a_0', gap=-0.15, time=1549.00 stage=move.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1557.00.
-Warning: Vehicle '1.10' ends teleporting on edge 'b', time 1574.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1633.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1634.00.
-Warning: Teleporting vehicle '1.17'; collision with vehicle '1.15', lane='a_0', gap=-0.43, time=1634.00 stage=move.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1644.00.
-Warning: Teleporting vehicle '1.21'; collision with vehicle '1.20', lane='a_0', gap=-0.55, time=1736.00 stage=move.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1772.00.
-Warning: Vehicle '1.28' ends teleporting on edge 'a', time 1780.00.
-Warning: Teleporting vehicle '1.9'; collision with vehicle '1.8', lane='b_0', gap=-0.20, time=1785.00 stage=move.
-Warning: Vehicle '1.9' ends teleporting on edge 'a', time 1785.00.
-Warning: Vehicle '1.17' ends teleporting on edge 'a', time 1837.00.
-Warning: Vehicle '1.11' ends teleporting on edge 'b', time 1898.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1960.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1961.00.
-Warning: Teleporting vehicle '1.12'; collision with vehicle '1.3', lane='a_0', gap=-2.03, time=1961.00 stage=move.
-Warning: Vehicle '1.32' ends teleporting on edge 'a', time 1962.00.
-Warning: Teleporting vehicle '1.24'; collision with vehicle '1.22', lane='a_0', gap=-0.20, time=1991.00 stage=move.
-Warning: Vehicle '1.12' ends teleporting on edge 'a', time 1991.00.
-Warning: Vehicle '1.21' ends teleporting on edge 'b', time 2004.00.
-Warning: Vehicle '1.13' ends teleporting on edge 'a', time 2005.00.
-Warning: Vehicle '1.24' ends teleporting on edge 'a', time 2008.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2015.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2022.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2024.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2025.00.
-Warning: Teleporting vehicle '1.17'; collision with vehicle '1.10', lane='a_0', gap=-0.63, time=2025.00 stage=move.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2066.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2074.00.
-Warning: Teleporting vehicle '1.8'; collision with vehicle '1.16', lane='a_0', gap=-0.13, time=2074.00 stage=move.
-Warning: Teleporting vehicle '1.2'; collision with vehicle '1.34', lane='b_0', gap=-0.49, time=2092.00 stage=move.
-Warning: Vehicle '1.2' ends teleporting on edge 'a', time 2099.00.
-Warning: Teleporting vehicle '1.11'; collision with vehicle '1.6', lane='b_0', gap=-0.03, time=2108.00 stage=move.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2123.00.
-Warning: Vehicle '1.8' ends teleporting on edge 'b', time 2128.00.
-Warning: Vehicle '1.11' ends teleporting on edge 'a', time 2130.00.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2136.00.
-Warning: Teleporting vehicle '1.29'; collision with vehicle '1.26', lane='b_0', gap=-0.38, time=2145.00 stage=move.
-Warning: Vehicle '1.17' ends teleporting on edge 'b', time 2184.00.
-Warning: Teleporting vehicle '1.16'; collision with vehicle '1.12', lane='a_0', gap=-0.20, time=2193.00 stage=move.
-Warning: Vehicle '1.16' ends teleporting on edge 'b', time 2223.00.
-Warning: Vehicle '1.29' ends teleporting on edge 'b', time 2227.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2251.00.
-Warning: Teleporting vehicle '1.3'; collision with vehicle '1.15', lane='a_0', gap=-0.20, time=2288.00 stage=move.
-Warning: Teleporting vehicle '1.19'; collision with vehicle '1.7', lane='a_0', gap=-0.11, time=2304.00 stage=move.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2370.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2373.00.
-Warning: Vehicle '1.19' ends teleporting on edge 'b', time 2374.00.
-Warning: Vehicle '1.3' ends teleporting on edge 'a', time 2375.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2385.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2399.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2416.00.
-Warning: Teleporting vehicle '1.31'; collision with vehicle '1.5', lane='a_0', gap=-0.20, time=2471.00 stage=move.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2530.00.
-Warning: Teleporting vehicle '1.25'; collision with vehicle '1.8', lane='b_0', gap=-0.24, time=2562.00 stage=move.
-Warning: Vehicle '1.25' ends teleporting on edge 'a', time 2572.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2590.00.
-Warning: Teleporting vehicle '1.11'; collision with vehicle '1.28', lane='a_0', gap=-0.09, time=2618.00 stage=move.
-Warning: Vehicle '1.11' ends teleporting on edge 'b', time 2699.00.
-Warning: Vehicle '1.31' ends teleporting on edge 'b', time 2701.00.
-Warning: Teleporting vehicle '1.18'; collision with vehicle '1.26', lane='a_0', gap=-0.05, time=2719.00 stage=move.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2728.00.
-Warning: Teleporting vehicle '1.3'; collision with vehicle '1.26', lane='b_0', gap=-0.20, time=2729.00 stage=move.
-Warning: Vehicle '1.3' ends teleporting on edge 'a', time 2748.00.
-Warning: Vehicle '1.18' ends teleporting on edge 'b', time 2757.00.
-Warning: Teleporting vehicle '1.11'; collision with vehicle '1.31', lane='a_0', gap=-0.13, time=2784.00 stage=move.
-Warning: Teleporting vehicle '1.9'; collision with vehicle '1.17', lane='a_0', gap=-0.34, time=2810.00 stage=move.
-Warning: Vehicle '1.9' ends teleporting on edge 'b', time 2810.00.
-Warning: Vehicle '1.11' ends teleporting on edge 'b', time 2812.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2859.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2870.00.
-Warning: Teleporting vehicle '1.29'; collision with vehicle '1.19', lane='a_0', gap=-0.60, time=2913.00 stage=move.
-Warning: Vehicle '1.29' ends teleporting on edge 'b', time 2988.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=35.00.
+Warning: Teleporting vehicle '1.4'; collision with vehicle '1.3', lane='a_0', gap=-0.19, time=40.00 stage=move.
+Warning: Teleporting vehicle '1.7'; collision with vehicle '1.6', lane='a_0', gap=-0.10, time=54.00 stage=move.
+Warning: Teleporting vehicle '1.13'; collision with vehicle '1.12', lane='a_0', gap=-0.10, time=75.00 stage=move.
+Warning: Teleporting vehicle '1.15'; collision with vehicle '1.14', lane='a_0', gap=-0.06, time=78.00 stage=move.
+Warning: Teleporting vehicle '1.25'; collision with vehicle '1.24', lane='a_0', gap=-0.15, time=82.00 stage=move.
+Warning: Teleporting vehicle '1.16'; collision with vehicle '1.14', lane='a_0', gap=-0.19, time=86.00 stage=move.
+Warning: Teleporting vehicle '1.31'; collision with vehicle '1.30', lane='a_0', gap=-0.09, time=94.00 stage=move.
+Warning: Teleporting vehicle '1.30'; collision with vehicle '1.29', lane='a_0', gap=-0.14, time=104.00 stage=move.
+Warning: Vehicle '1.4' ends teleporting on edge 'b', time=119.00.
+Warning: Vehicle '1.13' ends teleporting on edge 'b', time=131.00.
+Warning: Vehicle '1.12' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=135.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=158.00.
+Warning: Teleporting vehicle '1.0'; collision with vehicle '1.34', lane='a_0', gap=-1.57, time=158.00 stage=move.
+Warning: Teleporting vehicle '1.28'; collision with vehicle '1.4', lane='a_0', gap=-0.11, time=160.00 stage=move.
+Warning: Vehicle '1.5' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=165.00.
+Warning: Teleporting vehicle '1.5'; collision with vehicle '1.3', lane='a_0', gap=-0.19, time=165.00 stage=move.
+Warning: Teleporting vehicle '1.6'; collision with vehicle '1.3', lane='a_0', gap=-0.20, time=166.00 stage=move.
+Warning: Teleporting vehicle '1.23'; collision with vehicle '1.22', lane='a_0', gap=-0.68, time=191.00 stage=move.
+Warning: Teleporting vehicle '1.32'; collision with vehicle '1.29', lane='a_0', gap=-1.32, time=300.00 stage=move.
+Warning: Vehicle '1.13' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=355.00.
+Warning: Vehicle '1.7' ends teleporting on edge 'b', time=389.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=414.00.
+Warning: Teleporting vehicle '1.9'; collision with vehicle '1.8', lane='a_0', gap=-0.22, time=414.00 stage=move.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=461.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=523.00.
+Warning: Vehicle '1.15' ends teleporting on edge 'b', time=587.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=589.00.
+Warning: Vehicle '1.14' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=634.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=690.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=691.00.
+Warning: Teleporting vehicle '1.27'; collision with vehicle '1.26', lane='a_0', gap=-0.20, time=737.00 stage=move.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=833.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=834.00.
+Warning: Teleporting vehicle '1.24'; collision with vehicle '1.22', lane='a_0', gap=-2.31, time=834.00 stage=move.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=891.00.
+Warning: Teleporting vehicle '1.4'; collision with vehicle '1.26', lane='a_0', gap=-0.13, time=1084.00 stage=move.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1138.00.
+Warning: Teleporting vehicle '1.3'; collision with vehicle '1.2', lane='a_0', gap=-0.20, time=1139.00 stage=move.
+Warning: Teleporting vehicle '1.29'; collision with vehicle '1.26', lane='a_0', gap=-1.77, time=1381.00 stage=move.
+Warning: Vehicle '1.6' ends teleporting on edge 'b', time=1525.00.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1563.00.
+Warning: Teleporting vehicle '1.18'; collision with vehicle '1.17', lane='a_0', gap=-0.07, time=1622.00 stage=move.
+Warning: Vehicle '1.0' ends teleporting on edge 'b', time=1852.00.
+Warning: Vehicle '1.4' ends teleporting on edge 'b', time=1971.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1993.00.
+Warning: Teleporting vehicle '1.20'; collision with vehicle '1.19', lane='a_0', gap=-1.47, time=2005.00 stage=move.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2047.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2260.00.
+Warning: Teleporting vehicle '1.8'; collision with vehicle '1.7', lane='a_0', gap=-1.92, time=2325.00 stage=move.
+Warning: Vehicle '1.3' ends teleporting on edge 'b', time=2350.00.
+Warning: Vehicle '1.5' ends teleporting on edge 'b', time=2362.00.
+Warning: Vehicle '1.8' ends teleporting on edge 'b', time=2379.00.
+Warning: Teleporting vehicle '1.21'; collision with vehicle '1.0', lane='a_0', gap=-0.20, time=2389.00 stage=move.
+Warning: Vehicle '1.9' ends teleporting on edge 'b', time=2407.00.
+Warning: Vehicle '1.16' ends teleporting on edge 'b', time=2414.00.
+Warning: Vehicle '1.4' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2422.00.
+Warning: Teleporting vehicle '1.4'; collision with vehicle '1.14', lane='a_0', gap=-1.19, time=2422.00 stage=move.
+Warning: Vehicle '1.4' ends teleporting on edge 'b', time=2427.00.
+Warning: Teleporting vehicle '1.11'; collision with vehicle '1.10', lane='a_0', gap=-0.75, time=2461.00 stage=move.
+Warning: Vehicle '1.14' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2463.00.
+Warning: Teleporting vehicle '1.26'; collision with vehicle '1.5', lane='a_0', gap=-1.93, time=2476.00 stage=move.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2540.00.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2565.00.
+Warning: Teleporting vehicle '1.33'; collision with vehicle '1.6', lane='a_0', gap=-0.38, time=2565.00 stage=move.
+Warning: Teleporting vehicle '1.14'; collision with vehicle '1.12', lane='a_0', gap=-1.75, time=2846.00 stage=move.
+Warning: Vehicle '1.11' ends teleporting on edge 'b', time=2985.00.

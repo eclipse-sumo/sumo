@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="pkw" vClass="passenger"/>
+    <vType id="rail" vClass="rail"/>
+
+    <flow id="type2" type="pkw" color="1,1,0" begin="25" period="1" number="100">
+        <route edges="W E"/>
+    </flow>
+
+    <vehicle id="rail_1" type="rail" depart="50" departSpeed="max">
+        <route edges="N S"/>
+    </vehicle>
+
+</routes>

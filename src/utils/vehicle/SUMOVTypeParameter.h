@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,39 +40,75 @@ class OptionsCont;
 // ===========================================================================
 // value definitions
 // ===========================================================================
-const int VTYPEPARS_LENGTH_SET = 1;
-const int VTYPEPARS_MINGAP_SET = 1 << 1;
-const int VTYPEPARS_MAXSPEED_SET = 1 << 2;
-const int VTYPEPARS_PROBABILITY_SET = 1 << 3;
-const int VTYPEPARS_SPEEDFACTOR_SET = 1 << 4;
-const int VTYPEPARS_EMISSIONCLASS_SET = 1 << 5;
-const int VTYPEPARS_COLOR_SET = 1 << 6;
-const int VTYPEPARS_VEHICLECLASS_SET = 1 << 7;
-const int VTYPEPARS_WIDTH_SET = 1 << 8;
-const int VTYPEPARS_HEIGHT_SET = 1 << 9;
-const int VTYPEPARS_SHAPE_SET = 1 << 10;
-const int VTYPEPARS_OSGFILE_SET = 1 << 11;
-const int VTYPEPARS_IMGFILE_SET = 1 << 12;
-const int VTYPEPARS_IMPATIENCE_SET = 1 << 13;
-const int VTYPEPARS_LANE_CHANGE_MODEL_SET = 1 << 14;
-const int VTYPEPARS_PERSON_CAPACITY = 1 << 15;
-const int VTYPEPARS_BOARDING_DURATION = 1 << 16;
-const int VTYPEPARS_CONTAINER_CAPACITY = 1 << 17;
-const int VTYPEPARS_LOADING_DURATION = 1 << 18;
-const int VTYPEPARS_CAR_FOLLOW_MODEL = 1 << 19;
-const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
-const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
-const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
-const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
-
-const int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
-const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
-const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
-const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
+const long long int VTYPEPARS_LENGTH_SET = 1;
+const long long int VTYPEPARS_MINGAP_SET = 1 << 1;
+const long long int VTYPEPARS_MAXSPEED_SET = 1 << 2;
+const long long int VTYPEPARS_PROBABILITY_SET = 1 << 3;
+const long long int VTYPEPARS_SPEEDFACTOR_SET = 1 << 4;
+const long long int VTYPEPARS_EMISSIONCLASS_SET = 1 << 5;
+const long long int VTYPEPARS_COLOR_SET = 1 << 6;
+const long long int VTYPEPARS_VEHICLECLASS_SET = 1 << 7;
+const long long int VTYPEPARS_WIDTH_SET = 1 << 8;
+const long long int VTYPEPARS_HEIGHT_SET = 1 << 9;
+const long long int VTYPEPARS_SHAPE_SET = 1 << 10;
+const long long int VTYPEPARS_OSGFILE_SET = 1 << 11;
+const long long int VTYPEPARS_IMGFILE_SET = 1 << 12;
+const long long int VTYPEPARS_IMPATIENCE_SET = 1 << 13;
+const long long int VTYPEPARS_LANE_CHANGE_MODEL_SET = 1 << 14;
+const long long int VTYPEPARS_PERSON_CAPACITY = 1 << 15;
+const long long int VTYPEPARS_BOARDING_DURATION = 1 << 16;
+const long long int VTYPEPARS_CONTAINER_CAPACITY = 1 << 17;
+const long long int VTYPEPARS_LOADING_DURATION = 1 << 18;
+const long long int VTYPEPARS_CAR_FOLLOW_MODEL = 1 << 19;
+const long long int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
+const long long int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
+const long long int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
+const long long int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
+const long long int VTYPEPARS_DESIRED_MAXSPEED_SET = 1 << 24;
+const long long int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
+const long long int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
+const long long int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
+const long long int VTYPEPARS_CARRIAGE_DOORS_SET = 1 << 28;
+const long long int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 29;
+const long long int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 30;
+const long long int VTYPEPARS_SCALE_SET = (long long int)1 << 31;
+const long long int VTYPEPARS_MASS_SET = (long long int)1 << 32;
+const long long int VTYPEPARS_TTT_SET = (long long int)1 << 33;
+const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 34;
+const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 35;
+const long long int VTYPEPARS_SPEEDFACTOR_PREMATURE_SET = (long long int)1 << 36;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
+
+
+// ===========================================================================
+// enum definitions
+// ===========================================================================
+/**
+ * @enum LatAlignmentDefinition
+ * @brief Possible ways to choose the lateral alignment, i.e., how vehicles align themselves within their lane
+ */
+enum class LatAlignmentDefinition {
+    /// @brief No information given; use default
+    DEFAULT,
+    /// @brief The alignment as offset is given
+    GIVEN,
+    /// @brief drive on the right side
+    RIGHT,
+    /// @brief drive in the middle
+    CENTER,
+    /// @brief maintain the current alignment
+    ARBITRARY,
+    /// @brief align with the closest sublane border
+    NICE,
+    /// @brief align with the rightmost sublane that allows keeping the current speed
+    COMPACT,
+    /// @brief drive on the left side
+    LEFT
+};
+
 
 // ===========================================================================
 // struct definitions
@@ -82,6 +118,7 @@ const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
  * @brief Structure representing possible vehicle parameter
  */
 class SUMOVTypeParameter : public Parameterised {
+
 public:
     /// @brief struct for default values that depend of VClass
     struct VClassDefaultValues {
@@ -94,8 +131,14 @@ public:
         /// @brief This class' free space in front of the vehicle itself
         double minGap;
 
-        /// @brief The vehicle type's maximum speed [m/s]
+        /// @brief The vehicle type's minimum lateral gap [m]
+        double minGapLat;
+
+        /// @brief The vehicle type's maximum speed [m/s] (technical limit, not subject to speed deviation)
         double maxSpeed;
+
+        /// @brief The vehicle type's desired maximum speed [m/s]
+        double desiredMaxSpeed;
 
         /// @brief This class' width
         double width;
@@ -108,6 +151,9 @@ public:
 
         /// @brief The emission class of this vehicle
         SUMOEmissionClass emissionClass;
+
+        /// @brief This class' mass
+        double mass;
 
         /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
         Distribution_Parameterized speedFactor;
@@ -127,6 +173,12 @@ public:
         /// @brief the length of train locomotive
         double locomotiveLength;
 
+        /// @brief the number of doors per carriage
+        int carriageDoors;
+
+        /// @brief the lateral alignment procedure
+        LatAlignmentDefinition latAlignmentProcedure;
+
     private:
         /// @brief default constructor
         VClassDefaultValues();
@@ -145,7 +197,7 @@ public:
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
      */
-    bool wasSet(int what) const {
+    bool wasSet(long long int what) const {
         return (parametersSet & what) != 0;
     }
 
@@ -206,6 +258,9 @@ public:
 
     void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
 
+    /// @brief init Rail Visualization Parameters
+    void initRailVisualizationParameters();
+
     /// @brief The vehicle type's id
     std::string id;
 
@@ -215,8 +270,11 @@ public:
     /// @brief This class' free space in front of the vehicle itself
     double minGap;
 
-    /// @brief The vehicle type's maximum speed [m/s]
+    /// @brief The vehicle type's (technical) maximum speed [m/s]
     double maxSpeed;
+
+    /// @brief The vehicle type's desired maximum speed [m/s]
+    double desiredMaxSpeed;
 
     /// @brief The vehicle type's default actionStepLength [ms], i.e. the interval between two control actions.
     ///        The default value of 0ms. induces the value to be traced from MSGlobals::gActionStepLength
@@ -230,6 +288,9 @@ public:
 
     /// @brief The emission class of this vehicle
     SUMOEmissionClass emissionClass;
+
+    /// @brief The mass
+    double mass;
 
     /// @brief The color
     RGBColor color;
@@ -251,6 +312,9 @@ public:
 
     /// @brief The time a container needs to get loaded on the vehicle
     SUMOTime loadingDuration;
+
+    /// @brief individual scaling factor (-1 for undefined)
+    double scale;
 
     /// @name Values for drawing this class' vehicles
     /// @{
@@ -290,8 +354,11 @@ public:
     /// @brief The vehicle type's maximum lateral speed [m/s]
     double maxSpeedLat;
 
-    /// @brief The vehicles desired lateral alignment
-    LateralAlignment latAlignment;
+    /// @brief (optional) The vehicle's desired lateral alignment as offset in m from center line
+    double latAlignmentOffset;
+
+    /// @brief Information on how the vehicle shall choose the lateral alignment
+    LatAlignmentDefinition latAlignmentProcedure;
 
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
@@ -301,8 +368,26 @@ public:
     double locomotiveLength;
     double carriageGap;
 
+    /// @brief the number of doors per carriage
+    int carriageDoors;
+
+    /// @brief the custom time-to-teleport for this type
+    SUMOTime timeToTeleport;
+
+    /// @brief the custom time-to-teleport.bidi for this type
+    SUMOTime timeToTeleportBidi;
+
+    /// @brief the possible speed reduction when a train is ahead of schedule
+    double speedFactorPremature;
+
+    /// @brief the offset of the first person seat from the front of the vehicle
+    double frontSeatPos;
+
+    /// @brief width to be used when comping seats
+    double seatingWidth;
+
     /// @brief Information for the router which parameter were set
-    int parametersSet;
+    long long int parametersSet;
 
     /// @brief Information whether this type was already saved (needed by routers)
     mutable bool saved;
@@ -312,6 +397,9 @@ public:
 
     /// @brief cached value of parameters which may restrict access to certain edges
     std::vector<double> paramRestrictions;
+
+    /// @brief allowed attrs for the junction model
+    static std::set<SumoXMLAttr> AllowedJMAttrs;
 
     /// @brief satisfy vType / router template requirements
     inline double getLength() const {
@@ -350,6 +438,33 @@ public:
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
 
+    /** @brief Parses and validates a given latAlignment value
+     * @param[in] val The latAlignment value to parse
+     * @param[out] lao The parsed lateral alignment offset, if given
+     * @param[out] lad The parsed latAlignment definition
+     * @return Whether the given value is a valid latAlignment definition
+     */
+    static bool parseLatAlignment(const std::string& val, double& lao, LatAlignmentDefinition& lad);
+
+    static inline bool isValidLatAlignment(const std::string& val) {
+        double lao;
+        LatAlignmentDefinition lad;
+        return SUMOVTypeParameter::parseLatAlignment(val, lao, lad);
+    }
+
+    /// @brief return all valid strings for latAlignment
+    // XXX: does not include valid float strings
+    static inline std::vector<std::string> getLatAlignmentStrings() {
+        std::vector<std::string> result;
+        result.push_back("right");
+        result.push_back("center");
+        result.push_back("arbitrary");
+        result.push_back("nice");
+        result.push_back("compact");
+        result.push_back("left");
+        return result;
+    }
+
     /// @brief Map of manoeuver angles versus the times (entry, exit) to execute the manoeuver
     std::map<int, std::pair<SUMOTime, SUMOTime>>  myManoeuverAngleTimes;
 
@@ -380,4 +495,10 @@ public:
      *  @return A string of , separated triplets (angle entry-time exit-time)
      */
     std::string getManoeuverAngleTimesS() const;
+
+    /// @brief return time-to-teleport (either custom or default)
+    SUMOTime getTimeToTeleport(SUMOTime defaultValue) const;
+
+    /// @brief return time-to-teleport.bidi (either custom or default)
+    SUMOTime getTimeToTeleportBidi(SUMOTime defaultValue) const;
 };

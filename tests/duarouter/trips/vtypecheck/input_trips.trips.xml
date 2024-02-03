@@ -11,6 +11,7 @@
    <vType id="9" guiShape="passenger/hatchback"/>
    <vType id="10" width="100"/>
    <vType id="lateralStuff" latAlignment="compact" minGapLat="0.5" maxSpeedLat="2.0"/>
+   <vType id="12" loadingDuration="20" boardingDuration="2" timeToTeleport="200"/>
 
     <trip id="0" type="0" depart="0" from="beg" to="rend"/>
     <trip id="1" type="1" depart="0" from="beg" to="rend"/>
@@ -24,6 +25,7 @@
     <trip id="9" type="9" depart="0" from="beg" to="rend"/>
     <trip id="10" type="10" depart="0" from="beg" to="rend"/>
     <trip id="11" type="lateralStuff" depart="0" from="beg" to="rend"/>
+    <trip id="12" type="12" depart="0" from="beg" to="rend"/>
 
 
 </routes>

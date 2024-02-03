@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-11-30 13:39:14.026334 by $Id$ v1_7_0+1356-7931c8a7ef
+
+<!-- generated on 2022-07-07 11:20:23.220453 by edgesInDistricts.py v1_13_0+1343-240e5d48340
   options: -n input_net.net.xml -t input_districts.xml -o out.add.xml -f <doubleminus>merge-param k
 -->
+
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
     <taz id="0" color="green" edges="left"/>
     <taz id="1" edges="end left2end"/>

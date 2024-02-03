@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="NW" from="NC" to="CW" begin="0" end="3600" probability="0.007"/>
+    <flow id="NS" from="NC" to="CS" begin="0" end="3600" probability="0.007"/>
+    <flow id="NE" from="NC" to="CE" begin="0" end="3600" probability="0.007"/>
+                                   
+    <flow id="EN" from="EC" to="CN" begin="0" end="3600" probability="0.007"/>
+    <flow id="EW" from="EC" to="CW" begin="0" end="3600" probability="0.007"/>
+    <flow id="ES" from="EC" to="CS" begin="0" end="3600" probability="0.007"/>
+                                   
+    <flow id="WS" from="WC" to="CS" begin="0" end="3600" probability="0.007"/>
+    <flow id="WE" from="WC" to="CE" begin="0" end="3600" probability="0.007"/>
+    <flow id="WN" from="WC" to="CN" begin="0" end="3600" probability="0.007"/>
+                                   
+    <flow id="SE" from="SC" to="CE" begin="0" end="3600" probability="0.007"/>
+    <flow id="SN" from="SC" to="CN" begin="0" end="3600" probability="0.007"/>
+    <flow id="SW" from="SC" to="CW" begin="0" end="3600" probability="0.007"/>
+
+    <personFlow id="pNW" begin="0" end="3600" probability="0.05">
+        <walk from="NC" to="CW"/>
+    </personFlow>
+    <personFlow id="pNS" begin="0" end="3600" probability="0.05">
+        <walk from="NC" to="CS"/>
+    </personFlow>
+    <personFlow id="pNE" begin="0" end="3600" probability="0.05">
+        <walk from="NC" to="CE"/>
+    </personFlow>
+     
+    <personFlow id="pEN" begin="0" end="3600" probability="0.05">
+        <walk from="EC" to="CN"/>
+    </personFlow>
+    <personFlow id="pEW" begin="0" end="3600" probability="0.05">
+        <walk from="EC" to="CW"/>
+    </personFlow>
+    <personFlow id="pES" begin="0" end="3600" probability="0.05">
+        <walk from="EC" to="CS"/>
+    </personFlow>
+    
+    <personFlow id="pWS" begin="0" end="3600" probability="0.05">
+        <walk from="WC" to="CS"/>
+    </personFlow>
+    <personFlow id="pWE" begin="0" end="3600" probability="0.05">
+        <walk from="WC" to="CE"/>
+    </personFlow>
+    <personFlow id="pWN" begin="0" end="3600" probability="0.05">
+        <walk from="WC" to="CN"/>
+    </personFlow>
+   
+    <personFlow id="pSE" begin="0" end="3600" probability="0.05">
+        <walk from="SC" to="CE"/>
+    </personFlow>
+    <personFlow id="pSN" begin="0" end="3600" probability="0.05">
+        <walk from="SC" to="CN"/>
+    </personFlow>
+    <personFlow id="pSW" begin="0" end="3600" probability="0.05">
+        <walk from="SC" to="CW"/>
+    </personFlow>
+
+</routes>

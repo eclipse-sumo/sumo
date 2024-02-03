@@ -1,5 +1,0 @@
-Error: Invalid vehicle type 'dummy_Type' used in flowRoute 'flow_1'.
-Error: Attribute 'type' in definition of flow 'flow_2' is empty.
-Error: Invalid vehicle type '' used in flowRoute 'flow_2'.
-Error: Invalid vehicle type 'id with invalid characters' used in flowRoute 'flow_3'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Aug102157.12256\netedit.gui\demandElements\routeflow\load\vType\input_routes.rou.xml failed.

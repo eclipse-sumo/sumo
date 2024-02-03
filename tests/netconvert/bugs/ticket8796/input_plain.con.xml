@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="gneE0" to="gneE2"/>
+    <connection from="gneE0" to="gneE7"/>
+
+    <connection from="gneE3" to="gneE7"/>
+
+    <connection from="gneE4" to="gneE5"/>
+    <connection from="gneE4" to="gneE5"/>
+
+    <connection from="gneE7" to="gneE6"/>
+    <connection from="gneE7" to="gneE5"/>
+
+</connections>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-10-23 14:32:43 by Eclipse SUMO netedit Version v1_18_0+2209-c822c7a5848
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_0" edges="E0 E1 E2 E3">
+        <stop lane="E0_1" startPos="24.80" endPos="34.80" duration="10.00"/>
+        <stop lane="E2_1" startPos="24.80" endPos="34.80" duration="15.00"/>
+    </route>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" from="-E2" to="-E0"/>
+    <vehicle id="v_0" depart="0.00" route="r_0"/>
+    <flow id="f_0" begin="0.00" from="-E3" to="-E1" end="3600.00" vehsPerHour="18"/>
+    <person id="p_0" depart="0.00">
+        <personTrip from="-E0" to="-E3" lines="ANY"/>
+    </person>
+    <person id="p_1" depart="0.00">
+        <personTrip from="-E1" busStop="bs_0" lines="ANY"/>
+        <personTrip to="-E3" lines="ANY"/>
+        <personTrip to="-E2" lines="ANY"/>
+    </person>
+    <personFlow id="pf_0" begin="0.00" end="3600.00" personsPerHour="1800">
+        <walk from="-E2" to="-E1"/>
+    </personFlow>
+    <container id="c_0" depart="0.00">
+        <tranship from="E1" to="E3"/>
+    </container>
+    <flow id="f_1" begin="0.00" route="r_0" end="3600.00" vehsPerHour="18"/>
+</routes>

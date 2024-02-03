@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 08:19:48 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-08-23 12:17:08 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -45,5 +46,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="slow" depart="0.00" departLane="beg_1" departPos="200.00" departPosLat="0.00" departSpeed="25.20" departDelay="0.00" arrival="112.50" arrivalLane="beg_1" arrivalPos="2996.00" arrivalPosLat="0.00" arrivalSpeed="24.73" duration="112.50" routeLength="2796.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.42" rerouteNo="1" devices="tripinfo_slow routing_slow" vType="slow" speedFactor="0.70" vaporized=""/>
-    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="36.00" departDelay="0.00" arrival="114.00" arrivalLane="beg_1" arrivalPos="2996.00" arrivalPosLat="-1.45" arrivalSpeed="27.97" duration="114.00" routeLength="2990.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="30.80" rerouteNo="1" devices="tripinfo_ego routing_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="36.00" departDelay="0.00" arrival="114.00" arrivalLane="beg_1" arrivalPos="2996.00" arrivalPosLat="0.00" arrivalSpeed="27.97" duration="114.00" routeLength="2990.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="30.80" rerouteNo="1" devices="tripinfo_ego routing_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

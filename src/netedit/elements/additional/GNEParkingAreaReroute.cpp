@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,22 +29,69 @@
 // member method definitions
 // ===========================================================================
 
+GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
+    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myProbability(0),
+myVisible(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
-    myProbability(probability),
-    myVisible(visible) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}),
+myProbability(probability),
+myVisible(visible) {
+    // update boundary of rerouter parent
+    rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
 
 
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
+void
+GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
+    device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_PARKING));
+    if (myProbability != 1.0) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
+    if (myVisible) {
+        device.writeAttr(SUMO_ATTR_VISIBLE, true);
+    }
+    device.closeTag();
+}
+
+
+bool
+GNEParkingAreaReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEParkingAreaReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEParkingAreaReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNEParkingAreaReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
-GNEParkingAreaReroute::getMoveOperation(const double /*shapeOffset*/) {
+GNEParkingAreaReroute::getMoveOperation() {
     // GNEParkingAreaReroutes cannot be moved
     return nullptr;
 }
@@ -52,14 +99,25 @@ GNEParkingAreaReroute::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNEParkingAreaReroute::updateGeometry() {
-    // This additional doesn't own a geometry
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
+}
+
+
+Position
+GNEParkingAreaReroute::getPositionInView() const {
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNEParkingAreaReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    // nothing to update
 }
 
 
@@ -76,8 +134,12 @@ GNEParkingAreaReroute::getParentName() const {
 
 
 void
-GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Currently this additional isn't drawn
+GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // draw route prob reroute as listed attribute
+    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
+                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
 
@@ -85,7 +147,7 @@ std::string
 GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_PARKING:
             return getParentAdditionals().at(1)->getID();
         case SUMO_ATTR_PROB:
@@ -94,8 +156,8 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
             return toString(myVisible);
         case GNE_ATTR_PARENT:
             return toString(getParentAdditionals().at(0)->getID());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -105,6 +167,12 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEParkingAreaReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+const Parameterised::Map&
+GNEParkingAreaReroute::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 
@@ -118,8 +186,8 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_VISIBLE:
-        case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+        case GNE_ATTR_SELECTED:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -133,22 +201,16 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_PARKING:
-            return isValidAdditionalID(value) && (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         case SUMO_ATTR_VISIBLE:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEParkingAreaReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -171,7 +233,8 @@ void
 GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_PARKING:
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 1);
@@ -182,8 +245,12 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBLE:
             myVisible = parse<bool>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

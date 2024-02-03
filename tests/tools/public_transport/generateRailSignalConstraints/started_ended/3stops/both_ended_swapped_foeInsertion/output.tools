@@ -1,0 +1,22 @@
+read 4 busStops on 4 edges
+read 7 routes (5 unique) and 11 stops at 4 busStops
+Shifted stop times by up to 1000.0
+mergingEdge=2c pred=2b,2e
+mergingEdge=3c pred=3b,3e
+mergingEdge=c pred=b,e
+processed 5 routes across 14 edges with 3 merging switches
+Found 9 stops after merging switches and 7 signals that guard switches
+Found 1 conflicts at switch 2c
+Found 0 conflicts at switch 3c
+Ignored 0 conflicts and 1tops at switch 3c
+Found 2 conflicts at switch c
+Found 3 conflicts
+Ignored 0 conflicts and 1 stops
+findFoeInsertionConflicts at stop stop_3c
+0 n: 00:04:40 None t3_lead_insertion 0 2 passing: True depart: True
+1 n: 00:21:20 None t3_follow 0 1 passing: False depart: False
+findInsertionConflicts at stop stop_3c
+0 n: 00:04:40 None t3_lead_insertion 0 2 passing: True depart: True
+1 n: 00:05:30 None t0 2 4 passing: True depart: False invalid
+2 n: 00:21:20 None t3_follow 0 1 passing: False depart: False
+Found 0 insertion conflicts

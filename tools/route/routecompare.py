@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,10 +26,12 @@ the same origin and destination district are matched.
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
-import optparse
 import array
 from xml.sax import make_parser, handler
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+from sumolib.options import ArgumentParser  # noqa
 
 SCALE = 10000
 INFINITY = 2**30
@@ -248,34 +250,31 @@ def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     return matchVal
 
 
-optParser = optparse.OptionParser(
-    usage="usage: %prog [options] <routes1> <routes2>")
-optParser.add_option("-d", "--districts-file", dest="districts",
-                     default="", help="read districts from FILE", metavar="FILE")
-optParser.add_option("-s", "--simple-match", action="store_true", dest="simple",
-                     default=False, help="use simple matching algorithm")
-optParser.add_option("-p", "--print-matching", action="store_true", dest="printmatch",
-                     default=False, help="print the resulting matching")
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="print more info")
-(options, args) = optParser.parse_args()
+ap = ArgumentParser(usage="usage: %prog [options] <routes1> <routes2>")
+ap.add_argument("-d", "--districts-file", dest="districts", category="input", type=ap.file,
+                default="", help="read districts from FILE", metavar="FILE")
+ap.add_argument("-s", "--simple-match", action="store_true", dest="simple",
+                default=False, help="use simple matching algorithm")
+ap.add_argument("-p", "--print-matching", action="store_true", dest="printmatch",
+                default=False, help="print the resulting matching")
+ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                default=False, help="print more info")
+ap.add_argument("routes1", category="input", type=ap.route_file, help="first route file of comparison")
+ap.add_argument("routes2", category="input", type=ap.route_file, help="second route file of comparison")
+options = ap.parse_args()
 
-
-if len(args) < 2:
-    optParser.print_help()
-    sys.exit()
 edges = {}
 routes1 = {}
 routes2 = {}
 parser = make_parser()
 if options.verbose:
-    print("Reading first routes file %s" % args[0])
+    print("Reading first routes file %s" % options.routes1)
 parser.setContentHandler(RouteReader(routes1, edges))
-parser.parse(args[0])
+parser.parse(options.routes1)
 if options.verbose:
-    print("Reading second routes file %s" % args[1])
+    print("Reading second routes file %s" % options.routes2)
 parser.setContentHandler(RouteReader(routes2, edges))
-parser.parse(args[1])
+parser.parse(options.routes2)
 
 routeMatrix1 = {}
 routeMatrix2 = {}

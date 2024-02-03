@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-03 14:38:58 by Eclipse SUMO netgenerate Version v1_9_0+0293-06752a0afd
+<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO netgenerate Version v1_18_0+2421-58d8177730f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -38,6 +38,8 @@
             <xsd:element name="grid.x-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="grid.y-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="grid.attach-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="grid.x-attach-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="grid.y-attach-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -48,6 +50,7 @@
             <xsd:element name="spider.circle-number" type="intOptionType" minOccurs="0"/>
             <xsd:element name="spider.space-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="spider.omit-center" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="spider.attach-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -55,7 +58,6 @@
         <xsd:all>
             <xsd:element name="rand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.iterations" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="rand.bidi-probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.max-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-angle" type="floatOptionType" minOccurs="0"/>
@@ -67,8 +69,6 @@
             <xsd:element name="rand.neighbor-dist4" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist5" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist6" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="rand.random-lanenumber" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="rand.random-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.grid" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -89,12 +89,14 @@
             <xsd:element name="alphanumerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="plain-output.lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="matsim-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq.version" type="strOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output.street-names" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output.original-names" type="boolOptionType" minOccurs="0"/>
@@ -110,10 +112,22 @@
             <xsd:element name="perturb-x" type="strOptionType" minOccurs="0"/>
             <xsd:element name="perturb-y" type="strOptionType" minOccurs="0"/>
             <xsd:element name="perturb-z" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="bidi-probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="random-lanenumber" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids.node-start" type="intOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids.edge-start" type="intOptionType" minOccurs="0"/>
             <xsd:element name="reserved-ids" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.split" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.keep-edges.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.min-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.width-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.max-junction-size" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
@@ -126,6 +140,7 @@
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fringe.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fringe.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="lefthand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="edges.join" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
@@ -137,11 +152,14 @@
             <xsd:element name="default.lanewidth" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.spreadtype" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.friction" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.bikelane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.crossing-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.crossing-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.walkingarea-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.allow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
@@ -161,6 +179,7 @@
             <xsd:element name="tls.guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.uncontrolled-within" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ignore-internal-junction-jam" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.cycle.time" type="intOptionType" minOccurs="0"/>
@@ -172,6 +191,9 @@
             <xsd:element name="tls.allred.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.minor-left.max-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.left-green.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.vehExt" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.yellow" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.red" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.crossing-min.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.crossing-clearance.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.scramble.time" type="intOptionType" minOccurs="0"/>
@@ -184,6 +206,8 @@
             <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.group-signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ungroup-signals" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.rebuild" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.discard-simple" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -210,6 +234,7 @@
     <xsd:complexType name="junctionsTopicType">
         <xsd:all>
             <xsd:element name="junctions.right-before-left.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.left-before-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
@@ -220,6 +245,8 @@
             <xsd:element name="no-left-connections" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.scurve-stretch" type="floatOptionType" minOccurs="0"/>
@@ -231,6 +258,8 @@
             <xsd:element name="junctions.limit-turn-speed.warn.turn" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
@@ -273,6 +302,9 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

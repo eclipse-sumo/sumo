@@ -1,0 +1,6 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--max-depart-delay 1
+--duration-log.statistics
+--lateral-resolution 0.8

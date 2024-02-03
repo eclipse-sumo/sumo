@@ -1,0 +1,4 @@
+Error: Attribute 'cycleTime' in definition of route 'route_0' is empty.
+Error: Attribute 'cycleTime' in definition of route 'route_1' is not a valid time value.
+Error: cycleTime of destProbReroute must be equal or greater than 0
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.25Jan182728.9850/netedit.daily.demand.route/demandelements/route/load/cycletime/routes.rou.xml failed.

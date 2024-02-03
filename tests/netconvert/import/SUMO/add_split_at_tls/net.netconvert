@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:34 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:57 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,300.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -76,19 +76,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":n22_2_0" index="0" speed="13.89" length="11.20" shape="201.60,196.00 201.60,207.20"/>
     </edge>
     <edge id=":n22_3" function="internal">
-        <lane id=":n22_3_0" index="0" speed="13.89" length="4.28" shape="201.60,196.00 201.25,198.45 200.32,200.00"/>
+        <lane id=":n22_3_0" index="0" speed="13.89" length="4.11" shape="201.60,196.00 201.25,198.45 200.41,199.85"/>
     </edge>
     <edge id=":n22_4" function="internal">
-        <lane id=":n22_4_0" index="0" speed="13.89" length="4.75" shape="200.32,200.00 200.20,200.20 198.45,201.25 196.00,201.60"/>
+        <lane id=":n22_4_0" index="0" speed="13.89" length="4.93" shape="200.41,199.85 200.20,200.20 198.45,201.25 196.00,201.60"/>
     </edge>
     <edge id=":n32_0" function="internal">
         <lane id=":n32_0_0" index="0" speed="13.89" length="11.20" shape="98.40,104.00 98.40,92.80"/>
     </edge>
     <edge id=":n32_1" function="internal">
-        <lane id=":n32_1_0" index="0" speed="13.89" length="4.28" shape="98.40,104.00 98.75,101.55 99.68,100.00"/>
+        <lane id=":n32_1_0" index="0" speed="13.89" length="4.11" shape="98.40,104.00 98.75,101.55 99.59,100.15"/>
     </edge>
     <edge id=":n32_4" function="internal">
-        <lane id=":n32_4_0" index="0" speed="13.89" length="4.75" shape="99.68,100.00 99.80,99.80 101.55,98.75 104.00,98.40"/>
+        <lane id=":n32_4_0" index="0" speed="13.89" length="4.93" shape="99.59,100.15 99.80,99.80 101.55,98.75 104.00,98.40"/>
     </edge>
     <edge id=":n32_2" function="internal">
         <lane id=":n32_2_0" index="0" speed="13.89" length="9.03" shape="92.80,98.40 95.25,98.05 97.00,97.00 98.05,95.25 98.40,92.80"/>
@@ -204,8 +204,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="n42" type="dead_end" x="300.00" y="100.00" incLanes="41to42_0" intLanes="" shape="300.00,96.80 300.00,100.00"/>
     <junction id="n43" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.00 203.20,0.00"/>
 
-    <junction id=":n22_4_0" type="internal" x="200.32" y="200.00" incLanes=":n22_3_0 23to22_0" intLanes=":n22_1_0"/>
-    <junction id=":n32_4_0" type="internal" x="99.68" y="100.00" incLanes=":n32_1_0 31to32_0" intLanes=":n32_3_0"/>
+    <junction id=":n22_4_0" type="internal" x="200.41" y="199.85" incLanes=":n22_3_0 23to22_0" intLanes=":n22_1_0"/>
+    <junction id=":n32_4_0" type="internal" x="99.59" y="100.15" incLanes=":n32_1_0 31to32_0" intLanes=":n32_3_0"/>
 
     <connection from="11to13" to="13to12" fromLane="0" toLane="0" via=":n13_0_0" tl="n13" linkIndex="0" dir="r" state="O"/>
     <connection from="11to13" to="13to32" fromLane="0" toLane="0" via=":n13_1_0" tl="n13" linkIndex="1" dir="s" state="O"/>

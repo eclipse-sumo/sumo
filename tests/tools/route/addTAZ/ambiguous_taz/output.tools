@@ -1,0 +1,4 @@
+read 25 TAZ
+edges ['D0E0'] (total 1) are sources for more than one TAZ
+edges ['D0E0'] (total 1) are sinks for more than one TAZ
+read 0 vehicles

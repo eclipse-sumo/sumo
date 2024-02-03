@@ -1,0 +1,4 @@
+Error: Invalid departure time for vehicle 'trip_0';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Negative departure time in the definition of vehicle 'trip_1'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip\load\depart\routes.rou.xml failed.

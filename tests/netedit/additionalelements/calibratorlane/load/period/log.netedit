@@ -1,0 +1,3 @@
+Error: Attribute 'period' in definition of calibrator 'calibrator02' is not a valid time value.
+Error: Could not build calibrator with ID 'calibrator03' in netedit; Attribute period cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/calibratorlane/load/period/additionals.add.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,13 +46,13 @@ MSDevice_GLOSA::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("glosa", "GLOSA Device", oc);
 
     oc.doRegister("device.glosa.range", new Option_Float(100.0));
-    oc.addDescription("device.glosa.range", "GLOSA Device", "The communication range to the traffic light");
+    oc.addDescription("device.glosa.range", "GLOSA Device", TL("The communication range to the traffic light"));
 
     oc.doRegister("device.glosa.max-speedfactor", new Option_Float(1.1));
-    oc.addDescription("device.glosa.max-speedfactor", "GLOSA Device", "The maximum speed factor when approaching a green light");
+    oc.addDescription("device.glosa.max-speedfactor", "GLOSA Device", TL("The maximum speed factor when approaching a green light"));
 
     oc.doRegister("device.glosa.min-speed", new Option_Float(5.0));
-    oc.addDescription("device.glosa.min-speed", "GLOSA Device", "Minimum speed when coasting towards a red light");
+    oc.addDescription("device.glosa.min-speed", "GLOSA Device", TL("Minimum speed when coasting towards a red light"));
 }
 
 
@@ -168,7 +168,7 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         try {
             tlsRange = StringUtils::toDouble(val);
         } catch (const NumberFormatException&) {
-            WRITE_WARNINGF("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'",
+            WRITE_WARNINGF(TL("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"),
                            val, myNextTLSLink->getTLLogic()->getID());
         }
         myRange = MIN2(getFloatParam(myVeh, OptionsCont::getOptions(), "glosa.range", 100, true), tlsRange);

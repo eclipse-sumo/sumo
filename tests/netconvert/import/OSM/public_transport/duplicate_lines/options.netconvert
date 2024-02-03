@@ -1,0 +1,1 @@
+--osm-files osm.xml,osm.xml -o net.net.xml  --osm.stop-output.length 200 --ptstop-output additional.xml --ptline-output ptlines.xml --type-files input_types.typ.xml

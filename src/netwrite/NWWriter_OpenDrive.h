@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,6 +35,8 @@ class PositionVector;
 class OutputDevice;
 class OutputDevice_String;
 class ShapeContainer;
+class PointOfInterest;
+class SUMOPolygon;
 
 
 // ===========================================================================
@@ -55,12 +57,20 @@ public:
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+    /// @brief signalID -> (lanes, dirs)
+    typedef std::map<std::string, std::pair<std::set<int>, std::set<LinkDirection> > > SignalLanes;
+
+    /// @brief retrieve divider type
+    static std::string getDividerType(const NBEdge* e);
+
     /// @brief write normal edge to device
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
                                 const double straightThresh,
-                                const ShapeContainer& shc);
+                                const ShapeContainer& shc,
+                                SignalLanes& signalLanes,
+                                const std::vector<std::string>& crossings);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
@@ -70,7 +80,8 @@ protected:
                                  const std::vector<NBEdge::Connection>& parallel,
                                  const bool isOuterEdge,
                                  const double straightThresh,
-                                 const std::string& centerMark);
+                                 const std::string& centerMark,
+                                 SignalLanes& signalLanes);
 
     static void addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel);
 
@@ -98,13 +109,55 @@ protected:
 
     static std::string getLaneType(SVCPermissions permissions);
 
-    /// @brief get the left border of the given lane (the leftmost one by default)
-    static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
-    static PositionVector getRightLaneBorder(const NBEdge* edge, int laneIndex = -1);
+    /// @brief get the lane border that is closer to the reference line (center line of the edge)
+    static PositionVector getInnerLaneBorder(const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
+    /// @brief get the lane border that is further away from the reference line (center line of the edge)
+    static PositionVector getOuterLaneBorder(const NBEdge* edge, int laneIndex = -1);
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
     static void checkLaneGeometries(const NBEdge* e);
 
     /// @brief write road objects referenced as edge parameters
-    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
+    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings);
+
+    /// @brief write signal record for traffic light
+    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes, const ShapeContainer& shc);
+
+    /// @brief convert sumo lane index to xodr lane index
+    static int s2x(int sumoIndex, int numLanes);
+
+    /// @brief map pois and polygons to the closes edge
+    static void mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec);
+
+    static void writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi);
+
+    static void writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p);
+
+    struct TrafficSign {
+        std::string country;
+        std::string type;
+        std::string subtype;
+        std::string value;
+    };
+
+    static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
+    static TrafficSign parseTrafficSignId(const std::string& trafficSign);
+
+    // @brief return road postion in s,t coordinates
+    static double getRoadSideOffset(const NBEdge* e);
+
+
+protected:
+    /// @brief whether a lefthand network is being written
+    static bool lefthand;
+
+    /* @brief whether a the lanes in a lefthand network shall be written to the
+     * left of the reference line (positive indices)
+     * This style is not support by some older programs.
+     * */
+    static bool LHLL;
+
+    // lefthand but lanes written as right lanes
+    static bool LHRL;
+
 };

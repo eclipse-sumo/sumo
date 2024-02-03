@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<values xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/value_file.xsd">
+    <value id="17" exampleAttr="2138"/>
+    <value id="3" exampleAttr="-1209"/>
+    <value id="38" exampleAttr="-1212"/>
+    <value id="0" exampleAttr="-196"/>
+    <value id="4" exampleAttr="-75"/>
+    <value id="27" exampleAttr="-144"/>
+</values>

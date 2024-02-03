@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,7 +65,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -75,7 +74,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
-
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -115,10 +113,14 @@ public:
 
     int getCurrentPhase() const;
     std::string getCurrentPhaseName() const;
-    int getCurrentDuration() const;
-    int getCurrentMinDur() const;
-    int getCurrentMaxDur() const;
-    int getRunningDuration() const;
+    int getCurrentDurationSeconds() const;
+    int getCurrentMinDurSeconds() const;
+    int getCurrentMaxDurSeconds() const;
+    int getCurrentEarliestEndSeconds() const;
+    int getCurrentLatestEndSeconds() const;
+    int getDefaultCycleTimeSeconds() const;
+    int getCurrentTimeInCycleSeconds() const;
+    int getRunningDurationSeconds() const;
 
 public:
     /**

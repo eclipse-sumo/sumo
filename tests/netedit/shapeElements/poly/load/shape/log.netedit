@@ -1,4 +1,0 @@
-Warning: Essential list of unique positions attribute 'shape' of poly with ID 'poly_01' is missing; poly cannot be created
-Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
-Warning: Format of essential list of unique positions attribute 'shape' of poly with ID 'poly_02' is invalid; List of Positions aren't neither x,y nor x,y,z; poly cannot be created
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb135012.1092/netedit.gui/shapeElements/poly/load/shape\input_additionals.add.xml failed.

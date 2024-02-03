@@ -1,4 +1,4 @@
-read 3 busStops on 3 edges
+read 4 busStops on 4 edges
 read 7 routes (4 unique) and 9 stops at 3 busStops
 processed 4 routes across 11 edges with 3 merging switches
 Found 9 stops after merging switches and 6 signals that guard switches

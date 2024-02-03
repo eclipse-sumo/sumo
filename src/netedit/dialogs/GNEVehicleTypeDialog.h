@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 
 #include "GNEDemandElementDialog.h"
 
@@ -28,7 +29,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEVehicleType;
+class GNEVType;
 
 // ===========================================================================
 // class definitions
@@ -36,16 +37,19 @@ class GNEVehicleType;
 
 /**
  * @class GNEVehicleTypeDialog
- * @brief Dialog for edit rerouter intervals
+ * @brief Dialog for editing calibrator vehicle types
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 
 class GNEVehicleTypeDialog : public GNEDemandElementDialog {
 
 public:
     /// @brief class for VClasses
-    class VTypeAtributes : protected FXVerticalFrame {
+    class VTypeAttributes : protected FXVerticalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeDialog::VTypeAtributes)
+        FXDECLARE(GNEVehicleTypeDialog::VTypeAttributes)
 
     public:
         /// @brief class for VClasses
@@ -53,7 +57,7 @@ public:
 
         public:
             /// @brief constructor
-            VClassRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
+            VClassRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* column);
 
             /// @brief set vehicle class
             SUMOVehicleClass setVariable();
@@ -62,11 +66,11 @@ public:
             SUMOVehicleClass updateValue();
 
         private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief pointer to VTypeAttributes parent
+            VTypeAttributes* myVTypeAttributesParent;
 
-            /// @brief FXComboBox for VClass
-            FXComboBox* myComboBoxVClass;
+            /// @brief MFXComboBoxIcon for VClass
+            MFXComboBoxIcon* myComboBoxVClass;
 
             /// @brief label with image of VClass
             FXLabel* myComboBoxVClassLabelImage;
@@ -80,7 +84,7 @@ public:
 
         public:
             /// @brief constructor
-            VShapeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
+            VShapeRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* column);
 
             /// @brief set variables
             void setVariable();
@@ -88,12 +92,15 @@ public:
             /// @brief update values
             void updateValues();
 
-        private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief update value
+            void updateValue(SUMOVehicleClass vClass);
 
-            /// @brief FXComboBox for Shape
-            FXComboBox* myComboBoxShape;
+        private:
+            /// @brief pointer to VTypeAttributes parent
+            VTypeAttributes* myVTypeAttributesParent;
+
+            /// @brief MFXComboBoxIcon for Shape
+            MFXComboBoxIcon* myComboBoxShape;
 
             /// @brief label with image of Shape
             FXLabel* myComboBoxShapeLabelImage;
@@ -117,12 +124,12 @@ public:
             };
 
             /// @brief constructor
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
+            VTypeAttributeRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
 
-            /// @brief set Variablen in VehicleType (using default value obtained from GNEAttributeCarrier)
+            /// @brief set Variable in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
 
-            /// @brief set Variablen in VehicleType (Specifying default value)
+            /// @brief set Variable in VehicleType (Specifying default value)
             void setVariable(const std::string& defaultValue);
 
             /// @brief update value of Vehicle Type (using default value obtained from GNEAttributeCarrier)
@@ -154,7 +161,7 @@ public:
 
         private:
             /// @brief pointer to VTypeAttributeParameters parent
-            VTypeAtributes* myVTypeAtributesParent;
+            VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief edited attribute
             const SumoXMLAttr myAttr;
@@ -169,22 +176,22 @@ public:
             FXTextField* myTextField;
 
             /// @brief ComboBox for attributes with limited values
-            FXComboBox* myComboBox;
+            MFXComboBoxIcon* myComboBox;
 
             /// @brief pointer to current parameter map
-            std::map<std::string, std::string> myParameters;
+            Parameterised::Map myParameters;
 
             /// @brief filter attribute name
-            FXString filterAttributeName(const SumoXMLAttr attr) const;
+            std::string filterAttributeName(const SumoXMLAttr attr) const;
         };
 
         /// @brief constructor
-        VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
+        VTypeAttributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
-        /// @brief build commmon attributes (A)
+        /// @brief build common attributes (A)
         void buildAttributesA(FXVerticalFrame* column);
 
-        /// @brief build commmon attributes (B)
+        /// @brief build common attributes (B)
         void buildAttributesB(FXVerticalFrame* column);
 
         /// @brief build JunctionModel attributes (A)
@@ -213,7 +220,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(VTypeAtributes)
+        FOX_CONSTRUCTOR(VTypeAttributes)
 
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
@@ -236,11 +243,11 @@ public:
         /// @brief VTypeAttributeRow for MaxSpeed
         VTypeAttributeRow* myMaxSpeed;
 
+        /// @brief VTypeAttributeRow for desired max speed
+        VTypeAttributeRow* myDesiredMaxSpeed;
+
         /// @brief VTypeAttributeRow for SpeedFactor
         VTypeAttributeRow* mySpeedFactor;
-
-        /// @brief VTypeAttributeRow for SpeedDev
-        VTypeAttributeRow* mySpeedDev;
 
         /// @brief VTypeAttributeRow for EmissionClass
         VTypeAttributeRow* myEmissionClass;
@@ -379,7 +386,7 @@ public:
         /// @brief VTypeAttributeRow for accel lat
         VTypeAttributeRow* myLCAAccelLat;
 
-        /// @brief VTypeAttributeRow for loock ahead left
+        /// @brief VTypeAttributeRow for look ahead left
         VTypeAttributeRow* myLCALookAheadLeft;
 
         /// @brief VTypeAttributeRow for speed gain right
@@ -396,6 +403,12 @@ public:
 
         /// @brief VTypeAttributeRow for overtake right
         VTypeAttributeRow* myLCAOvertakeRight;
+
+        /// @brief VTypeAttributeRow for keep right acceptance time
+        VTypeAttributeRow* myLCAKeepRightAcceptanceTime;
+
+        /// @brief VTypeAttributeRow for overtake deltaspeed factor
+        VTypeAttributeRow* myLCAOvertakeDeltaSpeedFactor;
 
         /// @brief VTypeAttributeRow for experimental
         /* VTypeAttributeRow* myLCAExperimental; */
@@ -426,6 +439,7 @@ public:
         /// @{
         /// @event called after change a CFM variable
         long onCmdSetVariable(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -437,7 +451,7 @@ public:
             /// @brief constructor
             CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
 
-            /// @brief set Variablen in VehicleType
+            /// @brief set Variable in VehicleType
             void setVariable();
 
             /// @brief update value of Vehicle Type
@@ -462,7 +476,7 @@ public:
         std::vector<CarFollowingModelRow*> myRows;
 
         /// @brief Row for CarFollowModel
-        FXComboBox* myComboBoxCarFollowModel;
+        MFXComboBoxIcon* myComboBoxCarFollowModel;
 
         /// @brief Vertical Frame for CarFollowingModelRow
         FXVerticalFrame* myVerticalFrameRows;
@@ -473,7 +487,7 @@ public:
         /// @brief Row for Decel
         CarFollowingModelRow* myDecelRow;
 
-        /// @brief Row for aparent Decel
+        /// @brief Row for apparent Decel
         CarFollowingModelRow* myApparentDecelRow;
 
         /// @brief Row for emergency Decel
@@ -536,6 +550,78 @@ public:
         /// @brief Row for Adapt Time
         CarFollowingModelRow* myAdaptTimeRow;
 
+        /// @brief Row for W99 CC 01
+        CarFollowingModelRow* myW99CC1;
+
+        /// @brief Row for W99 CC 02
+        CarFollowingModelRow* myW99CC2;
+
+        /// @brief Row for W99 CC 03
+        CarFollowingModelRow* myW99CC3;
+
+        /// @brief Row for W99 CC 04
+        CarFollowingModelRow* myW99CC4;
+
+        /// @brief Row for W99 CC 05
+        CarFollowingModelRow* myW99CC5;
+
+        /// @brief Row for W99 CC 06
+        CarFollowingModelRow* myW99CC6;
+
+        /// @brief Row for W99 CC 07
+        CarFollowingModelRow* myW99CC7;
+
+        /// @brief Row for W99 CC 08
+        CarFollowingModelRow* myW99CC8;
+
+        /// @brief Row for W99 CC 09
+        CarFollowingModelRow* myW99CC9;
+
+        /// @brief Row for Look ahead/preview Time
+        CarFollowingModelRow* myTpreviewRow;
+
+        /// @brief Row for Reaction Time
+        CarFollowingModelRow* myTreactionRow;
+
+        /// @brief Row for Wiener Process Driving Error
+        CarFollowingModelRow* myTPersDriveRow;
+
+        /// @brief Row for Wiener Process Estimation Error
+        CarFollowingModelRow* myTPersEstimateRow;
+
+        /// @brief Row for Coolness parameter
+        CarFollowingModelRow* myCcoolnessRow;
+
+        /// @brief Row for leader speed estimation error
+        CarFollowingModelRow* mySigmaleaderRow;
+
+        /// @brief Row for Gap estimation error
+        CarFollowingModelRow* mySigmagapRow;
+
+        /// @brief Row for Driving Error
+        CarFollowingModelRow* mySigmaerrorRow;
+
+        /// @brief Row for max jerk
+        CarFollowingModelRow* myJerkmaxRow;
+
+        /// @brief Row for AP Driver Update threshold
+        CarFollowingModelRow* myEpsilonaccRow;
+
+        /// @brief Row for Startup Time to acc_max
+        CarFollowingModelRow* myTaccmaxRow;
+
+        /// @brief Row for Startup M flatness
+        CarFollowingModelRow* myMflatnessRow;
+
+        /// @brief Row for Startup M begin
+        CarFollowingModelRow* myMbeginRow;
+
+        /// @brief Row for Using vehicle dynamics
+        CarFollowingModelRow* myUseVehDynamicsRow;
+
+        /// @brief Row for Using vehicle preview
+        CarFollowingModelRow* myMaxVehPreviewRow;
+
         /// @brief temporal label for incomplete attributes
         FXLabel* myLabelIncompleteAttribute;
     };
@@ -557,8 +643,6 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @event after change a variable of vehicle type
-    long onCmdSetVariable(FXObject*, FXSelector, void*);
     /// @}
 
 private:
@@ -569,7 +653,7 @@ private:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief Vehicle Type Common Attributes
-    VTypeAtributes* myVTypeAtributes;
+    VTypeAttributes* myVTypeAttributes;
 
     /// @brief Car Following model parameters
     CarFollowingModelParameters* myCarFollowingModelParameters;
@@ -580,4 +664,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEVehicleTypeDialog& operator=(const GNEVehicleTypeDialog&) = delete;
 };
-

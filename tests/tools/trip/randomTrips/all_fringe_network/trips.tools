@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 09:58:46.571217 by $Id: randomTrips.py v1_0_1+0098-8affe8886f jakob.erdmann@dlr.de 2018-08-29 20:55:11 +0200 $
-  options: -n net.net.xml -s 42 <doubleminus>allow-fringe
+
+<!-- generated on 2022-07-07 10:55:34.745397 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <allow-fringe value="True"/>
+    <net-file value="net.net.xml"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="beg" to="-beg"/>
     <trip id="1" depart="1.00" from="-beg" to="-beg"/>

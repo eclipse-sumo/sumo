@@ -1,0 +1,3 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x vehsPerHour -y @COUNT
+tools/visualization/plotXMLAttributes.py

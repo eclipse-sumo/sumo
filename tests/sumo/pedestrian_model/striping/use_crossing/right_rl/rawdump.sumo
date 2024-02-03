@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb  8 16:35:57 2017 by SUMO Version dev-SVN-r22880
+<!-- generated on 2021-06-30 13:06:16 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,21 +9,24 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net3.net.xml"/>
         <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -228,12 +231,12 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="47.00">
         <edge id=":C_c1">
-            <person id="p0" pos="4.17" angle="0.00" stage="walking"/>
+            <person id="p0" pos="4.16" angle="0.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="48.00">
         <edge id=":C_c1">
-            <person id="p0" pos="5.56" angle="0.00" stage="walking"/>
+            <person id="p0" pos="5.55" angle="0.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="49.00">
@@ -273,17 +276,17 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="56.00">
         <edge id=":C_w1">
-            <person id="p0" pos="1.37" angle="41.23" stage="walking"/>
+            <person id="p0" pos="1.36" angle="41.23" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="57.00">
         <edge id=":C_w1">
-            <person id="p0" pos="2.76" angle="41.23" stage="walking"/>
+            <person id="p0" pos="2.75" angle="19.43" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="58.00">
         <edge id="EC">
-            <person id="p0" pos="85.82" angle="90.00" stage="walking"/>
+            <person id="p0" pos="85.82" angle="93.48" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="59.00">
@@ -298,7 +301,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="61.00">
         <edge id="EC">
-            <person id="p0" pos="81.65" angle="90.00" stage="walking"/>
+            <person id="p0" pos="81.66" angle="90.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="62.00">
@@ -343,7 +346,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="70.00">
         <edge id="EC">
-            <person id="p0" pos="69.15" angle="90.00" stage="walking"/>
+            <person id="p0" pos="69.16" angle="90.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="71.00">

@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ def simTime():
 
 
 def array2String(a):
-    if len(a) > 0 and hasattr(a[0], "getID"):
+    if len(a) > 0 and None not in a and hasattr(a[0], "getID"):
         return str([e.getID() for e in a])
     return str([str(e) for e in a])
 

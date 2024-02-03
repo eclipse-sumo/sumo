@@ -1,0 +1,2 @@
+Warning: busStop '-stopBranch' on lane '-i_0' is too short for vehicle 'light_rail_S46:0.0'.
+Warning: Vehicle 'light_rail_S46:0.0' skips stop on lane '-i_0' time=60.00.

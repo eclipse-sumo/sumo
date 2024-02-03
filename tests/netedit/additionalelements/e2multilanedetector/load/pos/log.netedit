@@ -1,0 +1,4 @@
+Error: Attribute 'pos' is missing in definition of laneAreaDetector 'multiLaneAreaDetector_0'.
+Error: Attribute 'pos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format (double) dummyPos.
+Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_4' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\pos\additionals.add.xml failed.

@@ -1,6 +1,9 @@
 # handle count input with multiple data intervals
 2_intervals
 
+# handle count input with multiple data intervals
+2_intervals_3_threads
+
 # -f number -i
 f-number-i
 mismatch-output

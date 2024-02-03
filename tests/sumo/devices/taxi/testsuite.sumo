@@ -6,6 +6,9 @@ personTrip
 # groups of persons traveling together between two locations (no arbitrary ride sharing)
 groups
 
+# multiple taxi lines and persons that request a specific taxi
+lines
+
 # test ride sharing
 shared
 2taxis_10persons

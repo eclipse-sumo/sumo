@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,11 +52,23 @@ public:
      */
     HelpersPHEMlight();
 
+    /** @brief Destructor
+     */
+    virtual ~HelpersPHEMlight();
+
+protected:
+    /** @brief Constructor for subclasses
+     * @param[in] name the name of the model (string before the '/' in the emission class attribute)
+     */
+    HelpersPHEMlight(std::string name, const int baseIndex, const int defaultClass)
+        : PollutantsInterface::Helper(name, baseIndex, defaultClass) {}
+
+public:
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
-    SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
+    virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
 
     /** @brief Returns the emission class described by the given parameters.
      * @param[in] base the base class giving the default
@@ -100,7 +112,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
+    virtual double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class
@@ -109,7 +121,17 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+    virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+
+    /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @param[in] param parameter of the emission model affecting the computation
+     * @return the coasting deceleration
+     */
+    virtual double getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
 private:
     /** @brief Returns the amount of emitted pollutant given the vehicle type and state (in mg/s or in ml/s for fuel)

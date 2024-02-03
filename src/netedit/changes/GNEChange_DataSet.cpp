@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataSet.h"
 
@@ -35,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataSet, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
-    GNEChange(forward, dataSet->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, forward, dataSet->isAttributeCarrierSelected()),
     myDataSet(dataSet) {
     myDataSet->incRef("GNEChange_DataSet");
 }
@@ -44,13 +43,12 @@ GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
 GNEChange_DataSet::~GNEChange_DataSet() {
     assert(myDataSet);
     myDataSet->decRef("GNEChange_DataSet");
-    if (myDataSet->unreferenced()) {
+    if (myDataSet->unreferenced() &&
+            myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myDataSet->getNet()->getAttributeCarriers()->dataSetExist(myDataSet)) {
-            myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
-        }
+        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
         // delete data set
         delete myDataSet;
     }
@@ -70,10 +68,8 @@ GNEChange_DataSet::undo() {
         // insert data set into net
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
-    // update toolbar
-    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -90,29 +86,27 @@ GNEChange_DataSet::redo() {
         // delete data set from net
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
-    // update toolbar
-    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
-FXString
+std::string
 GNEChange_DataSet::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataSet->getTagStr()).c_str();
+        return (TL("Undo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Undo delete " + myDataSet->getTagStr()).c_str();
+        return (TL("Undo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 
 
-FXString
+std::string
 GNEChange_DataSet::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataSet->getTagStr()).c_str();
+        return (TL("Redo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Redo delete " + myDataSet->getTagStr()).c_str();
+        return (TL("Redo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 

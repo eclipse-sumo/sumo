@@ -1,0 +1,5 @@
+--vehroute-output=vehroutes.xml --no-step-log --no-duration-log --net-file=net.net.xml
+-a input_additional.add.xml,input_additional2.add.xml  -b 0 -e 1000
+-r input_routes.rou.xml
+--persontrip.transfer.car-walk ptStops
+--personroute-output personroutes.xml

@@ -1,3 +1,6 @@
+# check if occupancy information on bidi-edges and the respective color is correct
+occupancyInfoWithBidi
+
 # A parade of vehicle classes
 parade
 
@@ -24,3 +27,7 @@ poi_image
 
 # testing png and jpg support
 img_formats
+
+# aircraft visualisation / reversing
+aircraft
+

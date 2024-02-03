@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,10 +24,10 @@
 #include <version.h>
 #endif
 
-#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -37,13 +37,14 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
 #include "TrajectoriesHandler.h"
+#include "VTypesHandler.h"
 
 
 // ===========================================================================
@@ -56,77 +57,98 @@
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    //  give some application descriptions
-    oc.setApplicationDescription("Computes emissions by driving a time line using SUMO's emission models.");
+    oc.setApplicationDescription(TL("Computes emissions by driving a time line using SUMO's emission models."));
     oc.setApplicationName("emissionsDrivingCycle", "Eclipse SUMO emissionsDrivingCycle Version " VERSION_STRING);
-    //  add options
 
+    // add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Input");
     oc.doRegister("timeline-file", 't', new Option_FileName());
     oc.addSynonyme("timeline", "timeline-file");
-    oc.addDescription("timeline-file", "Input", "Defines the file to read the driving cycle from.");
+    oc.addDescription("timeline-file", "Input", TL("Defines the file to read the driving cycle from."));
 
     oc.doRegister("timeline-file.skip", new Option_Integer(0));
     oc.addSynonyme("timeline.skip", "timeline-file.skip");
-    oc.addDescription("timeline-file.skip", "Input", "Skips the firs NUM lines.");
+    oc.addDescription("timeline-file.skip", "Input", TL("Skips the first NUM lines."));
 
     oc.doRegister("timeline-file.separator", new Option_String(";"));
     oc.addSynonyme("timeline.separator", "timeline-file.separator");
-    oc.addDescription("timeline-file.separator", "Input", "Defines the entry separator.");
+    oc.addDescription("timeline-file.separator", "Input", TL("Defines the entry separator."));
 
     oc.doRegister("netstate-file", 'n', new Option_FileName());
     oc.addSynonyme("netstate", "netstate-file");
     oc.addSynonyme("amitran", "netstate-file");
-    oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
+    oc.addDescription("netstate-file", "Input", TL("Defines the netstate, route and trajectory files to read the driving cycles from."));
+
+    oc.doRegister("additional-files", new Option_FileName());
+    oc.addDescription("additional-files", "Input", TL("Load emission parameters (vTypes) from FILE(s)"));
 
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
-    oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
+    oc.addDescription("emission-class", "Input", TL("Defines for which emission class the emissions shall be generated. "));
 
+    oc.doRegister("vtype", new Option_String());
+    oc.addDescription("vtype", "Input", TL("Defines the vehicle type to use for emission parameters."));
 
     oc.addOptionSubTopic("Processing");
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
-    oc.addDescription("compute-a", "Processing", "If set, the acceleration is computed instead of being read from the file. ");
+    oc.addDescription("compute-a", "Processing", TL("If set, the acceleration is computed instead of being read from the file. "));
 
     oc.doRegister("compute-a.forward", new Option_Bool(false));
-    oc.addDescription("compute-a.forward", "Processing", "If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). ");
+    oc.addDescription("compute-a.forward", "Processing", TL("If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). "));
 
     oc.doRegister("compute-a.zero-correction", new Option_Bool(false));
-    oc.addDescription("compute-a.zero-correction", "Processing", "If set, the acceleration for time t is set to 0 if the speed is 0. ");
+    oc.addDescription("compute-a.zero-correction", "Processing", TL("If set, the acceleration for time t is set to 0 if the speed is 0. "));
 
     oc.doRegister("skip-first", 's', new Option_Bool(false));
-    oc.addDescription("skip-first", "Processing", "If set, the first line of the read file is skipped.");
+    oc.addDescription("skip-first", "Processing", TL("If set, the first line of the read file is skipped."));
 
     oc.doRegister("kmh", new Option_Bool(false));
-    oc.addDescription("kmh", "Processing", "If set, the given speed is interpreted as being given in km/h.");
+    oc.addDescription("kmh", "Processing", TL("If set, the given speed is interpreted as being given in km/h."));
 
     oc.doRegister("have-slope", new Option_Bool(false));
-    oc.addDescription("have-slope", "Processing", "If set, the fourth column is read and used as slope (in deg).");
+    oc.addDescription("have-slope", "Processing", TL("If set, the fourth column is read and used as slope (in deg)."));
 
     oc.doRegister("slope", new Option_Float(0));
-    oc.addDescription("slope", "Processing", "Sets a global slope (in deg) that is used if the file does not contain slope information.");
+    oc.addDescription("slope", "Processing", TL("Sets a global slope (in deg) that is used if the file does not contain slope information."));
 
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into. ");
+    oc.addDescription("output", "Output", TL("Defines the file to write the emission cycle results into."));
+
+    oc.doRegister("output.attributes", new Option_StringVector());
+    oc.addDescription("output.attributes", "Output", TL("Defines the attributes to write."));
 
     oc.doRegister("emission-output", new Option_FileName());
-    oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
+    oc.addDescription("emission-output", "Output", TL("Save the emission values of each vehicle in XML"));
 
     oc.doRegister("sum-output", new Option_FileName());
     oc.addSynonyme("sum", "sum-output");
-    oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
+    oc.addDescription("sum-output", "Output", TL("Save the aggregated and normed emission values of each vehicle in CSV"));
 
     oc.addOptionSubTopic("Emissions");
+    oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
+    oc.addDescription("emissions.volumetric-fuel", "Emissions", TL("Return fuel consumption values in (legacy) unit l instead of mg"));
+
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
+    oc.addDescription("phemlight-path", "Emissions", TL("Determines where to load PHEMlight definitions from"));
+
+    oc.doRegister("phemlight-year", new Option_Integer(0));
+    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
+
+    oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
+    oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
+
+    oc.doRegister("begin", new Option_String("0", "TIME"));
+    oc.addDescription("begin", "Processing", TL("Defines the begin time in seconds;"));
+
+    oc.doRegister("end", new Option_String("-1", "TIME"));
+    oc.addDescription("end", "Processing", TL("Defines the end time in seconds;"));
 
     SystemFrame::addReportOptions(oc);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
-    oc.addDescription("quiet", "Report", "Not writing anything.");
+    oc.addDescription("quiet", "Report", TL("Not writing anything."));
 
     // run
     int ret = 0;
@@ -143,14 +165,32 @@ main(int argc, char** argv) {
 
         quiet = oc.getBool("quiet");
         if (!oc.isSet("timeline-file") && !oc.isSet("netstate-file")) {
-            throw ProcessError("Either a timeline or a netstate / amitran file must be given.");
+            throw ProcessError(TL("Either a timeline or a netstate / amitran file must be given."));
         }
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
-            throw ProcessError("The output file must be given.");
+            throw ProcessError(TL("The output file must be given."));
         }
         std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
+        }
+        long long int attributes = 0;
+        if (oc.isSet("output.attributes")) {
+            for (std::string attrName : oc.getStringVector("output.attributes")) {
+                if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+                    if (attrName == "all") {
+                        attributes = std::numeric_limits<long long int>::max() - 1;
+                    } else {
+                        WRITE_ERRORF(TL("Unknown attribute '%' to write in output."), attrName);
+                    }
+                    continue;
+                }
+                int attr = SUMOXMLDefinitions::Attrs.get(attrName);
+                assert(attr < 63);
+                attributes |= ((long long int)1 << attr);
+            }
+        } else {
+            attributes = ~(((long long int)1 << SUMO_ATTR_AMOUNT));
         }
         OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
         OutputDevice* xmlOut = nullptr;
@@ -165,9 +205,39 @@ main(int argc, char** argv) {
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
-        const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
+        SUMOEmissionClass emissionClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
+        std::unique_ptr<EnergyParams> energyParams;
+        std::map<std::string, SUMOVTypeParameter*> vTypes;
+        if (oc.isSet("vtype") || oc.isSet("additional-files")) {
+            if (!oc.isSet("additional-files")) {
+                throw ProcessError(TL("Option --vtype requires option --additional-files for loading vehicle types"));
+            }
+            if (!oc.isUsableFileList("additional-files")) {
+                throw ProcessError();
+            }
+            for (const std::string& file : oc.getStringVector("additional-files")) {
+                VTypesHandler typesHandler(file, vTypes);
+                if (!XMLSubSys::runParser(typesHandler, file)) {
+                    throw ProcessError(TLF("Loading of % failed.", file));
+                }
+            }
+            if (!oc.isSet("vtype") && vTypes.size() != 1) {
+                throw ProcessError(TL("Vehicle type is not unique."));
+            }
+            const auto vTypeIt = oc.isSet("vtype") ? vTypes.find(oc.getString("vtype")) : vTypes.begin();
+            if (vTypeIt == vTypes.end()) {
+                throw ProcessError(TLF("Vehicle type '%' is not defined.", oc.getString("vtype")));
+            }
+            if (oc.isDefault("emission-class")) {
+                emissionClass = vTypeIt->second->emissionClass;
+            }
+            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
+        } else {
+            energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(emissionClass));
+        }
+
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), emissionClass, energyParams.get(), attributes, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
@@ -179,6 +249,9 @@ main(int argc, char** argv) {
             int time = 0;
 
             LineReader lr(oc.getString("timeline-file"));
+            if (!lr.good()) {
+                throw ProcessError(TLF("Unreadable file '%'.", lr.getFileName()));
+            }
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
                 if (skip > 0) {
@@ -201,16 +274,16 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
+                        if (handler.writeEmissions(*out, "", emissionClass, energyParams.get(), attributes, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;
                             time++;
                         }
                     } catch (EmptyData&) {
-                        throw ProcessError("Missing an entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Missing an entry in line '%'.", line));
                     } catch (NumberFormatException&) {
-                        throw ProcessError("Not numeric entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Not numeric entry in line '%'.", line));
                     }
                 }
             }
@@ -231,6 +304,9 @@ main(int argc, char** argv) {
             handler.writeSums(std::cout, "");
         }
         delete sumOut;
+        if (out != &std::cout) {
+            delete out;
+        }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

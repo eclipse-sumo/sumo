@@ -1,0 +1,31 @@
+/* XPM */
+static const char *modedecal_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1",
+"  c #452B1D",
+". c None",
+"X c #885539",
+"o c #B97A57",
+"O c #B5E61D",
+"+ c #39B7D7",
+"@ c #FFBF95",
+"# c #EDDCD3",
+"$ c white",
+/* pixels */
+"                ",
+" oooooooooooooo ",
+" oXXXXXXXXXXXXo ",
+" oX++++++++++Xo ",
+" oX+++@@+++++Xo ",
+" oX+++@@+++++Xo ",
+" oX+++++++O++Xo ",
+" oX++O+++OOO+Xo ",
+" oX+OOO+OOOOOXo ",
+" oXOOOO+O       ",
+" oXOOOOOO #####X",
+" oXOOOOOO $$$# .",
+" oXOOOOOO $$# ..",
+" oXXXXXXX $# ...",
+" oooooooo # ....",
+"          X....."
+};

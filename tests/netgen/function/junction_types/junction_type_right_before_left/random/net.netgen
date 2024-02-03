@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:11 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:01 by Eclipse SUMO netgenerate Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <random_network>
         <rand value="true"/>
         <rand.iterations value="10"/>
-        <rand.bidi-probability value="0"/>
+        <bidi-probability value="0"/>
     </random_network>
 
     <output>
@@ -31,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="162.29,362.77" convBoundary="0.00,0.00,554.80,574.23" origBoundary="-162.29,-362.77,392.51,211.46" projParameter="!"/>
 
@@ -109,13 +114,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="13" to="38" fromLane="0" toLane="0" via=":12_1_0" dir="r" state="="/>
+    <connection from="13" to="38" fromLane="0" toLane="0" via=":12_1_0" dir="r" state="M"/>
     <connection from="17" to="38" fromLane="0" toLane="0" via=":12_0_0" dir="s" state="="/>
-    <connection from="3" to="15" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="="/>
-    <connection from="3" to="13" fromLane="0" toLane="0" via=":2_1_0" dir="l" state="="/>
-    <connection from="9" to="17" fromLane="0" toLane="0" via=":8_0_0" dir="r" state="="/>
-    <connection from="9" to="19" fromLane="0" toLane="0" via=":8_1_0" dir="s" state="="/>
-    <connection from="9" to="25" fromLane="0" toLane="0" via=":8_2_0" dir="l" state="="/>
+    <connection from="3" to="15" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
+    <connection from="3" to="13" fromLane="0" toLane="0" via=":2_1_0" dir="l" state="M"/>
+    <connection from="9" to="17" fromLane="0" toLane="0" via=":8_0_0" dir="r" state="M"/>
+    <connection from="9" to="19" fromLane="0" toLane="0" via=":8_1_0" dir="s" state="M"/>
+    <connection from="9" to="25" fromLane="0" toLane="0" via=":8_2_0" dir="l" state="M"/>
 
     <connection from=":12_0" to="38" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":12_1" to="38" fromLane="0" toLane="0" dir="r" state="M"/>

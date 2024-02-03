@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,14 +31,17 @@
 enum class GUITexture {
     E3 = 0,
     E3_SELECTED,
-    EMPTY,
-    EMPTY_SELECTED,
     LOCK,
-    LOCK_SELECTED,
     NOTMOVING,
     NOTMOVING_SELECTED,
     REROUTER,
     REROUTER_SELECTED,
+    REROUTER_INTERVAL,
+    REROUTER_CLOSINGREROUTE,
+    REROUTER_CLOSINGLANEREROUTE,
+    REROUTER_ROUTEPROBREROUTE,
+    REROUTER_DESTPROBREROUTE,
+    REROUTER_PARKINGAREAREROUTE,
     ROUTEPROBE,
     ROUTEPROBE_SELECTED,
     TLS,
@@ -46,12 +49,17 @@ enum class GUITexture {
     VAPORIZER_SELECTED,
     VARIABLESPEEDSIGN,
     VARIABLESPEEDSIGN_SELECTED,
+    VARIABLESPEEDSIGN_STEP,
     LANE_BIKE,
     LANE_BUS,
     LANE_PEDESTRIAN,
     STOP,
     STOP_SELECTED,
-    PERSONSTOP,
-    PERSONSTOP_SELECTED,
+    STOPPERSON,
+    STOPPERSON_SELECTED,
+    STOPCONTAINER,
+    STOPCONTAINER_SELECTED,
+    TRACTIONSUBSTATION,
+    TRACTIONSUBSTATION_SELECTED,
     TEXTURE_MAX
 };

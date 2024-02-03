@@ -1,0 +1,8 @@
+Error: flow cannot be created
+Error: Attribute 'id' in definition of a flow is empty.
+Error: Invalid flow id ''.
+Error: flow cannot be created
+Error: Invalid flow id 'id with spaces'. Contains invalid characters.
+Error: flow cannot be created
+Error: There is another flow with the same ID='flow_valid'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow.25Jan182728.9825/netedit.daily.demand.flow/demandelements/flow/load/id/routes.rou.xml failed.

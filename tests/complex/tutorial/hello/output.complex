@@ -1,4 +1,3 @@
-Loading configuration ... done.
 Parsing nodes from 'data/hello.nod.xml' ... done.
 Parsing edges from 'data/hello.edg.xml' ... done.
  Import done:
@@ -15,7 +14,7 @@ Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
-Computing approached edges ... done (1ms).
+Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
 Dividing of lanes on approached lanes ... done (0ms).
@@ -38,8 +37,7 @@ Summary:
   Applied offset     : 250.00,0.00
   Converted boundary : 0.00,0.00,501.00,0.00
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (2ms).
 Success.
 >> Netbuilding closed with status 0
-Loading configuration ... done.
 >> Simulation closed with status 0

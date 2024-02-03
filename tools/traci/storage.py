@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,8 +25,6 @@ import struct
 
 from . import constants as tc
 
-_DEBUG = False
-
 
 class Storage:
 
@@ -44,12 +42,12 @@ class Storage:
 
     def readTypedInt(self):
         t, i = self.read("!Bi")
-        assert(t == tc.TYPE_INTEGER)
+        assert t == tc.TYPE_INTEGER
         return i
 
     def readTypedByte(self):
         t, b = self.read("!BB")
-        assert(t == tc.TYPE_BYTE)
+        assert t == tc.TYPE_BYTE
         return b
 
     def readDouble(self):
@@ -57,7 +55,7 @@ class Storage:
 
     def readTypedDouble(self):
         t, d = self.read("!Bd")
-        assert(t == tc.TYPE_DOUBLE)
+        assert t == tc.TYPE_DOUBLE
         return d
 
     def readLength(self):
@@ -68,7 +66,7 @@ class Storage:
 
     def readString(self):
         length = self.read("!i")[0]
-        return str(self.read("!%ss" % length)[0].decode("latin1"))
+        return str(self.read("!%ss" % length)[0].decode("utf8"))
 
     def readTypedString(self):
         t = self.read("!B")[0]
@@ -81,7 +79,7 @@ class Storage:
 
     def readTypedStringList(self):
         t = self.read("!B")[0]
-        assert(t == tc.TYPE_STRINGLIST)
+        assert t == tc.TYPE_STRINGLIST
         return self.readStringList()
 
     def readShape(self):
@@ -90,14 +88,12 @@ class Storage:
 
     def readCompound(self, expectedSize=None):
         t, s = self.read("!Bi")
-        assert(t == tc.TYPE_COMPOUND)
-        assert(expectedSize is None or s == expectedSize)
+        assert t == tc.TYPE_COMPOUND
+        assert expectedSize is None or s == expectedSize
         return s
 
     def ready(self):
         return self._pos < len(self._content)
 
-    def printDebug(self):
-        if _DEBUG:
-            for char in self._content[self._pos:]:
-                print("%03i %02x %s" % (ord(char), ord(char), char))
+    def getDebugString(self):
+        return " ".join(["%02x" % (c if type(c) is int else ord(c)) for c in self._content[self._pos:]])

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,11 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#endif
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
@@ -38,19 +43,28 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
 std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
+int OutputDevice::myPrevConsoleCP = -1;
 
 
 // ===========================================================================
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string& name) {
+OutputDevice::getDevice(const std::string& name, bool usePrefix) {
+#ifdef WIN32
+    // fix the windows console output on first call
+    if (myPrevConsoleCP == -1) {
+        myPrevConsoleCP = GetConsoleOutputCP();
+        SetConsoleOutputCP(CP_UTF8);
+    }
+#endif
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name) != myOutputDevices.end()) {
         return *myOutputDevices[name];
@@ -69,24 +83,24 @@ OutputDevice::getDevice(const std::string& name) {
         } catch (NumberFormatException&) {
             throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
-            throw IOError("No port number given.");
+            throw IOError(TL("No port number given."));
         }
     } else {
-        const int len = (int)name.length();
-        std::string name2 = name;
-        if (OptionsCont::getOptions().isSet("output-prefix") && name != "/dev/null") {
+        std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
+        if (usePrefix && OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
-                time_t rawtime;
+                const time_t rawtime = std::chrono::system_clock::to_time_t(OptionsIO::getLoadTime());
                 char buffer [80];
-                time(&rawtime);
                 struct tm* timeinfo = localtime(&rawtime);
                 strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
-                prefix.replace(metaTimeIndex, 4, std::string(buffer));
+                prefix.replace(metaTimeIndex, 4, buffer);
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
+        name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
+        const int len = (int)name.length();
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();
@@ -122,6 +136,14 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 
 void
+OutputDevice::flushAll() {
+    for (auto item : myOutputDevices) {
+        item.second->flush();
+    }
+}
+
+
+void
 OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;
@@ -132,24 +154,28 @@ OutputDevice::closeAll(bool keepErrorRetrievers) {
             nonErrorDevices.push_back(i->second);
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
+    for (OutputDevice* const dev : nonErrorDevices) {
         try {
-            //std::cout << "  close '" << (*i)->getFilename() << "'\n";
-            (*i)->close();
+            dev->close();
         } catch (const IOError& e) {
-            WRITE_ERROR("Error on closing output devices.");
+            WRITE_ERROR(TL("Error on closing output devices."));
             WRITE_ERROR(e.what());
         }
     }
     if (!keepErrorRetrievers) {
-        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+        for (OutputDevice* const dev : errorDevices) {
             try {
-                (*i)->close();
+                dev->close();
             } catch (const IOError& e) {
                 std::cerr << "Error on closing error output devices." << std::endl;
                 std::cerr << e.what() << std::endl;
             }
         }
+#ifdef WIN32
+        if (myPrevConsoleCP != -1) {
+            SetConsoleOutputCP(myPrevConsoleCP);
+        }
+#endif
     }
 }
 
@@ -176,8 +202,7 @@ OutputDevice::realString(const double v, const int precision) {
 // member method definitions
 // ===========================================================================
 OutputDevice::OutputDevice(const int defaultIndentation, const std::string& filename) :
-    myFilename(filename) {
-    myFormatter = new PlainXMLFormatter(defaultIndentation);
+    myFilename(filename), myFormatter(new PlainXMLFormatter(defaultIndentation)) {
 }
 
 
@@ -217,15 +242,22 @@ OutputDevice::setPrecision(int precision) {
 }
 
 
+int
+OutputDevice::precision() {
+    return (int)getOStream().precision();
+}
+
+
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,
                              const std::string& schemaFile,
-                             std::map<SumoXMLAttr, std::string> attrs) {
+                             std::map<SumoXMLAttr, std::string> attrs,
+                             bool includeConfig) {
     if (schemaFile != "") {
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
         attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, includeConfig);
 }
 
 

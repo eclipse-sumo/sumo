@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:07 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:35 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -40,25 +40,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_1_0" index="0" speed="15.28" length="14.40" shape="48.40,60.40 48.40,46.00"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="3.65" length="2.34" shape="48.40,60.40 49.20,59.20 50.00,58.80"/>
+        <lane id=":0_2_0" index="0" speed="3.65" length="1.44" shape="48.40,60.40 49.20,59.20"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="3.65" length="2.34" shape="50.00,58.80 50.80,59.20 51.60,60.40"/>
+        <lane id=":0_6_0" index="0" speed="3.65" length="3.23" shape="49.20,59.20 50.00,58.80 50.80,59.20 51.60,60.40"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" index="0" speed="15.28" length="14.40" shape="51.60,46.00 51.60,60.40"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" speed="7.33" length="4.04" shape="51.60,46.00 51.05,48.45 50.00,49.56"/>
+        <lane id=":0_4_0" index="0" speed="7.33" length="2.51" shape="51.60,46.00 51.05,48.45"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="3.65" length="2.34" shape="51.60,46.00 50.80,47.20 50.00,47.60"/>
+        <lane id=":0_5_0" index="0" speed="3.65" length="1.44" shape="51.60,46.00 50.80,47.20"/>
     </edge>
     <edge id=":0_7" function="internal">
-        <lane id=":0_7_0" index="0" speed="7.33" length="7.68" shape="50.00,49.56 49.40,50.20 46.65,51.25 42.80,51.60"/>
+        <lane id=":0_7_0" index="0" speed="7.33" length="9.21" shape="51.05,48.45 49.40,50.20 46.65,51.25 42.80,51.60"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" speed="3.65" length="2.34" shape="50.00,47.60 49.20,47.20 48.40,46.00"/>
+        <lane id=":0_8_0" index="0" speed="3.65" length="3.23" shape="50.80,47.20 50.00,47.60 49.20,47.20 48.40,46.00"/>
     </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" speed="3.65" length="4.67" shape="48.40,0.00 49.20,-1.20 50.00,-1.60 50.80,-1.20 51.60,0.00"/>
@@ -100,9 +100,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_6_0" type="internal" x="50.00" y="58.80" incLanes=":0_2_0 3i_0" intLanes=":0_3_0"/>
-    <junction id=":0_7_0" type="internal" x="50.00" y="49.56" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
-    <junction id=":0_8_0" type="internal" x="50.00" y="47.60" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_6_0" type="internal" x="49.20" y="59.20" incLanes=":0_2_0 3i_0" intLanes=":0_3_0"/>
+    <junction id=":0_7_0" type="internal" x="51.05" y="48.45" incLanes=":0_4_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_8_0" type="internal" x="50.80" y="47.20" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
 
     <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="s" state="M"/>
     <connection from="3i" to="1o" fromLane="0" toLane="1" via=":0_4_0" dir="l" state="m"/>

@@ -1,0 +1,112 @@
+Warning: Vehicle 'cNS.4' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=37.50.
+Warning: Vehicle 'cSN.5' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=42.50.
+Warning: Teleporting vehicle 'cSN.5'; junction collision with vehicle 'bWE.5', lane=':C_12_0', gap=-1.00, time=43.50 stage=move.
+Warning: Vehicle 'cSN.5' ends teleporting on edge 'CN', time=43.50.
+Warning: Vehicle 'cNS.9' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=72.50.
+Warning: Vehicle 'cSN.10' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=77.50.
+Warning: Teleporting vehicle 'cSN.10'; junction collision with vehicle 'bWE.12', lane=':C_12_0', gap=-1.00, time=78.50 stage=move.
+Warning: Vehicle 'cSN.10' ends teleporting on edge 'CN', time=78.50.
+Warning: Vehicle 'cNS.14' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=107.50.
+Warning: Vehicle 'cSN.15' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=112.50.
+Warning: Teleporting vehicle 'cSN.15'; junction collision with vehicle 'bWE.19', lane=':C_12_0', gap=-1.00, time=113.50 stage=move.
+Warning: Vehicle 'cSN.15' ends teleporting on edge 'CN', time=113.50.
+Warning: Vehicle 'cNS.19' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=142.50.
+Warning: Vehicle 'cSN.20' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=147.50.
+Warning: Teleporting vehicle 'cSN.20'; junction collision with vehicle 'bWE.26', lane=':C_12_0', gap=-1.00, time=148.50 stage=move.
+Warning: Vehicle 'cSN.20' ends teleporting on edge 'CN', time=148.50.
+Warning: Vehicle 'cNS.24' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=177.50.
+Warning: Vehicle 'cSN.25' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=182.50.
+Warning: Teleporting vehicle 'cSN.25'; junction collision with vehicle 'bWE.33', lane=':C_12_0', gap=-1.00, time=183.50 stage=move.
+Warning: Vehicle 'cSN.25' ends teleporting on edge 'CN', time=183.50.
+Warning: Vehicle 'cNS.29' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=212.50.
+Warning: Vehicle 'cSN.30' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=217.50.
+Warning: Teleporting vehicle 'cSN.30'; junction collision with vehicle 'bWE.40', lane=':C_12_0', gap=-1.00, time=218.50 stage=move.
+Warning: Vehicle 'cSN.30' ends teleporting on edge 'CN', time=218.50.
+Warning: Vehicle 'cNS.34' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=247.50.
+Warning: Vehicle 'cSN.35' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=252.50.
+Warning: Teleporting vehicle 'cSN.35'; junction collision with vehicle 'bWE.47', lane=':C_12_0', gap=-1.00, time=253.50 stage=move.
+Warning: Vehicle 'cSN.35' ends teleporting on edge 'CN', time=253.50.
+Warning: Vehicle 'cNS.39' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=282.50.
+Warning: Vehicle 'cSN.40' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=287.50.
+Warning: Teleporting vehicle 'cSN.40'; junction collision with vehicle 'bWE.54', lane=':C_12_0', gap=-1.00, time=288.50 stage=move.
+Warning: Vehicle 'cSN.40' ends teleporting on edge 'CN', time=288.50.
+Warning: Vehicle 'cNS.44' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=317.50.
+Warning: Vehicle 'cSN.45' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=322.50.
+Warning: Teleporting vehicle 'cSN.45'; junction collision with vehicle 'bWE.61', lane=':C_12_0', gap=-1.00, time=323.50 stage=move.
+Warning: Vehicle 'cSN.45' ends teleporting on edge 'CN', time=323.50.
+Warning: Vehicle 'cNS.49' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=352.50.
+Warning: Vehicle 'cSN.50' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=357.50.
+Warning: Teleporting vehicle 'cSN.50'; junction collision with vehicle 'bWE.68', lane=':C_12_0', gap=-1.00, time=358.50 stage=move.
+Warning: Vehicle 'cSN.50' ends teleporting on edge 'CN', time=358.50.
+Warning: Vehicle 'cNS.54' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=387.50.
+Warning: Vehicle 'cSN.55' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=392.50.
+Warning: Teleporting vehicle 'cSN.55'; junction collision with vehicle 'bWE.75', lane=':C_12_0', gap=-1.00, time=393.50 stage=move.
+Warning: Vehicle 'cSN.55' ends teleporting on edge 'CN', time=393.50.
+Warning: Vehicle 'cNS.59' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=422.50.
+Warning: Vehicle 'cSN.60' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=427.50.
+Warning: Teleporting vehicle 'cSN.60'; junction collision with vehicle 'bWE.82', lane=':C_12_0', gap=-1.00, time=428.50 stage=move.
+Warning: Vehicle 'cSN.60' ends teleporting on edge 'CN', time=428.50.
+Warning: Vehicle 'cNS.64' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=457.50.
+Warning: Vehicle 'cSN.65' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=462.50.
+Warning: Teleporting vehicle 'cSN.65'; junction collision with vehicle 'bWE.89', lane=':C_12_0', gap=-1.00, time=463.50 stage=move.
+Warning: Vehicle 'cSN.65' ends teleporting on edge 'CN', time=463.50.
+Warning: Vehicle 'cNS.69' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=492.50.
+Warning: Vehicle 'cSN.70' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=497.50.
+Warning: Teleporting vehicle 'cSN.70'; junction collision with vehicle 'bWE.96', lane=':C_12_0', gap=-1.00, time=498.50 stage=move.
+Warning: Vehicle 'cSN.70' ends teleporting on edge 'CN', time=498.50.
+Warning: Vehicle 'cNS.74' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=527.50.
+Warning: Vehicle 'cSN.75' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=532.50.
+Warning: Teleporting vehicle 'cSN.75'; junction collision with vehicle 'bWE.103', lane=':C_12_0', gap=-1.00, time=533.50 stage=move.
+Warning: Vehicle 'cSN.75' ends teleporting on edge 'CN', time=533.50.
+Warning: Vehicle 'cNS.79' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=562.50.
+Warning: Vehicle 'cSN.80' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=567.50.
+Warning: Teleporting vehicle 'cSN.80'; junction collision with vehicle 'bWE.110', lane=':C_12_0', gap=-1.00, time=568.50 stage=move.
+Warning: Vehicle 'cSN.80' ends teleporting on edge 'CN', time=568.50.
+Warning: Vehicle 'cNS.84' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=597.50.
+Warning: Vehicle 'cSN.85' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=602.50.
+Warning: Teleporting vehicle 'cSN.85'; junction collision with vehicle 'bWE.117', lane=':C_12_0', gap=-1.00, time=603.50 stage=move.
+Warning: Vehicle 'cSN.85' ends teleporting on edge 'CN', time=603.50.
+Warning: Vehicle 'cNS.89' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=632.50.
+Warning: Vehicle 'cSN.90' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=637.50.
+Warning: Teleporting vehicle 'cSN.90'; junction collision with vehicle 'bWE.124', lane=':C_12_0', gap=-1.00, time=638.50 stage=move.
+Warning: Vehicle 'cSN.90' ends teleporting on edge 'CN', time=638.50.
+Warning: Vehicle 'cNS.94' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=667.50.
+Warning: Vehicle 'cSN.95' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=672.50.
+Warning: Teleporting vehicle 'cSN.95'; junction collision with vehicle 'bWE.131', lane=':C_12_0', gap=-1.00, time=673.50 stage=move.
+Warning: Vehicle 'cSN.95' ends teleporting on edge 'CN', time=673.50.
+Warning: Vehicle 'cNS.99' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=702.50.
+Warning: Vehicle 'cSN.100' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=707.50.
+Warning: Teleporting vehicle 'cSN.100'; junction collision with vehicle 'bWE.138', lane=':C_12_0', gap=-1.00, time=708.50 stage=move.
+Warning: Vehicle 'cSN.100' ends teleporting on edge 'CN', time=708.50.
+Warning: Vehicle 'cNS.104' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=737.50.
+Warning: Vehicle 'cSN.105' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=742.50.
+Warning: Teleporting vehicle 'cSN.105'; junction collision with vehicle 'bWE.145', lane=':C_12_0', gap=-1.00, time=743.50 stage=move.
+Warning: Vehicle 'cSN.105' ends teleporting on edge 'CN', time=743.50.
+Warning: Vehicle 'cNS.109' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=772.50.
+Warning: Vehicle 'cSN.110' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=777.50.
+Warning: Teleporting vehicle 'cSN.110'; junction collision with vehicle 'bWE.152', lane=':C_12_0', gap=-1.00, time=778.50 stage=move.
+Warning: Vehicle 'cSN.110' ends teleporting on edge 'CN', time=778.50.
+Warning: Vehicle 'cNS.114' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=807.50.
+Warning: Vehicle 'cSN.115' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=812.50.
+Warning: Teleporting vehicle 'cSN.115'; junction collision with vehicle 'bWE.159', lane=':C_12_0', gap=-1.00, time=813.50 stage=move.
+Warning: Vehicle 'cSN.115' ends teleporting on edge 'CN', time=813.50.
+Warning: Vehicle 'cNS.119' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=842.50.
+Warning: Vehicle 'cSN.120' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=847.50.
+Warning: Teleporting vehicle 'cSN.120'; junction collision with vehicle 'bWE.166', lane=':C_12_0', gap=-1.00, time=848.50 stage=move.
+Warning: Vehicle 'cSN.120' ends teleporting on edge 'CN', time=848.50.
+Warning: Vehicle 'cNS.124' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=877.50.
+Warning: Vehicle 'cSN.125' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=882.50.
+Warning: Teleporting vehicle 'cSN.125'; junction collision with vehicle 'bWE.173', lane=':C_12_0', gap=-1.00, time=883.50 stage=move.
+Warning: Vehicle 'cSN.125' ends teleporting on edge 'CN', time=883.50.
+Warning: Vehicle 'cNS.129' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=912.50.
+Warning: Vehicle 'cSN.130' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=917.50.
+Warning: Teleporting vehicle 'cSN.130'; junction collision with vehicle 'bWE.180', lane=':C_12_0', gap=-1.00, time=918.50 stage=move.
+Warning: Vehicle 'cSN.130' ends teleporting on edge 'CN', time=918.50.
+Warning: Vehicle 'cNS.134' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=947.50.
+Warning: Vehicle 'cSN.135' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=952.50.
+Warning: Teleporting vehicle 'cSN.135'; junction collision with vehicle 'bWE.187', lane=':C_12_0', gap=-1.00, time=953.50 stage=move.
+Warning: Vehicle 'cSN.135' ends teleporting on edge 'CN', time=953.50.
+Warning: Vehicle 'cNS.139' performs emergency braking on lane ':C_2_0' with decel=9.00, wished=4.50, severity=1.00, time=982.50.
+Warning: Vehicle 'cSN.140' performs emergency braking on lane 'SC_2' with decel=9.00, wished=4.50, severity=1.00, time=987.50.
+Warning: Teleporting vehicle 'cSN.140'; junction collision with vehicle 'bWE.194', lane=':C_12_0', gap=-1.00, time=988.50 stage=move.
+Warning: Vehicle 'cSN.140' ends teleporting on edge 'CN', time=988.50.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating a junction
 GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
-    GNEChange(junction, forward, junction->isAttributeCarrierSelected()),
+    GNEChange(Supermode::NETWORK, junction, forward, junction->isAttributeCarrierSelected()),
     myJunction(junction) {
     junction->incRef("GNEChange_Junction");
 }
@@ -73,7 +73,7 @@ GNEChange_Junction::undo() {
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -99,25 +99,25 @@ GNEChange_Junction::redo() {
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
-FXString
+std::string
 GNEChange_Junction::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return (TL("Undo create junction '") + myJunction->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return (TL("Undo delete junction '") + myJunction->getID() + "'");
     }
 }
 
 
-FXString
+std::string
 GNEChange_Junction::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return (TL("Redo create junction '") + myJunction->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return (TL("Redo delete junction '") + myJunction->getID() + "'");
     }
 }

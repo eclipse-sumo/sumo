@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,20 +22,25 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StringUtils.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include "microsim/traffic_lights/NEMAController.h"
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <netload/NLDetectorBuilder.h>
 #include <libsumo/TraCIConstants.h>
+#include "Helper.h"
 #include "TrafficLight.h"
 
 //#define DEBUG_CONSTRAINT_DEADLOCK
@@ -46,7 +51,6 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults TrafficLight::mySubscriptionResults;
 ContextSubscriptionResults TrafficLight::myContextSubscriptionResults;
-
 
 // ===========================================================================
 // static member definitions
@@ -65,14 +69,14 @@ TrafficLight::getIDCount() {
 
 std::string
 TrafficLight::getRedYellowGreenState(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getState();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().getState();
 }
 
 
 std::vector<TraCILogic>
 TrafficLight::getAllProgramLogics(const std::string& tlsID) {
     std::vector<TraCILogic> result;
-    const std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
+    const std::vector<MSTrafficLightLogic*> logics = Helper::getTLS(tlsID).getAllLogics();
     for (MSTrafficLightLogic* logic : logics) {
         TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
@@ -90,7 +94,7 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
 std::vector<std::string>
 TrafficLight::getControlledJunctions(const std::string& tlsID) {
     std::set<std::string> junctionIDs;
-    const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
+    const MSTrafficLightLogic::LinkVectorVector& links = Helper::getTLS(tlsID).getActive()->getLinks();
     for (const MSTrafficLightLogic::LinkVector& llinks : links) {
         for (const MSLink* l : llinks) {
             junctionIDs.insert(l->getJunction()->getID());
@@ -103,7 +107,7 @@ TrafficLight::getControlledJunctions(const std::string& tlsID) {
 std::vector<std::string>
 TrafficLight::getControlledLanes(const std::string& tlsID) {
     std::vector<std::string> laneIDs;
-    const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = Helper::getTLS(tlsID).getActive()->getLaneVectors();
     for (const MSTrafficLightLogic::LaneVector& llanes : lanes) {
         for (const MSLane* l : llanes) {
             laneIDs.push_back(l->getID());
@@ -116,8 +120,8 @@ TrafficLight::getControlledLanes(const std::string& tlsID) {
 std::vector<std::vector<TraCILink> >
 TrafficLight::getControlledLinks(const std::string& tlsID) {
     std::vector<std::vector<TraCILink> > result;
-    const MSTrafficLightLogic::LaneVectorVector& lanes = getTLS(tlsID).getActive()->getLaneVectors();
-    const MSTrafficLightLogic::LinkVectorVector& links = getTLS(tlsID).getActive()->getLinks();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = Helper::getTLS(tlsID).getActive()->getLaneVectors();
+    const MSTrafficLightLogic::LinkVectorVector& links = Helper::getTLS(tlsID).getActive()->getLinks();
     for (int i = 0; i < (int)lanes.size(); ++i) {
         std::vector<TraCILink> subList;
         const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
@@ -139,36 +143,36 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
 
 std::string
 TrafficLight::getProgram(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getProgramID();
+    return Helper::getTLS(tlsID).getActive()->getProgramID();
 }
 
 
 int
 TrafficLight::getPhase(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseIndex();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseIndex();
 }
 
 
 std::string
 TrafficLight::getPhaseName(const std::string& tlsID) {
-    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
+    return Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
 }
 
 
 double
 TrafficLight::getPhaseDuration(const std::string& tlsID) {
-    return STEPS2TIME(getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);
+    return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);
 }
 
 
 double
 TrafficLight::getNextSwitch(const std::string& tlsID) {
-    return STEPS2TIME(getTLS(tlsID).getActive()->getNextSwitchTime());
+    return STEPS2TIME(Helper::getTLS(tlsID).getActive()->getNextSwitchTime());
 }
 
 int
 TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     if (index < 0 || active->getPhaseNumber() <= index) {
         throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
                              + toString(active->getPhaseNumber() - 1) + "].");
@@ -210,7 +214,7 @@ std::vector<std::string>
 TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
     // for railsignals we cannot use the "online" program
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -224,7 +228,7 @@ TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<std::string>
 TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -238,7 +242,7 @@ TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<std::string>
 TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
     std::vector<std::string> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
         throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
                              + toString(active->getNumLinks() - 1) + "].");
@@ -252,7 +256,7 @@ TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
 std::vector<TraCISignalConstraint>
 TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId) {
     std::vector<TraCISignalConstraint> result;
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
     MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
     if (s == nullptr) {
         throw TraCIException("'" + tlsID + "' is not a rail signal");
@@ -262,15 +266,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
             continue;
         }
         for (MSRailSignalConstraint* c : item.second) {
-            result.push_back(buildConstraint(tlsID, item.first, c, false));
-        }
-    }
-    for (auto item : s->getInsertionConstraints()) {
-        if (tripId != "" && tripId != item.first) {
-            continue;
-        }
-        for (MSRailSignalConstraint* c : item.second) {
-            result.push_back(buildConstraint(tlsID, item.first, c, true));
+            result.push_back(buildConstraint(tlsID, item.first, c));
         }
     }
     return result;
@@ -282,7 +278,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
     std::vector<TraCISignalConstraint> result;
     for (const std::string& tlsID : getIDList()) {
-        MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+        MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
         MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
         if (s != nullptr) {
             for (auto item : s->getConstraints()) {
@@ -290,16 +286,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
                     MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
                     if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
                             && (foeId == "" || pc->myTripId == foeId)) {
-                        result.push_back(buildConstraint(s->getID(), item.first, pc, false));
-                    }
-                }
-            }
-            for (auto item : s->getInsertionConstraints()) {
-                for (MSRailSignalConstraint* cand : item.second) {
-                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                    if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
-                            && (foeId == "" || pc->myTripId == foeId)) {
-                        result.push_back(buildConstraint(s->getID(), item.first, pc, true));
+                        result.push_back(buildConstraint(s->getID(), item.first, pc));
                     }
                 }
             }
@@ -308,13 +295,31 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     return result;
 }
 
+
+void
+TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId, const int type, const int limit) {
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active2 = Helper::getTLS(foeSignal).getDefault();
+    MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+    MSRailSignal* s2 = dynamic_cast<MSRailSignal*>(active2);
+    if (s == nullptr) {
+        throw TraCIException("'" + tlsID + "' is not a rail signal");
+    }
+    if (s2 == nullptr) {
+        throw TraCIException("'" + foeSignal + "' is not a rail signal");
+    }
+    MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor((MSRailSignalConstraint::ConstraintType)type, s2, foeId, limit, true);
+    s->addConstraint(tripId, c);
+}
+
+
 std::vector<TraCISignalConstraint>
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
     std::cout << "swapConstraints tlsId=" << tlsID << " tripId=" << tripId << " foeSignal=" << foeSignal << " foeId=" << foeId << "\n";
 #endif
-    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
-    MSTrafficLightLogic* const active2 = getTLS(foeSignal).getDefault();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
+    MSTrafficLightLogic* const active2 = Helper::getTLS(foeSignal).getDefault();
     MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
     MSRailSignal* s2 = dynamic_cast<MSRailSignal*>(active2);
     if (s == nullptr) {
@@ -338,13 +343,88 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     }
     if (c != nullptr) {
         const int limit = c->myLimit;
+        // the two constraints are complementary so we actually remove rather than deactivate to avoid redundant conflict information
+        MSRailSignalConstraint::ConstraintType type = c->getSwappedType();
+        MSRailSignalConstraint* swapped = new MSRailSignalConstraint_Predecessor(type, s, tripId, limit, true);
+        swapped->updateParameters(c->getParametersMap());
+        swapParameters(swapped);
         s->removeConstraint(tripId, c);
-        s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(s, tripId, limit));
-        return findConstraintsDeadLocks(foeId, tripId, foeSignal);
+        s2->addConstraint(foeId, swapped);
+        return findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
     } else {
-        throw TraCIException("Rail signal '" + tlsID + "' does not have a contraint for tripId '" + tripId + "' with foeSignal '" + foeSignal + "' and foeId '" + foeId + "'");
+        throw TraCIException("Rail signal '" + tlsID + "' does not have a constraint for tripId '" + tripId + "' with foeSignal '" + foeSignal + "' and foeId '" + foeId + "'");
     }
 }
+
+
+std::vector<std::pair<std::string, std::string> >
+TrafficLight::getSwapParams(int constraintType) {
+    std::vector<std::pair<std::string, std::string> > result({
+        {"vehID", "foeID"},
+        {"line", "foeLine"},
+        {"arrival", "foeArrival"}});
+
+    if (constraintType == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
+        std::vector<std::pair<std::string, std::string> > special({
+            {"busStop", "busStop2"},
+            {"priorStop", "priorStop2"},
+            {"stopArrival", "foeStopArrival"}});
+        result.insert(result.end(), special.begin(), special.end());
+    }
+    return result;
+}
+
+
+void
+TrafficLight::swapParameters(MSRailSignalConstraint* c) {
+    // swap parameters that were assigned by generateRailSignalConstraints.py
+    for (auto keys : getSwapParams(c->getType())) {
+        swapParameters(c, keys.first, keys.second);
+    }
+}
+
+void
+TrafficLight::swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2) {
+    const std::string value1 = c->getParameter(key1);
+    const std::string value2 = c->getParameter(key2);
+    if (value1 != "") {
+        c->setParameter(key2, value1);
+    } else {
+        c->unsetParameter(key2);
+    }
+    if (value2 != "") {
+        c->setParameter(key1, value2);
+    } else {
+        c->unsetParameter(key1);
+    }
+}
+
+void
+TrafficLight::swapParameters(TraCISignalConstraint& c) {
+    // swap parameters that were assigned by generateRailSignalConstraints.py
+    for (auto keys : getSwapParams(c.type)) {
+        swapParameters(c, keys.first, keys.second);
+    }
+}
+
+void
+TrafficLight::swapParameters(TraCISignalConstraint& c, const std::string& key1, const std::string& key2) {
+    auto it1 = c.param.find(key1);
+    auto it2 = c.param.find(key2);
+    const std::string value1 = it1 != c.param.end() ? it1->second : "";
+    const std::string value2 = it2 != c.param.end() ? it2->second : "";
+    if (value1 != "") {
+        c.param[key2] = value1;
+    } else {
+        c.param.erase(key2);
+    }
+    if (value2 != "") {
+        c.param[key1] = value2;
+    } else {
+        c.param.erase(key1);
+    }
+}
+
 
 void
 TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
@@ -352,18 +432,17 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     // @note could improve efficiency by storing a map of rail signals in MSRailSignalControl
     for (const std::string& tlsCand : getIDList()) {
         if (tlsID == "" || tlsCand == tlsID) {
-            MSTrafficLightLogic* const active = getTLS(tlsCand).getDefault();
+            MSTrafficLightLogic* const active = Helper::getTLS(tlsCand).getDefault();
             MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
             if (s != nullptr) {
-                auto cands = s->getConstraints(); // make copy
-                for (auto item : cands) {
+                for (auto item : s->getConstraints()) {
                     if (tripId == "" || item.first == tripId) {
                         for (MSRailSignalConstraint* cand : item.second) {
                             MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
                             if (pc != nullptr
                                     && (foeId == "" || pc->myTripId == foeId)
                                     && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
-                                s->removeConstraint(item.first, cand);
+                                cand->setActive(false);
                             }
                         }
                     }
@@ -374,8 +453,93 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
 }
 
 
+void
+TrafficLight::updateConstraints(const std::string& vehID, std::string tripId) {
+    // Removes all constraints that can no longer be met because the route of
+    // vehID does not pass the signal involved in the constraint with the given tripId.
+    // This includes constraints on tripId as well as constraints where tripId is the foeId.
+
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    std::string curTripId = veh->getParameter().getParameter("tripId", veh->getID());
+    tripId = tripId == "" ? curTripId : tripId;
+
+    // find signals and tripId along the route of veh
+    std::map<const MSRailSignal*, std::set<std::string> > onRoute;
+    const ConstMSEdgeVector& route = veh->getRoute().getEdges();
+    auto routeIt = veh->getCurrentRouteEdge();
+    for (const MSStop& stop : veh->getStops()) {
+        for (auto it = routeIt; it < stop.edge; it++) {
+            const MSEdge* edge = *it;
+            if (edge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+                if (it + 1 != route.end()) {
+                    const MSEdge* next = *(it + 1);
+                    const MSLink* link = edge->getLanes()[0]->getLinkTo(next->getLanes()[0]);
+                    if (link != nullptr && link->getTLLogic() != nullptr) {
+                        const MSRailSignal* s = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+                        onRoute[s].insert(curTripId);
+                    }
+                }
+            }
+        }
+        if (stop.pars.tripId != "") {
+            curTripId = stop.pars.tripId;
+        }
+        routeIt = stop.edge;
+    }
+    for (auto it = routeIt; it < route.end(); it++) {
+        const MSEdge* edge = *it;
+        if (edge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            if (it + 1 != route.end()) {
+                const MSEdge* next = *(it + 1);
+                const MSLink* link = edge->getLanes()[0]->getLinkTo(next->getLanes()[0]);
+                if (link != nullptr && link->getTLLogic() != nullptr) {
+                    const MSRailSignal* s = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+                    onRoute[s].insert(curTripId);
+                }
+            }
+        }
+    }
+    //for (auto item : onRoute) {
+    //    std::cout << " s=" << item.first->getID() << " @" << item.first <<  " ids=" << toString(item.second) << "\n";
+    //}
+
+    // check relevance for all active contraints
+    for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
+
+        // record outdated constraints on and by the vehicle
+        std::vector<MSRailSignalConstraint*> onVeh;
+        std::vector<std::pair<std::string, MSRailSignalConstraint*> > byVeh;
+
+        for (auto item : s->getConstraints()) {
+            for (MSRailSignalConstraint* cand : item.second) {
+                MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
+                if (pc != nullptr && !pc->cleared() && pc->isActive()) {
+                    if (item.first == tripId) {
+                        if (onRoute[s].count(tripId) == 0) {
+                            // constraint on our veh no longer relevant
+                            onVeh.push_back(cand);
+                        }
+                    } else if (pc->myTripId == tripId) {
+                        if (onRoute[pc->myFoeSignal].count(tripId) == 0) {
+                            // constraint by our veh no longer relevant
+                            byVeh.push_back(std::make_pair(item.first, cand));
+                        }
+                    }
+                }
+            }
+        }
+        for (MSRailSignalConstraint* c : onVeh) {
+            s->removeConstraint(tripId, c);
+        }
+        for (auto item : byVeh) {
+            s->removeConstraint(item.first, item.second);
+        }
+    }
+}
+
+
 std::vector<TraCISignalConstraint>
-TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal) {
+TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID) {
     std::vector<TraCISignalConstraint> result;
     // find circular constraints (deadlock)
     // foeId is now constrainted by tripId and assumed to follow tripId on the
@@ -390,36 +554,56 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         for (auto item : s->getConstraints()) {
             for (MSRailSignalConstraint* cand : item.second) {
                 MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                if (pc != nullptr && !pc->cleared()) {
+                if (pc != nullptr && !pc->cleared() && pc->isActive()) {
                     if (item.first == tripId) {
+                        // tripId waits for foe2
                         // @could there by more than one constraint on tripId by this foe2?
-                        constraintsOnTripId[pc->myTripId] = buildConstraint(s->getID(), item.first, pc, false);
+                        libsumo::TraCISignalConstraint tsc = buildConstraint(s->getID(), item.first, pc);
+                        constraintsOnTripId[pc->myTripId] = tsc;
                         foeId2Cands1.insert(pc->myTripId);
+                        for (std::string& futureFoe2Id : getFutureTripIds(pc->myTripId)) {
+                            foeId2Cands1.insert(futureFoe2Id);
+                            //tsc.foeId = futureFoe2Id; // if we do this, the constraint to swap will not be found
+                            constraintsOnTripId[futureFoe2Id] = tsc;
+                        }
                     } else if (pc->myTripId == foeId) {
-                        constrainedByFoeId[item.first] = buildConstraint(s->getID(), item.first, pc, false);
+                        // foeId2 waits for foe
+                        libsumo::TraCISignalConstraint tsc = buildConstraint(s->getID(), item.first, pc);
+                        constrainedByFoeId[item.first] = tsc;
                         foeId2Cands2.insert(item.first);
+                        for (std::string& futureTripId : getFutureTripIds(item.first)) {
+                            foeId2Cands2.insert(futureTripId);
+                            //tsc.tripId = futureTripId; // if we do this, the constraint to swap will not be found
+                            constrainedByFoeId[futureTripId] = tsc;
+                        }
                     }
                 }
             }
         }
     }
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+    std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << " tlsID=" << tlsID << "\n";
+    std::cout << "  foeId2Cands1=" << toString(foeId2Cands1) << "\n";
+    std::cout << "  foeId2Cands2=" << toString(foeId2Cands2) << "\n";
+#endif
     if (foeId2Cands1.size() > 0) {
         // foe2 might be constrained implicitly by foe due to following on the same track
         // in this case foe must be on the route of foe2 between its current position and foeSignal
 
         // we have to check this first because it also affects foeInsertion
-        // constraints if the foe is already inserted but hasn't yet passed to
-        // single (cleared == false).
+        // constraints if the foe is already inserted but hasn't yet passed the
+        // signal (cleared == false).
         SUMOVehicle* foe = getVehicleByTripId(foeId);
         if (foe != nullptr) {
             const MSEdge* foeEdge = foe->getEdge();
             const double foePos = foe->getPositionOnLane();
             for (const std::string& foeId2 : foeId2Cands1) {
+                // tripId waits for foeId2
                 SUMOVehicle* foe2 = getVehicleByTripId(foeId2);
                 if (foe2 != nullptr) {
-                    ConstMSEdgeVector foe2Route = foe2->getRoute().getEdges();
+                    const ConstMSEdgeVector& foe2Route = foe2->getRoute().getEdges();
                     const TraCISignalConstraint& c = constraintsOnTripId[foeId2];
-                    bool constrainedByFoe = false;
+                    bool foeAhead = false;
                     for (int i = foe2->getRoutePosition(); i < (int)foe2Route.size(); i++) {
                         const MSEdge* e = foe2Route[i];
                         if (e == foeEdge &&
@@ -429,7 +613,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                                      (foe->getParameter().depart < foe2->getParameter().depart
                                       || (foe->getParameter().depart == foe2->getParameter().depart && foe->getNumericalID() < foe2->getNumericalID())))
                                 )) {
-                            constrainedByFoe = true;
+                            foeAhead = true;
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
                             std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
                             std::cout << "  foeLeaderDeadlock foeEdge=" << foeEdge->getID() << " foe2=" << foe2->getParameter().getParameter("tripId", foe2->getID())
@@ -444,7 +628,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                             break;
                         }
                     }
-                    if (constrainedByFoe) {
+                    if (foeAhead) {
                         // foe cannot wait for foe2 (since it's behind). Instead foe2 must wait for tripId
                         TraCISignalConstraint nc; // constraint after swap
                         nc.tripId = c.foeId;
@@ -454,13 +638,16 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.limit = c.limit;
                         nc.type = c.type;
                         nc.mustWait = true; // ???
+                        nc.active = true;
+                        nc.param = c.param;
+                        swapParameters(nc);
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
                         result.insert(result.end(), result2.begin(), result2.end());
 
-                        // Other deadlocks might not be valid anymre need fresh recheck for remaining implicit or explicit deadlocks
-                        const std::vector<TraCISignalConstraint>& result4 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
+                        // Other deadlocks might not be valid anymore so we need a fresh recheck for remaining implicit or explicit deadlocks
+                        const std::vector<TraCISignalConstraint>& result4 = findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
                         result.insert(result.end(), result4.begin(), result4.end());
                         return result;
                     }
@@ -468,6 +655,67 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
             }
         }
     }
+
+    if (foeId2Cands2.size() > 0) {
+        // tripId might be constrained implicitly by foe2 due to following on the same track
+        // in this case foe2 must be on the route of tripId between its current position and tlsID
+        // if foe2 then waits for foe, deadlock occurs
+
+        SUMOVehicle* ego = getVehicleByTripId(tripId);
+        if (ego != nullptr && (ego->hasDeparted() || !ego->getParameter().wasSet(VEHPARS_FORCE_REROUTE))) {
+            std::set<const MSEdge*> egoToSignal;
+            const double egoPos = ego->getPositionOnLane();
+            const ConstMSEdgeVector& egoRoute = ego->getRoute().getEdges();
+            for (int i = ego->getRoutePosition(); i < (int)egoRoute.size(); i++) {
+                const MSEdge* e = egoRoute[i];
+                egoToSignal.insert(e);
+                if (e->getToJunction()->getID() == tlsID) {
+                    break;
+                }
+            }
+
+            for (const std::string& foeId2 : foeId2Cands2) {
+                // foeId2 waits for foe
+                SUMOVehicle* foe2 = getVehicleByTripId(foeId2);
+                //std::cout << "  foe2=" << foe2->getID() << " edge=" << foe2->getEdge()->getID() << " egoToSignal=" << toString(egoToSignal) << "\n";
+                if (foe2 != nullptr) {
+                    if (egoToSignal.count(foe2->getEdge()) != 0
+                            && (foe2->getEdge() != ego->getEdge() || foe2->getPositionOnLane() > egoPos)) {
+                        const TraCISignalConstraint& c = constrainedByFoeId[foeId2];
+#ifdef DEBUG_CONSTRAINT_DEADLOCK
+                        std::cout << "findConstraintsDeadLocks foeId=" << foeId << " tripId=" << tripId << " foeSignal=" << foeSignal << "\n";
+                        std::cout << "  egoLeaderDeadlock foe2Edge=" << foe2->getEdge()->getID() << " foe2=" << foe2->getParameter().getParameter("tripId", foe2->getID())
+                                  << " " << c.getString() << "\n";
+#endif
+                        // foe is already waiting for tripId (ego) and should also wait for foeId2
+                        TraCISignalConstraint nc; // constraint after swap
+                        nc.tripId = c.foeId;
+                        nc.foeId = c.tripId;
+                        nc.signalId = c.foeSignal;
+                        nc.foeSignal = c.signalId;
+                        nc.limit = c.limit;
+                        nc.type = c.type;
+                        nc.mustWait = true; // ???
+                        nc.active = true;
+                        nc.param = c.param;
+                        swapParameters(nc);
+                        result.push_back(nc);
+                        // let foe wait for foe2
+                        std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
+                        result.insert(result.end(), result2.begin(), result2.end());
+
+                        // Other deadlocks might not be valid anymore so we need a fresh recheck for remaining implicit or explicit deadlocks
+                        const std::vector<TraCISignalConstraint>& result4 = findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
+                        result.insert(result.end(), result4.begin(), result4.end());
+                        return result;
+                    }
+                }
+            }
+        } else if (ego != nullptr) {
+            WRITE_WARNINGF(TL("Cannot check for all deadlocks on swapConstraints because the route for vehicle '%' is not computed yet"), ego->getID());
+        }
+    }
+
     // find deadlock in explicit constraints
     std::vector<std::string> foeIds2;
     std::set_intersection(
@@ -481,7 +729,11 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
     }
 #endif
     if (foeIds2.size() > 0) {
-        const TraCISignalConstraint& c = constrainedByFoeId[foeIds2.front()];
+        TraCISignalConstraint c = constrainedByFoeId[foeIds2.front()];
+        if (c.type == MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR) {
+            // avoid swapping insertion constraint
+            c = constraintsOnTripId[foeIds2.front()];
+        }
         TraCISignalConstraint nc; // constraint after swap
         nc.tripId = c.foeId;
         nc.foeId = c.tripId;
@@ -490,13 +742,16 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.limit = c.limit;
         nc.type = c.type;
         nc.mustWait = true; // ???
+        nc.active = true;
+        nc.param = c.param;
+        swapParameters(nc);
         result.push_back(nc);
         // let foe wait for foe2
         const std::vector<TraCISignalConstraint>& result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
         result.insert(result.end(), result2.begin(), result2.end());
         if (foeIds2.size() > 1) {
             // calling swapConstraints once may result in further swaps so we have to recheck for remaining deadlocks anew
-            const std::vector<TraCISignalConstraint>& result3 = findConstraintsDeadLocks(foeId, tripId, foeSignal);
+            const std::vector<TraCISignalConstraint>& result3 = findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
             result.insert(result.end(), result3.begin(), result3.end());
         }
     }
@@ -517,9 +772,32 @@ TrafficLight::getVehicleByTripId(const std::string tripOrVehID) {
 }
 
 
+std::vector<std::string>
+TrafficLight::getFutureTripIds(const std::string vehID) {
+    std::vector<std::string> result;
+    MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(vehID));
+    if (veh) {
+        std::string tripId = veh->getParameter().getParameter("tripId");
+        if (tripId != "") {
+            result.push_back(tripId);
+        }
+        for (const MSStop& stop : veh->getStops()) {
+            if (stop.pars.tripId != "") {
+                result.push_back(stop.pars.tripId);
+            }
+        }
+    }
+    return result;
+}
+
+
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {
-    return getTLS(tlsID).getActive()->getParameter(paramName, "");
+    MSTrafficLightLogic* tll = Helper::getTLS(tlsID).getActive();
+    if (StringUtils::startsWith(paramName, "NEMA.") && tll->getLogicType() != TrafficLightType::NEMA) {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
+    }
+    return tll->getParameter(paramName, "");
 }
 
 
@@ -528,13 +806,13 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(TrafficLight)
 
 void
 TrafficLight::setRedYellowGreenState(const std::string& tlsID, const std::string& state) {
-    getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
+    Helper::getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
 }
 
 
 void
 TrafficLight::setPhase(const std::string& tlsID, const int index) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     if (index < 0 || active->getPhaseNumber() <= index) {
         throw TraCIException("The phase index " + toString(index) + " is not in the allowed range [0,"
                              + toString(active->getPhaseNumber() - 1) + "].");
@@ -546,7 +824,7 @@ TrafficLight::setPhase(const std::string& tlsID, const int index) {
 
 void
 TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     const_cast<MSPhaseDefinition&>(active->getCurrentPhaseDef()).setName(name);
 }
 
@@ -554,7 +832,7 @@ TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
 void
 TrafficLight::setProgram(const std::string& tlsID, const std::string& programID) {
     try {
-        getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
+        Helper::getTLS(tlsID).switchTo(MSNet::getInstance()->getTLSControl(), programID);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -563,7 +841,7 @@ TrafficLight::setProgram(const std::string& tlsID, const std::string& programID)
 
 void
 TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDuration) {
-    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getActive();
     const SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
     active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, -1, TIME2STEPS(phaseDuration));
 }
@@ -571,14 +849,18 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 
 void
 TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic) {
-    MSTLLogicControl::TLSLogicVariants& vars = getTLS(tlsID);
+    MSTLLogicControl::TLSLogicVariants& vars = Helper::getTLS(tlsID);
     // make sure index and phaseNo are consistent
     if (logic.currentPhaseIndex >= (int)logic.phases.size()) {
         throw TraCIException("set program: parameter index must be less than parameter phase number.");
     }
     std::vector<MSPhaseDefinition*> phases;
-    for (TraCIPhase* phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, TIME2STEPS(phase->minDur), TIME2STEPS(phase->maxDur), phase->next, phase->name));
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+        MSPhaseDefinition* sumoPhase = new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, phase->name);
+        sumoPhase->minDuration = TIME2STEPS(phase->minDur);
+        sumoPhase->maxDuration = TIME2STEPS(phase->maxDur);
+        sumoPhase->nextPhases = phase->next;
+        phases.push_back(sumoPhase);
     }
     if (vars.getLogic(logic.programID) == nullptr) {
         MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
@@ -589,55 +871,85 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         switch ((TrafficLightType)logic.type) {
             case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
-                        tlsID, logic.programID,
+                        tlsID, logic.programID, 0,
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
+            case TrafficLightType::NEMA:
+                tlLogic = new NEMALogic(tlc,
+                                        tlsID, logic.programID, 0,
+                                        phases, step, nextSwitch,
+                                        logic.subParameter, basePath);
+                break;
             case TrafficLightType::DELAYBASED:
                 tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
-                        tlsID, logic.programID,
+                        tlsID, logic.programID, 0,
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
             case TrafficLightType::STATIC:
                 tlLogic = new MSSimpleTrafficLightLogic(tlc,
-                                                        tlsID, logic.programID, TrafficLightType::STATIC,
+                                                        tlsID, logic.programID, 0, TrafficLightType::STATIC,
                                                         phases, step, nextSwitch,
                                                         logic.subParameter);
                 break;
             default:
                 throw TraCIException("Unsupported traffic light type '" + toString(logic.type) + "'");
         }
-        vars.addLogic(logic.programID, tlLogic, true, true);
+        try {
+            if (!vars.addLogic(logic.programID, tlLogic, true, true)) {
+                throw TraCIException("Could not add traffic light logic '" + logic.programID + "'");
+            }
+        } catch (const ProcessError& e) {
+            throw TraCIException(e.what());
+        }
         // XXX pass GUIDetectorBuilder when running with gui
         NLDetectorBuilder db(*MSNet::getInstance());
         tlLogic->init(db);
+        MSNet::getInstance()->createTLWrapper(tlLogic);
     } else {
-        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
+        MSSimpleTrafficLightLogic* tlLogic = static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID));
+        tlLogic->setPhases(phases, logic.currentPhaseIndex);
+        tlLogic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+        vars.executeOnSwitchActions();
     }
 }
 
 
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
-    return getTLS(tlsID).getActive()->setParameter(paramName, value);
+    MSTrafficLightLogic* tll = Helper::getTLS(tlsID).getActive();
+    if (StringUtils::startsWith(paramName, "NEMA.") && tll->getLogicType() != TrafficLightType::NEMA) {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
+    }
+    tll->setParameter(paramName, value);
 }
-
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
+void
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>& splits) {
+    setParameter(tlsID, "NEMA.splits", toString(splits));
+}
 
-MSTLLogicControl::TLSLogicVariants&
-TrafficLight::getTLS(const std::string& id) {
-    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-        throw TraCIException("Traffic light '" + id + "' is not known");
-    }
-    return MSNet::getInstance()->getTLSControl().get(id);
+void
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", toString(maxGreens));
+}
+
+void
+TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", toString(cycleLength));
+}
+
+void
+TrafficLight::setNemaOffset(const std::string& tlsID, double offset) {
+    setParameter(tlsID, "NEMA.offset", toString(offset));
 }
 
 
 libsumo::TraCISignalConstraint
-TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint) {
+TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint) {
     TraCISignalConstraint c;
     c.tripId = tripId;
     MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(constraint);
@@ -649,8 +961,10 @@ TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripI
         c.foeId = pc->myTripId;
         c.foeSignal = pc->myFoeSignal->getID();
         c.limit = pc->myLimit;
-        c.type = insertionConstraint ? 1 : 0;
-        c.mustWait = !pc->cleared();
+        c.type = pc->getType();
+        c.mustWait = !pc->cleared() && pc->isActive();
+        c.active = pc->isActive();
+        c.param = constraint->getParametersMap();
     }
     return c;
 }

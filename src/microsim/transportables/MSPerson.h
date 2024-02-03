@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSStageMoving.h>
 
 
 // ===========================================================================
@@ -45,7 +46,6 @@ class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
-class MSTransportableStateAdapter;
 class MSMoveReminder;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -61,128 +61,6 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 class MSPerson : public MSTransportable {
 public:
     /**
-     * A "real" stage performing the walking to an edge
-     * The walking does not need any route as it is not simulated.
-     * Only the duration is needed
-     */
-    class MSPersonStage_Walking : public MSStageMoving {
-    public:
-        /// constructor
-        MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
-                              double speed, double departPos, double arrivalPos, double departPosLat);
-
-        /// destructor
-        ~MSPersonStage_Walking();
-
-        MSStage* clone() const;
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
-
-        /// abort this stage (TraCI)
-        void abort(MSTransportable*);
-
-        /// sets the walking speed (ignored in other stages)
-        void setSpeed(double speed);
-
-        /// @brief get travel distance in this stage
-        double getDistance() const {
-            return walkDistance();
-        }
-
-        std::string getStageDescription(const bool isPerson) const {
-            UNUSED_PARAMETER(isPerson);
-            return "walking";
-        }
-
-        std::string getStageSummary(const bool isPerson) const;
-
-        /** @brief Saves the current state into the given stream
-         */
-        void saveState(std::ostringstream& out);
-
-        /** @brief Reconstructs the current state
-         */
-        void loadState(MSTransportable* transportable, std::istringstream& state);
-
-        /** @brief Called on writing tripinfo output
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
-        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
-
-        /** @brief Called on writing vehroute output
-         * @param[in] os The stream to write the information into
-         * @param[in] withRouteLength whether route length shall be written
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
-
-        /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
-
-        /// @brief accessors to be used by MSPModel
-        //@{
-        double getMaxSpeed(const MSTransportable* const person) const;
-
-        inline double getArrivalPos() const {
-            return myArrivalPos;
-        }
-
-        inline const MSEdge* getNextRouteEdge() const {
-            return myRouteStep == myRoute.end() - 1 ? nullptr : *(myRouteStep + 1);
-        }
-        //@}
-
-
-    private:
-
-        /// @brief compute total walking distance
-        double walkDistance() const;
-
-        /* @brief compute average speed if the total walking duration is given
-         * @note Must be called when the previous stage changes myDepartPos from the default*/
-        double computeAverageSpeed() const;
-
-
-    private:
-        /// the time the person is walking
-        SUMOTime myWalkingTime;
-
-        /// the time the person entered the edge
-        SUMOTime myLastEdgeEntryTime;
-
-        /// @brief the MoveReminders encountered while walking
-        std::vector<MSMoveReminder*> myMoveReminders;
-
-        /// @brief optional exit time tracking for vehroute output
-        std::vector<SUMOTime>* myExitTimes;
-
-        class arrival_finder {
-        public:
-            /// constructor
-            explicit arrival_finder(SUMOTime time) : myTime(time) {}
-
-            /// comparison operator
-            bool operator()(double t) const {
-                return myTime > t;
-            }
-
-        private:
-            /// the searched arrival time
-            SUMOTime myTime;
-        };
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSPersonStage_Walking(const MSPersonStage_Walking&);
-
-        /// @brief Invalidated assignment operator.
-        MSPersonStage_Walking& operator=(const MSPersonStage_Walking&);
-
-    };
-
-    /**
      * An intermediate stage performing the access from or to public transport as given
      * by the access elements of the public transport stop. The travel time is computed by the simulation
      */
@@ -190,7 +68,8 @@ public:
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist, const bool isExit);
+                             const double arrivalPos, const double dist, const bool isExit,
+                             const Position& startPos, const Position& endPos);
 
         /// destructor
         ~MSPersonStage_Access();
@@ -212,6 +91,9 @@ public:
         double getDistance() const {
             return myDist;
         }
+
+        /// @brief the speed of the person in this stage
+        double getSpeed() const;
 
         /** @brief Called on writing tripinfo output
         *
@@ -239,6 +121,8 @@ public:
         };
 
     private:
+        /// the origin edge
+        const MSEdge* myOrigin;
         const double myDist;
         const bool myAmExit;
         SUMOTime myEstimatedArrival;
@@ -254,7 +138,7 @@ public:
 
     /* @brief check whether an access stage must be added and return whether a
      * stage was added */
-    bool checkAccess(const MSStage* const prior, const bool isDisembark = true);
+    bool checkAccess(const MSStage* const prior, const bool waitAtStop = true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;
@@ -267,16 +151,21 @@ public:
         return false;
     }
 
-    inline double getSpeedFactor() const {
+    inline double getChosenSpeedFactor() const {
         return myChosenSpeedFactor;
     }
 
-    inline void setSpeedFactor(const double factor) {
+    inline void setChosenSpeedFactor(const double factor) {
         myChosenSpeedFactor = factor;
     }
 
+    double getImpatience() const;
+
+    /// @brief whether the person is jammed as defined by the current pedestrian model
+    bool isJammed() const;
+
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
-    void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
+    void reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

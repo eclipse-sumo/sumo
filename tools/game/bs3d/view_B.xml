@@ -4,8 +4,8 @@
         <background backgroundColor="1.00,1.00,1.00"
                     showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
         <edges laneEdgeMode="1" laneShowBorders="0" showLinkDecals="1" showRails="1" hideConnectors="0"
-               edgeName_show="0" edgeName_size="50.00" edgeName_color="1.00,0.50,0.00" 
-               internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="0.50,0.25,0.00" 
+               edgeName_show="0" edgeName_size="50.00" edgeName_color="1.00,0.50,0.00"
+               internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="0.50,0.25,0.00"
                streetName_show="0" streetName_size="55.00" streetName_color="1.00,1.00,0.00" >
             <colorScheme name="uniform">
                 <entry color="1.0,0,0,1.0"/>
@@ -175,8 +175,8 @@
             </colorScheme>
         </vehicles>
         <junctions junctionMode="0" drawLinkTLIndex="0" drawLinkJunctionIndex="0"
-                  junctionName_show="0" junctionName_size="50.00" junctionName_color="0.00,1.00,0.50" 
-                  internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0.00,0.80,0.50" 
+                  junctionName_show="0" junctionName_size="50.00" junctionName_color="0.00,1.00,0.50"
+                  internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0.00,0.80,0.50"
  showLane2Lane="0">
             <colorScheme name="uniform">
                 <entry color="0,0,0,0"/>
@@ -194,11 +194,11 @@
     </scheme>
 
     <delay value="400"/>
-    <viewport zoom="1000" x="500" y="650" centerX="664" centerY="631"/>
-    <decal filename="bs3.3ds" centerX="660" centerY="679" rotation="1.30" tilt="0" roll="90"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:0" centerX="680" centerY="660" rotation="180" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:5" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:10" centerX="660" centerY="620" width="-1" height="-1" altitude="4"/>
-    <decal filename="tl:cluster_104171179_28142770_28298581_28298587:15" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
+    <viewport zoom="0.00" x="688.16" y="737.37" z="56.56" angle="4.24" centerX="688.06" centerY="736.48" centerZ="56.10"/>
+    <decal file="bs3.3ds" centerX="660" centerY="679" rotation="1.30" tilt="0" roll="90"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:0" centerX="680" centerY="660" rotation="180" width="-1" height="-1" altitude="4"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:5" centerX="690" centerY="630" rotation="90" width="-1" height="-1" altitude="4"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:10" centerX="660" centerY="620" width="-1" height="-1" altitude="4"/>
+    <decal file="tl:cluster_104171179_28142770_28298581_28298587:15" centerX="650" centerY="650" rotation="-90" width="-1" height="-1" altitude="4"/>
     <light centerX="600" centerY="600" centerZ="300"/>
 </viewsettings>

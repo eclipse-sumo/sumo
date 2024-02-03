@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,6 +53,7 @@ NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
     myOffset(offset),
     myType(type) {}
 
+
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     Named(logic->getID()),
     myNumLinks(logic->myNumLinks),
@@ -64,16 +65,27 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
+
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, const int index) {
     addStep(duration, state,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
-            next, name, index);
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION,
+            name, next, index);
 }
 
+
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
+                             const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                             const std::string& name,
+                             const std::vector<int>& next,
+                             int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -85,14 +97,14 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
     // check state contents
     const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
-        throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
+        throw ProcessError(TLF("When adding phase: illegal character '%' in state", toString(state[illegal])));
     }
     // interpret index
     if (index < 0 || index >= (int)myPhases.size()) {
         // insert at the end
         index = (int)myPhases.size();
     }
-    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, next, name));
+    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, next, name));
 }
 
 
@@ -105,6 +117,38 @@ NBTrafficLightLogic::deletePhase(int index) {
     myPhases.erase(myPhases.begin() + index);
 }
 
+
+void
+NBTrafficLightLogic::swapPhase(int indexPhaseA, int indexPhaseB) {
+    if (indexPhaseA >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseA) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    if (indexPhaseB >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseB) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    // declare auxiliar PhaseDefinition and swap
+    const auto auxPhase = myPhases.at(indexPhaseA);
+    myPhases.at(indexPhaseA) = myPhases.at(indexPhaseB);
+    myPhases.at(indexPhaseB) = auxPhase;
+}
+
+
+void
+NBTrafficLightLogic::swapfirstPhase() {
+    const auto firstPhase = myPhases.front();
+    myPhases.erase(myPhases.begin());
+    myPhases.push_back(firstPhase);
+}
+
+
+void
+NBTrafficLightLogic::swaplastPhase() {
+    const auto lastPhase = myPhases.back();
+    myPhases.pop_back();
+    myPhases.insert(myPhases.begin(), lastPhase);
+}
 
 void
 NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
@@ -120,6 +164,7 @@ NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     }
     myNumLinks = numLinks;
 }
+
 
 void
 NBTrafficLightLogic::deleteStateIndex(int index) {
@@ -185,7 +230,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
                 }
             }
             if (!found) {
-                WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+                WRITE_WARNINGF(TL("Non-static traffic light '%' does not define variable phase length."), getID());
             }
         }
     }
@@ -207,11 +252,13 @@ NBTrafficLightLogic::setPhaseDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].duration = duration;
 }
 
+
 void
 NBTrafficLightLogic::setPhaseMinDuration(int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].minDur = duration;
 }
+
 
 void
 NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
@@ -219,11 +266,48 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].maxDur = duration;
 }
 
+
+void
+NBTrafficLightLogic::setPhaseEarliestEnd(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].earliestEnd = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseLatestEnd(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].latestEnd = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseVehExt(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].vehExt = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseYellow(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].yellow = duration;
+}
+
+
+void
+NBTrafficLightLogic::setPhaseRed(int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].red = duration;
+}
+
+
 void
 NBTrafficLightLogic::setPhaseNext(int phaseIndex, const std::vector<int>& next) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].next = next;
 }
+
 
 void
 NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
@@ -231,5 +315,13 @@ NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
     myPhases[phaseIndex].name = name;
 }
 
+
+void
+NBTrafficLightLogic::overrideState(int phaseIndex, const char c) {
+    assert(phaseIndex < (int)myPhases.size());
+    for (int i = 0; i < (int)myPhases[phaseIndex].state.size(); i++) {
+        myPhases[phaseIndex].state[i] = c;
+    }
+}
 
 /****************************************************************************/

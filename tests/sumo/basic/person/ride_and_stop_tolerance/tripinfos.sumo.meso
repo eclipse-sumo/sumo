@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 18:32:13 2020 by Eclipse SUMO sumo Version v1_7_0+1296-45fee5e4a0
+<!-- generated on 2022-04-05 10:30:40 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -40,9 +45,9 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="7.35" departDelay="0.00" arrival="102.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="102.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="42.00" arrivalPos="0.00" duration="42.00" routeLength="500.00" timeLoss="0.00"/>
-        <stop duration="100.00" arrival="142.00" arrivalPos="60.00" actType="waiting"/>
+    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="102.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="102.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="28.00" arrivalPos="0.00" duration="28.00" routeLength="500.00" timeLoss="0.00"/>
+        <stop duration="101.00" arrival="129.00" arrivalPos="60.00" actType="waiting"/>
     </personinfo>
 </tripinfos>

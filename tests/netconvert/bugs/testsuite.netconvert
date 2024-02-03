@@ -72,6 +72,9 @@ ticket1586b
 # all lanes allow pedestrians only
 ticket1586c
 
+# no unregulated nodes
+ticket1586d
+
 # computing node shape with corner detail failed
 ticket1674
 ticket1678
@@ -121,3 +124,74 @@ ticket7761
 
 # traffic light corruption when using option --geometry.remove
 ticket8413
+
+# turnaround in input ignored
+ticket8796
+
+# connectivity on bike lane start
+ticket8899
+
+# duplicated roundabout
+ticket9810
+
+# junction shape
+ticket10589
+
+# regression on clipping curved shapes
+ticket10727
+
+# strange connections
+ticket10771
+
+# invalid rail crossing
+ticket10777
+
+# join looses tram connection
+ticket10826
+
+# doubly linked edge with hybrid tram
+ticket10978
+
+# right of way rules at side road with custom internal junction
+ticket11146
+
+# invalid rail internal junction
+ticket11558
+
+# glitched walkingarea shape
+ticket11590
+
+# crash during roundabout processing
+ticket11779
+
+# missing foes at internal junction
+ticket11988
+
+# missing foes at internal junction
+ticket11988b
+
+# invalid node shape (for uncommen edge shapes)
+ticket11996
+
+# invalid plain output
+ticket12086
+
+# prohibitions fail for edge id with '_' 
+ticket12419
+
+# prohibitions fail for edge id with '_' 
+ticket12419b
+
+# handling abstract projection in input
+ticket12761
+
+# no connection to merged tram
+ticket12767
+
+# missing connection to merged tram
+ticket12768
+ticket13542
+ticket13542b
+
+# crash
+ticket13581

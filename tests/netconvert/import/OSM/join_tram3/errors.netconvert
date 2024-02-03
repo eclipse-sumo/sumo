@@ -1,17 +1,9 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '10699691').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '10855571').
-Warning: Discarding unusable type 'waterway.river' (first occurence for edge '50664988').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '79523627').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '170955809').
-Warning: Discarding unknown compound 'cycleway.separate' in type 'cycleway.separate|highway.secondary' (first occurence for edge '192204858').
-Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '492576991').
-Warning: Removing pt stop '1820622402' on non existing edge '170955811'.
-Warning: Removing pt stop '5787601679' on non existing edge '170955810'.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 228027 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2064835 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077646 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077647 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077946 are ignored
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '10699691').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '10855571').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '50664988').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '79523627').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '170955809').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '492576991').
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '6413098'.
 Warning: PT line in relation 6783677 with no stops ignored. Probably OSM file is incomplete.
@@ -20,11 +12,16 @@ Warning: No way found for reference '4823464352' in relation '7200749'
 Warning: No way found for reference '4823464351' in relation '7200750'
 Warning: No way found for reference '4823464352' in relation '7200750'
 Warning: No way found for reference '4823464352' in relation '7200751'
-Warning: Not joining tram edge '175769905#0' with 2 lanes
-Warning: Not joining tram edge '175769905#1' with 2 lanes
-Warning: Not joining tram edge '175769905#2' with 2 lanes
-Warning: Not joining tram edge '175769905#3' with 2 lanes
-Warning: Not joining tram edge '175769905#4' with 2 lanes
-Warning: 18 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: Not joining tram edge '175769905#0' with 2 lanes.
+Warning: Not joining tram edge '175769905#1' with 2 lanes.
+Warning: Not joining tram edge '175769905#2' with 2 lanes.
+Warning: Not joining tram edge '175769905#3' with 2 lanes.
+Warning: Not joining tram edge '175769905#4' with 2 lanes.
+Warning: Converting invalid rail_crossing to priority junction '1863122982'.
+Warning: Converting invalid rail_crossing to priority junction '1863122984'.
+Warning: Converting invalid rail_crossing to priority junction '1863122991'.
+Warning: Converting invalid rail_crossing to priority junction '1863122992'.
+Warning: Converting invalid rail_crossing to priority junction '1882685597'.
+Warning: 7 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 26 total messages of type: No way found for reference '%' in relation '%'
-Warning: 23 total messages of type: Not joining tram edge '%' with % lanes
+Warning: 23 total messages of type: Not joining tram edge '%' with % lanes.

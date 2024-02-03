@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -56,8 +56,9 @@ phases.append(traci.trafficlight.Phase(10, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(40, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
-phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 logic = traci.trafficlight.Logic("custom", 0, 0, phases)
+phases.append(sumolib.net.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+logic.phases = phases
 traci.trafficlight.setProgramLogic(tlsID, logic)
 
 traci.trafficlight.setPhase(tlsID, 4)
@@ -65,7 +66,7 @@ traci.trafficlight.setPhaseName(tlsID, "setByTraCI")
 traci.trafficlight.setPhaseDuration(tlsID, 23)
 print("waitingPersons", traci.trafficlight.getServedPersonCount(tlsID, 2))
 check()
-defs = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)
+defs = traci.trafficlight.getAllProgramLogics(tlsID)
 print("numDefs=%s numPhases=%s" % (len(defs), list(map(lambda d: len(d.getPhases()), defs))))
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))

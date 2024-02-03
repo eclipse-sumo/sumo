@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-11-30 13:39:13.957089 by $Id$ v1_7_0+1356-7931c8a7ef
+
+<!-- generated on 2022-07-07 11:20:22.592460 by edgesInDistricts.py v1_13_0+1343-240e5d48340
   options: -n input_net.net.xml -t input_districts.xml -o out.add.xml -s
 -->
+
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
     <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0" edges="absBeg"/>
     <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0" color="blue" edges="absBeg absEnd end left2end middle"/>

@@ -1,0 +1,132 @@
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 18.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.00s
+ Real time factor: 4500
+ UPS: 4250.000000
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 186.70
+ Speed: 10.98
+ Duration: 17.00
+ WaitingTime: 0.00
+ TimeLoss: 1.57
+ DepartDelay: 0.00
+
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 74.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 14800
+ UPS: 14600.000000
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 675.74
+ Speed: 9.26
+ Duration: 73.00
+ WaitingTime: 0.00
+ TimeLoss: 10.27
+ DepartDelay: 0.00
+
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 40.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 6666.67
+ UPS: 6500.000000
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 323.30
+ Speed: 8.29
+ Duration: 39.00
+ WaitingTime: 0.00
+ TimeLoss: 6.67
+ DepartDelay: 0.00
+
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 18.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 2000
+ UPS: 1888.888889
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 186.70
+ Speed: 10.98
+ Duration: 17.00
+ WaitingTime: 0.00
+ TimeLoss: 1.57
+ DepartDelay: 0.00
+
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 74.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 12333.3
+ UPS: 12166.666667
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 675.74
+ Speed: 9.26
+ Duration: 73.00
+ WaitingTime: 0.00
+ TimeLoss: 10.27
+ DepartDelay: 0.00
+
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_16_0+2327-2301d50 started with time: 0.00.
+Simulation ended at time: 40.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.00s
+ Real time factor: 10000
+ UPS: 9750.000000
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1):
+ RouteLength: 323.30
+ Speed: 8.29
+ Duration: 39.00
+ WaitingTime: 0.00
+ TimeLoss: 6.67
+ DepartDelay: 0.00
+
+running seed 1
+running seed 2
+running seed 3
+running seed 1
+running seed 2
+running seed 3

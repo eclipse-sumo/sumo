@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-31 10:26:13 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <save-state.times value="10"/>
+        <save-state.files value="state.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="1.00"/>
+    <timestep time="2.00">
+        <person id="p0" x="110.40" y="80.85" angle="0.00" speed="1.47" pos="80.85" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="p0" x="110.40" y="81.99" angle="0.00" speed="1.47" pos="81.99" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="p0" x="110.40" y="83.12" angle="0.00" speed="1.47" pos="83.12" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="p0" x="110.40" y="84.26" angle="0.00" speed="1.47" pos="84.26" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="p0" x="110.40" y="112.65" angle="0.00" speed="1.47" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="p0" x="110.40" y="113.79" angle="0.00" speed="1.47" pos="1.14" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="p0" x="110.40" y="114.92" angle="0.00" speed="1.47" pos="2.27" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="p0" x="110.40" y="116.06" angle="0.00" speed="1.47" pos="3.41" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00"/>
+</fcd-export>

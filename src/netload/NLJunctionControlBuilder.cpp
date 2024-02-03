@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,6 +55,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "NLBuilder.h"
 #include "NLJunctionControlBuilder.h"
+#include "microsim/traffic_lights/NEMAController.h"
 
 
 // ===========================================================================
@@ -69,10 +70,9 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder
     myNet(net),
     myDetectorBuilder(db),
     myOffset(0),
-    myJunctions(nullptr),
+    myJunctions(new MSJunctionControl()),
     myNetIsLoaded(false) {
     myLogicControl = new MSTLLogicControl();
-    myJunctions = new MSJunctionControl();
 }
 
 
@@ -105,8 +105,15 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
 
 void
 NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
+    if (myCurrentHasError) {
+        // had an error before...
+        return;
+    }
+    if (myRequestSize != NO_REQUEST_SIZE && myRequestItemNumber != myRequestSize) {
+        throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
+    }
     if (myJunctions == nullptr) {
-        throw ProcessError("Information about the number of nodes was missing.");
+        throw ProcessError(TL("Information about the number of nodes was missing."));
     }
     MSJunction* junction = nullptr;
     switch (myType) {
@@ -115,19 +122,26 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         case SumoXMLNodeType::DEAD_END_DEPRECATED:
         case SumoXMLNodeType::DISTRICT:
         case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+            if (!myActiveLogic.empty()) {
+                WRITE_WARNINGF(TL("Ignoring junction logic for junction '%'."), myActiveID)
+            }
             junction = buildNoLogicJunction();
             break;
         case SumoXMLNodeType::TRAFFIC_LIGHT:
         case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
         case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+        case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
         case SumoXMLNodeType::PRIORITY:
         case SumoXMLNodeType::PRIORITY_STOP:
         case SumoXMLNodeType::ALLWAY_STOP:
         case SumoXMLNodeType::ZIPPER:
-            junction = buildLogicJunction();
+            junction = buildLogicJunction(new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts));
             break;
         case SumoXMLNodeType::INTERNAL:
             if (MSGlobals::gUsingInternalLanes) {
+                if (!myActiveLogic.empty()) {
+                    WRITE_WARNINGF(TL("Ignoring junction logic for junction '%'."), myActiveID)
+                }
                 junction = buildInternalJunction();
             }
             break;
@@ -138,7 +152,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
             myActiveProgram = "0";
             myLogicType = myType == SumoXMLNodeType::RAIL_SIGNAL ? TrafficLightType::RAIL_SIGNAL : TrafficLightType::RAIL_CROSSING;
             closeTrafficLightLogic(basePath);
-            junction = buildLogicJunction();
+            junction = buildLogicJunction(new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts));
             break;
         default:
             throw InvalidArgument("False junction logic type.");
@@ -147,8 +161,8 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         if (!myJunctions->add(myActiveID, junction)) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
+        junction->updateParameters(myAdditionalParameter);
     }
-    junction->updateParameters(myAdditionalParameter);
 }
 
 
@@ -168,13 +182,9 @@ NLJunctionControlBuilder::buildNoLogicJunction() {
 
 
 MSJunction*
-NLJunctionControlBuilder::buildLogicJunction() {
-    MSJunctionLogic* jtype = getJunctionLogicSecure();
-    // build the junction
+NLJunctionControlBuilder::buildLogicJunction(MSJunctionLogic* const logic) {
     return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveName,
-                                    myActiveIncomingLanes,
-                                    myActiveInternalLanes,
-                                    jtype);
+                                    myActiveIncomingLanes, myActiveInternalLanes, logic);
 }
 
 
@@ -183,16 +193,6 @@ NLJunctionControlBuilder::buildInternalJunction() {
     // build the junction
     return new MSInternalJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
                                   myActiveInternalLanes);
-}
-
-
-MSJunctionLogic*
-NLJunctionControlBuilder::getJunctionLogicSecure() {
-    // get and check the junction logic
-    if (myLogics.find(myActiveID) == myLogics.end()) {
-        throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
-    }
-    return myLogics[myActiveID];
 }
 
 
@@ -208,50 +208,56 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         if (myAbsDuration > 0) {
             throw InvalidArgument("The off program for TLS '" + myActiveKey + "' has phases.");
         }
-        if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram,
-                                          new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey))) {
+        MSOffTrafficLightLogic* off = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
+        if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, off)) {
             throw InvalidArgument("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
         }
         return;
     }
     SUMOTime firstEventOffset = 0;
     int step = 0;
-    MSTrafficLightLogic* existing = nullptr;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    if (myLogicType != TrafficLightType::RAIL_SIGNAL && myLogicType != TrafficLightType::RAIL_CROSSING) {
-        if (myAbsDuration == 0) {
-            existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
-            if (existing == nullptr) {
-                throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
-            } else {
-                // only modify the offset of an existing logic
-                myAbsDuration = existing->getDefaultCycleTime();
-                i = existing->getPhases().begin();
+    MSTrafficLightLogic* existing = getTLLogicControlToUse().get(myActiveKey, myActiveProgram);
+    if (existing != nullptr && (existing->getLogicType() == TrafficLightType::RAIL_SIGNAL || existing->getLogicType() == TrafficLightType::RAIL_CROSSING)) {
+        existing->updateParameters(myAdditionalParameter);
+        return;
+    } else {
+        if (myLogicType != TrafficLightType::RAIL_SIGNAL && myLogicType != TrafficLightType::RAIL_CROSSING) {
+            if (myAbsDuration == 0) {
+                if (existing == nullptr) {
+                    throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
+                } else {
+                    // only modify the offset of an existing logic
+                    myAbsDuration = existing->getDefaultCycleTime();
+                    i = existing->getPhases().begin();
+                }
+            } else if (existing != nullptr) {
+                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
             }
-        }
-        // compute the initial step and first switch time of the tls-logic
-        // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
-        // @note The implementation of % for negative values is implementation defined in ISO1998
-        SUMOTime offset; // the time to run the traffic light in advance
-        if (myOffset >= 0) {
-            offset = (myNet.getCurrentTimeStep() + myAbsDuration - (myOffset % myAbsDuration)) % myAbsDuration;
-        } else {
-            offset = (myNet.getCurrentTimeStep() + ((-myOffset) % myAbsDuration)) % myAbsDuration;
-        }
-        while (offset >= (*i)->duration) {
-            step++;
-            offset -= (*i)->duration;
-            ++i;
-        }
-        firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
-        if (existing != nullptr) {
-            existing->changeStepAndDuration(getTLLogicControlToUse(),
-                                            myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
-            // parameters that are used when initializing a logic will not take
-            // effect but parameters that are checked at runtime can be used
-            // here (i.e. device.glosa.range)
-            existing->updateParameters(myAdditionalParameter);
-            return;
+            // compute the initial step and first switch time of the tls-logic
+            // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
+            // @note The implementation of % for negative values is implementation defined in ISO1998
+            SUMOTime offset; // the time to run the traffic light in advance
+            if (myOffset >= 0) {
+                offset = (myNet.getCurrentTimeStep() + myAbsDuration - (myOffset % myAbsDuration)) % myAbsDuration;
+            } else {
+                offset = (myNet.getCurrentTimeStep() + ((-myOffset) % myAbsDuration)) % myAbsDuration;
+            }
+            while (offset >= (*i)->duration) {
+                step++;
+                offset -= (*i)->duration;
+                ++i;
+            }
+            firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
+            if (existing != nullptr) {
+                existing->changeStepAndDuration(getTLLogicControlToUse(),
+                                                myNet.getCurrentTimeStep(), step, (*i)->duration - offset);
+                // parameters that are used when initializing a logic will not take
+                // effect but parameters that are checked at runtime can be used
+                // here (i.e. device.glosa.range)
+                myLogicParams[existing] = myAdditionalParameter;
+                return;
+            }
         }
     }
 
@@ -259,7 +265,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         myActiveProgram = "default";
     }
     MSTrafficLightLogic* tlLogic = nullptr;
-    // build the tls-logic in dependance to its type
+    // build the tls-logic in dependence to its type
     switch (myLogicType) {
         case TrafficLightType::SWARM_BASED:
             firstEventOffset = DELTA_T; //this is needed because swarm needs to update the pheromone on the lanes at every step
@@ -287,19 +293,26 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             // @note it is unclear how to apply the given offset in the context
             // of variable-length phases
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter, basePath);
+                    myAdditionalParameter, basePath, myActiveConditions, myActiveAssignments, myActiveFunctions);
+            break;
+        case TrafficLightType::NEMA:
+            tlLogic = new NEMALogic(getTLLogicControlToUse(),
+                                    myActiveKey, myActiveProgram, myOffset,
+                                    myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
+                                    myAdditionalParameter, basePath);
             break;
         case TrafficLightType::DELAYBASED:
             tlLogic = new MSDelayBasedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
         case TrafficLightType::STATIC:
             tlLogic = new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                                    myActiveKey, myActiveProgram, TrafficLightType::STATIC,
+                                                    myActiveKey, myActiveProgram, myOffset,
+                                                    TrafficLightType::STATIC,
                                                     myActivePhases, step, firstEventOffset,
                                                     myAdditionalParameter);
             break;
@@ -317,19 +330,22 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             tlLogic = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
             break;
         case TrafficLightType::INVALID:
-            throw ProcessError("Invalid traffic light type '" + toString(myLogicType) + "'");
+            throw ProcessError(TLF("Invalid traffic light type '%'", toString(myLogicType)));
     }
     myActivePhases.clear();
     if (tlLogic != nullptr) {
         if (getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
             if (myNetIsLoaded) {
-                tlLogic->init(myDetectorBuilder);
+                myAdditionalLogics.push_back(tlLogic);
+            } else if (myLogicType == TrafficLightType::RAIL_SIGNAL) {
+                // special case: intialize earlier because signals are already used when
+                // loading train routes in additional files
+                myRailSignals.push_back(tlLogic);
             } else {
-                myLogics2PostLoadInit.push_back(tlLogic);
+                myNetworkLogics.push_back(tlLogic);
             }
         } else {
-            WRITE_ERROR("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
-            delete tlLogic;
+            WRITE_ERRORF(TL("Another logic with id '%' and programID '%' exists."), myActiveKey, myActiveProgram);
         }
     }
 }
@@ -396,6 +412,9 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();
+    myActiveConditions.clear();
+    myActiveAssignments.clear();
+    myActiveFunctions.clear();
     myAbsDuration = 0;
     myRequestSize = NO_REQUEST_SIZE;
     myLogicType = type;
@@ -405,55 +424,60 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes) {
+NLJunctionControlBuilder::addPhase(MSPhaseDefinition* phase) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name, transient_notdecisional, commit, targetLanes));
+    myActivePhases.push_back(phase);
     // add phase duration to the absolute duration
-    myAbsDuration += duration;
+    myAbsDuration += phase->duration;
+}
+
+
+bool
+NLJunctionControlBuilder::addCondition(const std::string& id, const std::string& value) {
+    if (myActiveConditions.count(id) == 0) {
+        myActiveConditions[id] = value;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                                   SUMOTime minDuration, SUMOTime maxDuration, const std::string& name) {
-    // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name));
-    // add phase duration to the absolute duration
-    myAbsDuration += duration;
+NLJunctionControlBuilder::addAssignment(const std::string& id, const std::string& check, const std::string& value) {
+    if (myActiveFunction.id == "") {
+        myActiveAssignments.push_back(std::make_tuple(id, check, value));
+    } else {
+        myActiveFunction.assignments.push_back(std::make_tuple(id, check, value));
+    }
 }
 
 
 void
-NLJunctionControlBuilder::closeJunctionLogic() {
-    if (myRequestSize == NO_REQUEST_SIZE) {
-        // We have a legacy network. junction element did not contain logicitems; read the logic later
-        return;
-    }
-    if (myCurrentHasError) {
-        // had an error before...
-        return;
-    }
-    if (myRequestItemNumber != myRequestSize) {
-        throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
-    }
-    if (myLogics.count(myActiveKey) > 0) {
-        throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
-    }
-    MSJunctionLogic* logic = new MSBitsetLogic(myRequestSize,
-            new MSBitsetLogic::Logic(myActiveLogic),
-            new MSBitsetLogic::Foes(myActiveFoes),
-            myActiveConts);
-    myLogics[myActiveKey] = logic;
+NLJunctionControlBuilder::addFunction(const std::string& id, int nArgs) {
+    myActiveFunction.id = id;
+    myActiveFunction.nArgs = nArgs;
+}
+
+
+void
+NLJunctionControlBuilder::closeFunction() {
+    myActiveFunctions[myActiveFunction.id] = myActiveFunction;
+    myActiveFunction.id = "";
+    myActiveFunction.assignments.clear();
 }
 
 
 MSTLLogicControl*
 NLJunctionControlBuilder::buildTLLogics() {
-    postLoadInitialization(); // must happen after edgeBuilder is finished
     if (!myLogicControl->closeNetworkReading()) {
-        throw ProcessError("Traffic lights could not be built.");
+        throw ProcessError(TL("Traffic lights could not be built."));
+    }
+    for (MSTrafficLightLogic* const logic : myRailSignals) {
+        logic->init(myDetectorBuilder);
     }
     MSTLLogicControl* ret = myLogicControl;
+    myNetIsLoaded = true;
     myLogicControl = nullptr;
     return ret;
 }
@@ -489,10 +513,16 @@ NLJunctionControlBuilder::getActiveSubKey() const {
 
 void
 NLJunctionControlBuilder::postLoadInitialization() {
-    for (MSTrafficLightLogic* const logic : myLogics2PostLoadInit) {
+    for (MSTrafficLightLogic* const logic : myNetworkLogics) {
         logic->init(myDetectorBuilder);
     }
-    myNetIsLoaded = true;
+    for (MSTrafficLightLogic* const logic : myAdditionalLogics) {
+        logic->init(myDetectorBuilder);
+    }
+    // delay parameter loading until initialization
+    for (auto item : myLogicParams) {
+        item.first->updateParameters(item.second);
+    }
 }
 
 

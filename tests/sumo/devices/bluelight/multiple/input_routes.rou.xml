@@ -1,7 +1,9 @@
 <routes>
     <vType id="left"  sigma="0" /> <!-- latAlignment="left"-->
     <vType id="right" sigma="0" />
-    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" speedFactor="2" width="1.2"/>
+    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" speedFactor="2" width="1.2">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
 
     <route id="r0" edges="SC CN"/>
     <vehicle id="left1"   type="left"   route="r0" depart="35" departLane="1" departPos="0"/>

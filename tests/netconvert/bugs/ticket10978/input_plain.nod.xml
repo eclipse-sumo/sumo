@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="5453.85,10848.71,5523.80,10926.03" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2972382261" x="5523.80" y="10892.43" type="dead_end"/>
+    <node id="30223042" x="5486.67" y="10887.97" type="traffic_light" tl="30223042" tlType="actuated"/>
+    <node id="5001523817" x="5489.79" y="10848.71" type="dead_end"/>
+    <node id="5001523818" x="5453.85" y="10882.60" type="dead_end"/>
+    <node id="529649253" x="5482.28" y="10926.03" type="dead_end"/>
+</nodes>

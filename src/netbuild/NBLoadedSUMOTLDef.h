@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ public:
      */
     NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset, TrafficLightType type);
 
-    /** @brief Constructor that copies from an existing definition and its computed logic (used by NETEDIT)
+    /** @brief Constructor that copies from an existing definition and its computed logic (used by netedit)
      * @param[in] def The definition to copy
      * @param[in] logic The computed logic of the given def
      */
@@ -59,6 +59,8 @@ public:
 
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
+
+    void setID(const std::string& newID);
 
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
@@ -69,7 +71,7 @@ public:
      */
     void setTLControllingInformation() const;
 
-    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+    /** @brief Replaces occurrences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
@@ -98,8 +100,15 @@ public:
      * @param[in] state The state definition of a tls phase
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] vehExt The vehExt of the phase to add
+     * @param[in] yellow The yellow of the phase to add
+     * @param[in] red The red of the phase to add
+     * @param[in] earliestEnd The early end of the phase to add
+     * @param[in] latestEnd The latest end of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name);
+    void addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur,
+                  const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow,
+                  const SUMOTime red, const std::vector<int>& next, const std::string& name);
 
     /// @brief mark phases as load
     void phasesLoaded() {
@@ -112,7 +121,7 @@ public:
 
 
     /** @brief removes the given connection from the traffic light
-     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in netedit
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
     void removeConnection(const NBConnection& conn, bool reconstruct = true);
@@ -163,14 +172,17 @@ public:
     // Note: Issues a warning when the grouping of def is incompatible with the current states
     void copyIndices(NBTrafficLightDefinition* def);
 
+    /// @brief perform optional final checks (on writing)
+    void finalChecks() const;
+
+    /// @brief replace the given link index in all connections
+    void replaceIndex(int oldIndex, int newIndex);
+
 protected:
-    /** @brief Collects the links participating in this traffic light
-     *    (only if not previously loaded)
-     */
+    /// @brief Collects the links participating in this traffic light (only if not previously loaded)
     void collectLinks();
 
-    /** @brief Build the list of participating edges
-     */
+    /// @brief Build the list of participating edges
     void collectEdges();
 
     /** @brief Computes the traffic light logic finally in dependence to the type
@@ -181,7 +193,7 @@ protected:
 
     bool amInvalid() const;
 
-    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    /// @brief initialize myNeedsContRelation and set myNeedsContRelationReady to true
     void initNeedsContRelation() const;
 
     /// @brief return the highest known tls link index used by any controlled connection or crossing
@@ -194,17 +206,14 @@ protected:
     std::string getStates(int index);
 
     /// @brief return whether the given link index is used by any connectons
-    bool isUsed(int index);
-
-    /// @brief replace the given link index in all connections
-    void replaceIndex(int oldIndex, int newIndex);
+    bool isUsed(int index) const;
 
     /// brief retrieve all edges with connections that use the given traffic light index
     std::set<const NBEdge*> getEdgesUsingIndex(int index) const;
 
 private:
 
-    /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
+    /// @brief phases are added directly to myTLLogic which is then returned in myCompute()
     NBTrafficLightLogic* myTLLogic;
 
     /// @brief repair the plan if controlled nodes received pedestrian crossings
@@ -244,10 +253,6 @@ private:
         }
     private:
         const NBConnection& myC;
-    private:
-        /// @brief invalidated assignment operator
-        connection_equal& operator=(const connection_equal& s);
-
     };
 
 };

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@ from __future__ import print_function
 
 import os
 import sys
-from optparse import OptionParser
 import subprocess
 
 if 'SUMO_HOME' in os.environ:
@@ -37,42 +36,49 @@ if 'SUMO_HOME' in os.environ:
     from sumolib.xml import parse, parse_fast_nested  # noqa
     from sumolib.net import readNet  # noqa
     from sumolib.miscutils import Statistics, euclidean, Colorgen  # noqa
+    from sumolib.options import ArgumentParser
     from route2poly import generate_poly  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options():
-    USAGE = "Usage %prog [options] <net.xml> <rou.xml>"
-    optParser = OptionParser(usage=USAGE)
+    USAGE = "Usage " + sys.argv[0] + " [options] <net.xml> <rou.xml>"
+    optParser = ArgumentParser(usage=USAGE)
+    optParser.add_option("-a", "--additional-files", default=None, dest='additional',
+                         help="additional files to pass through duarouter e.g. vehicle type definitions")
+    optParser.add_option("--unsorted-input", default=False, dest='unsortedinput', action="store_true",
+                         help="If the provided route file has unsorted departure times")
+    optParser.add_option("--ignore-errors", default=False, dest='duaroutererrors', action="store_true",
+                         help="Ignore errors when calling duarouter")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("--threshold", type="float", default=2.5,
-                         help="Routes with an implausibility-score above treshold are reported")
-    optParser.add_option("--airdist-ratio-factor", type="float", default=1, dest="airdist_ratio_factor",
+    optParser.add_option("--threshold", type=float, default=2.5,
+                         help="Routes with an implausibility-score above threshold are reported")
+    optParser.add_option("--airdist-ratio-factor", type=float, default=1, dest="airdist_ratio_factor",
                          help="Implausibility factor for the ratio of routeDist/airDist ")
-    optParser.add_option("--detour-ratio-factor", type="float", default=1, dest="detour_ratio_factor",
+    optParser.add_option("--detour-ratio-factor", type=float, default=1, dest="detour_ratio_factor",
                          help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
-    optParser.add_option("--detour-factor", type="float", default=0.01, dest="detour_factor",
+    optParser.add_option("--detour-factor", type=float, default=0.01, dest="detour_factor",
                          help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration)" +
                               " in seconds")
-    optParser.add_option("--min-dist", type="float", default=0, dest="min_dist",
+    optParser.add_option("--min-dist", type=float, default=0, dest="min_dist",
                          help="Minimum shortest-path distance below which routes are implausible")
-    optParser.add_option("--min-air-dist", type="float", default=0, dest="min_air_dist",
+    optParser.add_option("--min-air-dist", type=float, default=0, dest="min_air_dist",
                          help="Minimum air distance below which routes are implausible")
-    optParser.add_option("--standalone", action="store_true",
-                         default=False, help="Parse stand-alone routes that are not define as child-element of " +
-                                             "a vehicle")
-    optParser.add_option("--blur", type="float", default=0,
+    optParser.add_option("--standalone", action="store_true", default=False,
+                         help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    optParser.add_option("--blur", type=float, default=0,
                          help="maximum random disturbance to output polygon geometry")
     optParser.add_option("--ignore-routes", dest="ignore_routes",
                          help="List of route IDs (one per line) that are filtered when generating polygons and " +
                               "command line output (they will still be added to restrictions-output)")
+    optParser.add_option("-o", "--xml-output", dest="xmlOutput",
+                         help="Write implausibility scores and routes to xml FILE")
     optParser.add_option("--restriction-output", dest="restrictions_output",
                          help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
-    optParser.add_option("--od-restrictions", action="store_true", dest="odrestrictions",
-                         default=False, help="Write restrictions for origin-destination relations rather than " +
-                                             "whole routes")
+    optParser.add_option("--od-restrictions", action="store_true", dest="odrestrictions", default=False,
+                         help="Write restrictions for origin-destination relations rather than whole routes")
     optParser.add_option("--edge-loops", action="store_true",
                          default=False, help="report routes which use edges twice")
     optParser.add_option("--node-loops", action="store_true",
@@ -85,12 +91,10 @@ def get_options():
                          default=False, help="Use slow parsing for route files with different formats in one file")
     optParser.add_option("--reuse-routing", action="store_true",
                          default=False, help="do not run duarouter again if output file exists")
-    options, args = optParser.parse_args()
+    optParser.add_option("network", help="network file to use")
+    optParser.add_option("routeFiles", nargs='+', help="route files to use")
+    options = optParser.parse_args()
 
-    if len(args) < 2:
-        sys.exit(USAGE)
-    options.network = args[0]
-    options.routeFiles = args[1:]
     # options for generate_poly
     options.layer = 100
     options.geo = False
@@ -215,6 +219,13 @@ def main():
                    '-r', duarouterInput, '-o', duarouterOutput,
                    '--no-step-log', '--routing-threads', str(options.threads),
                    '--routing-algorithm', 'astar', '--aggregate-warnings',  '1']
+        if options.additional is not None:
+            command += ['--additional-files', options.additional]
+        if options.unsortedinput is not False:
+            command += ['--unsorted-input', '1']
+        if options.duaroutererrors is not False:
+            command += ['--ignore-errors', '1']
+
         if options.verbose:
             command += ["-v"]
         if options.verbose:
@@ -232,7 +243,7 @@ def main():
         else:
             oldCosts = float(routeAlts[0].cost)
             newCosts = float(routeAlts[1].cost)
-            assert(routeAlts[0].edges.split() == routeInfos[vehicle.id].edges)
+            assert routeAlts[0].edges.split() == routeInfos[vehicle.id].edges
             routeInfos[vehicle.id].shortest_path_distance = sumolib.route.getLength(net, routeAlts[1].edges.split())
             if oldCosts <= newCosts:
                 routeInfos[vehicle.id].detour = 0
@@ -246,8 +257,8 @@ def main():
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts
 
     implausible = []
-    allRoutesStats = Statistics("overall implausiblity")
-    implausibleRoutesStats = Statistics("implausiblity above threshold")
+    allRoutesStats = Statistics("overall implausibility")
+    implausibleRoutesStats = Statistics("implausibility above threshold")
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
         ri.implausibility = (options.airdist_ratio_factor * ri.airDistRatio +
@@ -268,6 +279,17 @@ def main():
                 if options.odrestrictions and len(edges) > 2:
                     edges = [edges[0], edges[-1]]
                 outf.write("0 %s\n" % " ".join(edges))
+
+    # write xml output
+    if options.xmlOutput is not None:
+        with open(options.xmlOutput, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$", options=options)  # noqa
+            outf.write('<implausibleRoutes>\n')
+            for score, rID, ri in sorted(implausible):
+                edges = " ".join(ri.edges)
+                outf.write('    <route id="%s" edges="%s" score="%s"/>\n' % (
+                    rID, edges, score))
+            outf.write('</implausibleRoutes>\n')
 
     if options.ignore_routes is not None:
         numImplausible = len(implausible)

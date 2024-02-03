@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,14 +50,14 @@ public:
     virtual ~MSLCM_LC2013();
 
     /// @brief Returns the model's id
-    LaneChangeModel getModelID() const {
-        return LCM_LC2013;
+    LaneChangeModel getModelID() const override {
+        return LaneChangeModel::LC2013;
     }
 
     /// @brief init cached parameters derived directly from model parameters
     void initDerivedParameters();
 
-    bool debugVehicle() const;
+    bool debugVehicle() const override;
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset.
@@ -77,9 +77,9 @@ public:
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked);
+        MSVehicle** firstBlocked) override;
 
-    void* inform(void* info, MSVehicle* sender);
+    void* inform(void* info, MSVehicle* sender) override;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *         It uses information on LC-related desired speed-changes from
@@ -92,33 +92,34 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     double patchSpeed(const double min, const double wanted, const double max,
-                      const MSCFModel& cfModel);
-    /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
-                       const MSCFModel& cfModel);
+                      const MSCFModel& cfModel) override;
 
-    void changed();
+    void changed() override;
 
-    double getSafetyFactor() const;
+    void resetState() override;
 
-    double getOppositeSafetyFactor() const;
+    double getSafetyFactor() const override;
 
-    void prepareStep();
+    double getOppositeSafetyFactor() const override;
+
+    void prepareStep() override;
+
+    double getExtraReservation(int bestLaneOffset) const override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief decides the next lateral speed (for continuous lane changing)
-    double computeSpeedLat(double latDist, double& maneuverDist) const;
-
-    /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
-    /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
-    double getAssumedDecelForLaneChangeDuration() const;
+    double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
 protected:
+
+    /** helper function which contains the actual logic */
+    double _patchSpeed(double min, const double wanted, double max,
+                       const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
     int _wantsChange(
@@ -167,16 +168,11 @@ protected:
     /// @brief anticipate future follow speed for the given leader
     double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
-
     /// @brief react to pedestrians on the given lane
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) {
-        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    };
+    bool saveBlockerLength(double length, double foeLeftSpace) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
@@ -197,14 +193,6 @@ protected:
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
-    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
-     *         and stores it into myLCAccelerationAdvices.
-     *  @note  This construction was introduced to deal with action step lengths,
-     *         where operation on the speed in the next sim step had to be replaced by acceleration
-     *         throughout the next action step.
-     */
-    void addLCSpeedAdvice(const double vSafe);
-
 protected:
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
@@ -223,10 +211,6 @@ protected:
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
-
-    /// @brief vector of LC-related acceleration recommendations
-    ///        Filled in wantsChange() and applied in patchSpeed()
-    std::vector<double> myLCAccelerationAdvices;
 
     bool myDontBrake; // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
 
@@ -251,11 +235,12 @@ protected:
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment
     double myCooperativeSpeed;
-    // allow overtaking right even though it is prohibited
-    double myOvertakeRightParam;
 
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;
+
+    // @brief speed difference factor for overtaking the leader on the neighbor lane before changing to that lane
+    double myOvertakeDeltaSpeedFactor;
 
     // for feature testing
     const double myExperimentalParam1;

@@ -1,4 +1,4 @@
 Warning: Teleporting vehicle 'right'; collision with vehicle 'collider', lane='e3_0', gap=-7.50', latGap=-0.10, time=11.00 stage=laneChange.
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'right', lane='e3_0', gap=-7.50', latGap=-0.10, time=11.00 stage=laneChange.
-Warning: Vehicle 'right' ends teleporting on edge 'e4', time 11.00.
-Warning: Vehicle 'collider' ends teleporting on edge 'e4', time 11.00.
+Warning: Vehicle 'right' ends teleporting on edge 'e4', time=11.00.
+Warning: Vehicle 'collider' ends teleporting on edge 'e4', time=11.00.

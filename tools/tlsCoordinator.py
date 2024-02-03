@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,20 +19,13 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import sys
 import subprocess
-import optparse
 from collections import namedtuple
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-    import sumolib  # noqa
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from sumolib.output import parse_fast  # noqa
+import sumolib
+from sumolib.output import parse_fast
+from sumolib.options import ArgumentParser
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
@@ -57,29 +50,24 @@ def logAddedPair(TLSP, sets, operation):
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-n", "--net-file", dest="netfile",
-                         help="define the net file (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         default="tlsOffsets.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-file", dest="routefile",
-                         help="define the inputroute file (mandatory)")
-    optParser.add_option("-a", "--additional-file", dest="addfile",
-                         help="define replacement tls plans to be coordinated")
-    optParser.add_option("-v", "--verbose", action="store_true",
+    optParser = ArgumentParser()
+    optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True,
+                         type=ArgumentParser.net_file, help="define the net file (mandatory)")
+    optParser.add_option("-o", "--output-file", category="output", dest="outfile",
+                         default="tlsOffsets.add.xml", type=ArgumentParser.file, help="define the output filename")
+    optParser.add_option("-r", "--route-file", category="input", dest="routefile", required=True,
+                         type=ArgumentParser.route_file, help="define the input route file (mandatory)")
+    optParser.add_option("-a", "--additional-file", category="input", dest="addfile",
+                         type=ArgumentParser.additional_file, help="define replacement tls plans to be coordinated")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-i", "--ignore-priority", dest="ignorePriority", action="store_true",
-                         default=False, help="Ignore road priority when sorting TLS pairs")
-    optParser.add_option("--speed-factor", type="float",
-                         default=0.8, help="avg ration of vehicle speed in relation to the speed limit")
-    optParser.add_option("-e", "--evaluate", action="store_true",
+    optParser.add_option("-i", "--ignore-priority", category="processing", dest="ignorePriority", action="store_true",
+                         default=False, help="ignore road priority when sorting TLS pairs")
+    optParser.add_option("--speed-factor", category="processing", type=float,
+                         default=0.8, help="avg ratio of vehicle speed in relation to the speed limit")
+    optParser.add_option("-e", "--evaluate", category="processing", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
-    (options, args) = optParser.parse_args(args=args)
-    if not options.netfile or not options.routefile:
-        optParser.print_help()
-        sys.exit()
-
-    return options
+    return optParser.parse_args(args=args)
 
 
 def locate(tlsToFind, sets):
@@ -110,8 +98,7 @@ def coordinateAfterSet(TLSP, l1, l1Pair, l1Index):
         l1depart = l1Pair.startOffset + l1Pair.betweenOffset + TLSP.ogreen
         TLSParrival = l1depart + TLSP.travelTime
         TLSPstartOffset = TLSParrival - TLSP.green
-        TLSP = TLSP._replace(
-            startOffset=l1depart, betweenOffset=TLSPstartOffset - l1depart)
+        TLSP = TLSP._replace(startOffset=l1depart, betweenOffset=TLSPstartOffset - l1depart)
     l1.append(TLSP)
     return TLSP
 
@@ -193,7 +180,7 @@ def computePairOffsets(TLSPList, verbose):
 
     print("operations: newSet=%s addToSet=%s addToSet2=%s addHalfCoordinated=%s mergeSets=%s" % (
         c1, c2, c3, c4, c5))
-    return(sets)
+    return sets
 
 
 def merge(sets, list1, list2, dt):
@@ -228,24 +215,28 @@ def getTLSInRoute(net, edge_ids):
     rTLSList = []  # list of traffic lights along the current route
     dist = 0
     time = 0
+    edgesSeen = set()
     for edgeID, nextEdgeID in zip(edge_ids[:-1], edge_ids[1:]):
         edge = net.getEdge(edgeID)
         nextEdge = net.getEdge(nextEdgeID)
+        if nextEdge not in edge.getOutgoing():
+            sys.stderr.write("Warning: Skipping disconnected route (edges %s, %s)\n" % (edgeID, nextEdgeID))
+            return []
         connection = edge.getOutgoing()[nextEdge][0]
 
-        TLS = edge.getTLS()
+        TLS = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()
         dist += edge.getLength()
         time += edge.getLength() / edge.getSpeed()
-        alreadyFound = [item for item in rTLSList if item[0] == edgeID]
-        if TLS and not alreadyFound:
+        if TLS and edgeID not in edgesSeen:
             rTLSList.append(TLTuple(edgeID, dist, time, connection))
+            edgesSeen.add(edgeID)
             dist = 0
             time = 0
     return rTLSList
 
 
 def getFirstGreenOffset(tl, connection):
-    index = connection._tlLink
+    index = connection.getTLLinkIndex()
     tlp = tl.getPrograms()
     if len(tlp) != 1:
         raise RuntimeError("Found %s programs for tl %s" %
@@ -325,7 +316,7 @@ def main(options):
     offsetDict = finalizeOffsets(coordinatedSets)
 
     with open(options.outfile, 'w') as outf:
-        outf.write('<additional>\n')
+        sumolib.xml.writeHeader(outf, root="additional", options=options)
         for ID, startOffset in sorted(offsetDict.items()):
             programID = list(net.getTLSSecure(ID).getPrograms().keys())[0]
             outf.write('    <tlLogic id="%s" programID="%s" offset="%.2f"/>\n' %
@@ -345,5 +336,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

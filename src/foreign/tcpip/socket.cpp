@@ -70,7 +70,7 @@ namespace tcpip
 
 	// ----------------------------------------------------------------------
 	Socket::
-		Socket(std::string host, int port) 
+		Socket(std::string host, int port)
 		: host_( host ),
 		port_( port ),
 		socket_(-1),
@@ -83,7 +83,7 @@ namespace tcpip
 
 	// ----------------------------------------------------------------------
 	Socket::
-		Socket(int port) 
+		Socket(int port)
 		: host_(""),
 		port_( port ),
 		socket_(-1),
@@ -117,6 +117,7 @@ namespace tcpip
         Socket::
         getFreeSocketPort()
     {
+        Socket dummy(0); // just to trigger initialization on Windows and cleanup on end
         // Create socket to find a random free port that can be handed to the app
         int sock = static_cast<int>(socket( AF_INET, SOCK_STREAM, 0 ));
         struct sockaddr_in self;
@@ -164,7 +165,7 @@ namespace tcpip
 		}
 
 #ifdef WIN32
-		if( server_socket_ == -1 && socket_ == -1 
+		if( server_socket_ == -1 && socket_ == -1
 		    && init_windows_sockets_ && instance_count_ == 0 )
 				WSACleanup();
                 windows_sockets_initialized_ = false;
@@ -172,7 +173,7 @@ namespace tcpip
 	}
 
 	// ----------------------------------------------------------------------
-	void 
+	void
 		Socket::
 		BailOnSocketError( std::string context)
 	{
@@ -186,7 +187,7 @@ namespace tcpip
 	}
 
 	// ----------------------------------------------------------------------
-	int  
+	int
 		Socket::
 		port()
 	{
@@ -195,9 +196,14 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	bool 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about while (0, 0) in the expansion of FD_SET, see https://developercommunity.visualstudio.com/t/fd-clr-and-fd-set-macros-generate-warning-c4548/172702 */
+#pragma warning(disable: 4548)
+#endif
+	bool
 		Socket::
-		datawaiting(int sock) 
+		datawaiting(int sock)
 		const
 	{
 		fd_set fds;
@@ -218,6 +224,9 @@ namespace tcpip
 		else
 			return false;
 	}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 	// ----------------------------------------------------------------------
 	bool
@@ -236,7 +245,7 @@ namespace tcpip
         if ((status = getaddrinfo(address.c_str(), nullptr, &hints, &servinfo)) != 0) {
             return false;
         }
-        
+
         bool valid = false;
 
         for (struct addrinfo *p = servinfo; p != nullptr; p = p->ai_next) {
@@ -277,7 +286,7 @@ namespace tcpip
 			server_socket_ = static_cast<int>(socket( AF_INET, SOCK_STREAM, 0 ));
 			if( server_socket_ < 0 )
 				BailOnSocketError("tcpip::Socket::accept() @ socket");
-			
+
 			//"Address already in use" error protection
 			{
 
@@ -326,9 +335,9 @@ namespace tcpip
 	}
 
 	// ----------------------------------------------------------------------
-	void 
+	void
 		Socket::
-		set_blocking(bool blocking) 
+		set_blocking(bool blocking)
 	{
 		blocking_ = blocking;
 
@@ -349,11 +358,11 @@ namespace tcpip
 			fcntl(server_socket_, F_SETFL, arg);
 #endif
 		}
-	
+
 	}
 
 	// ----------------------------------------------------------------------
-	void 
+	void
 		Socket::
 		connect()
 	{
@@ -377,11 +386,11 @@ namespace tcpip
     }
 
 	// ----------------------------------------------------------------------
-	void 
+	void
 		Socket::
 		close()
 	{
-		// Close client-connection 
+		// Close client-connection
 		if( socket_ >= 0 )
 		{
 #ifdef WIN32
@@ -395,7 +404,7 @@ namespace tcpip
 	}
 
 	// ----------------------------------------------------------------------
-	void 
+	void
 		Socket::
 		send( const std::vector<unsigned char> &buffer)
 	{
@@ -497,7 +506,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	std::vector<unsigned char> 
+	std::vector<unsigned char>
 		Socket::
 		receive(int bufSize)
 	{
@@ -520,7 +529,7 @@ namespace tcpip
 	}
 
 	// ----------------------------------------------------------------------
-	
+
 
 	bool
 		Socket::
@@ -546,26 +555,26 @@ namespace tcpip
 		// copy message content into passed Storage
 		msg.reset();
 		msg.writePacket(&buffer[lengthLen], totalLen - lengthLen);
-		
+
 		printBufferOnVerbose(buffer, "Rcvd Storage with");
 
 		return true;
 	}
-	
-	
+
+
 	// ----------------------------------------------------------------------
-	bool 
+	bool
 		Socket::
-		has_client_connection() 
+		has_client_connection()
 		const
 	{
 		return socket_ >= 0;
 	}
 
 	// ----------------------------------------------------------------------
-	bool 
+	bool
 		Socket::
-		is_blocking() 
+		is_blocking()
 	{
 		return blocking_;
 	}
@@ -573,9 +582,9 @@ namespace tcpip
 
 #ifdef WIN32
 	// ----------------------------------------------------------------------
-	std::string 
+	std::string
 		Socket::
-		GetWinsockErrorString(int err) 
+		GetWinsockErrorString(int err)
 	{
 
 		switch( err)

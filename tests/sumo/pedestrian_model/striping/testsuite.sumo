@@ -1,5 +1,8 @@
 # pedestrians should block vehicle movements while crossing the street
 block_vehicles
+
+# pedestrians have to find a gap in traffic
+crossing_noPrio
 block_vehicles_sharedspace
 
 # vehicles on the same lane or vehicles standing on a crossing should block pedestrian movements
@@ -46,3 +49,10 @@ speedDev
 
 # walking to a busstop
 busstop
+speedLimit
+
+# random departPosLat
+walk_posLat_random
+
+# pedestrians do not follow access lines (via bus stop) to their destinations
+improper_walk_via_bus_stop_access

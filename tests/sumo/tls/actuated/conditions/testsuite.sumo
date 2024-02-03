@@ -1,0 +1,51 @@
+# test condition assignments (persistent state)
+assignments
+
+# default switching rules using custom detectors
+default
+
+# use custom switching rules to replicate the default behavior
+replicate_default
+
+# change time gap condition for one phase
+custom_gapOut
+
+# change time gap condition for one phase (functionality as above but with a condition element)
+custom_gapOut_condID
+
+# same as above but with parentheses
+parentheses
+
+# test expressions with more than 3 (unbracketed) terms
+multi_term
+
+# only switch to side direction on request
+request_or_skip
+
+# only switch to side direction on request but use an E2 detector for this.
+request_or_skip_E2
+
+# test condition for the running green duration of a link
+linkGreen
+
+# test condition for the running red duration of a link
+linkRed
+
+# ruggedization on encountering mathematical undefined expressions
+runtime_error
+
+# override minDur, maxDur, earliestEnd, latestEnd with conditions
+override_phaseAttrs
+
+# override minDur with functions that rely on linkGreenTimes (should not crash)
+override_phaseAttrs2
+
+# use custom switching rules to add bus prioritization on top of the default behavior
+bus_prio
+
+# - detection of traffic presence in a large radius
+# - when no traffic is absent, the light switches into an allRed phase
+# - allRed switches to required phase on first detected traffic
+# 
+# (otherwise behave like the default actuated controller)
+allRed_default

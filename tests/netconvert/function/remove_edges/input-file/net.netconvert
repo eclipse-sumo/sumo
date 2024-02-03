@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:45 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:08 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,500.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -40,25 +40,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_1_0" index="0" speed="12.50" length="21.09" shape="495.20,507.20 495.70,500.21 496.80,494.73 497.90,490.28 498.40,486.40"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="3.65" length="2.70" shape="498.40,507.20 499.20,506.00 500.00,505.60 500.32,505.76"/>
+        <lane id=":0_2_0" index="0" speed="3.65" length="1.44" shape="498.40,507.20 499.20,506.00"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" speed="3.65" length="1.98" shape="500.32,505.76 500.80,506.00 501.60,507.20"/>
+        <lane id=":0_9_0" index="0" speed="3.65" length="3.23" shape="499.20,506.00 500.00,505.60 500.80,506.00 501.60,507.20"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" index="0" speed="12.50" length="21.95" shape="508.00,486.40 507.00,493.54 504.80,499.01 502.60,503.37 501.60,507.20"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" speed="10.88" length="15.57" shape="504.80,486.40 503.65,493.05 500.20,497.80 497.55,499.11"/>
+        <lane id=":0_4_0" index="0" speed="10.88" length="14.02" shape="504.80,486.40 503.65,493.05 500.20,497.80 498.95,498.42"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="3.65" length="2.54" shape="501.60,486.40 500.80,487.60 500.00,488.00 499.82,487.91"/>
+        <lane id=":0_5_0" index="0" speed="3.65" length="1.44" shape="501.60,486.40 500.80,487.60"/>
     </edge>
     <edge id=":0_10" function="internal">
-        <lane id=":0_10_0" index="0" speed="10.88" length="11.57" shape="497.55,499.11 494.45,500.65 486.40,501.60"/>
+        <lane id=":0_10_0" index="0" speed="10.88" length="13.13" shape="498.95,498.42 494.45,500.65 486.40,501.60"/>
     </edge>
     <edge id=":0_11" function="internal">
-        <lane id=":0_11_0" index="0" speed="3.65" length="2.13" shape="499.82,487.91 499.20,487.60 498.40,486.40"/>
+        <lane id=":0_11_0" index="0" speed="3.65" length="3.23" shape="500.80,487.60 500.00,488.00 499.20,487.60 498.40,486.40"/>
     </edge>
     <edge id=":0_6" function="internal">
         <lane id=":0_6_0" index="0" speed="8.10" length="14.57" shape="486.40,492.00 491.65,491.65 495.40,490.60 497.65,488.85 498.40,486.40"/>
@@ -167,9 +167,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_9_0" type="internal" x="500.32" y="505.76" incLanes=":0_2_0 1si_1 3si_0" intLanes=":0_3_0 :0_7_0"/>
-    <junction id=":0_10_0" type="internal" x="497.55" y="499.11" incLanes=":0_4_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_7_0 :0_8_0"/>
-    <junction id=":0_11_0" type="internal" x="499.82" y="487.91" incLanes=":0_5_0 1si_0 4si_1" intLanes=":0_1_0 :0_6_0"/>
+    <junction id=":0_9_0" type="internal" x="499.20" y="506.00" incLanes=":0_2_0 1si_1 3si_0" intLanes=":0_3_0 :0_7_0"/>
+    <junction id=":0_10_0" type="internal" x="498.95" y="498.42" incLanes=":0_4_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_7_0 :0_8_0"/>
+    <junction id=":0_11_0" type="internal" x="500.80" y="487.60" incLanes=":0_5_0 1si_0 4si_1" intLanes=":0_1_0 :0_6_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="1" via=":m1_0_1" dir="s" state="M"/>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-24 17:13:08 by Eclipse SUMO netedit Version v1_16_0+0703-dfb4483119c
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="routeProbe_01" begin="0.00" period="100.00" edge="center0" file="fileA.txt">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </routeProbe>
+    <routeProbe id="routeProbe_02" begin="3.00" period="120.00" edge="center1" file="fileB.txt">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </routeProbe>
+</additional>

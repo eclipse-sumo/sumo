@@ -1,0 +1,9 @@
+<configuration>
+    <source value="source.csv" type="data_file" help="the input CSV file" category="input" required="true" positional="true"/>
+    <output value="out.xml" type="file" help="name for generic output file" category="output" required="true"/>
+    <quotechar value="" type="string" help="the quoting character for fields" category="processing"/>
+    <delimiter value=";" type="string" help="the field separator of the input file" category="processing"/>
+    <skip-root value="False" type="bool" help="the root element is not contained" category="processing"/>
+    <type value="None" type="string" help="convert the given csv-file into the specified format" category="processing"/>
+    <xsd value="None" type="string" help="xsd schema to use" category="processing"/>
+</configuration>

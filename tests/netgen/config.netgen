@@ -15,6 +15,7 @@ log:done \(.*\)\.{REPLACE done.}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
+errors:open failed: .*\.{REPLACE open failed.}
 
 [floating_point_tolerance]
 net:0.0101

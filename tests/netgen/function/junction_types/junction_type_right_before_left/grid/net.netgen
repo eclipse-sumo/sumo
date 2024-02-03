@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:11 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:01 by Eclipse SUMO netgenerate Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
@@ -31,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,80.00,80.00" origBoundary="0.00,0.00,80.00,80.00" projParameter="!"/>
 
@@ -322,19 +327,19 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="B1" type="right_before_left" x="40.00" y="40.00" incLanes="B2B1_0 C1B1_0 B0B1_0 A1B1_0" intLanes=":B1_0_0 :B1_1_0 :B1_2_0 :B1_3_0 :B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_9_0 :B1_10_0 :B1_11_0 :B1_12_0 :B1_13_0 :B1_14_0 :B1_15_0" shape="36.80,47.20 43.20,47.20 43.64,44.98 44.20,44.20 44.98,43.64 45.98,43.31 47.20,43.20 47.20,36.80 44.98,36.36 44.20,35.80 43.64,35.02 43.31,34.02 43.20,32.80 36.80,32.80 36.36,35.02 35.80,35.80 35.02,36.36 34.02,36.69 32.80,36.80 32.80,43.20 35.02,43.64 35.80,44.20 36.36,44.98 36.69,45.98">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000000000000" foes="0111110001100000" cont="0"/>
-        <request index="2"  response="0110001100000000" foes="0110001111100000" cont="0"/>
+        <request index="2"  response="0110001100000000" foes="0110011111100000" cont="0"/>
         <request index="3"  response="0100001000010000" foes="0100001000010000" cont="0"/>
         <request index="4"  response="0000000000000000" foes="0100001000001000" cont="0"/>
         <request index="5"  response="0000000000000111" foes="1100011000000111" cont="0"/>
-        <request index="6"  response="0011000000000110" foes="0011111000000110" cont="0"/>
+        <request index="6"  response="0011000000000110" foes="0111111000000110" cont="0"/>
         <request index="7"  response="0010000100000100" foes="0010000100000100" cont="0"/>
         <request index="8"  response="0000000000000000" foes="0010000010000100" cont="0"/>
         <request index="9"  response="0000000001110000" foes="0110000001111100" cont="0"/>
-        <request index="10" response="0000000001100011" foes="1110000001100011" cont="0"/>
+        <request index="10" response="0000000001100111" foes="1110000001100111" cont="0"/>
         <request index="11" response="0001000001000010" foes="0001000001000010" cont="0"/>
         <request index="12" response="0000000000000000" foes="0000100001000010" cont="0"/>
         <request index="13" response="0000011100000000" foes="0000011111000110" cont="0"/>
-        <request index="14" response="0000011000110000" foes="0000011000111110" cont="0"/>
+        <request index="14" response="0000011001110000" foes="0000011001111110" cont="0"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="0"/>
     </junction>
     <junction id="B2" type="right_before_left" x="40.00" y="80.00" incLanes="C2B2_0 B1B2_0 A2B2_0" intLanes=":B2_0_0 :B2_1_0 :B2_2_0 :B2_3_0 :B2_4_0 :B2_5_0 :B2_6_0 :B2_7_0 :B2_8_0" shape="47.20,83.20 47.20,76.80 44.98,76.36 44.20,75.80 43.64,75.02 43.31,74.02 43.20,72.80 36.80,72.80 36.36,75.02 35.80,75.80 35.02,76.36 34.02,76.69 32.80,76.80 32.80,83.20">
@@ -368,64 +373,64 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" via=":A1_6_0" dir="r" state="="/>
+    <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" via=":A1_6_0" dir="r" state="M"/>
     <connection from="A0A1" to="A1A2" fromLane="0" toLane="0" via=":A1_7_0" dir="s" state="="/>
     <connection from="A0A1" to="A1A0" fromLane="0" toLane="0" via=":A1_8_0" dir="t" state="="/>
-    <connection from="A0B0" to="B0C0" fromLane="0" toLane="0" via=":B0_6_0" dir="s" state="="/>
+    <connection from="A0B0" to="B0C0" fromLane="0" toLane="0" via=":B0_6_0" dir="s" state="M"/>
     <connection from="A0B0" to="B0B1" fromLane="0" toLane="0" via=":B0_7_0" dir="l" state="="/>
     <connection from="A0B0" to="B0A0" fromLane="0" toLane="0" via=":B0_8_0" dir="t" state="="/>
-    <connection from="A1A0" to="A0B0" fromLane="0" toLane="0" via=":A0_0_0" dir="l" state="="/>
-    <connection from="A1A2" to="A2B2" fromLane="0" toLane="0" via=":A2_1_0" dir="r" state="="/>
-    <connection from="A1B1" to="B1B0" fromLane="0" toLane="0" via=":B1_12_0" dir="r" state="="/>
+    <connection from="A1A0" to="A0B0" fromLane="0" toLane="0" via=":A0_0_0" dir="l" state="M"/>
+    <connection from="A1A2" to="A2B2" fromLane="0" toLane="0" via=":A2_1_0" dir="r" state="M"/>
+    <connection from="A1B1" to="B1B0" fromLane="0" toLane="0" via=":B1_12_0" dir="r" state="M"/>
     <connection from="A1B1" to="B1C1" fromLane="0" toLane="0" via=":B1_13_0" dir="s" state="="/>
     <connection from="A1B1" to="B1B2" fromLane="0" toLane="0" via=":B1_14_0" dir="l" state="="/>
     <connection from="A1B1" to="B1A1" fromLane="0" toLane="0" via=":B1_15_0" dir="t" state="="/>
-    <connection from="A2A1" to="A1A0" fromLane="0" toLane="0" via=":A1_0_0" dir="s" state="="/>
+    <connection from="A2A1" to="A1A0" fromLane="0" toLane="0" via=":A1_0_0" dir="s" state="M"/>
     <connection from="A2A1" to="A1B1" fromLane="0" toLane="0" via=":A1_1_0" dir="l" state="="/>
     <connection from="A2A1" to="A1A2" fromLane="0" toLane="0" via=":A1_2_0" dir="t" state="="/>
-    <connection from="A2B2" to="B2B1" fromLane="0" toLane="0" via=":B2_6_0" dir="r" state="="/>
+    <connection from="A2B2" to="B2B1" fromLane="0" toLane="0" via=":B2_6_0" dir="r" state="M"/>
     <connection from="A2B2" to="B2C2" fromLane="0" toLane="0" via=":B2_7_0" dir="s" state="="/>
     <connection from="A2B2" to="B2A2" fromLane="0" toLane="0" via=":B2_8_0" dir="t" state="="/>
-    <connection from="B0A0" to="A0A1" fromLane="0" toLane="0" via=":A0_1_0" dir="r" state="="/>
-    <connection from="B0B1" to="B1C1" fromLane="0" toLane="0" via=":B1_8_0" dir="r" state="="/>
+    <connection from="B0A0" to="A0A1" fromLane="0" toLane="0" via=":A0_1_0" dir="r" state="M"/>
+    <connection from="B0B1" to="B1C1" fromLane="0" toLane="0" via=":B1_8_0" dir="r" state="M"/>
     <connection from="B0B1" to="B1B2" fromLane="0" toLane="0" via=":B1_9_0" dir="s" state="="/>
     <connection from="B0B1" to="B1A1" fromLane="0" toLane="0" via=":B1_10_0" dir="l" state="="/>
     <connection from="B0B1" to="B1B0" fromLane="0" toLane="0" via=":B1_11_0" dir="t" state="="/>
-    <connection from="B0C0" to="C0C1" fromLane="0" toLane="0" via=":C0_1_0" dir="l" state="="/>
-    <connection from="B1A1" to="A1A2" fromLane="0" toLane="0" via=":A1_3_0" dir="r" state="="/>
+    <connection from="B0C0" to="C0C1" fromLane="0" toLane="0" via=":C0_1_0" dir="l" state="M"/>
+    <connection from="B1A1" to="A1A2" fromLane="0" toLane="0" via=":A1_3_0" dir="r" state="M"/>
     <connection from="B1A1" to="A1A0" fromLane="0" toLane="0" via=":A1_4_0" dir="l" state="="/>
     <connection from="B1A1" to="A1B1" fromLane="0" toLane="0" via=":A1_5_0" dir="t" state="="/>
-    <connection from="B1B0" to="B0A0" fromLane="0" toLane="0" via=":B0_0_0" dir="r" state="="/>
+    <connection from="B1B0" to="B0A0" fromLane="0" toLane="0" via=":B0_0_0" dir="r" state="M"/>
     <connection from="B1B0" to="B0C0" fromLane="0" toLane="0" via=":B0_1_0" dir="l" state="="/>
     <connection from="B1B0" to="B0B1" fromLane="0" toLane="0" via=":B0_2_0" dir="t" state="="/>
-    <connection from="B1B2" to="B2C2" fromLane="0" toLane="0" via=":B2_3_0" dir="r" state="="/>
+    <connection from="B1B2" to="B2C2" fromLane="0" toLane="0" via=":B2_3_0" dir="r" state="M"/>
     <connection from="B1B2" to="B2A2" fromLane="0" toLane="0" via=":B2_4_0" dir="l" state="="/>
     <connection from="B1B2" to="B2B1" fromLane="0" toLane="0" via=":B2_5_0" dir="t" state="="/>
-    <connection from="B1C1" to="C1C0" fromLane="0" toLane="0" via=":C1_6_0" dir="r" state="="/>
+    <connection from="B1C1" to="C1C0" fromLane="0" toLane="0" via=":C1_6_0" dir="r" state="M"/>
     <connection from="B1C1" to="C1C2" fromLane="0" toLane="0" via=":C1_7_0" dir="l" state="="/>
     <connection from="B1C1" to="C1B1" fromLane="0" toLane="0" via=":C1_8_0" dir="t" state="="/>
-    <connection from="B2A2" to="A2A1" fromLane="0" toLane="0" via=":A2_0_0" dir="l" state="="/>
-    <connection from="B2B1" to="B1A1" fromLane="0" toLane="0" via=":B1_0_0" dir="r" state="="/>
+    <connection from="B2A2" to="A2A1" fromLane="0" toLane="0" via=":A2_0_0" dir="l" state="M"/>
+    <connection from="B2B1" to="B1A1" fromLane="0" toLane="0" via=":B1_0_0" dir="r" state="M"/>
     <connection from="B2B1" to="B1B0" fromLane="0" toLane="0" via=":B1_1_0" dir="s" state="="/>
     <connection from="B2B1" to="B1C1" fromLane="0" toLane="0" via=":B1_2_0" dir="l" state="="/>
     <connection from="B2B1" to="B1B2" fromLane="0" toLane="0" via=":B1_3_0" dir="t" state="="/>
-    <connection from="B2C2" to="C2C1" fromLane="0" toLane="0" via=":C2_1_0" dir="r" state="="/>
-    <connection from="C0B0" to="B0B1" fromLane="0" toLane="0" via=":B0_3_0" dir="r" state="="/>
+    <connection from="B2C2" to="C2C1" fromLane="0" toLane="0" via=":C2_1_0" dir="r" state="M"/>
+    <connection from="C0B0" to="B0B1" fromLane="0" toLane="0" via=":B0_3_0" dir="r" state="M"/>
     <connection from="C0B0" to="B0A0" fromLane="0" toLane="0" via=":B0_4_0" dir="s" state="="/>
     <connection from="C0B0" to="B0C0" fromLane="0" toLane="0" via=":B0_5_0" dir="t" state="="/>
-    <connection from="C0C1" to="C1C2" fromLane="0" toLane="0" via=":C1_3_0" dir="s" state="="/>
+    <connection from="C0C1" to="C1C2" fromLane="0" toLane="0" via=":C1_3_0" dir="s" state="M"/>
     <connection from="C0C1" to="C1B1" fromLane="0" toLane="0" via=":C1_4_0" dir="l" state="="/>
     <connection from="C0C1" to="C1C0" fromLane="0" toLane="0" via=":C1_5_0" dir="t" state="="/>
-    <connection from="C1B1" to="B1B2" fromLane="0" toLane="0" via=":B1_4_0" dir="r" state="="/>
+    <connection from="C1B1" to="B1B2" fromLane="0" toLane="0" via=":B1_4_0" dir="r" state="M"/>
     <connection from="C1B1" to="B1A1" fromLane="0" toLane="0" via=":B1_5_0" dir="s" state="="/>
     <connection from="C1B1" to="B1B0" fromLane="0" toLane="0" via=":B1_6_0" dir="l" state="="/>
     <connection from="C1B1" to="B1C1" fromLane="0" toLane="0" via=":B1_7_0" dir="t" state="="/>
-    <connection from="C1C0" to="C0B0" fromLane="0" toLane="0" via=":C0_0_0" dir="r" state="="/>
-    <connection from="C1C2" to="C2B2" fromLane="0" toLane="0" via=":C2_0_0" dir="l" state="="/>
-    <connection from="C2B2" to="B2A2" fromLane="0" toLane="0" via=":B2_0_0" dir="s" state="="/>
+    <connection from="C1C0" to="C0B0" fromLane="0" toLane="0" via=":C0_0_0" dir="r" state="M"/>
+    <connection from="C1C2" to="C2B2" fromLane="0" toLane="0" via=":C2_0_0" dir="l" state="M"/>
+    <connection from="C2B2" to="B2A2" fromLane="0" toLane="0" via=":B2_0_0" dir="s" state="M"/>
     <connection from="C2B2" to="B2B1" fromLane="0" toLane="0" via=":B2_1_0" dir="l" state="="/>
     <connection from="C2B2" to="B2C2" fromLane="0" toLane="0" via=":B2_2_0" dir="t" state="="/>
-    <connection from="C2C1" to="C1B1" fromLane="0" toLane="0" via=":C1_0_0" dir="r" state="="/>
+    <connection from="C2C1" to="C1B1" fromLane="0" toLane="0" via=":C1_0_0" dir="r" state="M"/>
     <connection from="C2C1" to="C1C0" fromLane="0" toLane="0" via=":C1_1_0" dir="s" state="="/>
     <connection from="C2C1" to="C1C2" fromLane="0" toLane="0" via=":C1_2_0" dir="t" state="="/>
 

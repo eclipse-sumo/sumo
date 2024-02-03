@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10" impatience="0.5"/>
+    <trip id="v0" depart="0" from="3/1to2/1" to="1/1to0/1">
+        <stop edge="3/1to2/1" duration="10" startPos="0" endPos="20"/>
+    </trip>
+    <person id="persontrip_car" depart="2" departPos="10">
+        <ride from="3/1to2/1" to="1/1to0/1" lines="v0"/>
+    </person>
+</routes>

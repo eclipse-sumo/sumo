@@ -59,3 +59,13 @@ invalid_param
 
 # warn about multiple connections from one edge to the sam lane
 unsafe_connections
+
+# test error on invalid color input
+invalid_color
+
+# test error on invalid color input
+invalid_color_name
+
+# test for #5875
+empty_line
+parkingArea_noCapacity

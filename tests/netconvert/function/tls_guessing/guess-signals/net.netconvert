@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:52 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:06 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -31,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-357107.78,-5646271.09" convBoundary="0.00,0.00,255.77,292.12" origBoundary="6.762104,50.772113,7.222668,51.127542" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -60,26 +65,26 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2292787672_259083790_1_1" index="1" speed="13.89" length="14.31" shape="167.36,166.39 159.10,154.78"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_3" function="internal">
-        <lane id=":cluster_2292787672_259083790_3_0" index="0" speed="4.80" length="6.86" shape="167.36,166.39 167.24,163.39 168.09,161.73 169.93,161.42 170.05,161.46"/>
+        <lane id=":cluster_2292787672_259083790_3_0" index="0" speed="4.80" length="6.36" shape="167.36,166.39 167.24,163.39 168.09,161.73 169.56,161.49"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_11" function="internal">
-        <lane id=":cluster_2292787672_259083790_11_0" index="0" speed="4.80" length="2.88" shape="170.05,161.46 172.76,162.46"/>
+        <lane id=":cluster_2292787672_259083790_11_0" index="0" speed="4.80" length="3.39" shape="169.56,161.49 169.93,161.42 172.76,162.46"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_4" function="internal">
         <lane id=":cluster_2292787672_259083790_4_0" index="0" speed="13.89" length="13.97" shape="167.15,149.33 175.34,160.58"/>
         <lane id=":cluster_2292787672_259083790_4_1" index="1" speed="13.89" length="13.97" shape="164.50,151.13 172.76,162.46"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_6" function="internal">
-        <lane id=":cluster_2292787672_259083790_6_0" index="0" speed="9.53" length="8.62" shape="164.50,151.13 165.72,154.47 164.88,158.28 164.23,159.24"/>
+        <lane id=":cluster_2292787672_259083790_6_0" index="0" speed="9.53" length="7.47" shape="164.50,151.13 165.72,154.47 164.88,158.28"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_7" function="internal">
-        <lane id=":cluster_2292787672_259083790_7_0" index="0" speed="4.78" length="6.58" shape="164.50,151.13 164.52,154.06 163.62,155.65 161.82,155.89"/>
+        <lane id=":cluster_2292787672_259083790_7_0" index="0" speed="4.78" length="6.10" shape="164.50,151.13 164.52,154.06 163.62,155.65 162.30,155.83"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_12" function="internal">
-        <lane id=":cluster_2292787672_259083790_12_0" index="0" speed="9.53" length="10.92" shape="164.23,159.24 161.97,162.57 156.99,167.34"/>
+        <lane id=":cluster_2292787672_259083790_12_0" index="0" speed="9.53" length="12.08" shape="164.88,158.28 161.97,162.57 156.99,167.34"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_13" function="internal">
-        <lane id=":cluster_2292787672_259083790_13_0" index="0" speed="4.78" length="2.94" shape="161.82,155.89 159.10,154.78"/>
+        <lane id=":cluster_2292787672_259083790_13_0" index="0" speed="4.78" length="3.43" shape="162.30,155.83 161.82,155.89 159.10,154.78"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_8" function="internal">
         <lane id=":cluster_2292787672_259083790_8_0" index="0" speed="6.87" length="9.42" shape="154.95,164.88 156.75,162.94 157.60,160.91 157.50,158.79 156.45,156.58"/>
@@ -88,10 +93,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2292787672_259083790_9_0" index="0" speed="9.28" length="20.39" shape="154.95,164.88 160.63,160.93 165.49,159.21 169.53,159.72 172.76,162.46"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_10" function="internal">
-        <lane id=":cluster_2292787672_259083790_10_0" index="0" speed="3.65" length="2.56" shape="154.95,164.88 156.38,164.73 157.20,165.09 157.25,165.30"/>
+        <lane id=":cluster_2292787672_259083790_10_0" index="0" speed="3.65" length="1.44" shape="154.95,164.88 156.38,164.73"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_14" function="internal">
-        <lane id=":cluster_2292787672_259083790_14_0" index="0" speed="3.65" length="2.11" shape="157.25,165.30 157.40,165.96 156.99,167.34"/>
+        <lane id=":cluster_2292787672_259083790_14_0" index="0" speed="3.65" length="3.23" shape="156.38,164.73 157.20,165.09 157.40,165.96 156.99,167.34"/>
     </edge>
 
     <edge id="-27488602#1" from="2292787678" to="cluster_2292787672_259083790" priority="4" type="highway.residential" shape="152.57,168.94 161.64,161.39">
@@ -171,10 +176,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="10" response="00001000001" foes="00001000001" cont="1"/>
     </junction>
 
-    <junction id=":cluster_2292787672_259083790_11_0" type="internal" x="170.05" y="161.46" incLanes=":cluster_2292787672_259083790_3_0 -27488602#1_0 220153140#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_4_0 :cluster_2292787672_259083790_4_1 :cluster_2292787672_259083790_9_0"/>
-    <junction id=":cluster_2292787672_259083790_12_0" type="internal" x="164.23" y="159.24" incLanes=":cluster_2292787672_259083790_6_0 220153137#1_0 220153137#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_1_1 :cluster_2292787672_259083790_9_0 :cluster_2292787672_259083790_10_0"/>
-    <junction id=":cluster_2292787672_259083790_13_0" type="internal" x="161.82" y="155.89" incLanes=":cluster_2292787672_259083790_7_0 -27488602#1_0 220153137#1_0 220153137#1_1" intLanes=":cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_1_1 :cluster_2292787672_259083790_8_0"/>
-    <junction id=":cluster_2292787672_259083790_14_0" type="internal" x="157.25" y="165.30" incLanes=":cluster_2292787672_259083790_10_0 220153137#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_6_0"/>
+    <junction id=":cluster_2292787672_259083790_11_0" type="internal" x="169.56" y="161.49" incLanes=":cluster_2292787672_259083790_3_0 -27488602#1_0 220153140#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_4_0 :cluster_2292787672_259083790_4_1 :cluster_2292787672_259083790_9_0"/>
+    <junction id=":cluster_2292787672_259083790_12_0" type="internal" x="164.88" y="158.28" incLanes=":cluster_2292787672_259083790_6_0 220153137#1_0 220153137#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_1_1 :cluster_2292787672_259083790_9_0 :cluster_2292787672_259083790_10_0"/>
+    <junction id=":cluster_2292787672_259083790_13_0" type="internal" x="162.30" y="155.83" incLanes=":cluster_2292787672_259083790_7_0 -27488602#1_0 220153137#1_0 220153137#1_1" intLanes=":cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_1_1 :cluster_2292787672_259083790_8_0"/>
+    <junction id=":cluster_2292787672_259083790_14_0" type="internal" x="156.38" y="164.73" incLanes=":cluster_2292787672_259083790_10_0 220153137#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_6_0"/>
 
     <connection from="-27488602#1" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_8_0" tl="GS_cluster_2292787672_259083790" linkIndex="8" dir="r" state="o"/>
     <connection from="-27488602#1" to="220153138#0" fromLane="0" toLane="1" via=":cluster_2292787672_259083790_9_0" tl="GS_cluster_2292787672_259083790" linkIndex="9" dir="l" state="o"/>
@@ -193,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="220153140#1" to="27488602#1" fromLane="1" toLane="0" via=":cluster_2292787672_259083790_6_0" tl="GS_cluster_2292787672_259083790" linkIndex="6" dir="l" state="o"/>
     <connection from="220153140#1" to="220153139#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_7_0" tl="GS_cluster_2292787672_259083790" linkIndex="7" dir="t" state="o"/>
     <connection from="27488602#1" to="27488602#2" fromLane="0" toLane="0" via=":2292787678_0_0" dir="s" state="M"/>
-    <connection from="27488602#2" to="-27488602#2" fromLane="0" toLane="0" via=":310541110_0_0" dir="t" state="="/>
+    <connection from="27488602#2" to="-27488602#2" fromLane="0" toLane="0" via=":310541110_0_0" dir="t" state="M"/>
 
     <connection from=":2292787678_0" to="27488602#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2292787678_1" to="-27488602#1" fromLane="0" toLane="0" dir="s" state="M"/>

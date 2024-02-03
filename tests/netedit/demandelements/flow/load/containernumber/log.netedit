@@ -1,0 +1,4 @@
+Error: Attribute 'containerNumber' in definition of flow 'flow_0' Invalid Number Format (long long integer format) dummycontainerNumber.
+Error: Attribute 'containerNumber' in definition of flow 'flow_1' is empty.
+Error: Attribute 'containerNumber' in definition of flow 'flow_4' Invalid Number Format (long long integer format) 2.5.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow.26Jan160839.5795/netedit.daily.demand.flow/demandelements/flow/load/containernumber/routes.rou.xml failed.

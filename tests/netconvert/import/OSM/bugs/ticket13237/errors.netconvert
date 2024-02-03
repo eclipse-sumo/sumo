@@ -1,0 +1,16 @@
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '496108586').
+Warning: Removing pt stop '300386936' on non existing edge '27361387'.
+Warning: Removing pt stop '4333534663' on non existing edge '436358018#2'.
+Warning: No way found for reference '297869682' in relation '3961889'
+Warning: Ignoring restriction relation '3961889' with unknown to-way.
+Warning: No way found for reference '15677722' in relation '3961890'
+Warning: No way found for reference '297869679' in relation '3961890'
+Warning: Ignoring restriction relation '3961890' with unknown from-way.
+Warning: Ignoring restriction relation '3961890' with unknown to-way.
+Warning: No way found for reference '374540383' in relation '8114618'
+Warning: Ignoring restriction relation '8114618' with unknown from-way.
+Warning: No way found for reference '374540383' in relation '8114619'
+Warning: Ignoring restriction relation '8114619' with unknown from-way.
+Warning: Ignoring restriction relation '8114619' with unknown to-way.
+Warning: Cannot assign stop 383074942 on edge '854904053' to pt line '1141160'. Ignoring!
+Warning: 6 total messages of type: No way found for reference '%' in relation '%'

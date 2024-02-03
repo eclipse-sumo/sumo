@@ -79,9 +79,9 @@
             </colorScheme>
         </vehicles>
         <edges laneEdgeMode="5" laneShowBorders="0" showLinkDecals="1" showRails="1" hideConnectors="0"
-               edgeName_show="0" edgeName_size="50.00" edgeName_color="255,128,0" 
-               internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="128,64,0" 
-               cwaEdgeName_show="0" cwaEdgeName_size="50.00" cwaEdgeName_color="magenta" 
+               edgeName_show="0" edgeName_size="50.00" edgeName_color="255,128,0"
+               internalEdgeName_show="0" internalEdgeName_size="40.00" internalEdgeName_color="128,64,0"
+               cwaEdgeName_show="0" cwaEdgeName_size="50.00" cwaEdgeName_color="magenta"
                streetName_show="0" streetName_size="55.00" streetName_color="yellow" >
             <colorScheme name="uniform">
                 <entry color="black"/>
@@ -177,4 +177,3 @@
         <legend showSizeLegend="1"/>
     </scheme>
 </viewsettings>
-

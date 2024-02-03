@@ -1,8 +1,16 @@
+transportable
+
 # no traffic, just plain output
 no_vehicles
 
 # one vehicle is moving
 one_vehicle
+
+# one vehicle is moving
+one_vehicle_no_speedfactor
+
+# one vehicle is moving
+one_vehicle_speedfactor
 
 # one vehicle is moving, subsecond
 one_vehicle_subsecond
@@ -31,8 +39,17 @@ exit_times_short
 # vehicle is teleporting with exit times
 exit_times_teleport
 
+# one vehicle is moving with exit times
+exit_times_internal
+
 # teleporting over multiple edges
 teleport_multihop
+
+# teleporting over multiple edges (with reinsertion instead of teleport-to-end)
+teleport_multihop2
+
+# remove jammed vehicles
+teleport_remove
 
 # vehicles are moving in circles
 circle_reroute
@@ -40,11 +57,23 @@ circle_reroute
 # vehicles are moving in circles and write intended depart
 circle_reroute_intended_depart
 
+# verify extended precision for randomized input values
+one_vehicle_random
+
 # vehicles are moving in circles and write intended depart sorted
 circle_reroute_intended_depart_sorted
 
 # output sorted by departure time
 sorted
+
+# output sorted by departure time but end before last vehicle arrives
+sorted_end_early
+
+# vehicles departing in the same second should be ordered by their loading order (intended depart) even when sorting by actual departure time.
+# 
+# Note: input vehicle ids are descending from 9 to 0 and this descending order must be kept for same-second departures
+# 
+sorted_subsecondOrder
 
 # output with route length
 route_length
@@ -58,11 +87,8 @@ write_unfinished
 # only write edges with exit times
 write_unfinished_exit_times
 
-# output of person route
-with_person
-
-# output of person route
-write_unfinished_person
+# write vehroutes for vehicles which have not arrived at simulation end
+write_unfinished_routeLength
 
 # output of stops
 with_stops
@@ -78,15 +104,6 @@ dua
 
 # one vehicle with a single route that is written with costs
 dua_trip
-
-# public transport and walk possible
-person_route_length
-person_write_unfinished
-person_exit_times
-person_ride_parkingArea
-
-# test loading stages will all kinds of stopping places
-person_stoppingPlaces
 
 # sorting without public transport
 no_pt_lines_sorted

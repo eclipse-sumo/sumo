@@ -1,0 +1,8 @@
+<routes>
+    <vType id="car" sigma="0"/>
+    <vType id="ped" vClass="pedestrian"/>
+    <trip id="0" type="car" from="WC" to="CE" depart="0"/>
+    <person id="p1" type="ped" depart="0">
+        <walk from="WC" to="CE" />
+    </person>
+</routes>

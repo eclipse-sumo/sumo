@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-12 22:06:39.799796 by netdiff.py v1_14_1+0970-4b73876
+<configuration>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <source value="source.net.xml"/>
+    <write-shapes value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="cluster_301292612_38919945_56231397_59993001" type="node" shape="47.17,62.29 54.14,47.09 53.23,45.04 31.50,39.48 29.30,42.11 27.85,55.65" fill="True" layer="11" color="green"/>
+</additional>

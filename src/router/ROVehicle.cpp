@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,14 +38,20 @@
 #include "ROLane.h"
 #include "ROVehicle.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+std::map<ConstROEdgeVector, std::string> ROVehicle::mySavedRoutes;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      RORouteDef* route, const SUMOVTypeParameter* type,
-                     const RONet* net, MsgHandler* errorHandler)
-    : RORoutable(pars, type), myRoute(route) {
+                     const RONet* net, MsgHandler* errorHandler):
+    RORoutable(pars, type),
+    myRoute(route),
+    myJumpTime(-1) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
@@ -108,6 +114,18 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     }
     getParameter().stops.insert(iter, stopPar);
     myStopEdges.insert(edgeIter, stopEdge);
+    if (stopPar.jump >= 0) {
+        if (stopEdge->isInternal()) {
+            if (errorHandler != nullptr) {
+                errorHandler->inform("Jumps are not supported from internal stop edge '" + stopEdge->getID() + "'.");
+            }
+        } else {
+            if (myJumpTime < 0) {
+                myJumpTime = 0;
+            }
+            myJumpTime += stopPar.jump;
+        }
+    }
 }
 
 
@@ -193,6 +211,22 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
 
 
 void
+ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const {
+    auto itM = mandatory.begin();
+    auto itS = getParameter().stops.begin();
+    while (itM != mandatory.end() && itS != getParameter().stops.end()) {
+        if ((*itM)->getID() == itS->edge) {
+            if (itS->jump >= 0) {
+                jumpStarts.insert(itM);
+            }
+            itS++;
+        }
+        itM++;
+    }
+}
+
+
+void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
         getType()->write(*typeos);
@@ -206,6 +240,24 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
     const bool writeJunctions = writeTrip && options.getBool("write-trips.junctions");
+    const bool writeNamedRoute = !asAlternatives && options.getBool("named-routes");
+    const bool writeCosts = options.exists("write-costs") && options.getBool("write-costs");
+    const bool writeExit = options.exists("exit-times") && options.getBool("exit-times");
+    const bool writeLength = options.exists("route-length") && options.getBool("route-length");
+
+    std::string routeID;
+    if (writeNamedRoute) {
+        ConstROEdgeVector edges = myRoute->getUsedRoute()->getNormalEdges();
+        auto it = mySavedRoutes.find(edges);
+        if (it == mySavedRoutes.end()) {
+            routeID = "r" + toString(mySavedRoutes.size());
+            myRoute->getUsedRoute()->writeXMLDefinition(os, this, writeCosts, false, writeExit,
+                    writeLength, routeID);
+            mySavedRoutes[edges] = routeID;
+        } else {
+            routeID = it->second;
+        }
+    }
     // write the vehicle (new style, with included routes)
     getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
@@ -250,7 +302,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_FROMJUNCTION, from->getFromJunction()->getID());
+                os.writeAttr(SUMO_ATTR_FROM_JUNCTION, from->getFromJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_FROM, from->getID());
             }
@@ -267,7 +319,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_TOXY, toPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_TOJUNCTION, to->getToJunction()->getID());
+                os.writeAttr(SUMO_ATTR_TO_JUNCTION, to->getToJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_TO, to->getID());
             }
@@ -303,8 +355,10 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             }
             os.writeAttr(viaAttr, viaOut);
         }
+    } else if (writeNamedRoute) {
+        os.writeAttr(SUMO_ATTR_ROUTE, routeID);
     } else {
-        myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+        myRoute->writeXMLDefinition(os, this, asAlternatives, writeExit, writeCosts, writeLength);
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);

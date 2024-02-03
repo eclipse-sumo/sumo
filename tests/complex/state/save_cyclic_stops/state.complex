@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-27 16:28:25 by Eclipse SUMO sumo Version v1_9_2+0085-7da2bb1
+<!-- generated on 2022-03-29 15:43:03 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,11 +26,11 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0085-7da2bb1" time="350.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="350.00" type="micro">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" distance="614.46 1" speedFactor="1.00" reroute="1" state="131072 0 6 5.10 38000 170.60 349000 0 4" pos="90.95 85.95 0.00" speed="0.00 0.00" angle="180.00" posLat="0.00" waitingTime="100000 3 0 38000 49000 50000 80000 110000">
+    <vehicle id="v0" depart="0.00" route="!v0!var#1" distance="614.46 1" speedFactor="1.0000" reroute="1" state="262144 0 6 5.10 38000 170.60 349000 0 4" pos="90.95 85.95 0.00" speed="0.00 0.00" angle="180.00" posLat="0.00" waitingTime="100000 3 0 38000 49000 50000 80000 110000">
         <stop lane="SC_0" until="60.00" started="11.00" ended="60.00"/>
         <stop lane="CN_0" until="120.00" started="101.00" ended="120.00"/>
         <stop lane="SC_0" until="240.00" started="199.00" ended="240.00"/>

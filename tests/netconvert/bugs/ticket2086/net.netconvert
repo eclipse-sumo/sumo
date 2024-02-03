@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:03 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:22 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-603464.43,-5793051.54" convBoundary="0.00,0.00,677.72,242.91" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -51,20 +51,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":54534761_5_1" index="1" speed="13.89" length="14.54" shape="199.86,97.89 204.72,84.21"/>
     </edge>
     <edge id=":54534761_7" function="internal">
-        <lane id=":54534761_7_0" index="0" speed="8.70" length="5.30" shape="199.86,97.89 201.83,94.52 203.02,93.79"/>
+        <lane id=":54534761_7_0" index="0" speed="8.70" length="3.73" shape="199.86,97.89 201.74,94.67"/>
     </edge>
     <edge id=":54534761_8" function="internal">
-        <lane id=":54534761_8_0" index="0" speed="8.70" length="11.60" shape="203.02,93.79 204.87,92.66 208.97,92.32 214.15,93.51"/>
+        <lane id=":54534761_8_0" index="0" speed="8.70" length="13.16" shape="201.74,94.67 201.83,94.52 204.87,92.66 208.97,92.32 214.15,93.51"/>
     </edge>
     <edge id=":54534779_0" function="internal">
         <lane id=":54534779_0_0" index="0" speed="13.89" length="15.35" shape="196.15,128.11 190.62,142.51"/>
         <lane id=":54534779_0_1" index="1" speed="13.89" length="15.35" shape="193.13,127.06 187.65,141.32"/>
     </edge>
     <edge id=":54534779_2" function="internal">
-        <lane id=":54534779_2_0" index="0" speed="10.14" length="4.60" shape="193.13,127.06 191.39,129.67 190.13,130.41"/>
+        <lane id=":54534779_2_0" index="0" speed="10.14" length="3.13" shape="193.13,127.06 191.39,129.67"/>
     </edge>
     <edge id=":54534779_8" function="internal">
-        <lane id=":54534779_8_0" index="0" speed="10.14" length="12.85" shape="190.13,130.41 188.24,131.53 183.69,132.64 177.73,133.01"/>
+        <lane id=":54534779_8_0" index="0" speed="10.14" length="14.31" shape="191.39,129.67 188.24,131.53 183.69,132.64 177.73,133.01"/>
     </edge>
     <edge id=":54534779_3" function="internal">
         <lane id=":54534779_3_0" index="0" speed="8.24" length="11.26" shape="177.73,129.81 181.19,129.51 183.90,128.60 185.86,127.08 187.08,124.96"/>
@@ -151,8 +151,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="806373935" type="dead_end" x="237.04" y="0.00" incLanes="-717744589_0 -717744589_1" intLanes="" shape="237.04,0.00 231.03,-2.19 237.04,0.00"/>
     <junction id="838257708" type="dead_end" x="147.32" y="242.91" incLanes="763770254_0 763770254_1" intLanes="" shape="147.32,242.91 153.33,245.11 147.32,242.91"/>
 
-    <junction id=":54534761_8_0" type="internal" x="203.02" y="93.79" incLanes=":54534761_7_0 717744589_0 717744589_1" intLanes=":54534761_1_0 :54534761_2_0 :54534761_3_0 :54534761_3_1"/>
-    <junction id=":54534779_8_0" type="internal" x="190.13" y="130.41" incLanes=":54534779_2_0 -763770254_0 -763770254_1" intLanes=":54534779_4_0 :54534779_5_0 :54534779_6_0 :54534779_6_1"/>
+    <junction id=":54534761_8_0" type="internal" x="201.74" y="94.67" incLanes=":54534761_7_0 717744589_0 717744589_1" intLanes=":54534761_1_0 :54534761_2_0 :54534761_3_0 :54534761_3_1"/>
+    <junction id=":54534779_8_0" type="internal" x="191.39" y="129.67" incLanes=":54534779_2_0 -763770254_0 -763770254_1" intLanes=":54534779_4_0 :54534779_5_0 :54534779_6_0 :54534779_6_1"/>
 
     <connection from="-51809012" to="-51811859" fromLane="0" toLane="0" via=":54534779_3_0" tl="c2a" linkIndex="11" dir="r" state="o"/>
     <connection from="-51809012" to="763770254" fromLane="0" toLane="1" via=":54534779_4_0" tl="c2a" linkIndex="12" dir="l" state="o"/>

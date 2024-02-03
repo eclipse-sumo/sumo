@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 30 15:09:26 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
+<!-- generated on 2022-02-11 10:12:54 by Eclipse SUMO sumo Version v1_12_0+0469-d8c8739
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,6 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,2655 +43,2655 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="high.0" depart="0.00" departSpeed="36.11" arrival="114.00">
+    <vehicle id="high.0" depart="0.00" departSpeed="36.11" speedFactor="1.0000" arrival="114.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.1" depart="2.00" departSpeed="36.11" arrival="115.00">
+    <vehicle id="high.1" depart="2.00" departSpeed="36.11" speedFactor="1.0000" arrival="115.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.2" depart="3.00" departSpeed="35.19" arrival="117.00">
+    <vehicle id="high.2" depart="3.00" departSpeed="35.1861" speedFactor="1.0000" arrival="117.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.3" depart="4.00" departSpeed="34.25" arrival="118.00">
+    <vehicle id="high.3" depart="4.00" departSpeed="34.2485" speedFactor="1.0000" arrival="118.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.4" depart="5.00" departSpeed="33.31" arrival="119.00">
+    <vehicle id="high.4" depart="5.00" departSpeed="33.3109" speedFactor="1.0000" arrival="119.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.5" depart="6.00" departSpeed="32.37" arrival="120.00">
+    <vehicle id="high.5" depart="6.00" departSpeed="32.3733" speedFactor="1.0000" arrival="120.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.6" depart="8.00" departSpeed="35.95" arrival="122.00">
+    <vehicle id="high.6" depart="8.00" departSpeed="35.9494" speedFactor="1.0000" arrival="122.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.7" depart="9.00" departSpeed="35.01" arrival="123.00">
+    <vehicle id="high.7" depart="9.00" departSpeed="35.0117" speedFactor="1.0000" arrival="123.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.8" depart="10.00" departSpeed="34.07" arrival="124.00">
+    <vehicle id="high.8" depart="10.00" departSpeed="34.0741" speedFactor="1.0000" arrival="124.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.9" depart="11.00" departSpeed="33.14" arrival="125.00">
+    <vehicle id="high.9" depart="11.00" departSpeed="33.1365" speedFactor="1.0000" arrival="125.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.10" depart="12.00" departSpeed="32.20" arrival="126.00">
+    <vehicle id="high.10" depart="12.00" departSpeed="32.1989" speedFactor="1.0000" arrival="126.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.11" depart="14.00" departSpeed="35.77" arrival="128.00">
+    <vehicle id="high.11" depart="14.00" departSpeed="35.775" speedFactor="1.0000" arrival="128.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.12" depart="15.00" departSpeed="34.84" arrival="129.00">
+    <vehicle id="high.12" depart="15.00" departSpeed="34.8374" speedFactor="1.0000" arrival="129.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.13" depart="16.00" departSpeed="33.90" arrival="130.00">
+    <vehicle id="high.13" depart="16.00" departSpeed="33.8997" speedFactor="1.0000" arrival="130.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.14" depart="17.00" departSpeed="32.96" arrival="131.00">
+    <vehicle id="high.14" depart="17.00" departSpeed="32.9621" speedFactor="1.0000" arrival="131.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.15" depart="18.00" departSpeed="32.02" arrival="132.00">
+    <vehicle id="high.15" depart="18.00" departSpeed="32.0245" speedFactor="1.0000" arrival="132.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.16" depart="20.00" departSpeed="35.60" arrival="134.00">
+    <vehicle id="high.16" depart="20.00" departSpeed="35.6006" speedFactor="1.0000" arrival="134.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.17" depart="21.00" departSpeed="34.66" arrival="135.00">
+    <vehicle id="high.17" depart="21.00" departSpeed="34.663" speedFactor="1.0000" arrival="135.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.18" depart="22.00" departSpeed="33.73" arrival="136.00">
+    <vehicle id="high.18" depart="22.00" departSpeed="33.7254" speedFactor="1.0000" arrival="136.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.19" depart="23.00" departSpeed="32.79" arrival="137.00">
+    <vehicle id="high.19" depart="23.00" departSpeed="32.7878" speedFactor="1.0000" arrival="137.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.20" depart="24.00" departSpeed="31.85" arrival="138.00">
+    <vehicle id="high.20" depart="24.00" departSpeed="31.8501" speedFactor="1.0000" arrival="138.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.21" depart="26.00" departSpeed="35.43" arrival="140.00">
+    <vehicle id="high.21" depart="26.00" departSpeed="35.4262" speedFactor="1.0000" arrival="140.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.22" depart="27.00" departSpeed="34.49" arrival="141.00">
+    <vehicle id="high.22" depart="27.00" departSpeed="34.4886" speedFactor="1.0000" arrival="141.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.23" depart="28.00" departSpeed="33.55" arrival="142.00">
+    <vehicle id="high.23" depart="28.00" departSpeed="33.551" speedFactor="1.0000" arrival="142.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.24" depart="29.00" departSpeed="32.61" arrival="143.00">
+    <vehicle id="high.24" depart="29.00" departSpeed="32.6134" speedFactor="1.0000" arrival="143.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.25" depart="30.00" departSpeed="31.68" arrival="144.00">
+    <vehicle id="high.25" depart="30.00" departSpeed="31.6757" speedFactor="1.0000" arrival="144.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.26" depart="32.00" departSpeed="35.25" arrival="146.00">
+    <vehicle id="high.26" depart="32.00" departSpeed="35.2519" speedFactor="1.0000" arrival="146.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.27" depart="33.00" departSpeed="34.31" arrival="147.00">
+    <vehicle id="high.27" depart="33.00" departSpeed="34.3143" speedFactor="1.0000" arrival="147.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.28" depart="34.00" departSpeed="33.38" arrival="148.00">
+    <vehicle id="high.28" depart="34.00" departSpeed="33.3766" speedFactor="1.0000" arrival="148.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.29" depart="35.00" departSpeed="32.44" arrival="149.00">
+    <vehicle id="high.29" depart="35.00" departSpeed="32.439" speedFactor="1.0000" arrival="149.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.30" depart="36.00" departSpeed="31.50" arrival="151.00">
+    <vehicle id="high.30" depart="36.00" departSpeed="31.5014" speedFactor="1.0000" arrival="151.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.31" depart="38.00" departSpeed="35.08" arrival="152.00">
+    <vehicle id="high.31" depart="38.00" departSpeed="35.0775" speedFactor="1.0000" arrival="152.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.32" depart="39.00" departSpeed="34.14" arrival="153.00">
+    <vehicle id="high.32" depart="39.00" departSpeed="34.1399" speedFactor="1.0000" arrival="153.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.33" depart="40.00" departSpeed="33.20" arrival="154.00">
+    <vehicle id="high.33" depart="40.00" departSpeed="33.2022" speedFactor="1.0000" arrival="154.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.34" depart="41.00" departSpeed="32.26" arrival="155.00">
+    <vehicle id="high.34" depart="41.00" departSpeed="32.2646" speedFactor="1.0000" arrival="155.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.35" depart="42.00" departSpeed="31.30" arrival="157.00">
+    <vehicle id="high.35" depart="42.00" departSpeed="31.3023" speedFactor="1.0000" arrival="157.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.36" depart="44.00" departSpeed="34.90" arrival="158.00">
+    <vehicle id="high.36" depart="44.00" departSpeed="34.9031" speedFactor="1.0000" arrival="158.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.37" depart="45.00" departSpeed="33.97" arrival="159.00">
+    <vehicle id="high.37" depart="45.00" departSpeed="33.9655" speedFactor="1.0000" arrival="159.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.38" depart="46.00" departSpeed="33.03" arrival="160.00">
+    <vehicle id="high.38" depart="46.00" departSpeed="33.0279" speedFactor="1.0000" arrival="160.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.39" depart="47.00" departSpeed="32.09" arrival="161.00">
+    <vehicle id="high.39" depart="47.00" departSpeed="32.0902" speedFactor="1.0000" arrival="161.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.40" depart="48.00" departSpeed="31.10" arrival="163.00">
+    <vehicle id="high.40" depart="48.00" departSpeed="31.103" speedFactor="1.0000" arrival="163.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.41" depart="50.00" departSpeed="34.73" arrival="164.00">
+    <vehicle id="high.41" depart="50.00" departSpeed="34.7287" speedFactor="1.0000" arrival="164.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.42" depart="51.00" departSpeed="33.79" arrival="165.00">
+    <vehicle id="high.42" depart="51.00" departSpeed="33.7911" speedFactor="1.0000" arrival="165.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.43" depart="52.00" departSpeed="32.85" arrival="166.00">
+    <vehicle id="high.43" depart="52.00" departSpeed="32.8535" speedFactor="1.0000" arrival="166.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.44" depart="53.00" departSpeed="31.92" arrival="167.00">
+    <vehicle id="high.44" depart="53.00" departSpeed="31.9159" speedFactor="1.0000" arrival="167.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.45" depart="54.00" departSpeed="30.90" arrival="169.00">
+    <vehicle id="high.45" depart="54.00" departSpeed="30.9037" speedFactor="1.0000" arrival="169.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.46" depart="56.00" departSpeed="34.55" arrival="170.00">
+    <vehicle id="high.46" depart="56.00" departSpeed="34.5544" speedFactor="1.0000" arrival="170.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.47" depart="57.00" departSpeed="33.62" arrival="171.00">
+    <vehicle id="high.47" depart="57.00" departSpeed="33.6167" speedFactor="1.0000" arrival="171.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.48" depart="58.00" departSpeed="32.68" arrival="172.00">
+    <vehicle id="high.48" depart="58.00" departSpeed="32.6791" speedFactor="1.0000" arrival="172.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.49" depart="59.00" departSpeed="31.74" arrival="173.00">
+    <vehicle id="high.49" depart="59.00" departSpeed="31.7415" speedFactor="1.0000" arrival="173.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.50" depart="60.00" departSpeed="30.70" arrival="175.00">
+    <vehicle id="high.50" depart="60.00" departSpeed="30.7044" speedFactor="1.0000" arrival="175.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.51" depart="62.00" departSpeed="34.38" arrival="176.00">
+    <vehicle id="high.51" depart="62.00" departSpeed="34.38" speedFactor="1.0000" arrival="176.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.52" depart="63.00" departSpeed="33.44" arrival="177.00">
+    <vehicle id="high.52" depart="63.00" departSpeed="33.4424" speedFactor="1.0000" arrival="177.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.53" depart="64.00" departSpeed="32.50" arrival="178.00">
+    <vehicle id="high.53" depart="64.00" departSpeed="32.5048" speedFactor="1.0000" arrival="178.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.54" depart="65.00" departSpeed="31.57" arrival="180.00">
+    <vehicle id="high.54" depart="65.00" departSpeed="31.5671" speedFactor="1.0000" arrival="180.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.55" depart="66.00" departSpeed="30.51" arrival="181.00">
+    <vehicle id="high.55" depart="66.00" departSpeed="30.5051" speedFactor="1.0000" arrival="181.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.56" depart="68.00" departSpeed="34.21" arrival="182.00">
+    <vehicle id="high.56" depart="68.00" departSpeed="34.2056" speedFactor="1.0000" arrival="182.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.57" depart="69.00" departSpeed="33.27" arrival="183.00">
+    <vehicle id="high.57" depart="69.00" departSpeed="33.268" speedFactor="1.0000" arrival="183.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.58" depart="70.00" departSpeed="32.33" arrival="184.00">
+    <vehicle id="high.58" depart="70.00" departSpeed="32.3304" speedFactor="1.0000" arrival="184.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.59" depart="71.00" departSpeed="31.38" arrival="186.00">
+    <vehicle id="high.59" depart="71.00" departSpeed="31.3774" speedFactor="1.0000" arrival="186.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.60" depart="72.00" departSpeed="30.31" arrival="187.00">
+    <vehicle id="high.60" depart="72.00" departSpeed="30.3059" speedFactor="1.0000" arrival="187.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.61" depart="74.00" departSpeed="34.03" arrival="188.00">
+    <vehicle id="high.61" depart="74.00" departSpeed="34.0312" speedFactor="1.0000" arrival="188.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.62" depart="75.00" departSpeed="33.09" arrival="189.00">
+    <vehicle id="high.62" depart="75.00" departSpeed="33.0936" speedFactor="1.0000" arrival="189.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.63" depart="76.00" departSpeed="32.16" arrival="190.00">
+    <vehicle id="high.63" depart="76.00" departSpeed="32.156" speedFactor="1.0000" arrival="190.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.64" depart="77.00" departSpeed="31.18" arrival="192.00">
+    <vehicle id="high.64" depart="77.00" departSpeed="31.1781" speedFactor="1.0000" arrival="192.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.65" depart="78.00" departSpeed="30.11" arrival="193.00">
+    <vehicle id="high.65" depart="78.00" departSpeed="30.1066" speedFactor="1.0000" arrival="193.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.66" depart="80.00" departSpeed="33.86" arrival="194.00">
+    <vehicle id="high.66" depart="80.00" departSpeed="33.8569" speedFactor="1.0000" arrival="194.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.67" depart="81.00" departSpeed="32.92" arrival="195.00">
+    <vehicle id="high.67" depart="81.00" departSpeed="32.9192" speedFactor="1.0000" arrival="195.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.68" depart="82.00" departSpeed="31.98" arrival="196.00">
+    <vehicle id="high.68" depart="82.00" departSpeed="31.9816" speedFactor="1.0000" arrival="196.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.69" depart="83.00" departSpeed="30.98" arrival="198.00">
+    <vehicle id="high.69" depart="83.00" departSpeed="30.9789" speedFactor="1.0000" arrival="198.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.70" depart="84.00" departSpeed="29.91" arrival="199.00">
+    <vehicle id="high.70" depart="84.00" departSpeed="29.9073" speedFactor="1.0000" arrival="199.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.71" depart="86.00" departSpeed="33.68" arrival="200.00">
+    <vehicle id="high.71" depart="86.00" departSpeed="33.6825" speedFactor="1.0000" arrival="200.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.72" depart="87.00" departSpeed="32.74" arrival="201.00">
+    <vehicle id="high.72" depart="87.00" departSpeed="32.7449" speedFactor="1.0000" arrival="201.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.73" depart="88.00" departSpeed="31.81" arrival="202.00">
+    <vehicle id="high.73" depart="88.00" departSpeed="31.8072" speedFactor="1.0000" arrival="202.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.74" depart="89.00" departSpeed="30.78" arrival="204.00">
+    <vehicle id="high.74" depart="89.00" departSpeed="30.7796" speedFactor="1.0000" arrival="204.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.75" depart="90.00" departSpeed="29.71" arrival="205.00">
+    <vehicle id="high.75" depart="90.00" departSpeed="29.708" speedFactor="1.0000" arrival="205.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.76" depart="92.00" departSpeed="33.51" arrival="206.00">
+    <vehicle id="high.76" depart="92.00" departSpeed="33.5081" speedFactor="1.0000" arrival="206.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.77" depart="93.00" departSpeed="32.57" arrival="207.00">
+    <vehicle id="high.77" depart="93.00" departSpeed="32.5705" speedFactor="1.0000" arrival="207.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.78" depart="94.00" departSpeed="31.63" arrival="208.00">
+    <vehicle id="high.78" depart="94.00" departSpeed="31.6329" speedFactor="1.0000" arrival="208.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.79" depart="95.00" departSpeed="30.58" arrival="210.00">
+    <vehicle id="high.79" depart="95.00" departSpeed="30.5803" speedFactor="1.0000" arrival="210.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.80" depart="96.00" departSpeed="29.51" arrival="211.00">
+    <vehicle id="high.80" depart="96.00" departSpeed="29.5087" speedFactor="1.0000" arrival="211.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.81" depart="98.00" departSpeed="33.33" arrival="212.00">
+    <vehicle id="high.81" depart="98.00" departSpeed="33.3337" speedFactor="1.0000" arrival="212.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.82" depart="99.00" departSpeed="32.40" arrival="213.00">
+    <vehicle id="high.82" depart="99.00" departSpeed="32.3961" speedFactor="1.0000" arrival="213.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.83" depart="100.00" departSpeed="31.45" arrival="215.00">
+    <vehicle id="high.83" depart="100.00" departSpeed="31.4526" speedFactor="1.0000" arrival="215.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.84" depart="101.00" departSpeed="30.38" arrival="216.00">
+    <vehicle id="high.84" depart="101.00" departSpeed="30.381" speedFactor="1.0000" arrival="216.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.85" depart="102.00" departSpeed="29.31" arrival="217.00">
+    <vehicle id="high.85" depart="102.00" departSpeed="29.3094" speedFactor="1.0000" arrival="217.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.86" depart="104.00" departSpeed="33.16" arrival="218.00">
+    <vehicle id="high.86" depart="104.00" departSpeed="33.1594" speedFactor="1.0000" arrival="218.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.87" depart="105.00" departSpeed="32.22" arrival="219.00">
+    <vehicle id="high.87" depart="105.00" departSpeed="32.2217" speedFactor="1.0000" arrival="219.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.88" depart="106.00" departSpeed="31.25" arrival="221.00">
+    <vehicle id="high.88" depart="106.00" departSpeed="31.2533" speedFactor="1.0000" arrival="221.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.89" depart="107.00" departSpeed="30.18" arrival="222.00">
+    <vehicle id="high.89" depart="107.00" departSpeed="30.1817" speedFactor="1.0000" arrival="222.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.90" depart="108.00" departSpeed="29.11" arrival="223.00">
+    <vehicle id="high.90" depart="108.00" departSpeed="29.1101" speedFactor="1.0000" arrival="223.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.91" depart="110.00" departSpeed="32.98" arrival="224.00">
+    <vehicle id="high.91" depart="110.00" departSpeed="32.985" speedFactor="1.0000" arrival="224.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.92" depart="111.00" departSpeed="32.05" arrival="225.00">
+    <vehicle id="high.92" depart="111.00" departSpeed="32.0474" speedFactor="1.0000" arrival="225.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.93" depart="112.00" departSpeed="31.05" arrival="227.00">
+    <vehicle id="high.93" depart="112.00" departSpeed="31.054" speedFactor="1.0000" arrival="227.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.94" depart="113.00" departSpeed="29.98" arrival="228.00">
+    <vehicle id="high.94" depart="113.00" departSpeed="29.9824" speedFactor="1.0000" arrival="228.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.95" depart="114.00" departSpeed="28.91" arrival="229.00">
+    <vehicle id="high.95" depart="114.00" departSpeed="28.9109" speedFactor="1.0000" arrival="229.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.96" depart="116.00" departSpeed="32.81" arrival="230.00">
+    <vehicle id="high.96" depart="116.00" departSpeed="32.8106" speedFactor="1.0000" arrival="230.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.97" depart="117.00" departSpeed="31.87" arrival="231.00">
+    <vehicle id="high.97" depart="117.00" departSpeed="31.873" speedFactor="1.0000" arrival="231.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.98" depart="118.00" departSpeed="30.85" arrival="233.00">
+    <vehicle id="high.98" depart="118.00" departSpeed="30.8547" speedFactor="1.0000" arrival="233.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.99" depart="119.00" departSpeed="29.78" arrival="234.00">
+    <vehicle id="high.99" depart="119.00" departSpeed="29.7831" speedFactor="1.0000" arrival="234.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.100" depart="120.00" departSpeed="28.71" arrival="235.00">
+    <vehicle id="high.100" depart="120.00" departSpeed="28.7116" speedFactor="1.0000" arrival="235.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.101" depart="122.00" departSpeed="32.64" arrival="236.00">
+    <vehicle id="high.101" depart="122.00" departSpeed="32.6362" speedFactor="1.0000" arrival="236.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.102" depart="123.00" departSpeed="31.70" arrival="237.00">
+    <vehicle id="high.102" depart="123.00" departSpeed="31.6986" speedFactor="1.0000" arrival="237.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.103" depart="124.00" departSpeed="30.66" arrival="239.00">
+    <vehicle id="high.103" depart="124.00" departSpeed="30.6554" speedFactor="1.0000" arrival="239.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.104" depart="125.00" departSpeed="29.58" arrival="240.00">
+    <vehicle id="high.104" depart="125.00" departSpeed="29.5839" speedFactor="1.0000" arrival="240.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.105" depart="126.00" departSpeed="28.51" arrival="241.00">
+    <vehicle id="high.105" depart="126.00" departSpeed="28.5123" speedFactor="1.0000" arrival="241.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.106" depart="128.00" departSpeed="27.66" arrival="242.00">
+    <vehicle id="high.106" depart="128.00" departSpeed="27.6561" speedFactor="1.0000" arrival="242.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.107" depart="129.00" departSpeed="26.52" arrival="244.00">
+    <vehicle id="high.107" depart="129.00" departSpeed="26.5153" speedFactor="1.0000" arrival="244.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.108" depart="130.00" departSpeed="25.27" arrival="245.00">
+    <vehicle id="high.108" depart="130.00" departSpeed="25.2652" speedFactor="1.0000" arrival="245.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.109" depart="131.00" departSpeed="24.01" arrival="246.00">
+    <vehicle id="high.109" depart="131.00" departSpeed="24.015" speedFactor="1.0000" arrival="246.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.110" depart="132.00" departSpeed="22.76" arrival="247.00">
+    <vehicle id="high.110" depart="132.00" departSpeed="22.7648" speedFactor="1.0000" arrival="247.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.111" depart="134.00" departSpeed="21.32" arrival="248.00">
+    <vehicle id="high.111" depart="134.00" departSpeed="21.3176" speedFactor="1.0000" arrival="248.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.112" depart="135.00" departSpeed="19.82" arrival="250.00">
+    <vehicle id="high.112" depart="135.00" departSpeed="19.8174" speedFactor="1.0000" arrival="250.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.113" depart="136.00" departSpeed="18.32" arrival="251.00">
+    <vehicle id="high.113" depart="136.00" departSpeed="18.3172" speedFactor="1.0000" arrival="251.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.114" depart="137.00" departSpeed="16.52" arrival="252.00">
+    <vehicle id="high.114" depart="137.00" departSpeed="16.5212" speedFactor="1.0000" arrival="252.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.115" depart="138.00" departSpeed="14.65" arrival="253.00">
+    <vehicle id="high.115" depart="138.00" departSpeed="14.646" speedFactor="1.0000" arrival="253.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.116" depart="140.00" departSpeed="12.53" arrival="254.00">
+    <vehicle id="high.116" depart="140.00" departSpeed="12.5277" speedFactor="1.0000" arrival="254.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.117" depart="141.00" departSpeed="10.03" arrival="256.00">
+    <vehicle id="high.117" depart="141.00" departSpeed="10.0273" speedFactor="1.0000" arrival="256.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.118" depart="142.00" departSpeed="6.79" arrival="257.00">
+    <vehicle id="high.118" depart="142.00" departSpeed="6.7905" speedFactor="1.0000" arrival="257.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.119" depart="144.00" departSpeed="1.58" arrival="258.00">
+    <vehicle id="high.119" depart="144.00" departSpeed="1.58" speedFactor="1.0000" arrival="258.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.120" depart="220.00" departSpeed="2.58" arrival="260.00">
+    <vehicle id="high.120" depart="220.00" departSpeed="2.579" speedFactor="1.0000" arrival="260.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.121" depart="222.00" departSpeed="0.94" arrival="263.00">
+    <vehicle id="high.121" depart="222.00" departSpeed="0.936" speedFactor="1.0000" arrival="263.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.122" depart="225.00" departSpeed="4.62" arrival="264.00">
+    <vehicle id="high.122" depart="225.00" departSpeed="4.6215" speedFactor="1.0000" arrival="264.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.123" depart="227.00" departSpeed="5.78" arrival="266.00">
+    <vehicle id="high.123" depart="227.00" departSpeed="5.7817" speedFactor="1.0000" arrival="266.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.124" depart="229.00" departSpeed="7.52" arrival="267.00">
+    <vehicle id="high.124" depart="229.00" departSpeed="7.5221" speedFactor="1.0000" arrival="267.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.125" depart="230.00" departSpeed="3.04" arrival="270.00">
+    <vehicle id="high.125" depart="230.00" departSpeed="3.0432" speedFactor="1.0000" arrival="270.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.126" depart="232.00" departSpeed="2.33" arrival="272.00">
+    <vehicle id="high.126" depart="232.00" departSpeed="2.3287" speedFactor="1.0000" arrival="272.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.127" depart="235.00" departSpeed="7.41" arrival="273.00">
+    <vehicle id="high.127" depart="235.00" departSpeed="7.407" speedFactor="1.0000" arrival="273.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.128" depart="237.00" departSpeed="9.98" arrival="275.00">
+    <vehicle id="high.128" depart="237.00" departSpeed="9.9757" speedFactor="1.0000" arrival="275.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.129" depart="238.00" departSpeed="6.71" arrival="277.00">
+    <vehicle id="high.129" depart="238.00" departSpeed="6.713" speedFactor="1.0000" arrival="277.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.130" depart="240.00" departSpeed="9.05" arrival="278.00">
+    <vehicle id="high.130" depart="240.00" departSpeed="9.0503" speedFactor="1.0000" arrival="278.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.131" depart="241.00" departSpeed="5.32" arrival="280.00">
+    <vehicle id="high.131" depart="241.00" departSpeed="5.325" speedFactor="1.0000" arrival="280.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.132" depart="243.00" departSpeed="6.84" arrival="282.00">
+    <vehicle id="high.132" depart="243.00" departSpeed="6.837" speedFactor="1.0000" arrival="282.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.133" depart="245.00" departSpeed="9.22" arrival="283.00">
+    <vehicle id="high.133" depart="245.00" departSpeed="9.2157" speedFactor="1.0000" arrival="283.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.134" depart="246.00" departSpeed="5.57" arrival="285.00">
+    <vehicle id="high.134" depart="246.00" departSpeed="5.573" speedFactor="1.0000" arrival="285.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.135" depart="248.00" departSpeed="7.21" arrival="286.00">
+    <vehicle id="high.135" depart="248.00" departSpeed="7.209" speedFactor="1.0000" arrival="286.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.136" depart="250.00" departSpeed="9.71" arrival="288.00">
+    <vehicle id="high.136" depart="250.00" departSpeed="9.7117" speedFactor="1.0000" arrival="288.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.137" depart="251.00" departSpeed="6.32" arrival="290.00">
+    <vehicle id="high.137" depart="251.00" departSpeed="6.317" speedFactor="1.0000" arrival="290.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.138" depart="253.00" departSpeed="8.32" arrival="291.00">
+    <vehicle id="high.138" depart="253.00" departSpeed="8.325" speedFactor="1.0000" arrival="291.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.139" depart="254.00" departSpeed="4.57" arrival="293.00">
+    <vehicle id="high.139" depart="254.00" departSpeed="4.5745" speedFactor="1.0000" arrival="293.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.140" depart="256.00" departSpeed="5.71" arrival="295.00">
+    <vehicle id="high.140" depart="256.00" departSpeed="5.7112" speedFactor="1.0000" arrival="295.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.141" depart="258.00" departSpeed="7.42" arrival="296.00">
+    <vehicle id="high.141" depart="258.00" departSpeed="7.4164" speedFactor="1.0000" arrival="296.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.142" depart="260.00" departSpeed="9.99" arrival="298.00">
+    <vehicle id="high.142" depart="260.00" departSpeed="9.9882" speedFactor="1.0000" arrival="298.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.143" depart="261.00" departSpeed="6.73" arrival="300.00">
+    <vehicle id="high.143" depart="261.00" departSpeed="6.7317" speedFactor="1.0000" arrival="300.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.144" depart="263.00" departSpeed="9.08" arrival="301.00">
+    <vehicle id="high.144" depart="263.00" departSpeed="9.0753" speedFactor="1.0000" arrival="301.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.145" depart="264.00" departSpeed="5.36" arrival="303.00">
+    <vehicle id="high.145" depart="264.00" departSpeed="5.3625" speedFactor="1.0000" arrival="303.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.146" depart="266.00" departSpeed="6.89" arrival="305.00">
+    <vehicle id="high.146" depart="266.00" departSpeed="6.8932" speedFactor="1.0000" arrival="305.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.147" depart="268.00" departSpeed="9.29" arrival="306.00">
+    <vehicle id="high.147" depart="268.00" departSpeed="9.2907" speedFactor="1.0000" arrival="306.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.148" depart="269.00" departSpeed="5.69" arrival="308.00">
+    <vehicle id="high.148" depart="269.00" departSpeed="5.6855" speedFactor="1.0000" arrival="308.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.149" depart="271.00" departSpeed="7.38" arrival="309.00">
+    <vehicle id="high.149" depart="271.00" departSpeed="7.3777" speedFactor="1.0000" arrival="309.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.150" depart="273.00" departSpeed="9.94" arrival="311.00">
+    <vehicle id="high.150" depart="273.00" departSpeed="9.9367" speedFactor="1.0000" arrival="311.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.151" depart="274.00" departSpeed="6.65" arrival="313.00">
+    <vehicle id="high.151" depart="274.00" departSpeed="6.6545" speedFactor="1.0000" arrival="313.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.152" depart="276.00" departSpeed="8.96" arrival="314.00">
+    <vehicle id="high.152" depart="276.00" departSpeed="8.9585" speedFactor="1.0000" arrival="314.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.153" depart="277.00" departSpeed="5.21" arrival="316.00">
+    <vehicle id="high.153" depart="277.00" departSpeed="5.208" speedFactor="1.0000" arrival="316.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.154" depart="279.00" departSpeed="6.66" arrival="318.00">
+    <vehicle id="high.154" depart="279.00" departSpeed="6.6615" speedFactor="1.0000" arrival="318.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.155" depart="281.00" departSpeed="8.97" arrival="319.00">
+    <vehicle id="high.155" depart="281.00" departSpeed="8.9725" speedFactor="1.0000" arrival="319.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.156" depart="282.00" departSpeed="5.22" arrival="321.00">
+    <vehicle id="high.156" depart="282.00" departSpeed="5.222" speedFactor="1.0000" arrival="321.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.157" depart="284.00" departSpeed="6.68" arrival="323.00">
+    <vehicle id="high.157" depart="284.00" departSpeed="6.6825" speedFactor="1.0000" arrival="323.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.158" depart="286.00" departSpeed="9.01" arrival="324.00">
+    <vehicle id="high.158" depart="286.00" departSpeed="9.0097" speedFactor="1.0000" arrival="324.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.159" depart="287.00" departSpeed="5.26" arrival="326.00">
+    <vehicle id="high.159" depart="287.00" departSpeed="5.264" speedFactor="1.0000" arrival="326.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.160" depart="289.00" departSpeed="6.75" arrival="328.00">
+    <vehicle id="high.160" depart="289.00" departSpeed="6.7455" speedFactor="1.0000" arrival="328.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.161" depart="291.00" departSpeed="9.09" arrival="329.00">
+    <vehicle id="high.161" depart="291.00" departSpeed="9.0936" speedFactor="1.0000" arrival="329.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.162" depart="292.00" departSpeed="5.39" arrival="331.00">
+    <vehicle id="high.162" depart="292.00" departSpeed="5.39" speedFactor="1.0000" arrival="331.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.163" depart="294.00" departSpeed="6.93" arrival="333.00">
+    <vehicle id="high.163" depart="294.00" departSpeed="6.9345" speedFactor="1.0000" arrival="333.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.164" depart="296.00" departSpeed="9.35" arrival="334.00">
+    <vehicle id="high.164" depart="296.00" departSpeed="9.3456" speedFactor="1.0000" arrival="334.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.165" depart="297.00" departSpeed="5.77" arrival="336.00">
+    <vehicle id="high.165" depart="297.00" departSpeed="5.7679" speedFactor="1.0000" arrival="336.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.166" depart="299.00" departSpeed="7.50" arrival="337.00">
+    <vehicle id="high.166" depart="299.00" departSpeed="7.5014" speedFactor="1.0000" arrival="337.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.167" depart="300.00" departSpeed="3.00" arrival="340.00">
+    <vehicle id="high.167" depart="300.00" departSpeed="3.0017" speedFactor="1.0000" arrival="340.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.168" depart="302.00" departSpeed="2.20" arrival="342.00">
+    <vehicle id="high.168" depart="302.00" departSpeed="2.2042" speedFactor="1.0000" arrival="342.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.169" depart="305.00" departSpeed="7.16" arrival="343.00">
+    <vehicle id="high.169" depart="305.00" departSpeed="7.1579" speedFactor="1.0000" arrival="343.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.170" depart="307.00" departSpeed="9.64" arrival="345.00">
+    <vehicle id="high.170" depart="307.00" departSpeed="9.6435" speedFactor="1.0000" arrival="345.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.171" depart="308.00" departSpeed="6.21" arrival="347.00">
+    <vehicle id="high.171" depart="308.00" departSpeed="6.2147" speedFactor="1.0000" arrival="347.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.172" depart="310.00" departSpeed="8.17" arrival="348.00">
+    <vehicle id="high.172" depart="310.00" departSpeed="8.1716" speedFactor="1.0000" arrival="348.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.173" depart="311.00" departSpeed="4.34" arrival="350.00">
+    <vehicle id="high.173" depart="311.00" departSpeed="4.3422" speedFactor="1.0000" arrival="350.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.174" depart="313.00" departSpeed="5.36" arrival="352.00">
+    <vehicle id="high.174" depart="313.00" departSpeed="5.3629" speedFactor="1.0000" arrival="352.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.175" depart="315.00" departSpeed="6.89" arrival="354.00">
+    <vehicle id="high.175" depart="315.00" departSpeed="6.8938" speedFactor="1.0000" arrival="354.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.176" depart="317.00" departSpeed="9.29" arrival="355.00">
+    <vehicle id="high.176" depart="317.00" departSpeed="9.2914" speedFactor="1.0000" arrival="355.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.177" depart="318.00" departSpeed="5.69" arrival="357.00">
+    <vehicle id="high.177" depart="318.00" departSpeed="5.6866" speedFactor="1.0000" arrival="357.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.178" depart="320.00" departSpeed="7.38" arrival="358.00">
+    <vehicle id="high.178" depart="320.00" departSpeed="7.3794" speedFactor="1.0000" arrival="358.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.179" depart="322.00" departSpeed="9.94" arrival="360.00">
+    <vehicle id="high.179" depart="322.00" departSpeed="9.9389" speedFactor="1.0000" arrival="360.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.180" depart="323.00" departSpeed="6.66" arrival="362.00">
+    <vehicle id="high.180" depart="323.00" departSpeed="6.6579" speedFactor="1.0000" arrival="362.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.181" depart="325.00" departSpeed="8.97" arrival="363.00">
+    <vehicle id="high.181" depart="325.00" departSpeed="8.9652" speedFactor="1.0000" arrival="363.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.182" depart="326.00" departSpeed="5.21" arrival="365.00">
+    <vehicle id="high.182" depart="326.00" departSpeed="5.2147" speedFactor="1.0000" arrival="365.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.183" depart="328.00" departSpeed="6.67" arrival="367.00">
+    <vehicle id="high.183" depart="328.00" departSpeed="6.6716" speedFactor="1.0000" arrival="367.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.184" depart="330.00" departSpeed="8.99" arrival="368.00">
+    <vehicle id="high.184" depart="330.00" departSpeed="8.9927" speedFactor="1.0000" arrival="368.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.185" depart="331.00" departSpeed="5.24" arrival="370.00">
+    <vehicle id="high.185" depart="331.00" departSpeed="5.2422" speedFactor="1.0000" arrival="370.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.186" depart="333.00" departSpeed="6.71" arrival="372.00">
+    <vehicle id="high.186" depart="333.00" departSpeed="6.7128" speedFactor="1.0000" arrival="372.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.187" depart="335.00" departSpeed="9.05" arrival="373.00">
+    <vehicle id="high.187" depart="335.00" departSpeed="9.05" speedFactor="1.0000" arrival="373.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.188" depart="336.00" departSpeed="5.32" arrival="375.00">
+    <vehicle id="high.188" depart="336.00" departSpeed="5.3246" speedFactor="1.0000" arrival="375.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.189" depart="338.00" departSpeed="6.84" arrival="377.00">
+    <vehicle id="high.189" depart="338.00" departSpeed="6.8363" speedFactor="1.0000" arrival="377.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.190" depart="340.00" departSpeed="9.21" arrival="378.00">
+    <vehicle id="high.190" depart="340.00" departSpeed="9.2148" speedFactor="1.0000" arrival="378.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.191" depart="341.00" departSpeed="5.57" arrival="380.00">
+    <vehicle id="high.191" depart="341.00" departSpeed="5.5717" speedFactor="1.0000" arrival="380.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.192" depart="343.00" departSpeed="7.21" arrival="381.00">
+    <vehicle id="high.192" depart="343.00" departSpeed="7.207" speedFactor="1.0000" arrival="381.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.193" depart="345.00" departSpeed="9.71" arrival="383.00">
+    <vehicle id="high.193" depart="345.00" departSpeed="9.7091" speedFactor="1.0000" arrival="383.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.194" depart="346.00" departSpeed="6.31" arrival="385.00">
+    <vehicle id="high.194" depart="346.00" departSpeed="6.3131" speedFactor="1.0000" arrival="385.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.195" depart="348.00" departSpeed="8.32" arrival="386.00">
+    <vehicle id="high.195" depart="348.00" departSpeed="8.3191" speedFactor="1.0000" arrival="386.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.196" depart="349.00" departSpeed="4.57" arrival="388.00">
+    <vehicle id="high.196" depart="349.00" departSpeed="4.5686" speedFactor="1.0000" arrival="388.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.197" depart="351.00" departSpeed="5.70" arrival="390.00">
+    <vehicle id="high.197" depart="351.00" departSpeed="5.7025" speedFactor="1.0000" arrival="390.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.198" depart="353.00" departSpeed="7.40" arrival="391.00">
+    <vehicle id="high.198" depart="353.00" departSpeed="7.4032" speedFactor="1.0000" arrival="391.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.199" depart="355.00" departSpeed="9.97" arrival="393.00">
+    <vehicle id="high.199" depart="355.00" departSpeed="9.9706" speedFactor="1.0000" arrival="393.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.200" depart="356.00" departSpeed="6.71" arrival="395.00">
+    <vehicle id="high.200" depart="356.00" departSpeed="6.7054" speedFactor="1.0000" arrival="395.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.201" depart="358.00" departSpeed="9.04" arrival="396.00">
+    <vehicle id="high.201" depart="358.00" departSpeed="9.0402" speedFactor="1.0000" arrival="396.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.202" depart="359.00" departSpeed="5.31" arrival="398.00">
+    <vehicle id="high.202" depart="359.00" departSpeed="5.3098" speedFactor="1.0000" arrival="398.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.203" depart="361.00" departSpeed="6.81" arrival="400.00">
+    <vehicle id="high.203" depart="361.00" departSpeed="6.8141" speedFactor="1.0000" arrival="400.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.204" depart="363.00" departSpeed="9.19" arrival="401.00">
+    <vehicle id="high.204" depart="363.00" departSpeed="9.1852" speedFactor="1.0000" arrival="401.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.205" depart="364.00" departSpeed="5.53" arrival="403.00">
+    <vehicle id="high.205" depart="364.00" departSpeed="5.5273" speedFactor="1.0000" arrival="403.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.206" depart="366.00" departSpeed="7.14" arrival="404.00">
+    <vehicle id="high.206" depart="366.00" departSpeed="7.1404" speedFactor="1.0000" arrival="404.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.207" depart="368.00" departSpeed="9.62" arrival="406.00">
+    <vehicle id="high.207" depart="368.00" departSpeed="9.6202" speedFactor="1.0000" arrival="406.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.208" depart="369.00" departSpeed="6.18" arrival="408.00">
+    <vehicle id="high.208" depart="369.00" departSpeed="6.1798" speedFactor="1.0000" arrival="408.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.209" depart="371.00" departSpeed="8.12" arrival="409.00">
+    <vehicle id="high.209" depart="371.00" departSpeed="8.1191" speedFactor="1.0000" arrival="409.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.210" depart="372.00" departSpeed="4.24" arrival="411.00">
+    <vehicle id="high.210" depart="372.00" departSpeed="4.2373" speedFactor="1.0000" arrival="411.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.211" depart="374.00" departSpeed="5.21" arrival="413.00">
+    <vehicle id="high.211" depart="374.00" departSpeed="5.2054" speedFactor="1.0000" arrival="413.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.212" depart="376.00" departSpeed="6.66" arrival="415.00">
+    <vehicle id="high.212" depart="376.00" departSpeed="6.6576" speedFactor="1.0000" arrival="415.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.213" depart="378.00" departSpeed="8.96" arrival="416.00">
+    <vehicle id="high.213" depart="378.00" departSpeed="8.9646" speedFactor="1.0000" arrival="416.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.214" depart="379.00" departSpeed="5.21" arrival="418.00">
+    <vehicle id="high.214" depart="379.00" departSpeed="5.2141" speedFactor="1.0000" arrival="418.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.215" depart="381.00" departSpeed="6.67" arrival="420.00">
+    <vehicle id="high.215" depart="381.00" departSpeed="6.6707" speedFactor="1.0000" arrival="420.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.216" depart="383.00" departSpeed="8.99" arrival="421.00">
+    <vehicle id="high.216" depart="383.00" departSpeed="8.9909" speedFactor="1.0000" arrival="421.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.217" depart="384.00" departSpeed="5.24" arrival="423.00">
+    <vehicle id="high.217" depart="384.00" departSpeed="5.2404" speedFactor="1.0000" arrival="423.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.218" depart="386.00" departSpeed="6.71" arrival="425.00">
+    <vehicle id="high.218" depart="386.00" departSpeed="6.7102" speedFactor="1.0000" arrival="425.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.219" depart="388.00" departSpeed="9.05" arrival="426.00">
+    <vehicle id="high.219" depart="388.00" departSpeed="9.0465" speedFactor="1.0000" arrival="426.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.220" depart="389.00" departSpeed="5.32" arrival="428.00">
+    <vehicle id="high.220" depart="389.00" departSpeed="5.3193" speedFactor="1.0000" arrival="428.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.221" depart="391.00" departSpeed="6.83" arrival="430.00">
+    <vehicle id="high.221" depart="391.00" departSpeed="6.8285" speedFactor="1.0000" arrival="430.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.222" depart="393.00" departSpeed="9.20" arrival="431.00">
+    <vehicle id="high.222" depart="393.00" departSpeed="9.2043" speedFactor="1.0000" arrival="431.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.223" depart="394.00" departSpeed="5.56" arrival="433.00">
+    <vehicle id="high.223" depart="394.00" departSpeed="5.5559" speedFactor="1.0000" arrival="433.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.224" depart="396.00" departSpeed="7.18" arrival="434.00">
+    <vehicle id="high.224" depart="396.00" departSpeed="7.1834" speedFactor="1.0000" arrival="434.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.225" depart="398.00" departSpeed="9.68" arrival="436.00">
+    <vehicle id="high.225" depart="398.00" departSpeed="9.6775" speedFactor="1.0000" arrival="436.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.226" depart="399.00" departSpeed="6.27" arrival="438.00">
+    <vehicle id="high.226" depart="399.00" departSpeed="6.2657" speedFactor="1.0000" arrival="438.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.227" depart="401.00" departSpeed="8.25" arrival="439.00">
+    <vehicle id="high.227" depart="401.00" departSpeed="8.2481" speedFactor="1.0000" arrival="439.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.228" depart="402.00" departSpeed="4.50" arrival="441.00">
+    <vehicle id="high.228" depart="402.00" departSpeed="4.4952" speedFactor="1.0000" arrival="441.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.229" depart="404.00" departSpeed="5.59" arrival="443.00">
+    <vehicle id="high.229" depart="404.00" departSpeed="5.5923" speedFactor="1.0000" arrival="443.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.230" depart="406.00" departSpeed="7.24" arrival="444.00">
+    <vehicle id="high.230" depart="406.00" departSpeed="7.2379" speedFactor="1.0000" arrival="444.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.231" depart="408.00" departSpeed="9.75" arrival="446.00">
+    <vehicle id="high.231" depart="408.00" departSpeed="9.7502" speedFactor="1.0000" arrival="446.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.232" depart="409.00" departSpeed="6.37" arrival="448.00">
+    <vehicle id="high.232" depart="409.00" departSpeed="6.3749" speedFactor="1.0000" arrival="448.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.233" depart="411.00" departSpeed="8.41" arrival="449.00">
+    <vehicle id="high.233" depart="411.00" departSpeed="8.4118" speedFactor="1.0000" arrival="449.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.234" depart="412.00" departSpeed="4.66" arrival="451.00">
+    <vehicle id="high.234" depart="412.00" departSpeed="4.6613" speedFactor="1.0000" arrival="451.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.235" depart="414.00" departSpeed="5.84" arrival="453.00">
+    <vehicle id="high.235" depart="414.00" departSpeed="5.8414" speedFactor="1.0000" arrival="453.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.236" depart="416.00" departSpeed="7.61" arrival="454.00">
+    <vehicle id="high.236" depart="416.00" departSpeed="7.6116" speedFactor="1.0000" arrival="454.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.237" depart="417.00" departSpeed="3.22" arrival="457.00">
+    <vehicle id="high.237" depart="417.00" departSpeed="3.2223" speedFactor="1.0000" arrival="457.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.238" depart="419.00" departSpeed="2.87" arrival="459.00">
+    <vehicle id="high.238" depart="419.00" departSpeed="2.8658" speedFactor="1.0000" arrival="459.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.239" depart="421.00" departSpeed="1.80" arrival="461.00">
+    <vehicle id="high.239" depart="421.00" departSpeed="1.7964" speedFactor="1.0000" arrival="461.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.240" depart="424.00" departSpeed="6.34" arrival="463.00">
+    <vehicle id="high.240" depart="424.00" departSpeed="6.3423" speedFactor="1.0000" arrival="463.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.241" depart="426.00" departSpeed="8.36" arrival="464.00">
+    <vehicle id="high.241" depart="426.00" departSpeed="8.3629" speedFactor="1.0000" arrival="464.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.242" depart="427.00" departSpeed="4.61" arrival="466.00">
+    <vehicle id="high.242" depart="427.00" departSpeed="4.6124" speedFactor="1.0000" arrival="466.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.243" depart="429.00" departSpeed="5.77" arrival="468.00">
+    <vehicle id="high.243" depart="429.00" departSpeed="5.7681" speedFactor="1.0000" arrival="468.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.244" depart="431.00" departSpeed="7.50" arrival="469.00">
+    <vehicle id="high.244" depart="431.00" departSpeed="7.5016" speedFactor="1.0000" arrival="469.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.245" depart="432.00" departSpeed="3.00" arrival="472.00">
+    <vehicle id="high.245" depart="432.00" departSpeed="3.0022" speedFactor="1.0000" arrival="472.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.246" depart="434.00" departSpeed="2.21" arrival="474.00">
+    <vehicle id="high.246" depart="434.00" departSpeed="2.2057" speedFactor="1.0000" arrival="474.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.247" depart="437.00" departSpeed="7.16" arrival="475.00">
+    <vehicle id="high.247" depart="437.00" departSpeed="7.1609" speedFactor="1.0000" arrival="475.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.248" depart="439.00" departSpeed="9.65" arrival="477.00">
+    <vehicle id="high.248" depart="439.00" departSpeed="9.6476" speedFactor="1.0000" arrival="477.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.249" depart="440.00" departSpeed="6.22" arrival="479.00">
+    <vehicle id="high.249" depart="440.00" departSpeed="6.2208" speedFactor="1.0000" arrival="479.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.250" depart="442.00" departSpeed="8.18" arrival="480.00">
+    <vehicle id="high.250" depart="442.00" departSpeed="8.1808" speedFactor="1.0000" arrival="480.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.251" depart="443.00" departSpeed="4.36" arrival="482.00">
+    <vehicle id="high.251" depart="443.00" departSpeed="4.3605" speedFactor="1.0000" arrival="482.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.252" depart="445.00" departSpeed="5.39" arrival="484.00">
+    <vehicle id="high.252" depart="445.00" departSpeed="5.3903" speedFactor="1.0000" arrival="484.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.253" depart="447.00" departSpeed="6.93" arrival="486.00">
+    <vehicle id="high.253" depart="447.00" departSpeed="6.935" speedFactor="1.0000" arrival="486.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.254" depart="449.00" departSpeed="9.35" arrival="487.00">
+    <vehicle id="high.254" depart="449.00" departSpeed="9.3463" speedFactor="1.0000" arrival="487.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.255" depart="450.00" departSpeed="5.77" arrival="489.00">
+    <vehicle id="high.255" depart="450.00" departSpeed="5.7689" speedFactor="1.0000" arrival="489.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.256" depart="452.00" departSpeed="7.50" arrival="490.00">
+    <vehicle id="high.256" depart="452.00" departSpeed="7.5029" speedFactor="1.0000" arrival="490.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.257" depart="453.00" departSpeed="3.00" arrival="493.00">
+    <vehicle id="high.257" depart="453.00" departSpeed="3.0047" speedFactor="1.0000" arrival="493.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.258" depart="455.00" departSpeed="2.21" arrival="495.00">
+    <vehicle id="high.258" depart="455.00" departSpeed="2.2132" speedFactor="1.0000" arrival="495.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.259" depart="458.00" departSpeed="7.18" arrival="496.00">
+    <vehicle id="high.259" depart="458.00" departSpeed="7.1758" speedFactor="1.0000" arrival="496.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.260" depart="460.00" departSpeed="9.67" arrival="498.00">
+    <vehicle id="high.260" depart="460.00" departSpeed="9.6675" speedFactor="1.0000" arrival="498.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.261" depart="461.00" departSpeed="6.25" arrival="500.00">
+    <vehicle id="high.261" depart="461.00" departSpeed="6.2507" speedFactor="1.0000" arrival="500.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.262" depart="463.00" departSpeed="8.23" arrival="501.00">
+    <vehicle id="high.262" depart="463.00" departSpeed="8.2255" speedFactor="1.0000" arrival="501.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.263" depart="464.00" departSpeed="4.45" arrival="503.00">
+    <vehicle id="high.263" depart="464.00" departSpeed="4.4501" speedFactor="1.0000" arrival="503.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.264" depart="466.00" departSpeed="5.52" arrival="505.00">
+    <vehicle id="high.264" depart="466.00" departSpeed="5.5246" speedFactor="1.0000" arrival="505.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.265" depart="468.00" departSpeed="7.14" arrival="506.00">
+    <vehicle id="high.265" depart="468.00" departSpeed="7.1364" speedFactor="1.0000" arrival="506.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.266" depart="470.00" departSpeed="9.61" arrival="508.00">
+    <vehicle id="high.266" depart="470.00" departSpeed="9.6149" speedFactor="1.0000" arrival="508.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.267" depart="471.00" departSpeed="6.17" arrival="510.00">
+    <vehicle id="high.267" depart="471.00" departSpeed="6.1718" speedFactor="1.0000" arrival="510.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.268" depart="473.00" departSpeed="8.11" arrival="511.00">
+    <vehicle id="high.268" depart="473.00" departSpeed="8.1072" speedFactor="1.0000" arrival="511.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.269" depart="474.00" departSpeed="4.21" arrival="513.00">
+    <vehicle id="high.269" depart="474.00" departSpeed="4.2134" speedFactor="1.0000" arrival="513.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.270" depart="476.00" departSpeed="5.17" arrival="515.00">
+    <vehicle id="high.270" depart="476.00" departSpeed="5.1696" speedFactor="1.0000" arrival="515.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.271" depart="478.00" departSpeed="6.60" arrival="517.00">
+    <vehicle id="high.271" depart="478.00" departSpeed="6.604" speedFactor="1.0000" arrival="517.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.272" depart="480.00" departSpeed="8.86" arrival="518.00">
+    <vehicle id="high.272" depart="480.00" departSpeed="8.8574" speedFactor="1.0000" arrival="518.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.273" depart="481.00" departSpeed="5.11" arrival="520.00">
+    <vehicle id="high.273" depart="481.00" departSpeed="5.1069" speedFactor="1.0000" arrival="520.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.274" depart="483.00" departSpeed="6.51" arrival="522.00">
+    <vehicle id="high.274" depart="483.00" departSpeed="6.5099" speedFactor="1.0000" arrival="522.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.275" depart="485.00" departSpeed="8.67" arrival="523.00">
+    <vehicle id="high.275" depart="485.00" departSpeed="8.6692" speedFactor="1.0000" arrival="523.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.276" depart="486.00" departSpeed="4.92" arrival="525.00">
+    <vehicle id="high.276" depart="486.00" departSpeed="4.9187" speedFactor="1.0000" arrival="525.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.277" depart="488.00" departSpeed="6.23" arrival="527.00">
+    <vehicle id="high.277" depart="488.00" departSpeed="6.2276" speedFactor="1.0000" arrival="527.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.278" depart="490.00" departSpeed="8.19" arrival="528.00">
+    <vehicle id="high.278" depart="490.00" departSpeed="8.1909" speedFactor="1.0000" arrival="528.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.279" depart="491.00" departSpeed="4.38" arrival="530.00">
+    <vehicle id="high.279" depart="491.00" departSpeed="4.3808" speedFactor="1.0000" arrival="530.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.280" depart="493.00" departSpeed="5.42" arrival="532.00">
+    <vehicle id="high.280" depart="493.00" departSpeed="5.4207" speedFactor="1.0000" arrival="532.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.281" depart="495.00" departSpeed="6.98" arrival="534.00">
+    <vehicle id="high.281" depart="495.00" departSpeed="6.9806" speedFactor="1.0000" arrival="534.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.282" depart="497.00" departSpeed="9.41" arrival="535.00">
+    <vehicle id="high.282" depart="497.00" departSpeed="9.4071" speedFactor="1.0000" arrival="535.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.283" depart="498.00" departSpeed="5.86" arrival="537.00">
+    <vehicle id="high.283" depart="498.00" departSpeed="5.8601" speedFactor="1.0000" arrival="537.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.284" depart="500.00" departSpeed="7.64" arrival="538.00">
+    <vehicle id="high.284" depart="500.00" departSpeed="7.6397" speedFactor="1.0000" arrival="538.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.285" depart="501.00" departSpeed="3.28" arrival="541.00">
+    <vehicle id="high.285" depart="501.00" departSpeed="3.2784" speedFactor="1.0000" arrival="541.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.286" depart="503.00" departSpeed="3.03" arrival="543.00">
+    <vehicle id="high.286" depart="503.00" departSpeed="3.0342" speedFactor="1.0000" arrival="543.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.287" depart="505.00" departSpeed="2.30" arrival="545.00">
+    <vehicle id="high.287" depart="505.00" departSpeed="2.3015" speedFactor="1.0000" arrival="545.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.288" depart="508.00" departSpeed="7.35" arrival="546.00">
+    <vehicle id="high.288" depart="508.00" departSpeed="7.3526" speedFactor="1.0000" arrival="546.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.289" depart="510.00" departSpeed="9.90" arrival="548.00">
+    <vehicle id="high.289" depart="510.00" departSpeed="9.9031" speedFactor="1.0000" arrival="548.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.290" depart="511.00" departSpeed="6.60" arrival="550.00">
+    <vehicle id="high.290" depart="511.00" departSpeed="6.6042" speedFactor="1.0000" arrival="550.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.291" depart="513.00" departSpeed="8.86" arrival="551.00">
+    <vehicle id="high.291" depart="513.00" departSpeed="8.8578" speedFactor="1.0000" arrival="551.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.292" depart="514.00" departSpeed="5.11" arrival="553.00">
+    <vehicle id="high.292" depart="514.00" departSpeed="5.1073" speedFactor="1.0000" arrival="553.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.293" depart="516.00" departSpeed="6.51" arrival="555.00">
+    <vehicle id="high.293" depart="516.00" departSpeed="6.5105" speedFactor="1.0000" arrival="555.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.294" depart="518.00" departSpeed="8.67" arrival="556.00">
+    <vehicle id="high.294" depart="518.00" departSpeed="8.6705" speedFactor="1.0000" arrival="556.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.295" depart="519.00" departSpeed="4.92" arrival="558.00">
+    <vehicle id="high.295" depart="519.00" departSpeed="4.92" speedFactor="1.0000" arrival="558.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.296" depart="521.00" departSpeed="6.23" arrival="560.00">
+    <vehicle id="high.296" depart="521.00" departSpeed="6.2295" speedFactor="1.0000" arrival="560.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.297" depart="523.00" departSpeed="8.19" arrival="561.00">
+    <vehicle id="high.297" depart="523.00" departSpeed="8.1937" speedFactor="1.0000" arrival="561.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.298" depart="524.00" departSpeed="4.39" arrival="563.00">
+    <vehicle id="high.298" depart="524.00" departSpeed="4.3864" speedFactor="1.0000" arrival="563.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.299" depart="526.00" departSpeed="5.43" arrival="565.00">
+    <vehicle id="high.299" depart="526.00" departSpeed="5.4291" speedFactor="1.0000" arrival="565.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.300" depart="528.00" departSpeed="6.99" arrival="567.00">
+    <vehicle id="high.300" depart="528.00" departSpeed="6.9932" speedFactor="1.0000" arrival="567.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.301" depart="530.00" departSpeed="9.42" arrival="568.00">
+    <vehicle id="high.301" depart="530.00" departSpeed="9.4239" speedFactor="1.0000" arrival="568.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.302" depart="531.00" departSpeed="5.89" arrival="570.00">
+    <vehicle id="high.302" depart="531.00" departSpeed="5.8854" speedFactor="1.0000" arrival="570.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.303" depart="533.00" departSpeed="7.68" arrival="571.00">
+    <vehicle id="high.303" depart="533.00" departSpeed="7.6776" speedFactor="1.0000" arrival="571.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.304" depart="534.00" departSpeed="3.35" arrival="574.00">
+    <vehicle id="high.304" depart="534.00" departSpeed="3.3542" speedFactor="1.0000" arrival="574.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.305" depart="536.00" departSpeed="3.26" arrival="576.00">
+    <vehicle id="high.305" depart="536.00" departSpeed="3.2616" speedFactor="1.0000" arrival="576.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.306" depart="538.00" departSpeed="2.98" arrival="578.00">
+    <vehicle id="high.306" depart="538.00" departSpeed="2.9837" speedFactor="1.0000" arrival="578.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.307" depart="540.00" departSpeed="2.15" arrival="580.00">
+    <vehicle id="high.307" depart="540.00" departSpeed="2.15" speedFactor="1.0000" arrival="580.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.308" depart="543.00" departSpeed="7.05" arrival="582.00">
+    <vehicle id="high.308" depart="543.00" departSpeed="7.0494" speedFactor="1.0000" arrival="582.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.309" depart="545.00" departSpeed="9.50" arrival="583.00">
+    <vehicle id="high.309" depart="545.00" departSpeed="9.4989" speedFactor="1.0000" arrival="583.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.310" depart="546.00" departSpeed="6.00" arrival="585.00">
+    <vehicle id="high.310" depart="546.00" departSpeed="5.9979" speedFactor="1.0000" arrival="585.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.311" depart="548.00" departSpeed="7.85" arrival="586.00">
+    <vehicle id="high.311" depart="548.00" departSpeed="7.8463" speedFactor="1.0000" arrival="586.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.312" depart="549.00" departSpeed="3.69" arrival="589.00">
+    <vehicle id="high.312" depart="549.00" departSpeed="3.6917" speedFactor="1.0000" arrival="589.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.313" depart="551.00" departSpeed="4.27" arrival="590.00">
+    <vehicle id="high.313" depart="551.00" departSpeed="4.274" speedFactor="1.0000" arrival="590.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.314" depart="553.00" departSpeed="5.26" arrival="592.00">
+    <vehicle id="high.314" depart="553.00" departSpeed="5.2605" speedFactor="1.0000" arrival="592.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.315" depart="555.00" departSpeed="6.74" arrival="594.00">
+    <vehicle id="high.315" depart="555.00" departSpeed="6.7402" speedFactor="1.0000" arrival="594.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.316" depart="557.00" departSpeed="9.09" arrival="595.00">
+    <vehicle id="high.316" depart="557.00" departSpeed="9.0866" speedFactor="1.0000" arrival="595.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.317" depart="558.00" departSpeed="5.38" arrival="597.00">
+    <vehicle id="high.317" depart="558.00" departSpeed="5.3794" speedFactor="1.0000" arrival="597.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.318" depart="560.00" departSpeed="6.92" arrival="599.00">
+    <vehicle id="high.318" depart="560.00" departSpeed="6.9186" speedFactor="1.0000" arrival="599.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.319" depart="562.00" departSpeed="9.32" arrival="600.00">
+    <vehicle id="high.319" depart="562.00" departSpeed="9.3245" speedFactor="1.0000" arrival="600.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.320" depart="563.00" departSpeed="5.74" arrival="602.00">
+    <vehicle id="high.320" depart="563.00" departSpeed="5.7362" speedFactor="1.0000" arrival="602.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.321" depart="565.00" departSpeed="7.45" arrival="603.00">
+    <vehicle id="high.321" depart="565.00" departSpeed="7.4538" speedFactor="1.0000" arrival="603.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.322" depart="567.00" departSpeed="10.04" arrival="605.00">
+    <vehicle id="high.322" depart="567.00" departSpeed="10.038" speedFactor="1.0000" arrival="605.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.323" depart="568.00" departSpeed="6.81" arrival="607.00">
+    <vehicle id="high.323" depart="568.00" departSpeed="6.8065" speedFactor="1.0000" arrival="607.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.324" depart="570.00" departSpeed="9.18" arrival="608.00">
+    <vehicle id="high.324" depart="570.00" departSpeed="9.1751" speedFactor="1.0000" arrival="608.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.325" depart="571.00" departSpeed="5.51" arrival="610.00">
+    <vehicle id="high.325" depart="571.00" departSpeed="5.5121" speedFactor="1.0000" arrival="610.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.326" depart="573.00" departSpeed="7.12" arrival="611.00">
+    <vehicle id="high.326" depart="573.00" departSpeed="7.1176" speedFactor="1.0000" arrival="611.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.327" depart="575.00" departSpeed="9.59" arrival="613.00">
+    <vehicle id="high.327" depart="575.00" departSpeed="9.5899" speedFactor="1.0000" arrival="613.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.328" depart="576.00" departSpeed="6.13" arrival="615.00">
+    <vehicle id="high.328" depart="576.00" departSpeed="6.1343" speedFactor="1.0000" arrival="615.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.329" depart="578.00" departSpeed="8.05" arrival="616.00">
+    <vehicle id="high.329" depart="578.00" departSpeed="8.0509" speedFactor="1.0000" arrival="616.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.330" depart="579.00" departSpeed="4.10" arrival="619.00">
+    <vehicle id="high.330" depart="579.00" departSpeed="4.1009" speedFactor="1.0000" arrival="619.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.331" depart="581.00" departSpeed="5.00" arrival="620.00">
+    <vehicle id="high.331" depart="581.00" departSpeed="5.0008" speedFactor="1.0000" arrival="620.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.332" depart="583.00" departSpeed="6.35" arrival="622.00">
+    <vehicle id="high.332" depart="583.00" departSpeed="6.3508" speedFactor="1.0000" arrival="622.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.333" depart="585.00" departSpeed="8.38" arrival="623.00">
+    <vehicle id="high.333" depart="585.00" departSpeed="8.3756" speedFactor="1.0000" arrival="623.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.334" depart="586.00" departSpeed="4.63" arrival="625.00">
+    <vehicle id="high.334" depart="586.00" departSpeed="4.6251" speedFactor="1.0000" arrival="625.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.335" depart="588.00" departSpeed="5.79" arrival="627.00">
+    <vehicle id="high.335" depart="588.00" departSpeed="5.7872" speedFactor="1.0000" arrival="627.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.336" depart="590.00" departSpeed="7.53" arrival="628.00">
+    <vehicle id="high.336" depart="590.00" departSpeed="7.5303" speedFactor="1.0000" arrival="628.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.337" depart="591.00" departSpeed="3.06" arrival="631.00">
+    <vehicle id="high.337" depart="591.00" departSpeed="3.0596" speedFactor="1.0000" arrival="631.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.338" depart="593.00" departSpeed="2.38" arrival="633.00">
+    <vehicle id="high.338" depart="593.00" departSpeed="2.3779" speedFactor="1.0000" arrival="633.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.339" depart="596.00" departSpeed="7.51" arrival="634.00">
+    <vehicle id="high.339" depart="596.00" departSpeed="7.5052" speedFactor="1.0000" arrival="634.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.340" depart="597.00" departSpeed="3.01" arrival="637.00">
+    <vehicle id="high.340" depart="597.00" departSpeed="3.0094" speedFactor="1.0000" arrival="637.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.341" depart="599.00" departSpeed="2.23" arrival="639.00">
+    <vehicle id="high.341" depart="599.00" departSpeed="2.2273" speedFactor="1.0000" arrival="639.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.342" depart="602.00" departSpeed="7.20" arrival="640.00">
+    <vehicle id="high.342" depart="602.00" departSpeed="7.2042" speedFactor="1.0000" arrival="640.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.343" depart="604.00" departSpeed="9.71" arrival="642.00">
+    <vehicle id="high.343" depart="604.00" departSpeed="9.7053" speedFactor="1.0000" arrival="642.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.344" depart="605.00" departSpeed="6.31" arrival="644.00">
+    <vehicle id="high.344" depart="605.00" departSpeed="6.3074" speedFactor="1.0000" arrival="644.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.345" depart="607.00" departSpeed="8.31" arrival="645.00">
+    <vehicle id="high.345" depart="607.00" departSpeed="8.3106" speedFactor="1.0000" arrival="645.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.346" depart="608.00" departSpeed="4.56" arrival="647.00">
+    <vehicle id="high.346" depart="608.00" departSpeed="4.5601" speedFactor="1.0000" arrival="647.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.347" depart="610.00" departSpeed="5.69" arrival="649.00">
+    <vehicle id="high.347" depart="610.00" departSpeed="5.6896" speedFactor="1.0000" arrival="649.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.348" depart="612.00" departSpeed="7.38" arrival="650.00">
+    <vehicle id="high.348" depart="612.00" departSpeed="7.384" speedFactor="1.0000" arrival="650.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.349" depart="614.00" departSpeed="9.94" arrival="652.00">
+    <vehicle id="high.349" depart="614.00" departSpeed="9.945" speedFactor="1.0000" arrival="652.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.350" depart="615.00" departSpeed="6.67" arrival="654.00">
+    <vehicle id="high.350" depart="615.00" departSpeed="6.6669" speedFactor="1.0000" arrival="654.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.351" depart="617.00" departSpeed="8.98" arrival="655.00">
+    <vehicle id="high.351" depart="617.00" departSpeed="8.9834" speedFactor="1.0000" arrival="655.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.352" depart="618.00" departSpeed="5.23" arrival="657.00">
+    <vehicle id="high.352" depart="618.00" departSpeed="5.2329" speedFactor="1.0000" arrival="657.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.353" depart="620.00" departSpeed="6.70" arrival="659.00">
+    <vehicle id="high.353" depart="620.00" departSpeed="6.6988" speedFactor="1.0000" arrival="659.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.354" depart="622.00" departSpeed="9.03" arrival="660.00">
+    <vehicle id="high.354" depart="622.00" departSpeed="9.0314" speedFactor="1.0000" arrival="660.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.355" depart="623.00" departSpeed="5.30" arrival="662.00">
+    <vehicle id="high.355" depart="623.00" departSpeed="5.2966" speedFactor="1.0000" arrival="662.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.356" depart="625.00" departSpeed="6.79" arrival="664.00">
+    <vehicle id="high.356" depart="625.00" departSpeed="6.7943" speedFactor="1.0000" arrival="664.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.357" depart="627.00" departSpeed="9.16" arrival="665.00">
+    <vehicle id="high.357" depart="627.00" departSpeed="9.1588" speedFactor="1.0000" arrival="665.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.358" depart="628.00" departSpeed="5.49" arrival="667.00">
+    <vehicle id="high.358" depart="628.00" departSpeed="5.4877" speedFactor="1.0000" arrival="667.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.359" depart="630.00" departSpeed="7.08" arrival="668.00">
+    <vehicle id="high.359" depart="630.00" departSpeed="7.081" speedFactor="1.0000" arrival="668.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.360" depart="632.00" departSpeed="9.54" arrival="670.00">
+    <vehicle id="high.360" depart="632.00" departSpeed="9.541" speedFactor="1.0000" arrival="670.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.361" depart="633.00" departSpeed="6.06" arrival="672.00">
+    <vehicle id="high.361" depart="633.00" departSpeed="6.061" speedFactor="1.0000" arrival="672.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.362" depart="635.00" departSpeed="7.94" arrival="673.00">
+    <vehicle id="high.362" depart="635.00" departSpeed="7.941" speedFactor="1.0000" arrival="673.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.363" depart="636.00" departSpeed="3.88" arrival="676.00">
+    <vehicle id="high.363" depart="636.00" departSpeed="3.881" speedFactor="1.0000" arrival="676.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.364" depart="638.00" departSpeed="4.67" arrival="677.00">
+    <vehicle id="high.364" depart="638.00" departSpeed="4.671" speedFactor="1.0000" arrival="677.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.365" depart="640.00" departSpeed="5.86" arrival="679.00">
+    <vehicle id="high.365" depart="640.00" departSpeed="5.8561" speedFactor="1.0000" arrival="679.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.366" depart="642.00" departSpeed="7.63" arrival="680.00">
+    <vehicle id="high.366" depart="642.00" departSpeed="7.6336" speedFactor="1.0000" arrival="680.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.367" depart="643.00" departSpeed="3.27" arrival="683.00">
+    <vehicle id="high.367" depart="643.00" departSpeed="3.2662" speedFactor="1.0000" arrival="683.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.368" depart="645.00" departSpeed="3.00" arrival="685.00">
+    <vehicle id="high.368" depart="645.00" departSpeed="2.9975" speedFactor="1.0000" arrival="685.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.369" depart="647.00" departSpeed="2.19" arrival="687.00">
+    <vehicle id="high.369" depart="647.00" departSpeed="2.1914" speedFactor="1.0000" arrival="687.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.370" depart="650.00" departSpeed="7.13" arrival="688.00">
+    <vehicle id="high.370" depart="650.00" departSpeed="7.1323" speedFactor="1.0000" arrival="688.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.371" depart="652.00" departSpeed="9.61" arrival="690.00">
+    <vehicle id="high.371" depart="652.00" departSpeed="9.6094" speedFactor="1.0000" arrival="690.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.372" depart="653.00" departSpeed="6.16" arrival="692.00">
+    <vehicle id="high.372" depart="653.00" departSpeed="6.1637" speedFactor="1.0000" arrival="692.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.373" depart="655.00" departSpeed="8.09" arrival="693.00">
+    <vehicle id="high.373" depart="655.00" departSpeed="8.095" speedFactor="1.0000" arrival="693.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.374" depart="656.00" departSpeed="4.19" arrival="695.00">
+    <vehicle id="high.374" depart="656.00" departSpeed="4.189" speedFactor="1.0000" arrival="695.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.375" depart="658.00" departSpeed="5.13" arrival="697.00">
+    <vehicle id="high.375" depart="658.00" departSpeed="5.133" speedFactor="1.0000" arrival="697.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.376" depart="660.00" departSpeed="6.55" arrival="699.00">
+    <vehicle id="high.376" depart="660.00" departSpeed="6.549" speedFactor="1.0000" arrival="699.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.377" depart="662.00" departSpeed="8.75" arrival="700.00">
+    <vehicle id="high.377" depart="662.00" departSpeed="8.7475" speedFactor="1.0000" arrival="700.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.378" depart="663.00" departSpeed="5.00" arrival="702.00">
+    <vehicle id="high.378" depart="663.00" departSpeed="4.997" speedFactor="1.0000" arrival="702.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.379" depart="665.00" departSpeed="6.34" arrival="704.00">
+    <vehicle id="high.379" depart="665.00" departSpeed="6.3449" speedFactor="1.0000" arrival="704.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.380" depart="667.00" departSpeed="8.37" arrival="705.00">
+    <vehicle id="high.380" depart="667.00" departSpeed="8.3669" speedFactor="1.0000" arrival="705.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.381" depart="668.00" departSpeed="4.62" arrival="707.00">
+    <vehicle id="high.381" depart="668.00" departSpeed="4.6164" speedFactor="1.0000" arrival="707.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.382" depart="670.00" departSpeed="5.77" arrival="709.00">
+    <vehicle id="high.382" depart="670.00" departSpeed="5.7741" speedFactor="1.0000" arrival="709.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.383" depart="672.00" departSpeed="7.51" arrival="710.00">
+    <vehicle id="high.383" depart="672.00" departSpeed="7.5107" speedFactor="1.0000" arrival="710.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.384" depart="673.00" departSpeed="3.02" arrival="713.00">
+    <vehicle id="high.384" depart="673.00" departSpeed="3.0204" speedFactor="1.0000" arrival="713.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.385" depart="675.00" departSpeed="2.26" arrival="715.00">
+    <vehicle id="high.385" depart="675.00" departSpeed="2.2601" speedFactor="1.0000" arrival="715.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.386" depart="678.00" departSpeed="7.27" arrival="716.00">
+    <vehicle id="high.386" depart="678.00" departSpeed="7.2697" speedFactor="1.0000" arrival="716.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.387" depart="680.00" departSpeed="9.79" arrival="718.00">
+    <vehicle id="high.387" depart="680.00" departSpeed="9.7926" speedFactor="1.0000" arrival="718.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.388" depart="681.00" departSpeed="6.44" arrival="720.00">
+    <vehicle id="high.388" depart="681.00" departSpeed="6.4384" speedFactor="1.0000" arrival="720.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.389" depart="683.00" departSpeed="8.53" arrival="721.00">
+    <vehicle id="high.389" depart="683.00" departSpeed="8.5262" speedFactor="1.0000" arrival="721.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.390" depart="684.00" departSpeed="4.78" arrival="723.00">
+    <vehicle id="high.390" depart="684.00" departSpeed="4.7757" speedFactor="1.0000" arrival="723.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.391" depart="686.00" departSpeed="6.01" arrival="725.00">
+    <vehicle id="high.391" depart="686.00" departSpeed="6.0131" speedFactor="1.0000" arrival="725.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.392" depart="688.00" departSpeed="7.87" arrival="726.00">
+    <vehicle id="high.392" depart="688.00" departSpeed="7.8691" speedFactor="1.0000" arrival="726.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.393" depart="689.00" departSpeed="3.74" arrival="729.00">
+    <vehicle id="high.393" depart="689.00" departSpeed="3.7372" speedFactor="1.0000" arrival="729.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.394" depart="691.00" departSpeed="4.41" arrival="730.00">
+    <vehicle id="high.394" depart="691.00" departSpeed="4.4106" speedFactor="1.0000" arrival="730.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.395" depart="693.00" departSpeed="5.47" arrival="732.00">
+    <vehicle id="high.395" depart="693.00" departSpeed="5.4654" speedFactor="1.0000" arrival="732.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.396" depart="695.00" departSpeed="7.05" arrival="734.00">
+    <vehicle id="high.396" depart="695.00" departSpeed="7.0476" speedFactor="1.0000" arrival="734.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.397" depart="697.00" departSpeed="9.50" arrival="735.00">
+    <vehicle id="high.397" depart="697.00" departSpeed="9.4965" speedFactor="1.0000" arrival="735.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.398" depart="698.00" departSpeed="5.99" arrival="737.00">
+    <vehicle id="high.398" depart="698.00" departSpeed="5.9943" speedFactor="1.0000" arrival="737.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.399" depart="700.00" departSpeed="7.84" arrival="738.00">
+    <vehicle id="high.399" depart="700.00" departSpeed="7.8409" speedFactor="1.0000" arrival="738.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.400" depart="701.00" departSpeed="3.68" arrival="741.00">
+    <vehicle id="high.400" depart="701.00" departSpeed="3.6809" speedFactor="1.0000" arrival="741.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.401" depart="703.00" departSpeed="4.24" arrival="742.00">
+    <vehicle id="high.401" depart="703.00" departSpeed="4.2417" speedFactor="1.0000" arrival="742.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.402" depart="705.00" departSpeed="5.21" arrival="744.00">
+    <vehicle id="high.402" depart="705.00" departSpeed="5.212" speedFactor="1.0000" arrival="744.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.403" depart="707.00" departSpeed="6.67" arrival="746.00">
+    <vehicle id="high.403" depart="707.00" departSpeed="6.6676" speedFactor="1.0000" arrival="746.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.404" depart="709.00" departSpeed="8.98" arrival="747.00">
+    <vehicle id="high.404" depart="709.00" departSpeed="8.9846" speedFactor="1.0000" arrival="747.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.405" depart="710.00" departSpeed="5.23" arrival="749.00">
+    <vehicle id="high.405" depart="710.00" departSpeed="5.2341" speedFactor="1.0000" arrival="749.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.406" depart="712.00" departSpeed="6.70" arrival="751.00">
+    <vehicle id="high.406" depart="712.00" departSpeed="6.7007" speedFactor="1.0000" arrival="751.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.407" depart="714.00" departSpeed="9.03" arrival="752.00">
+    <vehicle id="high.407" depart="714.00" departSpeed="9.034" speedFactor="1.0000" arrival="752.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.408" depart="715.00" departSpeed="5.30" arrival="754.00">
+    <vehicle id="high.408" depart="715.00" departSpeed="5.3004" speedFactor="1.0000" arrival="754.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.409" depart="717.00" departSpeed="6.80" arrival="756.00">
+    <vehicle id="high.409" depart="717.00" departSpeed="6.8002" speedFactor="1.0000" arrival="756.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.410" depart="719.00" departSpeed="9.17" arrival="757.00">
+    <vehicle id="high.410" depart="719.00" departSpeed="9.1666" speedFactor="1.0000" arrival="757.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.411" depart="720.00" departSpeed="5.50" arrival="759.00">
+    <vehicle id="high.411" depart="720.00" departSpeed="5.4993" speedFactor="1.0000" arrival="759.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.412" depart="722.00" departSpeed="7.10" arrival="760.00">
+    <vehicle id="high.412" depart="722.00" departSpeed="7.0985" speedFactor="1.0000" arrival="760.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.413" depart="724.00" departSpeed="9.56" arrival="762.00">
+    <vehicle id="high.413" depart="724.00" departSpeed="9.5643" speedFactor="1.0000" arrival="762.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.414" depart="725.00" departSpeed="6.10" arrival="764.00">
+    <vehicle id="high.414" depart="725.00" departSpeed="6.096" speedFactor="1.0000" arrival="764.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.415" depart="727.00" departSpeed="7.99" arrival="765.00">
+    <vehicle id="high.415" depart="727.00" departSpeed="7.9935" speedFactor="1.0000" arrival="765.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.416" depart="728.00" departSpeed="3.99" arrival="768.00">
+    <vehicle id="high.416" depart="728.00" departSpeed="3.986" speedFactor="1.0000" arrival="768.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.417" depart="730.00" departSpeed="4.83" arrival="769.00">
+    <vehicle id="high.417" depart="730.00" departSpeed="4.8285" speedFactor="1.0000" arrival="769.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.418" depart="732.00" departSpeed="6.09" arrival="771.00">
+    <vehicle id="high.418" depart="732.00" departSpeed="6.0923" speedFactor="1.0000" arrival="771.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.419" depart="734.00" departSpeed="7.99" arrival="772.00">
+    <vehicle id="high.419" depart="734.00" departSpeed="7.9879" speedFactor="1.0000" arrival="772.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.420" depart="735.00" departSpeed="3.97" arrival="775.00">
+    <vehicle id="high.420" depart="735.00" departSpeed="3.9749" speedFactor="1.0000" arrival="775.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.421" depart="737.00" departSpeed="4.81" arrival="776.00">
+    <vehicle id="high.421" depart="737.00" departSpeed="4.8118" speedFactor="1.0000" arrival="776.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.422" depart="739.00" departSpeed="6.07" arrival="778.00">
+    <vehicle id="high.422" depart="739.00" departSpeed="6.0672" speedFactor="1.0000" arrival="778.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.423" depart="741.00" departSpeed="7.95" arrival="779.00">
+    <vehicle id="high.423" depart="741.00" departSpeed="7.9503" speedFactor="1.0000" arrival="779.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.424" depart="742.00" departSpeed="3.90" arrival="782.00">
+    <vehicle id="high.424" depart="742.00" departSpeed="3.8996" speedFactor="1.0000" arrival="782.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.425" depart="744.00" departSpeed="4.70" arrival="783.00">
+    <vehicle id="high.425" depart="744.00" departSpeed="4.6988" speedFactor="1.0000" arrival="783.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.426" depart="746.00" departSpeed="5.90" arrival="785.00">
+    <vehicle id="high.426" depart="746.00" departSpeed="5.8977" speedFactor="1.0000" arrival="785.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.427" depart="748.00" departSpeed="7.70" arrival="786.00">
+    <vehicle id="high.427" depart="748.00" departSpeed="7.6961" speedFactor="1.0000" arrival="786.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.428" depart="749.00" departSpeed="3.39" arrival="789.00">
+    <vehicle id="high.428" depart="749.00" departSpeed="3.3912" speedFactor="1.0000" arrival="789.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.429" depart="751.00" departSpeed="3.37" arrival="791.00">
+    <vehicle id="high.429" depart="751.00" departSpeed="3.3727" speedFactor="1.0000" arrival="791.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.430" depart="753.00" departSpeed="3.32" arrival="793.00">
+    <vehicle id="high.430" depart="753.00" departSpeed="3.3172" speedFactor="1.0000" arrival="793.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.431" depart="755.00" departSpeed="3.15" arrival="795.00">
+    <vehicle id="high.431" depart="755.00" departSpeed="3.1507" speedFactor="1.0000" arrival="795.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.432" depart="757.00" departSpeed="2.65" arrival="797.00">
+    <vehicle id="high.432" depart="757.00" departSpeed="2.6512" speedFactor="1.0000" arrival="797.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.433" depart="759.00" departSpeed="1.15" arrival="800.00">
+    <vehicle id="high.433" depart="759.00" departSpeed="1.1525" speedFactor="1.0000" arrival="800.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.434" depart="762.00" departSpeed="5.05" arrival="801.00">
+    <vehicle id="high.434" depart="762.00" departSpeed="5.0544" speedFactor="1.0000" arrival="801.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.435" depart="764.00" departSpeed="6.43" arrival="803.00">
+    <vehicle id="high.435" depart="764.00" departSpeed="6.4311" speedFactor="1.0000" arrival="803.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.436" depart="766.00" departSpeed="8.51" arrival="804.00">
+    <vehicle id="high.436" depart="766.00" departSpeed="8.5117" speedFactor="1.0000" arrival="804.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.437" depart="767.00" departSpeed="4.76" arrival="806.00">
+    <vehicle id="high.437" depart="767.00" departSpeed="4.7612" speedFactor="1.0000" arrival="806.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.438" depart="769.00" departSpeed="5.99" arrival="808.00">
+    <vehicle id="high.438" depart="769.00" departSpeed="5.9914" speedFactor="1.0000" arrival="808.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.439" depart="771.00" departSpeed="7.84" arrival="809.00">
+    <vehicle id="high.439" depart="771.00" departSpeed="7.8365" speedFactor="1.0000" arrival="809.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.440" depart="772.00" departSpeed="3.67" arrival="812.00">
+    <vehicle id="high.440" depart="772.00" departSpeed="3.6721" speedFactor="1.0000" arrival="812.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.441" depart="774.00" departSpeed="4.22" arrival="813.00">
+    <vehicle id="high.441" depart="774.00" departSpeed="4.2153" speedFactor="1.0000" arrival="813.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.442" depart="776.00" departSpeed="5.17" arrival="815.00">
+    <vehicle id="high.442" depart="776.00" departSpeed="5.1724" speedFactor="1.0000" arrival="815.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.443" depart="778.00" departSpeed="6.61" arrival="817.00">
+    <vehicle id="high.443" depart="778.00" departSpeed="6.6082" speedFactor="1.0000" arrival="817.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.444" depart="780.00" departSpeed="8.87" arrival="818.00">
+    <vehicle id="high.444" depart="780.00" departSpeed="8.8658" speedFactor="1.0000" arrival="818.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.445" depart="781.00" departSpeed="5.12" arrival="820.00">
+    <vehicle id="high.445" depart="781.00" departSpeed="5.1153" speedFactor="1.0000" arrival="820.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.446" depart="783.00" departSpeed="6.52" arrival="822.00">
+    <vehicle id="high.446" depart="783.00" departSpeed="6.5225" speedFactor="1.0000" arrival="822.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.447" depart="785.00" departSpeed="8.69" arrival="823.00">
+    <vehicle id="high.447" depart="785.00" departSpeed="8.6945" speedFactor="1.0000" arrival="823.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.448" depart="786.00" departSpeed="4.94" arrival="825.00">
+    <vehicle id="high.448" depart="786.00" departSpeed="4.944" speedFactor="1.0000" arrival="825.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.449" depart="788.00" departSpeed="6.27" arrival="827.00">
+    <vehicle id="high.449" depart="788.00" departSpeed="6.2654" speedFactor="1.0000" arrival="827.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.450" depart="790.00" departSpeed="8.25" arrival="828.00">
+    <vehicle id="high.450" depart="790.00" departSpeed="8.2476" speedFactor="1.0000" arrival="828.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.451" depart="791.00" departSpeed="4.49" arrival="830.00">
+    <vehicle id="high.451" depart="791.00" departSpeed="4.4943" speedFactor="1.0000" arrival="830.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.452" depart="793.00" departSpeed="5.59" arrival="832.00">
+    <vehicle id="high.452" depart="793.00" departSpeed="5.5909" speedFactor="1.0000" arrival="832.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.453" depart="795.00" departSpeed="7.24" arrival="833.00">
+    <vehicle id="high.453" depart="795.00" departSpeed="7.2359" speedFactor="1.0000" arrival="833.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.454" depart="797.00" departSpeed="9.75" arrival="835.00">
+    <vehicle id="high.454" depart="797.00" departSpeed="9.7475" speedFactor="1.0000" arrival="835.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.455" depart="798.00" departSpeed="6.37" arrival="837.00">
+    <vehicle id="high.455" depart="798.00" departSpeed="6.3708" speedFactor="1.0000" arrival="837.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.456" depart="800.00" departSpeed="8.41" arrival="838.00">
+    <vehicle id="high.456" depart="800.00" departSpeed="8.4057" speedFactor="1.0000" arrival="838.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.457" depart="801.00" departSpeed="4.66" arrival="840.00">
+    <vehicle id="high.457" depart="801.00" departSpeed="4.6552" speedFactor="1.0000" arrival="840.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.458" depart="803.00" departSpeed="5.83" arrival="842.00">
+    <vehicle id="high.458" depart="803.00" departSpeed="5.8323" speedFactor="1.0000" arrival="842.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.459" depart="805.00" departSpeed="7.60" arrival="843.00">
+    <vehicle id="high.459" depart="805.00" departSpeed="7.598" speedFactor="1.0000" arrival="843.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.460" depart="806.00" departSpeed="3.19" arrival="846.00">
+    <vehicle id="high.460" depart="806.00" departSpeed="3.195" speedFactor="1.0000" arrival="846.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.461" depart="808.00" departSpeed="2.78" arrival="848.00">
+    <vehicle id="high.461" depart="808.00" departSpeed="2.7839" speedFactor="1.0000" arrival="848.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.462" depart="810.00" departSpeed="1.55" arrival="850.00">
+    <vehicle id="high.462" depart="810.00" departSpeed="1.5508" speedFactor="1.0000" arrival="850.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.463" depart="813.00" departSpeed="5.85" arrival="852.00">
+    <vehicle id="high.463" depart="813.00" departSpeed="5.8512" speedFactor="1.0000" arrival="852.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.464" depart="815.00" departSpeed="7.63" arrival="853.00">
+    <vehicle id="high.464" depart="815.00" departSpeed="7.6263" speedFactor="1.0000" arrival="853.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.465" depart="816.00" departSpeed="3.25" arrival="856.00">
+    <vehicle id="high.465" depart="816.00" departSpeed="3.2516" speedFactor="1.0000" arrival="856.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.466" depart="818.00" departSpeed="2.95" arrival="858.00">
+    <vehicle id="high.466" depart="818.00" departSpeed="2.9537" speedFactor="1.0000" arrival="858.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.467" depart="820.00" departSpeed="2.06" arrival="860.00">
+    <vehicle id="high.467" depart="820.00" departSpeed="2.06" speedFactor="1.0000" arrival="860.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.468" depart="823.00" departSpeed="6.87" arrival="862.00">
+    <vehicle id="high.468" depart="823.00" departSpeed="6.8694" speedFactor="1.0000" arrival="862.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.469" depart="825.00" departSpeed="9.26" arrival="863.00">
+    <vehicle id="high.469" depart="825.00" departSpeed="9.2589" speedFactor="1.0000" arrival="863.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.470" depart="826.00" departSpeed="5.64" arrival="865.00">
+    <vehicle id="high.470" depart="826.00" departSpeed="5.6379" speedFactor="1.0000" arrival="865.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.471" depart="828.00" departSpeed="7.31" arrival="866.00">
+    <vehicle id="high.471" depart="828.00" departSpeed="7.3063" speedFactor="1.0000" arrival="866.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.472" depart="830.00" departSpeed="9.84" arrival="868.00">
+    <vehicle id="high.472" depart="830.00" departSpeed="9.8414" speedFactor="1.0000" arrival="868.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.473" depart="831.00" departSpeed="6.51" arrival="870.00">
+    <vehicle id="high.473" depart="831.00" departSpeed="6.5116" speedFactor="1.0000" arrival="870.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.474" depart="833.00" departSpeed="8.67" arrival="871.00">
+    <vehicle id="high.474" depart="833.00" departSpeed="8.6727" speedFactor="1.0000" arrival="871.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.475" depart="834.00" departSpeed="4.92" arrival="873.00">
+    <vehicle id="high.475" depart="834.00" departSpeed="4.9222" speedFactor="1.0000" arrival="873.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.476" depart="836.00" departSpeed="6.23" arrival="875.00">
+    <vehicle id="high.476" depart="836.00" departSpeed="6.2328" speedFactor="1.0000" arrival="875.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.477" depart="838.00" departSpeed="8.20" arrival="876.00">
+    <vehicle id="high.477" depart="838.00" departSpeed="8.1987" speedFactor="1.0000" arrival="876.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.478" depart="839.00" departSpeed="4.40" arrival="878.00">
+    <vehicle id="high.478" depart="839.00" departSpeed="4.3965" speedFactor="1.0000" arrival="878.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.479" depart="841.00" departSpeed="5.44" arrival="880.00">
+    <vehicle id="high.479" depart="841.00" departSpeed="5.4442" speedFactor="1.0000" arrival="880.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.480" depart="843.00" departSpeed="7.02" arrival="882.00">
+    <vehicle id="high.480" depart="843.00" departSpeed="7.0159" speedFactor="1.0000" arrival="882.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.481" depart="845.00" departSpeed="9.45" arrival="883.00">
+    <vehicle id="high.481" depart="845.00" departSpeed="9.4542" speedFactor="1.0000" arrival="883.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.482" depart="846.00" departSpeed="5.93" arrival="885.00">
+    <vehicle id="high.482" depart="846.00" departSpeed="5.9307" speedFactor="1.0000" arrival="885.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.483" depart="848.00" departSpeed="7.75" arrival="886.00">
+    <vehicle id="high.483" depart="848.00" departSpeed="7.7456" speedFactor="1.0000" arrival="886.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.484" depart="849.00" departSpeed="3.49" arrival="889.00">
+    <vehicle id="high.484" depart="849.00" departSpeed="3.4902" speedFactor="1.0000" arrival="889.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.485" depart="851.00" departSpeed="3.67" arrival="891.00">
+    <vehicle id="high.485" depart="851.00" departSpeed="3.6697" speedFactor="1.0000" arrival="891.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.486" depart="853.00" departSpeed="4.21" arrival="892.00">
+    <vehicle id="high.486" depart="853.00" departSpeed="4.2081" speedFactor="1.0000" arrival="892.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.487" depart="855.00" departSpeed="5.16" arrival="894.00">
+    <vehicle id="high.487" depart="855.00" departSpeed="5.1616" speedFactor="1.0000" arrival="894.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.488" depart="857.00" departSpeed="6.59" arrival="896.00">
+    <vehicle id="high.488" depart="857.00" departSpeed="6.592" speedFactor="1.0000" arrival="896.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.489" depart="859.00" departSpeed="8.83" arrival="897.00">
+    <vehicle id="high.489" depart="859.00" departSpeed="8.8334" speedFactor="1.0000" arrival="897.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.490" depart="860.00" departSpeed="5.08" arrival="899.00">
+    <vehicle id="high.490" depart="860.00" departSpeed="5.0829" speedFactor="1.0000" arrival="899.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.491" depart="862.00" departSpeed="6.47" arrival="901.00">
+    <vehicle id="high.491" depart="862.00" departSpeed="6.4739" speedFactor="1.0000" arrival="901.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.492" depart="864.00" departSpeed="8.60" arrival="902.00">
+    <vehicle id="high.492" depart="864.00" departSpeed="8.5973" speedFactor="1.0000" arrival="902.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.493" depart="865.00" departSpeed="4.85" arrival="904.00">
+    <vehicle id="high.493" depart="865.00" departSpeed="4.8468" speedFactor="1.0000" arrival="904.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.494" depart="867.00" departSpeed="6.12" arrival="906.00">
+    <vehicle id="high.494" depart="867.00" departSpeed="6.1197" speedFactor="1.0000" arrival="906.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.495" depart="869.00" departSpeed="8.03" arrival="907.00">
+    <vehicle id="high.495" depart="869.00" departSpeed="8.029" speedFactor="1.0000" arrival="907.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.496" depart="870.00" departSpeed="4.06" arrival="910.00">
+    <vehicle id="high.496" depart="870.00" departSpeed="4.0571" speedFactor="1.0000" arrival="910.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.497" depart="872.00" departSpeed="4.94" arrival="911.00">
+    <vehicle id="high.497" depart="872.00" departSpeed="4.9351" speedFactor="1.0000" arrival="911.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.498" depart="874.00" departSpeed="6.25" arrival="913.00">
+    <vehicle id="high.498" depart="874.00" departSpeed="6.2522" speedFactor="1.0000" arrival="913.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.499" depart="876.00" departSpeed="8.23" arrival="914.00">
+    <vehicle id="high.499" depart="876.00" departSpeed="8.2278" speedFactor="1.0000" arrival="914.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.500" depart="877.00" departSpeed="4.45" arrival="916.00">
+    <vehicle id="high.500" depart="877.00" departSpeed="4.4547" speedFactor="1.0000" arrival="916.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.501" depart="879.00" departSpeed="5.53" arrival="918.00">
+    <vehicle id="high.501" depart="879.00" departSpeed="5.5315" speedFactor="1.0000" arrival="918.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.502" depart="881.00" departSpeed="7.15" arrival="919.00">
+    <vehicle id="high.502" depart="881.00" departSpeed="7.1467" speedFactor="1.0000" arrival="919.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.503" depart="883.00" departSpeed="9.63" arrival="921.00">
+    <vehicle id="high.503" depart="883.00" departSpeed="9.6287" speedFactor="1.0000" arrival="921.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.504" depart="884.00" departSpeed="6.19" arrival="923.00">
+    <vehicle id="high.504" depart="884.00" departSpeed="6.1925" speedFactor="1.0000" arrival="923.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.505" depart="886.00" departSpeed="8.14" arrival="924.00">
+    <vehicle id="high.505" depart="886.00" departSpeed="8.1382" speedFactor="1.0000" arrival="924.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.506" depart="887.00" departSpeed="4.28" arrival="926.00">
+    <vehicle id="high.506" depart="887.00" departSpeed="4.2754" speedFactor="1.0000" arrival="926.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.507" depart="889.00" departSpeed="5.26" arrival="928.00">
+    <vehicle id="high.507" depart="889.00" departSpeed="5.2626" speedFactor="1.0000" arrival="928.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.508" depart="891.00" departSpeed="6.74" arrival="930.00">
+    <vehicle id="high.508" depart="891.00" departSpeed="6.7435" speedFactor="1.0000" arrival="930.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.509" depart="893.00" departSpeed="9.09" arrival="931.00">
+    <vehicle id="high.509" depart="893.00" departSpeed="9.0909" speedFactor="1.0000" arrival="931.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.510" depart="894.00" departSpeed="5.39" arrival="933.00">
+    <vehicle id="high.510" depart="894.00" departSpeed="5.3859" speedFactor="1.0000" arrival="933.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.511" depart="896.00" departSpeed="6.93" arrival="935.00">
+    <vehicle id="high.511" depart="896.00" departSpeed="6.9284" speedFactor="1.0000" arrival="935.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.512" depart="898.00" departSpeed="9.34" arrival="936.00">
+    <vehicle id="high.512" depart="898.00" departSpeed="9.3375" speedFactor="1.0000" arrival="936.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.513" depart="899.00" departSpeed="5.76" arrival="938.00">
+    <vehicle id="high.513" depart="899.00" departSpeed="5.7558" speedFactor="1.0000" arrival="938.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.514" depart="901.00" departSpeed="7.48" arrival="939.00">
+    <vehicle id="high.514" depart="901.00" departSpeed="7.4832" speedFactor="1.0000" arrival="939.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.515" depart="903.00" departSpeed="10.08" arrival="941.00">
+    <vehicle id="high.515" depart="903.00" departSpeed="10.0772" speedFactor="1.0000" arrival="941.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.516" depart="904.00" departSpeed="6.87" arrival="943.00">
+    <vehicle id="high.516" depart="904.00" departSpeed="6.8653" speedFactor="1.0000" arrival="943.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.517" depart="906.00" departSpeed="9.25" arrival="944.00">
+    <vehicle id="high.517" depart="906.00" departSpeed="9.2534" speedFactor="1.0000" arrival="944.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.518" depart="907.00" departSpeed="5.63" arrival="946.00">
+    <vehicle id="high.518" depart="907.00" departSpeed="5.6296" speedFactor="1.0000" arrival="946.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.519" depart="909.00" departSpeed="7.29" arrival="947.00">
+    <vehicle id="high.519" depart="909.00" departSpeed="7.2939" speedFactor="1.0000" arrival="947.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.520" depart="911.00" departSpeed="9.82" arrival="949.00">
+    <vehicle id="high.520" depart="911.00" departSpeed="9.8249" speedFactor="1.0000" arrival="949.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.521" depart="912.00" departSpeed="6.49" arrival="951.00">
+    <vehicle id="high.521" depart="912.00" departSpeed="6.4869" speedFactor="1.0000" arrival="951.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.522" depart="914.00" departSpeed="8.62" arrival="952.00">
+    <vehicle id="high.522" depart="914.00" departSpeed="8.6232" speedFactor="1.0000" arrival="952.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.523" depart="915.00" departSpeed="4.87" arrival="954.00">
+    <vehicle id="high.523" depart="915.00" departSpeed="4.8727" speedFactor="1.0000" arrival="954.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.524" depart="917.00" departSpeed="6.16" arrival="956.00">
+    <vehicle id="high.524" depart="917.00" departSpeed="6.1586" speedFactor="1.0000" arrival="956.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.525" depart="919.00" departSpeed="8.09" arrival="957.00">
+    <vehicle id="high.525" depart="919.00" departSpeed="8.0874" speedFactor="1.0000" arrival="957.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.526" depart="920.00" departSpeed="4.17" arrival="959.00">
+    <vehicle id="high.526" depart="920.00" departSpeed="4.1739" speedFactor="1.0000" arrival="959.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.527" depart="922.00" departSpeed="5.11" arrival="961.00">
+    <vehicle id="high.527" depart="922.00" departSpeed="5.1103" speedFactor="1.0000" arrival="961.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.528" depart="924.00" departSpeed="6.51" arrival="963.00">
+    <vehicle id="high.528" depart="924.00" departSpeed="6.515" speedFactor="1.0000" arrival="963.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.529" depart="926.00" departSpeed="8.68" arrival="964.00">
+    <vehicle id="high.529" depart="926.00" departSpeed="8.6794" speedFactor="1.0000" arrival="964.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.530" depart="927.00" departSpeed="4.93" arrival="966.00">
+    <vehicle id="high.530" depart="927.00" departSpeed="4.9289" speedFactor="1.0000" arrival="966.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.531" depart="929.00" departSpeed="6.24" arrival="968.00">
+    <vehicle id="high.531" depart="929.00" departSpeed="6.2429" speedFactor="1.0000" arrival="968.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.532" depart="931.00" departSpeed="8.21" arrival="969.00">
+    <vehicle id="high.532" depart="931.00" departSpeed="8.2138" speedFactor="1.0000" arrival="969.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.533" depart="932.00" departSpeed="4.43" arrival="971.00">
+    <vehicle id="high.533" depart="932.00" departSpeed="4.4266" speedFactor="1.0000" arrival="971.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.534" depart="934.00" departSpeed="5.49" arrival="973.00">
+    <vehicle id="high.534" depart="934.00" departSpeed="5.4893" speedFactor="1.0000" arrival="973.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.535" depart="936.00" departSpeed="7.08" arrival="974.00">
+    <vehicle id="high.535" depart="936.00" departSpeed="7.0835" speedFactor="1.0000" arrival="974.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.536" depart="938.00" departSpeed="9.54" arrival="976.00">
+    <vehicle id="high.536" depart="938.00" departSpeed="9.5443" speedFactor="1.0000" arrival="976.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.537" depart="939.00" departSpeed="6.07" arrival="978.00">
+    <vehicle id="high.537" depart="939.00" departSpeed="6.066" speedFactor="1.0000" arrival="978.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.538" depart="941.00" departSpeed="7.95" arrival="979.00">
+    <vehicle id="high.538" depart="941.00" departSpeed="7.9485" speedFactor="1.0000" arrival="979.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.539" depart="942.00" departSpeed="3.90" arrival="982.00">
+    <vehicle id="high.539" depart="942.00" departSpeed="3.896" speedFactor="1.0000" arrival="982.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.540" depart="944.00" departSpeed="4.69" arrival="983.00">
+    <vehicle id="high.540" depart="944.00" departSpeed="4.6935" speedFactor="1.0000" arrival="983.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.541" depart="946.00" departSpeed="5.89" arrival="985.00">
+    <vehicle id="high.541" depart="946.00" departSpeed="5.8897" speedFactor="1.0000" arrival="985.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.542" depart="948.00" departSpeed="7.68" arrival="986.00">
+    <vehicle id="high.542" depart="948.00" departSpeed="7.6841" speedFactor="1.0000" arrival="986.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.543" depart="949.00" departSpeed="3.37" arrival="989.00">
+    <vehicle id="high.543" depart="949.00" departSpeed="3.3672" speedFactor="1.0000" arrival="989.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.544" depart="951.00" departSpeed="3.30" arrival="991.00">
+    <vehicle id="high.544" depart="951.00" departSpeed="3.3006" speedFactor="1.0000" arrival="991.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.545" depart="953.00" departSpeed="3.10" arrival="993.00">
+    <vehicle id="high.545" depart="953.00" departSpeed="3.1008" speedFactor="1.0000" arrival="993.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.546" depart="955.00" departSpeed="2.50" arrival="995.00">
+    <vehicle id="high.546" depart="955.00" departSpeed="2.5015" speedFactor="1.0000" arrival="995.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.547" depart="957.00" departSpeed="0.70" arrival="998.00">
+    <vehicle id="high.547" depart="957.00" departSpeed="0.7036" speedFactor="1.0000" arrival="998.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.548" depart="960.00" departSpeed="3.81" arrival="1000.00">
+    <vehicle id="high.548" depart="960.00" departSpeed="3.8135" speedFactor="1.0000" arrival="1000.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.549" depart="962.00" departSpeed="4.57" arrival="1001.00">
+    <vehicle id="high.549" depart="962.00" departSpeed="4.5697" speedFactor="1.0000" arrival="1001.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.550" depart="964.00" departSpeed="5.70" arrival="1003.00">
+    <vehicle id="high.550" depart="964.00" departSpeed="5.7041" speedFactor="1.0000" arrival="1003.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.551" depart="966.00" departSpeed="7.41" arrival="1004.00">
+    <vehicle id="high.551" depart="966.00" departSpeed="7.4056" speedFactor="1.0000" arrival="1004.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.552" depart="968.00" departSpeed="9.97" arrival="1006.00">
+    <vehicle id="high.552" depart="968.00" departSpeed="9.9739" speedFactor="1.0000" arrival="1006.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.553" depart="969.00" departSpeed="6.71" arrival="1008.00">
+    <vehicle id="high.553" depart="969.00" departSpeed="6.7103" speedFactor="1.0000" arrival="1008.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.554" depart="971.00" departSpeed="9.05" arrival="1009.00">
+    <vehicle id="high.554" depart="971.00" departSpeed="9.0467" speedFactor="1.0000" arrival="1009.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.555" depart="972.00" departSpeed="5.32" arrival="1011.00">
+    <vehicle id="high.555" depart="972.00" departSpeed="5.3196" speedFactor="1.0000" arrival="1011.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.556" depart="974.00" departSpeed="6.83" arrival="1013.00">
+    <vehicle id="high.556" depart="974.00" departSpeed="6.8289" speedFactor="1.0000" arrival="1013.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.557" depart="976.00" departSpeed="9.20" arrival="1014.00">
+    <vehicle id="high.557" depart="976.00" departSpeed="9.2048" speedFactor="1.0000" arrival="1014.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.558" depart="977.00" departSpeed="5.56" arrival="1016.00">
+    <vehicle id="high.558" depart="977.00" departSpeed="5.5567" speedFactor="1.0000" arrival="1016.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.559" depart="979.00" departSpeed="7.18" arrival="1017.00">
+    <vehicle id="high.559" depart="979.00" departSpeed="7.1846" speedFactor="1.0000" arrival="1017.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.560" depart="981.00" departSpeed="9.68" arrival="1019.00">
+    <vehicle id="high.560" depart="981.00" departSpeed="9.6791" speedFactor="1.0000" arrival="1019.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.561" depart="982.00" departSpeed="6.27" arrival="1021.00">
+    <vehicle id="high.561" depart="982.00" departSpeed="6.2681" speedFactor="1.0000" arrival="1021.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.562" depart="984.00" departSpeed="8.25" arrival="1022.00">
+    <vehicle id="high.562" depart="984.00" departSpeed="8.2517" speedFactor="1.0000" arrival="1022.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.563" depart="985.00" departSpeed="4.50" arrival="1024.00">
+    <vehicle id="high.563" depart="985.00" departSpeed="4.5012" speedFactor="1.0000" arrival="1024.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.564" depart="987.00" departSpeed="5.60" arrival="1026.00">
+    <vehicle id="high.564" depart="987.00" departSpeed="5.6013" speedFactor="1.0000" arrival="1026.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.565" depart="989.00" departSpeed="7.25" arrival="1027.00">
+    <vehicle id="high.565" depart="989.00" departSpeed="7.2515" speedFactor="1.0000" arrival="1027.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.566" depart="991.00" departSpeed="9.77" arrival="1029.00">
+    <vehicle id="high.566" depart="991.00" departSpeed="9.7683" speedFactor="1.0000" arrival="1029.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.567" depart="992.00" departSpeed="6.40" arrival="1031.00">
+    <vehicle id="high.567" depart="992.00" departSpeed="6.402" speedFactor="1.0000" arrival="1031.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.568" depart="994.00" departSpeed="8.45" arrival="1032.00">
+    <vehicle id="high.568" depart="994.00" departSpeed="8.4534" speedFactor="1.0000" arrival="1032.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.569" depart="995.00" departSpeed="4.70" arrival="1034.00">
+    <vehicle id="high.569" depart="995.00" departSpeed="4.7029" speedFactor="1.0000" arrival="1034.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.570" depart="997.00" departSpeed="5.90" arrival="1036.00">
+    <vehicle id="high.570" depart="997.00" departSpeed="5.9039" speedFactor="1.0000" arrival="1036.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.571" depart="999.00" departSpeed="7.71" arrival="1037.00">
+    <vehicle id="high.571" depart="999.00" departSpeed="7.7054" speedFactor="1.0000" arrival="1037.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.572" depart="1000.00" departSpeed="3.41" arrival="1040.00">
+    <vehicle id="high.572" depart="1000.00" departSpeed="3.4098" speedFactor="1.0000" arrival="1040.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.573" depart="1002.00" departSpeed="3.43" arrival="1042.00">
+    <vehicle id="high.573" depart="1002.00" departSpeed="3.4283" speedFactor="1.0000" arrival="1042.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.574" depart="1004.00" departSpeed="3.48" arrival="1044.00">
+    <vehicle id="high.574" depart="1004.00" departSpeed="3.4838" speedFactor="1.0000" arrival="1044.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.575" depart="1006.00" departSpeed="3.65" arrival="1046.00">
+    <vehicle id="high.575" depart="1006.00" departSpeed="3.6504" speedFactor="1.0000" arrival="1046.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.576" depart="1008.00" departSpeed="4.15" arrival="1047.00">
+    <vehicle id="high.576" depart="1008.00" departSpeed="4.1503" speedFactor="1.0000" arrival="1047.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.577" depart="1010.00" departSpeed="5.07" arrival="1049.00">
+    <vehicle id="high.577" depart="1010.00" departSpeed="5.0749" speedFactor="1.0000" arrival="1049.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.578" depart="1012.00" departSpeed="6.46" arrival="1051.00">
+    <vehicle id="high.578" depart="1012.00" departSpeed="6.4618" speedFactor="1.0000" arrival="1051.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.579" depart="1014.00" departSpeed="8.57" arrival="1052.00">
+    <vehicle id="high.579" depart="1014.00" departSpeed="8.5732" speedFactor="1.0000" arrival="1052.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.580" depart="1015.00" departSpeed="4.82" arrival="1054.00">
+    <vehicle id="high.580" depart="1015.00" departSpeed="4.8227" speedFactor="1.0000" arrival="1054.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.581" depart="1017.00" departSpeed="6.08" arrival="1056.00">
+    <vehicle id="high.581" depart="1017.00" departSpeed="6.0835" speedFactor="1.0000" arrival="1056.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.582" depart="1019.00" departSpeed="7.97" arrival="1057.00">
+    <vehicle id="high.582" depart="1019.00" departSpeed="7.9748" speedFactor="1.0000" arrival="1057.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.583" depart="1020.00" departSpeed="3.95" arrival="1060.00">
+    <vehicle id="high.583" depart="1020.00" departSpeed="3.9486" speedFactor="1.0000" arrival="1060.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.584" depart="1022.00" departSpeed="4.77" arrival="1061.00">
+    <vehicle id="high.584" depart="1022.00" departSpeed="4.7723" speedFactor="1.0000" arrival="1061.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.585" depart="1024.00" departSpeed="6.01" arrival="1063.00">
+    <vehicle id="high.585" depart="1024.00" departSpeed="6.008" speedFactor="1.0000" arrival="1063.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.586" depart="1026.00" departSpeed="7.86" arrival="1064.00">
+    <vehicle id="high.586" depart="1026.00" departSpeed="7.8615" speedFactor="1.0000" arrival="1064.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.587" depart="1027.00" departSpeed="3.72" arrival="1067.00">
+    <vehicle id="high.587" depart="1027.00" departSpeed="3.722" speedFactor="1.0000" arrival="1067.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.588" depart="1029.00" departSpeed="4.36" arrival="1068.00">
+    <vehicle id="high.588" depart="1029.00" departSpeed="4.365" speedFactor="1.0000" arrival="1068.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.589" depart="1031.00" departSpeed="5.40" arrival="1070.00">
+    <vehicle id="high.589" depart="1031.00" departSpeed="5.397" speedFactor="1.0000" arrival="1070.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.590" depart="1033.00" departSpeed="6.94" arrival="1072.00">
+    <vehicle id="high.590" depart="1033.00" departSpeed="6.9449" speedFactor="1.0000" arrival="1072.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.591" depart="1035.00" departSpeed="9.36" arrival="1073.00">
+    <vehicle id="high.591" depart="1035.00" departSpeed="9.3596" speedFactor="1.0000" arrival="1073.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.592" depart="1036.00" departSpeed="5.79" arrival="1075.00">
+    <vehicle id="high.592" depart="1036.00" departSpeed="5.7889" speedFactor="1.0000" arrival="1075.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.593" depart="1038.00" departSpeed="7.53" arrival="1076.00">
+    <vehicle id="high.593" depart="1038.00" departSpeed="7.5328" speedFactor="1.0000" arrival="1076.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.594" depart="1039.00" departSpeed="3.06" arrival="1079.00">
+    <vehicle id="high.594" depart="1039.00" departSpeed="3.0647" speedFactor="1.0000" arrival="1079.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.595" depart="1041.00" departSpeed="2.39" arrival="1081.00">
+    <vehicle id="high.595" depart="1041.00" departSpeed="2.3931" speedFactor="1.0000" arrival="1081.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.596" depart="1044.00" departSpeed="7.54" arrival="1082.00">
+    <vehicle id="high.596" depart="1044.00" departSpeed="7.5356" speedFactor="1.0000" arrival="1082.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.597" depart="1045.00" departSpeed="3.07" arrival="1085.00">
+    <vehicle id="high.597" depart="1045.00" departSpeed="3.0703" speedFactor="1.0000" arrival="1085.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.598" depart="1047.00" departSpeed="2.41" arrival="1087.00">
+    <vehicle id="high.598" depart="1047.00" departSpeed="2.4098" speedFactor="1.0000" arrival="1087.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.599" depart="1050.00" departSpeed="7.57" arrival="1088.00">
+    <vehicle id="high.599" depart="1050.00" departSpeed="7.5692" speedFactor="1.0000" arrival="1088.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.600" depart="1051.00" departSpeed="3.14" arrival="1091.00">
+    <vehicle id="high.600" depart="1051.00" departSpeed="3.1373" speedFactor="1.0000" arrival="1091.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.601" depart="1053.00" departSpeed="2.61" arrival="1093.00">
+    <vehicle id="high.601" depart="1053.00" departSpeed="2.6109" speedFactor="1.0000" arrival="1093.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.602" depart="1055.00" departSpeed="1.03" arrival="1096.00">
+    <vehicle id="high.602" depart="1055.00" departSpeed="1.0318" speedFactor="1.0000" arrival="1096.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.603" depart="1058.00" departSpeed="4.81" arrival="1097.00">
+    <vehicle id="high.603" depart="1058.00" departSpeed="4.813" speedFactor="1.0000" arrival="1097.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.604" depart="1060.00" departSpeed="6.07" arrival="1099.00">
+    <vehicle id="high.604" depart="1060.00" departSpeed="6.0691" speedFactor="1.0000" arrival="1099.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.605" depart="1062.00" departSpeed="7.95" arrival="1100.00">
+    <vehicle id="high.605" depart="1062.00" departSpeed="7.9531" speedFactor="1.0000" arrival="1100.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.606" depart="1063.00" departSpeed="3.91" arrival="1103.00">
+    <vehicle id="high.606" depart="1063.00" departSpeed="3.9052" speedFactor="1.0000" arrival="1103.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.607" depart="1065.00" departSpeed="4.71" arrival="1104.00">
+    <vehicle id="high.607" depart="1065.00" departSpeed="4.7073" speedFactor="1.0000" arrival="1104.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.608" depart="1067.00" departSpeed="5.91" arrival="1106.00">
+    <vehicle id="high.608" depart="1067.00" departSpeed="5.9104" speedFactor="1.0000" arrival="1106.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.609" depart="1069.00" departSpeed="7.72" arrival="1107.00">
+    <vehicle id="high.609" depart="1069.00" departSpeed="7.7151" speedFactor="1.0000" arrival="1107.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.610" depart="1070.00" departSpeed="3.43" arrival="1110.00">
+    <vehicle id="high.610" depart="1070.00" departSpeed="3.4291" speedFactor="1.0000" arrival="1110.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.611" depart="1072.00" departSpeed="3.49" arrival="1112.00">
+    <vehicle id="high.611" depart="1072.00" departSpeed="3.4864" speedFactor="1.0000" arrival="1112.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.612" depart="1074.00" departSpeed="3.66" arrival="1114.00">
+    <vehicle id="high.612" depart="1074.00" departSpeed="3.6582" speedFactor="1.0000" arrival="1114.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.613" depart="1076.00" departSpeed="4.17" arrival="1115.00">
+    <vehicle id="high.613" depart="1076.00" departSpeed="4.1737" speedFactor="1.0000" arrival="1115.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.614" depart="1078.00" departSpeed="5.11" arrival="1117.00">
+    <vehicle id="high.614" depart="1078.00" departSpeed="5.11" speedFactor="1.0000" arrival="1117.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.615" depart="1080.00" departSpeed="6.51" arrival="1119.00">
+    <vehicle id="high.615" depart="1080.00" departSpeed="6.5145" speedFactor="1.0000" arrival="1119.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.616" depart="1082.00" departSpeed="8.68" arrival="1120.00">
+    <vehicle id="high.616" depart="1082.00" departSpeed="8.6784" speedFactor="1.0000" arrival="1120.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.617" depart="1083.00" departSpeed="4.93" arrival="1122.00">
+    <vehicle id="high.617" depart="1083.00" departSpeed="4.9279" speedFactor="1.0000" arrival="1122.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.618" depart="1085.00" departSpeed="6.24" arrival="1124.00">
+    <vehicle id="high.618" depart="1085.00" departSpeed="6.2414" speedFactor="1.0000" arrival="1124.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.619" depart="1087.00" departSpeed="8.21" arrival="1125.00">
+    <vehicle id="high.619" depart="1087.00" departSpeed="8.2116" speedFactor="1.0000" arrival="1125.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.620" depart="1088.00" departSpeed="4.42" arrival="1127.00">
+    <vehicle id="high.620" depart="1088.00" departSpeed="4.4222" speedFactor="1.0000" arrival="1127.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.621" depart="1090.00" departSpeed="5.48" arrival="1129.00">
+    <vehicle id="high.621" depart="1090.00" departSpeed="5.4828" speedFactor="1.0000" arrival="1129.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.622" depart="1092.00" departSpeed="7.07" arrival="1130.00">
+    <vehicle id="high.622" depart="1092.00" departSpeed="7.0737" speedFactor="1.0000" arrival="1130.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.623" depart="1094.00" departSpeed="9.53" arrival="1132.00">
+    <vehicle id="high.623" depart="1094.00" departSpeed="9.5313" speedFactor="1.0000" arrival="1132.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.624" depart="1095.00" departSpeed="6.05" arrival="1134.00">
+    <vehicle id="high.624" depart="1095.00" departSpeed="6.0464" speedFactor="1.0000" arrival="1134.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.625" depart="1097.00" departSpeed="7.92" arrival="1135.00">
+    <vehicle id="high.625" depart="1097.00" departSpeed="7.9192" speedFactor="1.0000" arrival="1135.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.626" depart="1098.00" departSpeed="3.84" arrival="1138.00">
+    <vehicle id="high.626" depart="1098.00" departSpeed="3.8373" speedFactor="1.0000" arrival="1138.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.627" depart="1100.00" departSpeed="4.61" arrival="1139.00">
+    <vehicle id="high.627" depart="1100.00" departSpeed="4.6055" speedFactor="1.0000" arrival="1139.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.628" depart="1102.00" departSpeed="5.76" arrival="1141.00">
+    <vehicle id="high.628" depart="1102.00" departSpeed="5.7577" speedFactor="1.0000" arrival="1141.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.629" depart="1104.00" departSpeed="7.49" arrival="1142.00">
+    <vehicle id="high.629" depart="1104.00" departSpeed="7.4861" speedFactor="1.0000" arrival="1142.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.630" depart="1106.00" departSpeed="10.08" arrival="1144.00">
+    <vehicle id="high.630" depart="1106.00" departSpeed="10.0811" speedFactor="1.0000" arrival="1144.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.631" depart="1107.00" departSpeed="6.87" arrival="1146.00">
+    <vehicle id="high.631" depart="1107.00" departSpeed="6.8711" speedFactor="1.0000" arrival="1146.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.632" depart="1109.00" departSpeed="9.26" arrival="1147.00">
+    <vehicle id="high.632" depart="1109.00" departSpeed="9.2612" speedFactor="1.0000" arrival="1147.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.633" depart="1110.00" departSpeed="5.64" arrival="1149.00">
+    <vehicle id="high.633" depart="1110.00" departSpeed="5.6413" speedFactor="1.0000" arrival="1149.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.634" depart="1112.00" departSpeed="7.31" arrival="1150.00">
+    <vehicle id="high.634" depart="1112.00" departSpeed="7.3114" speedFactor="1.0000" arrival="1150.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.635" depart="1114.00" departSpeed="9.85" arrival="1152.00">
+    <vehicle id="high.635" depart="1114.00" departSpeed="9.8482" speedFactor="1.0000" arrival="1152.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.636" depart="1115.00" departSpeed="6.52" arrival="1154.00">
+    <vehicle id="high.636" depart="1115.00" departSpeed="6.5218" speedFactor="1.0000" arrival="1154.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.637" depart="1117.00" departSpeed="8.69" arrival="1155.00">
+    <vehicle id="high.637" depart="1117.00" departSpeed="8.6932" speedFactor="1.0000" arrival="1155.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.638" depart="1118.00" departSpeed="4.94" arrival="1157.00">
+    <vehicle id="high.638" depart="1118.00" departSpeed="4.9427" speedFactor="1.0000" arrival="1157.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.639" depart="1120.00" departSpeed="6.26" arrival="1159.00">
+    <vehicle id="high.639" depart="1120.00" departSpeed="6.2635" speedFactor="1.0000" arrival="1159.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.640" depart="1122.00" departSpeed="8.24" arrival="1160.00">
+    <vehicle id="high.640" depart="1122.00" departSpeed="8.2448" speedFactor="1.0000" arrival="1160.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.641" depart="1123.00" departSpeed="4.49" arrival="1162.00">
+    <vehicle id="high.641" depart="1123.00" departSpeed="4.4885" speedFactor="1.0000" arrival="1162.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.642" depart="1125.00" departSpeed="5.58" arrival="1164.00">
+    <vehicle id="high.642" depart="1125.00" departSpeed="5.5823" speedFactor="1.0000" arrival="1164.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.643" depart="1127.00" departSpeed="7.22" arrival="1165.00">
+    <vehicle id="high.643" depart="1127.00" departSpeed="7.2229" speedFactor="1.0000" arrival="1165.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.644" depart="1129.00" departSpeed="9.73" arrival="1167.00">
+    <vehicle id="high.644" depart="1129.00" departSpeed="9.7302" speedFactor="1.0000" arrival="1167.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.645" depart="1130.00" departSpeed="6.34" arrival="1169.00">
+    <vehicle id="high.645" depart="1130.00" departSpeed="6.3448" speedFactor="1.0000" arrival="1169.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.646" depart="1132.00" departSpeed="8.37" arrival="1170.00">
+    <vehicle id="high.646" depart="1132.00" departSpeed="8.3667" speedFactor="1.0000" arrival="1170.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.647" depart="1133.00" departSpeed="4.62" arrival="1172.00">
+    <vehicle id="high.647" depart="1133.00" departSpeed="4.6162" speedFactor="1.0000" arrival="1172.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.648" depart="1135.00" departSpeed="5.77" arrival="1174.00">
+    <vehicle id="high.648" depart="1135.00" departSpeed="5.7738" speedFactor="1.0000" arrival="1174.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.649" depart="1137.00" departSpeed="7.51" arrival="1175.00">
+    <vehicle id="high.649" depart="1137.00" departSpeed="7.5103" speedFactor="1.0000" arrival="1175.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.650" depart="1138.00" departSpeed="3.02" arrival="1178.00">
+    <vehicle id="high.650" depart="1138.00" departSpeed="3.0195" speedFactor="1.0000" arrival="1178.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.651" depart="1140.00" departSpeed="2.26" arrival="1180.00">
+    <vehicle id="high.651" depart="1140.00" departSpeed="2.2576" speedFactor="1.0000" arrival="1180.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.652" depart="1143.00" departSpeed="7.26" arrival="1181.00">
+    <vehicle id="high.652" depart="1143.00" departSpeed="7.2648" speedFactor="1.0000" arrival="1181.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.653" depart="1145.00" departSpeed="9.79" arrival="1183.00">
+    <vehicle id="high.653" depart="1145.00" departSpeed="9.786" speedFactor="1.0000" arrival="1183.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.654" depart="1146.00" departSpeed="6.43" arrival="1185.00">
+    <vehicle id="high.654" depart="1146.00" departSpeed="6.4285" speedFactor="1.0000" arrival="1185.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.655" depart="1148.00" departSpeed="8.51" arrival="1186.00">
+    <vehicle id="high.655" depart="1148.00" departSpeed="8.5066" speedFactor="1.0000" arrival="1186.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.656" depart="1149.00" departSpeed="4.76" arrival="1188.00">
+    <vehicle id="high.656" depart="1149.00" departSpeed="4.7561" speedFactor="1.0000" arrival="1188.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.657" depart="1151.00" departSpeed="5.98" arrival="1190.00">
+    <vehicle id="high.657" depart="1151.00" departSpeed="5.9836" speedFactor="1.0000" arrival="1190.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.658" depart="1153.00" departSpeed="7.82" arrival="1191.00">
+    <vehicle id="high.658" depart="1153.00" departSpeed="7.8249" speedFactor="1.0000" arrival="1191.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.659" depart="1154.00" departSpeed="3.65" arrival="1194.00">
+    <vehicle id="high.659" depart="1154.00" departSpeed="3.6489" speedFactor="1.0000" arrival="1194.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.660" depart="1156.00" departSpeed="4.15" arrival="1195.00">
+    <vehicle id="high.660" depart="1156.00" departSpeed="4.1456" speedFactor="1.0000" arrival="1195.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.661" depart="1158.00" departSpeed="5.07" arrival="1197.00">
+    <vehicle id="high.661" depart="1158.00" departSpeed="5.0679" speedFactor="1.0000" arrival="1197.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 
-    <vehicle id="high.662" depart="1160.00" departSpeed="6.45" arrival="1199.00">
+    <vehicle id="high.662" depart="1160.00" departSpeed="6.4513" speedFactor="1.0000" arrival="1199.00">
         <route edges="start jam2 jam1 jam0 end"/>
     </vehicle>
 

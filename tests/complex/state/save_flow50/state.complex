@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-19 13:28:05 by Eclipse SUMO sumo Version v1_17_0+1015-e5c7579
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <summary-output value="summary.xml"/>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.rng value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1015-e5c7579" time="50.00" type="micro">
+    <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="25"/>
+        <rngLane index="1" state="50"/>
+        <rngLane index="2" state="172"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <edgeControl lanes="middle_0 end_0 beg_0"/>
+    <route id="!flowFromTo" state="0" edges="beg end"/>
+    <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
+    <route id="!flowFromTo.1!var#1" state="0" edges="beg middle end"/>
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="7" begin="21" end="6" depart="132.00" time="156.00"/>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="flowNumber.2" type="t0" depart="16.00" route="r0" distance="207 0" speedFactor="1.0000" state="2146 28000 2 5.10 0 2.77 49000 0 0" pos="38.45 33.45 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowNumber.2" state="beg_0 0 0 201.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowNumber.3" type="t0" depart="24.00" route="r0" distance="7 0" speedFactor="1.0000" state="2146 40000 1 5.10 0 2.77 49000 0 0" pos="71.77 66.77 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowNumber.3" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowNumber.4" type="t0" depart="32.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowPeriod.2" type="t0" depart="15.00" route="r0" distance="207 0" speedFactor="1.0000" state="2146 24000 2 5.10 0 2.77 49000 0 0" pos="94.01 89.01 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowPeriod.2" state="beg_0 0 0 201.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowPeriod.3" type="t0" depart="20.00" route="r0" distance="7 0" speedFactor="1.0000" state="2146 32000 1 5.10 0 2.77 49000 0 0" pos="182.89 177.89 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowPeriod.3" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowPeriod.4" type="t0" depart="25.00" route="r0" distance="7 0" speedFactor="1.0000" state="2146 44000 1 5.10 0 2.59 49000 0 0" pos="18.70 13.70 8.80" speed="8.80 6.20" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowPeriod.4" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowPeriod.5" type="t0" depart="30.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowPeriod.6" type="t0" depart="35.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowPeriod.7" type="t0" depart="40.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowPeriod.8" type="t0" depart="45.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowProb.0" type="t0" depart="22.00" route="r0" distance="7 0" speedFactor="1.0000" state="2594 36000 1 5.10 0 2.77 49000 0 0" pos="127.33 122.33 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowProb.0" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowProb.1" type="t0" depart="25.00" route="r0" distance="0 0" speedFactor="1.0000" state="2594 48000 0 5.10 0 0.00 49000 0 0" pos="6.10 1.10 1.00" speed="1.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="tripinfo_flowProb.1" state="beg_0 0 0 -5.1 0 0 0 0 -1"/>
+    </vehicle>
+    <vehicle id="flowProb.2" type="t0" depart="30.00" route="r0" distance="0 0" speedFactor="1.0000" state="2594 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowProb.3" type="t0" depart="36.00" route="r0" distance="0 0" speedFactor="1.0000" state="2594 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="flowProb.4" type="t0" depart="40.00" route="r0" distance="0 0" speedFactor="1.0000" state="2594 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <flowState id="flowPeriod" type="t0" begin="5.00" period="5.00" next="45.00" end="55.00" route="r0" done="9" index="9"/>
+    <flowState id="flowProb" type="t0" begin="20.00" probability="0.10" end="100.00" route="r0" done="5" index="5"/>
+    <lane id="beg_0">
+        <vehicles value="flowProb.1"/>
+    </lane>
+    <lane id="end_0">
+        <vehicles value="flowNumber.2 flowPeriod.2"/>
+    </lane>
+    <lane id="middle_0">
+        <vehicles value="flowPeriod.4 flowNumber.3 flowProb.0 flowPeriod.3"/>
+    </lane>
+</snapshot>

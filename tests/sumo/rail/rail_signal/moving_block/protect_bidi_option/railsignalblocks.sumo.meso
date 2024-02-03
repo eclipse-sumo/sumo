@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-23 10:34:20 by Eclipse SUMO sumo Version v1_11_0+0005-a0af71f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <railsignal-moving-block value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="gneJ5">
+        <link linkIndex="0" from="-e_0" to="-d_0">
+            <driveWay edges="-d -c -b -a">
+                <forward lanes="-d_0 -c_0 -b_0 -a_0"/>
+                <bidi lanes="c_0"/>
+                <flank lanes="b_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ8_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="gneJ8">
+        <link linkIndex="0" from="a_0" to="b_0">
+            <driveWay edges="b c d e">
+                <forward lanes="b_0 c_0 d_0 e_0"/>
+                <bidi lanes="-c_0"/>
+                <flank lanes="-d_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="gneJ5_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

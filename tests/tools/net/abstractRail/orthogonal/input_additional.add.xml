@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-05 08:44:16 by Eclipse SUMO netedit Version 1.17.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="-709048101" name="Stralsund Rügendamm" lane="-56693816_0" startPos="42.35" endPos="242.35" friendlyPos="true"/>
+    <busStop id="283828721" name="Stralsund Rügendamm" lane="27029173#0_0" startPos="8.42" endPos="208.42" friendlyPos="true" lines="RE9"/>
+    <busStop id="709048101" name="Stralsund Rügendamm" lane="56693816_0" startPos="166.76" endPos="366.76" friendlyPos="true" lines="RE9"/>
+</additional>

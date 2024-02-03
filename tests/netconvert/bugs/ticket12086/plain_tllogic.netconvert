@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-18 09:02:48 by Eclipse SUMO netconvert Version v1_15_0+0390-fb84ae9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<tlLogics version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="K0001" type="static" programID="0" offset="0">
+        <phase duration="7.50"  state="rrrrrOrrrrrrrrrOrrrrrrrrrOrrrrrrrrr"/>
+        <phase duration="4.30"  state="rrrrrOrrrrrrrrrOrrrrrrrrrOrrrrGrrrr"/>
+        <phase duration="8"  state="rrrrrOrrrrrrrrrOrrrrrrrrrOrrrrGGGrr"/>
+        <phase duration="3"  state="rrrrrOrrrrrrrrrOrrrrrrrrrOrrrrGyyrr"/>
+        <phase duration="0.10"  state="rrrrrOrrrrrrrrrOrrrrrrrrrOrrrrGrrrr"/>
+        <phase duration="0.10"  state="rrrrrOrrrrGGrrrOrrrrrrrrrOrrrryrrrr"/>
+        <phase duration="2.90"  state="rrrrrOrrrrGGrrrOrrrrGrrrrOrrrryrrrr"/>
+        <phase duration="6.40"  state="rrrrrOrrrrGGGGrOrrrrGrrrrOrrrrrrrrr"/>
+        <phase duration="1.60"  state="rrrrrOrrrryyGGrOrrrrGrrrrOrrrrrrrrr"/>
+        <phase duration="1.40"  state="rrrrrOrrrryyyyrOrrrrGrrrrOrrrrrrrrr"/>
+        <phase duration="1.60"  state="rrrrrOrrGrrryyrOrrrrGrrrrOrrrrrrrrr"/>
+        <phase duration="4.40"  state="rrrrrOrrGrrrrrrOrrrrGrrGrOrrrrrrrrr"/>
+        <phase duration="1.70"  state="rrrrrOrryrrrrrrOrrrrGrrGrOrrrrrrrrr"/>
+        <phase duration="1.30"  state="rrrrrOrryrrrrrrOrrrrGrryrOrrrrrrrrr"/>
+        <phase duration="1.70"  state="rrrrrOrrrrrrrrrOrrrrGGGyrOrrrrrrrrr"/>
+        <phase duration="6.30"  state="rGGrrOrrrrrrrrrOrrrrGGGrrOrrrrrrrrr"/>
+        <phase duration="3"  state="rGGrrOrrrrrrrrrOrrrryyyrrOrrrrrrrrr"/>
+        <phase duration="0.10"  state="ryyrrOrrrrrrrrrOrrrrrrrrrOrrrrrrrrr"/>
+        <phase duration="2.90"  state="ryyGrOrrrrGGrrrOrrrrrrrrrOrrrrrrrrr"/>
+        <phase duration="7.80"  state="rrrGrOrrrrGGrrrOrrrrrrrrrOrrrrrrrrr"/>
+        <phase duration="2.70"  state="rrrGrOrrrryyrrrOrrrrrrrrrOrrrrrrrrr"/>
+    </tlLogic>
+
+    <connection from="gneE111" to="gneE119" fromLane="0" toLane="0" tl="K0001" linkIndex="20"/>
+    <connection from="gneE111" to="gneE133.0" fromLane="1" toLane="0" tl="K0001" linkIndex="21"/>
+    <connection from="gneE111" to="gneE133.0" fromLane="1" toLane="1" tl="K0001" linkIndex="22"/>
+    <connection from="gneE111" to="gneE125" fromLane="2" toLane="0" tl="K0001" linkIndex="23"/>
+    <connection from="gneE113" to="gneE133.0" fromLane="0" toLane="0" tl="K0001" linkIndex="10"/>
+    <connection from="gneE113" to="gneE133.0" fromLane="0" toLane="1" tl="K0001" linkIndex="11"/>
+    <connection from="gneE113" to="gneE125" fromLane="1" toLane="0" tl="K0001" linkIndex="12"/>
+    <connection from="gneE113" to="gneE135" fromLane="1" toLane="0" tl="K0001" linkIndex="13"/>
+    <connection from="gneE123" to="gneE135" fromLane="0" toLane="0" tl="K0001" linkIndex="30"/>
+    <connection from="gneE123" to="gneE119" fromLane="1" toLane="0" tl="K0001" linkIndex="31"/>
+    <connection from="gneE123" to="gneE133.0" fromLane="1" toLane="1" tl="K0001" linkIndex="32"/>
+    <connection from="gneE129.48" to="gneE125" fromLane="1" toLane="0" tl="K0001" linkIndex="1"/>
+    <connection from="gneE129.48" to="gneE135" fromLane="1" toLane="0" tl="K0001" linkIndex="2"/>
+    <connection from="gneE129.48" to="gneE119" fromLane="2" toLane="0" tl="K0001" linkIndex="3"/>
+    <connection from="gneE158" to="gneE159" fromLane="0" toLane="0" tl="K0001" linkIndex="17"/>
+    <connection from="gneE161" to="gneE162" fromLane="0" toLane="0" tl="K0001" linkIndex="14"/>
+    <connection from="gneE169" to="gneE170" fromLane="0" toLane="0" tl="K0001" linkIndex="9"/>
+    <connection from="gneE172" to="gneE173" fromLane="0" toLane="0" tl="K0001" linkIndex="16"/>
+    <connection from="gneE175" to="gneE176" fromLane="0" toLane="0" tl="K0001" linkIndex="18"/>
+    <connection from="gneE178" to="gneE179" fromLane="0" toLane="0" tl="K0001" linkIndex="15"/>
+    <connection from="gneE186" to="gneE187" fromLane="0" toLane="0" tl="K0001" linkIndex="28"/>
+    <connection from="gneE189" to="gneE190" fromLane="0" toLane="0" tl="K0001" linkIndex="25"/>
+    <connection from="gneE203" to="gneE204" fromLane="0" toLane="0" tl="K0001" linkIndex="27"/>
+    <connection from="gneE206" to="gneE207" fromLane="0" toLane="0" tl="K0001" linkIndex="24"/>
+    <connection from="gneE208" to="gneE209" fromLane="0" toLane="0" tl="K0001" linkIndex="19"/>
+    <connection from="gneE211" to="gneE212" fromLane="0" toLane="0" tl="K0001" linkIndex="26"/>
+    <connection from="gneE218" to="gneE220" fromLane="0" toLane="0" tl="K0001" linkIndex="34"/>
+    <connection from="gneE222" to="gneE224" fromLane="0" toLane="0" tl="K0001" linkIndex="33"/>
+    <connection from="gneE225" to="gneE227" fromLane="0" toLane="0" tl="K0001" linkIndex="29"/>
+    <connection from="gneE242" to="gneE243" fromLane="0" toLane="0" tl="K0001" linkIndex="8"/>
+    <connection from="gneE245" to="gneE246" fromLane="0" toLane="0" tl="K0001" linkIndex="5"/>
+    <connection from="gneE250" to="gneE251" fromLane="0" toLane="0" tl="K0001" linkIndex="0"/>
+    <connection from="gneE253" to="gneE254" fromLane="0" toLane="0" tl="K0001" linkIndex="6"/>
+    <connection from="gneE255" to="gneE256" fromLane="0" toLane="0" tl="K0001" linkIndex="7"/>
+    <connection from="gneE258" to="gneE259" fromLane="0" toLane="0" tl="K0001" linkIndex="4"/>
+</tlLogics>

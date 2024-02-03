@@ -7,6 +7,9 @@ straight_ll
 # turn right while walking on the right side of the road (no street is crossed)
 right_rr
 
+# turn right while walking on the right side of the road (no street is crossed)
+right_rr_detail
+
 # turn right while walking on the right side of the road and continue on the left side (street is crossed in forward direction)
 right_rl
 
@@ -31,3 +34,4 @@ cross_twice
 
 # crossing twice using diagonal crossings (pedestrian scramble)
 cross_twice_diagonal
+middle_islands

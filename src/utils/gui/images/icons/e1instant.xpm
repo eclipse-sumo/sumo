@@ -1,0 +1,25 @@
+/* XPM */
+static const char *e1instant_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c magenta",
+"x c black",
+". c None",
+/* pixels */
+"................",
+"................",
+"................",
+"                ",
+"                ",
+" xxxx    x      ",
+" x      xx      ",
+" x     x x      ",
+" xxxx    x      ",
+" x       x      ",
+" x       x      ",
+" xxxx  xxxxx    ",
+"                ",
+"................",
+"................",
+"................"
+};

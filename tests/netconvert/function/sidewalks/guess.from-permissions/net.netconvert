@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:52 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:14 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -58,10 +58,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_7_1" index="1" disallow="pedestrian rail" speed="13.89" length="18.80" shape="91.60,98.40 110.40,98.40"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" allow="passenger" speed="8.49" length="6.31" shape="91.60,98.40 95.97,99.03 97.60,100.00"/>
+        <lane id=":C_9_0" index="0" allow="passenger" speed="8.49" length="4.42" shape="91.60,98.40 95.97,99.03"/>
     </edge>
     <edge id=":C_10" function="internal">
-        <lane id=":C_10_0" index="0" allow="passenger" speed="8.49" length="9.81" shape="97.60,100.00 99.10,100.90 100.97,104.03 101.60,108.40"/>
+        <lane id=":C_10_0" index="0" allow="passenger" speed="8.49" length="11.71" shape="95.97,99.03 99.10,100.90 100.97,104.03 101.60,108.40"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
@@ -127,7 +127,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,100.00 0.00,106.40 0.00,100.00"/>
 
-    <junction id=":C_10_0" type="internal" x="97.60" y="100.00" incLanes=":C_9_0 EC_0 EC_1" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_5_0 :C_5_1"/>
+    <junction id=":C_10_0" type="internal" x="95.97" y="99.03" incLanes=":C_9_0 EC_0 EC_1" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_5_0 :C_5_1"/>
 
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="s" state="o"/>
     <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_2_1" tl="C" linkIndex="3" dir="s" state="o"/>

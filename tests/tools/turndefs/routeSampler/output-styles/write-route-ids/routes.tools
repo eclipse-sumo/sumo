@@ -1,180 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-05 20:58:44.153180 by $Id$ v1_8_0+1508-1a217e5cd8
-  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>write-route-ids
+
+<!-- generated on 2023-06-29 14:32:51.866252 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
     <route id="0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 1 -->
     <route id="1" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/> <!-- 1 -->
+    <route id="2" edges="-109.80.00 23 23.80.00 31 31.80.00 -31 -31.80.00"/> <!-- 1 -->
     <route id="3" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/> <!-- 1 -->
     <route id="4" edges="-11.80.00 3 3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
     <route id="5" edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
     <route id="6" edges="-123 -123.121.42 131 131.180.00"/> <!-- 1 -->
     <route id="7" edges="-123.121.42 131"/> <!-- 1 -->
-    <route id="9" edges="-144 -144.121.42 -131 -131.180.00 131 131.180.00"/> <!-- 1 -->
-    <route id="10" edges="-144 -144.121.42 152"/> <!-- 1 -->
-    <route id="11" edges="-144.121.42 144 144.121.42 -15 -15.180.00 5"/> <!-- 1 -->
+    <route id="8" edges="-131.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
+    <route id="10" edges="-144 -144.121.42 152"/> <!-- 2 -->
     <route id="12" edges="-148 -148.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 37 -58 -58.121.42"/> <!-- 1 -->
     <route id="13" edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3"/> <!-- 1 -->
     <route id="14" edges="-15 -15.180.00 15 15.180.00"/> <!-- 1 -->
     <route id="15" edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/> <!-- 1 -->
-    <route id="16" edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/> <!-- 2 -->
-    <route id="18" edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/> <!-- 1 -->
+    <route id="17" edges="-152.80.00 -131 -131.180.00 131"/> <!-- 2 -->
+    <route id="18" edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/> <!-- 2 -->
     <route id="19" edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/> <!-- 1 -->
-    <route id="20" edges="-3.180.00 11 11.80.00 23 23.80.00"/> <!-- 3 -->
-    <route id="21" edges="-3.180.00 3 3.180.00 -3"/> <!-- 1 -->
+    <route id="20" edges="-3.180.00 11 11.80.00 23 23.80.00"/> <!-- 1 -->
     <route id="22" edges="-31.80.00 -23 -23.80.00 109 109.80.00 123"/> <!-- 1 -->
+    <route id="23" edges="-37 -37.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 144"/> <!-- 1 -->
     <route id="24" edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00"/> <!-- 1 -->
-    <route id="25" edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/> <!-- 1 -->
     <route id="26" edges="-37.80.00 -23 -23.80.00 109 109.80.00 131"/> <!-- 1 -->
     <route id="27" edges="-43 -43.80.00 -27 -27.80.00"/> <!-- 1 -->
     <route id="28" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00"/> <!-- 2 -->
-    <route id="29" edges="-43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 152"/> <!-- 1 -->
+    <route id="30" edges="-43.80.00 -27 -27.80.00 -71 -55 -55.80.00"/> <!-- 1 -->
     <route id="31" edges="-43.80.00 -27 -27.80.00 27 27.80.00"/> <!-- 1 -->
-    <route id="32" edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92"/> <!-- 1 -->
-    <route id="35" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00"/> <!-- 2 -->
+    <route id="33" edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58"/> <!-- 1 -->
     <route id="36" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131"/> <!-- 1 -->
     <route id="37" edges="-58 -58.121.42 64 64.80.00 120 120.180.00"/> <!-- 1 -->
-    <route id="38" edges="-58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/> <!-- 1 -->
-    <route id="39" edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/> <!-- 1 -->
     <route id="40" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 -120 -120.180.00"/> <!-- 1 -->
     <route id="41" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 123 123.121.42"/> <!-- 1 -->
+    <route id="42" edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/> <!-- 1 -->
     <route id="43" edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58"/> <!-- 2 -->
+    <route id="44" edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64"/> <!-- 2 -->
     <route id="45" edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71"/> <!-- 1 -->
     <route id="46" edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/> <!-- 1 -->
-    <route id="47" edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/> <!-- 2 -->
-    <route id="48" edges="-79 -79.80.00 -60 -60.80.00 64 64.80.00"/> <!-- 1 -->
-    <route id="51" edges="-79.80.00 75 75.121.42"/> <!-- 2 -->
+    <route id="47" edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/> <!-- 1 -->
+    <route id="49" edges="-79 -79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 -131 -131.180.00"/> <!-- 2 -->
+    <route id="50" edges="-79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00"/> <!-- 1 -->
     <route id="52" edges="-79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 144 144.121.42"/> <!-- 1 -->
-    <route id="54" edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
     <route id="55" edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/> <!-- 1 -->
-    <route id="57" edges="11.80.00 23 23.80.00 31"/> <!-- 2 -->
-    <route id="58" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 2 -->
+    <route id="57" edges="11.80.00 23 23.80.00 31"/> <!-- 1 -->
+    <route id="58" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
+    <route id="59" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/> <!-- 2 -->
     <route id="60" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 45"/> <!-- 1 -->
     <route id="61" edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60"/> <!-- 1 -->
     <route id="62" edges="123 123.121.42 -123"/> <!-- 1 -->
     <route id="63" edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68"/> <!-- 1 -->
-    <route id="64" edges="131 131.180.00 144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
-    <route id="65" edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/> <!-- 1 -->
+    <route id="65" edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/> <!-- 2 -->
     <route id="66" edges="144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00"/> <!-- 1 -->
-    <route id="67" edges="144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/> <!-- 1 -->
     <route id="68" edges="15 15.180.00 -123 -123.121.42 -109 -109.80.00 -11"/> <!-- 1 -->
     <route id="69" edges="15 15.180.00 -123 -123.121.42 -120 -120.180.00 -75 -75.121.42 75"/> <!-- 1 -->
     <route id="70" edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00"/> <!-- 1 -->
     <route id="71" edges="23 23.80.00 -23 -23.80.00 109"/> <!-- 1 -->
-    <route id="72" edges="23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 2 -->
+    <route id="72" edges="23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 3 -->
     <route id="74" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -75"/> <!-- 1 -->
-    <route id="75" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42"/> <!-- 2 -->
+    <route id="75" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42"/> <!-- 1 -->
     <route id="77" edges="3 3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/> <!-- 2 -->
-    <route id="79" edges="3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
-    <route id="80" edges="31 31.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 2 -->
-    <route id="81" edges="31.80.00 58"/> <!-- 2 -->
-    <route id="83" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/> <!-- 2 -->
+    <route id="78" edges="3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58"/> <!-- 1 -->
+    <route id="79" edges="3.180.00 27 27.80.00 55 71"/> <!-- 2 -->
+    <route id="80" edges="31 31.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 1 -->
+    <route id="81" edges="31.80.00 58"/> <!-- 1 -->
+    <route id="82" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00"/> <!-- 2 -->
+    <route id="83" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/> <!-- 1 -->
+    <route id="84" edges="43 68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00"/> <!-- 1 -->
     <route id="85" edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/> <!-- 1 -->
-    <route id="87" edges="58 -37 -37.80.00 -23"/> <!-- 2 -->
-    <route id="88" edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00"/> <!-- 1 -->
+    <route id="87" edges="58 -37 -37.80.00 -23"/> <!-- 1 -->
+    <route id="88" edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00"/> <!-- 2 -->
     <route id="89" edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/> <!-- 1 -->
-    <route id="90" edges="60.80.00 75 75.121.42 -75"/> <!-- 1 -->
-    <route id="91" edges="64.80.00 -64 -64.80.00 -31 -31.80.00 31"/> <!-- 1 -->
-    <route id="92" edges="64.80.00 120 120.180.00 131 131.180.00 -131"/> <!-- 1 -->
     <route id="93" edges="68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 -11"/> <!-- 1 -->
-    <route id="94" edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/> <!-- 2 -->
     <route id="95" edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120"/> <!-- 1 -->
-    <route id="97" edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00"/> <!-- 1 -->
+    <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00"/> <!-- 1 -->
 
-    <vehicle id="0" depart="0.00" route="60"/>
-    <vehicle id="1" depart="1.04" route="81"/>
-    <vehicle id="2" depart="2.08" route="91"/>
-    <vehicle id="3" depart="3.13" route="0"/>
-    <vehicle id="4" depart="4.17" route="58"/>
-    <vehicle id="5" depart="5.21" route="51"/>
-    <vehicle id="6" depart="6.25" route="88"/>
-    <vehicle id="7" depart="7.29" route="20"/>
-    <vehicle id="8" depart="8.34" route="32"/>
-    <vehicle id="9" depart="9.38" route="70"/>
-    <vehicle id="10" depart="10.42" route="95"/>
-    <vehicle id="11" depart="11.46" route="5"/>
-    <vehicle id="12" depart="12.51" route="24"/>
-    <vehicle id="13" depart="13.55" route="80"/>
-    <vehicle id="14" depart="14.59" route="40"/>
-    <vehicle id="15" depart="15.63" route="97"/>
-    <vehicle id="16" depart="16.67" route="43"/>
-    <vehicle id="17" depart="17.72" route="16"/>
-    <vehicle id="18" depart="18.76" route="14"/>
-    <vehicle id="19" depart="19.80" route="22"/>
-    <vehicle id="20" depart="20.84" route="20"/>
-    <vehicle id="21" depart="21.88" route="43"/>
-    <vehicle id="22" depart="22.93" route="51"/>
-    <vehicle id="23" depart="23.97" route="46"/>
-    <vehicle id="24" depart="25.01" route="38"/>
-    <vehicle id="25" depart="26.05" route="27"/>
-    <vehicle id="26" depart="27.09" route="54"/>
-    <vehicle id="27" depart="28.14" route="63"/>
-    <vehicle id="28" depart="29.18" route="47"/>
-    <vehicle id="29" depart="30.22" route="77"/>
-    <vehicle id="30" depart="31.26" route="79"/>
-    <vehicle id="31" depart="32.31" route="47"/>
-    <vehicle id="32" depart="33.35" route="12"/>
-    <vehicle id="33" depart="34.39" route="81"/>
-    <vehicle id="34" depart="35.43" route="83"/>
-    <vehicle id="35" depart="36.47" route="28"/>
-    <vehicle id="36" depart="37.52" route="11"/>
-    <vehicle id="37" depart="38.56" route="87"/>
-    <vehicle id="38" depart="39.60" route="45"/>
-    <vehicle id="39" depart="40.64" route="72"/>
-    <vehicle id="40" depart="41.68" route="58"/>
-    <vehicle id="41" depart="42.73" route="71"/>
-    <vehicle id="42" depart="43.77" route="35"/>
-    <vehicle id="43" depart="44.81" route="65"/>
-    <vehicle id="44" depart="45.85" route="29"/>
-    <vehicle id="45" depart="46.89" route="52"/>
-    <vehicle id="46" depart="47.94" route="25"/>
-    <vehicle id="47" depart="48.98" route="83"/>
-    <vehicle id="48" depart="50.02" route="75"/>
-    <vehicle id="49" depart="51.06" route="94"/>
-    <vehicle id="50" depart="52.11" route="28"/>
-    <vehicle id="51" depart="53.15" route="64"/>
-    <vehicle id="52" depart="54.19" route="93"/>
-    <vehicle id="53" depart="55.23" route="18"/>
-    <vehicle id="54" depart="56.27" route="4"/>
-    <vehicle id="55" depart="57.32" route="66"/>
-    <vehicle id="56" depart="58.36" route="48"/>
-    <vehicle id="57" depart="59.40" route="74"/>
-    <vehicle id="58" depart="60.44" route="10"/>
-    <vehicle id="59" depart="61.48" route="39"/>
-    <vehicle id="60" depart="62.53" route="85"/>
-    <vehicle id="61" depart="63.57" route="68"/>
-    <vehicle id="62" depart="64.61" route="35"/>
-    <vehicle id="63" depart="65.65" route="36"/>
-    <vehicle id="64" depart="66.69" route="37"/>
-    <vehicle id="65" depart="67.74" route="87"/>
-    <vehicle id="66" depart="68.78" route="61"/>
-    <vehicle id="67" depart="69.82" route="90"/>
-    <vehicle id="68" depart="70.86" route="62"/>
-    <vehicle id="69" depart="71.91" route="26"/>
-    <vehicle id="70" depart="72.95" route="80"/>
-    <vehicle id="71" depart="73.99" route="31"/>
-    <vehicle id="72" depart="75.03" route="15"/>
-    <vehicle id="73" depart="76.07" route="21"/>
-    <vehicle id="74" depart="77.12" route="41"/>
-    <vehicle id="75" depart="78.16" route="13"/>
-    <vehicle id="76" depart="79.20" route="55"/>
-    <vehicle id="77" depart="80.24" route="92"/>
-    <vehicle id="78" depart="81.28" route="6"/>
-    <vehicle id="79" depart="82.33" route="67"/>
-    <vehicle id="80" depart="83.37" route="19"/>
-    <vehicle id="81" depart="84.41" route="69"/>
-    <vehicle id="82" depart="85.45" route="77"/>
-    <vehicle id="83" depart="86.49" route="57"/>
-    <vehicle id="84" depart="87.54" route="57"/>
-    <vehicle id="85" depart="88.58" route="94"/>
-    <vehicle id="86" depart="89.62" route="1"/>
-    <vehicle id="87" depart="90.66" route="89"/>
-    <vehicle id="88" depart="91.71" route="75"/>
-    <vehicle id="89" depart="92.75" route="72"/>
-    <vehicle id="90" depart="93.79" route="7"/>
-    <vehicle id="91" depart="94.83" route="20"/>
-    <vehicle id="92" depart="95.87" route="16"/>
-    <vehicle id="93" depart="96.92" route="9"/>
-    <vehicle id="94" depart="97.96" route="3"/>
+    <vehicle id="0" depart="1.79" route="77"/>
+    <vehicle id="1" depart="4.32" route="82"/>
+    <vehicle id="2" depart="9.52" route="22"/>
+    <vehicle id="3" depart="14.92" route="43"/>
+    <vehicle id="4" depart="17.32" route="78"/>
+    <vehicle id="5" depart="17.42" route="96"/>
+    <vehicle id="6" depart="17.70" route="10"/>
+    <vehicle id="7" depart="18.68" route="14"/>
+    <vehicle id="8" depart="20.70" route="30"/>
+    <vehicle id="9" depart="21.80" route="44"/>
+    <vehicle id="10" depart="22.63" route="79"/>
+    <vehicle id="11" depart="22.79" route="17"/>
+    <vehicle id="12" depart="24.80" route="19"/>
+    <vehicle id="13" depart="25.82" route="28"/>
+    <vehicle id="14" depart="27.61" route="80"/>
+    <vehicle id="15" depart="27.68" route="50"/>
+    <vehicle id="16" depart="28.11" route="49"/>
+    <vehicle id="17" depart="30.23" route="5"/>
+    <vehicle id="18" depart="30.50" route="41"/>
+    <vehicle id="19" depart="32.27" route="84"/>
+    <vehicle id="20" depart="32.74" route="49"/>
+    <vehicle id="21" depart="34.52" route="82"/>
+    <vehicle id="22" depart="34.66" route="70"/>
+    <vehicle id="23" depart="36.28" route="88"/>
+    <vehicle id="24" depart="36.86" route="61"/>
+    <vehicle id="25" depart="39.36" route="15"/>
+    <vehicle id="26" depart="39.48" route="69"/>
+    <vehicle id="27" depart="40.05" route="52"/>
+    <vehicle id="28" depart="43.01" route="71"/>
+    <vehicle id="29" depart="44.39" route="18"/>
+    <vehicle id="30" depart="46.52" route="65"/>
+    <vehicle id="31" depart="48.08" route="63"/>
+    <vehicle id="32" depart="48.19" route="31"/>
+    <vehicle id="33" depart="48.90" route="47"/>
+    <vehicle id="34" depart="49.42" route="26"/>
+    <vehicle id="35" depart="50.31" route="24"/>
+    <vehicle id="36" depart="50.37" route="72"/>
+    <vehicle id="37" depart="51.15" route="18"/>
+    <vehicle id="38" depart="51.26" route="79"/>
+    <vehicle id="39" depart="53.60" route="88"/>
+    <vehicle id="40" depart="53.71" route="81"/>
+    <vehicle id="41" depart="54.72" route="89"/>
+    <vehicle id="42" depart="55.27" route="3"/>
+    <vehicle id="43" depart="56.63" route="43"/>
+    <vehicle id="44" depart="56.66" route="57"/>
+    <vehicle id="45" depart="57.49" route="65"/>
+    <vehicle id="46" depart="58.40" route="27"/>
+    <vehicle id="47" depart="63.00" route="8"/>
+    <vehicle id="48" depart="63.87" route="1"/>
+    <vehicle id="49" depart="66.22" route="12"/>
+    <vehicle id="50" depart="66.23" route="85"/>
+    <vehicle id="51" depart="66.89" route="20"/>
+    <vehicle id="52" depart="68.88" route="74"/>
+    <vehicle id="53" depart="68.89" route="37"/>
+    <vehicle id="54" depart="69.34" route="58"/>
+    <vehicle id="55" depart="70.40" route="17"/>
+    <vehicle id="56" depart="71.37" route="42"/>
+    <vehicle id="57" depart="72.79" route="93"/>
+    <vehicle id="58" depart="73.67" route="77"/>
+    <vehicle id="59" depart="74.02" route="40"/>
+    <vehicle id="60" depart="76.09" route="28"/>
+    <vehicle id="61" depart="77.75" route="87"/>
+    <vehicle id="62" depart="79.04" route="55"/>
+    <vehicle id="63" depart="80.14" route="0"/>
+    <vehicle id="64" depart="80.83" route="4"/>
+    <vehicle id="65" depart="82.93" route="95"/>
+    <vehicle id="66" depart="83.82" route="7"/>
+    <vehicle id="67" depart="84.24" route="36"/>
+    <vehicle id="68" depart="84.78" route="59"/>
+    <vehicle id="69" depart="84.98" route="66"/>
+    <vehicle id="70" depart="85.55" route="10"/>
+    <vehicle id="71" depart="87.38" route="68"/>
+    <vehicle id="72" depart="87.47" route="23"/>
+    <vehicle id="73" depart="87.89" route="46"/>
+    <vehicle id="74" depart="89.70" route="6"/>
+    <vehicle id="75" depart="92.63" route="83"/>
+    <vehicle id="76" depart="93.07" route="72"/>
+    <vehicle id="77" depart="93.11" route="60"/>
+    <vehicle id="78" depart="94.35" route="13"/>
+    <vehicle id="79" depart="95.58" route="75"/>
+    <vehicle id="80" depart="96.39" route="59"/>
+    <vehicle id="81" depart="96.91" route="45"/>
+    <vehicle id="82" depart="97.05" route="72"/>
+    <vehicle id="83" depart="97.23" route="33"/>
+    <vehicle id="84" depart="98.45" route="2"/>
+    <vehicle id="85" depart="98.46" route="62"/>
+    <vehicle id="86" depart="98.63" route="44"/>
 </routes>

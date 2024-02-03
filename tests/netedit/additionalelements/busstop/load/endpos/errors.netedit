@@ -1,0 +1,5 @@
+Error: Attribute 'endPos' in definition of busStop 'busStop_02' Invalid Number Format (double) dummyEndPos.
+Error: Could not build busStop with ID 'busStop_03' in netedit; Invalid position over lane.
+Error: Could not build busStop with ID 'busStop_04' in netedit; Invalid position over lane.
+Error: Could not build busStop with ID 'busStop_05' in netedit; Invalid position over lane.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092745.13880/netedit.gui/additionalelements/busstop/load/endpos/additionals.add.xml failed.

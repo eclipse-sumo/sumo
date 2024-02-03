@@ -85,6 +85,10 @@ canvas {
     overflow: hidden;
 }
 
+.images:first-of-type {
+    margin-top: 20px;
+}
+
 .container, button, #status {
     background: #2C2CA0;
     border-radius: 4px;
@@ -122,6 +126,34 @@ button:hover {
     float: right;
 }
 
+.roadTypes {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.2s max-height;
+}
+
+.roadTypes label {
+    display: block;
+    overflow: hidden;
+    height: 20px;
+    line-height: 20px;
+}
+
+.roadTypes input {
+    float: left;
+    border-radius: 2px;
+    border: none;
+    margin: 5px;
+}
+
+.container > .roadTypes, .roadTypes.open {
+    max-height: 300px;
+}
+
+.container > .roadTypes, h4 + .roadTypes.open {
+    margin-top: 5px;
+}
+
 .options {
     max-height: 0;
     overflow: hidden;
@@ -140,14 +172,14 @@ button:hover {
     display: block;
     overflow: hidden;
     height: 20px;
-    line-height: 20px;
+    margin: 5px;
 }
 
 .options input {
     float: left;
     border-radius: 2px;
     border: none;
-	margin: 5px;
+    margin-right: 5px;
 }
 
 input[type=number] {
@@ -171,4 +203,12 @@ input[type=number] {
     background: #5F5FD3;
     border-radius: 2px;
     transition: 0.5s width;
+}
+
+#general-options label {
+    margin: 5px 0;
+}
+
+.checkAll {
+    margin: 5px;
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,6 +33,9 @@
 class GNEParkingArea : public GNEStoppingPlace {
 
 public:
+    /// @brief default constructor
+    GNEParkingArea(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
@@ -46,38 +49,55 @@ public:
      * @param[in] width ParkingArea's length
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] lefthand enable or disable lefthand
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const std::string &departPos, 
-                   const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const double length, 
-                   double angle, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                   const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity,
+                   const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
+                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEParkingArea();
 
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
     std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -88,7 +108,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -117,9 +137,6 @@ protected:
 
         /// @brief The length
         const double length;
-
-        /// @brief Invalidated assignment operator.
-        GNELotSpaceDefinition& operator=(const GNELotSpaceDefinition&) = delete;
     };
 
     /// @brief departPos
@@ -140,6 +157,9 @@ protected:
     /// @brief Angle of Parking Area
     double myAngle;
 
+    /// @brief lefthand
+    bool myLefthand;
+
     /// @brief vector with GNELotSpaceDefinition
     std::vector<GNELotSpaceDefinition> myLotSpaceDefinitions;
 
@@ -153,5 +173,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEParkingArea& operator=(const GNEParkingArea&) = delete;
 };
-
-

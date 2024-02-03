@@ -1,0 +1,6 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStopA'
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stops.14Jul182757.2654/netedit.daily.demand.stops/demandelements/stop/busstop/load/triggered/routes.rou.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ MSCFModel_W99::computeThresholds(double speed, double predSpeed, double leaderAc
 
 
 double
-MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred) const {
+MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     const double dx = gap2pred + myType->getMinGap();
     const double dv = predSpeed - speed;
 
@@ -109,6 +109,12 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
     if (dv < sdvo && dx <= sdxc) {
         // 'Decelerate - Increase Distance';
         accel = 0;
+        // code in addtion to w99-demo to fix collision (#10472)
+        if (dx - SPEED2DIST(speed) < myType->getMinGap() * myCollisionMinGapFactor) {
+            // prevent crashin in the next step
+            accel = -SPEED2ACCEL(speed);
+            status = 9;
+        }
         if (predSpeed > 0) {
             if (dv < 0) {
                 if (dx > cc0) {
@@ -184,7 +190,7 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     // see reasoning in MSCFModel_Wiedemann::stopSpeed
     return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
@@ -201,4 +207,3 @@ MSCFModel*
 MSCFModel_W99::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_W99(vtype);
 }
-

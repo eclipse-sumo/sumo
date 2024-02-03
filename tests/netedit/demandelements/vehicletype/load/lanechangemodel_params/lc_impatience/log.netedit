@@ -1,0 +1,5 @@
+Error: Invalid Lane-Change-Model Attribute lcImpatience. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcImpatience. Must be equal or greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/lanechangemodel_params/lc_impatience/routes.rou.xml failed.

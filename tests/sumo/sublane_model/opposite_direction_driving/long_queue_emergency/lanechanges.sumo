@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  8 15:13:20 2021 by Eclipse SUMO sumo Version v1_8_0+0443-5e5b0fb
+<!-- generated on 2021-11-14 11:36:43 by Eclipse SUMO sumo Version v1_10_0+2265-a31469b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,6 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="60.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="13.89" pos="789.06" reason="" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="55.92" origLeaderSecureGap="28.56" origLeaderSpeed="0.00" latGap="None"/>
-    <change id="overtaking" type="emergency" time="81.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.89" pos="919.25" reason="" leaderGap="2.50" leaderSecureGap="28.56" leaderSpeed="0.00" followerGap="0.76" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="overtaking" type="emergency" time="60.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="13.89" pos="789.06" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="55.92" origLeaderSecureGap="28.56" origLeaderSpeed="0.00" latGap="None"/>
+    <change id="overtaking" type="emergency" time="77.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.89" pos="974.81" reason="strategic|urgent" leaderGap="2.50" leaderSecureGap="28.56" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

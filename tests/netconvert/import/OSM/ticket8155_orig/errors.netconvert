@@ -1,14 +1,11 @@
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '10425555').
-Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurence for edge '32548182').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '32548183').
-Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '595002487').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '10425555').
+Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurrence for edge '32548182').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '32548183').
+Warning: Discarding unusable type 'highway.bus_stop' (first occurrence for edge '595002487').
 Warning: Removing pt stop '250749715' on non existing edge '53650436#0'.
 Warning: Removing pt stop '4539421794' on non existing edge '23187673#1'.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 76955 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2653085 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2656639 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2657421 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2777015 are ignored
+Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 seems to be split, only keeping first part.
+Warning: PT line 'Bus 414: Stadion (Schwarzer Berg) => Heideblick' in relation 6768240 seems to be split, only keeping first part.
 Warning: PT line in relation 6975161 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 6975162 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 6975163 with no stops ignored. Probably OSM file is incomplete.
@@ -24,18 +21,20 @@ Warning: Cannot assign stop 54142977 on edge '859066434' to pt line '4599999'. I
 Warning: Cannot revise pt stop localization for pt line '4617961', which has no route edges. Ignoring!
 Warning: Removed invalid stop '4539421794' from line '4617961'.
 Warning: Cannot revise pt stop localization for pt line '6768240', which has no route edges. Ignoring!
-Warning: Removed invalid stop '4103427181' from line '6768240'.
 Warning: Cannot revise pt stop localization for pt line '6768729', which has no route edges. Ignoring!
+Warning: Removed invalid stop '250749715' from line '6768729'.
 Warning: Cannot revise pt stop localization for pt line '6768731', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '6974398', which consist of one way only. Ignoring!
 Warning: Cannot assign stop 54142977 on edge '859066434' to pt line '7090406'. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '7378840', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '7378841', which has no route edges. Ignoring!
-Warning: Incomplete route for pt line '76955' (Bus 414: Heideblick => Stadion (Schwarzer Berg)).
 Warning: Removing pt stop '250749715' on non existing edge ''.
 Warning: Removing pt stop '4103427181' on non existing edge ''.
 Warning: Removing pt stop '4539421794' on non existing edge ''.
 Warning: Removed 3 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '1100375051'.
+Warning: Converting invalid rail_crossing to priority junction '1100375067'.
+Warning: Converting invalid rail_crossing to priority junction '1100375072'.
 Warning: Ambiguity in turnarounds computation at junction '344918064'.
 Warning: Ambiguity in turnarounds computation at junction '506075298'.
 Warning: Found sharp turn with radius 7.88 at the start of edge '-10426716#0'.
@@ -47,5 +46,4 @@ Warning: The rail crossing 'cluster_3921110414_3921110415' does not have any roa
 Warning: The rail crossing 'cluster_5672130262_5672130263' does not have any roads.
 Warning: 7 total messages of type: Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!
 Warning: 8 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
-Warning: 14 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
-Warning: 15 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 14 total messages of type: Removed invalid stop '%' from line '%'.

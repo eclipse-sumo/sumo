@@ -7,9 +7,6 @@ variable_speed_signs
 # Tests for dua-inc emissions
 inc-dua
 
-# Tests whether wauts (tls program switches) work
-wauts
-
 # Tests whether stops work
 stops
 
@@ -40,6 +37,12 @@ state
 
 # check options for collision handling (emergencyDecel is disabled here to keep the legacy behavior)
 collisions
+
+# tests for scaling traffic
+scale
+
+# test for simulating with bidiEdges in a non-rail context (and without the sublane mode)
+bidiEdge
 
 # test for using option --max-num-vehicles
 max_num_vehicles

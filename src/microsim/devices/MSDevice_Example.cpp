@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ MSDevice_Example::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("example", "Example Device", oc);
 
     oc.doRegister("device.example.parameter", new Option_Float(0.0));
-    oc.addDescription("device.example.parameter", "Example Device", "An exemplary parameter which can be used by all instances of the example device");
+    oc.addDescription("device.example.parameter", "Example Device", TL("An exemplary parameter which can be used by all instances of the example device"));
 }
 
 
@@ -56,11 +56,11 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         // build the device
         // get custom vehicle parameter
         double customParameter2 = -1;
-        if (v.getParameter().knowsParameter("example")) {
+        if (v.getParameter().hasParameter("example")) {
             try {
                 customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("example", "-1"));
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("example", "-1") + "'for vehicle parameter 'example'");
+                WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'example'"), v.getParameter().getParameter("example", "-1"));
             }
 
         } else {
@@ -68,11 +68,11 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         }
         // get custom vType parameter
         double customParameter3 = -1;
-        if (v.getVehicleType().getParameter().knowsParameter("example")) {
+        if (v.getVehicleType().getParameter().hasParameter("example")) {
             try {
                 customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("example", "-1"));
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("example", "-1") + "'for vType parameter 'example'");
+                WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'example'"), v.getVehicleType().getParameter().getParameter("example", "-1"));
             }
 
         } else {

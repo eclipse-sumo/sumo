@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
@@ -29,7 +30,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Emissions.h"
 #include <utils/emissions/PollutantsInterface.h>
-#include <limits>
 
 
 // ===========================================================================
@@ -67,18 +67,18 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double frontOnLane, const double /*timeOnLane*/, const double meanSpeedFrontOnLane, const double /*meanSpeedVehicleOnLane*/, const double travelledDistanceFrontOnLane, const double /*travelledDistanceVehicleOnLane*/, const double /*meanLengthOnLane*/) {
     if (myParent != nullptr && !myParent->vehicleApplies(veh)) {
         return;
     }
     if (veh.isVehicle()) {
-        sampleSeconds += timeOnLane;
-        travelledDistance += travelledDistanceVehicleOnLane;
+        sampleSeconds += frontOnLane;
+        travelledDistance += travelledDistanceFrontOnLane;
         const double a = veh.getAcceleration();
         myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
                               // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
-                              meanSpeedVehicleOnLane, a, veh.getSlope(),
-                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), timeOnLane);
+                              meanSpeedFrontOnLane, a, veh.getSlope(),
+                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), frontOnLane);
     }
 }
 
@@ -95,7 +95,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-        const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
+        const double /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
     dev.writeOptionalAttr(SUMO_ATTR_CO_ABS,          OutputDevice::realString(myEmissions.CO, 6), attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_CO2_ABS,         OutputDevice::realString(myEmissions.CO2, 6), attributeMask);
@@ -141,13 +141,13 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long i
             dev << "\n           ";
         }
         dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(defaultTravelTime), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
     }
     dev.closeTag();
 }
@@ -167,9 +167,11 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const double maxTravelTime,
         const double minSamples,
         const std::string& vTypes,
-        const std::string& writeAttributes) :
+        const std::string& writeAttributes,
+        const std::vector<MSEdge*>& edges,
+        bool aggregate) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes)
+               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate)
 { }
 
 

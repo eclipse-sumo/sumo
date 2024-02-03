@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="rerouting" sigma="0">
+        <param key="has.rerouting.device" value="1"/>
+    </vType>
+    <vehicle id="1" depart="0" departPos="100" arrivalPos="0">
+        <route edges="end"/>
+	</vehicle>
+    <vehicle id="2" depart="0" type="rerouting" departPos="100" arrivalPos="0">
+        <route edges="end"/>
+	</vehicle>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <vector>
 #include <map>
 #include <limits>
@@ -28,6 +29,7 @@
 #include <sstream>
 #include <iomanip>
 #include <thread>
+#include <mutex>
 #include <foreign/tcpip/socket.h>
 #include <libsumo/Subscription.h>
 
@@ -53,6 +55,9 @@ public:
     }
 
     static Connection& getActive() {
+        if (myActive == nullptr) {
+            throw libsumo::FatalTraCIError("Not connected.");
+        }
         return *myActive;
     }
 
@@ -64,14 +69,18 @@ public:
         myActive = myConnections.find(label)->second;
     }
 
-    const std::string& getLabel() {
+    const std::string& getLabel() const {
         return myLabel;
+    }
+
+    std::mutex& getMutex() const {
+        return myMutex;
     }
 
     /// @brief ends the simulation and closes the connection
     void close();
 
-    libsumo::SubscriptionResults getAllSubscriptionResults(const int domain) {
+    libsumo::SubscriptionResults& getAllSubscriptionResults(const int domain) {
         return mySubscriptionResults[domain];
     }
 
@@ -89,7 +98,7 @@ public:
 
     /** @brief Sends a SetOrder command
      */
-    void send_commandSetOrder(int order);
+    void setOrder(int order);
 
     /** @brief Sends a GetVariable / SetVariable request if mySocket is connected.
      * Otherwise writes to myOutput only.
@@ -116,9 +125,14 @@ public:
     /// @}
 
 
-    /// @name Command sending methods
-    /// @{
+    tcpip::Storage& doCommand(int command, int var = -1, const std::string& id = "", tcpip::Storage* add = nullptr, int expectedType = -1);
+    void addFilter(int var, tcpip::Storage* add = nullptr);
 
+    void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
+    void readContextSubscription(int responseID, tcpip::Storage& inMsg);
+    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
+
+private:
     /** @brief Validates the result state of a command
      * @param[in] inMsg The buffer to read the message from
      * @param[in] command The original command id
@@ -131,16 +145,7 @@ public:
      * @return The command Id
      */
     int check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
-    /// @}
 
-    tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = nullptr);
-    void addFilter(int var, tcpip::Storage* add = nullptr);
-
-    void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
-    void readContextSubscription(int responseID, tcpip::Storage& inMsg);
-    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
-
-private:
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
         std::ostringstream oss;
@@ -148,6 +153,14 @@ private:
         oss << std::setprecision(accuracy);
         oss << t;
         return oss.str();
+    }
+
+    template<typename T>
+    inline std::string toHex(const T i, std::streamsize numDigits = 2) {
+        // inspired by http://stackoverflow.com/questions/5100718/int-to-hex-string-in-c
+        std::stringstream stream;
+        stream << "0x" << std::setfill('0') << std::setw(numDigits == 0 ? sizeof(T) * 2 : numDigits) << std::hex << i;
+        return stream.str();
     }
 
     void readOutput();
@@ -169,6 +182,8 @@ private:
     mutable tcpip::Storage myOutput;
     /// @brief The reusable input storage
     mutable tcpip::Storage myInput;
+
+    mutable std::mutex myMutex;
 
     std::map<int, libsumo::SubscriptionResults> mySubscriptionResults;
     std::map<int, libsumo::ContextSubscriptionResults> myContextSubscriptionResults;

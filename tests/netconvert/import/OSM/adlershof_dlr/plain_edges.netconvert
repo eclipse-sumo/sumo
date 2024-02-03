@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:39 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -35,24 +40,23 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-22917251" from="32266936" to="32266938" name="Teltowkanalbrücke" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-24214693#0" from="261599791" to="32266935" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.520153,52.426821 13.522632,52.426659 13.526713,52.426404" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-24214693#0" from="261599791" to="32266935" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.520154,52.426821 13.522632,52.426659 13.526713,52.426404" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-24214693#1" from="57343510" to="261599791" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-24214694" from="32266938" to="32266935" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" width="1.00" allow="bicycle"/>
+    <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" width="2.00" allow="bicycle"/>
     <edge id="-26816413#0" from="294168710" to="56231597" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="-26816413#1" from="294168098" to="294168710" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
-    <edge id="-26816553" from="294168972" to="294168098" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.530151,52.427390 13.530020,52.427475 13.529661,52.427706 13.528957,52.427350 13.528011,52.428054 13.527902,52.428135 13.527938,52.428223" allow="pedestrian delivery bicycle"/>
+    <edge id="-26816553" from="294168972" to="294168098" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.530151,52.427391 13.530020,52.427475 13.529661,52.427706 13.528957,52.427350 13.528011,52.428054 13.527902,52.428135 13.527938,52.428223" allow="pedestrian delivery bicycle"/>
     <edge id="-26816590#0" from="294169338" to="294168098" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="-26816590#1" from="294169339" to="294169338" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
-    <edge id="-26816590#2" from="294169342" to="294169339" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.526893,52.428083 13.527121,52.428072 13.527618,52.428046" allow="pedestrian delivery bicycle"/>
+    <edge id="-26816590#2" from="294169342" to="294169339" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.526893,52.428083 13.527120,52.428072 13.527618,52.428046" allow="pedestrian delivery bicycle"/>
     <edge id="-26816627" from="294169618" to="294169338" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="-26843019" from="294829798" to="294829385" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="-26843038#0" from="294830184" to="294829881" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
@@ -62,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-26843133#1" from="294831562" to="294831560" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527010,52.427524 13.527568,52.427513 13.527610,52.427957" allow="pedestrian delivery bicycle"/>
     <edge id="-26843133#2" from="294831560" to="294831562" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527610,52.427957 13.527053,52.427974 13.527010,52.427524" allow="pedestrian delivery bicycle"/>
     <edge id="-5198584" from="36268382" to="36268416" name="Justus-von-Liebig-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.540695,52.430366 13.538150,52.428794 13.535163,52.427083" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-5198585#0" from="294168972" to="36268369" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.530151,52.427390 13.529370,52.426957 13.529166,52.426785 13.529100,52.426299" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-5198585#0" from="294168972" to="36268369" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.530151,52.427391 13.529370,52.426957 13.529166,52.426785 13.529100,52.426299" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-5198585#1" from="36268375" to="294168972" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-5198585#2" from="36268376" to="36268375" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-5198585#3" from="294829798" to="36268376" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
@@ -102,7 +106,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-6137239#1" from="38919841" to="38919854" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-6137239#2" from="38919808" to="38919841" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.528423,52.430401 13.527250,52.430411 13.527061,52.430390 13.526923,52.430362" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-6137239#3" from="38919652" to="38919808" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-6137239#4" from="38919605" to="38919652" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.531044,52.430547 13.530872,52.430437 13.530726,52.430390 13.530580,52.430375 13.528606,52.430390" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-6137239#4" from="38919605" to="38919652" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.531043,52.430547 13.530872,52.430437 13.530726,52.430390 13.530580,52.430375 13.528606,52.430390" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-7216737#0" from="36268421" to="94487954" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.536524,52.425891 13.541888,52.425601 13.543313,52.425528 13.543819,52.425528 13.544411,52.425559 13.544647,52.425591 13.544999,52.425643 13.545248,52.425722" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-7216737#1" from="261636678" to="36268421" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="-7216737#2" from="36268369" to="261636678" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.529100,52.426299 13.531039,52.426132 13.533400,52.426001 13.535048,52.425928 13.536086,52.425910" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
@@ -116,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="22917251" from="32266938" to="32266936" name="Teltowkanalbrücke" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="24152812#0" from="36268421" to="261636677" name="Havestadtplatz" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.536524,52.425891 13.536558,52.426449 13.536137,52.426459" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="24152812#1" from="261636677" to="261636678" name="Havestadtplatz" priority="3" type="highway.residential" numLanes="1" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="24214693#0" from="32266935" to="261599791" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.526713,52.426404 13.522632,52.426659 13.520153,52.426821" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="24214693#0" from="32266935" to="261599791" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.526713,52.426404 13.522632,52.426659 13.520154,52.426821" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="24214693#1" from="261599791" to="57343510" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="25944590#0" from="283018817" to="283018841" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.528563,52.430263 13.527651,52.430180 13.527333,52.430144 13.527196,52.430112" spreadType="center" width="2.00" allow="pedestrian"/>
@@ -129,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="25944603#1" from="283018841" to="283018937" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="25944603#2" from="283018937" to="38919841" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="13.526990,52.430269 13.526818,52.430144 13.526621,52.430008" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" width="1.00" allow="bicycle"/>
+    <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" width="2.00" allow="bicycle"/>
     <edge id="26004787#0" from="283719736" to="283721344" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="26004787#1" from="283721344" to="283722837" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
     <edge id="26004787#2" from="283722837" to="283719904" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
@@ -145,10 +149,10 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="26816413#0" from="56231597" to="294168710" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="26816413#1" from="294168710" to="294168098" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="26816541" from="294168098" to="294168710" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527938,52.428223 13.527472,52.428271 13.527532,52.428533 13.527841,52.428606 13.528214,52.428384" spreadType="center" allow="pedestrian delivery bicycle"/>
-    <edge id="26816553" from="294168098" to="294168972" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527938,52.428223 13.527902,52.428135 13.528011,52.428054 13.528957,52.427350 13.529661,52.427706 13.530020,52.427475 13.530151,52.427390" allow="pedestrian delivery bicycle"/>
+    <edge id="26816553" from="294168098" to="294168972" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527938,52.428223 13.527902,52.428135 13.528011,52.428054 13.528957,52.427350 13.529661,52.427706 13.530020,52.427475 13.530151,52.427391" allow="pedestrian delivery bicycle"/>
     <edge id="26816590#0" from="294168098" to="294169338" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="26816590#1" from="294169338" to="294169339" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
-    <edge id="26816590#2" from="294169339" to="294169342" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527618,52.428046 13.527121,52.428072 13.526893,52.428083" allow="pedestrian delivery bicycle"/>
+    <edge id="26816590#2" from="294169339" to="294169342" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="13.527618,52.428046 13.527120,52.428072 13.526893,52.428083" allow="pedestrian delivery bicycle"/>
     <edge id="26816627" from="294169338" to="294169618" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="26843019" from="294829385" to="294829798" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
     <edge id="26843038#0" from="294829881" to="294830184" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
@@ -173,7 +177,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="27445015#3" from="36268415" to="38920778" name="Rudower Chaussee" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.530998,52.429971 13.531375,52.430165 13.531685,52.430306 13.531925,52.430406 13.532819,52.430717" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="27445015#4" from="38920778" to="57343487" name="Rudower Chaussee" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" shape="13.532819,52.430717 13.533298,52.430908 13.533564,52.431049 13.533839,52.431206 13.534251,52.431468 13.535015,52.431960 13.535388,52.432190" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="5198584" from="36268416" to="36268382" name="Justus-von-Liebig-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.535163,52.427083 13.538150,52.428794 13.540695,52.430366" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="5198585#0" from="36268369" to="294168972" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.529100,52.426299 13.529166,52.426785 13.529370,52.426957 13.530151,52.427390" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="5198585#0" from="36268369" to="294168972" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.529100,52.426299 13.529166,52.426785 13.529370,52.426957 13.530151,52.427391" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="5198585#1" from="294168972" to="36268375" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="5198585#2" from="36268375" to="36268376" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="5198585#3" from="36268376" to="294829798" name="Albert-Einstein-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
@@ -219,7 +223,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="6137239#1" from="38919854" to="38919841" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="6137239#2" from="38919841" to="38919808" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.526923,52.430362 13.527061,52.430390 13.527250,52.430411 13.528423,52.430401" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="6137239#3" from="38919808" to="38919652" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="6137239#4" from="38919652" to="38919605" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.528606,52.430390 13.530580,52.430375 13.530726,52.430390 13.530872,52.430437 13.531044,52.430547" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="6137239#4" from="38919652" to="38919605" name="Carl-Scheele-Straße" priority="3" type="highway.residential" numLanes="1" speed="13.89" shape="13.528606,52.430390 13.530580,52.430375 13.530726,52.430390 13.530872,52.430437 13.531043,52.430547" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="6137245" from="38919945" to="59993001" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="7216737#0" from="94487954" to="36268421" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" shape="13.545248,52.425722 13.544999,52.425643 13.544647,52.425591 13.544411,52.425559 13.543819,52.425528 13.543313,52.425528 13.541888,52.425601 13.536524,52.425891" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="7216737#1" from="36268421" to="261636678" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>

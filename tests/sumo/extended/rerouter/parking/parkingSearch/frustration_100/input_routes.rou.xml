@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+
+    <flow id="ego" type="car" begin="0" period="2" number="1" departSpeed="max">
+        <stop parkingArea="paA0A1" duration="3600"/>
+        <param key="has.vehroute.device" value="false"/>
+    </flow>
+    
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,8 +29,8 @@ void GenericEngineModel::printParameterError(std::string parameter, std::string 
     std::cerr << className << ": invalid value " << value << " for parameter " << parameter << std::endl;
 }
 
-void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, double& value) {
-    ParMap::const_iterator par = parameters.find(parameter);
+void GenericEngineModel::parseParameter(const Parameterised::Map& parameters, std::string parameter, double& value) {
+    Parameterised::Map::const_iterator par = parameters.find(parameter);
     if (par != parameters.end()) {
         try {
             value = StringUtils::toDouble(par->second);
@@ -39,8 +39,8 @@ void GenericEngineModel::parseParameter(const ParMap& parameters, std::string pa
         }
     }
 }
-void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, int& value) {
-    ParMap::const_iterator par = parameters.find(parameter);
+void GenericEngineModel::parseParameter(const Parameterised::Map& parameters, std::string parameter, int& value) {
+    Parameterised::Map::const_iterator par = parameters.find(parameter);
     if (par != parameters.end()) {
         try {
             value = StringUtils::toInt(par->second);
@@ -49,8 +49,8 @@ void GenericEngineModel::parseParameter(const ParMap& parameters, std::string pa
         }
     }
 }
-void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, std::string& value) {
-    ParMap::const_iterator par = parameters.find(parameter);
+void GenericEngineModel::parseParameter(const Parameterised::Map& parameters, std::string parameter, std::string& value) {
+    Parameterised::Map::const_iterator par = parameters.find(parameter);
     if (par != parameters.end()) {
         value = par->second;
     }

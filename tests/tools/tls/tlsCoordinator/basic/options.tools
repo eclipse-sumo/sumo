@@ -1,2 +1,2 @@
-net.net.xml input_routes.rou.xml out.add.xml tools/tlsCoordinator.py
+{CLEAR} -n net.net.xml -r input_routes.rou.xml -o out.add.xml tools/tlsCoordinator.py
 

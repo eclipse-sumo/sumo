@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,15 +14,22 @@
 # @file    countConnectionsInDistricts.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2007-07-26
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
+import sys
 from xml.sax import make_parser, handler
-from optparse import OptionParser
-
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 
 # written into the net. All members are "private".
+
+
 class NetDistrictConnectionCountingHandler(handler.ContentHandler):
 
     def __init__(self):
@@ -54,14 +61,14 @@ class NetDistrictConnectionCountingHandler(handler.ContentHandler):
         fd.close()
 
 
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-optParser.add_option("-o", "--output", dest="output",
-                     help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
-(options, args) = optParser.parse_args()
+ap = ArgumentParser()
+ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                default=False, help="tell me what you are doing")
+ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ap.net_file, required=True,
+                help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
+ap.add_argument("-o", "--output", dest="output", category="output", type=ap.net_file, required=True,
+                help="read SUMO network(s) from FILE(s) (mandatory)", metavar="FILE")
+options = ap.parse_args()
 
 parser = make_parser()
 reader = NetDistrictConnectionCountingHandler()

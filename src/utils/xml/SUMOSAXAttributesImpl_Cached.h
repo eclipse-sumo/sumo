@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/CommonXMLStructure.h>
 #include "SUMOSAXAttributes.h"
 
 
@@ -50,16 +51,6 @@ public:
                                  const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
-    /** @brief Constructor
-     *
-     * @param[in] attrs The encapsulated xerces-attributes (SumoXMLAttr-string)
-     * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
-     * @param[in] objectType object type in string format
-     */
-    SUMOSAXAttributesImpl_Cached(const std::map<SumoXMLAttr, std::string>& attrs,
-                                 const std::vector<std::string>& predefinedTagsMML,
-                                 const std::string& objectType);
-
     /// @brief Destructor
     ~SUMOSAXAttributesImpl_Cached();
 
@@ -74,57 +65,6 @@ public:
     bool hasAttribute(int id) const;
 
     /**
-     * @brief Returns the bool-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an
-     *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a bool, TplConvert<XMLCh>::_2bool throws a
-     *  BoolFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @return The attribute's value as a bool, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception BoolFormatException If the attribute value can not be parsed to a bool
-     */
-    bool getBool(int id) const;
-
-    /**
-     * @brief Returns the int-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2int.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2int throws an
-     *  EmptyData-exception which is passed.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2int throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @return The attribute's value as an int, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
-    int getInt(int id) const;
-
-    /**
-     * @brief Returns the long-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2long.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2long throws an
-     *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a long, TplConvert<XMLCh>::_2long throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @return The attribute's value as an int, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
-    long long int getLong(int id) const;
-
-    /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -136,7 +76,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    std::string getString(int id) const;
+    std::string getString(int id, bool* isPresent = nullptr) const;
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
@@ -151,23 +91,6 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     std::string getStringSecure(int id, const std::string& def) const;
-
-    /**
-     * @brief Returns the double-value of the named (by its enum-value) attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list. The retrieved
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2double.
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2double throws an
-     *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a double, TplConvert<XMLCh>::_2double throws a
-     *  NumberFormatException-exception which is passed.
-     *
-     * @param[in] id The id of the attribute to return the value of
-     * @return The attribute's value as a float, if it could be read and parsed
-     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     * @exception NumberFormatException If the attribute value can not be parsed to an double
-     */
-    double getFloat(int id) const;
 
     /// @brief Returns the information whether the named attribute is within the current list
     bool hasAttribute(const std::string& id) const;
@@ -201,57 +124,6 @@ public:
     std::string getStringSecure(const std::string& id,
                                 const std::string& def) const;
     /// @}
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a SumoXMLEdgeFunc, if it could be read and parsed
-     */
-    SumoXMLEdgeFunc getEdgeFunc(bool& ok) const;
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a SumoXMLNodeType, if it could be read and parsed
-     */
-    SumoXMLNodeType getNodeType(bool& ok) const;
-
-    /// @brief returns rightOfWay method
-    RightOfWay getRightOfWay(bool& ok) const;
-
-    /// @brief returns fringe type
-    FringeType getFringeType(bool& ok) const;
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a RGBColor, if it could be read and parsed
-     */
-    RGBColor getColor() const;
-
-    /** @brief Tries to read given attribute assuming it is a Position
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occurred
-     */
-    Position getPosition(int attr) const;
-
-    /** @brief Tries to read given attribute assuming it is a PositionVector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occurred
-     */
-    PositionVector getShape(int attr) const;
-
-    /** @brief Tries to read given attribute assuming it is a Boundary
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occurred
-     */
-    Boundary getBoundary(int attr) const;
 
     /** @brief Converts the given attribute id into a man readable string
      *

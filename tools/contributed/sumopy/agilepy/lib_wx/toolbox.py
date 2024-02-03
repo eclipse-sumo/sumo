@@ -1,7 +1,7 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,8 +14,13 @@
 
 # @file    toolbox.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
+import agilepy.lib_base.arrayman as am
+import agilepy.lib_base.classman as cm
+from objpanel import ObjPanel, NaviPanel
+from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
+import wx
 import sys
 import os
 import string
@@ -29,21 +34,13 @@ if __name__ == '__main__':
 
 IMAGEDIR = os.path.join(os.path.dirname(__file__), "images")
 
-import wx
-from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
-
-from objpanel import ObjPanel, NaviPanel
-
-import agilepy.lib_base.classman as cm
-import agilepy.lib_base.arrayman as am
-
 
 class BaseTool(am.ArrayObjman):
     """
     This is a base tool class for Agilecanvas.
     It must handle all mouse or keyboard events,
     must create and draw helplines and finally
-    modify the state of client which are grafically
+    modify the state of client which are graphically
     represented on the canvas.
     """
 
@@ -52,7 +49,7 @@ class BaseTool(am.ArrayObjman):
         To be overridden by specific tool.
         """
         self.init_common('select', parent, 'Selection tool',
-                         info='Select objects in cancvas',
+                         info='Select objects in canvas',
                          is_textbutton=True,
                          )
 
@@ -206,7 +203,7 @@ class DelTool(BaseTool):
         """
         To be overridden by specific tool.
         """
-        self.init_common('delete', parent, 'Delete', info='Delete objects in cancvas')
+        self.init_common('delete', parent, 'Delete', info='Delete objects in canvas')
 
     def set_button_info(self, bsize=(32, 32)):
         # print 'set_button_info select tool'

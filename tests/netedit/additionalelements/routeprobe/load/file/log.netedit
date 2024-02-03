@@ -1,0 +1,4 @@
+Error: Attribute 'file' is missing in definition of routeProbe 'routeProbe_0'.
+Error: Could not build routeProbe with ID 'routeProbe_1' in netedit; Filename is invalid.
+Error: Attribute 'file' in definition of routeProbe 'routeProbe_2' is empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/routeprobe/load/file/additionals.add.xml failed.

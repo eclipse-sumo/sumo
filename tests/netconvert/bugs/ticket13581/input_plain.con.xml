@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-07 09:09:30 by Eclipse SUMO netedit Version v1_18_0+0172-1b2313e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="nottinghill-1.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="1"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-70520849#0" to="70520892#0" fromLane="0" toLane="0"/>
+    <connection from="-70520849#0" to="70520892#0" fromLane="1" toLane="1"/>
+
+    <connection from="222519220#0" to="222519220#1" fromLane="0" toLane="0"/>
+    <connection from="222519220#0" to="222519220#1" fromLane="1" toLane="1"/>
+
+    <connection from="222519220#1" to="70522061" fromLane="0" toLane="0"/>
+    <connection from="222519220#1" to="70522061" fromLane="1" toLane="1"/>
+
+    <connection from="222519221" to="32753636" fromLane="0" toLane="0"/>
+    <connection from="222519221" to="32753636" fromLane="1" toLane="1"/>
+
+    <connection from="222519222" to="70521361#0" fromLane="0" toLane="0"/>
+    <connection from="222519222" to="70521361#0" fromLane="0" toLane="1"/>
+    <connection from="222519222" to="70521922#0" fromLane="0" toLane="0"/>
+    <connection from="222519222" to="70521922#0" fromLane="1" toLane="1"/>
+
+    <connection from="32753636" to="70520849#0" fromLane="0" toLane="0"/>
+    <connection from="32753636" to="70520849#0" fromLane="1" toLane="1"/>
+    <connection from="32753636" to="70520892#0" fromLane="1" toLane="1"/>
+
+    <connection from="35168768#1" to="35168768#2" fromLane="0" toLane="0"/>
+    <connection from="35168768#1" to="35168768#2" fromLane="1" toLane="1"/>
+
+    <connection from="35168768#2" to="35168768#3" fromLane="0" toLane="0"/>
+    <connection from="35168768#2" to="35168768#3" fromLane="1" toLane="1"/>
+
+    <connection from="35168768#3" to="32753636" fromLane="0" toLane="0"/>
+    <connection from="35168768#3" to="32753636" fromLane="1" toLane="1"/>
+
+    <connection from="70520849#0"/>
+
+    <connection from="70520892#0" to="70520892#1" fromLane="0" toLane="0"/>
+    <connection from="70520892#0" to="70520892#1" fromLane="1" toLane="1"/>
+
+    <connection from="70520892#1" to="222519220#0" fromLane="0" toLane="0"/>
+    <connection from="70520892#1" to="222519220#0" fromLane="1" toLane="1"/>
+
+    <connection from="70521361#0" to="70521361#1" fromLane="0" toLane="0"/>
+    <connection from="70521361#0" to="70521361#1" fromLane="1" toLane="1"/>
+
+    <connection from="70521361#1" to="70521361#2" fromLane="0" toLane="0"/>
+    <connection from="70521361#1" to="70521361#2" fromLane="1" toLane="1"/>
+
+    <connection from="70521361#2" to="70522061" fromLane="0" toLane="0"/>
+    <connection from="70521361#2" to="70522061" fromLane="1" toLane="1"/>
+
+    <connection from="70521922#0" to="70521922#1" fromLane="0" toLane="0"/>
+    <connection from="70521922#0" to="70521922#1" fromLane="1" toLane="1"/>
+
+    <connection from="70521922#1" to="222519221" fromLane="0" toLane="0"/>
+    <connection from="70521922#1" to="222519221" fromLane="1" toLane="1"/>
+
+</connections>

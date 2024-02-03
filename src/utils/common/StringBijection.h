@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -128,9 +128,17 @@ public:
 
     std::vector<std::string> getStrings() const {
         std::vector<std::string> result;
-        typename std::map<T, std::string>::const_iterator it; // learn something new every day
-        for (it = myT2String.begin(); it != myT2String.end(); it++) {
-            result.push_back(it->second);
+        for (auto item : myT2String) {
+            result.push_back(item.second);
+        }
+        return result;
+    }
+
+
+    std::vector<T> getValues() const {
+        std::vector<T> result;
+        for (auto item : myT2String) {
+            result.push_back(item.first);
         }
         return result;
     }

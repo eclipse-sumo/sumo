@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,15 +69,18 @@ ChargingStation::getEndPos(const std::string& stopID) {
     return getChargingStation(stopID)->getEndLanePosition();
 }
 
+
 std::string
 ChargingStation::getName(const std::string& stopID) {
     return getChargingStation(stopID)->getMyName();
 }
 
+
 int
 ChargingStation::getVehicleCount(const std::string& stopID) {
     return (int)getChargingStation(stopID)->getStoppedVehicles().size();
 }
+
 
 std::vector<std::string>
 ChargingStation::getVehicleIDs(const std::string& stopID) {
@@ -89,19 +92,17 @@ ChargingStation::getVehicleIDs(const std::string& stopID) {
 }
 
 
-
 std::string
 ChargingStation::getParameter(const std::string& stopID, const std::string& param) {
-    const MSStoppingPlace* s = getChargingStation(stopID);
-    return s->getParameter(param, "");
+    return getChargingStation(stopID)->getParameter(param, "");
 }
+
 
 LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ChargingStation)
 
 void
 ChargingStation::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
-    MSStoppingPlace* s = getChargingStation(stopID);
-    s->setParameter(key, value);
+    getChargingStation(stopID)->setParameter(key, value);
 }
 
 
@@ -110,11 +111,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
 MSStoppingPlace*
 ChargingStation::getChargingStation(const std::string& id) {
-    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_CHARGING_STATION);
-    if (s == nullptr) {
-        throw TraCIException("ChargingStation '" + id + "' is not known");
-    }
-    return s;
+    return Helper::getStoppingPlace(id, SUMO_TAG_CHARGING_STATION);
 }
 
 

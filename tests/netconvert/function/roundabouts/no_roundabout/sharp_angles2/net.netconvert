@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:49 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-05-12 11:25:54 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -22,40 +27,39 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <roundabouts.guess value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-593345.09,-5779253.43" convBoundary="4215.39,2341.00,4331.69,2716.03" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":54525860_0" function="internal">
-        <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="15.17" shape="4228.28,2540.89 4223.04,2541.45 4220.22,2540.51 4219.81,2538.05 4221.81,2534.09"/>
+        <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="18.40" shape="4228.95,2540.75 4222.51,2541.48 4219.19,2540.40 4218.98,2537.51 4221.89,2532.81"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.62" shape="4226.62,2536.68 4222.11,2539.08 4221.62,2539.16"/>
+        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="6.58" shape="4227.18,2537.55 4224.08,2538.35 4222.16,2537.83 4221.65,2536.53"/>
     </edge>
     <edge id=":54525860_2" function="internal">
-        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="7.76" shape="4221.62,2539.16 4219.80,2539.45 4219.70,2537.79 4221.81,2534.09"/>
+        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="3.79" shape="4221.65,2536.53 4221.43,2535.98 4221.89,2532.81"/>
     </edge>
     <edge id=":54525871_0" function="internal">
         <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.91" shape="4252.60,2511.70 4254.83,2510.42 4256.06,2509.11 4257.04,2507.50 4258.50,2505.28"/>
@@ -116,11 +120,11 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-51800059" from="54525871" to="54525875" priority="-1" spreadType="center" shape="4254.33,2510.90 4268.12,2505.61 4288.03,2501.55">
         <lane id="-51800059_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="22.65" shape="4260.87,2508.39 4268.12,2505.61 4282.70,2502.64"/>
     </edge>
-    <edge id="-51800060" from="54525860" to="54525871" priority="-1" spreadType="center" shape="4215.39,2543.52 4227.36,2525.95 4240.53,2517.31 4254.33,2510.90">
-        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="38.91" shape="4221.81,2534.09 4227.36,2525.95 4240.53,2517.31 4252.60,2511.70"/>
+    <edge id="-51800060" from="54525860" to="54525871" priority="-1" spreadType="center" shape="4214.07,2542.62 4227.36,2525.95 4240.53,2517.31 4254.33,2510.90">
+        <lane id="-51800060_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="37.84" shape="4221.89,2532.81 4227.36,2525.95 4240.53,2517.31 4252.60,2511.70"/>
     </edge>
     <edge id="-51800062" from="54525882" to="54525860" priority="-1" spreadType="center" shape="4296.89,2572.94 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4215.39,2543.52">
-        <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="74.68" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4228.28,2540.89"/>
+        <lane id="-51800062_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="73.99" shape="4292.42,2567.26 4280.87,2552.59 4261.95,2541.09 4235.30,2539.46 4228.95,2540.75"/>
     </edge>
     <edge id="-51800063" from="54525882" to="54525876" priority="-1" spreadType="center">
         <lane id="-51800063_0" index="0" speed="19.44" length="49.85" shape="4296.01,2565.77 4289.93,2516.29"/>
@@ -135,8 +139,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="51800055" from="54525877" to="54525876" priority="-1" spreadType="center">
         <lane id="51800055_0" index="0" speed="13.89" length="0.20" shape="4292.73,2508.20 4292.56,2508.31"/>
     </edge>
-    <edge id="51800061" from="54525876" to="54525860" priority="-1" spreadType="center" shape="4289.22,2510.48 4266.53,2516.71 4247.23,2524.12 4215.39,2543.52">
-        <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="62.48" shape="4283.58,2512.03 4266.53,2516.71 4247.23,2524.12 4226.62,2536.68"/>
+    <edge id="51800061" from="54525876" to="54525860" priority="-1" spreadType="center" shape="4289.22,2510.48 4266.53,2516.71 4247.23,2524.12 4216.22,2544.89">
+        <lane id="51800061_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="62.49" shape="4283.58,2512.03 4266.53,2516.71 4247.23,2524.12 4227.18,2537.55"/>
     </edge>
     <edge id="51800087" from="54525877" to="54525903" priority="-1" spreadType="center" shape="4297.54,2505.08 4316.13,2637.85 4318.56,2653.47 4331.69,2716.03">
         <lane id="51800087_0" index="0" speed="19.44" length="206.54" shape="4300.13,2512.05 4317.71,2637.62 4320.13,2653.18 4333.26,2715.70"/>
@@ -144,7 +148,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="54525842" type="dead_end" x="4270.67" y="2341.00" incLanes="-51800057_0" intLanes="" shape="4276.94,2339.85 4267.48,2341.14 4270.67,2341.00"/>
-    <junction id="54525860" type="priority" x="4215.39" y="2543.52" incLanes="-51800062_0 51800061_0" intLanes=":54525860_0_0 :54525860_2_0" shape="4228.60,2542.46 4227.96,2539.32 4227.46,2538.04 4225.79,2535.31 4223.13,2534.99 4220.49,2533.19">
+    <junction id="54525860" type="priority" x="4215.39" y="2543.52" incLanes="-51800062_0 51800061_0" intLanes=":54525860_0_0 :54525860_2_0" shape="4229.27,2542.32 4228.63,2539.19 4228.41,2538.65 4220.69,2531.74">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="1"/>
     </junction>
@@ -176,7 +180,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="54525882" type="dead_end" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
     <junction id="54525903" type="dead_end" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.82,2715.37 4328.56,2716.69"/>
 
-    <junction id=":54525860_2_0" type="internal" x="4221.62" y="2539.16" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
+    <junction id=":54525860_2_0" type="internal" x="4221.65" y="2536.53" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
 
     <connection from="-51800054" to="-51800056" fromLane="0" toLane="0" via=":54525875_0_0" dir="s" state="M"/>
     <connection from="-51800054" to="51800053" fromLane="0" toLane="0" via=":54525875_1_0" dir="l" state="M"/>
@@ -194,11 +198,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="51800053" to="51800087" fromLane="0" toLane="1" via=":54525877_3_0" dir="L" state="m"/>
     <connection from="51800053" to="51800055" fromLane="0" toLane="0" via=":54525877_4_0" dir="l" state="m"/>
     <connection from="51800055" to="-51800054" fromLane="0" toLane="0" via=":54525876_1_0" dir="l" state="m"/>
-    <connection from="51800061" to="-51800060" fromLane="0" toLane="0" via=":54525860_1_0" dir="l" state="m"/>
+    <connection from="51800061" to="-51800060" fromLane="0" toLane="0" via=":54525860_1_0" dir="t" state="m"/>
 
     <connection from=":54525860_0" to="-51800060" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="l" state="m"/>
-    <connection from=":54525860_2" to="-51800060" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":54525860_1" to="-51800060" fromLane="0" toLane="0" via=":54525860_2_0" dir="t" state="m"/>
+    <connection from=":54525860_2" to="-51800060" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":54525871_0" to="-51800058" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":54525871_1" to="-51800059" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":54525873_0" to="-51800057" fromLane="0" toLane="0" dir="s" state="M"/>

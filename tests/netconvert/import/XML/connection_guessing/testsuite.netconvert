@@ -49,6 +49,9 @@ bike_lane_starts
 3arm_bike_lane
 3arm_bike_lane2
 
+# edge with bicycle lane connects to a bike path
+bike_path_branches
+
 # special case a)
 case_a_with_sidewalk
 
@@ -96,4 +99,16 @@ target_prohibits_change2
 
 # connect to all lanes on target if it prohibits lane changing (#8391)
 target_prohibits_turns
+
+# test missing connection in osm derived data (#10502)	
+bus_only
+
+# test faulty connection in osm derived data (#12327)	
+bus_bay_bikelanes
+
+# test faulty connection in osm derived data (#12327)	
+bus_bay_bikelanes2
+
+# test for #13087
+bus_switch_lane
 ramps

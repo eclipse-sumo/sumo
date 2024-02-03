@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,8 +60,9 @@ public:
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
-                              const MSRoute* route, MSVehicleType* type,
-                              const bool ignoreStopErrors, const bool fromRouteFile = true);
+                              ConstMSRoutePtr route, MSVehicleType* type,
+                              const bool ignoreStopErrors, const bool fromRouteFile = true,
+                              bool addRouteStops = true) override;
     /// @}
 
     /** @brief Tries to insert the vehicle into the internal vehicle container
@@ -72,7 +73,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    bool addVehicle(const std::string& id, SUMOVehicle* v);
+    bool addVehicle(const std::string& id, SUMOVehicle* v) override;
 
     /** @brief Deletes the vehicle
      *
@@ -81,7 +82,7 @@ public:
      * @param[in] v The vehicle to delete
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      */
-    void deleteVehicle(SUMOVehicle* v, bool discard = false);
+    void deleteVehicle(SUMOVehicle* v, bool discard = false) override;
 
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
@@ -90,12 +91,12 @@ public:
     void insertVehicleIDs(std::vector<GUIGlID>& into);
 
     /// @brief get current absolute and relative mean vehicle speed in the network
-    virtual std::pair<double, double> getVehicleMeanSpeeds() const;
+    virtual std::pair<double, double> getVehicleMeanSpeeds() const override;
 
     /** @brief Returns the number of halting vehicles
      * @return The number of halting vehicles
      */
-    virtual int getHaltingVehicleNo() const;
+    virtual int getHaltingVehicleNo() const override;
 
     /// @brief lock access to vehicle removal/additions for thread synchronization
     void secureVehicles();

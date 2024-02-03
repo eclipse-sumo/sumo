@@ -1,0 +1,10 @@
+# Copy of default
+default
+write-route-ids
+write-route-distribution
+write-flows-number
+
+# -f number -i
+f-number-i
+f-probability-i
+f-number-u

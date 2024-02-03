@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log --net-file=net.net.xml -r input_routes.rou.xml --link-output linkstate.xml -e 20
+--tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
+--device.tripinfo.explicit vehicle_0
+--step-length 0.1

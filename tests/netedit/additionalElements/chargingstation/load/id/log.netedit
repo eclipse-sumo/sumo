@@ -1,3 +1,0 @@
-Warning: Essential unique string attribute 'id' of chargingStation is missing; chargingStation cannot be created
-Warning: Format of essential unique string attribute 'id' of chargingStation is invalid; ID contains invalid characters; chargingStation cannot be created
-Warning: There is another chargingStation with the same ID='chargingStation_0'.

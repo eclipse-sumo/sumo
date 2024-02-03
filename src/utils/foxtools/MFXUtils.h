@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,8 +17,7 @@
 ///
 // Some helper functions for FOX
 /****************************************************************************/
-#ifndef MFXUtils_h
-#define MFXUtils_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -59,7 +58,7 @@ public:
         FXWindow* const parent, const FXString& file);
 
 
-    /** @brief Returns the title text in dependance to an optional file name
+    /** @brief Returns the title text in dependence to an optional file name
      *
      * The title is computed as default on windows: The application name only if no
      *  file name is given. If a file name is given, it is used without the extension,
@@ -76,7 +75,7 @@ public:
     /** @brief Returns the document name
      *
      * Removes the path first. Then, returns the part before the first '.'
-     *  occurence of the so obtained string.
+     *  occurrence of the so obtained string.
      *
      * @param[in] filename The file name (including the path) to obtain the name of
      * @return The name (without the path and the extension)
@@ -126,6 +125,3 @@ public:
     static FXColor getFXColor(const RGBColor& col);
 
 };
-
-
-#endif

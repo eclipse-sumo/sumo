@@ -27,3 +27,7 @@ taxi
 
 # test glosa device
 glosa
+
+# tests for the friction device
+friction
+stationfinder

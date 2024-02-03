@@ -5,6 +5,18 @@
 
     <xsd:element name="statistics">
         <xsd:sequence>
+            <xsd:element name="performance">
+                <xsd:attribute name="clockBegin" use="required" type="timeType"/>
+                <xsd:attribute name="clockEnd" use="required" type="timeType"/>
+                <xsd:attribute name="clockDuration" use="required" type="timeType"/>
+                <xsd:attribute name="traciDuration" use="required" type="timeType"/>
+                <xsd:attribute name="realTimeFactor" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+                <xsd:attribute name="vehicleUpdatesPerSecond" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+                <xsd:attribute name="personUpdatesPerSecond" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+                <xsd:attribute name="begin" use="required" type="timeType"/>
+                <xsd:attribute name="end" use="required" type="timeType"/>
+                <xsd:attribute name="duration" use="required" type="timeType"/>
+            </xsd:element>
             <xsd:element name="vehicles">
                 <xsd:attribute name="loaded" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="inserted" use="required" type="xsd:nonNegativeInteger"/>
@@ -20,13 +32,19 @@
             <xsd:element name="safety">
                 <xsd:attribute name="collisions" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="emergencyStops" use="required" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="emergencyBraking" use="required" type="xsd:nonNegativeInteger"/>
             </xsd:element>
             <xsd:element name="persons">
                 <xsd:attribute name="loaded" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="running" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="jammed" use="required" type="xsd:nonNegativeInteger"/>
             </xsd:element>
+            <xsd:element name="personTeleports">
+                <xsd:attribute name="abortWait" use="required" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="wrongDest" use="required" type="xsd:nonNegativeInteger"/>
+            </xsd:element>
             <xsd:element name="vehicleTripStatistics" minOccurs="0" maxOccurs="1">
+                <xsd:attribute name="count" use="required" type="nonNegativeInteger"/>
                 <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
                 <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
                 <xsd:attribute name="duration" use="required" type="timeType"/>

@@ -33,3 +33,6 @@ ticket5803
 
 # invalid jam when parkingArea is close to junction
 ticket5864
+
+# wrong vehicle angle when changing lane on a zero-length internal lane
+ticket5879

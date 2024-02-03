@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,20 +19,25 @@
 ///
 /****************************************************************************/
 #include "StdDefs.h"
+#include <sstream>
 
 
 // set by option --precision (see SystemFrame.cpp)
 int gPrecision = 2;
 int gPrecisionGeo = 6;
+int gPrecisionRandom = 4;
 bool gHumanReadableTime = false;
 bool gSimulation = false;
 double gWeightsRandomFactor = 1;
+double gWeightsWalkOppositeFactor = 1;
+std::string gLanguage = "C";
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;
 bool gDebugFlag3 = false;
 bool gDebugFlag4 = false;
 bool gDebugFlag5 = false;
+bool gDebugFlag6 = false;
 
 double truncate(double x, int fractionBits) {
     return ceil(x * (1 << fractionBits)) / (1 << fractionBits);
@@ -44,6 +49,11 @@ double roundBits(double x, int fractionBits) {
     return rounded / (1 << fractionBits);
 }
 
+double roundDecimal(double x, int precision) {
+    const double p = pow(10, precision);
+    const double x2 = x * p;
+    return (x2 < 0 ? ceil(x2 - 0.5) : floor(x2 + 0.5)) / p;
+}
 
 int
 getScalingQuota(double frac, int loaded) {

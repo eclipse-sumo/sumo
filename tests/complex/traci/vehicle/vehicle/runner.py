@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import traci.constants as tc  # noqa
 import sumolib  # noqa
@@ -100,6 +100,8 @@ def check(vehID):
     print("stopDelay", traci.vehicle.getStopDelay(vehID))
     print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
     print("timeLoss", traci.vehicle.getTimeLoss(vehID))
+    print("departure", traci.vehicle.getDeparture(vehID))
+    print("departDelay", traci.vehicle.getDepartDelay(vehID))
     try:
         print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
         print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
@@ -114,6 +116,8 @@ def check(vehID):
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
+    print("boardingDuration", traci.vehicle.getBoardingDuration(vehID))
+    print("impatience", traci.vehicle.getImpatience(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
@@ -184,6 +188,8 @@ traci.vehicle.setShapeClass(vehID, "bicycle")
 traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setHeight(vehID, 1.6)
+traci.vehicle.setImpatience(vehID, 0.8)
+traci.vehicle.setBoardingDuration(vehID, 26)
 traci.vehicle.setMinGapLat(vehID, 0.5)
 traci.vehicle.setMaxSpeedLat(vehID, 1.5)
 traci.vehicle.setColor(vehID, (255, 0, 0, 255))
@@ -221,6 +227,10 @@ except traci.TraCIException:
 traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
+try:
+    traci.vehicle.changeTarget("1", "disconnected")
+except traci.TraCIException:
+    pass
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
 print("route", traci.vehicle.getRoute(vehID))
@@ -238,9 +248,11 @@ check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
+traci.vehicle.setLateralLanePosition(vehID, 0.5)
 print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
+print("lanePosLat (modified)", traci.vehicle.getLateralLanePosition(vehID))
 print("leader", traci.vehicle.getLeader("2"))
 
 if not useMeso:
@@ -290,8 +302,12 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("speed", traci.vehicle.getSpeed(vehID))
-traci.vehicle.setPreviousSpeed(vehID, 19)
+traci.vehicle.setPreviousSpeed(vehID, 18)
 print("speed", traci.vehicle.getSpeed(vehID))
+print("acceleration", traci.vehicle.getAcceleration(vehID))
+traci.vehicle.setPreviousSpeed(vehID, 17, 0.5)
+print("speed", traci.vehicle.getSpeed(vehID))
+print("acceleration", traci.vehicle.getAcceleration(vehID))
 # test different departure options
 traci.vehicle.addLegacy("departInThePast", "horizontal", depart=5)
 print("step", step())
@@ -330,6 +346,10 @@ for i in range(14):
           "lane", traci.vehicle.getLaneID(routeTestVeh),
           "lanePos", traci.vehicle.getLanePosition(routeTestVeh),
           "stopped", traci.vehicle.isStopped(routeTestVeh))
+traci.vehicle.setImpatience(routeTestVeh, 0.3)
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
 # test for adding a veh and a busstop
 busVeh = "bus"
 traci.vehicle.addLegacy(busVeh, "horizontal")
@@ -339,7 +359,11 @@ for i in range(14):
     print("vehicle", busVeh,
           "lane", traci.vehicle.getLaneID(busVeh),
           "lanePos", traci.vehicle.getLanePosition(busVeh),
-          "stopped", traci.vehicle.isStopped(busVeh))
+          "stopped", traci.vehicle.isStopped(busVeh),
+          "\n stoppedParking", traci.vehicle.isStoppedParking(busVeh),
+          "stoppeTriggered", traci.vehicle.isStoppedTriggered(busVeh),
+          "stoppeBusStop", traci.vehicle.isAtBusStop(busVeh),
+          "stoppeContainerStop", traci.vehicle.isAtContainerStop(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.addLegacy("triptest", "trip")
@@ -388,6 +412,7 @@ traci.vehicle.setLength("block_2si", 200)
 # cause collision on insertion
 traci.vehicle.addLegacy(tele, "horizontal")
 traci.vehicle.moveTo(tele, "2fi_0", 3)
+traci.vehicle.setImpatience(routeTestVeh, 0.4)
 for i in range(5):
     checkOffRoad(tele)
     print("step", step())
@@ -410,6 +435,11 @@ print("tazVeh edges", traci.vehicle.getRoute("tazVeh"))
 print("step", step())
 print("tazVeh pos=%s edges=%s" % (traci.vehicle.getLanePosition(
     "tazVeh"), traci.vehicle.getRoute("tazVeh")))
+# check dynamic impatience
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
+
 # add vehicle and attempt to route between disconnected edges
 traci.vehicle.addLegacy("failVeh", "failRoute")
 print("failVeh edges", traci.vehicle.getRoute("failVeh"))
@@ -440,6 +470,8 @@ for i in range(18):
 
 electricVeh = "elVeh"
 traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
+print("device.battery.maximumBatteryCapacity from vehicle definition: %s" % (
+        traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity")))
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
@@ -455,6 +487,7 @@ traci.vehicle.setParameter(electricVeh, "device.rerouting.edge:2si", "123")
 print("edge rerouting traveltime:", traci.vehicle.getParameter(electricVeh, "device.rerouting.edge:2si"))
 
 traci.vehicle.setType(electricVeh, "long")
+traci.vehicle.updateBestLanes(electricVeh)
 check(electricVeh)
 traci.vehicle.setLength(electricVeh, 8)
 traci.vehicle.setMaxSpeed(electricVeh, 10)
@@ -494,6 +527,9 @@ for i in range(10):
         traci.vehicle.getElectricityConsumption(electricVeh),
     ))
     print(sorted(traci.vehicle.getSubscriptionResults(electricVeh).items()))
+print("waitingTime=%s dynamicImpatience=%s" % (
+    traci.vehicle.getWaitingTime(routeTestVeh),
+    traci.vehicle.getImpatience(routeTestVeh)))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
 traci.vehicle.addLegacy("triptest2", "trip2", typeID="reroutingType")

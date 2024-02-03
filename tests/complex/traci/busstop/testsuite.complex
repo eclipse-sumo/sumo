@@ -1,2 +1,5 @@
 # Tests the busstop API
 busstop
+
+# Tests the busstop API when no stops have been loaded
+noStops

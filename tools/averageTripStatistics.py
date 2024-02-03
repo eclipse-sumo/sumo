@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,7 +25,6 @@ import sys
 import random
 
 from subprocess import check_output
-from optparse import OptionParser
 import re
 
 import sumolib
@@ -33,15 +32,12 @@ from sumolib.miscutils import Statistics
 
 
 def getOptions(args=None):
-    optParser = OptionParser()
-    optParser.add_option("-n", "--num-runs", type="int", default=10, dest="numRuns", help="repeat simulation INT times")
-    optParser.add_option("-s", "--seed", type="int", default=42, help="initial seed for generation random seeds")
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-n", "--num-runs", type=int, default=10, dest="numRuns", help="repeat simulation INT times")
+    optParser.add_option("-s", "--seed", type=int, default=42, help="initial seed for generation random seeds")
     optParser.add_option("--sumo", help="override sumo binary")
-
-    options, args = optParser.parse_args(args=args)
-    if len(args) != 1:
-        sys.exit("mandatory argument CFGFILE missing")
-    options.config = args[0]
+    optParser.add_option("config", help="sumo config file")
+    options = optParser.parse_args(args=args)
     random.seed(options.seed)
     return options
 

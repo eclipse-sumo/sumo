@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,9 +28,9 @@
 #include <xercesc/parsers/SAXParser.hpp>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
 #include "OptionsIO.h"
 #include "OptionsCont.h"
 #include "OptionsLoader.h"
@@ -47,8 +47,8 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-int OptionsIO::myArgC = 0;
-char** OptionsIO::myArgV;
+std::vector<std::string> OptionsIO::myArgs;
+std::chrono::time_point<std::chrono::system_clock> OptionsIO::myLoadTime;
 
 
 // ===========================================================================
@@ -56,30 +56,26 @@ char** OptionsIO::myArgV;
 // ===========================================================================
 void
 OptionsIO::setArgs(int argc, char** argv) {
-    myArgC = argc;
-    myArgV = argv;
+    myArgs.clear();
+    for (int i = 0; i < argc; i++) {
+        myArgs.push_back(StringUtils::transcodeFromLocal(argv[i]));
+    }
 }
 
 
 void
 OptionsIO::setArgs(const std::vector<std::string>& args) {
-    char* const app = myArgC > 0 ? myArgV[0] : nullptr;
-    myArgC = (int)args.size() + 1;
-    char** argv = new char* [myArgC];
-    argv[0] = app;
-    for (int i = 1; i < myArgC; i++) {
-        argv[i] = new char[args[i - 1].size() + 1];
-        std::strcpy(argv[i], args[i - 1].c_str());
-    }
-    myArgV = argv;
+    myArgs.resize(1);  // will insert an empty string if no first element is there
+    myArgs.insert(myArgs.end(), args.begin(), args.end());
 }
 
 
 void
 OptionsIO::getOptions(const bool commandLineOnly) {
-    if (myArgC == 2 && myArgV[1][0] != '-') {
+    myLoadTime = std::chrono::system_clock::now();
+    if (myArgs.size() == 2 && myArgs[1][0] != '-') {
         // special case only one parameter, check who can handle it
-        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
+        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgs[1]), myArgs[1])) {
             if (!commandLineOnly) {
                 loadConfiguration();
             }
@@ -88,8 +84,8 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     }
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (!OptionsParser::parse(myArgC, myArgV)) {
-        throw ProcessError("Could not parse commandline options.");
+    if (!OptionsParser::parse(myArgs, true)) {
+        throw ProcessError(TL("Could not parse commandline options."));
     }
     if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
@@ -101,39 +97,44 @@ OptionsIO::getOptions(const bool commandLineOnly) {
 void
 OptionsIO::loadConfiguration() {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
-        return;
-    }
-    const std::string path = oc.getString("configuration-file");
-    if (!FileHelpers::isReadable(path)) {
-        throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
-    }
-    PROGRESS_BEGIN_MESSAGE("Loading configuration");
-    oc.resetWritable();
-    // build parser
-    XERCES_CPP_NAMESPACE::SAXParser parser;
-    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
-    parser.setDoNamespaces(false);
-    parser.setDoSchema(false);
-    // start the parsing
-    OptionsLoader handler;
-    try {
-        parser.setDocumentHandler(&handler);
-        parser.setErrorHandler(&handler);
-        parser.parse(path.c_str());
-        if (handler.errorOccurred()) {
-            throw ProcessError("Could not load configuration '" + path + "'.");
+    if (oc.exists("configuration-file") && oc.isSet("configuration-file")) {
+        const std::string path = oc.getString("configuration-file");
+        if (!FileHelpers::isReadable(path)) {
+            throw ProcessError(TLF("Could not access configuration '%'.", oc.getString("configuration-file")));
         }
-    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+        const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
+        if (verbose) {
+            PROGRESS_BEGIN_MESSAGE(TL("Loading configuration"));
+        }
+        oc.resetWritable();
+        // build parser
+        XERCES_CPP_NAMESPACE::SAXParser parser;
+        parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+        parser.setDisableDefaultEntityResolution(true);
+        // start the parsing
+        OptionsLoader handler(OptionsCont::getOptions());
+        try {
+            parser.setDocumentHandler(&handler);
+            parser.setErrorHandler(&handler);
+            parser.parse(StringUtils::transcodeToLocal(path).c_str());
+            if (handler.errorOccurred()) {
+                throw ProcessError(TLF("Could not load configuration '%'.", path));
+            }
+        } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+            throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+        }
+        oc.relocateFiles(path);
+        if (verbose) {
+            PROGRESS_DONE_MESSAGE();
+        }
     }
-    oc.relocateFiles(path);
-    if (myArgC > 2) {
+    if (myArgs.size() > 2) {
         // reparse the options (overwrite the settings from the configuration file)
         oc.resetWritable();
-        OptionsParser::parse(myArgC, myArgV);
+        if (!OptionsParser::parse(myArgs)) {
+            throw ProcessError(TL("Could not parse commandline options."));
+        }
     }
-    PROGRESS_DONE_MESSAGE();
 }
 
 
@@ -141,28 +142,30 @@ std::string
 OptionsIO::getRoot(const std::string& filename) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler;
+    OptionsLoader handler(OptionsCont::getOptions());
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
         if (!FileHelpers::isReadable(filename) || FileHelpers::isDirectory(filename)) {
-            throw ProcessError("Could not open '" + filename + "'.");
+            throw ProcessError(TLF("Could not open '%'.", filename));
         }
 #ifdef HAVE_ZLIB
-        zstr::ifstream istream(filename.c_str(), std::fstream::in | std::fstream::binary);
+        zstr::ifstream istream(StringUtils::transcodeToLocal(filename).c_str(), std::fstream::in | std::fstream::binary);
         IStreamInputSource inputStream(istream);
         const bool result = parser.parseFirst(inputStream, token);
 #else
-        const bool result = parser.parseFirst(filename.c_str(), token);
+        const bool result = parser.parseFirst(StringUtils::transcodeToLocal(filename).c_str(), token);
 #endif
         if (!result) {
-            throw ProcessError("Can not read XML-file '" + filename + "'.");
+            throw ProcessError(TLF("Can not read XML-file '%'.", filename));
         }
         while (parser.parseNext(token) && handler.getItem() == "");
         if (handler.errorOccurred()) {
-            throw ProcessError("Could not load '" + filename + "'.");
+            throw ProcessError(TLF("Could not load '%'.", filename));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load '" + filename + "':\n " + StringUtils::transcode(e.getMessage()));

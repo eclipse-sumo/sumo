@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-15 15:26:06 by Eclipse SUMO sumo Version v1_19_0+0627-db9832c3763
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="2000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="jupedsim"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.period value="10"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p_0" x="-4.91" y="79.33" angle="180.00" speed="0.00" pos="0.00" edge="E0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p_0" x="-0.21" y="66.35" angle="155.13" speed="1.39" pos="8.11" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <person id="p_0" x="5.81" y="53.84" angle="148.33" speed="1.39" pos="21.97" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <person id="p_0" x="13.10" y="42.02" angle="148.33" speed="1.39" pos="35.83" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <person id="p_0" x="23.16" y="35.67" angle="38.55" speed="1.36" pos="2.00" edge="E2" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <person id="p_0" x="27.48" y="48.87" angle="17.89" speed="1.39" pos="13.79" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <person id="p_0" x="31.78" y="62.07" angle="18.24" speed="1.39" pos="27.66" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <person id="p_0" x="36.12" y="75.26" angle="18.24" speed="1.39" pos="41.52" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <person id="p_0" x="46.50" y="81.32" angle="94.82" speed="1.38" pos="8.81" edge="E4" slope="0.00"/>
+    </timestep>
+    <timestep time="90.00">
+        <person id="p_0" x="57.99" y="76.45" angle="149.81" speed="1.39" pos="4.72" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="100.00">
+        <person id="p_0" x="64.97" y="64.45" angle="149.81" speed="1.39" pos="18.58" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="110.00">
+        <person id="p_0" x="72.02" y="52.49" angle="149.43" speed="1.39" pos="32.44" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="120.00">
+        <person id="p_0" x="80.33" y="42.17" angle="92.41" speed="1.39" pos="3.57" edge="E6" slope="0.00"/>
+    </timestep>
+    <timestep time="130.00">
+        <person id="p_0" x="86.29" y="52.53" angle="15.75" speed="1.39" pos="10.75" edge="E7" slope="0.00"/>
+    </timestep>
+    <timestep time="140.00">
+        <person id="p_0" x="89.56" y="66.02" angle="11.31" speed="1.39" pos="24.62" edge="E7" slope="0.00"/>
+    </timestep>
+    <timestep time="150.00">
+        <person id="p_0" x="92.28" y="79.64" angle="11.31" speed="1.39" pos="0.56" edge="E8" slope="0.00"/>
+    </timestep>
+    <timestep time="160.00"/>
+    <timestep time="170.00"/>
+    <timestep time="180.00"/>
+    <timestep time="190.00"/>
+    <timestep time="200.00"/>
+    <timestep time="210.00"/>
+    <timestep time="220.00"/>
+    <timestep time="230.00"/>
+    <timestep time="240.00"/>
+    <timestep time="250.00"/>
+    <timestep time="260.00"/>
+    <timestep time="270.00"/>
+    <timestep time="280.00"/>
+    <timestep time="290.00"/>
+    <timestep time="300.00"/>
+    <timestep time="310.00"/>
+    <timestep time="320.00"/>
+    <timestep time="330.00"/>
+    <timestep time="340.00"/>
+    <timestep time="350.00"/>
+    <timestep time="360.00"/>
+    <timestep time="370.00"/>
+    <timestep time="380.00"/>
+    <timestep time="390.00"/>
+    <timestep time="400.00"/>
+    <timestep time="410.00"/>
+    <timestep time="420.00"/>
+    <timestep time="430.00"/>
+    <timestep time="440.00"/>
+    <timestep time="450.00"/>
+    <timestep time="460.00"/>
+    <timestep time="470.00"/>
+    <timestep time="480.00"/>
+    <timestep time="490.00"/>
+    <timestep time="500.00"/>
+    <timestep time="510.00"/>
+    <timestep time="520.00"/>
+    <timestep time="530.00"/>
+    <timestep time="540.00"/>
+    <timestep time="550.00"/>
+    <timestep time="560.00"/>
+    <timestep time="570.00"/>
+    <timestep time="580.00"/>
+    <timestep time="590.00"/>
+    <timestep time="600.00"/>
+    <timestep time="610.00"/>
+    <timestep time="620.00"/>
+    <timestep time="630.00"/>
+    <timestep time="640.00"/>
+    <timestep time="650.00"/>
+    <timestep time="660.00"/>
+    <timestep time="670.00"/>
+    <timestep time="680.00"/>
+    <timestep time="690.00"/>
+    <timestep time="700.00"/>
+    <timestep time="710.00"/>
+    <timestep time="720.00"/>
+    <timestep time="730.00"/>
+    <timestep time="740.00"/>
+    <timestep time="750.00"/>
+    <timestep time="760.00"/>
+    <timestep time="770.00"/>
+    <timestep time="780.00"/>
+    <timestep time="790.00"/>
+    <timestep time="800.00"/>
+    <timestep time="810.00"/>
+    <timestep time="820.00"/>
+    <timestep time="830.00"/>
+    <timestep time="840.00"/>
+    <timestep time="850.00"/>
+    <timestep time="860.00"/>
+    <timestep time="870.00"/>
+    <timestep time="880.00"/>
+    <timestep time="890.00"/>
+    <timestep time="900.00"/>
+    <timestep time="910.00"/>
+    <timestep time="920.00"/>
+    <timestep time="930.00"/>
+    <timestep time="940.00"/>
+    <timestep time="950.00"/>
+    <timestep time="960.00"/>
+    <timestep time="970.00"/>
+    <timestep time="980.00"/>
+    <timestep time="990.00"/>
+    <timestep time="1000.00"/>
+    <timestep time="1010.00"/>
+    <timestep time="1020.00"/>
+    <timestep time="1030.00"/>
+    <timestep time="1040.00"/>
+    <timestep time="1050.00"/>
+    <timestep time="1060.00"/>
+    <timestep time="1070.00"/>
+    <timestep time="1080.00"/>
+    <timestep time="1090.00"/>
+    <timestep time="1100.00"/>
+    <timestep time="1110.00"/>
+    <timestep time="1120.00"/>
+    <timestep time="1130.00"/>
+    <timestep time="1140.00"/>
+    <timestep time="1150.00"/>
+    <timestep time="1160.00"/>
+    <timestep time="1170.00"/>
+    <timestep time="1180.00"/>
+    <timestep time="1190.00"/>
+    <timestep time="1200.00"/>
+    <timestep time="1210.00"/>
+    <timestep time="1220.00"/>
+    <timestep time="1230.00"/>
+    <timestep time="1240.00"/>
+    <timestep time="1250.00"/>
+    <timestep time="1260.00"/>
+    <timestep time="1270.00"/>
+    <timestep time="1280.00"/>
+    <timestep time="1290.00"/>
+    <timestep time="1300.00"/>
+    <timestep time="1310.00"/>
+    <timestep time="1320.00"/>
+    <timestep time="1330.00"/>
+    <timestep time="1340.00"/>
+    <timestep time="1350.00"/>
+    <timestep time="1360.00"/>
+    <timestep time="1370.00"/>
+    <timestep time="1380.00"/>
+    <timestep time="1390.00"/>
+    <timestep time="1400.00"/>
+    <timestep time="1410.00"/>
+    <timestep time="1420.00"/>
+    <timestep time="1430.00"/>
+    <timestep time="1440.00"/>
+    <timestep time="1450.00"/>
+    <timestep time="1460.00"/>
+    <timestep time="1470.00"/>
+    <timestep time="1480.00"/>
+    <timestep time="1490.00"/>
+    <timestep time="1500.00"/>
+    <timestep time="1510.00"/>
+    <timestep time="1520.00"/>
+    <timestep time="1530.00"/>
+    <timestep time="1540.00"/>
+    <timestep time="1550.00"/>
+    <timestep time="1560.00"/>
+    <timestep time="1570.00"/>
+    <timestep time="1580.00"/>
+    <timestep time="1590.00"/>
+    <timestep time="1600.00"/>
+    <timestep time="1610.00"/>
+    <timestep time="1620.00"/>
+    <timestep time="1630.00"/>
+    <timestep time="1640.00"/>
+    <timestep time="1650.00"/>
+    <timestep time="1660.00"/>
+    <timestep time="1670.00"/>
+    <timestep time="1680.00"/>
+    <timestep time="1690.00"/>
+    <timestep time="1700.00"/>
+    <timestep time="1710.00"/>
+    <timestep time="1720.00"/>
+    <timestep time="1730.00"/>
+    <timestep time="1740.00"/>
+    <timestep time="1750.00"/>
+    <timestep time="1760.00"/>
+    <timestep time="1770.00"/>
+    <timestep time="1780.00"/>
+    <timestep time="1790.00"/>
+    <timestep time="1800.00"/>
+    <timestep time="1810.00"/>
+    <timestep time="1820.00"/>
+    <timestep time="1830.00"/>
+    <timestep time="1840.00"/>
+    <timestep time="1850.00"/>
+    <timestep time="1860.00"/>
+    <timestep time="1870.00"/>
+    <timestep time="1880.00"/>
+    <timestep time="1890.00"/>
+    <timestep time="1900.00"/>
+    <timestep time="1910.00"/>
+    <timestep time="1920.00"/>
+    <timestep time="1930.00"/>
+    <timestep time="1940.00"/>
+    <timestep time="1950.00"/>
+    <timestep time="1960.00"/>
+    <timestep time="1970.00"/>
+    <timestep time="1980.00"/>
+    <timestep time="1990.00"/>
+</fcd-export>

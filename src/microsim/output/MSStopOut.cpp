@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,8 +66,8 @@ void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != nullptr);
     if (myStopped.count(veh) != 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID()
-                      + "', time " + time2string(time) + " without ending the previous stop.");
+        WRITE_WARNINGF(TL("Vehicle '%' stops on edge '%', time=% without ending the previous stop."),
+                       veh->getID(), veh->getEdge()->getID(), time2string(time));
     }
     myStopped.emplace(veh, StopInfo(numPersons, numContainers));
 }
@@ -102,15 +102,15 @@ void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd) {
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID()
-                      + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
+        WRITE_WARNINGF(TL("Vehicle '%' ends stop on edge '%', time=% without entering the stop."),
+                       veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
         return;
     }
     const StopInfo& si = myStopped.find(veh)->second;
     double delay = -1;
     double arrivalDelay = -1;
     if (stop.until >= 0 && !simEnd) {
-        delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.until);
+        delay = STEPS2TIME(SIMSTEP - stop.until);
     }
     if (stop.arrival >= 0) {
         arrivalDelay = STEPS2TIME(stop.started - stop.arrival);
@@ -125,9 +125,11 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     }
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
     myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
-    myDevice.writeAttr("started", time2string(stop.started));
-    myDevice.writeAttr("ended", simEnd ? "-1" : time2string(MSNet::getInstance()->getCurrentTimeStep()));
-    myDevice.writeAttr("delay", delay);
+    myDevice.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+    myDevice.writeAttr(SUMO_ATTR_ENDED, simEnd ? "-1" : time2string(SIMSTEP));
+    if (stop.until >= 0) {
+        myDevice.writeAttr("delay", delay);
+    }
     if (stop.arrival >= 0) {
         myDevice.writeAttr("arrivalDelay", arrivalDelay);
     }
@@ -160,6 +162,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     }
     if (stop.split != "") {
         myDevice.writeAttr(SUMO_ATTR_SPLIT, stop.split);
+    }
+    if (MSGlobals::gUseStopEnded) {
+        myDevice.writeAttr(SUMO_ATTR_USED_ENDED, stop.ended >= 0);
     }
     myDevice.closeTag();
     myStopped.erase(veh);

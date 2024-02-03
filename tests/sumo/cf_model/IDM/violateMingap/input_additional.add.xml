@@ -1,0 +1,3 @@
+<add>
+    <vType id="tIDM" carFollowModel="IDM" accel="0.1" minGap="10" decel="9"/>
+</add>

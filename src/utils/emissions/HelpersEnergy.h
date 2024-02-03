@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "PollutantsInterface.h"
+#include "EnergyParams.h"
 
 
 // ===========================================================================
@@ -46,6 +47,13 @@ public:
      */
     HelpersEnergy();
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return always "Electricity"
+     */
+    std::string getFuel(const SUMOEmissionClass /* c */) const {
+        return "Electricity";
+    }
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
@@ -58,7 +66,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
+    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Computes the achievable acceleration using the given speed and amount of consumed electric power
      *
@@ -69,14 +77,5 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const std::map<int, double>* param) const;
-
-    double getDefaultParam(int paramKey) const {
-        return myDefaultParameter.find(paramKey)->second;
-    }
-
-
-private:
-    /// @brief The default parameter
-    std::map<int, double> myDefaultParameter;
+    double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
 };

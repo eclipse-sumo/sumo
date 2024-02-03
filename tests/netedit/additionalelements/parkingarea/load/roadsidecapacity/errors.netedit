@@ -1,0 +1,4 @@
+Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_1' Invalid Number Format (long long integer format) dummy.
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Attribute roadsideCapacity cannot be negative.
+Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_3' Invalid Number Format (long long integer format) 2.5.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/parkingarea/load/roadsidecapacity/additionals.add.xml failed.

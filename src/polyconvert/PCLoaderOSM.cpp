@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,8 +87,7 @@ std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
 }
 
 void
-PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                       PCTypeMap& tm) {
+PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -102,7 +101,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open osm-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open osm-file '%'."), *file);
             return;
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
@@ -155,7 +154,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                 }
             }
             if (numNodes == 0) {
-                WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (missing ways)");
+                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (missing ways)"), rel->id);
                 continue;
             }
             PCOSMEdge* e = new PCOSMEdge();
@@ -210,10 +209,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                         }
                     }
                     if (length > mergeRelationsThreshold) {
-                        WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) +
-                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) +
-                                      "m to way '" + toString(minEdge->id) +
-                                      "')\n Total length of remaining ways: " + toString(length) + "m.");
+                        WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m."),
+                                       rel->id, e->name, minDist, minEdge->id, length);
                         ok = false;
                     }
                     break;
@@ -230,7 +227,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             }
             if (ok) {
                 edges[e->id] = e;
-                WRITE_MESSAGE("Assembled polygon from relation '" + toString(rel->id) + "' (name:" + e->name + ")");
+                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)"), toString(rel->id), e->name);
             } else {
                 delete e;
                 // export ways by themselves
@@ -254,7 +251,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
-            WRITE_ERROR("Polygon '" + toString(e->id) + "' has no shape.");
+            WRITE_ERRORF(TL("Polygon '%' has no shape."), toString(e->id));
             continue;
         }
         // compute shape
@@ -263,7 +260,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + toString(e->id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), e->id);
             }
             vec.push_back_noDoublePos(pos);
         }
@@ -299,7 +296,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         }
         Position pos(n->lon, n->lat);
         if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-            WRITE_WARNING("Unable to project coordinates for POI '" + toString(n->id) + "'.");
+            WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), n->id);
         }
         const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));
         // add as many POIs as keys match defined types
@@ -380,7 +377,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, pos, false, "", 0, 0, (double)def.layer);
+            def.color, pos, false, "", 0, false, 0, def.icon, def.layer);
         if (withAttributes) {
             poi->updateParameters(node->myAttributes);
         }
@@ -484,13 +481,13 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
     // parse "relation" elements
     if (element == SUMO_TAG_RELATION) {
         myCurrentWays.clear();
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete") {
+        bool ok = true;
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
+        if (action == "delete" || !ok) {
             myCurrentRelation = nullptr;
         } else {
             myCurrentRelation = new PCOSMRelation();
             myCurrentRelation->keep = false;
-            bool ok = true;
             myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
             myRelations.push_back(myCurrentRelation);
         }
@@ -575,7 +572,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
         const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
         if (action == "delete" || !ok) {
             myCurrentEdge = nullptr;
             return;
@@ -592,7 +589,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, nullptr, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
+                WRITE_WARNINGF(TL("The referenced geometry information (ref='%') is not known"), ref);
                 return;
             }
             myCurrentEdge->myCurrentNodes.push_back(ref);

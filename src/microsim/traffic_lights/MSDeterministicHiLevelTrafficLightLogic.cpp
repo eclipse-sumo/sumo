@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,7 @@
 MSDeterministicHiLevelTrafficLightLogic::MSDeterministicHiLevelTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
     const std::string& programID, const Phases& phases, int step,
-    SUMOTime delay, const std::map<std::string, std::string>& parameters) :
+    SUMOTime delay, const Parameterised::Map& parameters) :
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::HILVL_DETERMINISTIC, phases, step,
                                    delay, parameters) {
 
@@ -124,7 +124,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForInputLanes:: in" + i_str.str());
 #endif
     }
-    return vSpeedInTot / inputLanes.size();
+    return vSpeedInTot / (double)inputLanes.size();
 }
 
 double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
@@ -145,7 +145,7 @@ double MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes() {
         WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSDeterministicHiLevelTrafficLightLogic::getMeanSpeedForOutputLanes:: out" + i_str.str());
 #endif
     }
-    return vSpeedOutTot / outputLanes.size();
+    return vSpeedOutTot / (double)outputLanes.size();
 }
 
 void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
@@ -163,12 +163,12 @@ void MSDeterministicHiLevelTrafficLightLogic::decidePolicy() {
         SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
         std::ostringstream phero_str;
         phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )";
-        WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+        WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
     } else { //debug purpose only
         std::ostringstream phero_str;
         phero_str << " (mean_vSpeed_in= " << mean_vSpeed_in << " ,mean_vSpeed_out= " << mean_vSpeed_out << " )";
         SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
-        WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+        WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
     }
 #endif
 }

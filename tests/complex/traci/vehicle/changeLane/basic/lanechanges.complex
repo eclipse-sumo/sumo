@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-08 11:24:10 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="53233"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="v0" type="DEFAULT_VEHTYPE" time="5.00" from="gneE0_0" to="gneE0_1" dir="1" speed="10.40" pos="35.94" reason="traci|urgent relativeRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="DEFAULT_VEHTYPE" time="10.00" from="gneE0_1" to="gneE0_0" dir="-1" speed="13.55" pos="104.53" reason="traci|urgent relativeLeft" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="DEFAULT_VEHTYPE" time="15.00" from="gneE0_0" to="gneE0_1" dir="1" speed="13.61" pos="173.40" reason="traci|urgent absolute2" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="DEFAULT_VEHTYPE" time="16.00" from="gneE0_1" to="gneE0_2" dir="1" speed="13.80" pos="187.21" reason="traci|urgent absolute2" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

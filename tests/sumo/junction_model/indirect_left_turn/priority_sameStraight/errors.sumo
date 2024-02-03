@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'SW.40'; waited too long (yield), lane=':C_10_0', time=663.00.
+Warning: Vehicle 'SW.40' ends teleporting on edge 'CW', time=663.00.
+Warning: Teleporting vehicle 'SW.42'; waited too long (yield), lane=':C_10_0', time=966.00.
+Warning: Vehicle 'SW.42' ends teleporting on edge 'CW', time=966.00.
+Warning: Teleporting vehicle 'SW.46'; waited too long (yield), lane=':C_10_0', time=1269.00.
+Warning: Vehicle 'SW.46' ends teleporting on edge 'CW', time=1269.00.
+Warning: Teleporting vehicle 'SW.48'; waited too long (yield), lane=':C_10_0', time=1572.00.
+Warning: Vehicle 'SW.48' ends teleporting on edge 'CW', time=1572.00.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,9 +46,9 @@ PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement
 
 bool
 PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                  const std::map<SumoXMLAttr, std::string>& attrs) {
+                                  const std::map<SumoXMLAttr, std::string>& attrs, bool includeConfig) {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(into);
+        OptionsCont::getOptions().writeXMLHeader(into, includeConfig);
         openTag(into, rootElement);
         for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
             writeAttr(into, it->first, it->second);

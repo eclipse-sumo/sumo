@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-06-26 16:16:15 by Eclipse SUMO netconvert Version v1_17_0+1272-c705dc1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,13 +29,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392549.87,-5819736.98" convBoundary="0.00,0.00,111.45,224.07" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -43,28 +47,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":21487229_3_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="4.67" shape="100.04,96.62 100.56,97.96 100.43,98.84 99.64,99.27 98.20,99.24"/>
     </edge>
     <edge id=":21487229_c0" function="crossing" crossingEdges="-4615548 4615548">
-        <lane id=":21487229_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="98.92,101.70 102.59,96.45"/>
+        <lane id=":21487229_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="98.92,101.70 102.59,96.45"/>
     </edge>
     <edge id=":21487229_w0" function="walkingarea">
-        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.41" width="4.00" shape="105.75,106.98 108.63,107.84 102.10,93.67 100.95,95.31 102.99,96.96 104.54,98.74 105.58,100.62 106.14,102.63 106.19,104.75"/>
+        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.41" width="4.00" shape="105.75,106.98 108.63,107.84 109.36,104.51 109.35,101.84 108.60,99.63 107.13,97.67 104.96,95.75 102.10,93.67 100.95,95.31 102.99,96.96 104.54,98.74 105.58,100.62 106.14,102.63 106.19,104.75"/>
     </edge>
     <edge id=":21487229_w1" function="walkingarea">
-        <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.24" width="4.00" shape="97.28,100.55 96.14,102.19 96.77,103.66 97.06,102.97 97.34,102.24 97.52,101.54 97.53,100.95"/>
+        <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="2.78" length="2.24" width="4.00" shape="97.28,100.55 96.14,102.19 96.77,103.66 97.06,102.97 97.34,102.24 97.52,101.54 97.53,100.95"/>
     </edge>
     <edge id=":29215077_0" function="internal">
         <lane id=":29215077_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="11.11" length="16.03" shape="98.04,99.12 94.14,96.39 91.44,94.57 88.64,92.90 84.47,90.62"/>
     </edge>
     <edge id=":29215077_1" function="internal">
-        <lane id=":29215077_1_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="3.45" shape="98.04,99.12 96.79,97.45 96.53,96.11"/>
+        <lane id=":29215077_1_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="2.09" shape="98.04,99.12 96.79,97.45"/>
     </edge>
     <edge id=":29215077_2" function="internal">
-        <lane id=":29215077_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.34" shape="98.04,99.12 97.51,97.78 97.64,96.90"/>
+        <lane id=":29215077_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="1.44" shape="98.04,99.12 97.51,97.78"/>
     </edge>
     <edge id=":29215077_10" function="internal">
-        <lane id=":29215077_10_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="10.26" shape="96.53,96.11 96.27,94.70 96.48,90.88 97.43,85.97"/>
+        <lane id=":29215077_10_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="11.63" shape="96.79,97.45 96.27,94.70 96.48,90.88 97.43,85.97"/>
     </edge>
     <edge id=":29215077_11" function="internal">
-        <lane id=":29215077_11_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.34" shape="97.64,96.90 98.43,96.47 99.87,96.50"/>
+        <lane id=":29215077_11_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="3.23" shape="97.51,97.78 97.64,96.90 98.43,96.47 99.87,96.50"/>
     </edge>
     <edge id=":29215077_3" function="internal">
         <lane id=":29215077_3_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="6.40" length="5.99" shape="86.22,87.92 89.20,89.08 91.54,89.02 91.90,88.75"/>
@@ -73,13 +77,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_4_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="11.11" length="16.14" shape="86.22,87.92 90.42,90.22 93.23,91.91 95.95,93.75 99.87,96.50"/>
     </edge>
     <edge id=":29215077_5" function="internal">
-        <lane id=":29215077_5_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.22" shape="86.22,87.92 86.79,89.25 86.71,90.01"/>
+        <lane id=":29215077_5_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="1.45" shape="86.22,87.92 86.79,89.25"/>
     </edge>
     <edge id=":29215077_12" function="internal">
         <lane id=":29215077_12_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="6.40" length="4.42" shape="91.90,88.75 93.25,87.73 94.32,85.22"/>
     </edge>
     <edge id=":29215077_13" function="internal">
-        <lane id=":29215077_13_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.47" shape="86.71,90.01 86.69,90.14 85.92,90.60 84.47,90.62"/>
+        <lane id=":29215077_13_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="3.24" shape="86.79,89.25 86.69,90.14 85.92,90.60 84.47,90.62"/>
     </edge>
     <edge id=":29215077_6" function="internal">
         <lane id=":29215077_6_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="8.55" length="9.43" shape="90.10,101.66 90.46,98.35 89.65,95.40 87.78,93.00"/>
@@ -95,34 +99,34 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_14_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="8.55" length="4.09" shape="87.78,93.00 87.65,92.83 84.47,90.62"/>
     </edge>
     <edge id=":29215077_c0" function="crossing" crossingEdges="4615548 -4615548">
-        <lane id=":29215077_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="99.15,94.04 95.48,99.29"/>
+        <lane id=":29215077_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="99.15,94.04 95.48,99.29"/>
     </edge>
     <edge id=":29215077_c1" function="crossing" crossingEdges="246044848#2">
-        <lane id=":29215077_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="92.30,86.79 98.52,88.29"/>
+        <lane id=":29215077_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="92.30,86.79 98.52,88.29"/>
     </edge>
     <edge id=":29215077_c2" function="crossing" crossingEdges="-194962398#2 194962398#2">
-        <lane id=":29215077_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.41" width="4.00" shape="85.48,92.97 88.74,87.46"/>
+        <lane id=":29215077_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.41" width="4.00" shape="85.48,92.97 88.74,87.46"/>
     </edge>
     <edge id=":29215077_c3" function="crossing" crossingEdges="246044848#1">
-        <lane id=":29215077_c3_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="95.25,101.00 89.08,99.31"/>
+        <lane id=":29215077_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="95.25,101.00 89.08,99.31"/>
     </edge>
     <edge id=":29215077_w0" function="walkingarea">
-        <lane id=":29215077_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.76" width="4.00" shape="94.73,102.92 95.97,102.07 97.12,100.43 96.65,100.22 96.22,100.26 95.80,100.55 95.42,101.09 95.06,101.88"/>
+        <lane id=":29215077_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.76" width="4.00" shape="94.73,102.92 95.97,102.07 97.12,100.43 96.65,100.22 96.22,100.26 95.80,100.55 95.42,101.09 95.06,101.88"/>
     </edge>
     <edge id=":29215077_w1" function="walkingarea">
-        <lane id=":29215077_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.91" width="4.00" shape="100.79,95.19 101.93,93.55 98.99,86.35 98.60,88.40 98.49,90.21 98.65,91.80 99.09,93.16 99.80,94.29"/>
+        <lane id=":29215077_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.91" width="4.00" shape="100.79,95.19 101.93,93.55 98.99,86.35 98.60,88.40 98.49,90.21 98.65,91.80 99.09,93.16 99.80,94.29"/>
     </edge>
     <edge id=":29215077_w2" function="walkingarea">
-        <lane id=":29215077_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.46" width="4.00" shape="92.77,84.85 89.85,84.14 88.11,84.85 87.16,86.61 87.01,86.44 88.46,87.18 89.74,87.47 90.81,87.38 91.67,86.91 92.32,86.07"/>
+        <lane id=":29215077_w2_0" index="0" allow="pedestrian" speed="2.78" length="3.46" width="4.00" shape="92.77,84.85 89.85,84.14 88.11,84.85 87.16,86.61 87.01,86.44 88.46,87.18 89.74,87.47 90.81,87.38 91.67,86.91 92.32,86.07"/>
     </edge>
     <edge id=":29215077_w3" function="walkingarea">
-        <lane id=":29215077_w3_0" index="0" allow="pedestrian" speed="1.00" length="6.35" width="4.00" shape="83.75,91.95 83.53,91.93 82.58,93.69 85.66,100.44 88.55,101.23 88.86,99.38 88.72,97.65 88.13,96.05 87.10,94.58 85.63,93.24"/>
+        <lane id=":29215077_w3_0" index="0" allow="pedestrian" speed="2.78" length="6.35" width="4.00" shape="83.75,91.95 83.53,91.93 82.58,93.69 85.66,100.44 88.55,101.23 88.86,99.38 88.72,97.65 88.13,96.05 87.10,94.58 85.63,93.24"/>
     </edge>
     <edge id=":735963263_0" function="internal">
         <lane id=":735963263_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="4.67" shape="-0.76,44.79 -1.44,43.52 -1.41,42.62 -0.68,42.11 0.76,41.97"/>
     </edge>
     <edge id=":735963263_w0" function="walkingarea">
-        <lane id=":735963263_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="2.00" shape="1.52,40.56 2.46,38.80 -2.46,47.96 -1.52,46.20"/>
+        <lane id=":735963263_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="1.52,40.56 2.46,38.80 -2.46,47.96 -1.52,46.20"/>
     </edge>
 
     <edge id="-194962398#2" from="29215077" to="735963263" priority="4" shape="93.79,94.20 90.22,91.89 0.00,43.38">
@@ -159,8 +163,9 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="joinedS_7" type="static" programID="0" offset="0">
-        <phase duration="37" state="GGGGgggrrrGGGGrrrrr"/>
-        <phase duration="3"  state="yyyyyyyrrryyyyrrrrr"/>
+        <phase duration="32" state="GGGGrrrrrrgGGgrGrGr"/>
+        <phase duration="5"  state="GGGGrrrrrrgGGgrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrrryyyyrrrrr"/>
         <phase duration="32" state="GGGGGgggGgrrrrrrGrG"/>
         <phase duration="5"  state="GGGGGgggGgrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyyyyyrrrrrrrrr"/>
@@ -184,8 +189,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4"  response="01011110000000" foes="01011110000110" cont="0"/>
         <request index="5"  response="01000001000001" foes="01000001000001" cont="1"/>
         <request index="6"  response="11000000000000" foes="11000000100001" cont="1"/>
-        <request index="7"  response="10100000001000" foes="10100000011011" cont="0"/>
-        <request index="8"  response="10100000001000" foes="10100000011011" cont="0"/>
+        <request index="7"  response="10100000001010" foes="10100000011011" cont="0"/>
+        <request index="8"  response="10100000001010" foes="10100000011011" cont="0"/>
         <request index="9"  response="10010000000010" foes="10010000010111" cont="0"/>
         <request index="10" response="00000000000000" foes="00001000010111" cont="0"/>
         <request index="11" response="00000000000000" foes="00000110001010" cont="0"/>
@@ -198,13 +203,13 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="cluster_2531313425_2531313439" type="dead_end" x="45.74" y="224.07" incLanes="" intLanes="" shape="44.04,223.17 35.74,218.77"/>
 
-    <junction id=":29215077_10_0" type="internal" x="96.53" y="96.11" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
-    <junction id=":29215077_11_0" type="internal" x="97.64" y="96.90" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
+    <junction id=":29215077_10_0" type="internal" x="96.79" y="97.45" incLanes=":29215077_1_0 194962398#2_1" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
+    <junction id=":29215077_11_0" type="internal" x="97.51" y="97.78" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
     <junction id=":29215077_12_0" type="internal" x="91.90" y="88.75" incLanes=":29215077_3_0" intLanes=":29215077_1_0 :29215077_7_0 :29215077_7_1 :29215077_c1_0 :29215077_c2_0"/>
-    <junction id=":29215077_13_0" type="internal" x="86.71" y="90.01" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>
+    <junction id=":29215077_13_0" type="internal" x="86.79" y="89.25" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>
     <junction id=":29215077_14_0" type="internal" x="87.78" y="93.00" incLanes=":29215077_6_0" intLanes=":29215077_0_0 :29215077_5_0 :29215077_c2_0 :29215077_c3_0"/>
 
-    <connection from="-194962398#2" to="194962398#2" fromLane="1" toLane="1" via=":735963263_0_0" dir="t" state="="/>
+    <connection from="-194962398#2" to="194962398#2" fromLane="1" toLane="1" via=":735963263_0_0" dir="t" state="M"/>
     <connection from="-4615548" to="-194962398#2" fromLane="1" toLane="1" via=":29215077_0_0" tl="joinedS_7" linkIndex="4" dir="s" state="o"/>
     <connection from="-4615548" to="246044848#2" fromLane="1" toLane="2" via=":29215077_1_0" tl="joinedS_7" linkIndex="5" dir="l" state="o"/>
     <connection from="-4615548" to="4615548" fromLane="1" toLane="1" via=":29215077_2_0" tl="joinedS_7" linkIndex="6" dir="t" state="o"/>
@@ -226,16 +231,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":21487229_3" to="-4615548" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":29215077_0" to="-194962398#2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":29215077_1" to="246044848#2" fromLane="0" toLane="2" via=":29215077_10_0" dir="l" state="m"/>
-    <connection from=":29215077_10" to="246044848#2" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":29215077_10" to="246044848#2" fromLane="0" toLane="2" dir="l" state="m"/>
     <connection from=":29215077_2" to="4615548" fromLane="0" toLane="1" via=":29215077_11_0" dir="t" state="m"/>
-    <connection from=":29215077_11" to="4615548" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":29215077_11" to="4615548" fromLane="0" toLane="1" dir="t" state="m"/>
     <connection from=":29215077_3" to="246044848#2" fromLane="0" toLane="1" via=":29215077_12_0" dir="r" state="m"/>
-    <connection from=":29215077_12" to="246044848#2" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":29215077_12" to="246044848#2" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":29215077_4" to="4615548" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":29215077_5" to="-194962398#2" fromLane="0" toLane="1" via=":29215077_13_0" dir="t" state="m"/>
-    <connection from=":29215077_13" to="-194962398#2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":29215077_13" to="-194962398#2" fromLane="0" toLane="1" dir="t" state="m"/>
     <connection from=":29215077_6" to="-194962398#2" fromLane="0" toLane="1" via=":29215077_14_0" dir="r" state="m"/>
-    <connection from=":29215077_14" to="-194962398#2" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":29215077_14" to="-194962398#2" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":29215077_7" to="246044848#2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":29215077_7" to="246044848#2" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":29215077_9" to="4615548" fromLane="0" toLane="1" dir="l" state="M"/>

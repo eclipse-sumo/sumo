@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,11 @@
 #pragma once
 #include <config.h>
 #include <string>
+#include <chrono>
+#include <sstream>
+#include <iomanip>
 #include <xercesc/util/XMLString.hpp>
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
 
 
 // ===========================================================================
@@ -35,36 +38,38 @@
  * @brief Some static methods for string processing
  */
 class StringUtils {
+
 public:
-    /// Removes trailing and leading whitechars
+
+    /// @brief Removes trailing and leading whitechars
     static std::string prune(const std::string& str);
 
-    /// Transfers the content to lower case
-    static std::string to_lower_case(std::string str);
+    /// @brief Removes trailing zeros (at most 'max')
+    static std::string pruneZeros(const std::string& str, int max);
 
-    /// Transfers from Latin 1 (ISO-8859-1) to UTF-8
+    /// @brief Transfers the content to lower case
+    static std::string to_lower_case(const std::string& str);
+
+    /// @brief Transfers from Latin 1 (ISO-8859-1) to UTF-8
     static std::string latin1_to_utf8(std::string str);
 
-    /// Converts german "Umlaute" to their latin-version
+    /// @brief Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 
-    /** Replaces all occurences of the second string by the third
-        string within the first string */
-    static std::string replace(std::string str, const char* what,
-                               const char* by);
+    /// @brief Replaces all occurrences of the second string by the third string within the first string
+    static std::string replace(std::string str, const std::string& what, const std::string& by);
 
-    /** Replaces an environment variable with its value (similar to bash);
-        syntax for a variable is ${NAME} */
-    static std::string substituteEnvironment(std::string str);
+    /// @brief Replaces an environment variable with its value (similar to bash); syntax for a variable is ${NAME}
+    static std::string substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef = nullptr);
 
-    /// Builds a time string (hh:mm:ss) from the given seconds
-    static std::string toTimeString(int time);
-
-    /// Checks whether a given string starts with the prefix
+    ///@brief  Checks whether a given string starts with the prefix
     static bool startsWith(const std::string& str, const std::string prefix);
 
-    /// Checks whether a given string ends with the suffix
+    /// @brief Checks whether a given string ends with the suffix
     static bool endsWith(const std::string& str, const std::string suffix);
+
+    //// @brief pads the given string with padding character up to the given total length
+    static std::string padFront(const std::string& str, int length, char padding);
 
     /**
      * @brief Replaces the standard escapes by their XML entities.
@@ -77,15 +82,19 @@ public:
      */
     static std::string escapeXML(const std::string& orig, const bool maskDoubleHyphen = false);
 
-    /// An empty string
+    /// @brief An empty string
     static std::string emptyString;
 
-    // the following methods stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/
-
+    /// @brief encode url (stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/)
     static std::string urlEncode(const std::string& url, const std::string encodeWhich = "");
+
+    /// @brief decode url (stem from http://bogomip.net/blog/cpp-url-encoding-and-decoding/)
     static std::string urlDecode(const std::string& encoded);
 
+    /// @brief char to hexadecimal
     static std::string charToHex(unsigned char c);
+
+    /// @brief hexadecimal to char
     static unsigned char hexToChar(const std::string& str);
 
     /**@brief converts a string into the integer value described by it by calling the char-type converter, which
@@ -128,6 +137,9 @@ public:
      */
     static bool toBool(const std::string& sData);
 
+    /// @brief to version
+    static MMVersion toVersion(const std::string& sData);
+
     /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
      * @throw an EmptyData - exception if the given pointer is 0
      */
@@ -140,6 +152,12 @@ public:
      */
     static std::string transcode(const XMLCh* const data, int length);
 
+    /// @brief convert a string from the local codepage to UTF-8
+    static std::string transcodeFromLocal(const std::string& localString);
+
+    /// @brief convert a string from UTF-8 to the local codepage
+    static std::string transcodeToLocal(const std::string& utf8String);
+
     /// @brief remove leading whitespace from string
     static std::string trim_left(const std::string s, const std::string& t = " \t\n");
 
@@ -149,4 +167,37 @@ public:
     /// @brief remove leading and trailing whitespace
     static std::string trim(const std::string s, const std::string& t = " \t\n");
 
+    /// @brief must be called when shutting down the xml subsystem
+    static void resetTranscoder();
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static const std::string format(const std::string& format, T value, Targs... Fargs) {
+        std::ostringstream os;
+        os << std::fixed << std::setprecision(gPrecision);
+        _format(format.c_str(), os, value, Fargs...);
+        return os.str();
+    }
+
+private:
+    static void _format(const char* format, std::ostringstream& os) {
+        os << format;
+    }
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static void _format(const char* format, std::ostringstream& os, T value, Targs... Fargs) {
+        for (; *format != '\0'; format++) {
+            if (*format == '%') {
+                os << value;
+                _format(format + 1, os, Fargs...); // recursive call
+                return;
+            }
+            os << *format;
+        }
+    }
+
+    static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
 };

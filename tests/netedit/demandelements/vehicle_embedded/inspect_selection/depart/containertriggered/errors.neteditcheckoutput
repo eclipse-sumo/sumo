@@ -1,0 +1,3 @@
+Warning: Vehicle 'vehicle_embeddedA' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'vehicle_embeddedA' aborted waiting at insertion for a container that will never come.
+Warning: Vehicle 'vehicle_embeddedB' aborted waiting at insertion for a container that will never come.

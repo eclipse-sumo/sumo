@@ -18,13 +18,13 @@ detail special processing may be necessary
 If the network does not contain detailed ramp data,
 [netconvert](../netconvert.md) can be [configured to add them
 heuristically](../Networks/Further_Options.md#guessing_on-_and_off-ramps).
-This basically adds acceleration at on-ramps and deceleration lanes at
-off-ramps.
+This basically adds acceleration lanes at on-ramps and deceleration lanes at
+off-ramps by increasing the lane count of one or more edges.
 
 Ramps usually merge into the main road via an acceleration lane. This acceleration lane opens up where the ramp enters the motorway and is modelled as a dead-end lane (no outgoing connection). This forces on-ramp vehicles to change lanes in order to continue their route.
 
 It may be useful to make acceleration lanes in SUMO somewhat longer than in reality.
-This compensates the cautious default behavior of SUMO drivers: Vehicles on the acceleration lane will decelerate when approaching the end of that lane since they cannot anticipate with certainty whether their lanechange will be successful. In contrast, human drivers are better at predicting the future and may accelerate up to the end of the acceleration lane (and then change into the anticipated gap at the last moment)
+This compensates for the cautious default behavior of SUMO drivers: Vehicles on the acceleration lane will decelerate when approaching the end of that lane since they cannot anticipate with certainty whether their lanechange will be successful. In contrast, human drivers are better at predicting the future and may accelerate up to the end of the acceleration lane (and then change into the anticipated gap at the last moment)
 
 ### Reduction in the number of lanes
 
@@ -69,11 +69,8 @@ motorways). This should be modelled as described here:
 
 ## Lane-changing prohibitions
 
-Symmetrical lane-changing prohibitions between two lanes can be modelled
-by adding a thin lane with attribute `disallow="all"` between them.
-
-!!! note
-    One-sided prohibitions currently cannot be modelled.
+Lane-changing prohibitions can be modelled using the lane attributes 'changeLeft' and 'changeRight' with a list of vehicle classes that may change.
+To disable changing right for normal passenger traffic, set 'changeRight="authority"`.
 
 # Defining Motorway Traffic
 

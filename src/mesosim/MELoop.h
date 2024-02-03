@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSMoveReminder.h>
 
 
 // ===========================================================================
@@ -69,7 +70,7 @@ public:
      *
      * @param[in] v the car which was a leading one
      */
-    void removeLeaderCar(MEVehicle* v);
+    bool removeLeaderCar(MEVehicle* v);
 
     /** @brief remove the given car and clean up the relevant data structures */
     void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
@@ -90,7 +91,7 @@ public:
      * additional file
      * @param[in] e the edge to update
      */
-    void updateSegementsForEdge(const MSEdge& e);
+    void updateSegmentsForEdge(const MSEdge& e);
 
     /** @brief Get the segment for a given edge at a given position
      *

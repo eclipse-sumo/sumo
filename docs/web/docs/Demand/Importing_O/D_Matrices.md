@@ -32,7 +32,7 @@ zero. You can also add a prefix to the generated trip definition names
 using (**--prefix** {{DT_STR}}). As usual, they are written to the output file named using the
 **--output-file** {{DT_FILE}} (**-o** {{DT_FILE}} for short). You can specify a vehicle type to be added to the trip
 definitions using **--vtype** {{DT_STR}}. Please remark that vehicles will have no type unless
-not given in the O/D-matrices or defined using this option. The command
+given in the O/D-matrices or defined using this option. The command
 line option overrides type names given in the O/D-matrices. The type
 itself will not be generated. Vehicles will be generated for the time
 period between **--begin** {{DT_TIME}} (**-b** {{DT_TIME}}) and -**-end** {{DT_TIME}} (**-e** {{DT_TIME}}), having 0 and 86400 as default values,
@@ -66,7 +66,7 @@ If you do not want to distinguish between source and sink edges and give
 all edges the same probability you can use the following abbreviated
 form:
 
-```
+```xml
 <tazs>
     <taz id="<TAZ_ID>" edges="<EDGE_ID> <EDGE_ID> ..."/>
 
@@ -80,7 +80,7 @@ form:
 To distinguish the set of source and sink edges (or their probabilities
 respectively) use the following definition:
 
-```
+```xml
 <tazs>
     <taz id="<TAZ_ID>">
       <tazSource id="<EDGE_ID>" weight="<PROBABILITY_TO_USE>"/>
@@ -104,9 +104,9 @@ destination lists are normalized after loading.
 ## Creating TAZ files
 
 - TAZ definitions can be created directly in
-  [netedit](../../Netedit/index.md#taz_traffic_analysis_zones)
+  [netedit](../../Netedit/editModesNetwork.md#taz_traffic_analysis_zones)
 - TAZ definitions can be created by drawing polygons in
-  [netedit](../../Netedit/index.md#pois_and_polygons), then using the tool
+  [netedit](../../Netedit/editModesNetwork.md#shapes), then using the tool
   [edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy)
   for converting polygons to TAZ.
 
@@ -137,6 +137,36 @@ are the same). The values stored within the matrix are amounts of
 vehicles driving from the according origin district to the according
 destination district within the described time period.
 
+## tazRelation format
+
+The tazRelation format defines the demand per OD pair in time slices for
+every a given vehicle type as follows:
+
+```xml
+<data xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="car" begin="0" end="1:0:0">
+      <tazRelation count="2000" from="1" to="2"/>
+      <tazRelation count="500" from="1" to="3"/>
+      ...
+    </interval>
+    <interval ...>
+    ...
+</data>
+```
+
+Files in tazRelation format can be created and modified with [netedit](../../Netedit/index.md).
+They can also be created from route and taz files with [route2OD.py](../../Tools/Routes.md#route2odpy) (reversing the action of [od2trips](../../od2trips.md)).
+
+For details on the types and units see the schema at
+<https://sumo.dlr.de/xsd/datamode_file.xsd>
+
+!!! note
+    The "id" value of "interval" is used as the vehicle type but the type may be overruled by [od2trips](../../od2trips.md) option **--vtype**.
+
+
+## PTV formats
+
+
 The formats used by PTV are described in the VISUM-documentation more
 detailed. All start with a line where the type of the O/D-matrix is
 given, appended to a '$'. The first following character tells in which
@@ -147,7 +177,7 @@ PTV. Herein, only the supported variants are described.
 
 The vehicle type information is used by [od2trips](../../od2trips.md)
 by passing it to the generated vehicles. The type definition itself will
-not be generated, but the vehicle will have set the attribute `type="<TYPE>"`. The time informations are
+not be generated, but the vehicle will have set the attribute `type="<TYPE>"`. The time information are
 assumed to be in the form <HOURS\>.<MINUTES\>. Please note that the end is
 exclusive; for example, if
 
@@ -158,7 +188,7 @@ exclusive; for example, if
 is given, the generated vehicles' depart times will be second 0 to
 second 3599.
 
-## The V format (VISUM/VISSIM)
+### The V format (VISUM/VISSIM)
 
 The V-format stores the O/D matrix by giving the number of districts
 (TAZ) first and then naming them. After this, for each of the named
@@ -201,7 +231,7 @@ left-aligned to a boundary of 11 characters (possibly 10 for the name
 and one space character). Both constraints are not mandatory for the
 importer used in od2trips.
 
-## The O-format (VISUM/VISSIM)
+### The O-format (VISUM/VISSIM)
 
 The O-format instead simply lists each origin and each destination
 together with the amount in one line (please remark that we currently
@@ -242,8 +272,8 @@ $OR;D2
 The Amitran format defines the demand per OD pair in time slices for
 every vehicle type as follows:
 
-```
-<demand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/od.xsd">
+```xml
+<demand xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/od.xsd">
    <actorConfig id="0">
        <timeSlice duration="86400000" startTime="0">
            <odPair amount="100" destination="2" origin="1"/>
@@ -251,6 +281,9 @@ every vehicle type as follows:
    </actorConfig>
 </demand>
 ```
+
+!!! note
+    The time values are given in milliseconds.
 
 For details on the types and units see the schema at
 <https://sumo.dlr.de/xsd/amitran/od.xsd>
@@ -360,7 +393,7 @@ following scaling factors at page 31.
 | NRW other streets | 82,6%   | 74%     | 78,3%   | 71,6%   |
 | Bavaria           | 75%     | 67,2%   | 73,9%   | 64,7%   |
 
-One may note that this information is 15 years old. Additionally, no
+One may note that this information is several years old. Additionally, no
 information about the type of vehicles is given.
 
 A 24h time line a given O/D-matrix shall be split by may be given to
@@ -413,5 +446,5 @@ trip ids.
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://cordis.europa.eu/about/archives">Seventh Framework Programme</a>.</span></div>

@@ -4,6 +4,7 @@ virtual_display_extra_args:-cc 4
 
 batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
+historical_report_split_version:true
 
 [run_dependent_text]
 output:\r{REPLACE \n}
@@ -17,6 +18,7 @@ log:spent [0-9\.]+s{REPLACE spent (TIME)}
 log:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 logPrefixed:[0-9\.]+ms{REPLACE (TIME)}
 logPrefixed:[0-9\.]+s{REPLACE (TIME)}
+errors:random.tcc.*runtime error
 errors:UTFDataFormatException
 errors:exceeded byte limit
 errors:invalid multi-byte sequence
@@ -25,6 +27,8 @@ errors:comment or processing instruction expected{REPLACE Expected comment or pr
 errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
 errors:std::_Ios_Fmtflags
+errors:Suppressions used:{[->]}--------------------------------------------
+errors:--------------------------------------------{LINES 2}
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 cfg:<!-- generated on{[->]}-->

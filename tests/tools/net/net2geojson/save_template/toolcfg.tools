@@ -1,0 +1,12 @@
+<configuration>
+    <net-file value="None" type="net_file" help="The .net.xml file to convert" category="input" required="true"/>
+    <edgedata-file value="None" type="edgedata_file" help="Optional edgeData to include in the output" category="input"/>
+    <ptline-file value="None" type="file" help="Optional ptline information to include in the output" category="input"/>
+    <output-file value="None" type="file" help="The geojson output file name" category="output" required="true"/>
+    <lanes value="False" type="bool" help="Export lane geometries instead of edge geometries" category="processing"/>
+    <junctions value="False" type="bool" help="Export junction geometries" category="processing"/>
+    <internal value="False" type="bool" help="Export internal geometries" category="processing"/>
+    <junction-coordinates value="False" type="bool" help="Append junction coordinates to edge shapes" category="processing"/>
+    <boundary value="False" type="bool" help="Export boundary shapes instead of center-lines" category="processing"/>
+    <edgedata-timeline value="False" type="bool" help="exports all time intervals (by default only the first is exported)" category="processing"/>
+</configuration>

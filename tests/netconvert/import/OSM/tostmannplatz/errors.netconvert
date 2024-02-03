@@ -1,0 +1,11 @@
+Warning: PT line 'Bus 464: Stadion => Rühme' in relation 2948483 seems to be split, only keeping first part.
+Warning: PT line 'Bus 464: Stadion => Querum' in relation 6978321 seems to be split, only keeping first part.
+Warning: Could not determine cross product for edge '586130367'.
+Warning: PT stop '30323970' has been moved to edge '-4752567#2'.
+Warning: Removing pt stop '2314028901' on non existing edge ''.
+Warning: Removed 1 pt stops because they could not be assigned to the network
+Warning: Not joining junctions 2663214240,4002570893 (only 1 exit node).
+Warning: Ambiguity in turnarounds computation at junction 'cluster_2663214238_273542034_273542611_3445436408_#4more'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_273542494_3445436416_3445436418_5458979046_#4more'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_31130912_8943896893'.
+Warning: Found sharp turn with radius 8.35 at the end of edge '337455349#4'.

@@ -16,9 +16,6 @@ tracing
 # run two subsequent simulations with tracing
 tracing_repeat
 
-# test client-side command tracing when calling commands via the connection
-tracing_connection
-
 # test client-side command tracing (including getters)
 tracing_noGetters
 
@@ -27,6 +24,20 @@ tracing_close_start
 
 # test some output
 verbose
+option_list_append
 
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
+parkingSearch
+
+# test execute_move
+execute_move
+
+# test access from multiple threads
+concurrent
+
+# test setting and getting encoded strings
+encoding
+
+# matching function signatures between traci and libsumo
+signature

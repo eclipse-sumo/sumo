@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,43 +77,79 @@ RORoute::recheckForLoops(const ConstROEdgeVector& mandatory) {
     ROHelper::recheckForLoops(myRoute, mandatory);
 }
 
+bool
+RORoute::isValid(const ROVehicle& veh, bool ignoreErrors) const {
+    MsgHandler* mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+    for (ConstROEdgeVector::const_iterator i = myRoute.begin() + 1; i != myRoute.end(); ++i) {
+        const ROEdge* prev = *(i - 1);
+        const ROEdge* cur = *i;
+        if (!prev->isConnectedTo(*cur, veh.getVClass())) {
+            mh->informf("Edge '%' not connected to edge '%' for vehicle '%'.", prev->getID(), cur->getID(), veh.getID());
+            return ignoreErrors;
+        }
+    }
+    return true;
+}
+
+
 void
 RORoute::addProbability(double prob) {
     myProbability += prob;
 }
 
 
-OutputDevice&
-RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                            const bool withCosts,
-                            const bool withExitTimes) const {
-    dev.openTag(SUMO_TAG_ROUTE);
-    if (withCosts) {
-        dev.writeAttr(SUMO_ATTR_COST, myCosts);
-        dev.setPrecision(8);
-        dev.writeAttr(SUMO_ATTR_PROB, myProbability);
-        dev.setPrecision();
-    }
-    if (myColor != nullptr) {
-        dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
-    }
+ConstROEdgeVector
+RORoute::getNormalEdges() const {
     ConstROEdgeVector tempRoute;
     for (const ROEdge* roe : myRoute) {
         if (!roe->isInternal() && !roe->isTazConnector()) {
             tempRoute.push_back(roe);
         }
     }
-    dev.writeAttr(SUMO_ATTR_EDGES, tempRoute);
+    return tempRoute;
+}
+
+
+OutputDevice&
+RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
+                            const bool withCosts,
+                            const bool withProb,
+                            const bool withExitTimes,
+                            const bool withLength,
+                            const std::string& id) const {
+    dev.openTag(SUMO_TAG_ROUTE);
+    if (id != "") {
+        dev.writeAttr(SUMO_ATTR_ID, id);
+    }
+    if (withCosts) {
+        dev.writeAttr(SUMO_ATTR_COST, myCosts);
+        dev.setPrecision(8);
+    }
+    if (withProb) {
+        dev.writeAttr(SUMO_ATTR_PROB, myProbability);
+        dev.setPrecision();
+    }
+    if (myColor != nullptr) {
+        dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
+    }
+    dev.writeAttr(SUMO_ATTR_EDGES, getNormalEdges());
     if (withExitTimes) {
         std::vector<double> exitTimes;
         double time = STEPS2TIME(veh->getDepartureTime());
-        for (const ROEdge* roe : myRoute) {
+        for (const ROEdge* const roe : myRoute) {
             time += roe->getTravelTime(veh, time);
             if (!roe->isInternal() && !roe->isTazConnector()) {
                 exitTimes.push_back(time);
             }
         }
         dev.writeAttr("exitTimes", exitTimes);
+    }
+    if (withLength) {
+        double length = 0.;
+        for (const ROEdge* const roe : myRoute) {
+            length += roe->getLength();
+        }
+        dev.writeAttr("routeLength", length);
     }
     dev.closeTag();
     return dev;

@@ -1,0 +1,6 @@
+Warning: busStop 'bs0' for vehicle 'wrong1' on lane 'beg_0' is not downstream the current route.
+Warning: busStop 'bs2' for vehicle 'wrong2' on lane 'end_0' is not downstream the current route.
+Warning: busStop 'bs1' for vehicle 'wrong3' on lane 'beg_0' is not downstream the current route.
+Warning: busStop 'bs2' for vehicle 'wrong_all' on lane 'end_0' is not downstream the current route.
+Warning: busStop 'bs1' for vehicle 'wrong_all' on lane 'beg_0' is not downstream the current route.
+Warning: busStop 'bs0' for vehicle 'wrong_all' on lane 'beg_0' is not downstream the current route.

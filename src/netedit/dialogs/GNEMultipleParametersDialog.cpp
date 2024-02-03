@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,13 +17,13 @@
 ///
 // Dialog for edit multiple parameters
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNEMultipleParametersDialog.h"
 
@@ -69,13 +69,12 @@ FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations, FXGroupBox,    Pa
 // GNEMultipleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill),
-    myParameterDialogParent(parameterDialogParent) {
+GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame) :
+    FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
-    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
+    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThickedFixed(100));
+    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelIconThick);
     // create scroll windows
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
@@ -203,7 +202,7 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(Parame
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    button = GUIDesigns::buildFXButton(horizontalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
         horizontalFrame->create();
@@ -284,11 +283,11 @@ GNEMultipleParametersDialog::ParametersOperations::ParametersOperations(FXVertic
     FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton = new FXButton(this, "Sort", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
-    myLoadButton = new FXButton(this, "Load", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
-    mySaveButton = new FXButton(this, "Save", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
-    myHelpButton = new FXButton(this, "Help", GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
+    mySortButton = GUIDesigns::buildFXButton(this, TL("Sort"), "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonFixed(100));
+    myClearButton = GUIDesigns::buildFXButton(this, TL("Clear"), "", "", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonFixed(100));
+    myLoadButton = GUIDesigns::buildFXButton(this, TL("Load"), "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonFixed(100));
+    mySaveButton = GUIDesigns::buildFXButton(this, TL("Save"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonFixed(100));
+    myHelpButton = GUIDesigns::buildFXButton(this, TL("Help"), "", "", GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonFixed(100));
 }
 
 
@@ -298,10 +297,10 @@ GNEMultipleParametersDialog::ParametersOperations::~ParametersOperations() {}
 long
 GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
-    FXFileDialog opendialog(this, "Open Parameter Template");
+    FXFileDialog opendialog(this, TL("Open Parameter Template"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(" Parameter Template files (*.xml)\nAll files (*)");
+    opendialog.setPatternList(" Parameter Template files (*.xml,*.xml.gz)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -313,10 +312,10 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*
         // Create additional handler and run parser
         GNEParameterHandler handler(this, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of Parameters From " + file + " failed.");
+            WRITE_MESSAGEF(TL("Loading of Parameters From % failed."), file);
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad) + " Parameters.");
+        WRITE_MESSAGEF(TL("Loaded % Parameters."), toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad));
     }
     return 1;
 }
@@ -326,7 +325,7 @@ long
 GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the Parameter Template file", ".xml",
+                    TL("Save Parameter Template file"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {
@@ -402,10 +401,10 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     // set help text
     std::ostringstream help;
     help
-            << "- Parameters are defined by a Key and a Value.\n"
-            << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
-            << " - Duplicated and empty Keys aren't valid.\n"
-            << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
+            << TL("- Parameters are defined by a Key and a Value.\n")
+            << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n")
+            << TL(" - Duplicated and empty Keys aren't valid.\n")
+            << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n");
     // Create label with the help text
     new FXLabel(ParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -414,7 +413,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(ParameterHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening Parameter help dialog");
@@ -447,9 +446,9 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
     if (element == SUMO_TAG_PARAM) {
         // Check that format of Parameter is correct
         if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
-            WRITE_WARNING("Key of Parameter not defined");
+            WRITE_WARNING(TL("Key of Parameter not defined"));
         } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-            WRITE_WARNING("Value of Parameter not defined");
+            WRITE_WARNING(TL("Value of Parameter not defined"));
         } else {
             // obtain Key and value
             const std::string key = attrs.getString(SUMO_ATTR_KEY);
@@ -457,12 +456,12 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
             // check that parsed values are correct
             if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                 if (key.size() == 0) {
-                    WRITE_WARNING("Key of Parameter cannot be empty");
+                    WRITE_WARNING(TL("Key of Parameter cannot be empty"));
                 } else {
-                    WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
+                    WRITE_WARNINGF(TL("Key '%' of Parameter contains invalid characters"), key);
                 }
             } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
-                WRITE_WARNING("Key '" + key + "' already exist");
+                WRITE_WARNINGF(TL("Key '%' already exist"), key);
             } else {
                 // add parameter to vector of myParameterDialogParent
                 myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
@@ -475,10 +474,9 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
 // GNEMultipleParametersDialog::ParametersOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
-    myParameterDialogParent(parameterDialogParent) {
-    myOnlyForExistentKeys = new FXCheckButton(this, "Only for\nexistent keys", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonExtraHeight);
+GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame) :
+    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100) {
+    myOnlyForExistentKeys = new FXCheckButton(this, TL("Only for\nexistent keys"), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonExtraHeight);
 }
 
 
@@ -494,9 +492,9 @@ GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
 // GNEMultipleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector) :
+GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditorInspector) :
     FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
-    myParametersEditorInspector(parametersEditorInspector) {
+    myParametersEditor(parametersEditorInspector) {
     // call auxiliar constructor
     constructor();
     // reset
@@ -509,73 +507,76 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // get undo list
-    GNEUndoList* undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
-    // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parametersChanged;
-    // declare keep keys vector
-    std::vector<std::string> keepKeys;
-    // check if all edited parameters are valid
-    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
-        // ignore last row
-        if (parameterRow != myParametersValues->getParameterRows().back()) {
-            // insert in keepKeys
-            keepKeys.push_back(parameterRow->keyField->getText().text());
-            // continue if we're going to modify key
-            if (parameterRow->valueChanged) {
-                if (parameterRow->keyField->getText().empty()) {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                    // open warning Box
-                    FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                    return 1;
-                } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                    // open warning Box
-                    FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                    return 1;
+    const auto& ACs = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    if (ACs.size() > 0) {
+        // get undo list
+        GNEUndoList* undoList = myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList();
+        // declare vector for parameters in stringvector format
+        std::vector<std::pair<std::string, std::string> > parametersChanged;
+        // declare keep keys vector
+        std::vector<std::string> keepKeys;
+        // check if all edited parameters are valid
+        for (const auto& parameterRow : myParametersValues->getParameterRows()) {
+            // ignore last row
+            if (parameterRow != myParametersValues->getParameterRows().back()) {
+                // insert in keepKeys
+                keepKeys.push_back(parameterRow->keyField->getText().text());
+                // continue if we're going to modify key
+                if (parameterRow->valueChanged) {
+                    if (parameterRow->keyField->getText().empty()) {
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                        // open warning Box
+                        FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                        return 1;
+                    } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                        // open warning Box
+                        FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
+                        // write warning if netedit is running in testing mode
+                        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                        return 1;
+                    }
+                    // insert in parameters
+                    parametersChanged.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
                 }
-                // insert in parameters
-                parametersChanged.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
             }
         }
-    }
-    // sort sortedParameters
-    std::sort(parametersChanged.begin(), parametersChanged.end());
-    // check if there is duplicated keys
-    for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
-        if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        }
-    }
-    // begin change
-    undoList->p_begin("change parameters");
-    // iterate over ACs
-    for (const auto& AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        // remove keys
-        AC->removeACParametersKeys(keepKeys, undoList);
-        // update parameters
-        for (const auto& parameter : parametersChanged) {
-            if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
-                continue;
-            } else {
-                AC->addACParameters(parameter.first, parameter.second, undoList);
+        // sort sortedParameters
+        std::sort(parametersChanged.begin(), parametersChanged.end());
+        // check if there is duplicated keys
+        for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
+            if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                // open warning Box
+                FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                return 1;
             }
         }
+        // begin change
+        undoList->begin(ACs.front(), "change parameters");
+        // iterate over ACs
+        for (const auto& AC : ACs) {
+            // remove keys
+            AC->removeACParametersKeys(keepKeys, undoList);
+            // update parameters
+            for (const auto& parameter : parametersChanged) {
+                if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
+                    continue;
+                } else {
+                    AC->addACParameters(parameter.first, parameter.second, undoList);
+                }
+            }
+        }
+        // end change
+        undoList->end();
     }
-    // end change
-    undoList->p_end();
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -595,7 +596,7 @@ GNEMultipleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // declare a map for key-values
     std::map<std::string, std::vector<std::string> > keyValuesMap;
     // fill keys
-    for (const auto& AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& AC : myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         for (const auto& keyAttribute : AC->getACParametersMap()) {
             keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
         }
@@ -634,21 +635,21 @@ GNEMultipleParametersDialog::constructor() {
     // create frame for Parameters, operations and options
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras);
     // create vertical frame frame
     FXVerticalFrame* verticalFrameExtras = new FXVerticalFrame(horizontalFrameExtras, GUIDesignAuxiliarVerticalFrame);
     // create parameters operations
     myParametersOperations = new ParametersOperations(verticalFrameExtras, this);
     // create parameters options
-    myParametersOptions = new ParametersOptions(verticalFrameExtras, this);
+    myParametersOptions = new ParametersOptions(verticalFrameExtras);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("reset"), "", TL("close"),  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

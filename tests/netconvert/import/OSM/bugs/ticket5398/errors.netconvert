@@ -1,1 +1,7 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '37131474').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '37131474').
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '246422911' (Bf Deutz/Messe). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '246422944' (Deutz Technische Hochschule). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '310877824' (Kalk Post). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '310877836' (Kalk Kapelle). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2654870340' (Bf Deutz/Messe). Thus, it will be removed!
+Warning: 8 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!

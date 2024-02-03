@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
-    GNEChange(genericData, forward, genericData->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, genericData, forward, genericData->isAttributeCarrierSelected()),
     myGenericData(genericData),
     myDataSetParent(genericData->getDataIntervalParent()->getDataSetParent()),
     myDataIntervalParent(genericData->getDataIntervalParent()) {
@@ -49,16 +49,13 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
 GNEChange_GenericData::~GNEChange_GenericData() {
     assert(myGenericData);
     myGenericData->decRef("GNEChange_GenericData");
-    if (myGenericData->unreferenced()) {
+    if (myGenericData->unreferenced() &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
-        // check that generic data don't exist
-        if (myGenericData->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
-                myDataSetParent->dataIntervalChildrenExist(myDataIntervalParent) &&
-                myDataIntervalParent->hasGenericDataChild(myGenericData)) {
-            // delete generic data from interval parent
-            myDataIntervalParent->removeGenericDataChild(myGenericData);
-        }
+        WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
+        // delete generic data from interval parent
+        myDataIntervalParent->removeGenericDataChild(myGenericData);
         // delete generic data
         delete myGenericData;
     }
@@ -90,8 +87,8 @@ GNEChange_GenericData::undo() {
         // restore container
         restoreHierarchicalContainers();
     }
-    // Requiere always save elements
-    myGenericData->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myGenericData->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -120,26 +117,26 @@ GNEChange_GenericData::redo() {
         // remove genericData from parents and children
         removeElementFromParentsAndChildren(myGenericData);
     }
-    // Requiere always save elements
-    myGenericData->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myGenericData->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
-FXString
+std::string
 GNEChange_GenericData::undoName() const {
     if (myForward) {
-        return ("Undo create " + myGenericData->getTagStr()).c_str();
+        return (TL("Undo create ") + myGenericData->getTagStr());
     } else {
-        return ("Undo delete " + myGenericData->getTagStr()).c_str();
+        return (TL("Undo delete ") + myGenericData->getTagStr());
     }
 }
 
 
-FXString
+std::string
 GNEChange_GenericData::redoName() const {
     if (myForward) {
-        return ("Redo create " + myGenericData->getTagStr()).c_str();
+        return (TL("Redo create ") + myGenericData->getTagStr());
     } else {
-        return ("Redo delete " + myGenericData->getTagStr()).c_str();
+        return (TL("Redo delete ") + myGenericData->getTagStr());
     }
 }

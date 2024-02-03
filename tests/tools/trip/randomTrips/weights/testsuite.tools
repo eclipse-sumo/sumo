@@ -1,0 +1,27 @@
+# increase the probability for trips to start and end at the fringe of the network.
+# For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
+fringe_factor
+
+# test interaction of fringe factor and edge length (fringe should ignore length)
+short_fringe
+
+# detected the fringe despite turnarounds
+fringe_factor_turnarounds
+
+# use junction attribute 'fringe' for fringe classification
+fringe-junctions
+
+# modify the edge probability based on the edge position relative to the network center to promote a given direction of travel
+angle
+
+# modify the edge probabilities randomly
+random_weights
+
+# write weights for visualization
+weights_output
+
+# load some weights
+loaded_weights
+
+# scale probability by edge param
+edge_param

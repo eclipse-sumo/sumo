@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_tazrelonlyfrom_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"# c black",
+"* c #CC0000",
+"  c none",
+/* pixels */
+"#####  #   #####",
+"  #   ###      #",
+"  #   # #     # ",
+"  #  ## ##   #  ",
+"  #  #####  #   ",
+"  #  #   # #    ",
+"  #  #   # #####",
+"                ",
+"       **       ",
+"       **       ",
+"       **       ",
+"       **       ",
+"       **       ",
+"     ******     ",
+"      ****      ",
+"       **       "
+};

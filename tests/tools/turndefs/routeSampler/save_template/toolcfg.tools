@@ -1,29 +1,42 @@
 <configuration>
-    <begin value="None" help="custom begin time (seconds or H:M:S)"/>
-    <edgedata-attribute value="entered" help="Read edgeData counts from the given attribute"/>
-    <edgedata-files value="None" help="Input edgeData file (for counts)"/>
-    <end value="None" help="custom end time (seconds or H:M:S)"/>
-    <geh-ok value="5" help="threshold for acceptable GEH values"/>
-    <interval value="None" help="custom aggregation interval (seconds or H:M:S)"/>
-    <minimize-vehicles value="0" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)"/>
-    <mismatch-output value="None" help="write cout-data with overflow/underflow information to FILE"/>
-    <od-files value="None" help="Input edgeRelation file for origin-destination counts"/>
-    <optimize value="None" help="set optimization method level (full, INT boundary)"/>
-    <optimize-input value="False" help="Skip resampling and run optimize directly on the input routes"/>
-    <output-file value="out.rou.xml" help="Output route file"/>
-    <pedestrians value="False" help="write person walks instead of vehicle routes"/>
-    <prefix value="" help="prefix for the vehicle ids"/>
-    <route-files value="None" help="Input route file"/>
-    <seed value="42" help="random seed"/>
-    <threads value="1" help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then your machines CPUs if you want to utilize all CPUs (Default is 1)"/>
-    <turn-attribute value="count" help="Read turning counts from the given attribute"/>
-    <turn-files value="None" help="Input turn-count file"/>
-    <turn-max-gap value="0" help="Allow at most a gap of INT edges between from-edge and to-edge"/>
-    <attributes value="" help="additional vehicle attributes"/>
-    <verbose value="False" help="tell me what you are doing"/>
-    <verbose.histograms value="False" help="print histograms of edge numbers and detector passing count"/>
-    <weighted value="False" help="Sample routes according to their probability (or count)"/>
-    <write-flows value="None" help="write flows with the give style instead of vehicles [number|probability]"/>
-    <write-route-distribution value="None" help="write routeDistribution with the given ID instead of individual routes"/>
-    <write-route-ids value="False" help="write routes with ids"/>
+    <route-files value="None" type="route_file" help="Input route file" category="input" listSeparator=","/>
+    <turn-files value="None" type="file" help="Input turn-count file" category="input" listSeparator=","/>
+    <turn-ratio-files value="None" type="file" help="Input turn-ratio file" category="input" listSeparator=","/>
+    <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
+    <od-files value="None" type="file" help="Input edgeRelation and tazRelation files for origin-destination counts" category="input" listSeparator=","/>
+    <taz-files value="None" type="file" help="Input TAZ (district) definitions for interpreting tazRelation files" category="input" listSeparator=","/>
+    <edgedata-attribute value="entered" type="string" help="Read edgeData counts from the given attribute" category="input"/>
+    <arrival-attribute value="None" type="string" help="Read arrival counts from the given edgeData file attribute" category="input"/>
+    <depart-attribute value="None" type="string" help="Read departure counts from the given edgeData file attribute" category="input"/>
+    <turn-attribute value="count" type="string" help="Read turning counts and origin-destination counts from the given attribute" category="input"/>
+    <turn-ratio-attribute value="probability" type="string" help="Read turning ratios from the given attribute" category="input"/>
+    <output-file value="out.rou.xml" type="route_file" help="Output route file" category="output"/>
+    <mismatch-output value="None" type="string" help="write cout-data with overflow/underflow information to FILE" category="output"/>
+    <precision value="2" type="int" help="Number of decimal digits in output" category="output"/>
+    <keep-stops value="False" type="bool" help="Preserve stops from the input routes" category="output"/>
+    <verbose value="False" type="bool" help="tell me what you are doing" category="output"/>
+    <verbose.histograms value="False" type="bool" help="print histograms of edge numbers and detector passing count" category="output"/>
+    <prefix value="" type="string" help="prefix for the vehicle ids" category="attributes"/>
+    <attributes value="" type="string" help="additional vehicle attributes" category="attributes"/>
+    <write-flows value="None" type="string" help="write flows with the give style instead of vehicles [number|probability|poisson]" category="attributes"/>
+    <write-route-ids value="False" type="bool" help="write routes with ids" category="attributes"/>
+    <write-route-distribution value="None" type="string" help="write routeDistribution with the given ID instead of individual routes" category="attributes"/>
+    <pedestrians value="False" type="bool" help="write person walks instead of vehicle routes" category="attributes"/>
+    <begin value="None" type="string" help="custom begin time (seconds or H:M:S)" category="time"/>
+    <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
+    <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
+    <turn-max-gap value="0" type="int" help="Allow at most a gap of INT edges between from-edge and to-edge" category="processing"/>
+    <total-count value="None" type="string" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval). Setting the value 'input' preserves input vehicle counts in each interval." category="processing"/>
+    <extra-od value="False" type="bool" help="Permit traffic between OD-pairs that did not occur in the input" category="processing"/>
+    <seed value="42" type="int" help="random seed" category="processing"/>
+    <weighted value="False" type="bool" help="Sample routes according to their probability (or count)" category="processing"/>
+    <optimize value="None" type="string" help="set optimization method level (full, INT boundary)" category="processing"/>
+    <optimize-input value="False" type="bool" help="Skip resampling and run optimize directly on the input routes" category="processing"/>
+    <min-count value="1" type="int" help="Set minimum number of counting locations that a route must visit" category="processing"/>
+    <minimize-vehicles value="0" type="float" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)" category="processing"/>
+    <geh-ok value="5" type="float" help="threshold for acceptable GEH values" category="processing"/>
+    <turn-ratio-total value="1" type="float" help="Set value for normalizing turning ratios (default 1)" category="processing"/>
+    <turn-ratio-tolerance value="None" type="float" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)" category="processing"/>
+    <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="processing"/>
+    <threads value="1" type="int" help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then your machines CPUs if you want to utilize all CPUs (Default is 1)" category="processing"/>
 </configuration>

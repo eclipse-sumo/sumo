@@ -1,0 +1,1 @@
+-f out.rou.xml -s data/osm_bbox.osm.xml.gz -o out.add.xml tools/import/osm/osmTaxiStop.py

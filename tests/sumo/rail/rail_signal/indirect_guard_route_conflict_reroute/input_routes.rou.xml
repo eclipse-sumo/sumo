@@ -6,5 +6,5 @@
     <vType id="rail_rail" vClass="rail" color="red">
     </vType>
     <trip id="rail1" depart="0" from="T15_1" to="T12_1" type="rail_rail" departPos="-100"/>
-    <trip id="rail2" depart="0" from="T12_0" to="T18_0" type="rail_rail" departPos="-100"/>
+    <trip id="rail2" depart="0" from="T12_0" to="T18_0" type="rail_rail" departPos="-100" insertionChecks="none"/>
 </routes>

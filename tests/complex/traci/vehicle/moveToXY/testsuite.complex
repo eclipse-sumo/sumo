@@ -33,3 +33,34 @@ customLength_keepRoute2
 
 # test retrieving the original speed
 speedWithoutTraCI
+
+# tests for mapping vehicle with bad position data
+matchThreshold
+
+# test vehicle.getDistance
+odometer
+
+# tests for mapping vehicle at low step length (#10448)
+low_stepLength
+
+# tests for mapping vehicle at low step length (#10448)
+low_stepLength_keepRoute2
+
+# test for #4250
+guess_next_edge_keepRoute0
+
+# test for #4250
+guess_next_edge_keepRoute2
+
+# test for #4250	
+# move vehicle against eddge direction
+guess_next_edge_keepRoute2_reverse
+
+# moveToXY and opposite direction driving
+ticket5029
+
+# test collision directly after moveToXY (#10952)
+collision
+
+# use vClass when looking up candidate internal edges along the route (#10952)	
+parallel_internal_edges

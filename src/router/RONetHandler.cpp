@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@
 RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
     SUMOSAXHandler("sumo-network"),
     myNet(net),
-    myNetworkVersion(0),
+    myNetworkVersion(0, 0),
     myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty)
@@ -67,7 +67,7 @@ RONetHandler::myStartElement(int element,
             break;
         case SUMO_TAG_NET: {
             bool ok;
-            myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
+            myNetworkVersion = StringUtils::toVersion(attrs.get<std::string>(SUMO_ATTR_VERSION, nullptr, ok, false));
             break;
         }
         case SUMO_TAG_EDGE:
@@ -134,7 +134,7 @@ RONetHandler::myEndElement(int element) {
         case SUMO_TAG_NET:
             // build junction graph
             for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {
-                WRITE_ERROR("Unknown node '" + *it + "'.");
+                WRITE_ERRORF(TL("Unknown node '%'."), *it);
             }
             break;
         default:
@@ -164,9 +164,8 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         throw ProcessError();
     }
-    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
+    const SumoXMLEdgeFunc func = attrs.getOpt<SumoXMLEdgeFunc>(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok, SumoXMLEdgeFunc::NORMAL);
     if (!ok) {
-        WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
         return;
     }
     // get the edge
@@ -176,10 +175,10 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = nullptr;
     if (func == SumoXMLEdgeFunc::INTERNAL || func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA) {
         assert(myCurrentName[0] == ':');
-        const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
+        const std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentName);
         from = junctionID;
         to = junctionID;
-        priority = 0;
+        priority = -1;
     } else {
         from = attrs.get<std::string>(SUMO_ATTR_FROM, myCurrentName.c_str(), ok);
         to = attrs.get<std::string>(SUMO_ATTR_TO, myCurrentName.c_str(), ok);
@@ -241,7 +240,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (shape.size() < 2) {
-        WRITE_ERROR("Ignoring lane '" + id + "' with broken shape.");
+        WRITE_ERRORF(TL("Ignoring lane '%' with broken shape."), id);
         return;
     }
     // get the length
@@ -264,7 +263,8 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    if (attrs.getNodeType(ok) == SumoXMLNodeType::INTERNAL) {
+    const SumoXMLNodeType type = attrs.get<SumoXMLNodeType>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    if (type == SumoXMLNodeType::INTERNAL) {
         return;
     }
     myUnseenNodeIDs.erase(id);
@@ -277,7 +277,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     }
     RONode* n = myNet.getNode(id);
     if (n == nullptr) {
-        WRITE_WARNING("Skipping isolated junction '" + id + "'.");
+        WRITE_WARNINGF(TL("Skipping isolated junction '%'."), id);
     } else {
         n->setPosition(Position(x, y, z));
     }
@@ -296,10 +296,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == nullptr) {
-        throw ProcessError("unknown from-edge '" + fromID + "' in connection");
+        throw ProcessError(TLF("unknown from-edge '%' in connection", fromID));
     }
     if (to == nullptr) {
-        throw ProcessError("unknown to-edge '" + toID + "' in connection");
+        throw ProcessError(TLF("unknown to-edge '%' in connection", toID));
     }
     if ((int)from->getLanes().size() <= fromLane) {
         throw ProcessError("invalid fromLane '" + toString(fromLane) + "' in connection from '" + fromID + "'.");
@@ -311,9 +311,9 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
         from->addSuccessor(to, nullptr, dir);
     }  else {
-        ROEdge* const via = myNet.getEdge(viaID.substr(0, viaID.rfind('_')));
+        ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
-            throw ProcessError("unknown via-edge '" + viaID + "' in connection");
+            throw ProcessError(TLF("unknown via-edge '%' in connection", viaID));
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
         from->addSuccessor(to, via, dir);
@@ -365,17 +365,24 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
     if ((edge->getPermissions() & SVC_PEDESTRIAN) == 0) {
-        WRITE_WARNING("Ignoring invalid access from non-pedestrian edge '" + edge->getID() + "'.");
+        WRITE_WARNINGF(TL("Ignoring invalid access from non-pedestrian edge '%'."), edge->getID());
         return;
     }
-    double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
-    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
+    const bool random = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, "access", ok) == "random";
+    double pos = random ? edge->getLength() / 2. : attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
+    double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || (SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), 0., friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane + "'.");
     }
     if (!ok) {
         throw ProcessError();
+    }
+    if (length < 0) {
+        const Position accPos = myNet.getLane(lane)->geometryPositionAtOffset(pos);
+        const double stopCenter = (myCurrentStoppingPlace->startPos + myCurrentStoppingPlace->endPos) / 2;
+        const Position stopPos = myNet.getLane(myCurrentStoppingPlace->lane)->geometryPositionAtOffset(stopCenter);
+        length  = accPos.distanceTo(stopPos);
     }
     myCurrentStoppingPlace->accessPos.push_back(std::make_tuple(lane, pos, length));
 }
@@ -389,12 +396,14 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0));
+    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0);
+    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0);
+    myNet.addDistrict(myCurrentName, source, sink);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
-        for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
-            myNet.addDistrictEdge(myCurrentName, *i, true);
-            myNet.addDistrictEdge(myCurrentName, *i, false);
+        const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentName.c_str(), ok);
+        for (const std::string& eID : desc) {
+            myNet.addDistrictEdge(myCurrentName, eID, true);
+            myNet.addDistrictEdge(myCurrentName, eID, false);
         }
     }
 }

@@ -1,8 +1,7 @@
 Valid area contains 4 edges
 Parsing routes from input_routes.rou.xml
-Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
 No bus stop locations parsed, skipping bus stop 'busstop0'.
 No bus stop locations parsed, skipping bus stop 'busstop1'.
 Parsed 1 vehicles, 0 persons, 0 flows and kept 1 routes
-Number of disconnected routes: 0.
+Number of disconnected routes: 0, broken routes: 0.
 Wrote 1 vehicles

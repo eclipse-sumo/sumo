@@ -1,0 +1,4 @@
+Error: Attribute 'startPos' in definition of trainStop 'trainStop_02' Invalid Number Format (double) dummyStartPosition.
+Error: Could not build trainStop with ID 'trainStop_03' in netedit; Invalid position over lane.
+Error: Could not build trainStop with ID 'trainStop_04' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\trainstop\load\startpos\additionals.add.xml failed.

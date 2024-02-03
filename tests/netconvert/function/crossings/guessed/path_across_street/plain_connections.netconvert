@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-09-07 12:28:10 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,16 +30,14 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="CE" to="EC" fromLane="1" toLane="1"/>
 
     <connection from="CW" to="WC" fromLane="1" toLane="1"/>
 
     <connection from="EC" to="CW" fromLane="1" toLane="1"/>
-    <connection from="EC" to="CE" fromLane="1" toLane="1"/>
 
     <connection from="WC" to="CE" fromLane="1" toLane="1"/>
-    <connection from="WC" to="CW" fromLane="1" toLane="1"/>
 
     <crossing node="C" edges="CE EC" priority="0"/>
 </connections>

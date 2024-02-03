@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -16,6 +16,7 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Sept 2002
 ///
 // The window that holds the table of an object's parameter
@@ -26,6 +27,7 @@
 #include <utils/foxtools/fxheader.h>
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/Parameterised.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
@@ -60,8 +62,9 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 200, 500),
+GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title) :
+    FXMainWindow(app.getApp(), ((title == "" ? o.getFullName() : title) + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
+    GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
     myObject(&o),
     myApplication(&app),
     myTrackerY(50),
@@ -70,9 +73,9 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myTable->setTableSize(1, 3);
     myTable->setVisibleColumns(3);
     myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, "Name");
-    myTable->setColumnText(1, "Value");
-    myTable->setColumnText(2, "Dynamic");
+    myTable->setColumnText(0, TL("Name"));
+    myTable->setColumnText(1, TL("Value"));
+    myTable->setColumnText(2, TL("Dynamic"));
     myTable->getRowHeader()->setWidth(0);
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
@@ -89,6 +92,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myContainer.push_back(this);
     // Table cannot be editable
     myTable->setEditable(FALSE);
+    loadWindowPos();
 }
 
 GUIParameterTableWindow::~GUIParameterTableWindow() {
@@ -146,14 +150,16 @@ GUIParameterTableWindow::onLeftBtnPress(FXObject* sender, FXSelector sel, void* 
         if (i->dynamic() && i->getdoubleSourceCopy() != nullptr) {
             // open tracker directly
             const std::string trackerName = i->getName() + " from " + myObject->getFullName();
-            GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
             TrackerValueDesc* newTracked = new TrackerValueDesc(i->getName(), RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
-            tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
-            tr->setX(getX() + getWidth() + 10);
-            tr->setY(myTrackerY);
-            tr->create();
-            tr->show();
-            myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            if (!GUIParameterTracker::addTrackedMultiplot(*myObject, i->getdoubleSourceCopy(), newTracked)) {
+                GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+                tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
+                tr->setX(getX() + getWidth() + 10);
+                tr->setY(myTrackerY);
+                tr->create();
+                tr->show();
+                myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            }
         }
     }
     return FXMainWindow::onLeftBtnPress(sender, sel, eventData);
@@ -249,19 +255,42 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
     if (p != nullptr) {
-        const std::map<std::string, std::string>& map = p->getParametersMap();
-        for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
+        const Parameterised::Map& map = p->getParametersMap();
+        for (Parameterised::Map::const_iterator it = map.begin(); it != map.end(); ++it) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }
     const int rows = (int)myItems.size() + 1;
-    setHeight(rows * 20 + 40);
+    int h = rows * 20 + 40;
+    // adjust size in case there are higher (multi-line) rows
+    for (int i = 0; i < (int)myItems.size(); i++) {
+        h += MAX2(0, myTable->getRowHeight(i) - 20);
+    }
+    setHeight(h);
     myTable->fitColumnsToContents(1);
     setWidth(myTable->getContentWidth() + 40);
     myTable->setVisibleRows(rows);
     myApplication->addChild(this);
     create();
     show();
+}
+
+
+void
+GUIParameterTableWindow::checkFont(const std::string& text) {
+    bool missingChar = false;
+    FXString fxs(text.c_str());
+    for (FXint i = 0; i < fxs.length(); i = fxs.inc(i)) {
+        FXwchar wc = fxs.wc(i);
+        if (myTable->getFont()->hasChar(wc) != TRUE) {
+            missingChar = true;
+            break;
+        }
+        //std::cout << i << ": " << wc << " char:" << (char)(wc) << " has: " << (myTable->getFont()->hasChar(wc) == TRUE) << "\n";
+    }
+    if (missingChar) {
+        myTable->setFont(myApplication->getFallbackFont());
+    }
 }
 
 

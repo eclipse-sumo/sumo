@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 
+#include "EnergyParams.h"
 #include "HelpersPHEMlight.h"
 
 // idle speed is usually given in rpm (but may depend on electrical consumers). Actual speed depends on the gear so this number is only a rough estimate
@@ -42,6 +43,13 @@
 HelpersPHEMlight::HelpersPHEMlight() :
     PollutantsInterface::Helper("PHEMlight", PHEMLIGHT_BASE, -1),
     myIndex(PHEMLIGHT_BASE) {
+}
+
+
+HelpersPHEMlight::~HelpersPHEMlight() {
+    for (const auto& cep : myCEPs) {
+        delete cep.second;
+    }
 }
 
 
@@ -68,6 +76,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
 #ifdef INTERNAL_PHEM
     if (type == "HDV" || type == "LCV" || type == "PC_" || !PHEMCEPHandler::getHandlerInstance().Load(index, eClass)) {
 #endif
+        myVolumetricFuel = OptionsCont::getOptions().getBool("emissions.volumetric-fuel");
         std::vector<std::string> phemPath;
         phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
         if (getenv("PHEMLIGHT_PATH") != nullptr) {
@@ -255,7 +264,16 @@ HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, co
 
 
 double
-HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
+HelpersPHEMlight::getCoastingDecel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* /* param */) const {
+    return myCEPs.count(c) == 0 ? 0. : myCEPs.find(c)->second->GetDecelCoast(v, a, slope);
+}
+
+
+double
+HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
+    if (param != nullptr && param->isEngineOff()) {
+        return 0.;
+    }
     const double corrSpeed = MAX2(0.0, v);
     double power = 0.;
 #ifdef INTERNAL_PHEM
@@ -300,15 +318,16 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         case PollutantsInterface::PM_X:
             return getEmission(oldCep, currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            if (fuelType == PHEMlightdll::Constants::strDiesel) { // divide by average diesel density of 836 g/l
+            if (myVolumetricFuel && fuelType == PHEMlightdll::Constants::strDiesel) { // divide by average diesel density of 836 g/l
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdll::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
-                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdll::Constants::strBEV) {
-                return 0;
-            } else {
-                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }
+            if (myVolumetricFuel && fuelType == PHEMlightdll::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
+                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
+            }
+            if (fuelType == PHEMlightdll::Constants::strBEV) {
+                return 0.;
+            }
+            return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
             if (fuelType == PHEMlightdll::Constants::strBEV) {

@@ -1,0 +1,3 @@
+-t tripinfos.xml -a arrival tools/output/tripinfoByType.py -o out.xml
+-i 300
+--by-arrival

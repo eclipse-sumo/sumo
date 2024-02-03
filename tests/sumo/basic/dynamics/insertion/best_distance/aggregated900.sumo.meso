@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  1 15:21:42 2021 by Eclipse SUMO sumo Version v1_8_0+0859-2adf04d
+<!-- generated on 2021-11-23 12:57:20 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,12 +46,12 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="900.00" id="laneData">
-        <edge id="beg" sampledSeconds="294362.85" traveltime="223.43" overlapTraveltime="223.81" density="109.17" laneDensity="36.39" occupancy="18.19" waitingTime="0.00" timeLoss="184721.20" speed="13.41" departed="1525" arrived="0" entered="0" left="927" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="beg2" sampledSeconds="239151.48" traveltime="314.88" overlapTraveltime="315.41" density="88.81" laneDensity="44.41" occupancy="22.20" waitingTime="0.00" timeLoss="176028.53" speed="9.50" departed="0" arrived="0" entered="927" left="597" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="17974.74" traveltime="32.55" overlapTraveltime="33.40" density="104.02" laneDensity="52.01" occupancy="26.01" waitingTime="0.00" timeLoss="15029.48" speed="5.90" departed="0" arrived="0" entered="561" left="543" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end2" sampledSeconds="42685.85" traveltime="83.52" overlapTraveltime="83.66" density="15.83" laneDensity="15.83" occupancy="7.92" waitingTime="0.00" timeLoss="152.79" speed="35.87" departed="0" arrived="480" entered="543" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="294258.72" traveltime="223.58" overlapTraveltime="223.96" density="109.13" laneDensity="36.38" occupancy="18.19" waitingTime="0.00" timeLoss="184729.28" speed="13.40" speedRelative="0.37" departed="1526" arrived="0" entered="0" left="926" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg2" sampledSeconds="238968.68" traveltime="314.62" overlapTraveltime="315.15" density="88.74" laneDensity="44.37" occupancy="22.19" waitingTime="0.00" timeLoss="175842.67" speed="9.51" speedRelative="0.26" departed="0" arrived="0" entered="926" left="590" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="17739.45" traveltime="32.30" overlapTraveltime="33.14" density="102.66" laneDensity="51.33" occupancy="25.66" waitingTime="0.00" timeLoss="14810.32" speed="5.94" speedRelative="0.17" departed="0" arrived="0" entered="554" left="543" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end2" sampledSeconds="42685.85" traveltime="83.52" overlapTraveltime="83.66" density="15.83" laneDensity="15.83" occupancy="7.92" waitingTime="0.00" timeLoss="152.79" speed="35.87" speedRelative="1.00" departed="0" arrived="480" entered="543" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end3" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="merge" sampledSeconds="13102.63" traveltime="22.76" overlapTraveltime="23.99" density="158.24" laneDensity="52.75" occupancy="26.37" waitingTime="0.00" timeLoss="11631.18" speed="4.04" departed="0" arrived="0" entered="597" left="561" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="merge" sampledSeconds="13323.86" traveltime="23.08" overlapTraveltime="24.33" density="160.92" laneDensity="53.64" occupancy="26.82" waitingTime="0.00" timeLoss="11848.50" speed="3.99" speedRelative="0.11" departed="0" arrived="0" entered="590" left="554" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="offRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="onRamp" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>

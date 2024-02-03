@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@
 
 
 bool
-NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
+NITypeLoader::load(SUMOSAXHandler& handler, const std::vector<std::string>& files,
                    const std::string& type, const bool stringParse) {
     // build parser
     std::string exceptMsg = "";
@@ -52,18 +52,18 @@ NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& file
             fileName = *file;
             if (stringParse) {
                 fileName = "built in type map";
-                handler->setFileName(fileName);
-                SUMOSAXReader* reader = XMLSubSys::getSAXReader(*handler);
+                handler.setFileName(fileName);
+                SUMOSAXReader* reader = XMLSubSys::getSAXReader(handler);
                 reader->parseString(*file);
                 delete reader;
                 continue;
             }
             if (!FileHelpers::isReadable(fileName)) {
-                WRITE_ERROR("Could not open " + type + "-file '" + fileName + "'.");
+                WRITE_ERRORF(TL("Could not open %-file '%'."), type, fileName);
                 return false;
             }
             PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + fileName + "'");
-            ok &= XMLSubSys::runParser(*handler, fileName);
+            ok &= XMLSubSys::runParser(handler, fileName);
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
@@ -75,7 +75,6 @@ NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& file
     } catch (...) {
         raise = true;
     }
-    delete handler;
     if (raise) {
         throw ProcessError(exceptMsg + "The " + type + " could not be loaded from '" + fileName + "'.");
     }

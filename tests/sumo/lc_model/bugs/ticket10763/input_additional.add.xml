@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-05-20 08:05:47 by Eclipse SUMO netedit Version v1_13_0+0340-e0e1cd4baec
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="-314690803#2:31.27" name="Braunschweig Kreuzteich" lane="-314690803#2_0" startPos="18.27" endPos="44.27" friendlyPos="true"/>
+    <busStop id="-398891520:36.42" name="Braunschweig Kreuzteich" lane="-398891520_0" startPos="23.42" endPos="49.42" friendlyPos="true"/>
+    <busStop id="-398891520:43.66" name="Braunschweig Kreuzteich" lane="-398891520_0" startPos="30.66" endPos="56.66" friendlyPos="true"/>
+    <busStop id="314690803#0:13.88" name="Braunschweig Kreuzteich" lane="314690803#0_0" startPos="0.88" endPos="26.88" friendlyPos="true"/>
+</additional>

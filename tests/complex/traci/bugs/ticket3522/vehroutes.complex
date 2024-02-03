@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 10 17:34:32 2020 by Eclipse SUMO sumo Version v1_7_0+0035-5d14e96350
+<!-- generated on 2022-03-02 10:51:17 by Eclipse SUMO sumo Version v1_12_0+1014-76b17b8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,22 +18,22 @@
     </report>
 
     <traci_server>
-        <remote-port value="54142"/>
+        <remote-port value="38706"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" depart="0.00" departPos="100.00" departSpeed="10.00" arrival="270.00">
+    <vehicle id="veh0" depart="0.00" departPos="100.00" departSpeed="10.00" speedFactor="1.0600" arrival="270.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" arrival="276.00">
+    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" speedFactor="1.0600" arrival="276.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" arrival="282.00">
+    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" speedFactor="1.0104" arrival="282.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 

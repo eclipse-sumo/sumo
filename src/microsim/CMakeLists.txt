@@ -59,6 +59,7 @@ set(microsim_STAT_SRCS
    MSRoute.h
    MSRouteHandler.cpp
    MSRouteHandler.h
+   MSRouterDefs.h
    MSStop.cpp
    MSStop.h
    MSStoppingPlace.cpp
@@ -81,6 +82,8 @@ set(microsim_STAT_SRCS
    MSStateHandler.cpp
    MSDriverState.h
    MSDriverState.cpp
+   Command_RouteReplacement.h
+   Command_RouteReplacement.cpp
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})

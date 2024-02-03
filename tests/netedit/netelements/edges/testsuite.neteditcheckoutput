@@ -1,0 +1,27 @@
+# all test check also the undo-redo of modifications and save the edge into a file
+# create edge
+create
+
+# delete edge
+delete
+
+# inspect edge
+inspect
+
+# inspect selected edges
+inspect_selected
+
+# load edge
+load
+
+# move edge
+move
+
+# check selection of edges through allow and disallow parameter
+select_vtypes
+
+# check contextual menu
+contextual_menu
+
+# check templates
+templates

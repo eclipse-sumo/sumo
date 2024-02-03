@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <config.h>
 #include <iostream>
 #include <random>
+#include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -38,7 +39,7 @@ class RGBColor {
 public:
     /** @brief Constructor
      */
-    RGBColor();
+    RGBColor(bool valid = true);
 
     /** @brief Constructor
      * @param[in] red The red component's value
@@ -50,30 +51,22 @@ public:
     /** @brief Returns the red-amount of the color
      * @return The red component's value
      */
-    unsigned char red() const {
-        return myRed;
-    }
+    unsigned char red() const;
 
     /** @brief Returns the green-amount of the color
      * @return The green component's value
      */
-    unsigned char green() const {
-        return myGreen;
-    }
+    unsigned char green() const;
 
     /** @brief Returns the blue-amount of the color
      * @return The blue component's value
      */
-    unsigned char blue() const {
-        return myBlue;
-    }
+    unsigned char blue() const;
 
     /** @brief Returns the alpha-amount of the color
      * @return The alpha component's value
      */
-    unsigned char alpha() const {
-        return myAlpha;
-    }
+    unsigned char alpha() const;
 
     /** @brief assigns new values
      * @param[in] r The red component's value
@@ -86,10 +79,13 @@ public:
     /** @brief Sets a new alpha value
      * @param[in] alpha The new value to use
      */
-    inline void setAlpha(unsigned char alpha) {
-        myAlpha = alpha;
-    }
+    void setAlpha(unsigned char alpha);
 
+    /// @brief set valid
+    void setValid(const bool value);
+
+    /// @brief check if RGBColor is valid
+    bool isValid() const;
 
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
@@ -97,6 +93,9 @@ public:
      * @return The new color
      */
     RGBColor changedBrightness(int change, int toChange = 3) const;
+
+    /// @brief Returns a new color with altered opacity
+    RGBColor changedAlpha(int change) const;
 
     /** @brief Returns a new color with altered brightness
      * @param[in] factor The multiplicative change applied to all color channels (within bounds)
@@ -107,9 +106,8 @@ public:
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 
-    static std::mt19937* getColorRNG() {
-        return &myRNG;
-    }
+    /// @brief get color RNG
+    static SumoRNG* getColorRNG();
 
     /** @brief Parses a color information
      *
@@ -207,6 +205,9 @@ private:
     /// @brief The color amounts
     unsigned char myRed, myGreen, myBlue, myAlpha;
 
+    /// @brief flag to check if color is valid
+    bool myValid;
+
     /// @brief A random number generator to generate random colors independent of other randomness
-    static std::mt19937 myRNG;
+    static SumoRNG myRNG;
 };

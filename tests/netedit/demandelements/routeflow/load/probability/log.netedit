@@ -1,0 +1,8 @@
+Error: At most one of 'period' and 'probability' has to be given in the definition of flow 'flow_0'.
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
+Error: Attribute 'probability' in definition of flow 'flow_2' Invalid Number Format (double) dummyProb.
+Error: Attribute 'probability' in definition of flow 'flow_3' is empty.
+Error: Invalid repetition probability in the definition of flow 'flow_4'.
+Error: Invalid repetition probability in the definition of flow 'flow_5'.
+Error: Invalid repetition probability in the definition of flow 'flow_6'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.routeflow.26Jan095535.11222/netedit.daily.demand.routeflow/demandelements/routeflow/load/probability/routes.rou.xml failed.

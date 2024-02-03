@@ -1,0 +1,12 @@
+<additionals>
+
+    <!-- non valid img (invalid characters) -->
+    <poi id="POI_0" color="white" layer="0.00" lon="30.00" lat="10.00" width="5.00" height="5.00" imgFile="%%;;;:::"/>
+
+    <!-- non valid img (non existent) -->
+    <poi id="POI_1" color="white" layer="0.00" lon="30.00" lat="10.00" width="5.00" height="5.00" imgFile="paris.ico"/>
+
+    <!-- valid img -->
+    <poi id="POI_2" color="white" layer="0.00" lon="30.00" lat="20.00" width="5.00" height="5.00" imgFile="berlin_icon.ico"/>
+
+</additionals>

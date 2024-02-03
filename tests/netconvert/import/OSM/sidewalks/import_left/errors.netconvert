@@ -1,0 +1,13 @@
+Warning: No way found for reference '1116784111' in relation '2439713'
+Warning: Ignoring restriction relation '2439713' with unknown to-way.
+Warning: No way found for reference '579378808' in relation '11765377'
+Warning: No way found for reference '928259421' in relation '11765377'
+Warning: No way found for reference '579378808' in relation '11765378'
+Warning: No way found for reference '928259421' in relation '11765378'
+Warning: PT stop '8058792390' has been moved to edge '-860227378#0'.
+Warning: Cannot revise pt stop localization for pt line '2077946', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '2077982', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '2078078', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '2084110', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '2084498', which consist of one way only. Ignoring!
+Warning: 9 total messages of type: No way found for reference '%' in relation '%'

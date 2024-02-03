@@ -1,6 +1,9 @@
 single
 multiple
 reactiondist
+
+# change probability of reacting
+reactprob
 short_edge
 
 # blocking vehicle just finished a turnaround and is standing on a short edge
@@ -8,6 +11,9 @@ short_edge_turnaround
 
 # sublane motivation for emergency lane formation must override other motivations
 override_strategic
+
+# rescue vehicle must make use of an "invalid" lane
+turnlane_blocked
 
 # rescue lane on three-lane road
 3lanes
@@ -17,3 +23,33 @@ override_strategic
 
 # rescue lane on three-lane road, rescue vehicle must turn right
 3lanes_left
+
+# multiple equipped vehicle in network with opposite direction driving (#9310)
+opposite_multiple
+
+# even more equipped vehicle in network with opposite direction driving (#9310)	
+opposite_multiple2
+
+# multiple equipped vehicle in network with opposite direction driving (#9310)
+# vehicles must turn left through oncoming traffic
+opposite_multiple_oncoming
+
+# multiple equipped vehicle in network with opposite direction driving (#9310)
+# vehicles must turn left through oncoming traffic
+# 
+# using jmIgnoreJunctionFoeProb=1
+opposite_multiple_oncoming2
+
+# emergency vehicle may overtake queue before red light (if it wants to turn right)
+opposite_redlight_right
+
+# emergency vehicle may overtake queue before red light (if it wants to go straight)
+opposite_redlight_straight
+
+# emergency vehicle may overtake queue before red light (if it wants to turn left)
+opposite_redlight_left
+motorway
+
+# setting a mingap factor
+mingapfactor
+bugs

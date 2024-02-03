@@ -1,57 +1,58 @@
 name: documentation
 
 on:
+  push:            # run on push events in the docs subfolder
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
   schedule:
-  - cron: '0 0 * * *' # daily at 00:00 UTC
+  - cron: '30 1 * * *' # daily at 01:30 UTC
 
 jobs:
   ############################
-  # BUILDING THE DOCUMENTATION
+  # building the documentation
   ############################
   build-and-internal-link-check:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Cloning repository
-        uses: actions/checkout@v2
+    - name: Cloning repository
+      uses: actions/checkout@v4
 
-      - name: Installing plantuml
-        run: |
-          sudo apt-get update
-          sudo apt-get install plantuml
+    - name: Installing plantuml
+      run: |
+        sudo apt-get update
+        sudo apt-get install plantuml
 
-      - name: Configuring Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+    - name: Configuring Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
 
-      - name: Installing pip packages
-        run: |
-          cd docs/web/
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+    - name: Installing pip packages
+      run: |
+        cd docs/web/
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
 
-      - name: Building documentation
-        run: |
-          cd docs/web/
-          mkdocs build --strict
+    - name: Building documentation
+      run: |
+        cd docs/web/
+        mkdocs build --strict
 
 
   ############################
-  # CHECKING EXTERNAL LINKS
+  # checking external links
   ############################
   external-link-check:
-     runs-on: ubuntu-latest
-     
-     steps:
-       - name: Cloning repository
-         uses: actions/checkout@v2
+    runs-on: ubuntu-latest
 
-       - name: Checking links in markdown files
-         uses: gaurav-nelson/github-action-markdown-link-check@v1
-         with:
-          config-file: 'docs/web/.link_check_config.json'
-          use-quiet-mode: 'yes'
-          use-verbose-mode: 'no'
-          folder-path: 'docs/web/docs/'
-         continue-on-error: false # "true" prevents this Action from failing due to dead links
+    steps:
+    - name: Cloning repository
+      uses: actions/checkout@v4
+
+    - name: Lychee Link Checker
+      uses: lycheeverse/lychee-action@v1
+      with:
+        fail: true
+        args: -c docs/web/lychee.toml -n docs/web/docs/

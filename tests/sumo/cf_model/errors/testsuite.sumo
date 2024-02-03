@@ -1,2 +1,5 @@
 # warn if tau is lower than step size
 tau_below_stepsize
+
+# warn if tau is lower than step size
+stepsize2

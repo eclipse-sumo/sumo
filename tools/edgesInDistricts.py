@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,13 +24,12 @@ the relevant taz.
 """
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import argparse
 import collections
 from xml.sax import parse
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib  # noqa
+
+import sumolib
 
 
 # written into the net. All members are "private".
@@ -87,8 +86,8 @@ class DistrictEdgeComputer:
         return result
 
     def writeResults(self, options):
-        fd = open(options.output, "w")
-        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")  # noqa
+        fd = sumolib.openz(options.output, mode="w")
+        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = set()
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
@@ -111,7 +110,7 @@ class DistrictEdgeComputer:
                             '        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
                         fd.write(
                             '        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
-                    fd.write("    </taz>\n")
+                    fd.write(u"    </taz>\n")
                 else:
                     if options.shapeinfo:
                         fd.write('    <taz id="%s" shape="%s"%s edges="%s"/>\n' %
@@ -137,7 +136,7 @@ class DistrictEdgeComputer:
                 sys.stdout.write("%s/%s\r" % (idx, len(self._districtEdges)))
         if lastId is not None:
             fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join(sorted([e.getID() for e in lastEdges]))))
-        fd.write("</tazs>\n")
+        fd.write(u"</tazs>\n")
         fd.close()
 
     def getTotalLength(self, edgeID):
@@ -146,35 +145,35 @@ class DistrictEdgeComputer:
 
 
 def fillOptions(argParser):
-    argParser.add_argument("-v", "--verbose", action="store_true",
+    argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                            default=False, help="tell me what you are doing")
-    argParser.add_argument("--complete", action="store_true",
+    argParser.add_argument("--complete", category="processing", action="store_true",
                            default=False, help="assign edges only if they are not in more than one district")
-    argParser.add_argument("-n", "--net-file",
+    argParser.add_argument("-n", "--net-file", category="input",
                            help="read SUMO network from FILE (mandatory)", metavar="FILE")
-    argParser.add_argument("-t", "--taz-files",
+    argParser.add_argument("-t", "--taz-files", category="input",
                            help="read districts from FILEs", metavar="FILE")
-    argParser.add_argument("-o", "--output", default="districts.taz.xml",
+    argParser.add_argument("-o", "--output", category="output", default="districts.taz.xml",
                            help="write results to FILE", metavar="FILE")
-    argParser.add_argument("-x", "--max-speed", type=float, dest="maxspeed",
+    argParser.add_argument("-x", "--max-speed", type=float, dest="maxspeed", category="processing",
                            default=1000.0, help="use lanes where speed is not greater than this (m/s)")
-    argParser.add_argument("-m", "--min-speed", type=float, dest="minspeed",
+    argParser.add_argument("-m", "--min-speed", type=float, dest="minspeed", category="processing",
                            default=0., help="use lanes where speed is greater than this (m/s)")
-    argParser.add_argument("-w", "--weighted", action="store_true",
+    argParser.add_argument("-w", "--weighted", action="store_true", category="processing",
                            default=False, help="Weights sources/sinks by lane number and length")
-    argParser.add_argument("-f", "--assign-from", action="store_true",
-                           default=False, help="Assign the edge always to the district where the \"from\" node " +
+    argParser.add_argument("-f", "--assign-from", action="store_true", category="processing",
+                           default=False, help="Assign the edge always to the district where the 'from' node " +
                            "is located")
-    argParser.add_argument("-i", "--internal", action="store_true",
+    argParser.add_argument("-i", "--internal", action="store_true", category="processing",
                            default=False, help="Include internal edges in output")
-    argParser.add_argument("-l", "--vclass", help="Include only edges allowing VCLASS")
-    argParser.add_argument("-s", "--shapeinfo", action="store_true",
+    argParser.add_argument("-l", "--vclass", category="processing", help="Include only edges allowing VCLASS")
+    argParser.add_argument("-s", "--shapeinfo", category="processing", action="store_true",
                            default=False, help="write also the shape info in the file")
-    argParser.add_argument("--merge-separator",
+    argParser.add_argument("--merge-separator", category="processing",
                            help="merge edge lists of taz starting with the same string up to the given separator")
-    argParser.add_argument("--merge-param",
+    argParser.add_argument("--merge-param", category="processing",
                            help="merge edge lists of taz/polygons having the same value for the given parameter")
-    argParser.add_argument("--min-length", type=float,
+    argParser.add_argument("--min-length", type=float, category="processing",
                            default=0., help="use edges where length is greater than this (m)")
 
 

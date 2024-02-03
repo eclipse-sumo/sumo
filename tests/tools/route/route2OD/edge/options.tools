@@ -1,0 +1,2 @@
+-r input_routes.rou.xml -o od.xml --edge-relations
+tools/route/route2OD.py

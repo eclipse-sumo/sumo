@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-15 18:07:31 by Eclipse SUMO netconvert Version v1_15_0+0300-ac8d5f6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <tls_building>
+        <tls.default-type value="NEMA"/>
+    </tls_building>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="9.26" length="19.35" shape="104.80,89.60 104.05,94.85 101.80,98.60 98.05,100.85 92.80,101.60"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" speed="6.51" length="9.03" shape="92.80,95.20 95.25,94.85 97.00,93.80 98.05,92.05 98.40,89.60"/>
+    </edge>
+    <edge id=":S_0" function="internal">
+        <lane id=":S_0_0" index="0" speed="3.65" length="4.67" shape="98.40,0.00 99.20,-1.20 100.00,-1.60 100.80,-1.20 101.60,0.00"/>
+    </edge>
+    <edge id=":W_0" function="internal">
+        <lane id=":W_0_0" index="0" speed="3.65" length="4.67" shape="0.00,101.60 -1.20,100.80 -1.60,100.00 -1.20,99.20 0.00,98.40"/>
+    </edge>
+
+    <edge id="CS" from="C" to="S" priority="1">
+        <lane id="CS_0" index="0" speed="13.89" length="89.60" shape="98.40,89.60 98.40,0.00"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2">
+        <lane id="CW_0" index="0" speed="13.89" length="92.80" shape="92.80,101.60 0.00,101.60"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="1">
+        <lane id="SC_0" index="0" speed="13.89" length="89.60" shape="104.80,0.00 104.80,89.60"/>
+        <lane id="SC_1" index="1" speed="13.89" length="89.60" shape="101.60,0.00 101.60,89.60"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2">
+        <lane id="WC_0" index="0" speed="13.89" length="92.80" shape="0.00,95.20 92.80,95.20"/>
+        <lane id="WC_1" index="1" speed="13.89" length="92.80" shape="0.00,98.40 92.80,98.40"/>
+    </edge>
+
+    <tlLogic id="C" type="actuated" programID="0" offset="0">
+        <phase duration="31" state="Gr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yr"/>
+        <phase duration="31" state="rG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="ry"/>
+    </tlLogic>
+
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0" shape="106.40,89.60 96.80,89.60 96.36,91.82 95.80,92.60 95.02,93.16 94.02,93.49 92.80,93.60 92.80,103.20 96.96,102.82 100.36,101.69 103.00,99.80 104.89,97.16 106.02,93.76" rightOfWay="allwayStop">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="S" type="priority" x="100.00" y="0.00" incLanes="CS_0" intLanes=":S_0_0" shape="100.00,0.00 96.80,0.00 100.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0" intLanes=":W_0_0" shape="0.00,100.00 0.00,103.20 0.00,100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="CS" to="SC" fromLane="0" toLane="1" via=":S_0_0" dir="t" state="M"/>
+    <connection from="CW" to="WC" fromLane="0" toLane="1" via=":W_0_0" dir="t" state="M"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="l" state="w"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="r" state="w"/>
+
+    <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_1" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":S_0" to="SC" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":W_0" to="WC" fromLane="0" toLane="1" dir="t" state="M"/>
+
+</net>

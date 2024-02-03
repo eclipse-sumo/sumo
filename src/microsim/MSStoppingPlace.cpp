@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,11 +26,12 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
-#include "MSLane.h"
-#include <microsim/transportables/MSTransportable.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSStop.h>
 #include "MSStoppingPlace.h"
 
 // ===========================================================================
@@ -47,7 +48,9 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     Named(id),
     myElement(element),
     myLines(lines), myLane(lane),
-    myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
+    myBegPos(begPos), myEndPos(endPos),
+    myLastFreePos(endPos),
+    myLastParking(nullptr),
     myName(name),
     myTransportableCapacity(capacity),
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength),
@@ -81,6 +84,12 @@ MSStoppingPlace::getEndLanePosition() const {
     return myEndPos;
 }
 
+Position
+MSStoppingPlace::getCenterPos() const {
+    return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
+            myLane.getWidth() / 2 + 0.5);
+}
+
 
 void
 MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {
@@ -92,10 +101,15 @@ MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {
 
 
 double
-MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
-    if (myLastFreePos != myEndPos) {
+MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle, double /*brakePos*/) const {
+    if (getStoppedVehicleNumber() > 0) {
         const double vehGap = forVehicle.getVehicleType().getMinGap();
         double pos = myLastFreePos - vehGap;
+        if (myParkingFactor < 1 && myLastParking != nullptr && forVehicle.hasStops() && (forVehicle.getStops().front().pars.parking == ParkingType::ONROAD)
+                && myLastParking->remainingStopDuration() < forVehicle.getStops().front().getMinDuration(SIMSTEP)) {
+            // stop far back enough so that the previous vehicle can leave
+            pos = myLastParking->getPositionOnLane() - myLastParking->getLength() - vehGap - NUMERICAL_EPS;
+        }
         if (forVehicle.getLane() == &myLane && forVehicle.getPositionOnLane() < myEndPos && forVehicle.getPositionOnLane() > myBegPos && forVehicle.getSpeed() <= SUMO_const_haltingSpeed) {
             return forVehicle.getPositionOnLane();
         }
@@ -239,40 +253,44 @@ MSStoppingPlace::leaveFrom(SUMOVehicle* what) {
 void
 MSStoppingPlace::computeLastFreePos() {
     myLastFreePos = myEndPos;
-    for (auto i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
-        if (myLastFreePos > (*i).second.second) {
-            myLastFreePos = (*i).second.second;
+    myLastParking = nullptr;
+    for (auto item : myEndPositions) {
+        // vehicle might be stopped beyond myEndPos
+        if (myLastFreePos >= item.second.second || myLastFreePos == myEndPos) {
+            myLastFreePos = item.second.second;
+            if (item.first->isStoppedParking()) {
+                myLastParking = item.first;
+            }
         }
     }
 }
 
 
 double
-MSStoppingPlace::getAccessPos(const MSEdge* edge) const {
+MSStoppingPlace::getAccessPos(const MSEdge* edge, SumoRNG* rng) const {
     if (edge == &myLane.getEdge()) {
         return (myBegPos + myEndPos) / 2.;
     }
     for (const auto& access : myAccessPos) {
-        if (edge == &std::get<0>(access)->getEdge()) {
-            return std::get<1>(access);
+        if (edge == &access.lane->getEdge()) {
+            if (rng == nullptr || access.startPos == access.endPos) {
+                return access.endPos;
+            }
+            return RandHelper::rand(access.startPos, access.endPos, rng);
         }
     }
     return -1.;
 }
 
 
-double
-MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
-    if (edge == &myLane.getEdge()) {
-        return 0.;
-    }
+const MSStoppingPlace::Access*
+MSStoppingPlace::getAccess(const MSEdge* edge) const {
     for (const auto& access : myAccessPos) {
-        const MSLane* const accLane = std::get<0>(access);
-        if (edge == &accLane->getEdge()) {
-            return std::get<2>(access);
+        if (edge == &access.lane->getEdge()) {
+            return &access;
         }
     }
-    return -1.;
+    return nullptr;
 }
 
 
@@ -289,21 +307,22 @@ MSStoppingPlace::getColor() const {
 
 
 bool
-MSStoppingPlace::addAccess(MSLane* lane, const double pos, double length) {
-    // prevent multiple accesss on the same lane
+MSStoppingPlace::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors) {
+    // prevent multiple accesses on the same lane
     for (const auto& access : myAccessPos) {
-        if (lane == std::get<0>(access)) {
+        if (lane == access.lane) {
             return false;
         }
     }
     if (length < 0.) {
-        const Position accPos = lane->geometryPositionAtOffset(pos);
+        const Position accPos = lane->geometryPositionAtOffset((startPos + endPos) / 2.);
         const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
-        length  = accPos.distanceTo(stopPos);
+        length = accPos.distanceTo(stopPos);
     }
-    myAccessPos.push_back(std::make_tuple(lane, pos, length));
+    myAccessPos.push_back({lane, startPos, endPos, length, doors});
     return true;
 }
+
 
 std::vector<const SUMOVehicle*>
 MSStoppingPlace::getStoppedVehicles() const {
@@ -328,7 +347,7 @@ void
 MSStoppingPlace::clearState() {
     myEndPositions.clear();
     myWaitingTransportables.clear();
-    myLastFreePos = myEndPos;
+    computeLastFreePos();
 }
 
 

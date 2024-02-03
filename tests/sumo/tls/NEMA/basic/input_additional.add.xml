@@ -1,0 +1,20 @@
+
+<add>
+    <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="120"/>
+        <param key="ring1" value="0,4,1,2"/>
+        <param key="ring2" value="0,4,0,6"/>
+        <param key="barrierPhases" value="4,4"/>
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="whetherOutputState" value="true"/>
+        <param key="controllerType" value="Type170"/>
+
+        <phase duration="99" minDur="6"  maxDur="16" vehext="3" yellow="4"   red="1"   name="1" state="srrrrrrGGrrr"/>
+        <phase duration="99" minDur="10" maxDur="67" vehext="3" yellow="4"   red="1"   name="2" state="srrrrrrrrGGG"/>
+        <phase duration="99" minDur="10" maxDur="21" vehext="4" yellow="4.5" red="1.5" name="4" state="GGGGGrrrrrrr"/>
+        <phase duration="99" minDur="10" maxDur="88" vehext="3" yellow="4"   red="1"   name="6" state="srrrrGGrrrrr"/>
+    </tlLogic>
+</add>

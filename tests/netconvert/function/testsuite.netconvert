@@ -1,3 +1,12 @@
+# Tests for building tls programs
+tls_programs
+
+# test various options for guessing tls 
+# -tls.guess
+# -tls.guess-signals
+# -tls.guess.joining
+tls_guessing
+
 # Tests for keeping edges (--keep-edges)
 keep_edges
 
@@ -9,9 +18,6 @@ remove_edges
 
 # tests for option --geometry.remove
 geometry.remove
-
-# Tests for building tls programs
-tls_programs
 
 # Tests for guessing on/off-ramps
 ramps
@@ -41,12 +47,6 @@ junctions.join-same
 # joining adjacent lanes
 join-lanes
 
-# test various options for guessing tls 
-# -tls.guess
-# -tls.guess-signals
-# -tls.guess.joining
-tls_guessing
-
 # tests for disabling left-turns
 no_left
 
@@ -74,8 +74,14 @@ geometry.avoidOverlap
 # tests for railway related network analysis and modification
 railway
 
+# test option --prefix and --numerical-ids
+renaming
+
 # tests whether removing self-loop edges works
 self_loop_edges
+
+# tests whether removing self-loop edges works
+self_loop_edges2
 
 # test speed factor and offset
 speed_modification
@@ -91,12 +97,6 @@ rightTurnConflict
 3_arm_service_entering
 scale
 
-# prefix junction and edge ids
-prefix
-
-# rename junction and edge ids to prefix+number
-prefix_renumber
-
 # rotate the input network
 rotate
 
@@ -108,3 +108,4 @@ flipY_lefthand
 
 # build networks with higher junction speed when incoming and outgoing edge have different speeds
 junctions.higherSpeed
+tls_extended_attributes

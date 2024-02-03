@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 21 19:43:44 2020 by Eclipse SUMO sumo Version v1_8_0+0325-aba2f5d
+<!-- generated on 2022-12-13 09:07:01 by Eclipse SUMO sumo Version v1_15_0+0967-5e29905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,18 +34,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
-
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="passenger" depart="0.00" departLane="NS1_1" departPos="125.40" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="61.00" arrivalLane="NS3_1" arrivalPos="142.77" arrivalPosLat="0.22" arrivalSpeed="13.87" duration="61.00" routeLength="179.97" waitingTime="41.90" waitingCount="1" stopTime="0.00" timeLoss="47.96" rerouteNo="0" devices="tripinfo_passenger" vType="passenger" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="bike" depart="5.00" departLane="NS1_0" departPos="125.40" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="81.00" arrivalLane="NS3_0" arrivalPos="142.77" arrivalPosLat="0.00" arrivalSpeed="5.99" duration="76.00" routeLength="179.97" waitingTime="32.80" waitingCount="2" stopTime="0.00" timeLoss="45.97" rerouteNo="0" devices="tripinfo_bike" vType="bicycle" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bike" depart="5.00" departLane="NS1_0" departPos="125.40" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="81.00" arrivalLane="NS3_0" arrivalPos="142.77" arrivalPosLat="0.00" arrivalSpeed="5.99" duration="76.00" routeLength="179.97" waitingTime="32.40" waitingCount="1" stopTime="0.00" timeLoss="45.97" rerouteNo="0" devices="tripinfo_bike" vType="bicycle" speedFactor="1.00" vaporized=""/>
 </tripinfos>

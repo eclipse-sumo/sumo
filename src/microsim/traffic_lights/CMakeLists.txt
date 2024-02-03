@@ -12,8 +12,6 @@ set(microsim_traffic_lights_STAT_SRCS
    MSRailSignalControl.cpp
    MSRailSignalControl.h
    MSPhaseDefinition.h
-   MSPhasedTrafficLightLogic.cpp
-   MSPhasedTrafficLightLogic.h
    MSPushButton.cpp
    MSPushButton.h
    MSRailCrossing.cpp
@@ -63,6 +61,8 @@ set(microsim_traffic_lights_STAT_SRCS
    MSTLLogicControl.h
    MSTrafficLightLogic.cpp
    MSTrafficLightLogic.h
+   NEMAController.cpp
+   NEMAController.h
 )
 
 add_library(microsim_traffic_lights STATIC ${microsim_traffic_lights_STAT_SRCS})

@@ -1,0 +1,17 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_0" lane="center0_1" startPos="23.00" endPos="33.00">
+
+        <!-- non valid length (missing) -->
+        <access lane="E0_0" pos="1" friendlyPos="0"/>
+
+        <!-- non valid length (dummy) -->
+        <access lane="E1_0" pos="1.1" length="dummyLenght" friendlyPos="0"/>
+
+        <!-- non valid length (negative) -->
+        <access lane="E5_0" pos="1.2" length="-30" friendlyPos="0"/>
+
+        <!-- valid length -->
+        <access lane="E4_0" pos="1.3" length="40" friendlyPos="0"/>
+
+    </busStop>
+</additional>

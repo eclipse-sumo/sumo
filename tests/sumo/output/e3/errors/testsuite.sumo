@@ -1,7 +1,6 @@
 # detector don't have entry/exit detectors
 entryexit_empty
 
-
 # id is duplicated
 id_duplicated
 
@@ -10,7 +9,6 @@ id_empty
 
 # id is missing
 id_missing
-
 
 # lane is missing (entry)
 lane_missing__entry
@@ -29,7 +27,6 @@ lane_empty__exit
 
 # lane is unknown (exit)
 lane_false__exit
-
 
 # position is missing (entry)
 pos_missing__entry
@@ -55,10 +52,6 @@ pos_false__exit
 # position is beyond lane's length (exit)
 pos_too_high__exit
 
-
-# freq is missing
-freq_missing
-
 # freq is empty
 freq_empty
 
@@ -68,7 +61,6 @@ freq_negative
 # freq is not numeric
 freq_false
 
-
 # file is missing
 file_missing
 
@@ -77,6 +69,3 @@ file_empty
 
 # file can not be built
 file_false
-
-
-

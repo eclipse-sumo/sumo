@@ -1,5 +1,0 @@
-Error: Attribute 'pos' in definition of a access is not of type float.
-Error: Attribute 'pos' in definition of a access is empty.
-Error: Could not build access with ID 'busStop_0' in netedit; Invalid position over lane.
-Warning: Could not build access in netedit; busStop parent already owns an access in the edge '3'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun103121.4800\netedit.gui\additionalElements\access\load\pos\input_additionals.add.xml failed.

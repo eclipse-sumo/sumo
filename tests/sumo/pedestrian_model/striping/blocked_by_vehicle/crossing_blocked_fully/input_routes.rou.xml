@@ -1,0 +1,10 @@
+<routes>    
+    <vType id="car" sigma="0" length="10"/>
+    <vehicle id="v0" type="car" depart="0" departPos="50">
+        <route edges="WC CS"/>
+        <stop lane="CS_3" endPos="2.4" duration="30"/>
+    </vehicle>
+    <person id="p0" depart="0" departPos="-20.0">
+        <walk edges="WC CE" arrivalPos="20"/>
+    </person>
+</routes>

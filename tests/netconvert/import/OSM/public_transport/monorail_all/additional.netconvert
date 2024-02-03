@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-14 08:53:20 by Eclipse SUMO netconvert Version v1_14_1+1724-2e45f2b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1609100922" name="Westende" lane="-326203720_0" startPos="2324.11" endPos="2524.11" friendlyPos="true"/>
+    <busStop id="-266775534" name="Hammerstein" lane="-36388592_0" startPos="980.20" endPos="1180.20" friendlyPos="true"/>
+    <busStop id="-271135646" name="Pestalozzistraße" lane="-326203720_0" startPos="1799.43" endPos="1999.43" friendlyPos="true"/>
+    <busStop id="-271135683" name="Robert-Daum-Platz" lane="-326203720_0" startPos="974.72" endPos="1174.72" friendlyPos="true"/>
+    <busStop id="-271135716" name="Wuppertal Hauptbahnhof" lane="-305115095_0" startPos="0.00" endPos="44.03" friendlyPos="true"/>
+    <busStop id="-271135733" name="Kluse" lane="-305115093_0" startPos="711.21" endPos="911.21" friendlyPos="true"/>
+    <busStop id="-271135799" name="Loher Brücke" lane="-37195413_0" startPos="3113.86" endPos="3313.86" friendlyPos="true"/>
+    <busStop id="-271135812" name="Adlerbrücke" lane="-37195413_0" startPos="2558.21" endPos="2758.21" friendlyPos="true"/>
+    <busStop id="-271135862" name="Werther Brücke" lane="-37195413_0" startPos="1068.83" endPos="1268.83" friendlyPos="true"/>
+    <busStop id="-271135876" name="Wupperfeld" lane="-37195413_0" startPos="592.67" endPos="617.67" friendlyPos="true"/>
+    <busStop id="-272692299" name="Landgericht" lane="-305115093_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="-272692551" name="Völklinger Straße" lane="-37195413_0" startPos="3881.60" endPos="4081.60" friendlyPos="true"/>
+    <busStop id="-272694179" name="Alter Markt" lane="-37195413_0" startPos="1823.30" endPos="2023.30" friendlyPos="true"/>
+    <busStop id="-3125935756" name="Ohligsmühle" lane="-326203720_0" startPos="300.31" endPos="500.31" friendlyPos="true"/>
+    <busStop id="-3328241005" name="Zoo/Stadion" lane="-326203722_0" startPos="24.79" endPos="49.79" friendlyPos="true"/>
+    <busStop id="-380536713" name="Varresbecker Straße" lane="-326203720_0" startPos="3197.00" endPos="3397.00" friendlyPos="true"/>
+    <busStop id="-432883106" name="Sonnborner Straße" lane="-36388592_0" startPos="348.36" endPos="548.36" friendlyPos="true"/>
+    <busStop id="-432883109" name="Zoo/Stadion" lane="-326203721_0" startPos="24.72" endPos="49.72" friendlyPos="true"/>
+    <busStop id="-454042501" name="Bruch" lane="-36388592_0" startPos="1842.08" endPos="2042.08" friendlyPos="true"/>
+    <busStop id="-4919325944" name="Wupperfeld" lane="-37195413_0" startPos="574.67" endPos="599.67" friendlyPos="true"/>
+    <busStop id="1609100922" name="Westende" lane="326203720_0" startPos="1454.87" endPos="1654.87" friendlyPos="true" lines="60"/>
+    <busStop id="266775534" name="Hammerstein" lane="36388592_0" startPos="1506.79" endPos="1706.79" friendlyPos="true" lines="60"/>
+    <busStop id="271135646" name="Pestalozzistraße" lane="326203720_0" startPos="1979.56" endPos="2179.56" friendlyPos="true" lines="60"/>
+    <busStop id="271135683" name="Robert-Daum-Platz" lane="326203720_0" startPos="2804.26" endPos="3004.26" friendlyPos="true" lines="60"/>
+    <busStop id="271135716" name="Wuppertal Hauptbahnhof" lane="305115095_0" startPos="0.00" endPos="44.03" friendlyPos="true" lines="60"/>
+    <busStop id="271135733" name="Kluse" lane="305115093_0" startPos="377.88" endPos="577.88" friendlyPos="true" lines="60"/>
+    <busStop id="271135799" name="Loher Brücke" lane="37195413_0" startPos="1592.78" endPos="1792.78" friendlyPos="true" lines="60"/>
+    <busStop id="271135812" name="Adlerbrücke" lane="37195413_0" startPos="2148.43" endPos="2348.43" friendlyPos="true" lines="60"/>
+    <busStop id="271135862" name="Werther Brücke" lane="37195413_0" startPos="3637.81" endPos="3837.81" friendlyPos="true" lines="60"/>
+    <busStop id="271135876" name="Wupperfeld" lane="37195413_0" startPos="4288.97" endPos="4313.97" friendlyPos="true"/>
+    <busStop id="272692299" name="Landgericht" lane="305115093_0" startPos="1089.09" endPos="1289.09" friendlyPos="true" lines="60"/>
+    <busStop id="272692551" name="Völklinger Straße" lane="37195413_0" startPos="825.04" endPos="1025.04" friendlyPos="true" lines="60"/>
+    <busStop id="272694179" name="Alter Markt" lane="37195413_0" startPos="2883.34" endPos="3083.34" friendlyPos="true" lines="60"/>
+    <busStop id="3125935756" name="Ohligsmühle" lane="326203720_0" startPos="3478.67" endPos="3678.67" friendlyPos="true" lines="60"/>
+    <busStop id="3328241005" name="Zoo/Stadion" lane="326203722_0" startPos="36.21" endPos="61.21" friendlyPos="true"/>
+    <busStop id="3329847056" name="Oberbarmen Bahnhof" lane="666559890_0" startPos="0.00" endPos="21.14" friendlyPos="true" lines="60"/>
+    <busStop id="380536713" name="Varresbecker Straße" lane="326203720_0" startPos="581.99" endPos="781.99" friendlyPos="true" lines="60"/>
+    <busStop id="432883073" name="Oberbarmen Bahnhof" lane="666559889_0" startPos="0.00" endPos="21.26" friendlyPos="true" lines="60"/>
+    <busStop id="432883106" name="Sonnborner Straße" lane="36388592_0" startPos="2138.63" endPos="2338.63" friendlyPos="true" lines="60"/>
+    <busStop id="432883109" name="Zoo/Stadion" lane="326203721_0" startPos="36.29" endPos="61.29" friendlyPos="true" lines="60"/>
+    <busStop id="454042501" name="Bruch" lane="36388592_0" startPos="644.92" endPos="844.92" friendlyPos="true" lines="60"/>
+    <busStop id="4919325944" name="Wupperfeld" lane="37195413_0" startPos="4306.97" endPos="4331.97" friendlyPos="true" lines="60"/>
+</additional>

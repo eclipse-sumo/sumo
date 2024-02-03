@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@ class GUIGLObjectPopupMenu;
 class GNETLSEditorFrame;
 class PositionVector;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -42,7 +43,6 @@ class GNEInternalLane : public GNENetworkElement, public FXDelegator {
     FXDECLARE(GNEInternalLane)
 
 public:
-
     /**@brief Constructor
      * @param[in] editor The editor to notify about changes
      * @param[in] junctionParent junction parent
@@ -50,24 +50,53 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
+    GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctionParent, const std::string& id,
+                    const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
     ~GNEInternalLane();
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
     /// @}
 
     /// @name Functions related with move elements
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -93,6 +122,9 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -101,12 +133,19 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
+
     /// @}
 
     /// @brief set the linkState (controls drawing color)
     void setLinkState(LinkState state);
 
-    /// @brief whether link state has been modfied
+    /// @brief whether link state has been modified
     LinkState getLinkState() const;
 
     /// @brief multiplexes message to two targets
@@ -138,7 +177,7 @@ public:
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -147,10 +186,11 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief FOX needs this
@@ -158,10 +198,10 @@ protected:
 
 private:
     /// @brief pointer to junction parent
-    const GNEJunction* myJunctionParent;
+    GNEJunction* myJunctionParent;
 
     /// @brief internal lane geometry
-    GNEGeometry::Geometry myInternalLaneGeometry;
+    GUIGeometry myInternalLaneGeometry;
 
     /// @brief the state of the link (used for visualization)
     FXuint myState;

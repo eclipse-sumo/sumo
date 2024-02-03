@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -85,48 +85,51 @@ std::set<std::string> deprecatedVehicleClassesSeen;
 
 
 static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
-    {"pedestrian",            SVS_PEDESTRIAN},
-    {"bicycle",               SVS_BICYCLE},
-    {"moped",                 SVS_MOPED},
-    {"motorcycle",            SVS_MOTORCYCLE},
-    {"passenger",             SVS_PASSENGER},
-    {"passenger/sedan",       SVS_PASSENGER_SEDAN},
-    {"passenger/hatchback",   SVS_PASSENGER_HATCHBACK},
-    {"passenger/wagon",       SVS_PASSENGER_WAGON},
-    {"passenger/van",         SVS_PASSENGER_VAN},
-    {"delivery",              SVS_DELIVERY},
-    {"transport",             SVS_TRUCK}, // !!! deprecated
-    {"truck",                 SVS_TRUCK},
-    {"transport/semitrailer", SVS_TRUCK_SEMITRAILER}, // !!! deprecated
-    {"truck/semitrailer",     SVS_TRUCK_SEMITRAILER},
-    {"transport/trailer",     SVS_TRUCK_1TRAILER}, // !!! deprecated
-    {"truck/trailer",         SVS_TRUCK_1TRAILER},
-    {"bus/city",              SVS_BUS}, // !!! deprecated
-    {"bus",                   SVS_BUS},
-    {"bus/overland",          SVS_BUS_COACH}, // !!! deprecated
-    {"bus/coach",             SVS_BUS_COACH},
-    {"bus/flexible",          SVS_BUS_FLEXIBLE},
-    {"bus/trolley",           SVS_BUS_TROLLEY},
-    {"rail/slow",             SVS_RAIL}, // !!! deprecated
-    {"rail/fast",             SVS_RAIL}, // !!! deprecated
-    {"rail",                  SVS_RAIL},
-    {"rail/light",            SVS_RAIL_CAR}, // !!! deprecated
-    {"rail/city",             SVS_RAIL_CAR}, // !!! deprecated
-    {"rail/railcar",          SVS_RAIL_CAR},
-    {"rail/cargo",            SVS_RAIL_CARGO},
-    {"evehicle",              SVS_E_VEHICLE},
-    {"ant",                   SVS_ANT},
-    {"ship",                  SVS_SHIP},
-    {"emergency",             SVS_EMERGENCY},
-    {"firebrigade",           SVS_FIREBRIGADE},
-    {"police",                SVS_POLICE},
-    {"rickshaw",              SVS_RICKSHAW },
-    {"",                      SVS_UNKNOWN}
+    {"pedestrian",            SUMOVehicleShape::PEDESTRIAN},
+    {"bicycle",               SUMOVehicleShape::BICYCLE},
+    {"moped",                 SUMOVehicleShape::MOPED},
+    {"motorcycle",            SUMOVehicleShape::MOTORCYCLE},
+    {"passenger",             SUMOVehicleShape::PASSENGER},
+    {"passenger/sedan",       SUMOVehicleShape::PASSENGER_SEDAN},
+    {"passenger/hatchback",   SUMOVehicleShape::PASSENGER_HATCHBACK},
+    {"passenger/wagon",       SUMOVehicleShape::PASSENGER_WAGON},
+    {"passenger/van",         SUMOVehicleShape::PASSENGER_VAN},
+    {"taxi",                  SUMOVehicleShape::TAXI},
+    {"delivery",              SUMOVehicleShape::DELIVERY},
+    {"transport",             SUMOVehicleShape::TRUCK}, // !!! deprecated
+    {"truck",                 SUMOVehicleShape::TRUCK},
+    {"transport/semitrailer", SUMOVehicleShape::TRUCK_SEMITRAILER}, // !!! deprecated
+    {"truck/semitrailer",     SUMOVehicleShape::TRUCK_SEMITRAILER},
+    {"transport/trailer",     SUMOVehicleShape::TRUCK_1TRAILER}, // !!! deprecated
+    {"truck/trailer",         SUMOVehicleShape::TRUCK_1TRAILER},
+    {"bus/city",              SUMOVehicleShape::BUS}, // !!! deprecated
+    {"bus",                   SUMOVehicleShape::BUS},
+    {"bus/overland",          SUMOVehicleShape::BUS_COACH}, // !!! deprecated
+    {"bus/coach",             SUMOVehicleShape::BUS_COACH},
+    {"bus/flexible",          SUMOVehicleShape::BUS_FLEXIBLE},
+    {"bus/trolley",           SUMOVehicleShape::BUS_TROLLEY},
+    {"rail/slow",             SUMOVehicleShape::RAIL}, // !!! deprecated
+    {"rail/fast",             SUMOVehicleShape::RAIL}, // !!! deprecated
+    {"rail",                  SUMOVehicleShape::RAIL},
+    {"rail/light",            SUMOVehicleShape::RAIL_CAR}, // !!! deprecated
+    {"rail/city",             SUMOVehicleShape::RAIL_CAR}, // !!! deprecated
+    {"rail/railcar",          SUMOVehicleShape::RAIL_CAR},
+    {"rail/cargo",            SUMOVehicleShape::RAIL_CARGO},
+    {"evehicle",              SUMOVehicleShape::E_VEHICLE},
+    {"ant",                   SUMOVehicleShape::ANT},
+    {"ship",                  SUMOVehicleShape::SHIP},
+    {"emergency",             SUMOVehicleShape::EMERGENCY},
+    {"firebrigade",           SUMOVehicleShape::FIREBRIGADE},
+    {"police",                SUMOVehicleShape::POLICE},
+    {"rickshaw",              SUMOVehicleShape::RICKSHAW },
+    {"scooter",               SUMOVehicleShape::SCOOTER},
+    {"aircraft",              SUMOVehicleShape::AIRCRAFT},
+    {"",                      SUMOVehicleShape::UNKNOWN}
 };
 
 
 StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
-    sumoVehicleShapeStringInitializer, SVS_UNKNOWN, false);
+    sumoVehicleShapeStringInitializer, SUMOVehicleShape::UNKNOWN, false);
 
 // ===========================================================================
 // static values used for cached
@@ -147,30 +150,133 @@ const SVCPermissions SVCAll = 2 * (int)SUMOVehicleClass_MAX - 1; // all relevant
 
 const SVCPermissions SVC_UNSPECIFIED = -1;
 
+const SUMOEmissionClass EMISSION_CLASS_UNSPECIFIED = -1;
+
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
-
 const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
-
 const std::string DEFAULT_BIKETYPE_ID("DEFAULT_BIKETYPE");
-
 const std::string DEFAULT_CONTAINERTYPE_ID("DEFAULT_CONTAINERTYPE");
-
 const std::string DEFAULT_TAXITYPE_ID("DEFAULT_TAXITYPE");
+const std::string DEFAULT_RAILTYPE_ID("DEFAULT_RAILTYPE");
+
+const std::set<std::string> DEFAULT_VTYPES({DEFAULT_VTYPE_ID, DEFAULT_PEDTYPE_ID, DEFAULT_BIKETYPE_ID, DEFAULT_CONTAINERTYPE_ID, DEFAULT_TAXITYPE_ID, DEFAULT_RAILTYPE_ID});
 
 const double DEFAULT_VEH_PROB(1.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
+
+const double DEFAULT_BICYCLE_SPEED(20. / 3.6);
 
 const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ------------ Conversion of SUMOVehicleClass
+
+// Stop Offset
+
+StopOffset::StopOffset() :
+    myPermissions(SVCAll),
+    myOffset(0) {
+}
+
+
+StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
+    myPermissions(SVC_IGNORING),
+    myOffset(0) {
+    // first check conditions
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        WRITE_ERROR(TL("Simultaneous specification of vClasses and exceptions is not allowed"));
+        ok = false;
+    }
+    if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
+        WRITE_ERROR(TL("StopOffset requires an offset value"));
+        ok = false;
+    }
+    // parse elements
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
+    // parse permissions
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
+        myPermissions = parseVehicleClasses(vClasses);
+    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        myPermissions = ~parseVehicleClasses(exceptions);
+    } else {
+        // no vClasses specified, thus apply to all
+        myPermissions = parseVehicleClasses("all");
+    }
+    // parse offset
+    myOffset = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, 0);
+}
+
+
+bool
+StopOffset::isDefined() const {
+    return myOffset != 0;
+}
+
+
+void
+StopOffset::reset() {
+    myPermissions = SVC_IGNORING;
+    myOffset = 0;
+}
+
+
+SVCPermissions
+StopOffset::getPermissions() const {
+    return myPermissions;
+}
+
+
+std::string
+StopOffset::getExceptions() const {
+    return getVehicleClassNames(~myPermissions);
+}
+
+
+double
+StopOffset::getOffset() const {
+    return myOffset;
+}
+
+
+void
+StopOffset::setPermissions(const SVCPermissions permissions) {
+    myPermissions = permissions;
+}
+
+
+void
+StopOffset::setExceptions(const std::string permissions) {
+    myPermissions = ~parseVehicleClasses(permissions);
+}
+
+
+void
+StopOffset::setOffset(const double offset) {
+    myOffset = offset;
+}
+
+
+bool
+StopOffset::operator==(StopOffset const& other) const {
+    return ((myPermissions == other.myPermissions) &&
+            (myOffset == other.myOffset));
+}
+
+
+bool
+StopOffset::operator!=(StopOffset const& other) const {
+    return ((myPermissions != other.myPermissions) ||
+            (myOffset != other.myOffset));
+}
+
+// Conversion of SUMOVehicleClass
 
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
-    if (permissions == SVCAll && !expand) {
+    if ((permissions & SVCAll) == SVCAll && !expand) {
         return vehicleClassNameAll;
     }
     // check if previously was cached
@@ -234,7 +340,7 @@ parseVehicleClasses(const std::string& allowedS) {
         while (sta.hasNext()) {
             const std::string s = sta.next();
             if (!SumoVehicleClassStrings.hasString(s)) {
-                WRITE_ERROR("Unknown vehicle class '" + s + "' encountered.");
+                WRITE_ERRORF(TL("Unknown vehicle class '%' encountered."), s);
             } else {
                 const SUMOVehicleClass vc = getVehicleClassID(s);
                 const std::string& realName = SumoVehicleClassStrings.getString(vc);
@@ -271,16 +377,16 @@ canParseVehicleClasses(const std::string& classes) {
 
 
 SVCPermissions
-parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion) {
+parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, const MMVersion& networkVersion) {
     if (allowedS.size() == 0 && disallowedS.size() == 0) {
         return SVCAll;
     } else if (allowedS.size() > 0 && disallowedS.size() > 0) {
-        WRITE_WARNING("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'");
+        WRITE_WARNING(TL("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'"));
         return parseVehicleClasses(allowedS);
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < 1.3 ? SVC_RAIL_FAST : 0));
+        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < MMVersion(1, 3) ? SVC_RAIL_FAST : 0));
     }
 }
 
@@ -301,7 +407,7 @@ parseVehicleClasses(const std::vector<std::string>& allowedS) {
         const SUMOVehicleClass vc = getVehicleClassID(*i);
         const std::string& realName = SumoVehicleClassStrings.getString(vc);
         if (realName != *i) {
-            WRITE_WARNING("The vehicle class '" + (*i) + "' is deprecated, use '" + realName + "' instead.");
+            WRITE_WARNINGF(TL("The vehicle class '%' is deprecated, use '%' instead."), (*i), realName);
         }
         result |= getVehicleClassID(*i);
     }
@@ -372,6 +478,10 @@ bool isTram(SVCPermissions permissions) {
     return (permissions & SVC_RAIL_CLASSES) == SVC_TRAM && (permissions & SVC_PASSENGER) == 0;
 }
 
+bool isBikepath(SVCPermissions permissions) {
+    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_PASSENGER) == 0;
+}
+
 
 bool
 isWaterway(SVCPermissions permissions) {
@@ -394,32 +504,6 @@ isSidewalk(SVCPermissions permissions) {
 bool
 noVehicles(SVCPermissions permissions) {
     return isForbidden(permissions) || isSidewalk(permissions);
-}
-
-
-std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
-    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
-        ok = false;
-        return std::map<SVCPermissions, double>();
-    }
-    const double value = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
-
-    int vClassBitset;
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
-        vClassBitset = parseVehicleClasses(vClasses);
-    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        vClassBitset = ~parseVehicleClasses(exceptions);
-    } else {
-        // no vClasses specified, thus apply to all
-        vClassBitset = parseVehicleClasses("all");
-    }
-
-    std::map<SVCPermissions, double> offsets;
-    offsets[vClassBitset] = value;
-    return offsets;
 }
 
 

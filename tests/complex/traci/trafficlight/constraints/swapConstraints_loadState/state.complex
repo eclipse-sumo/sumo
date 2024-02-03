@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 10 12:58:30 2021 by Eclipse SUMO sumo Version v1_8_0+1560-191d774
+<!-- generated on 2022-03-30 09:15:07 by Eclipse SUMO sumo Version v1_12_0+1760-67fbbcd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,28 +19,25 @@
     </report>
 
     <traci_server>
-        <remote-port value="59244"/>
+        <remote-port value="42627"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+1560-191d774" time="0.00" type="micro" constraints="1">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1760-67fbbcd" time="0.00" type="micro" constraints="1">
     <route id="!t0" state="0" edges="a g"/>
     <route id="!t1" state="0" edges="h g"/>
     <route id="!t2" state="0" edges="d g"/>
     <delay number="0" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="50.00" vClass="rail"/>
-    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0" distance="0 0" speedFactor="1.00" reroute="1" state="131090 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="tripinfo_t0" state=" 0 -1 0 0 0 0 0 -1"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_t0" state="0"/>
     </vehicle>
-    <vehicle id="t1" type="train" depart="0.00" departSpeed="max" route="!t1" distance="0 0" speedFactor="1.00" reroute="1" state="131090 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="tripinfo_t1" state=" 0 -1 0 0 0 0 0 -1"/>
+    <vehicle id="t1" type="train" depart="0.00" departSpeed="max" route="!t1" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_t1" state="0"/>
     </vehicle>
-    <vehicle id="t2" type="train" depart="0.00" departSpeed="max" route="!t2" distance="0 0" speedFactor="1.00" reroute="1" state="131090 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="tripinfo_t2" state=" 0 -1 0 0 0 0 0 -1"/>
+    <vehicle id="t2" type="train" depart="0.00" departSpeed="max" route="!t2" distance="0 0" speedFactor="1.0000" reroute="1" state="262162 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="routing_t2" state="0"/>
     </vehicle>
     <railSignalConstraints id="C">

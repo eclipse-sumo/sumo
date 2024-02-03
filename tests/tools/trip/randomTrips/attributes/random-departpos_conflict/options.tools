@@ -1,0 +1,1 @@
+-n net.net.xml --random-departpos --trip-attributes "departPos=\\"random\\""

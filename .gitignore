@@ -1,36 +1,23 @@
-# root dir, mostly configure / make stuff
-/aclocal.m4
-/autom4te.cache
-/config.guess
-/config.log
-/config.status
-/config.sub
-/configure
-/depcomp
-/install-sh
-/libtool
-/ltmain.sh
-/missing
+# root dir, mostly release / doc building stuff
 /sumo-*.tar.gz
 /sumo-*.zip
 /diff.*
 /compile
 /latex
 /mirror
+/share
+/dist
+/setup.py
 # IDE project files
 /.settings
 /.cproject
 /.project
 /.pydevproject
 /.vs
-# build dir 
-/cmake-build*
-/cmake_build*
-/build/cmake-build*
-/build/cmake_build*
-/build/cmake-codeblocks*
-/build/cmake-clang*
-/build/cmake-mingw*
+/.vim
+# build dir
+/clang*
+/build
 /out
 # bin dir
 /bin/TraCITestClient*
@@ -54,17 +41,22 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/testlibsumo*
+/bin/testlibtraci*
 /bin/testthreadpool*
 /bin/*.dll
 /bin/*.dylib
 /bin/*.so
 /bin/*.pyd
+/bin/*.manifest
 /bin/osgPlugins*
 /bin/libsumoc*
 /bin/liblibsumojni.jnilib
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 # data dir
+/data/locale
+/data/templates
+/data/po/*.pot
 /data/proj
 # docs dir, make artifacts
 /docs/doxygen
@@ -102,9 +94,8 @@
 /src/tools/emissionsDrivingCycle
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
-/src/utils/empty.cpp
-/unittest/src/sumo-unittest
 # tools dir
+/tools/*.vs
 /tools/*.egg-info
 /tools/[0-9]*
 /tools/game/*.netstate.xml
@@ -115,28 +106,22 @@
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
+/tools/game/scores.pkl
 /tools/contributed/lisum/lisum-core/target/
 /tools/contributed/lisum/lisum-gui/target/
-/tools/contributed/lisum/lisumgui/target/
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
 /tools/contributed/traas/target
 /tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
-/tools/libsumo/libsumoPYTHON_wrap.cxx
-/tools/libsumo/libsumoc.so
-/tools/libsumo/libsumocpp.so
-/tools/libsumo/libsumocpp.dylib
 /tools/libtraci/_libtraci.*
 /tools/libtraci/libtraci.py
-/tools/libtraci/libtraciPYTHON_wrap.cxx
-/tools/libtraci/libtracicpp.so
-/tools/libtraci/libtracicpp.dylib
+/tools/setup.py
 # extracted tests
 /tests/_*
 # netedit test
-/tests/netedit/__pycache__
+/tests/netedit/.vs/netedit
 /tests/netedit/filter_files
 # global patterns
 Makefile
@@ -148,6 +133,7 @@ lib*.a
 **/.DS_Store
 .libs
 *.o
+__pycache__
 *.pyc
 *.sdf
 *.suo
@@ -171,5 +157,4 @@ lib*.a
 .vscode
 *.aps
 .gdb_history
-
-/share
+.env

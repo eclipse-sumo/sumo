@@ -1,0 +1,6 @@
+Loading net ... done.
+Loading additional file 'input_districts.taz.xml'  ... done.
+Skipped until: 0.00
+DijkstraRouter answered 1 queries and explored 316.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
+Success.

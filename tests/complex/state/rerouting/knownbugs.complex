@@ -1,6 +1,0 @@
-
-[Reported by erdm_ja at 21Nov08:03:52]
-search_string:emergency braking
-search_file:errors
-full_description:invalid insertion speed after teleport
-brief_description:see #4822

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 ///
 // Tests the class Boundary
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <utils/geom/Boundary.h>
@@ -26,7 +27,7 @@
 /* Test the method 'add'*/
 TEST(Boundary, test_method_add) {
     Boundary bound;
-    bound.add(1, 2);
+    bound.add(1, 2); // Will work for bound.add(2,1) too
     EXPECT_DOUBLE_EQ(bound.xmax(), 1);
     EXPECT_DOUBLE_EQ(bound.xmin(), 1);
     EXPECT_DOUBLE_EQ(bound.ymax(), 2);
@@ -116,4 +117,22 @@ TEST(Boundary, test_method_moveby) {
     EXPECT_DOUBLE_EQ(bound.xmin(), 3.5);
     EXPECT_DOUBLE_EQ(bound.ymax(), 2.5);
     EXPECT_DOUBLE_EQ(bound.ymin(), -1.5);
+}
+
+
+
+/* Test the method 'growWidth'*/
+TEST(Boundary, test_method_growWidth) {
+    Boundary bound(1, 2, 3, 6);
+    bound.growWidth(0.5);
+    EXPECT_DOUBLE_EQ(bound.xmin(), 0.5);
+    EXPECT_DOUBLE_EQ(bound.xmax(), 3.5);
+}
+
+/* Test the method 'growHeight'*/
+TEST(Boundary, test_method_growHeight) {
+    Boundary bound(1, 2, 3, 6);
+    bound.growHeight(0.5);
+    EXPECT_DOUBLE_EQ(bound.ymin(), 1.5);
+    EXPECT_DOUBLE_EQ(bound.ymax(), 6.5);
 }

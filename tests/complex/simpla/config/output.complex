@@ -1,21 +1,9 @@
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
- Retrying in 1 seconds
 Testing config warnings...
- Retrying in 1 seconds
 Testing exception messages...
- Retrying in 1 seconds
 Testing malformed vtype map file causing exception...
- Retrying in 1 seconds
 Testing empty config...
- Retrying in 1 seconds
 Testing standard config...
-Loading vehicle type mappings from file '/home/erdm_ja/scr1/sumo/tests/complex/simpla/config/vtype.map'... (Config)
+Loading vehicle type mappings from file 'D:\Repos\sumo\tests\complex\simpla\config\vtype.map'... (Config)
 original type: 'pkwFern5' (Config)
 platoon leader type: 'pkwFern5_pLeader' (Config)
 platoon follower type: 'pkwFern5_pFollower' (Config)
@@ -46,7 +34,6 @@ platoon leader type: 'pkwFern2b_pLeader' (Config)
 platoon follower type: 'pkwFern2b_pFollower' (Config)
 catchup type: 'pkwFern2b_pCatchup' (Config)
 catchup follower type: 'pkwFern2b_pCatchupFollower' (Config)
- Retrying in 1 seconds
+Testing lookAhead settings only...
 Testing specification of vTypeMap only...
- Retrying in 1 seconds
 Testing partial config...

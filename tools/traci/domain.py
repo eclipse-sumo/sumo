@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,12 +23,11 @@ from __future__ import print_function
 from __future__ import absolute_import
 import copy
 import warnings
-from functools import wraps
 
 from . import constants as tc
-from .exceptions import FatalTraCIError
+from .exceptions import FatalTraCIError, alias_param
 
-_defaultDomains = []
+DOMAINS = []
 
 
 def _readParameterWithKey(result):
@@ -89,13 +88,13 @@ class SubscriptionResults:
             return self._results
         return self._results.get(refID, {})
 
-    def addContext(self, refID, domain, objID, varID=None, data=None):
+    def addContext(self, refID, objectID=None, varID=None, data=None):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
-        if objID not in self._contextResults[refID]:
-            self._contextResults[refID][objID] = {}
+        if objectID is not None and objectID not in self._contextResults[refID]:
+            self._contextResults[refID][objectID] = {}
         if varID is not None and data is not None:
-            self._contextResults[refID][objID][varID] = _parse(self._valueFunc, varID, data)
+            self._contextResults[refID][objectID][varID] = _parse(self._valueFunc, varID, data)
 
     def getContext(self, refID=None):
         if refID is None:
@@ -126,9 +125,9 @@ class Domain:
         self._deprecatedFor = deprecatedFor
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
-        self._traceFile = None
-        self._hasTracingWrapper = False
-        _defaultDomains.append(self)
+        DOMAINS.append(self)
+        # alias
+        self.DOMAIN_ID = cmdGetID
 
     def _register(self, connection, mapping):
         dom = copy.copy(self)
@@ -141,30 +140,6 @@ class Domain:
 
     def _setConnection(self, connection):
         self._connection = connection
-
-    def _setTraceFile(self, traceFile, traceGetters):
-        if self._traceFile is None and not self._hasTracingWrapper:
-            self._hasTracingWrapper = True
-            # decorate all methods
-            for attrName in dir(self):
-                if (not attrName.startswith("_")
-                        and attrName != 'unsubscribe'
-                        and (traceGetters or not attrName.startswith("get"))):
-                    attr = getattr(self, attrName)
-                    if callable(attr):
-                        setattr(self, attrName, self._addTracing(attr))
-        self._traceFile = traceFile
-
-    def _addTracing(self, method):
-        @wraps(method)
-        def tracingWrapper(*args, **kwargs):
-            if self._traceFile:
-                self._traceFile.write("traci.%s.%s(%s)\n" % (
-                    self._name,
-                    method.__name__,
-                    ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
-            return method(*args, **kwargs)
-        return tracingWrapper
 
     def _getUniversal(self, varID, objectID="", format="", *values):
         if self._deprecatedFor:
@@ -217,7 +192,8 @@ class Domain:
 
         Unsubscribe from receiving object values.
         """
-        self.subscribe(objectID, [])
+        self._connection._subscribe(self._subscribeID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE,
+                                    objectID, [], None)
 
     def getSubscriptionResults(self, objectID):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -248,11 +224,11 @@ class Domain:
         """
         if varIDs is None:
             varIDs = self._subscriptionDefault
-        self._connection._subscribeContext(
-            self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
+        self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
 
     def unsubscribeContext(self, objectID, domain, dist):
-        self.subscribeContext(objectID, domain, dist, [])
+        self._connection._subscribeContext(self._contextID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE,
+                                           objectID, domain, dist, [], None)
 
     def getContextSubscriptionResults(self, objectID):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)
@@ -260,30 +236,34 @@ class Domain:
     def getAllContextSubscriptionResults(self):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(None)
 
-    def getParameter(self, objID, param):
+    @alias_param(("objectID", "key"), ("objID", "param"))
+    def getParameter(self, objectID, key):
         """getParameter(string, string) -> string
 
-        Returns the value of the given parameter for the given objID
+        Returns the value of the given parameter for the given objectID
         """
-        return self._getUniversal(tc.VAR_PARAMETER, objID, "s", param)
+        return self._getUniversal(tc.VAR_PARAMETER, objectID, "s", key)
 
-    def getParameterWithKey(self, objID, param):
+    @alias_param(("objectID", "key"), ("objID", "param"))
+    def getParameterWithKey(self, objectID, key):
         """getParameterWithKey(string, string) -> (string, string)
 
-        Returns the (key, value) tuple of the given parameter for the given objID
+        Returns the (key, value) tuple of the given parameter for the given objectID
         """
-        return self._getUniversal(tc.VAR_PARAMETER_WITH_KEY, objID, "s", param)
+        return self._getUniversal(tc.VAR_PARAMETER_WITH_KEY, objectID, "s", key)
 
-    def subscribeParameterWithKey(self, objID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+    @alias_param("objectID", "objID")
+    def subscribeParameterWithKey(self, objectID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeParameterWithKey(string, string) -> None
 
         Subscribe for a generic parameter with the given key.
         """
-        self.subscribe(objID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
+        self.subscribe(objectID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
 
-    def setParameter(self, objID, param, value):
+    @alias_param(("objectID", "key"), ("objID", "param"))
+    def setParameter(self, objectID, key, value):
         """setParameter(string, string, string) -> None
 
-        Sets the value of the given parameter to value for the given objID
+        Sets the value of the given parameter to value for the given objectID
         """
-        self._setCmd(tc.VAR_PARAMETER, objID, "tss", 2, param, value)
+        self._setCmd(tc.VAR_PARAMETER, objectID, "tss", 2, key, value)

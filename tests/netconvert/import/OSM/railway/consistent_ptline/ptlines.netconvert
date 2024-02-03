@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-19 12:40:11 by Eclipse SUMO netconvert Version v1_14_1+1116-701d17501f3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger,bus,tram"/>
+    </edge_removal>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="1518915" name="Bus 422: Lehndorf =&gt; Bebelhof" line="422" type="bus" vClass="bus" period="1800" color="90,197,242" completeness="0.02">
+        <route edges="393081317 564399027 -599936773 -563320576#2 -563320576#1 -563320576#0 -361120217#1 -361120217#0 -361120213"/>
+        <busStop id="5428806610" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="31272" name="Tram 4: Helmstedter Str. =&gt; Radeklint" line="4" type="tram" vClass="tram" period="900" color="0,158,227" completeness="0.17">
+        <route edges="291757758#0 291757758#1 291757758#2 291757758#3 291757758#4 291757758#5 291757758#6 291757758#7 291757758#8 291757758#9 291757758#10 291757758#11 291757758#12 291757758#13 291757758#14 291757758#15"/>
+        <busStop id="5414156524" name="Ackerstraße"/>
+        <busStop id="5708039355" name="Hauptfriedhof"/>
+    </ptLine>
+    <ptLine id="3887930" name="Tram 4: Radeklint =&gt; Helmstedter Str." line="4" type="tram" vClass="tram" period="900" color="0,158,227" completeness="0.08">
+        <route edges="310569080#0 310569080#1 310569080#2 310569080#3 310569080#4 310569080#5 310569080#6 310569080#7 310569080#8 310569080#9 310569080#10 310569080#11 310569080#12 600220249#0 600220249#1 600220249#2"/>
+        <busStop id="5414156523" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6615477" name="Bus 422: Bebelhof =&gt; Lehndorf" line="422" type="bus" vClass="bus" period="1800" color="90,197,242" completeness="0.03">
+        <route edges="361120213 361120217#0 361120217#1 563320576#0 563320576#1 563320576#2 599936773 -382039401#2 -382039401#1 -382039401#0 61302715"/>
+        <busStop id="5428806609" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6789990" name="Bus 482: Braunschweiger Verkehrs-GmbH =&gt; Hauptbahnhof" line="482" type="bus" vClass="bus" color="215,181,46" completeness="0.20">
+        <route edges="33081812#0 33081812#1 33081812#2 33081812#3 33081812#4 33081812#5 33081812#6 375217300#0 375217300#1 25258740#0 25258740#1 25258740#2 25258740#3 25258740#4 61302715"/>
+        <busStop id="5428806609" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6789991" name="Bus 482: Hauptbahnhof =&gt; Braunschweiger Verkehrs-GmbH" line="482" type="bus" vClass="bus" color="215,181,46" completeness="0.17">
+        <route edges="393081317 564399027 382044611#0 382044611#1 382044611#2 382044611#3 382044612 382044613#0 382044613#1 375217302#0 375217302#1 375217302#2"/>
+        <busStop id="5428806610" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6915025" name="Bus 730: Braunschweig =&gt; Evessen" line="730" type="bus" vClass="bus" period="3600" completeness="0.02">
+        <route edges="393081317 564399027 382044611#0 382044611#1 382044611#2 382044611#3 382044612 382044613#0 382044613#1 375217305#0 375217305#1 375217305#2 375217305#3 375217305#4 375217305#5 334152811#0 334152811#1 334152811#2 334152812"/>
+        <busStop id="5428806610" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6915026" name="Bus 730: Braunschweig =&gt; Neuerkerode" line="730" type="bus" vClass="bus" period="3600" completeness="0.04">
+        <route edges="393081317 564399027 382044611#0 382044611#1 382044611#2 382044611#3 382044612 382044613#0 382044613#1 375217305#0 375217305#1 375217305#2 375217305#3 375217305#4 375217305#5 334152811#0 334152811#1 334152811#2 334152812"/>
+        <busStop id="5428806610" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6952991" name="Bus 412: Braunschweiger Verkehrs-GmbH =&gt; Welfenplatz" line="412" type="bus" vClass="bus" color="0,167,92" completeness="0.04">
+        <route edges="33081812#0 33081812#1 33081812#2 33081812#3 33081812#4 33081812#5 33081812#6 375217301#0 375217301#1 375217301#2 375217305#0 375217305#1 375217305#2 375217305#3 375217305#4 375217305#5 334152817#0 334152817#1 334152812"/>
+        <busStop id="765824928" name="Hauptfriedhof"/>
+    </ptLine>
+    <ptLine id="6952992" name="Bus 412: Paxmannstraße =&gt; Rathaus" line="412" type="bus" vClass="bus" period="1800" color="0,167,92" completeness="0.03">
+        <route edges="334152813#0 334152813#1 334152813#2 334152813#3 334152813#4 334152813#5 334152813#6 334152813#7 334152813#8 495906628 495906623#0 495906623#1 24874322#0 24874322#1 24874322#2 375217301#0 375217301#1 375217301#2 375217302#0 375217302#1 375217302#2 33081812#0 33081812#1 33081812#2 33081812#3 33081812#4 33081812#5 33081812#6 375217300#0 375217300#1 25258740#0 25258740#1 25258740#2 25258740#3 25258740#4 382039401#0 382039401#1 382039401#2 -599936773 -563320576#2 -563320576#1 -563320576#0 -361120217#1 -361120217#0 -361120213"/>
+        <busStop id="5428806609" name="Ackerstraße"/>
+    </ptLine>
+    <ptLine id="6952993" name="Bus 412: Rathaus =&gt; Paxmannstraße" line="412" type="bus" vClass="bus" color="0,167,92" completeness="0.05">
+        <route edges="361120213 361120217#0 361120217#1 563320576#0 563320576#1 563320576#2 599936773 382044611#0 382044611#1 382044611#2 382044611#3 382044612 382044613#0 382044613#1 375217305#0 375217305#1 375217305#2 375217305#3 375217305#4 375217305#5 334152817#0 334152817#1 334152812"/>
+        <busStop id="5428806610" name="Ackerstraße"/>
+        <busStop id="765824928" name="Hauptfriedhof"/>
+    </ptLine>
+</ptLines>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@
  */
 class MSDispatch_Greedy : public MSDispatch {
 public:
-    MSDispatch_Greedy(const std::map<std::string, std::string>& params) :
+    MSDispatch_Greedy(const Parameterised::Map& params) :
         MSDispatch(params),
         myRoutingMode(StringUtils::toInt(getParameter("routingMode", "1"))),
         myMaximumWaitingTime(TIME2STEPS(StringUtils::toInt(getParameter("maxWaitingTime", "300")))),
@@ -76,7 +76,7 @@ private:
  */
 class MSDispatch_GreedyClosest : public MSDispatch_Greedy {
 public:
-    MSDispatch_GreedyClosest(const std::map<std::string, std::string>& params) :
+    MSDispatch_GreedyClosest(const Parameterised::Map& params) :
         MSDispatch_Greedy(params)
     {}
 

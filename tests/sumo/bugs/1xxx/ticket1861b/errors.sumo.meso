@@ -1,0 +1,6 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Vehicle class 'bicycle' of vType 'bike' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Vehicle 'bikeDisconnected' is not allowed on destination edge 'end'.
+Warning: No route for vehicle 'bikeDisconnected' found.
+Error: Vehicle 'bikeDisconnected' has no valid route.
+Quitting (on error).

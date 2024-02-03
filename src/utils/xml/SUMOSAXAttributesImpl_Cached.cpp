@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,19 +47,6 @@ SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
     myPredefinedTagsMML(predefinedTagsMML) { }
 
 
-SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
-    const std::map<SumoXMLAttr, std::string>& attrs,
-    const std::vector<std::string>& predefinedTagsMML,
-    const std::string& objectType) :
-    SUMOSAXAttributes(objectType),
-    myPredefinedTagsMML(predefinedTagsMML) {
-    // parse <SumoXMLAttr, string> to <string, string>
-    for (const auto& i : attrs) {
-        myAttrs[toString(i.first)] = i.second;
-    }
-}
-
-
 SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() { }
 
 
@@ -71,27 +58,14 @@ SUMOSAXAttributesImpl_Cached::hasAttribute(int id) const {
 }
 
 
-bool
-SUMOSAXAttributesImpl_Cached::getBool(int id) const {
-    return StringUtils::toBool(getAttributeValueSecure(id));
-}
-
-
-int
-SUMOSAXAttributesImpl_Cached::getInt(int id) const {
-    return StringUtils::toInt(getAttributeValueSecure(id));
-}
-
-
-long long int
-SUMOSAXAttributesImpl_Cached::getLong(int id) const {
-    return StringUtils::toLong(getAttributeValueSecure(id));
-}
-
-
 std::string
-SUMOSAXAttributesImpl_Cached::getString(int id) const {
-    return getAttributeValueSecure(id);
+SUMOSAXAttributesImpl_Cached::getString(int id, bool* isPresent) const {
+    const auto it = myAttrs.find(myPredefinedTagsMML[id]);
+    if (it != myAttrs.end()) {
+        return it->second;
+    }
+    *isPresent = false;
+    return "";
 }
 
 
@@ -99,12 +73,6 @@ std::string
 SUMOSAXAttributesImpl_Cached::getStringSecure(int id, const std::string& str) const {
     const std::string& result = getAttributeValueSecure(id);
     return result.size() == 0 ? str : result;
-}
-
-
-double
-SUMOSAXAttributesImpl_Cached::getFloat(int id) const {
-    return StringUtils::toDouble(getAttributeValueSecure(id));
 }
 
 
@@ -137,128 +105,6 @@ SUMOSAXAttributesImpl_Cached::getStringSecure(const std::string& id,
     } else {
         return str;
     }
-}
-
-
-SumoXMLEdgeFunc
-SUMOSAXAttributesImpl_Cached::getEdgeFunc(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FUNCTION)) {
-        std::string funcString = getString(SUMO_ATTR_FUNCTION);
-        if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
-            return SUMOXMLDefinitions::EdgeFunctions.get(funcString);
-        }
-        ok = false;
-    }
-    return SumoXMLEdgeFunc::NORMAL;
-}
-
-
-SumoXMLNodeType
-SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_TYPE)) {
-        std::string typeString = getString(SUMO_ATTR_TYPE);
-        if (SUMOXMLDefinitions::NodeTypes.hasString(typeString)) {
-            return SUMOXMLDefinitions::NodeTypes.get(typeString);
-        }
-        ok = false;
-    }
-    return SumoXMLNodeType::UNKNOWN;
-}
-
-
-RightOfWay
-SUMOSAXAttributesImpl_Cached::getRightOfWay(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
-        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
-        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
-            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
-        }
-        ok = false;
-    }
-    return RightOfWay::DEFAULT;
-}
-
-FringeType
-SUMOSAXAttributesImpl_Cached::getFringeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FRINGE)) {
-        std::string fringeString = getString(SUMO_ATTR_FRINGE);
-        if (SUMOXMLDefinitions::FringeTypeValues.hasString(fringeString)) {
-            return SUMOXMLDefinitions::FringeTypeValues.get(fringeString);
-        }
-        ok = false;
-    }
-    return FringeType::DEFAULT;
-}
-
-RGBColor
-SUMOSAXAttributesImpl_Cached::getColor() const {
-    return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
-}
-
-
-Position 
-SUMOSAXAttributesImpl_Cached::getPosition(int attr) const {
-    // declare string tokenizer
-    StringTokenizer st(getString(attr));
-    // check StringTokenizer
-    while (st.hasNext()) {
-        // obtain position
-        StringTokenizer pos(st.next(), ",");
-        // check that position has X-Y or X-Y-Z
-        if ((pos.size() != 2) && (pos.size() != 3)) {
-            throw FormatException("position format");
-        }
-        // obtain x and y
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        // check if return a X-Y or a X-Y-Z Position
-        if (pos.size() == 2) {
-            return Position(x, y);
-        } else {
-            // obtain z
-            double z = StringUtils::toDouble(pos.next());
-            return Position(x, y, z);
-        }
-    }
-    // empty positions aren't allowed
-    throw FormatException("position format");
-}
-
-
-PositionVector
-SUMOSAXAttributesImpl_Cached::getShape(int attr) const {
-    StringTokenizer st(getString(attr));
-    PositionVector shape;
-    while (st.hasNext()) {
-        StringTokenizer pos(st.next(), ",");
-        if (pos.size() != 2 && pos.size() != 3) {
-            throw FormatException("shape format");
-        }
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        if (pos.size() == 2) {
-            shape.push_back(Position(x, y));
-        } else {
-            double z = StringUtils::toDouble(pos.next());
-            shape.push_back(Position(x, y, z));
-        }
-    }
-    return shape;
-}
-
-
-Boundary
-SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
-    std::string def = getString(attr);
-    StringTokenizer st(def, ",");
-    if (st.size() != 4) {
-        throw FormatException("boundary format");
-    }
-    const double xmin = StringUtils::toDouble(st.next());
-    const double ymin = StringUtils::toDouble(st.next());
-    const double xmax = StringUtils::toDouble(st.next());
-    const double ymax = StringUtils::toDouble(st.next());
-    return Boundary(xmin, ymin, xmax, ymax);
 }
 
 

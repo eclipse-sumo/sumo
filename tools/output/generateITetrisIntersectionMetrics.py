@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -64,26 +64,26 @@ def mergeInfos(tlsInfoAll, tlsInfoOne, metric):
 
 
 def getStatisticsOutput(tlsInfo, outputfile):
-    opfile = open(outputfile, 'w')
-    for tl in tlsInfo.keys():
-        opfile.write('Traffic Light %s\n' % tl)
-        opfile.write('=================\n')
-        opfile.write(
-            'mean queue length in front of the junction: %s\n' % tlsInfo[tl]['mQueueLen'])
-        opfile.write(
-            'mean waiting time in front of the junction: %s\n' % tlsInfo[tl]['mWaitTime'])
-        if 'noise' in tlsInfo[tl]:
-            opfile.write('mean noise emission: %s\n' % tlsInfo[tl]['noise'])
-        if 'CO' in tlsInfo[tl]:
-            opfile.write('mean CO emission: %s\n' % tlsInfo[tl]['CO'])
-            opfile.write('mean CO2 emission: %s\n' % tlsInfo[tl]['CO2'])
-            opfile.write('mean HC emission: %s\n' % tlsInfo[tl]['HC'])
-            opfile.write('mean PMx emission: %s\n' % tlsInfo[tl]['PMx'])
-            opfile.write('mean NOx emission: %s\n' % tlsInfo[tl]['NOx'])
-            opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
-        opfile.write('number of stops: %s\n' % tlsInfo[tl]['nbStops'])
-        opfile.write('total waiting time at junction: %s\n\n' %
-                     tlsInfo[tl]['tWaitTime'])
+    with open(outputfile, 'w') as opfile:
+        for tl in tlsInfo.keys():
+            opfile.write('Traffic Light %s\n' % tl)
+            opfile.write('=================\n')
+            opfile.write(
+                'mean queue length in front of the junction: %s\n' % tlsInfo[tl]['mQueueLen'])
+            opfile.write(
+                'mean waiting time in front of the junction: %s\n' % tlsInfo[tl]['mWaitTime'])
+            if 'noise' in tlsInfo[tl]:
+                opfile.write('mean noise emission: %s\n' % tlsInfo[tl]['noise'])
+            if 'CO' in tlsInfo[tl]:
+                opfile.write('mean CO emission: %s\n' % tlsInfo[tl]['CO'])
+                opfile.write('mean CO2 emission: %s\n' % tlsInfo[tl]['CO2'])
+                opfile.write('mean HC emission: %s\n' % tlsInfo[tl]['HC'])
+                opfile.write('mean PMx emission: %s\n' % tlsInfo[tl]['PMx'])
+                opfile.write('mean NOx emission: %s\n' % tlsInfo[tl]['NOx'])
+                opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
+            opfile.write('number of stops: %s\n' % tlsInfo[tl]['nbStops'])
+            opfile.write('total waiting time at junction: %s\n\n' %
+                         tlsInfo[tl]['tWaitTime'])
 
 
 def tlsIDToNodeID(net):

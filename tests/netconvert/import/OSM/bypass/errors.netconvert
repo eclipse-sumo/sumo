@@ -1,9 +1,27 @@
+Warning: Removing pt stop '1333488308' on non existing edge '132630686#1'.
+Warning: Removing pt stop '143456974' on non existing edge '132630686#0'.
+Warning: Removing pt stop '143457010' on non existing edge '132630686#3'.
+Warning: Removing pt stop '2546739825' on non existing edge '247812633#3'.
+Warning: Removing pt stop '2546739829' on non existing edge '247812633#1'.
 Warning: No way found for reference '146235927' in relation '3335539'
 Warning: Ignoring restriction relation '3335539' with unknown to-way.
 Warning: No way found for reference '146236075' in relation '295792'
 Warning: Ignoring restriction relation '295792' with unknown from-way.
 Warning: No way found for reference '26493934' in relation '74756'
 Warning: Ignoring restriction relation '74756' with unknown to-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '143456974' (Grünstraße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '143457010' (Keupstraße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '310245392' (Bahnhof Mülheim). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1333488308' (Wiener Platz). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2546739825' (Keupstraße). Thus, it will be removed!
+Warning: Converting invalid rail_crossing to priority junction '1747124837'.
+Warning: Converting invalid rail_crossing to priority junction '2546740044'.
+Warning: Converting invalid rail_crossing to priority junction '2546740101'.
+Warning: Converting invalid rail_crossing to priority junction '2546740114'.
+Warning: Converting invalid rail_crossing to priority junction '2949021901'.
 Warning: Speed of straight connection '185283364#2_0->288192130_0' reduced by 16.03 due to turning radius of 25.09 (length=13.38, angle=46.57).
 Warning: Speed of straight connection '185283364#2_1->288192130_1' reduced by 15.30 due to turning radius of 28.31 (length=15.16, angle=46.57).
 Warning: Speed of straight connection '154546883#1_0->288192130_1' reduced by 8.59 due to turning radius of 27.27 (length=12.89, angle=42.90).
+Warning: 7 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 9 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
+Warning: 8 total messages of type: Removing pt stop '%' on non existing edge '%'.

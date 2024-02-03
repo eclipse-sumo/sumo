@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,8 +48,7 @@ NamedRTree* POI::myTree(nullptr);
 std::vector<std::string>
 POI::getIDList() {
     std::vector<std::string> ids;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.getPOIs().insertIDs(ids);
+    MSNet::getInstance()->getShapeContainer().getPOIs().insertIDs(ids);
     return ids;
 }
 
@@ -112,8 +111,8 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(POI)
 
 
 void
-POI::setType(const std::string& poiID, const std::string& type) {
-    getPoI(poiID)->setShapeType(type);
+POI::setType(const std::string& poiID, const std::string& poiType) {
+    getPoI(poiID)->setShapeType(poiType);
 }
 
 
@@ -156,16 +155,13 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 
 bool
-POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
+POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType,
+         int layer, const std::string& imgFile, double width, double height, double angle, const std::string& icon) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    bool ok = shapeCont.addPOI(poiID, poiType,
-                               Helper::makeRGBColor(color),
-                               Position(x, y), false, "", 0, 0, (double)layer,
-                               angle,
-                               imgFile,
-                               Shape::DEFAULT_RELATIVEPATH,
-                               width,
-                               height);
+    bool ok = shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color),
+                               Position(x, y), false, "", 0, false, 0, icon, layer,
+                               angle, imgFile, Shape::DEFAULT_RELATIVEPATH,
+                               width, height);
     if (ok && myTree != nullptr) {
         PointOfInterest* p = shapeCont.getPOIs().get(poiID);
         const float cmin[2] = {(float)p->x(), (float)p->y()};

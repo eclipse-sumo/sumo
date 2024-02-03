@@ -1,5 +1,5 @@
  Retrying in 1 seconds
 5.0 (Collision(collider=c0, victim=v0, colliderType=reckless, victimType=slow, colliderSpeed=15.0, victimSpeed=5.0, type=collision, lane=SC_3, pos=25.1), Collision(collider=c1, victim=v1, colliderType=reckless, victimType=slow, colliderSpeed=15.0, victimSpeed=5.0, type=collision, lane=SC_4, pos=25.1))
 16.0 (Collision(collider=c3, victim=pWE.37, colliderType=reckless, victimType=DEFAULT_PEDTYPE, colliderSpeed=15.0, victimSpeed=0.0, type=sharedLane, lane=EC_0, pos=85.15),)
-17.0 (Collision(collider=c2, victim=pWE.3, colliderType=reckless, victimType=DEFAULT_PEDTYPE, colliderSpeed=15.0, victimSpeed=1.37136177913, type=crossing, lane=:C_c0_0, pos=13.2755594496),)
-18.0 (Collision(collider=c2, victim=pWE.3, colliderType=reckless, victimType=DEFAULT_PEDTYPE, colliderSpeed=15.0, victimSpeed=0.0, type=crossing, lane=:C_c0_0, pos=13.2755594496),)
+17.0 (Collision(collider=c2, victim=pWE.3, colliderType=reckless, victimType=DEFAULT_PEDTYPE, colliderSpeed=15.0, victimSpeed=1.37139041691, type=crossing, lane=:C_3_0, pos=13.2760053086),)
+18.0 (Collision(collider=c2, victim=pWE.3, colliderType=reckless, victimType=DEFAULT_PEDTYPE, colliderSpeed=15.0, victimSpeed=0.0, type=crossing, lane=:C_3_0, pos=13.2760053086),)

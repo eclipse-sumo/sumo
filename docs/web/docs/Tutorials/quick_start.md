@@ -12,7 +12,7 @@ found in the repository at [{{SUMO}}/tests/complex/tutorial/quickstart/data]({{S
 ## Example description
 
 In this example, the traffic state will be analyzed with the application
-of SUMO. The example network includes four origins, four destinations as
+of SUMO. The example network includes four origins, four destinations, as
 well as two unsignalized intersections. In the investigated area, each
 road for outbound traffic has three lanes and the allowed traffic
 movements on each lane are restricted. U-turn behaviors are prohibited
@@ -57,7 +57,7 @@ network layout in Figure 1.1, the intersections, origins, and
 destinations are coded, respectively, as nodes 1-6 and nodes 91-94 by
 giving the respective x- and y-coordinates with the program netedit.
 Open netedit, which you can find in the bin directory of the
-SUMO-package. First, create a new network ("File" -\> "New Network...").
+SUMO-package. Then, create a new network ("File" -\> "New Network...").
 
 - Then choose the Edit mode, which is possible in two ways:
 
@@ -72,18 +72,18 @@ SUMO-package. First, create a new network ("File" -\> "New Network...").
   on the canvas. Both will be connected automatically and you will get
   your first edge.
 
-![Second.png](../images/Second.png "Second.png") 
+![Second.png](../images/Second.png "Second.png")
 ![Third.png](../images/Third.png
 "Third.png")
 
 - Next step is to switch to the Inspection mode and replace the name
   and the position of the nodes as defined in Table 1.2 above. Roads
-  are represented as links in SUMO like in other traffic simulation
+  are represented as links in SUMO akin to other traffic simulation
   software. To define link characteristics, the identification
   (**id**) of each link has to be defined first either with numbers,
   word strings, or both. To edit these values, click on the red circle representing the junction using the left mouse button.
 
-![Fourth.png](../images/Fourth.png "Fourth.png") 
+![Fourth.png](../images/Fourth.png "Fourth.png")
 ![Fifth.png](../images/Fifth.png "Fifth.png")
 
 If you press Enter, you will get the new positions.
@@ -91,7 +91,7 @@ If you press Enter, you will get the new positions.
 Now it is time to save your network: You are able to find a selection in
 the dropdown menu of **File**. For our purpose here, the ***Save Network
 As...*** is adequate. Please choose a suitable name for your network,
-for instance quickstart.net.xml. You will use this name later on when
+for instance `quickstart.net.xml`. You will use this name later on when
 referring to the network from your configuration.
 
 - As you can see in the given example, there are streets in both
@@ -100,7 +100,7 @@ referring to the network from your configuration.
   direction*** or select the option ***two-way*** during the creation
   process of an edge.
 
-![sixth.png](../images/Sixth.png "sixth.png") 
+![sixth.png](../images/Sixth.png "sixth.png")
 ![Seventh.png](../images/Seventh.png "Seventh.png")
 
 - Furthermore, one attribute must be changed to get a similar output
@@ -111,12 +111,13 @@ referring to the network from your configuration.
 ![Eighth.png](../images/Eighth.png "Eighth.png")
 
 Now you should be able to create the rest of the given nodes and edges
-in this example and change the names, the number of lanes, and reset the
-positions. Don't forget to save your work from time to time. The Dummy
-nodes 911-914 are needed for analyzing the traffic performance on the
-incoming and outgoing links in the network. More dummy nodes can be
-applied if needed (such as for accurate geometric alignment or for the
-specification of detector locations).
+in this example and change their names, the number of lanes, and reset their
+positions. Don't forget to save your work from time to time.
+
+The junctions 911-914 aren't really needed.
+Splitting an length of road into multiple edges is necessary when an attribute such as speed or numLanes changes.
+Distinct edges may also be useful for [analyzing the traffic performance](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) in more detail.
+To model curved roads it is sufficient to modify the *shape* of an edge using 'move mode'.
 
 - Next step would be to define the connections between the edges. To
   see which connections are already build automatically, please select
@@ -166,7 +167,7 @@ are expected:
 | L17          | L13        | 1        | 1      |
 | L17          | L13        | 2        | 2      |
 
-With the meaning of each attribute as follows:
+The meaning of each attribute is as follows:
 
 - (a) **from**: ID of the link for which the traffic movements will be
   specified.
@@ -174,24 +175,24 @@ With the meaning of each attribute as follows:
 - (c) **fromLane**/**toLane**: lane number of the defined link in (a)
   and the lane number of the link in (b), which are connected.
 
-If you change to the Connection Mode, you are able to specify new
+If you change to Connection Mode, you will be able to specify new
 connections or change existing connections. This is possible by clicking
 on the chosen edge. As you can see on the left side of the following
 picture, the different meanings of the dyed edges are shown in the
 Legend. ![con1.png](../images/Con1.png "con1.png")
-For further information and a deeper sight, please go to
+For further information and a deeper insight on this, please go to
 [netedit](../Netedit/index.md).
 
   - Another topic is the priority of each edge. In our example, the
     priority is 1 by default. To change the priority, please select the
     edges you want to modify (see picture below). Switch to the Inspect
-    mode. Then you are able to change the priority information of all
+    mode. Then, you will be able to change the priority information of all
     selected edges by clicking on one of the selected edges. The
     eastbound and westbound roads in the example with 3 lanes and 2
     lanes should have priority 3 and the northbound (L16) and southbound
     (L15) roads the (lower) priority 2.
 
-![prio1.png](../images/Prio1.png "prio1.png") 
+![prio1.png](../images/Prio1.png "prio1.png")
 ![prio2.png](../images/Prio2.png "prio2.png")
 
 ### Traffic demand
@@ -241,7 +242,7 @@ assigned as 0.5 for all vehicle types.
 
 **Listing 1.5. Traffic demand and route data (quickstart.rou.xml)**
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
   <vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" />
@@ -326,10 +327,10 @@ the simulation time period is specified in a configuration file.
 **Listing 1.7. Configuration file for the traffic simulation of the
 example network (quickstart.sumocfg)**
 
-```
+```xml
 <?xml version="1.0" encoding="iso-8859-1"?>
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
     <input>
         <net-file value="quickstart.net.xml"/>
         <route-files value="quickstart.rou.xml"/>
@@ -342,7 +343,7 @@ example network (quickstart.sumocfg)**
 </configuration>
 ```
 
-We use the `<time-to-teleport value="-1"/>` option here to disable the automatic removal of vehicles which wait too
+We use the `<time-to-teleport value="-1"/>` option here to disable the automatic removal of vehicles which wait for too
 long in front of an intersection.
 
 For the example network, the respective configuration file is shown in
@@ -357,7 +358,7 @@ sumo –c quickstart.sumocfg
 
 The application of [sumo-gui](../sumo-gui.md) is the other way to
 execute the traffic simulation with SUMO. During the execution, each
-vehicular movement and the traffic progression can be observed and the
+vehicular movement and the traffic progression can be observed; and the
 possible bottlenecks can be visually identified. A configuration file
 for all execution actions, e.g. the one in Listing 1.7, is required for
 [sumo-gui](../sumo-gui.md). Double-click on the Program
@@ -375,6 +376,6 @@ up. An illustration example is given in Figure 1.9.
 **Figure 1.9. Illustration of the example network in sumo-gui**
 
 !!! note
-    If you start the tutorial with [sumo-gui](../sumo-gui.md), the whole network is visible at first but no vehicles can be seen because the view is zoomed out very far. You need to zoom in by holding the right mouse button and moving the mouse to be able to see any vehicles. Furthermore, you need not set the delay value to something greater than 0. Otherwise, the simulation may be over very quickly and you do not get to see vehicle movements.
+    If you start the tutorial with [sumo-gui](../sumo-gui.md), the whole network is visible at first but no vehicles can be seen because the view is zoomed out very far. You need to zoom in by holding the right mouse button and moving the mouse to be able to see any vehicles. Furthermore, you need not set the delay value to something greater than 0. Otherwise, the simulation may be over very quickly and you might not be able to see vehicle movements.
 
 Back to [Tutorials](index.md)

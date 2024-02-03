@@ -6,3 +6,9 @@ grid_300m
 
 # input network is random
 random_400
+
+# filter edges by vclass
+vclass
+
+# input network is a shifted grid
+net_offset

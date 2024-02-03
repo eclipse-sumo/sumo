@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 12:17:06 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <collision-output value="collisions.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <collision.action value="warn"/>
+        <lanechange.duration value="3"/>
+        <default.speeddev value="0"/>
+        <default.emergencydecel value="decel"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="8.50" type="collision" lane="SC_0" pos="55.28" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="6.57" victimSpeed="0.00"/>
+    <collision time="9.00" type="collision" lane="SC_0" pos="58.19" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="5.07" victimSpeed="0.00"/>
+    <collision time="9.50" type="collision" lane="SC_0" pos="60.00" collider="v" victim="c" colliderType="surprise" victimType="chump" colliderSpeed="0.00" victimSpeed="3.57"/>
+    <collision time="32.50" type="collision" lane="CN_0" pos="85.65" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="6.15" victimSpeed="0.00"/>
+    <collision time="220.50" type="collision" lane="CN_0" pos="85.65" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="6.15" victimSpeed="0.00"/>
+</collisions>

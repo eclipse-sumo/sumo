@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-27 16:25:26 by Eclipse SUMO sumo Version v1_9_2+0085-7da2bb1
+<!-- generated on 2022-03-02 08:58:48 by Eclipse SUMO sumo Version v1_12_0+1009-519085d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,11 +37,11 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0085-7da2bb1" time="2.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1009-519085d" time="2.00" type="micro">
     <route id="!0" state="0" edges="1si"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="idm" length="5.00" minGap="2.00" carFollowModel="IDM" accel="0.5" decel="3" tau="1" delta="1"/>
-    <vehicle id="0" type="idm" depart="0.00" route="!0" distance="0 0" speedFactor="1.00" state="2 0 0 5.10 0 0.96 1000 0 0" pos="5.59 0.59 0.49" speed="0.49 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="0" type="idm" depart="0.00" route="!0" distance="0 0" speedFactor="1.0000" state="2 0 0 5.10 0 0.96 1000 0 0" pos="5.59 0.59 0.49" speed="0.49 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
     <lane id="1si_0">
         <vehicles value="0"/>
     </lane>

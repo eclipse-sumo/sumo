@@ -1,4 +1,13 @@
-<tazs>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-19 13:34:39.642298 by gridDistricts.py v1_16_0+2184-17938098bd4
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <taz id="0_0" shape="-49.0,-49.0 49.0,-49.0 49.0,49.0 -49.0,49.0 -49.0,-49.0" color="0,42,255" edges="A0A1 A0B0 A1A0 B0A0"/>
     <taz id="0_1" shape="-49.0,51.0 49.0,51.0 49.0,149.0 -49.0,149.0 -49.0,51.0" color="255,38,0" edges="A1A2 A1B1 A2A1 B1A1"/>
     <taz id="0_2" shape="-49.0,151.0 49.0,151.0 49.0,249.0 -49.0,249.0 -49.0,151.0" color="89,255,0" edges="A2A3 A2B2 A3A2 B2A2"/>
@@ -23,4 +32,4 @@
     <taz id="4_1" shape="351.0,51.0 449.0,51.0 449.0,149.0 351.0,149.0 351.0,51.0" color="48,0,255" edges="E1E2 E2E1"/>
     <taz id="4_2" shape="351.0,151.0 449.0,151.0 449.0,249.0 351.0,249.0 351.0,151.0" color="0,255,11" edges="E2E3 E3E2"/>
     <taz id="4_3" shape="351.0,251.0 449.0,251.0 449.0,349.0 351.0,349.0 351.0,251.0" color="255,238,0" edges="E3E4 E4E3"/>
-</tazs>
+</additional>

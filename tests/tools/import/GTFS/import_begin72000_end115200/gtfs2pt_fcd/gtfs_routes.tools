@@ -1,374 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-09 00:51:18.293126 by gtfs2pt.py v1_9_2+0412-04f89b33e3
-  options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus <doubleminus>begin 72000 <doubleminus>end 115200
+
+<!-- generated on 2023-05-17 10:02:11.445132 by gtfs2pt.py v1_17_0+0321-17b203b
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <begin value="72000"/>
+    <end value="115200"/>
+    <network value="net.net.xml"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="132244186.1" route="132244186" type="bus" depart="113870" line="620_132244186"/>
-    <vehicle id="132244187.1" route="132244187" type="bus" depart="110270" line="620_132244187"/>
-    <vehicle id="132244314.0" route="132244187" type="bus" depart="72890" line="620_132244187"/>
-    <vehicle id="132244315.0" route="132244187" type="bus" depart="76490" line="620_132244187"/>
-    <vehicle id="132244316.0" route="132244187" type="bus" depart="80090" line="620_132244187"/>
-    <vehicle id="132244331.0" route="132244187" type="bus" depart="83690" line="620_132244187"/>
-    <vehicle id="132244334.1" route="132244187" type="bus" depart="113270" line="620_132244187"/>
-    <vehicle id="132244369.1" route="132244187" type="bus" depart="112070" line="620_132244187"/>
-    <vehicle id="132244370.1" route="132244187" type="bus" depart="108470" line="620_132244187"/>
-    <vehicle id="132244371.1" route="132244187" type="bus" depart="106370" line="620_132244187"/>
-    <vehicle id="132244374.1" route="132244374" type="bus" depart="111890" line="620_132244374"/>
-    <vehicle id="132244415.1" route="132244415" type="bus" depart="112490" line="620_132244415"/>
-    <vehicle id="132244416.1" route="132244415" type="bus" depart="108890" line="620_132244415"/>
-    <vehicle id="132244498.1" route="132244415" type="bus" depart="107090" line="620_132244415"/>
-    <vehicle id="132244499.1" route="132244415" type="bus" depart="110690" line="620_132244415"/>
-    <vehicle id="132244500.1" route="132244415" type="bus" depart="114290" line="620_132244415"/>
-    <vehicle id="132244578.0" route="132244578" type="bus" depart="74690" line="620_132244578"/>
-    <vehicle id="132244579.0" route="132244578" type="bus" depart="78290" line="620_132244578"/>
-    <vehicle id="132244580.0" route="132244578" type="bus" depart="81890" line="620_132244578"/>
-    <vehicle id="132185501.0" route="132185501" type="bus" depart="86390" line="418_132185501"/>
-    <vehicle id="132185521.1" route="132185521" type="bus" depart="111590" line="418_132185521"/>
-    <vehicle id="132185522.1" route="132185521" type="bus" depart="113390" line="418_132185521"/>
-    <vehicle id="132185783.1" route="132185783" type="bus" depart="105290" line="418_132185783"/>
-    <vehicle id="132185789.0" route="132185783" type="bus" depart="76490" line="418_132185783"/>
-    <vehicle id="132185791.0" route="132185783" type="bus" depart="80090" line="418_132185783"/>
-    <vehicle id="132185792.0" route="132185783" type="bus" depart="81890" line="418_132185783"/>
-    <vehicle id="132185895.1" route="132185783" type="bus" depart="109790" line="418_132185783"/>
-    <vehicle id="132185900.0" route="132185783" type="bus" depart="78290" line="418_132185783"/>
-    <vehicle id="132185971.0" route="132185783" type="bus" depart="84590" line="418_132185783"/>
-    <vehicle id="132185972.0" route="132185783" type="bus" depart="82790" line="418_132185783"/>
-    <vehicle id="132185977.0" route="132185783" type="bus" depart="74690" line="418_132185783"/>
-    <vehicle id="132185978.0" route="132185783" type="bus" depart="73190" line="418_132185783"/>
-    <vehicle id="132185981.1" route="132185783" type="bus" depart="107090" line="418_132185783"/>
-    <vehicle id="132186119.0" route="132186119" type="bus" depart="72830" line="418_132186119"/>
-    <vehicle id="132186203.1" route="132186203" type="bus" depart="110570" line="418_132186203"/>
-    <vehicle id="132186206.1" route="132186203" type="bus" depart="108770" line="418_132186203"/>
-    <vehicle id="132186207.1" route="132186203" type="bus" depart="107570" line="418_132186203"/>
-    <vehicle id="132186298.0" route="132186203" type="bus" depart="74030" line="418_132186203"/>
-    <vehicle id="132186299.0" route="132186203" type="bus" depart="75830" line="418_132186203"/>
-    <vehicle id="132186372.1" route="132186203" type="bus" depart="104630" line="418_132186203"/>
-    <vehicle id="132186373.1" route="132186203" type="bus" depart="106430" line="418_132186203"/>
-    <vehicle id="132186376.0" route="132186203" type="bus" depart="77630" line="418_132186203"/>
-    <vehicle id="132186379.0" route="132186203" type="bus" depart="82130" line="418_132186203"/>
-    <vehicle id="132186380.0" route="132186203" type="bus" depart="83930" line="418_132186203"/>
-    <vehicle id="132186412.0" route="132186203" type="bus" depart="85730" line="418_132186203"/>
-    <vehicle id="132186415.0" route="132186203" type="bus" depart="81230" line="418_132186203"/>
-    <vehicle id="132186416.0" route="132186203" type="bus" depart="79430" line="418_132186203"/>
-    <vehicle id="132186603.1" route="132186119" type="bus" depart="114170" line="418_132186119"/>
-    <vehicle id="132186604.1" route="132186119" type="bus" depart="113270" line="418_132186119"/>
-    <vehicle id="132186605.1" route="132186119" type="bus" depart="112370" line="418_132186119"/>
-    <vehicle id="132187140.0" route="132187140" type="bus" depart="72950" line="420_132187140"/>
-    <vehicle id="132187188.1" route="132187140" type="bus" depart="114350" line="420_132187140"/>
-    <vehicle id="132187189.1" route="132187140" type="bus" depart="113450" line="420_132187140"/>
-    <vehicle id="132187190.1" route="132187140" type="bus" depart="113030" line="420_132187140"/>
-    <vehicle id="132187191.1" route="132187140" type="bus" depart="112550" line="420_132187140"/>
-    <vehicle id="132187192.1" route="132187140" type="bus" depart="112130" line="420_132187140"/>
-    <vehicle id="132187193.1" route="132187140" type="bus" depart="111650" line="420_132187140"/>
-    <vehicle id="132187194.1" route="132187140" type="bus" depart="110750" line="420_132187140"/>
-    <vehicle id="132187195.1" route="132187140" type="bus" depart="109850" line="420_132187140"/>
-    <vehicle id="132187196.1" route="132187140" type="bus" depart="108950" line="420_132187140"/>
-    <vehicle id="132187197.1" route="132187140" type="bus" depart="108050" line="420_132187140"/>
-    <vehicle id="132187220.0" route="132187140" type="bus" depart="85970" line="420_132187140"/>
-    <vehicle id="132187221.0" route="132187140" type="bus" depart="83810" line="420_132187140"/>
-    <vehicle id="132187222.0" route="132187140" type="bus" depart="82010" line="420_132187140"/>
-    <vehicle id="132187223.0" route="132187140" type="bus" depart="80210" line="420_132187140"/>
-    <vehicle id="132187224.0" route="132187140" type="bus" depart="78410" line="420_132187140"/>
-    <vehicle id="132187225.0" route="132187140" type="bus" depart="76610" line="420_132187140"/>
-    <vehicle id="132187226.0" route="132187140" type="bus" depart="74810" line="420_132187140"/>
-    <vehicle id="132187227.1" route="132187140" type="bus" depart="107210" line="420_132187140"/>
-    <vehicle id="132187228.1" route="132187140" type="bus" depart="105410" line="420_132187140"/>
-    <vehicle id="132187229.1" route="132187140" type="bus" depart="103970" line="420_132187140"/>
-    <vehicle id="132187547.0" route="132187547" type="bus" depart="86450" line="420_132187547"/>
-    <vehicle id="132187548.0" route="132187547" type="bus" depart="83270" line="420_132187547"/>
-    <vehicle id="132187549.0" route="132187547" type="bus" depart="81470" line="420_132187547"/>
-    <vehicle id="132187550.0" route="132187547" type="bus" depart="79670" line="420_132187547"/>
-    <vehicle id="132187551.0" route="132187547" type="bus" depart="77870" line="420_132187547"/>
-    <vehicle id="132187552.0" route="132187547" type="bus" depart="76070" line="420_132187547"/>
-    <vehicle id="132187553.0" route="132187547" type="bus" depart="74270" line="420_132187547"/>
-    <vehicle id="132187554.1" route="132187547" type="bus" depart="106670" line="420_132187547"/>
-    <vehicle id="132187555.1" route="132187547" type="bus" depart="104870" line="420_132187547"/>
-    <vehicle id="132187919.0" route="132187547" type="bus" depart="73010" line="420_132187547"/>
-    <vehicle id="132187968.1" route="132187968" type="bus" depart="115010" line="420_132187968"/>
-    <vehicle id="132187969.1" route="132187547" type="bus" depart="114110" line="420_132187547"/>
-    <vehicle id="132187970.1" route="132187547" type="bus" depart="113210" line="420_132187547"/>
-    <vehicle id="132187971.1" route="132187547" type="bus" depart="112790" line="420_132187547"/>
-    <vehicle id="132187972.1" route="132187547" type="bus" depart="112310" line="420_132187547"/>
-    <vehicle id="132187973.1" route="132187547" type="bus" depart="111410" line="420_132187547"/>
-    <vehicle id="132187974.1" route="132187547" type="bus" depart="110510" line="420_132187547"/>
-    <vehicle id="132187975.1" route="132187547" type="bus" depart="109610" line="420_132187547"/>
-    <vehicle id="132187976.1" route="132187547" type="bus" depart="108710" line="420_132187547"/>
-    <vehicle id="132188182.1" route="132188182" type="bus" depart="113210" line="422_132188182"/>
-    <vehicle id="132188257.1" route="132188257" type="bus" depart="114770" line="422_132188257"/>
-    <vehicle id="132188258.1" route="132188258" type="bus" depart="112970" line="422_132188258"/>
-    <vehicle id="132188259.1" route="132188258" type="bus" depart="111170" line="422_132188258"/>
-    <vehicle id="132188260.1" route="132188258" type="bus" depart="109370" line="422_132188258"/>
-    <vehicle id="132188261.0" route="132188258" type="bus" depart="73490" line="422_132188258"/>
-    <vehicle id="132188512.1" route="132188512" type="bus" depart="113270" line="422_132188512"/>
-    <vehicle id="132188540.1" route="132188540" type="bus" depart="105530" line="422_132188540"/>
-    <vehicle id="132188541.1" route="132188540" type="bus" depart="107330" line="422_132188540"/>
-    <vehicle id="132188544.0" route="132188540" type="bus" depart="73130" line="422_132188540"/>
-    <vehicle id="132188547.1" route="132188547" type="bus" depart="104390" line="422_132188547"/>
-    <vehicle id="132188695.1" route="132188540" type="bus" depart="108890" line="422_132188540"/>
-    <vehicle id="132188743.1" route="132188743" type="bus" depart="114470" line="422_132188743"/>
-    <vehicle id="132188744.1" route="132188540" type="bus" depart="112190" line="422_132188540"/>
-    <vehicle id="132188745.1" route="132188540" type="bus" depart="110690" line="422_132188540"/>
-    <vehicle id="132203581.0" route="132203581" type="bus" depart="73130" line="450_132203581"/>
-    <vehicle id="132203606.1" route="132203606" type="bus" depart="114530" line="450_132203606"/>
-    <vehicle id="132203607.1" route="132203581" type="bus" depart="112730" line="450_132203581"/>
-    <vehicle id="132203608.1" route="132203581" type="bus" depart="110930" line="450_132203581"/>
-    <vehicle id="132203609.1" route="132203581" type="bus" depart="109130" line="450_132203581"/>
-    <vehicle id="132203720.0" route="132203581" type="bus" depart="82310" line="450_132203581"/>
-    <vehicle id="132203721.0" route="132203581" type="bus" depart="78710" line="450_132203581"/>
-    <vehicle id="132203722.0" route="132203581" type="bus" depart="75110" line="450_132203581"/>
-    <vehicle id="132203723.1" route="132203581" type="bus" depart="107510" line="450_132203581"/>
-    <vehicle id="132203963.0" route="132203963" type="bus" depart="79190" line="450_132203963"/>
-    <vehicle id="132203964.0" route="132203963" type="bus" depart="75590" line="450_132203963"/>
-    <vehicle id="132203966.1" route="132203963" type="bus" depart="107990" line="450_132203963"/>
-    <vehicle id="132203967.1" route="132203963" type="bus" depart="105470" line="450_132203963"/>
-    <vehicle id="132204013.1" route="132203963" type="bus" depart="109850" line="450_132203963"/>
-    <vehicle id="132204016.1" route="132203963" type="bus" depart="113150" line="450_132203963"/>
-    <vehicle id="132204017.1" route="132203963" type="bus" depart="112250" line="450_132203963"/>
-    <vehicle id="132204018.1" route="132203963" type="bus" depart="111650" line="450_132203963"/>
-    <vehicle id="132204580.1" route="132204580" type="bus" depart="114170" line="461_132204580"/>
-    <vehicle id="132204581.1" route="132204581" type="bus" depart="112370" line="461_132204581"/>
-    <vehicle id="132204582.1" route="132204581" type="bus" depart="110570" line="461_132204581"/>
-    <vehicle id="132204583.1" route="132204581" type="bus" depart="108770" line="461_132204581"/>
-    <vehicle id="132204585.1" route="132204585" type="bus" depart="113810" line="461_132204585"/>
-    <vehicle id="132204586.1" route="132204585" type="bus" depart="109910" line="461_132204585"/>
-    <vehicle id="132204610.1" route="132204585" type="bus" depart="113510" line="461_132204585"/>
-    <vehicle id="132204611.1" route="132204585" type="bus" depart="111710" line="461_132204585"/>
-    <vehicle id="132206028.0" route="132206028" type="bus" depart="73610" line="480_132206028"/>
-    <vehicle id="132206048.1" route="132206048" type="bus" depart="109670" line="480_132206048"/>
-    <vehicle id="132206049.1" route="132206048" type="bus" depart="113270" line="480_132206048"/>
-    <vehicle id="132206057.1" route="132206057" type="bus" depart="112670" line="480_132206057"/>
-    <vehicle id="132218455.1" route="132218455" type="bus" depart="112610" line="730_132218455"/>
-    <vehicle id="132218461.1" route="132218455" type="bus" depart="112190" line="730_132218455"/>
-    <vehicle id="132218462.1" route="132218455" type="bus" depart="109010" line="730_132218455"/>
-    <vehicle id="132218468.1" route="132218455" type="bus" depart="106310" line="730_132218455"/>
-    <vehicle id="132218469.1" route="132218455" type="bus" depart="109910" line="730_132218455"/>
-    <vehicle id="132218471.0" route="132218455" type="bus" depart="79730" line="730_132218455"/>
-    <vehicle id="132218472.0" route="132218455" type="bus" depart="76130" line="730_132218455"/>
-    <vehicle id="132218473.0" route="132218473" type="bus" depart="72530" line="730_132218473"/>
-    <vehicle id="132218502.1" route="132218455" type="bus" depart="112910" line="730_132218455"/>
-    <vehicle id="132218521.1" route="132218521" type="bus" depart="106790" line="730_132218521"/>
-    <vehicle id="132218533.0" route="132218521" type="bus" depart="81590" line="730_132218521"/>
-    <vehicle id="132218534.0" route="132218521" type="bus" depart="77990" line="730_132218521"/>
-    <vehicle id="132218545.1" route="132218521" type="bus" depart="112490" line="730_132218521"/>
-    <vehicle id="132218549.1" route="132218521" type="bus" depart="108290" line="730_132218521"/>
-    <vehicle id="132218550.1" route="132218521" type="bus" depart="110390" line="730_132218521"/>
-    <vehicle id="132218551.0" route="132218521" type="bus" depart="74390" line="730_132218521"/>
-    <vehicle id="132218563.1" route="132218521" type="bus" depart="113990" line="730_132218521"/>
-    <vehicle id="132199240.1" route="132199240" type="bus" depart="112850" line="411_132199240"/>
-    <vehicle id="132199286.1" route="132199286" type="bus" depart="114650" line="411_132199286"/>
-    <vehicle id="132199288.1" route="132199240" type="bus" depart="111050" line="411_132199240"/>
-    <vehicle id="132199290.1" route="132199240" type="bus" depart="109250" line="411_132199240"/>
-    <vehicle id="132199515.0" route="132199240" type="bus" depart="76370" line="411_132199240"/>
-    <vehicle id="132199556.0" route="132199240" type="bus" depart="79970" line="411_132199240"/>
-    <vehicle id="132199557.0" route="132199240" type="bus" depart="84470" line="411_132199240"/>
-    <vehicle id="132199632.0" route="132199240" type="bus" depart="73310" line="411_132199240"/>
-    <vehicle id="132199639.1" route="132199240" type="bus" depart="105170" line="411_132199240"/>
-    <vehicle id="132199641.0" route="132199240" type="bus" depart="81350" line="411_132199240"/>
-    <vehicle id="132199983.1" route="132199983" type="bus" depart="106790" line="411_132199983"/>
-    <vehicle id="132199984.0" route="132199983" type="bus" depart="74390" line="411_132199983"/>
-    <vehicle id="132199985.0" route="132199983" type="bus" depart="77990" line="411_132199983"/>
-    <vehicle id="132199986.0" route="132199983" type="bus" depart="82490" line="411_132199983"/>
-    <vehicle id="132199987.0" route="132199983" type="bus" depart="86090" line="411_132199983"/>
-    <vehicle id="132200099.1" route="132200099" type="bus" depart="113450" line="411_132200099"/>
-    <vehicle id="132200206.0" route="132200206" type="bus" depart="72350" line="411_132200206"/>
-    <vehicle id="132200254.1" route="132199983" type="bus" depart="108170" line="411_132199983"/>
-    <vehicle id="132200255.1" route="132199983" type="bus" depart="109970" line="411_132199983"/>
-    <vehicle id="132200256.1" route="132199983" type="bus" depart="111770" line="411_132199983"/>
-    <vehicle id="132200257.1" route="132199983" type="bus" depart="113570" line="411_132199983"/>
-    <vehicle id="132200880.0" route="132200880" type="bus" depart="72650" line="411_132200880"/>
-    <vehicle id="132200888.1" route="132200888" type="bus" depart="112730" line="411_132200888"/>
-    <vehicle id="132200987.1" route="132200987" type="bus" depart="109430" line="411_132200987"/>
-    <vehicle id="132200988.1" route="132200987" type="bus" depart="111230" line="411_132200987"/>
-    <vehicle id="132200989.1" route="132200989" type="bus" depart="113030" line="411_132200989"/>
-    <vehicle id="132200990.1" route="132200990" type="bus" depart="114830" line="411_132200990"/>
-    <vehicle id="132201021.1" route="132200880" type="bus" depart="104630" line="411_132200880"/>
-    <vehicle id="132201022.0" route="132200880" type="bus" depart="75830" line="411_132200880"/>
-    <vehicle id="132201023.0" route="132200880" type="bus" depart="79430" line="411_132200880"/>
-    <vehicle id="132201124.1" route="132200880" type="bus" depart="108530" line="411_132200880"/>
-    <vehicle id="132201125.1" route="132200880" type="bus" depart="110330" line="411_132200880"/>
-    <vehicle id="132201126.1" route="132200880" type="bus" depart="112130" line="411_132200880"/>
-    <vehicle id="132201127.1" route="132201127" type="bus" depart="113930" line="411_132201127"/>
-    <vehicle id="132201207.1" route="132200987" type="bus" depart="106430" line="411_132200987"/>
-    <vehicle id="132201208.0" route="132200987" type="bus" depart="74030" line="411_132200987"/>
-    <vehicle id="132201209.0" route="132200987" type="bus" depart="77630" line="411_132200987"/>
-    <vehicle id="132201210.0" route="132200987" type="bus" depart="82130" line="411_132200987"/>
-    <vehicle id="132201211.0" route="132200987" type="bus" depart="83930" line="411_132200987"/>
-    <vehicle id="132201212.0" route="132200987" type="bus" depart="85730" line="411_132200987"/>
-    <vehicle id="132201282.0" route="132200987" type="bus" depart="80810" line="411_132200987"/>
-    <vehicle id="132206572.0" route="132206572" type="bus" depart="76910" line="560_132206572"/>
-    <vehicle id="132206624.0" route="132206572" type="bus" depart="73310" line="560_132206572"/>
-    <vehicle id="132206625.0" route="132206572" type="bus" depart="82910" line="560_132206572"/>
-    <vehicle id="132206647.1" route="132206572" type="bus" depart="109910" line="560_132206572"/>
-    <vehicle id="132206672.1" route="132206572" type="bus" depart="113510" line="560_132206572"/>
-    <vehicle id="132206726.1" route="132206726" type="bus" depart="112550" line="560_132206726"/>
-    <vehicle id="132206727.1" route="132206726" type="bus" depart="112430" line="560_132206726"/>
-    <vehicle id="132206773.0" route="132206773" type="bus" depart="81830" line="560_132206773"/>
-    <vehicle id="132206839.1" route="132206773" type="bus" depart="114290" line="560_132206773"/>
-    <vehicle id="132206840.1" route="132206773" type="bus" depart="110690" line="560_132206773"/>
-    <vehicle id="132206841.1" route="132206773" type="bus" depart="107090" line="560_132206773"/>
-    <vehicle id="132206853.0" route="132206773" type="bus" depart="80030" line="560_132206773"/>
-    <vehicle id="132206854.0" route="132206773" type="bus" depart="76430" line="560_132206773"/>
-    <vehicle id="132206855.0" route="132206773" type="bus" depart="72830" line="560_132206773"/>
-    <vehicle id="132206888.1" route="132206773" type="bus" depart="108890" line="560_132206773"/>
-    <vehicle id="132189782.1" route="132189782" type="bus" depart="110570" line="413_132189782"/>
-    <vehicle id="132189808.1" route="132189782" type="bus" depart="112370" line="413_132189782"/>
-    <vehicle id="132189852.1" route="132189852" type="bus" depart="114170" line="413_132189852"/>
-    <vehicle id="132189855.1" route="132189782" type="bus" depart="108770" line="413_132189782"/>
-    <vehicle id="132190065.0" route="132190065" type="bus" depart="75170" line="413_132190065"/>
-    <vehicle id="132190066.1" route="132190065" type="bus" depart="107570" line="413_132190065"/>
-    <vehicle id="132190089.0" route="132190065" type="bus" depart="78770" line="413_132190065"/>
-    <vehicle id="132190090.0" route="132190065" type="bus" depart="82370" line="413_132190065"/>
-    <vehicle id="132190105.1" route="132190105" type="bus" depart="112970" line="413_132190105"/>
-    <vehicle id="132190181.0" route="132190181" type="bus" depart="72770" line="413_132190181"/>
-    <vehicle id="132190284.1" route="132190284" type="bus" depart="115070" line="413_132190284"/>
-    <vehicle id="132190288.1" route="132190065" type="bus" depart="109430" line="413_132190065"/>
-    <vehicle id="132190289.1" route="132190065" type="bus" depart="111230" line="413_132190065"/>
-    <vehicle id="132190290.1" route="132190065" type="bus" depart="113030" line="413_132190065"/>
-    <vehicle id="132190351.1" route="132190351" type="bus" depart="103970" line="413_132190351"/>
-    <vehicle id="132190352.1" route="132190351" type="bus" depart="105770" line="413_132190351"/>
-    <vehicle id="132190355.0" route="132190351" type="bus" depart="80570" line="413_132190351"/>
-    <vehicle id="132190474.0" route="132190351" type="bus" depart="73370" line="413_132190351"/>
-    <vehicle id="132190478.0" route="132190351" type="bus" depart="85970" line="413_132190351"/>
-    <vehicle id="132190548.0" route="132190351" type="bus" depart="84170" line="413_132190351"/>
-    <vehicle id="132190551.0" route="132190351" type="bus" depart="76970" line="413_132190351"/>
-    <vehicle id="132190650.1" route="132190650" type="bus" depart="113330" line="413_132190650"/>
-    <vehicle id="132191173.1" route="132191173" type="bus" depart="114650" line="413_132191173"/>
-    <vehicle id="132192432.0" route="132192432" type="bus" depart="86090" line="416_132192432"/>
-    <vehicle id="132192433.0" route="132192432" type="bus" depart="84290" line="416_132192432"/>
-    <vehicle id="132192434.0" route="132192432" type="bus" depart="82490" line="416_132192432"/>
-    <vehicle id="132192664.0" route="132192664" type="bus" depart="80690" line="416_132192664"/>
-    <vehicle id="132192665.0" route="132192664" type="bus" depart="78890" line="416_132192664"/>
-    <vehicle id="132192666.0" route="132192664" type="bus" depart="77090" line="416_132192664"/>
-    <vehicle id="132192667.0" route="132192664" type="bus" depart="75290" line="416_132192664"/>
-    <vehicle id="132192668.0" route="132192664" type="bus" depart="73490" line="416_132192664"/>
-    <vehicle id="132192669.1" route="132192664" type="bus" depart="107690" line="416_132192664"/>
-    <vehicle id="132192670.1" route="132192664" type="bus" depart="105890" line="416_132192664"/>
-    <vehicle id="132192671.1" route="132192664" type="bus" depart="104090" line="416_132192664"/>
-    <vehicle id="132192771.0" route="132192771" type="bus" depart="72830" line="416_132192771"/>
-    <vehicle id="132192772.0" route="132192772" type="bus" depart="72050" line="416_132192772"/>
-    <vehicle id="132192821.1" route="132192821" type="bus" depart="114230" line="416_132192821"/>
-    <vehicle id="132192822.1" route="132192664" type="bus" depart="113270" line="416_132192664"/>
-    <vehicle id="132192823.1" route="132192664" type="bus" depart="112370" line="416_132192664"/>
-    <vehicle id="132192824.1" route="132192664" type="bus" depart="111470" line="416_132192664"/>
-    <vehicle id="132192825.1" route="132192664" type="bus" depart="110570" line="416_132192664"/>
-    <vehicle id="132192826.1" route="132192664" type="bus" depart="109670" line="416_132192664"/>
-    <vehicle id="132193051.0" route="132193051" type="bus" depart="85670" line="416_132193051"/>
-    <vehicle id="132193052.0" route="132193051" type="bus" depart="83870" line="416_132193051"/>
-    <vehicle id="132193053.0" route="132193051" type="bus" depart="82070" line="416_132193051"/>
-    <vehicle id="132193218.0" route="132193218" type="bus" depart="72530" line="416_132193218"/>
-    <vehicle id="132193221.1" route="132193221" type="bus" depart="112970" line="416_132193221"/>
-    <vehicle id="132193342.0" route="132193342" type="bus" depart="80270" line="416_132193342"/>
-    <vehicle id="132193343.0" route="132193342" type="bus" depart="78470" line="416_132193342"/>
-    <vehicle id="132193344.0" route="132193342" type="bus" depart="76670" line="416_132193342"/>
-    <vehicle id="132193345.0" route="132193342" type="bus" depart="74870" line="416_132193342"/>
-    <vehicle id="132193346.0" route="132193342" type="bus" depart="73070" line="416_132193342"/>
-    <vehicle id="132193347.1" route="132193342" type="bus" depart="107270" line="416_132193342"/>
-    <vehicle id="132193348.1" route="132193342" type="bus" depart="105470" line="416_132193342"/>
-    <vehicle id="132193349.1" route="132193342" type="bus" depart="103670" line="416_132193342"/>
-    <vehicle id="132193520.1" route="132193520" type="bus" depart="114470" line="416_132193520"/>
-    <vehicle id="132193521.1" route="132193521" type="bus" depart="113570" line="416_132193521"/>
-    <vehicle id="132193522.1" route="132193342" type="bus" depart="112610" line="416_132193342"/>
-    <vehicle id="132193523.1" route="132193342" type="bus" depart="111710" line="416_132193342"/>
-    <vehicle id="132193524.1" route="132193342" type="bus" depart="110810" line="416_132193342"/>
-    <vehicle id="132193525.1" route="132193342" type="bus" depart="109910" line="416_132193342"/>
-    <vehicle id="132193526.1" route="132193342" type="bus" depart="109010" line="416_132193342"/>
-    <vehicle id="132193527.1" route="132193342" type="bus" depart="108110" line="416_132193342"/>
-    <vehicle id="132184267.0" route="132184267" type="bus" depart="82490" line="412_132184267"/>
-    <vehicle id="132184268.0" route="132184267" type="bus" depart="84290" line="412_132184267"/>
-    <vehicle id="132184269.0" route="132184267" type="bus" depart="86090" line="412_132184267"/>
-    <vehicle id="132194506.0" route="132194506" type="bus" depart="88910" line="429_132194506"/>
-    <vehicle id="132194768.1" route="132194768" type="bus" depart="114470" line="429_132194768"/>
-    <vehicle id="132194769.1" route="132194769" type="bus" depart="113570" line="429_132194769"/>
-    <vehicle id="132194770.1" route="132194506" type="bus" depart="112670" line="429_132194506"/>
-    <vehicle id="132194771.1" route="132194506" type="bus" depart="111770" line="429_132194506"/>
-    <vehicle id="132194772.1" route="132194506" type="bus" depart="110870" line="429_132194506"/>
-    <vehicle id="132194773.1" route="132194506" type="bus" depart="109970" line="429_132194506"/>
-    <vehicle id="132194774.1" route="132194506" type="bus" depart="109070" line="429_132194506"/>
-    <vehicle id="132194775.1" route="132194506" type="bus" depart="108170" line="429_132194506"/>
-    <vehicle id="132194776.1" route="132194506" type="bus" depart="107270" line="429_132194506"/>
-    <vehicle id="132194936.0" route="132194506" type="bus" depart="85070" line="429_132194506"/>
-    <vehicle id="132194937.0" route="132194506" type="bus" depart="83270" line="429_132194506"/>
-    <vehicle id="132194938.0" route="132194506" type="bus" depart="81470" line="429_132194506"/>
-    <vehicle id="132194939.0" route="132194506" type="bus" depart="79670" line="429_132194506"/>
-    <vehicle id="132194940.0" route="132194506" type="bus" depart="77870" line="429_132194506"/>
-    <vehicle id="132194941.0" route="132194506" type="bus" depart="76070" line="429_132194506"/>
-    <vehicle id="132194942.0" route="132194506" type="bus" depart="74270" line="429_132194506"/>
-    <vehicle id="132194943.0" route="132194506" type="bus" depart="72470" line="429_132194506"/>
-    <vehicle id="132194944.1" route="132194506" type="bus" depart="106310" line="429_132194506"/>
-    <vehicle id="132194945.1" route="132194506" type="bus" depart="105110" line="429_132194506"/>
-    <vehicle id="132194946.1" route="132194506" type="bus" depart="103010" line="429_132194506"/>
-    <vehicle id="132183384.0" route="132183384" type="bus" depart="74030" line="419_132183384"/>
-    <vehicle id="132183385.0" route="132183385" type="bus" depart="73130" line="419_132183385"/>
-    <vehicle id="132183386.0" route="132183386" type="bus" depart="72230" line="419_132183386"/>
-    <vehicle id="132183435.1" route="132183384" type="bus" depart="114530" line="419_132183384"/>
-    <vehicle id="132183436.1" route="132183384" type="bus" depart="113630" line="419_132183384"/>
-    <vehicle id="132183437.1" route="132183384" type="bus" depart="112730" line="419_132183384"/>
-    <vehicle id="132183438.1" route="132183384" type="bus" depart="111830" line="419_132183384"/>
-    <vehicle id="132183439.1" route="132183384" type="bus" depart="110930" line="419_132183384"/>
-    <vehicle id="132183440.1" route="132183384" type="bus" depart="110030" line="419_132183384"/>
-    <vehicle id="132183441.1" route="132183384" type="bus" depart="109130" line="419_132183384"/>
-    <vehicle id="132183536.0" route="132183384" type="bus" depart="87710" line="419_132183384"/>
-    <vehicle id="132183537.0" route="132183384" type="bus" depart="85910" line="419_132183384"/>
-    <vehicle id="132183538.0" route="132183384" type="bus" depart="84110" line="419_132183384"/>
-    <vehicle id="132183539.0" route="132183384" type="bus" depart="82310" line="419_132183384"/>
-    <vehicle id="132183540.0" route="132183384" type="bus" depart="80510" line="419_132183384"/>
-    <vehicle id="132183541.0" route="132183384" type="bus" depart="78710" line="419_132183384"/>
-    <vehicle id="132183542.0" route="132183384" type="bus" depart="76910" line="419_132183384"/>
-    <vehicle id="132183543.0" route="132183384" type="bus" depart="75110" line="419_132183384"/>
-    <vehicle id="132183544.1" route="132183384" type="bus" depart="108290" line="419_132183384"/>
-    <vehicle id="132183545.1" route="132183384" type="bus" depart="106490" line="419_132183384"/>
-    <vehicle id="132183756.0" route="132183384" type="bus" depart="92210" line="419_132183384"/>
-    <vehicle id="132237871.0" route="132237871" type="bus" depart="86570" line="230_132237871"/>
-    <vehicle id="132237990.0" route="132237871" type="bus" depart="82970" line="230_132237871"/>
-    <vehicle id="132237991.0" route="132237871" type="bus" depart="79370" line="230_132237871"/>
-    <vehicle id="132237992.0" route="132237871" type="bus" depart="75770" line="230_132237871"/>
-    <vehicle id="132237993.0" route="132237871" type="bus" depart="73970" line="230_132237871"/>
-    <vehicle id="132237994.0" route="132237871" type="bus" depart="72170" line="230_132237871"/>
-    <vehicle id="132237995.1" route="132237871" type="bus" depart="108170" line="230_132237871"/>
-    <vehicle id="132237996.1" route="132237871" type="bus" depart="104570" line="230_132237871"/>
-    <vehicle id="132238088.1" route="132237871" type="bus" depart="114050" line="230_132237871"/>
-    <vehicle id="132238089.1" route="132237871" type="bus" depart="112250" line="230_132237871"/>
-    <vehicle id="132238090.1" route="132237871" type="bus" depart="111350" line="230_132237871"/>
-    <vehicle id="132238091.1" route="132237871" type="bus" depart="110450" line="230_132237871"/>
-    <vehicle id="132238092.1" route="132237871" type="bus" depart="109550" line="230_132237871"/>
-    <vehicle id="132238259.1" route="132237871" type="bus" depart="113450" line="230_132237871"/>
-    <vehicle id="132238262.1" route="132238262" type="bus" depart="114350" line="230_132238262"/>
-    <vehicle id="132238267.1" route="132238267" type="bus" depart="112850" line="230_132238267"/>
-    <vehicle id="132238272.1" route="132238267" type="bus" depart="113690" line="230_132238267"/>
-    <vehicle id="132238338.1" route="132238267" type="bus" depart="114290" line="230_132238267"/>
-    <vehicle id="132238339.1" route="132238267" type="bus" depart="113390" line="230_132238267"/>
-    <vehicle id="132238340.1" route="132238267" type="bus" depart="111590" line="230_132238267"/>
-    <vehicle id="132238341.1" route="132238267" type="bus" depart="110690" line="230_132238267"/>
-    <vehicle id="132238342.1" route="132238267" type="bus" depart="109790" line="230_132238267"/>
-    <vehicle id="132238343.1" route="132238267" type="bus" depart="108890" line="230_132238267"/>
-    <vehicle id="132238615.0" route="132238267" type="bus" depart="86090" line="230_132238267"/>
-    <vehicle id="132238616.0" route="132238267" type="bus" depart="82490" line="230_132238267"/>
-    <vehicle id="132238617.0" route="132238267" type="bus" depart="78890" line="230_132238267"/>
-    <vehicle id="132238618.0" route="132238267" type="bus" depart="75290" line="230_132238267"/>
-    <vehicle id="132238619.1" route="132238267" type="bus" depart="107690" line="230_132238267"/>
-    <vehicle id="132238620.1" route="132238267" type="bus" depart="104090" line="230_132238267"/>
-    <vehicle id="132198672.0" route="132198672" type="bus" depart="81590" line="423_132198672"/>
-    <vehicle id="132198673.0" route="132198672" type="bus" depart="79790" line="423_132198672"/>
-    <vehicle id="132198674.0" route="132198672" type="bus" depart="77990" line="423_132198672"/>
-    <vehicle id="132198675.0" route="132198672" type="bus" depart="76190" line="423_132198672"/>
-    <vehicle id="132198676.0" route="132198672" type="bus" depart="74390" line="423_132198672"/>
-    <vehicle id="132198677.1" route="132198672" type="bus" depart="106790" line="423_132198672"/>
-    <vehicle id="132198678.1" route="132198672" type="bus" depart="104990" line="423_132198672"/>
-    <vehicle id="132198799.0" route="132198799" type="bus" depart="72470" line="423_132198799"/>
-    <vehicle id="132198824.1" route="132198824" type="bus" depart="113870" line="423_132198824"/>
-    <vehicle id="132198825.1" route="132198799" type="bus" depart="112070" line="423_132198799"/>
-    <vehicle id="132198826.1" route="132198799" type="bus" depart="110270" line="423_132198799"/>
-    <vehicle id="132198827.1" route="132198799" type="bus" depart="108470" line="423_132198799"/>
-    <vehicle id="132199006.1" route="132199006" type="bus" depart="113570" line="423_132199006"/>
-    <vehicle id="132199007.1" route="132199006" type="bus" depart="111770" line="423_132199006"/>
-    <vehicle id="132199008.1" route="132199006" type="bus" depart="109970" line="423_132199006"/>
-    <vehicle id="132199009.1" route="132199006" type="bus" depart="108170" line="423_132199006"/>
-    <vehicle id="132199059.0" route="132199059" type="bus" depart="72230" line="423_132199059"/>
-    <vehicle id="132199075.1" route="132199075" type="bus" depart="105290" line="423_132199075"/>
-    <vehicle id="132199078.0" route="132199075" type="bus" depart="76490" line="423_132199075"/>
-    <vehicle id="132199079.0" route="132199075" type="bus" depart="78290" line="423_132199075"/>
-    <vehicle id="132199215.0" route="132199075" type="bus" depart="81890" line="423_132199075"/>
-    <vehicle id="132199216.0" route="132199075" type="bus" depart="80090" line="423_132199075"/>
-    <vehicle id="132199219.0" route="132199075" type="bus" depart="74690" line="423_132199075"/>
-    <vehicle id="132199220.1" route="132199075" type="bus" depart="107090" line="423_132199075"/>
+    <route id="132244371" edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0">
+        <stop busStop="132244371.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132244371.1" duration="10" until="120"/> <!-- Braunschweig Schloss -->
+        <stop busStop="132244371.2" duration="10" until="240"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132244371.3" duration="10" until="360"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
+        <stop busStop="132244371.4" duration="10" until="480"/> <!-- Braunschweig Europaplatz -->
+    </route>
+    <route id="132185783" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
+        <stop busStop="132185783.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132185783.1" duration="10" until="60"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132185783.2" duration="10" until="120"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132185783.3" duration="10" until="180"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132185783.4" duration="10" until="300"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132185783.5" duration="10" until="360"/> <!-- Braunschweig Goslarsche Straße -->
+    </route>
+    <route id="132185786.trimmed" edges="8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
+        <stop busStop="132185783.3" duration="10" until="0"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132185783.4" duration="10" until="120"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132185783.5" duration="10" until="180"/> <!-- Braunschweig Goslarsche Straße -->
+    </route>
+    <route id="132218462" edges="51353826#0 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0">
+        <stop busStop="132218462.0" duration="10" until="0"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132218462.1" duration="10" until="120"/> <!-- Braunschweig Schloss -->
+        <stop busStop="132218462.2" duration="10" until="240"/> <!-- Braunschweig Rathaus -->
+    </route>
+    <route id="132194506" edges="32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="132194506.0" duration="10" until="0"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+        <stop busStop="132244371.3" duration="10" until="60"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
+        <stop busStop="132194506.2" duration="10" until="180"/> <!-- Braunschweig Holzhof -->
+    </route>
+    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 316682907 316682910#0 25076286#0 43328051#0">
+        <stop busStop="132183536.0" duration="10" until="0"/> <!-- Braunschweig Holzhof -->
+        <stop busStop="132183536.1" duration="10" until="60"/> <!-- Braunschweig Am Wassertor -->
+        <stop busStop="132183536.2" duration="10" until="180"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
+    </route>
+    <vehicle id="132244371.1" route="132244371" type="bus" depart="106370" line="132244371">
+        <param key="gtfs.route_name" value="620"/>
+        <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
+    </vehicle>
+    <vehicle id="132185783.1" route="132185783" type="bus" depart="105290" line="132185783">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="132185783">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
+    </vehicle>
+    <vehicle id="132185786.trimmed.0" route="132185786.trimmed" type="bus" depart="86570" line="132185786.trimmed">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
+    </vehicle>
+    <vehicle id="132185978.0" route="132185783" type="bus" depart="91190" line="132185783">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+    <vehicle id="132218462.1" route="132218462" type="bus" depart="109010" line="132218462">
+        <param key="gtfs.route_name" value="730"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
+    </vehicle>
+    <vehicle id="132194506.0" route="132194506" type="bus" depart="88910" line="132194506">
+        <param key="gtfs.route_name" value="429"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
+    </vehicle>
+    <vehicle id="132183536.0" route="132183536" type="bus" depart="87530" line="132183536">
+        <param key="gtfs.route_name" value="419"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
+    </vehicle>
+    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="132183536">
+        <param key="gtfs.route_name" value="419"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
+    </vehicle>
 </routes>

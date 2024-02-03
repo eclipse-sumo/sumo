@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,13 +15,12 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// The reification of a NETEDIT editing operation (see command pattern)
+// The reification of a netedit editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/elements/GNEHierarchicalContainer.h>
@@ -29,11 +28,9 @@
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <utils/foxtools/fxexdefs.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
@@ -43,15 +40,9 @@
 // ===========================================================================
 class GNEHierarchicalElement;
 class GNEAttributeCarrier;
-class GNEAdditional;
 class GNEDataSet;
-class GNEDemandElement;
-class GNEGenericData;
 class GNEDataInterval;
-class GNEEdge;
-class GNELane;
-class GNEShape;
-class GNETAZElement;
+class GNEMeanData;
 class GNENet;
 class GNEViewNet;
 
@@ -62,42 +53,69 @@ class GNEViewNet;
  * @class GNEChange
  * @brief the function-object for an editing operation (abstract base)
  */
-class GNEChange : public FXCommand {
+class GNEChange : public FXObject {
     FXDECLARE_ABSTRACT(GNEChange)
 
 public:
+    /// @name friend class
+    friend class GNEChangeGroup;
+    friend class GNEUndoList;
+
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, bool forward, const bool selectedElement);
 
     /**@brief Constructor
+     * @param[in] supermode related with this change
      * @param[in] element hierarchical element
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalElement* element, bool forward, const bool selectedElement);
+    GNEChange(Supermode supermode, GNEHierarchicalElement* element, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();
 
-    /// @brief return actual size
-    virtual FXuint size() const;
-
-    /// @brief return undoName
-    virtual FXString undoName() const;
-
-    /// @brief return rendoName
-    virtual FXString redoName() const;
-
     /// @brief undo action/operation
-    virtual void undo();
+    virtual void undo() = 0;
 
     /// @brief redo action/operation
-    virtual void redo();
+    virtual void redo() = 0;
+
+    /// @brief return undoName
+    virtual std::string undoName() const = 0;
+
+    /// @brief return redoName
+    virtual std::string redoName() const = 0;
+
+    /// @brief Return the size of the command group
+    virtual int size() const;
+
+    /// @brief get supermode
+    Supermode getSupermode() const;
+
+    /**
+     * @brief Return TRUE if this command can be merged with previous undo
+     * commands.  This is useful to combine e.g. multiple consecutive
+     * single-character text changes into a single block change.
+     * The default implementation returns FALSE.
+     */
+    bool canMerge() const;
+
+    /**
+     * @brief Called by the undo system to try and merge the new incoming command
+     * with this command; should return TRUE if merging was possible.
+     * The default implementation returns FALSE.
+     */
+    bool mergeWith(GNEChange* command);
 
 protected:
+    /// @brief FOX need this
+    GNEChange();
+
     /// @brief restore container (only use in undo() function)
     void restoreHierarchicalContainers();
 
@@ -117,12 +135,6 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getParents<std::vector<GNEAdditional*> >()) {
             additional->addChildElement(element);
         }
-        for (const auto& shape : myOriginalHierarchicalContainer.getParents<std::vector<GNEShape*> >()) {
-            shape->addChildElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getParents<std::vector<GNETAZElement*> >()) {
-            TAZElement->addChildElement(element);
-        }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >()) {
             demandElement->addChildElement(element);
         }
@@ -141,12 +153,6 @@ protected:
         }
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >()) {
             additional->addParentElement(element);
-        }
-        for (const auto& shape : myOriginalHierarchicalContainer.getChildren<std::vector<GNEShape*> >()) {
-            shape->addParentElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >()) {
-            TAZElement->addParentElement(element);
         }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >()) {
             demandElement->addParentElement(element);
@@ -172,12 +178,6 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getParents<std::vector<GNEAdditional*> >()) {
             additional->removeChildElement(element);
         }
-        for (const auto& shape : myOriginalHierarchicalContainer.getParents<std::vector<GNEShape*> >()) {
-            shape->removeChildElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getParents<std::vector<GNETAZElement*> >()) {
-            TAZElement->removeChildElement(element);
-        }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >()) {
             demandElement->removeChildElement(element);
         }
@@ -197,12 +197,6 @@ protected:
         for (const auto& additional : myOriginalHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >()) {
             additional->removeParentElement(element);
         }
-        for (const auto& shape : myOriginalHierarchicalContainer.getChildren<std::vector<GNEShape*> >()) {
-            shape->removeParentElement(element);
-        }
-        for (const auto& TAZElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >()) {
-            TAZElement->removeParentElement(element);
-        }
         for (const auto& demandElement : myOriginalHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >()) {
             demandElement->removeParentElement(element);
         }
@@ -210,6 +204,9 @@ protected:
             genericData->removeParentElement(element);
         }
     }
+
+    /// @brief supermode related with this change
+    const Supermode mySupermode;
 
     /// @brief we group antagonistic commands (create junction/delete junction) and keep them apart by this flag
     bool myForward;
@@ -222,4 +219,14 @@ protected:
 
     /// @brief map with hierarchical container of all parent and children elements
     std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
+
+private:
+    // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)
+    GNEChange* next;
+
+    /// @brief Invalidated copy constructor.
+    GNEChange(const GNEChange&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEChange& operator=(const GNEChange&) = delete;
 };

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-01 11:12:52 by Eclipse SUMO GUI Version v1_11_0+0215-ec00761
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="pt.rou.xml,persons.rou.xml"/>
+        <additional-files value="stops.add.xml"/>
+    </input>
+
+</configuration>

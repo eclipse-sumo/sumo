@@ -1,0 +1,6 @@
+Warning: Vehicle 'left.0' arrived inside e3Detector 'left'.
+Warning: Vehicle 'straight.1' arrived inside e3Detector 'straight'.
+Warning: Vehicle 'right.1' arrived inside e3Detector 'right'.
+Warning: Vehicle 'left.1' arrived inside e3Detector 'left'.
+Warning: Vehicle 'straight.2' arrived inside e3Detector 'straight'.
+Warning: 24 total messages of type: Vehicle '%' arrived inside % '%'.

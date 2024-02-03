@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-07 17:10:22 by Eclipse SUMO duarouter Version v1_9_1+0267-9543562
+<!-- generated on 2023-09-01 10:46:22 by Eclipse SUMO duarouter Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>
@@ -33,11 +36,14 @@
         <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE"/>
 
-        <!-- Determines where to load PHEMlight definitions from. -->
+        <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
-        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
-        <junction-taz value="false" type="BOOL"/>
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
+
+        <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
+        <phemlight-temperature value="1.79769e+308" type="FLOAT"/>
 
         <!-- Read network weights from FILE(s) -->
         <weight-files value="" synonymes="w weights" type="FILE"/>
@@ -47,6 +53,9 @@
 
         <!-- Name of the xml attribute which gives the edge weight -->
         <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
     </input>
 
@@ -59,6 +68,12 @@
 
         <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
         <keep-vtype-distributions value="false" type="BOOL"/>
+
+        <!-- Return fuel consumption values in (legacy) unit l instead of mg -->
+        <emissions.volumetric-fuel value="false" type="BOOL"/>
+
+        <!-- Write vehicles that reference routes by their id -->
+        <named-routes value="false" type="BOOL"/>
 
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
@@ -93,12 +108,24 @@
         <!-- Write trips with fromJunction and toJunction -->
         <write-trips.junctions value="false" type="BOOL"/>
 
+        <!-- Include the cost attribute in route output -->
+        <write-costs value="false" type="BOOL"/>
+
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
+
+        <!-- Include total route length in the output -->
+        <route-length value="false" type="BOOL"/>
 
     </output>
 
     <processing>
+        <!-- Prune the number of alternatives to INT -->
+        <max-alternatives value="5" type="INT"/>
+
+        <!-- Use origin and destination zones (districts) for in- and output -->
+        <with-taz value="false" type="BOOL"/>
+
         <!-- Assume input is unsorted -->
         <unsorted-input value="false" synonymes="unsorted" type="BOOL"/>
 
@@ -110,9 +137,6 @@
 
         <!-- generate random departure times for flow input -->
         <randomize-flows value="false" type="BOOL"/>
-
-        <!-- Prune the number of alternatives to INT -->
-        <max-alternatives value="5" type="INT"/>
 
         <!-- Remove loops within the route; Remove turnarounds at start and end of the route -->
         <remove-loops value="false" type="BOOL"/>
@@ -126,15 +150,6 @@
         <!-- Tries to correct an invalid destination edge by using the last usable edge instead -->
         <repair.to value="false" type="BOOL"/>
 
-        <!-- Interpolate edge weights at interval boundaries -->
-        <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
-
-        <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
-        <weights.minor-penalty value="1.5" type="FLOAT"/>
-
-        <!-- Use origin and destination zones (districts) for in- and output -->
-        <with-taz value="false" type="BOOL"/>
-
         <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
         <mapmatch.distance value="100" type="FLOAT"/>
 
@@ -147,17 +162,23 @@
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
 
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
+        <routing-algorithm value="dijkstra" type="STR"/>
+
         <!-- Comma separated list of param keys to compare for additional restrictions -->
         <restriction-params value="" type="STR[]"/>
 
-        <!-- Expand weights behind the simulation&apos;s end -->
+        <!-- Interpolate edge weights at interval boundaries -->
+        <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
+
+        <!-- Expand the end of the last loaded weight interval to infinity -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+
+        <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
+        <weights.minor-penalty value="1.5" type="FLOAT"/>
 
         <!-- Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT) -->
         <weights.random-factor value="1" type="FLOAT"/>
-
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
-        <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
@@ -192,11 +213,11 @@
         <!-- Route all public transport input -->
         <ptline-routing value="false" type="BOOL"/>
 
-        <!-- Use c-logit model (deprecated in favor of --route-choice-method logit) -->
-        <logit value="false" type="BOOL"/>
-
         <!-- Choose a route choice method: gawron, logit, or lohse -->
         <route-choice-method value="gawron" type="STR"/>
+
+        <!-- Use c-logit model (deprecated in favor of --route-choice-method logit) -->
+        <logit value="false" type="BOOL"/>
 
         <!-- Use FLOAT as logit&apos;s beta -->
         <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
@@ -209,6 +230,9 @@
 
         <!-- Use FLOAT as a factor on pedestrian maximum speed during intermodal routing -->
         <persontrip.walkfactor value="0.75" type="FLOAT"/>
+
+        <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
+        <persontrip.walk-opposite-factor value="1" type="FLOAT"/>
 
         <!-- Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations) -->
         <persontrip.transfer.car-walk value="parkingAreas" type="STR[]"/>
@@ -256,7 +280,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="9223372036854774" synonymes="e" type="TIME"/>
+        <end value="-1" synonymes="e" type="TIME"/>
 
     </time>
 
@@ -273,14 +297,14 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="auto" type="STR"/>
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="local" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -297,8 +321,17 @@
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
 
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
+
         <!-- Continue if a route could not be build -->
-        <ignore-errors value="false" synonymes="continue-on-unbuild" type="BOOL"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
 
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1" type="INT"/>

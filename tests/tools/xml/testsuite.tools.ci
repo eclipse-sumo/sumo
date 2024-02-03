@@ -1,0 +1,11 @@
+# Tests for XML schema checker
+#schemaCheck
+
+# Tests for XML CSV conversion
+xml2csv
+
+# Tests for CSV XML conversion
+csv2xml
+
+# Test for add or remove attributes
+changeAttribute

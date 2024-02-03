@@ -86,6 +86,12 @@ abort_impossible_transport
 # container with a single transport
 transport
 
+# container with a single transport, being picked up by any truck stopping at the destination
+transport_ANY
+
+# container with a single transport, being picked up by any truck stopping at the destination (no lines defined).
+transport_default_ANY
+
 # specify the persons that may enter
 permitted
 errors

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,12 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # try to select node gneJ0 and delete it (Error in element set)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
@@ -47,14 +44,14 @@ netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in element type)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("network element")
+netedit.pasteIntoTextField("Network")
 
 # jump to element
-for x in range(0, 2):
+for x in range(0, 3):
     netedit.typeTab()
 
 # paste the new elementType
@@ -65,14 +62,14 @@ netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in set)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("network element")
+netedit.pasteIntoTextField("Network")
 
 # jump to element
-for x in range(0, 2):
+for x in range(0, 3):
     netedit.typeTab()
 
 # paste the new elementType
@@ -89,14 +86,11 @@ netedit.pasteIntoTextField("dummyAttribute")
 netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-netedit.selectItems("network element", "junction", "id", "gneJ0")
+netedit.selectItems("Network", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save shapes
-netedit.saveAdditionals(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

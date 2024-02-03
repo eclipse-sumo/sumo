@@ -1,5 +1,0 @@
-Error: Invalid route '' used in vehicle 'vehicle_0'.
-Warning: Format of essential list of unique strings attribute 'edges' of route is invalid; List of edges cannot be empty; route cannot be created
-Error: A route needs at least one edge. Vehicle with ID='vehicle_1' cannot be created
-Error: Invalid route '' used in vehicle 'vehicle_1'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Sep105205.14384\netedit.gui\demandElements\vehicle_embedded\load\route\input_routes.rou.xml failed.

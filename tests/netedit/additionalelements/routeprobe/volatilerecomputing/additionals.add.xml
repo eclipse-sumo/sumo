@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-24 16:24:40 by Eclipse SUMO netedit Version v1_16_0+0703-dfb4483119c
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="center0" file="rp_0.xml"/>
+    <routeProbe id="rp_1" begin="0.00" period="3600.00" edge="center1" file="rp_1.xml"/>
+    <routeProbe id="rp_2" begin="0.00" period="3600.00" edge="E1" file="rp_2.xml"/>
+    <routeProbe id="rp_3" begin="0.00" period="3600.00" edge="bot" file="rp_3.xml"/>
+    <routeProbe id="rp_4" begin="0.00" period="3600.00" edge="E4" file="rp_4.xml"/>
+    <routeProbe id="rp_5" begin="0.00" period="3600.00" edge="E5" file="rp_5.xml"/>
+    <routeProbe id="rp_6" begin="0.00" period="3600.00" edge="top" file="rp_6.xml"/>
+    <routeProbe id="rp_7" begin="0.00" period="3600.00" edge="E0" file="rp_7.xml"/>
+</additional>

@@ -1,0 +1,6 @@
+Error: Attribute 'until' in definition of a stop is not a valid time value.
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Error: Attribute 'until' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.21Jul154557.6915/netedit.gui/demandelements/stop/lane/load/until/routes.rou.xml failed.

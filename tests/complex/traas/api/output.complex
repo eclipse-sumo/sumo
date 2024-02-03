@@ -29,27 +29,26 @@ Step 20.0, tlsPhase 0 (North-South)
 Step 21.0, tlsPhase 0 (North-South)
 Step 22.0, tlsPhase 0 (North-South)
 Step 23.0, tlsPhase 0 (North-South)
-  veh=v2 len=4.5 entry=22.79579533817614 leave=-1.0 type=car
+  veh=v2 len=4.5 entry=22.795861902523978 leave=-1.0 type=car
 Step 24.0, tlsPhase 0 (North-South)
-  veh=v2 len=4.5 entry=22.79579533817614 leave=23.06568119355383 type=car
+  veh=v2 len=4.5 entry=22.795861902523978 leave=23.065750341438868 type=car
 Step 25.0, tlsPhase 0 (North-South)
-  veh=v1 len=4.5 entry=24.725719609142583 leave=-1.0 type=car
+  veh=v1 len=4.5 entry=24.725599909251915 leave=-1.0 type=car
 Step 26.0, tlsPhase 0 (North-South)
-  veh=v1 len=4.5 entry=24.725719609142583 leave=25.046361303299808 type=car
+  veh=v1 len=4.5 entry=24.725599909251915 leave=25.046239341232752 type=car
 Step 27.0, tlsPhase 0 (North-South)
 Step 28.0, tlsPhase 0 (North-South)
 Step 29.0, tlsPhase 0 (North-South)
 Step 30.0, tlsPhase 0 (North-South)
 Step 31.0, tlsPhase 0 (North-South)
 Step 32.0, tlsPhase 0 (North-South)
-  veh=v5 len=4.5 entry=31.945165996579863 leave=-1.0 type=car
+  veh=v5 len=4.5 entry=31.94519899046922 leave=-1.0 type=car
 Step 33.0, tlsPhase 0 (North-South)
-  veh=v5 len=4.5 entry=31.945165996579863 leave=32.233678301350025 type=car
+  veh=v5 len=4.5 entry=31.94519899046922 leave=32.233714514624026 type=car
 Step 34.0, tlsPhase 0 (North-South)
 Step 35.0, tlsPhase 0 (North-South)
 Step 36.0, tlsPhase 0 (North-South)
-  veh=v4 len=4.5 entry=35.346750732921095 leave=35.64379048557566 type=car
-VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v3 v4 v5 v6 v7 v8 v9 
+VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
 vehicle.getParameter: vehValue
 Vehicletype.getAdaptedTraveltime: 200.0
 Vehicle.getRoute: [gneE0, gneE1]
@@ -74,5 +73,5 @@ Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#
 Trafficlight.getPhaseDuration: 50.0
 Trafficlight.getNextSwitch: 51.0
 Simulation.convertRoad: gneE2, 57.92, 0
-Simulation.convertGeo: 13.38049279800687,52.50047399596812
+Simulation.convertGeo: 13.380492798007497,52.50047399595011
 Lane.getLinks: -gneE2_0##1#1#0#0.0#M#r#

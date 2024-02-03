@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 17 18:46:45 2020 by Eclipse SUMO sumo Version v1_7_0+1060-9469240594
+<!-- generated on 2022-03-30 10:59:59 by Eclipse SUMO sumo Version v1_12_0+1770-c60e6e70bb3
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
         <additional-files value="input_additional.add.xml"/>
-        <load-state value="state.sbx"/>
+        <load-state value="state.xml"/>
     </input>
 
     <output>
@@ -30,11 +30,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.06" arrival="160.00">
+    <vehicle id="0" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="160.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.06" arrival="175.00">
+    <vehicle id="1" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="175.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
         <stop lane="3/1to2/1_0" startPos="399.80" endPos="400.00" duration="10.00"/>
     </vehicle>

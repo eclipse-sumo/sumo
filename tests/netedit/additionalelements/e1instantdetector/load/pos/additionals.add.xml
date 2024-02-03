@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid position (dummy) -->
+    <instantInductionLoop id="E1_02" lane="center0_1" pos="dummyPosition" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- valid position (missing) -->
+    <instantInductionLoop id="E1_01" lane="center0_1" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- valid position (negative) -->
+    <instantInductionLoop id="E1_03" lane="center0_1" pos="-10" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- valid position (overpassing length) -->
+    <instantInductionLoop id="E1_04" lane="center0_1" pos="3000" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- valid position -->
+    <instantInductionLoop id="E1_05" lane="center0_1" pos="25" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+</additional>

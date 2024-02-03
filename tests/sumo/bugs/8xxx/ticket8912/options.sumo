@@ -1,0 +1,6 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml
+-r input_routes.rou.xml
+--tripinfo-output tripinfos.xml
+-b 25:0:0:0
+-H
+-v

@@ -1,0 +1,27 @@
+two_edges
+
+# This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
+speed_change
+
+# Test the geometry checks regarding non-simple polygons
+geometry_check
+
+# Test that checks there is no bad state recorded. The problem stemed from the way moveToXY works.
+bad_state_bug
+
+# Starting two agents at the same position
+identical_start_pos
+
+# small network including a walking area
+walking_area
+
+# larger network
+larger_net
+waypoints
+speed_factor
+
+# rerouting with optional rerouters
+rerouter
+
+# check correct arrival when there are multiple stops on the same edge
+# three_trainStops_at_one_edge (automatically commented due to no test directory being found)

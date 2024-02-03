@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -201,7 +201,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
-                } else if (parameterCount == 8) {
+                } else if (parameterCount >= 8) {
                     std::string imgFile;
                     if (!server.readTypeCheckingString(inputStorage, imgFile)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the imgFile encoded as a string.", outputStorage);
@@ -216,15 +216,19 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     }
                     double angle;
                     if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eighth PoI parameter must be the angle encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eigth PoI parameter must be the angle encoded as a double.", outputStorage);
+                    }
+                    std::string icon;
+                    if (parameterCount == 9 && !server.readTypeCheckingString(inputStorage, icon)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The ninth PoI parameter must be the icon encoded as a string.", outputStorage);
                     }
                     //
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle, icon)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
                 } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE,
-                                                      "Adding a PoI requires either only type, color, layer and position parameters or these and imageFile, width, height and angle parameters.",
+                                                      "Adding a PoI requires either only type, color, layer and position parameters or these and icon, imageFile, width, height and angle parameters.",
                                                       outputStorage);
                 }
             }

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <calibrator id="calibrator_gneE0_3" edge="gneE0" pos="0.00" freq="100.00" output="calibrator_gneE0_3.txt"/>
-    <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="0.00" freq="100.00" output="calibrator_gneE1_2.txt"/>
-    <calibrator id="calibrator_gneE2_0" edge="gneE2" pos="0.00" freq="100.00" output="calibrator_gneE2_0.txt"/>
-    <calibrator id="calibrator_gneE4_1" edge="gneE4" pos="0.00" freq="100.00" output="calibrator_gneE4_1.txt"/>
-</additional>

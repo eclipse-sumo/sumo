@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,6 +33,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
+#include <utils/emissions/EnergyParams.h>
 
 
 // ===========================================================================
@@ -152,18 +153,25 @@ public:
     }
 
 
-    /** @brief Get vehicle's maximum speed [m/s].
-     * @return The maximum speed (in m/s) of vehicles of this class
+    /** @brief Get vehicle's (technical) maximum speed [m/s].
+     * @return The maximum speed (in m/s) of vehicles of this types
      */
     double getMaxSpeed() const {
         return myParameter.maxSpeed;
+    }
+
+    /** @brief Returns the vehicles's desired maximum speed
+     * @return The desired maximum speed of vehicles of this type
+     */
+    double getDesiredMaxSpeed() const {
+        return myParameter.desiredMaxSpeed;
     }
 
 
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    double computeChosenSpeedDeviation(std::mt19937* rng, const double minDev = -1.) const;
+    double computeChosenSpeedDeviation(SumoRNG* rng, const double minDev = -1.) const;
 
 
     /** @brief Get the default probability of this vehicle type
@@ -189,6 +197,14 @@ public:
      */
     SUMOEmissionClass getEmissionClass() const {
         return myParameter.emissionClass;
+    }
+
+
+    /** @brief Get this vehicle type's mass
+     * @return The mass of this vehicle type
+     */
+    inline double getMass() const {
+        return myParameter.mass;
     }
 
 
@@ -244,6 +260,13 @@ public:
         return myParameter.width;
     }
 
+    /** @brief Get the width of the passenger compartment when being drawn
+     * @return The seating space width of this type's vehicles
+     */
+    double getSeatingWidth() const {
+        return myParameter.seatingWidth >= 0 ? myParameter.seatingWidth : myParameter.width;
+    }
+
     /** @brief Get the height which vehicles of this class shall have when being drawn
      * @return The height of this type's vehicles
      */
@@ -290,19 +313,20 @@ public:
         return myParameter.containerCapacity;
     }
 
-    /** @brief Get this vehicle type's boarding duration
-     * @return The time a person needs to board a vehicle of this type
+    /** @brief Get this vehicle type's loading duration
+     * @return The time a container / person needs to get loaded on a vehicle of this type
      */
-    SUMOTime getBoardingDuration() const {
-        return myParameter.boardingDuration;
+    SUMOTime getLoadingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
 
-    /** @brief Get this vehicle type's loading duration
-     * @return The time a container needs to get laoded on a vehicle of this type
+    /** @brief Get this vehicle type's boarding duration
+     * @return The time a container / person needs to get loaded on a vehicle of this type
      */
-    SUMOTime getLoadingDuration() const {
-        return myParameter.loadingDuration;
+    SUMOTime getBoardingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
+
 
     /** @brief Get vehicle's maximum lateral speed [m/s].
      * @return The maximum lateral speed (in m/s) of vehicles of this class
@@ -311,11 +335,23 @@ public:
         return myParameter.maxSpeedLat;
     }
 
-    /** @brief Get vehicle's preferred lateral alignment
-     * @return The vehicle's preferred lateral alignment
+    /** @brief Get vehicle's preferred lateral alignment procedure
+     * @return The vehicle's preferred lateral alignment procedure
      */
-    LateralAlignment getPreferredLateralAlignment() const {
-        return myParameter.latAlignment;
+    const LatAlignmentDefinition& getPreferredLateralAlignment() const {
+        return myParameter.latAlignmentProcedure;
+    }
+
+    /** @brief Get vehicle's preferred lateral alignment offset (in m from center line)
+     * @return The vehicle's preferred lateral alignment offset
+     */
+    double getPreferredLateralAlignmentOffset() const {
+        return myParameter.latAlignmentOffset;
+    }
+
+    /// @brief Get offset of first seat from vehicle front
+    double getFrontSeatPos() const {
+        return myParameter.frontSeatPos;
     }
     /// @}
 
@@ -468,6 +504,12 @@ public:
     void setEmissionClass(SUMOEmissionClass eclass);
 
 
+    /** @brief Set a new value for this type's mass
+     * @param[in] mass The new mass of this type
+     */
+    void setMass(double mass);
+
+
     /** @brief Set a new value for this type's color
      * @param[in] color The new color of this type
      */
@@ -489,6 +531,12 @@ public:
      */
     void setShape(SUMOVehicleShape shape);
 
+    /** @brief Set a new value for this type's boardingDuration
+     * @param[in] boardingDuration The new boardingDuration of this type
+     * @param[in] isPerson Whether to set boardingDuration or loadingDuration
+     */
+    void setBoardingDuration(SUMOTime duration, bool isPerson = true);
+
     /** @brief Set a new value for this type's impatience
      * @param[in] impatience The new impatience of this type
      */
@@ -496,7 +544,11 @@ public:
 
     /** @brief Set vehicle's preferred lateral alignment
      */
-    void setPreferredLateralAlignment(LateralAlignment latAlignment);
+    void setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset = 0.0);
+
+    /** @brief Set traffic scaling factor
+     */
+    void setScale(double value);
     /// @}
 
 
@@ -564,13 +616,16 @@ public:
      */
     void check();
 
-protected:
-    /// @brief init Rail Visualization Parameters
-    void initRailVisualizationParameters();
+    /// @brief retrieve parameters for the energy consumption model
+    inline const EnergyParams* getEmissionParameters() const {
+        return &myEnergyParams;
+    }
 
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
+
+    const EnergyParams myEnergyParams;
 
     /// @brief the vtypes actionsStepLength in seconds (cached because needed very often)
     double myCachedActionStepLengthSecs;
@@ -579,6 +634,7 @@ private:
     ///        larger than the desired time headway.
     bool myWarnedActionStepLengthTauOnce;
     bool myWarnedActionStepLengthBallisticOnce;
+    bool myWarnedStepLengthTauOnce;
 
     /// @brief the running index
     const int myIndex;

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-06 18:51:52 by Eclipse SUMO netconvert Version v1_12_0+2002-7ea8a94
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-403087.80,-5811470.27" convBoundary="0.00,0.00,38.60,116.99" origBoundary="13.455920,52.375706,13.649024,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-10780475#1" from="94945362" to="94953622" name="Alt-Köpenick" priority="1" type="highway.pedestrian" shape="0.13,21.81 9.50,47.68 14.42,60.74 26.77,89.81 34.93,108.57 38.60,116.99">
+        <lane id="-10780475#1_0" index="0" allow="pedestrian bus" speed="1.39" length="102.70" width="2.00" shape="1.26,22.00 10.44,47.33 15.35,60.37 27.69,89.42 35.85,108.17 39.52,116.59">
+            <param key="origId" value="10780475 10780475 1021333857 1021333857"/>
+        </lane>
+    </edge>
+    <edge id="1021333857#0" from="94953622" to="94945362" name="Alt-Köpenick" priority="1" type="highway.pedestrian" shape="38.60,116.99 34.93,108.57 26.77,89.81 14.42,60.74 9.50,47.68 0.13,21.81">
+        <lane id="1021333857#0_0" index="0" allow="pedestrian bus" speed="1.39" length="102.70" width="2.00" shape="37.68,117.39 34.01,108.97 25.85,90.20 13.49,61.11 8.56,48.03 -0.62,22.69">
+            <param key="origId" value="1021333857 1021333857 10780475 10780475"/>
+        </lane>
+    </edge>
+    <edge id="180304817#0" from="94945362" to="1863260119" name="Alt-Köpenick" priority="1" type="highway.service" spreadType="center">
+        <lane id="180304817#0_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="5.47" shape="0.06,18.79 0.00,16.45">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#1" from="1863260119" to="1531989567" name="Alt-Köpenick" priority="1" type="highway.service" spreadType="center">
+        <lane id="180304817#1_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="3.36" shape="0.01,16.24 0.36,13.00">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#2" from="1531989567" to="1531989564" name="Alt-Köpenick" priority="1" type="highway.service" spreadType="center">
+        <lane id="180304817#2_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="5.10" shape="0.36,13.00 1.31,8.15">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+    <edge id="180304817#3" from="1531989564" to="1531989559" name="Alt-Köpenick" priority="1" type="highway.service" spreadType="center">
+        <lane id="180304817#3_0" index="0" allow="pedestrian bus delivery bicycle" speed="1.39" length="8.16" shape="1.37,7.85 2.97,-0.00">
+            <param key="origId" value="180304817"/>
+        </lane>
+    </edge>
+
+    <junction id="1531989559" type="dead_end" x="2.97" y="0.00" incLanes="180304817#3_0" intLanes="" shape="1.40,-0.32 4.54,0.32"/>
+    <junction id="1531989564" type="priority" x="1.34" y="8.00" incLanes="180304817#2_0" intLanes="" shape="2.94,8.17 -0.20,7.53 -0.26,7.84 2.88,8.45">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="1531989567" type="priority" x="0.36" y="13.00" incLanes="180304817#1_0" intLanes="" shape="1.94,13.24 -1.20,12.62 -1.24,12.90">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="1863260119" type="priority" x="0.00" y="16.34" incLanes="180304817#0_0" intLanes="" shape="-1.60,16.48 1.60,16.41 -1.58,16.06 -1.60,16.22 -1.60,16.27 -1.60,16.39">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="94945362" type="priority" x="0.13" y="21.81" incLanes="1021333857#0_0" intLanes="" shape="-1.56,23.03 2.20,21.66 1.85,20.62 1.76,20.24 1.70,19.86 1.68,19.39 1.66,18.75 -1.54,18.83 -1.68,20.41 -1.80,20.98 -1.86,21.53 -1.80,22.18">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="94953622" type="dead_end" x="38.60" y="116.99" incLanes="-10780475#1_0" intLanes="" shape="38.60,116.99 40.43,116.19 38.60,116.99"/>
+
+    <connection from="1021333857#0" to="180304817#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="180304817#0" to="180304817#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="180304817#1" to="180304817#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="180304817#2" to="180304817#3" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

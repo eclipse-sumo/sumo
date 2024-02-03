@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:17:08.091104 by route2OD.py v1_13_0+1343-240e5d48340
+<configuration>
+    <interval value="5"/>
+    <output-file value="od.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <taz-files value="input_additional.add.xml"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="DEFAULT_VEHTYPE" begin="0.0" end="5.0">
+        <tazRelation from="1_2" to="1_1" count="1"/>
+        <tazRelation from="2_0" to="0_1" count="1"/>
+        <tazRelation from="3_0" to="0_1" count="1"/>
+        <tazRelation from="3_2" to="3_1" count="1"/>
+        <tazRelation from="4_1" to="0_2" count="1"/>
+    </interval>
+    <interval id="DEFAULT_VEHTYPE" begin="5.0" end="10.0">
+        <tazRelation from="0_1" to="1_0" count="1"/>
+        <tazRelation from="1_1" to="2_2" count="1"/>
+        <tazRelation from="1_1" to="2_4" count="1"/>
+        <tazRelation from="3_0" to="2_3" count="1"/>
+        <tazRelation from="3_4" to="0_0" count="1"/>
+    </interval>
+</data>

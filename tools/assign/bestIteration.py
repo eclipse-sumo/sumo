@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,13 +19,14 @@
 """
 Run duaIterate and collect statistics on the iterations
 """
-import os,sys
+import os
+import sys
 import subprocess
 import glob
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-from sumolib.statistics import Statistics
-from sumolib.xml import parse
-from shutil import copyfile
+from sumolib.statistics import Statistics  # noqa
+from sumolib.xml import parse  # noqa
+from shutil import copyfile  # noqa
 
 a = sys.argv[1:]
 
@@ -51,7 +52,6 @@ if "--extra-key" in a:
     key += "_%s" % a[index + 1]
     a.pop(index + 1)
     a.pop(index)
-    
 
 
 print("key", key)
@@ -65,22 +65,22 @@ TTT = Statistics("TTT")
 ATT = Statistics("ATT")
 values = []
 for name in glob.glob('*/stats.xml'):
-    #print(name)
+    # print(name)
     for stats in parse(name, 'statistics'):
         vStats = stats.vehicleTripStatistics[0]
-        vehs =  stats.vehicles[0]
+        vehs = stats.vehicles[0]
         ttt = float(vStats.totalTravelTime) + float(vStats.totalDepartDelay)
         att = ttt / int(vehs.loaded)
         TTT.add(ttt, name)
         ATT.add(att, name)
-        values.append((att, ttt, vStats.totalTravelTime, vStats.totalDepartDelay, vStats.duration, vStats.departDelay, name))
+        values.append((att, ttt, vStats.totalTravelTime, vStats.totalDepartDelay,
+                       vStats.duration, vStats.departDelay, name))
 
 with open('results.txt', 'w') as f:
     f.write('#' '\t'.join(['att', 'cttt', 'ttt', 'tdd', 'tt', 'dd', 'file']) + '\n')
     for dat in values:
         f.write('\t'.join(map(str, dat)) + '\n')
-    
+
     f.write('\n# %s\n# %s\n' % (TTT, ATT))
 
 copyfile('results.txt', os.path.join('..', 'results_%s.txt' % key))
-

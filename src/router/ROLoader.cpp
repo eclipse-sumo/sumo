@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,10 +26,6 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/util/TransService.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
@@ -63,9 +59,9 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
     } else {
         if (id[0] != ':') {
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
-                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_ERRORF(TL("Trying to set a weight for the unknown edge '%'."), id);
             }
         }
     }
@@ -84,9 +80,9 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
     } else {
         if (id[0] != ':') {
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
-                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_ERRORF(TL("Trying to set a weight for the unknown edge '%'."), id);
             }
         }
     }
@@ -112,12 +108,12 @@ void
 ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     std::string file = myOptions.getString("net-file");
     if (file == "") {
-        throw ProcessError("Missing definition of network to load!");
+        throw ProcessError(TL("Missing definition of network to load!"));
     }
     if (!FileHelpers::isReadable(file)) {
-        throw ProcessError("The network file '" + file + "' is not accessible.");
+        throw ProcessError(TLF("The network file '%' is not accessible.", file));
     }
-    PROGRESS_BEGIN_MESSAGE("Loading net");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
                          myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0);
     handler.setFileName(file);
@@ -134,14 +130,14 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     if (myOptions.isSet("additional-files", false)) { // dfrouter does not register this option
         std::vector<std::string> files = myOptions.getStringVector("additional-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::isReadable(*fileIt)) {
-                throw ProcessError("The additional file '" + *fileIt + "' is not accessible.");
+                throw ProcessError(TLF("The additional file '%' is not accessible.", *fileIt));
             }
             PROGRESS_BEGIN_MESSAGE("Loading additional file '" + *fileIt + "' ");
             handler.setFileName(*fileIt);
@@ -208,17 +204,17 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
             break;
         }
         lastStep = net.saveAndRemoveRoutesUntil(myOptions, provider, time);
-        if ((!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
+        if (time == end || (!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
             break;
         }
-        if (time < end && time + increment > end) {
+        if (time < end && time > end - increment) {
             time = end;
         } else {
             time += increment;
         }
     }
     if (myLogSteps) {
-        WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
+        WRITE_MESSAGEF(TL("Routes found between time steps % and %."), time2string(firstStep), time2string(lastStep));
     }
 }
 
@@ -236,7 +232,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
             RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"), !readAll);
             if (readAll) {
                 if (!XMLSubSys::runParser(*handler, fileIt)) {
-                    WRITE_ERROR("Loading of " + fileIt + " failed.");
+                    WRITE_ERRORF(TL("Loading of % failed."), fileIt);
                     return false;
                 }
                 delete handler;
@@ -244,7 +240,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
                 myLoaders.add(new SUMORouteLoader(handler));
             }
         } catch (ProcessError& e) {
-            WRITE_ERROR("The loader for " + optionName + " from file '" + fileIt + "' could not be initialised (" + e.what() + ").");
+            WRITE_ERRORF(TL("The loader for % from file '%' could not be initialised (%)."), optionName, fileIt, e.what());
             return false;
         }
     }
@@ -282,7 +278,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
         if (XMLSubSys::runParser(handler, *fileIt)) {
             PROGRESS_DONE_MESSAGE();
         } else {
-            WRITE_MESSAGE("failed.");
+            WRITE_MESSAGE(TL("failed."));
             return false;
         }
     }

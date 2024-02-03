@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 22 01:57:21 2020 by Eclipse SUMO Version v1_6_0+0887-0dd4682dc5
+<!-- generated on 2022-12-04 10:24:26 by Eclipse SUMO sumo Version v1_15_0+0749-de9f6f8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -71,13 +76,13 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="7.00">
         <vehicle id="ego" x="190.00" y="104.95" angle="270.00" type="egoType" speed="0.00" pos="10.00" lane="EC_0" slope="0.00"/>
         <vehicle id="foe.0" x="104.95" y="113.06" angle="0.00" type="foeType" speed="14.72" pos="5.01" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.1" x="104.95" y="75.17" angle="0.00" type="foeType" speed="13.03" pos="75.17" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.1" x="104.95" y="75.16" angle="0.00" type="foeType" speed="13.03" pos="75.16" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.2" x="104.95" y="52.10" angle="0.00" type="foeType" speed="14.03" pos="52.10" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="25.04" angle="0.00" type="foeType" speed="15.04" pos="25.04" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="ego" x="187.40" y="104.95" angle="270.00" type="egoType" speed="2.60" pos="12.60" lane="EC_0" slope="0.00"/>
-        <vehicle id="foe.0" x="104.95" y="127.78" angle="0.00" type="foeType" speed="14.72" pos="19.73" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.0" x="104.95" y="127.79" angle="0.00" type="foeType" speed="14.72" pos="19.74" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.1" x="104.95" y="88.20" angle="0.00" type="foeType" speed="13.03" pos="88.20" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.2" x="104.95" y="65.88" angle="0.00" type="foeType" speed="13.78" pos="65.88" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="40.08" angle="0.00" type="foeType" speed="15.04" pos="40.08" lane="SC_0" slope="0.00"/>
@@ -87,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="182.20" y="104.95" angle="270.00" type="egoType" speed="5.20" pos="17.80" lane="EC_0" slope="0.00"/>
         <vehicle id="foe.0" x="104.95" y="142.51" angle="0.00" type="foeType" speed="14.72" pos="34.46" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.1" x="104.95" y="101.23" angle="0.00" type="foeType" speed="13.03" pos="9.28" lane=":C_11_0" slope="0.00"/>
-        <vehicle id="foe.2" x="104.95" y="79.48" angle="0.00" type="foeType" speed="13.60" pos="79.48" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.2" x="104.95" y="79.48" angle="0.00" type="foeType" speed="13.59" pos="79.48" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="54.99" angle="0.00" type="foeType" speed="14.91" pos="54.99" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="24.31" angle="0.00" type="foeType" speed="14.31" pos="24.31" lane="SC_0" slope="0.00"/>
     </timestep>
@@ -111,7 +116,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="12.00">
         <vehicle id="ego" x="151.00" y="104.95" angle="270.00" type="egoType" speed="13.00" pos="49.00" lane="EC_0" slope="0.00"/>
         <vehicle id="foe.1" x="104.95" y="140.33" angle="0.00" type="foeType" speed="13.03" pos="32.28" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.2" x="104.95" y="119.44" angle="0.00" type="foeType" speed="13.21" pos="11.39" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.2" x="104.95" y="119.43" angle="0.00" type="foeType" speed="13.21" pos="11.38" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="97.35" angle="0.00" type="foeType" speed="13.83" pos="5.40" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="67.24" angle="0.00" type="foeType" speed="14.31" pos="67.24" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.5" x="104.95" y="33.09" angle="0.00" type="foeType" speed="11.54" pos="33.09" lane="SC_0" slope="0.00"/>
@@ -139,57 +144,57 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="113.78" y="104.95" angle="270.00" type="egoType" speed="9.56" pos="86.22" lane="EC_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="137.78" angle="0.00" type="foeType" speed="13.33" pos="29.73" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="110.18" angle="0.00" type="foeType" speed="14.31" pos="2.13" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.5" x="104.95" y="67.72" angle="0.00" type="foeType" speed="11.54" pos="67.72" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.5" x="104.95" y="67.71" angle="0.00" type="foeType" speed="11.54" pos="67.71" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.6" x="104.95" y="47.47" angle="0.00" type="foeType" speed="12.14" pos="47.47" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="22.31" angle="0.00" type="foeType" speed="12.31" pos="22.31" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="ego" x="101.62" y="104.95" angle="270.00" type="egoType" speed="12.16" pos="6.43" lane=":C_6_0" slope="0.00"/>
+        <vehicle id="ego" x="102.85" y="104.95" angle="270.00" type="egoType" speed="10.93" pos="5.20" lane=":C_6_0" slope="0.00"/>
         <vehicle id="foe.3" x="104.95" y="152.81" angle="0.00" type="foeType" speed="15.04" pos="44.76" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="124.49" angle="0.00" type="foeType" speed="14.31" pos="16.44" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.5" x="104.95" y="79.26" angle="0.00" type="foeType" speed="11.54" pos="79.26" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="59.42" angle="0.00" type="foeType" speed="11.94" pos="59.42" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="59.41" angle="0.00" type="foeType" speed="11.94" pos="59.41" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="34.61" angle="0.00" type="foeType" speed="12.31" pos="34.61" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="10.00" angle="0.00" type="foeType" speed="13.03" pos="10.00" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="ego" x="87.73" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="4.22" lane="CW_0" slope="0.00"/>
+        <vehicle id="ego" x="89.32" y="104.95" angle="270.00" type="egoType" speed="13.53" pos="2.63" lane="CW_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="138.80" angle="0.00" type="foeType" speed="14.31" pos="30.75" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.5" x="104.95" y="90.80" angle="0.00" type="foeType" speed="11.54" pos="90.80" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="71.23" angle="0.00" type="foeType" speed="11.81" pos="71.23" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="71.22" angle="0.00" type="foeType" speed="11.81" pos="71.22" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="46.92" angle="0.00" type="foeType" speed="12.31" pos="46.92" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="23.03" angle="0.00" type="foeType" speed="13.03" pos="23.03" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="ego" x="73.84" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="18.11" lane="CW_0" slope="0.00"/>
+        <vehicle id="ego" x="75.43" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="16.52" lane="CW_0" slope="0.00"/>
         <vehicle id="foe.4" x="104.95" y="153.11" angle="0.00" type="foeType" speed="14.31" pos="45.06" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.5" x="104.95" y="102.35" angle="0.00" type="foeType" speed="11.54" pos="10.40" lane=":C_11_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="82.95" angle="0.00" type="foeType" speed="11.72" pos="82.95" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.5" x="104.95" y="102.34" angle="0.00" type="foeType" speed="11.54" pos="10.39" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="82.94" angle="0.00" type="foeType" speed="11.72" pos="82.94" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="59.23" angle="0.00" type="foeType" speed="12.31" pos="59.23" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="36.05" angle="0.00" type="foeType" speed="13.03" pos="36.05" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="10.00" angle="0.00" type="foeType" speed="11.90" pos="10.00" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="ego" x="59.95" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="32.00" lane="CW_0" slope="0.00"/>
-        <vehicle id="foe.5" x="104.95" y="113.89" angle="0.00" type="foeType" speed="11.54" pos="5.84" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="94.61" angle="0.00" type="foeType" speed="11.66" pos="2.66" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="ego" x="61.54" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="30.41" lane="CW_0" slope="0.00"/>
+        <vehicle id="foe.5" x="104.95" y="113.88" angle="0.00" type="foeType" speed="11.54" pos="5.83" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="94.60" angle="0.00" type="foeType" speed="11.66" pos="2.65" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="71.53" angle="0.00" type="foeType" speed="12.31" pos="71.53" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="49.08" angle="0.00" type="foeType" speed="13.03" pos="49.08" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="21.90" angle="0.00" type="foeType" speed="11.90" pos="21.90" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="ego" x="46.06" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="45.89" lane="CW_0" slope="0.00"/>
+        <vehicle id="ego" x="47.65" y="104.95" angle="270.00" type="egoType" speed="13.89" pos="44.30" lane="CW_0" slope="0.00"/>
         <vehicle id="foe.10" x="104.95" y="10.00" angle="0.00" type="foeType" speed="13.37" pos="10.00" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.5" x="104.95" y="125.43" angle="0.00" type="foeType" speed="11.54" pos="17.38" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="106.23" angle="0.00" type="foeType" speed="11.62" pos="14.28" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="106.22" angle="0.00" type="foeType" speed="11.62" pos="14.27" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="83.84" angle="0.00" type="foeType" speed="12.31" pos="83.84" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="62.11" angle="0.00" type="foeType" speed="13.03" pos="62.11" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.9" x="104.95" y="33.81" angle="0.00" type="foeType" speed="11.90" pos="33.81" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.9" x="104.95" y="33.80" angle="0.00" type="foeType" speed="11.90" pos="33.80" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
         <vehicle id="foe.10" x="104.95" y="23.37" angle="0.00" type="foeType" speed="13.37" pos="23.37" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.5" x="104.95" y="136.98" angle="0.00" type="foeType" speed="11.54" pos="28.93" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="117.83" angle="0.00" type="foeType" speed="11.60" pos="9.78" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.5" x="104.95" y="136.97" angle="0.00" type="foeType" speed="11.54" pos="28.92" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="117.82" angle="0.00" type="foeType" speed="11.60" pos="9.77" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="96.15" angle="0.00" type="foeType" speed="12.31" pos="4.20" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="75.06" angle="0.00" type="foeType" speed="12.95" pos="75.06" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="45.71" angle="0.00" type="foeType" speed="11.90" pos="45.71" lane="SC_0" slope="0.00"/>
@@ -197,16 +202,16 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="22.00">
         <vehicle id="foe.10" x="104.95" y="36.25" angle="0.00" type="foeType" speed="12.88" pos="36.25" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.11" x="104.95" y="10.00" angle="0.00" type="foeType" speed="14.26" pos="10.00" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.5" x="104.95" y="148.52" angle="0.00" type="foeType" speed="11.54" pos="40.47" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.5" x="104.95" y="148.51" angle="0.00" type="foeType" speed="11.54" pos="40.46" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.6" x="104.95" y="129.40" angle="0.00" type="foeType" speed="11.58" pos="21.35" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="108.45" angle="0.00" type="foeType" speed="12.31" pos="0.40" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="87.79" angle="0.00" type="foeType" speed="12.73" pos="87.79" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="57.61" angle="0.00" type="foeType" speed="11.90" pos="57.61" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="foe.10" x="104.95" y="48.81" angle="0.00" type="foeType" speed="12.55" pos="48.81" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.10" x="104.95" y="48.80" angle="0.00" type="foeType" speed="12.55" pos="48.80" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.11" x="104.95" y="24.26" angle="0.00" type="foeType" speed="14.26" pos="24.26" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="140.97" angle="0.00" type="foeType" speed="11.57" pos="32.92" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="140.96" angle="0.00" type="foeType" speed="11.57" pos="32.91" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="120.65" angle="0.00" type="foeType" speed="12.20" pos="12.60" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="100.38" angle="0.00" type="foeType" speed="12.59" pos="8.43" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="69.51" angle="0.00" type="foeType" speed="11.90" pos="69.51" lane="SC_0" slope="0.00"/>
@@ -215,13 +220,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.10" x="104.95" y="61.14" angle="0.00" type="foeType" speed="12.34" pos="61.14" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.11" x="104.95" y="38.17" angle="0.00" type="foeType" speed="13.91" pos="38.17" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="10.00" angle="0.00" type="foeType" speed="14.54" pos="10.00" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.6" x="104.95" y="155.14" angle="0.00" type="foeType" speed="14.17" pos="47.09" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.7" x="104.95" y="132.64" angle="0.00" type="foeType" speed="11.98" pos="24.59" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.6" x="104.95" y="155.13" angle="0.00" type="foeType" speed="14.17" pos="47.08" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.7" x="104.95" y="132.63" angle="0.00" type="foeType" speed="11.98" pos="24.58" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.8" x="104.95" y="112.77" angle="0.00" type="foeType" speed="12.39" pos="4.72" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.9" x="104.95" y="81.42" angle="0.00" type="foeType" speed="11.90" pos="81.42" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.9" x="104.95" y="81.41" angle="0.00" type="foeType" speed="11.90" pos="81.41" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
-        <vehicle id="foe.10" x="104.95" y="73.34" angle="0.00" type="foeType" speed="12.19" pos="73.34" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.10" x="104.95" y="73.33" angle="0.00" type="foeType" speed="12.19" pos="73.33" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.11" x="104.95" y="51.55" angle="0.00" type="foeType" speed="13.38" pos="51.55" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="24.54" angle="0.00" type="foeType" speed="14.54" pos="24.54" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.7" x="104.95" y="144.94" angle="0.00" type="foeType" speed="12.31" pos="36.89" lane="CN_0" slope="0.00"/>
@@ -242,7 +247,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.11" x="104.95" y="77.00" angle="0.00" type="foeType" speed="12.56" pos="77.00" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="53.37" angle="0.00" type="foeType" speed="14.28" pos="53.37" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.13" x="104.95" y="25.60" angle="0.00" type="foeType" speed="15.60" pos="25.60" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.8" x="104.95" y="149.64" angle="0.00" type="foeType" speed="12.36" pos="41.59" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.8" x="104.95" y="149.63" angle="0.00" type="foeType" speed="12.36" pos="41.58" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="117.12" angle="0.00" type="foeType" speed="11.90" pos="9.07" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
@@ -251,35 +256,35 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.12" x="104.95" y="67.06" angle="0.00" type="foeType" speed="13.69" pos="67.06" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.13" x="104.95" y="41.19" angle="0.00" type="foeType" speed="15.60" pos="41.19" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.14" x="104.95" y="10.00" angle="0.00" type="foeType" speed="13.77" pos="10.00" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.9" x="104.95" y="129.03" angle="0.00" type="foeType" speed="11.90" pos="20.98" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.9" x="104.95" y="129.02" angle="0.00" type="foeType" speed="11.90" pos="20.97" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
         <vehicle id="foe.10" x="104.95" y="121.41" angle="0.00" type="foeType" speed="11.96" pos="13.36" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.11" x="104.95" y="101.54" angle="0.00" type="foeType" speed="12.19" pos="9.59" lane=":C_11_0" slope="0.00"/>
-        <vehicle id="foe.12" x="104.95" y="80.21" angle="0.00" type="foeType" speed="13.16" pos="80.21" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.11" x="104.95" y="101.53" angle="0.00" type="foeType" speed="12.19" pos="9.58" lane=":C_11_0" slope="0.00"/>
+        <vehicle id="foe.12" x="104.95" y="80.21" angle="0.00" type="foeType" speed="13.15" pos="80.21" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.13" x="104.95" y="56.05" angle="0.00" type="foeType" speed="14.86" pos="56.05" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.14" x="104.95" y="23.77" angle="0.00" type="foeType" speed="13.77" pos="23.77" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="140.93" angle="0.00" type="foeType" speed="11.90" pos="32.88" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
         <vehicle id="foe.10" x="104.95" y="133.35" angle="0.00" type="foeType" speed="11.94" pos="25.30" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.11" x="104.95" y="113.64" angle="0.00" type="foeType" speed="12.10" pos="5.59" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.11" x="104.95" y="113.63" angle="0.00" type="foeType" speed="12.10" pos="5.58" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="92.95" angle="0.00" type="foeType" speed="12.74" pos="1.00" lane=":C_11_0" slope="0.00"/>
         <vehicle id="foe.13" x="104.95" y="70.17" angle="0.00" type="foeType" speed="14.12" pos="70.17" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.14" x="104.95" y="37.53" angle="0.00" type="foeType" speed="13.77" pos="37.53" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.14" x="104.95" y="37.54" angle="0.00" type="foeType" speed="13.77" pos="37.54" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.15" x="104.95" y="10.00" angle="0.00" type="foeType" speed="12.87" pos="10.00" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.9" x="104.95" y="152.83" angle="0.00" type="foeType" speed="11.90" pos="44.78" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
         <vehicle id="foe.10" x="104.95" y="145.28" angle="0.00" type="foeType" speed="11.93" pos="37.23" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.11" x="104.95" y="125.67" angle="0.00" type="foeType" speed="12.03" pos="17.62" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.11" x="104.95" y="125.66" angle="0.00" type="foeType" speed="12.03" pos="17.61" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="105.41" angle="0.00" type="foeType" speed="12.46" pos="13.46" lane=":C_11_0" slope="0.00"/>
-        <vehicle id="foe.13" x="104.95" y="81.60" angle="0.00" type="foeType" speed="11.43" pos="81.60" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.13" x="104.95" y="81.59" angle="0.00" type="foeType" speed="11.43" pos="81.59" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.14" x="104.95" y="51.30" angle="0.00" type="foeType" speed="13.77" pos="51.30" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.15" x="104.95" y="22.87" angle="0.00" type="foeType" speed="12.87" pos="22.87" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="foe.11" x="104.95" y="137.66" angle="0.00" type="foeType" speed="11.99" pos="29.61" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.11" x="104.95" y="137.65" angle="0.00" type="foeType" speed="11.99" pos="29.60" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.12" x="104.95" y="117.68" angle="0.00" type="foeType" speed="12.27" pos="9.63" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.13" x="101.65" y="88.52" angle="0.00" type="foeType" speed="6.93" pos="88.52" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.14" x="104.95" y="65.07" angle="0.00" type="foeType" speed="13.77" pos="65.07" lane="SC_0" slope="0.00"/>
@@ -313,7 +318,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.14" x="104.95" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.15" x="104.95" y="80.63" angle="0.00" type="foeType" speed="7.32" pos="80.63" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.16" x="104.95" y="58.81" angle="0.00" type="foeType" speed="12.20" pos="58.81" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.16" x="104.95" y="58.80" angle="0.00" type="foeType" speed="12.20" pos="58.80" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.17" x="104.95" y="36.15" angle="0.00" type="foeType" speed="13.08" pos="36.15" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="104.95" y="10.00" angle="0.00" type="foeType" speed="13.00" pos="10.00" lane="SC_0" slope="0.00"/>
     </timestep>
@@ -339,7 +344,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.14" x="104.95" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.15" x="104.95" y="83.45" angle="0.00" type="foeType" speed="0.00" pos="83.45" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.16" x="101.65" y="81.34" angle="0.00" type="foeType" speed="6.61" pos="81.34" lane="SC_1" slope="0.00"/>
-        <vehicle id="foe.17" x="104.95" y="69.90" angle="0.00" type="foeType" speed="9.77" pos="69.90" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.17" x="104.95" y="69.91" angle="0.00" type="foeType" speed="9.77" pos="69.91" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="104.95" y="48.82" angle="0.00" type="foeType" speed="12.81" pos="48.82" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="24.50" angle="0.00" type="foeType" speed="14.50" pos="24.50" lane="SC_0" slope="0.00"/>
     </timestep>
@@ -393,7 +398,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.17" x="104.95" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="101.65" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="1.49" pos="68.45" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.20" x="104.95" y="57.87" angle="0.00" type="foeType" speed="7.58" pos="57.87" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.20" x="101.65" y="57.87" angle="0.00" type="foeType" speed="7.58" pos="57.87" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.21" x="104.95" y="38.06" angle="0.00" type="foeType" speed="14.03" pos="38.06" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.22" x="104.95" y="10.00" angle="0.00" type="foeType" speed="13.54" pos="10.00" lane="SC_0" slope="0.00"/>
     </timestep>
@@ -405,8 +410,8 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.17" x="104.95" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="101.65" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.20" x="101.65" y="60.94" angle="0.00" type="foeType" speed="3.08" pos="60.94" lane="SC_1" slope="0.00"/>
-        <vehicle id="foe.21" x="104.95" y="47.69" angle="0.00" type="foeType" speed="9.63" pos="47.69" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.20" x="101.65" y="65.41" angle="0.00" type="foeType" speed="7.54" pos="65.41" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.21" x="104.95" y="50.19" angle="0.00" type="foeType" speed="12.13" pos="50.19" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.22" x="104.95" y="23.54" angle="0.00" type="foeType" speed="13.54" pos="23.54" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
@@ -417,9 +422,9 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.17" x="104.95" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="101.65" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.20" x="101.65" y="66.62" angle="0.00" type="foeType" speed="5.68" pos="66.62" lane="SC_1" slope="0.00"/>
-        <vehicle id="foe.21" x="104.95" y="56.57" angle="0.00" type="foeType" speed="8.88" pos="56.57" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.22" x="104.95" y="35.51" angle="0.00" type="foeType" speed="11.97" pos="35.51" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="3.04" pos="68.45" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.21" x="104.95" y="57.82" angle="0.00" type="foeType" speed="7.63" pos="57.82" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.22" x="104.95" y="37.09" angle="0.00" type="foeType" speed="13.54" pos="37.09" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
@@ -429,9 +434,9 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.17" x="104.95" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.18" x="101.65" y="75.95" angle="0.00" type="foeType" speed="0.00" pos="75.95" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="1.83" pos="68.45" lane="SC_1" slope="0.00"/>
-        <vehicle id="foe.21" x="104.95" y="60.94" angle="0.00" type="foeType" speed="4.38" pos="60.94" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.22" x="104.95" y="45.99" angle="0.00" type="foeType" speed="10.48" pos="45.99" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.21" x="104.95" y="60.94" angle="0.00" type="foeType" speed="3.13" pos="60.94" lane="SC_0" slope="0.00"/>
+        <vehicle id="foe.22" x="104.95" y="47.04" angle="0.00" type="foeType" speed="9.95" pos="47.04" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="48.00">
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
@@ -443,7 +448,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.21" x="104.95" y="60.94" angle="0.00" type="foeType" speed="0.00" pos="60.94" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.22" x="101.65" y="51.97" angle="0.00" type="foeType" speed="5.98" pos="51.97" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.22" x="101.65" y="52.49" angle="0.00" type="foeType" speed="5.45" pos="52.49" lane="SC_1" slope="0.00"/>
     </timestep>
     <timestep time="49.00">
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
@@ -455,7 +460,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.21" x="104.95" y="60.94" angle="0.00" type="foeType" speed="0.00" pos="60.94" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.22" x="101.65" y="58.71" angle="0.00" type="foeType" speed="6.74" pos="58.71" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.22" x="101.65" y="58.97" angle="0.00" type="foeType" speed="6.48" pos="58.97" lane="SC_1" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
@@ -467,7 +472,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="foe.19" x="104.95" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_0" slope="0.00"/>
         <vehicle id="foe.20" x="101.65" y="68.45" angle="0.00" type="foeType" speed="0.00" pos="68.45" lane="SC_1" slope="0.00"/>
         <vehicle id="foe.21" x="104.95" y="60.94" angle="0.00" type="foeType" speed="0.00" pos="60.94" lane="SC_0" slope="0.00"/>
-        <vehicle id="foe.22" x="101.65" y="60.94" angle="0.00" type="foeType" speed="2.24" pos="60.94" lane="SC_1" slope="0.00"/>
+        <vehicle id="foe.22" x="101.65" y="60.94" angle="0.00" type="foeType" speed="1.98" pos="60.94" lane="SC_1" slope="0.00"/>
     </timestep>
     <timestep time="51.00">
         <vehicle id="foe.13" x="101.65" y="90.95" angle="0.00" type="foeType" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
@@ -1011,7 +1016,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="96.00">
         <vehicle id="foe.14" x="104.95" y="157.48" angle="0.00" type="foeType" speed="13.77" pos="49.43" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.15" x="104.95" y="135.20" angle="0.00" type="foeType" speed="12.87" pos="27.15" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.15" x="104.95" y="135.19" angle="0.00" type="foeType" speed="12.87" pos="27.14" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.16" x="101.65" y="133.85" angle="0.00" type="foeType" speed="12.20" pos="25.80" lane="CN_1" slope="0.00"/>
         <vehicle id="foe.17" x="104.95" y="114.82" angle="0.00" type="foeType" speed="12.87" pos="6.77" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.18" x="101.65" y="114.15" angle="0.00" type="foeType" speed="12.20" pos="6.10" lane="CN_1" slope="0.00"/>
@@ -1040,7 +1045,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="99.00">
         <vehicle id="foe.17" x="104.95" y="153.64" angle="0.00" type="foeType" speed="13.08" pos="45.59" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.18" x="101.65" y="151.56" angle="0.00" type="foeType" speed="13.00" pos="43.51" lane="CN_1" slope="0.00"/>
+        <vehicle id="foe.18" x="101.65" y="151.55" angle="0.00" type="foeType" speed="13.00" pos="43.50" lane="CN_1" slope="0.00"/>
         <vehicle id="foe.19" x="104.95" y="133.07" angle="0.00" type="foeType" speed="12.87" pos="25.02" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.20" x="101.65" y="131.05" angle="0.00" type="foeType" speed="12.20" pos="23.00" lane="CN_1" slope="0.00"/>
         <vehicle id="foe.21" x="104.95" y="112.69" angle="0.00" type="foeType" speed="12.87" pos="4.64" lane="CN_0" slope="0.00"/>
@@ -1049,7 +1054,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="100.00">
         <vehicle id="foe.19" x="104.95" y="146.14" angle="0.00" type="foeType" speed="13.08" pos="38.09" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.20" x="101.65" y="144.05" angle="0.00" type="foeType" speed="13.00" pos="36.00" lane="CN_1" slope="0.00"/>
-        <vehicle id="foe.21" x="104.95" y="125.57" angle="0.00" type="foeType" speed="12.87" pos="17.52" lane="CN_0" slope="0.00"/>
+        <vehicle id="foe.21" x="104.95" y="125.56" angle="0.00" type="foeType" speed="12.87" pos="17.51" lane="CN_0" slope="0.00"/>
         <vehicle id="foe.22" x="101.65" y="123.55" angle="0.00" type="foeType" speed="12.20" pos="15.50" lane="CN_1" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
@@ -1058,7 +1063,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="102.00">
         <vehicle id="foe.21" x="104.95" y="152.67" angle="0.00" type="foeType" speed="14.03" pos="44.62" lane="CN_0" slope="0.00"/>
-        <vehicle id="foe.22" x="101.65" y="150.10" angle="0.00" type="foeType" speed="13.54" pos="42.05" lane="CN_1" slope="0.00"/>
+        <vehicle id="foe.22" x="101.65" y="150.09" angle="0.00" type="foeType" speed="13.54" pos="42.04" lane="CN_1" slope="0.00"/>
     </timestep>
     <timestep time="103.00"/>
 </fcd-export>

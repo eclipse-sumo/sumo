@@ -1,5 +1,0 @@
-Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; Cannot be parsed to float; detEntry cannot be created
-Warning: Format of essential unique float attribute 'pos' of detExit is invalid; Cannot be parsed to float; detExit cannot be created
-Warning: An e3Detector need at least one detEntry detector
-Warning: An e3Detector need at least one detExit detector
-Warning: e3Detector with ID='e3Detector_0' cannot be written

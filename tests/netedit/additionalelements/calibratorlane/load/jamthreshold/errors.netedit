@@ -1,0 +1,4 @@
+Error: Attribute 'jamThreshold' in definition of calibrator 'calibrator01' Invalid Number Format (double) %%%%,,,$$$$$.
+Error: Attribute 'jamThreshold' in definition of calibrator 'calibrator02' is empty.
+Error: Could not build calibrator with ID 'calibrator03' in netedit; Attribute jamThreshold cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/calibratorlane/load/jamthreshold/additionals.add.xml failed.

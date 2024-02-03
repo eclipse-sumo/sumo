@@ -1,0 +1,5 @@
+--osm-files osm.xml
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--railway.topology.repair
+--no-internal-links

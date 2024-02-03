@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,31 +30,25 @@ import sumolib  # noqa
 
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " -n <net> <options>"
-    argParser = sumolib.options.ArgumentParser(usage=USAGE)
-    argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
-    argParser.add_argument("-o", "--output-file", dest="outFile", help="The KML output file name")
-    argParser.add_argument("-l", "--lanes", action="store_true", default=False,
-                           help="Export lane geometries instead of edge geometries")
-    argParser.add_argument("-i", "--internal", action="store_true", default=False,
-                           help="Export internal geometries")
-    argParser.add_argument("--color", default="0f0000ff", help="Color for normal edges")
-    argParser.add_argument("--internal-color", dest="iColor", default="5f0000ff", help="Color for internal edges")
+    ap = sumolib.options.ArgumentParser(usage=USAGE)
+    ap.add_argument("-n", "--net-file", category="input", type=ap.net_file,
+                    dest="netFile", help="The .net.xml file to convert")
+    ap.add_argument("-o", "--output-file", category="output", type=ap.file,
+                    dest="outFile", help="The KML output file name")
+    ap.add_argument("-l", "--lanes", action="store_true", default=False,
+                    help="Export lane geometries instead of edge geometries")
+    ap.add_argument("-i", "--internal", action="store_true", default=False,
+                    help="Export internal geometries")
+    ap.add_argument("--color", category="input", default="0f0000ff", help="Color for normal edges")
+    ap.add_argument("--internal-color", category="input", dest="iColor",
+                    default="5f0000ff", help="Color for internal edges")
 
-    options = argParser.parse_args()
+    options = ap.parse_args()
     if not options.netFile:
         print("Missing arguments")
-        argParser.print_help()
+        ap.print_help()
         exit()
     return options
-
-
-def getGeometries(options, net):
-    for edge in net.getEdges():
-        if options.lanes:
-            for lane in edge.getLanes():
-                yield lane.getID(), lane.getShape(), lane.getWidth()
-        else:
-            yield edge.getID(), edge.getShape(), sum([l.getWidth() for l in edge.getLanes()])
 
 
 if __name__ == "__main__":
@@ -66,7 +60,7 @@ if __name__ == "__main__":
         outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
         outf.write('<Document>\n')
-        for id, geometry, width in getGeometries(options, net):
+        for id, geometry, width in net.getGeometries(options.lanes):
             color = options.iColor if id[0] == ":" else options.color
             outf.write("\t<name>%s</name>\n" % options.netFile)
             outf.write("\t<open>1</open>\n")

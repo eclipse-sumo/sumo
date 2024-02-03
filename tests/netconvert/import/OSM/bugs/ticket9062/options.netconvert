@@ -1,0 +1,4 @@
+--osm-files osm.xml
+--no-internal-links
+--junctions.join
+-R

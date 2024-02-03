@@ -1,0 +1,11 @@
+# Test vehicle.moveToXY()
+vehicle_moveToXY
+
+# Test vehicle.getParameterWithKey()
+vehicle_getParameterWithKey
+
+# Test vehicle.getIDCount()
+vehicle_getIDCount
+
+# Validate the FMI model
+model_validation

@@ -32,7 +32,7 @@ information.
 There is a test scenario in the SUMOPy distribution which is located in
 
 ```
-SUMOHOME/tools/contributed/sumopy/testscenario
+SUMO_HOME/tools/contributed/sumopy/testscenario
 ```
 
 The quickest way to obtain results from a simulation is to import
@@ -46,7 +46,7 @@ demo.net.xml demo.poly.xml demo.rou.xml
 are located in directory
 
 ```
-SUMOHOME/tools/contributed/sumopy/testscenario
+SUMO_HOME/tools/contributed/sumopy/testscenario
 ```
 
 then a new scenario can be created by importing these files into SUMOPy
@@ -226,7 +226,7 @@ choosing the menu
 `Network>Edit with netedit`
 
 netedit| will be fired up with the network ready to be edited. The use
-of netedit| is documented here: <http://sumo.dlr.de/docs/netedit.html>. After
+of netedit| is documented here: <https://sumo.dlr.de/docs/netedit.html>. After
 editing, the network must be saved within netedit| be pressing <CTRL>-s
 or with File\>save|. Then netedit| can be closed and the modified
 network will be reimported into SUMOPy.

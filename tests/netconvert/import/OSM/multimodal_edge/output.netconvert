@@ -2,8 +2,7 @@ Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... don
 Parsing nodes from osm-file 'osm.xml' ... done.
 Parsing edges from osm-file 'osm.xml' ... done.
 Removing duplicate edges ... done.
-Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurence for edge '10860201').
-Parsing relations from osm-file 'osm.xml' ... done.
+Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurrence for edge '10860201').
  Import done:
    4 nodes loaded.
    34 types loaded.
@@ -44,5 +43,5 @@ Summary:
   Applied offset     : -405213.33,-5803545.51
   Converted boundary : 0.00,0.00,14260.81,350.76
 -----------------------------------------------------
-Writing network ... done (4ms).
+Writing network ... done (5ms).
 Success.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,8 @@ public:
      * @todo Describe what is saved
      */
     virtual bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                const std::map<SumoXMLAttr, std::string>& attrs) = 0;
+                                const std::map<SumoXMLAttr, std::string>& attrs,
+                                bool includeConfig = true) = 0;
 
 
     /** @brief Opens an XML tag
@@ -102,4 +103,5 @@ public:
 
     virtual void writePadding(std::ostream& into, const std::string& val) = 0;
 
+    virtual bool wroteHeader() const = 0;
 };

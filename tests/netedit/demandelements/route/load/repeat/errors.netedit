@@ -1,0 +1,4 @@
+Error: Attribute 'repeat' in definition of route 'route_0' Invalid Number Format (long long integer format) dummy.
+Error: Attribute 'repeat' in definition of route 'route_1' is empty.
+Error: Attribute 'repeat' in definition of route 'route_2' Invalid Number Format (long long integer format) -13.2.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.26Jan095536.11220/netedit.daily.demand.route/demandelements/route/load/repeat/routes.rou.xml failed.

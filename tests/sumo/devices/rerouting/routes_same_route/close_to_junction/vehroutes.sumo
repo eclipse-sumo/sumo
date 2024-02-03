@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 19 16:24:21 2018 by Eclipse SUMO Version eba7cf7
+<!-- generated on 2022-02-08 11:26:41 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,6 +27,10 @@ SPDX-License-Identifier: EPL-2.0
         <begin value="0"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <routing>
         <device.rerouting.probability value="1"/>
         <device.rerouting.period value="1"/>
@@ -30,6 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,36 +48,36 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="2" depart="100.00" departPos="420.00" departSpeed="27.80" arrival="175.00">
+    <vehicle id="2" depart="100.00" departPos="420.00" departSpeed="27.80" speedFactor="1.0000" arrival="175.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="101.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0" depart="0.00" departPos="450.00" departSpeed="27.40" arrival="186.00">
+    <vehicle id="0" depart="0.00" departPos="450.00" departSpeed="27.40" speedFactor="1.0000" arrival="186.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
-    <vehicle id="3" depart="150.00" departPos="405.00" departSpeed="27.80" arrival="226.00">
+    <vehicle id="3" depart="150.00" departPos="405.00" departSpeed="27.80" speedFactor="1.0000" arrival="226.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="151.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="50.00" departPos="435.00" departSpeed="27.80" arrival="236.00">
+    <vehicle id="1" depart="50.00" departPos="435.00" departSpeed="27.80" speedFactor="1.0000" arrival="236.00">
         <route edges="beg beg2right right right2end end rend"/>
     </vehicle>
 
-    <vehicle id="4" depart="200.00" departPos="390.00" departSpeed="27.80" arrival="276.00">
+    <vehicle id="4" depart="200.00" departPos="390.00" departSpeed="27.80" speedFactor="1.0000" arrival="276.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="201.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="250.00" departPos="375.00" departSpeed="27.80" arrival="327.00">
+    <vehicle id="5" depart="250.00" departPos="375.00" departSpeed="27.80" speedFactor="1.0000" arrival="327.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="251.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>

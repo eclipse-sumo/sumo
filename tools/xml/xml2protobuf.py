@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ import sys
 import subprocess
 import importlib
 import struct
-from optparse import OptionParser
+import glob
 import xml.sax
 try:
     import lxml.etree
@@ -36,6 +36,16 @@ except ImportError:
     haveLxml = False
 
 import xml2csv
+
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
+
+
+SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.environ.get("SUMO_HOME", ""), "..", "SUMOLibraries"))
+protobuf_path = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "python", "build", "lib"))
+if protobuf_path:
+    sys.path.append(protobuf_path[0])
 
 
 def capitalFirst(s):
@@ -97,30 +107,25 @@ class ProtoWriter(xml.sax.handler.ContentHandler):
 
 
 def get_options():
-    optParser = OptionParser(
-        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-p", "--protodir", default=".",
-                         help="where to put and read .proto files")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use (mandatory)")
-    optParser.add_option("-a", "--validation", action="store_true",
-                         default=False, help="enable schema validation")
-    optParser.add_option("-o", "--output", help="output file name")
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        optParser.print_help()
-        sys.exit()
-    if not options.xsd:
-        print("a schema is mandatory", file=sys.stderr)
-        sys.exit()
+    optParser = sumolib.options.ArgumentParser(description="Convert a XML file to a protocol buffer")
+    optParser.add_argument("source", category="input", type=optParser.data_file,
+                           help="the input data (given by digits or a file")
+    optParser.add_argument("-p", "--protodir", category="input", default=".",
+                           help="where to put and read .proto files")
+    optParser.add_argument("-x", "--xsd", category="processing", required=True,
+                           help="xsd schema to use (mandatory)")
+    optParser.add_argument("-a", "--validation", category="processing", action="store_true", default=False,
+                           help="enable schema validation")
+    optParser.add_argument("-o", "--output", category="output", type=optParser.data_file,
+                           help="output file name")
+    options = optParser.parse_args()
     if options.validation and not haveLxml:
         print("lxml not available, skipping validation", file=sys.stderr)
         options.validation = False
-    if args[0].isdigit():
-        options.source = xml2csv.getSocketStream(int(args[0]))
-    else:
-        options.source = args[0]
+    if options.source.isdigit():
+        options.source = xml2csv.getSocketStream(int(options.source))
     if not options.output:
-        options.output = os.path.splitext(args[0])[0] + ".protomsg"
+        options.output = os.path.splitext(options.source)[0] + ".protomsg"
     return options
 
 
@@ -173,8 +178,9 @@ def generateProto(tagAttrs, depthTags, enums, protodir, base):
                             count += 1
                     next += 1
                     protof.write("}\n")
-    subprocess.call(
-        ["protoc", "%s.proto" % base, "--python_out=%s" % protodir])
+    protoc = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "bin", "protoc.exe"))
+    protoc = protoc[0] if protoc else "protoc"
+    subprocess.call([protoc, "%s.proto" % base, "--python_out=%s" % protodir])
     sys.path.append(protodir)
     return importlib.import_module("%s_pb2" % base)
 
@@ -191,7 +197,7 @@ def main():
     handler = ProtoWriter(module, attrFinder, options.output)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
-        parser = lxml.etree.XMLParser(schema=schema)
+        parser = lxml.etree.XMLParser(schema=schema, resolve_entities=False, no_network=True)
         tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:

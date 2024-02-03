@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,6 +77,7 @@ public:
         double departPos = INVALID_DOUBLE;
         double arrivalPos = INVALID_DOUBLE;
         std::string description = "";
+        std::vector<double> exitTimes;
     };
 
     /// Constructor
@@ -108,17 +109,18 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
-                 const std::string stopID, const double speed,
-                 const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
+    bool compute(const E* from, const E* to,
+                 const double departPos, const std::string& originStopID,
+                 const double arrivalPos, const std::string& stopID,
+                 const double speed, const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
                  std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
         //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << " iFrom=" << myIntermodalNet->getDepartEdge(from, trip.departPos)->getID() << " iTo=" << (stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos))->getID() << "\n";
-        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
-                             stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
-                             &trip, msTime, intoEdges);
+        const _IntermodalEdge* iFrom = originStopID != "" ? myIntermodalNet->getStopEdge(originStopID) : myIntermodalNet->getDepartEdge(from, trip.departPos);
+        const _IntermodalEdge* iTo = stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos);
+        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges, true);
         if (success) {
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
@@ -126,6 +128,7 @@ public:
             double length = 0.;
             const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
+                bool addedEdge = false;
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         if (into.size() > 0) {
@@ -160,6 +163,7 @@ public:
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
                             into.back().edges.push_back(iEdge->getEdge());
                             into.back().arrivalPos = iEdge->getEndPos();
+                            addedEdge = true;
                         }
                     }
                 }
@@ -175,8 +179,17 @@ public:
                     if (into.back().depart < 0) {
                         into.back().depart = prevTime;
                     }
+                    if (addedEdge) {
+                        into.back().exitTimes.push_back(time);
+                    }
                 }
             }
+        } else {
+            const std::string oType = originStopID != "" ? "stop" : "edge";
+            const std::string oID = originStopID != "" ? originStopID : from->getID();
+            const std::string dType = stopID != "" ? "stop" : "edge";
+            const std::string dID = stopID != "" ? stopID : to->getID();
+            this->myErrorMsgHandler->informf("No connection between % '%' and % '%' found.", oType, oID, dType, dID);
         }
         if (into.size() > 0) {
             into.back().arrivalPos = arrivalPos;
@@ -204,7 +217,14 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&, bool) {
-        throw ProcessError("Do not use this method");
+        throw ProcessError(TL("Do not use this method"));
+    }
+
+    inline void setBulkMode(const bool mode) {
+        SUMOAbstractRouter<E, _IntermodalTrip>::setBulkMode(mode);
+        if (myInternalRouter != nullptr) {
+            myInternalRouter->setBulkMode(mode);
+        }
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {

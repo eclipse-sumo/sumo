@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -164,8 +164,14 @@ protected:
     /// @name add element functions
     //@{
 
+    /// @brief Processing of a person or container
+    virtual void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson) {
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(isPerson);
+    }
+
     /// @brief Processing of a stop
-    virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
+    virtual Parameterised* addStop(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief add a routing request for a walking or intermodal person
     virtual void addPersonTrip(const SUMOSAXAttributes& attrs) = 0;
@@ -173,14 +179,8 @@ protected:
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
 
-    /// @brief Processing of a person
-    virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
-
     /// @brief Processing of a ride
     virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
-
-    /// @brief Processing of a container
-    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief Processing of a transport
     virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
@@ -191,7 +191,7 @@ protected:
     //@}
 
     /// @brief Checks whether the route file is sorted by departure time if needed
-    bool checkLastDepart();
+    virtual bool checkLastDepart();
 
     /// @brief save last depart (only to be used if vehicle is not discarded)
     void registerLastDepart();
@@ -208,6 +208,9 @@ protected:
 
     /// @brief Parameter of the current vehicle, trip, person, container or flow
     SUMOVehicleParameter* myVehicleParameter;
+
+    /// @brief The stack of currently parsed parameterised objects
+    std::vector<Parameterised*> myParamStack;
 
     /// @brief The insertion time of the vehicle read last
     SUMOTime myLastDepart;
@@ -233,9 +236,6 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
-    /// @brief Parameterised used for saving loaded generic parameters that aren't saved in Vehicles or Vehicle Types
-    Parameterised myLoadedParameterised;
-
     /// @brief generates numerical ids
     IDSupplier myIdSupplier;
 
@@ -250,6 +250,12 @@ protected:
 
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
+
+    /// @brief hierarchy of elements being parsed
+    std::vector<int> myElementStack;
+
+    /// @brief whether references to internal routes are allowed in this context
+    bool myAllowInternalRoutes;
 
 private:
     /// @brief Invalidated copy constructor

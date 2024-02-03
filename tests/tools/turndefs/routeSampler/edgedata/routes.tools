@@ -1,232 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-26 11:52:05.202858 by $Id$ v1_8_0+1899-f88c15b771
-  options: -r input_routes.rou.xml <doubleminus>edgedata-file input_edgedata.xml <doubleminus>edgedata-attribute count -o out.rou.xml
+
+<!-- generated on 2023-06-29 14:40:44.851982 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
-    <vehicle id="0" depart="0.00">
-        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
-    </vehicle>
-    <vehicle id="1" depart="1.32">
-        <route edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/>
-    </vehicle>
-    <vehicle id="2" depart="2.64">
-        <route edges="60.80.00 75 75.121.42 -75"/>
-    </vehicle>
-    <vehicle id="3" depart="3.96">
-        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00"/>
-    </vehicle>
-    <vehicle id="4" depart="5.28">
-        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
-    </vehicle>
-    <vehicle id="5" depart="6.60">
-        <route edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60"/>
-    </vehicle>
-    <vehicle id="6" depart="7.92">
-        <route edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
-    </vehicle>
-    <vehicle id="7" depart="9.24">
-        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92"/>
-    </vehicle>
-    <vehicle id="8" depart="10.56">
-        <route edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
-    </vehicle>
-    <vehicle id="9" depart="11.88">
-        <route edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/>
-    </vehicle>
-    <vehicle id="10" depart="13.20">
-        <route edges="3 3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
-    </vehicle>
-    <vehicle id="11" depart="14.52">
-        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
-    </vehicle>
-    <vehicle id="12" depart="15.84">
-        <route edges="-79 -79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 -131 -131.180.00"/>
-    </vehicle>
-    <vehicle id="13" depart="17.16">
-        <route edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/>
-    </vehicle>
-    <vehicle id="14" depart="18.48">
-        <route edges="11.80.00 23 23.80.00 31"/>
-    </vehicle>
-    <vehicle id="15" depart="19.80">
-        <route edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3"/>
-    </vehicle>
-    <vehicle id="16" depart="21.12">
-        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/>
-    </vehicle>
-    <vehicle id="17" depart="22.44">
-        <route edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
-    </vehicle>
-    <vehicle id="18" depart="23.76">
-        <route edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71"/>
-    </vehicle>
-    <vehicle id="19" depart="25.08">
-        <route edges="-31.80.00 -23 -23.80.00 109 109.80.00 123"/>
-    </vehicle>
-    <vehicle id="20" depart="26.40">
-        <route edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/>
-    </vehicle>
-    <vehicle id="21" depart="27.72">
-        <route edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
-    </vehicle>
-    <vehicle id="22" depart="29.04">
-        <route edges="-144 -144.121.42 152"/>
-    </vehicle>
-    <vehicle id="23" depart="30.36">
-        <route edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131"/>
-    </vehicle>
-    <vehicle id="24" depart="31.68">
-        <route edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
-    </vehicle>
-    <vehicle id="25" depart="33.00">
-        <route edges="-37 -37.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 144"/>
-    </vehicle>
-    <vehicle id="26" depart="34.32">
-        <route edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68"/>
-    </vehicle>
-    <vehicle id="27" depart="35.64">
-        <route edges="-11.80.00 3 3.180.00 27 27.80.00 55 71"/>
-    </vehicle>
-    <vehicle id="28" depart="36.96">
-        <route edges="-43.80.00 -27 -27.80.00 27 27.80.00"/>
-    </vehicle>
-    <vehicle id="29" depart="38.28">
-        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
-    </vehicle>
-    <vehicle id="30" depart="39.60">
-        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/>
-    </vehicle>
-    <vehicle id="31" depart="40.92">
-        <route edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64"/>
-    </vehicle>
-    <vehicle id="32" depart="42.24">
-        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
-    </vehicle>
-    <vehicle id="33" depart="43.56">
-        <route edges="-123.121.42 131"/>
-    </vehicle>
-    <vehicle id="34" depart="44.88">
-        <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
-    </vehicle>
-    <vehicle id="35" depart="46.20">
-        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58"/>
-    </vehicle>
-    <vehicle id="36" depart="47.52">
-        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
-    </vehicle>
-    <vehicle id="37" depart="48.84">
-        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
-    </vehicle>
-    <vehicle id="38" depart="50.16">
-        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
-    </vehicle>
-    <vehicle id="39" depart="51.48">
-        <route edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/>
-    </vehicle>
-    <vehicle id="40" depart="52.80">
-        <route edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00"/>
-    </vehicle>
-    <vehicle id="41" depart="54.12">
-        <route edges="-43.80.00 -27 -27.80.00 27 27.80.00"/>
-    </vehicle>
-    <vehicle id="42" depart="55.44">
-        <route edges="-144 -144.121.42 -131 -131.180.00 131 131.180.00"/>
-    </vehicle>
-    <vehicle id="43" depart="56.76">
-        <route edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64"/>
-    </vehicle>
-    <vehicle id="44" depart="58.08">
-        <route edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
-    </vehicle>
-    <vehicle id="45" depart="59.40">
-        <route edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/>
-    </vehicle>
-    <vehicle id="46" depart="60.72">
-        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00"/>
-    </vehicle>
-    <vehicle id="47" depart="62.04">
-        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
-    </vehicle>
-    <vehicle id="48" depart="63.36">
-        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
-    </vehicle>
-    <vehicle id="49" depart="64.68">
-        <route edges="71.121.42 -3 -3.180.00 15 15.180.00"/>
-    </vehicle>
-    <vehicle id="50" depart="66.00">
-        <route edges="45 -68 -43 -43.80.00 43"/>
-    </vehicle>
-    <vehicle id="51" depart="67.32">
-        <route edges="-123.121.42 131"/>
-    </vehicle>
-    <vehicle id="52" depart="68.64">
-        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00"/>
-    </vehicle>
-    <vehicle id="53" depart="69.96">
-        <route edges="68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 -11"/>
-    </vehicle>
-    <vehicle id="54" depart="71.28">
-        <route edges="-109.80.00 23 23.80.00 31 31.80.00 -31 -31.80.00"/>
-    </vehicle>
-    <vehicle id="55" depart="72.60">
-        <route edges="71.121.42 -3 -3.180.00 15 15.180.00"/>
-    </vehicle>
-    <vehicle id="56" depart="73.92">
-        <route edges="23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/>
-    </vehicle>
-    <vehicle id="57" depart="75.24">
-        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
-    </vehicle>
-    <vehicle id="58" depart="76.56">
-        <route edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00"/>
-    </vehicle>
-    <vehicle id="59" depart="77.88">
-        <route edges="-43.80.00 -27 -27.80.00 27 27.80.00"/>
-    </vehicle>
-    <vehicle id="60" depart="79.20">
-        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
-    </vehicle>
-    <vehicle id="61" depart="80.52">
-        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00"/>
-    </vehicle>
-    <vehicle id="62" depart="81.84">
-        <route edges="15 15.180.00 -123 -123.121.42 -109 -109.80.00 -11"/>
-    </vehicle>
-    <vehicle id="63" depart="83.16">
-        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
-    </vehicle>
-    <vehicle id="64" depart="84.48">
-        <route edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
-    </vehicle>
-    <vehicle id="65" depart="85.80">
-        <route edges="-144.121.42 144 144.121.42 -15 -15.180.00 5"/>
-    </vehicle>
-    <vehicle id="66" depart="87.12">
-        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
-    </vehicle>
-    <vehicle id="67" depart="88.44">
-        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00"/>
-    </vehicle>
-    <vehicle id="68" depart="89.76">
-        <route edges="144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/>
-    </vehicle>
-    <vehicle id="69" depart="91.08">
-        <route edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/>
-    </vehicle>
-    <vehicle id="70" depart="92.40">
-        <route edges="-79.80.00 75 75.121.42"/>
-    </vehicle>
-    <vehicle id="71" depart="93.72">
-        <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
-    </vehicle>
-    <vehicle id="72" depart="95.04">
+    <vehicle id="0" depart="1.79">
         <route edges="43 68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00"/>
     </vehicle>
-    <vehicle id="73" depart="96.36">
-        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42"/>
+    <vehicle id="1" depart="4.32">
+        <route edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/>
     </vehicle>
-    <vehicle id="74" depart="97.68">
-        <route edges="-123.121.42 131"/>
+    <vehicle id="2" depart="9.52">
+        <route edges="-3.180.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="3" depart="14.92">
+        <route edges="144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00"/>
+    </vehicle>
+    <vehicle id="4" depart="17.32">
+        <route edges="-58 -58.121.42 64 64.80.00 120 120.180.00"/>
+    </vehicle>
+    <vehicle id="5" depart="17.42">
+        <route edges="-123 -123.121.42 131 131.180.00"/>
+    </vehicle>
+    <vehicle id="6" depart="17.70">
+        <route edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/>
+    </vehicle>
+    <vehicle id="7" depart="18.68">
+        <route edges="-3.180.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="8" depart="20.70">
+        <route edges="31.80.00 58"/>
+    </vehicle>
+    <vehicle id="9" depart="21.80">
+        <route edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00"/>
+    </vehicle>
+    <vehicle id="10" depart="22.63">
+        <route edges="-144 -144.121.42 152"/>
+    </vehicle>
+    <vehicle id="11" depart="22.79">
+        <route edges="-148 -148.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 37 -58 -58.121.42"/>
+    </vehicle>
+    <vehicle id="12" depart="24.80">
+        <route edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
+    </vehicle>
+    <vehicle id="13" depart="25.82">
+        <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="14" depart="27.61">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
+    </vehicle>
+    <vehicle id="15" depart="28.11">
+        <route edges="11.80.00 23 23.80.00 31"/>
+    </vehicle>
+    <vehicle id="16" depart="30.23">
+        <route edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/>
+    </vehicle>
+    <vehicle id="17" depart="30.50">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/>
+    </vehicle>
+    <vehicle id="18" depart="32.27">
+        <route edges="-43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 152"/>
+    </vehicle>
+    <vehicle id="19" depart="34.52">
+        <route edges="-123 -123.121.42 131 131.180.00"/>
+    </vehicle>
+    <vehicle id="20" depart="34.66">
+        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
+    </vehicle>
+    <vehicle id="21" depart="36.28">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
+    </vehicle>
+    <vehicle id="22" depart="36.86">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
+    </vehicle>
+    <vehicle id="23" depart="39.36">
+        <route edges="-79.80.00 75 75.121.42"/>
+    </vehicle>
+    <vehicle id="24" depart="39.48">
+        <route edges="-79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 144 144.121.42"/>
+    </vehicle>
+    <vehicle id="25" depart="40.05">
+        <route edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/>
+    </vehicle>
+    <vehicle id="26" depart="43.01">
+        <route edges="-64 -64.80.00 64 64.80.00 120 120.180.00 123 123.121.42"/>
+    </vehicle>
+    <vehicle id="27" depart="44.39">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 131"/>
+    </vehicle>
+    <vehicle id="28" depart="46.52">
+        <route edges="23 23.80.00 -23 -23.80.00 109"/>
+    </vehicle>
+    <vehicle id="29" depart="48.08">
+        <route edges="11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
+    </vehicle>
+    <vehicle id="30" depart="48.19">
+        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92"/>
+    </vehicle>
+    <vehicle id="31" depart="48.90">
+        <route edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/>
+    </vehicle>
+    <vehicle id="32" depart="49.42">
+        <route edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/>
+    </vehicle>
+    <vehicle id="33" depart="50.31">
+        <route edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/>
+    </vehicle>
+    <vehicle id="34" depart="50.37">
+        <route edges="-3.180.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="35" depart="51.15">
+        <route edges="-144 -144.121.42 152"/>
+    </vehicle>
+    <vehicle id="36" depart="51.26">
+        <route edges="-3.180.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="37" depart="53.60">
+        <route edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/>
+    </vehicle>
+    <vehicle id="38" depart="53.71">
+        <route edges="31 31.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
+    </vehicle>
+    <vehicle id="39" depart="55.27">
+        <route edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00"/>
+    </vehicle>
+    <vehicle id="40" depart="56.63">
+        <route edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00"/>
+    </vehicle>
+    <vehicle id="41" depart="57.49">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
+    </vehicle>
+    <vehicle id="42" depart="58.40">
+        <route edges="45 -68 -43 -43.80.00 43"/>
+    </vehicle>
+    <vehicle id="43" depart="63.00">
+        <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="44" depart="63.87">
+        <route edges="-43.80.00 -27 -27.80.00 27 27.80.00"/>
+    </vehicle>
+    <vehicle id="45" depart="66.22">
+        <route edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71"/>
+    </vehicle>
+    <vehicle id="46" depart="66.23">
+        <route edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </vehicle>
+    <vehicle id="47" depart="66.89">
+        <route edges="-43 -43.80.00 -27 -27.80.00"/>
+    </vehicle>
+    <vehicle id="48" depart="68.88">
+        <route edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60"/>
+    </vehicle>
+    <vehicle id="49" depart="68.89">
+        <route edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120"/>
+    </vehicle>
+    <vehicle id="50" depart="69.34">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 131"/>
+    </vehicle>
+    <vehicle id="51" depart="70.40">
+        <route edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58 -37 -37.80.00"/>
+    </vehicle>
+    <vehicle id="52" depart="71.37">
+        <route edges="-152.80.00 -131 -131.180.00 131"/>
+    </vehicle>
+    <vehicle id="53" depart="72.79">
+        <route edges="144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00"/>
+    </vehicle>
+    <vehicle id="54" depart="73.67">
+        <route edges="-79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00"/>
+    </vehicle>
+    <vehicle id="55" depart="76.09">
+        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
+    </vehicle>
+    <vehicle id="56" depart="77.75">
+        <route edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00"/>
+    </vehicle>
+    <vehicle id="57" depart="79.04">
+        <route edges="31.80.00 58"/>
+    </vehicle>
+    <vehicle id="58" depart="80.14">
+        <route edges="144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00"/>
+    </vehicle>
+    <vehicle id="59" depart="80.83">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/>
+    </vehicle>
+    <vehicle id="60" depart="82.93">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00"/>
+    </vehicle>
+    <vehicle id="61" depart="83.82">
+        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
+    </vehicle>
+    <vehicle id="62" depart="84.24">
+        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00"/>
+    </vehicle>
+    <vehicle id="63" depart="84.78">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/>
+    </vehicle>
+    <vehicle id="64" depart="84.98">
+        <route edges="-123 -123.121.42 131 131.180.00"/>
+    </vehicle>
+    <vehicle id="65" depart="85.55">
+        <route edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3"/>
+    </vehicle>
+    <vehicle id="66" depart="87.38">
+        <route edges="-131.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </vehicle>
+    <vehicle id="67" depart="87.89">
+        <route edges="23 23.80.00 -23 -23.80.00 109"/>
+    </vehicle>
+    <vehicle id="68" depart="89.70">
+        <route edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64"/>
+    </vehicle>
+    <vehicle id="69" depart="92.63">
+        <route edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/>
+    </vehicle>
+    <vehicle id="70" depart="93.07">
+        <route edges="-144 -144.121.42 152"/>
+    </vehicle>
+    <vehicle id="71" depart="93.11">
+        <route edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </vehicle>
+    <vehicle id="72" depart="95.58">
+        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/>
+    </vehicle>
+    <vehicle id="73" depart="96.39">
+        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58"/>
+    </vehicle>
+    <vehicle id="74" depart="96.91">
+        <route edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
+    </vehicle>
+    <vehicle id="75" depart="97.23">
+        <route edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00"/>
+    </vehicle>
+    <vehicle id="76" depart="98.45">
+        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -75"/>
+    </vehicle>
+    <vehicle id="77" depart="98.46">
+        <route edges="-92.180.00 -60 -60.80.00 -31 -31.80.00 37 -58 -58.121.42"/>
+    </vehicle>
+    <vehicle id="78" depart="98.63">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
     </vehicle>
 </routes>

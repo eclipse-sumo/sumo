@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,22 +30,70 @@
 // member method definitions
 // ===========================================================================
 
+GNEClosingReroute::GNEClosingReroute(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myClosedEdge(nullptr),
+myPermissions(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
-    myClosedEdge(closedEdge),
-    myPermissions(permissions) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
+myClosedEdge(closedEdge),
+myPermissions(permissions) {
+    // update boundary of rerouter parent
+    rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
 
 
 GNEClosingReroute::~GNEClosingReroute() {}
 
 
+void
+GNEClosingReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_CLOSING_REROUTE);
+    device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
+    if (getAttribute(SUMO_ATTR_ALLOW) != "authority") {
+        if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
+            device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
+        } else {
+            device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
+        }
+    }
+    device.closeTag();
+}
+
+
+bool
+GNEClosingReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEClosingReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEClosingReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
+bool
+GNEClosingReroute::checkDrawMoveContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
-GNEClosingReroute::getMoveOperation(const double /* shapeOffset */) {
+GNEClosingReroute::getMoveOperation() {
     // GNEClosingReroutes cannot be moved
     return nullptr;
 }
@@ -53,15 +101,25 @@ GNEClosingReroute::getMoveOperation(const double /* shapeOffset */) {
 
 void
 GNEClosingReroute::updateGeometry() {
-    // use geometry of rerouter parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
+}
+
+
+Position
+GNEClosingReroute::getPositionInView() const {
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNEClosingReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    // nothing to update
 }
 
 
@@ -78,8 +136,12 @@ GNEClosingReroute::getParentName() const {
 
 
 void
-GNEClosingReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Currently this additional isn't drawn
+GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // draw closing reroute as listed attribute
+    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
+                         getAttribute(SUMO_ATTR_EDGE));
 }
 
 
@@ -87,7 +149,7 @@ std::string
 GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return myClosedEdge->getID();
         case SUMO_ATTR_ALLOW:
@@ -96,8 +158,8 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -107,6 +169,12 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
 double
 GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+const Parameterised::Map&
+GNEClosingReroute::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 
@@ -120,8 +188,8 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
-        case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+        case GNE_ATTR_SELECTED:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -135,22 +203,14 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            return (myNet->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEClosingReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -173,10 +233,11 @@ void
 GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myClosedEdge = myNet->retrieveEdge(value);
+            myClosedEdge = myNet->getAttributeCarriers()->retrieveEdge(value);
             break;
         case SUMO_ATTR_ALLOW:
             myPermissions = parseVehicleClasses(value);
@@ -184,8 +245,12 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

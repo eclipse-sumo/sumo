@@ -30,3 +30,6 @@ ptStops
 
 # person should use a walk to leave the trainStop before boarding the taxi
 walk_via_trainStop_ride_taxi
+
+# person walks to a bicycle sharing station and rides to the destination
+bike_sharing

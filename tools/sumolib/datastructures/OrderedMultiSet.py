@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,10 +23,14 @@ based on OrderedSet by Raymond Hettinger (c) , MIT-License
 from __future__ import absolute_import
 
 import collections
+try:
+    from collections.abc import MutableSet
+except ImportError:
+    from collections import MutableSet
 KEY, PREV, NEXT = range(3)
 
 
-class OrderedMultiSet(collections.MutableSet):
+class OrderedMultiSet(MutableSet):
 
     def __init__(self, iterable=None):
         self.end = end = []

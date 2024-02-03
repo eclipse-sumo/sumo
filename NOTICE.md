@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Eclipse Sumo project.
 
-* Project home: https://eclipse.org/sumo
+* Project home: https://eclipse.dev/sumo
 
 ## Trademarks
 
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 The project maintains the following source code repositories:
 
-* https://github.com/eclipse/sumo
+* https://github.com/eclipse-sumo/sumo
 
 ## Third-party Content
 
@@ -82,12 +82,29 @@ tcpip from 2012-09-28 (n/a)
 * Project: https://github.com/itm/shawn
 * Source: https://github.com/itm/shawn/tree/master/src/apps/tcpip
 
-Xerces-C++ (3.2.0)
+Wix Installation Framework Templates (3.6)
+
+* License: CPL-1.0
+* Project: https://github.com/AnalogJ/Wix3.6Toolset
+* Source: https://github.com/AnalogJ/Wix3.6Toolset/tree/master/RC0-source/wix36-sources/src/ext/UIExtension/wixlib
+
+Xerces-C++ (3.2.3)
 
 * License: Apache-2.0
 * Project: http://xerces.apache.org/xerces-c/
-* Source:
-   http://mirror.softaculous.com/apache//xerces/c/3/sources/xerces-c-3.2.0.tar.gz
+* Source: https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.3.tar.gz
+
+JSON for Modern C++ (3.10.5)
+
+* License: MIT
+* Project: https://json.nlohmann.me/
+* Source: https://github.com/nlohmann/json/releases/tag/v3.10.5
+
+A C++ ZLib wrapper (1.0.6)
+
+* License: MIT
+* Project: https://github.com/mateidavid/zstr
+* Source: https://github.com/mateidavid/zstr/releases/tag/v1.0.6
 
 ## Cryptography
 
@@ -114,4 +131,3 @@ We currently consider all modifications to [src](src/README_Contributing.md) and
 - network import modules (excluding [changes to the existing classes](src/netimport/README_Contributing.md))
 - network export modules (excluding [changes to the existing classes](src/netwrite/README_Contributing.md))
 - software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_Contributing.md))
-

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,9 +22,9 @@
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <utils/common/StdDefs.h>
 #include "MSLogicJunction.h"
-#include <string>
 
 
 // ===========================================================================
@@ -38,9 +38,6 @@ public:
     /// Destructor.
     virtual ~MSJunctionLogic();
 
-    /// Returns the logic's number of links.
-    int nLinks();
-
     /// @brief Returns the response for the given link
     virtual const MSLogicJunction::LinkBits& getResponseFor(int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
@@ -52,11 +49,11 @@ public:
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
+
     virtual bool getIsCont(int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return false;
     }
-
 
     int getLogicSize() const {
         return myNLinks;
@@ -65,9 +62,6 @@ public:
     virtual bool hasFoes() const {
         return false;
     }
-
-
-
 
 protected:
     /// Constructor.
@@ -80,13 +74,10 @@ protected:
     static MSLogicJunction::LinkBits myDummyFoes;
 
 private:
-    /// Default constructor.
-    MSJunctionLogic();
-
     /// Copy constructor.
-    MSJunctionLogic(const MSJunctionLogic&);
+    MSJunctionLogic(const MSJunctionLogic&) = delete;
 
     /// Assignment operator.
-    MSJunctionLogic& operator=(const MSJunctionLogic&);
+    MSJunctionLogic& operator=(const MSJunctionLogic&) = delete;
 
 };

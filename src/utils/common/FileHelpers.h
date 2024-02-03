@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,6 +65,13 @@ public:
      */
     static std::string getFilePath(const std::string& path);
 
+    /** @brief Removes the path information from the given path
+     *
+     * @param[in] path The path to the file to return the file (with extension)
+     * @return the named file (with extension)
+     */
+    static std::string getFileFromPath(std::string path, const bool removeExtension);
+
     /** @brief Add an extension to the given file path
      *
      * @param[in] path The path to the file
@@ -121,6 +128,32 @@ public:
      * @return The file's position
      */
     static std::string checkForRelativity(const std::string& filename, const std::string& basePath);
+
+    /** @brief Get the current working directory
+     *
+     * @return The working directory (pwd)
+     */
+    static std::string getCurrentDir();
+
+    /** @brief Splits the given file path into directory components.
+     *
+     * The path gets normalized such that redundant "." and empty components are removed.
+     * Furthermore it will not contain a ".." after a directory name.
+     *
+     * @param[in] filename The path of a file
+     * @return the list parent directories
+     */
+    static std::vector<std::string> splitDirs(const std::string& filename);
+
+    /** @brief Fixes the relative path for the given filename in relation to the basePath (usually a config file).
+     *
+     * @param[in] filename The path of a file
+     * @param[in] basePath The path of another file referring to the former
+     * @param[in] force whether the replacement should be made even if the filename is absolute
+     * @param[in] curDir the current working dir (mainly for easier testing), "" will trigger a call of getCurrentDir
+     * @return the corrected relative file path
+     */
+    static std::string fixRelative(const std::string& filename, const std::string& basePath, const bool force, std::string curDir = "");
 
     /// @brief prepend the given prefix to the last path component of the given file path
     static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);
@@ -282,7 +315,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
             }
             int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
             if (followIndex >= prev->getNumSuccessors()) {
-                throw ProcessError("Invalid follower index in route '" + rid + "'!");
+                throw ProcessError(TLF("Invalid follower index in route '%'!", rid));
             }
             prev = prev->getSuccessors()[followIndex];
             edges.push_back(prev);
@@ -292,7 +325,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         while (size > 0) {
             const E* edge = E::getAllEdges()[bitsOrEntry];
             if (edge == 0) {
-                throw ProcessError("An edge within the route '" + rid + "' is not known!");
+                throw ProcessError(TLF("An edge within the route '%' is not known!", rid));
             }
             edges.push_back(edge);
             size--;

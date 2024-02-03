@@ -1,0 +1,25 @@
+/* XPM */
+static const char *disjoin_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c None",
+". c black",
+"o c #8a95a5",
+/* pixels */
+"                ",
+"                ",
+"            .   ",
+"            ..  ",
+"        ....... ",
+"       .    ..  ",
+"   oo .     .   ",
+"  oooo          ",
+"  oooo          ",
+"   oo .     .   ",
+"       .    ..  ",
+"        ....... ",
+"            ..  ",
+"            .   ",
+"                ",
+"                "
+};

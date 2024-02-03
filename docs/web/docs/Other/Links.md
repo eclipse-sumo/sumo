@@ -18,16 +18,16 @@ title: Links
 
 ### Documentation
 
-- [Doxygen](http://www.doxygen.nl/) A class
+- [Doxygen](https://www.doxygen.nl/) A class
   documentation utility.
-- [XMLMind XML Editor](http://www.xmlmind.com/xmleditor/) An editor
+- [XMLMind XML Editor](https://www.xmlmind.com/xmleditor/) An editor
   supporting DocBook.
 - [MkDocs](https://www.mkdocs.org/)
   MkDocs, the tool used to build the SUMO-documentation.
 
 ### Software Engineering
 
-- [SourceMonitor](http://www.campwoodsw.com/sourcemonitor.html) A
+- [SourceMonitor](https://www.campwoodsw.com/sourcemonitor.html) A
   great source code metrics tool.
 
 ### Configuration Tools
@@ -39,19 +39,19 @@ title: Links
 
 ### Road Traffic in General
 
-- [Matsim](http://www.matsim.org/) A mesoscopic simulation package.
-- [Trafix](http://trafix.sourceforge.net/) A road traffic simulation
+- [Matsim](https://www.matsim.org/) A mesoscopic simulation package.
+- [Trafix](https://trafix.sourceforge.net/) A road traffic simulation
   based on cellular automata written in C++. \[not revised\].
 - [Visual Traffic
-  Simulation](http://mysite.wanadoo-members.co.uk/tomfotherby/Contents/Uni/Project/index.html)
+  Simulation](https://mysite.wanadoo-members.co.uk/tomfotherby/Contents/Uni/Project/index.html)
   A java application which allows to build own networks and simulate
   them. \[not revised\].
-- [MITRASIM-2000](http://www.maerivoet.org/index.php?page=traffic-mitrasim-2000)
+- [MITRASIM-2000](https://www.maerivoet.org/index.php?page=traffic-mitrasim-2000)
   An (open source?) traffic simulation in Java. \[not revised\].
 - [BABSIM](https://www.inf.bi.ruhr-uni-bochum.de/index.php?option=com_content&view=article&id=17:babsim&catid=81&Itemid=116&lang=de) A simulation mainly concentrating on
   highways (BAB=BundesAutoBahnen, Federal Highways). Not yet given o
   the public.
-- [TraffSpot](http://traffspot.db-nico.de/) A microscopic simulation
+- [TraffSpot](https://traffspot.db-nico.de/) A microscopic simulation
   with a nice 3D-view.
 
 ### Traffic Lights Optimisation
@@ -64,6 +64,6 @@ title: Links
 
 ### Applets
 
-- [Microsimulation of Road Traffic](http://www.traffic-simulation.de/)
+- [Microsimulation of Road Traffic](https://www.traffic-simulation.de/)
   A very neat simulation applet based on the IDM-model that includes
   lane changing by Martin Treiber.

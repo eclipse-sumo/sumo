@@ -1,0 +1,31 @@
+/* XPM */
+static const char *vclass_small_coach_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1",
+"  c #494453",
+". c #4A4452",
+"X c #4A4453",
+"o c gray50",
+"O c #FF7F27",
+"+ c #D2C29F",
+"@ c #5E6F83",
+"# c #FFF4CD",
+"$ c None",
+/* pixels */
+"$$$OOOOOOOOOO$$$",
+"$$OOOOOOOOOOOO$$",
+"$OO@@@@@@@@@@OO$",
+"$O@@@@@@@@@@@@O$",
+"OO@@@@@@@@@@@@OO",
+"OO@@@@@@@@@@@@OO",
+"OO@@@@@@@@@@@@OO",
+"OO@@@@@@@@@@@@OO",
+"OO@@@@@@@@@@@@OO",
+"$OOOOOOOOOOOOOO$",
+"$OO++OOOOOO++OO$",
+"$O+##+oooo+##+O$",
+"$OO++OOOOOO++OO$",
+"$OOOOOOOOOOOOOO$",
+"$$XXX$$$$$$XXX$$",
+"$$.X $$$$$$.X $$"
+};

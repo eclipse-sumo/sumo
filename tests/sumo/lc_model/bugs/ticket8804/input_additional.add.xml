@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <rerouter id="LaneCloser" edges="end2" probability="1">
+        <interval begin="0" end="50">
+
+            <closingLaneReroute id="end2_0"/>
+
+        </interval>
+    </rerouter>
+</additional>

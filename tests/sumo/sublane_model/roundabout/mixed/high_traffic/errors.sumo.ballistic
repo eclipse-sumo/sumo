@@ -1,0 +1,5 @@
+Warning: Vehicle 'WE.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=30.00.
+Warning: Teleporting vehicle 'SW.7'; collision with vehicle 'SW.6', lane='SC_1', gap=-0.01', latGap=-2.20, time=140.00 stage=move.
+Warning: Vehicle 'SW.7' ends teleporting on edge 'RSE', time 162.00.
+Warning: Vehicle 'WE.50' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=772.00.
+Warning: Vehicle 'ES.68' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=962.00.

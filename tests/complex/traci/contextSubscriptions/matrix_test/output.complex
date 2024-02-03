@@ -1,0 +1,1073 @@
+ Retrying in 1 seconds
+trying to subscribe to busstop around busstop 'bs_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around busstop 'bs_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around busstop 'bs_0' at time 5.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around busstop 'bs_0' at time 7.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around busstop 'bs_0' at time 9.0
+trying to subscribe to inductionloop around busstop 'bs_0' at time 9.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around busstop 'bs_0' at time 11.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around busstop 'bs_0' at time 13.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around busstop 'bs_0' at time 15.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around busstop 'bs_0' at time 17.0
+trying to subscribe to multientryexit around busstop 'bs_0' at time 17.0
+trying to subscribe to overheadwire around busstop 'bs_0' at time 17.0
+trying to subscribe to parkingarea around busstop 'bs_0' at time 17.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around busstop 'bs_0' at time 19.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around busstop 'bs_0' at time 21.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around busstop 'bs_0' at time 23.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around busstop 'bs_0' at time 25.0
+trying to subscribe to route around busstop 'bs_0' at time 25.0
+trying to subscribe to routeprobe around busstop 'bs_0' at time 25.0
+trying to subscribe to simulation around busstop 'bs_0' at time 25.0
+trying to subscribe to trafficlight around busstop 'bs_0' at time 25.0
+trying to subscribe to variablespeedsign around busstop 'bs_0' at time 25.0
+trying to subscribe to vehicle around busstop 'bs_0' at time 25.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around busstop 'bs_0' at time 27.0
+trying to subscribe to busstop around calibrator 'ca_0' at time 27.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around calibrator 'ca_0' at time 29.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around calibrator 'ca_0' at time 31.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around calibrator 'ca_0' at time 33.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around calibrator 'ca_0' at time 35.0
+trying to subscribe to inductionloop around calibrator 'ca_0' at time 35.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around calibrator 'ca_0' at time 37.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around calibrator 'ca_0' at time 39.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around calibrator 'ca_0' at time 41.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around calibrator 'ca_0' at time 43.0
+trying to subscribe to multientryexit around calibrator 'ca_0' at time 43.0
+trying to subscribe to overheadwire around calibrator 'ca_0' at time 43.0
+trying to subscribe to parkingarea around calibrator 'ca_0' at time 43.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around calibrator 'ca_0' at time 45.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around calibrator 'ca_0' at time 47.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around calibrator 'ca_0' at time 49.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around calibrator 'ca_0' at time 51.0
+trying to subscribe to route around calibrator 'ca_0' at time 51.0
+trying to subscribe to routeprobe around calibrator 'ca_0' at time 51.0
+trying to subscribe to simulation around calibrator 'ca_0' at time 51.0
+trying to subscribe to trafficlight around calibrator 'ca_0' at time 51.0
+trying to subscribe to variablespeedsign around calibrator 'ca_0' at time 51.0
+trying to subscribe to vehicle around calibrator 'ca_0' at time 51.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around calibrator 'ca_0' at time 53.0
+trying to subscribe to busstop around chargingstation 'cs_0' at time 53.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around chargingstation 'cs_0' at time 55.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around chargingstation 'cs_0' at time 57.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around chargingstation 'cs_0' at time 59.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around chargingstation 'cs_0' at time 61.0
+trying to subscribe to inductionloop around chargingstation 'cs_0' at time 61.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around chargingstation 'cs_0' at time 63.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around chargingstation 'cs_0' at time 65.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around chargingstation 'cs_0' at time 67.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around chargingstation 'cs_0' at time 69.0
+trying to subscribe to multientryexit around chargingstation 'cs_0' at time 69.0
+trying to subscribe to overheadwire around chargingstation 'cs_0' at time 69.0
+trying to subscribe to parkingarea around chargingstation 'cs_0' at time 69.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around chargingstation 'cs_0' at time 71.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around chargingstation 'cs_0' at time 73.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around chargingstation 'cs_0' at time 75.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around chargingstation 'cs_0' at time 77.0
+trying to subscribe to route around chargingstation 'cs_0' at time 77.0
+trying to subscribe to routeprobe around chargingstation 'cs_0' at time 77.0
+trying to subscribe to simulation around chargingstation 'cs_0' at time 77.0
+trying to subscribe to trafficlight around chargingstation 'cs_0' at time 77.0
+trying to subscribe to variablespeedsign around chargingstation 'cs_0' at time 77.0
+trying to subscribe to vehicle around chargingstation 'cs_0' at time 77.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around chargingstation 'cs_0' at time 79.0
+trying to subscribe to busstop around edge '1fi' at time 79.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around edge '1fi' at time 81.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around edge '1fi' at time 83.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around edge '1fi' at time 85.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around edge '1fi' at time 87.0
+trying to subscribe to inductionloop around edge '1fi' at time 87.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around edge '1fi' at time 89.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around edge '1fi' at time 91.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around edge '1fi' at time 93.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around edge '1fi' at time 95.0
+trying to subscribe to multientryexit around edge '1fi' at time 95.0
+trying to subscribe to overheadwire around edge '1fi' at time 95.0
+trying to subscribe to parkingarea around edge '1fi' at time 95.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around edge '1fi' at time 97.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around edge '1fi' at time 99.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around edge '1fi' at time 101.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around edge '1fi' at time 103.0
+trying to subscribe to route around edge '1fi' at time 103.0
+trying to subscribe to routeprobe around edge '1fi' at time 103.0
+trying to subscribe to simulation around edge '1fi' at time 103.0
+trying to subscribe to trafficlight around edge '1fi' at time 103.0
+trying to subscribe to variablespeedsign around edge '1fi' at time 103.0
+trying to subscribe to vehicle around edge '1fi' at time 103.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around edge '1fi' at time 105.0
+trying to subscribe to busstop around inductionloop 'e1_0' at time 105.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around inductionloop 'e1_0' at time 107.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around inductionloop 'e1_0' at time 109.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around inductionloop 'e1_0' at time 111.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around inductionloop 'e1_0' at time 113.0
+trying to subscribe to inductionloop around inductionloop 'e1_0' at time 113.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around inductionloop 'e1_0' at time 115.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around inductionloop 'e1_0' at time 117.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around inductionloop 'e1_0' at time 119.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around inductionloop 'e1_0' at time 121.0
+trying to subscribe to multientryexit around inductionloop 'e1_0' at time 121.0
+trying to subscribe to overheadwire around inductionloop 'e1_0' at time 121.0
+trying to subscribe to parkingarea around inductionloop 'e1_0' at time 121.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around inductionloop 'e1_0' at time 123.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around inductionloop 'e1_0' at time 125.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around inductionloop 'e1_0' at time 127.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around inductionloop 'e1_0' at time 129.0
+trying to subscribe to route around inductionloop 'e1_0' at time 129.0
+trying to subscribe to routeprobe around inductionloop 'e1_0' at time 129.0
+trying to subscribe to simulation around inductionloop 'e1_0' at time 129.0
+trying to subscribe to trafficlight around inductionloop 'e1_0' at time 129.0
+trying to subscribe to variablespeedsign around inductionloop 'e1_0' at time 129.0
+trying to subscribe to vehicle around inductionloop 'e1_0' at time 129.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around inductionloop 'e1_0' at time 131.0
+trying to subscribe to busstop around junction '0' at time 131.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around junction '0' at time 133.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around junction '0' at time 135.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around junction '0' at time 137.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around junction '0' at time 139.0
+trying to subscribe to inductionloop around junction '0' at time 139.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around junction '0' at time 141.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around junction '0' at time 143.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around junction '0' at time 145.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around junction '0' at time 147.0
+trying to subscribe to multientryexit around junction '0' at time 147.0
+trying to subscribe to overheadwire around junction '0' at time 147.0
+trying to subscribe to parkingarea around junction '0' at time 147.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around junction '0' at time 149.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around junction '0' at time 151.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around junction '0' at time 153.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around junction '0' at time 155.0
+trying to subscribe to route around junction '0' at time 155.0
+trying to subscribe to routeprobe around junction '0' at time 155.0
+trying to subscribe to simulation around junction '0' at time 155.0
+trying to subscribe to trafficlight around junction '0' at time 155.0
+trying to subscribe to variablespeedsign around junction '0' at time 155.0
+trying to subscribe to vehicle around junction '0' at time 155.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around junction '0' at time 157.0
+trying to subscribe to busstop around lane '1fi_0' at time 157.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around lane '1fi_0' at time 159.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around lane '1fi_0' at time 161.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around lane '1fi_0' at time 163.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around lane '1fi_0' at time 165.0
+trying to subscribe to inductionloop around lane '1fi_0' at time 165.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around lane '1fi_0' at time 167.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around lane '1fi_0' at time 169.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around lane '1fi_0' at time 171.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around lane '1fi_0' at time 173.0
+trying to subscribe to multientryexit around lane '1fi_0' at time 173.0
+trying to subscribe to overheadwire around lane '1fi_0' at time 173.0
+trying to subscribe to parkingarea around lane '1fi_0' at time 173.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around lane '1fi_0' at time 175.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around lane '1fi_0' at time 177.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around lane '1fi_0' at time 179.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around lane '1fi_0' at time 181.0
+trying to subscribe to route around lane '1fi_0' at time 181.0
+trying to subscribe to routeprobe around lane '1fi_0' at time 181.0
+trying to subscribe to simulation around lane '1fi_0' at time 181.0
+trying to subscribe to trafficlight around lane '1fi_0' at time 181.0
+trying to subscribe to variablespeedsign around lane '1fi_0' at time 181.0
+trying to subscribe to vehicle around lane '1fi_0' at time 181.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around lane '1fi_0' at time 183.0
+trying to subscribe to busstop around lanearea 'e2_0' at time 183.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around lanearea 'e2_0' at time 185.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around lanearea 'e2_0' at time 187.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around lanearea 'e2_0' at time 189.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around lanearea 'e2_0' at time 191.0
+trying to subscribe to inductionloop around lanearea 'e2_0' at time 191.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around lanearea 'e2_0' at time 193.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around lanearea 'e2_0' at time 195.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around lanearea 'e2_0' at time 197.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around lanearea 'e2_0' at time 199.0
+trying to subscribe to multientryexit around lanearea 'e2_0' at time 199.0
+trying to subscribe to overheadwire around lanearea 'e2_0' at time 199.0
+trying to subscribe to parkingarea around lanearea 'e2_0' at time 199.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around lanearea 'e2_0' at time 201.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around lanearea 'e2_0' at time 203.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around lanearea 'e2_0' at time 205.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around lanearea 'e2_0' at time 207.0
+trying to subscribe to route around lanearea 'e2_0' at time 207.0
+trying to subscribe to routeprobe around lanearea 'e2_0' at time 207.0
+trying to subscribe to simulation around lanearea 'e2_0' at time 207.0
+trying to subscribe to trafficlight around lanearea 'e2_0' at time 207.0
+trying to subscribe to variablespeedsign around lanearea 'e2_0' at time 207.0
+trying to subscribe to vehicle around lanearea 'e2_0' at time 207.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around lanearea 'e2_0' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+No objects for domain 'meandata' at time 209.0
+trying to subscribe to busstop around multientryexit 'e3_0' at time 209.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around multientryexit 'e3_0' at time 211.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around multientryexit 'e3_0' at time 213.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around multientryexit 'e3_0' at time 215.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around multientryexit 'e3_0' at time 217.0
+trying to subscribe to inductionloop around multientryexit 'e3_0' at time 217.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around multientryexit 'e3_0' at time 219.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around multientryexit 'e3_0' at time 221.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around multientryexit 'e3_0' at time 223.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around multientryexit 'e3_0' at time 225.0
+trying to subscribe to multientryexit around multientryexit 'e3_0' at time 225.0
+trying to subscribe to overheadwire around multientryexit 'e3_0' at time 225.0
+trying to subscribe to parkingarea around multientryexit 'e3_0' at time 225.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around multientryexit 'e3_0' at time 227.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around multientryexit 'e3_0' at time 229.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around multientryexit 'e3_0' at time 231.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around multientryexit 'e3_0' at time 233.0
+trying to subscribe to route around multientryexit 'e3_0' at time 233.0
+trying to subscribe to routeprobe around multientryexit 'e3_0' at time 233.0
+trying to subscribe to simulation around multientryexit 'e3_0' at time 233.0
+trying to subscribe to trafficlight around multientryexit 'e3_0' at time 233.0
+trying to subscribe to variablespeedsign around multientryexit 'e3_0' at time 233.0
+trying to subscribe to vehicle around multientryexit 'e3_0' at time 233.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around multientryexit 'e3_0' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+No objects for domain 'overheadwire' at time 235.0
+trying to subscribe to busstop around parkingarea 'pa_0' at time 235.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around parkingarea 'pa_0' at time 237.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around parkingarea 'pa_0' at time 239.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around parkingarea 'pa_0' at time 241.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around parkingarea 'pa_0' at time 243.0
+trying to subscribe to inductionloop around parkingarea 'pa_0' at time 243.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around parkingarea 'pa_0' at time 245.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around parkingarea 'pa_0' at time 247.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around parkingarea 'pa_0' at time 249.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around parkingarea 'pa_0' at time 251.0
+trying to subscribe to multientryexit around parkingarea 'pa_0' at time 251.0
+trying to subscribe to overheadwire around parkingarea 'pa_0' at time 251.0
+trying to subscribe to parkingarea around parkingarea 'pa_0' at time 251.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around parkingarea 'pa_0' at time 253.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around parkingarea 'pa_0' at time 255.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around parkingarea 'pa_0' at time 257.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around parkingarea 'pa_0' at time 259.0
+trying to subscribe to route around parkingarea 'pa_0' at time 259.0
+trying to subscribe to routeprobe around parkingarea 'pa_0' at time 259.0
+trying to subscribe to simulation around parkingarea 'pa_0' at time 259.0
+trying to subscribe to trafficlight around parkingarea 'pa_0' at time 259.0
+trying to subscribe to variablespeedsign around parkingarea 'pa_0' at time 259.0
+trying to subscribe to vehicle around parkingarea 'pa_0' at time 259.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around parkingarea 'pa_0' at time 261.0
+trying to subscribe to busstop around person 'p0' at time 261.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around person 'p0' at time 263.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around person 'p0' at time 265.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around person 'p0' at time 267.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around person 'p0' at time 269.0
+trying to subscribe to inductionloop around person 'p0' at time 269.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around person 'p0' at time 271.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around person 'p0' at time 273.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around person 'p0' at time 275.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around person 'p0' at time 277.0
+trying to subscribe to multientryexit around person 'p0' at time 277.0
+trying to subscribe to overheadwire around person 'p0' at time 277.0
+trying to subscribe to parkingarea around person 'p0' at time 277.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around person 'p0' at time 279.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around person 'p0' at time 281.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around person 'p0' at time 283.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around person 'p0' at time 285.0
+trying to subscribe to route around person 'p0' at time 285.0
+trying to subscribe to routeprobe around person 'p0' at time 285.0
+trying to subscribe to simulation around person 'p0' at time 285.0
+trying to subscribe to trafficlight around person 'p0' at time 285.0
+trying to subscribe to variablespeedsign around person 'p0' at time 285.0
+trying to subscribe to vehicle around person 'p0' at time 285.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around person 'p0' at time 287.0
+trying to subscribe to busstop around poi 'poi_0' at time 287.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around poi 'poi_0' at time 289.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around poi 'poi_0' at time 291.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around poi 'poi_0' at time 293.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around poi 'poi_0' at time 295.0
+trying to subscribe to inductionloop around poi 'poi_0' at time 295.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around poi 'poi_0' at time 297.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around poi 'poi_0' at time 299.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around poi 'poi_0' at time 301.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around poi 'poi_0' at time 303.0
+trying to subscribe to multientryexit around poi 'poi_0' at time 303.0
+trying to subscribe to overheadwire around poi 'poi_0' at time 303.0
+trying to subscribe to parkingarea around poi 'poi_0' at time 303.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around poi 'poi_0' at time 305.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around poi 'poi_0' at time 307.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around poi 'poi_0' at time 309.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around poi 'poi_0' at time 311.0
+trying to subscribe to route around poi 'poi_0' at time 311.0
+trying to subscribe to routeprobe around poi 'poi_0' at time 311.0
+trying to subscribe to simulation around poi 'poi_0' at time 311.0
+trying to subscribe to trafficlight around poi 'poi_0' at time 311.0
+trying to subscribe to variablespeedsign around poi 'poi_0' at time 311.0
+trying to subscribe to vehicle around poi 'poi_0' at time 311.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around poi 'poi_0' at time 313.0
+trying to subscribe to busstop around polygon 'po_0' at time 313.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around polygon 'po_0' at time 315.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around polygon 'po_0' at time 317.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around polygon 'po_0' at time 319.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around polygon 'po_0' at time 321.0
+trying to subscribe to inductionloop around polygon 'po_0' at time 321.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around polygon 'po_0' at time 323.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around polygon 'po_0' at time 325.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around polygon 'po_0' at time 327.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around polygon 'po_0' at time 329.0
+trying to subscribe to multientryexit around polygon 'po_0' at time 329.0
+trying to subscribe to overheadwire around polygon 'po_0' at time 329.0
+trying to subscribe to parkingarea around polygon 'po_0' at time 329.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around polygon 'po_0' at time 331.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around polygon 'po_0' at time 333.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around polygon 'po_0' at time 335.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around polygon 'po_0' at time 337.0
+trying to subscribe to route around polygon 'po_0' at time 337.0
+trying to subscribe to routeprobe around polygon 'po_0' at time 337.0
+trying to subscribe to simulation around polygon 'po_0' at time 337.0
+trying to subscribe to trafficlight around polygon 'po_0' at time 337.0
+trying to subscribe to variablespeedsign around polygon 'po_0' at time 337.0
+trying to subscribe to vehicle around polygon 'po_0' at time 337.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around polygon 'po_0' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+No objects for domain 'rerouter' at time 339.0
+trying to subscribe to busstop around route '1' at time 339.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around route '1' at time 341.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around route '1' at time 343.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around route '1' at time 345.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around route '1' at time 347.0
+trying to subscribe to inductionloop around route '1' at time 347.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around route '1' at time 349.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around route '1' at time 351.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around route '1' at time 353.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around route '1' at time 355.0
+trying to subscribe to multientryexit around route '1' at time 355.0
+trying to subscribe to overheadwire around route '1' at time 355.0
+trying to subscribe to parkingarea around route '1' at time 355.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around route '1' at time 357.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around route '1' at time 359.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around route '1' at time 361.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around route '1' at time 363.0
+trying to subscribe to route around route '1' at time 363.0
+trying to subscribe to routeprobe around route '1' at time 363.0
+trying to subscribe to simulation around route '1' at time 363.0
+trying to subscribe to trafficlight around route '1' at time 363.0
+trying to subscribe to variablespeedsign around route '1' at time 363.0
+trying to subscribe to vehicle around route '1' at time 363.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around route '1' at time 365.0
+trying to subscribe to busstop around routeprobe 'rp_0' at time 365.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around routeprobe 'rp_0' at time 367.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around routeprobe 'rp_0' at time 369.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around routeprobe 'rp_0' at time 371.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around routeprobe 'rp_0' at time 373.0
+trying to subscribe to inductionloop around routeprobe 'rp_0' at time 373.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around routeprobe 'rp_0' at time 375.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around routeprobe 'rp_0' at time 377.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around routeprobe 'rp_0' at time 379.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around routeprobe 'rp_0' at time 381.0
+trying to subscribe to multientryexit around routeprobe 'rp_0' at time 381.0
+trying to subscribe to overheadwire around routeprobe 'rp_0' at time 381.0
+trying to subscribe to parkingarea around routeprobe 'rp_0' at time 381.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around routeprobe 'rp_0' at time 383.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around routeprobe 'rp_0' at time 385.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around routeprobe 'rp_0' at time 387.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around routeprobe 'rp_0' at time 389.0
+trying to subscribe to route around routeprobe 'rp_0' at time 389.0
+trying to subscribe to routeprobe around routeprobe 'rp_0' at time 389.0
+trying to subscribe to simulation around routeprobe 'rp_0' at time 389.0
+trying to subscribe to trafficlight around routeprobe 'rp_0' at time 389.0
+trying to subscribe to variablespeedsign around routeprobe 'rp_0' at time 389.0
+trying to subscribe to vehicle around routeprobe 'rp_0' at time 389.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around routeprobe 'rp_0' at time 391.0
+trying to subscribe to busstop around simulation '' at time 391.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around simulation '' at time 393.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around simulation '' at time 395.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around simulation '' at time 397.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around simulation '' at time 399.0
+trying to subscribe to inductionloop around simulation '' at time 399.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around simulation '' at time 401.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around simulation '' at time 403.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around simulation '' at time 405.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around simulation '' at time 407.0
+trying to subscribe to multientryexit around simulation '' at time 407.0
+trying to subscribe to overheadwire around simulation '' at time 407.0
+trying to subscribe to parkingarea around simulation '' at time 407.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around simulation '' at time 409.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around simulation '' at time 411.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around simulation '' at time 413.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around simulation '' at time 415.0
+trying to subscribe to route around simulation '' at time 415.0
+trying to subscribe to routeprobe around simulation '' at time 415.0
+trying to subscribe to simulation around simulation '' at time 415.0
+trying to subscribe to trafficlight around simulation '' at time 415.0
+trying to subscribe to variablespeedsign around simulation '' at time 415.0
+trying to subscribe to vehicle around simulation '' at time 415.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around simulation '' at time 417.0
+trying to subscribe to busstop around trafficlight '0' at time 417.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around trafficlight '0' at time 419.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around trafficlight '0' at time 421.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around trafficlight '0' at time 423.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around trafficlight '0' at time 425.0
+trying to subscribe to inductionloop around trafficlight '0' at time 425.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around trafficlight '0' at time 427.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around trafficlight '0' at time 429.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around trafficlight '0' at time 431.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around trafficlight '0' at time 433.0
+trying to subscribe to multientryexit around trafficlight '0' at time 433.0
+trying to subscribe to overheadwire around trafficlight '0' at time 433.0
+trying to subscribe to parkingarea around trafficlight '0' at time 433.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around trafficlight '0' at time 435.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around trafficlight '0' at time 437.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around trafficlight '0' at time 439.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around trafficlight '0' at time 441.0
+trying to subscribe to route around trafficlight '0' at time 441.0
+trying to subscribe to routeprobe around trafficlight '0' at time 441.0
+trying to subscribe to simulation around trafficlight '0' at time 441.0
+trying to subscribe to trafficlight around trafficlight '0' at time 441.0
+trying to subscribe to variablespeedsign around trafficlight '0' at time 441.0
+trying to subscribe to vehicle around trafficlight '0' at time 441.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around trafficlight '0' at time 443.0
+trying to subscribe to busstop around variablespeedsign 'vs_0' at time 443.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around variablespeedsign 'vs_0' at time 445.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around variablespeedsign 'vs_0' at time 447.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around variablespeedsign 'vs_0' at time 449.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around variablespeedsign 'vs_0' at time 451.0
+trying to subscribe to inductionloop around variablespeedsign 'vs_0' at time 451.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around variablespeedsign 'vs_0' at time 453.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around variablespeedsign 'vs_0' at time 455.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around variablespeedsign 'vs_0' at time 457.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around variablespeedsign 'vs_0' at time 459.0
+trying to subscribe to multientryexit around variablespeedsign 'vs_0' at time 459.0
+trying to subscribe to overheadwire around variablespeedsign 'vs_0' at time 459.0
+trying to subscribe to parkingarea around variablespeedsign 'vs_0' at time 459.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around variablespeedsign 'vs_0' at time 461.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around variablespeedsign 'vs_0' at time 463.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around variablespeedsign 'vs_0' at time 465.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to route around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to routeprobe around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to simulation around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to trafficlight around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to variablespeedsign around variablespeedsign 'vs_0' at time 467.0
+trying to subscribe to vehicle around variablespeedsign 'vs_0' at time 467.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around variablespeedsign 'vs_0' at time 469.0
+trying to subscribe to busstop around vehicle 'ego' at time 469.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around vehicle 'ego' at time 471.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around vehicle 'ego' at time 473.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around vehicle 'ego' at time 475.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around vehicle 'ego' at time 477.0
+trying to subscribe to inductionloop around vehicle 'ego' at time 477.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around vehicle 'ego' at time 479.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around vehicle 'ego' at time 481.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around vehicle 'ego' at time 483.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around vehicle 'ego' at time 485.0
+trying to subscribe to multientryexit around vehicle 'ego' at time 485.0
+trying to subscribe to overheadwire around vehicle 'ego' at time 485.0
+trying to subscribe to parkingarea around vehicle 'ego' at time 485.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around vehicle 'ego' at time 487.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around vehicle 'ego' at time 489.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around vehicle 'ego' at time 491.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around vehicle 'ego' at time 493.0
+trying to subscribe to route around vehicle 'ego' at time 493.0
+trying to subscribe to routeprobe around vehicle 'ego' at time 493.0
+trying to subscribe to simulation around vehicle 'ego' at time 493.0
+trying to subscribe to trafficlight around vehicle 'ego' at time 493.0
+trying to subscribe to variablespeedsign around vehicle 'ego' at time 493.0
+trying to subscribe to vehicle around vehicle 'ego' at time 493.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around vehicle 'ego' at time 495.0
+trying to subscribe to busstop around vehicletype 'DEFAULT_BIKETYPE' at time 495.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to calibrator around vehicletype 'DEFAULT_BIKETYPE' at time 497.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to chargingstation around vehicletype 'DEFAULT_BIKETYPE' at time 499.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to edge around vehicletype 'DEFAULT_BIKETYPE' at time 501.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around vehicletype 'DEFAULT_BIKETYPE' at time 503.0
+trying to subscribe to inductionloop around vehicletype 'DEFAULT_BIKETYPE' at time 503.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to junction around vehicletype 'DEFAULT_BIKETYPE' at time 505.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lane around vehicletype 'DEFAULT_BIKETYPE' at time 507.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around vehicletype 'DEFAULT_BIKETYPE' at time 509.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to meandata around vehicletype 'DEFAULT_BIKETYPE' at time 511.0
+trying to subscribe to multientryexit around vehicletype 'DEFAULT_BIKETYPE' at time 511.0
+trying to subscribe to overheadwire around vehicletype 'DEFAULT_BIKETYPE' at time 511.0
+trying to subscribe to parkingarea around vehicletype 'DEFAULT_BIKETYPE' at time 511.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around vehicletype 'DEFAULT_BIKETYPE' at time 513.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around vehicletype 'DEFAULT_BIKETYPE' at time 515.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around vehicletype 'DEFAULT_BIKETYPE' at time 517.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to rerouter around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to route around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to routeprobe around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to simulation around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to trafficlight around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to variablespeedsign around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+trying to subscribe to vehicle around vehicletype 'DEFAULT_BIKETYPE' at time 519.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around vehicletype 'DEFAULT_BIKETYPE' at time 521.0

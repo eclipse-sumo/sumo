@@ -1,0 +1,7 @@
+basic
+
+# network contains a static traffic light, load actuated as additional program (new default)
+from_additional
+
+# test supplying additional parameters
+parameters

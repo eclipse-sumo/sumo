@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2019 Dresden University of Technology
 // This program and the accompanying materials are made available under the
@@ -24,7 +24,7 @@ package de.tudresden.ws.container;
 /**
  *
  * @author Jakob Erdmann
- * @deprecated use package {@link #de.tudresden.sumo.objects} instead.
+ * @deprecated use package {@link de.tudresden.sumo.objects} instead.
  */
 
 public class SumoStage extends de.tudresden.sumo.objects.SumoStage {}

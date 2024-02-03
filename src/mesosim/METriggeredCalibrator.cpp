@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,7 +134,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     while ((calibrateFlow || calibrateSpeed) && invalidJam()) {
         hadInvalidJam = true;
         if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNING("Clearing jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
+            WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
         }
         // remove one vehicle currently on the segment
         if (mySegment->vaporizeAnyCar(currentTime, this)) {
@@ -142,7 +142,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         } else {
             if (!myHaveWarnedAboutClearingJam) {
                 // this frequenly happens for very short edges
-                WRITE_WARNING("Could not clear jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
+                WRITE_WARNINGF(TL("Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
             }
             break;
         }
@@ -166,21 +166,22 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             const int insertionSlack = MAX2(0, adaptedNum + relaxedInsertion - totalWishedNum);
             // increase number of vehicles
             //std::cout << "time:" << STEPS2TIME(currentTime) << " w:" << wishedNum << " s:" << insertionSlack << " before:" << adaptedNum;
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
                 SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-                const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
+                ConstMSRoutePtr route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
                 if (route == nullptr) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
                 if (route == nullptr) {
-                    WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                    WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                     break;
                 }
                 if (!route->contains(myEdge)) {
-                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
+                    WRITE_WARNINGF(TL("Route '%' in calibrator '%' does not contain edge '%'."), route->getID(), getID(), myEdge->getID());
                     break;
                 }
-                MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+                MSVehicleType* vtype = vc.getVType(pars->vtypeid);
                 assert(route != 0 && vtype != 0);
                 // build the vehicle
                 const SUMOTime depart = mySegment->getNextInsertionTime(currentTime);
@@ -190,8 +191,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
                 try {
-                    vehicle = static_cast<MEVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(
-                                                          newPars, route, vtype, false, false));
+                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
                 } catch (const ProcessError& e) {
                     if (!MSGlobals::gCheckRoutes) {
                         WRITE_WARNING(e.what());
@@ -200,6 +200,12 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                     } else {
                         throw e;
                     }
+                }
+                const bool duplicate = vc.getVehicle(newPars->id) != nullptr;
+                // duplicate ids could come from loading state
+                if (duplicate) {
+                    vc.deleteVehicle(vehicle, true);
+                    continue;
                 }
                 vehicle->setSegment(mySegment); // needed or vehicle will not be registered (XXX why?)
                 vehicle->setEventTime(currentTime); // XXX superfluous?
@@ -213,7 +219,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 // insert vehicle into the net
                 if (atDest || !tryEmit(mySegment, vehicle)) {
                     //std::cout << "F ";
-                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                    vc.deleteVehicle(vehicle, true);
                     break;
                 }
                 //std::cout << "I ";
@@ -237,7 +243,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     }
     //assert(!invalidJam());
     if (invalidJam()) {
-        WRITE_WARNING("DEBUG: Could not clear jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
+        WRITE_WARNINGF("DEBUG: Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
     }
     return myFrequency;
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,7 @@
 #include "ROLane.h"
 #include "ROPerson.h"
 
+const std::string ROPerson::PlanItem::UNDEFINED_STOPPING_PLACE;
 
 // ===========================================================================
 // method definitions
@@ -50,20 +51,23 @@ ROPerson::ROPerson(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* t
 
 
 ROPerson::~ROPerson() {
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        delete *it;
+    for (PlanItem* const it : myPlan) {
+        delete it;
     }
 }
 
 
 void
-ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                  const std::string& vTypes, const double departPos, const double arrivalPos,
-                  const std::string& busStop, double walkFactor, const std::string& group) {
-    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, arrivalPos, busStop, walkFactor, group);
+ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
+                  const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
+                  const std::string& vTypes,
+                  const double departPos, const std::string& stopOrigin,
+                  const double arrivalPos, const std::string& busStop,
+                  double walkFactor, const std::string& group) {
+    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, stopOrigin, arrivalPos, busStop, walkFactor, group);
     RONet* net = RONet::getInstance();
     SUMOVehicleParameter pars;
-    pars.departProcedure = DEPART_TRIGGERED;
+    pars.departProcedure = DepartDefinition::TRIGGERED;
     if (departPos != 0) {
         pars.departPosProcedure = DepartPosDefinition::GIVEN;
         pars.departPos = departPos;
@@ -72,73 +76,71 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     for (StringTokenizer st(vTypes); st.hasNext();) {
         pars.vtypeid = st.next();
         pars.parametersSet |= VEHPARS_VTYPE_SET;
-        SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
+        const SUMOVTypeParameter* type = net->getVehicleTypeSecure(pars.vtypeid);
         if (type == nullptr) {
             delete trip;
-            throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + getID() + "' is not known.");
+            throw InvalidArgument("The vehicle type '" + pars.vtypeid + "' in a trip for person '" + id + "' is not known.");
         }
-        pars.id = getID() + "_" + toString(trip->getVehicles().size());
+        pars.id = id + "_" + toString(trip->getVehicles().size());
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
         // update modeset with routing-category vClass
         if (type->vehicleClass == SVC_BICYCLE) {
-            trip->updateMOdes(SVC_BICYCLE);
+            trip->updateModes(SVC_BICYCLE);
         } else {
-            trip->updateMOdes(SVC_PASSENGER);
+            trip->updateModes(SVC_PASSENGER);
         }
     }
     if (trip->getVehicles().empty()) {
         if ((modeSet & SVC_PASSENGER) != 0) {
-            pars.id = getID() + "_0";
+            pars.id = id + "_0";
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
         }
         if ((modeSet & SVC_BICYCLE) != 0) {
-            pars.id = getID() + "_b0";
+            pars.id = id + "_b0";
             pars.vtypeid = DEFAULT_BIKETYPE_ID;
             pars.parametersSet |= VEHPARS_VTYPE_SET;
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_BIKETYPE_ID), net));
         }
         if ((modeSet & SVC_TAXI) != 0) {
             // add dummy taxi for routing (never added to output)
-            pars.id = "taxi"; // id is writen as 'line'
+            pars.id = "taxi"; // id is written as 'line'
             pars.vtypeid = DEFAULT_TAXITYPE_ID;
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_TAXITYPE_ID), net));
         }
     }
-    myPlan.push_back(trip);
+    plan.push_back(trip);
 }
 
 
 void
-ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
+ROPerson::addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
                   double arrivalPos, const std::string& destStop, const std::string& group) {
-    if (myPlan.empty() || myPlan.back()->isStop()) {
-        myPlan.push_back(new PersonTrip());
+    plan.push_back(new PersonTrip(to, destStop));
+    plan.back()->addTripItem(new Ride(-1, from, to, lines, group, -1., arrivalPos, -1., destStop));
+}
+
+
+void
+ROPerson::addWalk(std::vector<PlanItem*>& plan, const ConstROEdgeVector& edges, const double duration, const double speed, const double departPos, const double arrivalPos, const std::string& busStop) {
+    if (plan.empty() || plan.back()->isStop()) {
+        plan.push_back(new PersonTrip(edges.back(), busStop));
     }
-    myPlan.back()->addTripItem(new Ride(from, to, lines, group, -1., arrivalPos, destStop));
+    plan.back()->addTripItem(new Walk(-1, edges, -1., duration, speed, departPos, arrivalPos, busStop));
 }
 
 
 void
-ROPerson::addWalk(const ConstROEdgeVector& edges, const double duration, const double speed, const double departPos, const double arrivalPos, const std::string& busStop) {
-    if (myPlan.empty() || myPlan.back()->isStop()) {
-        myPlan.push_back(new PersonTrip());
-    }
-    myPlan.back()->addTripItem(new Walk(edges, -1., duration, speed, departPos, arrivalPos, busStop));
+ROPerson::addStop(std::vector<PlanItem*>& plan, const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge) {
+    plan.push_back(new Stop(stopPar, stopEdge));
 }
 
 
 void
-ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const stopEdge) {
-    myPlan.push_back(new Stop(stopPar, stopEdge));
-}
-
-
-void
-ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
+ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_RIDE);
     std::string comment = "";
-    if (extended && cost >= 0.) {
-        os.writeAttr(SUMO_ATTR_COST, cost);
+    if ((extended || options.getBool("write-costs")) && myCost >= 0.) {
+        os.writeAttr(SUMO_ATTR_COST, myCost);
     }
     if (from != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, from->getID());
@@ -153,8 +155,8 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
         if (name != "") {
             comment =  " <!-- " + name + " -->";
         }
-    } else if (arr != 0 && arr != std::numeric_limits<double>::infinity()) {
-        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
+    } else if (arrPos != 0 && arrPos != std::numeric_limits<double>::infinity()) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arrPos);
     }
     os.writeAttr(SUMO_ATTR_LINES, lines);
     if (group != "") {
@@ -166,16 +168,23 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
     if (depart >= 0) {
         os.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
     }
+    if (options.getBool("exit-times")) {
+        os.writeAttr("started", time2string(getStart()));
+        os.writeAttr("ended", time2string(getStart() + getDuration()));
+    }
+    if (options.getBool("route-length") && length != -1) {
+        os.writeAttr("routeLength", length);
+    }
     os.closeTag(comment);
 }
 
 
 void
-ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
+ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_WALK);
     std::string comment = "";
-    if (extended && cost >= 0.) {
-        os.writeAttr(SUMO_ATTR_COST, cost);
+    if ((extended || options.getBool("write-costs")) && myCost >= 0.) {
+        os.writeAttr(SUMO_ATTR_COST, myCost);
     }
     if (dur > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, dur);
@@ -184,6 +193,20 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_SPEED, v);
     }
     os.writeAttr(SUMO_ATTR_EDGES, edges);
+    if (options.getBool("exit-times")) {
+        os.writeAttr("started", time2string(getStart()));
+        os.writeAttr("ended", time2string(getStart() + getDuration()));
+        if (!exitTimes.empty()) {
+            os.writeAttr("exitTimes", exitTimes);
+        }
+    }
+    if (options.getBool("route-length")) {
+        double length = 0;
+        for (const ROEdge* roe : edges) {
+            length += roe->getLength();
+        }
+        os.writeAttr("routeLength", length);
+    }
     if (destStop != "") {
         const std::string element = RONet::getInstance()->getStoppingPlaceElement(destStop);
         os.writeAttr(element, destStop);
@@ -199,7 +222,7 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
 
 ROPerson::PlanItem*
 ROPerson::PersonTrip::clone() const {
-    PersonTrip* result = new PersonTrip(from, to, modes, dep, arr, stopDest, walkFactor, group);
+    PersonTrip* result = new PersonTrip(from, to, modes, dep, stopOrigin, arr, stopDest, walkFactor, group);
     for (auto* item : myTripItems) {
         result->myTripItems.push_back(item->clone());
     }
@@ -216,8 +239,9 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
 }
 
 void
-ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const {
+ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const {
     if ((asTrip || extended) && from != nullptr) {
+        const bool writeGeoTrip = asTrip && options.getBool("write-trips.geo");
         os.openTag(SUMO_TAG_PERSONTRIP);
         if (writeGeoTrip) {
             Position fromPos = from->getLanes()[0]->getShape().positionAtOffset2D(getDepartPos());
@@ -277,15 +301,15 @@ ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const boo
         }
         if (extended && myTripItems.size() != 0) {
             std::vector<double> costs;
-            for (TripItem* tripItem : myTripItems) {
+            for (const TripItem* const tripItem : myTripItems) {
                 costs.push_back(tripItem->getCost());
             }
             os.writeAttr(SUMO_ATTR_COSTS, costs);
         }
         os.closeTag();
     } else {
-        for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-            (*it)->saveAsXML(os, extended);
+        for (const TripItem* const it : myTripItems) {
+            it->saveAsXML(os, extended, options);
         }
     }
 }
@@ -301,13 +325,17 @@ ROPerson::PersonTrip::getDuration() const {
 
 bool
 ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
-                            PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
+                            const PersonTrip* const trip, const ROVehicle* const veh,
+                            std::vector<TripItem*>& resultItems, MsgHandler* const errorHandler) {
+    const double speed = getMaxSpeed() * trip->getWalkFactor();
     std::vector<ROIntermodalRouter::TripItem> result;
-    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
-                                           getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), time, result);
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(),
+                                           trip->getDepartPos(), trip->getStopOrigin(),
+                                           trip->getArrivalPos(), trip->getStopDest(),
+                                           speed, veh, trip->getModes(), time, result);
     bool carUsed = false;
-    for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
-        const auto& item = *it;
+    SUMOTime start = time;
+    for (const ROIntermodalRouter::TripItem& item : result) {
         if (!item.edges.empty()) {
             if (item.line == "") {
                 double depPos = trip->getDepartPos(false);
@@ -330,23 +358,31 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                         arrPos = 0;
                     }
                 }
-                if (it + 1 == result.end() && trip->getStopDest() == "") {
-                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos));
+                if (&item == &result.back() && trip->getStopDest() == "") {
+                    resultItems.push_back(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos));
                 } else {
-                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos, item.destStop));
+                    resultItems.push_back(new Walk(start, item.edges, item.cost, item.exitTimes, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
-                trip->addTripItem(new Ride(item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.destStop));
+                double cost = item.cost;
                 if (veh->getVClass() != SVC_TAXI) {
                     RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
                     veh->getRouteDefinition()->addLoadedAlternative(route);
                     carUsed = true;
+                } else if (resultItems.empty()) {
+                    // if this is the first plan item the initial taxi waiting time wasn't added yet
+                    const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+                    cost += taxiWait;
                 }
+                resultItems.push_back(new Ride(start, item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), cost, item.arrivalPos, item.length, item.destStop));
             } else {
-                trip->addTripItem(new Ride(nullptr, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.destStop, item.intended, TIME2STEPS(item.depart)));
+                // write origin for first element of the plan
+                const ROEdge* origin = trip == myPlan.front() && resultItems.empty() ? trip->getOrigin() : nullptr;
+                resultItems.push_back(new Ride(start, origin, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
+        start += TIME2STEPS(item.cost);
     }
     if (result.empty()) {
         errorHandler->inform("No route for trip in person '" + getID() + "'.");
@@ -361,23 +397,37 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool /* removeLoops */, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
     SUMOTime time = getParameter().depart;
-    for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        if ((*it)->needsRouting()) {
-            PersonTrip* trip = static_cast<PersonTrip*>(*it);
-            std::vector<ROVehicle*>& vehicles = trip->getVehicles();
+    for (PlanItem* const it : myPlan) {
+        if (it->needsRouting()) {
+            PersonTrip* trip = static_cast<PersonTrip*>(it);
+            const std::vector<ROVehicle*>& vehicles = trip->getVehicles();
+            std::vector<TripItem*> resultItems;
+            std::vector<TripItem*> best;
+            const ROVehicle* bestVeh = nullptr;
             if (vehicles.empty()) {
-                computeIntermodal(time, provider, trip, nullptr, errorHandler);
+                computeIntermodal(time, provider, trip, nullptr, best, errorHandler);
             } else {
-                for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
-                    if (!computeIntermodal(time, provider, trip, *v, errorHandler)) {
-                        v = vehicles.erase(v);
-                    } else {
-                        ++v;
+                double bestCost = std::numeric_limits<double>::infinity();
+                for (const ROVehicle* const v : vehicles) {
+                    const bool carUsed = computeIntermodal(time, provider, trip, v, resultItems, errorHandler);
+                    double cost = 0.;
+                    for (const TripItem* const tripIt : resultItems) {
+                        cost += tripIt->getCost();
                     }
+                    if (cost < bestCost) {
+                        bestCost = cost;
+                        bestVeh = carUsed ? v : nullptr;
+                        best.swap(resultItems);
+                    }
+                    for (const TripItem* const tripIt : resultItems) {
+                        delete tripIt;
+                    }
+                    resultItems.clear();
                 }
             }
+            trip->setItems(best, bestVeh);
         }
-        time += (*it)->getDuration();
+        time += it->getDuration();
     }
 }
 
@@ -386,10 +436,9 @@ void
 ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     // write the person's vehicles
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
-    const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
     if (!writeTrip) {
-        for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-            (*it)->saveVehicles(os, typeos, asAlternatives, options);
+        for (const PlanItem* const it : myPlan) {
+            it->saveVehicles(os, typeos, asAlternatives, options);
         }
     }
 
@@ -405,8 +454,8 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     // write the person
     getParameter().write(os, options, SUMO_TAG_PERSON);
 
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveAsXML(os, asAlternatives, writeTrip, writeGeoTrip);
+    for (const PlanItem* const it : myPlan) {
+        it->saveAsXML(os, asAlternatives, writeTrip, options);
     }
 
     // write params

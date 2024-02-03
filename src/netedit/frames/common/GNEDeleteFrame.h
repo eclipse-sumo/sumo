@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,7 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : protected FXGroupBox {
+    class DeleteOptions : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEDeleteFrame::DeleteOptions)
 
@@ -74,7 +74,9 @@ public:
     // class ProtectElements
     // ===========================================================================
 
-    class ProtectElements : protected FXGroupBox {
+    class ProtectElements : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEDeleteFrame::ProtectElements)
 
     public:
         /// @brief constructor
@@ -89,14 +91,31 @@ public:
         /// @brief check if protect TAZ elements checkbox is enabled
         bool protectTAZs() const;
 
-        /// @brief check if protect shapes elements checkbox is enabled
-        bool protectShapes() const;
-
         /// @brief check if protect demand elements checkbox is enabled
         bool protectDemandElements() const;
 
         /// @brief check if protect generic datas checkbox is enabled
         bool protectGenericDatas() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief protect all elements
+        long onCmdProtectAll(FXObject*, FXSelector, void*);
+
+        /// @brief unprotect all elements
+        long onCmdUnprotectAll(FXObject*, FXSelector, void*);
+
+        /// @brief update protect all elements
+        long onUpdProtectAll(FXObject*, FXSelector, void*);
+
+        /// @brief update unprotect all elements
+        long onUpdUnprotectAll(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ProtectElements)
 
     private:
         /// @brief checkbox for enable/disable protect additionals
@@ -105,49 +124,12 @@ public:
         /// @brief checkbox for enable/disable protect TAZs
         FXCheckButton* myProtectTAZs;
 
-        /// @brief checkbox for enable/disable protect shapes
-        FXCheckButton* myProtectShapes;
-
         /// @brief checkbox for enable/disable protect demand elements
         FXCheckButton* myProtectDemandElements;
 
         /// @brief checkbox for enable/disable protect generic datas
         FXCheckButton* myProtectGenericDatas;
     };
-
-    /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEFrame
-     */
-    GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
-
-    /// @brief Destructor
-    ~GNEDeleteFrame();
-
-    /// @brief show delete frame
-    void show();
-
-    /// @brief hide delete frame
-    void hide();
-
-    /// @brief remove selected attribute carriers (element)
-    void removeSelectedAttributeCarriers();
-
-    /**@brief remove attribute carrier (element)
-     * @param objectsUnderCursor objects under cursors
-     * @param ignoreOptions ignore delete options and ALWAYS remove AC
-     */
-    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions = false);
-
-    /**@brief remove geometry point
-    * @param objectsUnderCursor objects under cursors
-    */
-    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
-
-    /// @brief get delete options
-    DeleteOptions* getDeleteOptions() const;
-
-protected:
 
     /// @brief struct for saving subordinated elements (Junction->Edge->Lane->(Additional | DemandElement)
     class SubordinatedElements {
@@ -164,9 +146,6 @@ protected:
 
         /// @brief constructor (for additionals)
         SubordinatedElements(const GNEAdditional* additional);
-
-        /// @brief constructor (for shapes)
-        SubordinatedElements(const GNEShape* shape);
 
         /// @brief constructor (for demandElements)
         SubordinatedElements(const GNEDemandElement* demandElement);
@@ -192,18 +171,6 @@ protected:
 
         /// @brief child additional (except TAZs)
         size_t myAdditionalChilds;
-
-        /// @brief parent TAZs
-        size_t myTAZParents;
-
-        /// @brief child TAZ
-        size_t myTAZChilds;
-
-        /// @brief parent shapes
-        size_t myShapeParents;
-
-        /// @brief child shape
-        size_t myShapeChilds;
 
         /// @brief parent demand elements
         size_t myDemandElementParents;
@@ -237,13 +204,48 @@ protected:
         SubordinatedElements& operator=(const SubordinatedElements&) = delete;
     };
 
+    /**@brief Constructor
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
+     * @brief viewNet viewNet that uses this GNEFrame
+     */
+    GNEDeleteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
+
+    /// @brief Destructor
+    ~GNEDeleteFrame();
+
+    /// @brief show delete frame
+    void show();
+
+    /// @brief hide delete frame
+    void hide();
+
+    /// @brief remove selected attribute carriers (element)
+    void removeSelectedAttributeCarriers();
+
+    /**@brief remove attribute carrier (element)
+     * @param viewObjects objects under cursors
+     */
+    void removeAttributeCarrier(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+
+    /**@brief remove geometry point
+     * @param viewObjects objects under cursors
+     */
+    bool removeGeometryPoint(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+
+    /// @brief get delete options modul
+    DeleteOptions* getDeleteOptions() const;
+
+    /// @brief get protect elements modul
+    ProtectElements* getProtectElements() const;
+
+protected:
     /// @brief check if there is selected ACs to delete
     bool selectedACsToDelete() const;
 
 private:
     /// @brief modul for delete options
-    DeleteOptions* myDeleteOptions;
+    DeleteOptions* myDeleteOptions = nullptr;
 
     /// @brief modul for protect elements
-    ProtectElements* myProtectElements;
+    ProtectElements* myProtectElements = nullptr;
 };

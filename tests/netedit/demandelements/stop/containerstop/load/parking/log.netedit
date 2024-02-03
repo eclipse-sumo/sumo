@@ -1,0 +1,9 @@
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format dummy.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
+Error: Attribute 'parking' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format -4.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format 2.3.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.20Jul154345.48029/netedit.gui/demandelements/stop/containerstop/load/parking/routes.rou.xml failed.

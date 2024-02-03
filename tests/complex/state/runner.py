@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,8 +41,11 @@ if '--compare' in sys.argv:
 idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
 loadParams = sys.argv[idx + 1:]
-if '--mesosim' in loadParams:
+# work around texttests limitation of removing duplicate options
+if '--mesosim' in loadParams and '--mesosim' not in saveParams:
     saveParams.append('--mesosim')
+if '--mesosim' in saveParams and '--mesosim' not in loadParams:
+    loadParams.append('--mesosim')
 
 # need to add runner.py again in options.complex.meso to ensure it is the
 # last entry
@@ -76,8 +79,10 @@ if compare:
             loadLines = open(loadErr.name).readlines()[offsetLoad:]
             sys.stderr.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))
         else:
-            saveLines = open(fileType + ".xml").readlines()
+            with open(fileType + ".xml") as saved:
+                saveLines = saved.readlines()
             saveLines = saveLines[saveLines.index("-->\n") + offsetSave:]
-            loadLines = open(fileType + "2.xml").readlines()
+            with open(fileType + "2.xml") as loaded:
+                loadLines = loaded.readlines()
             loadLines = loadLines[loadLines.index("-->\n") + offsetLoad:]
             sys.stdout.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))

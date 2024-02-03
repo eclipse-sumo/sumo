@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,7 +78,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
             }
         }
         if (hadProgramErrors) {
-            WRITE_ERROR("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
+            WRITE_ERRORF(TL("Mismatching phase size in tls '%', program '%'."), (*j).second->getID(), (*j).first);
             hadErrors = true;
         }
     }
@@ -104,17 +104,22 @@ bool
 MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
         MSTrafficLightLogic* logic, bool netWasLoaded, bool isNewDefault) {
     if (myVariants.find(programID) != myVariants.end()) {
+        delete logic;
         return false;
     }
     // assert the links are set
     if (netWasLoaded) {
         // this one has not yet its links set
         if (myCurrentProgram == nullptr) {
-            throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
+            const std::string id = logic->getID();
+            delete logic;
+            throw ProcessError(TLF("No initial signal plan loaded for tls '%'.", id));
         }
         logic->adaptLinkInformationFrom(*myCurrentProgram);
         if (logic->getLinks().size() > logic->getPhase(0).getState().size()) {
-            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + programID + "'.");
+            const std::string id = logic->getID();
+            delete logic;
+            throw ProcessError("Mismatching phase size in tls '" + id + "', program '" + programID + "'.");
         }
     }
     // add to the list of active
@@ -148,14 +153,14 @@ MSTLLogicControl::TLSLogicVariants::getLogic(const std::string& programID) const
 
 
 MSTrafficLightLogic*
-MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& tlc,
-        const std::string& programID) {
+MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& tlc, const std::string& programID) {
     if (myVariants.find(programID) == myVariants.end()) {
         if (programID == "off") {
             // build an off-tll if this switch indicates it
-            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, true)) {
+            MSTrafficLightLogic* tlLogic = new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID());
+            if (!addLogic("off", tlLogic, true, true)) {
                 // inform the user if this fails
-                throw ProcessError("Could not build an off-state for tls '" + myCurrentProgram->getID() + "'.");
+                throw ProcessError(TLF("Could not build an off-state for tls '%'.", myCurrentProgram->getID()));
             }
         } else {
             // inform the user about a missing logic
@@ -172,16 +177,17 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
     // build only once...
     MSTrafficLightLogic* logic = getLogic(TRACI_PROGRAM);
     if (logic == nullptr) {
-        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
+        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, TrafficLightType::STATIC, phases, 0,
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, 0, TrafficLightType::STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
-                                              std::map<std::string, std::string>());
-        addLogic(TRACI_PROGRAM, logic, true, true);
-        MSNet::getInstance()->createTLWrapper(logic);
+                                              Parameterised::Map());
+        if (addLogic(TRACI_PROGRAM, logic, true, true)) {
+            MSNet::getInstance()->createTLWrapper(logic);
+        }
     } else {
-        MSPhaseDefinition nphase(DELTA_T, state, -1);
+        MSPhaseDefinition nphase(DELTA_T, state);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
         switchTo(tlc, TRACI_PROGRAM);
     }
@@ -368,7 +374,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
     MSTrafficLightLogic* from, MSTrafficLightLogic* to, bool synchron)
     : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron) {
     int idx = 1;
-    while (myTo->knowsParameter("B" + toString(idx) + ".begin")) {
+    while (myTo->hasParameter("B" + toString(idx) + ".begin")) {
         StretchRange def;
         def.begin = string2time(myTo->getParameter("B" + toString(idx) + ".begin"));
         def.end = string2time(myTo->getParameter("B" + toString(idx) + ".end"));
@@ -478,7 +484,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
         }
     }
     if (facSum == 0) {
-        WRITE_WARNING("The computed factor sum in WAUT '" + myWAUT.id + "' at time '" + toString(STEPS2TIME(step)) + "' equals zero;\n assuming an error in WAUT definition.");
+        WRITE_WARNINGF(TL("The computed factor sum in WAUT '%' at time '%' equals zero;\n assuming an error in WAUT definition."), myWAUT.id, toString(STEPS2TIME(step)));
         return;
     }
     durOfPhase = durOfPhase - diffToStart + StretchTimeOfPhase;
@@ -578,31 +584,29 @@ MSTLLogicControl::getAllTLIds() const {
 bool
 MSTLLogicControl::add(const std::string& id, const std::string& programID,
                       MSTrafficLightLogic* logic, bool newDefault) {
-    if (myLogics.find(id) == myLogics.end()) {
-        myLogics[id] = new TLSLogicVariants();
+    std::map<std::string, TLSLogicVariants*>::iterator it = myLogics.find(id);
+    TLSLogicVariants* tlmap;
+    if (it == myLogics.end()) {
+        tlmap = myLogics[id] = new TLSLogicVariants();
+    } else {
+        tlmap = it->second;
     }
-    std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
-    TLSLogicVariants* tlmap = (*i).second;
     return tlmap->addLogic(programID, logic, myNetWasLoaded, newDefault);
 }
 
 
 bool
 MSTLLogicControl::knows(const std::string& id) const {
-    std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
-    if (i == myLogics.end()) {
-        return false;
-    }
-    return true;
+    return myLogics.count(id) != 0;
 }
 
 
 bool
 MSTLLogicControl::closeNetworkReading() {
     bool hadErrors = false;
-    for (std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        hadErrors |= !(*i).second->checkOriginalTLS();
-        (*i).second->saveInitialStates();
+    for (const auto& it : myLogics) {
+        hadErrors |= !it.second->checkOriginalTLS();
+        it.second->saveInitialStates();
     }
     myNetWasLoaded = true;
     return !hadErrors;
@@ -821,7 +825,7 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 void
 MSTLLogicControl::switchOffAll() {
     for (const auto& logic : myLogics) {
-        logic.second->addLogic("off",  new MSOffTrafficLightLogic(*this, logic.first), true, true);
+        logic.second->addLogic("off", new MSOffTrafficLightLogic(*this, logic.first), true, true);
     }
 }
 
@@ -836,8 +840,34 @@ MSTLLogicControl::saveState(OutputDevice& out) {
 
 
 void
-MSTLLogicControl::clearState() {
+MSTLLogicControl::clearState(SUMOTime time, bool quickReload) {
     MSRailSignalConstraint::clearState();
+    if (quickReload) {
+        for (const auto& variants : myLogics) {
+            for (auto& logic : variants.second->getAllLogics()) {
+                if (logic->getLogicType() == TrafficLightType::OFF
+                        || logic->getLogicType() == TrafficLightType::RAIL_SIGNAL
+                        || logic->getLogicType() == TrafficLightType::RAIL_CROSSING) {
+                    continue;
+                }
+                int step = 0;
+                const SUMOTime cycleTime = logic->getDefaultCycleTime();
+                auto& phases = logic->getPhases();
+                SUMOTime offset = logic->getOffset();
+                if (offset >= 0) {
+                    offset = (time + cycleTime - (offset % cycleTime)) % cycleTime;
+                } else {
+                    offset = (time + ((-offset) % cycleTime)) % cycleTime;
+                }
+
+                while (offset >= phases[step]->duration) {
+                    offset -= phases[step]->duration;
+                    step++;
+                }
+                logic->loadState(*this, time, step, offset);
+            }
+        }
+    }
 }
 
 

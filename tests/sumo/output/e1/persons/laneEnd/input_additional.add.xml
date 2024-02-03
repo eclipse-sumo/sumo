@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <e1Detector id="a" lane="SC_0" pos="-2" file="detector.xml" detectPersons="walk"/>
+   <e1Detector id="b" lane="SC_0" pos="-1" file="detector.xml" detectPersons="walk"/>
+   <e1Detector id="c" lane="SC_0" pos="-0.5" file="detector.xml" detectPersons="walk"/>
+
+</additional>

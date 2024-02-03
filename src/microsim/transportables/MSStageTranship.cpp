@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -45,7 +46,7 @@ MSStageTranship::MSStageTranship(const std::vector<const MSEdge*>& route,
                                  MSStoppingPlace* toStop,
                                  double speed,
                                  double departPos, double arrivalPos) :
-    MSStageMoving(route, toStop, speed, departPos, arrivalPos, 0., MSStageType::TRANSHIP) {
+    MSStageMoving(route, "", toStop, speed, departPos, arrivalPos, 0., -1, MSStageType::TRANSHIP) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                       "container getting transhipped from " + myRoute.front()->getID());
@@ -61,7 +62,9 @@ MSStageTranship::~MSStageTranship() {
 
 MSStage*
 MSStageTranship::clone() const {
-    return new MSStageTranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
+    MSStage* const clon = new MSStageTranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
+    clon->setParameters(*this);
+    return clon;
 }
 
 
@@ -74,11 +77,11 @@ MSStageTranship::proceed(MSNet* net, MSTransportable* transportable, SUMOTime no
     myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
     if (transportable->isPerson()) {
-        myState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
-        (*myRouteStep)->addPerson(transportable);
+        myPState = net->getPersonControl().getNonInteractingModel()->add(transportable, this, now);
+        (*myRouteStep)->addTransportable(transportable);
     } else {
-        myState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
-        (*myRouteStep)->addContainer(transportable);
+        myPState = net->getContainerControl().getNonInteractingModel()->add(transportable, this, now);
+        (*myRouteStep)->addTransportable(transportable);
     }
 }
 
@@ -111,21 +114,28 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 void
 MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
+    std::string comment = "";
+    if (myDestinationStop != nullptr) {
+        os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
+        if (myDestinationStop->getMyName() != "") {
+            comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
+        }
+    }
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     if (withRouteLength) {
-        os.writeAttr("routeLength", mySpeed * (myArrived - myDeparted));
+        os.writeAttr("routeLength", mySpeed * STEPS2TIME(myArrived - myDeparted));
     }
-    os.closeTag();
+    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+        os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
+        os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
+    }
+    os.closeTag(comment);
 }
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, MSEdge* /* nextInternal */) {
-    if (transportable->isPerson()) {
-        getEdge()->removePerson(transportable);
-    } else {
-        getEdge()->removeContainer(transportable);
-    }
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */) {
+    getEdge()->removeTransportable(transportable);
     // transship does a direct move so we are already at our destination
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);    //jakob

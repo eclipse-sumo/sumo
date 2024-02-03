@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,10 +19,11 @@
 ///
 // Tests the class MSEventControl
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <microsim/MSEventControl.h>
-#include "../utils/common/CommandMock.h"
+#include <utils/common/CommandMock.h>
 
 
 /* Test the method 'execute'. Tests if the execute method from the Command Class is called.*/

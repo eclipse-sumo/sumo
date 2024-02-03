@@ -1,11 +1,9 @@
-Loading configuration ... done.
 Success.
-Loading configuration ... done.
-***Starting server on port 58624 ***
-Loading net-file from 'data/../pedcrossing.net.xml' ... done (1ms).
-Loading additional-files from 'data/pedcrossing.tll.xml' ... done (3ms).
+***Starting server on port 45222 ***
+Loading net-file from 'data/../pedcrossing.net.xml' ... done (2ms).
+Loading additional-files from 'data/pedcrossing.tll.xml' ... done (5ms).
 Loading done.
-Simulation version v1_4_0+0368-f5bfa39 started with time: 0.00
+Simulation version v1_12_0+0362-33e8b97 started with time: 0.00.
  Retrying in 1 seconds
 18.0: pedestrian ped0 pushes the button (waiting: 1)
 43.0: pedestrian ped1 pushes the button (waiting: 1)
@@ -65,21 +63,22 @@ Simulation version v1_4_0+0368-f5bfa39 started with time: 0.00
 3118.0: pedestrian ped76 pushes the button (waiting: 2)
 3223.0: pedestrian ped78 pushes the button (waiting: 1)
 3276.0: pedestrian ped80 pushes the button (waiting: 1)
-3332.0: pedestrian ped81 pushes the button (waiting: 1)
-3334.0: pedestrian ped81 pushes the button (waiting: 1)
-3397.0: pedestrian ped84 pushes the button (waiting: 1)
-3467.0: pedestrian ped86 pushes the button (waiting: 1)
-3485.0: pedestrian ped88 pushes the button (waiting: 1)
-3537.0: pedestrian ped91 pushes the button (waiting: 1)
-3549.0: pedestrian ped90 pushes the button (waiting: 3)
-3612.0: pedestrian ped93 pushes the button (waiting: 1)
-Simulation ended at time: 3671.00
+3333.0: pedestrian ped81 pushes the button (waiting: 1)
+3361.0: pedestrian ped82 pushes the button (waiting: 1)
+3398.0: pedestrian ped84 pushes the button (waiting: 2)
+3466.0: pedestrian ped86 pushes the button (waiting: 1)
+3468.0: pedestrian ped86 pushes the button (waiting: 1)
+3536.0: pedestrian ped91 pushes the button (waiting: 1)
+3548.0: pedestrian ped90 pushes the button (waiting: 3)
+3611.0: pedestrian ped93 pushes the button (waiting: 1)
+Simulation ended at time: 3670.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 1025ms
- Real time factor: 3581.46
- UPS: 17887.804878
- UPS-Persons: 5112.195122
+ Duration: 1.85s
+ TraCI-Duration: 1.46s
+ Real time factor: 1982.71
+ UPS: 9917.341977
+ UPS-Persons: 2829.281469
 Vehicles: 
  Inserted: 742
  Running: 0
@@ -88,9 +87,9 @@ Persons:
  Inserted: 94
  Running: 0
 
-DijkstraRouter answered 1006 queries and explored 6.63 edges on average.
-DijkstraRouter spent 1ms answering queries (0.00ms on average).
+DijkstraRouter answered 1005 queries and explored 6.63 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 94 queries and explored 11.00 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 742 queries and explored 2.00 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).

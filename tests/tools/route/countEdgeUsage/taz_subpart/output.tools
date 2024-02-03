@@ -1,0 +1,3 @@
+departEdges: count 1, min 13.00 (t0), max 13.00 (t0), mean 13.00, Q1 13.00, median 13.00, Q3 13.00
+arrivalEdges: count 1, min 13.00 (t6), max 13.00 (t6), mean 13.00, Q1 13.00, median 13.00, Q3 13.00
+intermediateEdges: count 4, min 3.00 (h), max 3.00 (h), mean 3.00, Q1 3.00, median 3.00, Q3 3.00

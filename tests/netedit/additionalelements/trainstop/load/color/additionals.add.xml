@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing parkingLength -->
+    <trainStop id="trainStop_01" lane="center1_1" startPos="25" endPos="35" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (dummy) -->
+    <trainStop id="trainStop_02" lane="center1_1" startPos="25" endPos="35" color="dummyparkingLength" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (negative) -->
+    <trainStop id="trainStop_03" lane="center1_1" startPos="25" endPos="35" color="-7" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (double) -->
+    <trainStop id="trainStop_04" lane="center1_1" startPos="25" endPos="35" color="255,120,240" name="trainStop" friendlyPos="false"/>
+
+    <!-- valid format parkingLength -->
+    <trainStop id="trainStop_05" lane="center1_1" startPos="25" endPos="35" color="red" name="trainStop" friendlyPos="false"/>
+
+</additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:59 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:19 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-100.00,-140.72,300.00,-61.12" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -156,9 +156,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="000100" foes="000100" cont="0"/>
         <request index="1" response="111100" foes="111100" cont="0"/>
         <request index="2" response="000000" foes="100011" cont="0"/>
-        <request index="3" response="010000" foes="010010" cont="0"/>
+        <request index="3" response="010000" foes="110010" cont="0"/>
         <request index="4" response="000000" foes="001010" cont="0"/>
-        <request index="5" response="000100" foes="000110" cont="0"/>
+        <request index="5" response="001100" foes="001110" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="200.00" y="-100.00" incLanes="-d_0 o_0 -c_0" intLanes=":4_0_0 :4_1_0 :4_2_0" shape="201.97,-98.40 201.97,-101.60 199.14,-102.04 198.23,-102.56 197.37,-103.26 196.35,-104.12 194.96,-105.11 193.24,-102.41 193.00,-101.60 193.00,-98.40">
         <request index="0" response="000" foes="000" cont="0"/>

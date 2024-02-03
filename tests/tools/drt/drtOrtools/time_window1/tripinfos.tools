@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-09 13:39:58 by Eclipse SUMO sumo Version v1_14_1+2225-ce3df3d870d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes2.rou.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <statistic-output value="stats.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
+    <traci_server>
+        <remote-port value="53186"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94">
+        <ride waitingTime="54.00" vehicle="v0" depart="54.00" arrival="154.00" arrivalPos="85.60" duration="100.00" routeLength="380.42" timeLoss="13.14"/>
+    </personinfo>
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+        <ride waitingTime="221.00" vehicle="v0" depart="221.00" arrival="341.00" arrivalPos="285.60" duration="120.00" routeLength="675.06" timeLoss="10.95"/>
+    </personinfo>
+    <tripinfo id="v0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="630.00" routeLength="2351.90" waitingTime="7.00" waitingCount="2" stopTime="412.00" timeLoss="45.73" rerouteNo="2" devices="tripinfo_v0 taxi_v0 person_v0" vType="taxi" speedFactor="1.01" vaporized="">
+        <taxi customers="2" occupiedDistance="1055.48" occupiedTime="106.00"/>
+    </tripinfo>
+</tripinfos>

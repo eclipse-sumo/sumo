@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-05 09:43:35 by Eclipse SUMO sumo Version v1_15_0+2179-3bb44d9cc81
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p31" depart="0.00" arrival="10.00">
+        <stop busStop="bs" duration="10.00" started="0.00" ended="10.00"/>
+    </person>
+
+    <person id="p32" depart="0.00" arrival="10.00">
+        <stop trainStop="ts" duration="10.00" started="0.00" ended="10.00"/>
+    </person>
+
+    <person id="p33" depart="0.00" arrival="10.00">
+        <stop containerStop="cs" duration="10.00" started="0.00" ended="10.00"/>
+    </person>
+
+    <person id="p34" depart="0.00" arrival="10.00">
+        <stop parkingArea="pa" duration="10.00" started="0.00" ended="10.00"/>
+    </person>
+
+    <person id="p35" depart="0.00" arrival="10.00">
+        <stop chargingStation="cc" duration="10.00" started="0.00" ended="10.00"/>
+    </person>
+
+    <person id="p21" depart="0.00" arrival="1212.00">
+        <walk edges="beg middle end" busStop="bs" exitTimes="402.00 1200.00 1212.00" started="0.00" ended="1212.00"/>
+    </person>
+
+    <person id="p11" depart="0.00" arrival="1213.00">
+        <walk edges="beg middle end" busStop="bs" exitTimes="398.00 1200.00 1213.00" started="0.00" ended="1213.00"/>
+    </person>
+
+    <person id="p41" depart="0.00" arrival="1221.00">
+        <walk edges="beg middle end" busStop="bs" exitTimes="407.00 1209.00 1221.00" started="0.00" ended="1221.00"/>
+    </person>
+
+    <person id="p12" depart="0.00" arrival="1266.00">
+        <walk edges="beg middle end" trainStop="ts" exitTimes="400.00 1201.00 1266.00" started="0.00" ended="1266.00"/>
+    </person>
+
+    <person id="p22" depart="0.00" arrival="1270.00">
+        <walk edges="beg middle end" trainStop="ts" exitTimes="404.00 1207.00 1270.00" started="0.00" ended="1270.00"/>
+    </person>
+
+    <person id="p42" depart="0.00" arrival="1276.00">
+        <walk edges="beg middle end" trainStop="ts" exitTimes="409.00 1212.00 1276.00" started="0.00" ended="1276.00"/>
+    </person>
+
+    <person id="p23" depart="0.00" arrival="1324.00">
+        <walk edges="beg middle end" containerStop="cs" exitTimes="406.00 1208.00 1324.00" started="0.00" ended="1324.00"/>
+    </person>
+
+    <person id="p13" depart="0.00" arrival="1397.00">
+        <walk edges="beg middle end" exitTimes="401.00 1199.00 1397.00" started="0.00" ended="1397.00"/>
+    </person>
+
+    <person id="p14" depart="0.00" arrival="1402.00">
+        <walk edges="beg middle end" exitTimes="402.00 1202.00 1402.00" started="0.00" ended="1402.00"/>
+    </person>
+
+    <person id="p15" depart="0.00" arrival="1404.00">
+        <walk edges="beg middle end" exitTimes="404.00 1204.00 1404.00" started="0.00" ended="1404.00"/>
+    </person>
+
+    <person id="p43" depart="0.00" arrival="1411.00">
+        <walk edges="beg middle end" exitTimes="408.00 1210.00 1411.00" started="0.00" ended="1411.00"/>
+    </person>
+
+    <person id="p45" depart="0.00" arrival="1412.00">
+        <walk edges="beg middle end" exitTimes="412.00 1212.00 1412.00" started="0.00" ended="1412.00"/>
+    </person>
+
+    <person id="p44" depart="0.00" arrival="1417.00">
+        <walk edges="beg middle end" exitTimes="410.00 1215.00 1417.00" started="0.00" ended="1417.00"/>
+    </person>
+
+    <person id="p24" depart="0.00" arrival="1783.00">
+        <walk edges="beg middle end" parkingArea="pa" exitTimes="406.00 1208.00 1783.00" started="0.00" ended="1783.00"/>
+    </person>
+
+    <person id="p25" depart="0.00" arrival="2557.00">
+        <walk edges="beg middle end" chargingStation="cc" exitTimes="406.00 1208.00 2557.00" started="0.00" ended="2557.00"/>
+    </person>
+
+    <person id="p1" depart="0.00">
+        <ride from="beg" to="end" busStop="bs" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+    </person>
+
+    <person id="p2" depart="0.00">
+        <ride from="beg" to="end" trainStop="ts" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+    </person>
+
+    <person id="p3" depart="0.00">
+        <ride from="beg" to="end" containerStop="cs" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+    </person>
+
+    <person id="p4" depart="0.00">
+        <ride from="beg" to="end" parkingArea="pa" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+    </person>
+
+    <person id="p5" depart="0.00">
+        <ride from="beg" to="end" chargingStation="cc" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+    </person>
+
+</routes>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,110 +24,178 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
+from lxml import etree as ET
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import parse, parse_fast  # noqa
-    from sumolib.miscutils import Statistics  # noqa
-    from sumolib.statistics import setPrecision
+    from sumolib.xml import _open, parse_fast
+    from sumolib.miscutils import Statistics, humanReadableTime
+    from sumolib.statistics import setPrecision, identity
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <data.xml>"""
-    optParser = OptionParser(usage=USAGE)
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="Give more output")
-    optParser.add_option("-e", "--element", type="string",
-                         default="tripinfo", help="element to analyze")
-    optParser.add_option("-a", "--attribute", type="string",
-                         default="timeLoss", help="attribute to analyze")
-    optParser.add_option("-i", "--id-attribute", type="string", dest="idAttr",
-                         default="id", help="attribute to identify data elements")
-    optParser.add_option("-b", "--binwidth", type="float",
-                         default=50, help="binning width of result histogram")
-    optParser.add_option("--hist-output", type="string",
-                         default=None, help="output file for histogram (gnuplot compatible)")
-    optParser.add_option("-o", "--full-output", type="string",
-                         default=None, help="output file for full data dump")
-    optParser.add_option("-x", "--xml-output", type="string",
-                         default=None, help="output statistic to xml file")
-    optParser.add_option("-q", "--fast", action="store_true",
-                         default=False, help="use fast parser (does not track missing data)")
-    optParser.add_option("-p", "--precision", type="int",
-                         default=2, help="Set output precision")
-    options, args = optParser.parse_args()
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("datafiles", nargs="+", category="input", type=op.file,
+                    help="XML files to analyze")
+    op.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="Give more output")
+    op.add_argument("-e", "--element", category="input",
+                    help="element to analyze")
+    op.add_argument("-a", "--attribute", category="input",
+                    help="attribute to analyze")
+    op.add_argument("-i", "--id-attribute", dest="idAttr", default="id", category="input",
+                    help="attribute to identify data elements")
+    op.add_argument("-b", "--binwidth", type=float, default=50, category="processing",
+                    help="binning width of result histogram")
+    op.add_argument("--hist-output", category="output",
+                    help="output file for histogram (gnuplot compatible)")
+    op.add_argument("-o", "--full-output", category="output",
+                    help="output file for full data dump")
+    op.add_argument("-x", "--xml-output", category="output", type=op.file,
+                    help="output statistic to xml file")
+    op.add_argument("--xml-output.flat", action="store_true", dest="xmlFlat", default=False, category="output",
+                    help="legacy xml output")
+    op.add_argument("-q", "--fast", action="store_true", default=False, category="processing",
+                    help="use fast parser (does not track missing data)")
+    op.add_argument("-p", "--precision", type=int, default=2, category="output",
+                    help="Set output precision")
+    op.add_argument("--abs", default=False, action="store_true",
+                    help="include statistics on absolute values")
+    op.add_argument("--sum", default=False, action="store_true",
+                    help="include sum of values")
+    op.add_argument("-H", "--human-readable-time", dest="hrTime", default=False, action="store_true", category="output",
+                    help="interpret values as times and write them as h:m:s")
+    options = op.parse_args()
 
-    if len(args) != 1:
-        sys.exit(USAGE)
+    if options.attribute:
+        options.attribute = options.attribute.split(',')
+    if options.element:
+        options.element = options.element.split(',')
 
-    options.datafile = args[0]
+    if options.fast:
+        if options.attribute is None:
+            print("Parsing all attributes is not supported when using option --fast")
+            sys.exit()
+        if options.element is None:
+            print("Parsing all elements is not supported when using option --fast")
+            sys.exit()
+        if len(options.element) > 1:
+            print("Parsing multiple elements is not supported when using option --fast")
+            sys.exit()
+
     return options
 
 
 def main():
     options = get_options()
 
-    vals = defaultdict(list)
-    stats = Statistics("%s %ss" % (options.element, options.attribute),
-                       histogram=options.binwidth > 0, scale=options.binwidth)
-    missingAttr = set()
-    invalidType = set()
+    vals = defaultdict(lambda: defaultdict(list))
+    allStats = dict()
+    missingAttr = defaultdict(set)
+    invalidType = defaultdict(set)
+    formatter = humanReadableTime if options.hrTime else identity
 
     if options.fast:
+        assert len(options.element) == 1
+        elem = options.element[0]
+
         def elements():
-            for element in parse_fast(options.datafile, options.element, [options.idAttr, options.attribute]):
-                yield getattr(element, options.idAttr), getattr(element, options.attribute)
+            for datafile in options.datafiles:
+                for element in parse_fast(datafile, elem, [options.idAttr] + options.attribute):
+                    for attr in options.attribute:
+                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr),
     else:
         def elements():
-            for element in parse(options.datafile, options.element, heterogeneous=True):
-                elementID = None
-                if element.hasAttribute(options.idAttr):
-                    elementID = element.getAttribute(options.idAttr)
-                stringVal = None
-                if element.hasAttribute(options.attribute):
-                    stringVal = element.getAttribute(options.attribute)
-                yield elementID, stringVal
+            for datafile in options.datafiles:
+                defaultID = None if len(options.datafiles) == 1 else datafile
 
-    for elementID, stringVal in elements():
+                for _, node in ET.iterparse(_open(datafile, None)):
+                    if options.element is not None and node.tag not in options.element:
+                        continue
+                    elementID = node.get(options.idAttr, defaultID)
+                    if options.attribute is None:
+                        for k, v in node.items():
+                            if k != options.idAttr:
+                                yield node.tag, k, v, elementID
+                    else:
+                        for attr in options.attribute:
+                            yield node.tag, attr, node.get(attr), elementID
+
+    for tag, attr, stringVal, elementID in elements():
         if stringVal is not None:
             try:
+                if '_' in stringVal:
+                    # float() accepts '_' but this doesn't play nice with lane ids
+                    raise Exception
                 val = sumolib.miscutils.parseTime(stringVal)
-                vals[elementID].append(val)
+                vals[elementID][attr].append(val)
+                key = (tag, attr)
+                if key not in allStats:
+                    allStats[key] = Statistics("%s %s" % (tag, attr),
+                                               histogram=options.binwidth > 0, scale=options.binwidth,
+                                               printDev=True, abs=options.abs, printSum=options.sum)
+
+                stats = allStats[key]
                 stats.add(val, elementID)
             except Exception:
-                invalidType.add(stringVal)
+                invalidType[attr].add(stringVal)
         else:
-            missingAttr.add(elementID)
+            if elementID is not None:
+                missingAttr[attr].add(elementID)
 
-    print(stats.toString(options.precision))
+    histStyle = 1 if len(allStats) == 1 else 0
+    for key in sorted(allStats.keys()):
+        print(allStats[key].toString(options.precision, histStyle=histStyle, fmt=formatter))
+
     if missingAttr:
-        print("%s elements did not provide attribute '%s' Example ids: '%s'" %
-              (len(missingAttr), options.attribute, "', '".join(sorted(missingAttr)[:10])))
-    if invalidType:
-        print(("%s distinct values of attribute '%s' could not be interpreted " +
-               "as numerical value or time. Example values: '%s'") %
-              (len(invalidType), options.attribute, "', '".join(sorted(invalidType)[:10])))
+        for attr in sorted(missingAttr.keys()):
+            print("%s elements did not provide attribute '%s' Example ids: '%s'" %
+                  (len(missingAttr[attr]), attr, "', '".join(sorted(missingAttr[attr])[:10])))
+
+    if invalidType and options.attribute is not None:
+        for attr in sorted(invalidType.keys()):
+            print(("%s distinct values of attribute '%s' could not be interpreted " +
+                   "as numerical value or time. Example values: '%s'") %
+                  (len(invalidType[attr]), attr, "', '".join(sorted(invalidType[attr])[:10])))
 
     if options.hist_output is not None:
-        with open(options.hist_output, 'w') as f:
-            for bin, count in stats.histogram():
-                f.write("%s %s\n" % (bin, count))
+        for key in sorted(allStats.keys()):
+            fname = options.hist_output if len(allStats) == 1 else options.hist_output + ".%s.%s" % key
+            with open(fname, 'w') as f:
+                for bin, count in allStats[key].histogram():
+                    f.write("%s %s\n" % (bin, count))
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            for id, data in sorted(vals.items()):
-                for x in data:
-                    f.write(setPrecision("%.2f %s\n", options.precision) % (x, id))
+            for elementID in sorted(vals.keys()):
+                for attr, data in vals[elementID].items():
+                    if len(vals[elementID]) > 1:
+                        f.write("# %s\n" % attr)
+                    for x in data:
+                        f.write(setPrecision("%.2f %s\n", options.precision) % (x, elementID))
 
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
             sumolib.writeXMLHeader(f, "$Id$", "attributeStats")  # noqa
-            f.write(stats.toXML(options.precision))
+            if options.xmlFlat:
+                for key in sorted(allStats.keys()):
+                    f.write(allStats[key].toXML(options.precision, fmt=formatter))
+
+            else:
+                elemKeys = defaultdict(list)
+                for key in allStats.keys():
+                    elemKeys[key[0]].append(key)
+                for elem in sorted(elemKeys.keys()):
+                    f.write('    <%s>\n' % elem)
+                    for key in sorted(elemKeys[elem]):
+                        attr = key[1]
+                        stats = allStats[key]
+                        f.write(stats.toXML(options.precision, tag=attr, indent=8, label='', fmt=formatter))
+                    f.write('    </%s>\n' % elem)
             f.write('</attributeStats>\n')
 
 

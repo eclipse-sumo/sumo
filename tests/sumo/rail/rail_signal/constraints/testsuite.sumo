@@ -1,5 +1,8 @@
 wait_for_one
 
+# deactivated contraint
+wait_for_one_inactive
+
 # use vehicleId instead of tripId
 wait_for_one_tripId
 
@@ -17,3 +20,7 @@ wait_for_three
 
 # check last three passed vehicles (three constraints)
 wait_for_three_individual
+foeInsertion
+
+# constraint which guards a bidi section
+bidi

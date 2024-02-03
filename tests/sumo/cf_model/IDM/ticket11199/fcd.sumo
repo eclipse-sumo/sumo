@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-14 22:45:21 by Eclipse SUMO sumo Version v1_14_0+0113-30f4850
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.max-leader-distance value="100"/>
+        <fcd-output.attributes value="speed,acceleration,leaderGap,x"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <collision.action value="warn"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.explicit value="ego"/>
+        <device.fcd.begin value="5"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="5.00">
+        <vehicle id="ego" x="67.79" speed="10.54" acceleration="-1.29" leaderGap="26.21"/>
+    </timestep>
+    <timestep time="5.10">
+        <vehicle id="ego" x="68.83" speed="10.40" acceleration="-1.34" leaderGap="25.17"/>
+    </timestep>
+    <timestep time="5.20">
+        <vehicle id="ego" x="69.86" speed="10.27" acceleration="-1.39" leaderGap="24.14"/>
+    </timestep>
+    <timestep time="5.30">
+        <vehicle id="ego" x="70.87" speed="10.12" acceleration="-1.44" leaderGap="23.13"/>
+    </timestep>
+    <timestep time="5.40">
+        <vehicle id="ego" x="71.86" speed="9.97" acceleration="-1.49" leaderGap="22.14"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="ego" x="72.85" speed="9.82" acceleration="-1.55" leaderGap="21.15"/>
+    </timestep>
+    <timestep time="5.60">
+        <vehicle id="ego" x="73.81" speed="9.66" acceleration="-1.60" leaderGap="20.19"/>
+    </timestep>
+    <timestep time="5.70">
+        <vehicle id="ego" x="74.76" speed="9.49" acceleration="-1.66" leaderGap="19.24"/>
+    </timestep>
+    <timestep time="5.80">
+        <vehicle id="ego" x="75.69" speed="9.32" acceleration="-1.72" leaderGap="18.31"/>
+    </timestep>
+    <timestep time="5.90">
+        <vehicle id="ego" x="76.61" speed="9.14" acceleration="-1.79" leaderGap="17.39"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="ego" x="77.50" speed="8.96" acceleration="-1.85" leaderGap="16.50"/>
+    </timestep>
+    <timestep time="6.10">
+        <vehicle id="ego" x="78.38" speed="8.76" acceleration="-1.92" leaderGap="15.62"/>
+    </timestep>
+    <timestep time="6.20">
+        <vehicle id="ego" x="79.24" speed="8.57" acceleration="-1.98" leaderGap="14.76"/>
+    </timestep>
+    <timestep time="6.30">
+        <vehicle id="ego" x="80.07" speed="8.36" acceleration="-2.05" leaderGap="13.93"/>
+    </timestep>
+    <timestep time="6.40">
+        <vehicle id="ego" x="80.89" speed="8.15" acceleration="-2.12" leaderGap="13.11"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="ego" x="81.68" speed="7.93" acceleration="-2.19" leaderGap="12.32"/>
+    </timestep>
+    <timestep time="6.60">
+        <vehicle id="ego" x="82.45" speed="7.70" acceleration="-2.26" leaderGap="11.55"/>
+    </timestep>
+    <timestep time="6.70">
+        <vehicle id="ego" x="83.20" speed="7.47" acceleration="-2.34" leaderGap="10.80"/>
+    </timestep>
+    <timestep time="6.80">
+        <vehicle id="ego" x="83.92" speed="7.23" acceleration="-2.41" leaderGap="10.08"/>
+    </timestep>
+    <timestep time="6.90">
+        <vehicle id="ego" x="84.62" speed="6.98" acceleration="-2.47" leaderGap="9.38"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="ego" x="85.29" speed="6.73" acceleration="-2.54" leaderGap="8.71"/>
+    </timestep>
+    <timestep time="7.10">
+        <vehicle id="ego" x="85.94" speed="6.47" acceleration="-2.61" leaderGap="8.06"/>
+    </timestep>
+    <timestep time="7.20">
+        <vehicle id="ego" x="86.56" speed="6.20" acceleration="-2.67" leaderGap="7.44"/>
+    </timestep>
+    <timestep time="7.30">
+        <vehicle id="ego" x="87.15" speed="5.93" acceleration="-2.73" leaderGap="6.85"/>
+    </timestep>
+    <timestep time="7.40">
+        <vehicle id="ego" x="87.71" speed="5.65" acceleration="-2.78" leaderGap="6.29"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="ego" x="88.25" speed="5.36" acceleration="-2.83" leaderGap="5.75"/>
+    </timestep>
+    <timestep time="7.60">
+        <vehicle id="ego" x="88.76" speed="5.08" acceleration="-2.87" leaderGap="5.24"/>
+    </timestep>
+    <timestep time="7.70">
+        <vehicle id="ego" x="89.24" speed="4.79" acceleration="-2.91" leaderGap="4.76"/>
+    </timestep>
+    <timestep time="7.80">
+        <vehicle id="ego" x="89.69" speed="4.49" acceleration="-2.94" leaderGap="4.31"/>
+    </timestep>
+    <timestep time="7.90">
+        <vehicle id="ego" x="90.11" speed="4.20" acceleration="-2.95" leaderGap="3.89"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="ego" x="90.50" speed="3.90" acceleration="-2.96" leaderGap="3.50"/>
+    </timestep>
+    <timestep time="8.10">
+        <vehicle id="ego" x="90.86" speed="3.60" acceleration="-2.96" leaderGap="3.14"/>
+    </timestep>
+    <timestep time="8.20">
+        <vehicle id="ego" x="91.19" speed="3.31" acceleration="-2.94" leaderGap="2.81"/>
+    </timestep>
+    <timestep time="8.30">
+        <vehicle id="ego" x="91.49" speed="3.02" acceleration="-2.91" leaderGap="2.51"/>
+    </timestep>
+    <timestep time="8.40">
+        <vehicle id="ego" x="91.76" speed="2.73" acceleration="-2.86" leaderGap="2.24"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="ego" x="92.01" speed="2.45" acceleration="-2.80" leaderGap="1.99"/>
+    </timestep>
+    <timestep time="8.60">
+        <vehicle id="ego" x="92.23" speed="2.18" acceleration="-2.73" leaderGap="1.77"/>
+    </timestep>
+    <timestep time="8.70">
+        <vehicle id="ego" x="92.42" speed="1.92" acceleration="-2.64" leaderGap="1.58"/>
+    </timestep>
+    <timestep time="8.80">
+        <vehicle id="ego" x="92.58" speed="1.66" acceleration="-2.53" leaderGap="1.42"/>
+    </timestep>
+    <timestep time="8.90">
+        <vehicle id="ego" x="92.73" speed="1.42" acceleration="-2.41" leaderGap="1.27"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="ego" x="92.85" speed="1.19" acceleration="-2.28" leaderGap="1.15"/>
+    </timestep>
+    <timestep time="9.10">
+        <vehicle id="ego" x="92.94" speed="0.98" acceleration="-2.13" leaderGap="1.06"/>
+    </timestep>
+    <timestep time="9.20">
+        <vehicle id="ego" x="93.02" speed="0.78" acceleration="-1.98" leaderGap="0.98"/>
+    </timestep>
+    <timestep time="9.30">
+        <vehicle id="ego" x="93.08" speed="0.60" acceleration="-1.81" leaderGap="0.92"/>
+    </timestep>
+    <timestep time="9.40">
+        <vehicle id="ego" x="93.13" speed="0.44" acceleration="-1.65" leaderGap="0.87"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="ego" x="93.15" speed="0.29" acceleration="-1.48" leaderGap="0.85"/>
+    </timestep>
+    <timestep time="9.60">
+        <vehicle id="ego" x="93.17" speed="0.16" acceleration="-1.32" leaderGap="0.83"/>
+    </timestep>
+    <timestep time="9.70">
+        <vehicle id="ego" x="93.17" speed="0.04" acceleration="-1.16" leaderGap="0.83"/>
+    </timestep>
+    <timestep time="9.80">
+        <vehicle id="ego" x="93.17" speed="0.00" acceleration="-0.40" leaderGap="0.83"/>
+    </timestep>
+    <timestep time="9.90">
+        <vehicle id="ego" x="93.17" speed="0.00" acceleration="0.00" leaderGap="0.83"/>
+    </timestep>
+</fcd-export>

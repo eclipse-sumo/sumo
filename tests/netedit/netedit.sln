@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit", "netedit.pyproj", "{C5F26013-23F8-433F-8D28-29FFE963DCD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5F26013-23F8-433F-8D28-29FFE963DCD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F26013-23F8-433F-8D28-29FFE963DCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38F486EF-6A26-495E-BB3D-E0E76E1DD78F}
+		        SolutionGuid = {CFEFCFF4-DECE-4279-9F26-C618FF3F6EE1}
+	EndGlobalSection
+EndGlobal

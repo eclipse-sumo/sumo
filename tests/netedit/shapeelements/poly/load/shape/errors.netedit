@@ -1,0 +1,3 @@
+Error: Attribute 'shape' is missing in definition of poly 'poly_01'.
+Error: Attribute 'shape' in definition of poly 'poly_02' is not a valid list of positions.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.23Jan142343.5681/netedit.daily.shape.poly/shapeelements/poly/load/shape/additionals.add.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 
 #include <utils/geom/Position.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 
@@ -41,7 +42,7 @@ class GUIDetectorWrapper : public GUIGlObject_AbstractAdd {
 
 public:
     /// Constructor
-    GUIDetectorWrapper(GUIGlObjectType type, const std::string& id);
+    GUIDetectorWrapper(GUIGlObjectType type, const std::string& id, FXIcon* icon);
 
     /// Destructor
     ~GUIDetectorWrapper();
@@ -57,6 +58,45 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
     /// @}
+
+    /**
+     * @class GUIBaseVehiclePopupMenu
+     *
+     * A popup-menu for detectors. In comparison to the normal popup-menu, this one
+     *  also allows to trigger virtual detector calls
+     */
+    class PopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(PopupMenu)
+
+    public:
+        PopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+
+        /// @brief Destructor
+        virtual ~PopupMenu() {};
+
+        /// @brief called to set/reset virtual detector calls
+        long onCmdSetOverride(FXObject*, FXSelector, void*);
+
+
+    protected:
+        FOX_CONSTRUCTOR(PopupMenu)
+    };
+
+protected:
+
+    /// @brief whether this detector has an active virtual detector call
+    virtual bool haveOverride() const {
+        return false;
+    }
+
+    virtual void toggleOverride() const { }
+
+    /// @brief whether this detector supports virtual detector calls
+    bool mySupportsOverride;
+
 
 };

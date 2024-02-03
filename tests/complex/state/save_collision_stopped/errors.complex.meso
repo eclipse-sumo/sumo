@@ -1,0 +1,4 @@
+/scr1/sumo/tools/sumolib/net/__init__.py:34: ImportWarning: Not importing directory '/home/erdm_ja/scr1/sumo/tests/complex/state/xml': missing __init__.py
+  from xml.sax import handler, parse
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1.

@@ -1,5 +1,6 @@
 # moveToXY for persons
 moveToXY
+moveTo
 
 # Tests the person API
 person
@@ -14,3 +15,21 @@ arrivalPos
 # test aborting a riding stage before pickup
 abort_riding
 trip_chain
+
+# remove person instantly
+remove
+
+# remove person and add another one with the same id
+remove_add
+
+# test ignoring specific foes ids and foe types
+junctionModel.ignore
+
+# test ignoring foes with a specific speed
+junctionModel.ignoreProb
+
+# test early insertion by removing a stage
+force_depart
+
+# add person that starts in a vehicle
+start_in_vehicle

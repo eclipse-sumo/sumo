@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <random>
 #include <utils/common/Named.h>
+#include <utils/common/RandHelper.h>
 
 
 // ===========================================================================
@@ -47,7 +47,7 @@ public:
     * @param[in] which The random number generator to use; the static one will be used if 0 is passed
     * @return the drawn member
     */
-    virtual double sample(std::mt19937* which = 0) const = 0;
+    virtual double sample(SumoRNG* which = 0) const = 0;
 
     /// Returns the maximum value of this distribution
     virtual double getMax() const = 0;

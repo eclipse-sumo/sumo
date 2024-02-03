@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/14/18 13:19:41 by Eclipse SUMO Version UNKNOWN
+<!-- generated on 2021-08-25 09:12:20 by Eclipse SUMO sumo Version v1_10_0+0201-258390e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,8 +20,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehroute-output.skip-ptlines value="true"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00" arrival="316.00">
-        <walk edges="beg2left" busStop="beg2left"/>
+        <walk edges="beg2left" trainStop="beg2left"/>
         <walk edges="beg2left2"/>
     </person>
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,45 +33,46 @@ class GNEChange_Attribute : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Attribute)
 
 public:
-    /**@brief constructor
+    /**@brief change attribute
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
+     * @param[in] undoList The undoList
+     * @param[in] force enable or disable force change attribute
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value);
+    static void changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value,
+                                GNEUndoList* undoList, const bool force = false);
 
-    /**@brief Constructor with custom origin value
+    /**@brief change attribute specifying original value
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
-     * @param[in] customOrigValue custon original value
+     * @param[in] originalValue The original value
+     * @param[in] undoList The undoList
+     * @param[in] force enable or disable force change attribute
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
-                        const std::string& customOrigValue);
+    static void changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value, const std::string& originalValue,
+                                GNEUndoList* undoList, const bool force = false);
 
     /// @brief Destructor
     ~GNEChange_Attribute();
 
     /// @name inherited from GNEChange
     /// @{
+
     /// @brief get undo Name
-    FXString undoName() const;
+    std::string undoName() const;
 
     /// @brief get Redo name
-    FXString redoName() const;
+    std::string redoName() const;
 
     /// @brief undo action
     void undo();
 
     /// @brief redo action
     void redo();
+
     /// @}
-
-    /// @brief force change
-    void forceChange();
-
-    /// @brief wether original and new value differ
-    bool trueChange();
 
 private:
     /**@brief the net to which all operations shall be applied
@@ -90,4 +91,23 @@ private:
 
     /// @brief the new value
     const std::string myNewValue;
+
+    /**@brief constructor
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     */
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value);
+
+    /**@brief Constructor with custom origin value
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] customOrigValue custom original value
+     */
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
+                        const std::string& customOrigValue);
+
+    /// @brief wether original and new value differ
+    bool trueChange();
 };

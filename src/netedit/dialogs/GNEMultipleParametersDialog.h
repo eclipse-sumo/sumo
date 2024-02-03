@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,8 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributesModuls.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 
 // ===========================================================================
 // class definitions
@@ -59,7 +58,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersValues(FXHorizontalFrame* frame);
 
         /// @brief destructor
         ~ParametersValues();
@@ -110,7 +109,7 @@ public:
             /// @brief disable row
             void disableRow();
 
-            /// @brief enable rlow
+            /// @brief enable row
             void enableRow(const std::string& parameter, const std::string& value) const;
 
             /// @brief toggle add button
@@ -147,9 +146,6 @@ public:
 
         /// @brief vector with the ParameterRows
         std::vector<ParameterRow*> myParameterRows;
-
-        /// @brief pointer to ParameterDialog parent
-        GNEMultipleParametersDialog* myParameterDialogParent;
     };
 
     // ===========================================================================
@@ -243,7 +239,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOptions(FXVerticalFrame* frame);
 
         /// @brief destructor
         ~ParametersOptions();
@@ -252,15 +248,12 @@ public:
         bool onlyForExistentKeys() const;
 
     private:
-        /// @brief pointer to Shape Frame Parent
-        GNEMultipleParametersDialog* myParameterDialogParent;
-
         /// @brief apply changes only for existent keys
         FXCheckButton* myOnlyForExistentKeys;
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEFrameAttributeModules::ParametersEditor* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -281,8 +274,8 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditorInspector
-    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
+    /// @brief pointer to ParametersEditor
+    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
@@ -312,4 +305,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEMultipleParametersDialog& operator=(const GNEMultipleParametersDialog&) = delete;
 };
-

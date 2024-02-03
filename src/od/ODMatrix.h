@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,6 +37,7 @@
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/xml/SAXWeightsHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -64,13 +65,14 @@ class SUMOSAXHandler;
  * In addition of being a storage, the matrix is also responsible for writing
  *  the results and contains methods for splitting the entries over time.
  */
-class ODMatrix {
+class ODMatrix : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+
 public:
     /** @brief Constructor
      *
      * @param[in] dc The district container to obtain referenced districts from
      */
-    ODMatrix(const ODDistrictCont& dc);
+    ODMatrix(const ODDistrictCont& dc, double scale);
 
 
     /// Destructor
@@ -92,17 +94,17 @@ public:
      *  given values. This cell is added to the list of known cells (myContainer).
      *
      * @param[in] vehicleNumber The number of vehicles to store within the cell
-     * @param[in] begin The begin of the interval the cell is valid for
-     * @param[in] end The end of the interval the cell is valid for
+     * @param[in] beginEnd The begin and the end of the interval the cell is valid for
      * @param[in] origin The origin district to use for the cell's flows
      * @param[in] destination The destination district to use for the cell's flows
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      * @return whether the cell could be added
      */
-    bool add(double vehicleNumber, SUMOTime begin,
-             SUMOTime end, const std::string& origin, const std::string& destination,
+    bool add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
+             const std::string& origin, const std::string& destination,
              const std::string& vehicleType,
-             const bool originIsEdge = false, const bool destinationIsEdge = false);
+             const bool originIsEdge = false, const bool destinationIsEdge = false,
+             bool noScaling = false);
 
     /** @brief Adds a single vehicle with departure time
      *
@@ -257,6 +259,9 @@ public:
         return myEnd;
     }
 
+    void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+                         double val, double beg, double end);
+
 protected:
     /**
      * @struct ODVehicle
@@ -373,6 +378,12 @@ private:
 
     /// @brief parsed time bounds
     SUMOTime myBegin, myEnd;
+
+    /// @brief user-defined vType
+    std::string myVType;
+
+    /// @brief the scaling factor for traffic
+    double myScale;
 
     /**
      * @class cell_by_begin_comparator

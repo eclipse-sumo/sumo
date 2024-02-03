@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan  5 15:04:33 2021 by Eclipse SUMO sumo Version v1_8_0+0374-86b069bd82
+<!-- generated on 2022-12-19 15:56:38 by Eclipse SUMO sumo Version v1_15_0+1128-a45e522
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -39,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<battery-export>
+<battery-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/battery_file.xsd">
     <timestep time="0.00">
         <vehicle id="veh0" energyConsumed="0.0000" totalEnergyConsumed="0.0000" totalEnergyRegenerated="0.0000" actualBatteryCapacity="13000.0000" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-987.9000" y="995.0500" lane="D2_0" posOnLane="12.1000" timeStopped="0"/>
     </timestep>
@@ -202,7 +206,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="35.00">
         <vehicle id="veh0" energyConsumed="0.0139" totalEnergyConsumed="100.6531" totalEnergyRegenerated="26.0031" actualBatteryCapacity="12971.3222" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="7"/>
-        <vehicle id="veh1" energyConsumed="0.0139" totalEnergyConsumed="95.8415" totalEnergyRegenerated="25.6455" actualBatteryCapacity="11959.2762" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-894.5010" y="998.3500" lane="D2_1" posOnLane="105.4990" timeStopped="2"/>
+        <vehicle id="veh1" energyConsumed="0.0139" totalEnergyConsumed="95.8415" totalEnergyRegenerated="25.6455" actualBatteryCapacity="11959.2762" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="-0.0000" x="-894.5010" y="998.3500" lane="D2_1" posOnLane="105.4990" timeStopped="2"/>
         <vehicle id="veh2" energyConsumed="0.0139" totalEnergyConsumed="59.8944" totalEnergyRegenerated="15.2915" actualBatteryCapacity="9965.9526" maximumBatteryCapacity="35000.0000" chargingStationId="CS1" energyCharged="2.6389" energyChargedInTransit="0.0000" energyChargedStopped="2.6389" speed="0.0000" acceleration="0.0000" x="-930.0000" y="995.0500" lane="D2_0" posOnLane="70.0000" timeStopped="4"/>
     </timestep>
     <timestep time="36.00">
@@ -266,7 +270,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh2" energyConsumed="6.4284" totalEnergyConsumed="81.7566" totalEnergyRegenerated="15.2915" actualBatteryCapacity="9959.9238" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="6.0000" acceleration="1.0000" x="-909.0000" y="998.3500" lane="D2_1" posOnLane="91.0000" timeStopped="0"/>
     </timestep>
     <timestep time="48.00">
-        <vehicle id="veh0" energyConsumed="0.0139" totalEnergyConsumed="148.5517" totalEnergyRegenerated="38.8998" actualBatteryCapacity="12939.0702" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="2"/>
+        <vehicle id="veh0" energyConsumed="0.0139" totalEnergyConsumed="148.5517" totalEnergyRegenerated="38.8998" actualBatteryCapacity="12939.0702" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="2"/>
         <vehicle id="veh1" energyConsumed="7.5585" totalEnergyConsumed="125.2622" totalEnergyRegenerated="25.6455" actualBatteryCapacity="11949.1056" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="7.0000" acceleration="1.0000" x="-866.5010" y="995.0500" lane="D2_0" posOnLane="133.4990" timeStopped="0"/>
         <vehicle id="veh2" energyConsumed="7.5585" totalEnergyConsumed="89.3150" totalEnergyRegenerated="15.2915" actualBatteryCapacity="9952.3653" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="7.0000" acceleration="1.0000" x="-902.0000" y="998.3500" lane="D2_1" posOnLane="98.0000" timeStopped="0"/>
     </timestep>
@@ -292,7 +296,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="53.00">
         <vehicle id="veh0" energyConsumed="0.0139" totalEnergyConsumed="148.6212" totalEnergyRegenerated="38.8998" actualBatteryCapacity="12950.3341" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="2.8333" energyChargedInTransit="0.0000" energyChargedStopped="2.8333" speed="0.0000" acceleration="0.0000" x="-830.0000" y="995.0500" lane="D2_0" posOnLane="170.0000" timeStopped="7"/>
-        <vehicle id="veh1" energyConsumed="0.0139" totalEnergyConsumed="143.8096" totalEnergyRegenerated="38.5422" actualBatteryCapacity="11943.4549" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="0.0000" x="-844.5010" y="995.0500" lane="D2_0" posOnLane="155.4990" timeStopped="2"/>
+        <vehicle id="veh1" energyConsumed="0.0139" totalEnergyConsumed="143.8096" totalEnergyRegenerated="38.5422" actualBatteryCapacity="11943.4549" maximumBatteryCapacity="35000.0000" chargingStationId="CS3" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="0.0000" acceleration="-0.0000" x="-844.5010" y="995.0500" lane="D2_0" posOnLane="155.4990" timeStopped="2"/>
         <vehicle id="veh2" energyConsumed="0.0139" totalEnergyConsumed="107.8624" totalEnergyRegenerated="28.1881" actualBatteryCapacity="9960.4646" maximumBatteryCapacity="35000.0000" chargingStationId="CS2" energyCharged="2.7500" energyChargedInTransit="0.0000" energyChargedStopped="2.7500" speed="0.0000" acceleration="0.0000" x="-880.0000" y="998.3500" lane="D2_1" posOnLane="120.0000" timeStopped="2"/>
     </timestep>
     <timestep time="54.00">

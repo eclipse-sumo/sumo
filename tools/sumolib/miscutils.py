@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,13 @@ import math
 import colorsys
 import socket
 import random
+import gzip
+import codecs
+import io
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
@@ -93,20 +100,15 @@ class Colorgen:
     def get_value(self, opt, index):
         if opt == 'random':
             return random.random()
-        elif opt == 'cycle':
+        if opt == 'cycle':
             # the 255 below is intentional to get all color values when cycling long enough
             self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
             return self.cycle[index] / 255.0
-        elif opt == 'cycle':
-            # the 255 below is intentional to get all color values when cycling long enough
-            self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
-            return self.cycle[index] / 255.0
-        elif opt == 'distinct':
+        if opt == 'distinct':
             if index == 0:
                 self.distinctIndex = (self.distinctIndex + 1) % len(self.DISTINCT)
             return self.DISTINCT[self.distinctIndex][index]
-        else:
-            return float(opt)
+        return float(opt)
 
     def floatTuple(self):
         """return color as a tuple of floats each in [0,1]"""
@@ -119,6 +121,74 @@ class Colorgen:
     def __call__(self):
         """return constant or randomized rgb-color string"""
         return ','.join(map(str, self.byteTuple()))
+
+
+class priorityDictionary(dict):
+
+    def __init__(self):
+        '''Initialize priorityDictionary by creating binary heap
+            of pairs (value,key).  Note that changing or removing a dict entry will
+            not remove the old pair from the heap until it is found by smallest() or
+            until the heap is rebuilt.'''
+        self.__heap = []
+        dict.__init__(self)
+
+    def smallest(self):
+        '''Find smallest item after removing deleted items from heap.'''
+        if len(self) == 0:
+            raise IndexError("smallest of empty priorityDictionary")
+        heap = self.__heap
+        while heap[0][1] not in self or self[heap[0][1]] != heap[0][0]:
+            lastItem = heap.pop()
+            insertionPoint = 0
+            while 1:
+                smallChild = 2 * insertionPoint + 1
+                if smallChild + 1 < len(heap) and \
+                        heap[smallChild][0] > heap[smallChild + 1][0]:
+                    smallChild += 1
+                if smallChild >= len(heap) or lastItem <= heap[smallChild]:
+                    heap[insertionPoint] = lastItem
+                    break
+                heap[insertionPoint] = heap[smallChild]
+                insertionPoint = smallChild
+        return heap[0][1]
+
+    def __iter__(self):
+        '''Create destructive sorted iterator of priorityDictionary.'''
+        def iterfn():
+            while len(self) > 0:
+                x = self.smallest()
+                yield x
+                del self[x]
+        return iterfn()
+
+    def __setitem__(self, key, val):
+        '''Change value stored in dictionary and add corresponding
+            pair to heap.  Rebuilds the heap if the number of deleted items grows
+            too large, to avoid memory leakage.'''
+        dict.__setitem__(self, key, val)
+        heap = self.__heap
+        if len(heap) > 2 * len(self):
+            self.__heap = [(v, k) for k, v in self.iteritems()]
+            self.__heap.sort()  # builtin sort likely faster than O(n) heapify
+        else:
+            newPair = (val, key)
+            insertionPoint = len(heap)
+            heap.append(None)
+            while insertionPoint > 0 and val < heap[(insertionPoint - 1) // 2][0]:
+                heap[insertionPoint] = heap[(insertionPoint - 1) // 2]
+                insertionPoint = (insertionPoint - 1) // 2
+            heap[insertionPoint] = newPair
+
+    def setdefault(self, key, val):
+        '''Reimplement setdefault to call our customized __setitem__.'''
+        if key not in self:
+            self[key] = val
+        return self[key]
+
+    def update(self, other):
+        for key in other.keys():
+            self[key] = other[key]
 
 
 def getFreeSocketPort(numTries=10):
@@ -149,6 +219,8 @@ def euclidean(a, b):
 
 def humanReadableTime(seconds):
     result = ""
+    sign = '-' if seconds < 0 else ''
+    seconds = abs(seconds)
     ds = 3600 * 24
     if seconds > ds:
         result = "%s:" % int(seconds / ds)
@@ -160,7 +232,10 @@ def humanReadableTime(seconds):
     if seconds == int(seconds):
         seconds = int(seconds)
     result += "%02i" % seconds
-    return result
+    return sign + result
+
+
+SPECIAL_TIME_STRINGS = ["triggered", "containerTriggered", "split", "begin"]
 
 
 def parseTime(t, factor=1):
@@ -168,11 +243,84 @@ def parseTime(t, factor=1):
         return float(t) * factor
     except ValueError:
         pass
-    # prepended zero is ignored if the date value already contains days
-    days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
-    return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
+    try:
+        # prepended zero is ignored if the date value already contains days
+        days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
+        sign = -1 if t.strip()[0] == '-' else 1
+        return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign * factor
+    except ValueError:
+        if t in SPECIAL_TIME_STRINGS:
+            # signal special case but don't crash
+            return None
+        else:
+            raise
 
 
 def parseBool(val):
     # see data/xsd/baseTypes:boolType
     return val in ["true", "True", "x", "1", "yes", "on"]
+
+
+def getFlowNumber(flow):
+    """interpret number of vehicles from a flow parsed by sumolib.xml.parse"""
+    if flow.number is not None:
+        return int(flow.number)
+    if flow.end is not None:
+        duration = parseTime(flow.end) - parseTime(flow.begin)
+        period = 0
+        if flow.period is not None:
+            if 'exp' in flow.period:
+                # use expected value
+                period = 1 / float(flow.period[4:-2])
+            else:
+                period = float(flow.period)
+        for attr in ['perHour', 'vehsPerHour']:
+            if flow.hasAttribute(attr):
+                period = 3600 / float(flow.getAttributes(attr))
+        if period > 0:
+            return math.ceil(duration / period)
+        else:
+            return 1
+
+
+def intIfPossible(val):
+    if int(val) == val:
+        return int(val)
+    else:
+        return val
+
+
+def openz(fileOrURL, mode="r", **kwargs):
+    """
+    Opens transparently files, URLs and gzipped files for reading and writing.
+    Special file names "stdout" and "stderr" are handled as well.
+    Also enforces UTF8 on text output / input.
+    Should be compatible with python 2 and 3.
+    """
+    encoding = kwargs.get("encoding", "utf8")
+    try:
+        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
+            return io.BytesIO(urlopen(fileOrURL).read())
+        if fileOrURL == "stdout":
+            return sys.stdout
+        if fileOrURL == "stderr":
+            return sys.stderr
+        if fileOrURL.endswith(".gz") and "w" in mode:
+            if "b" in mode:
+                return gzip.open(fileOrURL, mode="w")
+            return gzip.open(fileOrURL, mode="wt", encoding=encoding)
+        if kwargs.get("tryGZip", True) and "r" in mode:
+            with gzip.open(fileOrURL) as fd:
+                fd.read(1)
+            if "b" in mode:
+                return gzip.open(fileOrURL)
+            if sys.version_info[0] < 3:
+                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
+            return gzip.open(fileOrURL, mode="rt", encoding=encoding)
+    except OSError:
+        pass
+    except IOError:
+        pass
+    if "b" in mode:
+        return io.open(fileOrURL, mode=mode)
+    return io.open(fileOrURL, mode=mode, encoding=encoding)

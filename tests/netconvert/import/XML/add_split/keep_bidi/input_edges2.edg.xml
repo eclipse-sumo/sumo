@@ -1,0 +1,10 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/edgediff_file.xsd">
+	<edge id="E0">
+		<split pos="75" id="newNode"/>
+		<split pos="200" id="newNode2"/>
+	</edge>
+	<edge id="-E0">
+		<split pos="117.09" id="newNode2"/>
+		<split pos="242.09" id="newNode"/>
+	</edge>
+</edges>

@@ -1,2 +1,2 @@
-Error: Attribute 'last' in definition of routeDistribution '!1' is not of type int.
+Error: Attribute 'last' in definition of routeDistribution '!1' Invalid Number Format (long long integer format) xxx.
 Quitting (on error).

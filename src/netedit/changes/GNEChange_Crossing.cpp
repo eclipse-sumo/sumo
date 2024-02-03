@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
                                        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(junctionParent, forward, selected),
+    GNEChange(Supermode::NETWORK, junctionParent, forward, selected),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
@@ -50,7 +50,7 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
-    GNEChange(forward, false),
+    GNEChange(Supermode::NETWORK, forward, false),
     myJunctionParent(junctionParent),
     myEdges(crossing.edges),
     myWidth(crossing.width),
@@ -77,8 +77,10 @@ void GNEChange_Crossing::undo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
@@ -97,13 +99,15 @@ void GNEChange_Crossing::undo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
     }
     // enable save networkElements
-    myJunctionParent->getNet()->requireSaveNet(true);
+    myJunctionParent->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -121,6 +125,8 @@ void GNEChange_Crossing::redo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
@@ -136,8 +142,10 @@ void GNEChange_Crossing::redo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
@@ -145,25 +153,25 @@ void GNEChange_Crossing::redo() {
         }
     }
     // enable save networkElements
-    myJunctionParent->getNet()->requireSaveNet(true);
+    myJunctionParent->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return TL("Undo create crossing");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return TL("Undo delete crossing");
     }
 }
 
 
-FXString
+std::string
 GNEChange_Crossing::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CROSSING)).c_str();
+        return TL("Redo create crossing");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CROSSING)).c_str();
+        return TL("Redo delete crossing");
     }
 }

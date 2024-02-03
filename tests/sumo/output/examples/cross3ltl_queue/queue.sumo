@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 21 21:59:35 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
+<!-- generated on 2023-03-01 13:04:25 by Eclipse SUMO sumo Version v1_16_0+0850-438bb8b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -600,6 +605,7 @@ SPDX-License-Identifier: EPL-2.0
     </data>
     <data timestep="167.00">
         <lanes>
+            <lane id=":0_14_0" queueing_time="1.00" queueing_length="5.17" queueing_length_experimental="5.17"/>
             <lane id="3si_0" queueing_time="21.00" queueing_length="21.01" queueing_length_experimental="21.01"/>
             <lane id="3si_1" queueing_time="19.00" queueing_length="13.50" queueing_length_experimental="13.50"/>
         </lanes>

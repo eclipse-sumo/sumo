@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,530 +42,226 @@
 // member method definitions
 // ===========================================================================
 
-GNEDataLoadDialog::GNEDataLoadDialog(GNEViewNet* viewNet) :
-    FXDialogBox(viewNet, "Netedit Parameters Help", GUIDesignDialogBox),
-    myViewNet(viewNet),
-    myCounter(0) {
-    // set decoration
-    setDecorations(DECOR_BORDER);
-    // create label
-    myLabel = new FXLabel(this, "counter:", 0, GUIDesignLabelFrameInformation);
-    // create Dialog
-    create();
-    // show in the given position
-    show(PLACEMENT_SCREEN);
-    // refresh APP
-    viewNet->getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    viewNet->getApp()->runModalWhileEvents(this);
+GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
+    DataHandler(file),
+    myNet(net),
+    myAllowUndoRedo(allowUndoRedo),
+    myOverwrite(overwrite) {
 }
 
 
-GNEDataLoadDialog::~GNEDataLoadDialog() {
-    myViewNet->getApp()->stopModal(this);
-}
+GNEDataHandler::~GNEDataHandler() {}
 
 
 void
-GNEDataLoadDialog::increase() {
-    // update counter
-    myCounter++;
-    // update label
-    myLabel->setText(("Loaded: " + toString(myCounter)).c_str());
-    // repaint
-    repaint();
-}
-
-
-// ---------------------------------------------------------------------------
-// GNEAdditionalHandler::HierarchyInsertedDatas method definitions
-// ---------------------------------------------------------------------------
-
-void
-GNEDataHandler::HierarchyInsertedDatas::insertElement(SumoXMLTag tag) {
-    myInsertedElements.push_back(std::make_pair(tag, std::make_pair(nullptr, nullptr)));
-}
-
-
-
-void
-GNEDataHandler::HierarchyInsertedDatas::commitDataIntervalInsertion(GNEDataInterval* dataIntervalCreated) {
-    myInsertedElements.back().second.first = dataIntervalCreated;
-}
-
-
-void
-GNEDataHandler::HierarchyInsertedDatas::commitGenericDataInsertion(GNEGenericData* genericDataCreated) {
-    myInsertedElements.back().second.second = genericDataCreated;
-}
-
-
-void
-GNEDataHandler::HierarchyInsertedDatas::popElement() {
-    if (!myInsertedElements.empty()) {
-        myInsertedElements.pop_back();
-    }
-}
-
-
-GNEDataInterval*
-GNEDataHandler::HierarchyInsertedDatas::retrieveParentDataInterval(SumoXMLTag expectedTag) const {
-    if (myInsertedElements.size() < 2) {
-        // currently we're finding parent additional in the additional XML root
-        WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
-        return nullptr;
-    } else {
-        if (myInsertedElements.size() < 2) {
-            // additional was hierarchically bad loaded, then return nullptr
-            return nullptr;
-        } else if ((myInsertedElements.end() - 2)->second.first == nullptr) {
-            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
-            // parent additional wasn't sucesfully loaded, then return nullptr
-            return nullptr;
-        }
-        return nullptr;
-    }
-}
-
-
-GNEDataInterval*
-GNEDataHandler::HierarchyInsertedDatas::getLastInsertedDataInterval() const {
-    // ierate in reverse mode over myInsertedElements to obtain last inserted additional
-    for (std::vector<std::pair<SumoXMLTag, std::pair<GNEDataInterval*, GNEGenericData* > > >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
-        // we need to avoid Tag Param because isn't a data element
-        if ((i->first != SUMO_TAG_PARAM) && (i->first == SUMO_TAG_INTERVAL)) {
-            return i->second.first;
-        }
-    }
-    return nullptr;
-}
-
-
-GNEGenericData*
-GNEDataHandler::HierarchyInsertedDatas::retrieveParentGenericData(SumoXMLTag expectedTag) const {
-    if (myInsertedElements.size() < 2) {
-        // currently we're finding parent additional in the additional XML root
-        WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
-        return nullptr;
-    } else {
-        if (myInsertedElements.size() < 2) {
-            // additional was hierarchically bad loaded, then return nullptr
-            return nullptr;
-        } else if ((myInsertedElements.end() - 2)->second.second == nullptr) {
-            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
-            // parent additional wasn't sucesfully loaded, then return nullptr
-            return nullptr;
-        }
-        return nullptr;
-    }
-}
-
-
-GNEGenericData*
-GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
-    // ierate in reverse mode over myInsertedElements to obtain last inserted additional
-    for (std::vector<std::pair<SumoXMLTag, std::pair<GNEDataInterval*, GNEGenericData* > > >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
-        // we need to avoid Tag Param because isn't a data element
-        if ((i->first != SUMO_TAG_PARAM) && (i->first != SUMO_TAG_INTERVAL)) {
-            return i->second.second;
-        }
-    }
-    return nullptr;
-}
-
-// ---------------------------------------------------------------------------
-// GNEAdditionalHandler::HierarchyInsertedDatas method definitions
-// ---------------------------------------------------------------------------
-
-GNEDataHandler::GNEDataHandler(const std::string& file, GNENet* net) :
-    SUMOSAXHandler(file),
-    myNet(net) {
-    /* currently disabled
-    // create loadDialog
-    myLoadDialog = new GNEDataLoadDialog(net->getViewNet());
-    */
-}
-
-
-GNEDataHandler::~GNEDataHandler() {
-    /* currently disabled
-    // delete loadDialog
-    delete myLoadDialog;
-    */
-}
-
-
-void
-GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    // Obtain tag of element
-    SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // check if we're parsing a parameter
-    if (tag == SUMO_TAG_PARAM) {
-        // push element int stack
-        myHierarchyInsertedGenericDatas.insertElement(tag);
-        // parse parameter
-        parseParameter(attrs);
-    } else if (tag != SUMO_TAG_NOTHING) {
-        // push element int stack
-        myHierarchyInsertedGenericDatas.insertElement(tag);
-        // build data
-        buildData(myNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
-        /* currently disabled
-        // increase load dialog
-        myLoadDialog->increase();
-        */
-    }
-}
-
-
-void
-GNEDataHandler::myEndElement(int /*element*/) {
-    // pop last inserted element
-    myHierarchyInsertedGenericDatas.popElement();
-}
-
-
-bool
-GNEDataHandler::buildData(GNENet* net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
-    // Call parse and build depending of tag
-    switch (tag) {
-        case SUMO_TAG_INTERVAL:
-            return parseAndBuildInterval(net, allowUndoRedo, attrs, insertedDatas);
-        case SUMO_TAG_EDGE:
-            return parseAndBuildEdgeData(net, allowUndoRedo, attrs, insertedDatas);
-        case SUMO_TAG_EDGEREL:
-            return parseAndBuildEdgeRelationData(net, allowUndoRedo, attrs, insertedDatas);
-        case SUMO_TAG_TAZREL:
-            return parseAndBuildTAZRelationData(net, allowUndoRedo, attrs, insertedDatas);
-        default:
-            return false;
-    }
-}
-
-
-GNEDataSet*
-GNEDataHandler::buildDataSet(GNENet* net, bool allowUndoRedo, const std::string& dataSetID) {
-    GNEDataSet* dataSet = new GNEDataSet(net, dataSetID);
-    if (allowUndoRedo) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
-        net->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        dataSet->incRef("buildDataSet");
-    }
-    return dataSet;
-}
-
-
-GNEDataInterval*
-GNEDataHandler::buildDataInterval(GNENet* net, bool allowUndoRedo, GNEDataSet* dataSetParent, const double begin, const double end) {
-    GNEDataInterval* dataInterval = new GNEDataInterval(dataSetParent, begin, end);
-    if (allowUndoRedo) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
-        net->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        dataSetParent->addDataIntervalChild(dataInterval);
-        dataInterval->incRef("buildDataInterval");
-    }
-    return dataInterval;
-}
-
-
-GNEGenericData*
-GNEDataHandler::buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
-                              const std::map<std::string, std::string>& parameters) {
-    GNEGenericData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
-    if (allowUndoRedo) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
-        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        dataIntervalParent->addGenericDataChild(edgeData);
-        edge->addChildElement(edgeData);
-        edgeData->incRef("buildEdgeData");
-    }
-    return edgeData;
-}
-
-
-GNEGenericData*
-GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-                                      GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters) {
-    GNEGenericData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, fromEdge, toEdge, parameters);
-    if (allowUndoRedo) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
-        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        dataIntervalParent->addGenericDataChild(edgeRelationData);
-        fromEdge->addChildElement(edgeRelationData);
-        toEdge->addChildElement(edgeRelationData);
-        edgeRelationData->incRef("buildEdgeRelationData");
-    }
-    return edgeRelationData;
-}
-
-
-GNEGenericData*
-GNEDataHandler::buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-                                     GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters) {
-    GNEGenericData* TAZRelationData = new GNETAZRelData(dataIntervalParent, fromTAZ, toTAZ, parameters);
-    if (allowUndoRedo) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZREL));
-        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(TAZRelationData, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        dataIntervalParent->addGenericDataChild(TAZRelationData);
-        fromTAZ->addChildElement(TAZRelationData);
-        toTAZ->addChildElement(TAZRelationData);
-        TAZRelationData->incRef("buildTAZRelationData");
-    }
-    return TAZRelationData;
-}
-
-
-bool
-GNEDataHandler::parseAndBuildInterval(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
-    bool abort = false;
-    // parse edgeData attributes
-    const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_ID, abort);
-    const double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_BEGIN, abort);
-    const double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_END, abort);
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // retrieve data set parent
-        GNEDataSet* dataSet = net->retrieveDataSet(id, false);
-        // check if we need to create a new data set
-        if (dataSet == nullptr) {
-            dataSet = buildDataSet(net, true, id);
-        }
-        // retrieve data interval
-        GNEDataInterval* dataInterval = dataSet->retrieveInterval(begin, end);
-        // check if data interval exist
-        if (dataInterval) {
-            // check if insertion has to be commited
-            if (insertedDatas) {
-                insertedDatas->commitDataIntervalInsertion(dataInterval);
-            }
+GNEDataHandler::buildDataSet(const std::string& dataSetID) {
+    // first check if dataSet exist
+    if (myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false) == nullptr) {
+        GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
+            myNet->getViewNet()->getUndoList()->end();
         } else {
-            // create data interval
-            dataInterval = buildDataInterval(net, allowUndoRedo, dataSet, begin, end);
-            // check if insertion has to be commited
-            if (insertedDatas) {
-                insertedDatas->commitDataIntervalInsertion(dataInterval);
-            }
+            // insert dataSet without allowing undo/redo
+            myNet->getAttributeCarriers()->insertDataSet(dataSet);
+            dataSet->incRef("buildDataSet");
         }
-        return true;
+    } else {
+        writeErrorDuplicated(SUMO_TAG_DATASET, dataSetID);
     }
-    return false;
 }
 
-
-bool
-GNEDataHandler::parseAndBuildEdgeData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
-    bool abort = false;
-    // parse edgeData attributes
-    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_MEANDATA_EDGE, SUMO_ATTR_ID, abort);
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // get pointer to edge
-        GNEEdge* edge = net->retrieveEdge(edgeID, false);
-        // check that edge is valid
-        if (edge == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' is not known.");
-        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
-        } else {
-            // check if there is already a edge data for the given edge in the given interval
-            for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) &&
-                        (genericData->getParentEdges().front() == edge)) {
-                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" +
-                                  edge->getID() + "' in interval " +
-                                  insertedDatas->getLastInsertedDataInterval()->getID() + " [" +
-                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
-                    return false;
-                }
-            }
-            // declare parameter map
-            std::map<std::string, std::string> parameters;
-            // obtain all attribute
-            const std::vector<std::string> attributes = attrs.getAttributeNames();
-            // iterate over attributes and fill parameters map
-            for (const auto& attribute : attributes) {
-                if (attribute != toString(SUMO_ATTR_ID)) {
-                    parameters[attribute] = attrs.getStringSecure(attribute, "");
-                }
-            }
-            // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
-            // check if insertion has to be commited
-            if (insertedDatas) {
-                insertedDatas->commitGenericDataInsertion(dataCreated);
-            }
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
-    bool abort = false;
-    // parse edgeRelationData attributes
-    std::string fromEdgeStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_EDGEREL, SUMO_ATTR_FROM, abort);
-    std::string toEdgeStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_EDGEREL, SUMO_ATTR_TO, abort);
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // get pointers to edges
-        GNEEdge* fromEdge = net->retrieveEdge(fromEdgeStr, false);
-        GNEEdge* toEdge = net->retrieveEdge(toEdgeStr, false);
-        // check that edge is valid
-        if (fromEdge == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The from edge '" + fromEdgeStr + "' to use within " + toString(SUMO_TAG_EDGEREL) + " is not known.");
-        } else if (toEdge == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The to edge '" + toEdgeStr + "' to use within " + toString(SUMO_TAG_EDGEREL) + " is not known.");
-        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING(toString(SUMO_TAG_EDGEREL) + " must be created within a data interval.");
-        } else {
-            // check if there is already a edge data for the given edge in the interval
-            for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
-                        (genericData->getParentEdges().front() == fromEdge) &&
-                        (genericData->getParentEdges().back() == toEdge)) {
-                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " for edges '" +
-                                  fromEdge->getID() + "'->'" + toEdge->getID() + "' in interval " +
-                                  insertedDatas->getLastInsertedDataInterval()->getID() + " [" +
-                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
-                    return false;
-                }
-            }
-            // declare parameter map
-            std::map<std::string, std::string> parameters;
-            // obtain all attribute
-            const std::vector<std::string> attributes = attrs.getAttributeNames();
-            // iterate over attributes and fill parameters map
-            for (const auto& attribute : attributes) {
-                if ((attribute != toString(SUMO_ATTR_ID)) && (attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-                    parameters[attribute] = attrs.getStringSecure(attribute, "");
-                }
-            }
-            // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
-                                          fromEdge, toEdge, parameters);
-            // check if insertion has to be commited
-            if (insertedDatas) {
-                insertedDatas->commitGenericDataInsertion(dataCreated);
-            }
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-GNEDataHandler::parseAndBuildTAZRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
-    bool abort = false;
-    // parse TAZRelationData attributes
-    std::string fromTAZStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZREL, SUMO_ATTR_FROM, abort);
-    std::string toTAZStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZREL, SUMO_ATTR_TO, abort);
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // get pointers to TAZs
-        GNETAZElement* fromTAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZStr, false);
-        GNETAZElement* toTAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, toTAZStr, false);
-        // check that TAZ is valid
-        if (fromTAZ == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The from TAZ '" + fromTAZStr + "' to use within " + toString(SUMO_TAG_TAZREL) + " is not known.");
-        } else if (toTAZ == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING("The to TAZ '" + toTAZStr + "' to use within " + toString(SUMO_TAG_TAZREL) + " is not known.");
-        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
-            // Write error if lane isn't valid
-            WRITE_WARNING(toString(SUMO_TAG_TAZREL) + " must be created within a data interval.");
-        } else {
-            // declare parameter map
-            std::map<std::string, std::string> parameters;
-            // obtain all attribute
-            const std::vector<std::string> attributes = attrs.getAttributeNames();
-            // iterate over attributes and fill parameters map
-            for (const auto& attribute : attributes) {
-                if ((attribute != toString(SUMO_ATTR_ID)) && (attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-                    parameters[attribute] = attrs.getStringSecure(attribute, "");
-                }
-            }
-            // save ID of last created element
-            GNEGenericData* dataCreated = buildTAZRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
-                                          fromTAZ, toTAZ, parameters);
-            // check if insertion has to be commited
-            if (insertedDatas) {
-                insertedDatas->commitGenericDataInsertion(dataCreated);
-            }
-            return true;
-        }
-    }
-    return false;
-}
-
-// ===========================================================================
-// private method definitions
-// ===========================================================================
 
 void
-GNEDataHandler::parseParameter(const SUMOSAXAttributes& attrs) {
-    if (myHierarchyInsertedGenericDatas.getLastInsertedGenericData()) {
-        // first check if given data supports parameters
-        if (myHierarchyInsertedGenericDatas.getLastInsertedGenericData()->getTagProperty().hasParameters()) {
-            bool ok = true;
-            std::string key;
-            if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
-                // obtain key
-                key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-                if (key.empty()) {
-                    WRITE_WARNING("Error parsing key from data parameter. Key cannot be empty");
-                    ok = false;
-                }
-                if (!SUMOXMLDefinitions::isValidTypeID(key)) {
-                    WRITE_WARNING("Error parsing key from data parameter. Key contains invalid characters");
-                    ok = false;
+GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* sumoBaseObject */,
+                                  const std::string& dataSetID, const double begin, const double end) {
+    // get dataSet
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false);
+    // first check if dataSet exist
+    if (dataSet == nullptr) {
+        // create dataset AND data interval
+        dataSet = new GNEDataSet(myNet, dataSetID);
+        GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(dataInterval, TL("add data set and data interval"));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // insert dataSet allowing undo/redo
+            myNet->getAttributeCarriers()->insertDataSet(dataSet);
+            dataSet->incRef("buildDataInterval");
+            // insert dataInterval without allowing undo/redo
+            dataSet->addDataIntervalChild(dataInterval);
+            dataInterval->incRef("buildDataInterval");
+        }
+    } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
+        GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(dataInterval, TL("add data interval"));
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // insert dataInterval without allowing undo/redo
+            dataSet->addDataIntervalChild(dataInterval);
+            dataInterval->incRef("buildDataInterval");
+        }
+    }
+}
+
+
+void
+GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+                              const Parameterised::Map& parameters) {
+    // get dataSet
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (dataSet != nullptr) {
+        // get interval
+        GNEDataInterval* dataInterval = dataSet->retrieveInterval(
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+        if (dataInterval != nullptr) {
+            // get data
+            GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
+            if (edge) {
+                GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    dataInterval->addGenericDataChild(edgeData);
+                    edge->addChildElement(edgeData);
+                    edgeData->incRef("buildEdgeData");
                 }
             } else {
-                WRITE_WARNING("Error parsing key from data parameter. Key doesn't exist");
-                ok = false;
-            }
-            // circumventing empty string test
-            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            if (!SUMOXMLDefinitions::isValidAttribute(val)) {
-                WRITE_WARNING("Error parsing value from data parameter. Value contains invalid characters");
-                ok = false;
-            }
-            // check double values
-            if (myHierarchyInsertedGenericDatas.getLastInsertedGenericData()->getTagProperty().hasParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
-                WRITE_WARNING("Error parsing value from data float parameter. Value cannot be parsed to float");
-                ok = false;
-            }
-            // set parameter in last inserted data
-            if (ok) {
-                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into data " + myHierarchyInsertedGenericDatas.getLastInsertedGenericData()->getTagStr() + ".");
-                myHierarchyInsertedGenericDatas.getLastInsertedGenericData()->setParameter(key, val);
+                writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_EDGE);
             }
         } else {
-            WRITE_WARNING("Datas of type '" + myHierarchyInsertedGenericDatas.getLastInsertedGenericData()->getTagStr() + "' doesn't support parameters");
+            writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATAINTERVAL);
         }
     } else {
-        WRITE_WARNING("Parameters has to be declared within the definition of an data");
+        writeErrorInvalidParent(GNE_TAG_EDGEREL_SINGLE, SUMO_TAG_DATASET);
     }
+}
+
+
+void
+GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
+                                      const std::string& toEdgeID, const Parameterised::Map& parameters) {
+    // get dataSet
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (dataSet != nullptr) {
+        // get interval
+        GNEDataInterval* dataInterval = dataSet->retrieveInterval(
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+        if (dataInterval != nullptr) {
+            // get data
+            GNEEdge* const fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+            GNEEdge* const toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
+            if (fromEdge == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, fromEdgeID);
+            } else if (toEdge == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_EDGE, toEdgeID);
+            } else {
+                // avoid duplicated edgeRel in the same interval
+                if (dataInterval->edgeRelExists(fromEdge, toEdge)) {
+                    writeError(TLF("There is already a edgeRel defined between '%' and '%'.", fromEdgeID, toEdgeID));
+                } else {
+                    GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
+                    if (myAllowUndoRedo) {
+                        myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                        myNet->getViewNet()->getUndoList()->end();
+                    } else {
+                        dataInterval->addGenericDataChild(edgeData);
+                        fromEdge->addChildElement(edgeData);
+                        toEdge->addChildElement(edgeData);
+                        edgeData->incRef("buildEdgeRelationData");
+                    }
+                }
+            }
+        } else {
+            writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATAINTERVAL);
+        }
+    } else {
+        writeErrorInvalidParent(SUMO_TAG_EDGEREL, SUMO_TAG_DATASET);
+    }
+}
+
+
+void
+GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
+                                     const std::string& toTAZID, const Parameterised::Map& parameters) {
+    // get dataSet
+    GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (dataSet != nullptr) {
+        // get interval
+        GNEDataInterval* dataInterval = dataSet->retrieveInterval(
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_BEGIN),
+                                            sumoBaseObject->getParentSumoBaseObject()->getDoubleAttribute(SUMO_ATTR_END));
+        if (dataInterval != nullptr) {
+            // get from TAZs
+            GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
+            GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
+            if (fromTAZ == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, fromTAZID);
+            } else if (toTAZ == nullptr) {
+                writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
+            } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
+                writeError(TLF("There is already a TAZ rel defined between '%' and '%'.", fromTAZID, toTAZID));
+            } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
+                writeError(TLF("There is already a TAZ rel defined in '%'.", toTAZID));
+            } else if (fromTAZ == toTAZ) {
+                GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add TAZ rel"));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    dataInterval->addGenericDataChild(edgeData);
+                    fromTAZ->addChildElement(edgeData);
+                    edgeData->incRef("buildTAZRelationData");
+                }
+            } else {
+                GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
+                if (myAllowUndoRedo) {
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add TAZ rel"));
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+                    myNet->getViewNet()->getUndoList()->end();
+                } else {
+                    dataInterval->addGenericDataChild(edgeData);
+                    fromTAZ->addChildElement(edgeData);
+                    toTAZ->addChildElement(edgeData);
+                    edgeData->incRef("buildTAZRelationData");
+                }
+            }
+        } else {
+            writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATAINTERVAL);
+        }
+    } else {
+        writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_DATASET);
+    }
+}
+
+
+void
+GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
+    writeError(TLF("Could not build % with ID '%'", toString(tag), id) + std::string("; ") + TL("declared twice."));
+}
+
+
+void
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
+    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% doesn't exist.", toString(parent)));
+}
+
+
+void
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id) {
+    writeError(TLF("Could not build %", toString(tag)) + std::string("; ") + TLF("% '%' doesn't exist.", toString(parent), id));
 }
 
 /****************************************************************************/

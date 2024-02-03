@@ -1,23 +1,27 @@
 set(utils_xml_STAT_SRCS
-   CommonXMLStructure.h
    CommonXMLStructure.cpp
-   GenericSAXHandler.h
+   CommonXMLStructure.h
+   GenericHandler.cpp
+   GenericHandler.h
    GenericSAXHandler.cpp
+   GenericSAXHandler.h
    IStreamInputSource.h
+   NamespaceIDs.cpp
+   NamespaceIDs.h
+   SAXWeightsHandler.cpp
+   SAXWeightsHandler.h
    SUMOSAXAttributes.cpp
    SUMOSAXAttributes.h
-   SUMOSAXAttributesImpl_Xerces.cpp
-   SUMOSAXAttributesImpl_Xerces.h
    SUMOSAXAttributesImpl_Cached.cpp
    SUMOSAXAttributesImpl_Cached.h
+   SUMOSAXAttributesImpl_Xerces.cpp
+   SUMOSAXAttributesImpl_Xerces.h
    SUMOSAXHandler.cpp
    SUMOSAXHandler.h
    SUMOSAXReader.cpp
    SUMOSAXReader.h
    SUMOXMLDefinitions.cpp
    SUMOXMLDefinitions.h
-   SAXWeightsHandler.cpp
-   SAXWeightsHandler.h
    XMLSubSys.cpp
    XMLSubSys.h
 )

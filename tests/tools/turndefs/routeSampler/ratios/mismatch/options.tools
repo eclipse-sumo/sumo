@@ -1,0 +1,8 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml 
+--edgedata-attribute count
+--turn-ratio-files input_turns.xml
+--turn-ratio-attribute ratio
+--mismatch-output edgedata.xml
+-f number
+--precision 3
+-o out.rou.xml 

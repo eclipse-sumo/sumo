@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-31 11:41:43 by Eclipse SUMO netedit Version v1_16_0+1823-8c9c136
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="1"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-838.38,729.09,-505.55,853.19" origBoundary="-875.13,-816.65,661.91,939.35" projParameter="!"/>
+
+    <type id="border" priority="0" allow="custom1" width="0.10"/>
+    <type id="driving" priority="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="entry" priority="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="exit" priority="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="median" priority="0" disallow="all" discard="1" width="0.10"/>
+    <type id="none" priority="0" disallow="all" discard="1" width="1.00"/>
+    <type id="offRamp" priority="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
+    <type id="onRamp" priority="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
+    <type id="parking" priority="4" speed="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship custom2" width="2.50"/>
+    <type id="rail" priority="3" allow="rail_urban rail rail_electric rail_fast" width="3.65"/>
+    <type id="restricted" priority="0" disallow="all" width="3.65"/>
+    <type id="roadWorks" priority="0" allow="authority" width="3.65"/>
+    <type id="shoulder" priority="0" disallow="all" discard="1" width="1.00"/>
+    <type id="sidewalk" priority="1" speed="2.77" allow="pedestrian custom1" width="2.00"/>
+    <type id="special1" priority="0" allow="custom1" discard="1" width="3.65"/>
+    <type id="stop" priority="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="tram" priority="2" allow="tram" width="3.65"/>
+
+    <edge id=":9#1_0" function="internal">
+        <lane id=":9#1_0_0" index="0" allow="emergency authority" speed="19.44" length="3.04" width="3.50" shape="-810.38,830.61 -809.58,830.16 -809.13,829.68 -808.67,829.20 -807.87,828.76"/>
+        <lane id=":9#1_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-809.46,833.08 -806.65,832.04"/>
+        <lane id=":9#1_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-808.24,836.36 -805.43,835.32"/>
+        <lane id=":9#1_0_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-807.02,839.64 -804.20,838.60"/>
+    </edge>
+    <edge id=":9#2_0" function="internal">
+        <lane id=":9#2_0_0" index="0" allow="emergency authority" speed="19.44" length="3.04" width="1.79" shape="-526.02,723.72 -525.13,723.53 -524.47,723.60 -523.82,723.67 -522.93,723.47"/>
+        <lane id=":9#2_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-524.79,727.00 -521.99,725.95"/>
+        <lane id=":9#2_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-523.57,730.28 -520.76,729.22"/>
+        <lane id=":9#2_0_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="3.04" width="3.50" shape="-522.35,733.56 -519.52,732.50"/>
+    </edge>
+
+    <edge id="-9#0" from="9.5" to="9#1" priority="1" type="driving" shape="-838.38,853.19 -805.00,840.76">
+        <lane id="-9#0_0" index="0" allow="emergency authority" speed="19.44" length="34.12" width="1.79" shape="-842.36,842.51 -810.38,830.61" type="driving"/>
+        <lane id="-9#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="34.12" width="3.50" shape="-841.43,844.99 -809.46,833.08" type="driving"/>
+        <lane id="-9#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="34.12" width="3.50" shape="-840.21,848.27 -808.24,836.36" type="driving"/>
+        <lane id="-9#0_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="34.12" width="3.50" shape="-838.99,851.55 -807.02,839.64" type="driving"/>
+    </edge>
+    <edge id="-9#1" from="9#1" to="9#2" priority="1" type="driving" shape="-805.00,840.76 -520.32,734.67">
+        <lane id="-9#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="300.79" width="3.50" shape="-807.87,828.76 -526.02,723.72" type="driving"/>
+        <lane id="-9#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="300.79" width="3.50" shape="-806.65,832.04 -524.79,727.00" type="driving"/>
+        <lane id="-9#1_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="300.79" width="3.50" shape="-805.43,835.32 -523.57,730.28" type="driving"/>
+        <lane id="-9#1_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="300.79" width="3.50" shape="-804.20,838.60 -522.35,733.56" type="driving"/>
+    </edge>
+    <edge id="-9#2" from="9#2" to="9.10" priority="1" type="driving" shape="-520.32,734.67 -505.55,729.09">
+        <lane id="-9#2_0" index="0" allow="emergency authority" speed="19.44" length="14.27" width="1.79" shape="-522.93,723.47 -509.58,718.43" type="driving"/>
+        <lane id="-9#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="14.27" width="3.50" shape="-521.99,725.95 -508.64,720.90" type="driving"/>
+        <lane id="-9#2_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="14.27" width="3.50" shape="-520.76,729.22 -507.41,724.18" type="driving"/>
+        <lane id="-9#2_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="14.27" width="3.50" shape="-519.52,732.50 -506.17,727.45" type="driving"/>
+    </edge>
+
+    <junction id="9#1" type="priority" x="-805.47" y="840.57" incLanes="-9#0_0 -9#0_1 -9#0_2 -9#0_3" intLanes=":9#1_0_0 :9#1_0_1 :9#1_0_2 :9#1_0_3" shape="-803.59,840.24 -808.48,827.12 -809.42,827.94 -809.76,828.95 -810.08,829.40 -810.70,829.77 -806.41,841.28">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="9#2" type="priority" x="-521.17" y="735.52" incLanes="-9#1_0 -9#1_1 -9#1_2 -9#1_3" intLanes=":9#2_0_0 :9#2_0_1 :9#2_0_2 :9#2_0_3" shape="-518.90,734.13 -523.25,722.64 -524.48,722.63 -525.39,722.09 -525.93,721.96 -526.63,722.08 -521.74,735.20">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="9.10" type="dead_end" x="-505.55" y="729.09" incLanes="-9#2_0 -9#2_1 -9#2_2 -9#2_3" intLanes="" shape="-509.89,717.59 -505.55,729.09"/>
+    <junction id="9.5" type="dead_end" x="-838.38" y="853.19" incLanes="" intLanes="" shape="-838.38,853.19 -842.67,841.67"/>
+
+    <connection from="-9#0" to="-9#1" fromLane="0" toLane="0" via=":9#1_0_0" dir="s" state="M"/>
+    <connection from="-9#0" to="-9#1" fromLane="1" toLane="1" via=":9#1_0_1" dir="s" state="M"/>
+    <connection from="-9#0" to="-9#1" fromLane="2" toLane="2" via=":9#1_0_2" dir="s" state="M"/>
+    <connection from="-9#0" to="-9#1" fromLane="3" toLane="3" via=":9#1_0_3" dir="s" state="M"/>
+    <connection from="-9#1" to="-9#2" fromLane="0" toLane="0" via=":9#2_0_0" dir="s" state="M"/>
+    <connection from="-9#1" to="-9#2" fromLane="1" toLane="1" via=":9#2_0_1" dir="s" state="M"/>
+    <connection from="-9#1" to="-9#2" fromLane="2" toLane="2" via=":9#2_0_2" dir="s" state="M"/>
+    <connection from="-9#1" to="-9#2" fromLane="3" toLane="3" via=":9#2_0_3" dir="s" state="M"/>
+
+    <connection from=":9#1_0" to="-9#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9#1_0" to="-9#1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":9#1_0" to="-9#1" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":9#1_0" to="-9#1" fromLane="3" toLane="3" dir="s" state="M"/>
+    <connection from=":9#2_0" to="-9#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9#2_0" to="-9#2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":9#2_0" to="-9#2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":9#2_0" to="-9#2" fromLane="3" toLane="3" dir="s" state="M"/>
+
+</net>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,11 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 edgemap = {}
 edgemap["203"] = "203[0]"
@@ -98,94 +102,98 @@ def sorter(idx):
             return 0
 
 
-if len(sys.argv) < 3:
-    print("Usage: " + sys.argv[0] + " <VISSIM_NETWORK> <OUTPUT_PREFIX>")
-    sys.exit()
+# MAIN
+if __name__ == '__main__':
+    op = sumolib.options.ArgumentParser()
+    op.add_option("vissimNet", category="input", type=op.file,
+                  help="provide the vissim file path")
+    op.add_option("outputPrefix", category="input",
+                  help="provide the output prefix")
+    args = op.parse_args()
 
-print("Parsing Vissim input...")
-fd = open(sys.argv[1])
-haveStop = False
-haveRoute = False
-currentItem = ""
-stopsL = []
-routesL = []
-for line in fd:
-    # process bus stops ("HALTESTELLE")
-    if line.find("HALTESTELLE") == 0:
+    print("Parsing Vissim input...")
+    fd = open(args.vissimNet)
+    haveStop = False
+    haveRoute = False
+    currentItem = ""
+    stopsL = []
+    routesL = []
+    for line in fd:
+        # process bus stops ("HALTESTELLE")
+        if line.find("HALTESTELLE") == 0:
+            if haveStop:
+                stopsL.append(" ".join(currentItem.split()))
+            haveStop = True
+            currentItem = ""
+        elif line[0] != ' ':
+            if haveStop:
+                stopsL.append(" ".join(currentItem.split()))
+            haveStop = False
         if haveStop:
-            stopsL.append(" ".join(currentItem.split()))
-        haveStop = True
-        currentItem = ""
-    elif line[0] != ' ':
-        if haveStop:
-            stopsL.append(" ".join(currentItem.split()))
-        haveStop = False
-    if haveStop:
-        currentItem = currentItem + line
-    # process bus routes ("LINIE")
-    if line.find(" LINIE") == 0:
+            currentItem = currentItem + line
+        # process bus routes ("LINIE")
+        if line.find(" LINIE") == 0:
+            if haveRoute:
+                routesL.append(" ".join(currentItem.split()))
+            haveRoute = True
+            currentItem = ""
+        elif len(line) > 2 and line[0] != ' ' and line[1] != ' ':
+            if haveRoute:
+                routesL.append(" ".join(currentItem.split()))
+            haveRoute = False
         if haveRoute:
-            routesL.append(" ".join(currentItem.split()))
-        haveRoute = True
-        currentItem = ""
-    elif len(line) > 2 and line[0] != ' ' and line[1] != ' ':
-        if haveRoute:
-            routesL.append(" ".join(currentItem.split()))
-        haveRoute = False
-    if haveRoute:
-        currentItem = currentItem + line
+            currentItem = currentItem + line
 
-# build stops map
-sm = {}
-for bs in stopsL:
-    (id, name, strecke, spur, von, bis) = parseBusStop(bs)
-    sm[id] = (id, name, strecke, spur, von, bis)
+    # build stops map
+    sm = {}
+    for bs in stopsL:
+        (id, name, strecke, spur, von, bis) = parseBusStop(bs)
+        sm[id] = (id, name, strecke, spur, von, bis)
 
+    # process bus routes
+    #  build departure times
+    emissions = []
+    for br in routesL:
+        (pid, name, startKante, ziel, zeiten, stops) = parseBusRoute(br, sm)
+        edges = []
+        edges.append(startKante)
+        for s in stops:
+            if sm[s][2] not in edges:
+                edges.append(sm[s][2])
+        if ziel not in edges:
+            edges.append(ziel)
+        for i in range(0, len(edges)):
+            if edges[i] in edgemap:
+                edges[i] = edgemap[edges[i]]
+        for t in zeiten:
+            id = str(pid) + "_" + str(t)
+            emissions.append((int(t), id, edges, stops))
 
-# process bus routes
-#  build departure times
-emissions = []
-for br in routesL:
-    (pid, name, startKante, ziel, zeiten, stops) = parseBusRoute(br, sm)
-    edges = []
-    edges.append(startKante)
-    for s in stops:
-        if sm[s][2] not in edges:
-            edges.append(sm[s][2])
-    if ziel not in edges:
-        edges.append(ziel)
-    for i in range(0, len(edges)):
-        if edges[i] in edgemap:
-            edges[i] = edgemap[edges[i]]
-    for t in zeiten:
-        id = str(pid) + "_" + str(t)
-        emissions.append((int(t), id, edges, stops))
+    # sort emissions
+    print("Sorting routes...")
+    emissions.sort(sorter(0))
+    # write routes
+    print("Writing bus routes...")
+    fdo = open(args.outputPrefix + "_busses.rou.xml", "w")
+    fdo.write("<routes>\n")
+    for emission in emissions:
+        if len(emission[2]) < 2:
+            continue
+        fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[
+                  0]) + '" type="bus" color="0,1,0"><route>' + " ".join(emission[2]) + '</route>\n')
+        for s in emission[3]:
+            fdo.write(
+                '        <stop bus_stop="' + str(s) + '_0" duration="20"/>\n')
+        fdo.write('    </vehicle>\n')
+    fdo.write("</routes>\n")
 
-# sort emissions
-print("Sorting routes...")
-emissions.sort(sorter(0))
-# write routes
-print("Writing bus routes...")
-fdo = open(sys.argv[2] + "_busses.rou.xml", "w")
-fdo.write("<routes>\n")
-for emission in emissions:
-    if len(emission[2]) < 2:
-        continue
-    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[
-              0]) + '" type="bus" color="0,1,0"><route>' + " ".join(emission[2]) + '</route>\n')
-    for s in emission[3]:
-        fdo.write(
-            '        <stop bus_stop="' + str(s) + '_0" duration="20"/>\n')
-    fdo.write('    </vehicle>\n')
-fdo.write("</routes>\n")
-
-# process bus stops
-print("Writing bus stops...")
-fdo = open(sys.argv[2] + "_stops.add.xml", "w")
-fdo.write("<add>\n")
-for bs in stopsL:
-    (id, name, strecke, spur, von, bis) = parseBusStop(bs)
-    fdo.write('    <busStop id="' + str(id) + '" lane="' + strecke + "_" +
-              str(spur) + '" from="' + str(von) + '" to="' + str(bis) + '" lines="--"/>\n')
-fdo.write("</add>\n")
-fdo.close()
+    # process bus stops
+    print("Writing bus stops...")
+    fdo = open(args.outputPrefix + "_stops.add.xml", "w")
+    fdo.write("<add>\n")
+    for bs in stopsL:
+        (id, name, strecke, spur, von, bis) = parseBusStop(bs)
+        fdo.write('    <busStop id="' + str(id) + '" lane="' + strecke + "_" +
+                  str(spur) + '" from="' + str(von) + '" to="' + str(bis) + '" lines="--"/>\n')
+    fdo.write("</add>\n")
+    fdo.close()

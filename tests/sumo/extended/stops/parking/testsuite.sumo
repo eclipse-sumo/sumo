@@ -1,0 +1,26 @@
+# Tests whether parking can be handled
+basic
+
+# test stop timing
+parking_until
+
+# vehicle cannot resume from parking immediately due to traffic on the road
+parking_delay_insertion
+
+# Tests for flexible assignment of stopping positions (#3937)
+busstop_stopping_position_assignment_parking
+
+# provide more parking length than the distance between endPos and startPos
+busstop_parkingLength
+
+# non-parking vehicles should stop without blocking parking vehicle egress
+# 
+busstop_parkingLength_mixed
+
+# non-parking vehicles should stop without blocking parking vehicle egress.
+# Parking vehicles that stop longer should not prevent entering the stop
+# 
+busstop_parkingLength_mixed2
+
+# custom departPos at parkingArea
+parkingArea_departPos

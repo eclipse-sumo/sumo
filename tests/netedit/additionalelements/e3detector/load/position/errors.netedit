@@ -1,0 +1,13 @@
+Error: Attribute 'speedThreshold' in definition of entryExitDetector 'entryExitDetector_0' Invalid Number Format (double) 1.39,10.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_1' Invalid Number Format (double) dummyX.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_2' is not a valid position.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_3' Invalid Number Format (double) dummyY.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092805.14716/netedit.gui/additionalelements/e3detector/load/position/additionals.add.xml failed.

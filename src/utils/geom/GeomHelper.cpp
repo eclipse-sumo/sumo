@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -89,25 +89,24 @@ GeomHelper::nearest_offset_on_line_to_point2D(const Position& lineStart,
         const Position& lineEnd,
         const Position& p, bool perpendicular) {
     const double lineLength2D = lineStart.distanceTo2D(lineEnd);
-    if (lineLength2D == 0.0f) {
-        return 0.0f;
-    } else {
-        // scalar product equals length of orthogonal projection times length of vector being projected onto
-        // dividing the scalar product by the square of the distance gives the relative position
-        const double u = (((p.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
-                          ((p.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
-                         ) / (lineLength2D * lineLength2D);
-        if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
-            if (perpendicular) {
-                return INVALID_OFFSET;
-            }
-            if (u < 0.0f) {
-                return 0.0f;
-            }
-            return lineLength2D;
-        }
-        return u * lineLength2D;
+    if (lineLength2D == 0.) {
+        return 0.;
     }
+    // scalar product equals length of orthogonal projection times length of vector being projected onto
+    // dividing the scalar product by the distance gives the relative position
+    const double u = (((p.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
+                      ((p.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
+                     ) / lineLength2D;
+    if (u < 0. || u > lineLength2D) {  // closest point does not fall within the line segment
+        if (perpendicular) {
+            return INVALID_OFFSET;
+        }
+        if (u < 0.) {
+            return 0.;
+        }
+        return lineLength2D;
+    }
+    return u;
 }
 
 
@@ -235,7 +234,7 @@ GeomHelper::legacyDegree(const double angle, const bool positive) {
 PositionVector
 GeomHelper::makeCircle(const double radius, const Position& center, unsigned int nPoints) {
     if (nPoints < 3) {
-        WRITE_ERROR("GeomHelper::makeCircle() requires nPoints>=3");
+        WRITE_ERROR(TL("GeomHelper::makeCircle() requires nPoints>=3"));
     }
     PositionVector circle;
     circle.push_back({radius, 0});

@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <e2Detector id="custom" lane="1si_0" pos="200" endPos="220" freq="60" file="detector.xml"/>
+  
+    <tlLogic id="0" programID="1" offset="0" type="delay_based">
+        <phase duration="31" state="GGggrrrrGGggrrrr" minDur="5" maxDur="150"/>
+        <phase duration="4" state="yyggrrrryyggrrrr" minDur="3"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr" minDur="3"/>
+        <phase duration="4" state="rryyrrrrrryyrrrr" minDur="3"/>
+        <phase duration="31" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="150"/>
+        <phase duration="4" state="rrrryyggrrrryygg" minDur="3"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG" minDur="3"/>
+        <phase duration="4" state="rrrrrryyrrrrrryy" minDur="3"/>
+        <param key="detectorRange" value="100" />
+        <param key="minTimeLoss" value="1" />
+        <param key="file" value="detector.xml" />
+        <param key="1si_0" value="custom"/>
+    </tlLogic>
+      
+</additional>

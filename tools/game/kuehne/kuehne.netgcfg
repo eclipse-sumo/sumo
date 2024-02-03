@@ -9,7 +9,7 @@
     </grid_network>
 
     <output>
-        <output-file value="kuehne.tmp.net.xml"/>
+        <output-file value="kuehne.net.xml"/>
     </output>
 
     <building_defaults>

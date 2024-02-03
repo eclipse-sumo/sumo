@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:23 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:49 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
 
@@ -57,10 +57,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":node_C_1_0" index="0" speed="14.50" length="16.65" shape="-1.60,8.17 -1.60,-8.49"/>
     </edge>
     <edge id=":node_C_2" function="internal">
-        <lane id=":node_C_2_0" index="0" speed="13.50" length="12.98" shape="-1.60,8.17 -0.87,3.27 1.32,-0.15 4.81,-2.03"/>
+        <lane id=":node_C_2_0" index="0" speed="13.50" length="13.15" shape="-1.60,8.17 -0.87,3.27 1.32,-0.15 4.96,-2.11"/>
     </edge>
     <edge id=":node_C_9" function="internal">
-        <lane id=":node_C_9_0" index="0" speed="13.50" length="5.30" shape="4.81,-2.03 4.96,-2.11 10.07,-2.60"/>
+        <lane id=":node_C_9_0" index="0" speed="13.50" length="5.13" shape="4.96,-2.11 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_3" function="internal">
         <lane id=":node_C_3_0" index="0" speed="11.50" length="18.42" shape="9.88,1.80 6.17,1.28 2.22,0.30 -2.45,-0.24 -8.30,0.56"/>
@@ -69,25 +69,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":node_C_4_0" index="0" speed="13.50" length="17.57" shape="9.88,1.80 4.86,1.16 1.27,-0.77 -0.88,-3.99 -1.60,-8.49"/>
     </edge>
     <edge id=":node_C_5" function="internal">
-        <lane id=":node_C_5_0" index="0" speed="12.50" length="4.07" shape="9.88,1.80 8.28,0.63 7.78,-0.49 8.19,-1.24"/>
+        <lane id=":node_C_5_0" index="0" speed="12.50" length="3.21" shape="9.88,1.80 8.28,0.63 7.78,-0.49"/>
     </edge>
     <edge id=":node_C_10" function="internal">
-        <lane id=":node_C_10_0" index="0" speed="12.50" length="2.36" shape="8.19,-1.24 8.37,-1.57 10.07,-2.60"/>
+        <lane id=":node_C_10_0" index="0" speed="12.50" length="3.21" shape="7.78,-0.49 8.37,-1.57 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_6" function="internal">
         <lane id=":node_C_6_0" index="0" speed="13.50" length="11.52" shape="1.60,-8.49 2.13,-6.05 3.72,-4.25 6.36,-3.10 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_7" function="internal">
-        <lane id=":node_C_7_0" index="0" speed="12.50" length="4.68" shape="1.60,-8.49 0.98,-5.52 0.00,-4.20"/>
+        <lane id=":node_C_7_0" index="0" speed="12.50" length="3.03" shape="1.60,-8.49 0.98,-5.52"/>
     </edge>
     <edge id=":node_C_8" function="internal">
-        <lane id=":node_C_8_0" index="0" speed="14.50" length="2.34" shape="1.60,-8.49 0.80,-7.29 0.00,-6.89"/>
+        <lane id=":node_C_8_0" index="0" speed="14.50" length="1.44" shape="1.60,-8.49 0.80,-7.29"/>
     </edge>
     <edge id=":node_C_11" function="internal">
-        <lane id=":node_C_11_0" index="0" speed="12.50" length="9.77" shape="0.00,-4.20 -0.88,-3.02 -3.97,-1.00 -8.30,0.56"/>
+        <lane id=":node_C_11_0" index="0" speed="12.50" length="11.41" shape="0.98,-5.52 -0.88,-3.02 -3.97,-1.00 -8.30,0.56"/>
     </edge>
     <edge id=":node_C_12" function="internal">
-        <lane id=":node_C_12_0" index="0" speed="14.50" length="2.34" shape="0.00,-6.89 -0.80,-7.29 -1.60,-8.49"/>
+        <lane id=":node_C_12_0" index="0" speed="14.50" length="3.23" shape="0.80,-7.29 0.00,-6.89 -0.80,-7.29 -1.60,-8.49"/>
     </edge>
     <edge id=":node_D_0" function="internal">
         <lane id=":node_D_0_0" index="0" speed="14.50" length="4.67" shape="-1.60,-10.00 -0.80,-11.20 0.00,-11.60 0.80,-11.20 1.60,-10.00"/>
@@ -153,10 +153,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":node_C_9_0" type="internal" x="4.81" y="-2.03" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0 :node_C_4_0 :node_C_5_0 :node_C_6_0"/>
-    <junction id=":node_C_10_0" type="internal" x="8.19" y="-1.24" incLanes=":node_C_5_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_6_0"/>
-    <junction id=":node_C_11_0" type="internal" x="0.00" y="-4.20" incLanes=":node_C_7_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_3_0 :node_C_4_0"/>
-    <junction id=":node_C_12_0" type="internal" x="0.00" y="-6.89" incLanes=":node_C_8_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
+    <junction id=":node_C_9_0" type="internal" x="4.96" y="-2.11" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0 :node_C_4_0 :node_C_5_0 :node_C_6_0"/>
+    <junction id=":node_C_10_0" type="internal" x="7.78" y="-0.49" incLanes=":node_C_5_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_6_0"/>
+    <junction id=":node_C_11_0" type="internal" x="0.98" y="-5.52" incLanes=":node_C_7_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_3_0 :node_C_4_0"/>
+    <junction id=":node_C_12_0" type="internal" x="0.80" y="-7.29" incLanes=":node_C_8_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>

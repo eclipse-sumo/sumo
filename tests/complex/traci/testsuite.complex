@@ -1,8 +1,8 @@
 gui
-bugs
 
 # test connection between client and server
 connection
+bugs
 misc
 
 # Tests for context subscriptions
@@ -16,7 +16,6 @@ person
 junction
 trafficlight
 route
-
 inductionloop
 lanearea
 multientryexit
@@ -39,6 +38,4 @@ meandata
 
 # variablespeedsign
 variablespeedsign
-
 routeprobe
-

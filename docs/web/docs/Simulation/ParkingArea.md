@@ -12,20 +12,20 @@ following purposes:
   fishbone or parallel parking
 - parking space outside the road network can be limited to a set
   capacity
-- automatic rerouting to an alternative parking area can be triggered
+- [automatic rerouting to an alternative parking](Rerouter.md#rerouting_to_an_alternative_parking_area) area can be triggered
   whenever a parking area becomes full
 
 # Definition
 
 A road-side parkingArea is defined as in the following:
 
-```
+```xml
 <parkingArea id="ParkAreaA" lane="a_0" startPos="200" endPos="250" roadsideCapacity="5" angle="45" length="30"/>
 ```
 
 Additionally, individual parking spaces can be defined:
 
-```
+```xml
 <parkingArea id="ParkAreaB" lane="b_0" startPos="240" endPos="260" roadsideCapacity="0" width="5" length="10" angle="30">
     <space x="853" y="623"/>
     <space x="863" y="618"/>
@@ -58,6 +58,7 @@ The parkingArea supports the following attributes:
 | width            | float          | positive                                                                                     | 3.2                                    | The width of the road-side parking spaces                                                                                  |
 | length           | float          | positive                                                                                     | (endPos - startPos) / roadsideCapacity | The length of the road-side parking spaces                                                                                 |
 | angle            | float (degree) |                                                                                              | 0                                      | The angle of the road-side parking spaces relative to the lane angle, positive means clockwise                             |
+| lefthand            | bool |     | *false*    | Whether road-side parking spaces should be drawn on the left side of the lane   |
 
 ## Custom parking spaces
 
@@ -78,10 +79,10 @@ The space element supports the following attributes:
 
 # Letting Vehicles stop at a parking area
 
-The declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
+To declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
 be part of the vehicle or it's route:
 
-```
+```xml
 <vehicle id="0" depart="0">
     <route edges="e1 e2 e3"/>
     <stop parkingArea="pa0" duration="20"/>
@@ -98,9 +99,9 @@ see
 
 # Modelling Maneuvering Times when Entering and Leaving the Parking Space
 
-When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of numer-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
+When setting the (boolean) option **--parking.maneuver**, vehicles will spend extra time on the road when leaving and entering a parkingArea. This time depends on the angle of the parking lot relative to the road lane and can be configured with the vType attribute *maneuverAngleTimes*. This is a comma-separated list of number-triplets of the form *ANGLE ENTERINGTIME LEAVINGTIME*:
 
-```
+```xml
 <vType id="example" maneuverAngleTimes="10 3.0 4.0,80 1.6 11.0,110 11.0 2.0,170 8.1 3.0,181 3.0 4.0"/>
 ```
 
@@ -116,6 +117,16 @@ If a vehicle reaches a parkingArea that is filled to capacity it must
 wait on the road until a space becomes available or [reroute to a new
 parking
 area](../Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area).
+
+# Importing / Generating Parking Areas
+
+The following tools exist to obtain parking area definitions
+
+- [generateParkingAreas.py](../Tools/Misc.md#generateparkingareaspy): probabilistic generation for a whole network
+- [generateParkingLots.py](../Tools/Misc.md#generateparkinglotspy): generate space definitions to fill up a given shape
+- [netedit](../Netedit/elementsAdditional.md#parking_areas): define parking areas visually
+- [netconvert --parking-output](../netconvert.md#export_1): imports roadside parking areas from OSM
+- [SAGA generateParkingAreasFromOSM.py](https://github.com/lcodeca/SUMOActivityGen): imports all kinds of parking areas from OSM
 
 # TraCI
 

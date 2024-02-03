@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -35,40 +37,73 @@ class GNECalibratorDialog;
  * @class GNECalibratorFlow
  * flow flow used by GNECalibrators
  */
-class GNECalibratorFlow : public GNEAdditional {
+class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter {
 
 public:
+    /// @brief default constructor
+    GNECalibratorFlow(GNENet* net);
+
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNEAdditional* calibratorParent);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                      const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end, const std::map<std::string, std::string> &parameters);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNECalibratorFlow();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
+
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
@@ -79,10 +114,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -94,6 +131,9 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -120,67 +160,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-    /// @}
 
-protected:
-    /// @brief type of flow
-    GNEDemandElement* myVehicleType;
-
-    /// @brief route in which this flow is used
-    GNEDemandElement* myRoute;
-
-    /// @brief flows per hour (String instead float because can be empty)
-    std::string myVehsPerHour;
-
-    /// @brief flow speed (String instead float because can be empty)
-    std::string mySpeed;
-
-    /// @brief color of flow
-    RGBColor myColor;
-
-    /// @brief depart lane
-    std::string myDepartLane;
-
-    /// @brief depart position
-    std::string myDepartPos;
-
-    /// @brief depart speed
-    std::string myDepartSpeed;
-
-    /// @brief arrival lane
-    std::string myArrivalLane;
-
-    /// @brief arrival pos
-    std::string myArrivalPos;
-
-    /// @brief arrival speed
-    std::string myArrivalSpeed;
-
-    /// @brief line of bus/container stop
-    std::string myLine;
-
-    /// @brief number of person
-    int myPersonNumber;
-
-    /// @brief number of container
-    int myContainerNumber;
-
-    /// @brief reroute
-    bool myReroute;
-
-    /// @brief departPosLat
-    std::string myDepartPosLat;
-
-    //// @brief arrivalPosLat
-    std::string myArrivalPosLat;
-
-    /// @name specific of flows
-    /// @{
-    /// @brief time step begin
-    SUMOTime myBegin;
-
-    /// @brief time step end
-    SUMOTime myEnd;
     /// @}
 
 private:
@@ -192,6 +172,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief toggle attribute
+    void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief Invalidated copy constructor.
     GNECalibratorFlow(const GNECalibratorFlow&) = delete;

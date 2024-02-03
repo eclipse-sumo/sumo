@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-27 09:50:11 by Eclipse SUMO netedit Version v1_14_1+1991-a80603ff4c2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\datas.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\gui-settings.xml"/>
+        <window-size value="936, 697"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.5_from_27Oct093223.4524\netedit.gui\netelements\edges\contextual_menu\smooth_edge\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ0_0" function="internal">
+        <lane id=":gneJ0_0_0" index="0" speed="6.08" length="7.74" shape="-1.60,3.20 -1.30,1.10 -0.40,-0.40 1.10,-1.30 3.20,-1.60"/>
+    </edge>
+    <edge id=":gneJ0_1" function="internal">
+        <lane id=":gneJ0_1_0" index="0" speed="3.90" length="2.58" shape="3.20,1.60 2.50,1.70 2.00,2.00 1.70,2.50 1.60,3.20"/>
+    </edge>
+    <edge id=":gneJ0_2" function="internal">
+        <lane id=":gneJ0_2_0" index="0" speed="3.65" length="1.30" shape="3.20,1.60 2.12,0.88"/>
+    </edge>
+    <edge id=":gneJ0_3" function="internal">
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="3.37" shape="2.12,0.88 2.00,0.80 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
+    </edge>
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" speed="3.90" length="2.58" shape="48.40,3.20 48.30,2.50 48.00,2.00 47.50,1.70 46.80,1.60"/>
+    </edge>
+    <edge id=":gneJ1_1" function="internal">
+        <lane id=":gneJ1_1_0" index="0" speed="6.08" length="7.74" shape="46.80,-1.60 48.90,-1.30 50.40,-0.40 51.30,1.10 51.60,3.20"/>
+    </edge>
+    <edge id=":gneJ1_2" function="internal">
+        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="1.44" shape="46.80,-1.60 48.00,-0.80"/>
+    </edge>
+    <edge id=":gneJ1_3" function="internal">
+        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
+    </edge>
+    <edge id=":gneJ2_0" function="internal">
+        <lane id=":gneJ2_0_0" index="0" speed="6.49" length="9.04" shape="1.60,9.55 1.95,12.00 3.01,13.75 4.76,14.78 7.23,15.11"/>
+        <lane id=":gneJ2_0_1" index="1" speed="7.31" length="11.76" shape="1.60,9.55 1.95,13.40 3.02,16.15 4.79,17.78 7.28,18.31"/>
+    </edge>
+    <edge id=":gneJ3_0" function="internal">
+        <lane id=":gneJ3_0_0" index="0" speed="6.49" length="9.05" shape="42.73,15.01 45.21,14.69 46.98,13.66 48.05,11.93 48.40,9.49"/>
+    </edge>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="43.60" shape="3.20,-1.60 46.80,-1.60"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
+    </edge>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1" shape="0.00,20.00 1.20,19.98 2.61,19.96 4.23,19.94 6.02,19.92 7.98,19.90 10.08,19.87 12.30,19.85 14.62,19.83 17.03,19.81 19.50,19.79 22.01,19.78 24.55,19.77 27.10,19.76 29.63,19.75 32.14,19.75 34.59,19.76 36.96,19.76 39.25,19.78 41.43,19.80 43.48,19.82 45.38,19.86 47.11,19.90 48.66,19.94 50.00,20.00">
+        <lane id="gneE2_0" index="0" speed="13.89" length="35.41" shape="7.23,15.11 7.92,15.10 10.02,15.07 12.26,15.05 14.58,15.03 16.99,15.01 19.47,14.99 21.99,14.98 24.53,14.97 27.08,14.96 29.62,14.95 32.15,14.95 34.60,14.96 36.98,14.96 39.29,14.98 41.48,15.00 42.73,15.01"/>
+        <lane id="gneE2_1" index="1" speed="13.89" length="35.41" shape="7.28,18.31 7.96,18.30 10.06,18.27 12.29,18.25 14.61,18.23 17.02,18.21 19.49,18.19 22.00,18.18 24.54,18.17 27.09,18.16 29.63,18.15 32.14,18.15 34.59,18.16 36.97,18.16 39.26,18.18 41.45,18.20 42.59,18.21"/>
+    </edge>
+    <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
+        <lane id="gneE4_0" index="0" speed="13.89" length="6.29" shape="48.40,9.49 48.40,3.20"/>
+    </edge>
+    <edge id="gneE5" from="gneJ1" to="gneJ3" priority="1">
+        <lane id="gneE5_0" index="0" speed="13.89" length="6.29" shape="51.60,3.20 51.60,9.49"/>
+    </edge>
+    <edge id="gneE8" from="gneJ2" to="gneJ0" priority="1">
+        <lane id="gneE8_0" index="0" speed="13.89" length="6.35" shape="-1.60,9.55 -1.60,3.20"/>
+    </edge>
+    <edge id="gneE9" from="gneJ0" to="gneJ2" priority="1">
+        <lane id="gneE9_0" index="0" speed="13.89" length="6.35" shape="1.60,3.20 1.60,9.55"/>
+    </edge>
+
+    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="1"/>
+    </junction>
+    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_3_0" shape="46.80,3.20 53.20,3.20 52.49,-0.36 51.60,-1.60 50.36,-2.49 48.76,-3.02 46.80,-3.20">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="001" foes="001" cont="1"/>
+    </junction>
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_0_1" shape="7.31,19.91 7.20,13.51 4.98,13.09 4.20,12.54 3.64,11.77 3.31,10.77 3.20,9.55 -3.20,9.55 -2.91,12.75 -2.03,15.35 -0.57,17.37 1.47,18.80 4.10,19.65">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 gneE2_0 gneE2_1" intLanes=":gneJ3_0_0" shape="53.20,9.49 46.80,9.49 46.36,11.69 45.80,12.45 45.02,12.99 44.02,13.32 42.80,13.41 42.51,19.81 45.78,19.55 48.45,18.71 50.53,17.28 52.01,15.27 52.90,12.67">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":gneJ0_3_0" type="internal" x="2.12" y="0.88" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
+    <junction id=":gneJ1_3_0" type="internal" x="48.00" y="-0.80" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
+
+    <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="t" state="m"/>
+    <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
+    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
+    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="r" state="M"/>
+    <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
+    <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" keepClear="0" via=":gneJ0_0_0" dir="l" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_0_1" dir="r" state="M"/>
+
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ0_2" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_3_0" dir="t" state="m"/>
+    <connection from=":gneJ0_3" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ1_1" to="gneE5" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="t" state="m"/>
+    <connection from=":gneJ1_3" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ2_0" to="gneE2" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ3_0" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
+
+</net>

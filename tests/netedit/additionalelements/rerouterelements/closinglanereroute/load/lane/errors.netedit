@@ -1,0 +1,3 @@
+Error: Attribute 'id' is missing in definition of a closingLaneReroute.
+Error: Could not build closingLaneReroute in netedit; lane 'dummyLane' doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun100327.17860\netedit.gui\additionalelements\rerouterelements\closinglanereroute\load\lane\additionals.add.xml failed.

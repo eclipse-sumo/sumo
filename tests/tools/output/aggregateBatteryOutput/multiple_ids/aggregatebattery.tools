@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.168580 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 30
+-->
+
+<battery-export>
+    <timestep interval="0-29">
+        <vehicle id="vehWithCustDepartEnergy" energyConsumed="180.83439999999996" totalEnergyConsumed="3557.3757" totalEnergyRegenerated="190.75590000000003" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithBusStop" energyConsumed="162.0742" totalEnergyConsumed="1764.4996999999998" totalEnergyRegenerated="2.0272999999999994" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="19.0"/>
+    </timestep>
+    <timestep interval="30-59">
+        <vehicle id="vehWithBusStop" energyConsumed="129.99020000000002" totalEnergyConsumed="8201.830199999999" totalEnergyRegenerated="293.5405" energyChargedInTransit="105.5556" energyChargedStopped="316.6668" timeStopped="36.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithCustDepartEnergy" energyConsumed="118.72469999999998" totalEnergyConsumed="6259.5659000000005" totalEnergyRegenerated="407.5596" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="24.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="163.2414" totalEnergyConsumed="1467.095" totalEnergyRegenerated="0.0" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="17.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="81.07270000000001" totalEnergyConsumed="257.7082" totalEnergyRegenerated="0.0" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="6.0"/>
+    </timestep>
+    <timestep interval="60-89">
+        <vehicle id="vehWithBusStop" energyConsumed="173.53869999999998" totalEnergyConsumed="11400.9313" totalEnergyRegenerated="870.543" energyChargedInTransit="0.0" energyChargedStopped="686.1113999999999" timeStopped="174.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="136.46170000000004" totalEnergyConsumed="8353.143300000002" totalEnergyRegenerated="301.96500000000003" energyChargedInTransit="211.1112" energyChargedStopped="369.44460000000004" timeStopped="28.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="204.54639999999998" totalEnergyConsumed="6476.1629" totalEnergyRegenerated="77.13869999999999" energyChargedInTransit="158.33339999999998" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="90-119">
+        <vehicle id="vehWithBusStop" energyConsumed="55.2793" totalEnergyConsumed="16975.0648" totalEnergyRegenerated="1430.3512999999994" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="136.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="0.41700000000000026" totalEnergyConsumed="9967.2219" totalEnergyRegenerated="969.6600000000001" energyChargedInTransit="0.0" energyChargedStopped="1583.3340000000003" timeStopped="675.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="-2.5023999999999997" totalEnergyConsumed="9340.330800000003" totalEnergyRegenerated="852.9269999999996" energyChargedInTransit="52.7778" energyChargedStopped="1530.5562000000002" timeStopped="435.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="120-149">
+        <vehicle id="vehWithBusStop" energyConsumed="119.35699999999999" totalEnergyConsumed="18169.775500000003" totalEnergyRegenerated="1753.0829999999987" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="459.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="216.09760000000003" totalEnergyConsumed="12562.9506" totalEnergyRegenerated="975.6438999999996" energyChargedInTransit="0.0" energyChargedStopped="422.22240000000005" timeStopped="332.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="223.70199999999997" totalEnergyConsumed="12012.512999999997" totalEnergyRegenerated="859.6104999999999" energyChargedInTransit="0.0" energyChargedStopped="422.22240000000005" timeStopped="268.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="150-179">
+        <vehicle id="vehWithBusStop" energyConsumed="42.83459999999999" totalEnergyConsumed="22913.523299999997" totalEnergyRegenerated="2416.6768999999995" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="171.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="74.6844" totalEnergyConsumed="5916.535800000001" totalEnergyRegenerated="327.82300000000004" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="10.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="31.87169999999999" totalEnergyConsumed="17739.645" totalEnergyRegenerated="1537.313200000001" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="153.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="180-209">
+        <vehicle id="vehWithBusStop" energyConsumed="230.0161" totalEnergyConsumed="26362.886599999998" totalEnergyRegenerated="2700.0674999999987" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="105.0" aggregateNumber="30.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="253.7451" totalEnergyConsumed="21486.6881" totalEnergyRegenerated="1808.5584000000013" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="78.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="210-239">
+        <vehicle id="vehWithBusStop" energyConsumed="117.98540000000001" totalEnergyConsumed="16023.7156" totalEnergyRegenerated="1370.4615" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="15.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="41.1057" totalEnergyConsumed="27470.47170000001" totalEnergyRegenerated="2447.3783" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="136.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="240-269">
+        <vehicle id="vehWithChrgStn1" energyConsumed="0.41700000000000026" totalEnergyConsumed="27756.668400000002" totalEnergyRegenerated="2743.9859999999994" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="945.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="270-299">
+        <vehicle id="vehWithChrgStn1" energyConsumed="218.8998" totalEnergyConsumed="30409.530600000006" totalEnergyRegenerated="2753.1039999999985" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="350.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="300-329">
+        <vehicle id="vehWithChrgStn1" energyConsumed="167.68740000000003" totalEnergyConsumed="37393.124599999996" totalEnergyRegenerated="3266.7121000000006" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="28.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="330-359">
+        <vehicle id="vehWithChrgStn1" energyConsumed="266.2461" totalEnergyConsumed="45037.11759999999" totalEnergyRegenerated="4308.368899999999" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="360-361"/>
+</battery-export>

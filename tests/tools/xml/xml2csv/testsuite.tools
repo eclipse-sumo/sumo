@@ -38,3 +38,5 @@ amitran_trajectories_schema
 
 # numeric name of input file
 cross3ltl_1234
+
+save_template

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -107,7 +107,7 @@ public:
     /// @brief add charge value for output
     void addChargeValueForOutput(double WCharged, MSDevice_ElecHybrid* elecHybrid, bool ischarging = 1);
 
-    /// @brief write charging station values
+    /// @brief write overhead wire segment values
     void writeOverheadWireSegmentOutput(OutputDevice& output);
 
     std::string getOverheadWireSegmentName();
@@ -241,11 +241,15 @@ private:
 };
 
 
+/**
+* @class MSTractionSubstation
+* @brief Traction substaction powering one or more overhead wire sections
+*/
 class MSTractionSubstation : public Named {
 public:
 
-    /// @brief constructor
-    MSTractionSubstation(const std::string& substationId, double voltage);
+    /// @brief Constructor instantiates a substation providing certain voltage and a maximum current
+    MSTractionSubstation(const std::string& substationId, double voltage, double currentLimit);
 
     /// @brief destructor
     ~MSTractionSubstation();
@@ -258,6 +262,7 @@ public:
     void addOverheadWireClampToCircuit(const std::string id, MSOverheadWire* startSegment, MSOverheadWire* endSegment);
 
     void eraseOverheadWireSegmentFromCircuit(MSOverheadWire* oldWireSegment);
+
     void writeOut();
     std::size_t numberOfOverheadSegments() const {
         return myOverheadWireSegments.size();
@@ -296,23 +301,57 @@ public:
     void addSolvingCirucitToEndOfTimestepEvents();
     SUMOTime solveCircuit(SUMOTime currentTime);
 
-private:
-    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+    /// @brief add charge value for output
+    void addChargeValueForOutput(double energy, double current, double alpha, Circuit::alphaFlag alphaReason);
 
-private:
-    double mySubstationVoltage;
+    /// @brief write traction substation values
+    void writeTractionSubstationOutput(OutputDevice& output);
 
 protected:
-    /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
-    bool myChargingVehicle;
-    int myElecHybridCount;
+    /// @brief struct to save information for the traction substation output
+    struct chargeTS {
+        /// @brief constructor
+        chargeTS(SUMOTime _timeStep, std::string _substationID, std::string _vehicleIDs, double _energy,
+                 double _current, std::string _currentsString, double _voltage, std::string _status,
+                 int _numVehicle, int _numVoltageSources, double _alpha, Circuit::alphaFlag _alphaReason) :
+            timeStep(_timeStep),
+            substationID(_substationID),
+            vehicleIDs(_vehicleIDs),
+            energy(_energy),
+            current(_current),
+            currentsString(_currentsString),
+            voltage(_voltage),
+            status(_status),
+            numVehicles(_numVehicle),
+            numVoltageSources(_numVoltageSources),
+            alpha(_alpha),
+            alphaReason(_alphaReason) {}
 
-private:
-    std::vector<MSOverheadWire*> myOverheadWireSegments;
-    std::vector<MSDevice_ElecHybrid*> myElecHybrid;
-    Circuit* myCircuit;
-    std::vector<MSLane*> myForbiddenLanes;
-    static Command* myCommandForSolvingCircuit;
+        // @brief vehicle TimeStep
+        SUMOTime timeStep;
+        // @brief substation ID
+        std::string substationID;
+        // @brief vehicle IDs
+        std::string vehicleIDs;
+        // @brief total power from voltage sources
+        double energy;
+        //@brief total current through voltage sources
+        double current;
+        // @brief list of all voltage currents
+        std::string currentsString;
+        //@brief voltage of voltage sources
+        double voltage;
+        /// @brief status
+        std::string status;
+        //@brief number of vehicles connected to the circuit
+        int numVehicles;
+        //@brief number of votlage sources connected to the section
+        int numVoltageSources;
+        //@brief best alpha scaling value
+        double alpha;
+        Circuit::alphaFlag alphaReason;
+    };
+    std::vector<chargeTS> myChargeValues;
 
 public:
     //preparation of overhead wire clamp
@@ -335,14 +374,32 @@ public:
         MSOverheadWire* start;
         MSOverheadWire* end;
         bool usage;
-
-        OverheadWireClamp& operator=(const OverheadWireClamp&) = delete;
     };
 
+    /// @brief Find an overhead wire clamp by its ID
+    OverheadWireClamp* findClamp(std::string id);
+
 private:
+    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment,
+            const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+
+protected:
+    /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
+    bool myChargingVehicle;
+    int myElecHybridCount;
+
+private:
+    double mySubstationVoltage;
+    Circuit* myCircuit;
+    std::vector<MSOverheadWire*> myOverheadWireSegments;
+    std::vector<MSDevice_ElecHybrid*> myElecHybrid;
+    std::vector<MSLane*> myForbiddenLanes;
+    static Command* myCommandForSolvingCircuit;
+    double myTotalEnergy;
+
+    // RICE_TODO: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default
+    // constructor available" error in MSVC2013?
+    // This is probably an issue with gitHub build chain
     std::vector<OverheadWireClamp> myOverheadWireClamps;
 
-public:
-    OverheadWireClamp* findClamp(std::string id);
-    //bool findClamp(std::string id);
 };

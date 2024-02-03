@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-19 17:05:49 by Eclipse SUMO sumo Version v1_10_0+2462-b7dfc4b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="/scr1/sumo/data/emissions/MMPEVEM/VW_ID3.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <emission-output value="rawdump.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="95.05"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.37" noise="64.14" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="6.81" speed="1.71" angle="90.00" x="6.81" y="95.05"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.42" noise="68.71" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="11.05" speed="4.24" angle="90.00" x="11.05" y="95.05"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="7.13" noise="67.43" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="17.31" speed="6.26" angle="90.00" x="17.31" y="95.05"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.98" noise="65.02" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="24.87" speed="7.56" angle="90.00" x="24.87" y="95.05"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.82" noise="67.03" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="34.03" speed="9.16" angle="90.00" x="34.03" y="95.05"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.72" noise="66.69" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="44.52" speed="10.49" angle="90.00" x="44.52" y="95.05"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="11.91" noise="68.51" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="56.60" speed="12.08" angle="90.00" x="56.60" y="95.05"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.31" noise="65.80" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="69.39" speed="12.79" angle="90.00" x="69.39" y="95.05"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-7.44" noise="58.20" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="79.82" speed="10.43" angle="90.00" x="79.82" y="95.05"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-5.81" noise="54.44" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="87.52" speed="7.70" angle="90.00" x="87.52" y="95.05"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-3.42" noise="43.93" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="90.71" speed="3.20" angle="90.00" x="90.71" y="95.05"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.84" noise="42.50" route="r1" type="VW_ID3" waiting="0.00" lane="WC_0" pos="90.85" speed="0.13" angle="90.00" x="90.85" y="95.05"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.77" route="r1" type="VW_ID3" waiting="1.00" lane="WC_0" pos="90.93" speed="0.09" angle="90.00" x="90.93" y="95.05"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.64" route="r1" type="VW_ID3" waiting="2.00" lane="WC_0" pos="90.95" speed="0.02" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.88" route="r1" type="VW_ID3" waiting="3.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.93" route="r1" type="VW_ID3" waiting="4.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="5.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="6.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="7.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="8.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="9.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="10.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="11.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="12.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="13.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="14.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="15.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="16.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="17.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="18.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="19.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="20.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="21.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="22.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="23.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="24.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="25.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="26.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="27.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="28.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="29.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="30.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="31.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="32.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.32" noise="63.98" route="r1" type="VW_ID3" waiting="0.00" lane=":C_16_0" pos="0.68" speed="1.68" angle="90.00" x="92.63" y="95.05"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.04" noise="68.18" route="r1" type="VW_ID3" waiting="0.00" lane=":C_16_0" pos="4.77" speed="4.09" angle="90.00" x="96.72" y="95.05"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="4.71" noise="64.67" route="r1" type="VW_ID3" waiting="0.00" lane=":C_16_0" pos="10.33" speed="5.55" angle="90.00" x="102.28" y="95.05"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="11.02" noise="69.96" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="2.21" speed="7.98" angle="90.00" x="110.26" y="95.05"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.76" noise="66.88" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="11.70" speed="9.50" angle="90.00" x="119.75" y="95.05"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="15.39" noise="70.68" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="23.38" speed="11.68" angle="90.00" x="131.43" y="95.05"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="12.89" noise="68.97" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="36.60" speed="13.22" angle="90.00" x="144.65" y="95.05"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-7.04" noise="55.30" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="45.33" speed="8.72" angle="90.00" x="153.38" y="95.05"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-4.11" noise="46.73" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.55" speed="4.22" angle="90.00" x="157.60" y="95.05"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-1.24" noise="38.56" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.80" speed="0.25" angle="90.00" x="157.85" y="95.05"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.58" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.95" speed="0.15" angle="90.00" x="158.00" y="95.05"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.46" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.04" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.76" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="49.99" speed="0.00" angle="90.00" x="158.04" y="95.05"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.27" noise="63.79" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="51.63" speed="1.64" angle="90.00" x="159.68" y="95.05"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="2.21" noise="62.99" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="54.61" speed="2.98" angle="90.00" x="162.66" y="95.05"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.82" noise="67.28" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="59.69" speed="5.08" angle="90.00" x="167.74" y="95.05"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.74" noise="66.33" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="66.49" speed="6.79" angle="90.00" x="174.54" y="95.05"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="14.01" noise="71.27" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="75.87" speed="9.38" angle="90.00" x="183.92" y="95.05"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="VW_ID3" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="18.33" noise="72.38" route="r1" type="VW_ID3" waiting="0.00" lane="CE_0" pos="87.81" speed="11.94" angle="90.00" x="195.86" y="95.05"/>
+    </timestep>
+    <timestep time="82.00"/>
+</emission-export>

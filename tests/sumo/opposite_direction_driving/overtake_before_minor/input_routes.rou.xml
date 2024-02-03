@@ -1,0 +1,15 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0.5" speedFactor="0.75" decel="1.0"/>
+    <vType id="bus" vClass="bus" sigma="0.5" lcCooperative="0" accel="2.6"/>
+
+    <route id="r0" edges="VODUGES_beg VODUGES_end"/>
+    <route id="r1" edges="VODUGES_beg CS"/>
+    <route id="r2" edges="SC -VODUGES_beg"/>
+
+    <vehicle id="stopped2"  route="r0" departPos="40" depart="2" type="bus">
+        <stop lane="VODUGES_beg_0" endPos="-20" duration="100"/>
+    </vehicle>
+    <vehicle id="overtaking" route="r0" departPos="0"  depart="2"/>
+
+
+</routes>

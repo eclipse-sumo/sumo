@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -94,7 +94,7 @@ class Relation:
         self.population = population
 
     def __repr__(self):
-        return "%s|%s_%s" % (self.id, self.name, self.uid, self.population)
+        return "%s|%s_%s_%s" % (self.id, self.name, self.uid, self.population)
 
 
 class PopulationReader(handler.ContentHandler):

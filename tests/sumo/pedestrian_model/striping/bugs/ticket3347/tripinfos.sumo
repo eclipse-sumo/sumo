@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan  6 13:01:55 2020 by Eclipse SUMO Version v1_4_0+0325-04f0045
+<!-- generated on 2022-11-08 23:25:41 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,20 +38,20 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="18.00" departLane="SC_1" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="38.00" arrivalLane="CN_1" arrivalPos="90.45" arrivalSpeed="13.89" duration="20.00" routeLength="140.00" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="9.01" rerouteNo="0" devices="tripinfo_v0" vType="t1" speedFactor="1.00" vaporized=""/>
-    <personinfo id="blocker" depart="18.00" type="DEFAULT_PEDTYPE">
-        <walk depart="18.00" departPos="1.00" arrival="44.00" arrivalPos="90.44" duration="26.00" routeLength="20.11" timeLoss="11.52" maxSpeed="1.39"/>
+    <tripinfo id="v0" depart="18.00" departLane="SC_1" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="38.00" arrivalLane="CN_1" arrivalPos="90.45" arrivalSpeed="13.89" duration="20.00" routeLength="140.00" waitingTime="4.00" waitingCount="1" stopTime="0.00" timeLoss="9.04" rerouteNo="0" devices="tripinfo_v0" vType="t1" speedFactor="1.00" vaporized=""/>
+    <personinfo id="blocker" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="18.00" departPos="1.00" arrival="44.00" arrivalPos="90.44" duration="26.00" routeLength="21.30" timeLoss="10.67" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p0" depart="10.00" type="DEFAULT_PEDTYPE">
-        <walk depart="10.00" departPos="89.45" arrival="100.00" arrivalPos="90.44" duration="90.00" routeLength="110.54" timeLoss="10.41" maxSpeed="1.39"/>
+    <personinfo id="p0" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="10.00" departPos="89.45" arrival="100.00" arrivalPos="90.44" duration="90.00" routeLength="111.73" timeLoss="9.56" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p1" depart="11.00" type="DEFAULT_PEDTYPE">
-        <walk depart="11.00" departPos="89.45" arrival="102.00" arrivalPos="90.44" duration="91.00" routeLength="110.54" timeLoss="11.41" maxSpeed="1.39"/>
+    <personinfo id="p1" depart="11.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="11.00" departPos="89.45" arrival="102.00" arrivalPos="90.44" duration="91.00" routeLength="111.73" timeLoss="10.56" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p2" depart="12.00" type="DEFAULT_PEDTYPE">
-        <walk depart="12.00" departPos="89.45" arrival="103.00" arrivalPos="90.44" duration="91.00" routeLength="110.54" timeLoss="11.41" maxSpeed="1.39"/>
+    <personinfo id="p2" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="12.00" departPos="89.45" arrival="103.00" arrivalPos="90.44" duration="91.00" routeLength="111.73" timeLoss="10.56" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p3" depart="13.00" type="DEFAULT_PEDTYPE">
-        <walk depart="13.00" departPos="89.45" arrival="104.00" arrivalPos="90.44" duration="91.00" routeLength="110.54" timeLoss="11.41" maxSpeed="1.39"/>
+    <personinfo id="p3" depart="13.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="13.00" departPos="89.45" arrival="104.00" arrivalPos="90.44" duration="91.00" routeLength="111.73" timeLoss="10.56" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

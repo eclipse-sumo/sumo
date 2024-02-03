@@ -1,4 +1,5 @@
 %module libtraci
+#define SWIG_MODULE libtraci
 #define LIBTRACI 1
 %{
 #define LIBTRACI 1
@@ -44,6 +45,21 @@
 %template(TraCINextStopDataVector2) std::vector<libsumo::TraCINextStopData>;
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
 %template(TraCISignalConstraintVector) std::vector<libsumo::TraCISignalConstraint>;
+%template(TraCICollisionVector) std::vector<libsumo::TraCICollision>;
+#ifndef SWIGPYTHON
+%template(TraCIBestLanesVector) std::vector<libsumo::TraCIBestLanesData>;
+%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
+%template(TraCIJunctionFoeVector) std::vector<libsumo::TraCIJunctionFoe>;
+%template(TraCILinkVector) std::vector<libsumo::TraCILink>;
+%template(TraCILinkVectorVector) std::vector< std::vector<libsumo::TraCILink> >;
+%template(TraCINextTLSVector) std::vector<libsumo::TraCINextTLSData>;
+%template(TraCPositionVector) std::vector<libsumo::TraCIPosition>;
+%template(TraCIVehicleDataVector) std::vector<libsumo::TraCIVehicleData>;
+
+%template(TraCIResults) std::map<int, std::shared_ptr<libsumo::TraCIResult> >;
+%template(SubscriptionResults) std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > >;
+%template(ContextSubscriptionResults) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > >;
+#endif
 %include "../libsumo/Edge.h"
 %include "../libsumo/GUI.h"
 %include "../libsumo/InductionLoop.h"

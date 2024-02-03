@@ -1,44 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-06-09 01:04:54.975480 by gtfs2pt.py v1_9_2+0412-04f89b33e3
+
+<!-- generated on 2023-03-31 15:32:19.972310 by gtfs2pt.py v1_16_0+1847-12c75906398
   options: -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>begin 72000 <doubleminus>end 259200 <doubleminus>verbose
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="120010001501_0" lane="-625229902_0" startPos="17" endPos="30" name="Braunschweig Altstadtmarkt" friendlyPos="true"/>
-    <busStop id="120010013710_0" lane="18962450#0_0" startPos="20" endPos="33" name="Braunschweig Friedrich-Wilhelm-Platz" friendlyPos="true"/>
-    <busStop id="120010038403_0" lane="190405266#0_0" startPos="161" endPos="174" name="Braunschweig Friedrich-Wilhelm-Straße" friendlyPos="true"/>
-    <busStop id="120010030001_0" lane="5021504_0" startPos="50" endPos="63" name="Braunschweig Münzstraße" friendlyPos="true"/>
-    <busStop id="120010034201_0" lane="5134732_0" startPos="32" endPos="45" name="Braunschweig Rathaus" friendlyPos="true"/>
-    <busStop id="120010039402_0" lane="171756596_0" startPos="31" endPos="44" name="Braunschweig Staatstheater" friendlyPos="true"/>
-    <busStop id="120010039401_0" lane="-171756596_0" startPos="0" endPos="13" name="Braunschweig Staatstheater" friendlyPos="true"/>
-    <busStop id="120010034202_0" lane="-5148300_0" startPos="0" endPos="13" name="Braunschweig Rathaus" friendlyPos="true"/>
-    <busStop id="120010032201_0" lane="37983000_0" startPos="28" endPos="41" name="Braunschweig Packhof" friendlyPos="true"/>
-    <busStop id="120010031501_0" lane="30425275#0_0" startPos="29" endPos="42" name="Braunschweig Hintern Brüdern" friendlyPos="true"/>
-    <busStop id="120010001502_0" lane="8108069_0" startPos="0" endPos="13" name="Braunschweig Altstadtmarkt" friendlyPos="true"/>
-    <busStop id="120010016201_0" lane="316791974#1_0" startPos="7" endPos="20" name="Braunschweig Holzhof" friendlyPos="true"/>
-    <busStop id="120010016202_0" lane="127240643#2_0" startPos="0" endPos="13" name="Braunschweig Holzhof" friendlyPos="true"/>
-    <busStop id="120010041002_0" lane="5021501#0_0" startPos="21" endPos="34" name="Braunschweig Südstraße" friendlyPos="true"/>
-    <busStop id="120010016105_0" lane="167920428#6_0" startPos="46" endPos="59" name="Braunschweig Güldenstraße" friendlyPos="true"/>
-    <busStop id="120010016104_0" lane="8618349#0_0" startPos="31" endPos="44" name="Braunschweig Güldenstraße" friendlyPos="true"/>
-    <busStop id="120010041001_0" lane="319389908#0_0" startPos="79" endPos="92" name="Braunschweig Südstraße" friendlyPos="true"/>
-    <busStop id="120010004601_0" lane="316791983_0" startPos="0" endPos="13" name="Braunschweig Am Wassertor" friendlyPos="true"/>
-    <busStop id="120010022105_0" lane="43328051#0_0" startPos="0" endPos="13" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
-    <busStop id="120010013704_0" lane="588927595_0" startPos="47" endPos="60" name="Braunschweig Friedrich-Wilhelm-Platz" friendlyPos="true"/>
-    <busStop id="120010013003_0" lane="23329778#6_0" startPos="10" endPos="23" name="Braunschweig Europaplatz" friendlyPos="true"/>
-    <busStop id="120010013002_0" lane="122119622#0_0" startPos="82" endPos="95" name="Braunschweig Europaplatz" friendlyPos="true"/>
-    <busStop id="120010022113_0" lane="5059167#0_0" startPos="26" endPos="39" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
-    <busStop id="120010022110_0" lane="43328051#0_0" startPos="24" endPos="37" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
-    <busStop id="120010034205_0" lane="27220201#0_0" startPos="120" endPos="133" name="Braunschweig Rathaus" friendlyPos="true"/>
-    <busStop id="120010007513_0" lane="319583927#0_0" startPos="2" endPos="15" name="Braunschweig Schloss" friendlyPos="true"/>
-    <busStop id="120010007512_0" lane="29087077#0_0" startPos="7" endPos="20" name="Braunschweig Schloss" friendlyPos="true"/>
-    <busStop id="120010034211_0" lane="27220201#0_0" startPos="0" endPos="13" name="Braunschweig Rathaus" friendlyPos="true"/>
-    <busStop id="120010028601_0" lane="394076983_0" startPos="0" endPos="13" name="Braunschweig Maschstraße" friendlyPos="true"/>
-    <busStop id="120010033805_0" lane="23208546#0_0" startPos="74" endPos="87" name="Braunschweig Radeklint" friendlyPos="true"/>
-    <busStop id="120010016103_0" lane="320399274#1_0" startPos="92" endPos="105" name="Braunschweig Güldenstraße" friendlyPos="true"/>
-    <busStop id="120010016106_0" lane="376743573#0_0" startPos="89" endPos="102" name="Braunschweig Güldenstraße" friendlyPos="true"/>
-    <busStop id="120010033806_0" lane="30424335#0_0" startPos="1" endPos="14" name="Braunschweig Radeklint" friendlyPos="true"/>
-    <busStop id="120010028602_0" lane="501412550_0" startPos="0" endPos="13" name="Braunschweig Maschstraße" friendlyPos="true"/>
-    <busStop id="120010022108_0" lane="32055654_0" startPos="0" endPos="13" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
-    <busStop id="120010013713_0" lane="588927595_0" startPos="53" endPos="66" name="Braunschweig Friedrich-Wilhelm-Platz" friendlyPos="true"/>
-    <busStop id="120010016101_0" lane="320814805#0_0" startPos="89" endPos="102" name="Braunschweig Güldenstraße" friendlyPos="true"/>
-    <busStop id="120010016102_0" lane="-320399277#2_0" startPos="0" endPos="13" name="Braunschweig Güldenstraße" friendlyPos="true"/>
+    <busStop id="120010016201_0" lane="316791974#1_0" startPos="7.60" endPos="20.60" name="Braunschweig Holzhof" friendlyPos="true"/>
+    <busStop id="120010004601_0" lane="316791983_0" startPos="0.00" endPos="13.00" name="Braunschweig Am Wassertor" friendlyPos="true"/>
+    <busStop id="120010022110_0" lane="43328051#0_0" startPos="24.74" endPos="37.74" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
+    <busStop id="120010022108_0" lane="32055654_0" startPos="0.00" endPos="13.00" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
+    <busStop id="120010013713_0" lane="588927595_0" startPos="53.40" endPos="66.40" name="Braunschweig Friedrich-Wilhelm-Platz" friendlyPos="true"/>
+    <busStop id="120010016202_0" lane="127240643#2_0" startPos="0.56" endPos="13.56" name="Braunschweig Holzhof" friendlyPos="true"/>
+    <busStop id="120010022105_0" lane="32055654_0" startPos="0.00" endPos="13.00" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
+    <busStop id="120010007512_0" lane="5021504_0" startPos="23.72" endPos="36.72" name="Braunschweig Schloss" friendlyPos="true"/>
+    <busStop id="120010034211_0" lane="27220209#0_0" startPos="0.00" endPos="13.00" name="Braunschweig Rathaus" friendlyPos="true"/>
+    <busStop id="120010022113_0" lane="5059167#0_0" startPos="26.17" endPos="39.17" name="Braunschweig John-F.-Kennedy-Platz" friendlyPos="true"/>
+    <busStop id="120010013704_0" lane="588927595_0" startPos="47.22" endPos="60.22" name="Braunschweig Friedrich-Wilhelm-Platz" friendlyPos="true"/>
+    <busStop id="120010013002_0" lane="122119622#0_0" startPos="82.59" endPos="95.59" name="Braunschweig Europaplatz" friendlyPos="true"/>
+    <busStop id="120010039401_0" lane="-171756596_0" startPos="0.00" endPos="13.00" name="Braunschweig Staatstheater" friendlyPos="true"/>
+    <busStop id="120010034202_0" lane="-5148300_0" startPos="0.00" endPos="13.00" name="Braunschweig Rathaus" friendlyPos="true"/>
+    <busStop id="120010032201_0" lane="37983000_0" startPos="28.48" endPos="41.48" name="Braunschweig Packhof" friendlyPos="true"/>
+    <busStop id="120010031501_0" lane="30425275#0_0" startPos="29.12" endPos="42.12" name="Braunschweig Hintern Brüdern" friendlyPos="true"/>
+    <busStop id="120010001502_0" lane="8108069_0" startPos="0.00" endPos="13.00" name="Braunschweig Altstadtmarkt" friendlyPos="true"/>
+    <busStop id="120010016104_0" lane="8618349#0_0" startPos="31.99" endPos="44.99" name="Braunschweig Güldenstraße" friendlyPos="true"/>
+    <busStop id="120010041001_0" lane="319389908#0_0" startPos="79.29" endPos="92.29" name="Braunschweig Südstraße" friendlyPos="true"/>
+    <busStop id="120010016102_0" lane="-320399277#2_0" startPos="0.00" endPos="13.00" name="Braunschweig Güldenstraße" friendlyPos="true"/>
 </additional>

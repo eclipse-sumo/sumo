@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,13 +58,13 @@ public:
     static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
     /// @brief get the navteq road class
-    static int getRoadClass(NBEdge* edge);
+    static int getRoadClass(const NBEdge* const edge);
 
     /// @brief get the navteq brunnel type
-    static int getBrunnelType(NBEdge* edge);
+    static int getBrunnelType(const NBEdge* const edge);
 
     /// @brief get the form of way
-    static int getFormOfWay(NBEdge* edge);
+    static int getFormOfWay(const NBEdge* const edge);
 
 private:
     /** @brief Writes the nodes_unsplitted file
@@ -73,14 +73,14 @@ private:
      * @param[in] ec The edge-container from which to read data
      * @param[out] internalNodes The internal node ids, generated for edges with complex geometry
      */
-    static void writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes);
+    static void writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes);
 
     /** @brief Writes the links_unsplitted file
      * @param[in] oc The options to use
      * @param[in] ec The edge-container from which to read data
      * @param[int] internalNodes The internal node ids, generated for edges with complex geometry
      */
-    static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes);
+    static void writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont& ec, const std::map<const NBEdge*, std::string>& internalNodes);
 
     /** @brief Writes the traffic_signals file
      * @param[in] oc The options to use
@@ -117,7 +117,7 @@ private:
     static int getNavteqLaneCode(const int numLanes);
 
     /// @brief get the length of the edge when measured up to the junction center
-    static double getGraphLength(NBEdge* edge);
+    static double getGraphLength(const NBEdge* const edge);
 
     static std::string getSinglePostalCode(const std::string& zipCode, const std::string edgeID);
 

@@ -1,13 +1,13 @@
-# Crash changing Junction From/To of a GNEEdge with a associated GNECrossing 
+# crash changing junction from/to of a gneedge with a associated gnecrossing 
 ticket3149
 
-# Crash during undo/redo of a discarded crossing
+# crash during undo/redo of a discarded crossing
 ticket3201
 
-# Defining split crossings is broken again
+# defining split crossings is broken again
 ticket3288
 
-# Recomputing a Net without crossing disable all new created crossings 
+# recomputing a net without crossing disable all new created crossings 
 ticket3292
 
 # controlled pedestrian rail crossings are lost when loading/saving with netedit

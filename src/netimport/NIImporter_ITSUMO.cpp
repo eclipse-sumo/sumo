@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -109,16 +109,17 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("itsumo-files");
     // load nodes, first
-    Handler Handler(nb);
+    Handler handler(nb);
+    handler.needsCharacterData();
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open itsumo-file '%'."), *file);
             return;
         }
-        Handler.setFileName(*file);
+        handler.setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from itsumo-file '" + *file + "'");
-        if (!XMLSubSys::runParser(Handler, *file)) {
+        if (!XMLSubSys::runParser(handler, *file)) {
             return;
         }
         PROGRESS_DONE_MESSAGE();
@@ -209,11 +210,11 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
             for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
                 for (std::vector<LaneSet*>::iterator j = (*i)->laneSets.begin(); j != (*i)->laneSets.end(); ++j) {
                     LaneSet* ls = (*j);
-                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, (int)ls->lanes.size(), -1,
+                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, NBEdge::UNSPECIFIED_FRICTION, (int)ls->lanes.size(), -1,
                                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;
-                        WRITE_ERROR("Could not add edge '" + ls->id + "'. Probably declared twice.");
+                        WRITE_ERRORF(TL("Could not add edge '%'. Probably declared twice."), ls->id);
                     }
                     delete ls;
                 }
@@ -228,17 +229,17 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 double y = StringUtils::toDouble(myParameter["y"]);
                 Position pos(x, y);
                 if (!NBNetBuilder::transformCoordinate(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), id);
                 }
                 NBNode* node = new NBNode(id, pos);
                 if (!myNetBuilder.getNodeCont().insert(node)) {
                     delete node;
-                    WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
+                    WRITE_ERRORF(TL("Could not add node '%'. Probably declared twice."), id);
                 }
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric position information for node '" + myParameter["id"] + "'.");
+                WRITE_ERRORF(TL("Not numeric position information for node '%'."), myParameter["id"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in node '" + myParameter["id"] + "'.");
+                WRITE_ERRORF(TL("Missing data in node '%'."), myParameter["id"]);
             }
         }
         break;
@@ -256,10 +257,10 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
                 NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
                 if (from == nullptr || to == nullptr) {
-                    WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
+                    WRITE_ERRORF(TL("Missing node in laneset '%'."), myParameter["lanesetID"]);
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
-                        WRITE_ERROR("Fond laneset-id '" + id + "' twice.");
+                        WRITE_ERRORF(TL("Fond laneset-id '%' twice."), id);
                     } else {
                         double vSum = 0;
                         for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {
@@ -273,9 +274,9 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     }
                 }
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric value in laneset '" + myParameter["lanesetID"] + "'.");
+                WRITE_ERRORF(TL("Not numeric value in laneset '%'."), myParameter["lanesetID"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in laneset '" + myParameter["lanesetID"] + "'.");
+                WRITE_ERRORF(TL("Missing data in laneset '%'."), myParameter["lanesetID"]);
             }
         }
         break;
@@ -286,9 +287,9 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 double v = StringUtils::toDouble(myParameter["v"]);
                 myCurrentLanes.push_back(Lane(id, (int) i, v));
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric value in lane '" + myParameter["laneID"] + "'.");
+                WRITE_ERRORF(TL("Not numeric value in lane '%'."), myParameter["laneID"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in lane '" + myParameter["laneID"] + "'.");
+                WRITE_ERRORF(TL("Missing data in lane '%'."), myParameter["laneID"]);
             }
         }
         break;

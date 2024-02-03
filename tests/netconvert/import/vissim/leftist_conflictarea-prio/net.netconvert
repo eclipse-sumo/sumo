@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:29 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-07-11 16:54:08 by Eclipse SUMO netconvert Version v1_13_0+1503-9394720
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,13 +31,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-975.72,68.20" convBoundary="0.00,0.00,55.85,70.00" origBoundary="975.72,-68.20,1031.57,1.80" projParameter="!"/>
 
@@ -40,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_0_0" index="0" speed="13.89" length="14.95" width="3.50" shape="55.47,29.75 55.44,44.70"/>
     </edge>
     <edge id=":0_1" function="internal">
-        <lane id=":0_1_0" index="0" speed="8.23" length="6.25" width="3.50" shape="55.47,29.75 54.85,33.77 53.71,35.62"/>
+        <lane id=":0_1_0" index="0" speed="8.23" length="4.41" width="3.50" shape="55.47,29.75 54.85,33.77 54.67,34.06"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="8.23" length="8.62" width="3.50" shape="53.71,35.62 53.09,36.64 50.19,38.36 46.16,38.92"/>
+        <lane id=":0_6_0" index="0" speed="8.23" length="10.46" width="3.50" shape="54.67,34.06 53.09,36.64 50.19,38.36 46.16,38.92"/>
     </edge>
     <edge id=":0_2" function="internal">
         <lane id=":0_2_0" index="0" speed="6.64" length="9.27" width="3.50" shape="46.17,35.42 48.68,35.07 50.49,34.00 51.58,32.21 51.97,29.70"/>
@@ -92,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="6-end" type="dead_end" x="52.35" y="0.00" incLanes="6_0" intLanes="" shape="50.60,-0.02 54.10,0.02"/>
     <junction id="7-begin" type="dead_end" x="51.85" y="69.68" incLanes="" intLanes="" shape="53.60,69.69 50.10,69.68"/>
 
-    <junction id=":0_6_0" type="internal" x="53.71" y="35.62" incLanes=":0_1_0" intLanes=":0_3_0 :0_4_0 :0_5_0"/>
+    <junction id=":0_6_0" type="internal" x="54.67" y="34.06" incLanes=":0_1_0 1_0" intLanes=":0_3_0 :0_4_0 :0_5_0"/>
 
     <connection from="1" to="6" fromLane="0" toLane="0" via=":0_2_0" dir="r" state="M"/>
     <connection from="1" to="4" fromLane="0" toLane="0" via=":0_3_0" dir="l" state="M"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -116,6 +116,9 @@ public:
      */
     void removeTransportable(MSTransportable* transportable);
 
+
+    bool anyLeavingAtStop(const MSStop& stop) const;
+
     /** @brief Saves the state of the device
      *
      * @param[in] out The OutputDevice to write the information into
@@ -154,7 +157,7 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double /* meanLengthOnLane */);
+                            const double meanLengthOnLane);
 
 private:
     /** @brief Constructor
@@ -173,7 +176,9 @@ private:
     /// @brief The passengers of the vehicle
     std::vector<MSTransportable*> myTransportables;
 
-    /// @brief Whether the vehicle is at a stop
+    /* @brief Whether the vehicle is at a stop and the stop is finished
+     * true means, all passengers that wish to debord at the current stop have left
+     */
     bool myStopped;
 
 

@@ -1,0 +1,5 @@
+Warning: stop for vehicle 'until_unordered' on lane 'end_0' set to end at 40.00 earlier than previous stop at 50.00.
+Warning: stop for vehicle 'arrival_unordered' on lane 'end_0' set to start at 40.00 earlier than previous stop arrival at 50.00.
+Warning: stop for vehicle 'until_before_arrival' on lane 'beg_0' set to end at 50.00 earlier than arrival at 60.00.
+Warning: stop for vehicle 'until_before_depart' on lane 'beg_0' set to end at 50.00 earlier than departure at 60.00.
+Warning: stop for vehicle 'until_before_depart_with_ended' on lane 'beg_0' set to end at 55.00 earlier than departure at 60.00.

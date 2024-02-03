@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,23 +12,17 @@
 
 # @file    _config.py
 # @author Leonhard Luecken
+# @author Mirko Barthauer
 # @date   2017-04-09
 
 
 from collections import defaultdict
 import os
-import sys
 import xml.etree.ElementTree as ET
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from simpla._platoonmode import PlatoonMode  # noqa
-import simpla._reporting as rp  # noqa
-from simpla import SimplaException  # noqa
+from ._platoonmode import PlatoonMode
+from . import _reporting as rp
+from . import SimplaException
 
 warn = rp.Warner("Config")
 report = rp.Reporter("Config")
@@ -39,8 +33,10 @@ def initDefaults():
     Init default values for the configuration parameters.
     They are overriden by specification in a configuration file (see load() method).
     '''
-    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
-    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
+    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST
+    global MAX_VEHICLES
+    global CATCHUP_HEADWAY, PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, USE_HEADWAY
+    global SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR, EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
 
     # Rate for updating the platoon manager checks and advices
     CONTROL_RATE = 1.0
@@ -48,11 +44,23 @@ def initDefaults():
     # specify substring for vtypes, that should be controlled by platoon manager
     VEH_SELECTORS = [""]
 
+    # The maximal number of vehicles inside a platoon, after which joining is denied
+    MAX_VEHICLES = 10
+
     # Distance in meters below which a vehicle joins a leading platoon
     MAX_PLATOON_GAP = 15.0
 
+    # Headway in seconds below which a vehicle joins a leading platoon
+    MAX_PLATOON_HEADWAY = 1.5
+
     # Distance in meters below which a vehicle tries to catch up with a platoon in front
     CATCHUP_DIST = 50.0
+
+    # Headway in seconds below which a vehicle tries to catch up with a platoon in front
+    CATCHUP_HEADWAY = 4.5
+
+    # whether the (time based) headway thresholds should be used instead of the gap (distance based) ones
+    USE_HEADWAY = True
 
     # Latency time in secs. until a platoon is split if vehicles exceed PLATOON_SPLIT_DISTANCE to their
     # leaders within a platoon (or if they are not the direct follower),
@@ -63,6 +71,18 @@ def initDefaults():
     # that an increasing waiting time has on the active speed factor of a vehicle:
     # activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)
     SWITCH_IMPATIENCE_FACTOR = 0.1
+
+    # ego vehicle needs at least this number of future edges in common with leader
+    # before agreeing to follow...
+    EDGE_LOOKAHEAD = 3
+
+    # Or the ego vehicle needs at least this distance of commom route length with leader
+    # before agreeing to follow.
+    DIST_LOOKAHEAD = 500.0
+
+    # no lane change advice if vehicle has less than this distance
+    # to the next  juction
+    LC_MINDIST = 100.0
 
     # Lanechange modes for the different platooning modes
     LC_MODE = {
@@ -111,7 +131,7 @@ def loadVTypeMap(fn):
         #         if rp.VERBOSITY >= 2:
         if rp.VERBOSITY >= 2:
             report("Loading vehicle type mappings from file '%s'..." % fn, True)
-        splits = [l.split(":") for l in f.readlines()]
+        splits = [line.split(":") for line in f.readlines()]
         NrBadLines = 0
         for j, spl in enumerate(splits):
             if len(spl) >= 2 and len(spl) <= 5:
@@ -168,11 +188,13 @@ def load(filename):
 
     This loads configuration parameters from a file and overwrites default values.
     '''
-    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
-    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
+    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST, CATCHUP_HEADWAY
+    global MAX_VEHICLES
+    global PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
+    global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST, USE_HEADWAY
 
     configDir = os.path.dirname(filename)
-    configElements = ET.parse(filename).getroot().getchildren()
+    configElements = ET.parse(filename).getroot()
     parsedTags = []
     for e in configElements:
         parsedTags.append(e.tag)
@@ -196,6 +218,14 @@ def load(filename):
         elif e.tag == "vehicleSelectors":
             if hasAttributes(e):
                 VEH_SELECTORS = list(map(lambda x: x.strip(), list(e.attrib.values())[0].split(",")))
+        elif e.tag == "maxVehicles":
+            if hasAttributes(e):
+                maxVeh = int(list(e.attrib.values())[0])
+                if maxVeh > 0:
+                    MAX_VEHICLES = maxVeh
+                else:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter maxVehicles must be positive. Ignoring given value: %s" % (maxVeh), True)
         elif e.tag == "maxPlatoonGap":
             if hasAttributes(e):
                 maxgap = float(list(e.attrib.values())[0])
@@ -212,6 +242,22 @@ def load(filename):
                         warn("Parameter catchupDist must be positive. Ignoring given value: %s" % (dist), True)
                 else:
                     CATCHUP_DIST = dist
+        elif e.tag == "maxPlatoonHeadway":
+            if hasAttributes(e):
+                maxHeadway = float(list(e.attrib.values())[0])
+                if maxHeadway <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter maxPlatoonGap must be positive. Ignoring given value: %s" % (maxHeadway), True)
+                else:
+                    MAX_PLATOON_HEADWAY = maxHeadway
+        elif e.tag == "catchupHeadway":
+            if hasAttributes(e):
+                headway = float(list(e.attrib.values())[0])
+                if headway <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter catchupDist must be positive. Ignoring given value: %s" % (headway), True)
+                else:
+                    CATCHUP_HEADWAY = headway
         elif e.tag == "switchImpatienceFactor":
             if hasAttributes(e):
                 impfact = float(list(e.attrib.values())[0])
@@ -230,6 +276,36 @@ def load(filename):
                              (splittime), True)
                 else:
                     PLATOON_SPLIT_TIME = splittime
+        elif e.tag == "edgeLookAhead":
+            if hasAttributes(e):
+                edgeLookAhead = int(list(e.attrib.values())[0])
+                if edgeLookAhead <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter edgeLookAhead must be positive. Ignoring given value: %d" %
+                             (edgeLookAhead), True)
+                else:
+                    EDGE_LOOKAHEAD = edgeLookAhead
+        elif e.tag == "distLookAhead":
+            if hasAttributes(e):
+                distLookAhead = float(list(e.attrib.values())[0])
+                if distLookAhead <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter distLookAhead must be positive. Ignoring given value: %d" %
+                             (distLookAhead), True)
+                else:
+                    DIST_LOOKAHEAD = distLookAhead
+        elif e.tag == "useHeadway":
+            if hasAttributes(e):
+                USE_HEADWAY = list(e.attrib.values())[0].lower() in ('true', 'yes', '1')
+        elif e.tag == "lcMinDist":
+            if hasAttributes(e):
+                lcMinDist = float(list(e.attrib.values())[0])
+                if lcMinDist <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter lcMinDist must be positive. Ignoring given value: %d" %
+                             (lcMinDist), True)
+                else:
+                    LC_MINDIST = lcMinDist
         elif e.tag == "lcMode":
             if hasAttributes(e):
                 if ("leader" in e.attrib):

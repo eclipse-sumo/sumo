@@ -1,0 +1,7 @@
+Error: Attribute 'id' is missing in definition of vType
+Error: VType cannot be created
+Error: Attribute 'id' in definition of a vType is empty.
+Error: Invalid vType id ''.
+Error: VType cannot be created
+Error: There is another vType with the same ID='vType0'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/id/routes.rou.xml failed.

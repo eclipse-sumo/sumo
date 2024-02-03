@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,27 +38,19 @@
 // method definitions
 // ==========================================================================
 OutputDevice_Network::OutputDevice_Network(const std::string& host,
-        const int port) {
+        const int port) : OutputDevice(0, host + ":" + toString(port)) {
     mySocket = new tcpip::Socket(host, port);
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
-    for (int wait = 1000; true; wait += 1000) {
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
+    for (int wait = 1; wait < 10; wait += 1) {
         try {
             mySocket->connect();
             break;
         } catch (tcpip::SocketException& e) {
-            if (wait == 9000) {
+            if (wait == 9) {
                 throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(wait));
+            std::this_thread::sleep_for(std::chrono::seconds(wait));
         }
     }
-    myFilename = host + ":" + toString(port);
 }
 
 
@@ -76,15 +68,19 @@ OutputDevice_Network::getOStream() {
 
 void
 OutputDevice_Network::postWriteHook() {
-    std::string toSend = myMessage.str();
+    const std::string toSend = myMessage.str();
+    myMessage.str("");
+    if (toSend.empty() || !mySocket->has_client_connection()) {
+        return;
+    }
     std::vector<unsigned char> msg;
     msg.insert(msg.end(), toSend.begin(), toSend.end());
     try {
         mySocket->send(msg);
-    } catch (tcpip::SocketException& e) {
-        throw IOError(toString(e.what()));
+    } catch (const tcpip::SocketException& e) {
+        mySocket->close();
+        throw IOError(e.what());
     }
-    myMessage.str("");
 }
 
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-28 11:01:09 by Eclipse SUMO sumo Version v1_12_0+0917-7eca278
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo2.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t1" depart="20.00" departLane="d_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="140.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="120.00" routeLength="891.19" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="25.73" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="259.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="259.00" routeLength="849.90" waitingTime="110.00" waitingCount="1" stopTime="30.00" timeLoss="167.70" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>

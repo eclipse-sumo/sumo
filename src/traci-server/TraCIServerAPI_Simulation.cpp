@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// APIs for getting/setting edge values via TraCI
+// APIs for getting/setting simulation values via TraCI
 /****************************************************************************/
 #include <config.h>
 
@@ -224,7 +224,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
                 }
-                writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
+                libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
                 break;
             }
             case libsumo::FIND_INTERMODAL_ROUTE: {
@@ -280,7 +280,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                 server.getWrapperStorage().writeInt((int)result.size());
                 for (const libsumo::TraCIStage& s : result) {
-                    writeStage(server.getWrapperStorage(), s);
+                    libsumo::StorageHelper::writeStage(server.getWrapperStorage(), s);
                 }
                 break;
             }
@@ -308,6 +308,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
             && variable != libsumo::CMD_SAVE_SIMSTATE
             && variable != libsumo::CMD_LOAD_SIMSTATE
             && variable != libsumo::VAR_PARAMETER
+            && variable != libsumo::VAR_SCALE
             && variable != libsumo::CMD_MESSAGE
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -317,6 +318,17 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     // process
     try {
         switch (variable) {
+            case libsumo::VAR_SCALE: {
+                double value;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A double is needed for setting traffic scale.", outputStorage);
+                }
+                if (value < 0.0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Traffic scale may not be negative.", outputStorage);
+                }
+                libsumo::Simulation::setScale(value);
+            }
+            break;
             case libsumo::CMD_CLEAR_PENDING_VEHICLES: {
                 //clear any pending vehicle insertions
                 std::string route;
@@ -402,57 +414,6 @@ TraCIServerAPI_Simulation::writeTransportableStateIDs(TraCIServer& server, tcpip
     outputStorage.writeStringList(ids);
 }
 
-
-void
-TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
-    outputStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    outputStorage.writeInt(13);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    outputStorage.writeInt(stage.type);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.vType);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.line);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.destStop);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    outputStorage.writeStringList(stage.edges);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.travelTime);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.cost);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.length);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.intended);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.depart);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.departPos);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.arrivalPos);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.description);
-}
-
-libsumo::TraCIStage*
-TraCIServerAPI_Simulation::readStage(TraCIServer& server, tcpip::Storage& inputStorage) {
-    auto* stage = new libsumo::TraCIStage();
-    server.readTypeCheckingInt(inputStorage, stage->type);
-    server.readTypeCheckingString(inputStorage, stage->vType);
-    server.readTypeCheckingString(inputStorage, stage->line);
-    server.readTypeCheckingString(inputStorage, stage->destStop);
-    server.readTypeCheckingStringList(inputStorage, stage->edges);
-    server.readTypeCheckingDouble(inputStorage, stage->travelTime);
-    server.readTypeCheckingDouble(inputStorage, stage->cost);
-    server.readTypeCheckingDouble(inputStorage, stage->length);
-    server.readTypeCheckingString(inputStorage, stage->intended);
-    server.readTypeCheckingDouble(inputStorage, stage->depart);
-    server.readTypeCheckingDouble(inputStorage, stage->departPos);
-    server.readTypeCheckingDouble(inputStorage, stage->arrivalPos);
-    server.readTypeCheckingString(inputStorage, stage->description);
-    return stage;
-}
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
@@ -594,6 +555,18 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         }
         roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
         break;
+        case libsumo::POSITION_LON_LAT:
+        case libsumo::POSITION_LON_LAT_ALT: {
+            double p1x = inputStorage.readDouble();
+            double p1y = inputStorage.readDouble();
+            pos1.set(p1x, p1y);
+            GeoConvHelper::getFinal().x2cartesian_const(pos1);
+        }
+        if (posType == libsumo::POSITION_LON_LAT_ALT) {
+            inputStorage.readDouble();// altitude value is ignored
+        }
+        roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
+        break;
         default:
             server.writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Unknown position format used for distance request");
             return false;
@@ -621,6 +594,18 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         }
         if (posType == libsumo::POSITION_3D) {
             inputStorage.readDouble();// z value is ignored
+        }
+        roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
+        break;
+        case libsumo::POSITION_LON_LAT:
+        case libsumo::POSITION_LON_LAT_ALT: {
+            double p2x = inputStorage.readDouble();
+            double p2y = inputStorage.readDouble();
+            pos2.set(p2x, p2y);
+            GeoConvHelper::getFinal().x2cartesian_const(pos2);
+        }
+        if (posType == libsumo::POSITION_LON_LAT_ALT) {
+            inputStorage.readDouble();// altitude value is ignored
         }
         roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
         break;

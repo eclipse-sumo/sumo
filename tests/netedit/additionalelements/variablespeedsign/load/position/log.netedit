@@ -1,0 +1,3 @@
+Error: Attribute 'pos' in definition of variableSpeedSign 'variableSpeedSign_1' is not a valid position.
+Error: Attribute 'pos' in definition of variableSpeedSign 'variableSpeedSign_2' is not a valid position.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\variablespeedsign\load\position\additionals.add.xml failed.

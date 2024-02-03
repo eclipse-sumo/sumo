@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 16:19:23 by Eclipse SUMO sumo Version v1_14_1+0991-da9d9db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes2.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="40814"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t0" depart="0.00" departLane="E0_0" departPos="50.10" departSpeed="8.17" departDelay="0.00" arrival="253.00" arrivalLane="E12_0" arrivalPos="100.00" arrivalSpeed="3.25" duration="253.00" routeLength="620.61" waitingTime="0.00" waitingCount="0" stopTime="107.00" timeLoss="101.12" rerouteNo="0" devices="tripinfo_t0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="0.00" departLane="E3_0" departPos="50.10" departSpeed="8.17" departDelay="0.00" arrival="320.00" arrivalLane="E12_0" arrivalPos="100.00" arrivalSpeed="3.25" duration="320.00" routeLength="599.90" waitingTime="0.00" waitingCount="0" stopTime="202.00" timeLoss="74.61" rerouteNo="1" devices="tripinfo_t1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t2" depart="113.00" departLane="E0_0" departPos="50.10" departSpeed="2.72" departDelay="113.00" arrival="453.00" arrivalLane="E12_0" arrivalPos="100.00" arrivalSpeed="3.25" duration="340.00" routeLength="620.61" waitingTime="0.00" waitingCount="0" stopTime="191.00" timeLoss="104.12" rerouteNo="0" devices="tripinfo_t2" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>

@@ -9,7 +9,7 @@ The type of network you want to create must be stated with one of the
 following switches: **--grid**, **--spider** or **--rand**. You can supply the name of the network to
 generate using **--output** *<FILENAME\>* or **-o** *<FILENAME\>* for short, default "net.net.xml".
 
-## Grid-like Networks
+# Grid-like Networks
 
 You are able to describe how many junctions in x- and in y-direction you
 want to be build and how far from each other they should be. The
@@ -39,7 +39,7 @@ These calls will generate the following networks, respectively:
 ![](../images/Netgen_grid1.gif)
 ![](../images/Netgen_grid2.gif)
 
-## Spider-like Networks
+# Spider-like Networks
 
 Spider networks are defined by the number of axes dividing them
 (parameter **--spider.arm-number** or **--arms**, default is 13), the number of the circles they are made
@@ -78,7 +78,7 @@ These calls will generate the following networks, respectively:
 ![](../images/Netgen_spider1.gif)
 ![](../images/Netgen_spider2.gif)
 
-## Random Networks
+# Random Networks
 
 The random network generator does just what its name says, it builds
 random networks. Several settings may be changed:
@@ -107,13 +107,31 @@ This call will generate the following network:
 
 ![](../images/Netgen_random1.gif)
 
-## Further Options
+## Random Grids
 
-All abstract network types share some command line options. As all
-networks may possess junctions, you are able to set the default type of
-junctions to build using the **--default-junction-type-option** (or **-j** for short). The following junction
-types are allowed in accordance to the junction types currently known by
-the simulation: priority, traffic_light.
+By setting the option **--rand.grid**, additional grid structure is enforce during random network generation.
+Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
 
-Further, you can specify the default street type by using the same
+![](../images/Netgen_random_grid1.png){: style="height:380px"}
+![](../images/Netgen_random_grid2.png){: style="height:380px"}
+
+# Further Options
+
+All abstract network types share some command line options.
+
+- **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.md#node_types). (i.e. 'priority', 'traffic_light' ,,,)
+- **--turn-lanes**: set number of turn lanes to generate at each junction
+- **--turn-lanes.length**: set length of generated turn lanes. More specifically:
+  - 0: No separate turning only lanes;
+  - 1: Add a left-turn & turn-around-only lane as the new left-most lane;
+  - 2: Add a left-turn & turn-around-only lane as the new left-most lane, and a right-turn-only lane as the new right-most lane;
+  - 3: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, and a right-turn-only lane as the new right-most lane;
+  - 4: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, and a right-turn-only lane as the new right-most lane;
+  - 5: Add a turn-around-only lane as the new left-most lane, a left-turn-only lane as the new left-most-but-one lane, a left-turn-only lane as the new left-most-but-two lane, a left-turn only lane as the new left-most-but-three lane, and a right-turn-only lane as the new right-most lane.
+- **--perturb.x**: disturb node positions in x direction by a random amount between 0 and FLOAT
+- **--perturb.y**: disturb node positions in y direction by a random amount between 0 and FLOAT
+- **--perturb.z**: disturb node positions in z direction by a random amount between 0 and FLOAT
+
+Further, you can set default values for [streets](../netconvert.md#building_defaults) and [traffic lights](../netconvert.md#tls_building) by using the same
 options as in the [netconvert](../netconvert.md)-application.
+Many other netconvert options such as **--lefthand** are also supported by netgenerate.

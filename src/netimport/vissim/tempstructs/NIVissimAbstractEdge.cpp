@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,7 +41,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     for (PositionVector::const_iterator i = geom.begin(); i != geom.end(); ++i) {
         Position p = *i;
         if (!NBNetBuilder::transformCoordinate(p)) {
-            WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
+            WRITE_WARNINGF(TL("Unable to project coordinates for edge '%'."), toString(id));
         }
         myGeom.push_back_noDoublePos(p);
     }

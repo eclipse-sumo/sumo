@@ -1,0 +1,3 @@
+leak:xercesc_3_2::MemoryManagerImpl::allocate
+leak:xercesc_3_2::XMemory::operator new
+leak:ucnv_createConverterFromSharedData

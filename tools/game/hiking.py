@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# -*- coding: utf-8 -*-
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@ from __future__ import print_function
 import os
 import sys
 import threading
+import argparse
 
 if sys.version_info.major == 3:
     import queue as Queue
@@ -193,6 +194,10 @@ def main(sumocfg="hiking/hiking.sumocfg", egoID="ego"):
 
 
 if len(sys.argv) < 3:
-    main(*sys.argv[1:])
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--sumocfg', default="hiking/hiking.sumocfg", help=".sumocfg file path", required=False)
+    parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
+    args = parser.parse_args()
+    main(args.sumocfg, args.ego)
 else:
-    print("racing.py <sumocfg> [<egoID>]")
+    print("hiking.py --sumocfg=<sumocfg> [--ego=<egoID>]")

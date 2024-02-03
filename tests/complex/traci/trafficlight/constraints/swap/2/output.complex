@@ -1,9 +1,11 @@
  Retrying in 1 seconds
 constraints before swap
- tls=A Constraint(signalId=A tripId=t1, foeId=t0, foeSignal=D, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=H tripId=t2, foeId=t0, foeSignal=C, limit=4, type=0, mustWait=True)
- tls=H Constraint(signalId=H tripId=t2, foeId=t1, foeSignal=C, limit=4, type=0, mustWait=True)
+ tls=A Constraint(signalId=A tripId=t1, foeId=t0, foeSignal=D, limit=3, type=0, mustWait=True, active=True param=arrival=00:01:40|busStop=stop_c|foeArrival=00:00:50|foeID=t0|foeLine=S6|line=S4|switch=c|vehID=t1)
+ tls=H Constraint(signalId=H tripId=t2, foeId=t0, foeSignal=C, limit=4, type=0, mustWait=True, active=True param=arrival=00:02:40|busStop=stop_g|foeArrival=00:01:50|foeID=t0|foeLine=S6|line=S5|switch=g|vehID=t2)
+ tls=H Constraint(signalId=H tripId=t2, foeId=t1, foeSignal=C, limit=4, type=0, mustWait=True, active=True param=arrival=00:02:40|busStop=stop_g|foeArrival=00:02:10|foeID=t1|foeLine=S4|line=S5|switch=g|vehID=t2)
+derived constraints
+Constraint(signalId=D tripId=t0, foeId=t1, foeSignal=A, limit=3, type=0, mustWait=True, active=True param=arrival=00:00:50|busStop=stop_c|foeArrival=00:01:40|foeID=t1|foeLine=S4|line=S6|switch=c|vehID=t0)
 constraints after swap
- tls=C Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=4, type=0, mustWait=True)
- tls=D Constraint(signalId=D tripId=t0, foeId=t1, foeSignal=A, limit=3, type=0, mustWait=True)
- tls=H Constraint(signalId=H tripId=t2, foeId=t1, foeSignal=C, limit=4, type=0, mustWait=True)
+ tls=C Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=4, type=0, mustWait=True, active=True param=arrival=00:01:50|busStop=stop_g|foeArrival=00:02:40|foeID=t2|foeLine=S5|line=S6|switch=g|vehID=t0)
+ tls=D Constraint(signalId=D tripId=t0, foeId=t1, foeSignal=A, limit=3, type=0, mustWait=True, active=True param=arrival=00:00:50|busStop=stop_c|foeArrival=00:01:40|foeID=t1|foeLine=S4|line=S6|switch=c|vehID=t0)
+ tls=H Constraint(signalId=H tripId=t2, foeId=t1, foeSignal=C, limit=4, type=0, mustWait=True, active=True param=arrival=00:02:40|busStop=stop_g|foeArrival=00:02:10|foeID=t1|foeLine=S4|line=S5|switch=g|vehID=t2)

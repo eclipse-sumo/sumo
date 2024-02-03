@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Apr 19 08:19:17 2020 by Eclipse SUMO Version v1_5_0+1206-9f2346b26d
+<!-- generated on 2022-08-28 19:21:34 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,1009 +38,1009 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="fwd0" depart="1.00" type="ped">
+    <personinfo id="fwd0" depart="1.00" type="ped" speedFactor="1.06">
         <walk depart="1.00" departPos="0.00" arrival="59.00" arrivalPos="85.15" duration="58.00" routeLength="85.15" timeLoss="0.16" maxSpeed="1.47"/>
     </personinfo>
-    <personinfo id="bwd0" depart="2.00" type="ped">
+    <personinfo id="bwd0" depart="2.00" type="ped" speedFactor="0.94">
         <walk depart="2.00" departPos="85.15" arrival="68.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.79" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="bwd1" depart="3.00" type="ped">
+    <personinfo id="bwd1" depart="3.00" type="ped" speedFactor="1.09">
         <walk depart="3.00" departPos="85.15" arrival="68.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="8.59" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="fwd1" depart="3.00" type="ped">
+    <personinfo id="fwd1" depart="3.00" type="ped" speedFactor="0.94">
         <walk depart="3.00" departPos="0.00" arrival="69.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.66" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="fwd2" depart="5.00" type="ped">
+    <personinfo id="fwd2" depart="5.00" type="ped" speedFactor="1.01">
         <walk depart="5.00" departPos="0.00" arrival="69.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="3.32" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd3" depart="6.00" type="ped">
-        <walk depart="6.00" departPos="0.00" arrival="69.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="6.37" maxSpeed="1.50"/>
+    <personinfo id="fwd3" depart="6.00" type="ped" speedFactor="1.08">
+        <walk depart="6.00" departPos="0.00" arrival="69.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="6.38" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd4" depart="12.00" type="ped">
+    <personinfo id="fwd4" depart="12.00" type="ped" speedFactor="1.03">
         <walk depart="12.00" departPos="0.00" arrival="72.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.50" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd2" depart="10.00" type="ped">
+    <personinfo id="bwd2" depart="10.00" type="ped" speedFactor="0.90">
         <walk depart="10.00" departPos="85.15" arrival="79.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="0.60" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd3" depart="11.00" type="ped">
+    <personinfo id="bwd3" depart="11.00" type="ped" speedFactor="0.89">
         <walk depart="11.00" departPos="85.15" arrival="80.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="0.34" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd4" depart="17.00" type="ped">
+    <personinfo id="bwd4" depart="17.00" type="ped" speedFactor="1.14">
         <walk depart="17.00" departPos="85.15" arrival="80.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="9.32" maxSpeed="1.59"/>
     </personinfo>
-    <personinfo id="bwd5" depart="20.00" type="ped">
+    <personinfo id="bwd5" depart="20.00" type="ped" speedFactor="0.96">
         <walk depart="20.00" departPos="85.15" arrival="85.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="0.86" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd6" depart="21.00" type="ped">
+    <personinfo id="bwd6" depart="21.00" type="ped" speedFactor="0.92">
         <walk depart="21.00" departPos="85.15" arrival="88.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="0.31" maxSpeed="1.28"/>
     </personinfo>
-    <personinfo id="bwd7" depart="24.00" type="ped">
+    <personinfo id="bwd7" depart="24.00" type="ped" speedFactor="1.09">
         <walk depart="24.00" departPos="85.15" arrival="88.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="7.74" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="bwd8" depart="26.00" type="ped">
+    <personinfo id="bwd8" depart="26.00" type="ped" speedFactor="1.03">
         <walk depart="26.00" departPos="85.15" arrival="89.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="3.53" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd9" depart="27.00" type="ped">
+    <personinfo id="bwd9" depart="27.00" type="ped" speedFactor="1.08">
         <walk depart="27.00" departPos="85.15" arrival="89.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="5.41" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="bwd10" depart="28.00" type="ped">
+    <personinfo id="bwd10" depart="28.00" type="ped" speedFactor="1.06">
         <walk depart="28.00" departPos="85.15" arrival="89.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="3.41" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd5" depart="16.00" type="ped">
-        <walk depart="16.00" departPos="0.00" arrival="90.00" arrivalPos="85.15" duration="74.00" routeLength="85.15" timeLoss="0.23" maxSpeed="1.15"/>
+    <personinfo id="fwd5" depart="16.00" type="ped" speedFactor="0.83">
+        <walk depart="16.00" departPos="0.00" arrival="90.00" arrivalPos="85.15" duration="74.00" routeLength="85.15" timeLoss="0.22" maxSpeed="1.15"/>
     </personinfo>
-    <personinfo id="bwd11" depart="34.00" type="ped">
+    <personinfo id="bwd11" depart="34.00" type="ped" speedFactor="1.10">
         <walk depart="34.00" departPos="85.15" arrival="90.00" arrivalPos="0.00" duration="56.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="fwd6" depart="19.00" type="ped">
+    <personinfo id="fwd6" depart="19.00" type="ped" speedFactor="1.05">
         <walk depart="19.00" departPos="0.00" arrival="91.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="13.38" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="fwd7" depart="20.00" type="ped">
+    <personinfo id="fwd7" depart="20.00" type="ped" speedFactor="0.89">
         <walk depart="20.00" departPos="0.00" arrival="91.00" arrivalPos="85.15" duration="71.00" routeLength="85.15" timeLoss="1.80" maxSpeed="1.23"/>
     </personinfo>
-    <personinfo id="fwd8" depart="21.00" type="ped">
+    <personinfo id="fwd8" depart="21.00" type="ped" speedFactor="0.94">
         <walk depart="21.00" departPos="0.00" arrival="91.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="4.63" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="fwd9" depart="22.00" type="ped">
-        <walk depart="22.00" departPos="0.00" arrival="94.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="0.46" maxSpeed="1.19"/>
+    <personinfo id="fwd9" depart="22.00" type="ped" speedFactor="0.86">
+        <walk depart="22.00" departPos="0.00" arrival="94.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="0.45" maxSpeed="1.19"/>
     </personinfo>
-    <personinfo id="fwd10" depart="28.00" type="ped">
+    <personinfo id="fwd10" depart="28.00" type="ped" speedFactor="1.09">
         <walk depart="28.00" departPos="0.00" arrival="94.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="9.79" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="fwd11" depart="36.00" type="ped">
+    <personinfo id="fwd11" depart="36.00" type="ped" speedFactor="1.03">
         <walk depart="36.00" departPos="0.00" arrival="96.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="fwd12" depart="37.00" type="ped">
+    <personinfo id="fwd12" depart="37.00" type="ped" speedFactor="1.05">
         <walk depart="37.00" departPos="0.00" arrival="96.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="0.45" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="bwd12" depart="36.00" type="ped">
+    <personinfo id="bwd12" depart="36.00" type="ped" speedFactor="1.03">
         <walk depart="36.00" departPos="85.15" arrival="96.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="fwd13" depart="42.00" type="ped">
+    <personinfo id="fwd13" depart="42.00" type="ped" speedFactor="1.12">
         <walk depart="42.00" departPos="0.00" arrival="97.00" arrivalPos="85.15" duration="55.00" routeLength="85.15" timeLoss="0.40" maxSpeed="1.56"/>
     </personinfo>
-    <personinfo id="bwd13" depart="37.00" type="ped">
+    <personinfo id="bwd13" depart="37.00" type="ped" speedFactor="1.03">
         <walk depart="37.00" departPos="85.15" arrival="97.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="0.46" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd14" depart="38.00" type="ped">
+    <personinfo id="bwd14" depart="38.00" type="ped" speedFactor="1.08">
         <walk depart="38.00" departPos="85.15" arrival="97.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="2.34" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd14" depart="43.00" type="ped">
+    <personinfo id="fwd14" depart="43.00" type="ped" speedFactor="0.99">
         <walk depart="43.00" departPos="0.00" arrival="105.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="0.15" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd15" depart="41.00" type="ped">
-        <walk depart="41.00" departPos="85.15" arrival="107.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.91" maxSpeed="1.31"/>
+    <personinfo id="bwd15" depart="41.00" type="ped" speedFactor="0.94">
+        <walk depart="41.00" departPos="85.15" arrival="107.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.90" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="fwd15" depart="49.00" type="ped">
+    <personinfo id="fwd15" depart="49.00" type="ped" speedFactor="0.93">
         <walk depart="49.00" departPos="0.00" arrival="116.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.85" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="bwd16" depart="51.00" type="ped">
+    <personinfo id="bwd16" depart="51.00" type="ped" speedFactor="0.92">
         <walk depart="51.00" departPos="85.15" arrival="118.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="0.07" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="bwd17" depart="60.00" type="ped">
+    <personinfo id="bwd17" depart="60.00" type="ped" speedFactor="1.08">
         <walk depart="60.00" departPos="85.15" arrival="119.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="2.18" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd16" depart="55.00" type="ped">
+    <personinfo id="fwd16" depart="55.00" type="ped" speedFactor="0.88">
         <walk depart="55.00" departPos="0.00" arrival="125.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="0.21" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="fwd17" depart="57.00" type="ped">
+    <personinfo id="fwd17" depart="57.00" type="ped" speedFactor="0.94">
         <walk depart="57.00" departPos="0.00" arrival="126.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="3.88" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="fwd18" depart="59.00" type="ped">
-        <walk depart="59.00" departPos="0.00" arrival="126.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="1.52" maxSpeed="1.30"/>
+    <personinfo id="fwd18" depart="59.00" type="ped" speedFactor="0.94">
+        <walk depart="59.00" departPos="0.00" arrival="126.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="1.51" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="fwd19" depart="60.00" type="ped">
+    <personinfo id="fwd19" depart="60.00" type="ped" speedFactor="1.16">
         <walk depart="60.00" departPos="0.00" arrival="126.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="13.07" maxSpeed="1.61"/>
     </personinfo>
-    <personinfo id="fwd20" depart="65.00" type="ped">
+    <personinfo id="fwd20" depart="65.00" type="ped" speedFactor="1.02">
         <walk depart="65.00" departPos="0.00" arrival="127.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="1.78" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd21" depart="66.00" type="ped">
+    <personinfo id="fwd21" depart="66.00" type="ped" speedFactor="1.01">
         <walk depart="66.00" departPos="0.00" arrival="127.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.31" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="bwd18" depart="61.00" type="ped">
-        <walk depart="61.00" departPos="85.15" arrival="130.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="0.23" maxSpeed="1.24"/>
+    <personinfo id="bwd18" depart="61.00" type="ped" speedFactor="0.89">
+        <walk depart="61.00" departPos="85.15" arrival="130.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="0.22" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd19" depart="66.00" type="ped">
-        <walk depart="66.00" departPos="85.15" arrival="131.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="1.90" maxSpeed="1.35"/>
+    <personinfo id="bwd19" depart="66.00" type="ped" speedFactor="0.97">
+        <walk depart="66.00" departPos="85.15" arrival="131.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="1.89" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd20" depart="68.00" type="ped">
+    <personinfo id="bwd20" depart="68.00" type="ped" speedFactor="0.97">
         <walk depart="68.00" departPos="85.15" arrival="132.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.87" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd22" depart="71.00" type="ped">
+    <personinfo id="fwd22" depart="71.00" type="ped" speedFactor="0.97">
         <walk depart="71.00" departPos="0.00" arrival="134.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.12" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd23" depart="73.00" type="ped">
+    <personinfo id="fwd23" depart="73.00" type="ped" speedFactor="0.89">
         <walk depart="73.00" departPos="0.00" arrival="142.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="0.08" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd21" depart="74.00" type="ped">
+    <personinfo id="bwd21" depart="74.00" type="ped" speedFactor="0.90">
         <walk depart="74.00" departPos="85.15" arrival="142.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="bwd22" depart="85.00" type="ped">
+    <personinfo id="bwd22" depart="85.00" type="ped" speedFactor="0.93">
         <walk depart="85.00" departPos="85.15" arrival="151.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="fwd24" depart="81.00" type="ped">
+    <personinfo id="fwd24" depart="81.00" type="ped" speedFactor="0.83">
         <walk depart="81.00" departPos="0.00" arrival="156.00" arrivalPos="85.15" duration="75.00" routeLength="85.15" timeLoss="0.75" maxSpeed="1.15"/>
     </personinfo>
-    <personinfo id="fwd25" depart="82.00" type="ped">
+    <personinfo id="fwd25" depart="82.00" type="ped" speedFactor="0.87">
         <walk depart="82.00" departPos="0.00" arrival="156.00" arrivalPos="85.15" duration="74.00" routeLength="85.15" timeLoss="3.74" maxSpeed="1.21"/>
     </personinfo>
-    <personinfo id="fwd26" depart="84.00" type="ped">
+    <personinfo id="fwd26" depart="84.00" type="ped" speedFactor="0.92">
         <walk depart="84.00" departPos="0.00" arrival="156.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="5.16" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="bwd23" depart="101.00" type="ped">
+    <personinfo id="bwd23" depart="101.00" type="ped" speedFactor="1.10">
         <walk depart="101.00" departPos="85.15" arrival="157.00" arrivalPos="0.00" duration="56.00" routeLength="85.15" timeLoss="0.05" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="fwd27" depart="93.00" type="ped">
-        <walk depart="93.00" departPos="0.00" arrival="158.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.39" maxSpeed="1.32"/>
+    <personinfo id="fwd27" depart="93.00" type="ped" speedFactor="0.95">
+        <walk depart="93.00" departPos="0.00" arrival="158.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.38" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="fwd28" depart="94.00" type="ped">
+    <personinfo id="fwd28" depart="94.00" type="ped" speedFactor="1.13">
         <walk depart="94.00" departPos="0.00" arrival="158.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="9.83" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="bwd24" depart="104.00" type="ped">
+    <personinfo id="bwd24" depart="104.00" type="ped" speedFactor="1.07">
         <walk depart="104.00" departPos="85.15" arrival="162.00" arrivalPos="0.00" duration="58.00" routeLength="85.15" timeLoss="0.59" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd29" depart="97.00" type="ped">
+    <personinfo id="fwd29" depart="97.00" type="ped" speedFactor="0.93">
         <walk depart="97.00" departPos="0.00" arrival="163.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.17" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="fwd30" depart="101.00" type="ped">
+    <personinfo id="fwd30" depart="101.00" type="ped" speedFactor="1.18">
         <walk depart="101.00" departPos="0.00" arrival="164.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="10.98" maxSpeed="1.64"/>
     </personinfo>
-    <personinfo id="fwd31" depart="103.00" type="ped">
+    <personinfo id="fwd31" depart="103.00" type="ped" speedFactor="1.15">
         <walk depart="103.00" departPos="0.00" arrival="164.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="7.89" maxSpeed="1.60"/>
     </personinfo>
-    <personinfo id="fwd32" depart="105.00" type="ped">
+    <personinfo id="fwd32" depart="105.00" type="ped" speedFactor="1.01">
         <walk depart="105.00" departPos="0.00" arrival="166.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.01" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd33" depart="107.00" type="ped">
+    <personinfo id="fwd33" depart="107.00" type="ped" speedFactor="1.17">
         <walk depart="107.00" departPos="0.00" arrival="167.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="7.68" maxSpeed="1.63"/>
     </personinfo>
-    <personinfo id="bwd25" depart="105.00" type="ped">
+    <personinfo id="bwd25" depart="105.00" type="ped" speedFactor="1.00">
         <walk depart="105.00" departPos="85.15" arrival="167.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.62" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd34" depart="109.00" type="ped">
+    <personinfo id="fwd34" depart="109.00" type="ped" speedFactor="0.99">
         <walk depart="109.00" departPos="0.00" arrival="171.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="0.37" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="fwd35" depart="110.00" type="ped">
+    <personinfo id="fwd35" depart="110.00" type="ped" speedFactor="1.02">
         <walk depart="110.00" departPos="0.00" arrival="171.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.88" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="fwd36" depart="111.00" type="ped">
-        <walk depart="111.00" departPos="0.00" arrival="174.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.01" maxSpeed="1.35"/>
+    <personinfo id="fwd36" depart="111.00" type="ped" speedFactor="0.97">
+        <walk depart="111.00" departPos="0.00" arrival="174.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd37" depart="120.00" type="ped">
+    <personinfo id="fwd37" depart="120.00" type="ped" speedFactor="1.18">
         <walk depart="120.00" departPos="0.00" arrival="175.00" arrivalPos="85.15" duration="55.00" routeLength="85.15" timeLoss="3.03" maxSpeed="1.64"/>
     </personinfo>
-    <personinfo id="fwd38" depart="127.00" type="ped">
+    <personinfo id="fwd38" depart="127.00" type="ped" speedFactor="1.10">
         <walk depart="127.00" departPos="0.00" arrival="183.00" arrivalPos="85.15" duration="56.00" routeLength="85.15" timeLoss="0.38" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="bwd26" depart="110.00" type="ped">
+    <personinfo id="bwd26" depart="110.00" type="ped" speedFactor="0.84">
         <walk depart="110.00" departPos="85.15" arrival="183.00" arrivalPos="0.00" duration="73.00" routeLength="85.15" timeLoss="0.12" maxSpeed="1.17"/>
     </personinfo>
-    <personinfo id="bwd27" depart="111.00" type="ped">
+    <personinfo id="bwd27" depart="111.00" type="ped" speedFactor="1.03">
         <walk depart="111.00" departPos="85.15" arrival="184.00" arrivalPos="0.00" duration="73.00" routeLength="85.15" timeLoss="13.48" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd28" depart="112.00" type="ped">
+    <personinfo id="bwd28" depart="112.00" type="ped" speedFactor="0.87">
         <walk depart="112.00" departPos="85.15" arrival="184.00" arrivalPos="0.00" duration="72.00" routeLength="85.15" timeLoss="1.76" maxSpeed="1.21"/>
     </personinfo>
-    <personinfo id="bwd29" depart="116.00" type="ped">
+    <personinfo id="bwd29" depart="116.00" type="ped" speedFactor="1.06">
         <walk depart="116.00" departPos="85.15" arrival="184.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="10.42" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="bwd30" depart="120.00" type="ped">
+    <personinfo id="bwd30" depart="120.00" type="ped" speedFactor="0.83">
         <walk depart="120.00" departPos="85.15" arrival="194.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.15"/>
     </personinfo>
-    <personinfo id="bwd31" depart="127.00" type="ped">
+    <personinfo id="bwd31" depart="127.00" type="ped" speedFactor="0.95">
         <walk depart="127.00" departPos="85.15" arrival="195.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="3.29" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="fwd39" depart="130.00" type="ped">
+    <personinfo id="fwd39" depart="130.00" type="ped" speedFactor="0.90">
         <walk depart="130.00" departPos="0.00" arrival="198.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="bwd32" depart="128.00" type="ped">
+    <personinfo id="bwd32" depart="128.00" type="ped" speedFactor="0.87">
         <walk depart="128.00" departPos="85.15" arrival="198.00" arrivalPos="0.00" duration="70.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="fwd40" depart="131.00" type="ped">
+    <personinfo id="fwd40" depart="131.00" type="ped" speedFactor="1.03">
         <walk depart="131.00" departPos="0.00" arrival="199.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="8.50" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="fwd41" depart="134.00" type="ped">
-        <walk depart="134.00" departPos="0.00" arrival="199.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.95" maxSpeed="1.33"/>
+    <personinfo id="fwd41" depart="134.00" type="ped" speedFactor="0.96">
+        <walk depart="134.00" departPos="0.00" arrival="199.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.94" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd33" depart="133.00" type="ped">
+    <personinfo id="bwd33" depart="133.00" type="ped" speedFactor="1.03">
         <walk depart="133.00" departPos="85.15" arrival="199.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="6.77" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="bwd34" depart="134.00" type="ped">
+    <personinfo id="bwd34" depart="134.00" type="ped" speedFactor="1.11">
         <walk depart="134.00" departPos="85.15" arrival="199.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="9.70" maxSpeed="1.54"/>
     </personinfo>
-    <personinfo id="bwd35" depart="136.00" type="ped">
+    <personinfo id="bwd35" depart="136.00" type="ped" speedFactor="1.07">
         <walk depart="136.00" departPos="85.15" arrival="199.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="5.56" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd42" depart="135.00" type="ped">
+    <personinfo id="fwd42" depart="135.00" type="ped" speedFactor="1.09">
         <walk depart="135.00" departPos="0.00" arrival="200.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="8.85" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="bwd36" depart="140.00" type="ped">
-        <walk depart="140.00" departPos="85.15" arrival="200.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.42"/>
+    <personinfo id="bwd36" depart="140.00" type="ped" speedFactor="1.02">
+        <walk depart="140.00" departPos="85.15" arrival="200.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="0.01" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="fwd43" depart="142.00" type="ped">
-        <walk depart="142.00" departPos="0.00" arrival="202.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.92" maxSpeed="1.44"/>
+    <personinfo id="fwd43" depart="142.00" type="ped" speedFactor="1.04">
+        <walk depart="142.00" departPos="0.00" arrival="202.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.93" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="bwd37" depart="144.00" type="ped">
+    <personinfo id="bwd37" depart="144.00" type="ped" speedFactor="1.00">
         <walk depart="144.00" departPos="85.15" arrival="206.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.90" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd44" depart="148.00" type="ped">
+    <personinfo id="fwd44" depart="148.00" type="ped" speedFactor="1.04">
         <walk depart="148.00" departPos="0.00" arrival="207.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="0.24" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="fwd45" depart="151.00" type="ped">
+    <personinfo id="fwd45" depart="151.00" type="ped" speedFactor="1.09">
         <walk depart="151.00" departPos="0.00" arrival="208.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="0.65" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="bwd38" depart="151.00" type="ped">
+    <personinfo id="bwd38" depart="151.00" type="ped" speedFactor="0.97">
         <walk depart="151.00" departPos="85.15" arrival="215.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.88" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd46" depart="155.00" type="ped">
+    <personinfo id="fwd46" depart="155.00" type="ped" speedFactor="1.00">
         <walk depart="155.00" departPos="0.00" arrival="217.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="0.53" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="bwd39" depart="154.00" type="ped">
+    <personinfo id="bwd39" depart="154.00" type="ped" speedFactor="0.96">
         <walk depart="154.00" departPos="85.15" arrival="218.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.27" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd40" depart="162.00" type="ped">
+    <personinfo id="bwd40" depart="162.00" type="ped" speedFactor="0.98">
         <walk depart="162.00" departPos="85.15" arrival="225.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.72" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="bwd41" depart="169.00" type="ped">
+    <personinfo id="bwd41" depart="169.00" type="ped" speedFactor="1.10">
         <walk depart="169.00" departPos="85.15" arrival="225.00" arrivalPos="0.00" duration="56.00" routeLength="85.15" timeLoss="0.51" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="fwd47" depart="157.00" type="ped">
+    <personinfo id="fwd47" depart="157.00" type="ped" speedFactor="0.90">
         <walk depart="157.00" departPos="0.00" arrival="226.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="0.92" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="fwd48" depart="158.00" type="ped">
+    <personinfo id="fwd48" depart="158.00" type="ped" speedFactor="0.88">
         <walk depart="158.00" departPos="0.00" arrival="228.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="0.09" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="bwd42" depart="170.00" type="ped">
+    <personinfo id="bwd42" depart="170.00" type="ped" speedFactor="1.04">
         <walk depart="170.00" departPos="85.15" arrival="230.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="0.85" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="fwd49" depart="160.00" type="ped">
-        <walk depart="160.00" departPos="0.00" arrival="233.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="0.90" maxSpeed="1.18"/>
+    <personinfo id="fwd49" depart="160.00" type="ped" speedFactor="0.85">
+        <walk depart="160.00" departPos="0.00" arrival="233.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="0.91" maxSpeed="1.18"/>
     </personinfo>
-    <personinfo id="fwd50" depart="161.00" type="ped">
+    <personinfo id="fwd50" depart="161.00" type="ped" speedFactor="0.85">
         <walk depart="161.00" departPos="0.00" arrival="233.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="0.29" maxSpeed="1.19"/>
     </personinfo>
-    <personinfo id="bwd43" depart="171.00" type="ped">
+    <personinfo id="bwd43" depart="171.00" type="ped" speedFactor="1.00">
         <walk depart="171.00" departPos="85.15" arrival="233.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.86" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="bwd44" depart="173.00" type="ped">
+    <personinfo id="bwd44" depart="173.00" type="ped" speedFactor="1.10">
         <walk depart="173.00" departPos="85.15" arrival="233.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="4.36" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="fwd51" depart="162.00" type="ped">
+    <personinfo id="fwd51" depart="162.00" type="ped" speedFactor="1.17">
         <walk depart="162.00" departPos="0.00" arrival="234.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="19.55" maxSpeed="1.62"/>
     </personinfo>
-    <personinfo id="fwd52" depart="164.00" type="ped">
-        <walk depart="164.00" departPos="0.00" arrival="234.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="9.70" maxSpeed="1.41"/>
+    <personinfo id="fwd52" depart="164.00" type="ped" speedFactor="1.02">
+        <walk depart="164.00" departPos="0.00" arrival="234.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="9.71" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd53" depart="168.00" type="ped">
+    <personinfo id="fwd53" depart="168.00" type="ped" speedFactor="1.10">
         <walk depart="168.00" departPos="0.00" arrival="234.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="10.05" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="fwd54" depart="170.00" type="ped">
+    <personinfo id="fwd54" depart="170.00" type="ped" speedFactor="1.00">
         <walk depart="170.00" departPos="0.00" arrival="235.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="3.89" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd55" depart="171.00" type="ped">
+    <personinfo id="fwd55" depart="171.00" type="ped" speedFactor="1.00">
         <walk depart="171.00" departPos="0.00" arrival="235.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="2.45" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="fwd56" depart="173.00" type="ped">
+    <personinfo id="fwd56" depart="173.00" type="ped" speedFactor="0.90">
         <walk depart="173.00" departPos="0.00" arrival="242.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="0.80" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="fwd57" depart="175.00" type="ped">
+    <personinfo id="fwd57" depart="175.00" type="ped" speedFactor="1.14">
         <walk depart="175.00" departPos="0.00" arrival="242.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="13.34" maxSpeed="1.59"/>
     </personinfo>
-    <personinfo id="fwd58" depart="179.00" type="ped">
-        <walk depart="179.00" departPos="0.00" arrival="242.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="3.10" maxSpeed="1.42"/>
+    <personinfo id="fwd58" depart="179.00" type="ped" speedFactor="1.02">
+        <walk depart="179.00" departPos="0.00" arrival="242.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="3.11" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="fwd59" depart="180.00" type="ped">
-        <walk depart="180.00" departPos="0.00" arrival="244.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.77" maxSpeed="1.35"/>
+    <personinfo id="fwd59" depart="180.00" type="ped" speedFactor="0.97">
+        <walk depart="180.00" departPos="0.00" arrival="244.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.76" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd60" depart="187.00" type="ped">
+    <personinfo id="fwd60" depart="187.00" type="ped" speedFactor="1.08">
         <walk depart="187.00" departPos="0.00" arrival="244.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="0.36" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="bwd45" depart="174.00" type="ped">
+    <personinfo id="bwd45" depart="174.00" type="ped" speedFactor="0.83">
         <walk depart="174.00" departPos="85.15" arrival="248.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="0.35" maxSpeed="1.16"/>
     </personinfo>
-    <personinfo id="bwd46" depart="181.00" type="ped">
-        <walk depart="181.00" departPos="85.15" arrival="248.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="10.64" maxSpeed="1.51"/>
+    <personinfo id="bwd46" depart="181.00" type="ped" speedFactor="1.09">
+        <walk depart="181.00" departPos="85.15" arrival="248.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="10.65" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="bwd47" depart="183.00" type="ped">
+    <personinfo id="bwd47" depart="183.00" type="ped" speedFactor="0.97">
         <walk depart="183.00" departPos="85.15" arrival="249.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.73" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd48" depart="187.00" type="ped">
+    <personinfo id="bwd48" depart="187.00" type="ped" speedFactor="1.07">
         <walk depart="187.00" departPos="85.15" arrival="249.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="4.73" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="bwd49" depart="188.00" type="ped">
+    <personinfo id="bwd49" depart="188.00" type="ped" speedFactor="1.07">
         <walk depart="188.00" departPos="85.15" arrival="250.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="4.55" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd61" depart="198.00" type="ped">
+    <personinfo id="fwd61" depart="198.00" type="ped" speedFactor="1.12">
         <walk depart="198.00" departPos="0.00" arrival="253.00" arrivalPos="85.15" duration="55.00" routeLength="85.15" timeLoss="0.23" maxSpeed="1.55"/>
     </personinfo>
-    <personinfo id="bwd50" depart="192.00" type="ped">
+    <personinfo id="bwd50" depart="192.00" type="ped" speedFactor="0.91">
         <walk depart="192.00" departPos="85.15" arrival="260.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="0.65" maxSpeed="1.26"/>
     </personinfo>
-    <personinfo id="fwd62" depart="202.00" type="ped">
-        <walk depart="202.00" departPos="0.00" arrival="263.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.64" maxSpeed="1.41"/>
+    <personinfo id="fwd62" depart="202.00" type="ped" speedFactor="1.02">
+        <walk depart="202.00" departPos="0.00" arrival="263.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.65" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="bwd51" depart="207.00" type="ped">
+    <personinfo id="bwd51" depart="207.00" type="ped" speedFactor="1.00">
         <walk depart="207.00" departPos="85.15" arrival="269.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.44" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd52" depart="212.00" type="ped">
+    <personinfo id="bwd52" depart="212.00" type="ped" speedFactor="1.15">
         <walk depart="212.00" departPos="85.15" arrival="269.00" arrivalPos="0.00" duration="57.00" routeLength="85.15" timeLoss="3.59" maxSpeed="1.59"/>
     </personinfo>
-    <personinfo id="fwd63" depart="208.00" type="ped">
+    <personinfo id="fwd63" depart="208.00" type="ped" speedFactor="0.99">
         <walk depart="208.00" departPos="0.00" arrival="271.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.88" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="fwd64" depart="211.00" type="ped">
-        <walk depart="211.00" departPos="0.00" arrival="277.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.62" maxSpeed="1.30"/>
+    <personinfo id="fwd64" depart="211.00" type="ped" speedFactor="0.94">
+        <walk depart="211.00" departPos="0.00" arrival="277.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.61" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="fwd65" depart="214.00" type="ped">
+    <personinfo id="fwd65" depart="214.00" type="ped" speedFactor="0.88">
         <walk depart="214.00" departPos="0.00" arrival="284.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="0.51" maxSpeed="1.23"/>
     </personinfo>
-    <personinfo id="fwd66" depart="216.00" type="ped">
+    <personinfo id="fwd66" depart="216.00" type="ped" speedFactor="0.91">
         <walk depart="216.00" departPos="0.00" arrival="284.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="0.39" maxSpeed="1.26"/>
     </personinfo>
-    <personinfo id="bwd57" depart="231.00" type="ped">
+    <personinfo id="bwd57" depart="231.00" type="ped" speedFactor="1.24">
         <walk depart="231.00" departPos="85.15" arrival="285.00" arrivalPos="0.00" duration="54.00" routeLength="85.15" timeLoss="4.65" maxSpeed="1.73"/>
     </personinfo>
-    <personinfo id="fwd67" depart="220.00" type="ped">
+    <personinfo id="fwd67" depart="220.00" type="ped" speedFactor="0.91">
         <walk depart="220.00" departPos="0.00" arrival="287.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="bwd53" depart="213.00" type="ped">
+    <personinfo id="bwd53" depart="213.00" type="ped" speedFactor="0.84">
         <walk depart="213.00" departPos="85.15" arrival="287.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="0.64" maxSpeed="1.16"/>
     </personinfo>
-    <personinfo id="fwd68" depart="222.00" type="ped">
+    <personinfo id="fwd68" depart="222.00" type="ped" speedFactor="1.04">
         <walk depart="222.00" departPos="0.00" arrival="288.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="7.05" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="fwd69" depart="226.00" type="ped">
+    <personinfo id="fwd69" depart="226.00" type="ped" speedFactor="1.02">
         <walk depart="226.00" departPos="0.00" arrival="288.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="2.02" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="bwd54" depart="215.00" type="ped">
+    <personinfo id="bwd54" depart="215.00" type="ped" speedFactor="1.06">
         <walk depart="215.00" departPos="85.15" arrival="288.00" arrivalPos="0.00" duration="73.00" routeLength="85.15" timeLoss="15.40" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="bwd55" depart="218.00" type="ped">
+    <personinfo id="bwd55" depart="218.00" type="ped" speedFactor="1.02">
         <walk depart="218.00" departPos="85.15" arrival="288.00" arrivalPos="0.00" duration="70.00" routeLength="85.15" timeLoss="9.60" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="bwd56" depart="222.00" type="ped">
+    <personinfo id="bwd56" depart="222.00" type="ped" speedFactor="0.97">
         <walk depart="222.00" departPos="85.15" arrival="288.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.73" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd58" depart="234.00" type="ped">
+    <personinfo id="bwd58" depart="234.00" type="ped" speedFactor="1.11">
         <walk depart="234.00" departPos="85.15" arrival="290.00" arrivalPos="0.00" duration="56.00" routeLength="85.15" timeLoss="0.75" maxSpeed="1.54"/>
     </personinfo>
-    <personinfo id="fwd70" depart="234.00" type="ped">
+    <personinfo id="fwd70" depart="234.00" type="ped" speedFactor="1.02">
         <walk depart="234.00" departPos="0.00" arrival="294.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.07" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="bwd59" depart="240.00" type="ped">
+    <personinfo id="bwd59" depart="240.00" type="ped" speedFactor="1.09">
         <walk depart="240.00" departPos="85.15" arrival="297.00" arrivalPos="0.00" duration="57.00" routeLength="85.15" timeLoss="0.85" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="fwd71" depart="238.00" type="ped">
+    <personinfo id="fwd71" depart="238.00" type="ped" speedFactor="0.97">
         <walk depart="238.00" departPos="0.00" arrival="301.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd60" depart="241.00" type="ped">
+    <personinfo id="bwd60" depart="241.00" type="ped" speedFactor="0.99">
         <walk depart="241.00" departPos="85.15" arrival="303.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.37" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd61" depart="242.00" type="ped">
-        <walk depart="242.00" departPos="85.15" arrival="303.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="2.09" maxSpeed="1.45"/>
+    <personinfo id="bwd61" depart="242.00" type="ped" speedFactor="1.04">
+        <walk depart="242.00" departPos="85.15" arrival="303.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="2.08" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="bwd62" depart="243.00" type="ped">
+    <personinfo id="bwd62" depart="243.00" type="ped" speedFactor="1.14">
         <walk depart="243.00" departPos="85.15" arrival="304.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="7.27" maxSpeed="1.58"/>
     </personinfo>
-    <personinfo id="fwd72" depart="239.00" type="ped">
+    <personinfo id="fwd72" depart="239.00" type="ped" speedFactor="0.94">
         <walk depart="239.00" departPos="0.00" arrival="305.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.79" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="fwd73" depart="241.00" type="ped">
+    <personinfo id="fwd73" depart="241.00" type="ped" speedFactor="1.06">
         <walk depart="241.00" departPos="0.00" arrival="305.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="5.93" maxSpeed="1.47"/>
     </personinfo>
-    <personinfo id="bwd63" depart="244.00" type="ped">
+    <personinfo id="bwd63" depart="244.00" type="ped" speedFactor="0.97">
         <walk depart="244.00" departPos="85.15" arrival="308.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.79" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd64" depart="245.00" type="ped">
+    <personinfo id="bwd64" depart="245.00" type="ped" speedFactor="1.15">
         <walk depart="245.00" departPos="85.15" arrival="308.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="9.78" maxSpeed="1.60"/>
     </personinfo>
-    <personinfo id="fwd74" depart="248.00" type="ped">
+    <personinfo id="fwd74" depart="248.00" type="ped" speedFactor="0.96">
         <walk depart="248.00" departPos="0.00" arrival="313.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.81" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="fwd75" depart="251.00" type="ped">
+    <personinfo id="fwd75" depart="251.00" type="ped" speedFactor="0.98">
         <walk depart="251.00" departPos="0.00" arrival="314.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.75" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="fwd76" depart="253.00" type="ped">
+    <personinfo id="fwd76" depart="253.00" type="ped" speedFactor="1.03">
         <walk depart="253.00" departPos="0.00" arrival="314.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="1.62" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd65" depart="249.00" type="ped">
+    <personinfo id="bwd65" depart="249.00" type="ped" speedFactor="0.91">
         <walk depart="249.00" departPos="85.15" arrival="317.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="0.72" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="bwd66" depart="251.00" type="ped">
-        <walk depart="251.00" departPos="85.15" arrival="317.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.03" maxSpeed="1.33"/>
+    <personinfo id="bwd66" depart="251.00" type="ped" speedFactor="0.96">
+        <walk depart="251.00" departPos="85.15" arrival="317.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.02" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd67" depart="254.00" type="ped">
+    <personinfo id="bwd67" depart="254.00" type="ped" speedFactor="1.04">
         <walk depart="254.00" departPos="85.15" arrival="317.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="4.12" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="fwd77" depart="260.00" type="ped">
+    <personinfo id="fwd77" depart="260.00" type="ped" speedFactor="0.98">
         <walk depart="260.00" departPos="0.00" arrival="323.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.56" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="fwd78" depart="261.00" type="ped">
+    <personinfo id="fwd78" depart="261.00" type="ped" speedFactor="1.01">
         <walk depart="261.00" departPos="0.00" arrival="323.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="1.14" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="bwd68" depart="255.00" type="ped">
+    <personinfo id="bwd68" depart="255.00" type="ped" speedFactor="0.88">
         <walk depart="255.00" departPos="85.15" arrival="325.00" arrivalPos="0.00" duration="70.00" routeLength="85.15" timeLoss="0.70" maxSpeed="1.23"/>
     </personinfo>
-    <personinfo id="bwd69" depart="257.00" type="ped">
+    <personinfo id="bwd69" depart="257.00" type="ped" speedFactor="1.10">
         <walk depart="257.00" departPos="85.15" arrival="325.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="12.03" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="bwd70" depart="265.00" type="ped">
+    <personinfo id="bwd70" depart="265.00" type="ped" speedFactor="1.13">
         <walk depart="265.00" departPos="85.15" arrival="325.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="5.63" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="fwd79" depart="275.00" type="ped">
-        <walk depart="275.00" departPos="0.00" arrival="332.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="0.60" maxSpeed="1.51"/>
+    <personinfo id="fwd79" depart="275.00" type="ped" speedFactor="1.09">
+        <walk depart="275.00" departPos="0.00" arrival="332.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="0.59" maxSpeed="1.51"/>
     </personinfo>
-    <personinfo id="bwd71" depart="268.00" type="ped">
+    <personinfo id="bwd71" depart="268.00" type="ped" speedFactor="0.95">
         <walk depart="268.00" departPos="85.15" arrival="333.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="0.54" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="bwd72" depart="271.00" type="ped">
+    <personinfo id="bwd72" depart="271.00" type="ped" speedFactor="1.01">
         <walk depart="271.00" departPos="85.15" arrival="333.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="1.47" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd80" depart="276.00" type="ped">
+    <personinfo id="fwd80" depart="276.00" type="ped" speedFactor="1.03">
         <walk depart="276.00" departPos="0.00" arrival="336.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.74" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="bwd73" depart="273.00" type="ped">
+    <personinfo id="bwd73" depart="273.00" type="ped" speedFactor="0.97">
         <walk depart="273.00" departPos="85.15" arrival="337.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.79" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd74" depart="276.00" type="ped">
+    <personinfo id="bwd74" depart="276.00" type="ped" speedFactor="0.99">
         <walk depart="276.00" departPos="85.15" arrival="338.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.05" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="bwd75" depart="277.00" type="ped">
+    <personinfo id="bwd75" depart="277.00" type="ped" speedFactor="1.02">
         <walk depart="277.00" departPos="85.15" arrival="339.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="2.13" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="bwd76" depart="278.00" type="ped">
+    <personinfo id="bwd76" depart="278.00" type="ped" speedFactor="1.01">
         <walk depart="278.00" departPos="85.15" arrival="339.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="0.34" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd81" depart="278.00" type="ped">
+    <personinfo id="fwd81" depart="278.00" type="ped" speedFactor="1.00">
         <walk depart="278.00" departPos="0.00" arrival="340.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="0.58" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd82" depart="280.00" type="ped">
+    <personinfo id="fwd82" depart="280.00" type="ped" speedFactor="1.02">
         <walk depart="280.00" departPos="0.00" arrival="341.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.71" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="bwd77" depart="279.00" type="ped">
+    <personinfo id="bwd77" depart="279.00" type="ped" speedFactor="0.97">
         <walk depart="279.00" departPos="85.15" arrival="342.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd78" depart="280.00" type="ped">
+    <personinfo id="bwd78" depart="280.00" type="ped" speedFactor="1.04">
         <walk depart="280.00" departPos="85.15" arrival="343.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="4.08" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="bwd79" depart="281.00" type="ped">
+    <personinfo id="bwd79" depart="281.00" type="ped" speedFactor="1.14">
         <walk depart="281.00" departPos="85.15" arrival="343.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="8.21" maxSpeed="1.58"/>
     </personinfo>
-    <personinfo id="bwd80" depart="285.00" type="ped">
+    <personinfo id="bwd80" depart="285.00" type="ped" speedFactor="1.11">
         <walk depart="285.00" departPos="85.15" arrival="343.00" arrivalPos="0.00" duration="58.00" routeLength="85.15" timeLoss="2.86" maxSpeed="1.54"/>
     </personinfo>
-    <personinfo id="fwd83" depart="281.00" type="ped">
+    <personinfo id="fwd83" depart="281.00" type="ped" speedFactor="0.97">
         <walk depart="281.00" departPos="0.00" arrival="345.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.60" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="fwd84" depart="290.00" type="ped">
+    <personinfo id="fwd84" depart="290.00" type="ped" speedFactor="1.15">
         <walk depart="290.00" departPos="0.00" arrival="345.00" arrivalPos="85.15" duration="55.00" routeLength="85.15" timeLoss="1.59" maxSpeed="1.59"/>
     </personinfo>
-    <personinfo id="fwd85" depart="291.00" type="ped">
+    <personinfo id="fwd85" depart="291.00" type="ped" speedFactor="0.98">
         <walk depart="291.00" departPos="0.00" arrival="354.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.18" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd81" depart="292.00" type="ped">
+    <personinfo id="bwd81" depart="292.00" type="ped" speedFactor="0.93">
         <walk depart="292.00" departPos="85.15" arrival="358.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.22" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="fwd86" depart="297.00" type="ped">
+    <personinfo id="fwd86" depart="297.00" type="ped" speedFactor="1.00">
         <walk depart="297.00" departPos="0.00" arrival="359.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="0.80" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd87" depart="303.00" type="ped">
+    <personinfo id="fwd87" depart="303.00" type="ped" speedFactor="1.04">
         <walk depart="303.00" departPos="0.00" arrival="362.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="0.21" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="bwd82" depart="295.00" type="ped">
+    <personinfo id="bwd82" depart="295.00" type="ped" speedFactor="0.88">
         <walk depart="295.00" departPos="85.15" arrival="365.00" arrivalPos="0.00" duration="70.00" routeLength="85.15" timeLoss="0.17" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="fwd88" depart="305.00" type="ped">
+    <personinfo id="fwd88" depart="305.00" type="ped" speedFactor="1.01">
         <walk depart="305.00" departPos="0.00" arrival="366.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.12" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="bwd83" depart="297.00" type="ped">
+    <personinfo id="bwd83" depart="297.00" type="ped" speedFactor="0.99">
         <walk depart="297.00" departPos="85.15" arrival="366.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="6.92" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="bwd84" depart="298.00" type="ped">
+    <personinfo id="bwd84" depart="298.00" type="ped" speedFactor="0.98">
         <walk depart="298.00" departPos="85.15" arrival="366.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="5.41" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="fwd89" depart="309.00" type="ped">
+    <personinfo id="fwd89" depart="309.00" type="ped" speedFactor="1.02">
         <walk depart="309.00" departPos="0.00" arrival="369.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.01" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="bwd85" depart="300.00" type="ped">
+    <personinfo id="bwd85" depart="300.00" type="ped" speedFactor="0.88">
         <walk depart="300.00" departPos="85.15" arrival="370.00" arrivalPos="0.00" duration="70.00" routeLength="85.15" timeLoss="0.27" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="fwd90" depart="311.00" type="ped">
+    <personinfo id="fwd90" depart="311.00" type="ped" speedFactor="1.02">
         <walk depart="311.00" departPos="0.00" arrival="372.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.70" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd91" depart="316.00" type="ped">
+    <personinfo id="fwd91" depart="316.00" type="ped" speedFactor="0.89">
         <walk depart="316.00" departPos="0.00" arrival="385.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="0.25" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd86" depart="304.00" type="ped">
+    <personinfo id="bwd86" depart="304.00" type="ped" speedFactor="0.71">
         <walk depart="304.00" departPos="85.15" arrival="391.00" arrivalPos="0.00" duration="87.00" routeLength="85.15" timeLoss="0.52" maxSpeed="0.98"/>
     </personinfo>
-    <personinfo id="bwd87" depart="309.00" type="ped">
+    <personinfo id="bwd87" depart="309.00" type="ped" speedFactor="0.96">
         <walk depart="309.00" departPos="85.15" arrival="391.00" arrivalPos="0.00" duration="82.00" routeLength="85.15" timeLoss="18.40" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd89" depart="316.00" type="ped">
+    <personinfo id="bwd89" depart="316.00" type="ped" speedFactor="1.01">
         <walk depart="316.00" departPos="85.15" arrival="392.00" arrivalPos="0.00" duration="76.00" routeLength="85.15" timeLoss="15.56" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="bwd88" depart="311.00" type="ped">
+    <personinfo id="bwd88" depart="311.00" type="ped" speedFactor="1.30">
         <walk depart="311.00" departPos="85.15" arrival="392.00" arrivalPos="0.00" duration="81.00" routeLength="85.15" timeLoss="33.83" maxSpeed="1.81"/>
     </personinfo>
-    <personinfo id="fwd92" depart="321.00" type="ped">
+    <personinfo id="fwd92" depart="321.00" type="ped" speedFactor="0.83">
         <walk depart="321.00" departPos="0.00" arrival="395.00" arrivalPos="85.15" duration="74.00" routeLength="85.15" timeLoss="0.45" maxSpeed="1.16"/>
     </personinfo>
-    <personinfo id="fwd93" depart="322.00" type="ped">
-        <walk depart="322.00" departPos="0.00" arrival="395.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="6.47" maxSpeed="1.28"/>
+    <personinfo id="fwd93" depart="322.00" type="ped" speedFactor="0.92">
+        <walk depart="322.00" departPos="0.00" arrival="395.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="6.46" maxSpeed="1.28"/>
     </personinfo>
-    <personinfo id="fwd94" depart="323.00" type="ped">
-        <walk depart="323.00" departPos="0.00" arrival="396.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="16.80" maxSpeed="1.52"/>
+    <personinfo id="fwd94" depart="323.00" type="ped" speedFactor="1.09">
+        <walk depart="323.00" departPos="0.00" arrival="396.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="16.81" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="fwd95" depart="325.00" type="ped">
+    <personinfo id="fwd95" depart="325.00" type="ped" speedFactor="1.06">
         <walk depart="325.00" departPos="0.00" arrival="396.00" arrivalPos="85.15" duration="71.00" routeLength="85.15" timeLoss="12.99" maxSpeed="1.47"/>
     </personinfo>
-    <personinfo id="fwd96" depart="329.00" type="ped">
+    <personinfo id="fwd96" depart="329.00" type="ped" speedFactor="1.01">
         <walk depart="329.00" departPos="0.00" arrival="396.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="6.29" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd97" depart="330.00" type="ped">
+    <personinfo id="fwd97" depart="330.00" type="ped" speedFactor="0.91">
         <walk depart="330.00" departPos="0.00" arrival="398.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="0.37" maxSpeed="1.26"/>
     </personinfo>
-    <personinfo id="fwd98" depart="332.00" type="ped">
+    <personinfo id="fwd98" depart="332.00" type="ped" speedFactor="1.12">
         <walk depart="332.00" departPos="0.00" arrival="398.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="11.34" maxSpeed="1.56"/>
     </personinfo>
-    <personinfo id="bwd90" depart="324.00" type="ped">
-        <walk depart="324.00" departPos="85.15" arrival="398.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="0.69" maxSpeed="1.16"/>
+    <personinfo id="bwd90" depart="324.00" type="ped" speedFactor="0.84">
+        <walk depart="324.00" departPos="85.15" arrival="398.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="0.68" maxSpeed="1.16"/>
     </personinfo>
-    <personinfo id="fwd99" depart="334.00" type="ped">
+    <personinfo id="fwd99" depart="334.00" type="ped" speedFactor="1.10">
         <walk depart="334.00" departPos="0.00" arrival="399.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="9.12" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="fwd100" depart="337.00" type="ped">
-        <walk depart="337.00" departPos="0.00" arrival="399.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="4.44" maxSpeed="1.48"/>
+    <personinfo id="fwd100" depart="337.00" type="ped" speedFactor="1.06">
+        <walk depart="337.00" departPos="0.00" arrival="399.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="4.43" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd101" depart="338.00" type="ped">
+    <personinfo id="fwd101" depart="338.00" type="ped" speedFactor="0.96">
         <walk depart="338.00" departPos="0.00" arrival="403.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.92" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd92" depart="332.00" type="ped">
+    <personinfo id="bwd92" depart="332.00" type="ped" speedFactor="1.13">
         <walk depart="332.00" departPos="85.15" arrival="405.00" arrivalPos="0.00" duration="73.00" routeLength="85.15" timeLoss="18.83" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="bwd91" depart="326.00" type="ped">
-        <walk depart="326.00" departPos="85.15" arrival="408.00" arrivalPos="0.00" duration="82.00" routeLength="85.15" timeLoss="0.52" maxSpeed="1.05"/>
+    <personinfo id="bwd91" depart="326.00" type="ped" speedFactor="0.75">
+        <walk depart="326.00" departPos="85.15" arrival="408.00" arrivalPos="0.00" duration="82.00" routeLength="85.15" timeLoss="0.52" maxSpeed="1.04"/>
     </personinfo>
-    <personinfo id="bwd93" depart="333.00" type="ped">
-        <walk depart="333.00" departPos="85.15" arrival="408.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="16.31" maxSpeed="1.45"/>
+    <personinfo id="bwd93" depart="333.00" type="ped" speedFactor="1.04">
+        <walk depart="333.00" departPos="85.15" arrival="408.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="16.32" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="fwd102" depart="345.00" type="ped">
+    <personinfo id="fwd102" depart="345.00" type="ped" speedFactor="0.97">
         <walk depart="345.00" departPos="0.00" arrival="409.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.68" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd94" depart="334.00" type="ped">
+    <personinfo id="bwd94" depart="334.00" type="ped" speedFactor="0.96">
         <walk depart="334.00" departPos="85.15" arrival="409.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="10.94" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd96" depart="343.00" type="ped">
+    <personinfo id="bwd96" depart="343.00" type="ped" speedFactor="0.96">
         <walk depart="343.00" departPos="85.15" arrival="409.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.43" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd97" depart="345.00" type="ped">
-        <walk depart="345.00" departPos="85.15" arrival="409.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="1.48" maxSpeed="1.36"/>
+    <personinfo id="bwd97" depart="345.00" type="ped" speedFactor="0.98">
+        <walk depart="345.00" departPos="85.15" arrival="409.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="1.47" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd95" depart="336.00" type="ped">
+    <personinfo id="bwd95" depart="336.00" type="ped" speedFactor="1.13">
         <walk depart="336.00" departPos="85.15" arrival="410.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="19.69" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="bwd98" depart="346.00" type="ped">
+    <personinfo id="bwd98" depart="346.00" type="ped" speedFactor="0.92">
         <walk depart="346.00" departPos="85.15" arrival="413.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="0.01" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="fwd103" depart="349.00" type="ped">
+    <personinfo id="fwd103" depart="349.00" type="ped" speedFactor="0.95">
         <walk depart="349.00" departPos="0.00" arrival="414.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.64" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="bwd99" depart="348.00" type="ped">
+    <personinfo id="bwd99" depart="348.00" type="ped" speedFactor="0.96">
         <walk depart="348.00" departPos="85.15" arrival="414.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.42" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd100" depart="349.00" type="ped">
+    <personinfo id="bwd100" depart="349.00" type="ped" speedFactor="1.26">
         <walk depart="349.00" departPos="85.15" arrival="414.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="16.43" maxSpeed="1.75"/>
     </personinfo>
-    <personinfo id="bwd101" depart="350.00" type="ped">
+    <personinfo id="bwd101" depart="350.00" type="ped" speedFactor="0.97">
         <walk depart="350.00" departPos="85.15" arrival="414.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.88" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd104" depart="352.00" type="ped">
+    <personinfo id="fwd104" depart="352.00" type="ped" speedFactor="0.89">
         <walk depart="352.00" departPos="0.00" arrival="421.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="0.42" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="fwd105" depart="358.00" type="ped">
+    <personinfo id="fwd105" depart="358.00" type="ped" speedFactor="1.07">
         <walk depart="358.00" departPos="0.00" arrival="421.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="5.85" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="fwd106" depart="359.00" type="ped">
+    <personinfo id="fwd106" depart="359.00" type="ped" speedFactor="1.01">
         <walk depart="359.00" departPos="0.00" arrival="422.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="2.54" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd107" depart="361.00" type="ped">
-        <walk depart="361.00" departPos="0.00" arrival="422.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="1.73" maxSpeed="1.44"/>
+    <personinfo id="fwd107" depart="361.00" type="ped" speedFactor="1.03">
+        <walk depart="361.00" departPos="0.00" arrival="422.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="1.74" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="bwd102" depart="351.00" type="ped">
+    <personinfo id="bwd102" depart="351.00" type="ped" speedFactor="0.87">
         <walk depart="351.00" departPos="85.15" arrival="422.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.20"/>
     </personinfo>
-    <personinfo id="bwd103" depart="355.00" type="ped">
+    <personinfo id="bwd103" depart="355.00" type="ped" speedFactor="1.05">
         <walk depart="355.00" departPos="85.15" arrival="423.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="9.68" maxSpeed="1.46"/>
     </personinfo>
-    <personinfo id="bwd104" depart="365.00" type="ped">
+    <personinfo id="bwd104" depart="365.00" type="ped" speedFactor="0.98">
         <walk depart="365.00" departPos="85.15" arrival="428.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.47" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="fwd108" depart="373.00" type="ped">
+    <personinfo id="fwd108" depart="373.00" type="ped" speedFactor="1.06">
         <walk depart="373.00" departPos="0.00" arrival="431.00" arrivalPos="85.15" duration="58.00" routeLength="85.15" timeLoss="0.42" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd109" depart="374.00" type="ped">
+    <personinfo id="fwd109" depart="374.00" type="ped" speedFactor="0.96">
         <walk depart="374.00" departPos="0.00" arrival="438.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.11" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd105" depart="370.00" type="ped">
+    <personinfo id="bwd105" depart="370.00" type="ped" speedFactor="0.85">
         <walk depart="370.00" departPos="85.15" arrival="442.00" arrivalPos="0.00" duration="72.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.19"/>
     </personinfo>
-    <personinfo id="bwd106" depart="372.00" type="ped">
+    <personinfo id="bwd106" depart="372.00" type="ped" speedFactor="0.97">
         <walk depart="372.00" departPos="85.15" arrival="443.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="8.04" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd110" depart="380.00" type="ped">
-        <walk depart="380.00" departPos="0.00" arrival="447.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.92" maxSpeed="1.29"/>
+    <personinfo id="fwd110" depart="380.00" type="ped" speedFactor="0.93">
+        <walk depart="380.00" departPos="0.00" arrival="447.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.91" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="bwd107" depart="382.00" type="ped">
-        <walk depart="382.00" departPos="85.15" arrival="453.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.62" maxSpeed="1.21"/>
+    <personinfo id="bwd107" depart="382.00" type="ped" speedFactor="0.87">
+        <walk depart="382.00" departPos="85.15" arrival="453.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.63" maxSpeed="1.21"/>
     </personinfo>
-    <personinfo id="bwd108" depart="385.00" type="ped">
+    <personinfo id="bwd108" depart="385.00" type="ped" speedFactor="1.21">
         <walk depart="385.00" departPos="85.15" arrival="453.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="17.22" maxSpeed="1.68"/>
     </personinfo>
-    <personinfo id="bwd109" depart="386.00" type="ped">
+    <personinfo id="bwd109" depart="386.00" type="ped" speedFactor="0.99">
         <walk depart="386.00" departPos="85.15" arrival="454.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="6.08" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd110" depart="388.00" type="ped">
+    <personinfo id="bwd110" depart="388.00" type="ped" speedFactor="0.97">
         <walk depart="388.00" departPos="85.15" arrival="454.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="2.73" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd111" depart="391.00" type="ped">
-        <walk depart="391.00" departPos="85.15" arrival="454.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="1.26" maxSpeed="1.38"/>
+    <personinfo id="bwd111" depart="391.00" type="ped" speedFactor="0.99">
+        <walk depart="391.00" departPos="85.15" arrival="454.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="1.27" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd112" depart="393.00" type="ped">
+    <personinfo id="bwd112" depart="393.00" type="ped" speedFactor="1.08">
         <walk depart="393.00" departPos="85.15" arrival="455.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="5.25" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd111" depart="386.00" type="ped">
+    <personinfo id="fwd111" depart="386.00" type="ped" speedFactor="0.87">
         <walk depart="386.00" departPos="0.00" arrival="459.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="2.20" maxSpeed="1.20"/>
     </personinfo>
-    <personinfo id="bwd113" depart="394.00" type="ped">
+    <personinfo id="bwd113" depart="394.00" type="ped" speedFactor="0.95">
         <walk depart="394.00" departPos="85.15" arrival="459.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="0.20" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="fwd112" depart="388.00" type="ped">
+    <personinfo id="fwd112" depart="388.00" type="ped" speedFactor="1.10">
         <walk depart="388.00" departPos="0.00" arrival="460.00" arrivalPos="85.15" duration="72.00" routeLength="85.15" timeLoss="16.19" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="fwd113" depart="390.00" type="ped">
+    <personinfo id="fwd113" depart="390.00" type="ped" speedFactor="1.01">
         <walk depart="390.00" departPos="0.00" arrival="460.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="9.24" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd114" depart="391.00" type="ped">
+    <personinfo id="fwd114" depart="391.00" type="ped" speedFactor="1.10">
         <walk depart="391.00" departPos="0.00" arrival="460.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="13.08" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="bwd114" depart="396.00" type="ped">
+    <personinfo id="bwd114" depart="396.00" type="ped" speedFactor="1.02">
         <walk depart="396.00" departPos="85.15" arrival="460.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="3.82" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd115" depart="401.00" type="ped">
+    <personinfo id="fwd115" depart="401.00" type="ped" speedFactor="0.92">
         <walk depart="401.00" departPos="0.00" arrival="471.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="3.51" maxSpeed="1.28"/>
     </personinfo>
-    <personinfo id="fwd116" depart="402.00" type="ped">
+    <personinfo id="fwd116" depart="402.00" type="ped" speedFactor="1.18">
         <walk depart="402.00" departPos="0.00" arrival="471.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="16.92" maxSpeed="1.63"/>
     </personinfo>
-    <personinfo id="fwd117" depart="403.00" type="ped">
-        <walk depart="403.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="7.96" maxSpeed="1.39"/>
+    <personinfo id="fwd117" depart="403.00" type="ped" speedFactor="1.00">
+        <walk depart="403.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="7.95" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd118" depart="404.00" type="ped">
+    <personinfo id="fwd118" depart="404.00" type="ped" speedFactor="0.99">
         <walk depart="404.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="6.16" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="fwd119" depart="410.00" type="ped">
+    <personinfo id="fwd119" depart="410.00" type="ped" speedFactor="1.07">
         <walk depart="410.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="4.75" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="bwd115" depart="397.00" type="ped">
+    <personinfo id="bwd115" depart="397.00" type="ped" speedFactor="0.76">
         <walk depart="397.00" departPos="85.15" arrival="478.00" arrivalPos="0.00" duration="81.00" routeLength="85.15" timeLoss="0.11" maxSpeed="1.05"/>
     </personinfo>
-    <personinfo id="bwd116" depart="403.00" type="ped">
+    <personinfo id="bwd116" depart="403.00" type="ped" speedFactor="1.04">
         <walk depart="403.00" departPos="85.15" arrival="479.00" arrivalPos="0.00" duration="76.00" routeLength="85.15" timeLoss="16.91" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="bwd117" depart="404.00" type="ped">
+    <personinfo id="bwd117" depart="404.00" type="ped" speedFactor="0.98">
         <walk depart="404.00" departPos="85.15" arrival="479.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="12.37" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd118" depart="407.00" type="ped">
+    <personinfo id="bwd118" depart="407.00" type="ped" speedFactor="0.89">
         <walk depart="407.00" departPos="85.15" arrival="479.00" arrivalPos="0.00" duration="72.00" routeLength="85.15" timeLoss="3.12" maxSpeed="1.24"/>
     </personinfo>
-    <personinfo id="bwd119" depart="408.00" type="ped">
+    <personinfo id="bwd119" depart="408.00" type="ped" speedFactor="1.10">
         <walk depart="408.00" departPos="85.15" arrival="480.00" arrivalPos="0.00" duration="72.00" routeLength="85.15" timeLoss="16.45" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="bwd120" depart="409.00" type="ped">
+    <personinfo id="bwd120" depart="409.00" type="ped" speedFactor="1.19">
         <walk depart="409.00" departPos="85.15" arrival="480.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="19.66" maxSpeed="1.66"/>
     </personinfo>
-    <personinfo id="bwd121" depart="416.00" type="ped">
-        <walk depart="416.00" departPos="85.15" arrival="481.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="1.76" maxSpeed="1.35"/>
+    <personinfo id="bwd121" depart="416.00" type="ped" speedFactor="0.97">
+        <walk depart="416.00" departPos="85.15" arrival="480.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.76" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="fwd120" depart="416.00" type="ped">
+    <personinfo id="fwd120" depart="416.00" type="ped" speedFactor="0.94">
         <walk depart="416.00" departPos="0.00" arrival="482.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.88" maxSpeed="1.31"/>
     </personinfo>
-    <personinfo id="fwd121" depart="425.00" type="ped">
+    <personinfo id="fwd121" depart="425.00" type="ped" speedFactor="1.10">
         <walk depart="425.00" departPos="0.00" arrival="482.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="1.43" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="bwd122" depart="420.00" type="ped">
-        <walk depart="420.00" departPos="85.15" arrival="484.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.69" maxSpeed="1.35"/>
+    <personinfo id="bwd122" depart="420.00" type="ped" speedFactor="0.97">
+        <walk depart="420.00" departPos="85.15" arrival="484.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.69" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd123" depart="424.00" type="ped">
+    <personinfo id="bwd123" depart="424.00" type="ped" speedFactor="1.09">
         <walk depart="424.00" departPos="85.15" arrival="484.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="4.00" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="bwd124" depart="425.00" type="ped">
-        <walk depart="425.00" departPos="85.15" arrival="484.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="5.00" maxSpeed="1.58"/>
+    <personinfo id="bwd124" depart="425.00" type="ped" speedFactor="1.14">
+        <walk depart="425.00" departPos="85.15" arrival="484.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="4.99" maxSpeed="1.58"/>
     </personinfo>
-    <personinfo id="fwd122" depart="426.00" type="ped">
+    <personinfo id="fwd122" depart="426.00" type="ped" speedFactor="1.03">
         <walk depart="426.00" departPos="0.00" arrival="486.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.56" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="fwd123" depart="434.00" type="ped">
+    <personinfo id="fwd123" depart="434.00" type="ped" speedFactor="1.02">
         <walk depart="434.00" departPos="0.00" arrival="494.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.09" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="fwd124" depart="435.00" type="ped">
+    <personinfo id="fwd124" depart="435.00" type="ped" speedFactor="1.06">
         <walk depart="435.00" departPos="0.00" arrival="495.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="2.21" maxSpeed="1.47"/>
     </personinfo>
-    <personinfo id="fwd125" depart="437.00" type="ped">
+    <personinfo id="fwd125" depart="437.00" type="ped" speedFactor="1.15">
         <walk depart="437.00" departPos="0.00" arrival="495.00" arrivalPos="85.15" duration="58.00" routeLength="85.15" timeLoss="4.82" maxSpeed="1.60"/>
     </personinfo>
-    <personinfo id="bwd125" depart="440.00" type="ped">
+    <personinfo id="bwd125" depart="440.00" type="ped" speedFactor="1.05">
         <walk depart="440.00" departPos="85.15" arrival="499.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="0.64" maxSpeed="1.46"/>
     </personinfo>
-    <personinfo id="fwd126" depart="440.00" type="ped">
+    <personinfo id="fwd126" depart="440.00" type="ped" speedFactor="1.03">
         <walk depart="440.00" departPos="0.00" arrival="500.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.61" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd126" depart="446.00" type="ped">
+    <personinfo id="bwd126" depart="446.00" type="ped" speedFactor="0.96">
         <walk depart="446.00" departPos="85.15" arrival="510.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="bwd127" depart="447.00" type="ped">
+    <personinfo id="bwd127" depart="447.00" type="ped" speedFactor="1.10">
         <walk depart="447.00" departPos="85.15" arrival="511.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="8.38" maxSpeed="1.53"/>
     </personinfo>
-    <personinfo id="bwd128" depart="452.00" type="ped">
+    <personinfo id="bwd128" depart="452.00" type="ped" speedFactor="0.98">
         <walk depart="452.00" departPos="85.15" arrival="515.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.66" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="bwd129" depart="453.00" type="ped">
-        <walk depart="453.00" departPos="85.15" arrival="516.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.62" maxSpeed="1.36"/>
+    <personinfo id="bwd129" depart="453.00" type="ped" speedFactor="0.98">
+        <walk depart="453.00" departPos="85.15" arrival="516.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.61" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd130" depart="454.00" type="ped">
+    <personinfo id="bwd130" depart="454.00" type="ped" speedFactor="1.16">
         <walk depart="454.00" departPos="85.15" arrival="516.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="9.02" maxSpeed="1.61"/>
     </personinfo>
-    <personinfo id="bwd131" depart="457.00" type="ped">
+    <personinfo id="bwd131" depart="457.00" type="ped" speedFactor="1.07">
         <walk depart="457.00" departPos="85.15" arrival="516.00" arrivalPos="0.00" duration="59.00" routeLength="85.15" timeLoss="1.71" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="fwd127" depart="443.00" type="ped">
+    <personinfo id="fwd127" depart="443.00" type="ped" speedFactor="0.82">
         <walk depart="443.00" departPos="0.00" arrival="518.00" arrivalPos="85.15" duration="75.00" routeLength="85.15" timeLoss="0.43" maxSpeed="1.14"/>
     </personinfo>
-    <personinfo id="fwd128" depart="447.00" type="ped">
+    <personinfo id="fwd128" depart="447.00" type="ped" speedFactor="1.12">
         <walk depart="447.00" departPos="0.00" arrival="518.00" arrivalPos="85.15" duration="71.00" routeLength="85.15" timeLoss="16.18" maxSpeed="1.55"/>
     </personinfo>
-    <personinfo id="fwd129" depart="454.00" type="ped">
+    <personinfo id="fwd129" depart="454.00" type="ped" speedFactor="1.01">
         <walk depart="454.00" departPos="0.00" arrival="519.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="4.20" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd130" depart="458.00" type="ped">
+    <personinfo id="fwd130" depart="458.00" type="ped" speedFactor="1.03">
         <walk depart="458.00" departPos="0.00" arrival="519.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="1.61" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="fwd131" depart="459.00" type="ped">
+    <personinfo id="fwd131" depart="459.00" type="ped" speedFactor="1.07">
         <walk depart="459.00" departPos="0.00" arrival="519.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="2.61" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd132" depart="464.00" type="ped">
+    <personinfo id="fwd132" depart="464.00" type="ped" speedFactor="0.96">
         <walk depart="464.00" departPos="0.00" arrival="528.00" arrivalPos="85.15" duration="64.00" routeLength="85.15" timeLoss="0.12" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="fwd133" depart="471.00" type="ped">
+    <personinfo id="fwd133" depart="471.00" type="ped" speedFactor="1.04">
         <walk depart="471.00" departPos="0.00" arrival="531.00" arrivalPos="85.15" duration="60.00" routeLength="85.15" timeLoss="0.90" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="fwd134" depart="475.00" type="ped">
+    <personinfo id="fwd134" depart="475.00" type="ped" speedFactor="1.23">
         <walk depart="475.00" departPos="0.00" arrival="531.00" arrivalPos="85.15" duration="56.00" routeLength="85.15" timeLoss="5.99" maxSpeed="1.70"/>
     </personinfo>
-    <personinfo id="bwd132" depart="466.00" type="ped">
+    <personinfo id="bwd132" depart="466.00" type="ped" speedFactor="0.94">
         <walk depart="466.00" departPos="85.15" arrival="532.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.58" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="bwd133" depart="468.00" type="ped">
-        <walk depart="468.00" departPos="85.15" arrival="532.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="1.48" maxSpeed="1.36"/>
+    <personinfo id="bwd133" depart="468.00" type="ped" speedFactor="0.98">
+        <walk depart="468.00" departPos="85.15" arrival="532.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="1.49" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd134" depart="470.00" type="ped">
+    <personinfo id="bwd134" depart="470.00" type="ped" speedFactor="1.04">
         <walk depart="470.00" departPos="85.15" arrival="533.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="4.21" maxSpeed="1.45"/>
     </personinfo>
-    <personinfo id="fwd135" depart="477.00" type="ped">
+    <personinfo id="fwd135" depart="477.00" type="ped" speedFactor="1.01">
         <walk depart="477.00" departPos="0.00" arrival="538.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.40" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd136" depart="479.00" type="ped">
+    <personinfo id="fwd136" depart="479.00" type="ped" speedFactor="1.12">
         <walk depart="479.00" departPos="0.00" arrival="538.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="4.24" maxSpeed="1.55"/>
     </personinfo>
-    <personinfo id="bwd135" depart="476.00" type="ped">
+    <personinfo id="bwd135" depart="476.00" type="ped" speedFactor="0.98">
         <walk depart="476.00" departPos="85.15" arrival="539.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.53" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="fwd137" depart="480.00" type="ped">
+    <personinfo id="fwd137" depart="480.00" type="ped" speedFactor="1.02">
         <walk depart="480.00" departPos="0.00" arrival="541.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.61" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd138" depart="484.00" type="ped">
+    <personinfo id="fwd138" depart="484.00" type="ped" speedFactor="1.00">
         <walk depart="484.00" departPos="0.00" arrival="545.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="bwd136" depart="481.00" type="ped">
+    <personinfo id="bwd136" depart="481.00" type="ped" speedFactor="0.96">
         <walk depart="481.00" departPos="85.15" arrival="546.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="0.90" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd137" depart="482.00" type="ped">
+    <personinfo id="bwd137" depart="482.00" type="ped" speedFactor="1.06">
         <walk depart="482.00" departPos="85.15" arrival="546.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="6.00" maxSpeed="1.47"/>
     </personinfo>
-    <personinfo id="bwd138" depart="487.00" type="ped">
+    <personinfo id="bwd138" depart="487.00" type="ped" speedFactor="0.99">
         <walk depart="487.00" departPos="85.15" arrival="550.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.89" maxSpeed="1.37"/>
     </personinfo>
-    <personinfo id="bwd139" depart="489.00" type="ped">
+    <personinfo id="bwd139" depart="489.00" type="ped" speedFactor="0.99">
         <walk depart="489.00" departPos="85.15" arrival="551.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="0.15" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="bwd140" depart="492.00" type="ped">
+    <personinfo id="bwd140" depart="492.00" type="ped" speedFactor="1.05">
         <walk depart="492.00" departPos="85.15" arrival="552.00" arrivalPos="0.00" duration="60.00" routeLength="85.15" timeLoss="1.48" maxSpeed="1.46"/>
     </personinfo>
-    <personinfo id="fwd139" depart="488.00" type="ped">
+    <personinfo id="fwd139" depart="488.00" type="ped" speedFactor="0.95">
         <walk depart="488.00" departPos="0.00" arrival="553.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="0.70" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="fwd140" depart="491.00" type="ped">
-        <walk depart="491.00" departPos="0.00" arrival="553.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="6.95" maxSpeed="1.55"/>
+    <personinfo id="fwd140" depart="491.00" type="ped" speedFactor="1.11">
+        <walk depart="491.00" departPos="0.00" arrival="553.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="6.96" maxSpeed="1.55"/>
     </personinfo>
-    <personinfo id="fwd141" depart="494.00" type="ped">
+    <personinfo id="fwd141" depart="494.00" type="ped" speedFactor="1.16">
         <walk depart="494.00" departPos="0.00" arrival="553.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="6.34" maxSpeed="1.62"/>
     </personinfo>
-    <personinfo id="bwd141" depart="493.00" type="ped">
+    <personinfo id="bwd141" depart="493.00" type="ped" speedFactor="0.90">
         <walk depart="493.00" departPos="85.15" arrival="561.00" arrivalPos="0.00" duration="68.00" routeLength="85.15" timeLoss="0.15" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="bwd142" depart="500.00" type="ped">
+    <personinfo id="bwd142" depart="500.00" type="ped" speedFactor="1.09">
         <walk depart="500.00" departPos="85.15" arrival="562.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="5.97" maxSpeed="1.52"/>
     </personinfo>
-    <personinfo id="bwd143" depart="501.00" type="ped">
+    <personinfo id="bwd143" depart="501.00" type="ped" speedFactor="1.11">
         <walk depart="501.00" departPos="85.15" arrival="562.00" arrivalPos="0.00" duration="61.00" routeLength="85.15" timeLoss="5.88" maxSpeed="1.54"/>
     </personinfo>
-    <personinfo id="bwd144" depart="507.00" type="ped">
+    <personinfo id="bwd144" depart="507.00" type="ped" speedFactor="1.07">
         <walk depart="507.00" departPos="85.15" arrival="565.00" arrivalPos="0.00" duration="58.00" routeLength="85.15" timeLoss="0.87" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="bwd145" depart="510.00" type="ped">
+    <personinfo id="bwd145" depart="510.00" type="ped" speedFactor="1.21">
         <walk depart="510.00" departPos="85.15" arrival="565.00" arrivalPos="0.00" duration="55.00" routeLength="85.15" timeLoss="4.35" maxSpeed="1.68"/>
     </personinfo>
-    <personinfo id="fwd142" depart="508.00" type="ped">
+    <personinfo id="fwd142" depart="508.00" type="ped" speedFactor="0.94">
         <walk depart="508.00" departPos="0.00" arrival="574.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="0.53" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="fwd143" depart="512.00" type="ped">
+    <personinfo id="fwd143" depart="512.00" type="ped" speedFactor="1.13">
         <walk depart="512.00" departPos="0.00" arrival="574.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="7.70" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="bwd146" depart="522.00" type="ped">
+    <personinfo id="bwd146" depart="522.00" type="ped" speedFactor="1.15">
         <walk depart="522.00" departPos="85.15" arrival="576.00" arrivalPos="0.00" duration="54.00" routeLength="85.15" timeLoss="0.72" maxSpeed="1.60"/>
     </personinfo>
-    <personinfo id="bwd147" depart="523.00" type="ped">
+    <personinfo id="bwd147" depart="523.00" type="ped" speedFactor="1.13">
         <walk depart="523.00" departPos="85.15" arrival="578.00" arrivalPos="0.00" duration="55.00" routeLength="85.15" timeLoss="0.83" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="bwd148" depart="525.00" type="ped">
-        <walk depart="525.00" departPos="85.15" arrival="588.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.14" maxSpeed="1.35"/>
+    <personinfo id="bwd148" depart="525.00" type="ped" speedFactor="0.98">
+        <walk depart="525.00" departPos="85.15" arrival="588.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="0.13" maxSpeed="1.35"/>
     </personinfo>
-    <personinfo id="bwd149" depart="533.00" type="ped">
+    <personinfo id="bwd149" depart="533.00" type="ped" speedFactor="1.18">
         <walk depart="533.00" departPos="85.15" arrival="589.00" arrivalPos="0.00" duration="56.00" routeLength="85.15" timeLoss="4.03" maxSpeed="1.64"/>
     </personinfo>
-    <personinfo id="bwd150" depart="534.00" type="ped">
+    <personinfo id="bwd150" depart="534.00" type="ped" speedFactor="1.13">
         <walk depart="534.00" departPos="85.15" arrival="589.00" arrivalPos="0.00" duration="55.00" routeLength="85.15" timeLoss="0.95" maxSpeed="1.58"/>
     </personinfo>
-    <personinfo id="bwd151" depart="539.00" type="ped">
+    <personinfo id="bwd151" depart="539.00" type="ped" speedFactor="1.16">
         <walk depart="539.00" departPos="85.15" arrival="592.00" arrivalPos="0.00" duration="53.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.61"/>
     </personinfo>
-    <personinfo id="fwd145" depart="521.00" type="ped">
+    <personinfo id="fwd145" depart="521.00" type="ped" speedFactor="1.14">
         <walk depart="521.00" departPos="0.00" arrival="601.00" arrivalPos="85.15" duration="80.00" routeLength="85.15" timeLoss="26.26" maxSpeed="1.58"/>
     </personinfo>
-    <personinfo id="fwd144" depart="520.00" type="ped">
-        <walk depart="520.00" departPos="0.00" arrival="604.00" arrivalPos="85.15" duration="84.00" routeLength="85.15" timeLoss="0.42" maxSpeed="1.02"/>
+    <personinfo id="fwd144" depart="520.00" type="ped" speedFactor="0.73">
+        <walk depart="520.00" departPos="0.00" arrival="604.00" arrivalPos="85.15" duration="84.00" routeLength="85.15" timeLoss="0.43" maxSpeed="1.02"/>
     </personinfo>
-    <personinfo id="fwd146" depart="526.00" type="ped">
+    <personinfo id="fwd146" depart="526.00" type="ped" speedFactor="0.89">
         <walk depart="526.00" departPos="0.00" arrival="604.00" arrivalPos="85.15" duration="78.00" routeLength="85.15" timeLoss="8.87" maxSpeed="1.23"/>
     </personinfo>
-    <personinfo id="fwd147" depart="531.00" type="ped">
+    <personinfo id="fwd147" depart="531.00" type="ped" speedFactor="1.00">
         <walk depart="531.00" departPos="0.00" arrival="605.00" arrivalPos="85.15" duration="74.00" routeLength="85.15" timeLoss="12.83" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd148" depart="532.00" type="ped">
+    <personinfo id="fwd148" depart="532.00" type="ped" speedFactor="0.97">
         <walk depart="532.00" departPos="0.00" arrival="605.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="9.59" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="fwd149" depart="535.00" type="ped">
+    <personinfo id="fwd149" depart="535.00" type="ped" speedFactor="1.04">
         <walk depart="535.00" departPos="0.00" arrival="605.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="11.04" maxSpeed="1.44"/>
     </personinfo>
-    <personinfo id="fwd150" depart="536.00" type="ped">
+    <personinfo id="fwd150" depart="536.00" type="ped" speedFactor="0.96">
         <walk depart="536.00" departPos="0.00" arrival="606.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="6.34" maxSpeed="1.34"/>
     </personinfo>
-    <personinfo id="fwd151" depart="540.00" type="ped">
+    <personinfo id="fwd151" depart="540.00" type="ped" speedFactor="1.00">
         <walk depart="540.00" departPos="0.00" arrival="606.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="4.97" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd152" depart="541.00" type="ped">
+    <personinfo id="fwd152" depart="541.00" type="ped" speedFactor="1.07">
         <walk depart="541.00" departPos="0.00" arrival="607.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="8.78" maxSpeed="1.49"/>
     </personinfo>
-    <personinfo id="fwd153" depart="543.00" type="ped">
-        <walk depart="543.00" departPos="0.00" arrival="610.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.87" maxSpeed="1.29"/>
+    <personinfo id="fwd153" depart="543.00" type="ped" speedFactor="0.93">
+        <walk depart="543.00" departPos="0.00" arrival="610.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.86" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="fwd154" depart="545.00" type="ped">
+    <personinfo id="fwd154" depart="545.00" type="ped" speedFactor="1.06">
         <walk depart="545.00" departPos="0.00" arrival="610.00" arrivalPos="85.15" duration="65.00" routeLength="85.15" timeLoss="7.41" maxSpeed="1.48"/>
     </personinfo>
-    <personinfo id="fwd155" depart="549.00" type="ped">
-        <walk depart="549.00" departPos="0.00" arrival="610.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="6.43" maxSpeed="1.56"/>
+    <personinfo id="fwd155" depart="549.00" type="ped" speedFactor="1.12">
+        <walk depart="549.00" departPos="0.00" arrival="610.00" arrivalPos="85.15" duration="61.00" routeLength="85.15" timeLoss="6.44" maxSpeed="1.56"/>
     </personinfo>
-    <personinfo id="fwd156" depart="555.00" type="ped">
+    <personinfo id="fwd156" depart="555.00" type="ped" speedFactor="1.18">
         <walk depart="555.00" departPos="0.00" arrival="611.00" arrivalPos="85.15" duration="56.00" routeLength="85.15" timeLoss="4.00" maxSpeed="1.64"/>
     </personinfo>
-    <personinfo id="bwd152" depart="540.00" type="ped">
+    <personinfo id="bwd152" depart="540.00" type="ped" speedFactor="0.87">
         <walk depart="540.00" departPos="85.15" arrival="611.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.84" maxSpeed="1.21"/>
     </personinfo>
-    <personinfo id="bwd153" depart="541.00" type="ped">
-        <walk depart="541.00" departPos="85.15" arrival="612.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.27" maxSpeed="1.20"/>
+    <personinfo id="bwd153" depart="541.00" type="ped" speedFactor="0.87">
+        <walk depart="541.00" departPos="85.15" arrival="612.00" arrivalPos="0.00" duration="71.00" routeLength="85.15" timeLoss="0.26" maxSpeed="1.20"/>
     </personinfo>
-    <personinfo id="fwd157" depart="557.00" type="ped">
+    <personinfo id="fwd157" depart="557.00" type="ped" speedFactor="1.08">
         <walk depart="557.00" departPos="0.00" arrival="614.00" arrivalPos="85.15" duration="57.00" routeLength="85.15" timeLoss="0.17" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd158" depart="558.00" type="ped">
+    <personinfo id="fwd158" depart="558.00" type="ped" speedFactor="0.91">
         <walk depart="558.00" departPos="0.00" arrival="626.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="0.61" maxSpeed="1.26"/>
     </personinfo>
-    <personinfo id="fwd159" depart="560.00" type="ped">
+    <personinfo id="fwd159" depart="560.00" type="ped" speedFactor="1.14">
         <walk depart="560.00" departPos="0.00" arrival="626.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="12.32" maxSpeed="1.59"/>
     </personinfo>
-    <personinfo id="bwd154" depart="551.00" type="ped">
-        <walk depart="551.00" departPos="85.15" arrival="626.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="0.66" maxSpeed="1.15"/>
+    <personinfo id="bwd154" depart="551.00" type="ped" speedFactor="0.82">
+        <walk depart="551.00" departPos="85.15" arrival="626.00" arrivalPos="0.00" duration="75.00" routeLength="85.15" timeLoss="0.65" maxSpeed="1.15"/>
     </personinfo>
-    <personinfo id="bwd155" depart="565.00" type="ped">
+    <personinfo id="bwd155" depart="565.00" type="ped" speedFactor="0.94">
         <walk depart="565.00" departPos="85.15" arrival="631.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.58" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="bwd156" depart="568.00" type="ped">
+    <personinfo id="bwd156" depart="568.00" type="ped" speedFactor="1.01">
         <walk depart="568.00" departPos="85.15" arrival="631.00" arrivalPos="0.00" duration="63.00" routeLength="85.15" timeLoss="2.14" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="bwd157" depart="569.00" type="ped">
-        <walk depart="569.00" departPos="85.15" arrival="636.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="0.75" maxSpeed="1.29"/>
+    <personinfo id="bwd157" depart="569.00" type="ped" speedFactor="0.93">
+        <walk depart="569.00" departPos="85.15" arrival="636.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="0.76" maxSpeed="1.29"/>
     </personinfo>
-    <personinfo id="bwd158" depart="570.00" type="ped">
+    <personinfo id="bwd158" depart="570.00" type="ped" speedFactor="0.95">
         <walk depart="570.00" departPos="85.15" arrival="636.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="1.58" maxSpeed="1.32"/>
     </personinfo>
-    <personinfo id="bwd159" depart="572.00" type="ped">
+    <personinfo id="bwd159" depart="572.00" type="ped" speedFactor="1.00">
         <walk depart="572.00" departPos="85.15" arrival="636.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="2.95" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd160" depart="567.00" type="ped">
+    <personinfo id="fwd160" depart="567.00" type="ped" speedFactor="0.88">
         <walk depart="567.00" departPos="0.00" arrival="637.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="0.22" maxSpeed="1.22"/>
     </personinfo>
-    <personinfo id="fwd161" depart="568.00" type="ped">
+    <personinfo id="fwd161" depart="568.00" type="ped" speedFactor="1.08">
         <walk depart="568.00" departPos="0.00" arrival="638.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="13.11" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd162" depart="571.00" type="ped">
+    <personinfo id="fwd162" depart="571.00" type="ped" speedFactor="0.99">
         <walk depart="571.00" departPos="0.00" arrival="638.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="5.25" maxSpeed="1.38"/>
     </personinfo>
-    <personinfo id="fwd163" depart="572.00" type="ped">
+    <personinfo id="fwd163" depart="572.00" type="ped" speedFactor="1.13">
         <walk depart="572.00" departPos="0.00" arrival="638.00" arrivalPos="85.15" duration="66.00" routeLength="85.15" timeLoss="11.60" maxSpeed="1.57"/>
     </personinfo>
-    <personinfo id="fwd164" depart="581.00" type="ped">
+    <personinfo id="fwd164" depart="581.00" type="ped" speedFactor="1.05">
         <walk depart="581.00" departPos="0.00" arrival="640.00" arrivalPos="85.15" duration="59.00" routeLength="85.15" timeLoss="0.72" maxSpeed="1.46"/>
     </personinfo>
-    <personinfo id="bwd160" depart="578.00" type="ped">
+    <personinfo id="bwd160" depart="578.00" type="ped" speedFactor="0.90">
         <walk depart="578.00" departPos="85.15" arrival="647.00" arrivalPos="0.00" duration="69.00" routeLength="85.15" timeLoss="0.80" maxSpeed="1.25"/>
     </personinfo>
-    <personinfo id="bwd161" depart="580.00" type="ped">
+    <personinfo id="bwd161" depart="580.00" type="ped" speedFactor="0.96">
         <walk depart="580.00" departPos="85.15" arrival="647.00" arrivalPos="0.00" duration="67.00" routeLength="85.15" timeLoss="2.93" maxSpeed="1.33"/>
     </personinfo>
-    <personinfo id="bwd162" depart="583.00" type="ped">
+    <personinfo id="bwd162" depart="583.00" type="ped" speedFactor="1.02">
         <walk depart="583.00" departPos="85.15" arrival="647.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="4.02" maxSpeed="1.42"/>
     </personinfo>
-    <personinfo id="bwd163" depart="584.00" type="ped">
+    <personinfo id="bwd163" depart="584.00" type="ped" speedFactor="1.01">
         <walk depart="584.00" departPos="85.15" arrival="648.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="3.30" maxSpeed="1.40"/>
     </personinfo>
-    <personinfo id="fwd165" depart="589.00" type="ped">
+    <personinfo id="fwd165" depart="589.00" type="ped" speedFactor="0.91">
         <walk depart="589.00" departPos="0.00" arrival="656.00" arrivalPos="85.15" duration="67.00" routeLength="85.15" timeLoss="0.00" maxSpeed="1.27"/>
     </personinfo>
-    <personinfo id="fwd166" depart="594.00" type="ped">
+    <personinfo id="fwd166" depart="594.00" type="ped" speedFactor="1.00">
         <walk depart="594.00" departPos="0.00" arrival="657.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="1.96" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd167" depart="595.00" type="ped">
-        <walk depart="595.00" departPos="0.00" arrival="657.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="2.45" maxSpeed="1.43"/>
+    <personinfo id="fwd167" depart="595.00" type="ped" speedFactor="1.03">
+        <walk depart="595.00" departPos="0.00" arrival="657.00" arrivalPos="85.15" duration="62.00" routeLength="85.15" timeLoss="2.46" maxSpeed="1.43"/>
     </personinfo>
-    <personinfo id="bwd164" depart="594.00" type="ped">
+    <personinfo id="bwd164" depart="594.00" type="ped" speedFactor="0.93">
         <walk depart="594.00" departPos="85.15" arrival="660.00" arrivalPos="0.00" duration="66.00" routeLength="85.15" timeLoss="0.42" maxSpeed="1.30"/>
     </personinfo>
-    <personinfo id="bwd165" depart="595.00" type="ped">
-        <walk depart="595.00" departPos="85.15" arrival="660.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="13.24" maxSpeed="1.64"/>
+    <personinfo id="bwd165" depart="595.00" type="ped" speedFactor="1.18">
+        <walk depart="595.00" departPos="85.15" arrival="660.00" arrivalPos="0.00" duration="65.00" routeLength="85.15" timeLoss="13.23" maxSpeed="1.64"/>
     </personinfo>
-    <personinfo id="fwd168" depart="599.00" type="ped">
+    <personinfo id="fwd168" depart="599.00" type="ped" speedFactor="0.98">
         <walk depart="599.00" departPos="0.00" arrival="662.00" arrivalPos="85.15" duration="63.00" routeLength="85.15" timeLoss="0.68" maxSpeed="1.37"/>
     </personinfo>
 </tripinfos>

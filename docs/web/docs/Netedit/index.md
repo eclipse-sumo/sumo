@@ -20,7 +20,7 @@ title: netedit
 
 - [additional simulation infrastructure](elementsAdditional.md)
 - [traffic (vehicles, persons, vTypes, routes)](elementsDemand.md)
-- [network related data](elementsData.md)
+- [network/TAZ related data](editModesData.md)
 - [shape data](elementsShape.md)
 
 ## Input
@@ -37,6 +37,8 @@ title: netedit
 - plain-xml files
 
 ## Hotkeys
+
+The entire list of shortcuts can be found [here](shortcuts.md):
 
 | File shortcuts              | Key              | Description                         |
 | --------------------------- | ---------------- | ----------------------------------- |
@@ -63,43 +65,6 @@ title: netedit
 | Undo           | Ctrl + Z | Undo the last change |
 | Redo           | Ctrl + Y | Redo the last change |
 
-| Supermodes shortcuts | Key  | Description                                      |
-| -------------------- | ---- | ------------------------------------------------ |
-| Network              | F2   | Change to supermode Network (default )           |
-| Demand               | F3   | Change to supermode Demand (implies recomputing) |
-| Data                 | F4   | Change to supermode Data (implies recomputing)   |
-
-| Common modes shortcuts | Key | Description              |
-| ---------------------- | --- | ------------------------ |
-| Delete                 | D   | Change to mode "Delete"  |
-| Inspect                | I   | Change to mode "Inspect" |
-| Select                 | S   | Change to mode "Select"  |
-| Move                   | M   | Change to mode "Move"    |
-
-| Network mode shortcuts | Key | Description                    |
-| ---------------------- | --- | ------------------------------ |
-| Create Edge            | E   | Change to mode "Create Edge"   |
-| Connection             | C   | Change to mode "Connection"    |
-| Prohibition            | W   | Change to mode "Prohibition"   |
-| Traffic light          | T   | Change to mode "Traffic light" |
-| Additional             | A   | Change to mode "Additional"    |
-| Crossing               | R   | Change to mode "Crossing"      |
-| POI-Poly               | P   | Change to mode "POI-Poly"      |
-
-| Demand mode shortcuts | Key | Description                          |
-| --------------------- | --- | ------------------------------------ |
-| Create Route          | R   | Change to mode "Create Routes"       |
-| Create Vehicle        | V   | Change to mode "Create Vehicles"     |
-| Create Vehicle Type   | T   | Change to mode "Create Vehicle Type" |
-| Create Stop           | A   | Change to mode "Create Stops"        |
-| Create person types   | W   | Change to mode "Create Person Types" |
-| Create persons        | P   | Change to mode "Create Persons"      |
-| Create person plans   | C   | Change to mode "Create Person Plans" |
-
-| Data mode shortcuts | Key  | Description                                 |
-| ------------------- | ---- | ------------------------------------------- |
-| Edge data           | E    | Change to mode "Create Edge Datas"          |
-| Edge relation data  | E    | Change to mode "Create Edge Relation datas" |
 
 | Processing shortcuts    | Key | Description                            |
 | ----------------------- | --- | -------------------------------------- |
@@ -108,26 +73,21 @@ title: netedit
 | Join selected Junctions | F7  | Join selected junctions of the network |
 | Options                 | F10 | Open options dialog                    |
 
-| Locate shortcuts | Key       | Description                          |
-| ---------------- | --------- | ------------------------------------ |
-| Locate Junctions | Shift + j | Open dialog to locate junctions      |
-| Locate Edges     | Shift + e | Open dialog to locate edges          |
-| Locate TLS       | Shift + t | Open dialog to locate Traffic Lights |
-
-| Help shortcuts       | Key  | Description                                      |
-| -------------------- | ---- | ------------------------------------------------ |
-| Online documentation | F1   | Open the online documentation in the web browser |
-| About                | F12  | Open the about dialog                            |
-
-| Text edition shortcuts | Key      | Description                                      |
+| Text editing shortcuts | Key      | Description                                      |
 | ---------------------- | -------- | ------------------------------------------------ |
 | Cut                    | Ctrl + X | Cut selected text of a text field                |
 | Copy                   | Ctrl + C | Copy selected text of a text field               |
 | Paste                  | Ctrl + V | Paste previously cut/copied text in a text field |
 | Select all text        | Ctrl + A | Select all text in a text field                  |
 
+| Miscellaneous shortcuts | Key      | Description                                      |
+| ----------------------- | -------- | ------------------------------------------------ |
+| Grid  | Ctrl + G        | Toggle background grid
+| Grid+ | Ctrl + PageUp   | Increase grid spacing               |
+| Grid- | Ctrl + PageDown | Reduce grid spacing               |
 
-**Toolbar shortcuts**   
+
+**Toolbar shortcuts**
 The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the `Alt + NUMBER` shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
 
 ---
@@ -179,7 +139,7 @@ background images](../sumo-gui.md#showing_background_images). It is also possibl
 
 ### Background Grid
 
-When activating the background grid via the visualization settings dialog ![](../images/Colorwheel.gif) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
+When activating the background grid via the visualization settings dialog ![](../images/icon_colorwheel.png) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
 customized in the *Background*-Tab of the visualization settings dialog. By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
 
 ## Terminology
@@ -202,7 +162,7 @@ This modes are present in all supermodes and have custom cursors:
 - [Delete](editModesCommon.md#delete)
 - [Select](editModesCommon.md#select)
 - [Move](editModesCommon.md#move) (absent in *Data Supermode*)
- 
+
 ## [Network specific modes](editModesNetwork.md)
 
 Modes available in the *Network Supermode*:
@@ -215,7 +175,7 @@ Modes available in the *Network Supermode*:
 - [Crossings](editModesNetwork.md#crossings)
 - [TAZ](editModesNetwork.md#taz_traffic_analysis_zones)
 - [Shapes (POI, Poly)](editModesNetwork.md#shapes)
- 
+
 ## [Demand specific modes](editModesDemand.md)
 
 Modes available in the *Demand Supermode*:
@@ -245,7 +205,8 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - [Shape Elements](elementsShape.md)
 - [TAZ elements](elementsTAZ.md)
 - [Demand elements](elementsDemand.md)
-- [Data elements](elementsData.md)
+
+A short description of all [element attributes](attribute_help.md) is available.
 
 # [Popup-Menu functions](neteditPopupFunctions.md)
 
@@ -266,18 +227,17 @@ Right clicking over an element will open a popup-menu with functions and operati
 - [Converting an intersection into a roundabout](neteditUsageExamples.md#converting_an_intersection_into_a_roundabout)
 - [Correcting road access permissions](neteditUsageExamples.md#correcting_road_access_permissions)
 - [Creating bidirectional railway tracks](neteditUsageExamples.md#creating_bidirectional_railway_tracks)
-
-And many [others](neteditUsageExamples.md).
+- [**+ many others**](neteditUsageExamples.md).
 
 # Planned Features
 
 - Support for editing features already supported by [netconvert](../netconvert.md)
   - Editing `<neigh>` information for [Simulation/OppositeDirectionDriving](../Simulation/OppositeDirectionDriving.md)
-    
+
 
 !!! note
         Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
-    
+
 - Editing [walkingarea shapes](../Networks/PlainXML.md#walking_areas)
 - Integration of [netgenerate](../netgenerate.md)
 - Integration of [netdiff](../Tools/Net.md#netdiffpy)

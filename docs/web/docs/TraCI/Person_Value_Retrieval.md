@@ -58,7 +58,7 @@ Returns all reservations. If onlyNew is 1, each reservation is returned only onc
 
 | string  | string   |  string  | string   | string   |  double   |  double    |  double |  double         |
 | :-----: | :------: | :------: | :------: | :------: | :-------: | :--------: | :-----: | :-------------: |
-|    id   | persons  | group    | fromEdge | toEdge   | departPos | arrivalPos | depart  | reservationTime | 
+|    id   | persons  | group    | fromEdge | toEdge   | departPos | arrivalPos | depart  | reservationTime |
 
 ## Extended retrieval messages
 

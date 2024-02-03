@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -131,14 +131,14 @@ protected:
 
 
     /** @begin Parses a connection
-     * Called on the occurence of a "connection" element
+     * Called on the occurrence of a "connection" element
      * @param[in] attrs The attributes (of the "connection"-element) to parse
      */
     void parseConnection(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a stopping place
-     * Called on the occurence of a "busStop", "trainStop" or "containerStop" element
+     * Called on the occurrence of a "busStop", "trainStop" or "containerStop" element
      * @param[in] attrs The attributes to parse
      * @param[in] element which kind of stop is to be parsed
      */
@@ -146,7 +146,7 @@ protected:
 
 
     /** @begin Parses an access point to a train stop
-     * Called on the occurence of an "access" element
+     * Called on the occurrence of an "access" element
      * @param[in] attrs The attributes to parse
      */
     void parseAccess(const SUMOSAXAttributes& attrs);
@@ -154,7 +154,7 @@ protected:
 
     /** @begin Parses a district and creates a pseudo edge for it
      *
-     * Called on the occurence of a "district" element, this method
+     * Called on the occurrence of a "district" element, this method
      *  retrieves the id of the district and creates a district type
      *  edge with this id.
      *
@@ -166,7 +166,7 @@ protected:
 
     /** @begin Parses a district edge and connects it to the district
      *
-     * Called on the occurence of a "dsource" or "dsink" element, this method
+     * Called on the occurrence of a "dsource" or "dsink" element, this method
      *  retrieves the id of the approachable edge. If this edge is known
      *  and valid, the approaching edge is informed about it (by calling
      *  "ROEdge::addFollower").
@@ -187,7 +187,7 @@ protected:
     RONet& myNet;
 
     /// @brief the loaded network version
-    double myNetworkVersion;
+    MMVersion myNetworkVersion;
 
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder& myEdgeBuilder;

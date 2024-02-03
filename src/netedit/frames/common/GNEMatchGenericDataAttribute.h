@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEMatchGenericDataAttribute : protected FXGroupBox {
+class GNEMatchGenericDataAttribute : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEMatchGenericDataAttribute)
 
@@ -62,6 +62,12 @@ public:
     /// @brief Called when the user change end text field
     long onCmdSetEnd(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user change fromTAZ text field
+    long onCmdSetFromTAZ(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user change toTAZ text field
+    long onCmdSetToTAZ(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user selects a tag in the match box
     long onCmdSelectTag(FXObject*, FXSelector, void*);
 
@@ -80,12 +86,15 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMatchGenericDataAttribute)
 
+    /// @brief update TAZ ComboBox
+    void updateTAZComboBox();
+
 private:
     /// @brief pointer to element set Parent
     GNEElementSet* myElementSet;
 
     /// @brief tag of the match box
-    FXComboBox* myIntervalSelector;
+    MFXComboBoxIcon* myIntervalSelector;
 
     /// @brief TextField for begin
     FXTextField* myBegin;
@@ -94,10 +103,19 @@ private:
     FXTextField* myEnd;
 
     /// @brief tag of the match box
-    FXComboBox* myMatchGenericDataTagComboBox;
+    MFXComboBoxIcon* myMatchGenericDataTagComboBox;
+
+    /// @brief horizontal frame for TAZs,
+    FXHorizontalFrame* myTAZHorizontalFrame;
+
+    /// @brief TextField for fromTAZ
+    MFXComboBoxIcon* myFromTAZComboBox;
+
+    /// @brief TextField for toTAZ
+    MFXComboBoxIcon* myToTAZComboBox;
 
     /// @brief attributes of the match box
-    FXComboBox* myMatchGenericDataAttrComboBox;
+    MFXComboBoxIcon* myMatchGenericDataAttrComboBox;
 
     /// @brief current SumoXMLTag tag
     SumoXMLTag myCurrentTag;

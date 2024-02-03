@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "MultiEntryExit.h"
 
@@ -50,8 +51,47 @@ MultiEntryExit::getIDList() {
 
 int
 MultiEntryExit::getIDCount() {
-    std::vector<std::string> ids;
     return (int)MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).size();
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getEntryLanes(const std::string& detID) {
+    std::vector<std::string> ids;
+    for (const MSCrossSection& cs : getDetector(detID)->getEntries()) {
+        ids.push_back(cs.myLane->getID());
+    }
+    return ids;
+}
+
+
+std::vector<std::string>
+MultiEntryExit::getExitLanes(const std::string& detID) {
+    std::vector<std::string> ids;
+    for (const MSCrossSection& cs : getDetector(detID)->getExits()) {
+        ids.push_back(cs.myLane->getID());
+    }
+    return ids;
+}
+
+
+std::vector<double>
+MultiEntryExit::getEntryPositions(const std::string& detID) {
+    std::vector<double> pos;
+    for (const MSCrossSection& cs : getDetector(detID)->getEntries()) {
+        pos.push_back(cs.myPosition);
+    }
+    return pos;
+}
+
+
+std::vector<double>
+MultiEntryExit::getExitPositions(const std::string& detID) {
+    std::vector<double> pos;
+    for (const MSCrossSection& cs : getDetector(detID)->getExits()) {
+        pos.push_back(cs.myPosition);
+    }
+    return pos;
 }
 
 
@@ -76,6 +116,30 @@ MultiEntryExit::getLastStepVehicleIDs(const std::string& detID) {
 int
 MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
     return getDetector(detID)->getCurrentHaltingNumber();
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTravelTime();
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanHaltsPerVehicle();
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTimeLoss();
+}
+
+
+int
+MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleSum();
 }
 
 
@@ -128,6 +192,22 @@ MultiEntryExit::handleVariable(const std::string& objID, const int variable, Var
             return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
         case LAST_STEP_VEHICLE_HALTING_NUMBER:
             return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case VAR_LAST_INTERVAL_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTravelTime(objID));
+        case VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanHaltsPerVehicle(objID));
+        case VAR_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTimeLoss(objID));
+        case VAR_LAST_INTERVAL_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleSum(objID));
+        case VAR_LANES:
+            return wrapper->wrapStringList(objID, variable, getEntryLanes(objID));
+        case VAR_EXIT_LANES:
+            return wrapper->wrapStringList(objID, variable, getExitLanes(objID));
+        case VAR_POSITION:
+            return wrapper->wrapDoubleList(objID, variable, getEntryPositions(objID));
+        case VAR_EXIT_POSITIONS:
+            return wrapper->wrapDoubleList(objID, variable, getExitPositions(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

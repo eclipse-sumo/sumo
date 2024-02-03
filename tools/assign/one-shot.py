@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,6 +16,7 @@
 # @author  Jakob Erdmann
 # @author  Yun-Pang Floetteroed
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2008-03-10
 
 from __future__ import print_function
@@ -24,7 +25,6 @@ import os
 import sys
 import subprocess
 from datetime import datetime
-from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 
@@ -103,56 +103,56 @@ def writeSUMOConf(step, options, files):
         fd.close()
 
 
-optParser = OptionParser()
-optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",
-                     default=False, help="enables warnings")
+parser = sumolib.options.ArgumentParser()
+parser.add_argument("-W", "--with-warnings", action="store_true", dest="withWarnings",
+                    default=False, help="enables warnings")
 
-optParser.add_option("-n", "--net-file", dest="net",
-                     help="SUMO network (mandatory)", metavar="FILE")
-optParser.add_option("-t", "--trips", dest="trips",
-                     help="trips in step 0", metavar="FILE")
+parser.add_argument("-n", "--net-file", dest="net", category="input", type=parser.net_file,
+                    help="SUMO network (mandatory)", metavar="FILE")
+parser.add_argument("-t", "--trips", dest="trips", category="input", type=parser.route_file,
+                    help="trips in step 0", metavar="FILE")
 
-optParser.add_option("-b", "--begin", dest="begin",
-                     type="int", default=0, help="Set simulation/routing begin")
-optParser.add_option("-e", "--end", dest="end",
-                     type="int", help="Set simulation/routing end")
-optParser.add_option("-R", "--route-steps", dest="routeSteps",
-                     type="int", default=200, help="Set simulation route steps")
-optParser.add_option("-a", "--aggregation", dest="aggregation",
-                     type="int", default=900, help="Set main weights aggregation period")
-optParser.add_option("-f", "--frequencies", dest="frequencies",
-                     default="-1,1800,300,15", help="Set the frequencies to iterate over")
-optParser.add_option("-i", "--adaptation-interval", dest="updateInterval",
-                     type="int", default=1, help="Set edge weight adaptation interval")
+parser.add_argument("-b", "--begin", dest="begin",
+                    type=parser.time, default=0, help="Set simulation/routing begin")
+parser.add_argument("-e", "--end", dest="end",
+                    type=parser.time, help="Set simulation/routing end")
+parser.add_argument("-R", "--route-steps", dest="routeSteps",
+                    type=int, default=200, help="Set simulation route steps")
+parser.add_argument("-a", "--aggregation", dest="aggregation",
+                    type=parser.time, default=900, help="Set main weights aggregation period")
+parser.add_argument("-f", "--frequencies", dest="frequencies", type=str,
+                    default="-1,1800,300,15", help="Set the frequencies to iterate over")
+parser.add_argument("-i", "--adaptation-interval", dest="updateInterval",
+                    type=parser.time, default=1, help="Set edge weight adaptation interval")
 
-optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
-                     default=False, help="No summaries are written by the simulation")
-optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                     default=False, help="No tripinfos are written by the simulation")
-optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
-                     default=False, help="Whether mesosim shall be used")
-optParser.add_option("-w", "--with-taz", action="store_true", dest="withtaz",
-                     default=False, help="Whether districts shall be used")
-optParser.add_option("-+", "--additional", dest="additional",
-                     default="", help="Additional files")
-optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
-                     default=False, help="only save the last routes in the vehroute-output")
-optParser.add_option("-F", "--weight-files", dest="weightfiles",
-                     help="Load edge/lane weights from FILE", metavar="FILE")
-optParser.add_option("-A", "--routing-algorithm", dest="routingalgorithm", type="choice",
-                     choices=('dijkstra', 'astar'),
-                     default="astar", help="type of routing algorithm [default: %default]")
-optParser.add_option("-r", "--rerouting-explicit", dest="reroutingexplicit", type="string",
-                     default="", help="define the ids of the vehicles that should be re-routed.")
-optParser.add_option("-x", "--with-exittime", action="store_true", dest="withexittime",
-                     default=False, help="Write the exit times for all edges")
-optParser.add_option("-s", "--route-sorted", action="store_true", dest="routesorted",
-                     default=False, help="sorts the output by departure time")
-optParser.add_option("-p", "--path", dest="path", help="Path to binaries")
-optParser.add_option("--cost-modifier", dest="costmodifier", type="choice",
-                     choices=('grohnde', 'isar', 'None'),
-                     default='None', help="Whether to modify link travel costs of the given routes")
-(options, args) = optParser.parse_args()
+parser.add_argument("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+                    default=False, category="output", help="No summaries are written by the simulation")
+parser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+                    default=False, help="No tripinfos are written by the simulation")
+parser.add_argument("-m", "--mesosim", action="store_true", dest="mesosim",
+                    default=False, help="Whether mesosim shall be used")
+parser.add_argument("-w", "--with-taz", action="store_true", dest="withtaz",
+                    default=False, help="Whether districts shall be used")
+parser.add_argument("-+", "--additional", dest="additional", category="input", type=parser.additional_file,
+                    default="", help="Additional files")
+parser.add_argument("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
+                    default=False, help="only save the last routes in the vehroute-output")
+parser.add_argument("-F", "--weight-files", dest="weightfiles", type=parser.file,
+                    help="Load edge/lane weights from FILE", metavar="FILE")
+parser.add_argument("-A", "--routing-algorithm", dest="routingalgorithm", type=str,
+                    choices=('dijkstra', 'astar'),
+                    default="astar", help="type of routing algorithm [default: %(default)s]")
+parser.add_argument("-r", "--rerouting-explicit", dest="reroutingexplicit", type=str,
+                    default="", help="define the ids of the vehicles that should be re-routed.")
+parser.add_argument("-x", "--with-exittime", action="store_true", dest="withexittime",
+                    default=False, help="Write the exit times for all edges")
+parser.add_argument("-s", "--route-sorted", action="store_true", dest="routesorted",
+                    default=False, help="sorts the output by departure time")
+parser.add_argument("-p", "--path", dest="path", type=parser.file, help="Path to binaries")
+parser.add_argument("--cost-modifier", dest="costmodifier", type=str,
+                    choices=('grohnde', 'isar', 'None'),
+                    default='None', help="Whether to modify link travel costs of the given routes")
+options = parser.parse_args()
 
 sumo = "sumo"
 if options.mesosim:

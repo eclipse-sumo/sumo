@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,10 +17,13 @@
 ///
 // Testing libsumo for C++
 /****************************************************************************/
-#include <iostream>
-#include <libsumo/Simulation.h>
-#include <utils/common/ToString.h>
+#ifdef _MSC_VER
+// Avoid some noisy warnings with Visual Studio
+#pragma warning(disable:4820 4514 5045 4710 4668)
+#endif
 
+#include <iostream>
+#include <libsumo/libsumo.h>
 
 
 // ===========================================================================
@@ -34,9 +37,12 @@ main(int argc, char** argv) {
     }
     libsumo::Simulation::load(options);
     std::cout << "Simulation loaded\n";
-    options.insert(options.begin(), "sumo");
+    if (options.size() == 0 || (options[0] != "sumo" && options[0] != "sumo-gui")) {
+        options.insert(options.begin(), "sumo");
+    }
     libsumo::Simulation::start(options);
     std::cout << "Simulation started\n";
+    libsumo::Simulation::close();
     /*
       std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute("64455492", "-22913705", "public", 21600, 3, -1, -1, 0, 0,0,"ped");
       double cost = 0;

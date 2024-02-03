@@ -1,6 +1,3 @@
-# tests for (long-range) deadlock prevention
-deadlock
-
 # tests for rail signals
 rail_signal
 
@@ -31,12 +28,21 @@ two_passing_loops
 # as above but with intermediate nodes on the tracks
 two_passing_loops2
 
-# frontal train collision
-collision
-crossing_tracks
+# train insertion should try to prevent a frontal collision
+bidi_conflict_insertion
 
-# as above but without rail signals
-crossing_tracks_collision
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion2
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion3
+
+# train insertion should try to prevent a frontal collision (example where insertion is unsafe)
+bidi_conflict_parkingInsertion
+crossing_tracks
 
 # rerouting trains that pass each other in a complex network
 alternativeRoute
@@ -47,5 +53,14 @@ model_railroad
 # load a rail_signal where all connections are marked as uncontrolled
 uncontrolled_links
 
+# check default rail type
+default_rail_type
+
 # railway-specific bugs
 bugs
+
+# railway-crossings with trafficlights
+crossing
+
+# test for various types of train collision
+collision

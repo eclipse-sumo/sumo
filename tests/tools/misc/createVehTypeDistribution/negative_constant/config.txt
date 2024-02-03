@@ -1,3 +1,0 @@
-lcMinGapLat; 0.7
-lcImpatience; -0.5;[-1,1]
-class; passenger

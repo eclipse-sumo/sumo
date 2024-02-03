@@ -1,7 +1,7 @@
 Loading net-file from 'net.net.xml' ... done (6ms).
 Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0979-4f54eac59a started with time: 0.00
+Simulation version v1_3_1+0979-4f54eac59a started with time: 0.00.
 Simulation ended at time: 1066.00
 Reason: All vehicles have left the simulation.
 Performance: 

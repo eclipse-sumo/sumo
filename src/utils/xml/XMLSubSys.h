@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,10 +135,13 @@ public:
      * @param[in] file    The file to run the parser at
      * @param[in] isNet   whether a network gets loaded
      * @param[in] isRoute whether routes get loaded
+     * @param[in] isExternal whether it is an external file like matsim or opendrive
+     * @param[in] catchExceptions whether exceptions on parsing should be caught or transferred into a ProcessError
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(GenericSAXHandler& handler, const std::string& file,
-                          const bool isNet = false, const bool isRoute = false);
+                          const bool isNet = false, const bool isRoute = false,
+                          const bool isExternal = false, const bool catchExceptions = true);
 
 
 private:
@@ -149,13 +152,13 @@ private:
     static int myNextFreeReader;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+    static std::string myValidationScheme;
 
     /// @brief Information whether built reader/parser shall validate SUMO networks against schemata
-    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myNetValidationScheme;
+    static std::string myNetValidationScheme;
 
     /// @brief Information whether built reader/parser shall validate SUMO routes against schemata
-    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myRouteValidationScheme;
+    static std::string myRouteValidationScheme;
 
     /// @brief Schema cache to be used for grammars which are not declared
     static XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;

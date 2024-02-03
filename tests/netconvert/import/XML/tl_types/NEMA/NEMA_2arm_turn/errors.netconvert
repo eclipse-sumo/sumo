@@ -1,0 +1,1 @@
+Warning: Generating NEMA phases is not support for traffic light 'C' with 2 incoming edges. Using tlType 'actuated' as fallback

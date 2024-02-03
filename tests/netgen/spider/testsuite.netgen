@@ -16,6 +16,9 @@ circle
 # omitting the center node of the spider web
 nocenter
 
+# explicitly setting the center node of the spider web
+center
+
 # trying to build the minimal spider-net
 min_version
 
@@ -25,6 +28,12 @@ prefix
 
 # build turning lanes
 turnlanes
+
+# bidi-probability=0
+oneway
+
+# add outer attachments
+attachLength
 
 # Tests processing of errors in input
 errors

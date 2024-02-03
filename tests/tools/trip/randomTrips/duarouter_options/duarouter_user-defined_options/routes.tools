@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:36.198948 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <allow-fringe value="True"/>
+    <duarouter-exit-times value="true"/>
+    <duarouter-route-length value="true"/>
+    <end value="20"/>
+    <net-file value="net2.net.xml"/>
+    <remove-loops value="True"/>
+    <route-file value="out.rou.xml"/>
+    <vehicle-class value="passenger"/>
+    <vtype-output value="out.add.xml"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:36 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="out.add.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+        <vtype-output value="out.add.xml"/>
+        <alternatives-output value="NUL"/>
+        <exit-times value="true"/>
+        <route-length value="true"/>
+    </output>
+
+    <processing>
+        <remove-loops value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="20"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1" type="passenger" depart="1.00">
+        <route edges="beg2left" exitTimes="19.10" routeLength="503.09"/>
+    </vehicle>
+    <vehicle id="5" type="passenger" depart="5.00">
+        <route edges="beg2left left" exitTimes="23.10 59.29" routeLength="1509.27"/>
+    </vehicle>
+    <vehicle id="6" type="passenger" depart="6.00">
+        <route edges="beg beg2left" exitTimes="23.99 42.08" routeLength="1003.09"/>
+    </vehicle>
+    <vehicle id="8" type="passenger" depart="8.00">
+        <route edges="beg2left left left2end" exitTimes="26.10 62.29 80.39" routeLength="2012.36"/>
+    </vehicle>
+    <vehicle id="13" type="passenger" depart="13.00">
+        <route edges="beg" exitTimes="30.99" routeLength="500.00"/>
+    </vehicle>
+    <vehicle id="15" type="passenger" depart="15.00">
+        <route edges="middle" exitTimes="86.94" routeLength="1000.00"/>
+    </vehicle>
+    <vehicle id="16" type="passenger" depart="16.00">
+        <route edges="left left2end end rend" exitTimes="52.19 70.29 88.28 106.26" routeLength="2509.27"/>
+    </vehicle>
+</routes>

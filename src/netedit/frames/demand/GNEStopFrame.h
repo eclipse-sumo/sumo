@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,7 +21,14 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNETagSelector.h>
+
 
 // ===========================================================================
 // class definitions
@@ -37,7 +44,7 @@ public:
     // class HelpCreation
     // ===========================================================================
 
-    class HelpCreation : protected FXGroupBox {
+    class HelpCreation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -60,14 +67,14 @@ public:
         GNEStopFrame* myStopFrameParent;
 
         /// @brief Label with creation information
-        FXLabel* myInformationLabel;
+        MFXDynamicLabel* myInformationLabel;
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEStopFrame();
@@ -76,37 +83,43 @@ public:
     void show();
 
     /**@brief add Stop element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if Stop was sucesfully added
+     * @return true if Stop was successfully added
      */
-    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get stop parameters
-    static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,
-                                 GNEFrameAttributesModuls::AttributesCreator* stopAttributes,
-                                 const GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes,
-                                 const GNELane* lane, const GNEAdditional* stoppingPlace);
+    bool getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace);
+
+    /// @brief get stop parent selector
+    GNEDemandElementSelector* getStopParentSelector() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
 private:
+    /// @brief route handler
+    GNERouteHandler myRouteHandler;
+
+    /// @brief stop parent base object
+    CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
+
     /// @brief Stop parent selectors
-    GNEFrameModuls::DemandElementSelector* myStopParentSelector;
+    GNEDemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNEFrameModuls::TagSelector* myStopTagSelector;
+    GNETagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEFrameAttributesModuls::AttributesCreator* myStopAttributes;
+    GNEAttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

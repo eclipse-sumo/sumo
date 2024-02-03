@@ -1,3 +1,0 @@
-Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
-Warning: Format of essential unique string attribute 'id' of parkingArea is invalid; ID contains invalid characters; parkingArea cannot be created
-Warning: There is another parkingArea with the same ID='parkingArea_0'.

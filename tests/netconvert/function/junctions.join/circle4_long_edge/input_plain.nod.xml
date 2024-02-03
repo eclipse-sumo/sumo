@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-03 11:41:32 by Eclipse SUMO netedit Version v1_9_2+0952-02af0c7
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="raw.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="raw.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/8863/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-799773.92,-2492321.72" convBoundary="3045.05,2675.09,3248.52,2919.50" origBoundary="113.914550,22.510864,113.981960,22.555334" projParameter="+proj=utm +zone=49 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1068800000" x="3149.85" y="2838.49" type="priority"/>
+    <node id="1124200000" x="3052.94" y="2798.01" type="dead_end"/>
+    <node id="1500100000" x="3128.46" y="2800.61" type="priority"/>
+    <node id="1514300000" x="3162.79" y="2756.95" type="priority"/>
+    <node id="16800000" x="3109.79" y="2786.83" type="priority"/>
+    <node id="1826900000" x="3158.13" y="2836.44" type="priority"/>
+    <node id="1832900000" x="3154.87" y="2709.35" type="dead_end"/>
+    <node id="1949400000" x="3151.60" y="2801.95" type="priority"/>
+    <node id="1989600000" x="3146.31" y="2913.80" type="dead_end"/>
+    <node id="2227200000" x="3152.54" y="2759.96" type="priority"/>
+    <node id="233700000" x="3109.43" y="2800.12" type="priority"/>
+    <node id="3248000000" x="3151.89" y="2787.55" type="priority"/>
+    <node id="3279500000" x="3197.05" y="2789.44" type="priority"/>
+    <node id="3302000000" x="3161.15" y="2787.73" type="priority"/>
+    <node id="3333600000" x="3159.84" y="2802.11" type="priority"/>
+    <node id="3340900000" x="3071.71" y="2786.19" type="priority"/>
+    <node id="3354400000" x="3092.29" y="2786.48" type="priority"/>
+    <node id="3366100000" x="3154.44" y="2919.50" type="dead_end"/>
+    <node id="3455300000" x="3163.02" y="2750.30" type="priority"/>
+    <node id="3757200000" x="3152.33" y="2765.39" type="priority"/>
+    <node id="3822400000" x="3122.81" y="2800.39" type="priority"/>
+    <node id="3890100000" x="3149.52" y="2845.03" type="priority"/>
+    <node id="3891900000" x="3165.33" y="2675.09" type="dead_end"/>
+    <node id="4100000000" x="3125.74" y="2787.14" type="priority"/>
+    <node id="4116400000" x="3191.29" y="2789.21" type="priority"/>
+    <node id="4349300000" x="3045.05" y="2785.66" type="dead_end"/>
+    <node id="4481400000" x="3150.23" y="2829.97" type="priority"/>
+    <node id="4941500000" x="3187.74" y="2802.11" type="priority"/>
+    <node id="627600000" x="3156.49" y="2867.44" type="priority"/>
+    <node id="722700000" x="3248.52" y="2790.23" type="dead_end"/>
+    <node id="769800000" x="3157.64" y="2845.63" type="priority"/>
+    <node id="896400000" x="3153.04" y="2750.11" type="priority"/>
+    <node id="899700000" x="3220.49" y="2802.09" type="dead_end"/>
+</nodes>

@@ -15,7 +15,7 @@ set(marouter_SRCS
 add_executable(marouter ${marouter_SRCS})
 set_target_properties(marouter PROPERTIES OUTPUT_NAME marouter${BINARY_SUFFIX})
 set_target_properties(marouter PROPERTIES OUTPUT_NAME_DEBUG marouter${BINARY_SUFFIX}D)
-target_link_libraries(marouter router od ${commonvehiclelibs})
-add_dependencies(marouter generate-version-h)
+target_link_libraries(marouter router od ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
+add_dependencies(marouter generate-version-h install_dll)
 
 install(TARGETS marouter RUNTIME DESTINATION bin)

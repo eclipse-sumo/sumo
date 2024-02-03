@@ -1,0 +1,2 @@
+-n net.net.xml -o out.add.xml
+--vclass passenger

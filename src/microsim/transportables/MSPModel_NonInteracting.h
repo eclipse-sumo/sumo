@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,9 @@ public:
     /// @brief load the state of the given transportable
     MSTransportableStateAdapter* loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in);
 
+    /// @brief Resets pedestrians when quick-loading state
+    void clearState();
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);
 
@@ -80,7 +83,6 @@ private:
     public:
         MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk, MSPModel_NonInteracting* model) :
             myParent(walk), myTransportable(transportable), myModel(model) {}
-        virtual ~MoveToNextEdge();
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
             myTransportable = nullptr;
@@ -109,6 +111,7 @@ private:
         /// @{
         /// @brief return the offset from the start of the current edge measured in its natural direction
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
         virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
@@ -166,6 +169,3 @@ private:
     int myNumActivePedestrians;
 
 };
-
-
-

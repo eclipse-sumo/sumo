@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 27 07:13:33 2015 by SUMO Version dev-SVN-r18733I
+<!-- generated on 2022-01-14 14:39:37 by Eclipse SUMO sumo Version v1_11_0+1156-781c487
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -24,11 +25,14 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -40,11 +44,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="onRerouterEdgeAtClose" depart="0.00" arrival="199.00">
+    <vehicle id="onRerouterEdgeAtClose" depart="0.00" arrival="244.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="beforeRerouterEdgeAtClose" depart="40.00" arrival="239.00">
+    <vehicle id="beforeRerouterEdgeAtClose" depart="40.00" arrival="246.00">
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 

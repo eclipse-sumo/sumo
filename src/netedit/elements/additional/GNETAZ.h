@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 #include <netedit/GNEMoveElement.h>
-#include <utils/shapes/SUMOPolygon.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
-#include "GNETAZElement.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
@@ -31,29 +31,35 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNETAZElement, private SUMOPolygon, public GNEMoveElement {
+class GNETAZ : public GNEAdditional, public TesselatedPolygon {
 
 public:
-    /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
-    using GNETAZElement::getID;
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEAdditional
+    using GNEAdditional::getID;
+
+    /// @default GNETAZ Constructor
+    GNETAZ(GNENet* net);
 
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] shape TAZ shape
+     * @param[in] center TAZ center
+     * @param[in] fill flag for fill TAZ shape
+     * @param[in] color TAZ color
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, const std::string &name,
-           const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& TAZ, const bool fill,
+           const RGBColor& color, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
@@ -65,29 +71,56 @@ public:
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-    /// @brief get TAZ Shape
-    const PositionVector& getTAZElementShape() const;
+    /// @name members and functions relative to write additionals into XML
+    /// @{
 
-    /**@brief writte TAZElement element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeTAZElement(OutputDevice& device) const;
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
 
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
+
+    /// @brief split geometry
+    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
 
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
     std::string getParentName() const;
@@ -106,10 +139,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -122,6 +157,15 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const;
+
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -129,34 +173,30 @@ public:
      */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
+    /* @brief method for checking if the key and their corresponding attribute are valid
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
-    /// @brief update TAZ after add or remove a Source/sink, or change their weight
-    void updateParentAdditional();
+    /// @brief update TAZ Statistic
+    void updateTAZStatistic();
 
 protected:
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
+    /// @brief TAZ center
+    Position myTAZCenter;
 
-    /// @brief geometry for lenghts/rotations
-    GNEGeometry::Geometry myTAZGeometry;
+    /// @brief TAZ center contour
+    GNEContour myTAZCenterContour;
 
 private:
     /// @brief hint size of vertex

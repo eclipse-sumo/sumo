@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs" lane="gneE1_0" startPos="42.01" endPos="50.00" friendlyPos="1" blockMovement="1"/>
+    <chargingStation id="cs" lane="gneE1_0" startPos="21.94" endPos="31.94" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" blockMovement="1"/>
+    <containerStop id="ct" lane="gneE1_0" startPos="31.87" endPos="41.87" friendlyPos="1" blockMovement="1"/>
+    <inductionLoop id="e1" lane="gneE1_0" pos="19.68" period="100.00" file="e1.txt" friendlyPos="0" blockMovement="1"/>
+    <laneAreaDetector id="e2" lane="gneE1_0" pos="7.17" length="10.00" period="100.00" file="e2.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0" blockMovement="1"/>
+    <entryExitDetector id="e3" period="100.00" file="e3.txt" timeThreshold="1.00" speedThreshold="1.39" pos="9.06,-7.45" blockMovement="1">
+        <detEntry lane="gneE0_0" pos="5.45" friendlyPos="0" blockMovement="1"/>
+        <detExit lane="gneE0_0" pos="12.65" friendlyPos="0"/>
+    </entryExitDetector>
+    <instantInductionLoop id="e1i" lane="gneE1_0" pos="22" period="100.00" file="e1i.txt" friendlyPos="0" blockMovement="1"/>
+    <parkingArea id="pa" lane="gneE1_0" startPos="11.84" endPos="21.84" friendlyPos="0" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00" blockMovement="1">
+        <space x="29.09" y="10.92" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
+        <space x="32.71" y="10.95" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
+        <space x="36.82" y="10.96" z="0.00" width="3.20" length="5.00" angle="0.00" blockMovement="1"/>
+    </parkingArea>
+    <rerouter id="r" edges="gneE0" probability="1.00" off="0" pos="15.59,-7.40" blockMovement="1"/>
+    <variableSpeedSign id="v" lanes="gneE0_0" pos="20.22,-7.28" blockMovement="1"/>
+</additional>

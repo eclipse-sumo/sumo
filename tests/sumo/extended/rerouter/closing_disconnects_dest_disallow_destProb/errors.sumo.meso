@@ -18,3 +18,9 @@ Warning: No connection between edge 'beg2left' and edge 'right' found.
 Warning: No route for vehicle 'insertedWhileClosed.7' found.
 Warning: No connection between edge 'beg2left' and edge 'rend' found.
 Warning: No connection between edge 'beg2left' and edge 'rend' found.
+Warning: Teleporting vehicle 'onRerouterEdgeAtClose'; waited too long, from edge 'beg2left':4, time=355.18.
+Warning: Vehicle 'onRerouterEdgeAtClose' ends teleporting on edge 'left2end':0, time=391.37.
+Warning: Teleporting vehicle 'insertedWhileClosed.0'; waited too long, from edge 'beg2left':4, time=656.18.
+Warning: Vehicle 'insertedWhileClosed.0' ends teleporting on edge 'left2end':0, time=692.37.
+Warning: Teleporting vehicle 'insertedWhileClosed.3'; waited too long, from edge 'beg2left':4, time=957.18.
+Warning: Vehicle 'insertedWhileClosed.3' ends teleporting on edge 'left2end':0, time=993.37.

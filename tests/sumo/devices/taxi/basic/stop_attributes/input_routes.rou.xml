@@ -3,7 +3,7 @@
     <vType id="taxi" vClass="taxi" personCapacity="1">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.pickUpDuration" value="30"/>
-        <param key="device.taxi.dropOffDuration" value="180"/>
+        <param key="device.taxi.dropOffDuration" value="40"/>
     </vType>
 
     <trip id="trip_0" type="taxi" depart="0.00" from="A0B0" to="B0C0">

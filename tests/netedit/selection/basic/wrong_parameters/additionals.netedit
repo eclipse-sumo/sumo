@@ -1,65 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.08.2020 11:57:37 by Eclipse SUMO netedit Version v1_6_0+1752-8f7fae36af
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\basic\wrong_parameters\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-03-03 16:52:30 by Eclipse SUMO netedit Version v1_12_0+1120-8ddf4e10651
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <!-- Shapes -->
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000 10.000000,20.000000"/>
     <poly id="poly_1" color="green" fill="1" layer="0.00" shape="40.000000,20.000000 40.000000,10.000000 50.000000,10.000000 50.000000,20.000000 40.000000,20.000000"/>
     <poi id="POI_2" color="red" layer="3.00" x="10.00" y="-10.00" width="0.00" height="0.00"/>
     <poi id="POI_3" color="red" layer="3.00" x="40.00" y="-10.00" width="0.00" height="0.00"/>
+    <!-- TAZs -->
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
 </additional>

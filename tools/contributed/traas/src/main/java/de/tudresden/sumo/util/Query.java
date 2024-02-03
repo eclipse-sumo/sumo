@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials are made available under the
@@ -177,8 +177,9 @@ public abstract class Query extends Observable {
         //subscription results
         for (int i = 0; i < count; i++) {
 
-            for (int i1 = 0; i1 < 5; i1++) {
-                s.readUnsignedByte();   //offset
+            int length = s.readUnsignedByte();
+            if (length == 0) {
+                length = s.readInt();
             }
 
             int response = s.readUnsignedByte();

@@ -1,0 +1,3 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml --tripinfo-output tripinfos.xml --fcd-output fcd.xml
+--step-length 0.2
+--default.action-step-length 1

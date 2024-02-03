@@ -24,3 +24,6 @@ set_lane_shape_sumo_net
 
 # test computation of lane shapes from edge shapes with elevation
 elevation
+
+# test difficult edge shapes (sharp angles and high point density)
+clipping

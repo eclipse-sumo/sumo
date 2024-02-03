@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane, disconnected), lane='A0A1_0', time=13.00.
+Warning: Vehicle 'ego' ends teleporting on edge 'A2B2', time=13.00.

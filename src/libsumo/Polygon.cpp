@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,8 +47,7 @@ NamedRTree* Polygon::myTree(nullptr);
 std::vector<std::string>
 Polygon::getIDList() {
     std::vector<std::string> ids;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.getPolygons().insertIDs(ids);
+    MSNet::getInstance()->getShapeContainer().getPolygons().insertIDs(ids);
     return ids;
 }
 
@@ -99,9 +98,8 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Polygon)
 
 
 void
-Polygon::setType(const std::string& polygonID, const std::string& setType) {
-    SUMOPolygon* p = getPolygon(polygonID);
-    p->setShapeType(setType);
+Polygon::setType(const std::string& polygonID, const std::string& polygonType) {
+    getPolygon(polygonID)->setShapeType(polygonType);
 }
 
 

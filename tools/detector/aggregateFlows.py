@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    aggregateFlows.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2007-06-28
 
 """
@@ -27,7 +28,11 @@ from __future__ import print_function
 import os
 import sys
 import zipfile
-from optparse import OptionParser
+
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+import sumolib  # noqa
 
 
 class Entry:
@@ -53,8 +58,8 @@ class Entry:
 
 
 def readLines(lines):
-    for l in lines:
-        flowDef = l.split()
+    for fl in lines:
+        flowDef = fl.split()
         if not cityDets or flowDef[0] in cityDets:
             if not flowDef[0] in totalFlow:
                 totalFlow[flowDef[0]] = Entry()
@@ -62,13 +67,13 @@ def readLines(lines):
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
 
-optParser = OptionParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
-optParser.add_option("-d", "--det-file", dest="detfile",
-                     help="read detectors of interest from FILE", metavar="FILE")
-(options, args) = optParser.parse_args()
-if len(args) == 0:
-    optParser.print_help()
-    sys.exit()
+parser = sumolib.options.ArgumentParser(usage="usage: %(prog)s [options] [flow.txt|flows.zip]+")
+parser.add_option("-d", "--det-file", dest="detfile", category="input", type=parser.file,
+                  help="read detectors of interest from FILE", metavar="FILE")
+parser.add_option("flowFiles", category="input", nargs="+", type=parser.file,
+                  help="one or more flow input files", metavar="FILE")
+options = parser.parse_args()
+
 if options.detfile:
     cityDets = set()
     for line in open(options.detfile):
@@ -76,7 +81,7 @@ if options.detfile:
 else:
     cityDets = None
 totalFlow = {}
-for f in args:
+for f in options.flowFiles:
     if os.access(f, os.R_OK):
         if f.endswith(".zip"):
             zipf = zipfile.ZipFile(f)
@@ -88,5 +93,5 @@ for f in args:
     else:
         print("Cannot read", f, file=sys.stderr)
 print("Detector;Time;qPKW;qLKW;vPKW;vLKW")
-for det, flow in totalFlow.iteritems():
+for det, flow in totalFlow.items():
     print(det + ";0;" + str(flow))

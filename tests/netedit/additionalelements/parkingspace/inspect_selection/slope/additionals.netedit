@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-07 16:00:07 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <parkingArea id="parkingArea_A" lane="center1_1" startPos="12.00" endPos="22.00" length="5.00">
+        <space name="nameA" x="17.00" y="7.00" z="10.00" width="4.00" length="5.00" angle="45.00" slope="32.50">
+            <param key="KeyA1" value="valueA1"/>
+            <param key="KeyA2" value="valueA2"/>
+            <param key="KeyA3" value="valueA3"/>
+        </space>
+    </parkingArea>
+    <parkingArea id="parkingArea_B" lane="center1_1" startPos="29.00" endPos="39.00" length="5.00">
+        <space name="nameB" x="34.00" y="7.00" z="20.00" width="2.00" length="12.00" angle="12.00" slope="32.50">
+            <param key="KeyB1" value="valueB1"/>
+            <param key="KeyB2" value="valueB2"/>
+            <param key="KeyB3" value="valueB3"/>
+        </space>
+    </parkingArea>
+</additional>

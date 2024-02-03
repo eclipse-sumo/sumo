@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-29 07:26:19 by Eclipse SUMO sumo Version v1_10_0+1049-9e24673
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
+    <instantOut id="det3" time="44.35" state="enter" vehID="SE_car.0_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="45.00" state="stay" vehID="SE_car.0_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="45.63" state="leave" vehID="SE_car.0_0" speed="5.20" length="5.00" type="DEFAULT_VEHTYPE" occupancy="1.29"/>
+    <instantOut id="det3" time="48.09" state="enter" vehID="SE_car.2_0" speed="13.18" length="5.00" type="DEFAULT_VEHTYPE" gap="2.45"/>
+    <instantOut id="det3" time="48.47" state="leave" vehID="SE_car.2_0" speed="13.18" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.38"/>
+    <instantOut id="det3" time="67.97" state="enter" vehID="SE_car.3_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" gap="19.50"/>
+    <instantOut id="det3" time="68.00" state="stay" vehID="SE_car.3_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="68.33" state="leave" vehID="SE_car.3_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="det3" time="134.35" state="enter" vehID="SE_car.4_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE" gap="66.02"/>
+    <instantOut id="det3" time="135.00" state="stay" vehID="SE_car.4_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="135.63" state="leave" vehID="SE_car.4_0" speed="5.20" length="5.00" type="DEFAULT_VEHTYPE" occupancy="1.29"/>
+    <instantOut id="det3" time="137.08" state="enter" vehID="SE_car.6_0" speed="7.80" length="5.00" type="DEFAULT_VEHTYPE" gap="1.44"/>
+    <instantOut id="det3" time="137.72" state="leave" vehID="SE_car.6_0" speed="7.80" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.64"/>
+    <instantOut id="det3" time="147.97" state="enter" vehID="SE_car.7_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" gap="10.25"/>
+    <instantOut id="det3" time="148.00" state="stay" vehID="SE_car.7_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="148.33" state="leave" vehID="SE_car.7_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="det3" time="167.97" state="enter" vehID="SE_car.8_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" gap="19.64"/>
+    <instantOut id="det3" time="168.00" state="stay" vehID="SE_car.8_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="168.33" state="leave" vehID="SE_car.8_0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
+    <instantOut id="det3" time="224.35" state="enter" vehID="SE_car.9_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE" gap="56.02"/>
+    <instantOut id="det3" time="225.00" state="stay" vehID="SE_car.9_0" speed="2.60" length="5.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="det3" time="225.63" state="leave" vehID="SE_car.9_0" speed="5.20" length="5.00" type="DEFAULT_VEHTYPE" occupancy="1.29"/>
+</instantE1>

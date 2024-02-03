@@ -12,7 +12,7 @@ Schools. That's why the work topics are listed in German.
 Die meisten der folgenden Themen lassen sich sowohl im Rahmen einer
 Master- oder Diplomarbeit als auch in reduziertem Umfang in einer
 Studien- oder Bachelorarbeit behandeln. Alle stehen mehr oder weniger
-direkt im Zusammenhang mit [SUMO](http://sumo.dlr.de/).
+direkt im Zusammenhang mit [SUMO](https://sumo.dlr.de/).
 
 Alle Themen sind ausdrücklich nur als Vorschläge gedacht. Falls jemand
 nach Kennenlernen der Software und der Anwendungsgebiete eigene
@@ -36,10 +36,10 @@ Die Arbeit würde auf bereits vorhandenen Ergebnissen aufbauen.
 ### Elektromobilität - Simulation der Auswirkung von Verkehrsmanagementstrategien
 
 ```
-Gegenwärtig hält eine neue Entwicklung mit all ihren Chancen und Herausforderungen Einzug in den Verkehrsraum – die Elektromobilität. Sie hat den Vorteil 
-nur geringe Lärm- und Schadstoff-emissionen zu verursachen. Doch die Elektromobilität wird die bisherigen Probleme im Verkehrsmanagement nicht automatisch lösen 
-Ganz im Gegenteil – im Zuge der Elektrifizierung des Verkehrs kommen neue Herausforderungen auf das Verkehrsmanagement zu 
-Die begrenzte Reichweite und langen Ladevorgänge der bisherigen Elektrofahrzeuge bedingen eine neuartige Lade- und Verkehrsinfrastruktur 
+Gegenwärtig hält eine neue Entwicklung mit all ihren Chancen und Herausforderungen Einzug in den Verkehrsraum – die Elektromobilität. Sie hat den Vorteil
+nur geringe Lärm- und Schadstoff-emissionen zu verursachen. Doch die Elektromobilität wird die bisherigen Probleme im Verkehrsmanagement nicht automatisch lösen
+Ganz im Gegenteil – im Zuge der Elektrifizierung des Verkehrs kommen neue Herausforderungen auf das Verkehrsmanagement zu
+Die begrenzte Reichweite und langen Ladevorgänge der bisherigen Elektrofahrzeuge bedingen eine neuartige Lade- und Verkehrsinfrastruktur
 Hinzu kommen unklare Rahmenbedingungen wie Kaufbereitschaft und Marktpreise. Die Konsequenzen für das Verkehrsmanagement sind daher kaum absehbar.
 ```
 

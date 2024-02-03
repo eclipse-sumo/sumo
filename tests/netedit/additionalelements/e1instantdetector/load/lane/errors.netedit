@@ -1,0 +1,3 @@
+Error: Attribute 'lane' is missing in definition of instantInductionLoop 'E1_01'.
+Error: Could not build inductionLoop 'E1_02' in netedit; lane 'dummyLane' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun100756.19514/netedit.gui/additionalelements/e1instantdetector/load/lane/additionals.add.xml failed.

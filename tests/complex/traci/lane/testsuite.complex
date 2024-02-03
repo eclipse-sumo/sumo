@@ -1,5 +1,11 @@
 # Tests the lane API
 lane
 
+# Tests the lane API for internal lanes
+internal
+
 # Tests the lane API with an intermodal network
 lane_intermodal
+
+# Tests the lane API with sublane model enabled
+sublane

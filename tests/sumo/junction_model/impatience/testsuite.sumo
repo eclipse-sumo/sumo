@@ -1,4 +1,3 @@
-# tests default value (impatience=0)
 impatience_zero
 impatience_0.5
 impatience_1
@@ -8,3 +7,9 @@ impatience_zero_ttt_60
 
 # disable growing impatience
 impatience_off
+
+# see #8507
+impatience_1_visibility
+
+# see #8507
+impatience_1_subsecond

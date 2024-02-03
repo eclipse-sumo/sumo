@@ -1,0 +1,6 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingAreaA'
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.2_from_21Jul154609.50639/netedit.gui/demandelements/stop/parkingarea/load/triggered/routes.rou.xml failed.

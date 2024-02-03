@@ -1,0 +1,4 @@
+Error: Attribute 'id' is missing in definition of a taz.
+Error: Could not build taz with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
+Error: Could not build taz with ID 'TAZ_0' in netedit; Declared twice.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.taz.22May115309.2094/netedit.daily.taz/tazelements/taz/load/id/additionals.add.xml failed.

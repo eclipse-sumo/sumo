@@ -1,0 +1,15 @@
+tripinfo arrival: count 150, min 26.00 (17), max 301.00 (77), mean 147.12, Q1 108.00, median 134.00, Q3 178.00, stdDev 50.78
+tripinfo arrivalPos: count 150, min 81.07 (63), max 208.45 (13), mean 125.72, Q1 85.07, median 117.97, Q3 181.64, stdDev 46.20
+tripinfo arrivalSpeed: count 150, min 10.01 (95), max 16.16 (30), mean 13.22, Q1 12.22, median 13.22, Q3 14.26, stdDev 1.28
+tripinfo depart: count 150, min 0.00 (0), max 101.00 (96), mean 44.56, Q1 20.00, median 42.00, Q3 67.00, stdDev 28.37
+tripinfo departDelay: count 150, min 0.00 (17), max 5.00 (96), mean 0.23, Q1 0.00, median 0.00, Q3 0.00, stdDev 0.74
+tripinfo departPos: count 150, min 5.10 (17), max 5.10 (17), mean 5.10, Q1 5.10, median 5.10, Q3 5.10, stdDev 0.00
+tripinfo departSpeed: count 150, min 0.00 (17), max 0.00 (17), mean 0.00, Q1 0.00, median 0.00, Q3 0.00, stdDev 0.00
+tripinfo duration: count 150, min 9.00 (17), max 245.00 (22), mean 102.56, Q1 76.00, median 99.00, Q3 123.00, stdDev 42.88
+tripinfo rerouteNo: count 150, min 0.00 (72), max 1.00 (17), mean 0.99, Q1 1.00, median 1.00, Q3 1.00, stdDev 0.11
+tripinfo routeLength: count 150, min 79.97 (17), max 2532.03 (22), mean 1124.03, Q1 788.01, median 1091.87, Q3 1367.50, stdDev 494.80
+tripinfo speedFactor: count 150, min 0.83 (24), max 1.18 (37), mean 1.00, Q1 0.94, median 1.01, Q3 1.06, stdDev 0.09
+tripinfo stopTime: count 150, min 0.00 (17), max 0.00 (17), mean 0.00, Q1 0.00, median 0.00, Q3 0.00, stdDev 0.00
+tripinfo timeLoss: count 150, min 2.70 (17), max 53.27 (22), mean 18.67, Q1 12.51, median 17.82, Q3 22.33, stdDev 8.72
+tripinfo waitingCount: count 150, min 0.00 (17), max 3.00 (96), mean 0.29, Q1 0.00, median 0.00, Q3 1.00, stdDev 0.55
+tripinfo waitingTime: count 150, min 0.00 (17), max 14.00 (96), mean 0.84, Q1 0.00, median 0.00, Q3 1.00, stdDev 1.98

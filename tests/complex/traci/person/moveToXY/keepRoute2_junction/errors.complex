@@ -1,1 +1,1 @@
-Warning: Could not map position 111.59,113.40 onto lane ':C_w1_0'
+Warning: Could not map position 111.59,113.40 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=38.00.

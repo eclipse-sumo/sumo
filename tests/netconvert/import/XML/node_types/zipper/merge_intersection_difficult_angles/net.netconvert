@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  9 09:16:31 2020 by Eclipse SUMO netconvert Version v1_7_0+0564-9803a48dbf
+<!-- generated on 2023-01-06 11:35:03 by Eclipse SUMO netconvert Version v1_15_0+1382-60f6188
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,13 +25,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="16.08,-39.20" convBoundary="0.00,0.00,144.97,13.02" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -54,12 +58,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ2" type="dead_end" x="1.38" y="10.43" incLanes="" intLanes="" shape="1.38,10.43 1.52,7.23"/>
     <junction id="gneJ3" type="dead_end" x="144.97" y="0.00" incLanes="out_0 out_1" intLanes="" shape="144.91,-6.40 144.97,0.00"/>
     <junction id="z" type="zipper" x="68.46" y="0.75" incLanes="in_0 in2_0 in2_1" intLanes=":z_0_0 :z_1_0 :z_1_1" shape="67.87,0.76 67.81,-5.64 59.81,-5.57 58.98,13.02 61.74,12.24 62.96,10.01 63.42,7.04 63.88,4.04 65.11,1.71">
-        <request index="0" response="000" foes="110" cont="0"/>
+        <request index="0" response="110" foes="110" cont="0"/>
         <request index="1" response="101" foes="101" cont="0"/>
         <request index="2" response="011" foes="011" cont="0"/>
     </junction>
 
-    <connection from="in" to="out" fromLane="0" toLane="1" pass="1" via=":z_0_0" dir="s" state="M"/>
+    <connection from="in" to="out" fromLane="0" toLane="1" via=":z_0_0" dir="s" state="m"/>
     <connection from="in2" to="out" fromLane="0" toLane="0" via=":z_1_0" dir="s" state="Z"/>
     <connection from="in2" to="out" fromLane="1" toLane="0" via=":z_1_1" dir="s" state="Z"/>
 

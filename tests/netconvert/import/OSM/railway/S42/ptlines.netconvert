@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-16 13:32:40 by Eclipse SUMO netconvert Version v1_17_0+0980-323358e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="14983" name="S42: Ring gegen den Uhrzeigersinn ↺" line="S42" type="light_rail" vClass="rail_urban" period="300" color="195,105,57" completeness="1.00">
+        <route edges="4740765#1 504503839 44908545 237947345 44908547 421646139 464700826 4740751#0 4740751#1 25421448 25421451#0 25421451#1 25421450 25421449 25712630 27707586 27707583 4740750 23707857#0 23707857#1 23714890 23714895 23714891 23714892 438832772 1155804298 456927081 446633270 4543951 4471972 4471973 4484073 24157189 1155801227 4484074 4553164#0 4553164#1 703053287 15245080 15245081 180406884#0 180406884#1 438768578#0 438768578#1 36853644#0 36853644#1 36853644#2 1155801229 1155801230#0 1155801230#1 438414950 531237642 4490199 438414951#0 438414951#1 4490198#0 4490198#1 4407773#0 4407773#1 4407773#2 290741159 290741151 384165127#0 384165127#1 384165127#2 531237631#0 531237631#1 290741153#0 290741153#1 384165125#0 384165125#1 374931225 27508977#0 27508977#1 374931226#0 374931226#1 24295380 24295381 290738876 290738875#0 290738875#1 24862037 24862038#0 24862038#1 532685285 290736428 4500167 4525935#0 4525935#1 4525935#2 375935983 532685284#0 532685284#1 4525936 4525941#0 4525941#1 1023966238 1023966242 276205109 276205111 4525942 52937827#0 52937827#1 25982342 532685292 4500168#0 4500168#1 25642348 25642349 4525937 4756281 52782252 802024948 19744868 230942387 4526351 1154993712 321030049#0 321030049#1 321030049#2 463435053#0 463435053#1 463435053#2 28812478 28812479#0 28812479#1 28812479#2 28812479#3 292235130 141176100 802255090 383989501 292236429 292236430 13252387 13252388 1155777190 155594940 24314519 463435955 24314518 24262680 24262681 1154986481 4703300 1066932616 22768550 1115652878 4703292 1115652877 1115652881 22768984 1125072786#0 1125072786#1 22768983 13252425#0 13252425#1 29131337 24178939 24166072#0 24166072#1 136703834 1007479688 28200410 200143862#0 200143862#1 200143179 200143175 224320989#0 224320989#1 224320989#2 224320989#3 154456590#0 154456590#1 154456590#2 427231834 127025011 709592362 127025010 121421962#0 121421962#1 28243480 28243481#0 28243481#1 28243481#2 28243481#3 8096478 8096479#0 8096479#1 1125299946 8096475 1125949328 8096476#0 8096476#1 1125949326 463437334#0 463437334#1 1155847955#0 1155847955#1 375331627 1155847956 427231838#0 427231838#1 1155847957 375331614 4741220 427231835 1155847959 4741219 427231836 383960623 383960624 427231840 4471971 463431360 427231839 4615231 4615230 42146223 42146224 375348223#0 375348223#1 41893764 375361371 427231837 28820204 4740779 4740818 4740817 4740784 155187886 421646140 4740765#0 4740765#1"/>
+        <busStop id="2490859942" name="Gesundbrunnen"/>
+        <busStop id="1127966943" name="Wedding"/>
+        <busStop id="315501112" name="Westhafen"/>
+        <busStop id="527860811" name="Beusselstraße"/>
+        <busStop id="26124364" name="Jungfernheide"/>
+        <busStop id="4946539231" name="Westend"/>
+        <busStop id="128376788" name="Messe Nord/ICC"/>
+        <busStop id="27527830" name="Westkreuz"/>
+        <busStop id="110124633" name="Halensee"/>
+        <busStop id="4946539232" name="Hohenzollerndamm"/>
+        <busStop id="4946539240" name="Heidelberger Platz"/>
+        <busStop id="27325589" name="Bundesplatz"/>
+        <busStop id="27325925" name="Innsbrucker Platz"/>
+        <busStop id="670814566" name="Schöneberg"/>
+        <busStop id="4946539230" name="Südkreuz"/>
+        <busStop id="316775452" name="Tempelhof"/>
+        <busStop id="27554979" name="Hermannstraße"/>
+        <busStop id="1095078302" name="Neukölln"/>
+        <busStop id="1106283740" name="Sonnenallee"/>
+        <busStop id="261750068" name="Treptower Park"/>
+        <busStop id="1797163101" name="Ostkreuz"/>
+        <busStop id="21385742" name="Frankfurter Allee"/>
+        <busStop id="1127966990" name="Storkower Straße"/>
+        <busStop id="1127967008" name="Landsberger Allee"/>
+        <busStop id="3876863066" name="Greifswalder Straße"/>
+        <busStop id="1127966954" name="Prenzlauer Allee"/>
+        <busStop id="1127966977" name="Schönhauser Allee"/>
+        <busStop id="2490859942" name="Gesundbrunnen"/>
+    </ptLine>
+</ptLines>

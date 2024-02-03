@@ -63,3 +63,48 @@ ticket8635
 
 # broken public transport routes due to missing permissions
 ticket8587
+
+# missing pedestrian permissions
+ticket8782
+
+# superfluous stops
+ticket8791
+
+# complex junction in adlershof that must be joined
+ticket9062
+
+# faulty permissions leading to a faulty network (triggered by ptlines)
+ticket9701
+
+# crash when (always) processing pt stuff 
+ticket11803
+
+# crash when (always) processing pt stuff 
+ticket11839
+
+# interpretation of empty osm.turn-lanes value
+ticket12042
+
+# spreadType in typemap
+ticket12141
+
+# crash in cleanup after joining tram
+ticket12223
+
+# oneway:bus import
+ticket12592
+
+# missing tls on rail crossing
+ticket12765
+
+# apply turnSigns when the topology is handled by a fixed connection pattern.
+ticket12978
+
+# restriction exception lost on joining junction
+ticket13217
+
+# bad join and also turn around not detected (#13238)
+ticket13237
+
+# foot=yes with sidewalk=no
+ticket14124

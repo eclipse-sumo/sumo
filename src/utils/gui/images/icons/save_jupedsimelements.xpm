@@ -1,0 +1,30 @@
+/* XPM */
+static const char *save_jupedsimelements_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 8 1",
+"  c #040404",
+". c #085575",
+"X c #808304",
+"o c #588FA3",
+"O c #6B9EB0",
+"+ c #BFC2BF",
+"@ c #B1CFD6",
+"# c None",
+/* pixels */
+"################",
+"#              #",
+"# X ++++++++ + #",
+"# X +++++O++   #",
+"# X ++O+O.O+ X #",
+"# X oO.O@O@o X #",
+"# X @@O@@@@@ X #",
+"# X @@@@@@@@ X #",
+"# XX        XX #",
+"# XXXXXXXXXXXX #",
+"# XX         X #",
+"# XX      ++ X #",
+"# XX      ++ X #",
+"# XX      ++ X #",
+"##             #",
+"################"
+};

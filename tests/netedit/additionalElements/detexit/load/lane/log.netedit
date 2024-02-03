@@ -1,2 +1,0 @@
-Warning: Essential unique string attribute 'lane' of detExit is missing; detExit cannot be created
-Warning: The lane 'dummyLane' to use within the detExit is not known.

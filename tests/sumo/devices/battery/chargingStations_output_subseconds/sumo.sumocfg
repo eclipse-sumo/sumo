@@ -11,4 +11,6 @@
 	<!-- enable battery device in all vehicles -->
 	<device.battery.probability value="1"/>
 	
+	<step-length value="0.2"/>
+	
 </configuration>

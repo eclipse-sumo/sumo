@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-03 12:17:45 by Eclipse SUMO netedit Version v1_15_0+2138-949a66da79b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="typeA" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeB" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <container id="p_0" type="typeC" depart="10.00" departPos="0.00" color="red">
+        <tranship from="Edge0" to="Edge2"/>
+    </container>
+    <container id="p_1" type="typeC" depart="12.00" departPos="11.00" color="blue">
+        <tranship from="Edge1" to="Edge2"/>
+    </container>
+</routes>

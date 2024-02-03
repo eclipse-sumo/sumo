@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-16 10:38:57.928178 by netdiff.py v1_11_0+0577-039c1c73205
+  options: ../../../osm/osm.net.xml BadHersfeld_loop.net.xml prt2 <doubleminus>plain-geo
+-->
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="gneJ0" type="priority" x="9.716428" y="50.870679"/>
+    <node id="gneJ1" type="priority" x="9.716528" y="50.870850"/>
+    <node id="gneJ10" type="priority" x="9.714087" y="50.870216"/>
+    <node id="gneJ101" type="priority" x="9.712145" y="50.871931"/>
+    <node id="gneJ11" type="priority" x="9.713707" y="50.870203"/>
+    <node id="gneJ116" type="priority" x="9.708073" y="50.869477"/>
+    <node id="gneJ117" type="priority" x="9.707969" y="50.870199"/>
+    <node id="gneJ118" type="priority" x="9.707722" y="50.870159"/>
+    <node id="gneJ119" type="priority" x="9.707772" y="50.869989"/>
+    <node id="gneJ12" type="priority" x="9.713713" y="50.870117"/>
+    <node id="gneJ121" type="priority" x="9.707999" y="50.869746"/>
+    <node id="gneJ123" type="priority" x="9.708349" y="50.869649"/>
+    <node id="gneJ124" type="priority" x="9.712957" y="50.869983"/>
+    <node id="gneJ126" type="priority" x="9.707448" y="50.870134"/>
+    <node id="gneJ127" type="priority" x="9.707482" y="50.869927"/>
+    <node id="gneJ13" type="priority" x="9.713256" y="50.870154"/>
+    <node id="gneJ130" type="priority" x="9.712852" y="50.870159"/>
+    <node id="gneJ132" type="priority" x="9.712742" y="50.869997"/>
+    <node id="gneJ134" type="priority" x="9.714128" y="50.871453"/>
+    <node id="gneJ138" type="priority" x="9.708802" y="50.869860"/>
+    <node id="gneJ139" type="priority" x="9.708568" y="50.869782"/>
+    <node id="gneJ140" type="priority" x="9.707456" y="50.870039"/>
+    <node id="gneJ15" type="unregulated" x="9.712605" y="50.869928"/>
+    <node id="gneJ2" type="priority" x="9.716439" y="50.870961"/>
+    <node id="gneJ20" type="priority" x="9.712035" y="50.870786"/>
+    <node id="gneJ21" type="priority" x="9.711427" y="50.870962"/>
+    <node id="gneJ22" type="priority" x="9.711216" y="50.871063"/>
+    <node id="gneJ23" type="priority" x="9.711153" y="50.871215"/>
+    <node id="gneJ24" type="priority" x="9.711324" y="50.871422"/>
+    <node id="gneJ27" type="priority" x="9.712388" y="50.871941"/>
+    <node id="gneJ28" type="priority" x="9.712848" y="50.871957"/>
+    <node id="gneJ29" type="priority" x="9.713182" y="50.872020"/>
+    <node id="gneJ30" type="priority" x="9.713619" y="50.872120"/>
+    <node id="gneJ31" type="priority" x="9.713918" y="50.872014"/>
+    <node id="gneJ33" type="unregulated" x="9.711982" y="50.872179"/>
+    <node id="gneJ34" type="priority" x="9.712307" y="50.872592"/>
+    <node id="gneJ35" type="priority" x="9.712396" y="50.872722"/>
+    <node id="gneJ36" type="priority" x="9.712452" y="50.872842"/>
+    <node id="gneJ37" type="priority" x="9.713054" y="50.872926"/>
+    <node id="gneJ38" type="priority" x="9.713237" y="50.872972"/>
+    <node id="gneJ39" type="priority" x="9.714146" y="50.873189"/>
+    <node id="gneJ4" type="priority" x="9.716293" y="50.870415"/>
+    <node id="gneJ40" type="priority" x="9.714240" y="50.873727"/>
+    <node id="gneJ41" type="priority" x="9.714371" y="50.874281"/>
+    <node id="gneJ42" type="priority" x="9.714521" y="50.874788"/>
+    <node id="gneJ43" type="priority" x="9.715295" y="50.874935"/>
+    <node id="gneJ44" type="priority" x="9.715794" y="50.875149"/>
+    <node id="gneJ45" type="priority" x="9.716419" y="50.875579"/>
+    <node id="gneJ46" type="priority" x="9.716683" y="50.875790"/>
+    <node id="gneJ47" type="priority" x="9.716899" y="50.876039"/>
+    <node id="gneJ48" type="priority" x="9.716976" y="50.876270"/>
+    <node id="gneJ49" type="priority" x="9.716987" y="50.876414"/>
+    <node id="gneJ5" type="priority" x="9.716078" y="50.870258"/>
+    <node id="gneJ50" type="priority" x="9.716910" y="50.876770"/>
+    <node id="gneJ51" type="priority" x="9.715649" y="50.876859"/>
+    <node id="gneJ52" type="priority" x="9.715602" y="50.876715"/>
+    <node id="gneJ53" type="unregulated" x="9.715462" y="50.876620"/>
+    <node id="gneJ54" type="priority" x="9.715463" y="50.876495"/>
+    <node id="gneJ56" type="priority" x="9.712148" y="50.869881"/>
+    <node id="gneJ57" type="priority" x="9.711463" y="50.869981"/>
+    <node id="gneJ58" type="priority" x="9.711149" y="50.870063"/>
+    <node id="gneJ59" type="priority" x="9.710808" y="50.870156"/>
+    <node id="gneJ6" type="priority" x="9.715822" y="50.870171"/>
+    <node id="gneJ60" type="priority" x="9.710389" y="50.870251"/>
+    <node id="gneJ61" type="priority" x="9.709792" y="50.870284"/>
+    <node id="gneJ62" type="priority" x="9.709765" y="50.870149"/>
+    <node id="gneJ63" type="priority" x="9.709452" y="50.870019"/>
+    <node id="gneJ65" type="unregulated" x="9.708086" y="50.869964"/>
+    <node id="gneJ78" type="zipper" x="9.712778" y="50.870234"/>
+    <node id="gneJ79" type="priority" x="9.712790" y="50.870680"/>
+    <node id="gneJ85" type="priority" x="9.716280" y="50.871017"/>
+    <node id="gneJ86" type="priority" x="9.716142" y="50.870950"/>
+    <node id="gneJ87" type="priority" x="9.715703" y="50.876486"/>
+    <node id="gneJ9" type="priority" x="9.714266" y="50.870275"/>
+    <node id="gneJ92" type="priority" x="9.707922" y="50.869608"/>
+    <node id="gneJ93" type="unregulated" x="9.708146" y="50.869793"/>
+    <node id="gneJ94" type="priority" x="9.714741" y="50.870415"/>
+    <node id="gneJ96" type="zipper" x="9.714576" y="50.870385"/>
+    <node id="gneJ97" type="priority" x="9.714407" y="50.870334"/>
+    <node id="gneJ98" type="priority" x="9.714821" y="50.870514"/>
+    <node id="sz_1" tl="sz1" type="traffic_light_unregulated" x="9.714317" y="50.870968"/>
+    <node id="sz_135" tl="sz135" type="traffic_light_unregulated" x="9.708239" y="50.869551"/>
+    <node id="sz_14" tl="sz14" type="traffic_light_unregulated" x="9.713357" y="50.870080"/>
+    <node id="sz_25" tl="szJ25" type="traffic_light_unregulated" x="9.711446" y="50.871559"/>
+    <node id="sz_3" tl="sz3" type="traffic_light_unregulated" x="9.716271" y="50.870855"/>
+    <node id="sz_5" tl="sz5" type="traffic_light_unregulated" x="9.708565" y="50.869778"/>
+    <node id="sz_55" tl="gneJ55" type="traffic_light_unregulated" x="9.715721" y="50.876599"/>
+    <node id="sz_7" type="priority" x="9.715221" y="50.870392"/>
+</nodes>

@@ -8,7 +8,7 @@
     <input>
         <net-file value="cross/cross.net.xml"/>
         <route-files value="cross/cross.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <additional-files value="cross/cross.tls.add.xml,input_additional.add.xml"/>
     </input>
 
     <time>

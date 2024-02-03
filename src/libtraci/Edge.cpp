@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
 
 #define LIBTRACI 1
 #include <iterator>
@@ -148,6 +149,12 @@ Edge::getLastStepMeanSpeed(const std::string& edgeID) {
 
 
 double
+Edge::getMeanFriction(const std::string& edgeID) {
+    return Dom::getDouble(libsumo::VAR_FRICTION, edgeID);
+}
+
+
+double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
     return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }
@@ -176,24 +183,47 @@ Edge::getStreetName(const std::string& edgeID) {
     return Dom::getString(libsumo::VAR_NAME, edgeID);
 }
 
+
 const std::vector<std::string>
 Edge::getPendingVehicles(const std::string& edgeID) {
     return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, edgeID);
 }
+
+
+double
+Edge::getAngle(const std::string& edgeID, double relativePosition) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(relativePosition);
+    return Dom::getDouble(libsumo::VAR_ANGLE, edgeID, &content);
+}
+
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
 
 void
-Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    Dom::setStringVector(libsumo::LANE_ALLOWED, edgeID, classes);
+Edge::setAllowed(const std::string& edgeID, std::string allowedClasses) {
+    setAllowed(edgeID, std::vector<std::string>({allowedClasses}));
 }
 
 
 void
-Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    Dom::setStringVector(libsumo::LANE_DISALLOWED, edgeID, classes);
+Edge::setAllowed(const std::string& edgeID, std::vector<std::string> allowedClasses) {
+    Dom::setStringVector(libsumo::LANE_ALLOWED, edgeID, allowedClasses);
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::string disallowedClasses) {
+    setDisallowed(edgeID, std::vector<std::string>({disallowedClasses}));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::vector<std::string> disallowedClasses) {
+    Dom::setStringVector(libsumo::LANE_DISALLOWED, edgeID, disallowedClasses);
 }
 
 
@@ -212,7 +242,7 @@ Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSecond
     }
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(time);
-    Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
+    Dom::set(libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 
@@ -231,13 +261,19 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
     }
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(effort);
-    Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT, edgeID, &content);
+    Dom::set(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 
 void
 Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
+}
+
+
+void
+Edge::setFriction(const std::string& edgeID, double friction) {
+    Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, friction);
 }
 
 }

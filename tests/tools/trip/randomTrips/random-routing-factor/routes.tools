@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:33.791489 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <fringe-factor value="1000.0"/>
+    <net-file value="net2.net.xml"/>
+    <random-routing-factor value="2.0"/>
+    <route-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:33 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+        <alternatives-output value="NUL"/>
+    </output>
+
+    <processing>
+        <weights.random-factor value="2"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="1" depart="1.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="2" depart="2.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="3" depart="3.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="4" depart="4.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="5" depart="5.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="6" depart="6.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="7" depart="7.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+    <vehicle id="8" depart="8.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="9" depart="9.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+</routes>

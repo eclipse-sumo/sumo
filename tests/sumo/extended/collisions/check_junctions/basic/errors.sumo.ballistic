@@ -1,18 +1,11 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
-Warning: Teleporting vehicle 'horizontal.2'; collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=13.00 stage=move.
-Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 13.00.
-Warning: Teleporting vehicle 'horizontal.4'; collision with vehicle 'vertical.5', lane=':0_13_0', gap=-1.00, time=23.00 stage=move.
-Warning: Vehicle 'horizontal.4' ends teleporting on edge '2o', time 23.00.
-Warning: Teleporting vehicle 'horizontal.8'; collision with vehicle 'vertical.9', lane=':0_13_0', gap=-1.00, time=43.00 stage=move.
-Warning: Vehicle 'horizontal.8' ends teleporting on edge '2o', time 43.00.
-Warning: Teleporting vehicle 'vertical.11'; collision with vehicle 'horizontal.9', lane=':0_9_0', gap=-1.00, time=48.00 stage=move.
-Warning: Vehicle 'vertical.11' ends teleporting on edge '4o', time 48.00.
-Warning: Teleporting vehicle 'horizontal.13'; collision with vehicle 'vertical.15', lane=':0_13_0', gap=-1.00, time=68.00 stage=move.
-Warning: Vehicle 'horizontal.13' ends teleporting on edge '2o', time 68.00.
-Warning: Teleporting vehicle 'vertical.17'; collision with vehicle 'horizontal.14', lane=':0_9_0', gap=-1.00, time=73.00 stage=move.
-Warning: Vehicle 'vertical.17' ends teleporting on edge '4o', time 73.00.
-Warning: Teleporting vehicle 'horizontal.15'; collision with vehicle 'vertical.19', lane=':0_13_0', gap=-1.00, time=78.00 stage=move.
-Warning: Vehicle 'horizontal.15' ends teleporting on edge '2o', time 78.00.
-Warning: Teleporting vehicle 'horizontal.18'; collision with vehicle 'vertical.22', lane=':0_13_0', gap=-1.00, time=93.00 stage=move.
-Warning: Vehicle 'horizontal.18' ends teleporting on edge '2o', time 93.00.
-Warning: Vehicle 'vertical.24' performs emergency stop at the end of lane '3si_1' because of a red traffic light (decel=-5.50, offset=1.00), time=101.00.
+Warning: Teleporting vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane=':0_13_0', gap=-1.00, time=2.50 stage=move.
+Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', time 2.50.
+Warning: Teleporting vehicle 'horizontal.2'; junction collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=12.50 stage=move.
+Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 12.50.
+Warning: Teleporting vehicle 'horizontal.4'; junction collision with vehicle 'vertical.5', lane=':0_13_0', gap=-1.00, time=22.50 stage=move.
+Warning: Vehicle 'horizontal.4' ends teleporting on edge '2o', time 22.50.
+Warning: Teleporting vehicle 'horizontal.6'; junction collision with vehicle 'vertical.8', lane=':0_13_0', gap=-1.00, time=32.50 stage=move.
+Warning: Vehicle 'horizontal.6' ends teleporting on edge '2o', time 32.50.
+Warning: Teleporting vehicle 'vertical.11'; junction collision with vehicle 'horizontal.8', lane=':0_9_0', gap=-1.00, time=42.50 stage=move.
+Warning: Vehicle 'vertical.11' ends teleporting on edge '4o', time 42.50.

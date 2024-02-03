@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -44,15 +44,6 @@ netedit.changeElement("busStop")
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 245)
 
-# go to shape mode
-netedit.shapeMode()
-
-# go to additional mode
-netedit.changeElement("poly")
-
-# create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
-
 # go to demand mode
 netedit.supermodeDemand()
 
@@ -75,8 +66,8 @@ netedit.saveRoutes(referencePosition)
 # reload netedit saving all
 netedit.reload(neteditProcess, True, True, False, False, False, False)
 
-# click over view again
-netedit.leftClick(referencePosition, 0, 0)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
-netedit.quit(neteditProcess, False, False, False, False, False, False)
+netedit.quit(neteditProcess)

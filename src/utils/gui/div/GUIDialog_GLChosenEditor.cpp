@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -57,6 +58,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) :
     FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(GUIIcon::APP_SELECTOR), nullptr, GUIDesignChooserDialog),
+    GUIPersistentWindowPos(this, "DIALOG_EDIT_SELECTED", true, 20, 40, 300, 350),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -70,20 +72,21 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISel
     // build the layout
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // "Load"
-    new FXButton(layout, "&Load selection\t\t", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Load selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layout, "&Save selection\t\t", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Save selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Deselect Chosen"
-    new FXButton(layout, "&Deselect chosen\t\t", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_DESELECT, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Deselect chosen"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_DESELECT, GUIDesignChooserButtons);
     // "Clear List"
-    new FXButton(layout, "&Clear selection\t\t", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Clear selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layout, "Cl&ose\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("Cl&ose"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myParent->addChild(this);
+    loadWindowPos();
 }
 
 
@@ -119,8 +122,8 @@ GUIDialog_GLChosenEditor::selectionUpdated() {
 long
 GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    FXFileDialog opendialog(this, TL("Open List of Selected Items"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.txt\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -131,9 +134,10 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         std::string msg = gSelected.load(file);
         if (msg != "") {
-            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", msg.c_str());
+            FXMessageBox::error(this, MBOX_OK, TL("Errors while loading Selection"), "%s", msg.c_str());
         }
         rebuildList();
+        myParent->updateChildren();
     }
     return 1;
 }
@@ -141,14 +145,14 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_GLChosenEditor::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save List of selected Items"), ".txt", GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
     }
     try {
         gSelected.save(file.text());
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }

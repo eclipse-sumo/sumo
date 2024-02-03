@@ -1,0 +1,12 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '52080655').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '81639675').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '318210394').
+Warning: Converting invalid rail_crossing to priority junction '1704693673'.
+Warning: Converting invalid rail_crossing to priority junction '1704693699'.
+Warning: Converting invalid rail_crossing to priority junction '2293276823'.
+Warning: Converting invalid rail_crossing to priority junction '2293276824'.
+Warning: Converting invalid rail_crossing to priority junction '2293276826'.
+Warning: Reducing junction cluster 1652675093,3246050929,3366620136,5836660314,7170324899 (long edge).
+Warning: The traffic light '1525212345' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1525212345'
+Warning: 12 total messages of type: Converting invalid rail_crossing to priority junction '%'.

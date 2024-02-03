@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,22 +23,22 @@
 #include <config.h>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBPTLineCont.h>
+#include <netbuild/NBPTStop.h>
 #include <netbuild/NBParking.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/geom/GeoConvHelper.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 #include "NWWriter_XML.h"
-
 
 
 // ===========================================================================
@@ -48,18 +48,18 @@
 // static methods
 // ---------------------------------------------------------------------------
 void
-NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
+NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBNetBuilder& nb) {
     // check whether plain-output files shall be generated
-    if (oc.isSet("plain-output-prefix")) {
-        writeNodes(oc, nb.getNodeCont());
+    if (prefix != "") {
+        writeNodes(oc, prefix, nb.getNodeCont());
         if (nb.getTypeCont().size() > 0) {
-            writeTypes(oc, nb.getTypeCont());
+            writeTypes(prefix, nb.getEdgeCont(), nb.getTypeCont());
         }
-        writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
-        writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
+        writeEdgesAndConnections(oc, prefix, nb.getNodeCont(), nb.getEdgeCont());
+        writeTrafficLights(prefix, nb.getTLLogicCont(), nb.getEdgeCont());
     }
     if (oc.isSet("junctions.join-output")) {
-        writeJoinedJunctions(oc, nb.getNodeCont());
+        writeJoinedJunctions(oc.getString("junctions.join-output"), nb.getNodeCont());
     }
     if (oc.isSet("street-sign-output")) {
         writeStreetSigns(oc, nb.getEdgeCont());
@@ -81,18 +81,18 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 void
-NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
+NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     if (useGeo && !gch.usingGeoProjection()) {
-        WRITE_WARNING("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined");
+        WRITE_WARNING(TL("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"));
         useGeo = false;
     }
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".nod.xml");
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
 
     // write network offsets and projection to allow reconstruction of original coordinates
@@ -101,6 +101,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
     }
 
     // write nodes
+    TrafficLightType tlsDefaultType = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
@@ -120,19 +121,25 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
-            const std::set<NBTrafficLightDefinition*>& tlss = n->getControllingTLS();
             // set may contain multiple programs for the same id.
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
             std::set<std::string> controlledInnerEdges;
-            for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl = tlss.begin(); it_tl != tlss.end(); it_tl++) {
-                tlsIDs.insert((*it_tl)->getID());
-                std::vector<std::string> cie = (*it_tl)->getControlledInnerEdges();
+            std::string tlType = "";
+            for (NBTrafficLightDefinition* tl : n->getControllingTLS()) {
+                tlsIDs.insert(tl->getID());
+                std::vector<std::string> cie = tl->getControlledInnerEdges();
                 controlledInnerEdges.insert(cie.begin(), cie.end());
+                if (tl->getType() != tlsDefaultType) {
+                    tlType = toString(tl->getType());
+                }
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
             sort(sortedIDs.begin(), sortedIDs.end());
             device.writeAttr(SUMO_ATTR_TLID, sortedIDs);
+            if (tlType != "") {
+                device.writeAttr(SUMO_ATTR_TLTYPE, tlType);
+            }
             if (controlledInnerEdges.size() > 0) {
                 std::vector<std::string> sortedCIEs(controlledInnerEdges.begin(), controlledInnerEdges.end());
                 sort(sortedCIEs.begin(), sortedCIEs.end());
@@ -155,7 +162,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
         if (n->getName() != "") {
-            device.writeAttr<std::string>(SUMO_ATTR_NAME, n->getName());
+            device.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n->getName()));
         }
         n->writeParams(device);
         device.closeTag();
@@ -165,29 +172,36 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
 
 void
-NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".typ.xml");
+NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& tc) {
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".typ.xml");
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader("types", "types_file.xsd", attrs);
-    tc.writeEdgeTypes(device);
+    std::set<std::string> usedTypes = ec.getUsedTypes();
+    tc.writeEdgeTypes(device, usedTypes);
     device.close();
 }
 
 
 void
-NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
+NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
-    OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
+    OutputDevice& edevice = OutputDevice::getDevice(prefix + ".edg.xml");
     edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
-    OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
+    OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con.xml");
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
+    const bool writeLanes = oc.getBool("plain-output.lanes");
+
+    // write network offsets and projection to allow reconstruction of original coordinates at least for geo-referenced networks
+    if (!useGeo && gch.usingGeoProjection()) {
+        GeoConvHelper::writeLocation(edevice);
+    }
     LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
@@ -207,6 +221,11 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         edevice.writeAttr(SUMO_ATTR_NUMLANES, e->getNumLanes());
         if (!e->hasLaneSpecificSpeed()) {
             edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
+        }
+        if (!e->hasLaneSpecificFriction()) {
+            if (e->getFriction() != NBEdge::UNSPECIFIED_FRICTION) {
+                edevice.writeAttr(SUMO_ATTR_FRICTION, e->getFriction());
+            }
         }
         // write non-default geometry
         if (!e->hasDefaultGeometry()) {
@@ -230,37 +249,40 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificPermissions()) {
             writePermissions(edevice, e->getPermissions(0));
         }
-        if (!e->hasLaneSpecificStopOffsets() && e->getStopOffsets().size() != 0) {
-            NWWriter_SUMO::writeStopOffsets(edevice, e->getStopOffsets());
+        if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().isDefined()) {
+            NWWriter_SUMO::writeStopOffsets(edevice, e->getEdgeStopOffset());
         }
         if (e->getDistance() != 0) {
             edevice.writeAttr(SUMO_ATTR_DISTANCE, e->getDistance());
         }
-        if (e->needsLaneSpecificOutput()) {
+        if (e->getBidiEdge() != 0) {
+            edevice.writeAttr(SUMO_ATTR_BIDI, e->getBidiEdge()->getID());
+        }
+        if (e->needsLaneSpecificOutput() || writeLanes) {
             int idx = 0;
             for (const NBEdge::Lane& lane : e->getLanes()) {
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, idx++);
                 // write allowed lanes
-                if (e->hasLaneSpecificPermissions()) {
+                if (e->hasLaneSpecificPermissions() || writeLanes) {
                     writePermissions(edevice, lane.permissions);
                 }
                 writePreferences(edevice, lane.preferred);
                 // write other attributes
-                if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
+                if (lane.width != NBEdge::UNSPECIFIED_WIDTH && (e->hasLaneSpecificWidth() || writeLanes)) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }
-                if (lane.endOffset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificEndOffset()) {
+                if (lane.endOffset != NBEdge::UNSPECIFIED_OFFSET && (e->hasLaneSpecificEndOffset() || writeLanes)) {
                     edevice.writeAttr(SUMO_ATTR_ENDOFFSET, lane.endOffset);
                 }
-                if (e->hasLaneSpecificSpeed()) {
+                if (e->hasLaneSpecificSpeed() || writeLanes) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
                 }
                 if (lane.accelRamp) {
                     edevice.writeAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp);
                 }
-                if (lane.customShape.size() > 0) {
-                    writeShape(edevice, gch, lane.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
+                if (lane.customShape.size() > 0 || writeLanes) {
+                    writeShape(edevice, gch, lane.customShape.size() > 0 ? lane.customShape : lane.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
                 }
                 if (lane.type != "") {
                     edevice.writeAttr(SUMO_ATTR_TYPE, lane.type);
@@ -277,7 +299,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                     edevice.closeTag();
                 }
                 lane.writeParams(edevice);
-                NWWriter_SUMO::writeStopOffsets(edevice, lane.stopOffsets);
+                NWWriter_SUMO::writeStopOffsets(edevice, lane.laneStopOffset);
                 edevice.closeTag();
             }
         }
@@ -368,10 +390,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
 
 
 void
-NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
+NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".tll.xml");
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".tll.xml");
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections
@@ -391,10 +413,10 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
 
 
 void
-NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
+NWWriter_XML::writeJoinedJunctions(const std::string& filename, NBNodeCont& nc) {
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("junctions.join-output"));
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
+    OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
     const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();
     for (std::vector<std::set<std::string> >::const_iterator it = clusters.begin(); it != clusters.end(); it++) {
@@ -427,15 +449,19 @@ NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     }
     device.close();
 }
+
+
 void
 NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptstop-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::map<std::string, NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
-        i->second->write(device);
+    for (const auto& stopIt : sc.getStops()) {
+        stopIt.second->write(device);
     }
     device.close();
 }
+
+
 void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("ptLines", "ptlines_file.xsd");
@@ -444,6 +470,7 @@ void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc) {
     }
     device.close();
 }
+
 
 void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("parking-output"));
@@ -454,6 +481,7 @@ void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, N
     device.close();
 }
 
+
 void
 NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("taz-output"));
@@ -462,6 +490,7 @@ NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
         NWWriter_SUMO::writeDistrict(device, *(*i).second);
     }
 }
+
 
 void
 NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy) {
@@ -478,8 +507,6 @@ NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVe
         out.setPrecision();
     }
 }
-
-/****************************************************************************/
 
 
 /****************************************************************************/

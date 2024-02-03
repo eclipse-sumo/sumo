@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,33 +28,36 @@ import contextlib
 import io
 
 from collections import OrderedDict
-from optparse import OptionParser
 
 import xsd
 import xml2csv
 
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
+
 
 def get_options():
-    optParser = OptionParser(
-        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-q", "--quotechar", default="",
-                         help="the quoting character for fields")
-    optParser.add_option("-d", "--delimiter", default=";",
-                         help="the field separator of the input file")
-    optParser.add_option("-t", "--type",
-                         help="convert the given csv-file into the specified format")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use")
-    optParser.add_option("-p", "--skip-root", action="store_true",
-                         default=False, help="the root element is not contained")
-    optParser.add_option("-o", "--output", help="name for generic output file")
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        optParser.print_help()
-        sys.exit()
-    if not options.xsd and not options.type:
-        print("either a schema or a type needs to be specified", file=sys.stderr)
-        sys.exit()
-    options.source = args[0]
+    optParser = sumolib.options.ArgumentParser(description="Convert a CSV file to a XML file.")
+    # input
+    optParser.add_argument("source", category="input", type=optParser.data_file,
+                           help="the input CSV file")
+    # output
+    optParser.add_argument("-o", "--output", category="output", required=True, type=optParser.file,
+                           help="name for generic output file")
+    # processing
+    optParser.add_argument("-q", "--quotechar", default="",
+                           help="the quoting character for fields")
+    optParser.add_argument("-d", "--delimiter", default=";",
+                           help="the field separator of the input file")
+    optParser.add_argument("-p", "--skip-root", action="store_true", default=False,
+                           help="the root element is not contained")
+    group = optParser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-t", "--type",
+                       help="convert the given csv-file into the specified format")
+    group.add_argument("-x", "--xsd",
+                       help="xsd schema to use")
+    options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options
@@ -88,6 +91,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
             orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
             outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
+        inputf.close()
 
 
 def checkAttributes(out, old, new, ele, tagStack, depth):
@@ -175,6 +179,7 @@ def writeHierarchicalXml(struct, options):
         outputf.write(u"/>\n")
         for idx in range(len(tagStack) - 2, -1, -1):
             outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
+        inputf.close()
 
 
 def main():

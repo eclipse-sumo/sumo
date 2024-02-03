@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="default" carFollowModel="EIDM" accel="1.2" jmIgnoreKeepClearTime="0"/>
+    <vehicle id="0" type="default" depart="0" departSpeed="max">
+        <route edges="SC CN CN2 NC2 NC CS" repeat="20"/>
+    </vehicle>
+    <flow id="1" begin="0" period="exp(0.1)" end="500">
+        <route edges="EC CN CN2"/>
+        <stop edge="CN2" duration="30" endPos="4"/>
+    </flow>
+</routes>

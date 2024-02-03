@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,12 +35,11 @@ time;<PHASE_LENGTH>[;<PHASE_LENGTH>]+
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import os
-import argparse
+import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net  # noqa
+import sumolib  # noqa
 
 
 class Logic:
@@ -98,11 +97,11 @@ def computeLinkPhasesAndTimes(logic):
         logic.defs.append(newPhases)
 
 
-parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
-parser.add_argument('TLS_CSV', help='tls definition')
-parser.add_argument('NET', help='sumo net file')
-parser.add_argument('-d', '--debug', action='store_true', help='print additional debug info')
-args = parser.parse_args()
+optParser = sumolib.options.ArgumentParser(description='Create TLS XML file from CSV file.')
+optParser.add_argument('TLS_CSV', category="input", type=optParser.data_file, help='TLS definition CSV file ')
+optParser.add_argument('NET', category="input", type=optParser.net_file, help='Network file')
+optParser.add_argument('-d', '--debug', action='store_true', help='Print additional debug info')
+args = optParser.parse_args()
 
 allLogics = []
 
@@ -211,10 +210,10 @@ for logic in allLogics:
                 indices[n][(li, c._toLane)] = index
                 index = index + 1
 
-    for l in range(0, len(linkMap)):
-        if linkMap[l] not in logic.links2index:
-            print("Error: Link %s is not described (%s)!" % (
-                l, linkMap[l]), file=sys.stderr)
+    for li in range(len(linkMap)):
+        if linkMap[li] not in logic.links2index:
+            print("Error: Link %s is not described (%s)!" % (li, linkMap[li]),
+                  file=sys.stderr)
             sys.exit()
 
     print('    <tlLogic id="' + logic.key + '" type="static" programID="' +
@@ -222,24 +221,21 @@ for logic in allLogics:
     for p in logic.params:
         print('        <param key="' + p[0] + '" value="' + p[1] + '"/>')
 
-    for i in range(0, len(logic.normTimes)):
+    for i in range(len(logic.normTimes)):
         state = ""
-        for l in range(0, len(linkMap)):
-            index = logic.links2index[linkMap[l]]
+        for link in linkMap:
+            index = logic.links2index[link]
             d = logic.defs[index]
-            if d[i] == 'r':
-                state = state + "r"
-            elif d[i] == 'y' or d[i] == 'a':
+            if d[i] in 'rgyoOus':
+                state = state + d[i]
+            elif d[i] == 'a':
                 state = state + "y"
-            elif d[i] == 'g':
-                state = state + "g"
-            elif d[i] == 'o' or d[i] == 'x':
+            elif d[i] == 'x':
                 state = state + "o"
             else:
-                sys.stderr.write(
-                    "missing value %s at %s (%s); setting to g\n" % (d[i], index, linkMap[l]))
+                sys.stderr.write("missing value %s at %s (%s); setting to g\n" % (d[i], index, link))
                 state = state + "g"
-        for l1 in range(0, len(state)):
+        for l1 in range(len(state)):
             if state[l1] == 'g':
                 wait = False
                 for l2 in range(0, len(state)):

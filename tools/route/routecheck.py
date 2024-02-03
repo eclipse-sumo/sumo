@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,17 +32,19 @@ If the route file uses the old format (<route>edge1 edge2</route>)
 this is changed without adding comments. The same is true for camelCase
 changes of attributes.
 """
-from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import absolute_import
+from collections import defaultdict
+from xml.sax import saxutils, make_parser, handler
 import os
 import sys
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+from sumolib.options import ArgumentParser  # noqa
 try:
     from StringIO import StringIO
 except ImportError:
     from io import StringIO
-from xml.sax import saxutils, make_parser, handler
-from optparse import OptionParser
-from collections import defaultdict
 
 camelCase = {"departlane": "departLane",
              "departpos": "departPos",
@@ -251,21 +253,18 @@ class RouteReader(handler.ContentHandler):
             self._out.write('<?%s %s?>' % (target, data))
 
 
-optParser = OptionParser(
-    usage=os.path.basename(__file__) + " [options] <routes>*")
-optParser.add_option("-v", "--verbose", action="store_true",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-f", "--fix", action="store_true",
-                     default=False, help="fix errors into '.fixed' file")
-optParser.add_option("-l", "--fix-length", action="store_true",
-                     default=False, help="fix vehicle type's length and guiOffset attributes")
-optParser.add_option("-i", "--inplace", action="store_true",
-                     default=False, help="replace original files")
-optParser.add_option("-n", "--net", help="network to check connectivity")
-(options, args) = optParser.parse_args()
-if len(args) == 0:
-    optParser.print_help()
-    sys.exit()
+ap = ArgumentParser()
+ap.add_argument("-v", "--verbose", action="store_true",
+                default=False, help="tell me what you are doing")
+ap.add_argument("-f", "--fix", action="store_true",
+                default=False, help="fix errors into '.fixed' file")
+ap.add_argument("-l", "--fix-length", action="store_true",
+                default=False, help="fix vehicle type's length and guiOffset attributes")
+ap.add_argument("-i", "--inplace", action="store_true",
+                default=False, help="replace original files")
+ap.add_argument("-n", "--net", category="input", type=ap.net_file, help="network to check connectivity")
+ap.add_argument("routes", category="input", type=ap.file, nargs="+", help="route files to check")
+options = ap.parse_args()
 parser = make_parser()
 net = None
 if options.net:
@@ -277,7 +276,7 @@ parser.setContentHandler(RouteReader(net, ''))
 if options.fix_length:
     deletedKeys["vType"] += ['guiOffset']
 
-for f in args:
+for f in options.routes:
     ffix = f + '.fixed'
     if options.fix:
         if options.verbose:

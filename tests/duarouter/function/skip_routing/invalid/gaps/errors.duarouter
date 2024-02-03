@@ -1,0 +1,3 @@
+Error: Edge 'left' not connected to edge 'end' for vehicle 'left_gap'.
+Error: Edge 'middle' not connected to edge 'rend' for vehicle 'middle_gap'.
+Quitting (on error).

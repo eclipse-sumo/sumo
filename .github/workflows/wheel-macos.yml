@@ -1,0 +1,184 @@
+name: macos-wheels
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+      - 'src/gui*/**'
+      - 'src/netedit/**'
+      - 'tests/netedit/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+  workflow_dispatch:
+  schedule:
+    - cron:  '25 2 * * *'
+
+jobs:
+  build-wheels:
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: [3.7, 3.8, 3.9, '3.10', 3.11, 3.12]
+    runs-on: macos-12
+    env:
+      CCACHE_COMPILERTYPE: clang
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: git fetch --tags --force
+
+    - name: Set up Python ${{ matrix.python_version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python_version }}
+
+    - name: Preparing Build System
+      run: |
+        brew install --cask xquartz
+        brew install xerces-c fox proj gdal gl2ps ccache
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ github.job }}-${{ matrix.python_version }}
+
+    - name: Building SUMO / Libsumo wheels
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install build
+        cp build_config/pyproject.toml .
+        python3 tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
+        python3 -m build --wheel
+        python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
+        python3 -m build --wheel tools -o dist
+        if [[ "${{ matrix.python_version }}" != "3.8" ]]; then rm dist/eclipse_sumo-*; fi
+        if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-${{ matrix.python_version }}-wheels
+        path: dist
+
+  ###################
+  # testing wheels
+  ###################
+  test-wheels:
+    needs: [build-wheels]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-12, macos-13]
+        python_version: [3.7, 3.8, 3.9, '3.10', 3.11, 3.12]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: git fetch --tags --force
+
+    - name: Downloading Wheels artifact
+      uses: actions/download-artifact@v4
+
+    - name: Configuring Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python_version }}
+
+    - name: Installing dependencies
+      run: |
+        brew install --cask xquartz
+        brew install --overwrite python@3.12
+        brew install xerces-c fox proj gdal gl2ps
+
+    - name: Preparing Python environment
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install wheel  # need to do this separately because the texttest install wants it
+        python3 -m pip install texttest
+        python3 -m pip install python-3.8-wheels/eclipse_sumo*
+        python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
+
+    - name: Running "sumo in the wheel" tests
+      if: github.repository == 'DLR-TS/sumo'
+      run: |
+        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python3 -m pip install -r tools/requirements.txt; fi
+        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
+
+    - name: Running meta tests and cleaning up
+      run: |
+        tests/runTests.sh -b ci -v ci -ts meta
+        python3 -m pip uninstall -y eclipse-sumo
+
+    - name: Building helper wheels
+      run: |
+        cd tools
+        python3 -m pip install build
+        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
+        python3 -m build --wheel
+        python3 build_config/version.py build_config/setup-traci.py ./setup.py
+        python3 -m build --wheel
+
+    - name: Running libsumo tests
+      run: |
+        python3 -m pip install tools/dist/sumolib-* tools/dist/traci-*
+        python3 -m pip install python-${{ matrix.python_version }}-wheels/libsumo-*
+        cd tests
+        texttest -b ci -v ci -a complex.libsumo
+
+    - name: Compressing test results
+      if: failure()
+      run: |
+        zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: texttesttmp-${{ matrix.python_version }}-${{ matrix.os }}
+        path: texttesttmp.zip
+        if-no-files-found: warn
+
+  ###################
+  # publishing wheels
+  ###################
+  publish-wheels:
+    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
+    needs: [test-wheels]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: python-wheels
+        merge-multiple: true
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: python-wheels/
+        repository-url: https://test.pypi.org/legacy/
+        skip-existing: true
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: python-wheels/

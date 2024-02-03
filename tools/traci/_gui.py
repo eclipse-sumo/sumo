@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 # @file    _gui.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
+# @author  Mirko Barthauer
 # @date    2011-03-09
 
 from __future__ import absolute_import
@@ -54,6 +55,13 @@ class GuiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VIEW_SCHEMA, viewID)
 
+    def getAngle(self, viewID=DEFAULT_VIEW):
+        """getAngle(string): -> double
+
+        Returns the angle of the current view.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, viewID)
+
     def getBoundary(self, viewID=DEFAULT_VIEW):
         """getBoundary(string): -> ((double, double), (double, double))
 
@@ -82,6 +90,26 @@ class GuiDomain(Domain):
         """
         self._setCmd(tc.VAR_VIEW_SCHEMA, viewID, "s", schemeName)
 
+    def setAngle(self, viewID, angle):
+        """setAngle(string, double) -> None
+
+        Set the current angle for the given view.
+        """
+        self._setCmd(tc.VAR_ANGLE, viewID, "d", angle)
+
+    def addView(self, viewID, schemeName="", in3D=False):
+        """addView(string, string, bool) -> None
+        Adds new view and sets it to the given settings scheme (optionally as a 3D view)
+        """
+        self._setCmd(tc.ADD, viewID, "tsi", 2, schemeName, 1 if in3D else 0)
+
+    def removeView(self, viewID):
+        """removeView(string) -> None
+
+        Removes the view with the given id
+        """
+        self._setCmd(tc.REMOVE, viewID)
+
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None
         Sets the boundary of the visible network. If the window has a different
@@ -93,7 +121,8 @@ class GuiDomain(Domain):
     def screenshot(self, viewID, filename, width=-1, height=-1):
         """screenshot(string, string, int, int) -> None
 
-        Save a screenshot for the given view to the given filename.
+        Save a screenshot for the given view to the given filename
+        at the next call to simulationStep.
         The fileformat is guessed from the extension, the available
         formats differ from platform to platform but should at least
         include ps, svg and pdf, on linux probably gif, png and jpg as well.
@@ -105,6 +134,7 @@ class GuiDomain(Domain):
         """trackVehicle(string, string) -> None
 
         Start visually tracking the given vehicle on the given view.
+        Stop tracking when an empty string is used as vehID.
         """
         self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", vehID)
 
@@ -125,6 +155,7 @@ class GuiDomain(Domain):
     def track(self, objID, viewID=DEFAULT_VIEW):
         """track(string, string) -> None
         Start visually tracking the given vehicle or person on the given view.
+        Stop tracking when an empty string is used as objID.
         """
         self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", objID)
 
@@ -135,7 +166,7 @@ class GuiDomain(Domain):
         return self._getUniversal(tc.VAR_SELECT, objID, "s", objType)
 
     def toggleSelection(self, objID, objType="vehicle"):
-        """toggleSelection(string, string) -> int
+        """toggleSelection(string, string) -> None
         Toggle selection status for the object of the given type and id
         """
         self._setCmd(tc.VAR_SELECT, objID, "s", objType)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,8 @@ import sys
 import time
 from multiprocessing import Process, freeze_support
 
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
@@ -59,7 +60,7 @@ def traciLoop(port, traciEndTime, index, orderOdd):
     except Exception as e:
         time.sleep(orderTime * index)  # assure ordering of outputs
         sumoStop = True
-        print("client %s: " % index, str(e), " (at TraCIStep %s)" % step)
+        print("Process %s: " % index, str(e), " (at TraCIStep %s)" % step)
         sys.stdout.flush()
     if not sumoStop:
         time.sleep(orderTime * index)  # assure ordering of outputs

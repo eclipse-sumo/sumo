@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,6 +49,12 @@ GUI::getZoom(const std::string& viewID) {
 }
 
 
+double
+GUI::getAngle(const std::string& viewID) {
+    return Dom::getDouble(libsumo::VAR_ANGLE, viewID);
+}
+
+
 libsumo::TraCIPosition
 GUI::getOffset(const std::string& viewID) {
     return Dom::getPos(libsumo::VAR_VIEW_OFFSET, viewID);
@@ -77,6 +83,12 @@ GUI::setZoom(const std::string& viewID, double zoom) {
 
 
 void
+GUI::setAngle(const std::string& viewID, double angle) {
+    Dom::setDouble(libsumo::VAR_ANGLE, viewID, angle);
+}
+
+
+void
 GUI::setOffset(const std::string& viewID, double x, double y) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::POSITION_2D);
@@ -89,6 +101,20 @@ GUI::setOffset(const std::string& viewID, double x, double y) {
 void
 GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
     Dom::setString(libsumo::VAR_VIEW_SCHEMA, viewID, schemeName);
+}
+
+void
+GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, schemeName);
+    StoHelp::writeTypedInt(content, in3D ? 1 : 0);
+    Dom::set(libsumo::ADD, viewID, &content);
+}
+
+void
+GUI::removeView(const std::string& viewID) {
+    Dom::set(libsumo::REMOVE, viewID, nullptr);
 }
 
 

@@ -4,11 +4,8 @@ processed 3 routes across 3 edges with 0 merging switches
 Found 0 stops after merging switches and 0 signals that guard switches
 Found 0 conflicts
 findFoeInsertionConflicts at stop stop_b
-0 n: 00:03:00 None t1 1 3 passing: True depart: False
-1 n: 00:03:50 None t2 0 2 passing: True depart: True
+0 n: 00:03:50 None t2 0 2 passing: True depart: True
 findInsertionConflicts at stop stop_b
-0 n: 00:03:00 None t1 1 3 passing: True depart: False
+0 n: 00:03:00 None t1 1 3 passing: True depart: False invalid
 1 n: 00:03:50 None t2 0 2 passing: True depart: True
-1 p: 00:03:00 None t1 1 3 n: 00:03:50 None t2 0 2
 Found 0 insertion conflicts
-Ignored 1 insertion conflicts

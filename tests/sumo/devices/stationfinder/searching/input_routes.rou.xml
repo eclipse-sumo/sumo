@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-02 18:49:03 by Eclipse SUMO netedit Version v1_17_0+0652-1215d8ae5cd
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+	<vType accel="1.0" decel="5.0" id="ElectricVehicle1" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+		<param key="device.battery.capacity" value="35000"/>
+		<param key="device.battery.maxPower" value="100000"/>
+		<param key="vehicleMass" value="1600"/>
+		<param key="internalMomentOfInertia" value="30"/>
+		<param key="frontSurfaceArea" value="2.2"/>
+		<param key="airDragCoefficient" value="0.33"/>
+		<param key="radialDragCoefficient" value="0"/>
+		<param key="rollDragCoefficient" value="0.1"/>
+		<param key="constantPowerIntake" value="40"/>
+		<param key="propulsionEfficiency" value="0.8"/>
+		<param key="recuperationEfficiency" value="0.8"/>
+	</vType>
+
+	<vType accel="1.0" decel="5.0" id="ElectricVehicle2" length="5" maxSpeed="40.0" sigma="0.0" minGap="2.5" color="1,1,1">
+		<param key="device.battery.capacity" value="35000"/>
+		<param key="device.battery.maxPower" value="100000"/>
+		<param key="vehicleMass" value="1600"/>
+		<param key="internalMomentOfInertia" value="30"/>
+		<param key="frontSurfaceArea" value="2.2"/>
+		<param key="airDragCoefficient" value="0.33"/>
+		<param key="radialDragCoefficient" value="0"/>
+		<param key="rollDragCoefficient" value="0.1"/>
+		<param key="constantPowerIntake" value="40"/>
+		<param key="propulsionEfficiency" value="0.8"/>
+		<param key="recuperationEfficiency" value="0.8"/>
+	</vType>
+
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="veh0" type="ElectricVehicle1" depart="0.00" arrival="346.00">
+        <route edges="E0E1 E1D1 D1C1 C1B1 C1B1.50 B1A1 A1A2 A2A3 A3A4"/>
+    </vehicle>
+
+    <vehicle id="veh1" type="ElectricVehicle2" depart="1.00" arrival="450.00">
+        <route edges="E4E3 E3E2 E2E1 E1D1 D1C1 C1B1 C1B1.50 B1B0 B0A0"/>
+    </vehicle>
+
+    <vehicle id="veh2" type="ElectricVehicle1" depart="2.00" arrival="486.00">
+        <route edges="A4A3 A3A2 A2A1 A1B1 B1C1 -C1B1 C1D1 D1D0 D0E0"/>
+    </vehicle>
+
+</routes>

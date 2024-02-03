@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Robert Hilbrich
+# @author  Mirko Barthauer
 # @date    2008-03-27
 
 """
@@ -30,9 +31,12 @@ import sys
 import math
 import heapq
 import gzip
+import warnings
+import io
 from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
+from itertools import chain
 
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
@@ -92,18 +96,18 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=None, name=""):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
         self.maxDur = maxDur  # maximum duration (only for actuated tls)
-        self.next = [] if next is None else next
+        self.next = next
         self.name = name
 
     def __repr__(self):
-        name = "" if self.name == "" else ", name='%s'" % self.name
-        next = "" if len(self.next) == 0 else ", next='%s'" % self.next
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s" %
+        name = (", name='%s'" % self.name) if self.name else ""
+        next = (", next='%s'" % str(self.next)) if self.next else ""
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s)" %
                 (self.duration, self.state, self.minDur, self.maxDur, name, next))
 
 
@@ -164,21 +168,42 @@ class Net:
         self._nodes = []
         self._edges = []
         self._tlss = []
-        self._ranges = [[10000, -10000], [10000, -10000]]
+        self._ranges = [[sys.float_info.max, -sys.float_info.max], [sys.float_info.max, -sys.float_info.max]]
         self._roundabouts = []
         self._rtreeEdges = None
         self._rtreeLanes = None
         self._allLanes = []
         self._origIdx = None
         self._proj = None
-        self.hasWarnedAboutMissingRTree = False
         self.hasInternal = False
+        # store dijsktra heap for reuse if the same origin is used repeatedly
+        self._shortestPathCache = None
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
         self._location["convBoundary"] = convBoundary
         self._location["origBoundary"] = origBoundary
         self._location["projParameter"] = projParameter
+
+    def loadSelection(self, selectionFile):
+        self.resetSelection()
+        with io.open(selectionFile, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("edge:"):
+                    edgeID = line[5:]
+                    if edgeID in self._id2edge:
+                        self.getEdge(edgeID).select()
+                elif line.startswith("junction:"):
+                    nodeID = line[9:]
+                    if nodeID in self._id2node:
+                        self.getNode(nodeID).select()
+
+    def resetSelection(self):
+        for n in self._nodes:
+            n.select(False)
+        for e in self._edges:
+            e.select(False)
 
     def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id is None:
@@ -270,8 +295,7 @@ class Net:
         return result
 
     # Please be aware that the resulting list of edges is NOT sorted
-    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True,
-                            allowFallback=True):
+    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         edges = []
         try:
             if self._rtreeEdges is None:
@@ -283,23 +307,16 @@ class Net:
                 if d < r:
                     edges.append((e, d))
         except ImportError:
-            if allowFallback:
-                if not self.hasWarnedAboutMissingRTree:
-                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                    self.hasWarnedAboutMissingRTree = True
-            else:
-                sys.stderr.write("Error: Module 'rtree' not available.\n")
-                sys.exit(1)
-
+            if not allowFallback:
+                raise
+            warnings.warn("Module 'rtree' not available. Using brute-force fallback.")
             for the_edge in self._edges:
-                d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), the_edge.getShape(includeJunctions))
+                d = sumolib.geomhelper.distancePointToPolygon((x, y), the_edge.getShape(includeJunctions))
                 if d < r:
                     edges.append((the_edge, d))
         return edges
 
-    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True,
-                            allowFallback=True):
+    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         lanes = []
         try:
             if self._rtreeLanes is None:
@@ -307,26 +324,19 @@ class Net:
                     self._allLanes += the_edge.getLanes()
                 self._rtreeLanes = self._initRTree(self._allLanes, includeJunctions)
             for i in self._rtreeLanes.intersection((x - r, y - r, x + r, y + r)):
-                lane = self._allLanes[i]
-                d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), lane.getShape(includeJunctions))
+                the_lane = self._allLanes[i]
+                d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
                 if d < r:
-                    lanes.append((lane, d))
+                    lanes.append((the_lane, d))
         except ImportError:
-            if allowFallback:
-                if not self.hasWarnedAboutMissingRTree:
-                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                    self.hasWarnedAboutMissingRTree = True
-            else:
-                sys.stderr.write("Error: Module 'rtree' not available.\n")
-                sys.exit(1)
-
+            if not allowFallback:
+                raise
+            warnings.warn("Module 'rtree' not available. Using brute-force fallback.")
             for the_edge in self._edges:
-                for lane in the_edge.getLanes():
-                    d = sumolib.geomhelper.distancePointToPolygon(
-                        (x, y), lane.getShape(includeJunctions))
+                for the_lane in the_edge.getLanes():
+                    d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
                     if d < r:
-                        lanes.append((lane, d))
+                        lanes.append((the_lane, d))
         return lanes
 
     def hasNode(self, id):
@@ -426,6 +436,14 @@ class Net:
                         self._origIdx[oID].add(the_edge)
         return self._origIdx[origID]
 
+    def getGeometries(self, useLanes, includeJunctions=False):
+        for e in self._edges:
+            if useLanes:
+                for the_lane in e.getLanes():
+                    yield the_lane.getID(), the_lane.getShape(), the_lane.getWidth()
+            else:
+                yield e.getID(), e.getShape(includeJunctions), sum([the_lane.getWidth() for the_lane in e.getLanes()])
+
     def getBBoxXY(self):
         """
         Get the bounding box (bottom left and top right coordinates) for a net;
@@ -442,7 +460,13 @@ class Net:
             (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
             (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
+    def hasGeoProj(self):
+        projString = self._location["projParameter"]
+        return projString != "!"
+
     def getGeoProj(self):
+        if not self.hasGeoProj():
+            raise RuntimeError("Network does not provide geo-projection")
         if self._proj is None:
             import pyproj
             try:
@@ -481,12 +505,11 @@ class Net:
         for n in self._nodes:
             n._coord = (n._coord[0] + dx, n._coord[1] + dy, n._coord[2] + dz)
         for e in self._edges:
-            for l in e._lanes:
-                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz)
-                            for p in l.getShape3D()]
+            for _lane in e.getLanes():
+                _lane.setShape([(p[0] + dx, p[1] + dy, p[2] + dz) for p in _lane.getShape3D()])
             e.rebuildShape()
 
-    def getInternalPath(self, conn):
+    def getInternalPath(self, conn, fastest=False):
         minInternalCost = 1e400
         minPath = None
         for c in conn:
@@ -496,7 +519,7 @@ class Net:
                 viaPath = []
                 while viaID != "":
                     viaLane = self.getLane(viaID)
-                    viaCost += viaLane.getLength()
+                    viaCost += viaLane.getLength() if not fastest else viaLane.getLength() / viaLane.getSpeed()
                     viaID = viaLane.getOutgoing()[0].getViaLaneID()
                     viaPath.append(viaLane.getEdge())
                 if viaCost < minInternalCost:
@@ -504,8 +527,91 @@ class Net:
                     minPath = viaPath
         return minPath, minInternalCost
 
+    def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
+                       includeFromToCost=True, withInternal=False, ignoreDirection=False,
+                       fromPos=None, toPos=None):
+        """
+        Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
+        by using using Dijkstra's algorithm.
+        It returns a pair of a tuple of edges and the cost.
+        If no path is found the first element is None.
+        The cost for the returned path is equal to the sum of all edge costs in the path,
+        including the internal connectors, if they are present in the network.
+        The path itself does not include internal edges except for the case
+        when the start or end edge are internal edges.
+        The search may be limited using the given threshold.
+        """
+
+        def speedFunc(edge):
+            return edge.getSpeed() if fastest else 1.0
+
+        def remainder(edge, pos):
+            if pos < 0:
+                return min(-pos, edge.getLength())
+            return max(0., edge.getLength() - pos)
+
+        if self.hasInternal:
+            appendix = ()
+            appendixCost = 0.
+            while toEdge.getFunction() == "internal":
+                appendix = (toEdge,) + appendix
+                appendixCost += toEdge.getLength() / speedFunc(toEdge)
+                toEdge = list(toEdge.getIncoming().keys())[0]
+        q = [(0., fromEdge.getID(), (fromEdge, ), ())]
+        if (fromEdge == toEdge and fromPos is not None and toPos is not None and fromPos > toPos and
+                not ignoreDirection):
+            # start search on successors of fromEdge
+            q = []
+            for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
+                q.append((e2.getLength() / speedFunc(e2), e2.getID(), (fromEdge, e2), ()))
+
+        seen = set()
+        dist = {fromEdge: 0.}
+        while q:
+            cost, _, e1via, path = heapq.heappop(q)
+            e1 = e1via[-1]
+            if e1 in seen:
+                continue
+            seen.add(e1)
+            path += e1via
+            if e1 == toEdge:
+                if includeFromToCost:
+                    # add costs for (part of) the first edge, still needs to be fixed for wrong direction travel
+                    remainFrom = fromEdge.getLength() if fromPos is None else remainder(fromEdge, fromPos)
+                    cost += remainFrom / speedFunc(fromEdge)
+                    # remove costs for (part of) the last edge, still needs to be fixed for wrong direction travel
+                    removeTo = 0. if toPos is None else remainder(toEdge, toPos)
+                else:
+                    removeTo = toEdge.getLength() if len(path) > 1 else 0.
+                cost -= removeTo / speedFunc(fromEdge)
+                if self.hasInternal:
+                    return path + appendix, cost + appendixCost
+                return path, cost
+            if cost > maxCost:
+                return None, cost
+
+            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
+                                  e1.getIncoming().items() if ignoreDirection else []):
+                # print(cost, e1.getID(), e2.getID(), e2 in seen)
+                if e2 not in seen:
+                    newCost = cost + e2.getLength() / speedFunc(e2)
+                    if e2 == e1.getBidi():
+                        newCost += reversalPenalty
+                    minPath = (e2,)
+                    if self.hasInternal:
+                        viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)
+                        if viaPath is not None:
+                            newCost += minInternalCost
+                            if withInternal:
+                                minPath = tuple(viaPath + [e2])
+                    if e2 not in dist or newCost < dist[e2]:
+                        dist[e2] = newCost
+                        heapq.heappush(q, (newCost, e2.getID(), minPath, path))
+        return None, 1e400
+
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
-                        includeFromToCost=True, withInternal=False):
+                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
+                        fromPos=None, toPos=None):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -515,49 +621,51 @@ class Net:
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
         """
-        if self.hasInternal:
-            appendix = ()
-            appendixCost = 0.
-            while toEdge.getFunction() == "internal":
-                appendix = (toEdge,) + appendix
-                appendixCost += toEdge.getLength()
-                toEdge = list(toEdge.getIncoming().keys())[0]
-        q = [(fromEdge.getLength() if includeFromToCost else 0, fromEdge.getID(), (fromEdge, ), ())]
-        seen = set()
-        dist = {fromEdge: fromEdge.getLength()}
-        while q:
-            cost, _, e1via, path = heapq.heappop(q)
-            e1 = e1via[-1]
-            if e1 in seen:
-                continue
-            seen.add(e1)
-            path += e1via
-            if e1 == toEdge:
-                if self.hasInternal:
-                    return path + appendix, cost + appendixCost
-                if includeFromToCost:
-                    return path, cost
-                return path, cost - toEdge.getLength()
-            if cost > maxCost:
-                return None, cost
 
-            for e2, conn in e1.getAllowedOutgoing(vClass).items():
-                # print(cost, e1.getID(), e2.getID(), e2 in seen)
-                if e2 not in seen:
-                    newCost = cost + e2.getLength()
-                    if e2 == e1.getBidi():
-                        newCost += reversalPenalty
-                    minPath = (e2,)
-                    if self.hasInternal:
-                        viaPath, minInternalCost = self.getInternalPath(conn)
-                        if viaPath is not None:
-                            newCost += minInternalCost
-                            if withInternal:
-                                minPath = tuple(viaPath + [e2])
-                    if e2 not in dist or newCost < dist[e2]:
-                        dist[e2] = newCost
-                        heapq.heappush(q, (newCost, e2.getID(), minPath, path))
-        return None, 1e400
+        return self.getOptimalPath(fromEdge, toEdge, False, maxCost, vClass, reversalPenalty,
+                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
+
+    def getFastestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
+                       includeFromToCost=True, withInternal=False, ignoreDirection=False,
+                       fromPos=None, toPos=None):
+        """
+        Finds the fastest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
+        It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
+        The cost for the returned path is equal to the sum of all edge costs in the path,
+        including the internal connectors, if they are present in the network.
+        The path itself does not include internal edges except for the case
+        when the start or end edge are internal edges.
+        The search may be limited using the given threshold.
+        """
+
+        return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,
+                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
+
+    def getReachable(self, source, vclass=None, useIncoming=False):
+        if vclass is not None and not source.allows(vclass):
+            raise RuntimeError("'{}' does not allow {}".format(source.getID(), vclass))
+        fringe = [source]
+        found = set()
+        found.add(source)
+        while len(fringe) > 0:
+            new_fringe = []
+            for e in fringe:
+                if vclass == "pedestrian":
+                    cands = chain(chain(*e.getIncoming().values()), chain(*e.getOutgoing().values()))
+                else:
+                    cands = chain(*(e.getIncoming().values() if useIncoming else e.getOutgoing().values()))
+                # print("\n".join(map(str, list(cands))))
+                for conn in cands:
+                    if vclass is None or (
+                            conn.getFromLane().allows(vclass)
+                            and conn.getToLane().allows(vclass)):
+                        for reachable in [conn.getTo(), conn.getFrom()]:
+                            if reachable not in found:
+                                # print("added %s via %s" % (reachable, conn))
+                                found.add(reachable)
+                                new_fringe.append(reachable)
+            fringe = new_fringe
+        return found
 
 
 class NetReader(handler.ContentHandler):
@@ -604,7 +712,7 @@ class NetReader(handler.ContentHandler):
                 toNodeID = attrs.get('to', None)
 
                 # for internal junctions use the junction's id for from and to node
-                if function == 'internal':
+                if function == 'internal' or function == 'crossing' or function == 'walkingarea':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
 
                 # remember edges crossed by pedestrians to link them later to the crossing objects
@@ -648,6 +756,9 @@ class NetReader(handler.ContentHandler):
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
+                if 'fringe' in attrs:
+                    self._currentNode._fringe = attrs['fringe']
+
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
@@ -778,7 +889,7 @@ def convertShape(shapeString):
     """ Convert xml shape string into float tuples.
 
     This method converts the 2d or 3d shape string from SUMO's xml file
-    into a list containing 3d float-tuples. Non existant z coordinates default
+    into a list containing 3d float-tuples. Non existent z coordinates default
     to zero. If shapeString is empty, an empty list will be returned.
     """
 
@@ -799,7 +910,7 @@ def readNet(filename, **others):
     """ load a .net.xml file
     The following named options are supported:
 
-        'net' : initialize data structurs with an existing net object (default Net())
+        'net' : initialize data structures with an existing net object (default Net())
         'withPrograms' : import all traffic light programs (default False)
         'withLatestPrograms' : import only the last program for each traffic light.
                                This is the program that would be active in sumo by default.

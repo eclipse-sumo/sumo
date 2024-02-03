@@ -1,0 +1,20 @@
+# uncooordinated
+default
+
+# Copy of earliestEnd
+earliestEnd
+
+# Copy of earliestEnd_coordinated
+earliestEnd_coordinated
+
+# Copy of latestEnd
+latestEnd
+
+# Copy of latestEnd_coordinated
+latestEnd_coordinated
+
+# latestEnd < earliestEnd
+latestEnd_wrap
+
+# latestEnd < earliestEnd
+latestEnd_wrap_coordinated

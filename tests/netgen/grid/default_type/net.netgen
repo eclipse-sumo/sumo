@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:06 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:18 by Eclipse SUMO netgenerate Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -272,16 +272,16 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="B1" type="priority" x="100.00" y="100.00" incLanes="B2B1_0 C1B1_0 B0B1_0 A1B1_0" intLanes=":B1_0_0 :B1_1_0 :B1_2_0 :B1_3_0 :B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_9_0 :B1_10_0 :B1_11_0" shape="98.40,103.10 101.60,103.10 101.77,102.27 101.97,101.97 102.27,101.77 102.64,101.64 103.10,101.60 103.10,98.40 102.27,98.23 101.97,98.03 101.77,97.73 101.64,97.36 101.60,96.90 98.40,96.90 98.23,97.73 98.03,98.03 97.73,98.23 97.36,98.36 96.90,98.40 96.90,101.60 97.73,101.77 98.03,101.97 98.23,102.27 98.36,102.64">
         <request index="0"  response="000000000000" foes="000100010000" cont="0"/>
         <request index="1"  response="000000000000" foes="111100110000" cont="0"/>
-        <request index="2"  response="000011000000" foes="110011110000" cont="0"/>
+        <request index="2"  response="000011000000" foes="110111110000" cont="0"/>
         <request index="3"  response="000010000000" foes="100010000000" cont="0"/>
         <request index="4"  response="000110000111" foes="100110000111" cont="0"/>
-        <request index="5"  response="011110000110" foes="011110000110" cont="0"/>
+        <request index="5"  response="011110000110" foes="111110000110" cont="0"/>
         <request index="6"  response="000000000000" foes="010000000100" cont="0"/>
         <request index="7"  response="000000000000" foes="110000111100" cont="0"/>
-        <request index="8"  response="000000000011" foes="110000110011" cont="0"/>
+        <request index="8"  response="000000000111" foes="110000110111" cont="0"/>
         <request index="9"  response="000000000010" foes="000000100010" cont="0"/>
         <request index="10" response="000111000110" foes="000111100110" cont="0"/>
-        <request index="11" response="000110011110" foes="000110011110" cont="0"/>
+        <request index="11" response="000110111110" foes="000110111110" cont="0"/>
     </junction>
     <junction id="B2" type="priority" x="100.00" y="200.00" incLanes="C2B2_0 B1B2_0 A2B2_0" intLanes=":B2_0_0 :B2_1_0 :B2_2_0 :B2_3_0 :B2_4_0 :B2_5_0" shape="103.10,201.60 103.10,198.40 102.27,198.23 101.97,198.03 101.77,197.73 101.64,197.36 101.60,196.90 98.40,196.90 98.23,197.73 98.03,198.03 97.73,198.23 97.36,198.36 96.90,198.40 96.90,201.60">
         <request index="0" response="000000" foes="001000" cont="0"/>

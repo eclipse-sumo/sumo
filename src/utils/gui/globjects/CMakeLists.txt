@@ -1,5 +1,7 @@
 set(utils_gui_globjects_STAT_SRCS
    GLIncludes.h
+   GUICursorDialog.h
+   GUICursorDialog.cpp
    GUIGLObjectPopupMenu.cpp
    GUIGLObjectPopupMenu.h
    GUIGlObject.cpp
@@ -15,6 +17,8 @@ set(utils_gui_globjects_STAT_SRCS
    GUIPointOfInterest.h
    GUIPolygon.cpp
    GUIPolygon.h
+   GUISaveDialog.h
+   GUISaveDialog.cpp
 )
 
 add_library(utils_gui_globjects STATIC ${utils_gui_globjects_STAT_SRCS})

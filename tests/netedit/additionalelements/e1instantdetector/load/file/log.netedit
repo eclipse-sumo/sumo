@@ -1,0 +1,4 @@
+Error: Attribute 'file' is missing in definition of instantInductionLoop 'E1_01'.
+Error: Could not build instantInductionLoop with ID 'E1_02' in netedit; Filename is invalid.
+Error: Attribute 'file' in definition of instantInductionLoop 'E1_03' is empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e1instantdetector/load/file/additionals.add.xml failed.

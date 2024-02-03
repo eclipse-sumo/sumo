@@ -9,11 +9,11 @@ title: C++TraCIAPI
 
 The C++ TraCIAPI is client library that is part of the SUMO-source tree.
 The library can be downloaded [as part of the source
-distribution](http://sumo.dlr.de/daily/sumo-src-git.zip). Example code
+distribution](https://sumo.dlr.de/daily/sumo-src-git.zip). Example code
 that uses the library is at
 {{SUMO}}*/src/traci_testclient/TraCITestClient.cpp*. Doxygen-generated
 documentation can be found
-[here](http://sumo.dlr.de/daily/doxygen/d8/d1c/class_tra_c_i_a_p_i.html)
+[here](https://sumo.dlr.de/daily/doxygen/d8/d1c/class_tra_c_i_a_p_i.html)
 
 ## Building the Library
 
@@ -69,14 +69,14 @@ building a control program that mixes TraCI calls with custom code.
 
 In this mode the client library itself is used. Example code looks like:
 
-```
+```cpp
 SUMOTime t = simulation.getCurrentTime();
 std::vector<std::string> = edge.getIDList();
 ```
 
 ## Example Code
 
-```
+```cpp
 #include <iostream>
 #include <utils/traci/TraCIAPI.h>
 

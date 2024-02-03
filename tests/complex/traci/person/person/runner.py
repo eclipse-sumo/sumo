@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,8 +22,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -94,6 +94,7 @@ print("tripTest edges after routing", traci.person.getEdges("tripTest"))
 
 personID = "horiz"
 traci.person.setType(personID, "pType2")
+traci.person.setType(personID, "pType3")
 traci.person.setLength(personID, 2)
 traci.person.setHeight(personID, 1.9)
 traci.person.setWidth(personID, 1.11)
@@ -125,6 +126,7 @@ def check(personID):
     print("remainingStages", traci.person.getRemainingStages(personID))
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
+    print("boardingDuration", traci.person.getBoardingDuration(personID))
 
 
 check(personID)
@@ -233,16 +235,16 @@ for i in range(5):
 traci.person.add("p3", "1fi", -10)
 stage = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    edges=["1fi", "1si"], departPos=-20, arrivalPos=10, description="foo")
+    edges=["1fi", "1si"], departPos=-20, arrivalPos=10)
 stage2 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1fi", "1o"], departPos=-20, arrivalPos=10)
 stage3 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10)
 stage4 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10)
 
 traci.person.appendStage("p3", stage)
 for i in range(10):
@@ -251,16 +253,26 @@ for i in range(10):
 remaining = traci.person.getRemainingStages("p3")
 assert(remaining == 1)
 # replace current stage
-print_remaining_plan("p3", "(before replacement of current stage")
+print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
 # replace later stage
 traci.person.appendStage("p3", stage3)
-print_remaining_plan("p3", "(before replacement of next stage")
+print_remaining_plan("p3", "(before replacement of next stage)")
 traci.person.replaceStage("p3", 1, stage4)
-print_remaining_plan("p3", "(after replacement")
+print_remaining_plan("p3", "(after replacement)")
+
+print("speed (before setSpeed)", traci.person.getSpeed("p3"))
+print("type maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (before setSpeed)", traci.person.getMaxSpeed("p3"))
+traci.person.setSpeed("p3", 4.2)
+print("speed (after setSpeed)", traci.person.getSpeed("p3"))
+print("type maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (after setSpeed)", traci.person.getMaxSpeed("p3"))
 
 for i in range(41):
     traci.simulationStep()
+print("speed (at end)", traci.person.getSpeed("p3"))
+
 
 traci.close()

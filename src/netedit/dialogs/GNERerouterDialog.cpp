@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Dialog for edit rerouters
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -54,11 +53,11 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
-    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick);
+    myAddInterval = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
+    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create Button and Label for sort intervals
-    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    mySortIntervals = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
+    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
 
     // Create table
     myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
@@ -123,8 +122,8 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
-    // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);
+    // create empty rerouter interval and configure it with modal GNERerouterIntervalDialog
+    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);  // NOSONAR, constructor returns after dialog has been closed
     // update interval table
     updateIntervalTable();
     return 1;
@@ -154,7 +153,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(rerouterChildren.at(i), true);
+            GNERerouterIntervalDialog(rerouterChildren.at(i), true);  // NOSONAR, constructor returns after dialog has been closed
             // update interval table after editing
             updateIntervalTable();
             return 1;

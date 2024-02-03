@@ -2,6 +2,8 @@
 title: Detector
 ---
 
+This page documents tools that work with [detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md) and detector [flow files](../Demand/Routes_from_Observation_Points.md#computing_flows).
+
 # flowrouter.py
 
 "flowrouter.py" serves as a drop in replacement for
@@ -12,7 +14,7 @@ network (option **-n**).
 Flowrouter works by solving a maximum flow problem in the given network
 assuming the measured flows as capacity. The input data is by default
 aggregated over the whole file but can be split into intervals by
-setting **-i**. Example call for hourly aggregation:
+setting **-i** as time **in minutes**. Example call for hourly aggregation:
 
 ```
 <SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml -d detectors.xml -f flows20140520.csv -o routes.xml -e flows.xml -i 60
@@ -63,13 +65,15 @@ name of a typeDistribution).
 
 ## Ambiguity
 
-In many cases, the solutions for a given input is not unique. By setting
-the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations which causes
+In many cases, the solutions for a given input is not unique. It is often the case, that a large proportion of the solution space contains "implausible" (i.e. looped / detour) routes. Some strategies for mitigation are described below. In some cases it may be better to use the [routeSampler tool instead](../Demand/Routes_from_Observation_Points.md#choosing_the_right_tool).
+
+### Distribution among candidate successors
+
+By setting the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations. This can increase running time but causes
 flows to be distributed more evenly so that all routes are used in
-proportion to the incoming and outgoing flows (as done by
+proportion to the incoming and outgoing flows (similar to the behavior of
 [dfrouter](../dfrouter.md)).
 
-Another way to resolve ambiguity is to add route restrictions:
 
 ### Restricting generated routes
 
@@ -92,7 +96,7 @@ The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to ge
 
 This script does the reverse of flowrouter.py and
 [dfrouter](../dfrouter.md) in generating a traffic counts for
-detectors from a route or flow file. It can also be used to compare the
+detectors from a route or flow file. It's main purpose  It can also be used to compare the
 input counts with the outputs of flowrouter.py and
 [dfrouter](../dfrouter.md). Example:
 
@@ -100,10 +104,40 @@ input counts with the outputs of flowrouter.py and
 <SUMO_HOME>/tools/detector/flowFromRoutes.py -d detectors.xml -r routes.xml -e flows.xml
 ```
 
+# flowFromEdgeData
+
+This script is similar to [flowFromRoutes](#flowFromRoutes). It generates traffic counts for detectors but uses [edgeData files](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) as input instead of routes.
+It requires the use of an input flow file and then performs a comparison between input flows and edgdata flows
+```
+<SUMO_HOME>/tools/detector/flowFromEdgeData.py -d detectors.xml -e edgedata.xml -f flows.txt
+```
+
+
 # edgeDataFromFlow.py
 
-This script converts detector flow files to into edgeData format (i.e. to be used by [routeSampler.py](Turns.md#routesamplerpy))
+This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to into [edgeData format](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) (i.e. to be used by [routeSampler.py](Turns.md#edge_counts) or for [visualization in sumo-gui](../sumo-gui.md#visualizing_edge-related_data))
 Example:
 ```
-<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml 
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
+```
+
+# filterFlows.py
+
+Filters a flow file by detector ids and time range
+```
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d det1,det2 -f input_flows.txt -b 3600 -e 7200 -o output_flows.txt
+```
+
+# mapDetectors.py
+
+Given a file `det.csv` of the following form
+```
+id;lat;lon
+det1;52.432559;13.496612
+det2;52.432373;13.496142
+```
+
+It can be turned into a file with detectors with:
+```
+<SUMO_HOME>/tools/detector/mapDetectors.py -n net.net.xml -d  det.csv -o det.add.xml
 ```

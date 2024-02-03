@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <e2Detector id="Detector_1" lane="1si_1" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_6" lane="1si_0" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_2" lane="2si_0" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_5" lane="2si_1" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_4" lane="3si_0" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_7" lane="3si_1" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_8" lane="4si_0" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+    <e2Detector id="Detector_3" lane="4si_1" pos="240.00" length="10.00" freq="300.00" file="detector.xml"/>
+
+</additional>

@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="truck" vClass="truck"/>
+    <flow id="truck" type="truck" from= "beg" to="end" line="shipCo" begin="0" end="1000" period="300">
+		<stop containerStop="beg_0" until="10"/>
+		<stop containerStop="left_0" until="110"/>
+		<stop containerStop="end_0" until="210"/>
+	</flow>
+    <container id="c0" depart="0">
+        <tranship edges="beg" containerStop="beg_0"/>
+        <transport from="beg" to="end" containerStop="end_0" lines="shipCo"/>
+        <tranship edges="end"/>
+    </container>
+
+</routes>

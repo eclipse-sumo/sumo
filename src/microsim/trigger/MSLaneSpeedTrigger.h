@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,9 +26,9 @@
 #include <string>
 #include <vector>
 #include <utils/common/Command.h>
+#include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include "MSTrigger.h"
 
 
 // ===========================================================================
@@ -48,7 +48,7 @@ class MSLane;
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler, public Command {
+class MSLaneSpeedTrigger : public Named, public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *
@@ -73,8 +73,9 @@ public:
      * @see Command
      * @see MSEventControl
      */
-    SUMOTime execute(SUMOTime currentTime);
+    SUMOTime executeSpeedChange(SUMOTime currentTime);
 
+    SUMOTime executeFrictionChange(SUMOTime currentTime);
 
     SUMOTime processCommand(bool move2next, SUMOTime currentTime);
 
@@ -88,6 +89,9 @@ public:
 
     /// Returns the current speed
     double getCurrentSpeed() const;
+
+    /// Returns the current friction
+    double getCurrentFriction() const;
 
     /// @brief return all MSLaneSpeedTrigger instances
     static const std::map<std::string, MSLaneSpeedTrigger*>& getInstances() {
@@ -126,11 +130,11 @@ protected:
     /** the lane the trigger is responsible for */
     std::vector<MSLane*> myDestLanes;
 
-    /** the speed that will be set on the next call */
-    double myCurrentSpeed;
-
     /// The original speed allowed on the lanes
-    double myDefaultSpeed;
+    const double myDefaultSpeed;
+
+    /// The original friction on the lanes
+    const double myDefaultFriction;
 
     /// The information whether the read speed shall be overridden
     bool myAmOverriding;
@@ -139,7 +143,9 @@ protected:
     double mySpeedOverrideValue;
 
     std::vector<std::pair<SUMOTime, double> > myLoadedSpeeds;
-    std::vector<std::pair<SUMOTime, double> >::iterator myCurrentEntry;
+    std::vector<std::pair<SUMOTime, double> > myLoadedFrictions;
+    std::vector<std::pair<SUMOTime, double> >::iterator myCurrentSpeedEntry;
+    std::vector<std::pair<SUMOTime, double> >::iterator myCurrentFrictionEntry;
     static std::map<std::string, MSLaneSpeedTrigger*> myInstances;
 
 private:

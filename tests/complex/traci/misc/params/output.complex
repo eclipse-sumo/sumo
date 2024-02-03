@@ -1,5 +1,5 @@
-Loading configuration ... done.
-step 0
+ Retrying in 1 seconds
+step 0.0
 vehicle foo=""
 vehicle foo="42"
 person foo=""
@@ -14,4 +14,4 @@ route foo=""
 route foo="42"
 trafficlight foo=""
 trafficlight foo="42"
-step 1
+step 1.0

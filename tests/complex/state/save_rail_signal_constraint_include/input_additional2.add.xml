@@ -5,5 +5,11 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
         <predecessor tripId="t0" tl="D" foes="t1" limit="3"/>
+        <foeInsertion tripId="t42" tl="D" foes="t23" limit="3" active="false"/>
+        <insertionPredecessor tripId="t43" tl="D" foes="t24"/>
+        <insertionOrder tripId="t44" tl="D" foes="t25"/>
+        <bidiPredecessor tripId="t45" tl="D" foes="t26">
+            <param key="k0" value="v0"/>
+        </bidiPredecessor>
     </railSignalConstraints>
 </additional>

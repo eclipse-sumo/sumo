@@ -1,0 +1,16 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <e3Detector id="all" file="detector.xml" detectPersons="walk">
+       <detEntry lane=":C_w2_0" pos="1"/>
+       <detExit lane=":C_w2_0" pos="3"/>
+   </e3Detector>
+   <e3Detector id="cSN"    file="detector.xml" nextEdges=":C_c1" detectPersons="walk">
+       <detEntry lane=":C_w2_0" pos="1"/>
+       <detExit lane=":C_w2_0" pos="3"/>
+   </e3Detector>
+   <e3Detector id="cSW"     file="detector.xml" nextEdges=":C_c2" detectPersons="walk">
+       <detEntry lane=":C_w2_0" pos="1"/>
+       <detExit lane=":C_w2_0" pos="3"/>
+   </e3Detector>
+
+</additional>

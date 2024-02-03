@@ -1,0 +1,68 @@
+<types>
+    <type id="highway.cycleway">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.living_street">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.path">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.residential">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.secondary">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.service">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.service_extra">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.track">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.unclassified">
+		 <restriction vClass="bicycle" speed="2"/>
+	</type>
+    <type id="highway.residential">
+		 <restriction vClass="bicycle" speed="2"/>
+	</type>
+    <type id="highway.footway">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.footway_extra">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.footway_extra">
+		 <restriction vClass="custom1" speed="3.5"/>
+	</type>
+    <type id="highway.footway_extra">
+		 <restriction vClass="custom2" speed="3.5"/>
+	</type>
+    <type id="highway.unclassified_extra">
+		 <restriction vClass="bicycle" speed="2"/>
+	</type>
+    <type id="highway.unclassified_extra">
+		 <restriction vClass="custom1" speed="3.5"/>
+	</type>
+    <type id="highway.unclassified_extra">
+		 <restriction vClass="custom2" speed="3.5"/>
+	</type>
+    <type id="highway.cycleway_extra">
+		 <restriction vClass="bicycle" speed="5"/>
+	</type>
+    <type id="highway.cycleway_extra">
+		 <restriction vClass="custom1" speed="3.5"/>
+	</type>
+    <type id="highway.cycleway_extra">
+		 <restriction vClass="custom2" speed="3.5"/>
+	</type>
+    <type id="highway.unclassified_extra2">
+		 <restriction vClass="custom1" speed="3.5"/>
+	</type>
+    <type id="highway.unclassified_extra2">
+		 <restriction vClass="custom2" speed="3.5"/>
+	</type>
+</types>

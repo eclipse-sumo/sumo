@@ -1,0 +1,4 @@
+Error: Attribute 'type' in definition of person 'p_1' is empty.
+Error: Invalid vehicle type 'dummyType' used in person 'p_2'.
+Warning: invalid person parent
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.01Nov143958.3404/netedit.gui/demandelements/person/load/type/routes.rou.xml failed.

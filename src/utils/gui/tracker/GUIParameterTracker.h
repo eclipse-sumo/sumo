@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <vector>
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
@@ -52,6 +52,8 @@ public:
         MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
         /// @brief Save the current values
         MID_SAVE,
+        /// @brief toggle multiplot
+        MID_MULTIPLOT,
         /// @brief end-of-enum
         ID_LAST
     };
@@ -93,6 +95,9 @@ public:
     /// @brief Called on a simulation step
     long onSimStep(FXObject*, FXSelector, void*);
 
+    /// @brief Called on a simulation step
+    long onMultiPlot(FXObject*, FXSelector, void*);
+
     /// @brief Called when the aggregation interval (combo) has been changed
     long onCmdChangeAggregation(FXObject*, FXSelector, void*);
 
@@ -100,6 +105,9 @@ public:
     long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
 
+
+    /// @brief all value source to multiplot trackers
+    static bool addTrackedMultiplot(GUIGlObject& o, ValueSource<double>* src, TrackerValueDesc* newTracked);
 
 public:
     /**
@@ -135,8 +143,9 @@ public:
         /// Called if the window shall be repainted
         long onPaint(FXObject*, FXSelector, void*);
 
-        /// Called on a simulation step
-        long onSimStep(FXObject* sender, FXSelector, void*);
+        /// @brief called on mouse movement (for updating moused value)
+        long onMouseMove(FXObject*, FXSelector, void*);
+
         /// @}
 
 
@@ -147,10 +156,9 @@ public:
 
         /** @brief Draws a single value
          * @param[in] desc The tracked values to draw
-         * @param[in] namePos Position to display the name at (currently unused)
+         * @param[in] index Mulitplot index
          */
-        void drawValue(TrackerValueDesc& desc, double namePos);
-
+        void drawValue(TrackerValueDesc& desc, const RGBColor& col, int index);
 
     private:
         /// @brief The parent window
@@ -159,8 +167,8 @@ public:
         /// @brief the sizes of the window
         int myWidthInPixels, myHeightInPixels;
 
-        /// @brief The main application
-        GUIMainWindow* myApplication;
+        /// @brief latest mouse position
+        double myMouseX;
 
     protected:
         FOX_CONSTRUCTOR(GUIParameterTrackerPanel)
@@ -173,7 +181,6 @@ public:
 private:
     /// @brief Builds the tool bar
     void buildToolBar();
-
 
 protected:
     /// @brief The main application
@@ -192,13 +199,20 @@ protected:
     FXToolBarShell* myToolBarDrag;
 
     /// @brief A combo box to select an aggregation interval
-    FXComboBox* myAggregationInterval;
+    MFXComboBoxIcon* myAggregationInterval;
 
     /// @brief The simulation delay
     FXdouble myAggregationDelay;
 
     /// @brief The tracker tool bar
     FXToolBar* myToolBar;
+
+    /// @brief Whether phase names shall be printed instead of indices
+    FXCheckButton* myMultiPlot;
+
+    /// @brief all trackers that are opened for plotting multiple values
+    static std::set<GUIParameterTracker*> myMultiPlots;
+    static std::vector<RGBColor> myColors;
 
 protected:
     FOX_CONSTRUCTOR(GUIParameterTracker)

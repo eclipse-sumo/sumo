@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 20:42:41 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<!-- generated on 2022-04-05 10:31:35 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -42,27 +47,24 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="10.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1949-1d2ae20f770" time="10.00" type="meso">
     <route id="!tripFromTo!var#1" state="0" edges="middle"/>
     <route id="!tripFromTo2" state="0" edges="1-source 1-sink"/>
     <route id="!tripFromTo3" state="0" edges="1-source 1-sink"/>
     <route id="!tripFromTo4" state="0" edges="1-source 1-sink"/>
     <delay number="1" begin="4" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="tripFromTo" type="t0" depart="9.00" fromTaz="1" toTaz="1" route="!tripFromTo!var#1" distance="0 1" speedFactor="1.00" reroute="1" state="9000 0 0 0 0 16199 9000 9223372036854775807">
-        <device id="tripinfo_tripFromTo" state="13.8908 -0 0 0 0 0 -1"/>
+    <vehicle id="tripFromTo" type="t0" depart="9.00" fromTaz="1" toTaz="1" route="!tripFromTo!var#1" distance="0 1" speedFactor="1.0000" reroute="1" state="458754 9000 0 0 0 0 16199 9000 9223372036854775807">
+        <device id="tripinfo_tripFromTo" state="13.89 -0 0 0 0 0 -1"/>
         <device id="routing_tripFromTo" state="0"/>
     </vehicle>
-    <vehicle id="tripFromTo2" type="t0" depart="10.00" fromTaz="1" toTaz="1" route="!tripFromTo2" distance="0 0" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_tripFromTo2" state="-1 0 0 0 0 0 -1"/>
+    <vehicle id="tripFromTo2" type="t0" depart="10.00" fromTaz="1" toTaz="1" route="!tripFromTo2" distance="0 0" speedFactor="1.0000" reroute="1" state="458754 9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
         <device id="routing_tripFromTo2" state="0"/>
     </vehicle>
-    <vehicle id="tripFromTo3" type="t0" depart="199.00" fromTaz="1" toTaz="1" route="!tripFromTo3" distance="0 0" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_tripFromTo3" state="-1 0 0 0 0 0 -1"/>
+    <vehicle id="tripFromTo3" type="t0" depart="199.00" fromTaz="1" toTaz="1" route="!tripFromTo3" distance="0 0" speedFactor="1.0000" reroute="1" state="458754 9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
         <device id="routing_tripFromTo3" state="0"/>
     </vehicle>
-    <vehicle id="tripFromTo4" type="t0" depart="399.00" fromTaz="1" toTaz="1" route="!tripFromTo4" distance="0 0" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_tripFromTo4" state="-1 0 0 0 0 0 -1"/>
+    <vehicle id="tripFromTo4" type="t0" depart="399.00" fromTaz="1" toTaz="1" route="!tripFromTo4" distance="0 0" speedFactor="1.0000" reroute="1" state="458754 9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
         <device id="routing_tripFromTo4" state="0"/>
     </vehicle>
     <segment id="middle:0">

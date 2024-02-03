@@ -1,0 +1,46 @@
+# stopping on the opposite side without other traffic
+noconflict
+
+# stopping on the opposite side without other traffic
+noconflict_parking
+
+# stopping on the opposite side without other traffic,
+# forward edge has 2 lanes
+2lanes_forward
+
+# stopping on the opposite side without other traffic,
+# need to cross 2 opposite lanes.
+2lanes_opposite
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2lanes_3opposite
+
+# stop close to edge end
+2lanes_3opposite_late
+
+# stop close to edge end
+2lanes_3opposite_late_arrivalLane
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2lanes_3opposite_long
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2edges
+
+# stopping on the opposite side with oncoming traffic
+3oncoming_parking
+
+# stopping on the opposite side with oncoming traffic
+3oncoming_stopPosLat
+
+# stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade
+3oncoming_stopPosLat_danger
+
+# stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade
+3oncoming_stopPosLat_danger2
+
+# stopping on the opposite side with oncoming traffic, forcing opposite traffic to evade. increased stopping time
+3oncoming_stopPosLat_danger3

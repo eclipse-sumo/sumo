@@ -1,0 +1,68 @@
+Warning: Discarding way '8041204' because it has only 1 node(s)
+Warning: Discarding way '8068225' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '8420629').
+Warning: Discarding way '10590253' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '11391981').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.service' (first occurrence for edge '11913444').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '26634503').
+Warning: Discarding way '26634505' because it has only 1 node(s)
+Warning: Discarding way '26634509' because it has only 1 node(s)
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '102831828').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '118641211').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '219014585').
+Warning: PT line in relation 1136882 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 1412079 with no stops ignored. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '1634281' with unknown from-way.
+Warning: Ignoring restriction relation '1634281' with unknown via.
+Warning: to-edge '28423922' of restriction relation could not be determined
+Warning: Ignoring restriction relation '2527682'.
+Warning: PT line in relation 2827462 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 3089828 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 4421941 with no stops ignored. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '15000501' with unknown from-way.
+Warning: Ignoring restriction relation '15000501' with unknown via.
+Warning: Could not determine cross product for edge '572322449'.
+Warning: Could not determine cross product for edge '8420621#2'.
+Warning: Could not determine cross product for edge '498316704'.
+Warning: Could not determine cross product for edge '8420625#1'.
+Warning: Could not determine cross product for edge '8420625#1'.
+Warning: Cannot assign stop 4881603356 on edge '496693720' to pt line '10412930'. Ignoring!
+Warning: PT stop '3115234152' has been moved to edge '-572322449'.
+Warning: PT stop '7108387712' has been moved to edge '8420621#2'.
+Warning: PT stop '2898083829' has been moved to edge '-8420621#2'.
+Warning: PT stop '3909350504' has been moved to edge '-8420625#1'.
+Warning: Could not re-assign PT stop '1189482494', probably broken osm file.
+Warning: Could not re-assign PT stop '1189482494', probably broken osm file.
+Warning: Cannot revise pt stop localization for pt line '14726480', which has no route edges. Ignoring!
+Warning: Could not re-assign PT stop '1189447379', probably broken osm file.
+Warning: Could not re-assign PT stop '1189447375', probably broken osm file.
+Warning: Cannot assign stop 3115234152 on edge '572322449' to pt line '2180640'. Ignoring!
+Warning: Cannot assign stop 385182104 on edge '525176584' to pt line '2782364'. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '2810020', which has no route edges. Ignoring!
+Warning: Could not re-assign PT stop '1189482494@2827470', probably broken osm file.
+Warning: Cannot revise pt stop localization for pt line '2827499', which has no route edges. Ignoring!
+Warning: Could not assign stop '1189482494' to pt line '3185767' (closest edge '103006594', distance 203.03). Ignoring!
+Warning: Cannot assign stop 538163640 on edge '525176584' to pt line '53208'. Ignoring!
+Warning: Cannot assign stop 3115234152 on edge '572322449' to pt line '5601863'. Ignoring!
+Warning: Removing pt stop '4893875313' on non existing edge ''.
+Warning: Removing pt stop '4893875314' on non existing edge ''.
+Warning: Removing pt stop '5710994953' on non existing edge ''.
+Warning: Removing pt stop '5710994954' on non existing edge ''.
+Warning: Removed 4 pt stops because they could not be assigned to the network
+Warning: Ambiguous tram edges '12089777#1' and '219012222' for lane '-163302813#0_0'.
+Warning: Ambiguous tram edges '218990870#0' and '219014586#1' for lane '163302813#0_0'.
+Warning: Found sharp turn with radius 5.09 at the start of edge '-926136448'.
+Warning: Found sharp turn with radius 8.40 at the start of edge '11990237#0'.
+Warning: Found sharp turn with radius 3.69 at the start of edge '137132908#4'.
+Warning: Found sharp turn with radius 5.40 at the start of edge '42922205'.
+Warning: Converting invalid rail_crossing to priority junction '10268308575'.
+Warning: Converting invalid rail_crossing to priority junction '10268308584'.
+Warning: Converting invalid rail_crossing to priority junction '10268336874'.
+Warning: Converting invalid rail_crossing to priority junction '10268336886'.
+Warning: Converting invalid rail_crossing to priority junction '10268336891'.
+Warning: 6 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
+Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 9 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
+Warning: 6 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 27 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 14 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.

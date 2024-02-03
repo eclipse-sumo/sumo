@@ -10,6 +10,15 @@ speed_given10
 # test interaction with departLane and lane-specific speed
 speed_given10_laneSpeed
 
+# checks using the given speed (30)
+speed_given_30_speedFactor
+
+# see #9205
+speed_given_defaultMax_speedFactor
+
+# see #9205
+speed_given_speedFactor_roundUp
+
 # checks using the given speed when speedDev is present
 speed_given_deviation
 
@@ -38,6 +47,38 @@ speed_random__vehlimit
 # (should not lower speed)
 speed_desired
 
+# one vehicle approaching a lane with a lower max speed
+speed_desired_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_desired_approach_minor
+
 # departSpeed="speedLimit" 
 # (should not lower speed)
 speed_speedLimit
+
+# one vehicle approaching a lane with a lower max speed
+speed_speedLimit_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_speedLimit_approach_minor
+
+# departSpeed="last" 
+# should use speed of the last vehicle (increases flow due to homegeneous insertion speeds)
+speed_last
+
+# one vehicle approaching a lane with a lower max speed
+speed_last_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_last_approach_minor
+
+# departSpeed="avg" 
+# should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
+speed_avg
+
+# one vehicle approaching a lane with a lower max speed
+speed_avg_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_avg_approach_minor

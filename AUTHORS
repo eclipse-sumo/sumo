@@ -1,81 +1,163 @@
-Christian Roessel <roessel@zpr.uni-koeln.de> roessel croessel
-Markus Hartinger <Markus.Hartinger@dlr.de>
-Peter Mieth <Peter.Mieth@dlr.de>
-Georg Hertkorn <georg.hertkorn@dlr.de> georg
-Daniel Krajzewicz <Daniel.Krajzewicz@dlr.de> dkrajzew
-Julia Ringel <Julia.Ringel@dlr.de> jringel
-Danilot Teta Boyom <Danilot.Tete-Boyom@dlr.de> boyom
+This file contains the full names and emails (if they could be retrieved and the authors did not object)
+of all contributors. Please note that the emails may be outdated but are kept here for reference and
+unique identification.
+The last entry is the sourceforge / github / weblate account name used when contributing. A * denotes
+entries which have been added by automated retrieval and still may need review.
+If you find missing or duplicate authors please open
+an issue or pull request at https://github.com/eclipse/sumo/issues
+
+Alessio Bonfietti <alessio.bonfietti@unibo.it> bonfioale
+Alexander Brummer <> alexbrummer
+Alexander Weidinger *
+Alex Voronov *
+Ali Rostami *
+Amirhosein Karbasi
 Andreas Gaubatz <andreas.gaubatz@uni-dortmund.de> agaubatz
-Maik Drozdzynski <maik.drozdzynski@uni-dortmund.de> der_maik81
-Miguel Liebe <miguel@venta-com.de> miguelliebe
-Eric Nicolay <Eric.Nicolay@dlr.de> ericnicolay
+Andreas Kendziorra <andreas.kendziorra@dlr.de> kend-an
+@andreastedile *
+Andrei Alexandrescu *
+Angelo Banse <Olaf.BanseBueno@dlr.de> angelobanse
+Anna Chiara Bellini <acbellini@users.sf.net> acbellini
 Axel Wegener <wegener@itm.uni-luebeck.de> awegener
-Thimor Bohn <bohn@itm.uni-luebeck.de> t-bohn
-Felix Brack <fb@ltec.ch> fxrb
-Michael Behrisch <oss@behrisch.de> behrisch
-Yun-Pang Floetteroed <Yun-Pang.Floetteroed@dlr.de> yunpangwang
-Ronald Nippold <Ronald.Nippold@dlr.de> ronald_nippold
-Friedemann Wesner <wesner@itm.uni-luebeck.de> fwesner
-Tino Morenz <morenzt@tcd.ie> morenzt
-Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de> sommerc
+Behzad Bamdad Mehrabani <bm.bamdad@gmail.com>
+Benjamin Couéraud <benjamin.coueraud@dlr.de> bcoueraud87
+Bernd Lehmann *
+Bill Baxter
 Bjoern Hendriks <bjhend@users.sf.net> bjhend
-Sascha Krieg <sascha.krieg@dlr.de> SaschaKrieg saschaKrieg
-Clemens Honomichl <c.honomichl@googlemail.com> chonomichl
-Matthias Heppner <matthias@highmarket.de> heppa
-Lena Kalleske <Lena.Kalleske@dlr.de> kalleske
+Benjamin Striner <bstriner@gmail.com> bstriner
+Caner Ipek *
+Christian Roessel <roessel@zpr.uni-koeln.de> roessel croessel
 Christian Schmidt <ch.schmidt@dlr.de> cschmidt87
-Matthew Fullerton <matthew.fullerton@tum.de> fullerton
-Walter Bamberger <w.bamberger@arcor.de> simsiem w-bamberger
-Piotr Woznica <piwoz@users.sf.net> piwoz
-Tobias Mayer <mayer.tobias (at) web.de>
-Laura Bieker-Walz <laura.bieker@dlr.de> bieker
-Matthias Roeckl <mroeckl@users.sf.net> mroeckl
+Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de> sommer
+Claudius Ellsel <claudius.ellsel@live.de> *
+Clemens Honomichl <c.honomichl@googlemail.com> chonomichl
+Costin Chiriac <> Anisotrop *
+Daniel Krajzewicz <Daniel.Krajzewicz@dlr.de> dkrajzew
+Danilot Teta Boyom <Danilot.Tete-Boyom@dlr.de> boyom
+Danny Behnecke <Danny.Behnecke@dlr.de> DannyBehnecke
+David C. *
+David Rusu <davidrusu.me@gmail.com> *
+Dominik Buse <buse@ccs-labs.org>
+Dominik Salles <dominik.salles@fkfs.de> Domsall
+Eric Melde <eric.melde@dlr.de> melde
+Eric Nicolay <Eric.Nicolay@dlr.de> ericnicolay
+Erik Newton *
+Erik Tunsch <eriktunsch@dk7et.de> eriktunsch
+@ernstklrb *
+Evamarie Wiessner <evamarie.wiessner@dlr.de> ephii
+Farkas Tamás Gábor <farkastamas1095@gmail.com> *
+Federico Caselli <f.caselli@unibo.it> fcaselli-it
+Felix Brack <fb@ltec.ch> fxrb
+@finn0 *
+Flip <> Philhil *
+Fredrik Jagenheim *
+Friedemann Wesner <wesner@itm.uni-luebeck.de> fwesner
+Georg Hertkorn <georg.hertkorn@dlr.de> georg
+Gerald Richter <Gerald.Richter@ait.ac.at> ait-mob-dts
+Gianfilippo Slager
+Gregor Laemmel <gregor.laemmel@dlr.de> laemmel
+Gregory Albiston *
+Harald Schaefer <fechsaer@gmail.com>
+Hollow Man <hollowman@hollowman.ml> *
+Hongsheng Cui <> 5889e6a4c7c04be2 *
+HONGYC <> iamhyc *
+Ioan-Alexandru Stef <alexstef35@gmail.com>
 Jakob Erdmann <jakob.erdmann@dlr.de> namdre
+Jakob Stigloher
 Jakub Sevcik <jsevcik@rice.zcu.cz>
+Jannis Mainczyk <jannis.mainczyk@iis.fraunhofer.de> *
 Jan Prikryl <prikryl@fd.cvut.cz>
 Jerome Haerri <haerri@users.sf.net> haerri
-Karol Stosiek <kstosiek@users.sf.net> kstosiek
-Maximilian Wittmann <wittmannxam@live.de> wittmax
-Marek Heinrich <marek.heinrich@dlr.de> mahei
-Melanie Weber <melanie.weber@dlr.de> mknocke
-Mario Krumnow <Mario.Krumnow@tu-dresden.de> mkrumnow
-Riccardo Belletti <riccardo.belletti2@studio.unibo.it> rickybo89
-Anna Chiara Bellini <acbellini@users.sf.net> acbellini
-Alessio Bonfietti <alessio.bonfietti@unibo.it> bonfioale
-Federico Caselli <f.caselli@unibo.it> fcaselli-it
-Robbin Blokpoel <robbin.blokpoel@imtech.com> rblokpoel
-Nikolaus Furian <furian@ivt.tugraz.at> nikolausfurian
-Gianfilippo Slager
-Sandesh Uppoor <suppoor@gmail.com> suppoor 
-Matthias Wagner <Matthias.Wagner@dlr.de> mwagner
-Mathew Robertson
-Bill Baxter
-Lyle Johnson
-Peter Wagner <peter.wagner@dlr.de> piwagner
-Eric Melde <eric.melde@dlr.de> melde
-Evamarie Wiessner
-Andreas Kendziorra <andreas.kendziorra@dlr.de> kend-an
-Robert Hilbrich <robert.hilbrich@dlr.de> rhilbrich
-Thomas Lockhart <Thomas.G.Lockhart@jpl.nasa.gov>
-Gerald Richter <Gerald.Richter@ait.ac.at> ait-mob-dts
-Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
-Tamas Kurczveil <kurczveil@iva.ing.tu-bs.de> emilkur
-Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de> palcraft
-Joerg Schweizer <joerg.schweizer@unibo.it> joerg-schweizer
-Mirco Sturari <m.sturari@pm.univpm.it> mircosturari
-Martin Dippold <dippold@ivt.tugraz.at>
-Gregor Laemmel <gregor.laemmel@dlr.de> laemmel
-Leonhard Luecken <leonhard.luecken@dlr.de> luecken
-Martin Taraz <martin@taraz.de> martintaraz
-Lara Codeca <lara.codeca@eurecom.fr>
-Matthias Schwamborn <matthias.schwamborn@dlr.de>
-Olaf Angelo Banse Bueno <Olaf.BanseBueno@dlr.de>
-Mirko Barthauer <m.barthauer@t-online.de>
-Michele Segata <segata@ccs-labs.org>
-Raphael Riebl <raphael.riebl@thi.de>
-Tarek Chouaki <tarek.chouaki@irt-systemx.fr>
-Tobias Jacobowitz <tobias.jacobowitz@posteo.de>
 Jim Div <div@thoda.uk>
-Maximiliano Bottazzi <maximiliano.bottazzi@dlr.de>
+Joerg Schweizer <joerg.schweizer@unibo.it> schwoz
+Johannes Rummel <johannes.rummel@dlr.de> rummel123
+Jose *
+Julia Ringel <Julia.Ringel@dlr.de> jringel
+Karl Schrab <karl.schrab@fokus.fraunhofer.de> *
+Karol Stosiek <kstosiek@users.sf.net> kstosiek
+Kevin Badalian <> kevbad
+Kevin Tee <andythe_great@protonmail.com>
+kubasevca <> kubasevca *
+Lara Codeca <lara.codeca@eurecom.fr> lcodeca
+Lara Kaiser <> LaraKaiser
+Laura Bieker-Walz <laura.bieker@dlr.de> lbieker
+Leander Flamm <leander.flamm@dlr.de>
+Lena Kalleske <Lena.Kalleske@dlr.de> kalleske
+leo <leo21@gmx.net> *
+Leonhard Luecken <leonhard.luecken@dlr.de> leoluecken
+Lukas Grohmann <Lukas.Grohmann@ait.ac.at>
+Lukas Hartjen *
+Lyle Johnson
+Maik Drozdzynski <maik.drozdzynski@uni-dortmund.de> der_maik81
+Manuel Montero *
+Marek Heinrich <marek.heinrich@dlr.de> mahei
+Maria Giuliana Armellini <maria.armellini@dlr.de> ArmelliniMG
+Mario Krumnow <Mario.Krumnow@tu-dresden.de> mkrumnow
+Marius Dupuis *
+Markus Hartinger <Markus.Hartinger@dlr.de>
+Martin Dippold <dippold@ivt.tugraz.at>
+Martin Taraz <martin@taraz.de> martintaraz
+Mathew Robertson
+Matthew Fullerton <matthew.fullerton@tum.de> fullerton
+Matthias Heppner <matthias@highmarket.de> heppa
+Matthias Roeckl <mroeckl@users.sf.net> mroeckl
+Matthias Schwamborn <matthias.schwamborn@dlr.de> schwamborn
+Matthias Wagner <Matthias.Wagner@dlr.de> mwagner
+Maximiliano Bottazzi <maximiliano.bottazzi@dlr.de> maxidigital
+Maximilian Wittmann <wittmannxam@live.de> wittmax
+Max Schettler <schettle@mail.uni-paderborn.de> *
+Maxwell Schrader <mcschrader@crimson.ua.edu> mschrader15
+Melanie Weber <melanie.weber@dlr.de> MelanieWeber
+Michael Behrisch <oss@behrisch.de> behrisch
+Michael Ernst <mernst@cs.washington.edu> *
+Michele Segata <segata@ccs-labs.org> michele-segata
+Miguel Liebe <miguel@venta-com.de> miguelliebe
+Mirco Sturari <m.sturari@pm.univpm.it> mircosturari
+Mirko Barthauer <m.barthauer@t-online.de> m-kro
+Moritz Gütlein <mrtzz@mail.de> *
+Necip Güzel *
+Niklas Freund *
+Nikolaus Furian <furian@ivt.tugraz.at> nikolausfurian
+Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de> palvarezlopez
+@pcg76 *
+Peter Mieth <Peter.Mieth@dlr.de>
+Peter Wagner <peter.wagner@dlr.de> piwagner
+Philip Ritzer <philip.ritzer@mailbox.org> ritzerp
+Philippe <extern.philippe.kaeufer@porsche.de> *
+Pieter Loof *
+Piotr Woznica <piwoz@users.sf.net> piwoz
+Qichao Wang <qichao@vt.edu>
+Quentin Bragard *
+Raphael Riebl <raphael.riebl@thi.de>
+Riccardo Belletti <riccardo.belletti2@studio.unibo.it> rickybo89
+Robbin Blokpoel <robbin.blokpoel@imtech.com> rblokpoel
+Robert Hilbrich <robert.hilbrich@dlr.de> RobertHilbrich
+Ronald Nippold <Ronald.Nippold@dlr.de> RNippold
+sabrib <> sab-inf
+Sandesh Uppoor <suppoor@gmail.com> suppoor
+Sascha Krieg <sascha.krieg@dlr.de> SaschaKrieg saschaKrieg
 Sebastian Ehmann <sebastian@dipolmoment.de>
-Dominik Salles <dominik.salles@fkfs.de>
+Simon Levente *
+Srishti Dhamija <srishtidhm@gmail.com> *
+Stephan Beutelschiess *
+Sven Jankofsky *
+@sxleixer *
+Tamas Kurczveil <kurczveil@iva.ing.tu-bs.de> emilkur
+Tarek Chouaki <tarek.chouaki@irt-systemx.fr>
+TerryCYY *
+Thimor Bohn <bohn@itm.uni-luebeck.de> t-bohn
+Thomas Lockhart <Thomas.G.Lockhart@jpl.nasa.gov>
+Tianxin Li
+Tino Morenz <morenzt@tcd.ie> morenzt
+Tobias Jacobowitz <tobias.jacobowitz@posteo.de> jacobowitz
+Tobias Mayer <mayer.tobias (at) web.de>
+Tobias Rink *
+ts501 *
+Tucker Alban <mtuck2005@yahoo.ca>
+Vijay Jaisankar <vijay.jaisankar@iiitb.org>
+Vipul <finn02@disroot.org> *
+Walid *
+Walter Bamberger <w.bamberger@arcor.de> simsiem w-bamberger
+Wolfgang Schnerring <wosc@wosc.de> wosc
+Xiaoxu Bei <Xiaoxu.Bei@dlr.de>
+Yun-Pang Flötteröd <Yun-Pang.Floetteroed@dlr.de> yunpangfloetteroed

@@ -16,6 +16,9 @@ write_template_commented_full
 # Tests configuration writing
 write_config
 
+# Tests schema writing
+write_schema
+
 # Tests configuration with boolean values
 bool_value
 
@@ -37,11 +40,17 @@ deprecated_option
 # Tests command line option list
 option_list
 
+# Tests appending to an option list
+option_list_append
+
 # Tests command line option list with equal sign
 option_list_equal_sign
 
 # Tests whether log-file output works
 with_log
+
+# Tests whether log-file output can have timestamps and pid
+with_log_timestamps_pid
 
 # Tests configuration with umlauts in file names
 umlaut
@@ -60,3 +69,9 @@ space_input_path
 
 # Tests percent in input file names
 percent
+
+# Tests relative paths
+rel_path
+
+# Tests configuration loading vebosity
+verbose

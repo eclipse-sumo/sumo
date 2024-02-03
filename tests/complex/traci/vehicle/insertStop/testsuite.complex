@@ -1,0 +1,67 @@
+# original route
+default
+
+# replace first stop before the vehicle has departed
+first_init
+
+# replace first stop after the vehicle has departed
+first
+
+# replace first stop while already on the stop edge
+first_later
+
+# replace first stop after the vehicle has departed
+first_teleport
+
+# replace second stop after the vehicle has departed
+second
+
+# replace stop that was added from a named route before the vehicle has departed	
+routeStop_init
+
+# insert second stop with "" after the vehicle has departed
+empty_id
+
+# replace second stop after the vehicle has departed
+second_teleport
+
+# replace second stop after the vehicle has departed. new stop isn't reachable
+second_unreachable_teleport
+
+# replace second stop after the vehicle has departed. new stop isn't reachable,
+# finish teleport instantly despite oncoming train.
+second_teleport_oncoming
+
+# change attributes of second stop without rerouting
+second_change_attribute
+
+# insertstop before the last stop
+third
+
+# 
+# insert stop before the third stop
+third_later
+
+# insert stop after the last stop
+last
+
+# replace all stops after the vehicle has departed
+all
+
+# replace stop with invalid index
+invalid
+
+# try to replace the current stop after it has been reached
+reached_invalid
+
+# test replaceStop failure
+unreachable
+
+# replace first stop while on a junction leading away from the new stop
+on_junction
+
+# insert a stop along the current route
+keepRoute
+
+# insert a stop along the current route
+keepRoute2

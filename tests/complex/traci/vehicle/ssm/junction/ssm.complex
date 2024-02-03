@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 09:53:05 2020 by Eclipse SUMO sumo Version v1_7_0+1263-72cbce8f94
+<!-- generated on 2023-06-08 21:24:34 by Eclipse SUMO sumo Version v1_17_0+0868-0ea1cad2dc1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,13 +15,13 @@
 
     <ssm_device>
         <device.ssm.probability value="1"/>
-        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP"/>
-        <device.ssm.thresholds value="5 5 3 0 1 1"/>
+        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP PPET"/>
+        <device.ssm.thresholds value="5 5 3 0 1 1 1"/>
         <device.ssm.file value="ssm.xml"/>
     </ssm_device>
 
     <traci_server>
-        <remote-port value="56687"/>
+        <remote-port value="51717"/>
     </traci_server>
 
 </configuration>
@@ -29,21 +29,23 @@
 
 <SSMLog>
     <conflict begin="6.00" end="14.00" ego="ego" foe="leader">
-        <minTTC time="7.00" position="101.60,99.10" type="10" value="2.67"/>
-        <maxDRAC time="8.00" position="100.36,101.00" type="11" value="2.55"/>
-        <PET time="10.48" position="100.36,101.00" type="17" value="0.18"/>
+        <minTTC time="7.00" position="101.60,98.57" type="10" value="2.62" speed="8.02"/>
+        <maxDRAC time="8.00" position="100.36,101.00" type="11" value="2.59" speed="3.52"/>
+        <PET time="11.50" position="100.36,101.00" type="17" value="1.25" speed="5.60"/>
+        <minPPET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
     <globalMeasures ego="ego">
         <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>
-        <BRSpan values="0.00 1.30 0.00 0.00 0.06 0.00 3.28 3.29 4.50 2.97 0.39 0.00 0.00 0.00 0.00"/>
+        <BRSpan values="0.00 1.30 0.00 0.00 0.06 0.00 3.28 3.29 4.50 2.97 0.39 0.14 0.00 0.00 0.00"/>
         <maxBR time="8.00" position="99.56,102.33" value="4.50"/>
         <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
         <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
     </globalMeasures>
     <conflict begin="6.00" end="14.00" ego="leader" foe="ego">
-        <minTTC time="7.00" position="101.60,99.10" type="11" value="2.67"/>
-        <maxDRAC time="8.00" position="100.36,101.00" type="10" value="2.55"/>
-        <PET time="10.48" position="100.36,101.00" type="17" value="0.18"/>
+        <minTTC time="7.00" position="101.60,98.57" type="11" value="2.62" speed="12.41"/>
+        <maxDRAC time="8.00" position="100.36,101.00" type="10" value="2.59" speed="12.43"/>
+        <PET time="11.50" position="100.36,101.00" type="17" value="1.25" speed="12.16"/>
+        <minPPET time="NA" position="NA" type="NA" value="NA" speed="NA"/>
     </conflict>
     <globalMeasures ego="leader">
         <timeSpan values="2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>

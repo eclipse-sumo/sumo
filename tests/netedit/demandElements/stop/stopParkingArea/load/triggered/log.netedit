@@ -1,6 +1,0 @@
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicleWithRoute 'vehicle_0'.
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep134855.13228\netedit.gui\demandElements\stop\stopParkingArea\load\triggered\input_routes.rou.xml failed.

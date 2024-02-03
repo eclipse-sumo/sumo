@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,8 +22,9 @@ from __future__ import print_function
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 import traci  # noqa
 
 ix = sys.argv.index(":")
@@ -34,9 +35,7 @@ if '--mesosim' in loadParams:
     saveParams.append('--mesosim')
 
 # SAVE
-
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', "..", '..', 'bin', 'sumo'))
+sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary] + saveParams)
 tend = 55.
 traci.simulationStep()

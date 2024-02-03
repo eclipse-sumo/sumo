@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 21 14:52:32 2020 by Eclipse SUMO sumo Version v1_7_0+0158-e9358957e7
+<!-- generated on 2023-03-21 19:27:57 by Eclipse SUMO sumo Version v1_16_0+1526-5bb58df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,7 +36,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,45 +44,43 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.33" arrival="110.00">
-        <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
-    </vehicle>
-
-    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="38.89" arrival="190.00">
-        <route edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
-    </vehicle>
-
-    <vehicle id="rail3" type="Freight" depart="1.00" departLane="0" departSpeed="33.33" arrival="265.00">
+    <vehicle id="rail3" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="109.00">
         <routeDistribution>
-            <route replacedOnEdge="T12_1" reason="railSignal:F_0" replacedAtTime="49.00" probability="0" edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
-            <route replacedOnEdge="T11_1" reason="device.rerouting" replacedAtTime="81.00" probability="0" edges="T12_1 T11_1 T28_1 T4_1 T3_1 T2_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
+            <route replacedOnEdge="T12_1" reason="railSignal:F_0" replacedAtTime="37.00" probability="0" edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
+            <route replacedOnEdge="T11_1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="41.00" probability="0" edges="T12_1 T11_1 T28_1 T4_1 T3_1 T2_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
             <route edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rail4" type="Freight" depart="300.00" departLane="0" departSpeed="16.67" arrival="428.00">
+    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="38.89" speedFactor="1.0000" arrival="155.00">
+        <route edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
+    </vehicle>
+
+    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="204.00">
+        <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
+    </vehicle>
+
+    <vehicle id="rail4" type="Freight" depart="300.00" departLane="0" departSpeed="16.67" speedFactor="1.0000" arrival="428.00">
         <route edges="T26_1 T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T6_1 T5_1 T1_1"/>
     </vehicle>
 
-    <vehicle id="rail5" type="Freight" depart="500.00" departLane="0" departSpeed="33.33" arrival="738.00">
+    <vehicle id="rail5" type="Freight" depart="500.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="646.00">
+        <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T22_0 T23_0 T24_0"/>
+    </vehicle>
+
+    <vehicle id="rail6" type="Freight" depart="510.00" departLane="0" departSpeed="0.00" speedFactor="1.0000" arrival="798.00">
         <routeDistribution>
-            <route replacedOnEdge="T1_0" reason="device.rerouting" replacedAtTime="520.00" probability="0" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T22_0 T23_0 T24_0"/>
-            <route replacedOnEdge="T1_0" reason="railSignal:B_0" replacedAtTime="528.00" probability="0" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T10_0 T28_0 T16_0 T23_0 T24_0"/>
-            <route replacedOnEdge="T1_0" reason="device.rerouting" replacedAtTime="530.00" probability="0" edges="T1_0 T5_0 T13_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
-            <route replacedOnEdge="T5_0" reason="railSignal:N2_0" replacedAtTime="531.00" probability="0" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T10_0 T28_0 T16_0 T23_0 T24_0"/>
-            <route edges="T1_0 T5_0 T13_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
+            <route replacedOnEdge="T26_1" reason="railSignal:G_0" replacedAtTime="532.00" probability="0" edges="T26_1 T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
+            <route replacedOnEdge="T26_1" reason="device.rerouting" replacedAtTime="580.00" probability="0" edges="T26_1 T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1"/>
+            <route edges="T26_1 T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rail6" type="Freight" depart="510.00" departLane="0" departSpeed="16.67" arrival="765.00">
-        <route edges="T26_1 T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
-    </vehicle>
-
-    <vehicle id="rail8" type="REDosto7" depart="1301.00" departLane="0" departSpeed="19.67" arrival="1405.00">
+    <vehicle id="rail8" type="REDosto7" depart="1301.00" departLane="0" departSpeed="19.67" speedFactor="1.0000" arrival="1405.00">
         <route edges="T26_1 T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1"/>
     </vehicle>
 
-    <vehicle id="rail7" type="REDosto7" depart="1300.00" departLane="0" departSpeed="38.89" arrival="1411.00">
+    <vehicle id="rail7" type="REDosto7" depart="1300.00" departLane="0" departSpeed="38.89" speedFactor="1.0000" arrival="1411.00">
         <route edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T6_1 T5_1 T1_1"/>
     </vehicle>
 

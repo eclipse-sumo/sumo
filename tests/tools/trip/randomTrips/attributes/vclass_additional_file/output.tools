@@ -1,0 +1,2 @@
+Success.
+calling  /scr1/sumo/bin/duarouter -n net.net.xml -t trips.trips.xml -o out.rou.xml --ignore-errors --begin 0 --end 10.0 --no-step-log --additional-files input_additional.add.xml

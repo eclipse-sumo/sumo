@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,10 +54,10 @@ public:
     /// @name inherited from GNEChange
     /// @{
     /// @brief get undo Name
-    FXString undoName() const;
+    std::string undoName() const;
 
     /// @brief get Redo name
-    FXString redoName() const;
+    std::string redoName() const;
 
     /// @brief undo action
     void undo();
@@ -76,6 +76,6 @@ private:
     /// @brief we need to preserve the attributes explicitly because they are not contained withing GNELane itself
     const NBEdge::Lane myLaneAttrs;
 
-    /// @bried whether to recompute connection when adding a new lane
+    /// @brief whether to recompute connection when adding a new lane
     bool myRecomputeConnections;
 };

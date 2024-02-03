@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -148,7 +148,6 @@ public:
     void addLogicItem(int request, const std::string& response,
                       const std::string& foes, bool cont);
 
-
     /** @brief Begins the reading of a traffic lights logic
      *
      * @param[in] id The id of the tls
@@ -161,31 +160,36 @@ public:
     void initTrafficLightLogic(const std::string& id, const std::string& programID,
                                TrafficLightType type, SUMOTime offset);
 
-
     /** @brief Adds a phase to the currently built traffic lights logic
      *
-     * @param[in] duration The duration of the phase
-     * @param[in] state The state of the tls
-     * @param[in] min The minimum duration of the phase
-     * @param[in] max The maximum duration of the phase
-     * @todo min/max is used only by one junction type. Recheck
-     * @todo min/max: maybe only one type of a phase definition should be built
+     * @param[in] phase The new phase
      */
-    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                  SUMOTime min, SUMOTime max, const std::string& name);
+    void addPhase(MSPhaseDefinition* phase);
 
-    /** @brief Adds a phase to the currently built traffic lights logic
+    /** @brief Adds a condition to the currently built traffic lights logic
      *
-     * @param[in] duration The duration of the phase
-     * @param[in] state The state of the tls
-     * @param[in] minDuration The minimum duration of the phase
-     * @param[in] maxDuration The maximum duration of the phase
-     * @param[in] transient_notdecisional Specifies if this is a transient phase (true) or a decisional one (false)
-     * @param[in] commit Specifies if this is a commit phase
-     * @param[in] targetLanes A reference to the vector containing targeted sensor lanes for this phase, given by lane id
+     * @param[in] id the condition id
+     * @param[in] value the condition expression
      */
-    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes = nullptr);
+    bool addCondition(const std::string& id, const std::string& value);
 
+    /** @brief Adds an assignment to the currently built traffic lights logic
+     *
+     * @param[in] id the condition id
+     * @param[in] check the check condition that guards the assignment
+     * @param[in] value the assigned expression
+     */
+    void addAssignment(const std::string& id, const std::string& check, const std::string& value);
+
+    /** @brief adds a switching condition function to the traffic lights logic currently build
+     *
+     * @param[in] id the function id
+     * @param[in] nArgs the number of arguments
+     */
+    void addFunction(const std::string& id, int nArgs);
+
+    /// closes a switching condition function to the traffic lights logic currently build
+    void closeFunction();
 
     /** @brief Returns a previously build tls logic
      *
@@ -193,9 +197,7 @@ public:
      * @return The named logic
      * @exception InvalidArgument If the named tls logic was not built before
      */
-    MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id)
-    const;
-
+    MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id) const;
 
     /** @brief Returns the built tls-logic control
      *
@@ -208,7 +210,6 @@ public:
      */
     MSTLLogicControl* buildTLLogics();
 
-
     /** @brief Ends the building of a traffic lights logic
      *
      * Builds the correct type of a MSTrafficLightLogic using the stored information.
@@ -219,20 +220,6 @@ public:
      */
     virtual void closeTrafficLightLogic(const std::string& basePath);
 
-
-    /** @brief Ends the building of a junction logic (row-logic)
-     *
-     * Rechecks values for the request and builds a MSJunctionLogic using these values.
-     *  Throws and InvalidArgument if the values are invalid (error message is
-     *  included).
-     * Tries to add the built logic to the internal container "myLogics". If another
-     *  logic with the same id exists, an InvalidArgument is thrown.
-     *
-     * @exception InvalidArgument If the logic's values are false or another logic with the same id was built before
-     */
-    void closeJunctionLogic();
-
-
     /** @brief Adds a parameter
      *
      * @param[in] key The key of the parameter
@@ -242,18 +229,15 @@ public:
      */
     void addParam(const std::string& key, const std::string& value);
 
-
     /** @brief Returns the active key
      * @return The active key
      */
     const std::string& getActiveKey() const;
 
-
     /** @brief Returns the active sub key
      * @return The active sub key
      */
     const std::string& getActiveSubKey() const;
-
 
     /** @brief Returns the used tls control
      *
@@ -270,24 +254,14 @@ public:
     /// @brief try to retrieve junction by id
     MSJunction* retrieve(const std::string id);
 
-    /// @brief return the number of phases loaded so far (for error reporting)
-    int getNumberOfLoadedPhases() const {
-        return (int)myActivePhases.size();
+    /// @brief return the phases loaded so far (for error reporting and cleanup)
+    const MSSimpleTrafficLightLogic::Phases& getLoadedPhases() const {
+        return myActivePhases;
     }
 
-
-protected:
-    /** @brief Returns the current junction logic
-     *
-     * "Current" means the one with "myActiveID". If it is not built yet
-     *  (not within "myLogics") an InvalidArgument is thrown.
-     *
-     * @return The current tls logic
-     * @exception InvalidArgument If the logic was not built before
-     * @todo Where is this used?
-     */
-    MSJunctionLogic* getJunctionLogicSecure();
-
+    void netIsLoaded() {
+        myNetIsLoaded = true;
+    }
 
 protected:
     /// @name Factory methods, virtual so that other versions of the structures can be built
@@ -301,17 +275,14 @@ protected:
      */
     virtual MSJunction* buildNoLogicJunction();
 
-
     /** @brief Builds a junction with a logic
      *
-     * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built
-     *  (see getJunctionLogicSecure).
+     * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built.
      *
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */
-    virtual MSJunction* buildLogicJunction();
-
+    virtual MSJunction* buildLogicJunction(MSJunctionLogic* const logic);
 
     /** @brief Builds an internal junction
      *
@@ -321,7 +292,6 @@ protected:
      */
     virtual MSJunction* buildInternalJunction();
     /// @}
-
 
 protected:
     /// @brief The net to use
@@ -347,6 +317,18 @@ protected:
 
     /// @brief The current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;
+
+    /// @brief The current switching conditions for an actuated traffic light
+    MSActuatedTrafficLightLogic::ConditionMap myActiveConditions;
+
+    /// @brief The current assignments for an actuated traffic light
+    MSActuatedTrafficLightLogic::AssignmentMap myActiveAssignments;
+
+    /// @brief The current functions for an actuated traffic light
+    MSActuatedTrafficLightLogic::FunctionMap myActiveFunctions;
+
+    /// @brief The current function for an actuated traffic light
+    MSActuatedTrafficLightLogic::Function myActiveFunction;
 
     /// @brief The size of the request
     int myRequestSize;
@@ -384,27 +366,23 @@ protected:
     /// @brief the name of the current junction
     std::string myActiveName;
 
-    /// @brief The container for information which junctions shall be initialised using which values
-    std::vector<MSTrafficLightLogic*> myLogics2PostLoadInit;
+    /// @brief Definition of a parameter map (key->value)
+    typedef Parameterised::Map StringParameterMap;
 
+    /// @brief The container for information which junctions shall be initialised using which values
+    std::vector<MSTrafficLightLogic*> myNetworkLogics;
+    std::vector<MSTrafficLightLogic*> myAdditionalLogics;
+    std::vector<MSTrafficLightLogic*> myRailSignals;
+    std::map<MSTrafficLightLogic*, StringParameterMap> myLogicParams;
 
     /// @brief The tls control to use (0 if net's tls control shall be used)
     mutable MSTLLogicControl* myLogicControl;
 
-
-    /// @brief Definition of a parameter map (key->value)
-    typedef std::map<std::string, std::string> StringParameterMap;
-
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;
 
-
-    /// @brief Map of loaded junction logics
-    std::map<std::string, MSJunctionLogic*> myLogics;
-
     /// @brief Information whether the current logic had an error
     bool myCurrentHasError;
-
 
 private:
     /** @brief invalidated copy operator */
@@ -417,5 +395,6 @@ private:
 
     /// @brief whether the network has been loaded
     bool myNetIsLoaded;
+
 
 };

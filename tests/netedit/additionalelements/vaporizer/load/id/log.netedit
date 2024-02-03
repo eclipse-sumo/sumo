@@ -1,0 +1,3 @@
+Error: Attribute 'id' is missing in definition of a vaporizer.
+Error: Could not build vaporizer in netedit; edge 'dummyid' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun100756.19514/netedit.gui/additionalelements/vaporizer/load/id/additionals.add.xml failed.

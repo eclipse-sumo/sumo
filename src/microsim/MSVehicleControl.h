@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,12 +28,12 @@
 #include <set>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #endif
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include "MSNet.h"
+#include <microsim/MSRouterDefs.h>
 
 
 // ===========================================================================
@@ -80,9 +80,6 @@ public:
     /// @brief Destructor
     virtual ~MSVehicleControl();
 
-    /// @brief create default types
-    void initDefaultTypes();
-
     /// @name Vehicle creation
     /// @{
 
@@ -98,9 +95,10 @@ public:
      * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
+    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, ConstMSRoutePtr route,
                                       MSVehicleType* type,
-                                      const bool ignoreStopErrors, const bool fromRouteFile = true);
+                                      const bool ignoreStopErrors, const bool fromRouteFile = true,
+                                      bool addRouteStops = true);
     /// @}
 
 
@@ -194,6 +192,8 @@ public:
     /// @}
 
 
+    /// @brief register / unregister depart-triggered vehicles with edges
+    void handleTriggeredDepart(SUMOVehicle* v, bool add);
 
     /// @name Setting vehicle statistics
     /// @{
@@ -291,10 +291,20 @@ public:
         return myLoadedVehNo - (myWaitingForTransportable + myEndedVehNo);
     }
 
+    /// @brief return the number of vehicles that are waiting for a transportable or a join
+    int getTriggeredVehicleCount() const {
+        return myWaitingForTransportable;
+    }
+
 
     /// @brief return the number of collisions
     int getCollisionCount() const {
         return myCollisions;
+    }
+
+    /// @brief return the number of collisions
+    int getTeleportsCollisions() const {
+        return myTeleportsCollision;
     }
 
     /// @brief return the number of teleports due to jamming
@@ -318,6 +328,11 @@ public:
     /// @brief return the number of emergency stops
     int getEmergencyStops() const {
         return myEmergencyStops;
+    }
+
+    /// @brief return the number of emergency stops
+    int getEmergencyBrakingCount() const {
+        return myEmergencyBrakingCount;
     }
 
     /// @brief return the number of vehicles that are currently stopped
@@ -407,7 +422,7 @@ public:
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or nullptr if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, std::mt19937* rng = nullptr, bool readOnly = false);
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, SumoRNG* rng = nullptr, bool readOnly = false);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
@@ -424,6 +439,9 @@ public:
     /// @brief return the vehicle type distribution with the given id
     const RandomDistributor<MSVehicleType*>* getVTypeDistribution(const std::string& typeDistID) const;
 
+    /// @brief Return all pedestrian vehicle types.
+    const std::vector<MSVehicleType*> getPedestrianTypes(void) const;
+
     /// @}
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
@@ -439,8 +457,11 @@ public:
     }
 
     /// @brief registers one collision-related teleport
-    void registerCollision() {
+    void registerCollision(bool teleport) {
         myCollisions++;
+        if (teleport) {
+            myTeleportsCollision++;
+        }
     }
 
     /// @brief register one non-collision-related teleport
@@ -461,6 +482,11 @@ public:
     /// @brief register emergency stop
     void registerEmergencyStop() {
         myEmergencyStops++;
+    }
+
+    /// @brief register emergency stop
+    void registerEmergencyBraking() {
+        myEmergencyBrakingCount++;
     }
 
     /// @brief register emergency stop
@@ -485,7 +511,7 @@ public:
     void saveState(OutputDevice& out);
 
     /** @brief Remove all vehicles before quick-loading state */
-    void clearState();
+    void clearState(const bool reinit);
     /// @}
 
     /// @brief discount vehicles that were removed during state loading
@@ -505,19 +531,32 @@ public:
         return myMaxSpeedFactor;
     }
 
-    /// @brief return the minimum deceleration capability for all vehicles that ever entered the network
+    /// @brief return the minimum deceleration capability for all road vehicles that ever entered the network
     double getMinDeceleration() const {
         return myMinDeceleration;
     }
 
-    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+    /// @brief return the minimum deceleration capability for all ral vehicles that ever entered the network
+    double getMinDecelerationRail() const {
+        return myMinDecelerationRail;
+    }
+
+    void adaptIntermodalRouter(MSTransportableRouter& router) const;
 
     /// @brief sets the demand scaling factor
     void setScale(double scale) {
         myScale = scale;
     }
 
+    /// @brief sets the demand scaling factor
+    double getScale() const {
+        return myScale;
+    }
+
 private:
+    /// @brief create default types
+    void initDefaultTypes();
+
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
      * This method checks also whether the default type may still be replaced
@@ -530,7 +569,7 @@ private:
     bool isPendingRemoval(SUMOVehicle* veh);
 
 protected:
-    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors);
+    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops);
 
 private:
     /// @name Vehicle statistics (always accessible)
@@ -551,6 +590,9 @@ private:
     /// @brief The number of collisions
     int myCollisions;
 
+    /// @brief The number of teleports due to collision
+    int myTeleportsCollision;
+
     /// @brief The number of teleports due to jam
     int myTeleportsJam;
 
@@ -562,6 +604,9 @@ private:
 
     /// @brief The number of emergency stops
     int myEmergencyStops;
+
+    /// @brief The number of emergency stops
+    int myEmergencyBrakingCount;
 
     /// @brief The number of stopped vehicles
     int myStoppedVehicles;
@@ -607,22 +652,10 @@ private:
     /// @brief Inverse lookup from vehicle type to distributions it is a member of
     std::map<std::string, std::set<std::string>> myVTypeToDist;
 
-    /// @brief Whether the default vehicle type was already used or can still be replaced
-    bool myDefaultVTypeMayBeDeleted;
+    /// @brief the default vehicle types which may still be replaced
+    std::set<std::string> myReplaceableDefaultVTypes;
 
-    /// @brief Whether the default pedestrian type was already used or can still be replaced
-    bool myDefaultPedTypeMayBeDeleted;
-
-    /// @brief Whether the default container type was already used or can still be replaced
-    bool myDefaultContainerTypeMayBeDeleted;
-
-    /// @brief Whether the default bicycle type was already used or can still be replaced
-    bool myDefaultBikeTypeMayBeDeleted;
-
-    /// @brief Whether the default taxi type was already used or can still be replaced
-    bool myDefaultTaxiTypeMayBeDeleted;
-
-    /// the number of vehicles wainting for persons or containers contained in myWaiting which can only continue by being triggered
+    /// the number of vehicles waiting for persons or containers contained in myWaiting which can only continue by being triggered
     int myWaitingForTransportable;
 
     /// @brief The scaling factor (especially for inc-dua)
@@ -631,25 +664,27 @@ private:
     /// @brief The maximum speed factor for all vehicles in the network
     double myMaxSpeedFactor;
 
-    /// @brief The minimum deceleration capability for all vehicles in the network
+    /// @brief The minimum deceleration capability for all road vehicles in the network
     double myMinDeceleration;
+    /// @brief The minimum deceleration capability for all rail vehicles in the network
+    double myMinDecelerationRail;
 
     /// @brief List of vehicles which belong to public transport
     std::vector<SUMOVehicle*> myPTVehicles;
 
     /// @brief List of vehicles which are going to be removed
 #ifdef HAVE_FOX
-    FXSynchQue<SUMOVehicle*, std::vector<SUMOVehicle*> > myPendingRemovals;
+    MFXSynchQue<SUMOVehicle*, std::vector<SUMOVehicle*> > myPendingRemovals;
 #else
     std::vector<SUMOVehicle*> myPendingRemovals;
 #endif
 
 private:
     /// @brief invalidated copy constructor
-    MSVehicleControl(const MSVehicleControl& s);
+    MSVehicleControl(const MSVehicleControl& s) = delete;
 
     /// @brief invalidated assignment operator
-    MSVehicleControl& operator=(const MSVehicleControl& s);
+    MSVehicleControl& operator=(const MSVehicleControl& s) = delete;
 
 
 };

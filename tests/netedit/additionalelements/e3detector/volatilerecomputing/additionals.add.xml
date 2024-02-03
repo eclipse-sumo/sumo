@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 14.09.2018 15:24:48 by Eclipse SUMO netedit Version UNKNOWN
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <entryExitDetector id="entryExitDetector_0" pos="10.0,10.0" period="100.00" file="entryExitDetector_0.txt">
+        <detEntry lane="top_0" pos="13.82"/>
+        <detEntry lane="bot_0" pos="42.11"/>
+        <detExit lane="center0_0" pos="38.04"/>
+        <detExit lane="center0_1" pos="34.51"/>
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_1" pos="5.0,5.0" period="100.00" file="entryExitDetector_1.txt">
+        <detEntry lane="top_0" pos="4.97"/>
+        <detEntry lane="bot_0" pos="19.61"/>
+        <detExit lane="center1_0" pos="23.22"/>
+        <detExit lane="center1_1" pos="3.55"/>
+    </entryExitDetector>
+</additional>

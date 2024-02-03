@@ -1,6 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-13 10:29:34 by Eclipse SUMO netconvert Version v1_15_0+1617-9355f8dde13
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <opendrive-output value="foreign.net"/>
+        <output.original-names value="true"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds.except-deadend value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Aug 16 15:51:57 2018" north="0.00" south="0.00" east="50.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Jan 13 10:29:34 2023" north="0.00" south="0.00" east="50.00" west="0.00"/>
     <road name="a1" length="50.00000000" id="20" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -36,7 +73,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-1.0.00"/>
+        <userData code="sumoId" value="-1"/>
     </road>
     <road name="a1" length="50.00000000" id="21" junction="-1">
         <link>
@@ -73,7 +110,7 @@
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="1.0.00"/>
+        <userData code="sumoId" value="1"/>
     </road>
 
     <road name=":1.begin_0" length="8.85886644" id="22" junction="1">
@@ -84,7 +121,7 @@
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="0.00000000" y="3.00000000" hdg="-2.67794504" length="8.85886644">
-                <paramPoly3 aU="-0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.36656315" dV="0.00000000"/>
+                <paramPoly3 aU="-0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.36656315" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -106,7 +143,7 @@
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.00" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="3.53"/>
                     </lane>
@@ -124,7 +161,7 @@
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="50.00000000" y="-3.00000000" hdg="0.46364761" length="8.85886644">
-                <paramPoly3 aU="0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.36656315" dV="0.00000000"/>
+                <paramPoly3 aU="0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.36656315" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -146,7 +183,7 @@
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.00" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="3.53"/>
                     </lane>

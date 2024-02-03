@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
 ///
-// The common superclass for modelling transportable objects like persons and containers
+// A stage performing the travelling by a transport system (cars, public transport)
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -38,6 +38,7 @@
 class MSEdge;
 class MSLane;
 class MSNet;
+class MSStop;
 class MSStoppingPlace;
 class MSVehicleType;
 class OutputDevice;
@@ -80,6 +81,11 @@ public:
     const MSEdge* getEdge() const;
     const MSEdge* getFromEdge() const;
     double getEdgePos(SUMOTime now) const;
+
+    /// @brief Return the movement directon on the edge
+    int getDirection() const;
+
+    const MSLane* getLane() const;
 
     MSStoppingPlace* getOriginStop() const {
         return myOriginStop;
@@ -164,7 +170,7 @@ public:
     }
 
     /// @brief checks whether the person may exit at the current vehicle position
-    bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh);
+    bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
     /** @brief Saves the current state into the given stream
      */
@@ -203,6 +209,10 @@ protected:
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
+
+private:
+    /// brief register waiting person (on proceed or loadState)
+    void registerWaiting(MSTransportable* transportable, SUMOTime now);
 
 private:
     /// @brief Invalidated copy constructor.

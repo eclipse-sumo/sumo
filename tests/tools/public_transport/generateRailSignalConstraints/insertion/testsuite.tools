@@ -23,3 +23,15 @@ until_from_duration
 
 # two trains are inserted at the same stop
 both_insertion
+
+# foe does not move past the signal, hence no constraint
+reversal_at_stop
+
+# one train passes the stop and the other train is inserted there (first train was previously overtaken)
+inactive
+
+# one train passes the stop and the other train is inserted there (first train was previously overtaken)
+writeInactive
+
+# one train passes the stop and the other train is inserted there
+departSplit

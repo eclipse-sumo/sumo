@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,7 @@
 class MSNet;
 class MSLink;
 class MSTLLogicControl;
+class MSDetectorFileOutput;
 class NLDetectorBuilder;
 
 
@@ -80,6 +81,7 @@ public:
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] programID This tls' sub-id (program id)
+     * @param[in] offset the time offset of the program
      * @param[in] logicType This tls' type (static, actuated etc.)
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Additional parameters (especially for actuated logics)
@@ -87,9 +89,10 @@ public:
     MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
                         const std::string& id,
                         const std::string& programID,
+                        const SUMOTime offset,
                         const TrafficLightType logicType,
                         const SUMOTime delay,
-                        const std::map<std::string, std::string>& parameters);
+                        const Parameterised::Map& parameters);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -164,7 +167,6 @@ public:
      */
     bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
-
 
 
     /// @name Static Information Retrieval
@@ -265,6 +267,10 @@ public:
      */
     virtual const MSPhaseDefinition& getCurrentPhaseDef() const = 0;
 
+    virtual SUMOTime getMinDur(int step = -1) const;
+    virtual SUMOTime getMaxDur(int step = -1) const;
+    virtual SUMOTime getEarliestEnd(int step = -1) const;
+    virtual SUMOTime getLatestEnd(int step = -1) const;
 
     /** @brief Returns the cycle time (in ms)
      * @return The (maybe changing) cycle time of this tls
@@ -273,8 +279,14 @@ public:
         return myDefaultCycleTime;
     }
 
+    /// @brief return time within the current cycle
+    SUMOTime getTimeInCycle() const;
+
+    /// @brief map the given time into the current cycle
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
+
     /// @brief return the number of controlled link indices
-    int getNumLinks() {
+    int getNumLinks() const {
         return myNumLinks;
     }
 
@@ -319,6 +331,9 @@ public:
     /// @}
 
 
+    SUMOTime getOffset() const {
+        return myOffset;
+    }
 
     /// @name Changing phases and phase durations
     /// @{
@@ -354,6 +369,20 @@ public:
         return myAmActive;
     }
 
+    /// @brief whether the given link index ever turns 'G'
+    virtual bool getsMajorGreen(int linkIndex) const;
+
+
+    /// @brief return activation state of all detectors that affect this traffic light
+    virtual std::map<std::string, double> getDetectorStates() const {
+        return std::map<std::string, double>();
+    }
+
+    /// @brief return all named conditions defined for this traffic light
+    virtual std::map<std::string, double> getConditions() const {
+        return std::map<std::string, double>();
+    }
+
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
     virtual VehicleVector getBlockingVehicles(int linkIndex) {
         UNUSED_PARAMETER(linkIndex);
@@ -375,6 +404,10 @@ public:
     /** @brief Saves the current tls states into the given stream
         */
     virtual void saveState(OutputDevice& /*out*/) const {};
+
+
+    /** @brief restores the tls state */
+    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration);
 
 
 protected:
@@ -451,10 +484,15 @@ protected:
 
     };
 
+    SUMOTime computeCycleTime(const Phases& phases);
+
 
 protected:
     /// @brief The id of the logic
     const std::string myProgramID;
+
+    /// @brief the offset parameter of the current program
+    SUMOTime myOffset;
 
     /// @brief The type of the logic
     const TrafficLightType myLogicType;

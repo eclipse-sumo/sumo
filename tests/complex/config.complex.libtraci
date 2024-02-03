@@ -1,3 +1,18 @@
 [run_dependent_text]
 errors:UserWarning{LINES 2}
+errors:raise FatalTraCIError("Connection already closed.")
+errors:traci.exceptions.FatalTraCIError: Connection already closed.{REPLACE libtraci.libtraci.FatalTraCIError: Not connected.}
+output:tcpip::Socket::recvAndCheck @ recv: Socket reset by peer{REPLACE Connection closed by SUMO.}
+output:tcpip::Socket::recvAndCheck @ recv: Connection reset by peer{REPLACE Connection closed by SUMO.}
+output:tcpip::Socket::recvAndCheck @ recv: peer shutdown{REPLACE Connection closed by SUMO.}
 output:legacy getNextStops
+output:Using libtraci as traci as requested by environment variable.
+log:traci.simulation.simulation_{REPLACE traci.simulation.}
+log:traci.simulation.step(0){REPLACE traci.simulationStep()}
+log:traci.simulation.close(){REPLACE traci.close()}
+log:traci\.(.*)\.(.*)_([gs]etParameter){REPLACE traci.\1.\3}
+log:traci\.(.*)\.(.*)_((un)?subscribe){REPLACE traci.\1.\3}
+log2:traci.simulation.simulation_{REPLACE traci.simulation.}
+log2:traci.simulation.step(0){REPLACE traci.simulationStep()}
+log2:traci.simulation.close(){REPLACE traci.close()}
+log2:traci\.(.*)\.(.*)_([gs]etParameter){REPLACE traci.\1.\3}

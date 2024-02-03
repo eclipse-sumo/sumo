@@ -1,0 +1,51 @@
+
+<add>
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+    <tlLogic id="0" programID="01" type="NEMA">
+
+        <!-- Layout -->
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="show-detectors" value="true"/>
+        <param key="whetherOutputState" value="true"/>
+        <param key="greenTransfer" value="true"/>
+        <param key="controllerType" value="Type170"/>
+
+        <!-- Coordination Settings -->
+        <param key="coordinate-mode" value="false"/>
+        <param key="coordinatePhases" value="2,6"/>
+
+        <!-- Recall Settings -->
+        <param key="minRecall" value="2,6"/>
+
+        <!-- Cross Phase Switching -->
+        <param key="crossPhaseSwitching:2" value="5"/>
+        <param key="crossPhaseSwitching:6" value="1"/>
+        
+        <!-- Custom Detectors -->
+        <param value="Detector_1" key="1si_1"/>
+        <param value="Detector_6" key="1si_0"/>
+        <param value="Detector_2" key="2si_0"/>
+        <param value="Detector_5" key="2si_1"/>
+        <param value="Detector_4" key="3si_0"/>
+        <param value="Detector_7" key="3si_1"/>
+        <param value="Detector_8" key="4si_0"/>
+        <param value="Detector_3" key="4si_1"/>
+
+
+        <!-- Phase Parameters -->
+        <phase duration="99" minDur="6"  maxDur="20" vehext="4" yellow="4" red="2" name="1" state="srrsrrsrrsrG"/>
+        <phase duration="99" minDur="25" maxDur="65" vehext="5" yellow="4" red="2" name="2" state="srrGGrsrrsrg"/>
+        <phase duration="99" minDur="10" maxDur="40" vehext="4" yellow="4" red="2" name="3" state="srGsrrsrrsrr"/>
+        <phase duration="99" minDur="10" maxDur="20" vehext="4" yellow="4" red="2" name="4" state="srgsrrsGrsrr"/>
+        <phase duration="99" minDur="6"  maxDur="25" vehext="4" yellow="4" red="2" name="5" state="srrsrGsrrsrr"/>
+        <phase duration="99" minDur="25" maxDur="65" vehext="5" yellow="4" red="2" name="6" state="srrsrgsrrGGr"/>
+        <phase duration="99" minDur="10" maxDur="40" vehext="4" yellow="4" red="2" name="7" state="srrsrrsrGsrr"/>
+        <phase duration="99" minDur="10" maxDur="20" vehext="4" yellow="4" red="2" name="8" state="GGrsrrsrgsrr"/>
+        
+    </tlLogic>
+</add>
+

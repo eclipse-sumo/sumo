@@ -1,0 +1,14 @@
+# --scale fails
+ticket9055
+
+# --scale fails
+ticket9055b
+
+# infinite loop after failure to insert with fixed speed (trafficlight that never gets 'G')
+ticket9211
+
+# crash when combining waypoints with busStop 	
+ticket9399
+
+# person enters wrong vehicle
+ticket9821

@@ -1,0 +1,20 @@
+# parsing XML and accessing objects
+plain
+
+# parsing XML with comments
+comments
+
+# parsing nested XML
+parse_nested
+
+# parsing nested XML with ignored lines
+parse_nested2
+
+# parsing nested XML with different child elements
+parse_structured
+
+# parsing route XML with different child elements
+parse_structured_routes
+
+# parsing optional attributes
+parse_fast_optional

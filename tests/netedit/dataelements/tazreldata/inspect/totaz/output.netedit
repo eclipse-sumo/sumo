@@ -1,0 +1,16 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+newDataSet
+0
+3600
+TestFunctions: Clicked over position 604 - 348
+TestFunctions: Clicked over position 1004 - 348
+TestFunctions: Clicked over position 729 - 422
+
+dummyTAZ
+taz_0
+taz_2
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

@@ -1,0 +1,3 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -o net.net.xml
+--no-turnarounds --default.junctions.radius 20
+

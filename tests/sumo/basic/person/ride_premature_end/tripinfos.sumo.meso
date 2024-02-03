@@ -38,11 +38,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="54.00" arrivalPos="1000.00" duration="54.00" routeLength="1400.00" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="54.00" arrivalLane="" arrivalPos="1000.00" arrivalSpeed="27.80" duration="54.00" routeLength="1500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="180.00" arrivalPos="250.00" duration="180.00" routeLength="250.00" timeLoss="0.00" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,8 @@ import os
 import sys
 import math
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
@@ -75,8 +75,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         elif hasattr(module, "getShape"):
             shape = module.getShape(objID)
         elif module == traci.edge:
-            # it's a hack, I know,  but do we really need to introduce
-            # edge.getShape?
+            # it's a hack, I know, but do we really need to introduce edge.getShape?
             shape = traci.lane.getShape(objID + "_0")
         near2 = set()
         for v in pos:
@@ -108,10 +107,12 @@ def runSingle(traciEndTime, viewRange, module, objID):
 
         step += 1
     module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
-    responses = traci.simulationStep()
-    print([r[0] for r in responses])  # person subscription should still be active
+    traci.simulationStep()
+    responses = list(module.getAllContextSubscriptionResults())
+    print(responses)  # person subscription should still be active
     module.unsubscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange)
-    responses = traci.simulationStep()
+    traci.simulationStep()
+    responses = module.getAllContextSubscriptionResults()
     if responses:
         print("Error: Unsubscribe did not work", responses)
     else:

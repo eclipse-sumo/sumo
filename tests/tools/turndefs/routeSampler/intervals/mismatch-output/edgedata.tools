@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-03-12 13:16:34.121712 by routeSampler.py v1_5_0+0680-a5d3f0f
-  options: -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml <doubleminus>edgedata-attribute count <doubleminus>write-route-ids <doubleminus>write-flows number <doubleminus>mismatch-output edgedata.xml
+
+<!-- generated on 2023-06-29 15:04:02.969189 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <mismatch-output value="edgedata.xml"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <data>
     <interval id="deficit" begin="0.0" end="300.0">
         <edge id="-3" measuredCount="10" deficit="0"/>
-        <edge id="5" measuredCount="10" deficit="5"/>
+        <edge id="5" measuredCount="10" deficit="3"/>
     </interval>
     <interval id="deficit" begin="300.0" end="600.0">
         <edge id="-3" measuredCount="8" deficit="0"/>
-        <edge id="11" measuredCount="8" deficit="0"/>
+        <edge id="11" measuredCount="8" deficit="3"/>
     </interval>
 </data>

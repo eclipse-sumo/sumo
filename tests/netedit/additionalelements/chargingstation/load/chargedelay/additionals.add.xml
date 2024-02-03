@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid charge delay 1 (missing) -->
+    <chargingStation id="chargingStation_0" lane="center1_1" startPos="36" endPos="38" power="22000.00" efficiency="0.95" chargeInTransit="0" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid charge delay 2 -->
+    <chargingStation id="chargingStation_1" lane="center1_1" startPos="40" endPos="42" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="dummyCharge" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid charge delay 3 -->
+    <chargingStation id="chargingStation_2" lane="center1_1" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="-3" name="chargingStation" friendlyPos="false"/>
+
+    <!-- valid charge delay -->
+    <chargingStation id="chargingStation_3" lane="center1_1" startPos="44" endPos="46" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="5.5" name="chargingStation" friendlyPos="false"/>
+
+</additional>

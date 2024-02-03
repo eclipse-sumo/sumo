@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,7 +52,7 @@
  * ----------------------------------------------------------------------- */
 // hash function
 //std::hash<std::string> MSDriverState::MSTrafficItem::hash = std::hash<std::string>();
-std::mt19937 OUProcess::myRNG;
+SumoRNG OUProcess::myRNG("driverstate");
 
 // ===========================================================================
 // Default value definitions
@@ -82,6 +82,7 @@ double DriverStateDefaults::errorTimeScaleCoefficient = 100.0;
 double DriverStateDefaults::errorNoiseIntensityCoefficient = 0.2;
 double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
 double DriverStateDefaults::headwayErrorCoefficient = 0.75;
+double DriverStateDefaults::freeSpeedErrorCoefficient = 0.0;
 double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::maximalReactionTimeFactor = 1.0;
@@ -132,6 +133,7 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myErrorNoiseIntensityCoefficient(DriverStateDefaults::errorNoiseIntensityCoefficient),
     mySpeedDifferenceErrorCoefficient(DriverStateDefaults::speedDifferenceErrorCoefficient),
     myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
+    myFreeSpeedErrorCoefficient(DriverStateDefaults::freeSpeedErrorCoefficient),
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
     myOriginalReactionTime(veh->getActionStepLengthSecs()),
@@ -215,6 +217,12 @@ MSSimpleDriverState::setAwareness(const double value) {
         myError.setState(0.);
     }
     updateReactionTime();
+}
+
+
+double
+MSSimpleDriverState::getPerceivedOwnSpeed(double speed) {
+    return speed + myFreeSpeedErrorCoefficient * myError.getState() * sqrt(speed);
 }
 
 
@@ -638,7 +646,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    }
 //    break;
 //    default:
-//        WRITE_WARNING("Unknown traffic item type!")
+//        WRITE_WARNING(TL("Unknown traffic item type!"))
 //        break;
 //    }
 //}
@@ -782,7 +790,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    }
 //    break;
 //    default:
-//        WRITE_WARNING("Unknown traffic item type!")
+//        WRITE_WARNING(TL("Unknown traffic item type!"))
 //        break;
 //    }
 //}

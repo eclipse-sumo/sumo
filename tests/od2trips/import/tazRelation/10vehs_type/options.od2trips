@@ -1,0 +1,3 @@
+-n input_taz.taz.xml -z input_od.xml -o trips.trips.xml
+--vtype bike
+--spread.uniform

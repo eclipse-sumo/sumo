@@ -1,0 +1,9 @@
+Error: Attribute 'id' is missing in definition of vehicle
+Error: vehicle cannot be created
+Error: Attribute 'id' in definition of a vehicle is empty.
+Error: Invalid vehicle id ''.
+Error: vehicle cannot be created
+Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
+Error: vehicle cannot be created
+Error: There is another vehicle with the same ID='vehicle_valid'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle.12Apr084441.4881/netedit.daily.demand.vehicle/demandelements/vehicle/load/id/routes.rou.xml failed.

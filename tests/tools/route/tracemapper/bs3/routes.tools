@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-04 18:16:05.253918 by tracemapper.py v1_6_0+1991-6d67a81f13
+
+<!-- generated on 2022-07-11 13:47:29.120503 by tracemapper.py v1_13_0+1478-b2066553d2c
   options: -n input_net.net.xml -t tracefile.txt -o out.rou.xml -v <doubleminus>geo <doubleminus>fill-gaps 100 <doubleminus>delta 10
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="t3" edges="125502220 600490670 600490024 600490025 600490026 600490970 600469070 600490964"/>
+    <route id="t3" edges="125502220 600490670 600490024 600490025 600490026 600490970"/>
 </routes>

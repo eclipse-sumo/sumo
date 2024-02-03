@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 #include "GUITextures.h"
 #include "GUITexturesHelper.h"
 
@@ -29,6 +31,7 @@
 // ===========================================================================
 
 class GUITextureSubSys {
+
 public:
     /**@brief Initiate GUITextureSubSys for textures
      * @param[in] a FOX Toolkit APP
@@ -40,6 +43,9 @@ public:
      */
     static GUIGlID getTexture(GUITexture which);
 
+    /// @brief returns texture associated to the given POI image
+    static GUIGlID getPOITexture(POIIcon POIIcon);
+
     /**@brief Reset textures
      * @note Necessary to avoid problems with textures (ej: white empty)
      */
@@ -50,7 +56,7 @@ public:
 
 private:
     /// @brief constructor private because is called by the static function init(FXApp* a
-    GUITextureSubSys(FXApp* a);
+    GUITextureSubSys(FXApp* app);
 
     /// @brief destructor
     ~GUITextureSubSys();
@@ -63,4 +69,7 @@ private:
 
     /// @brief vector with the Gifs
     std::map<GUITexture, GUIGlID> myTextures;
+
+    /// @brief map with textures
+    std::map<POIIcon, GUIGlID> myPOITextures;
 };

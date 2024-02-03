@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -88,6 +88,7 @@ private:
     static double getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getFreeSpeedErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
     static double getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc);
     /// @}
 
@@ -123,6 +124,7 @@ private:
                          double speedDifferenceChangePerceptionThreshold,
                          double headwayChangePerceptionThreshold,
                          double headwayErrorCoefficient,
+                         double freeSpeedErrorCoefficient,
                          double maximalReactionTime);
 
     /// @brief Initializeses the driver state parameters
@@ -143,6 +145,7 @@ private:
     double mySpeedDifferenceChangePerceptionThreshold;
     double myHeadwayChangePerceptionThreshold;
     double myHeadwayErrorCoefficient;
+    double myFreeSpeedErrorCoefficient;
     double myMaximalReactionTime;
     /// @}
 

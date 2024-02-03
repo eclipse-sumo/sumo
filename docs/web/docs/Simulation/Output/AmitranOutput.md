@@ -4,7 +4,7 @@ title: AmitranOutput
 
 The Amitran trajectories output contains information about type, current
 speed and acceleration of each vehicle according to the schema at
-<http://sumo.dlr.de/xsd/amitran/trajectories.xsd>
+<https://sumo.dlr.de/xsd/amitran/trajectories.xsd>
 
 ## Instantiating within the Simulation
 
@@ -16,8 +16,8 @@ this name will be overwritten, the destination folder must exist.
 
 The generated XML file looks like this:
 
-```
-<trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
+```xml
+<trajectories xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
     <actorConfig id="0" vehicleClass="Passenger" fuel="Gasoline" emissionClass="Euro0" ref="DEFAULT_VEHTYPE"/>
     <vehicle id="0" actorConfig="0" startTime="100000" ref="always_left.0"/>
     <motionState vehicle="0" speed="0" time="100000" acceleration="0"/>
@@ -35,12 +35,11 @@ types while the vehicle elements refer directly to SUMO's vehicles. The
 actorConfig for each vehicle will be defined before the vehicle is
 written. The same is true for vehicles and their motionStates.
 
-All numbers and ids are integers, where all the times are in
-milliseconds. For details and further information on the types please
-see the schema <http://sumo.dlr.de/xsd/amitran/trajectories.xsd>.
+!!! note
+    All numbers and ids are integers, where all the times are in milliseconds. Speeds are given in cm/s and acceleration values in mm/s^2. For details and further information on the types please see the schema https://sumo.dlr.de/xsd/amitran/trajectories.xsd>.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="">This part of SUMO was developed, reworked, or extended within the project
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

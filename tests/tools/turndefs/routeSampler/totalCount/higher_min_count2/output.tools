@@ -1,0 +1,4 @@
+Loaded 98 routes (98 distinct)
+Ignored 84 routes which pass fewer than 2 counting location
+Wrote 100 routes (52 distinct) achieving total count 0 (0.00%) at 11 locations. GEH<5 for 18.18%
+Warning: underflow locations: count 9, min 1.00 (('-58.121.42', '64')), max 6.00 (('-131', '-131.180.00')), mean 2.33, Q1 1.00, median 2.00, Q3 3.00 (total 21)

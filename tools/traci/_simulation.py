@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -146,7 +146,7 @@ class Stage(object):
 
 def _readStage(result):
     # compound size and type
-    assert(result.read("!i")[0] == 13)
+    assert result.read("!i")[0] == 13
     stageType = result.readTypedInt()
     vType = result.readTypedString()
     line = result.readTypedString()
@@ -256,6 +256,13 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TIME)
 
+    def getEndTime(self):
+        """getEndTime() -> double
+
+        Returns the configured end time of the simulation in s or -1
+        """
+        return self._getUniversal(tc.VAR_END)
+
     def step(self, time=0.):
         """step(double) -> None
         Make a simulation step and simulate up to the given sim time (in seconds).
@@ -264,7 +271,15 @@ class SimulationDomain(Domain):
         """
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
-        return self._connection.simulationStep(time)
+        self._connection.simulationStep(time)
+
+    def executeMove(self):
+        """executeMove() -> None
+        Make "half" a simulation step.
+        """
+        if self._connection is None:
+            raise FatalTraCIError("Not connected.")
+        self._connection._sendCmd(tc.CMD_EXECUTEMOVE, None, None)
 
     def getCurrentTime(self):
         """getCurrentTime() -> integer
@@ -433,13 +448,15 @@ class SimulationDomain(Domain):
 
     def getMinExpectedNumber(self):
         """getMinExpectedNumber() -> integer
-
-        Returns the number of vehicles which are in the net plus the
-        ones still waiting to start. This number may be smaller than
+        Returns the number of all active vehicles and persons which are in the net plus the
+        ones still waiting to start. Vehicles and persons currently stopped with a
+        'trigger' are excluded from this number (if only triggered objects
+        remain, the trigger condition cannot be fulfilled and all objects remain
+        stopped without user intervention).
+        The returned number may also be smaller than
         the actual number of vehicles still to come because of delayed
         route file parsing. If the number is 0 however, it is
-        guaranteed that all route files have been parsed completely
-        and all vehicles have left the network.
+        guaranteed that all route files have been parsed completely.
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
@@ -497,6 +514,20 @@ class SimulationDomain(Domain):
         Returns a list of all vehicle ids waiting for insertion (with depart delay)
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES)
+
+    def getScale(self):
+        """getScale() -> double
+
+        Returns the traffic scaling factor
+        """
+        return self._getUniversal(tc.VAR_SCALE)
+
+    def getOption(self, option):
+        """getOption(string) -> string
+
+        Returns the value of the given SUMO option
+        """
+        return self._getUniversal(tc.VAR_OPTION, option)
 
     def getDeltaT(self):
         """getDeltaT() -> double
@@ -612,6 +643,13 @@ class SimulationDomain(Domain):
             answer.read("!B")                   # Type
             result.append(_readStage(answer))
         return tuple(result)
+
+    def setScale(self, value):
+        """setScale(value) -> None
+
+        Sets the traffic scaling factor
+        """
+        self._setCmd(tc.VAR_SCALE, "", "d", value)
 
     def clearPending(self, routeID=""):
         self._setCmd(tc.CMD_CLEAR_PENDING_VEHICLES, "", "s", routeID)

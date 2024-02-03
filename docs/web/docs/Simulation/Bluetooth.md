@@ -12,13 +12,13 @@ parameters of the detection (e.g. the range and detection probability)
 can be configured and a log of the detection events can be written. It
 is currently not possible to retrieve the detection events via
 [TraCI](../TraCI.md) or react directly in the simulation to such an
-event. The relevant parameters for configuring the sender and recevier
+event. The relevant parameters for configuring the sender and receiver
 devices are described at
 [sumo#communication](../sumo.md#communication). Details on the
 detection process can be found in the following publication: [Behrisch,
 Michael and Gurczik, Gaby (2014) Modelling Bluetooth Inquiry for SUMO.
 In: SUMO2014 Modeling Mobility with Open Data. SUMO2014, 15.-16.
-Mai 2014, Berlin](http://elib.dlr.de/95237/)
+Mai 2014, Berlin](https://elib.dlr.de/95237/)
 
 # Enabling Sender / Receiver devices
 
@@ -34,11 +34,15 @@ The behavior of the **btreceiver** device can be further customized using the fo
 - **--device.btreceiver-range** {{DT_FLOAT}} (defines the detection range in meters)
 - **--device.btreceiver-offtime** {{DT_FLOAT}} (defines the minimum time between connections in seconds. This can be used to model effects of communication traffic load).
 
+## Persons
+
+Both sender and receiver devices may also be [enable for persons](../Specification/Persons.md#devices). These devices work the same as those for vehicles and will interact with each other as well as with vehicle devices.
+
 # Output
 
 The option **--bt-output** generates an XML output file of the following form:
 
-```
+```xml
 <bt-output>
     <bt id="<VEHICLE_ID>">
         <seen id="<VEHICLE_ID>" tBeg="<TIME>" observerPosBeg="<COORD>" observerSpeedBeg="<SPEED>" observerLaneIDBeg="<LANE_ID>" observerLanePosBeg="<LANE_POS>"

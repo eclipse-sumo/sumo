@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,8 +40,13 @@
  * GUIMEInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
-                                 double position, const std::string& vTypes)
-    : MEInductLoop(id, s, position, vTypes) {}
+                                 double position,
+                                 const std::string name, const std::string& vTypes,
+                                 const std::string& nextEdges,
+                                 int detectPersons,
+                                 bool /*show*/):
+    MEInductLoop(id, s, position, name, vTypes, nextEdges, detectPersons)
+{}
 
 
 GUIMEInductLoop::~GUIMEInductLoop() {}
@@ -57,7 +62,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 // -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
-    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
+    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
       myDetector(detector), myPosition(pos) {
     const MSLane* lane = detector.mySegment->getEdge().getLanes()[0];
     myFGPosition = lane->geometryPositionAtOffset(pos);
@@ -68,6 +73,12 @@ GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
 
 
 GUIMEInductLoop::MyWrapper::~MyWrapper() {}
+
+
+double
+GUIMEInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -112,14 +123,14 @@ GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), getType());
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, exaggeration);
@@ -130,7 +141,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.0, 2);
     glEnd();
     glBegin(GL_LINES);
-    // without the substracted offsets, lines are partially longer
+    // without the subtracted offsets, lines are partially longer
     //  than the boxes
     glVertex2d(0, 2 - .1);
     glVertex2d(0, -2 + .1);
@@ -141,10 +152,10 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
@@ -158,9 +169,9 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -1.7);
         glEnd();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

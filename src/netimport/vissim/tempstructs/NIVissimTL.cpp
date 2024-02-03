@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,7 +135,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         // What to do if on an edge? -> close all outgoing connections
         NBEdge* edge = ec.retrievePossiblySplit(toString<int>(myEdgeID), myPosition);
         if (edge == nullptr) {
-            WRITE_WARNING("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
+            WRITE_WARNINGF(TL("Could not set tls signal at edge '%' - the edge was not built."), myEdgeID);
             return false;
         }
         // Check whether it is already known, which edges are approached
@@ -149,7 +149,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
                 assignedConnections.push_back(NBConnection(edge, myLane - 1, conn.toEdge, conn.toLane));
             }
         } else {
-            WRITE_WARNING("Edge : Lanes were not assigned(!)");
+            WRITE_WARNINGF(TL("Edge '%': Lanes were not assigned."), myEdgeID);
             for (int j = 0; j < edge->getNumLanes(); j++) {
                 std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
                 for (std::vector<NBEdge::Connection>::iterator i = connections.begin(); i != connections.end(); i++) {
@@ -372,7 +372,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
                                  TrafficLightType::STATIC : TrafficLightType::ACTUATED);
         NBLoadedTLDef* def = new NBLoadedTLDef(ec, id, 0, type);
         if (!tlc.insert(def)) {
-            WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
+            WRITE_ERRORF(TL("Error on adding a traffic light\n Must be a multiple id ('%')"), id);
             continue;
         }
         def->setCycleDuration(tl->myAbsDuration);
@@ -380,7 +380,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j = sgs.begin(); j != sgs.end(); j++) {
             if (!(*j).second->addTo(def)) {
-                WRITE_WARNING("The signal group '" + toString<int>((*j).first) + "' could not be assigned to tl '" + toString<int>(tl->myID) + "'.");
+                WRITE_WARNINGF(TL("The signal group '%' could not be assigned to tl '%'."), toString<int>((*j).first), toString<int>(tl->myID));
                 ref_groups++;
             }
             no_groups++;
@@ -389,20 +389,20 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for (SSignalDictType::const_iterator k = signals.begin(); k != signals.end(); k++) {
             if (!(*k).second->addTo(ec, def)) {
-                WRITE_WARNING("The signal '" + toString<int>((*k).first) + "' could not be assigned to tl '" + toString<int>(tl->myID) + "'.");
+                WRITE_WARNINGF(TL("The signal '%' could not be assigned to tl '%'."), toString<int>((*k).first), toString<int>(tl->myID));
                 ref_signals++;
             }
             no_signals++;
         }
     }
     if (ref != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref) + " of " + toString<int>((int)myDict.size()) + " traffic lights.");
+        WRITE_WARNINGF(TL("Could not set % of % traffic lights."), toString<int>(ref), toString<int>((int)myDict.size()));
     }
     if (ref_groups != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref_groups) + " of " + toString<int>(no_groups) + " groups.");
+        WRITE_WARNINGF(TL("Could not set % of % groups."), toString<int>(ref_groups), toString<int>(no_groups));
     }
     if (ref_signals != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref_signals) + " of " + toString<int>(no_signals) + " signals.");
+        WRITE_WARNINGF(TL("Could not set % of % signals."), toString<int>(ref_signals), toString<int>(no_signals));
     }
     return true;
 

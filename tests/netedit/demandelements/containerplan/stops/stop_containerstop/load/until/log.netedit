@@ -1,0 +1,3 @@
+Error: Attribute 'until' in definition of a stop is not a valid time value.
+Error: Invalid duration or end time is given for a stop at 'containerStopB'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct133620.8676\netedit.gui\demandelements\containerplan\stops\stop_containerstop\load\until\routes.rou.xml failed.

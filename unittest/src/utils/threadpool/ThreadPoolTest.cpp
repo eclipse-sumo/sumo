@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2020-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,8 @@
 // Testing the threadpool implementation,
 // based on https://github.com/vukis/Cpp-Utilities/tree/master/ThreadPool
 /****************************************************************************/
+#include <config.h>
+
 #include <string>
 #include <vector>
 #include <chrono>
@@ -29,28 +31,27 @@
 #include <utils/common/StopWatch.h>
 #include <utils/threadpool/WorkStealingThreadPool.h>
 
-inline void LoadCPUForRandomTime()
-{
+
+inline void LoadCPUForRandomTime() {
     // Sleeping the thread isn't good as it doesn't tie up the
     // CPU resource in the same way as actual work on a thread would do,
     // The OS is free to schedule work on the CPU while the thread is
     // sleeping. Hence we do some busy work. Note that volatile keyword
     // is necessary to prevent compiler from removing the below code.
 
-    srand(0); // random sequences should be indentical
+    srand(0); // random sequences should be identical
 
     volatile auto delay = rand() % static_cast<int>(1e5);
     while (delay != 0) {
         delay--;
-    };
+    }
 }
 
 template<typename DurationT>
 void LoadCPUFor(DurationT&& duration) {
     for (auto start = std::chrono::steady_clock::now(), now = start;
-        now < start + duration;
-        now = std::chrono::steady_clock::now())
-    {
+            now < start + duration;
+            now = std::chrono::steady_clock::now()) {
     }
 }
 
@@ -87,58 +88,65 @@ std::cout << " => succeed )" << std::endl; \
 }
 
 
-void Test_TaskResultIsAsExpected(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_TaskResultIsAsExpected(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 10000;
 
     std::vector<std::future<size_t>> results;
 
     for (size_t i = 0; i < taskCount; ++i)
-        results.push_back(taskSystem.executeAsync([i](int){ return i*i; }));
+        results.push_back(taskSystem.executeAsync([i](int) {
+        return i * i;
+    }));
 
-    for (size_t i = 0; i < taskCount; ++i)
-        TEST_ASSERT(i*i == results[i].get());
+    for (size_t i = 0; i < taskCount; ++i) {
+        TEST_ASSERT(i * i == results[i].get());
+    }
 }
 
-void Test_RandomTaskExecutionTime(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_RandomTaskExecutionTime(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 10000;
 
     std::vector<std::future<void>> results;
 
     for (size_t i = 0; i < taskCount; ++i)
-        results.push_back(taskSystem.executeAsync([](int){LoadCPUForRandomTime();}));
+        results.push_back(taskSystem.executeAsync([](int) {
+        LoadCPUForRandomTime();
+    }));
 
-    for (auto& result : results)
+    for (auto& result : results) {
         result.wait();
+    }
 }
 
-void Test_1nsTaskExecutionTime(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_1nsTaskExecutionTime(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 10000;
     std::vector<std::future<void>> results;
 
     for (size_t i = 0; i < taskCount; ++i)
-        results.push_back(taskSystem.executeAsync([](int) { LoadCPUFor(std::chrono::nanoseconds(1)); }));
+        results.push_back(taskSystem.executeAsync([](int) {
+        LoadCPUFor(std::chrono::nanoseconds(1));
+    }));
 
-    for (auto& result : results)
+    for (auto& result : results) {
         result.wait();
+    }
 }
 
-void Test_100msTaskExecutionTime(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_100msTaskExecutionTime(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 10;
     std::vector<std::future<void>> results;
 
     for (size_t i = 0; i < taskCount; ++i)
-        results.push_back(taskSystem.executeAsync([](int) { LoadCPUFor(std::chrono::milliseconds(100)); }));
+        results.push_back(taskSystem.executeAsync([](int) {
+        LoadCPUFor(std::chrono::milliseconds(100));
+    }));
 
-    for (auto& result : results)
+    for (auto& result : results) {
         result.wait();
+    }
 }
 
-void Test_EmptyTask(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_EmptyTask(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 10000;
 
     std::vector<std::future<void>> results;
@@ -146,44 +154,47 @@ void Test_EmptyTask(WorkStealingThreadPool<>& taskSystem)
     for (size_t i = 0; i < taskCount; ++i)
         results.push_back(taskSystem.executeAsync([](int) {}));
 
-    for (auto& result : results)
+    for (auto& result : results) {
         result.wait();
+    }
 }
 
 template<class TaskT>
-void RepeatTask(WorkStealingThreadPool<>& taskSystem, TaskT&& task, size_t times)
-{
+void RepeatTask(WorkStealingThreadPool<>& taskSystem, TaskT&& task, size_t times) {
     std::vector<std::future<void>> results;
 
     // Here we need not to std::forward just copy task.
-    // Because if the universal reference of task has bound to an r-value reference 
-    // then std::forward will have the same effect as std::move and thus task is not required to contain a valid task. 
+    // Because if the universal reference of task has bound to an r-value reference
+    // then std::forward will have the same effect as std::move and thus task is not required to contain a valid task.
     // Universal reference must only be std::forward'ed a exactly zero or one times.
-    for (size_t i = 0; i < times; ++i)
+    for (size_t i = 0; i < times; ++i) {
         results.push_back(taskSystem.executeAsync(task));
+    }
 
-    for (auto& result : results)
+    for (auto& result : results) {
         result.wait();
+    }
 }
 
-void Test_MultipleTaskProducers(WorkStealingThreadPool<>& taskSystem)
-{
+void Test_MultipleTaskProducers(WorkStealingThreadPool<>& taskSystem) {
     constexpr size_t taskCount = 1000;
 
     std::vector<std::thread> taskProducers{ std::max(1u, std::thread::hardware_concurrency()) };
 
     for (auto& producer : taskProducers)
-        producer = std::thread([&] { RepeatTask(taskSystem, [](int) { LoadCPUForRandomTime(); }, taskCount); });
+        producer = std::thread([&] { RepeatTask(taskSystem, [](int) {
+        LoadCPUForRandomTime();
+    }, taskCount);
+                               });
 
-    for (auto& producer : taskProducers)
-    {
-        if (producer.joinable())
+    for (auto& producer : taskProducers) {
+        if (producer.joinable()) {
             producer.join();
+        }
     }
 }
 
-int main()
-{
+int main() {
     std::vector<int> pseudoContext(std::thread::hardware_concurrency(), 0);
     WorkStealingThreadPool<int> stealingTaskSystem(true, pseudoContext);
     WorkStealingThreadPool<int> multiQueueTaskSystem(false, pseudoContext);

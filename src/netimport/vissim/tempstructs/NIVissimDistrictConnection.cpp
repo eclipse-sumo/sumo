@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -202,7 +202,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 e = ec.retrievePossiblySplit(toString<int>(c->myEdgeID), c->myPosition);
             }
             if (e == nullptr) {
-                WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
+                WRITE_WARNINGF(TL("Could not build district '%' - edge '%' is missing."), toString<int>((*k).first), toString<int>(c->myEdgeID));
                 continue;
             }
             std::string id = "ParkingPlace" + toString<int>(*l);
@@ -227,7 +227,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 id = "VissimFromParkingplace" + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* source =
                     new NBEdge(id, districtNode, parkingPlace,
-                               "Connection", c->getMeanSpeed(/*distc*/) / (double) 3.6, 3, -1,
+                               "Connection", c->getMeanSpeed(/*distc*/) / 3.6, NBEdge::UNSPECIFIED_FRICTION, 3, -1,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                 if (!ec.insert(source)) { // !!! in den Konstruktor
                     throw 1; // !!!
@@ -244,7 +244,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 id = "VissimToParkingplace"  + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* destination =
                     new NBEdge(id, parkingPlace, districtNode,
-                               "Connection", (double) 100 / (double) 3.6, 2, -1,
+                               "Connection", 100. / 3.6, NBEdge::UNSPECIFIED_FRICTION, 2, -1,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                 if (!ec.insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!
@@ -357,7 +357,7 @@ double
 NIVissimDistrictConnection::getMeanSpeed() const {
     //assert(myAssignedVehicles.size()!=0);
     if (myAssignedVehicles.size() == 0) {
-        WRITE_WARNING("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
+        WRITE_WARNINGF(TL("No streams assigned at district'%'.\n Using default speed 200km/h"), toString(myID));
         return (double) 200 / (double) 3.6;
     }
     double speed = 0;
@@ -374,15 +374,15 @@ NIVissimDistrictConnection::getRealSpeed(int distNo) const {
     std::string id = toString<int>(distNo);
     Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == nullptr) {
-        WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
-        WRITE_WARNING(". Using default.");
+        WRITE_WARNINGF(TL("The referenced speed distribution '%' is not known."), id);
+        WRITE_WARNING(TL(". Using default."));
         return OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     assert(dist != 0);
     double speed = dist->getMax();
     if (speed < 0 || speed > 1000) {
         WRITE_WARNING(" False speed at district '" + id);
-        WRITE_WARNING(". Using default.");
+        WRITE_WARNING(TL(". Using default."));
         speed = OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     return speed;

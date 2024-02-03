@@ -52,6 +52,7 @@ Complete examples of XML-Files are shown like the following:
 - *<FLOAT\>*: a floating point number
 - *<TIME\>*: time, given in seconds; fractions are allowed, e.g. "12.1"
 - *<STRING\>*: any string, but use ASCII-characters only
+- *<STRING[ ]\>*: a comma separated list of strings
 - *<ID\>*: a string which must not contain the following characters:
   '\#'
 

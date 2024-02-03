@@ -1,0 +1,7 @@
+<routes>
+    <vType id="t0" sigma="0" latAlignment="arbitrary"/>
+    <vehicle id="ego" type="t0" depart="0" departLane="1" departPosLat="random">
+        <route edges="beg"/>
+        <stop lane="beg_0" endPos="30" posLat="-2" duration="2"/>
+    </vehicle>
+</routes>

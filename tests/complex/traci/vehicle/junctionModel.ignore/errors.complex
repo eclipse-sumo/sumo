@@ -1,2 +1,1 @@
 Error: Answered with error to command 0xc4: Vehicle 'ego' does not support junctionModel parameter 'junctionModel.ignoreIDDDDs'
-Warning: Vehicle 'foe.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=23.00.

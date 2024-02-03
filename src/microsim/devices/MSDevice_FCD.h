@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,8 +22,9 @@
 #include <config.h>
 
 #include "MSVehicleDevice.h"
+#include <microsim/MSVehicle.h>
 #include <utils/common/SUMOTime.h>
-
+#include <utils/shapes/SUMOPolygon.h>
 
 // ===========================================================================
 // class declarations
@@ -94,6 +95,14 @@ public:
     /// @brief resets the edge filter
     static void cleanup();
 
+    /// @brief checks if in polygon
+    static bool shapeFilter(const SUMOTrafficObject* veh);
+
+    /// @brief is there a filter based on shapes?
+    inline static bool hasShapeFilter() {
+        return myShapeFilterDesired == true;
+    }
+
 private:
     /** @brief Constructor
      *
@@ -103,12 +112,18 @@ private:
     MSDevice_FCD(SUMOVehicle& holder, const std::string& id);
 
 
-    /// @brief spatial filter for FCD output
+    /// @brief edge filter for FCD output
     static std::set<const MSEdge*> myEdgeFilter;
     static bool myEdgeFilterInitialized;
 
+    /// @brief polygon spatial filter for FCD output
+    static std::vector<PositionVector> myShape4Filters;
+    static bool myShapeFilterInitialized;
+    static bool myShapeFilterDesired;
+
     /// @brief bit mask for checking attributes to be written
     static long long int myWrittenAttributes;
+    static const long long int myDefaultMask;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -116,6 +131,8 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSDevice_FCD& operator=(const MSDevice_FCD&);
+
+    static void buildShapeFilter();
 
 
 };

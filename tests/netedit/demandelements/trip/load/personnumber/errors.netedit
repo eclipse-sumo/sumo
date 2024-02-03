@@ -1,0 +1,4 @@
+Error: Attribute 'personNumber' in definition of trip 'trip_0' Invalid Number Format (long long integer format) dummyPersonNumber.
+Error: Attribute 'personNumber' in definition of trip 'trip_1' is empty.
+Error: Attribute 'personNumber' in definition of trip 'trip_4' Invalid Number Format (long long integer format) 2.5.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.26Jan095536.11237/netedit.daily.demand.trip/demandelements/trip/load/personnumber/routes.rou.xml failed.

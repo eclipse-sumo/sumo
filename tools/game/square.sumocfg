@@ -7,13 +7,13 @@
 
     <input>
         <net-file value="square/square.net.xml"/>
-        <route-files value="square/square.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <additional-files value="square/square.tll.xml,square/square.poi.xml,square/square.rou.xml,input_additional.add.xml"/>
     </input>
 
     <output>
         <human-readable-time value="false"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-undeparted value="true"/>
     </output>
 
     <time>

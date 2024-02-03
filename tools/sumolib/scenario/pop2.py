@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -150,10 +150,9 @@ class ScenarioSet:
                         tlsID, laneID, laneID, tlsID, files["coupledE2"][0]))
             fdo.write('\n')
         if options.e2:
-            for l in seenLanes:
+            for _lane in seenLanes:
                 fdo.write(('  <e2Detector id="%s" lane="%s" pos="-.1" length="200" file="%s" ' +
-                           'freq="%s" friendlyPos="t"/>\n') % (
-                    l, l, files["e2"][0], options.aggregation))
+                           'freq="%s" friendlyPos="t"/>\n') % (_lane, _lane, files["e2"][0], options.aggregation))
         fdo.write('\n')
         fdo.write("</additional>\n")
         fdo.close()
@@ -1992,16 +1991,16 @@ class ScenarioSet_TurnIteration(ScenarioSet):
         Yields returning a built scenario and its description as key/value pairs
         """
         desc = {"name": "TurnIteration"}
-        for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
-            for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
-                print("Computing for %s<->%s" % (r, l))
-                sID = "TurnIteration(%s-%s)" % (r, l)
+        for right in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
+            for left in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
+                print("Computing for %s<->%s" % (right, left))
+                sID = "TurnIteration(%s-%s)" % (right, left)
                 s = getScenario("BasicCrossL", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
                 if fileNeedsRebuild(s.demandName, "duarouter"):
                     s.demand = demandGenerator.Demand()
-                    aL = float(l) / 100.
-                    aR = float(r) / 100.
+                    aL = float(left) / 100.
+                    aR = float(right) / 100.
                     if aR != 0:
                         # why isn't it possible to get a network and return all
                         # possible routes or whatever - to ease the process
@@ -2032,19 +2031,19 @@ class ScenarioSet_TurnIteration(ScenarioSet):
                     s.demand.addStream(demandGenerator.Stream(
                         None, 0, 3600, self.MAIN_FLOW, "1/0_to_1/1", "1/1_to_1/2", {"passenger": 1}))
                     s.demand.build(0, 3600, s.netName, s.demandName)
-                desc = {"scenario": "TurnIteration", "r": str(r), "l": str(l)}
+                desc = {"scenario": "TurnIteration", "r": str(right), "l": str(left)}
                 yield s, desc, sID
 
     def getRunsMatrix(self):
         ret = []
         ranges = [[], []]
-        for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
+        for right in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
             ret.append([])
-            ranges[0].append(r)
-            for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
+            ranges[0].append(right)
+            for left in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
                 ret[-1].append({"scenario": "TurnIteration",
-                                "r": str(r), "l": str(l)})
-                ranges[1].append(l)
+                                "r": str(right), "l": str(left)})
+                ranges[1].append(left)
         return (ret, ranges)
 
     def getAverageDuration(self):
@@ -2104,16 +2103,16 @@ class ScenarioSet_TurnIterationINIT(ScenarioSet):
 
     def iterateScenarios(self):
         desc = {"name": "TurnIteration"}
-        for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
-            for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
-                print("Computing for %s<->%s" % (r, l))
-                sID = "TurnIteration(%s-%s)" % (r, l)
+        for right in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
+            for left in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
+                print("Computing for %s<->%s" % (right, left))
+                sID = "TurnIteration(%s-%s)" % (right, left)
                 s = getScenario("BasicCrossL", {}, False)
                 s.demandName = s.fullPath("routes_%s.rou.xml" % sID)
                 if fileNeedsRebuild(s.demandName, "duarouter"):
                     s.demand = demandGenerator.Demand()
-                    aL = float(l) / 100.
-                    aR = float(r) / 100.
+                    aL = float(left) / 100.
+                    aR = float(right) / 100.
                     if aR != 0:
                         # why isn't it possible to get a network and return all
                         # possible routes or whatever - to ease the process
@@ -2157,19 +2156,19 @@ class ScenarioSet_TurnIterationINIT(ScenarioSet):
                     s.demand.addStream(demandGenerator.Stream(
                         None, 0, 3600, self.MAIN_FLOW, "1/0_to_1/1", "1/1_to_1/2", {"passenger": 1}))
                     s.demand.build(0, 3600, s.netName, s.demandName)
-                desc = {"scenario": "TurnIteration", "r": str(r), "l": str(l)}
+                desc = {"scenario": "TurnIteration", "r": str(right), "l": str(left)}
                 yield s, desc, sID
 
     def getRunsMatrix(self):
         ret = []
         ranges = [[], []]
-        for r in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
+        for right in range(self.getInt("rightFrom"), self.getInt("rightTo"), self.getInt("rightStep")):
             ret.append([])
-            ranges[0].append(r)
-            for l in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
+            ranges[0].append(right)
+            for left in range(self.getInt("leftFrom"), self.getInt("leftTo"), self.getInt("leftStep")):
                 ret[-1].append({"scenario": "TurnIteration",
-                                "r": str(r), "l": str(l)})
-                ranges[1].append(l)
+                                "r": str(right), "l": str(left)})
+                ranges[1].append(left)
         return (ret, ranges)
 
     def getAverageDuration(self):

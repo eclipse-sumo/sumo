@@ -1,0 +1,5 @@
+-s input_net.net.xml
+--output net.net.xml --no-turnarounds
+--bikelanes.guess true --default.sidewalk-width 1.5
+
+

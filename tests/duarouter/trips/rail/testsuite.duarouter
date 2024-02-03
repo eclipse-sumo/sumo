@@ -3,3 +3,21 @@ reversal_possible
 
 # vehicle cannot reverse because there is insufficient space after the switch
 reversal_impossible
+
+# stopping on the forward part close to a buffer stop should work
+reversal_stop_possible
+
+# stopping on the reverse part, too close to a buffer stop
+reversal_stop_impossible
+
+# ensure reversal check even for consecutive stop edges
+stop_reverse_stop
+
+# see #11835
+long_train
+
+# estimated traveltime should take reversal into account (shorcut on long reversal edge)
+reversal_cost
+
+# estimated traveltime should take reversal into account (shorcut on long reversal edge)
+reversal_detour

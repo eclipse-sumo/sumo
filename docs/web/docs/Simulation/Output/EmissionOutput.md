@@ -22,13 +22,19 @@ options or
 parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (i.e. **--device.emissions.probability 0.25**) the set of vehicles which generate emission output can be reduced.
 The output period can be set by using option **--device.emissions.period** {{DT_TIME}}.
+To delay output (i.e. until some warm-up time has passed), the option **--device.emissions.begin** {{DT_TIME}} may be used.
+
 
 ## Generated Output
+
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 The emission output is a xml-file containing the emission values for
 each time step for every vehicle. The produced XML File looks like this:
 
-```
+```xml
 <emission-export>
 
  <timestep time="<TIME_STEP>">
@@ -59,7 +65,7 @@ The meanings of the written values are given in the following table.
 | HC          | mg/s                 | The amount of HC emitted by the vehicle in the actual simulation step                          |
 | NOx         | mg/s                 | The amount of NOX emitted by the vehicle in the actual simulation step                         |
 | PMx         | mg/s                 | The amount of PMX emitted by the vehicle in the actual simulation step                         |
-| fuel        | ml/s                 | The amount of fuel used by the vehicle in the actual simulation step                           |
+| fuel        | mg/s                 | The amount of fuel used by the vehicle in the actual simulation step                           |
 | electricity | Wh/s                 | The amount of electricity used by the vehicle in the actual simulation step                    |
 | noise       | dB                   | The noise emitted by the vehicle in the actual simulation step                                 |
 | route       | id                   | The name of the route                                                                          |
@@ -73,4 +79,21 @@ The meanings of the written values are given in the following table.
 | pos_y      | \---                 | The absolut Y coordinate of the vehicle. The value depends on the given geographic projection. |
 
 !!! caution
-    When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. Thus, care must be taken when computing sums over time.
+    When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. To avoid scaling (and thus simplify aggregation), set option **--emission-output.step-scaled**
+
+## Visualization example
+The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+
+### Generating the output
+```
+sumo -c run.sumocfg --emission-output emissions.xml
+```
+### Example call for plotting
+```
+python plotXMLAttributes.py -x time -y CO2 -s -o CO2_output.png emissions.xml -i id --filter-ids Audinot_10_89 --legend
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name; --legend is to show the value(s) of the selected attribute name.
+
+The resultant plot is illustrated below.
+
+<img src="../../images/CO2_output.png" width="500px"/>

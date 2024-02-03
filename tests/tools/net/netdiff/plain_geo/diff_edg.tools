@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-26 23:21:39.972298 by netdiff.py v1_15_0+1985-a4f015c
+  options: -g source.net.xml dest.net.xml diff
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <edge id="-10860203.384" disallow="tram rail_urban rail rail_electric rail_fast ship" from="J0" numLanes="1" priority="11" speed="27.78" to="2" type="highway.secondary"/>
+    <edge id="108602030" disallow="tram rail_urban rail rail_electric rail_fast ship" from="J0" numLanes="1" priority="11" speed="27.78" to="3" type="highway.secondary"/>
+    <!-- Changed Elements -->
+    <edge id="-10860203" to="J0"/>
+    <edge id="10860203" to="J0"/>
+</edges>

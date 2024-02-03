@@ -1,0 +1,13 @@
+-b 18250:0:0:0
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml 
+--save-state.times 18250:0:5:30 --save-state.files state.xml
+--default.speeddev 0
+--time-to-teleport 100
+:
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml 
+--load-state state.xml
+--default.speeddev 0
+--time-to-teleport 100
+tests/complex/state/runner.py

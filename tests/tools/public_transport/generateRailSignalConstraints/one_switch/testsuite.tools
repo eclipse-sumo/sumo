@@ -16,8 +16,14 @@ no_schedule
 # stop on lane
 lane_stops
 
+# stop on edge
+edge_stops
+
 # include line and vehID information if relevant
-coments
+comments
+
+# include line and vehID information if relevant
+comments_params
 
 # like 'basic' but repeat the same trains again after 1000s
 repeat
@@ -30,3 +36,33 @@ limit
 
 # two trains approach the same stop from different tracks, do not generate constraints involving parking vehicles
 skipParking
+
+# a single train with a looped route that approaches the same switch twice from different edges
+loop
+
+# handle portion working
+departSplit
+
+# one train has an intermediate stop between the merging switch and the common stop
+intermediate_stop
+
+# one train has an intermediate stop between the merging switch and the common stop
+# That train also changes it's trip id
+intermediate_stop_changeTripId
+
+# both trains train have a (different) intermediate stop between the merging switch and the common stop
+intermediate_stop2
+
+# both trains train have a (different) intermediate stop between the merging switch and the common stop, one train has 2 stops on the same edge
+intermediate_stop3
+
+# one train has an intermediate stop between the merging switch and the common stop
+# The train with the intermediate stop has a reversal in it's route
+intermediate_stop_reversal
+
+# one train has an intermediate stop between the merging switch and the common stop.
+# Since the intermediate stop has parking=true, no constraint should be generated when option --skip-parking is set.
+intermediate_stop_parking
+
+# one train has an intermediate stop between the merging switch and the common stop.
+intermediate_stop_parkingFalse

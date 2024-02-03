@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,25 +28,44 @@
 #include <vector>
 #include <bitset>
 #include <sstream>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
+
+//#define DEBUG_COORDINATION
+#define DEBUG_COND (getID()=="C")
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
+        const std::string& id, const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
-    MSTrafficLightLogic(tlcontrol, id, programID, logicType, delay, parameters),
+        const Parameterised::Map& parameters) :
+    MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters),
     myPhases(phases),
     myStep(step) {
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        myDefaultCycleTime += myPhases[i]->duration;
+    myDefaultCycleTime = computeCycleTime(myPhases);
+    if (myStep < (int)myPhases.size()) {
+        myPhases[myStep]->myLastSwitch = SIMSTEP;
+    }
+    // the following initializations are only used by 'actuated' and 'delay_based' but do not affect 'static'
+    if (hasParameter(toString(SUMO_ATTR_CYCLETIME))) {
+        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(Parameterised::getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
+    }
+    myCoordinated = StringUtils::toBool(Parameterised::getParameter("coordinated", "false"));
+    if (myPhases.size() > 0) {
+        SUMOTime earliest = SIMSTEP + getEarliest(-1);
+        if (earliest > getNextSwitchTime()) {
+            mySwitchCommand->deschedule(this);
+            mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
+        }
     }
 }
 
@@ -181,6 +200,89 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
 }
 
 
+SUMOTime
+MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
+    return (myCoordinated
+            ? (t - myOffset) % myDefaultCycleTime
+            : (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
+}
+
+
+
+
+SUMOTime
+MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
+    SUMOTime earliest = getEarliestEnd();
+    if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
+        return 0;
+    } else {
+        if (prevStart >= SIMSTEP - getTimeInCycle() && prevStart < getCurrentPhaseDef().myLastEnd) {
+            // phase was started and ended once already in the current cycle
+            // it should not end a second time in the same cycle
+            earliest += myDefaultCycleTime;
+#ifdef DEBUG_COORDINATION
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep
+                          << " prevStart= " << STEPS2TIME(prevStart)
+                          << " prevEnd= " << STEPS2TIME(getCurrentPhaseDef().myLastEnd)
+                          << " cycleStart=" << STEPS2TIME(SIMSTEP - getTimeInCycle()) << " started Twice - move into next cycle\n";
+            }
+#endif
+        } else {
+            SUMOTime latest = getLatestEnd();
+            if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
+                const SUMOTime minRemaining = getMinDur() - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+                const SUMOTime minEnd = getTimeInCycle() + minRemaining;
+                if (latest > earliest && latest < minEnd) {
+                    // cannot terminate phase between earliest and latest -> move end into next cycle
+                    earliest += myDefaultCycleTime;
+                } else if (latest < earliest && latest >= minEnd) {
+                    // can ignore earliest since it counts from the previous cycle
+                    earliest -= myDefaultCycleTime;
+                }
+#ifdef DEBUG_COORDINATION
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd="
+                              << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
+                }
+#endif
+            }
+        }
+        const SUMOTime maxRemaining = getMaxDur() - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+        return MIN2(earliest - getTimeInCycle(), maxRemaining);
+    }
+}
+
+
+SUMOTime
+MSSimpleTrafficLightLogic::getLatest() const {
+    const SUMOTime latest = getLatestEnd();
+    if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
+        return SUMOTime_MAX; // no restriction
+    } else {
+        if (latest < getEarliestEnd()) {
+            const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
+            if (running < getTimeInCycle()) {
+                // phase was started in the current cycle so the restriction does not apply yet
+                return SUMOTime_MAX;
+            }
+        }
+#ifdef DEBUG_COORDINATION
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " tl=" << getID() << " getLatest phase=" << myStep << " latest=" << STEPS2TIME(latest)
+                      << " cycTime=" << STEPS2TIME(getTimeInCycle()) << " res=" << STEPS2TIME(latest - getTimeInCycle()) << "\n";
+        }
+#endif
+        if (latest == myDefaultCycleTime && getTimeInCycle() == 0) {
+            // special case: end on cylce time wrap-around
+            return 0;
+        }
+        return MAX2(SUMOTime(0), latest - getTimeInCycle());
+    }
+}
+
+
+
 // ------------ Changing phases and phase durations
 void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
@@ -204,6 +306,7 @@ MSSimpleTrafficLightLogic::setPhases(const Phases& phases, int step) {
     deletePhases();
     myPhases = phases;
     myStep = step;
+    myDefaultCycleTime = computeCycleTime(myPhases);
 }
 
 
@@ -224,5 +327,35 @@ MSSimpleTrafficLightLogic::saveState(OutputDevice& out) const {
     out.closeTag();
 }
 
+const std::string
+MSSimpleTrafficLightLogic::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (key == "cycleTime") {
+        return toString(STEPS2TIME(myDefaultCycleTime));
+    } else if (key == "offset") {
+        return toString(STEPS2TIME(myOffset));
+    } else if (key == "coordinated") {
+        return toString(myCoordinated);
+    } else if (key == "cycleSecond") {
+        return toString(STEPS2TIME(getTimeInCycle()));
+    }
+    return Parameterised::getParameter(key, defaultValue);
+}
+
+void
+MSSimpleTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
+    if (key == "cycleTime") {
+        myDefaultCycleTime = string2time(value);
+        Parameterised::setParameter(key, value);
+    } else if (key == "cycleSecond") {
+        throw InvalidArgument(key + " cannot be changed dynamically for traffic light '" + getID() + "'");
+    } else if (key == "offset") {
+        myOffset = string2time(value);
+    } else if (key == "coordinated") {
+        myCoordinated = StringUtils::toBool(value);
+        Parameterised::setParameter(key, value);
+    } else {
+        Parameterised::setParameter(key, value);
+    }
+}
 
 /****************************************************************************/

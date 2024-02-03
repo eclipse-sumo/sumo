@@ -1,96 +1,96 @@
 > Executing step 0
 >> Running router on input_trips.trips.xml
->>> Begin time: 2020-08-20 11:13:01.222282
->>> End time: 2020-08-20 11:13:01.356933
->>> Duration: 0:00:00.134651
+>>> Begin time: 2022-02-08 18:44:22.277575
+>>> End time: 2022-02-08 18:44:22.461083
+>>> Duration: 0:00:00.183508
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:01.357042
->>> End time: 2020-08-20 11:13:01.514574
->>> Duration: 0:00:00.157532
+>>> Begin time: 2022-02-08 18:44:22.461190
+>>> End time: 2022-02-08 18:44:22.628073
+>>> Duration: 0:00:00.166883
 <<
 >> Smoothing edge weights
 >>> Updated 4 edges
 >>> Decayed 0 unseen edges
 >>> Error avg:0 mean:0
 >>> Absolute Error avg:0 mean:0
-< Step 0 ended (duration: 0:00:00.293645)
+< Step 0 ended (duration: 0:00:00.351646)
 ------------------
 
 > Executing step 1
->> Running router on 0/input_trips_000.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:01.533636
->>> End time: 2020-08-20 11:13:01.665190
->>> Duration: 0:00:00.131554
+>> Running router on 000/input_trips_000.rou.alt.xml
+>>> Begin time: 2022-02-08 18:44:22.634598
+>>> End time: 2022-02-08 18:44:22.768494
+>>> Duration: 0:00:00.133896
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:01.665294
->>> End time: 2020-08-20 11:13:01.824378
->>> Duration: 0:00:00.159084
+>>> Begin time: 2022-02-08 18:44:22.768605
+>>> End time: 2022-02-08 18:44:22.931075
+>>> Duration: 0:00:00.162470
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.148571428571 mean:0
->>> Absolute Error avg:0.202857142857 mean:0.02
-< Step 1 ended (duration: 0:00:00.291898)
+>>> Error avg:0.147142857143 mean:0
+>>> Absolute Error avg:0.204285714286 mean:0.02
+< Step 1 ended (duration: 0:00:00.297839)
 ------------------
 
 > Executing step 2
->> Running router on 1/input_trips_001.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:01.828908
->>> End time: 2020-08-20 11:13:01.959412
->>> Duration: 0:00:00.130504
+>> Running router on 001/input_trips_001.rou.alt.xml
+>>> Begin time: 2022-02-08 18:44:22.943048
+>>> End time: 2022-02-08 18:44:23.086395
+>>> Duration: 0:00:00.143347
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:01.959551
->>> End time: 2020-08-20 11:13:02.106551
->>> Duration: 0:00:00.147000
+>>> Begin time: 2022-02-08 18:44:23.086512
+>>> End time: 2022-02-08 18:44:23.262598
+>>> Duration: 0:00:00.176086
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.0756686261296 mean:0
->>> Absolute Error avg:0.10277766816 mean:0.0100053361793
-< Step 2 ended (duration: 0:00:00.278824)
+>>> Error avg:0.0749561657652 mean:0
+>>> Absolute Error avg:0.103490128524 mean:0.0100053361793
+< Step 2 ended (duration: 0:00:00.320851)
 ------------------
 
 > Executing step 3
->> Running router on 2/input_trips_002.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:02.114273
->>> End time: 2020-08-20 11:13:02.255903
->>> Duration: 0:00:00.141630
+>> Running router on 002/input_trips_002.rou.alt.xml
+>>> Begin time: 2022-02-08 18:44:23.267316
+>>> End time: 2022-02-08 18:44:23.407626
+>>> Duration: 0:00:00.140310
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:02.256007
->>> End time: 2020-08-20 11:13:02.434873
->>> Duration: 0:00:00.178866
+>>> Begin time: 2022-02-08 18:44:23.407737
+>>> End time: 2022-02-08 18:44:23.583681
+>>> Duration: 0:00:00.175944
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.0507654632594 mean:0
->>> Absolute Error avg:0.0688306653075 mean:0.006671411414
-< Step 3 ended (duration: 0:00:00.321792)
+>>> Error avg:0.0502908935026 mean:0
+>>> Absolute Error avg:0.0693052350643 mean:0.006671411414
+< Step 3 ended (duration: 0:00:00.317577)
 ------------------
 
 > Executing step 4
->> Running router on 3/input_trips_003.rou.alt.xml
->>> Begin time: 2020-08-20 11:13:02.439737
->>> End time: 2020-08-20 11:13:02.565231
->>> Duration: 0:00:00.125494
+>> Running router on 003/input_trips_003.rou.alt.xml
+>>> Begin time: 2022-02-08 18:44:23.588185
+>>> End time: 2022-02-08 18:44:23.725037
+>>> Duration: 0:00:00.136852
 <<
 >> Running simulation
->>> Begin time: 2020-08-20 11:13:02.565333
->>> End time: 2020-08-20 11:13:02.718164
->>> Duration: 0:00:00.152831
+>>> Begin time: 2022-02-08 18:44:23.725144
+>>> End time: 2022-02-08 18:44:23.901266
+>>> Duration: 0:00:00.176122
 <<
 >> Smoothing edge weights
 >>> Updated 7 edges
 >>> Decayed 0 unseen edges
->>> Error avg:0.0381957528422 mean:0
->>> Absolute Error avg:0.0517418475506 mean:0.00500400399406
-< Step 4 ended (duration: 0:00:00.279581)
+>>> Error avg:0.0378399767154 mean:0
+>>> Absolute Error avg:0.0520976236774 mean:0.00500400399406
+< Step 4 ended (duration: 0:00:00.314273)
 ------------------
 
-dua-iterate ended (duration: 0:00:01.503497)
+dua-iterate ended (duration: 0:00:01.638773)

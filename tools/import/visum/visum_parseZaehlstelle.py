@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,15 +30,23 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import sumolib  # noqa
 
-if len(sys.argv) < 3:
-    print("Usage: " + sys.argv[0] + " <SUMO-net> <VISUM-net> <output>")
-    sys.exit()
+# MAIN
+if __name__ == '__main__':
+    op = sumolib.options.ArgumentParser()
+    op.add_option("sumoNet", category="input", type=op.file,
+                  help="provide the SUMO net file including the path")
+    op.add_option("vissumNet", category="input", type=op.file,
+                  help="provide the vissum net file including the path")
+    op.add_option("output", category="output", type=op.file,
+                  help="provide the output file name including the path")
+    args = op.parse_args()
+
 print("Reading net...")
-net = sumolib.net.readNet(sys.argv[1])
+net = sumolib.net.readNet(args.sumoNet)
 
 print("Reading VISUM...")
-fd = open(sys.argv[2])
-fdo = open(sys.argv[3], "w")
+fd = open(args.vissumNet)
+fdo = open(args.output, "w")
 fdo.write("<pois>\n")
 parsingCounts = False
 lastKnown = ""

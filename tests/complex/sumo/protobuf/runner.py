@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,7 @@ import sys
 import time
 import socket
 import difflib
-toolDir = os.path.join(
-    os.path.dirname(__file__), '..', '..', '..', '..', "tools")
+toolDir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")
 if 'SUMO_HOME' in os.environ:
     toolDir = os.path.join(os.environ['SUMO_HOME'], "tools")
 sys.path.append(toolDir)
@@ -38,6 +37,7 @@ def connect(inPort, outPort, numTries=10):
             i.connect(("localhost", inPort))
             break
         except socket.error:
+            i.close()
             if wait == numTries:
                 raise
             time.sleep(wait)
@@ -47,6 +47,7 @@ def connect(inPort, outPort, numTries=10):
             o.connect(("localhost", outPort))
             break
         except socket.error:
+            o.close()
             if wait == numTries:
                 raise
             time.sleep(wait)
@@ -65,19 +66,16 @@ OUT_PORT = sumolib.miscutils.getFreeSocketPort()
 sumoBinary = sumolib.checkBinary('sumo')
 xmlProtoPy = os.path.join(toolDir, 'xml', 'xml2protobuf.py')
 protoXmlPy = os.path.join(toolDir, 'xml', 'protobuf2xml.py')
-schema = os.path.join(
-    toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')
+schema = os.path.join(toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')
 
 # file output direct
-subprocess.call(
-    [sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.xml"])
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.xml"])
 
 # protobuf roundtrip
-xPro = subprocess.Popen(
-    ['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
-sumoPro = subprocess.Popen(
-    [sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
+sumoPro = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
 try:
     connect(IN_PORT, OUT_PORT)
     sumoPro.wait()
@@ -89,5 +87,6 @@ except Exception:
     xPro.kill()
     raise
 
-for line in difflib.unified_diff(open('direct.xml').readlines(), open('%s.xml' % OUT_PORT).readlines(), n=0):
-    sys.stdout.write(line)
+with open('direct.xml') as direct, open('%s.xml' % OUT_PORT) as out:
+    for line in difflib.unified_diff(direct.readlines(), out.readlines(), n=0):
+        sys.stdout.write(line)

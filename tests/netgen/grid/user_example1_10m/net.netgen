@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:05 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:17 by Eclipse SUMO netgenerate Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,30.00,30.00" origBoundary="0.00,0.00,30.00,30.00" projParameter="!"/>
 
@@ -40,16 +40,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_0_0" index="0" speed="13.89" length="11.70" shape="-1.60,14.90 -1.60,3.20"/>
     </edge>
     <edge id=":A1_1" function="internal">
-        <lane id=":A1_1_0" index="0" speed="6.96" length="5.24" shape="-1.60,14.90 -1.19,12.06 0.02,10.03"/>
+        <lane id=":A1_1_0" index="0" speed="6.96" length="3.33" shape="-1.60,14.90 -1.19,12.06 -0.96,11.66"/>
     </edge>
     <edge id=":A1_2" function="internal">
-        <lane id=":A1_2_0" index="0" speed="3.65" length="2.34" shape="-1.60,14.90 -0.80,13.70 -0.00,13.30"/>
+        <lane id=":A1_2_0" index="0" speed="3.65" length="1.44" shape="-1.60,14.90 -0.80,13.70"/>
     </edge>
     <edge id=":A1_9" function="internal">
-        <lane id=":A1_9_0" index="0" speed="6.96" length="5.24" shape="0.02,10.03 2.06,8.81 4.90,8.40"/>
+        <lane id=":A1_9_0" index="0" speed="6.96" length="7.15" shape="-0.96,11.66 0.02,10.03 2.06,8.81 4.90,8.40"/>
     </edge>
     <edge id=":A1_10" function="internal">
-        <lane id=":A1_10_0" index="0" speed="3.65" length="2.34" shape="-0.00,13.30 0.80,13.70 1.60,14.90"/>
+        <lane id=":A1_10_0" index="0" speed="3.65" length="3.23" shape="-0.80,13.70 -0.00,13.30 0.80,13.70 1.60,14.90"/>
     </edge>
     <edge id=":A1_3" function="internal">
         <lane id=":A1_3_0" index="0" speed="5.17" length="5.32" shape="4.90,11.60 3.46,11.81 2.42,12.42 1.81,13.46 1.60,14.90"/>
@@ -67,25 +67,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_7_0" index="0" speed="13.89" length="11.70" shape="1.60,3.20 1.60,14.90"/>
     </edge>
     <edge id=":A1_8" function="internal">
-        <lane id=":A1_8_0" index="0" speed="3.65" length="2.34" shape="1.60,3.20 0.80,4.40 -0.00,4.80"/>
+        <lane id=":A1_8_0" index="0" speed="3.65" length="1.44" shape="1.60,3.20 0.80,4.40"/>
     </edge>
     <edge id=":A1_11" function="internal">
-        <lane id=":A1_11_0" index="0" speed="3.65" length="2.34" shape="-0.00,4.80 -0.80,4.40 -1.60,3.20"/>
+        <lane id=":A1_11_0" index="0" speed="3.65" length="3.23" shape="0.80,4.40 -0.00,4.80 -0.80,4.40 -1.60,3.20"/>
     </edge>
     <edge id=":A2_0" function="internal">
         <lane id=":A2_0_0" index="0" speed="13.89" length="11.70" shape="-1.60,26.80 -1.60,15.10"/>
     </edge>
     <edge id=":A2_1" function="internal">
-        <lane id=":A2_1_0" index="0" speed="7.42" length="6.59" shape="-1.60,26.80 -1.19,23.12 0.02,20.50"/>
+        <lane id=":A2_1_0" index="0" speed="7.42" length="4.30" shape="-1.60,26.80 -1.19,23.12 -0.94,22.58"/>
     </edge>
     <edge id=":A2_2" function="internal">
-        <lane id=":A2_2_0" index="0" speed="3.65" length="2.34" shape="-1.60,26.80 -0.80,25.60 0.00,25.20"/>
+        <lane id=":A2_2_0" index="0" speed="3.65" length="1.44" shape="-1.60,26.80 -0.80,25.60"/>
     </edge>
     <edge id=":A2_9" function="internal">
-        <lane id=":A2_9_0" index="0" speed="7.42" length="5.46" shape="0.02,20.50 2.06,18.92 4.90,18.40"/>
+        <lane id=":A2_9_0" index="0" speed="7.42" length="7.75" shape="-0.94,22.58 0.02,20.50 2.06,18.92 4.90,18.40"/>
     </edge>
     <edge id=":A2_10" function="internal">
-        <lane id=":A2_10_0" index="0" speed="3.65" length="2.34" shape="0.00,25.20 0.80,25.60 1.60,26.80"/>
+        <lane id=":A2_10_0" index="0" speed="3.65" length="3.23" shape="-0.80,25.60 0.00,25.20 0.80,25.60 1.60,26.80"/>
     </edge>
     <edge id=":A2_3" function="internal">
         <lane id=":A2_3_0" index="0" speed="5.79" length="6.92" shape="4.90,21.60 3.46,21.93 2.43,22.90 1.81,24.53 1.60,26.80"/>
@@ -103,10 +103,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A2_7_0" index="0" speed="13.89" length="11.70" shape="1.60,15.10 1.60,26.80"/>
     </edge>
     <edge id=":A2_8" function="internal">
-        <lane id=":A2_8_0" index="0" speed="3.65" length="2.34" shape="1.60,15.10 0.80,16.30 0.00,16.70"/>
+        <lane id=":A2_8_0" index="0" speed="3.65" length="1.44" shape="1.60,15.10 0.80,16.30"/>
     </edge>
     <edge id=":A2_11" function="internal">
-        <lane id=":A2_11_0" index="0" speed="3.65" length="2.34" shape="0.00,16.70 -0.80,16.30 -1.60,15.10"/>
+        <lane id=":A2_11_0" index="0" speed="3.65" length="3.23" shape="0.80,16.30 0.00,16.70 -0.80,16.30 -1.60,15.10"/>
     </edge>
     <edge id=":A3_0" function="internal">
         <lane id=":A3_0_0" index="0" speed="5.88" length="7.18" shape="2.90,31.60 0.93,31.33 -0.48,30.50 -1.32,29.12 -1.60,27.20"/>
@@ -130,25 +130,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B0_4_0" index="0" speed="13.89" length="11.70" shape="14.90,1.60 3.20,1.60"/>
     </edge>
     <edge id=":B0_5" function="internal">
-        <lane id=":B0_5_0" index="0" speed="3.65" length="2.34" shape="14.90,1.60 13.70,0.80 13.30,0.00"/>
+        <lane id=":B0_5_0" index="0" speed="3.65" length="1.44" shape="14.90,1.60 13.70,0.80"/>
     </edge>
     <edge id=":B0_9" function="internal">
-        <lane id=":B0_9_0" index="0" speed="3.65" length="2.34" shape="13.30,0.00 13.70,-0.80 14.90,-1.60"/>
+        <lane id=":B0_9_0" index="0" speed="3.65" length="3.23" shape="13.70,0.80 13.30,0.00 13.70,-0.80 14.90,-1.60"/>
     </edge>
     <edge id=":B0_6" function="internal">
         <lane id=":B0_6_0" index="0" speed="13.89" length="11.70" shape="3.20,-1.60 14.90,-1.60"/>
     </edge>
     <edge id=":B0_7" function="internal">
-        <lane id=":B0_7_0" index="0" speed="7.42" length="6.59" shape="3.20,-1.60 6.87,-1.19 9.50,0.02"/>
+        <lane id=":B0_7_0" index="0" speed="7.42" length="4.30" shape="3.20,-1.60 6.87,-1.19 7.42,-0.94"/>
     </edge>
     <edge id=":B0_8" function="internal">
-        <lane id=":B0_8_0" index="0" speed="3.65" length="2.34" shape="3.20,-1.60 4.40,-0.80 4.80,0.00"/>
+        <lane id=":B0_8_0" index="0" speed="3.65" length="1.44" shape="3.20,-1.60 4.40,-0.80"/>
     </edge>
     <edge id=":B0_10" function="internal">
-        <lane id=":B0_10_0" index="0" speed="7.42" length="5.46" shape="9.50,0.02 11.07,2.06 11.60,4.90"/>
+        <lane id=":B0_10_0" index="0" speed="7.42" length="7.75" shape="7.42,-0.94 9.50,0.02 11.07,2.06 11.60,4.90"/>
     </edge>
     <edge id=":B0_11" function="internal">
-        <lane id=":B0_11_0" index="0" speed="3.65" length="2.34" shape="4.80,0.00 4.40,0.80 3.20,1.60"/>
+        <lane id=":B0_11_0" index="0" speed="3.65" length="3.23" shape="4.40,-0.80 4.80,0.00 4.40,0.80 3.20,1.60"/>
     </edge>
     <edge id=":B1_0" function="internal">
         <lane id=":B1_0_0" index="0" speed="5.17" length="5.32" shape="8.40,14.90 8.19,13.46 7.58,12.42 6.54,11.81 5.10,11.60"/>
@@ -157,16 +157,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B1_1_0" index="0" speed="13.89" length="9.80" shape="8.40,14.90 8.40,5.10"/>
     </edge>
     <edge id=":B1_2" function="internal">
-        <lane id=":B1_2_0" index="0" speed="6.79" length="4.11" shape="8.40,14.90 8.98,12.59 10.00,11.19"/>
+        <lane id=":B1_2_0" index="0" speed="6.79" length="2.25" shape="8.40,14.90 8.95,12.72"/>
     </edge>
     <edge id=":B1_3" function="internal">
-        <lane id=":B1_3_0" index="0" speed="3.65" length="2.34" shape="8.40,14.90 9.20,13.70 10.00,13.30"/>
+        <lane id=":B1_3_0" index="0" speed="3.65" length="1.44" shape="8.40,14.90 9.20,13.70"/>
     </edge>
     <edge id=":B1_16" function="internal">
-        <lane id=":B1_16_0" index="0" speed="6.79" length="5.82" shape="10.00,11.19 10.50,10.50 12.59,8.98 14.90,8.40"/>
+        <lane id=":B1_16_0" index="0" speed="6.79" length="7.68" shape="8.95,12.72 8.98,12.59 10.50,10.50 12.59,8.98 14.90,8.40"/>
     </edge>
     <edge id=":B1_17" function="internal">
-        <lane id=":B1_17_0" index="0" speed="3.65" length="2.34" shape="10.00,13.30 10.80,13.70 11.60,14.90"/>
+        <lane id=":B1_17_0" index="0" speed="3.65" length="3.23" shape="9.20,13.70 10.00,13.30 10.80,13.70 11.60,14.90"/>
     </edge>
     <edge id=":B1_4" function="internal">
         <lane id=":B1_4_0" index="0" speed="5.17" length="5.32" shape="14.90,11.60 13.46,11.81 12.42,12.43 11.81,13.46 11.60,14.90"/>
@@ -187,16 +187,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B1_9_0" index="0" speed="13.89" length="9.80" shape="11.60,5.10 11.60,14.90"/>
     </edge>
     <edge id=":B1_10" function="internal">
-        <lane id=":B1_10_0" index="0" speed="6.79" length="4.11" shape="11.60,5.10 11.02,7.41 10.00,8.81"/>
+        <lane id=":B1_10_0" index="0" speed="6.79" length="2.25" shape="11.60,5.10 11.05,7.28"/>
     </edge>
     <edge id=":B1_11" function="internal">
-        <lane id=":B1_11_0" index="0" speed="3.65" length="2.34" shape="11.60,5.10 10.80,6.30 10.00,6.70"/>
+        <lane id=":B1_11_0" index="0" speed="3.65" length="1.44" shape="11.60,5.10 10.80,6.30"/>
     </edge>
     <edge id=":B1_18" function="internal">
-        <lane id=":B1_18_0" index="0" speed="6.79" length="5.82" shape="10.00,8.81 9.50,9.50 7.41,11.02 5.10,11.60"/>
+        <lane id=":B1_18_0" index="0" speed="6.79" length="7.68" shape="11.05,7.28 11.02,7.41 9.50,9.50 7.41,11.02 5.10,11.60"/>
     </edge>
     <edge id=":B1_19" function="internal">
-        <lane id=":B1_19_0" index="0" speed="3.65" length="2.34" shape="10.00,6.70 9.20,6.30 8.40,5.10"/>
+        <lane id=":B1_19_0" index="0" speed="3.65" length="3.23" shape="10.80,6.30 10.00,6.70 9.20,6.30 8.40,5.10"/>
     </edge>
     <edge id=":B1_12" function="internal">
         <lane id=":B1_12_0" index="0" speed="5.17" length="5.32" shape="5.10,8.40 6.54,8.19 7.58,7.58 8.19,6.54 8.40,5.10"/>
@@ -217,16 +217,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B2_1_0" index="0" speed="13.89" length="9.80" shape="8.40,24.90 8.40,15.10"/>
     </edge>
     <edge id=":B2_2" function="internal">
-        <lane id=":B2_2_0" index="0" speed="6.79" length="4.11" shape="8.40,24.90 8.98,22.59 10.00,21.19"/>
+        <lane id=":B2_2_0" index="0" speed="6.79" length="2.25" shape="8.40,24.90 8.95,22.72"/>
     </edge>
     <edge id=":B2_3" function="internal">
-        <lane id=":B2_3_0" index="0" speed="3.65" length="2.34" shape="8.40,24.90 9.20,23.70 10.00,23.30"/>
+        <lane id=":B2_3_0" index="0" speed="3.65" length="1.44" shape="8.40,24.90 9.20,23.70"/>
     </edge>
     <edge id=":B2_16" function="internal">
-        <lane id=":B2_16_0" index="0" speed="6.79" length="5.82" shape="10.00,21.19 10.50,20.50 12.59,18.98 14.90,18.40"/>
+        <lane id=":B2_16_0" index="0" speed="6.79" length="7.68" shape="8.95,22.72 8.98,22.59 10.50,20.50 12.59,18.98 14.90,18.40"/>
     </edge>
     <edge id=":B2_17" function="internal">
-        <lane id=":B2_17_0" index="0" speed="3.65" length="2.34" shape="10.00,23.30 10.80,23.70 11.60,24.90"/>
+        <lane id=":B2_17_0" index="0" speed="3.65" length="3.23" shape="9.20,23.70 10.00,23.30 10.80,23.70 11.60,24.90"/>
     </edge>
     <edge id=":B2_4" function="internal">
         <lane id=":B2_4_0" index="0" speed="5.17" length="5.32" shape="14.90,21.60 13.46,21.81 12.42,22.43 11.81,23.46 11.60,24.90"/>
@@ -247,16 +247,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B2_9_0" index="0" speed="13.89" length="9.80" shape="11.60,15.10 11.60,24.90"/>
     </edge>
     <edge id=":B2_10" function="internal">
-        <lane id=":B2_10_0" index="0" speed="6.79" length="4.11" shape="11.60,15.10 11.02,17.41 10.00,18.81"/>
+        <lane id=":B2_10_0" index="0" speed="6.79" length="2.25" shape="11.60,15.10 11.05,17.28"/>
     </edge>
     <edge id=":B2_11" function="internal">
-        <lane id=":B2_11_0" index="0" speed="3.65" length="2.34" shape="11.60,15.10 10.80,16.30 10.00,16.70"/>
+        <lane id=":B2_11_0" index="0" speed="3.65" length="1.44" shape="11.60,15.10 10.80,16.30"/>
     </edge>
     <edge id=":B2_18" function="internal">
-        <lane id=":B2_18_0" index="0" speed="6.79" length="5.82" shape="10.00,18.81 9.50,19.50 7.41,21.02 5.10,21.60"/>
+        <lane id=":B2_18_0" index="0" speed="6.79" length="7.68" shape="11.05,17.28 11.02,17.41 9.50,19.50 7.41,21.02 5.10,21.60"/>
     </edge>
     <edge id=":B2_19" function="internal">
-        <lane id=":B2_19_0" index="0" speed="3.65" length="2.34" shape="10.00,16.70 9.20,16.30 8.40,15.10"/>
+        <lane id=":B2_19_0" index="0" speed="3.65" length="3.23" shape="10.80,16.30 10.00,16.70 9.20,16.30 8.40,15.10"/>
     </edge>
     <edge id=":B2_12" function="internal">
         <lane id=":B2_12_0" index="0" speed="5.17" length="5.32" shape="5.10,18.40 6.54,18.19 7.58,17.57 8.19,16.54 8.40,15.10"/>
@@ -274,16 +274,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B3_0_0" index="0" speed="13.89" length="11.80" shape="14.90,31.60 3.10,31.60"/>
     </edge>
     <edge id=":B3_1" function="internal">
-        <lane id=":B3_1_0" index="0" speed="6.96" length="5.24" shape="14.90,31.60 12.06,31.19 10.03,29.98"/>
+        <lane id=":B3_1_0" index="0" speed="6.96" length="3.33" shape="14.90,31.60 12.06,31.19 11.66,30.96"/>
     </edge>
     <edge id=":B3_2" function="internal">
-        <lane id=":B3_2_0" index="0" speed="3.65" length="2.34" shape="14.90,31.60 13.70,30.80 13.30,30.00"/>
+        <lane id=":B3_2_0" index="0" speed="3.65" length="1.44" shape="14.90,31.60 13.70,30.80"/>
     </edge>
     <edge id=":B3_9" function="internal">
-        <lane id=":B3_9_0" index="0" speed="6.96" length="5.24" shape="10.03,29.98 8.81,27.94 8.40,25.10"/>
+        <lane id=":B3_9_0" index="0" speed="6.96" length="7.15" shape="11.66,30.96 10.03,29.98 8.81,27.94 8.40,25.10"/>
     </edge>
     <edge id=":B3_10" function="internal">
-        <lane id=":B3_10_0" index="0" speed="3.65" length="2.34" shape="13.30,30.00 13.70,29.20 14.90,28.40"/>
+        <lane id=":B3_10_0" index="0" speed="3.65" length="3.23" shape="13.70,30.80 13.30,30.00 13.70,29.20 14.90,28.40"/>
     </edge>
     <edge id=":B3_3" function="internal">
         <lane id=":B3_3_0" index="0" speed="5.17" length="5.32" shape="11.60,25.10 11.81,26.54 12.42,27.57 13.46,28.19 14.90,28.40"/>
@@ -301,10 +301,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B3_7_0" index="0" speed="13.89" length="11.70" shape="3.20,28.40 14.90,28.40"/>
     </edge>
     <edge id=":B3_8" function="internal">
-        <lane id=":B3_8_0" index="0" speed="3.65" length="2.34" shape="3.20,28.40 4.38,29.24 4.75,30.05"/>
+        <lane id=":B3_8_0" index="0" speed="3.65" length="1.44" shape="3.20,28.40 4.38,29.24"/>
     </edge>
     <edge id=":B3_11" function="internal">
-        <lane id=":B3_11_0" index="0" speed="3.65" length="2.34" shape="4.75,30.05 4.33,30.84 3.10,31.60"/>
+        <lane id=":B3_11_0" index="0" speed="3.65" length="3.23" shape="4.38,29.24 4.75,30.05 4.33,30.84 3.10,31.60"/>
     </edge>
     <edge id=":C0_0" function="internal">
         <lane id=":C0_0_0" index="0" speed="5.17" length="5.32" shape="18.40,4.90 18.19,3.46 17.57,2.42 16.54,1.81 15.10,1.60"/>
@@ -322,25 +322,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C0_4_0" index="0" speed="13.89" length="11.70" shape="26.80,1.60 15.10,1.60"/>
     </edge>
     <edge id=":C0_5" function="internal">
-        <lane id=":C0_5_0" index="0" speed="3.65" length="2.34" shape="26.80,1.60 25.60,0.80 25.20,-0.00"/>
+        <lane id=":C0_5_0" index="0" speed="3.65" length="1.44" shape="26.80,1.60 25.60,0.80"/>
     </edge>
     <edge id=":C0_9" function="internal">
-        <lane id=":C0_9_0" index="0" speed="3.65" length="2.34" shape="25.20,-0.00 25.60,-0.80 26.80,-1.60"/>
+        <lane id=":C0_9_0" index="0" speed="3.65" length="3.23" shape="25.60,0.80 25.20,-0.00 25.60,-0.80 26.80,-1.60"/>
     </edge>
     <edge id=":C0_6" function="internal">
         <lane id=":C0_6_0" index="0" speed="13.89" length="11.70" shape="15.10,-1.60 26.80,-1.60"/>
     </edge>
     <edge id=":C0_7" function="internal">
-        <lane id=":C0_7_0" index="0" speed="6.96" length="5.24" shape="15.10,-1.60 17.94,-1.19 19.97,0.02"/>
+        <lane id=":C0_7_0" index="0" speed="6.96" length="3.33" shape="15.10,-1.60 17.94,-1.19 18.34,-0.96"/>
     </edge>
     <edge id=":C0_8" function="internal">
-        <lane id=":C0_8_0" index="0" speed="3.65" length="2.34" shape="15.10,-1.60 16.30,-0.80 16.70,-0.00"/>
+        <lane id=":C0_8_0" index="0" speed="3.65" length="1.44" shape="15.10,-1.60 16.30,-0.80"/>
     </edge>
     <edge id=":C0_10" function="internal">
-        <lane id=":C0_10_0" index="0" speed="6.96" length="5.24" shape="19.97,0.02 21.19,2.06 21.60,4.90"/>
+        <lane id=":C0_10_0" index="0" speed="6.96" length="7.15" shape="18.34,-0.96 19.97,0.02 21.19,2.06 21.60,4.90"/>
     </edge>
     <edge id=":C0_11" function="internal">
-        <lane id=":C0_11_0" index="0" speed="3.65" length="2.34" shape="16.70,-0.00 16.30,0.80 15.10,1.60"/>
+        <lane id=":C0_11_0" index="0" speed="3.65" length="3.23" shape="16.30,-0.80 16.70,-0.00 16.30,0.80 15.10,1.60"/>
     </edge>
     <edge id=":C1_0" function="internal">
         <lane id=":C1_0_0" index="0" speed="5.17" length="5.32" shape="18.40,14.90 18.19,13.46 17.57,12.42 16.54,11.81 15.10,11.60"/>
@@ -349,16 +349,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C1_1_0" index="0" speed="13.89" length="9.80" shape="18.40,14.90 18.40,5.10"/>
     </edge>
     <edge id=":C1_2" function="internal">
-        <lane id=":C1_2_0" index="0" speed="6.79" length="4.11" shape="18.40,14.90 18.98,12.59 20.00,11.19"/>
+        <lane id=":C1_2_0" index="0" speed="6.79" length="2.25" shape="18.40,14.90 18.95,12.72"/>
     </edge>
     <edge id=":C1_3" function="internal">
-        <lane id=":C1_3_0" index="0" speed="3.65" length="2.34" shape="18.40,14.90 19.20,13.70 20.00,13.30"/>
+        <lane id=":C1_3_0" index="0" speed="3.65" length="1.44" shape="18.40,14.90 19.20,13.70"/>
     </edge>
     <edge id=":C1_16" function="internal">
-        <lane id=":C1_16_0" index="0" speed="6.79" length="5.82" shape="20.00,11.19 20.50,10.50 22.59,8.98 24.90,8.40"/>
+        <lane id=":C1_16_0" index="0" speed="6.79" length="7.68" shape="18.95,12.72 18.98,12.59 20.50,10.50 22.59,8.98 24.90,8.40"/>
     </edge>
     <edge id=":C1_17" function="internal">
-        <lane id=":C1_17_0" index="0" speed="3.65" length="2.34" shape="20.00,13.30 20.80,13.70 21.60,14.90"/>
+        <lane id=":C1_17_0" index="0" speed="3.65" length="3.23" shape="19.20,13.70 20.00,13.30 20.80,13.70 21.60,14.90"/>
     </edge>
     <edge id=":C1_4" function="internal">
         <lane id=":C1_4_0" index="0" speed="5.17" length="5.32" shape="24.90,11.60 23.46,11.81 22.43,12.42 21.81,13.46 21.60,14.90"/>
@@ -379,16 +379,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C1_9_0" index="0" speed="13.89" length="9.80" shape="21.60,5.10 21.60,14.90"/>
     </edge>
     <edge id=":C1_10" function="internal">
-        <lane id=":C1_10_0" index="0" speed="6.79" length="4.11" shape="21.60,5.10 21.02,7.41 20.00,8.81"/>
+        <lane id=":C1_10_0" index="0" speed="6.79" length="2.25" shape="21.60,5.10 21.05,7.28"/>
     </edge>
     <edge id=":C1_11" function="internal">
-        <lane id=":C1_11_0" index="0" speed="3.65" length="2.34" shape="21.60,5.10 20.80,6.30 20.00,6.70"/>
+        <lane id=":C1_11_0" index="0" speed="3.65" length="1.44" shape="21.60,5.10 20.80,6.30"/>
     </edge>
     <edge id=":C1_18" function="internal">
-        <lane id=":C1_18_0" index="0" speed="6.79" length="5.82" shape="20.00,8.81 19.50,9.50 17.41,11.02 15.10,11.60"/>
+        <lane id=":C1_18_0" index="0" speed="6.79" length="7.68" shape="21.05,7.28 21.02,7.41 19.50,9.50 17.41,11.02 15.10,11.60"/>
     </edge>
     <edge id=":C1_19" function="internal">
-        <lane id=":C1_19_0" index="0" speed="3.65" length="2.34" shape="20.00,6.70 19.20,6.30 18.40,5.10"/>
+        <lane id=":C1_19_0" index="0" speed="3.65" length="3.23" shape="20.80,6.30 20.00,6.70 19.20,6.30 18.40,5.10"/>
     </edge>
     <edge id=":C1_12" function="internal">
         <lane id=":C1_12_0" index="0" speed="5.17" length="5.32" shape="15.10,8.40 16.54,8.19 17.57,7.58 18.19,6.54 18.40,5.10"/>
@@ -409,16 +409,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C2_1_0" index="0" speed="13.89" length="9.80" shape="18.40,24.90 18.40,15.10"/>
     </edge>
     <edge id=":C2_2" function="internal">
-        <lane id=":C2_2_0" index="0" speed="6.79" length="4.11" shape="18.40,24.90 18.98,22.59 20.00,21.19"/>
+        <lane id=":C2_2_0" index="0" speed="6.79" length="2.25" shape="18.40,24.90 18.95,22.72"/>
     </edge>
     <edge id=":C2_3" function="internal">
-        <lane id=":C2_3_0" index="0" speed="3.65" length="2.34" shape="18.40,24.90 19.20,23.70 20.00,23.30"/>
+        <lane id=":C2_3_0" index="0" speed="3.65" length="1.44" shape="18.40,24.90 19.20,23.70"/>
     </edge>
     <edge id=":C2_16" function="internal">
-        <lane id=":C2_16_0" index="0" speed="6.79" length="5.82" shape="20.00,21.19 20.50,20.50 22.59,18.98 24.90,18.40"/>
+        <lane id=":C2_16_0" index="0" speed="6.79" length="7.68" shape="18.95,22.72 18.98,22.59 20.50,20.50 22.59,18.98 24.90,18.40"/>
     </edge>
     <edge id=":C2_17" function="internal">
-        <lane id=":C2_17_0" index="0" speed="3.65" length="2.34" shape="20.00,23.30 20.80,23.70 21.60,24.90"/>
+        <lane id=":C2_17_0" index="0" speed="3.65" length="3.23" shape="19.20,23.70 20.00,23.30 20.80,23.70 21.60,24.90"/>
     </edge>
     <edge id=":C2_4" function="internal">
         <lane id=":C2_4_0" index="0" speed="5.17" length="5.32" shape="24.90,21.60 23.46,21.81 22.42,22.43 21.81,23.46 21.60,24.90"/>
@@ -439,16 +439,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C2_9_0" index="0" speed="13.89" length="9.80" shape="21.60,15.10 21.60,24.90"/>
     </edge>
     <edge id=":C2_10" function="internal">
-        <lane id=":C2_10_0" index="0" speed="6.79" length="4.11" shape="21.60,15.10 21.02,17.41 20.00,18.81"/>
+        <lane id=":C2_10_0" index="0" speed="6.79" length="2.25" shape="21.60,15.10 21.05,17.28"/>
     </edge>
     <edge id=":C2_11" function="internal">
-        <lane id=":C2_11_0" index="0" speed="3.65" length="2.34" shape="21.60,15.10 20.80,16.30 20.00,16.70"/>
+        <lane id=":C2_11_0" index="0" speed="3.65" length="1.44" shape="21.60,15.10 20.80,16.30"/>
     </edge>
     <edge id=":C2_18" function="internal">
-        <lane id=":C2_18_0" index="0" speed="6.79" length="5.82" shape="20.00,18.81 19.50,19.50 17.41,21.02 15.10,21.60"/>
+        <lane id=":C2_18_0" index="0" speed="6.79" length="7.68" shape="21.05,17.28 21.02,17.41 19.50,19.50 17.41,21.02 15.10,21.60"/>
     </edge>
     <edge id=":C2_19" function="internal">
-        <lane id=":C2_19_0" index="0" speed="3.65" length="2.34" shape="20.00,16.70 19.20,16.30 18.40,15.10"/>
+        <lane id=":C2_19_0" index="0" speed="3.65" length="3.23" shape="20.80,16.30 20.00,16.70 19.20,16.30 18.40,15.10"/>
     </edge>
     <edge id=":C2_12" function="internal">
         <lane id=":C2_12_0" index="0" speed="5.17" length="5.32" shape="15.10,18.40 16.54,18.19 17.58,17.57 18.19,16.54 18.40,15.10"/>
@@ -466,16 +466,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C3_0_0" index="0" speed="13.89" length="11.70" shape="26.80,31.60 15.10,31.60"/>
     </edge>
     <edge id=":C3_1" function="internal">
-        <lane id=":C3_1_0" index="0" speed="7.42" length="6.59" shape="26.80,31.60 23.12,31.19 20.50,29.98"/>
+        <lane id=":C3_1_0" index="0" speed="7.42" length="4.30" shape="26.80,31.60 23.12,31.19 22.58,30.94"/>
     </edge>
     <edge id=":C3_2" function="internal">
-        <lane id=":C3_2_0" index="0" speed="3.65" length="2.34" shape="26.80,31.60 25.62,30.76 25.25,29.95"/>
+        <lane id=":C3_2_0" index="0" speed="3.65" length="1.44" shape="26.80,31.60 25.62,30.76"/>
     </edge>
     <edge id=":C3_9" function="internal">
-        <lane id=":C3_9_0" index="0" speed="7.42" length="5.46" shape="20.50,29.98 18.92,27.94 18.40,25.10"/>
+        <lane id=":C3_9_0" index="0" speed="7.42" length="7.75" shape="22.58,30.94 20.50,29.98 18.92,27.94 18.40,25.10"/>
     </edge>
     <edge id=":C3_10" function="internal">
-        <lane id=":C3_10_0" index="0" speed="3.65" length="2.34" shape="25.25,29.95 25.67,29.16 26.90,28.40"/>
+        <lane id=":C3_10_0" index="0" speed="3.65" length="3.23" shape="25.62,30.76 25.25,29.95 25.67,29.16 26.90,28.40"/>
     </edge>
     <edge id=":C3_3" function="internal">
         <lane id=":C3_3_0" index="0" speed="5.82" length="7.01" shape="21.60,25.10 21.93,26.54 22.93,27.58 24.58,28.19 26.90,28.40"/>
@@ -493,10 +493,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C3_7_0" index="0" speed="13.89" length="11.80" shape="15.10,28.40 26.90,28.40"/>
     </edge>
     <edge id=":C3_8" function="internal">
-        <lane id=":C3_8_0" index="0" speed="3.65" length="2.34" shape="15.10,28.40 16.30,29.20 16.70,30.00"/>
+        <lane id=":C3_8_0" index="0" speed="3.65" length="1.44" shape="15.10,28.40 16.30,29.20"/>
     </edge>
     <edge id=":C3_11" function="internal">
-        <lane id=":C3_11_0" index="0" speed="3.65" length="2.34" shape="16.70,30.00 16.30,30.80 15.10,31.60"/>
+        <lane id=":C3_11_0" index="0" speed="3.65" length="3.23" shape="16.30,29.20 16.70,30.00 16.30,30.80 15.10,31.60"/>
     </edge>
     <edge id=":D0_0" function="internal">
         <lane id=":D0_0_0" index="0" speed="3.59" length="2.02" shape="28.40,2.90 28.32,2.33 28.10,1.92 27.72,1.68 27.20,1.60"/>
@@ -511,25 +511,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":D1_1_0" index="0" speed="13.89" length="11.80" shape="28.40,14.90 28.40,3.10"/>
     </edge>
     <edge id=":D1_2" function="internal">
-        <lane id=":D1_2_0" index="0" speed="3.65" length="2.34" shape="28.40,14.90 29.20,13.70 30.00,13.30"/>
+        <lane id=":D1_2_0" index="0" speed="3.65" length="1.44" shape="28.40,14.90 29.20,13.70"/>
     </edge>
     <edge id=":D1_9" function="internal">
-        <lane id=":D1_9_0" index="0" speed="3.65" length="2.34" shape="30.00,13.30 30.80,13.70 31.60,14.90"/>
+        <lane id=":D1_9_0" index="0" speed="3.65" length="3.23" shape="29.20,13.70 30.00,13.30 30.80,13.70 31.60,14.90"/>
     </edge>
     <edge id=":D1_3" function="internal">
         <lane id=":D1_3_0" index="0" speed="13.89" length="11.70" shape="31.60,3.20 31.60,14.90"/>
     </edge>
     <edge id=":D1_4" function="internal">
-        <lane id=":D1_4_0" index="0" speed="7.42" length="6.59" shape="31.60,3.20 31.19,6.87 29.98,9.50"/>
+        <lane id=":D1_4_0" index="0" speed="7.42" length="4.30" shape="31.60,3.20 31.19,6.87 30.94,7.42"/>
     </edge>
     <edge id=":D1_5" function="internal">
-        <lane id=":D1_5_0" index="0" speed="3.65" length="2.34" shape="31.60,3.20 30.76,4.38 29.95,4.75"/>
+        <lane id=":D1_5_0" index="0" speed="3.65" length="1.44" shape="31.60,3.20 30.76,4.38"/>
     </edge>
     <edge id=":D1_10" function="internal">
-        <lane id=":D1_10_0" index="0" speed="7.42" length="5.46" shape="29.98,9.50 27.94,11.07 25.10,11.60"/>
+        <lane id=":D1_10_0" index="0" speed="7.42" length="7.75" shape="30.94,7.42 29.98,9.50 27.94,11.07 25.10,11.60"/>
     </edge>
     <edge id=":D1_11" function="internal">
-        <lane id=":D1_11_0" index="0" speed="3.65" length="2.34" shape="29.95,4.75 29.16,4.33 28.40,3.10"/>
+        <lane id=":D1_11_0" index="0" speed="3.65" length="3.23" shape="30.76,4.38 29.95,4.75 29.16,4.33 28.40,3.10"/>
     </edge>
     <edge id=":D1_6" function="internal">
         <lane id=":D1_6_0" index="0" speed="5.82" length="7.01" shape="25.10,8.40 26.54,8.07 27.57,7.08 28.19,5.42 28.40,3.10"/>
@@ -547,25 +547,25 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":D2_1_0" index="0" speed="13.89" length="11.70" shape="28.40,26.80 28.40,15.10"/>
     </edge>
     <edge id=":D2_2" function="internal">
-        <lane id=":D2_2_0" index="0" speed="3.65" length="2.34" shape="28.40,26.80 29.24,25.62 30.05,25.25"/>
+        <lane id=":D2_2_0" index="0" speed="3.65" length="1.44" shape="28.40,26.80 29.24,25.62"/>
     </edge>
     <edge id=":D2_9" function="internal">
-        <lane id=":D2_9_0" index="0" speed="3.65" length="2.34" shape="30.05,25.25 30.84,25.67 31.60,26.90"/>
+        <lane id=":D2_9_0" index="0" speed="3.65" length="3.23" shape="29.24,25.62 30.05,25.25 30.84,25.67 31.60,26.90"/>
     </edge>
     <edge id=":D2_3" function="internal">
         <lane id=":D2_3_0" index="0" speed="13.89" length="11.80" shape="31.60,15.10 31.60,26.90"/>
     </edge>
     <edge id=":D2_4" function="internal">
-        <lane id=":D2_4_0" index="0" speed="6.96" length="5.24" shape="31.60,15.10 31.19,17.94 29.98,19.97"/>
+        <lane id=":D2_4_0" index="0" speed="6.96" length="3.33" shape="31.60,15.10 31.19,17.94 30.96,18.34"/>
     </edge>
     <edge id=":D2_5" function="internal">
-        <lane id=":D2_5_0" index="0" speed="3.65" length="2.34" shape="31.60,15.10 30.80,16.30 30.00,16.70"/>
+        <lane id=":D2_5_0" index="0" speed="3.65" length="1.44" shape="31.60,15.10 30.80,16.30"/>
     </edge>
     <edge id=":D2_10" function="internal">
-        <lane id=":D2_10_0" index="0" speed="6.96" length="5.24" shape="29.98,19.97 27.94,21.19 25.10,21.60"/>
+        <lane id=":D2_10_0" index="0" speed="6.96" length="7.15" shape="30.96,18.34 29.98,19.97 27.94,21.19 25.10,21.60"/>
     </edge>
     <edge id=":D2_11" function="internal">
-        <lane id=":D2_11_0" index="0" speed="3.65" length="2.34" shape="30.00,16.70 29.20,16.30 28.40,15.10"/>
+        <lane id=":D2_11_0" index="0" speed="3.65" length="3.23" shape="30.80,16.30 30.00,16.70 29.20,16.30 28.40,15.10"/>
     </edge>
     <edge id=":D2_6" function="internal">
         <lane id=":D2_6_0" index="0" speed="5.17" length="5.32" shape="25.10,18.40 26.54,18.19 27.58,17.57 28.19,16.54 28.40,15.10"/>
@@ -905,46 +905,46 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":A1_9_0" type="internal" x="0.02" y="10.03" incLanes=":A1_1_0 A0A1_0" intLanes=":A1_4_0 :A1_5_0 :A1_6_0 :A1_7_0"/>
-    <junction id=":A1_10_0" type="internal" x="-0.00" y="13.30" incLanes=":A1_2_0 A0A1_0 B1A1_0" intLanes=":A1_3_0 :A1_7_0"/>
-    <junction id=":A1_11_0" type="internal" x="-0.00" y="4.80" incLanes=":A1_8_0 A2A1_0 B1A1_0" intLanes=":A1_0_0 :A1_4_0"/>
-    <junction id=":A2_9_0" type="internal" x="0.02" y="20.50" incLanes=":A2_1_0 A1A2_0" intLanes=":A2_4_0 :A2_5_0 :A2_6_0 :A2_7_0"/>
-    <junction id=":A2_10_0" type="internal" x="0.00" y="25.20" incLanes=":A2_2_0 A1A2_0 B2A2_0" intLanes=":A2_3_0 :A2_7_0"/>
-    <junction id=":A2_11_0" type="internal" x="0.00" y="16.70" incLanes=":A2_8_0 A3A2_0 B2A2_0" intLanes=":A2_0_0 :A2_4_0"/>
-    <junction id=":B0_9_0" type="internal" x="13.30" y="0.00" incLanes=":B0_5_0 A0B0_0 B1B0_0" intLanes=":B0_1_0 :B0_6_0"/>
-    <junction id=":B0_10_0" type="internal" x="9.50" y="0.02" incLanes=":B0_7_0 C0B0_0" intLanes=":B0_1_0 :B0_2_0 :B0_3_0 :B0_4_0"/>
-    <junction id=":B0_11_0" type="internal" x="4.80" y="0.00" incLanes=":B0_8_0 B1B0_0 C0B0_0" intLanes=":B0_0_0 :B0_4_0"/>
-    <junction id=":B1_16_0" type="internal" x="10.00" y="11.19" incLanes=":B1_2_0 B0B1_0" intLanes=":B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_9_0 :B1_10_0 :B1_13_0 :B1_14_0"/>
-    <junction id=":B1_17_0" type="internal" x="10.00" y="13.30" incLanes=":B1_3_0 A1B1_0 B0B1_0 C1B1_0" intLanes=":B1_4_0 :B1_9_0 :B1_14_0"/>
-    <junction id=":B1_18_0" type="internal" x="10.00" y="8.81" incLanes=":B1_10_0 :B1_2_0 B2B1_0" intLanes=":B1_16_0 :B1_0_0 :B1_1_0 :B1_2_0 :B1_5_0 :B1_6_0 :B1_13_0 :B1_14_0 :B1_15_0"/>
-    <junction id=":B1_19_0" type="internal" x="10.00" y="6.70" incLanes=":B1_11_0 A1B1_0 B2B1_0 C1B1_0" intLanes=":B1_1_0 :B1_6_0 :B1_12_0"/>
-    <junction id=":B2_16_0" type="internal" x="10.00" y="21.19" incLanes=":B2_2_0 B1B2_0" intLanes=":B2_5_0 :B2_6_0 :B2_7_0 :B2_8_0 :B2_9_0 :B2_10_0 :B2_13_0 :B2_14_0"/>
-    <junction id=":B2_17_0" type="internal" x="10.00" y="23.30" incLanes=":B2_3_0 A2B2_0 B1B2_0 C2B2_0" intLanes=":B2_4_0 :B2_9_0 :B2_14_0"/>
-    <junction id=":B2_18_0" type="internal" x="10.00" y="18.81" incLanes=":B2_10_0 :B2_2_0 B3B2_0" intLanes=":B2_16_0 :B2_0_0 :B2_1_0 :B2_2_0 :B2_5_0 :B2_6_0 :B2_13_0 :B2_14_0 :B2_15_0"/>
-    <junction id=":B2_19_0" type="internal" x="10.00" y="16.70" incLanes=":B2_11_0 A2B2_0 B3B2_0 C2B2_0" intLanes=":B2_1_0 :B2_6_0 :B2_12_0"/>
-    <junction id=":B3_9_0" type="internal" x="10.03" y="29.98" incLanes=":B3_1_0 A3B3_0" intLanes=":B3_4_0 :B3_5_0 :B3_6_0 :B3_7_0"/>
-    <junction id=":B3_10_0" type="internal" x="13.30" y="30.00" incLanes=":B3_2_0 A3B3_0 B2B3_0" intLanes=":B3_3_0 :B3_7_0"/>
-    <junction id=":B3_11_0" type="internal" x="4.75" y="30.05" incLanes=":B3_8_0 B2B3_0 C3B3_0" intLanes=":B3_0_0 :B3_4_0"/>
-    <junction id=":C0_9_0" type="internal" x="25.20" y="-0.00" incLanes=":C0_5_0 B0C0_0 C1C0_0" intLanes=":C0_1_0 :C0_6_0"/>
-    <junction id=":C0_10_0" type="internal" x="19.97" y="0.02" incLanes=":C0_7_0 D0C0_0" intLanes=":C0_1_0 :C0_2_0 :C0_3_0 :C0_4_0"/>
-    <junction id=":C0_11_0" type="internal" x="16.70" y="-0.00" incLanes=":C0_8_0 C1C0_0 D0C0_0" intLanes=":C0_0_0 :C0_4_0"/>
-    <junction id=":C1_16_0" type="internal" x="20.00" y="11.19" incLanes=":C1_2_0 C0C1_0" intLanes=":C1_5_0 :C1_6_0 :C1_7_0 :C1_8_0 :C1_9_0 :C1_10_0 :C1_13_0 :C1_14_0"/>
-    <junction id=":C1_17_0" type="internal" x="20.00" y="13.30" incLanes=":C1_3_0 B1C1_0 C0C1_0 D1C1_0" intLanes=":C1_4_0 :C1_9_0 :C1_14_0"/>
-    <junction id=":C1_18_0" type="internal" x="20.00" y="8.81" incLanes=":C1_10_0 :C1_2_0 C2C1_0" intLanes=":C1_16_0 :C1_0_0 :C1_1_0 :C1_2_0 :C1_5_0 :C1_6_0 :C1_13_0 :C1_14_0 :C1_15_0"/>
-    <junction id=":C1_19_0" type="internal" x="20.00" y="6.70" incLanes=":C1_11_0 B1C1_0 C2C1_0 D1C1_0" intLanes=":C1_1_0 :C1_6_0 :C1_12_0"/>
-    <junction id=":C2_16_0" type="internal" x="20.00" y="21.19" incLanes=":C2_2_0 C1C2_0" intLanes=":C2_5_0 :C2_6_0 :C2_7_0 :C2_8_0 :C2_9_0 :C2_10_0 :C2_13_0 :C2_14_0"/>
-    <junction id=":C2_17_0" type="internal" x="20.00" y="23.30" incLanes=":C2_3_0 B2C2_0 C1C2_0 D2C2_0" intLanes=":C2_4_0 :C2_9_0 :C2_14_0"/>
-    <junction id=":C2_18_0" type="internal" x="20.00" y="18.81" incLanes=":C2_10_0 :C2_2_0 C3C2_0" intLanes=":C2_16_0 :C2_0_0 :C2_1_0 :C2_2_0 :C2_5_0 :C2_6_0 :C2_13_0 :C2_14_0 :C2_15_0"/>
-    <junction id=":C2_19_0" type="internal" x="20.00" y="16.70" incLanes=":C2_11_0 B2C2_0 C3C2_0 D2C2_0" intLanes=":C2_1_0 :C2_6_0 :C2_12_0"/>
-    <junction id=":C3_9_0" type="internal" x="20.50" y="29.98" incLanes=":C3_1_0 B3C3_0" intLanes=":C3_4_0 :C3_5_0 :C3_6_0 :C3_7_0"/>
-    <junction id=":C3_10_0" type="internal" x="25.25" y="29.95" incLanes=":C3_2_0 B3C3_0 C2C3_0" intLanes=":C3_3_0 :C3_7_0"/>
-    <junction id=":C3_11_0" type="internal" x="16.70" y="30.00" incLanes=":C3_8_0 C2C3_0 D3C3_0" intLanes=":C3_0_0 :C3_4_0"/>
-    <junction id=":D1_9_0" type="internal" x="30.00" y="13.30" incLanes=":D1_2_0 C1D1_0 D0D1_0" intLanes=":D1_3_0 :D1_7_0"/>
-    <junction id=":D1_10_0" type="internal" x="29.98" y="9.50" incLanes=":D1_4_0 D2D1_0" intLanes=":D1_0_0 :D1_1_0 :D1_7_0 :D1_8_0"/>
-    <junction id=":D1_11_0" type="internal" x="29.95" y="4.75" incLanes=":D1_5_0 C1D1_0 D2D1_0" intLanes=":D1_1_0 :D1_6_0"/>
-    <junction id=":D2_9_0" type="internal" x="30.05" y="25.25" incLanes=":D2_2_0 C2D2_0 D1D2_0" intLanes=":D2_3_0 :D2_7_0"/>
-    <junction id=":D2_10_0" type="internal" x="29.98" y="19.97" incLanes=":D2_4_0 D3D2_0" intLanes=":D2_0_0 :D2_1_0 :D2_7_0 :D2_8_0"/>
-    <junction id=":D2_11_0" type="internal" x="30.00" y="16.70" incLanes=":D2_5_0 C2D2_0 D3D2_0" intLanes=":D2_1_0 :D2_6_0"/>
+    <junction id=":A1_9_0" type="internal" x="-0.96" y="11.66" incLanes=":A1_1_0 A0A1_0" intLanes=":A1_4_0 :A1_5_0 :A1_6_0 :A1_7_0"/>
+    <junction id=":A1_10_0" type="internal" x="-0.80" y="13.70" incLanes=":A1_2_0 A0A1_0 B1A1_0" intLanes=":A1_3_0 :A1_7_0"/>
+    <junction id=":A1_11_0" type="internal" x="0.80" y="4.40" incLanes=":A1_8_0 A2A1_0 B1A1_0" intLanes=":A1_0_0 :A1_4_0"/>
+    <junction id=":A2_9_0" type="internal" x="-0.94" y="22.58" incLanes=":A2_1_0 A1A2_0" intLanes=":A2_4_0 :A2_5_0 :A2_6_0 :A2_7_0"/>
+    <junction id=":A2_10_0" type="internal" x="-0.80" y="25.60" incLanes=":A2_2_0 A1A2_0 B2A2_0" intLanes=":A2_3_0 :A2_7_0"/>
+    <junction id=":A2_11_0" type="internal" x="0.80" y="16.30" incLanes=":A2_8_0 A3A2_0 B2A2_0" intLanes=":A2_0_0 :A2_4_0"/>
+    <junction id=":B0_9_0" type="internal" x="13.70" y="0.80" incLanes=":B0_5_0 A0B0_0 B1B0_0" intLanes=":B0_1_0 :B0_6_0"/>
+    <junction id=":B0_10_0" type="internal" x="7.42" y="-0.94" incLanes=":B0_7_0 C0B0_0" intLanes=":B0_1_0 :B0_2_0 :B0_3_0 :B0_4_0"/>
+    <junction id=":B0_11_0" type="internal" x="4.40" y="-0.80" incLanes=":B0_8_0 B1B0_0 C0B0_0" intLanes=":B0_0_0 :B0_4_0"/>
+    <junction id=":B1_16_0" type="internal" x="8.95" y="12.72" incLanes=":B1_2_0 B0B1_0" intLanes=":B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_9_0 :B1_10_0 :B1_13_0 :B1_14_0"/>
+    <junction id=":B1_17_0" type="internal" x="9.20" y="13.70" incLanes=":B1_3_0 A1B1_0 B0B1_0 C1B1_0" intLanes=":B1_4_0 :B1_9_0 :B1_14_0"/>
+    <junction id=":B1_18_0" type="internal" x="11.05" y="7.28" incLanes=":B1_10_0 :B1_2_0 B2B1_0" intLanes=":B1_16_0 :B1_0_0 :B1_1_0 :B1_2_0 :B1_5_0 :B1_6_0 :B1_13_0 :B1_14_0 :B1_15_0"/>
+    <junction id=":B1_19_0" type="internal" x="10.80" y="6.30" incLanes=":B1_11_0 A1B1_0 B2B1_0 C1B1_0" intLanes=":B1_1_0 :B1_6_0 :B1_12_0"/>
+    <junction id=":B2_16_0" type="internal" x="8.95" y="22.72" incLanes=":B2_2_0 B1B2_0" intLanes=":B2_5_0 :B2_6_0 :B2_7_0 :B2_8_0 :B2_9_0 :B2_10_0 :B2_13_0 :B2_14_0"/>
+    <junction id=":B2_17_0" type="internal" x="9.20" y="23.70" incLanes=":B2_3_0 A2B2_0 B1B2_0 C2B2_0" intLanes=":B2_4_0 :B2_9_0 :B2_14_0"/>
+    <junction id=":B2_18_0" type="internal" x="11.05" y="17.28" incLanes=":B2_10_0 :B2_2_0 B3B2_0" intLanes=":B2_16_0 :B2_0_0 :B2_1_0 :B2_2_0 :B2_5_0 :B2_6_0 :B2_13_0 :B2_14_0 :B2_15_0"/>
+    <junction id=":B2_19_0" type="internal" x="10.80" y="16.30" incLanes=":B2_11_0 A2B2_0 B3B2_0 C2B2_0" intLanes=":B2_1_0 :B2_6_0 :B2_12_0"/>
+    <junction id=":B3_9_0" type="internal" x="11.66" y="30.96" incLanes=":B3_1_0 A3B3_0" intLanes=":B3_4_0 :B3_5_0 :B3_6_0 :B3_7_0"/>
+    <junction id=":B3_10_0" type="internal" x="13.70" y="30.80" incLanes=":B3_2_0 A3B3_0 B2B3_0" intLanes=":B3_3_0 :B3_7_0"/>
+    <junction id=":B3_11_0" type="internal" x="4.38" y="29.24" incLanes=":B3_8_0 B2B3_0 C3B3_0" intLanes=":B3_0_0 :B3_4_0"/>
+    <junction id=":C0_9_0" type="internal" x="25.60" y="0.80" incLanes=":C0_5_0 B0C0_0 C1C0_0" intLanes=":C0_1_0 :C0_6_0"/>
+    <junction id=":C0_10_0" type="internal" x="18.34" y="-0.96" incLanes=":C0_7_0 D0C0_0" intLanes=":C0_1_0 :C0_2_0 :C0_3_0 :C0_4_0"/>
+    <junction id=":C0_11_0" type="internal" x="16.30" y="-0.80" incLanes=":C0_8_0 C1C0_0 D0C0_0" intLanes=":C0_0_0 :C0_4_0"/>
+    <junction id=":C1_16_0" type="internal" x="18.95" y="12.72" incLanes=":C1_2_0 C0C1_0" intLanes=":C1_5_0 :C1_6_0 :C1_7_0 :C1_8_0 :C1_9_0 :C1_10_0 :C1_13_0 :C1_14_0"/>
+    <junction id=":C1_17_0" type="internal" x="19.20" y="13.70" incLanes=":C1_3_0 B1C1_0 C0C1_0 D1C1_0" intLanes=":C1_4_0 :C1_9_0 :C1_14_0"/>
+    <junction id=":C1_18_0" type="internal" x="21.05" y="7.28" incLanes=":C1_10_0 :C1_2_0 C2C1_0" intLanes=":C1_16_0 :C1_0_0 :C1_1_0 :C1_2_0 :C1_5_0 :C1_6_0 :C1_13_0 :C1_14_0 :C1_15_0"/>
+    <junction id=":C1_19_0" type="internal" x="20.80" y="6.30" incLanes=":C1_11_0 B1C1_0 C2C1_0 D1C1_0" intLanes=":C1_1_0 :C1_6_0 :C1_12_0"/>
+    <junction id=":C2_16_0" type="internal" x="18.95" y="22.72" incLanes=":C2_2_0 C1C2_0" intLanes=":C2_5_0 :C2_6_0 :C2_7_0 :C2_8_0 :C2_9_0 :C2_10_0 :C2_13_0 :C2_14_0"/>
+    <junction id=":C2_17_0" type="internal" x="19.20" y="23.70" incLanes=":C2_3_0 B2C2_0 C1C2_0 D2C2_0" intLanes=":C2_4_0 :C2_9_0 :C2_14_0"/>
+    <junction id=":C2_18_0" type="internal" x="21.05" y="17.28" incLanes=":C2_10_0 :C2_2_0 C3C2_0" intLanes=":C2_16_0 :C2_0_0 :C2_1_0 :C2_2_0 :C2_5_0 :C2_6_0 :C2_13_0 :C2_14_0 :C2_15_0"/>
+    <junction id=":C2_19_0" type="internal" x="20.80" y="16.30" incLanes=":C2_11_0 B2C2_0 C3C2_0 D2C2_0" intLanes=":C2_1_0 :C2_6_0 :C2_12_0"/>
+    <junction id=":C3_9_0" type="internal" x="22.58" y="30.94" incLanes=":C3_1_0 B3C3_0" intLanes=":C3_4_0 :C3_5_0 :C3_6_0 :C3_7_0"/>
+    <junction id=":C3_10_0" type="internal" x="25.62" y="30.76" incLanes=":C3_2_0 B3C3_0 C2C3_0" intLanes=":C3_3_0 :C3_7_0"/>
+    <junction id=":C3_11_0" type="internal" x="16.30" y="29.20" incLanes=":C3_8_0 C2C3_0 D3C3_0" intLanes=":C3_0_0 :C3_4_0"/>
+    <junction id=":D1_9_0" type="internal" x="29.20" y="13.70" incLanes=":D1_2_0 C1D1_0 D0D1_0" intLanes=":D1_3_0 :D1_7_0"/>
+    <junction id=":D1_10_0" type="internal" x="30.94" y="7.42" incLanes=":D1_4_0 D2D1_0" intLanes=":D1_0_0 :D1_1_0 :D1_7_0 :D1_8_0"/>
+    <junction id=":D1_11_0" type="internal" x="30.76" y="4.38" incLanes=":D1_5_0 C1D1_0 D2D1_0" intLanes=":D1_1_0 :D1_6_0"/>
+    <junction id=":D2_9_0" type="internal" x="29.24" y="25.62" incLanes=":D2_2_0 C2D2_0 D1D2_0" intLanes=":D2_3_0 :D2_7_0"/>
+    <junction id=":D2_10_0" type="internal" x="30.96" y="18.34" incLanes=":D2_4_0 D3D2_0" intLanes=":D2_0_0 :D2_1_0 :D2_7_0 :D2_8_0"/>
+    <junction id=":D2_11_0" type="internal" x="30.80" y="16.30" incLanes=":D2_5_0 C2D2_0 D3D2_0" intLanes=":D2_1_0 :D2_6_0"/>
 
     <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" via=":A1_6_0" dir="r" state="M"/>
     <connection from="A0A1" to="A1A2" fromLane="0" toLane="0" via=":A1_7_0" dir="s" state="M"/>

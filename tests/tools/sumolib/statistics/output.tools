@@ -4,9 +4,9 @@
 0
 3.8376128944009875
 10: no values
-10: count 1, min 1.00, max 1.00, mean 1.00 Q1 1.00, median 1.00, Q3 1.00
-5: count 3, min 3.00, max 5.00, mean 4.00 Q1 3.00, median 4.00, Q3 5.00
-10: count 4, min 1.00, max 5.00, mean 3.25 Q1 3.00, median 4.00, Q3 5.00
+10: count 1, min 1.00, max 1.00, mean 1.00, Q1 1.00, median 1.00, Q3 1.00
+5: count 3, min 3.00, max 5.00, mean 4.00, Q1 3.00, median 4.00, Q3 5.00
+10: count 4, min 1.00, max 5.00, mean 3.25, Q1 3.00, median 4.00, Q3 5.00
 10: no values
 4
 3.25

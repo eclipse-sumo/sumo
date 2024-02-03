@@ -29,9 +29,18 @@ state
 # emission tools, especially emissionDrivingCycleemissions
 emissions
 
+# emission tools, especially emissionDrivingCycleemissions
+emissionsMap
+
 # scenario generation
 scenario_generation
 unit_tests
 
 # Testing the TraCI java and web service interface
 traas
+
+# Testing the libtraci/libsumo based java API 
+traci_java
+
+# FMI related tests
+fmi

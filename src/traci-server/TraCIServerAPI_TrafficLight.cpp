@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,52 +45,30 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::TL_COMPLETE_DEFINITION_RYG: {
-                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
+                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getAllProgramLogics(id);
                     tcpip::Storage& storage = server.getWrapperStorage();
-                    storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    storage.writeInt((int)logics.size());
+                    StoHelp::writeCompound(storage, (int)logics.size());
                     for (const libsumo::TraCILogic& logic : logics) {
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt(5);
-                        storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                        storage.writeString(logic.programID);
-                        // type
-                        storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        storage.writeInt(logic.type);
-                        // (current) phase index
-                        storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        storage.writeInt(logic.currentPhaseIndex);
-                        // phase number
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt((int)logic.phases.size());
-                        for (const libsumo::TraCIPhase* phase : logic.phases) {
-                            storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt(6);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->duration);
-                            storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase->state);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->minDur);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->maxDur);
-                            storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt((int)phase->next.size());
+                        StoHelp::writeCompound(storage, 5);
+                        StoHelp::writeTypedString(storage, logic.programID);
+                        StoHelp::writeTypedInt(storage, logic.type);
+                        StoHelp::writeTypedInt(storage, logic.currentPhaseIndex);
+                        StoHelp::writeCompound(storage, (int)logic.phases.size());
+                        for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+                            StoHelp::writeCompound(storage, 6);
+                            StoHelp::writeTypedDouble(storage, phase->duration);
+                            StoHelp::writeTypedString(storage, phase->state);
+                            StoHelp::writeTypedDouble(storage, phase->minDur);
+                            StoHelp::writeTypedDouble(storage, phase->maxDur);
+                            StoHelp::writeCompound(storage, (int)phase->next.size());
                             for (int n : phase->next) {
-                                storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                                storage.writeInt(n);
+                                StoHelp::writeTypedInt(storage, n);
                             }
-                            storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase->name);
+                            StoHelp::writeTypedString(storage, phase->name);
                         }
-                        // subparameter
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt((int)logic.subParameter.size());
+                        StoHelp::writeCompound(storage, (int)logic.subParameter.size());
                         for (const auto& item : logic.subParameter) {
-                            storage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                            storage.writeInt(2);
-                            storage.writeString(item.first);
-                            storage.writeString(item.second);
+                            StoHelp::writeTypedStringList(storage, std::vector<std::string> {item.first, item.second});
                         }
                     }
                     break;
@@ -99,9 +77,9 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     const std::vector<std::vector<libsumo::TraCILink> > links = libsumo::TrafficLight::getControlledLinks(id);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     tcpip::Storage tempContent;
-                    int cnt = 0;
                     tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
                     tempContent.writeInt((int)links.size());
+                    int cnt = 1;
                     for (const std::vector<libsumo::TraCILink>& sublinks : links) {
                         tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
                         tempContent.writeInt((int)sublinks.size());
@@ -164,13 +142,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -186,13 +158,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -221,13 +187,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -237,9 +197,9 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     }
                     MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
                     const std::string& state = tls->getCurrentPhaseDef().getState();
-                    const std::map<std::string, std::string>& params = tls->getParametersMap();
+                    const Parameterised::Map& params = tls->getParametersMap();
                     int num = 0;
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
                         if ("connection:" == (*i).first.substr(0, 11)) {
                             ++num;
                         }
@@ -248,7 +208,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt(num * 2);
-                    for (std::map<std::string, std::string>::const_iterator i = params.begin(); i != params.end(); ++i) {
+                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
                         if ("connection:" != (*i).first.substr(0, 11)) {
                             continue;
                         }
@@ -314,6 +274,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             && variable != libsumo::TL_RED_YELLOW_GREEN_STATE && variable != libsumo::TL_COMPLETE_PROGRAM_RYG
             && variable != libsumo::VAR_NAME
             && variable != libsumo::TL_CONSTRAINT_REMOVE
+            && variable != libsumo::TL_CONSTRAINT_UPDATE
+            && variable != libsumo::TL_CONSTRAINT_ADD
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -455,6 +417,43 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 libsumo::TrafficLight::removeConstraints(id, tripId, foeSignal, foeId);
             }
             break;
+            case libsumo::TL_CONSTRAINT_UPDATE: {
+                std::string tripId;
+                if (!server.readTypeCheckingString(inputStorage, tripId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId index must be given as a string.", outputStorage);
+                }
+                libsumo::TrafficLight::updateConstraints(id, tripId);
+            }
+            break;
+            case libsumo::TL_CONSTRAINT_ADD: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for adding constraints.", outputStorage);
+                }
+                //read itemNo
+                inputStorage.readInt();
+                std::string tripId;
+                if (!server.readTypeCheckingString(inputStorage, tripId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
+                }
+                std::string foeSignal;
+                if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe signal must be given as a string.", outputStorage);
+                }
+                std::string foeId;
+                if (!server.readTypeCheckingString(inputStorage, foeId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
+                }
+                int type;
+                if (!server.readTypeCheckingInt(inputStorage, type)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The type must be an int.", outputStorage);
+                }
+                int limit;
+                if (!server.readTypeCheckingInt(inputStorage, limit)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The limit must be an int.", outputStorage);
+                }
+                libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
+            }
+            break;
             case libsumo::VAR_PARAMETER: {
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
@@ -480,6 +479,25 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     }
     server.writeStatusCmd(libsumo::CMD_SET_TL_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
     return true;
+}
+
+
+void
+TraCIServerAPI_TrafficLight::writeConstraint(TraCIServer& server, const libsumo::TraCISignalConstraint& c) {
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
+    StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
+    StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
+    StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+    StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
+    std::vector<std::string> paramItems;
+    for (auto item : c.param) {
+        paramItems.push_back(item.first);
+        paramItems.push_back(item.second);
+    }
+    StoHelp::writeTypedStringList(server.getWrapperStorage(), paramItems);
 }
 
 

@@ -1,3 +1,3 @@
 Warning: Vaporizers are deprecated. Use rerouters instead.
-Error: Attribute 'begin' in definition of a vaporizer is not a time value.
+Error: Attribute 'begin' in definition of a vaporizer is not a valid time value.
 Quitting (on error).

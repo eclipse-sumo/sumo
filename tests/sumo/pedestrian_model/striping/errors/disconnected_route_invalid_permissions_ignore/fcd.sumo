@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  4 08:10:50 2018 by Eclipse SUMO Version a5ce12e
+<!-- generated on 2023-03-14 14:56:00 by Eclipse SUMO sumo Version v1_16_0+1284-919e2e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,8 +25,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
-        <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.dawdling value="0.0"/>
     </processing>
 
     <report>
@@ -58,133 +64,157 @@ SPDX-License-Identifier: EPL-2.0
         <person id="p0" x="42.52" y="-2.88" angle="90.00" speed="1.39" pos="42.52" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <person id="p0" x="55.11" y="-2.88" angle="90.00" speed="1.39" pos="1.11" edge="middle" slope="0.00"/>
+        <person id="p0" x="43.91" y="-2.88" angle="90.00" speed="1.39" pos="1.11" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <person id="p0" x="56.50" y="-2.88" angle="90.00" speed="1.39" pos="2.50" edge="middle" slope="0.00"/>
+        <person id="p0" x="45.30" y="-2.88" angle="90.00" speed="1.39" pos="2.50" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <person id="p0" x="57.89" y="-2.88" angle="90.00" speed="1.39" pos="3.89" edge="middle" slope="0.00"/>
+        <person id="p0" x="46.69" y="-2.88" angle="90.00" speed="1.39" pos="3.89" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <person id="p0" x="59.28" y="-2.88" angle="90.00" speed="1.39" pos="5.28" edge="middle" slope="0.00"/>
+        <person id="p0" x="48.08" y="-2.88" angle="90.00" speed="1.39" pos="5.28" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <person id="p0" x="60.67" y="-2.88" angle="90.00" speed="1.39" pos="6.67" edge="middle" slope="0.00"/>
+        <person id="p0" x="49.47" y="-2.88" angle="90.00" speed="1.39" pos="6.67" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <person id="p0" x="62.06" y="-2.88" angle="90.00" speed="1.39" pos="8.06" edge="middle" slope="0.00"/>
+        <person id="p0" x="50.86" y="-2.88" angle="90.00" speed="1.39" pos="8.06" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <person id="p0" x="63.44" y="-2.88" angle="90.00" speed="1.39" pos="9.44" edge="middle" slope="0.00"/>
+        <person id="p0" x="52.24" y="-2.88" angle="90.00" speed="1.39" pos="9.44" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <person id="p0" x="64.83" y="-2.88" angle="90.00" speed="1.39" pos="10.83" edge="middle" slope="0.00"/>
+        <person id="p0" x="53.63" y="-2.88" angle="90.00" speed="1.39" pos="10.83" edge=":2_1" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <person id="p0" x="66.22" y="-2.88" angle="90.00" speed="1.39" pos="12.22" edge="middle" slope="0.00"/>
+        <person id="p0" x="55.02" y="-2.88" angle="90.00" speed="1.39" pos="1.02" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <person id="p0" x="67.61" y="-2.88" angle="90.00" speed="1.39" pos="13.61" edge="middle" slope="0.00"/>
+        <person id="p0" x="56.41" y="-2.88" angle="90.00" speed="1.39" pos="2.41" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <person id="p0" x="69.00" y="-2.88" angle="90.00" speed="1.39" pos="15.00" edge="middle" slope="0.00"/>
+        <person id="p0" x="57.80" y="-2.88" angle="90.00" speed="1.39" pos="3.80" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <person id="p0" x="70.39" y="-2.88" angle="90.00" speed="1.39" pos="16.39" edge="middle" slope="0.00"/>
+        <person id="p0" x="59.19" y="-2.88" angle="90.00" speed="1.39" pos="5.19" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <person id="p0" x="71.78" y="-2.88" angle="90.00" speed="1.39" pos="17.78" edge="middle" slope="0.00"/>
+        <person id="p0" x="60.58" y="-2.88" angle="90.00" speed="1.39" pos="6.58" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <person id="p0" x="73.17" y="-2.88" angle="90.00" speed="1.39" pos="19.17" edge="middle" slope="0.00"/>
+        <person id="p0" x="61.97" y="-2.88" angle="90.00" speed="1.39" pos="7.97" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <person id="p0" x="74.56" y="-2.88" angle="90.00" speed="1.39" pos="20.56" edge="middle" slope="0.00"/>
+        <person id="p0" x="63.36" y="-2.88" angle="90.00" speed="1.39" pos="9.36" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <person id="p0" x="75.94" y="-2.88" angle="90.00" speed="1.39" pos="21.94" edge="middle" slope="0.00"/>
+        <person id="p0" x="64.74" y="-2.88" angle="90.00" speed="1.39" pos="10.74" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <person id="p0" x="77.33" y="-2.88" angle="90.00" speed="1.39" pos="23.33" edge="middle" slope="0.00"/>
+        <person id="p0" x="66.13" y="-2.88" angle="90.00" speed="1.39" pos="12.13" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
-        <person id="p0" x="78.72" y="-2.88" angle="90.00" speed="1.39" pos="24.72" edge="middle" slope="0.00"/>
+        <person id="p0" x="67.52" y="-2.88" angle="90.00" speed="1.39" pos="13.52" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <person id="p0" x="80.11" y="-2.88" angle="90.00" speed="1.39" pos="26.11" edge="middle" slope="0.00"/>
+        <person id="p0" x="68.91" y="-2.88" angle="90.00" speed="1.39" pos="14.91" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <person id="p0" x="81.50" y="-2.88" angle="90.00" speed="1.39" pos="27.50" edge="middle" slope="0.00"/>
+        <person id="p0" x="70.30" y="-2.88" angle="90.00" speed="1.39" pos="16.30" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
-        <person id="p0" x="82.89" y="-2.88" angle="90.00" speed="1.39" pos="28.89" edge="middle" slope="0.00"/>
+        <person id="p0" x="71.69" y="-2.88" angle="90.00" speed="1.39" pos="17.69" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <person id="p0" x="84.28" y="-2.88" angle="90.00" speed="1.39" pos="30.28" edge="middle" slope="0.00"/>
+        <person id="p0" x="73.08" y="-2.88" angle="90.00" speed="1.39" pos="19.08" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <person id="p0" x="85.67" y="-2.88" angle="90.00" speed="1.39" pos="31.67" edge="middle" slope="0.00"/>
+        <person id="p0" x="74.47" y="-2.88" angle="90.00" speed="1.39" pos="20.47" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
-        <person id="p0" x="87.06" y="-2.88" angle="90.00" speed="1.39" pos="33.06" edge="middle" slope="0.00"/>
+        <person id="p0" x="75.86" y="-2.88" angle="90.00" speed="1.39" pos="21.86" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <person id="p0" x="88.44" y="-2.88" angle="90.00" speed="1.39" pos="34.44" edge="middle" slope="0.00"/>
+        <person id="p0" x="77.24" y="-2.88" angle="90.00" speed="1.39" pos="23.24" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <person id="p0" x="89.83" y="-2.88" angle="90.00" speed="1.39" pos="35.83" edge="middle" slope="0.00"/>
+        <person id="p0" x="78.63" y="-2.88" angle="90.00" speed="1.39" pos="24.63" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <person id="p0" x="91.22" y="-2.88" angle="90.00" speed="1.39" pos="37.22" edge="middle" slope="0.00"/>
+        <person id="p0" x="80.02" y="-2.88" angle="90.00" speed="1.39" pos="26.02" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
-        <person id="p0" x="92.61" y="-2.88" angle="90.00" speed="1.39" pos="38.61" edge="middle" slope="0.00"/>
+        <person id="p0" x="81.41" y="-2.88" angle="90.00" speed="1.39" pos="27.41" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="36.00">
-        <person id="p0" x="94.00" y="-2.88" angle="90.00" speed="1.39" pos="1.20" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="82.80" y="-2.88" angle="90.00" speed="1.39" pos="28.80" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <person id="p0" x="95.39" y="-2.88" angle="90.00" speed="1.39" pos="2.59" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="84.19" y="-2.88" angle="90.00" speed="1.39" pos="30.19" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <person id="p0" x="96.78" y="-2.88" angle="90.00" speed="1.39" pos="3.98" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="85.58" y="-2.88" angle="90.00" speed="1.39" pos="31.58" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <person id="p0" x="98.17" y="-2.88" angle="90.00" speed="1.39" pos="5.37" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="86.97" y="-2.88" angle="90.00" speed="1.39" pos="32.97" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <person id="p0" x="99.56" y="-2.88" angle="90.00" speed="1.39" pos="6.76" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="88.36" y="-2.88" angle="90.00" speed="1.39" pos="34.36" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <person id="p0" x="100.94" y="-2.88" angle="90.00" speed="1.39" pos="8.14" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="89.74" y="-2.88" angle="90.00" speed="1.39" pos="35.74" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <person id="p0" x="102.33" y="-2.88" angle="90.00" speed="1.39" pos="9.53" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="91.13" y="-2.88" angle="90.00" speed="1.39" pos="37.13" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <person id="p0" x="103.72" y="-2.88" angle="90.00" speed="1.39" pos="10.92" edge=":3_1" slope="0.00"/>
+        <person id="p0" x="92.52" y="-2.88" angle="90.00" speed="1.39" pos="38.52" edge="middle" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <person id="p0" x="105.11" y="-2.88" angle="90.00" speed="1.39" pos="1.11" edge="end" slope="0.00"/>
+        <person id="p0" x="93.91" y="-2.88" angle="90.00" speed="1.39" pos="1.11" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="45.00">
-        <person id="p0" x="106.50" y="-2.88" angle="90.00" speed="1.39" pos="2.50" edge="end" slope="0.00"/>
+        <person id="p0" x="95.30" y="-2.88" angle="90.00" speed="1.39" pos="2.50" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
-        <person id="p0" x="107.89" y="-2.88" angle="90.00" speed="1.39" pos="3.89" edge="end" slope="0.00"/>
+        <person id="p0" x="96.69" y="-2.88" angle="90.00" speed="1.39" pos="3.89" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
-        <person id="p0" x="109.28" y="-2.88" angle="90.00" speed="1.39" pos="5.28" edge="end" slope="0.00"/>
+        <person id="p0" x="98.08" y="-2.88" angle="90.00" speed="1.39" pos="5.28" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="48.00">
-        <person id="p0" x="110.67" y="-2.88" angle="90.00" speed="1.39" pos="6.67" edge="end" slope="0.00"/>
+        <person id="p0" x="99.47" y="-2.88" angle="90.00" speed="1.39" pos="6.67" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="49.00">
-        <person id="p0" x="112.06" y="-2.88" angle="90.00" speed="1.39" pos="8.06" edge="end" slope="0.00"/>
+        <person id="p0" x="100.86" y="-2.88" angle="90.00" speed="1.39" pos="8.06" edge=":3_1" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
-        <person id="p0" x="113.44" y="-2.88" angle="90.00" speed="1.39" pos="9.44" edge="end" slope="0.00"/>
+        <person id="p0" x="102.24" y="-2.88" angle="90.00" speed="1.39" pos="9.44" edge=":3_1" slope="0.00"/>
     </timestep>
-    <timestep time="51.00"/>
+    <timestep time="51.00">
+        <person id="p0" x="103.63" y="-2.88" angle="90.00" speed="1.39" pos="10.83" edge=":3_1" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <person id="p0" x="105.02" y="-2.88" angle="90.00" speed="1.39" pos="1.02" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <person id="p0" x="106.41" y="-2.88" angle="90.00" speed="1.39" pos="2.41" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <person id="p0" x="107.80" y="-2.88" angle="90.00" speed="1.39" pos="3.80" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <person id="p0" x="109.19" y="-2.88" angle="90.00" speed="1.39" pos="5.19" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <person id="p0" x="110.58" y="-2.88" angle="90.00" speed="1.39" pos="6.58" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <person id="p0" x="111.97" y="-2.88" angle="90.00" speed="1.39" pos="7.97" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <person id="p0" x="113.36" y="-2.88" angle="90.00" speed="1.39" pos="9.36" edge="end" slope="0.00"/>
+    </timestep>
+    <timestep time="59.00"/>
 </fcd-export>

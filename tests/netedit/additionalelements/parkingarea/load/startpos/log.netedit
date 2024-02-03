@@ -1,0 +1,4 @@
+Error: Attribute 'startPos' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummyStartPosition.
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Invalid position over lane.
+Error: Could not build parkingArea with ID 'parkingArea_3' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\startpos\additionals.add.xml failed.

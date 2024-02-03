@@ -17,9 +17,9 @@ from OpenStreetMap).
 - Apache does not provide binary distributions any longer, but you can
   try our own build of Xerces-C 3.2.0 with an additional patch fixing
   unicode problems [in a 32 bit
-  version](http://sourceforge.net/projects/sumo/files/dependencies/xerces-c-3.2.0-win32vc12.zip)
+  version](https://sourceforge.net/projects/sumo/files/dependencies/xerces-c-3.2.0-win32vc12.zip)
   or its [64bit
-  version](http://sourceforge.net/projects/sumo/files/dependencies/xerces-c-3.2.0-win64vc12.zip)
+  version](https://sourceforge.net/projects/sumo/files/dependencies/xerces-c-3.2.0-win64vc12.zip)
   for the 64bit build.
 - Create a environment variable XERCES pointing to your xerces-c
   directory, e.g.
@@ -38,9 +38,9 @@ set XERCES=D:\libs\xerces-c-3.2.0-win32
 - If you do not need a GUI, you can skip this section.
 - Usually you do not need to build Fox yourself you can [download the
 readily compiled
-binaries](http://sourceforge.net/projects/sumo/files/dependencies/).
+binaries](https://sourceforge.net/projects/sumo/files/dependencies/).
 - If you insist, please [download fresh
-sources](http://www.fox-toolkit.org/download.html) and do not use
+sources](https://www.fox-toolkit.org/download.html) and do not use
 the incomplete package.
 - Up to (and including) SUMO 0.10.3 (precisely up to svn revision
 7025) SUMO used Fox 1.4, now it uses Fox 1.6. The building
@@ -56,7 +56,7 @@ D:\\libs\\fox-1.6.36\\windows\\vcpp\\win32.dsw.
 Studio debugger) version. If you want to build for the 64bit
 platform you need to add a new configuration to the foxdll project
 using the
-[Configuration Manager](http://msdn.microsoft.com/en-us/library/t1hy4dhz(VS.80>).aspx).
+[Configuration Manager](https://msdn.microsoft.com/en-us/library/t1hy4dhz(VS.80>).aspx).
 - You might get approximately 240 warnings and one error, which can
 probably be ignored as long as you can find the resulting DLLs in
 the lib dir.
@@ -79,7 +79,7 @@ set FOX16=D:\libs\fox-1.6.36.
 1.5.2 and 1.6.20 together with zlib 1.2.5 and 1.2.8
 - download zlib sources and libpng sources from
 [\[1\]](http://www.libpng.org/pub/png/libpng.html) and
-[\[2\]](http://www.zlib.net/)
+[\[2\]](https://www.zlib.net/)
 - unzip all zips
 - there is no need to build zlib
 - build pnglib by first adapting the path in
@@ -89,7 +89,7 @@ the vstudio.sln from the same dir to build the libpng project
 <libpng\>\\projects\\vstudio\\Debug\\
 - if you want to be really sure, you can build the pngtest project as
 well and check the output
-- you can build / add futher configurations / platforms if needed
+- you can build / add further configurations / platforms if needed
 - Open the Fox project solution and edit properties of foxdll
   - in the C++/General section add the <libpng\> dir to the include
     path
@@ -103,7 +103,7 @@ your path
 - Warning: This is a little advanced, we were successful with jpeg 8d,
 and 9b the jpeg 8c which can be found at the fox-toolkit site was
 broken
-- download libjpeg sources from [\[4\]](http://www.ijg.org/) and unzip it
+- download libjpeg sources from [\[4\]](https://www.ijg.org/) and unzip it
 - download win32.mak and place it in the jpeg dir
 - open a visual studio command prompt, cd to the jpeg dir and execute
 
@@ -129,9 +129,9 @@ jpeg support linked statically inside) in your path
 
 If you do not need transformation of geocoordinates you can disable PROJ
 and GDAL in
-[build/msvc10/Win32.props](http://apps.sourceforge.net/trac/sumo/browser/trunk/sumo/build/msvc10/Win32.props)
+[build/msvc10/Win32.props](https://apps.sourceforge.net/trac/sumo/browser/trunk/sumo/build/msvc10/Win32.props)
 and / or
-[build/msvc10/x64.props](http://apps.sourceforge.net/trac/sumo/browser/trunk/sumo/build/msvc10/x64.props)
+[build/msvc10/x64.props](https://apps.sourceforge.net/trac/sumo/browser/trunk/sumo/build/msvc10/x64.props)
 (remove the UserMacros lines referencing the relevant \*.lib files and
 remove the Preprocessor definitions HAVE_PROJ and/or HAVE_GDAL) and
 skip this section. Otherwise you have the choice between downloading the

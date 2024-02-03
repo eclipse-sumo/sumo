@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  1 23:33:43 2020 by Eclipse SUMO sumo Version v1_6_0+1092-6182a9482e
+<!-- generated on 2022-09-05 15:21:50 by Eclipse SUMO sumo Version v1_14_1+0839-6887325
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,14 +38,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="p0_0" type="typ0" depart="triggered" arrival="102.00">
+    <vehicle id="p0_0" type="typ0" depart="triggered" arrivalPos="1002.80" arrivalSpeed="0.00" arrival="104.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="person:p0" replacedAtTime="0.00" probability="0" edges="beg"/>
             <route edges="beg middle"/>
         </routeDistribution>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="305.00">
+    <person id="p0" depart="0.00" arrival="307.00">
         <ride from="beg" to="middle" arrivalPos="1002.80" lines="p0_0"/>
         <walk edges="middle end"/>
     </person>

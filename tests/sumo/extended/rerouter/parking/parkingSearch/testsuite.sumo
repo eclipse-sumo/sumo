@@ -1,0 +1,44 @@
+default
+
+# driver instantly forgets parkingarea occupancy
+no_memory
+probability
+
+# define 2 parking areas which only differ in probability and check their usage
+probability2
+
+# always remember all visibly occupied parking areas along the way
+active_memory
+
+# use the first free parkingArea along the way
+parkAnywhere_default
+
+# use the first free parkingArea along the way
+parkAnywhere_0
+
+# use the first free parkingArea along the way (but no others nearby)
+parkAnywhere_0_probability
+
+# use the first free parkingArea along the way
+parkAnywhere_1
+
+# with all areas visible
+parkAnywhere_1_visible
+
+# test frustration after prolonged parking search
+frustration_10
+
+# parking search must not stall when all alternatives are visibly occupied
+all_visible
+
+# handle brakeGap when using random occupied parkingArea (#10201)
+all_visible_brakeGap
+
+# permit opposite direction driving during parking search
+opposite
+
+# permit opposite direction driving during parking search
+opposite2
+
+# the current target parkingArea should always be visible while the ego vehicle is on the parkingArea edge regardless of inclusion in the parkingAreaReroute alternatives.
+implicit_visibility

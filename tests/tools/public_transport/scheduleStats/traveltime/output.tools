@@ -1,0 +1,13 @@
+Parsed 8 stops
+Parsed 8 stopinfos
+Found 8 matches
+  vehID tripId   stopID priorStop  arrival  until  started  ended  traveltime  traveltime_actual  sim_started  sim_ended  sim_traveltime
+0    v0     t0   stop_a      None     40.0  100.0      NaN  120.0         NaN                NaN         11.0      100.0             NaN
+1    v0     t0   stop_c    stop_a    140.0  200.0      NaN  300.0        40.0                NaN        122.0      200.0            22.0
+2    v0     t1  stop_c2    stop_c    240.0  300.0      NaN    NaN        40.0                NaN        217.0      300.0            17.0
+3    v0     t1   stop_e   stop_c2    340.0  400.0      NaN    NaN        40.0                NaN        320.0      400.0            20.0
+4    v1     t2   stop_f      None     40.0  100.0      NaN    NaN         NaN                NaN         13.0      100.0             NaN
+5    v1     t2   stop_c    stop_f    100.0  160.0      NaN    NaN         0.0                NaN        209.0      269.0           109.0
+6    v1     t3  stop_c2    stop_c    180.0  220.0      NaN    NaN        20.0                NaN        309.0      369.0            40.0
+7    v1     t3   stop_i   stop_c2    220.0  280.0      NaN    NaN         0.0                NaN        396.0      456.0            27.0
+traveltime schedule delta: count 8, min -109.0 (t2_stop_c), max 23.0 (t1_stop_c2), mean -11.9, Q1 -20.0, median 0.0, Q3 20.0, mean_abs 27.1, median_abs 20.0

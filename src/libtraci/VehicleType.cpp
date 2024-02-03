@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -183,6 +183,34 @@ VehicleType::getPersonCapacity(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getScale(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_SCALE, typeID);
+}
+
+
+double
+VehicleType::getBoardingDuration(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, typeID);
+}
+
+
+double
+VehicleType::getImpatience(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_IMPATIENCE, typeID);
+}
+
+
+void
+VehicleType::setImpatience(const std::string& typeID, double impatience) {
+    Dom::setDouble(libsumo::VAR_IMPATIENCE, typeID, impatience);
+}
+
+void
+VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration) {
+    Dom::setDouble(libsumo::VAR_BOARDING_DURATION, typeID, boardingDuration);
+}
+
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {
@@ -313,6 +341,11 @@ VehicleType::setMaxSpeedLat(const std::string& typeID, double speed) {
 void
 VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment) {
     Dom::setString(libsumo::VAR_LATALIGNMENT, typeID, latAlignment);
+}
+
+void
+VehicleType::setScale(const std::string& typeID, double value) {
+    Dom::setDouble(libsumo::VAR_SCALE, typeID, value);
 }
 
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,17 +24,19 @@
 #include <version.h>
 #endif
 
-#include "GUIDialog_AboutSUMO.h"
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include "GUIDialog_AboutSUMO.h"
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
-    FXDialogBox(parent, "About Eclipse SUMO sumo-gui", GUIDesignDialogBox) {
+    FXDialogBox(parent, TL("About Eclipse SUMO sumo-gui"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
 
@@ -49,22 +51,22 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     (new FXLabel(descriptionFrame, "SUMO sumo-gui " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, "Graphical user interface for the microscopic, multi-modal traffic simulation SUMO.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
-    (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
+    (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
-    (new FXLinkLabel(this, "https://www.eclipse.org/sumo", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo");
+    (new MFXLinkLabel(this, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

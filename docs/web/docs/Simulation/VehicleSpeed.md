@@ -9,12 +9,24 @@ minimum speed of all influences.
 
 # maxSpeed
 
-The
-[`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+The [`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 models the maximum speed that a vehicle will travel. It can be thought
-of as the maximum speed of the engine or the maximum speed desired by
-the driver under any circumstances (possibly these two aspects will be
-modelled with separate attributes in the future).
+of as the maximum speed of the engine.
+
+# desiredMaxSpeed
+
+The [`<vType>-attribute desiredMaxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of it's type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
+The individual desired max speed serves as another upper bound on speed next to the `maxSpeed` and the road speed limit.
+
+The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
+
+- `pedestrian`: 1.39 (5km/h)
+- `bicycle`: 5.56 (20km/h)
+- all other classes: 2778 (10000km/h)
+
+!!! caution
+    Up to version 1.14.1 this property did not exist, and `maxSpeed` was sometimes used to also model the desired speed. This resulted in a constant default maximum speed for all bicycles.
 
 # edge/lane speed and speedFactor
 
@@ -32,9 +44,9 @@ have a random speedFactor with a deviation of 0.1 and mean of 1.0 which
 means there will be different desired speeds in the vehicle population
 by default.
 
-When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed 
+When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed
 ```
-min(maxSpeed, speedFactor * speedLimit)
+min(maxSpeed, speedFactor * desiredMaxSpeed,  speedFactor * speedLimit)
 ```
 
 !!! note
@@ -64,7 +76,7 @@ may be set independently).
 
 ## Dawdling
 
-Most car-following models support the `sigma`-attribute which models driver
+Some car-following models support the `sigma`-attribute which models driver
 imperfection. For values above **0**, drivers with the default
 car-following model will drive *slower* than would be safe by a random
 amount (between \[0, `accel`\]).
@@ -85,12 +97,17 @@ drivers which drive across the intersection. The [right-of-way rules](../Network
 at an intersection are [defined by the node type-attribute](../Networks/PlainXML.md#node_descriptions)
 and by [traffic lights](../Simulation/Traffic_Lights.md).
 
-The visibility of intersections can be controlled by the visibility
-attribute for the corresponding connections, see [Connection Descriptions](../Networks/PlainXML.md#connection_descriptions).
+If a vehicle hasn't yet entered the intersection, it will in most cases slow down in response to any other vehicles that have already entered the intersection unless there is an unobstructed waiting place [within the intersection (an internal junction)](Intersections.md#waiting_within_the_intersection) to which it can move. If two vehicles in conflict are within the intersection at the same time, a priority order is established based on their time of entering, their speed, the right of way rules and the state of any traffic lights. This priority order determines which of the vehicles has to slow down and which one may drive unimpeded.
+
 Per default, a vehicle approaching from a minor road slows down until it
 is 4.5m away from the intersection (even if no prioritized vehicle is
 nearby). After that it may start to accelerate again if there is a safe
-gap in traffic.
+gap in traffic. This distance models the visibility and may be configured for each [individual connection with the 'visibility' attribute](../Networks/PlainXML.md#connection_descriptions).
+
+Vehicles approaching a junction of type 'zipper' automatically determine a vehicle ordering based on their position and speeds.
+The may have to slow down in order to follow their determined leader smoothly. By default, zipper merging behavior starts 100m ahead of the junction and this distance may also be configured using the 'visibility' attribute.
+
+Vehicles that pass an intersection may also be subject to [reduced speed limits depending on the turning angle](Intersections.md#speed_while_passing_the_intersection).
 
 # Lane Changing
 
@@ -126,6 +143,12 @@ used to modify the speed limit of an edge for a defined time interval.
 [Calibrators](../Simulation/Calibrator.md) are used to adapt the
 flow on an edge for a defined time interval but may also be used to
 modify the speed limit of an edge.
+
+# Devices
+[Vehicle devices](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) are a way to customize vehicle behavior or create additional output. The following devices can impact vehicle speed:
+
+- [glosa](../Simulation/GLOSA.md) : slow down and speed up to smooth speed near traffic lights
+- [driverstate](../Driver_State.md) : random changes to speed based on modelled perception errors with regard to car-following gap and speed difference
 
 # TraCI
 

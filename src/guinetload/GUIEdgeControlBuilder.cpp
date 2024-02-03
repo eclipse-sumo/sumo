@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,14 +46,14 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder() {}
 
 MSLane*
 GUIEdgeControlBuilder::addLane(const std::string& id,
-                               double maxSpeed, double length,
+                               double maxSpeed, double friction, double length,
                                const PositionVector& shape,
                                double width,
                                SVCPermissions permissions,
                                SVCPermissions changeLeft, SVCPermissions changeRight,
                                int index, bool isRampAccel,
                                const std::string& type) {
-    MSLane* lane = new GUILane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
+    MSLane* lane = new GUILane(id, maxSpeed, friction, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
     myLaneStorage->push_back(lane);
     myCurrentLaneIndex = index;
     return lane;

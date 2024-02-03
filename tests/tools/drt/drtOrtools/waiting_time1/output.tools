@@ -1,0 +1,180 @@
+ Retrying in 1 seconds
+Simulation parameters:
+  end: 600.0
+  interval: 30
+  time_limit: 10
+  cost_type: CostType.DISTANCE
+  drf: 1.5
+  waiting_time: 40.0
+  fix_allocation: True
+timestep:  0.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 1 starts at edge C0D0
+Reservation 0 ends at edge C1D1
+Reservation 1 ends at edge D0D1
+Reservation 0 has direct route costs 680
+Reservation 1 has direct route costs 385
+Start solving the problem.
+ Register distance callback.
+ Create time dimension.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+pickup/dropoff nodes: 1/3
+allow to reject new reservation 0
+pickup/dropoff nodes: 2/4
+allow to reject new reservation 1
+ Add direct route factor constraints...
+reservation 0: direct route cost 680 and (hard) max cost 1020
+reservation 1: direct route cost 385 and (hard) max cost 578
+ Add dropoff constraints...
+ Add "no re-allocation" constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+hard time window for node 1: [1, 600]
+hard time window for node 2: [1, 600]
+hard time window for node 3: [1, 600]
+hard time window for node 4: [1, 600]
+hard time window for node 5: [1, 600]
+ Add waiting time constraints...
+reservation 0 has a maximum (hard) pickup time at 40
+reservation 1 has a maximum (hard) pickup time at 40
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective: 15132
+Route for vehicle 0:
+     5 (L: 0, C: 0, T: (1,600))
+ ->  0 (L: 0, C: 0, T: (1,600))
+Costs of the route: 0
+
+Total cost of the routes: 0
+Start interpreting the solution for SUMO.
+Dispatching v0 with []
+Costs for v0: []
+timestep:  30.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 1 starts at edge C0D0
+Reservation 0 ends at edge C1D1
+Reservation 1 ends at edge D0D1
+Start solving the problem.
+ Register distance callback.
+ Create time dimension.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+pickup/dropoff nodes: 1/3
+allow to reject new reservation 0
+pickup/dropoff nodes: 2/4
+allow to reject new reservation 1
+ Add direct route factor constraints...
+reservation 0: direct route cost 680 and (hard) max cost 1020
+reservation 1: direct route cost 385 and (hard) max cost 578
+ Add dropoff constraints...
+ Add "no re-allocation" constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+hard time window for node 1: [30, 600]
+hard time window for node 2: [30, 600]
+hard time window for node 3: [30, 600]
+hard time window for node 4: [30, 600]
+hard time window for node 5: [30, 600]
+ Add waiting time constraints...
+reservation 0 has a maximum (hard) pickup time at 40
+reservation 1 has a maximum (hard) pickup time at 40
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Initial solution:
+veh 0: []
+Objective: 15132
+Route for vehicle 0:
+     5 (L: 0, C: 0, T: (30,600))
+ ->  0 (L: 0, C: 0, T: (30,600))
+Costs of the route: 0
+
+Total cost of the routes: 0
+Start interpreting the solution for SUMO.
+Dispatching v0 with []
+Costs for v0: []
+timestep:  60.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Reservations rejected: ['0', '1']
+Solve CPDP
+Start creating the model.
+dp reservations: []
+do reservations: []
+Start solving the problem.
+ Register distance callback.
+ Create time dimension.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add direct route factor constraints...
+ Add dropoff constraints...
+ Add "no re-allocation" constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+hard time window for node 1: [60, 600]
+ Add waiting time constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Initial solution:
+veh 0: []
+Objective: 0
+Route for vehicle 0:
+     1 (L: 0, C: 0, T: (60,600))
+ ->  0 (L: 0, C: 0, T: (60,600))
+Costs of the route: 0
+
+Total cost of the routes: 0
+Start interpreting the solution for SUMO.
+Dispatching v0 with []
+Costs for v0: []
+timestep:  90.0
+Taxis empty: ('v0',)
+timestep:  120.0
+Taxis empty: ('v0',)
+timestep:  150.0
+Taxis empty: ('v0',)
+timestep:  180.0
+Taxis empty: ('v0',)
+timestep:  210.0
+Taxis empty: ('v0',)
+timestep:  240.0
+Taxis empty: ('v0',)
+timestep:  270.0
+Taxis empty: ('v0',)
+timestep:  300.0
+Taxis empty: ('v0',)
+timestep:  330.0
+Taxis empty: ('v0',)
+timestep:  360.0
+Taxis empty: ('v0',)
+timestep:  390.0
+Taxis empty: ('v0',)
+timestep:  420.0
+Taxis empty: ('v0',)
+timestep:  450.0
+Taxis empty: ('v0',)
+timestep:  480.0
+Taxis empty: ('v0',)
+timestep:  510.0
+Taxis empty: ('v0',)
+timestep:  540.0
+Taxis empty: ('v0',)
+timestep:  570.0
+Taxis empty: ('v0',)
+timestep:  600.0
+Taxis empty: ('v0',)

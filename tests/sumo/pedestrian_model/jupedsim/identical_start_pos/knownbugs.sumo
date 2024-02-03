@@ -1,0 +1,7 @@
+
+[Reported by micha at 18Jun14:35:10]
+search_string:.*
+search_file:exitcode
+ignore_other_errors:1
+full_description:jupedsim crash on identical start pos
+brief_description:identical start pos

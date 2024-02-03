@@ -1,3 +1,6 @@
+# test the optioni eco_measure and the option generateEdgedataAddFile
+eco_measure
+
 # test solutions for the braess paradox (adding a shortcut makes the traveltimes worse).
 # After 7 iterations the assignments have mostly converged (average traveltime 107 vs 127). Without the shortcut avg. tt converges to 106s and with shortcut to 123s.
 # Iteration 10 has the minimal value of 114s for shortcut.
@@ -8,6 +11,12 @@ optimum
 
 # straight call of the script
 simple
+
+# straight call of the script
+save_config
+
+# save configuration with application option prefix
+save_config_appargs
 
 # call with 2 trip files
 multipe_inputs
@@ -45,6 +54,25 @@ addWeights
 # add additional weights only for first iteration
 addWeights_once
 mapmatchJunctions
+1alternative
 
 # using marginal costs
 marginal_cost
+
+# pass negative argument
+disable_teleport
+
+# pass negative argument
+disable_teleport_cfg
+
+# pass negative sumo--argument
+apparg_negative
+
+# pass negative sumo--argument via config
+apparg_negative_config
+
+# save statistic output for each iteration
+custom_output
+
+# test user error
+invalid_option

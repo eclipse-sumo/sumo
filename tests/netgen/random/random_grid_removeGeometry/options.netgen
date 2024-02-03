@@ -1,0 +1,14 @@
+--rand -o net.net.xml --rand.iterations=12
+--rand.min-distance 160
+--rand.max-distance 200
+--rand.grid
+--perturb-x 15
+--perturb-y 15
+--default.lanenumber 3
+-j traffic_light
+--no-turnarounds
+--sidewalks.guess
+--crossings.guess
+--seed 0
+-R
+--tls.discard-simple

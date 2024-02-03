@@ -1,0 +1,2 @@
+-o out.rou.xml -n input_net.net.xml -t input_routes.rou.xml -r input_routes.rou.xml 
+--duration 1800

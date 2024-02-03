@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,13 +53,11 @@ RODUAFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
 
     // insert options
-    ROFrame::fillOptions(oc);
-    // to make the transition from --trip-files easier, but has a conflict with jtrrouter
-    oc.addSynonyme("route-files", "t", true);
+    ROFrame::fillOptions(oc, true);
     addImportOptions();
     addDUAOptions();
     // add rand options
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 }
 
 
@@ -68,61 +66,45 @@ RODUAFrame::addImportOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.doRegister("alternatives-output", new Option_FileName());
     oc.addSynonyme("alternatives-output", "alternatives");
-    oc.addDescription("alternatives-output", "Output", "Write generated route alternatives to FILE");
+    oc.addDescription("alternatives-output", "Output", TL("Write generated route alternatives to FILE"));
 
     oc.doRegister("intermodal-network-output", new Option_FileName());
-    oc.addDescription("intermodal-network-output", "Output", "Write edge splits and connectivity to FILE");
+    oc.addDescription("intermodal-network-output", "Output", TL("Write edge splits and connectivity to FILE"));
 
     oc.doRegister("intermodal-weight-output", new Option_FileName());
-    oc.addDescription("intermodal-weight-output", "Output", "Write intermodal edges with lengths and travel times to FILE");
+    oc.addDescription("intermodal-weight-output", "Output", TL("Write intermodal edges with lengths and travel times to FILE"));
 
     oc.doRegister("write-trips", new Option_Bool(false));
-    oc.addDescription("write-trips", "Output", "Write trips instead of vehicles (for validating trip input)");
+    oc.addDescription("write-trips", "Output", TL("Write trips instead of vehicles (for validating trip input)"));
 
     oc.doRegister("write-trips.geo", new Option_Bool(false));
-    oc.addDescription("write-trips.geo", "Output", "Write trips with geo-coordinates");
+    oc.addDescription("write-trips.geo", "Output", TL("Write trips with geo-coordinates"));
 
     oc.doRegister("write-trips.junctions", new Option_Bool(false));
-    oc.addDescription("write-trips.junctions", "Output", "Write trips with fromJunction and toJunction");
+    oc.addDescription("write-trips.junctions", "Output", TL("Write trips with fromJunction and toJunction"));
 
-    // register import options
-    oc.doRegister("weight-files", 'w', new Option_FileName());
-    oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
-
-    oc.doRegister("lane-weight-files", new Option_FileName());
-    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
-
-    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
-    oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+    oc.doRegister("write-costs", new Option_Bool(false));
+    oc.addDescription("write-costs", "Output", TL("Include the cost attribute in route output"));
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !
-    oc.doRegister("weights.expand", new Option_Bool(false));
-    oc.addSynonyme("weights.expand", "expand-weights", true);
-    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
-
     oc.doRegister("weights.random-factor", new Option_Float(1.));
-    oc.addDescription("weights.random-factor", "Processing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
-
-    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
+    oc.addDescription("weights.random-factor", "Processing", TL("Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"));
 
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
-    oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
+    oc.addDescription("weight-period", "Processing", TL("Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"));
 
     oc.doRegister("weights.priority-factor", new Option_Float(0));
-    oc.addDescription("weights.priority-factor", "Processing", "Consider edge priorities in addition to travel times, weighted by factor");
+    oc.addDescription("weights.priority-factor", "Processing", TL("Consider edge priorities in addition to travel times, weighted by factor"));
 
     oc.doRegister("astar.all-distances", new Option_FileName());
-    oc.addDescription("astar.all-distances", "Processing", "Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)");
+    oc.addDescription("astar.all-distances", "Processing", TL("Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)"));
 
     oc.doRegister("astar.landmark-distances", new Option_FileName());
-    oc.addDescription("astar.landmark-distances", "Processing", "Initialize lookup table for astar ALT-variant from the given file");
+    oc.addDescription("astar.landmark-distances", "Processing", TL("Initialize lookup table for astar ALT-variant from the given file"));
 
     oc.doRegister("astar.save-landmark-distances", new Option_FileName());
-    oc.addDescription("astar.save-landmark-distances", "Processing", "Save lookup table for astar ALT-variant to the given file");
+    oc.addDescription("astar.save-landmark-distances", "Processing", TL("Save lookup table for astar ALT-variant to the given file"));
 }
 
 
@@ -132,63 +114,69 @@ RODUAFrame::addDUAOptions() {
     // register Gawron's DUE-settings
     oc.doRegister("gawron.beta", new Option_Float(double(0.3)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
-    oc.addDescription("gawron.beta", "Processing", "Use FLOAT as Gawron's beta");
+    oc.addDescription("gawron.beta", "Processing", TL("Use FLOAT as Gawron's beta"));
 
     oc.doRegister("gawron.a", new Option_Float(double(0.05)));
     oc.addSynonyme("gawron.a", "gA", true);
-    oc.addDescription("gawron.a", "Processing", "Use FLOAT as Gawron's a");
+    oc.addDescription("gawron.a", "Processing", TL("Use FLOAT as Gawron's a"));
 
     oc.doRegister("exit-times", new Option_Bool(false));
-    oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
+    oc.addDescription("exit-times", "Output", TL("Write exit times (weights) for each edge"));
+
+    oc.doRegister("route-length", new Option_Bool(false));
+    oc.addDescription("route-length", "Output", TL("Include total route length in the output"));
 
     oc.doRegister("keep-all-routes", new Option_Bool(false));
-    oc.addDescription("keep-all-routes", "Processing", "Save routes with near zero probability");
+    oc.addDescription("keep-all-routes", "Processing", TL("Save routes with near zero probability"));
 
     oc.doRegister("skip-new-routes", new Option_Bool(false));
-    oc.addDescription("skip-new-routes", "Processing", "Only reuse routes from input, do not calculate new ones");
+    oc.addDescription("skip-new-routes", "Processing", TL("Only reuse routes from input, do not calculate new ones"));
 
     oc.doRegister("keep-route-probability", new Option_Float(0));
-    oc.addDescription("keep-route-probability", "Processing", "The probability of keeping the old route");
+    oc.addDescription("keep-route-probability", "Processing", TL("The probability of keeping the old route"));
 
     oc.doRegister("ptline-routing", new Option_Bool(false));
-    oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
-
-    oc.doRegister("logit", new Option_Bool(false)); // deprecated
-    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
+    oc.addDescription("ptline-routing", "Processing", TL("Route all public transport input"));
 
     oc.doRegister("route-choice-method", new Option_String("gawron"));
-    oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
+    oc.addDescription("route-choice-method", "Processing", TL("Choose a route choice method: gawron, logit, or lohse"));
+
+    oc.doRegister("logit", new Option_Bool(false)); // deprecated
+    oc.addDescription("logit", "Processing", TL("Use c-logit model (deprecated in favor of --route-choice-method logit)"));
 
     oc.doRegister("logit.beta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
-    oc.addDescription("logit.beta", "Processing", "Use FLOAT as logit's beta");
+    oc.addDescription("logit.beta", "Processing", TL("Use FLOAT as logit's beta"));
 
     oc.doRegister("logit.gamma", new Option_Float(double(1)));
     oc.addSynonyme("logit.gamma", "lGamma", true);
-    oc.addDescription("logit.gamma", "Processing", "Use FLOAT as logit's gamma");
+    oc.addDescription("logit.gamma", "Processing", TL("Use FLOAT as logit's gamma"));
 
     oc.doRegister("logit.theta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.theta", "lTheta", true);
-    oc.addDescription("logit.theta", "Processing", "Use FLOAT as logit's theta (negative values mean auto-estimation)");
+    oc.addDescription("logit.theta", "Processing", TL("Use FLOAT as logit's theta (negative values mean auto-estimation)"));
 
     oc.doRegister("persontrip.walkfactor", new Option_Float(double(0.75)));
-    oc.addDescription("persontrip.walkfactor", "Processing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
+    oc.addDescription("persontrip.walkfactor", "Processing", TL("Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"));
+
+    oc.doRegister("persontrip.walk-opposite-factor", new Option_Float(1.0));
+    oc.addDescription("persontrip.walk-opposite-factor", "Processing", TL("Use FLOAT as a factor on walking speed against vehicle traffic direction"));
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
     oc.addDescription("persontrip.transfer.car-walk", "Processing",
                       "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
 
     oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.taxi-walk", "Processing", "Where taxis can drop off customers ('allJunctions, 'ptStops')");
+    oc.addDescription("persontrip.transfer.taxi-walk", "Processing", TL("Where taxis can drop off customers ('allJunctions, 'ptStops')"));
 
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
-    oc.addDescription("persontrip.transfer.walk-taxi", "Processing", "Where taxis can pick up customers ('allJunctions, 'ptStops')");
+    oc.addDescription("persontrip.transfer.walk-taxi", "Processing", TL("Where taxis can pick up customers ('allJunctions, 'ptStops')"));
 
     oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
-    oc.addDescription("persontrip.taxi.waiting-time", "Processing", "Estimated time for taxi pickup");
+    oc.addDescription("persontrip.taxi.waiting-time", "Processing", TL("Estimated time for taxi pickup"));
 
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
-    oc.addDescription("railway.max-train-length", "Processing", "Use FLOAT as a maximum train length when initializing the railway router");
+    oc.addDescription("railway.max-train-length", "Processing", TL("Use FLOAT as a maximum train length when initializing the railway router"));
 }
 
 
@@ -225,23 +213,23 @@ RODUAFrame::checkOptions() {
     }
 
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
-        WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support weight-attribute '" + oc.getString("weight-attribute") + "'.");
+        WRITE_ERRORF(TL("Routing algorithm '%' does not support weight-attribute '%'."), oc.getString("routing-algorithm"), oc.getString("weight-attribute"));
         return false;
     }
     if (oc.getBool("bulk-routing") && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
-        WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support bulk routing.");
+        WRITE_ERRORF(TL("Routing algorithm '%' does not support bulk routing."), oc.getString("routing-algorithm"));
         return false;
     }
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
-        oc.set("routing-algorithm", "astar");
+        oc.setDefault("routing-algorithm", "astar");
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
-        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
+        WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
         return false;
     }
     if (oc.getBool("logit")) {
-        WRITE_WARNING("The --logit option is deprecated, please use --route-choice-method logit.");
+        WRITE_WARNING(TL("The --logit option is deprecated, please use --route-choice-method logit."));
         oc.set("route-choice-method", "logit");
     }
 
@@ -249,18 +237,18 @@ RODUAFrame::checkOptions() {
         const std::string& filename = oc.getString("output-file");
         const int len = (int)filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
-            oc.set("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
         } else if (len > 4 && filename.substr(len - 3) == ".gz") {
-            oc.set("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
-            WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
+            WRITE_WARNING(TL("Cannot derive file name for alternatives output, skipping it."));
         }
     }
     if (oc.getBool("write-trips.junctions")) {
         if (oc.isDefault("write-trips")) {
-            oc.set("write-trips", "true");
+            oc.setDefault("write-trips", "true");
         } else if (!oc.getBool("write-trips")) {
-            WRITE_WARNING("Option --write-trips.junctions takes no affect when --write-trips is disabled.");
+            WRITE_WARNING(TL("Option --write-trips.junctions takes no affect when --write-trips is disabled."));
         }
     }
     return ok;

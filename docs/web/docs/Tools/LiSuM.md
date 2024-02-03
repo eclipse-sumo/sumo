@@ -22,7 +22,7 @@ LiSuM) and VISSIM, a proprietary microscopic 3D traffic simulator.
 
 LiSuM was built on Java technology and thus can be run on any operating
 system supporting Java. LiSuM is licensed (just like SUMO) under the
-[EPLv2](http://www.eclipse.org/legal/epl-v20.html).
+[EPLv2](https://www.eclipse.org/legal/epl-v20.html).
 
 ![flowws.png](../images/Flowws.png "flowws.png")
 SUMO communicates with the LISA+ virtual controller through LiSuM
@@ -31,7 +31,7 @@ Two versions of LiSuM are provided: A graphical version called
 [\#LiSuM-GUI](#lisum-gui) and a command line version suitable
 for batch processing called [\#LiSuM-Core](#lisum-core)
 The graphical interface needs at least Java 11 to run,
-LiSuM-Core (the commad line version) works with Java 8 as well.
+LiSuM-Core (the command line version) works with Java 8 as well.
 
 # LiSuM-GUI
 
@@ -40,15 +40,15 @@ LiSuM-Core (the commad line version) works with Java 8 as well.
 ![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
 "LISASumo.MainWindow.PNG")LiSuM Main window
 
-The installation of LiSuM is straightforward and it may not present major difficulties. 
+The installation of LiSuM is straightforward and it may not present major difficulties.
 Before compiling and running LiSuM it is recommended to have the following software installed on your computer:
 
-- Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core) 
-- SUMO (version 1.0.1 or later) 
+- Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core)
+- SUMO (version 1.0.1 or later)
 - and [Apache Maven](https://maven.apache.org/)
 
 In a command or terminal window execute the Maven command install (`mvn install`) in the traas, lisum-core and lisum-gui folders (in that order).
-For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command. 
+For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command.
 
 When LiSuM is started for the first time, the user is prompt to select a
 directory which is going to be used as the workspace directory. The
@@ -100,7 +100,7 @@ system.
 
 **Example:**
 
-```
+```xml
 <simulation>
    <input>
       <lisa>lisaDirectory</lisa>

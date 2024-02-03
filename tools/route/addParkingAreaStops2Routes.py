@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -35,16 +34,17 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--route-file", dest="routefile", help="define the route file")
-    optParser.add_option("-o", "--output-file", dest="outfile", help="output route file including parking")
-    optParser.add_option("-p", "--parking-areas", dest="parking",
-                         help="define the parking areas seperated by comma")
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-r", "--route-file", category='input', dest="routefile", help="define the route file")
+    optParser.add_option("-o", "--output-file", category='output', dest="outfile",
+                         help="output route file including parking")
+    optParser.add_option("-p", "--parking-areas", category='input', dest="parking",
+                         help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    (options, args) = optParser.parse_args(args=args)
+    options = optParser.parse_args(args=args)
     if not options.routefile or not options.parking:
         optParser.print_help()
         sys.exit()
@@ -69,5 +69,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

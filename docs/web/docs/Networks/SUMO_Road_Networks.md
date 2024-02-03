@@ -11,7 +11,7 @@ Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German
 | Type of content    | Map          |
 | Open format?       | Yes          |
 | SUMO specific?     | Yes          |
-| XML Schema         | [net_file.xsd](http://sumo.dlr.de/xsd/net_file.xsd) |
+| XML Schema         | [net_file.xsd](https://sumo.dlr.de/xsd/net_file.xsd) |
 
 A **SUMO network file** describes the traffic-related part of a map, the
 roads and intersections the simulated vehicles run along or across. At a
@@ -135,7 +135,7 @@ differ by the mandatory and used attributes.
 
 A "normal" edge is a connection between two nodes ("junctions").
 
-```
+```xml
 <edge id="<ID>" from="<FROM_NODE_ID>" to="<TO_NODE_ID>" priority="<PRIORITY>">
     ... one or more lanes ...
 </edge>
@@ -184,7 +184,7 @@ Each edge includes the definitions of lanes it consists of. The
 following example shows a single edge with two lanes. Note, that
 coordinates may be 2D as well as 3D.
 
-```
+```xml
     <edge id="<ID>" from="<FROM_NODE_ID>" to="<TO_NODE_ID>" priority="<PRIORITY>">
         <lane id="<ID>_0" index="0" speed="<SPEED>" length="<LENGTH>" shape="0.00,495.05 248.50,495.05"/>
         <lane id="<ID>_1" index="1" speed="<SPEED>" length="<LENGTH>" shape="0.00,498.35,2.00 248.50,498.35,3.00"/>
@@ -225,7 +225,7 @@ An internal edge lies within an intersection and connects and incoming
 included if the network was built using the **--no-internal-links** option. An example of an
 internal edge may look like this:
 
-```
+```xml
 <edge id="<ID>" function="internal">
     ... one lane ...
 </edge>
@@ -238,7 +238,7 @@ where *<NODE_ID\>* is the ID of the node the edge is located within and
 the incoming and outgoing edges connected by the internal edge have
 multiple lanes, the internal edge has multiple lanes as well (according
 to the number of connections between these two edges). In case of
-multi-lane internal edges, the INDEX jumps by the number of of lanes so
+multi-lane internal edges, the INDEX jumps by the number of lanes so
 that EDGE_INDEX + LANE_INDEX = CONNECTION_INDEX.
 
 The attributes are given in the following table.
@@ -248,43 +248,28 @@ The attributes are given in the following table.
 | **id**       | id (string)                            | The id of the internal edge                                        |
 | **function** | "`internal`" | Always "`internal`" for an internal edge |
 
+
+When the network was built with internal edges, each connection will typically correspond to exactly one internal lane.
+If there are multiple connections that have the same pair of `from` and `to` edges, then the internal lanes for these edges will be part of the same internal edge. On connections marked as *straight* (`dir="s"`), lane changing on internal lanes is permitted.
+
+Special cases are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
+
+- left-turning vehicles that yield to oncoming traffic
+- right-turning vehicles that yield to pedestrian crossings
+
+The connection corresponding to such a movement are split into two internal lanes: one lane before the waiting position and one lane after the waiting position. The lanes after an internal junction always have their own internal edge.
+
 #### Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
-stopping offset for vehicles of certain classes:
-
-```
-<edge id="<ID>">
-    <stopOffset value="<distance in m.>" vClasses="<space-separated list of vClasses>" />
-    <lane id="<ID>" index="<INDEX>" ... >
-        <stopOffset value="<distance in m.>" exceptions="<space-separated list of vClasses>" />
-    </lane>
-    ...
-</edge>
-```
-
-Defining this element for an edge will affect all lanes of the edge that
-do not hold an own `stopOffset` element. Note that there is the possibility to
-define either all vehicle classes, that are affected by the stop offset
-(attribute `vClasses`), or those, which are not affected (attribute `exceptions`). You may not
-use both attributes in conjunction. The distance at which the specified
-vehicle classes are required to stop from the lane end is specified by
-the `value`-attribute.
-
-| Name           | Type             | Description                                                         |
-| -------------- | ---------------- | ------------------------------------------------------------------- |
-| **value**      | value (double)   | The stop offset as positive value in meters.                        |
-| **vClasses**   | list of vClasses | Specifies, for which vehicle classes the stopOffset applies.        |
-| **exceptions** | list of vClasses | Specifies, for which vehicle classes the stopOffset does not apply. |
-
-For specification of vehicle classes see
-[here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class).
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
+The exact syntax is explained at [stopOffset](../Networks/PlainXML.md#stop_offsets).
 
 ### Traffic Light Programs
 
 A traffic light program defines the phases of a traffic light.
 
-```
+```xml
     <tlLogic id="<ID>" type="<ALGORITHM_ID>" programID="<PROGRAM_ID>" offset="<TIME_OFFSET>">
         <phase duration="<DURATION#1>" state="<STATE#1>"/>
         <phase duration="<DURATION#1>" state="<STATE#1>"/>
@@ -305,7 +290,7 @@ Junctions represent the area where different streams cross, including
 the right-of-way rules vehicles have to follow when crossing the
 intersection. An example may be:
 
-```
+```xml
 <junction id="<ID>" type="<JUNCTION_TYPE>" x="<X-POSITION>" y="<Y-POSITION>"
           incLanes="<INCOMING_LANES>" intLanes="<INTERNAL_LANES>"
           shape="<SHAPE>">
@@ -317,7 +302,7 @@ The junction itself is described by the following attributes:
 
 | Name         | Type              | Description              |
 | ------------ | ----------------- | ------------------------ |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.                                          |
+| **id**       | id (string)       | The id of the junction; By default, a traffic light controlling this junction will have the same id but this may changed by the user or when joining traffic lights.   |
 | **x**        | x-position (real) | The x-coordinate of the intersection                                                                                                                                   |
 | **y**        | y-position (real) | The y-coordinate of the intersection                                                                                                                                   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection                                                                                                                        |
@@ -337,7 +322,7 @@ have the same position.
 
 What follows are "`request`"s, looking like:
 
-```
+```xml
   <request index="<INDEX>" response="<RELATIVE_MAJOR_LINKS>" foes="<FOE_LINKS>" cont="<MAY_ENTER>"/>
 ```
 
@@ -360,7 +345,7 @@ direction the connection follows, starting by the right-most.
 The same order is applied in the "response" and the "foes" field,
 starting from right. This means:
 
-```
+```xml
   <request index="2" response="001" foes="011" cont="0"/>
 ```
 
@@ -401,7 +386,7 @@ information
 
 An internal junction is encoded like this:
 
-```
+```xml
 <junction id="<ID>" type="internal" x="<X-POSITION>" y="<Y-POSITION>"
           incLanes="<INCOMING_PROHIBITING_LANES>"
           intLanes="<INTERNAL_PROHIBITING_LANES>"/>
@@ -414,7 +399,7 @@ internal junction are:
 
 | Name         | Type              | Description               |
 | ------------ | ----------------- | ------------------------- |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.         |
+| **id**       | id (string)       | The id of the internal junction; It always starts with `:` followed by the id of the parent junction, then an `_`and finally a unique index.  |
 | **x**        | x-position (real) | The x-coordinate of the intersection   |
 | **y**        | y-position (real) | The y-coordinate of the intersection   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection    |
@@ -433,7 +418,7 @@ controlled by a traffic light, the name of the traffic light and the
 index of the signal that controls this connection within the traffic
 light's phase definition is given. A connection is encoded as:
 
-```
+```xml
 <connection from="<FROM_EDGE_ID>" to="<TO_EDGE_ID>" fromLane="<FROM_LANE_INDEX>" toLane="<TO_LANE_INDEX>"
             via="<VIA_LANE_ID>" tl="<TRAFFIC_LIGHT_ID>" linkIndex="12" dir="r" state="o"/>
 ```
@@ -500,7 +485,7 @@ reasons:
 Each roundabout is defined (somewhat redundantly) by its nodes and
 edges:
 
-```
+```xml
 <roundabout nodes="nodeID1 nodeID2 ..." edges="edgeID1 edgeID2 ..."/>
 ```
 

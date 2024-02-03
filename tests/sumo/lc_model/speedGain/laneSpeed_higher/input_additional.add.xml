@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <vType id="ego" sigma="0"/>
+
+   <variableSpeedSign id="vs_0" lanes="beg_1" pos="1.46,7.92">
+       <step time="0.00" speed="27.78"/>
+   </variableSpeedSign>
+</additional>

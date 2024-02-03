@@ -1,5 +1,0 @@
-Warning: Essential unique float attribute 'endPos' of e2MultilaneDetector with ID 'e2MultilaneDetector_0' is missing; e2MultilaneDetector cannot be created
-Warning: Format of essential unique float attribute 'endPos' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to float; e2MultilaneDetector cannot be created
-Warning: Format of essential unique float attribute 'endPos' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Cannot be parsed to float; e2MultilaneDetector cannot be created
-Warning: Invalid end position for e2MultilaneDetector with ID = 'e2MultilaneDetector_3'.
-Warning: Invalid end position for e2MultilaneDetector with ID = 'e2MultilaneDetector_5'.

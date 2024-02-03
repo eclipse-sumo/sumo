@@ -1,5 +1,20 @@
+# The whole flows at a certain direction have only minor greens
+onlyMinorGreens
+
+# Some connection flows may have more than one major-green at the given TLS. Their flows will be evenly distributed in each respective major-green for calculating group flows.
+multiMajorGreens
+
 # one route file and only one traffic light with traffic volumes
 basic
 
 # one route file and only one traffic light with traffic volumes, set the cycle length for all tls to the same value (longest webster cycle)
 unified_flows
+
+# unsorted route file
+unsorted
+
+# one route file and only one traffic light with traffic volumes
+named_routes
+
+# division by 0
+ticket12760

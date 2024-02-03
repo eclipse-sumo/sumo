@@ -1,0 +1,15 @@
+# busStop: stop_a,stop_b,stop_c,stop_d,stop_e
+arrival	until	veh	tripId	started	ended	flags	busStop
+10.0	30.0	t1				F	stop_d
+50.0	80.0	t1				L	stop_c
+100.0	130.0	t0				F	stop_a
+100.0	130.0	t0				L	stop_c
+1050.0	1180.0	t3				FLo	stop_c
+1100.0	1130.0	t2				FO	stop_c
+1200.0	1230.0	t2				L	stop_d
+2010.0	2030.0	t4				Fw	stop_a
+2010.0	2030.0	t5				F	stop_e
+2050.0	2080.0	t5					stop_c
+2100.0	2130.0	t4					stop_c
+2150.0	2180.0	t5				L	stop_b
+2200.0	2230.0	t4				L	stop_d

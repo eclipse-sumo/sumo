@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 12:38:30 by Eclipse SUMO netconvert Version v1_16_0+1351-7e72606
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-400077.44,-5809858.01" convBoundary="0.00,0.00,804.73,641.39" origBoundary="13.530317,52.429788,13.541960,52.435698" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1525212345" x="691.37" y="583.09" type="dead_end"/>
+    <node id="1652675075" x="731.19" y="339.74" type="priority"/>
+    <node id="1652675093" x="613.45" y="466.39" type="priority"/>
+    <node id="1652675105" x="756.85" y="602.73" type="dead_end"/>
+    <node id="1704693564" x="2.11" y="0.00" type="dead_end"/>
+    <node id="1704693568" x="0.00" y="2.89" type="dead_end"/>
+    <node id="1817224129" x="700.32" y="576.93" type="dead_end"/>
+    <node id="1901247283" x="804.73" y="641.39" type="dead_end"/>
+    <node id="279806670" x="666.59" y="548.17" type="priority"/>
+    <node id="30618470" x="407.73" y="352.14" type="dead_end"/>
+    <node id="3246050928" x="575.22" y="489.62" type="traffic_light" tl="joinedS_0" tlType="actuated" controlledInner="143308549#4 81639675#0"/>
+    <node id="3246050934" x="628.23" y="546.44" type="priority"/>
+    <node id="3246050935" x="534.26" y="554.21" type="priority"/>
+    <node id="36268429" x="422.51" y="337.47" type="dead_end"/>
+    <node id="38918520" x="504.51" y="358.98" type="priority"/>
+    <node id="4854982234" x="556.16" y="470.83" type="priority"/>
+    <node id="4854982237" x="586.96" y="440.00" type="priority"/>
+    <node id="4854982240" x="575.95" y="461.23" type="dead_end"/>
+    <node id="5543923976" x="652.30" y="454.67" type="dead_end"/>
+    <node id="5543923977" x="614.68" y="493.41" type="priority"/>
+    <node id="5543924043" x="570.87" y="456.13" type="dead_end"/>
+    <node id="5564694995" x="743.84" y="343.11" type="dead_end"/>
+    <node id="5564695002" x="663.84" y="536.57" type="right_before_left"/>
+    <node id="5564695003" x="635.56" y="457.12" type="dead_end"/>
+    <node id="5564695005" x="644.77" y="462.42" type="right_before_left"/>
+    <node id="5564695017" x="724.66" y="497.59" type="dead_end"/>
+    <node id="5564696424" x="531.79" y="374.54" type="dead_end"/>
+    <node id="5564696425" x="611.64" y="454.32" type="dead_end"/>
+    <node id="5564696426" x="717.13" y="340.27" type="dead_end"/>
+    <node id="5564696428" x="582.56" y="444.40" type="dead_end"/>
+    <node id="5564696429" x="513.24" y="374.27" type="dead_end"/>
+    <node id="5564696430" x="602.33" y="463.73" type="dead_end"/>
+    <node id="5564696431" x="606.31" y="459.27" type="priority"/>
+    <node id="583899005" x="561.13" y="504.07" type="traffic_light" tl="joinedS_0" tlType="actuated" controlledInner="143308549#4 81639675#0"/>
+    <node id="837697455" x="508.64" y="581.89" type="priority"/>
+    <node id="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000" x="589.00" y="503.25" type="traffic_light" tl="joinedS_0" tlType="actuated" controlledInner="143308549#4 81639675#0"/>
+</nodes>

@@ -1,0 +1,4 @@
+Error: Attribute 'id' is missing in definition of a entryExitDetector.
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Apr103619.2232\netedit.gui\additionalelements\detexit\load\parent_invalid\additionals.add.xml failed.

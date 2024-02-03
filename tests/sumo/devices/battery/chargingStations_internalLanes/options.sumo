@@ -1,0 +1,3 @@
+--no-step-log --no-duration-log --net-file=net.net.xml
+-a=input_additional.add.xml -r input_routes.rou.xml --battery-output battery.xml
+--battery-output.precision 4 --device.battery.probability 1

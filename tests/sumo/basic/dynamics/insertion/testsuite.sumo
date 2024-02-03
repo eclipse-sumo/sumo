@@ -22,3 +22,6 @@ backlog_lanewise
 
 # insertion at fixed speed despite undercutting safe speed by using --ignore-route-errors
 force_unsafe_followspeed
+
+# departLane="best" on 4 lanes
+bestLane4

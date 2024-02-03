@@ -1,20 +1,20 @@
-<nodes version="1.9">
+<nodes version="1.16">
     <location convBoundary="0.00,0.00,200.00,200.00" netOffset="100.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
-    <node id="C" x="120.0" y="87.0">
+    <node id="C" x="105.58" y="81.00">
         <param key="jk1" value="jv1"/>
         <param key="jk2" value="jv2"/>
         <param key="origPos" value="100.00 100.00"/>
     </node>
-    <node id="E" x="181.0" y="97.0">
+    <node id="E" x="191.00" y="88.93">
         <param key="origPos" value="200.00 100.00"/>
     </node>
-    <node id="N" x="95.0" y="194.0">
+    <node id="N" x="109.46" y="207.07">
         <param key="origPos" value="100.00 200.00"/>
     </node>
-    <node id="S" x="88.0" y="-14.0">
+    <node id="S" x="115.69" y="-16.52">
         <param key="origPos" value="100.00 0.00"/>
     </node>
-    <node id="W" x="14.0" y="85.0">
+    <node id="W" x="-3.12" y="81.19">
         <param key="origPos" value="0.00 100.00"/>
     </node>
 </nodes>

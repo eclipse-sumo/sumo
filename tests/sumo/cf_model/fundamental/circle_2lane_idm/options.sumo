@@ -1,0 +1,9 @@
+-n net4.net.xml
+-r input_routes.rou.xml
+-a input_additional4.add.xml
+-e 7200
+--extrapolate-departpos
+--max-depart-delay 2
+--no-step-log
+--tripinfo-output.write-unfinished
+-t

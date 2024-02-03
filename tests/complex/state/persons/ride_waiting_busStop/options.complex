@@ -1,0 +1,22 @@
+--vehroute-output=vehroutes.xml
+--vehroute-output.write-unfinished
+--no-step-log --no-duration-log
+-n input_net.net.xml
+-a input_additional.add.xml 
+-r input_routes.rou.xml
+--save-state.times 3
+--save-state.files state.xml  --save-state.transportables
+--fcd-output fcd.xml
+-e 10
+:
+--vehroute-output=vehroutes2.xml
+--vehroute-output.write-unfinished
+--no-step-log --no-duration-log
+-n input_net.net.xml
+-a input_additional.add.xml 
+--load-state state.xml
+--fcd-output fcd2.xml
+-e 10
+--compare fcd:13:3,vehroutes
+
+tests/complex/state/runner.py

@@ -1,0 +1,20 @@
+# try to load signal plan with invalid state
+invalid_state
+
+# try to load signal plan with invalid state
+invalid_state_length
+
+# empty tls program
+no_phases
+
+# Warn about missing yellow phases
+missing_yellow
+
+# the loaded program contains branches specified via attribute 'next' with invalid index
+add_attribute_next_invalid
+
+# try to load a programID that already exists
+sub_invalid
+
+# handle phase duration of 0
+duration0

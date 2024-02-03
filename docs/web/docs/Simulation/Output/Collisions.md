@@ -12,7 +12,7 @@ information about each [collision](../Safety.md#collisions) during the simulatio
 
 The format is the following:
 
-```
+```xml
 <collisions>
     <collision ''ATTRIBUTES''...\>
     ...
@@ -24,7 +24,7 @@ The following output attributes are generated:
 | Name               | Type              | Description                                                           |
 | ------------------ | ----------------- | --------------------------------------------------------------------- |
 | time               | float or hh:mm:ss | The time of the collision                                             |
-| type               | string            | The [type](#collision_types)) of the collision                        | 
+| type               | string            | The [type](#collision_types) of collision                             |
 | lane               | (lane) id         | The name of the lane on which the collision took place                |
 | pos                | m                 | The position along the the lane where the collision took place        |
 | collider           | (vehicle) id      | The name of the vehicle that was (more) responsible for the collision |

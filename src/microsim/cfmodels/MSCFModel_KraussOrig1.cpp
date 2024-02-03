@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,7 +56,7 @@ MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, dou
 
 
 double
-MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
     } else {
@@ -66,7 +66,7 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, dou
 
 
 double
-MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, 0., 0.), maxNextSpeed(speed, veh));
     } else {
@@ -78,7 +78,7 @@ MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed,
 
 
 double
-MSCFModel_KraussOrig1::dawdle(double speed, std::mt19937* rng) const {
+MSCFModel_KraussOrig1::dawdle(double speed, SumoRNG* rng) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.

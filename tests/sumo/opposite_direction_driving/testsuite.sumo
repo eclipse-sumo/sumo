@@ -1,3 +1,16 @@
+# test --lanechange.duration with opposite-direction driving
+continuous
+
+# test interaction with slopes
+slope
+
+# tests for stopping on the opposite side
+stop_opposite
+slalom
+
+# bugs specific to opposite-direction driving
+bugs
+
 # a stopped vehicle is overtaken
 overtaking_noconflict
 
@@ -63,11 +76,20 @@ overtaking_vehicle_blocks_minor_road3
 no_overtaking_across_minor_link
 no_overtaking_across_minor_link2
 
+# allow overtaking if there is enough space before the minor link
+overtake_before_minor
+
+# allow overtaking a stopped queue if there is enough space before the minor link
+overtake_4_before_minor
+
 # return from overtaking if there is no opposite leader
 return_no_opposite_leader
 
 # do not overtake long queue
 long_queue
+
+# lane number changes during opposite direction driving
+lane_drop
 
 # emergency vehicle may overtake long queue
 long_queue_emergency
@@ -80,9 +102,3 @@ emergency_redlight
 
 # test usage of SL2015
 SL2015
-
-# test --lanechange.duration with opposite-direction driving
-continuous
-
-# bugs specific to opposite-direction driving
-bugs

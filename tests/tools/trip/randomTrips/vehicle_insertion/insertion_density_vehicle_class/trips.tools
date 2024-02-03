@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-11 13:45:08.740288 by randomTrips.py v1_13_0+1473-c6298c0b157
+<configuration>
+    <insertion-density value="10.0"/>
+    <net-file value="net2.net.xml"/>
+    <vclass value="bus"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="gneE0" to="gneE1"/>
+    <trip id="1" depart="909.87" from="gneE0" to="gneE1"/>
+    <trip id="2" depart="1819.74" from="gneE0" to="gneE1"/>
+    <trip id="3" depart="2729.62" from="gneE0" to="gneE1"/>
+</routes>

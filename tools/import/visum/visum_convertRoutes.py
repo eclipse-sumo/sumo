@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,8 +22,8 @@ from __future__ import absolute_import
 import os
 import sys
 import random
-from optparse import OptionParser
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 
@@ -94,51 +94,45 @@ def sorter(idx):
 
 
 # initialise
-optParser = OptionParser()
-optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="SUMO net file to work with", type="string")
-optParser.add_option("-r", "--visum-routes", dest="routes",
-                     help="The VISUM-routes files to parse", type="string")
-optParser.add_option("-o", "--output",
-                     help="Name of the file to write", type="string")
-optParser.add_option("-b", "--begin",
-                     help="The begin time of the routes to generate", type="int", default=0)
-optParser.add_option("-e", "--end",
-                     help="The end time (+1) of the routes to generate", type="int", default=3600)
-optParser.add_option("-p", "--prefix",
-                     help="ID prefix to use", type="string")
-optParser.add_option("-t", "--type",
-                     help="The type to use for vehicles", type="string")
-optParser.add_option("-u", "--uniform",
-                     help="Whether departures shall be distributed uniform in each interval", action="store_true",
-                     default=False)
-optParser.add_option("-l", "--timeline",
-                     help="Percentages over a day", type="string")
-optParser.add_option("-a", "--tabs", action="store_true",
-                     default=False, help="tab separated route file")
-optParser.add_option("-v", "--verbose", action="store_true",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-2", "--net2",
-                     help="immediately match routes to a second network", metavar="FILE")
-optParser.add_option("-s", "--step", default="10",
-                     type="float", help="distance between successive trace points")
-optParser.add_option("-d", "--delta", default="1",
-                     type="float", help="maximum distance between edge and trace points when matching " +
-                                        " to the second net")
-optParser.add_option("-i", "--distribution", action="store_true",
-                     default=False, help="write route distributions only")
-optParser.add_option("-c", "--cutoff",
-                     help="Keep only one route when less than CUTOFF vehicles drive the OD", type="int",
-                     default=0)
+op = sumolib.options.ArgumentParser()
+op.add_option("-n", "--net-file", dest="netfile", category="input", required=True, type=op.net_file,
+              help="SUMO net file to work with")
+op.add_option("-r", "--visum-routes", dest="routes", category="input", required=True, type=op.file,
+              help="The VISUM-routes files to parse")
+op.add_option("-o", "--output", category="output", type=op.file, required=True,
+              help="Name of the file to write")
+op.add_option("-b", "--begin", category="time", type=op.time,
+              help="The begin time of the routes to generate", default=0)
+op.add_option("-e", "--end", category="time", type=op.time,
+              help="The end time (+1) of the routes to generate", default=3600)
+op.add_option("-p", "--prefix", category="input",
+              help="ID prefix to use")
+op.add_option("-t", "--type", category="input",
+              help="The type to use for vehicles")
+op.add_option("-u", "--uniform",
+              help="Whether departures shall be distributed uniform in each interval", action="store_true",
+              default=False)
+op.add_option("-l", "--timeline", category="input",
+              help="Percentages over a day")
+op.add_option("-a", "--tabs", action="store_true",
+              default=False, help="tab separated route file")
+op.add_option("-v", "--verbose", action="store_true",
+              default=False, help="tell me what you are doing")
+op.add_option("-2", "--net2", category="input", type=op.net_file,
+              help="immediately match routes to a second network", metavar="FILE")
+op.add_option("-s", "--step", default=10, category="input",
+              type=float, help="distance between successive trace points")
+op.add_option("-d", "--delta", default=1, category="input",
+              type=float, help="maximum distance between edge and trace points when matching " +
+              " to the second net")
+op.add_option("-i", "--distribution", action="store_true",
+              default=False, help="write route distributions only")
+op.add_option("--cutoff", category="input",
+              help="Keep only one route when less than CUTOFF vehicles drive the OD", type=int,
+              default=0)
 
-optParser.set_usage(
-    '\nvisum_convertRoutes.py -n visum.net.xml -r visum_routes.att -o visum.rou.xml')
 # parse options
-(options, args) = optParser.parse_args()
-if not options.netfile or not options.routes or not options.output:
-    print("Missing arguments")
-    optParser.print_help()
-    exit()
+options = op.parse_args()
 
 if options.verbose:
     print("Reading net...")
@@ -273,8 +267,8 @@ if options.timeline:
 if options.verbose:
     print("Generating vehicles...")
 emissions = []
-begin = options.begin
-end = options.end
+begin = int(options.begin)
+end = int(options.end)
 
 if not timeline:
     for r in routes:

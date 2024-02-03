@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,9 +51,12 @@ public:
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
      * @param[in] warn Whether warnings shall be issued
-     * @note: This is needed by NETEDIT
+     * @note: This is needed by netedit
      */
     static void computeTurnDirectionsForNode(NBNode* node, bool warn);
+
+    /// @brief compute angle to junction at a point further away
+    static double getFarAngleAtNode(const NBEdge* e, const NBNode* n, double dist = 50);
 
 private:
     /** @struct Combination
@@ -80,7 +83,21 @@ private:
                 return c1.angle > c2.angle;
             }
             if (c1.from != c2.from) {
+                if (c1.to == c2.to && c1.from->getPermissions() != c2.from->getPermissions()) {
+                    if (c1.from->getPermissions() == c1.to->getPermissions()) {
+                        return true;
+                    } else if (c2.from->getPermissions() == c1.to->getPermissions()) {
+                        return false;
+                    }
+                }
                 return c1.from->getID() < c2.from->getID();
+            }
+            if (c1.to->getPermissions() != c2.to->getPermissions()) {
+                if (c1.to->getPermissions() == c1.from->getPermissions()) {
+                    return true;
+                } else if (c2.to->getPermissions() == c1.from->getPermissions()) {
+                    return false;
+                }
             }
             return c1.to->getID() < c2.to->getID();
         }
@@ -134,12 +151,8 @@ public:
 
     private:
         EdgeVector myOrdering;
-
-    private:
-        /// @brief invalidated assignment operator
-        crossing_by_junction_angle_sorter& operator=(const crossing_by_junction_angle_sorter& s);
-
     };
+
     /** @brief Assures correct order for same-angle opposite-direction edges
      * @param[in] n The currently processed node
      * @param[in] i1 Pointer to first edge
@@ -157,28 +170,9 @@ public:
     public:
         explicit edge_by_junction_angle_sorter(NBNode* n) : myNode(n) {}
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            return getConvAngle(e1) < getConvAngle(e2);
-        }
-
-    protected:
-        /// @brief Converts the angle of the edge if it is an incoming edge
-        double getConvAngle(NBEdge* e) const {
-            double angle = e->getAngleAtNode(myNode);
-            if (angle < 0.) {
-                angle = 360. + angle;
-            }
-            // convert angle if the edge is an outgoing edge
-            if (e->getFromNode() == myNode) {
-                angle += (double) 180.;
-                if (angle >= (double) 360.) {
-                    angle -= (double) 360.;
-                }
-            }
-            if (angle < 0.1 || angle > 359.9) {
-                angle = (double) 0.;
-            }
-            assert(angle >= 0 && angle < (double)360);
-            return angle;
+            const double a1 = e1->getAngleAtNodeNormalized(myNode);
+            const double a2 = e2->getAngleAtNodeNormalized(myNode);
+            return a1 < a2 || (a1 == a2 && e1->getNumericalID() < e2->getNumericalID());
         }
 
     private:

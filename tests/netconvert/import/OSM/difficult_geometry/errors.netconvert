@@ -1,6 +1,11 @@
+Warning: PT line in relation 33687 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '23801011' in relation '33795'
 Warning: No way found for reference '313315968' in relation '33795'
 Warning: Ignoring restriction relation '33795' with unknown from-way.
 Warning: Ignoring restriction relation '33795' with unknown to-way.
+Warning: PT line in relation 35497 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 35503 with no stops ignored. Probably OSM file is incomplete.
+Warning: Invalid color value 'FF0000' in relation 215740
+Warning: PT stop '473567360' has been moved to edge '438511759#1'.
 Warning: Found sharp turn with radius 5.42 at the end of edge '-109647392'.
 Warning: Found sharp turn with radius 5.42 at the start of edge '109647392'.

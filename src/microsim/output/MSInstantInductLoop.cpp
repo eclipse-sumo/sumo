@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,9 @@
 #include <cassert>
 #include <numeric>
 #include <utility>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
@@ -42,9 +45,11 @@
 // ===========================================================================
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
         OutputDevice& od, MSLane* const lane, double positionInMeters,
-        const std::string& vTypes) :
+        const std::string name, const std::string& vTypes,
+        const std::string& nextEdges) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id, vTypes),
+    MSDetectorFileOutput(id, vTypes, nextEdges),
+    myName(name),
     myOutputDevice(od),
     myPosition(positionInMeters), myLastExitTime(-1) {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
@@ -67,7 +72,7 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         return true;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
 
     const double oldSpeed = veh.getPreviousSpeed();
@@ -106,15 +111,17 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
 
 void
 MSInstantInductLoop::write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add, double addValue) {
-    myOutputDevice.openTag("instantOut").writeAttr(
-        "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
-            "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
-                "length", toString(veh.getVehicleType().getLength())).writeAttr(
-                    "type", veh.getVehicleType().getID());
-    if (add != nullptr) {
-        myOutputDevice.writeAttr(add, toString(addValue));
+    if (!myOutputDevice.isNull()) {
+        myOutputDevice.openTag("instantOut").writeAttr(
+            "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
+                "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
+                    "length", toString(veh.getVehicleType().getLength())).writeAttr(
+                        "type", veh.getVehicleType().getID());
+        if (add != nullptr) {
+            myOutputDevice.writeAttr(add, toString(addValue));
+        }
+        myOutputDevice.closeTag();
     }
-    myOutputDevice.closeTag();
 }
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,18 +21,19 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
+#include <netedit/elements/GNEContour.h>
 #include <netedit/GNEMoveElement.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEAdditional;
 class GNEDemandElement;
+
 
 // ===========================================================================
 // class definitions
@@ -50,34 +51,30 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
                       const std::vector<GNEJunction*>& junctionParents,
                       const std::vector<GNEEdge*>& edgeParents,
                       const std::vector<GNELane*>& laneParents,
                       const std::vector<GNEAdditional*>& additionalParents,
-                      const std::vector<GNEShape*>& shapeParents,
-                      const std::vector<GNETAZElement*>& TAZElementParents,
                       const std::vector<GNEDemandElement*>& demandElementParents,
                       const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
-
-    /// @brief get ID
-    const std::string& getID() const;
+    virtual GNEMoveOperation* getMoveOperation() = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief set shape edited
     void setShapeEdited(const bool value);
@@ -85,13 +82,47 @@ public:
     /// @brief check if shape is being edited
     bool isShapeEdited() const;
 
+    /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
+    virtual bool isNetworkElementValid() const;
+
+    /// @brief return a string with the current network element problem (by default empty, can be reimplemented in children)
+    virtual std::string getNetworkElementProblem() const;
+
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
+
+    /// @}
+
+    /// @name Function related with contourdrawing (can be implemented in children)
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const = 0;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const = 0;
+
+    /// @brief check if draw related contour (cyan)
+    virtual bool checkDrawRelatedContour() const = 0;
+
+    /// @brief check if draw over contour (orange)
+    virtual bool checkDrawOverContour() const = 0;
+
+    /// @brief check if draw delete contour (pink/white)
+    virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw select contour (blue)
+    virtual bool checkDrawSelectContour() const = 0;
+
+    /// @brief check if draw move contour (red)
+    virtual bool checkDrawMoveContour() const = 0;
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -116,7 +147,7 @@ public:
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    virtual Boundary getCenteringBoundary() const = 0;
 
     /// @brief update centering boundary (implies change in RTREE)
     virtual void updateCenteringBoundary(const bool updateGrid) = 0;
@@ -126,6 +157,21 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief check if element is locked
+    bool isGLObjectLocked() const;
+
+    /// @brief mark element as front element
+    void markAsFrontElement();
+
+    /// @brief delete element
+    virtual void deleteGLObject() = 0;
+
+    /// @brief select element
+    void selectGLObject();
+
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -145,29 +191,10 @@ public:
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
-
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -176,22 +203,25 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @brief set network element id
+    void setNetworkElementID(const std::string& newID);
+
     /// @brief get parameters map
-    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+    virtual const Parameterised::Map& getACParametersMap() const = 0;
 
 protected:
-    /// @brief object boundary
-    Boundary myBoundary;
-
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;
+
+    /// @brief network element contour
+    GNEContour myNetworkElementContour;
+
+    // @brief check if we're drawing using a boundary but element was already selected
+    bool checkDrawingBoundarySelection() const;
 
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
     GNENetworkElement(const GNENetworkElement&) = delete;

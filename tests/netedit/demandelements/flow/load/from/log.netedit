@@ -1,0 +1,3 @@
+Error: Attribute 'from' in definition of flow 'flow_1' is empty.
+Error: Could not build flow in netedit; edge doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\flow\load\from\routes.rou.xml failed.

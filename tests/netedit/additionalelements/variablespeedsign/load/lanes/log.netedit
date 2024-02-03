@@ -1,0 +1,4 @@
+Error: Attribute 'lanes' is missing in definition of variableSpeedSign 'variableSpeedSign_0'.
+Error: Attribute 'lanes' in definition of variableSpeedSign 'variableSpeedSign_1' is empty.
+Error: Could not build variableSpeedSign in netedit; lane doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\variablespeedsign\load\lanes\additionals.add.xml failed.

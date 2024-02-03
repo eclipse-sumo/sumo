@@ -5,10 +5,9 @@ Found 0 stops after merging switches and 0 signals that guard switches
 Found 0 conflicts
 findFoeInsertionConflicts at stop stop_b
 0 n: 00:02:10 None t0 0 2 passing: True depart: False
-1 n: 00:02:20 None t1 0 2 passing: True depart: True
 findInsertionConflicts at stop stop_b
 0 n: 00:02:10 None t0 0 2 passing: True depart: False
-1 n: 00:02:20 None t1 0 2 passing: True depart: True
+1 n: 00:02:20 None t1 0 2 passing: True depart: True invalid
 1 p: 00:02:10 None t0 0 2 n: 00:02:20 None t1 0 2
    found insertionConflict pSignal=B nSignal=B pTripId=t0
 Found 1 insertion conflicts

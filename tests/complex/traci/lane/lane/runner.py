@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
+# @author  Mirko Barthauer
 # @date    2011-03-04
 
 from __future__ import print_function
@@ -22,8 +23,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -36,13 +37,15 @@ print("lane count", traci.lane.getIDCount())
 laneID = "2fi_0"
 print("examining", laneID)
 print("length", traci.lane.getLength(laneID))
+print("angle (with default relative position)", traci.lane.getAngle(laneID))
+print("angle (with some relative position)", traci.lane.getAngle(laneID, 10))
 print("maxSpeed", traci.lane.getMaxSpeed(laneID))
 print("width", traci.lane.getWidth(laneID))
 print("allowed", traci.lane.getAllowed(laneID))
 print("disallowed", traci.lane.getDisallowed(laneID))
 print("linkNum", traci.lane.getLinkNumber(laneID))
 if traci.isLibsumo() or traci.isLibtraci():
-    print("links", [l[:4] for l in traci.lane.getLinks(laneID)])
+    print("links", [link[:4] for link in traci.lane.getLinks(laneID)])
     print("linksExtended", traci.lane.getLinks(laneID))
 else:
     print("links", traci.lane.getLinks(laneID, extended=False))
@@ -65,6 +68,16 @@ print("numVeh", traci.lane.getLastStepVehicleNumber(laneID))
 print("haltVeh", traci.lane.getLastStepHaltingNumber(laneID))
 print("vehIds", traci.lane.getLastStepVehicleIDs(laneID))
 print("waiting time", traci.lane.getWaitingTime(laneID))
+
+centerLaneID = "2si_1"
+print("allowed to change to the left", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
+print("allowed to change to the right", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
+traci.lane.setChangePermissions(centerLaneID, ['ignoring'], traci.constants.LANECHANGE_LEFT)
+print("allowed to change to the left after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
+traci.lane.setChangePermissions(centerLaneID, ['passenger'], traci.constants.LANECHANGE_RIGHT)
+print("allowed to change to the right after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 
 traci.lane.setAllowed(laneID, ["taxi"])
 print("after setAllowed", traci.lane.getAllowed(

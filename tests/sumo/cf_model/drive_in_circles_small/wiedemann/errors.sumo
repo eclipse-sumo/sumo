@@ -1,253 +1,175 @@
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=174.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=186.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=206.00.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=207.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=223.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=252.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=268.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=303.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=323.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=338.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=339.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=341.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=361.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=362.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=376.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=377.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=399.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=400.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=450.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=451.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=495.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=496.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=510.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=512.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=522.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=524.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=525.00.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=527.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=528.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=531.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=540.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=572.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=574.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=587.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=624.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=625.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=627.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=685.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=695.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=696.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=698.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=711.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=721.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=762.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=764.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=766.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=771.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=772.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=777.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=778.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=780.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=781.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=783.00.
-Warning: Vehicle '1.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=784.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=787.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=814.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=816.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=817.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=819.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=838.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=841.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=843.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=864.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=923.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=936.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=937.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=963.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=992.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1014.00.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1045.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1049.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1052.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1053.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1055.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1064.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1171.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1183.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1184.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1186.00.
-Warning: Vehicle '1.34' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1188.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1203.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1235.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1244.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1307.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1354.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1360.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1383.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1384.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1386.00.
-Warning: Vehicle '1.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1405.00.
-Warning: Teleporting vehicle '1.32'; collision with vehicle '1.31', lane='a_0', gap=-0.45, time=1414.00 stage=move.
-Warning: Vehicle '1.32' ends teleporting on edge 'b', time 1416.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1420.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1431.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1432.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1435.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1437.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1502.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1518.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1536.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1537.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1548.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1550.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1588.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1591.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1597.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1598.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1600.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1612.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1613.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1618.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1621.00.
-Warning: Vehicle '1.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1622.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1622.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1624.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1627.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1629.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1631.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1632.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1633.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1635.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1638.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1640.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1640.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1641.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1642.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1644.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1645.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1647.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1647.00.
-Warning: Teleporting vehicle '1.18'; collision with vehicle '1.17', lane='a_0', gap=-1.59, time=1647.00 stage=move.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1649.00.
-Warning: Teleporting vehicle '1.20'; collision with vehicle '1.19', lane='a_0', gap=-7.01, time=1649.00 stage=move.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1650.00.
-Warning: Vehicle '1.18' ends teleporting on edge 'b', time 1650.00.
-Warning: Vehicle '1.20' ends teleporting on edge 'b', time 1651.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1653.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1658.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1700.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1701.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1703.00.
-Warning: Vehicle '1.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1705.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1717.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1718.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1720.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1727.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1733.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1734.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1736.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1738.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1741.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1743.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1754.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1756.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1760.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1761.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1763.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1767.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1769.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1770.00.
-Warning: Vehicle '1.34' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1778.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1779.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1780.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1783.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1785.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1799.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1819.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1820.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1835.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1847.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1848.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1850.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1852.00.
-Warning: Vehicle '1.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1854.00.
-Warning: Vehicle '1.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1856.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1860.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1861.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1863.00.
-Warning: Vehicle '1.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1873.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1874.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1876.00.
-Warning: Vehicle '1.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1882.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1884.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1888.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1890.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1897.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1899.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1905.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1915.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1941.00.
-Warning: Vehicle '1.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1982.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1983.00.
-Warning: Vehicle '1.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1999.00.
-Warning: Vehicle '1.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2000.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2002.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2004.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2038.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2047.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2048.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2136.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2164.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2166.00.
-Warning: Vehicle '1.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2187.00.
-Warning: Vehicle '1.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2192.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2193.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2213.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2214.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2224.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2226.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2227.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2239.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2240.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2242.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2261.00.
-Warning: Vehicle '1.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2262.00.
-Warning: Vehicle '1.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2264.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2266.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2292.00.
-Warning: Vehicle '1.11' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2309.00.
-Warning: Vehicle '1.12' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2311.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2324.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2325.00.
-Warning: Vehicle '1.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2358.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2446.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2447.00.
-Warning: Vehicle '1.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2449.00.
-Warning: Vehicle '1.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2528.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2529.00.
-Warning: Vehicle '1.15' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2530.00.
-Warning: Vehicle '1.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2561.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2580.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2593.00.
-Warning: Vehicle '1.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2635.00.
-Warning: Vehicle '1.16' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2640.00.
-Warning: Vehicle '1.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2643.00.
-Warning: Vehicle '1.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2644.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2649.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2651.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2677.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2687.00.
-Warning: Vehicle '1.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2812.00.
-Warning: Vehicle '1.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2813.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2862.00.
-Warning: Vehicle '1.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2863.00.
-Warning: Vehicle '1.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2889.00.
-Warning: Vehicle '1.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2904.00.
-Warning: Vehicle '1.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2917.00.
-Warning: Vehicle '1.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2918.00.
-Warning: Vehicle '1.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2933.00.
-Warning: Vehicle '1.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2965.00.
-Warning: Vehicle '1.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2966.00.
-Warning: Vehicle '1.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2968.00.
-Warning: Vehicle '1.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2970.00.
+Warning: Vehicle '1.32' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=134.00.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=212.00.
+Warning: Vehicle '1.14' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=274.00.
+Warning: Vehicle '1.30' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=295.00.
+Warning: Vehicle '1.31' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=296.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=310.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=311.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=312.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=322.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=323.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=324.00.
+Warning: Vehicle '1.26' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=377.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=381.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=398.00.
+Warning: Vehicle '1.23' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=474.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=509.00.
+Warning: Vehicle '1.15' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=563.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=564.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=566.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=567.00.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=570.00.
+Warning: Vehicle '1.23' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=571.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=572.00.
+Warning: Vehicle '1.25' performs emergency braking on lane 'b_0' with decel=9.00, wished=4.50, severity=1.00, time=573.00.
+Warning: Vehicle '1.13' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=606.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=610.00.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=615.00.
+Warning: Vehicle '1.23' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=616.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=641.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=680.00.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=681.00.
+Warning: Vehicle '1.3' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=682.00.
+Warning: Vehicle '1.4' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=683.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=702.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=703.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=704.00.
+Warning: Vehicle '1.15' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=789.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=790.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=791.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=843.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=844.00.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=845.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=845.00.
+Warning: Vehicle '1.25' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=846.00.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=858.00.
+Warning: Vehicle '1.34' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=859.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=860.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=861.00.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=862.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=903.00.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=904.00.
+Warning: Vehicle '1.3' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=905.00.
+Warning: Vehicle '1.4' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=906.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=911.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=912.00.
+Warning: Vehicle '1.23' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=928.00.
+Warning: Vehicle '1.32' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=979.00.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=980.00.
+Warning: Vehicle '1.34' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=981.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=982.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1002.00.
+Warning: Vehicle '1.15' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1009.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1010.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1011.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1070.00.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1071.00.
+Warning: Vehicle '1.30' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1072.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1094.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1095.00.
+Warning: Vehicle '1.12' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1097.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1119.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1120.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1121.00.
+Warning: Vehicle '1.5' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1147.00.
+Warning: Vehicle '1.15' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1158.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1168.00.
+Warning: Vehicle '1.11' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1169.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1186.00.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1187.00.
+Warning: Vehicle '1.34' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1192.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1193.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1194.00.
+Warning: Vehicle '1.2' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1195.00.
+Warning: Vehicle '1.3' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1196.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1261.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1263.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1264.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1265.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1266.00.
+Warning: Vehicle '1.25' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1271.00.
+Warning: Vehicle '1.27' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1273.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1305.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1306.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1307.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'b_0' with decel=9.00, wished=4.50, severity=1.00, time=1308.00.
+Warning: Vehicle '1.14' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1356.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1359.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1360.00.
+Warning: Vehicle '1.19' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1361.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1363.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1441.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1442.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1443.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1444.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1445.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1547.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1548.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1549.00.
+Warning: Vehicle '1.11' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1550.00.
+Warning: Vehicle '1.13' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1552.00.
+Warning: Vehicle '1.26' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1605.00.
+Warning: Vehicle '1.27' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1606.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1607.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1615.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1616.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1690.00.
+Warning: Vehicle '1.25' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1691.00.
+Warning: Vehicle '1.26' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1692.00.
+Warning: Vehicle '1.5' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1713.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1714.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1715.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1716.00.
+Warning: Vehicle '1.3' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1772.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1775.00.
+Warning: Vehicle '1.4' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1906.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1908.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1909.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1910.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1911.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1912.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1919.00.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=1920.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2112.00.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2113.00.
+Warning: Vehicle '1.30' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2156.00.
+Warning: Vehicle '1.32' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2158.00.
+Warning: Vehicle '1.27' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2200.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2201.00.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2202.00.
+Warning: Vehicle '1.30' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2203.00.
+Warning: Vehicle '1.32' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2205.00.
+Warning: Vehicle '1.18' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2293.00.
+Warning: Vehicle '1.12' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2391.00.
+Warning: Vehicle '1.15' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2521.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2522.00.
+Warning: Vehicle '1.17' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2523.00.
+Warning: Vehicle '1.1' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2548.00.
+Warning: Vehicle '1.16' performs emergency braking on lane 'b_0' with decel=9.00, wished=4.50, severity=1.00, time=2563.00.
+Warning: Vehicle '1.0' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2582.00.
+Warning: Vehicle '1.5' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2588.00.
+Warning: Vehicle '1.6' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2589.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2605.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2627.00.
+Warning: Vehicle '1.29' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2628.00.
+Warning: Vehicle '1.30' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2629.00.
+Warning: Vehicle '1.31' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2630.00.
+Warning: Vehicle '1.32' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2631.00.
+Warning: Vehicle '1.33' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2632.00.
+Warning: Vehicle '1.34' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2633.00.
+Warning: Vehicle '1.20' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2818.00.
+Warning: Vehicle '1.21' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2819.00.
+Warning: Vehicle '1.22' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2820.00.
+Warning: Vehicle '1.23' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2821.00.
+Warning: Vehicle '1.24' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2822.00.
+Warning: Vehicle '1.25' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2823.00.
+Warning: Vehicle '1.26' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2824.00.
+Warning: Vehicle '1.27' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2825.00.
+Warning: Vehicle '1.28' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2826.00.
+Warning: Vehicle '1.7' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2841.00.
+Warning: Vehicle '1.8' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2842.00.
+Warning: Vehicle '1.9' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2843.00.
+Warning: Vehicle '1.10' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2844.00.
+Warning: Vehicle '1.12' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2910.00.
+Warning: Vehicle '1.13' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2911.00.
+Warning: Vehicle '1.14' performs emergency braking on lane 'a_0' with decel=9.00, wished=4.50, severity=1.00, time=2912.00.

@@ -1,13 +1,8 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
-Warning: Vehicle 'horizontal.2'; collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=13.00 stage=move.
-Warning: Vehicle 'vertical.2' performs emergency stop at the end of lane ':0_9_0' because there is no connection to the next edge (decel=-6.61, offset=3.29), time=15.00.
-Warning: Teleporting vehicle 'horizontal.2' after earlier collision, lane=':0_13_0, time=45.00.
-Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 45.00.
-Warning: Teleporting vehicle 'vertical.2' after earlier collision, lane=':0_9_0, time=46.00.
-Warning: Vehicle 'vertical.2' ends teleporting on edge '4o', time 46.00.
-Warning: Vehicle 'horizontal.15'; collision with vehicle 'vertical.4', lane=':0_13_0', gap=-1.00, time=78.00 stage=move.
-Warning: Vehicle 'vertical.4' performs emergency stop at the end of lane ':0_9_0' because there is no connection to the next edge (decel=-6.61, offset=3.29), time=80.00.
-Warning: Teleporting vehicle 'horizontal.15' after earlier collision, lane=':0_13_0, time=110.00.
-Warning: Vehicle 'horizontal.15' ends teleporting on edge '2o', time 110.00.
-Warning: Teleporting vehicle 'vertical.4' after earlier collision, lane=':0_9_0, time=111.00.
-Warning: Vehicle 'vertical.4' ends teleporting on edge '4o', time 111.00.
+Warning: Vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane=':0_13_0', gap=-1.00, time=2.50 stage=move.
+Warning: Vehicle 'horizontal.0' performs emergency stop at the end of lane ':0_13_0' because there is no connection to the next edge (decel=-11.51, offset=2.29), time=3.00.
+Warning: Vehicle 'vertical.0' performs emergency stop at the end of lane ':0_9_0' because there is no connection to the next edge (decel=-11.55, offset=1.29), time=3.00.
+Warning: Teleporting vehicle 'horizontal.0' after earlier collision, lane=':0_13_0', time=33.50.
+Warning: Teleporting vehicle 'vertical.0' after earlier collision, lane=':0_9_0', time=33.50.
+Warning: Vehicle 'vertical.0' ends teleporting on edge '4o', time 33.50.
+Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', time 33.50.

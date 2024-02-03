@@ -1,0 +1,11 @@
+<routes>
+    <vType id="veh" length="5" />
+    <vType id="g" length="500"/>
+    <route id="r0" color="1,1,0" edges="1f2" />
+    <vehicle id="ghost" type="g" route="r0" depart="0" departPos="stop" arrivalPos="750" color="red">
+        <stop endPos="750" duration="300" edge="1f2"/>
+    </vehicle>
+    <flow id="f" color="0,1,0"  begin="0" number="100" vehsPerHour="10000" type="veh" route="r0" departLane="random" departSpeed="random" arrivalLane="random" />
+
+
+</routes>

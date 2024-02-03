@@ -1,6 +1,9 @@
 # Tests for the case, the heuristic returns the node to be a right-before-left node
 right_before_left_guess
 
+# Tests for the case, the heuristic returns the node to be a right-before-left node (but via an option this is changed into a left-before-right node)
+left_before_right_guess
+
 # Tests for the case, the heuristic returns the node to be a priority node
 priority_guess
 

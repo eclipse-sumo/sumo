@@ -17,9 +17,9 @@ procedures](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) can
 
 For instance, a single vehicle can configured as taxi as in the following minimal example
 
-```
+```xml
     <vehicle id="v0" route="route0" depart="0" line="taxi">
-        <param key="has.taxi.device" value="true"/>  
+        <param key="has.taxi.device" value="true"/>
     </vehicle>
 ```
 
@@ -28,7 +28,7 @@ For instance, a single vehicle can configured as taxi as in the following minima
 ## Direct ride hailing
 A person can be defined as taxi customer with the following definition:
 
-```
+```xml
     <person id="p0" depart="0.00">
         <ride from="B2C2" to="A0B0" lines="taxi"/>
     </person>
@@ -37,7 +37,7 @@ A person can be defined as taxi customer with the following definition:
 ## Intermodal Routing
 A person can also use a taxi by including it as a [personTrip](../Specification/Persons.md#persontrips) mode:
 
-```
+```xml
     <person id="p0" depart="0.00">
         <personTrip from="B2C2" to="A0B0" modes="taxi"/>
     </person>
@@ -55,7 +55,18 @@ Multiple persons can travel together as a group using attribute `group` (if the 
         <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
     </person>
 
-# Dispatch
+# Multiple Taxi Fleets
+
+By default, there is only a single taxi fleet using line attribute 'taxi' and taxi customers use attribute `lines="taxi"` for their rides.
+It is permitted to define the line attribute for taxi with the prefix 'taxi:' and an arbitrary suffix (i.e. "taxi:fleetA").
+Likewise, tt is permitted to define the lines attribute for rides with the prefix 'taxi:' and a suffix.
+When this is done, the following rules are applied when assigning taxis to customers:
+
+- a taxi with line 'taxi:X' may only pick up customers with matching ride attribute lines="taxi:X" (for any value of X)
+- a customer with lines="taxi" may use any taxi regardless of taxi fleet suffix
+- a taxi with line 'taxi' may be pick up any customer regardless of the ride fleet suffix
+
+# Dispatch Algorithms
 The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
 algorithms are available
@@ -68,11 +79,11 @@ algorithms are available
   travel time) is assigned. If the reservation date is too far in the future,
   the customer is postponed.
 
-- greedyShared: like 'greedy' but tries to pick up another passenger while delivering the first passenger to it's destination. The algorithm supports parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours.
+- greedyShared: like 'greedy' but tries to pick up another passenger while delivering the first passenger to it's destination. Parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours can be supplied using **--device.taxi.dispatch-algorithm.params KEY1:VALUE1[,KEY2:VALUE]**.
 
 - routeExtension: like greedy but can pick up any passenger along the route and also extend the original route (within personCapacity limit).
 
-- traci: Dispatch is defered to [traci control](#traci). The algorithm only keeps track of pending reservations
+- traci: Dispatch is deferred to [traci control](#traci). The algorithm only keeps track of pending reservations
 
 !!! note
     User-contributed dispatch algorithms are welcome.
@@ -81,7 +92,7 @@ algorithms are available
 
 By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
 
-```
+```xml
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.end" value="3600"/>
@@ -93,7 +104,62 @@ By default, vehicles will leave the simulation after reaching the end of their f
 
 - "stop" (default): stop at the current location (off-road) after delivering the last customer of the current service request.
 - "randomCircling": continue driving to random edges until the next request is received. (caution: taxi might get stuck in a cul-de-sac if the network has those)
+- "taxistand": drive to a taxi stand and wait there for the next customer / dispatch. Defining the set of taxi stands and the strategy of choosing among them is described below
 
+!!! note
+    When using "randomCircling", the default value for parameter "device.taxi.end" is 8 hours after vehicle departure.
+
+### Defining taxi stands
+
+When using idle-algorithm **taxistand**, the following inputs must be provided:
+
+- each taxi stand must be defined as a [parkingAreas](ParkingArea.md)
+- the list of parkingAreas that may be used for a particular taxi or taxi fleet must be defined as a `<rerouter>`-element according to the [description for parking search simulation](Rerouter.md#rerouting_to_an_alternative_parking_area).
+- the taxi must define the parameter `device.taxi.stands-rerouter` either as a child element of the `<vehicle>` or its `<vType>` and declare the rerouter id.
+
+The strategy for choosing among the alternative taxi stands follows the description for parking search simulation (i.e. with respect to prior knowledge of remaining capacity).
+
+Example declarations for the rerouter and the taxi vType that references it:
+
+```
+<rerouter id="rr0" edges="B0C0 E2D2" vTypes="taxi">
+        <interval begin="0" end="1:0:0:0">
+            <parkingAreaReroute id="pa_0"/>
+            <parkingAreaReroute id="pa_1"/>
+        </interval>
+</rerouter>
+```
+
+!!! note
+    To avoid warnings, the `edges` attribute of the rerouter should match the edges which contain taxi stands.
+
+```
+<vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.stands-rerouter" value="rr0"/>
+</vType>
+```
+
+
+
+## Customer Stops
+
+Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters]() `<vType>` or `<vehicle>` definition of the taxi:
+
+```xml
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.pickUpDuration" value="0"/>
+        <param key="device.taxi.dropOffDuration" value="60"/>
+        <param key="device.taxi.parking" value="false"/>
+    </vType>
+```
+
+- duration for pick-up stop can be configured with vType/vehicle param "device.taxi.pickupDuration" (default "0")
+- duration for drop-off stop can be configured with vType/vehicle param "device.taxi.dropOffDuration" (default "60")
+
+By default, vehicle stops will have attribute `parking="true"` which means that the taxi will not block a driving lane. This can be changed by setting
+param "device.taxi.parking" to "false".
 
 # TraCI
 To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI.md) functions are provided:
@@ -135,11 +201,13 @@ When calling `traci.person.getTaxiReservations(reservationState)` the following 
 - 4: return reservations that have been assigned to a taxi
 - 8: return reservations that have been picked up
 
+Combinations of these values are also supported. For example sending a value of 3 (= 1 + 2) will return all reservations of both states 1 and 2.
+
 ## getTaxiFleet
 
 A taxi can be in any of the following states:
 
-- 0 (emtpy) : taxi is idle
+- 0 (empty) : taxi is idle
 - 1 (pickup):  taxi is en-route to pick up a customer
 - 2 (occupied): taxi has customer on board and is driving to drop-off
 - 3 (pickup + occupied): taxi has customer on board but will pick up more customers
@@ -157,7 +225,7 @@ when calling `traci.vehicle.getTaxiFleet(taxiState)` the following arguments for
 If a taxi is empty, the following dispatch calls are supported
 
 - dispatchTaxi(vehID, [reservationID]): pickup and drop-off persons belonging to the given reservation ID
-- If more than one reservation ID is given, each individual reservation ID must occur exactly twice in the list for complete pickup and drop-off. The first occurence of an ID denotes pick-up and the second occurence denotes drop-off.
+- If more than one reservation ID is given, each individual reservation ID must occur exactly twice in the list for complete pickup and drop-off. The first occurrence of an ID denotes pick-up and the second occurrence denotes drop-off.
 
 Example 1:  dispatchTaxi(vehID, [a]) means: pick up and drop off a.
 
@@ -167,14 +235,14 @@ If a taxi is not in state empty the following re-dispatch calls are supported
 
 - new reservations have no overlap with previous reservation: append new reservations to the previous reservations
 - new reservations include all previous unique reservation ids exactly twice: reset current route and stops and treat as complete new dispatch. If one of the persons of the earlier reservation is already picked up, ignore the first occurrence of the reservation in the reservation list
-- new reservations mentions include all previous unique reservation ids once or twice, all customers that are mentioned once are already picked up: reset current route and stops, use the single-occurence ids as as drop-of
+- new reservations mentions include all previous unique reservation ids once or twice, all customers that are mentioned once are already picked up: reset current route and stops, use the single-occurrence ids as as drop-of
 
 # Outputs
 
 The Taxi device generates output within a tripinfo-output file in the following
 form:
 
-```
+```xml
     <tripinfo id="trip_0" ... >
         <taxi customers="5" occupiedDistance="6748.77" occupiedTime="595.00"/>
     </tripinfo>
@@ -184,7 +252,7 @@ form:
 The following parameters can be retrieved via `traci.vehicle.getParameter` and written via **--fcd-output.params**.
 It is also possible to color vehicles in [SUMO-GUI 'by param (numerical)'](../sumo-gui.md#vehicle_visualisation_settings) by setting these keys.
 
-- device.taxi.state: returns integer value (see #gettaxifleet)  
+- device.taxi.state: returns integer value (see #gettaxifleet)
 - device.taxi.customers: total number of customers served
 - device.taxi.occupiedDistance: total distance driven in m with customer on board
 - device.taxi.occupiedTime: total time driven in s with customers on board

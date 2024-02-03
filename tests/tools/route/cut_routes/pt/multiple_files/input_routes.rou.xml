@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-12 11:36:24.077847 by ptlines2flows.py v1_5_0+0673-e4a6910
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <route id="bus_104:0" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
+        <stop busStop="3959807221" duration="30.00" until="35.0"/> <!-- Kolonnenbrücke -->
+        <stop busStop="3959807200" duration="30.00" until="100.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
+    <route id="bus_104:1" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
+        <stop busStop="3959807201" duration="30.00" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="3959807220" duration="30.00" until="103.0"/> <!-- Kolonnenbrücke -->
+    </route>
+    <route id="bus_140:0" edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0" >
+        <stop busStop="2029039195" duration="30.00" until="34.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="4032629820" duration="30.00" until="108.0"/> <!-- Monumentenstraße -->
+    </route>
+    <route id="bus_140:1" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
+        <stop busStop="4032629811" duration="30.00" until="47.0"/> <!-- Katzbachstraße/Kreuzbergstraße -->
+        <stop busStop="4032629819" duration="30.00" until="99.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="30.00" until="157.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="2029039146" duration="30.00" until="217.0"/> <!-- Badener Ring -->
+    </route>
+</routes>

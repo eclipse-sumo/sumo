@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -90,7 +90,7 @@ MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 
 double
-MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
@@ -115,7 +115,7 @@ MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double 
 }
 
 double
-MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
+MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/, const CalcReason /*usage*/) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
@@ -136,7 +136,7 @@ MSCFModel_SmartSK::patchSpeedBeforeLC(const MSVehicle* veh, double /*vMin*/, dou
 }
 
 double
-MSCFModel_SmartSK::dawdle(double speed, std::mt19937* rng) const {
+MSCFModel_SmartSK::dawdle(double speed, SumoRNG* rng) const {
     return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 

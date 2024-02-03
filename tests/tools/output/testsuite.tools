@@ -20,8 +20,12 @@ tripinfoDiff
 
 # difference of tripinfo output with personInfo elements
 tripinfoDiff_persons
+edgeDataDiff
+tripinfoByType
 tripinfoByTAZ
 attributeStats
+attributeDiff
+attributeCompare
 
 # tests for evaluating the coordination factor along a corridor
 computeCoordination
@@ -31,4 +35,17 @@ tripStatistics
 
 # compute stopping place usage
 computeStoppingPlaceUsage
+
+# compute number of passengers in vehicle
+computePassengerCounts
 stopOrder
+parkingSearchTraffic
+
+# aggregate battery outputs
+aggregateBatteryOutput
+vehrouteCountValidation
+fcdDiff
+analyze_pedestrian_jam
+
+# Copy of analyze_pedestrian_jam
+analyze_teleports

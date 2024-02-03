@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,23 +24,24 @@ from __future__ import absolute_import
 import sys
 import os
 import collections
-from optparse import OptionParser
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
-optParser = OptionParser(usage="usage: %prog [options] <input_flows.csv>")
-optParser.add_option(
-    "-d", "--detectorfile", help="read detector list from file")
-optParser.add_option(
-    "-v", "--validation", help="read validation data from file")
-optParser.add_option("-i", "--interval", default=15,
-                     help="aggregation interval in minutes (default: %default)")
-optParser.add_option("-l", "--legacy", action="store_true", default=False,
-                     help="legacy style, input file is whitespace separated, detector_definition")
-(options, args) = optParser.parse_args()
+parser = sumolib.options.ArgumentParser(usage="usage: %(prog)s [options] <input_flows.csv>")
+parser.add_argument(
+    "-d", "--detectorfile", type=parser.file, help="read detector list from file")
+parser.add_argument(
+    "-v", "--validation", type=parser.file, help="read validation data from file")
+parser.add_argument("-i", "--interval", default=15, type=parser.time,
+                    help="aggregation interval in minutes (default: %(default)s)")
+parser.add_argument("-l", "--legacy", action="store_true", default=False,
+                    help="legacy style, input file is whitespace separated, detector_definition")
+parser.add_argument("inputFlows", category="input", nargs=1, type=parser.file,
+                    help="csv file with flow input", metavar="FILE")
+options = parser.parse_args()
 
 sources = set()
 sinks = set()
@@ -59,7 +60,7 @@ countIn = 0
 countOut = 0
 start = 0
 end = options.interval
-with open(args[0]) as f:
+with open(options.inputFlows) as f:
     skipFirst = True
     for line in f:
         if skipFirst:
@@ -75,7 +76,7 @@ with open(args[0]) as f:
             counts[start] = countIn - countOut
             start = end
             end += options.interval
-            for det, vals in dets.iteritems():
+            for det, vals in dets.items():
                 if c[det] > 0:
                     vals.append((time, c[det], v[det] / c[det]))
             c.clear()
@@ -111,7 +112,7 @@ if options.validation:
         if time >= end:
             start = end
             end += options.interval
-            for det, vals in sims.iteritems():
+            for det, vals in sims.items():
                 if c[det] > 0:
                     vals.append((time, c[det], v[det] / c[det]))
             c.clear()
@@ -125,7 +126,7 @@ if options.validation:
             countOut += int(interval.nVehEntered)
     print("simIn: %s simOut: %s" % (countIn, countOut))
 
-for det, vals in dets.iteritems():
+for det, vals in dets.items():
     print("Plotting", det, 'totaldet', totals[det], 'totalSim', totalSim[det])
     plt.bar(*(zip(*vals)[:2]))  # select first and second entry (time and flow)
     if det in sims:

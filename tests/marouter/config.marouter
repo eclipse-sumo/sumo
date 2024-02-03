@@ -6,6 +6,7 @@ copy_test_path:input_od_vm.fma
 copy_test_path:input_od_v.fma
 copy_test_path:input_od_om.fma
 copy_test_path:input_od_o.fma
+copy_test_path:input_od.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
 

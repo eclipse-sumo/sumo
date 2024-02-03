@@ -69,7 +69,7 @@ held in MSInsertionControl</panel_attributes>
     </coordinates>
     <panel_attributes>running
 --
-The vehicle was inserted 
+The vehicle was inserted
 into the network.
 -.
 isOnNet()==true

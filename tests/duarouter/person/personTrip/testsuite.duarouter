@@ -4,11 +4,17 @@ junctionTaz
 # Copy of basic
 basic
 
+# Parameters in persons
+param
+
 # person with a type
 vtype
 
 # car use requested
 car
+
+# vehicle choice
+car_bike_taxi
 
 # car use requested, network contains bicycle lanes
 car_intermodal_net
@@ -18,6 +24,9 @@ car_type
 
 # car and walk possible
 car_walk
+
+# car and walk possible detailed output
+car_walk_detail
 
 # like car_walk but the network has sidewalks
 car_walk_sidewalk
@@ -78,6 +87,9 @@ intermodal_car_walk_no_place
 # train access
 access
 
+# train access at random location
+access_random
+
 # train access
 access_shortcut
 
@@ -103,6 +115,9 @@ car_public_walk4
 
 # bug: car always drives to the end of the access edge
 car_public_walk5
+
+# Copy of car_public_walk
+car_public_walk_detail
 
 # output bus route as well
 ptline_routing

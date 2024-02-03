@@ -1,0 +1,5 @@
+Error: Invalid Junction-Model Attribute jmIgnoreFoeProb. Cannot be parsed to float
+Error: Invalid Junction Model Parameters
+Error: Invalid Junction-Model Attribute jmIgnoreFoeProb. Must be equal or greater than 0
+Error: Invalid Junction Model Parameters
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/junctionmodel_params/jm_ignore_foe_prob/routes.rou.xml failed.

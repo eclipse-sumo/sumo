@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,6 @@ import socket
 import gzip
 import io
 import collections
-from optparse import OptionParser
 import xml.sax
 try:
     import lxml.etree
@@ -37,6 +36,10 @@ except ImportError:
     haveLxml = False
 
 import xsd
+
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 class NestingHandler(xml.sax.handler.ContentHandler):
@@ -203,6 +206,9 @@ class CSVWriter(NestingHandler):
                 for a in self.attrFinder.tagAttrs[name]:
                     a2 = self.attrFinder.renamedAttrs.get((name, a), a)
                     del self.currentValues[a2]
+        if self.depth() == 0:
+            for f in self.outfiles.values():
+                f.close()
         NestingHandler.endElement(self, name)
 
 
@@ -223,34 +229,35 @@ def getOutStream(output):
 
 
 def get_options(arglist=None):
-    optParser = OptionParser(
-        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-s", "--separator", default=";",
-                         help="separating character for fields")
-    optParser.add_option("-q", "--quotechar", default='',
-                         help="quoting character for fields")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use")
-    optParser.add_option("-a", "--validation", action="store_true",
-                         default=False, help="enable schema validation")
-    optParser.add_option("-p", "--split", action="store_true",
-                         default=False, help="split in different files for the first hierarchy level")
-    optParser.add_option("-o", "--output", help="base name for output")
-    options, args = optParser.parse_args(arglist)
-    if len(args) != 1:
-        optParser.print_help()
-        sys.exit()
+    optParser = sumolib.options.ArgumentParser(description="Convert a XML file to a CSV file")
+    # input
+    optParser.add_argument("source", category="input", type=optParser.file,
+                           help="the input data (stream given by digits or file")
+    # output
+    optParser.add_argument("-o", "--output", category="output", type=optParser.file,
+                           help="base name for output")
+    # processing
+    optParser.add_argument("-s", "--separator", default=";",
+                           help="separating character for fields")
+    optParser.add_argument("-q", "--quotechar", default='',
+                           help="quoting character for fields")
+    optParser.add_argument("-x", "--xsd", category="processing",
+                           help="xsd schema to use")
+    optParser.add_argument("-a", "--validation", action="store_true", default=False,
+                           help="enable schema validation")
+    optParser.add_argument("-p", "--split", action="store_true", default=False,
+                           help="split in different files for the first hierarchy level")
+    options = optParser.parse_args(arglist)
     if options.validation and not haveLxml:
         print("lxml not available, skipping validation", file=sys.stderr)
         options.validation = False
-    if args[0].isdigit():
+    if options.source.isdigit():
         if not options.xsd:
             print("a schema is mandatory for stream parsing", file=sys.stderr)
             sys.exit()
-        options.source = getSocketStream(int(args[0]))
-    elif args[0].endswith(".gz"):
-        options.source = gzip.open(args[0])
-    else:
-        options.source = args[0]
+        options.source = getSocketStream(int(options.source))
+    elif options.source.endswith(".gz"):
+        options.source = gzip.open(options.source)
     if options.output and options.output.isdigit() and options.split:
         print("it is not possible to use splitting together with stream output", file=sys.stderr)
         sys.exit()
@@ -265,7 +272,7 @@ def main(args=None):
     handler = CSVWriter(attrFinder, options)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
-        parser = lxml.etree.XMLParser(schema=schema)
+        parser = lxml.etree.XMLParser(schema=schema, resolve_entities=False, no_network=True)
         tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:

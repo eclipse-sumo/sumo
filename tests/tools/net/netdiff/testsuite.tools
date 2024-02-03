@@ -37,3 +37,14 @@ invalidated_neigh
 
 # test diffing a network with an edge that has no connections at the to-node
 delete_dead_end_edge
+
+# diff for a complex network change, write selection files
+write_selections
+
+# diff for a complex network change, write shape files
+write_shapes
+
+# generate plain geo output
+plain_geo
+save_config
+load_config

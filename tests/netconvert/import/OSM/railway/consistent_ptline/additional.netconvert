@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-19 12:40:11 by Eclipse SUMO netconvert Version v1_14_1+1116-701d17501f3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger,bus,tram"/>
+    </edge_removal>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="5414156523" name="Ackerstraße" lane="310569080#0_0" startPos="0.00" endPos="23.88" friendlyPos="true" lines="4">
+        <access lane="382039401#0_0" pos="0.20" length="61.97" friendlyPos="1"/>
+        <access lane="382039401#1_0" pos="0.20" length="61.76" friendlyPos="1"/>
+        <access lane="382039401#2_0" pos="0.00" length="61.74" friendlyPos="1"/>
+        <access lane="563320574#0_0" pos="32.13" length="0.49" friendlyPos="1"/>
+        <access lane="563320574#1_0" pos="0.00" length="36.26" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5414156524" name="Ackerstraße" lane="291757758#15_0" startPos="12.73" endPos="37.73" friendlyPos="true" lines="4">
+        <access lane="382039401#0_0" pos="0.20" length="82.43" friendlyPos="1"/>
+        <access lane="382039401#1_0" pos="0.00" length="82.43" friendlyPos="1"/>
+        <access lane="382039401#2_0" pos="0.00" length="82.53" friendlyPos="1"/>
+        <access lane="563320574#0_0" pos="18.33" length="3.74" friendlyPos="1"/>
+        <access lane="563320574#1_0" pos="0.00" length="57.08" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5428806609" name="Ackerstraße" lane="563320575#1_0" startPos="27.69" endPos="42.69" friendlyPos="true">
+        <access lane="382039401#0_0" pos="0.20" length="78.84" friendlyPos="1"/>
+        <access lane="382039401#1_0" pos="0.00" length="78.86" friendlyPos="1"/>
+        <access lane="382039401#2_0" pos="0.00" length="78.99" friendlyPos="1"/>
+        <access lane="563320574#0_0" pos="20.71" length="4.34" friendlyPos="1"/>
+        <access lane="563320574#1_0" pos="0.00" length="53.55" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5428806610" name="Ackerstraße" lane="563320574#0_0" startPos="23.87" endPos="38.87" friendlyPos="true"/>
+    <busStop id="5708039346" name="Hauptfriedhof" lane="334152816#1_0" startPos="35.67" endPos="50.67" friendlyPos="true"/>
+    <busStop id="5708039355" name="Hauptfriedhof" lane="291757758#1_0" startPos="28.27" endPos="53.27" friendlyPos="true" lines="4">
+        <access lane="23319992#2_0" pos="0.00" length="70.01" friendlyPos="1"/>
+        <access lane="334152816#1_0" pos="41.03" length="0.91" friendlyPos="1"/>
+        <access lane="334152816#2_0" pos="0.00" length="14.90" friendlyPos="1"/>
+        <access lane="334152816#3_0" pos="0.00" length="60.22" friendlyPos="1"/>
+        <access lane="334152817#1_0" pos="15.21" length="61.60" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5708111211" name="Hauptfriedhof" lane="310569080#12_0" startPos="284.53" endPos="309.53" friendlyPos="true">
+        <access lane="334152816#1_0" pos="50.67" length="81.56" friendlyPos="1"/>
+        <access lane="334152816#2_0" pos="15.02" length="58.69" friendlyPos="1"/>
+        <access lane="334152816#3_0" pos="6.69" length="27.76" friendlyPos="1"/>
+        <access lane="334152817#0_0" pos="44.61" length="0.91" friendlyPos="1"/>
+        <access lane="334152817#1_0" pos="0.00" length="11.80" friendlyPos="1"/>
+    </busStop>
+    <busStop id="765824928" name="Hauptfriedhof" lane="334152817#0_0" startPos="27.15" endPos="52.15" friendlyPos="true" lines="412"/>
+</additional>

@@ -1,0 +1,4 @@
+Error: Attribute 'pos' in definition of inductionLoop 'E1_02' Invalid Number Format (double) dummyPosition.
+Error: Attribute 'pos' is missing in definition of inductionLoop 'E1_01'.
+Error: Could not build inductionLoop with ID 'E1_04' in netedit; Invalid position over lane.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092756.14336/netedit.gui/additionalelements/e1detector/load/pos/additionals.add.xml failed.

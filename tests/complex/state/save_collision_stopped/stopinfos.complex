@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Oct 17 22:46:09 2020 by Eclipse SUMO sumo Version v1_7_0+0639-1524680f03
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2023-03-22 19:09:06 by Eclipse SUMO sumo Version v1_16_0+1578-0fb8d8f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,10 +10,10 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <stop-output value="stopinfos.xml"/>
         <save-state.times value="50"/>
         <save-state.files value="state.xml"/>
+        <save-state.precision value="3"/>
     </output>
 
     <time>
@@ -33,8 +28,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <verbose value="true"/>
-        <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -42,14 +35,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="always_right.0" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="19.83" parking="0" started="29.00" ended="79.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="horizontal.0" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="19.83" parking="0" started="30.00" ended="80.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="always_right.1" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="14.83" parking="0" started="33.00" ended="83.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="horizontal.1" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="14.83" parking="0" started="34.00" ended="84.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="horizontal.2" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="9.83" parking="0" started="37.00" ended="87.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="always_right.2" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="9.83" parking="0" started="37.00" ended="87.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="always_right.3" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="2.58" parking="0" started="40.00" ended="90.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="horizontal.3" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="4.83" parking="0" started="41.00" ended="91.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="horizontal.4" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="2.38" parking="0" started="94.00" ended="144.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="always_right.4" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="0.13" parking="0" started="94.00" ended="144.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="horizontal.0" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="19.83" parking="0" started="30.00" ended="80.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="always_right.0" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="19.83" parking="0" started="30.00" ended="80.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="horizontal.1" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="14.83" parking="0" started="34.00" ended="84.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="always_right.1" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="14.83" parking="0" started="34.00" ended="84.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="horizontal.2" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="9.83" parking="0" started="37.00" ended="87.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="always_right.2" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="9.83" parking="0" started="37.00" ended="87.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="always_right.3" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="2.58" parking="0" started="40.00" ended="90.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="horizontal.3" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="4.83" parking="0" started="41.00" ended="91.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="horizontal.4" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="2.38" parking="0" started="94.00" ended="144.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="always_right.4" type="SUMO_DEFAULT_TYPE" lane="2o_0" pos="0.13" parking="0" started="94.00" ended="144.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

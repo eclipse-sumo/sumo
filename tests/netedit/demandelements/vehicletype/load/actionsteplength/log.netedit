@@ -1,0 +1,4 @@
+Error: Attribute 'actionStepLength' in definition of vType 'vType0' Invalid Number Format (double) dummyActionStepLength.
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (=-3.00 s.)
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (4.50 s.) to the adjusted value 4.00 s.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/actionsteplength/routes.rou.xml failed.

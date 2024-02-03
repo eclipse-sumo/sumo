@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,15 +42,36 @@
 
 NBTypeCont::LaneTypeDefinition::LaneTypeDefinition() :
     speed(NBEdge::UNSPECIFIED_SPEED),
+    friction(NBEdge::UNSPECIFIED_FRICTION),
     permissions(SVC_UNSPECIFIED),
     width(NBEdge::UNSPECIFIED_WIDTH) {
 }
 
 
-NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width, SVCPermissions _permissions) :
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const EdgeTypeDefinition* edgeTypeDefinition) :
+    speed(edgeTypeDefinition->speed),
+    friction(edgeTypeDefinition->friction),
+    permissions(edgeTypeDefinition->permissions),
+    width(edgeTypeDefinition->width) {
+}
+
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const double _speed, const double _friction, const double _width, SVCPermissions _permissions, const std::set<SumoXMLAttr>& _attrs) :
     speed(_speed),
+    friction(_friction),
     permissions(_permissions),
-    width(_width) {
+    width(_width),
+    attrs(_attrs) {
+}
+
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const LaneTypeDefinition* laneTypeDefinition) :
+    speed(laneTypeDefinition->speed),
+    friction(laneTypeDefinition->friction),
+    permissions(laneTypeDefinition->permissions),
+    width(laneTypeDefinition->width),
+    restrictions(laneTypeDefinition->restrictions),
+    attrs(laneTypeDefinition->attrs) {
 }
 
 // ---------------------------------------------------------------------------
@@ -58,7 +79,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width,
 // ---------------------------------------------------------------------------
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
-    speed((double) 13.89), priority(-1),
+    speed(13.89), friction(NBEdge::UNSPECIFIED_FRICTION), priority(-1),
     permissions(SVC_UNSPECIFIED),
     spreadType(LaneSpreadFunction::RIGHT),
     oneWay(true), discard(false),
@@ -74,9 +95,13 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
 
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edgeType) :
-    speed(edgeType->speed), priority(edgeType->priority),
+    speed(edgeType->speed),
+    friction(edgeType->friction),
+    priority(edgeType->priority),
     permissions(edgeType->permissions),
-    oneWay(edgeType->oneWay), discard(edgeType->discard),
+    spreadType(edgeType->spreadType),
+    oneWay(edgeType->oneWay),
+    discard(edgeType->discard),
     width(edgeType->width),
     widthResolution(edgeType->widthResolution),
     maxWidth(edgeType->maxWidth),
@@ -89,10 +114,10 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edg
 }
 
 
-NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, int _priority,
+NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, double _friction, int _priority,
         double _width, SVCPermissions _permissions, LaneSpreadFunction _spreadType, bool _oneWay, double _sideWalkWidth,
         double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
-    speed(_speed), priority(_priority),
+    speed(_speed), friction(_friction), priority(_priority), //TODO
     permissions(_permissions),
     spreadType(_spreadType),
     oneWay(_oneWay),
@@ -112,6 +137,9 @@ bool
 NBTypeCont::EdgeTypeDefinition::needsLaneType() const {
     for (const LaneTypeDefinition& laneType : laneTypeDefinitions) {
         if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0 && laneType.speed != NBEdge::UNSPECIFIED_SPEED && laneType.speed != speed) {
+            return true;
+        }
+        if (laneType.attrs.count(SUMO_ATTR_FRICTION) > 0 && laneType.friction != NBEdge::UNSPECIFIED_FRICTION && laneType.friction != friction) {
             return true;
         }
         if ((laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0)
@@ -137,11 +165,7 @@ NBTypeCont::NBTypeCont() :
 
 
 NBTypeCont::~NBTypeCont() {
-    // remove edge types
-    for (const auto& edgeType : myEdgeTypes) {
-        delete edgeType.second;
-    }
-    // delete default type
+    clearTypes();
     delete myDefaultType;
 }
 
@@ -161,6 +185,7 @@ void
 NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
                                 double defaultLaneWidth,
                                 double defaultSpeed,
+                                double defaultFriction,
                                 int defaultPriority,
                                 SVCPermissions defaultPermissions,
                                 LaneSpreadFunction defaultSpreadType) {
@@ -168,6 +193,7 @@ NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
     myDefaultType->laneTypeDefinitions.resize(defaultNumLanes);
     myDefaultType->width = defaultLaneWidth;
     myDefaultType->speed = defaultSpeed;
+    myDefaultType->friction = defaultFriction;
     myDefaultType->priority = defaultPriority;
     myDefaultType->permissions = defaultPermissions;
     myDefaultType->spreadType = defaultSpreadType;
@@ -180,13 +206,16 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
                            bool oneWayIsDefault, double sidewalkWidth, double bikeLaneWidth,
                            double widthResolution, double maxWidth, double minWidth) {
     // Create edge type definition
-    EdgeTypeDefinition* newType = new EdgeTypeDefinition(numLanes, maxSpeed, prio, width, permissions, spreadType, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
+    EdgeTypeDefinition* newType = new EdgeTypeDefinition(numLanes, maxSpeed, NBEdge::UNSPECIFIED_FRICTION, prio,
+            width, permissions, spreadType, oneWayIsDefault, sidewalkWidth,
+            bikeLaneWidth, widthResolution, maxWidth, minWidth);
     // check if edgeType already exist in types
     TypesCont::iterator old = myEdgeTypes.find(id);
     // if exists, then update restrictions and attributes
     if (old != myEdgeTypes.end()) {
         newType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
         newType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
+        delete old->second;
     }
     // insert it in types
     myEdgeTypes[id] = newType;
@@ -203,6 +232,7 @@ NBTypeCont::insertEdgeType(const std::string& id, const EdgeTypeDefinition* edge
     if (old != myEdgeTypes.end()) {
         newType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
         newType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
+        delete old->second;
     }
     // insert it in types
     myEdgeTypes[id] = newType;
@@ -214,11 +244,10 @@ NBTypeCont::insertLaneType(const std::string& edgeTypeID, int index, double maxS
                            double width, const std::set<SumoXMLAttr>& attrs) {
     EdgeTypeDefinition* et = myEdgeTypes.at(edgeTypeID);
     while ((int)et->laneTypeDefinitions.size() <= index) {
-        et->laneTypeDefinitions.push_back(LaneTypeDefinition(et->speed, et->width, et->permissions));
+        et->laneTypeDefinitions.push_back(et);
     }
-    et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, width, permissions);
-    // update attributes
-    et->laneTypeDefinitions[index].attrs = attrs;
+    // add LaneTypeDefinition with the given attributes
+    et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, NBEdge::UNSPECIFIED_FRICTION, width, permissions, attrs);
 }
 
 
@@ -235,6 +264,7 @@ NBTypeCont::removeEdgeType(const std::string& id) {
     // if exists, then remove it
     if (it != myEdgeTypes.end()) {
         // remove it from map
+        delete it->second;
         myEdgeTypes.erase(it);
     }
 }
@@ -344,9 +374,12 @@ NBTypeCont::addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass
 
 
 void
-NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
+NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typeIDs) const {
     // iterate over edge types
     for (const auto& edgeType : myEdgeTypes) {
+        if (typeIDs.size() > 0 && typeIDs.count(edgeType.first) == 0) {
+            continue;
+        }
         // open edge type tag
         into.openTag(SUMO_TAG_TYPE);
         // write ID
@@ -362,6 +395,13 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
         // write speed
         if (edgeType.second->attrs.count(SUMO_ATTR_SPEED) > 0) {
             into.writeAttr(SUMO_ATTR_SPEED, edgeType.second->speed);
+        }
+        // write friction
+        if (edgeType.second->attrs.count(SUMO_ATTR_FRICTION) > 0) {
+            // only write if its not the default value
+            if (edgeType.second->friction != NBEdge::UNSPECIFIED_FRICTION) {
+                into.writeAttr(SUMO_ATTR_FRICTION, edgeType.second->friction);
+            }
         }
         // write permissions
         if ((edgeType.second->attrs.count(SUMO_ATTR_DISALLOW) > 0) || (edgeType.second->attrs.count(SUMO_ATTR_ALLOW) > 0)) {
@@ -414,6 +454,11 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
                         && laneType.speed != edgeType.second->speed) {
                     into.writeAttr(SUMO_ATTR_SPEED, laneType.speed);
                 }
+                // write friction
+                if (laneType.attrs.count(SUMO_ATTR_FRICTION) > 0 && laneType.friction != NBEdge::UNSPECIFIED_FRICTION
+                        && laneType.friction != edgeType.second->friction) {
+                    into.writeAttr(SUMO_ATTR_FRICTION, laneType.friction);
+                }
                 // write permissions
                 if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
                     writePermissions(into, laneType.permissions);
@@ -457,6 +502,11 @@ NBTypeCont::getEdgeTypeNumLanes(const std::string& type) const {
 double
 NBTypeCont::getEdgeTypeSpeed(const std::string& type) const {
     return getEdgeType(type)->speed;
+}
+
+double
+NBTypeCont::getEdgeTypeFriction(const std::string& type) const {
+    return getEdgeType(type)->friction;
 }
 
 

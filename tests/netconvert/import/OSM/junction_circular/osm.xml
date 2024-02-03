@@ -1,0 +1,1470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57 93a4d346">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-04-04T12:56:12Z"/>
+
+  <node id="17660703" lat="51.4597941" lon="-2.5903755"/>
+  <node id="17660711" lat="51.4597026" lon="-2.5902379"/>
+  <node id="17660715" lat="51.4593056" lon="-2.5902104"/>
+  <node id="17660726" lat="51.4591014" lon="-2.5907591"/>
+  <node id="17660728" lat="51.4591164" lon="-2.5910206"/>
+  <node id="17660730" lat="51.4591928" lon="-2.5912854"/>
+  <node id="17660734" lat="51.4593328" lon="-2.5913827"/>
+  <node id="17660736" lat="51.4596465" lon="-2.5912110"/>
+  <node id="17660738" lat="51.4596700" lon="-2.5911398"/>
+  <node id="17660784" lat="51.4594195" lon="-2.5888739"/>
+  <node id="19999048" lat="51.4590646" lon="-2.5912891">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="19999050" lat="51.4581690" lon="-2.5921796"/>
+  <node id="21238592" lat="51.4594420" lon="-2.5880591"/>
+  <node id="35438529" lat="51.4594793" lon="-2.5897035"/>
+  <node id="247834409" lat="51.4592548" lon="-2.5875430"/>
+  <node id="247834413" lat="51.4591976" lon="-2.5901855"/>
+  <node id="247834414" lat="51.4589089" lon="-2.5910206"/>
+  <node id="279757453" lat="51.4596589" lon="-2.5919311"/>
+  <node id="279757517" lat="51.4592951" lon="-2.5914902"/>
+  <node id="279757547" lat="51.4591803" lon="-2.5914257"/>
+  <node id="279757869" lat="51.4596086" lon="-2.5919393"/>
+  <node id="279757870" lat="51.4595132" lon="-2.5916298"/>
+  <node id="279758538" lat="51.4597020" lon="-2.5923322"/>
+  <node id="287226714" lat="51.4598170" lon="-2.5930156"/>
+  <node id="465205553" lat="51.4582464" lon="-2.5919265"/>
+  <node id="465215176" lat="51.4597738" lon="-2.5922304"/>
+  <node id="644926786" lat="51.4595470" lon="-2.5915835"/>
+  <node id="644926907" lat="51.4591675" lon="-2.5912239"/>
+  <node id="644926918" lat="51.4595388" lon="-2.5913337">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="644926923" lat="51.4598180" lon="-2.5906801">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="644926946" lat="51.4600707" lon="-2.5905847"/>
+  <node id="644926956" lat="51.4594792" lon="-2.5901129"/>
+  <node id="644926958" lat="51.4593965" lon="-2.5901384">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="644926968" lat="51.4598800" lon="-2.5908639">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="224727145658177"/>
+    <tag k="survey:date" v="2019-05-12"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="645089641" lat="51.4591030" lon="-2.5914011"/>
+  <node id="645089694" lat="51.4597161" lon="-2.5913149"/>
+  <node id="645089696" lat="51.4597097" lon="-2.5914116"/>
+  <node id="645089708" lat="51.4597784" lon="-2.5910916"/>
+  <node id="645089711" lat="51.4598628" lon="-2.5909508"/>
+  <node id="645089729" lat="51.4591813" lon="-2.5903449"/>
+  <node id="645089768" lat="51.4596672" lon="-2.5903136"/>
+  <node id="645089852" lat="51.4594517" lon="-2.5915725"/>
+  <node id="645089864" lat="51.4592063" lon="-2.5900823"/>
+  <node id="645089868" lat="51.4592083" lon="-2.5901894"/>
+  <node id="645089882" lat="51.4592086" lon="-2.5902317"/>
+  <node id="645090003" lat="51.4598347" lon="-2.5909006"/>
+  <node id="1247835132" lat="51.4601139" lon="-2.5908856"/>
+  <node id="1247835140" lat="51.4600175" lon="-2.5908535"/>
+  <node id="1247835143" lat="51.4599937" lon="-2.5905288"/>
+  <node id="1247835160" lat="51.4599429" lon="-2.5908444"/>
+  <node id="1247835167" lat="51.4601533" lon="-2.5906457"/>
+  <node id="1247839593" lat="51.4596101" lon="-2.5899446"/>
+  <node id="1247839596" lat="51.4594102" lon="-2.5894612"/>
+  <node id="1247839608" lat="51.4594366" lon="-2.5895850"/>
+  <node id="1280853172" lat="51.4592879" lon="-2.5904356"/>
+  <node id="1280853173" lat="51.4589900" lon="-2.5907958"/>
+  <node id="1280853174" lat="51.4596070" lon="-2.5901452"/>
+  <node id="1280853175" lat="51.4593130" lon="-2.5900195">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1280853177" lat="51.4590702" lon="-2.5913994"/>
+  <node id="1280853178" lat="51.4598146" lon="-2.5901507"/>
+  <node id="1280853180" lat="51.4599650" lon="-2.5903996"/>
+  <node id="1280853181" lat="51.4603191" lon="-2.5906746"/>
+  <node id="1280853184" lat="51.4598028" lon="-2.5901332"/>
+  <node id="1280853185" lat="51.4601354" lon="-2.5907588"/>
+  <node id="1280853186" lat="51.4599684" lon="-2.5906598"/>
+  <node id="1280853187" lat="51.4597942" lon="-2.5901409"/>
+  <node id="1280853189" lat="51.4590180" lon="-2.5907832"/>
+  <node id="1280853191" lat="51.4598982" lon="-2.5902843"/>
+  <node id="1280853193" lat="51.4599432" lon="-2.5904854">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="1280853195" lat="51.4598210" lon="-2.5904900"/>
+  <node id="1280853196" lat="51.4598597" lon="-2.5902360"/>
+  <node id="1281268388" lat="51.4598495" lon="-2.5910192"/>
+  <node id="1281268406" lat="51.4596524" lon="-2.5909948"/>
+  <node id="1281268427" lat="51.4595804" lon="-2.5907342"/>
+  <node id="1281294877" lat="51.4596410" lon="-2.5914293">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1281294880" lat="51.4596620" lon="-2.5915744"/>
+  <node id="1281294895" lat="51.4595659" lon="-2.5917206"/>
+  <node id="1281294900" lat="51.4593159" lon="-2.5912485"/>
+  <node id="1281294902" lat="51.4596212" lon="-2.5917311"/>
+  <node id="1281294910" lat="51.4598269" lon="-2.5906068"/>
+  <node id="1281294911" lat="51.4595896" lon="-2.5917957"/>
+  <node id="1281294914" lat="51.4592613" lon="-2.5913527"/>
+  <node id="1281294920" lat="51.4597506" lon="-2.5919622"/>
+  <node id="1281294940" lat="51.4596388" lon="-2.5913199"/>
+  <node id="1281294956" lat="51.4597055" lon="-2.5917257"/>
+  <node id="1281294958" lat="51.4595877" lon="-2.5916524"/>
+  <node id="1281294963" lat="51.4594560" lon="-2.5913746"/>
+  <node id="1281314247" lat="51.4598407" lon="-2.5935885"/>
+  <node id="1281314251" lat="51.4598043" lon="-2.5927940"/>
+  <node id="1281314257" lat="51.4598617" lon="-2.5930135"/>
+  <node id="1281314274" lat="51.4598502" lon="-2.5928002"/>
+  <node id="1381022265" lat="51.4586830" lon="-2.5916349"/>
+  <node id="1381022312" lat="51.4590038" lon="-2.5926417"/>
+  <node id="1381053331" lat="51.4591077" lon="-2.5923577"/>
+  <node id="1381053362" lat="51.4596629" lon="-2.5919684"/>
+  <node id="1381053414" lat="51.4592338" lon="-2.5921102"/>
+  <node id="1381053430" lat="51.4595628" lon="-2.5919252"/>
+  <node id="1381053451" lat="51.4594670" lon="-2.5919195"/>
+  <node id="1381053456" lat="51.4593024" lon="-2.5920200"/>
+  <node id="1382090555" lat="51.4599285" lon="-2.5909282"/>
+  <node id="1382113164" lat="51.4594143" lon="-2.5892017"/>
+  <node id="1382252934" lat="51.4590233" lon="-2.5909494">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="1129855567489264"/>
+    <tag k="survey:date" v="2019-05-19"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="1382252976" lat="51.4588337" lon="-2.5911240"/>
+  <node id="1382252995" lat="51.4587756" lon="-2.5890414"/>
+  <node id="1417986065" lat="51.4595613" lon="-2.5901178"/>
+  <node id="2045184058" lat="51.4589890" lon="-2.5895486"/>
+  <node id="2045184060" lat="51.4590011" lon="-2.5891895"/>
+  <node id="2045184068" lat="51.4590176" lon="-2.5893771"/>
+  <node id="2045184070" lat="51.4590191" lon="-2.5892076"/>
+  <node id="2045184072" lat="51.4590265" lon="-2.5892376"/>
+  <node id="2179076266" lat="51.4595231" lon="-2.5870988"/>
+  <node id="2179076273" lat="51.4593630" lon="-2.5859217"/>
+  <node id="2179076283" lat="51.4595251" lon="-2.5871779"/>
+  <node id="2179076301" lat="51.4593571" lon="-2.5858006"/>
+  <node id="2179076321" lat="51.4593852" lon="-2.5861457"/>
+  <node id="2179076344" lat="51.4593946" lon="-2.5854140"/>
+  <node id="2179076345" lat="51.4594528" lon="-2.5851723"/>
+  <node id="2179076369" lat="51.4593981" lon="-2.5853893"/>
+  <node id="2179076387" lat="51.4594729" lon="-2.5865758"/>
+  <node id="2179076405" lat="51.4593592" lon="-2.5856873"/>
+  <node id="2179076452" lat="51.4593760" lon="-2.5855455"/>
+  <node id="2179076479" lat="51.4594575" lon="-2.5865010"/>
+  <node id="2179076542" lat="51.4594086" lon="-2.5862624"/>
+  <node id="2179076558" lat="51.4595079" lon="-2.5868688"/>
+  <node id="2433863938" lat="51.4592257" lon="-2.5891779"/>
+  <node id="2920948564" lat="51.4594166" lon="-2.5890539"/>
+  <node id="2920948566" lat="51.4594900" lon="-2.5890621"/>
+  <node id="3329881928" lat="51.4593541" lon="-2.5910774"/>
+  <node id="3329881929" lat="51.4594390" lon="-2.5907579"/>
+  <node id="3329881930" lat="51.4593738" lon="-2.5905460"/>
+  <node id="3329881931" lat="51.4595884" lon="-2.5904349"/>
+  <node id="3329881932" lat="51.4595811" lon="-2.5909242"/>
+  <node id="3331523948" lat="51.4580028" lon="-2.5926658"/>
+  <node id="3331523949" lat="51.4580631" lon="-2.5924273"/>
+  <node id="3331523950" lat="51.4581292" lon="-2.5923013"/>
+  <node id="3331523951" lat="51.4587185" lon="-2.5917518"/>
+  <node id="3331523955" lat="51.4597759" lon="-2.5913102"/>
+  <node id="3331523956" lat="51.4597826" lon="-2.5916964"/>
+  <node id="3331523957" lat="51.4598252" lon="-2.5918922"/>
+  <node id="3331523958" lat="51.4598436" lon="-2.5926111"/>
+  <node id="3331523959" lat="51.4598795" lon="-2.5936867"/>
+  <node id="3331523960" lat="51.4598455" lon="-2.5936926">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3331523962" lat="51.4596522" lon="-2.5924189"/>
+  <node id="3331523963" lat="51.4597217" lon="-2.5935682"/>
+  <node id="3332266266" lat="51.4601001" lon="-2.5909977"/>
+  <node id="3332266273" lat="51.4597720" lon="-2.5937592">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="puffin"/>
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="3694381330" lat="51.4593191" lon="-2.5891863"/>
+  <node id="3696173720" lat="51.4599228" lon="-2.5906073">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3860890366" lat="51.4594589" lon="-2.5851507"/>
+  <node id="3860890367" lat="51.4595192" lon="-2.5870399"/>
+  <node id="3860890371" lat="51.4592277" lon="-2.5869765"/>
+  <node id="3860908591" lat="51.4595230" lon="-2.5880821"/>
+  <node id="3860908592" lat="51.4595300" lon="-2.5884411"/>
+  <node id="3860908593" lat="51.4594872" lon="-2.5891470"/>
+  <node id="3860908594" lat="51.4594849" lon="-2.5895012"/>
+  <node id="3860908595" lat="51.4596071" lon="-2.5898118"/>
+  <node id="3860908596" lat="51.4597017" lon="-2.5899635"/>
+  <node id="3860908597" lat="51.4598713" lon="-2.5902051"/>
+  <node id="3860908598" lat="51.4596276" lon="-2.5897942"/>
+  <node id="3860908599" lat="51.4595842" lon="-2.5897536"/>
+  <node id="4612672672" lat="51.4592855" lon="-2.5915630"/>
+  <node id="4612672682" lat="51.4592705" lon="-2.5916297"/>
+  <node id="4612672683" lat="51.4593173" lon="-2.5916062"/>
+  <node id="4612672684" lat="51.4593308" lon="-2.5919737"/>
+  <node id="4612672685" lat="51.4593668" lon="-2.5919522"/>
+  <node id="4612672686" lat="51.4593835" lon="-2.5919500"/>
+  <node id="4612672687" lat="51.4593766" lon="-2.5919288"/>
+  <node id="4612672688" lat="51.4593131" lon="-2.5919663"/>
+  <node id="4612672789" lat="51.4592663" lon="-2.5916599"/>
+  <node id="4612672795" lat="51.4593315" lon="-2.5916241"/>
+  <node id="4612672796" lat="51.4592795" lon="-2.5916085"/>
+  <node id="5065033620" lat="51.4591194" lon="-2.5915933"/>
+  <node id="5065034021" lat="51.4590935" lon="-2.5915919"/>
+  <node id="5065034022" lat="51.4590492" lon="-2.5916187"/>
+  <node id="5065034023" lat="51.4588529" lon="-2.5918320"/>
+  <node id="5065034024" lat="51.4588303" lon="-2.5918789"/>
+  <node id="5065034025" lat="51.4588044" lon="-2.5919715"/>
+  <node id="5065034026" lat="51.4589298" lon="-2.5920855"/>
+  <node id="5065034027" lat="51.4590877" lon="-2.5921887"/>
+  <node id="5065034043" lat="51.4598957" lon="-2.5909381"/>
+  <node id="5065034044" lat="51.4598309" lon="-2.5909857"/>
+  <node id="5065034045" lat="51.4598335" lon="-2.5910347"/>
+  <node id="5065034046" lat="51.4598180" lon="-2.5910608"/>
+  <node id="5065034047" lat="51.4597887" lon="-2.5911587"/>
+  <node id="5065034048" lat="51.4597511" lon="-2.5912741"/>
+  <node id="5065034049" lat="51.4598055" lon="-2.5910233"/>
+  <node id="5065034050" lat="51.4591328" lon="-2.5911064">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="toucan"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="783920102496176"/>
+    <tag k="survey:date" v="2019-05-19"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="5065034054" lat="51.4593135" lon="-2.5899370"/>
+  <node id="5065034055" lat="51.4592509" lon="-2.5899391"/>
+  <node id="5065034057" lat="51.4593157" lon="-2.5896916"/>
+  <node id="5065034058" lat="51.4592545" lon="-2.5897703"/>
+  <node id="5065034059" lat="51.4592494" lon="-2.5901261"/>
+  <node id="5065034060" lat="51.4592552" lon="-2.5902582"/>
+  <node id="5359925909" lat="51.4598447" lon="-2.5938749"/>
+  <node id="5750157404" lat="51.4597615" lon="-2.5900156"/>
+  <node id="5750157405" lat="51.4600731" lon="-2.5898170"/>
+  <node id="5823455406" lat="51.4594411" lon="-2.5911032"/>
+  <node id="5823455407" lat="51.4594835" lon="-2.5910896"/>
+  <node id="5823455408" lat="51.4594752" lon="-2.5911074"/>
+  <node id="5823455409" lat="51.4594671" lon="-2.5911123"/>
+  <node id="5823455410" lat="51.4594599" lon="-2.5911121"/>
+  <node id="5823455411" lat="51.4594524" lon="-2.5911080"/>
+  <node id="5823455412" lat="51.4594466" lon="-2.5911037"/>
+  <node id="5823455413" lat="51.4594361" lon="-2.5911084"/>
+  <node id="5823455414" lat="51.4594309" lon="-2.5911278"/>
+  <node id="5823455415" lat="51.4594310" lon="-2.5911390"/>
+  <node id="5823455416" lat="51.4594338" lon="-2.5911614"/>
+  <node id="5823455417" lat="51.4594365" lon="-2.5911748"/>
+  <node id="5823455418" lat="51.4594380" lon="-2.5911795"/>
+  <node id="5823455419" lat="51.4594428" lon="-2.5911912"/>
+  <node id="5823455420" lat="51.4594578" lon="-2.5912116"/>
+  <node id="5823455421" lat="51.4594664" lon="-2.5912177"/>
+  <node id="5823455422" lat="51.4594712" lon="-2.5912184"/>
+  <node id="5823455423" lat="51.4594873" lon="-2.5912150"/>
+  <node id="5823455424" lat="51.4595057" lon="-2.5912049"/>
+  <node id="5823455425" lat="51.4595138" lon="-2.5911942"/>
+  <node id="5823455426" lat="51.4595241" lon="-2.5911762"/>
+  <node id="5823455427" lat="51.4595313" lon="-2.5911442"/>
+  <node id="5823455428" lat="51.4595370" lon="-2.5911238"/>
+  <node id="5823455429" lat="51.4595409" lon="-2.5911099"/>
+  <node id="5823455430" lat="51.4595469" lon="-2.5910945"/>
+  <node id="5823455431" lat="51.4595560" lon="-2.5910822"/>
+  <node id="5823455432" lat="51.4595618" lon="-2.5910760"/>
+  <node id="5823455433" lat="51.4595879" lon="-2.5910691"/>
+  <node id="5823455434" lat="51.4595990" lon="-2.5910668"/>
+  <node id="5823455435" lat="51.4596100" lon="-2.5910548"/>
+  <node id="5823455436" lat="51.4596141" lon="-2.5910398"/>
+  <node id="5823455437" lat="51.4596153" lon="-2.5910256"/>
+  <node id="5823455438" lat="51.4596124" lon="-2.5910179"/>
+  <node id="5823455439" lat="51.4594712" lon="-2.5911105"/>
+  <node id="5823455440" lat="51.4594789" lon="-2.5911016"/>
+  <node id="5823455441" lat="51.4594633" lon="-2.5911125"/>
+  <node id="5823455442" lat="51.4594880" lon="-2.5910728"/>
+  <node id="5823455443" lat="51.4594901" lon="-2.5910671"/>
+  <node id="5823455444" lat="51.4594951" lon="-2.5910593"/>
+  <node id="5823455445" lat="51.4593800" lon="-2.5911201"/>
+  <node id="5823455446" lat="51.4593971" lon="-2.5911304"/>
+  <node id="5823455447" lat="51.4594322" lon="-2.5911478"/>
+  <node id="5823455448" lat="51.4594418" lon="-2.5911670"/>
+  <node id="5823455449" lat="51.4594453" lon="-2.5911730"/>
+  <node id="5823455450" lat="51.4594505" lon="-2.5911776"/>
+  <node id="5823455451" lat="51.4594578" lon="-2.5911812"/>
+  <node id="5823455452" lat="51.4594665" lon="-2.5911799"/>
+  <node id="5823455853" lat="51.4594749" lon="-2.5911734"/>
+  <node id="5823455854" lat="51.4594862" lon="-2.5911605"/>
+  <node id="5823455855" lat="51.4594928" lon="-2.5911435"/>
+  <node id="5823455856" lat="51.4595006" lon="-2.5911323"/>
+  <node id="5823455857" lat="51.4595087" lon="-2.5911273"/>
+  <node id="5823455858" lat="51.4595143" lon="-2.5911252"/>
+  <node id="5823455859" lat="51.4595267" lon="-2.5911275"/>
+  <node id="5823455860" lat="51.4595337" lon="-2.5911349"/>
+  <node id="5823455861" lat="51.4595429" lon="-2.5911459"/>
+  <node id="5823455862" lat="51.4595517" lon="-2.5911503"/>
+  <node id="5823455863" lat="51.4595603" lon="-2.5911533"/>
+  <node id="5823455864" lat="51.4595709" lon="-2.5911530"/>
+  <node id="5823455865" lat="51.4595784" lon="-2.5911466"/>
+  <node id="5823455866" lat="51.4595810" lon="-2.5911402"/>
+  <node id="5823455867" lat="51.4595814" lon="-2.5911228"/>
+  <node id="5823455868" lat="51.4595766" lon="-2.5910836"/>
+  <node id="5823455869" lat="51.4595759" lon="-2.5910726"/>
+  <node id="5823455870" lat="51.4595732" lon="-2.5910348"/>
+  <node id="5823455871" lat="51.4594820" lon="-2.5911669"/>
+  <node id="5823455872" lat="51.4594899" lon="-2.5911526"/>
+  <node id="5823455873" lat="51.4594960" lon="-2.5911374"/>
+  <node id="5823455874" lat="51.4595205" lon="-2.5911248"/>
+  <node id="5823455875" lat="51.4595238" lon="-2.5911257"/>
+  <node id="5823455876" lat="51.4595749" lon="-2.5911504"/>
+  <node id="5823455877" lat="51.4595816" lon="-2.5911316"/>
+  <node id="5823455878" lat="51.4591499" lon="-2.5911644"/>
+  <node id="5823455881" lat="51.4591956" lon="-2.5910562"/>
+  <node id="5823455882" lat="51.4591913" lon="-2.5909895"/>
+  <node id="5823455884" lat="51.4591968" lon="-2.5909342"/>
+  <node id="5823455885" lat="51.4592047" lon="-2.5909031"/>
+  <node id="5823455886" lat="51.4592219" lon="-2.5908708"/>
+  <node id="5823455888" lat="51.4592445" lon="-2.5908528"/>
+  <node id="5823455890" lat="51.4593260" lon="-2.5908258"/>
+  <node id="5823455892" lat="51.4597810" lon="-2.5906525"/>
+  <node id="5823455893" lat="51.4597496" lon="-2.5906985"/>
+  <node id="5823455894" lat="51.4597316" lon="-2.5907321"/>
+  <node id="5823455895" lat="51.4597187" lon="-2.5907408"/>
+  <node id="5823455896" lat="51.4596997" lon="-2.5907443"/>
+  <node id="5823455897" lat="51.4596721" lon="-2.5907357"/>
+  <node id="5823455898" lat="51.4596594" lon="-2.5907210"/>
+  <node id="5823455899" lat="51.4596458" lon="-2.5907118"/>
+  <node id="5823455900" lat="51.4596262" lon="-2.5907072"/>
+  <node id="5823455901" lat="51.4596097" lon="-2.5907138"/>
+  <node id="5905281703" lat="51.4582629" lon="-2.5921265"/>
+  <node id="5941071868" lat="51.4599206" lon="-2.5899142"/>
+  <node id="6056100150" lat="51.4592745" lon="-2.5900652"/>
+  <node id="6056100151" lat="51.4592775" lon="-2.5899451"/>
+  <node id="6056100152" lat="51.4592698" lon="-2.5899450"/>
+  <node id="6056100153" lat="51.4592672" lon="-2.5900570"/>
+  <node id="6056100154" lat="51.4592779" lon="-2.5899240"/>
+  <node id="6056100155" lat="51.4592789" lon="-2.5897966"/>
+  <node id="6056100156" lat="51.4592712" lon="-2.5897964"/>
+  <node id="6056100157" lat="51.4592702" lon="-2.5899239"/>
+  <node id="6129504429" lat="51.4598607" lon="-2.5929945"/>
+  <node id="6831733121" lat="51.4594176" lon="-2.5889915"/>
+  <node id="6831733122" lat="51.4594346" lon="-2.5883261"/>
+  <node id="6831733130" lat="51.4597023" lon="-2.5920519"/>
+  <node id="6831733131" lat="51.4595853" lon="-2.5914290"/>
+  <node id="6831733132" lat="51.4595163" lon="-2.5914625"/>
+  <node id="6831733133" lat="51.4595184" lon="-2.5914565"/>
+  <node id="6831733134" lat="51.4595539" lon="-2.5914464"/>
+  <node id="6831733135" lat="51.4595895" lon="-2.5914350"/>
+  <node id="6831733136" lat="51.4595928" lon="-2.5914759"/>
+  <node id="6831733137" lat="51.4596028" lon="-2.5915329"/>
+  <node id="6831733138" lat="51.4595853" lon="-2.5915631"/>
+  <node id="6831733139" lat="51.4596145" lon="-2.5915859"/>
+  <node id="6831733140" lat="51.4596141" lon="-2.5916335"/>
+  <node id="6831733141" lat="51.4596367" lon="-2.5916533"/>
+  <node id="6831733142" lat="51.4596434" lon="-2.5917207"/>
+  <node id="6831733143" lat="51.4596546" lon="-2.5917240"/>
+  <node id="6831733144" lat="51.4596780" lon="-2.5919386"/>
+  <node id="6831733145" lat="51.4596551" lon="-2.5917837"/>
+  <node id="6831733146" lat="51.4596776" lon="-2.5918508"/>
+  <node id="6831733147" lat="51.4597018" lon="-2.5921538"/>
+  <node id="6831733148" lat="51.4597244" lon="-2.5922685"/>
+  <node id="6831733149" lat="51.4597837" lon="-2.5931114"/>
+  <node id="6831733150" lat="51.4597436" lon="-2.5926366"/>
+  <node id="6831733151" lat="51.4597695" lon="-2.5931134"/>
+  <node id="6831733152" lat="51.4597603" lon="-2.5926876"/>
+  <node id="6831733153" lat="51.4597883" lon="-2.5935419"/>
+  <node id="6831733154" lat="51.4598046" lon="-2.5935513"/>
+  <node id="6831733155" lat="51.4598552" lon="-2.5928794"/>
+  <node id="6928598744" lat="51.4599843" lon="-2.5907403"/>
+  <node id="6928598745" lat="51.4599119" lon="-2.5906725"/>
+  <node id="6928598746" lat="51.4598922" lon="-2.5907907"/>
+  <node id="6928598747" lat="51.4598784" lon="-2.5906468"/>
+  <node id="6928598748" lat="51.4598596" lon="-2.5907645"/>
+  <node id="6928598749" lat="51.4598619" lon="-2.5907812"/>
+  <node id="6928598750" lat="51.4598673" lon="-2.5907903"/>
+  <node id="6928598751" lat="51.4598738" lon="-2.5907933"/>
+  <node id="6928598752" lat="51.4599283" lon="-2.5907856"/>
+  <node id="6928598753" lat="51.4599797" lon="-2.5907977"/>
+  <node id="6928598754" lat="51.4602320" lon="-2.5909053"/>
+  <node id="6928598755" lat="51.4602345" lon="-2.5908892"/>
+  <node id="6928598756" lat="51.4599431" lon="-2.5907075"/>
+  <node id="6928598757" lat="51.4598855" lon="-2.5906478"/>
+  <node id="6928598758" lat="51.4598721" lon="-2.5906565"/>
+  <node id="6928598759" lat="51.4598649" lon="-2.5907150"/>
+  <node id="6928598760" lat="51.4598602" lon="-2.5907517"/>
+  <node id="6937982874" lat="51.4591743" lon="-2.5903388"/>
+  <node id="6937982875" lat="51.4589993" lon="-2.5913091"/>
+  <node id="6937982878" lat="51.4588724" lon="-2.5912173"/>
+  <node id="6937982880" lat="51.4589556" lon="-2.5910791"/>
+  <node id="6937982881" lat="51.4591048" lon="-2.5909289"/>
+  <node id="6937982882" lat="51.4588963" lon="-2.5913902"/>
+  <node id="6937982884" lat="51.4589704" lon="-2.5908503"/>
+  <node id="6938001085" lat="51.4591789" lon="-2.5903258"/>
+  <node id="6938001086" lat="51.4590576" lon="-2.5911497"/>
+  <node id="6938030246" lat="51.4591691" lon="-2.5922220"/>
+  <node id="6939381938" lat="51.4583664" lon="-2.5920251"/>
+  <node id="6939381940" lat="51.4582466" lon="-2.5920799"/>
+  <node id="8100702685" lat="51.4592684" lon="-2.5920648"/>
+  <node id="8100702695" lat="51.4596144" lon="-2.5920026"/>
+  <node id="9464338648" lat="51.4591644" lon="-2.5910811"/>
+  <node id="9464338649" lat="51.4592374" lon="-2.5912277"/>
+  <node id="9464338650" lat="51.4592912" lon="-2.5912708"/>
+  <node id="9464338651" lat="51.4593449" lon="-2.5913063"/>
+  <node id="9464338652" lat="51.4594620" lon="-2.5913140"/>
+  <node id="9464338653" lat="51.4595350" lon="-2.5912770"/>
+  <node id="9464338654" lat="51.4596099" lon="-2.5911815"/>
+  <node id="9464338655" lat="51.4597654" lon="-2.5907332"/>
+  <node id="9464338656" lat="51.4599004" lon="-2.5907415"/>
+  <way id="3527220">
+    <nd ref="17660703"/>
+    <nd ref="1247839593"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="postal_code" v="BS2"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="3894321">
+    <nd ref="19999050"/>
+    <nd ref="6939381940"/>
+    <nd ref="1381022265"/>
+    <nd ref="6937982882"/>
+    <nd ref="6937982875"/>
+    <nd ref="19999048"/>
+    <nd ref="17660730"/>
+    <tag k="description:covid19" v="temporary cycleway"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="The Haymarket"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="3894322">
+    <nd ref="17660726"/>
+    <nd ref="1382252934"/>
+    <nd ref="6937982880"/>
+    <nd ref="6937982878"/>
+    <nd ref="465205553"/>
+    <tag k="busway:left" v="lane"/>
+    <tag k="cycleway:left" v="share_busway"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="The Haymarket"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="4019346">
+    <nd ref="17660738"/>
+    <nd ref="645090003"/>
+    <nd ref="644926968"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="4019348">
+    <nd ref="17660734"/>
+    <nd ref="644926786"/>
+    <nd ref="1281294958"/>
+    <nd ref="1281294902"/>
+    <nd ref="279757453"/>
+    <nd ref="1381053362"/>
+    <nd ref="279758538"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Marlborough Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B4051"/>
+    <tag k="source:ref" v="OS_OpenData_Locator"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="25662598">
+    <nd ref="279757869"/>
+    <nd ref="1281294911"/>
+    <nd ref="1281294895"/>
+    <nd ref="279757870"/>
+    <nd ref="645089852"/>
+    <nd ref="279757517"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="37283065">
+    <nd ref="17660715"/>
+    <nd ref="5065034060"/>
+    <nd ref="17660726"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="37283067">
+    <nd ref="17660734"/>
+    <nd ref="1281294963"/>
+    <nd ref="644926918"/>
+    <nd ref="17660736"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="37354482">
+    <nd ref="17660726"/>
+    <nd ref="6937982881"/>
+    <nd ref="17660728"/>
+    <nd ref="5065034050"/>
+    <nd ref="5823455878"/>
+    <nd ref="644926907"/>
+    <nd ref="17660730"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="38696932">
+    <nd ref="17660730"/>
+    <nd ref="1281294914"/>
+    <nd ref="17660734"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="38696934">
+    <nd ref="17660703"/>
+    <nd ref="17660711"/>
+    <nd ref="1280853174"/>
+    <nd ref="1417986065"/>
+    <nd ref="644926956"/>
+    <nd ref="644926958"/>
+    <nd ref="17660715"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="50659418">
+    <nd ref="1281294900"/>
+    <nd ref="279757517"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="tunnel" v="yes"/>
+  </way>
+  <way id="50659419">
+    <nd ref="4612672688"/>
+    <nd ref="4612672684"/>
+    <nd ref="4612672685"/>
+    <nd ref="4612672687"/>
+    <nd ref="4612672795"/>
+    <nd ref="4612672683"/>
+    <nd ref="4612672796"/>
+    <nd ref="4612672682"/>
+    <nd ref="4612672789"/>
+    <nd ref="4612672688"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="layer" v="1"/>
+    <tag k="name" v="Haymarket Walk"/>
+  </way>
+  <way id="50659420">
+    <nd ref="279757517"/>
+    <nd ref="279757547"/>
+    <nd ref="645089641"/>
+    <nd ref="1280853177"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="50659421">
+    <nd ref="645089694"/>
+    <nd ref="645089696"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="50659422">
+    <nd ref="645089708"/>
+    <nd ref="5065034049"/>
+    <nd ref="5065034044"/>
+    <nd ref="645089711"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="50659423">
+    <nd ref="1281268406"/>
+    <nd ref="645089708"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="tunnel" v="yes"/>
+  </way>
+  <way id="50659424">
+    <nd ref="645089729"/>
+    <nd ref="1280853172"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="tunnel" v="yes"/>
+  </way>
+  <way id="50659428">
+    <nd ref="645089864"/>
+    <nd ref="645089868"/>
+    <nd ref="645089882"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="50659429">
+    <nd ref="645089882"/>
+    <nd ref="6938001085"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="50659430">
+    <nd ref="645089708"/>
+    <nd ref="645089694"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="incline" v="yes"/>
+  </way>
+  <way id="78203450">
+    <nd ref="1280853187"/>
+    <nd ref="645089768"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="tunnel" v="yes"/>
+  </way>
+  <way id="108842671">
+    <nd ref="1247835160"/>
+    <nd ref="1247835140"/>
+    <nd ref="1247835132"/>
+    <tag k="covered" v="yes"/>
+    <tag k="cycleway:left" v="lane"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxheight" v="default"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="108842672">
+    <nd ref="1247835143"/>
+    <nd ref="1280853193"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="108842673">
+    <nd ref="1247835167"/>
+    <nd ref="644926946"/>
+    <nd ref="1247835143"/>
+    <tag k="covered" v="yes"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxheight" v="default"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="112748671">
+    <nd ref="1280853173"/>
+    <nd ref="1280853189"/>
+    <nd ref="6937982874"/>
+    <nd ref="6938001085"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="112748673">
+    <nd ref="1280853185"/>
+    <nd ref="1280853186"/>
+    <tag k="covered" v="yes"/>
+    <tag k="cycleway:left" v="lane"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxheight" v="default"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="112748674">
+    <nd ref="1280853186"/>
+    <nd ref="3696173720"/>
+    <tag k="cycleway:left" v="lane"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="112748676">
+    <nd ref="1280853196"/>
+    <nd ref="1280853178"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="112748677">
+    <nd ref="1280853181"/>
+    <nd ref="1280853180"/>
+    <nd ref="1280853191"/>
+    <nd ref="1280853196"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="112748679">
+    <nd ref="1280853178"/>
+    <nd ref="1280853184"/>
+    <nd ref="1280853187"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="112786975">
+    <nd ref="645089694"/>
+    <nd ref="5065034048"/>
+    <nd ref="5065034047"/>
+    <nd ref="5065034046"/>
+    <nd ref="5065034045"/>
+    <nd ref="1281268388"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="incline" v="yes"/>
+  </way>
+  <way id="123981301">
+    <nd ref="1381053362"/>
+    <nd ref="279757869"/>
+    <nd ref="1381053430"/>
+    <nd ref="1381053451"/>
+    <nd ref="4612672686"/>
+    <nd ref="1381053456"/>
+    <nd ref="8100702685"/>
+    <nd ref="1381053414"/>
+    <nd ref="6938030246"/>
+    <nd ref="1381053331"/>
+    <nd ref="1381022312"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Cannon Street"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="194003835">
+    <nd ref="2045184058"/>
+    <nd ref="2045184068"/>
+    <nd ref="2045184072"/>
+    <nd ref="2045184070"/>
+    <nd ref="2045184060"/>
+    <nd ref="1382252995"/>
+    <tag k="access" v="private"/>
+    <tag k="highway" v="service"/>
+    <tag k="name" v="Barrs Court"/>
+    <tag k="postal_code" v="BS1"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="202755223">
+    <nd ref="1280853195"/>
+    <nd ref="17660703"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="202755224">
+    <nd ref="17660738"/>
+    <nd ref="644926923"/>
+    <nd ref="1281294910"/>
+    <nd ref="1280853195"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="203022643">
+    <nd ref="1247839593"/>
+    <nd ref="35438529"/>
+    <nd ref="1247839608"/>
+    <nd ref="1247839596"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="postal_code" v="BS2"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="203035036">
+    <nd ref="17660736"/>
+    <nd ref="17660738"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="junction" v="circular"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="St James' Barton"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:name" v="OS_OpenData_Locator"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="207653242">
+    <nd ref="1280853184"/>
+    <nd ref="3860908596"/>
+    <nd ref="3860908595"/>
+    <nd ref="3860908599"/>
+    <nd ref="3860908594"/>
+    <nd ref="3860908593"/>
+    <nd ref="2920948566"/>
+    <nd ref="3860908592"/>
+    <nd ref="3860908591"/>
+    <nd ref="2179076283"/>
+    <nd ref="2179076266"/>
+    <nd ref="3860890367"/>
+    <nd ref="2179076558"/>
+    <nd ref="2179076387"/>
+    <nd ref="2179076479"/>
+    <nd ref="2179076542"/>
+    <nd ref="2179076321"/>
+    <nd ref="2179076273"/>
+    <nd ref="2179076301"/>
+    <nd ref="2179076405"/>
+    <nd ref="2179076452"/>
+    <nd ref="2179076344"/>
+    <nd ref="2179076369"/>
+    <nd ref="2179076345"/>
+    <nd ref="3860890366"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326356015">
+    <nd ref="1281294900"/>
+    <nd ref="3329881928"/>
+    <nd ref="3329881929"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326356016">
+    <nd ref="645089768"/>
+    <nd ref="3329881931"/>
+    <nd ref="3329881929"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326356017">
+    <nd ref="1281268406"/>
+    <nd ref="3329881932"/>
+    <nd ref="3329881929"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326356018">
+    <nd ref="1280853172"/>
+    <nd ref="3329881930"/>
+    <nd ref="3329881929"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326498363">
+    <nd ref="1280853177"/>
+    <nd ref="19999048"/>
+    <nd ref="6938001086"/>
+    <nd ref="1382252934"/>
+    <nd ref="6937982884"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="326498366">
+    <nd ref="3331523948"/>
+    <nd ref="3331523949"/>
+    <nd ref="3331523950"/>
+    <nd ref="5905281703"/>
+    <nd ref="6939381938"/>
+    <nd ref="3331523951"/>
+    <nd ref="1280853177"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="326498368">
+    <nd ref="644926968"/>
+    <nd ref="1247835160"/>
+    <tag k="cycleway:left" v="lane"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="326498369">
+    <nd ref="644926968"/>
+    <nd ref="6928598746"/>
+    <nd ref="9464338656"/>
+    <nd ref="6928598745"/>
+    <nd ref="3696173720"/>
+    <nd ref="1280853193"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="326498370">
+    <nd ref="1280853193"/>
+    <nd ref="1247839593"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="326498371">
+    <nd ref="1280853193"/>
+    <nd ref="1280853180"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="326498372">
+    <nd ref="645089711"/>
+    <nd ref="644926968"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="326498373">
+    <nd ref="1281268388"/>
+    <nd ref="3331523955"/>
+    <nd ref="645089696"/>
+    <nd ref="3331523956"/>
+    <nd ref="3331523957"/>
+    <nd ref="3331523958"/>
+    <nd ref="1281314274"/>
+    <nd ref="6831733155"/>
+    <nd ref="6129504429"/>
+    <nd ref="1281314257"/>
+    <nd ref="3331523959"/>
+    <nd ref="3331523960"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="326498374">
+    <nd ref="279757869"/>
+    <nd ref="8100702695"/>
+    <nd ref="3331523962"/>
+    <nd ref="3331523963"/>
+    <nd ref="3332266273"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="326565332">
+    <nd ref="645089711"/>
+    <nd ref="5065034043"/>
+    <nd ref="1382090555"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="326565333">
+    <nd ref="1382090555"/>
+    <nd ref="3332266266"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="tunnel" v="building_passage"/>
+  </way>
+  <way id="365406619">
+    <nd ref="5065034057"/>
+    <nd ref="5065034054"/>
+    <nd ref="1280853175"/>
+    <nd ref="17660715"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="lanes" v="3"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="postal_code" v="BS2"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="turn:lanes" v="left|through|through"/>
+  </way>
+  <way id="365415331">
+    <nd ref="1247839596"/>
+    <nd ref="1382113164"/>
+    <nd ref="2920948564"/>
+    <nd ref="6831733121"/>
+    <nd ref="17660784"/>
+    <nd ref="6831733122"/>
+    <nd ref="21238592"/>
+    <tag k="cycleway:left" v="lane"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="maxspeed" v="30 mph"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="postal_code" v="BS2"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="382882582">
+    <nd ref="1280853191"/>
+    <nd ref="3860908597"/>
+    <nd ref="5750157404"/>
+    <nd ref="3860908598"/>
+    <nd ref="3860908599"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="382882583">
+    <nd ref="3860890371"/>
+    <nd ref="247834409"/>
+    <nd ref="2433863938"/>
+    <nd ref="645089864"/>
+    <nd ref="247834413"/>
+    <nd ref="1280853173"/>
+    <nd ref="6937982884"/>
+    <nd ref="247834414"/>
+    <nd ref="1382252976"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="382889005">
+    <nd ref="3696173720"/>
+    <nd ref="1280853195"/>
+    <tag k="highway" v="primary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="North Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="A38"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="466476876">
+    <nd ref="4612672686"/>
+    <nd ref="4612672687"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="466476885">
+    <nd ref="4612672796"/>
+    <nd ref="4612672672"/>
+    <nd ref="279757517"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="519432799">
+    <nd ref="5065034027"/>
+    <nd ref="5065034026"/>
+    <nd ref="5065034025"/>
+    <nd ref="5065034024"/>
+    <nd ref="5065034023"/>
+    <nd ref="5065034022"/>
+    <nd ref="5065034021"/>
+    <nd ref="5065033620"/>
+    <tag k="highway" v="service"/>
+    <tag k="service" v="parking_aisle"/>
+  </way>
+  <way id="519432807">
+    <nd ref="5065034055"/>
+    <nd ref="5065034054"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="519432808">
+    <nd ref="3694381330"/>
+    <nd ref="5065034057"/>
+    <tag k="busway:left" v="lane"/>
+    <tag k="cycleway:left" v="share_busway"/>
+    <tag k="highway" v="trunk"/>
+    <tag k="lanes" v="3"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="postal_code" v="BS2"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+    <tag k="turn:lanes" v="left|through|through"/>
+  </way>
+  <way id="519432809">
+    <nd ref="5065034057"/>
+    <nd ref="5065034058"/>
+    <nd ref="5065034055"/>
+    <nd ref="5065034059"/>
+    <nd ref="5065034060"/>
+    <tag k="cycleway:left" v="share_busway"/>
+    <tag k="highway" v="service"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="name" v="Bond Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="ref" v="A4044"/>
+    <tag k="source:ref" v="OS_OpenData_StreetView"/>
+  </way>
+  <way id="615874813">
+    <nd ref="5823455407"/>
+    <nd ref="5823455440"/>
+    <nd ref="5823455408"/>
+    <nd ref="5823455439"/>
+    <nd ref="5823455409"/>
+    <nd ref="5823455441"/>
+    <nd ref="5823455410"/>
+    <nd ref="5823455411"/>
+    <nd ref="5823455412"/>
+    <nd ref="5823455406"/>
+    <nd ref="5823455413"/>
+    <nd ref="5823455414"/>
+    <nd ref="5823455415"/>
+    <nd ref="5823455447"/>
+    <nd ref="5823455416"/>
+    <nd ref="5823455417"/>
+    <nd ref="5823455418"/>
+    <nd ref="5823455419"/>
+    <nd ref="5823455420"/>
+    <nd ref="5823455421"/>
+    <nd ref="5823455422"/>
+    <nd ref="5823455423"/>
+    <nd ref="5823455424"/>
+    <nd ref="5823455425"/>
+    <nd ref="5823455426"/>
+    <nd ref="5823455427"/>
+    <nd ref="5823455860"/>
+    <nd ref="5823455428"/>
+    <nd ref="5823455429"/>
+    <nd ref="5823455430"/>
+    <nd ref="5823455431"/>
+    <nd ref="5823455432"/>
+    <nd ref="5823455869"/>
+    <nd ref="5823455433"/>
+    <nd ref="5823455434"/>
+    <nd ref="5823455435"/>
+    <nd ref="5823455436"/>
+    <nd ref="5823455437"/>
+    <nd ref="5823455438"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="dirt"/>
+  </way>
+  <way id="615874815">
+    <nd ref="5823455407"/>
+    <nd ref="5823455442"/>
+    <nd ref="5823455443"/>
+    <nd ref="5823455444"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="615874817">
+    <nd ref="5823455445"/>
+    <nd ref="5823455446"/>
+    <nd ref="5823455447"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="615874818">
+    <nd ref="5823455447"/>
+    <nd ref="5823455448"/>
+    <nd ref="5823455449"/>
+    <nd ref="5823455450"/>
+    <nd ref="5823455451"/>
+    <nd ref="5823455452"/>
+    <nd ref="5823455853"/>
+    <nd ref="5823455871"/>
+    <nd ref="5823455854"/>
+    <nd ref="5823455872"/>
+    <nd ref="5823455855"/>
+    <nd ref="5823455873"/>
+    <nd ref="5823455856"/>
+    <nd ref="5823455857"/>
+    <nd ref="5823455858"/>
+    <nd ref="5823455874"/>
+    <nd ref="5823455875"/>
+    <nd ref="5823455859"/>
+    <nd ref="5823455860"/>
+    <nd ref="5823455861"/>
+    <nd ref="5823455862"/>
+    <nd ref="5823455863"/>
+    <nd ref="5823455864"/>
+    <nd ref="5823455876"/>
+    <nd ref="5823455865"/>
+    <nd ref="5823455866"/>
+    <nd ref="5823455877"/>
+    <nd ref="5823455867"/>
+    <nd ref="5823455868"/>
+    <nd ref="5823455869"/>
+    <nd ref="5823455870"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="615874821">
+    <nd ref="9464338648"/>
+    <nd ref="5823455881"/>
+    <nd ref="5823455882"/>
+    <nd ref="5823455884"/>
+    <nd ref="5823455885"/>
+    <nd ref="5823455886"/>
+    <nd ref="5823455888"/>
+    <nd ref="5823455890"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="615874822">
+    <nd ref="5823455892"/>
+    <nd ref="5823455893"/>
+    <nd ref="5823455894"/>
+    <nd ref="5823455895"/>
+    <nd ref="5823455896"/>
+    <nd ref="5823455897"/>
+    <nd ref="5823455898"/>
+    <nd ref="5823455899"/>
+    <nd ref="5823455900"/>
+    <nd ref="5823455901"/>
+    <nd ref="1281268427"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="615879525">
+    <nd ref="3329881929"/>
+    <nd ref="5823455890"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="615879526">
+    <nd ref="1281268427"/>
+    <nd ref="3329881929"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="615879527">
+    <nd ref="5823455445"/>
+    <nd ref="3329881928"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="629261550">
+    <nd ref="5941071868"/>
+    <nd ref="5750157405"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paved"/>
+    <tag k="tunnel" v="building_passage"/>
+  </way>
+  <way id="629261551">
+    <nd ref="5750157404"/>
+    <nd ref="5941071868"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="643560307">
+    <nd ref="6056100153"/>
+    <nd ref="6056100152"/>
+    <nd ref="6056100151"/>
+    <nd ref="6056100150"/>
+    <nd ref="6056100153"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="pedestrian"/>
+  </way>
+  <way id="643560308">
+    <nd ref="6056100157"/>
+    <nd ref="6056100156"/>
+    <nd ref="6056100155"/>
+    <nd ref="6056100154"/>
+    <nd ref="6056100157"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="pedestrian"/>
+  </way>
+  <way id="729194569">
+    <nd ref="6831733154"/>
+    <nd ref="6831733153"/>
+    <nd ref="6831733151"/>
+    <nd ref="6831733150"/>
+    <nd ref="6831733147"/>
+    <nd ref="6831733144"/>
+    <nd ref="6831733145"/>
+    <nd ref="6831733142"/>
+    <nd ref="6831733140"/>
+    <nd ref="6831733138"/>
+    <nd ref="6831733132"/>
+    <nd ref="6831733133"/>
+    <nd ref="6831733134"/>
+    <nd ref="6831733131"/>
+    <nd ref="6831733135"/>
+    <nd ref="6831733136"/>
+    <nd ref="6831733137"/>
+    <nd ref="6831733139"/>
+    <nd ref="6831733141"/>
+    <nd ref="6831733143"/>
+    <nd ref="6831733146"/>
+    <nd ref="6831733130"/>
+    <nd ref="6831733148"/>
+    <nd ref="6831733152"/>
+    <nd ref="6831733149"/>
+    <nd ref="6831733154"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="pedestrian"/>
+  </way>
+  <way id="740005088">
+    <nd ref="6928598760"/>
+    <nd ref="6928598759"/>
+    <nd ref="6928598758"/>
+    <nd ref="6928598747"/>
+    <nd ref="6928598757"/>
+    <nd ref="6928598745"/>
+    <nd ref="6928598756"/>
+    <nd ref="6928598744"/>
+    <nd ref="6928598755"/>
+    <nd ref="6928598754"/>
+    <nd ref="6928598753"/>
+    <nd ref="6928598752"/>
+    <nd ref="6928598746"/>
+    <nd ref="6928598751"/>
+    <nd ref="6928598750"/>
+    <nd ref="6928598749"/>
+    <nd ref="6928598748"/>
+    <nd ref="6928598760"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="pedestrian"/>
+  </way>
+  <way id="741066401">
+    <nd ref="6938001086"/>
+    <nd ref="5065034050"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="741066402">
+    <nd ref="6937982874"/>
+    <nd ref="645089729"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="1026516204">
+    <nd ref="9464338648"/>
+    <nd ref="9464338649"/>
+    <nd ref="9464338650"/>
+    <nd ref="9464338651"/>
+    <nd ref="9464338652"/>
+    <nd ref="9464338653"/>
+    <nd ref="9464338654"/>
+    <nd ref="9464338655"/>
+    <nd ref="5823455892"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="1026516205">
+    <nd ref="5065034050"/>
+    <nd ref="9464338648"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="1026516206">
+    <nd ref="9464338656"/>
+    <nd ref="6928598759"/>
+    <nd ref="644926923"/>
+    <nd ref="5823455892"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="segregated" v="no"/>
+  </way>
+  <way id="1026516207">
+    <nd ref="1281268388"/>
+    <nd ref="645089711"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="1041419770">
+    <nd ref="5359925909"/>
+    <nd ref="3331523960"/>
+    <nd ref="1281314247"/>
+    <nd ref="287226714"/>
+    <nd ref="1281314251"/>
+    <nd ref="465215176"/>
+    <nd ref="1281294920"/>
+    <nd ref="1281294956"/>
+    <nd ref="1281294880"/>
+    <nd ref="1281294877"/>
+    <nd ref="1281294940"/>
+    <nd ref="17660736"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="20 mph"/>
+    <tag k="name" v="Marlborough Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B4051"/>
+    <tag k="sidewalk" v="left"/>
+    <tag k="source:ref" v="OS_OpenData_Locator"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <relation id="9127908">
+    <member type="way" ref="128279398" role="outer"/>
+    <tag k="fixme" v="this shape is changing"/>
+    <tag k="highway" v="pedestrian"/>
+    <tag k="name" v="The Bearpit"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="type" v="multipolygon"/>
+    <tag k="website" v="http://bearpitimprovementgroup.co.uk/"/>
+  </relation>
+
+</osm>

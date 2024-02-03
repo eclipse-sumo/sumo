@@ -1,0 +1,15 @@
+<configuration>
+    <output-file value="None" type="file" help="name of output file" category="output"/>
+    <subpart value="None" type="string" help="Restrict counts to routes that contain the given consecutive edge sequence" category="processing"/>
+    <subpart-file value="None" type="additional_file" help="Restrict counts to routes that contain one of the consecutive edge sequences in the given input file (one sequence per line)" category="processing"/>
+    <intermediate value="False" type="bool" help="count all edges of a route" category="processing"/>
+    <taz value="False" type="bool" help="use fromTaz and toTaz instead of from and to" category="processing"/>
+    <elements value="trip,route,walk" type="string" help="include edges for the given elements in output" category="processing"/>
+    <begin value="0" type="string" help="collect departures after begin time" category="time"/>
+    <end value="None" type="string" help="collect departures up to end time (default unlimited)" category="time"/>
+    <period value="None" type="string" help="create data intervals of the given period duration" category="time"/>
+    <min-count value="0" type="int" help="include only values above the minimum" category="processing"/>
+    <net-file value="None" type="net_file" help="parse net for geo locations of the edges" category="processing"/>
+    <poi-file value="None" type="additional_file" help="write geo POIs" category="processing"/>
+    <routefiles value="None" type="route_file" help="Set one or more input route files" category="input" required="true" positional="true" listSeparator=" "/>
+</configuration>

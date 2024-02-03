@@ -54,13 +54,49 @@ ticket5416
 # deadlock on junction
 ticket6636
 ticket6691
-ticket7134
 
 # invalid braking at junction
 ticket7925
 
-# cars block the rescue lane
-ticket8071
+# a single sublane per lane
+ticket9051
 
-# emergency vehicle does not use the rescue lane
-ticket8072
+# overtake a vehicle that is 1000m long
+ticket10060
+
+# overtake a vehicle that is 500m long
+ticket10060b
+
+# collision
+ticket10458
+
+# collision
+ticket10458b
+
+# collision
+ticket10458c
+
+# deadlock
+ticket10509
+
+# wide vehicle blocked
+ticket10523
+ticket11639
+
+# delayed lane change while decelerating
+ticket12108
+
+# cyclic speed adapatation prevents lane changing
+ticket12283
+
+# unsafe changing on junction
+ticket12581
+
+# unsafe changing on junction
+ticket12581_speedy
+
+# unsafe changing on junction (different connection layout)
+ticket12581b
+
+# collision on junction
+ticket13101

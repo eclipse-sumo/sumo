@@ -1,0 +1,5 @@
+<routes>
+    <vType id="car" sigma="0"/>
+    <route id="r" edges="1fi 1si"/>
+    <vehicle id="ego" type="car" route="r" depart="0" speedFactor="1.0"/>
+</routes>

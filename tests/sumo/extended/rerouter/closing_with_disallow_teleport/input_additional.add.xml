@@ -1,5 +1,9 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <rerouter id="rerouter" edges="beg" file="input_definition.def.xml" probability="0.5"/>
+    <rerouter id="rerouter" edges="beg" probability="0.5">
+		<interval begin="0" end="86400">
+			<closingReroute id="middle"/>
+		</interval>
+	</rerouter>
     <rerouter id="rerouter2" edges="left">
         <interval begin="0" end="200">
             <closingReroute id="end" disallow="all"/>

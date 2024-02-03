@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-29 15:43:04 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <save-state.times value="35"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="35.00" type="micro">
+    <route id="r0" state="1" edges="beg middle end">
+        <stop lane="middle_0" endPos="60.00" duration="10.00" until="30.00" parking="0"/>
+    </route>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="v0" type="t0" depart="10.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 10000 1 5.10 0 4.62 34000 1 0" pos="60.00 55.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="6.00" until="40.00" parking="0" started="21.00"/>
+        <device id="tripinfo_v0" state="beg_0 0 0 1.9 0 0 0 14000 -1"/>
+    </vehicle>
+    <lane id="middle_0">
+        <vehicles value="v0"/>
+    </lane>
+</snapshot>

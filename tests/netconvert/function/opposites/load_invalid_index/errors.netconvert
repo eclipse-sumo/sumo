@@ -1,4 +1,4 @@
-Warning: Moving opposite lane 'WE_0' from invalid lane 'EW_0' to lane 1.
-Warning: Adapting invalid opposite lane 'WE_0' for edge 'EW' to 'WE_1'
-Warning: Moving opposite lane 'EW_0' from invalid lane 'WE_0' to lane 1.
-Warning: Adapting invalid opposite lane 'EW_0' for edge 'WE' to 'EW_1'
+Warning: Moving opposite lane 'WE_0' from invalid lane 'EW_0' to lane index 1.
+Warning: Adapting invalid opposite lane 'WE_0' for edge 'EW' to 'WE_1'.
+Warning: Adapting missing opposite lane 'EW_1' for edge 'WE'.
+Warning: Removing opposite lane 'EW_0' for invalid lane 'WE_0'.

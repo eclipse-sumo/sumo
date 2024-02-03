@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 
 #include "GNEHierarchicalContainer.h"
@@ -48,8 +48,6 @@ public:
      * @param[in] parentEdges vector of parent edges
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentAdditionals vector of parent additionals
-     * @param[in] parentShapes vector of parent shapes
-     * @param[in] parentTAZElements vector of parent TAZs
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
@@ -58,13 +56,16 @@ public:
                            const std::vector<GNEEdge*>& parentEdges,
                            const std::vector<GNELane*>& parentLanes,
                            const std::vector<GNEAdditional*>& parentAdditionals,
-                           const std::vector<GNEShape*>& parentShapes,
-                           const std::vector<GNETAZElement*>& parentTAZElements,
                            const std::vector<GNEDemandElement*>& parentDemandElements,
                            const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
 
     /// @name Functions related with geometry of element
     /// @{
@@ -99,12 +100,6 @@ public:
     /// @brief get parent additionals
     const std::vector<GNEAdditional*>& getParentAdditionals() const;
 
-    /// @brief get parent shapes
-    const std::vector<GNEShape*>& getParentShapes() const;
-
-    /// @brief get parent TAZElements
-    const std::vector<GNETAZElement*>& getParentTAZElements() const;
-
     /// @brief get parent demand elements
     const std::vector<GNEDemandElement*>& getParentDemandElements() const;
 
@@ -122,12 +117,6 @@ public:
 
     /// @brief return child additionals
     const std::vector<GNEAdditional*>& getChildAdditionals() const;
-
-    /// @brief get child shapes
-    const std::vector<GNEShape*>& getChildShapes() const;
-
-    /// @brief get child TAZElements
-    const std::vector<GNETAZElement*>& getChildTAZElements() const;
 
     /// @brief return child demand elements
     const std::vector<GNEDemandElement*>& getChildDemandElements() const;
@@ -164,20 +153,11 @@ public:
 
     /// @}
 
-    /// @brief update child connections
-    void updateHierarchicalConnections();
-
-    /// @brief Draw hierarchical connections between parent and children
-    void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
-
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
 
     /// @brief check if childs demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
-
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
-    virtual void updateParentAdditional();
 
 protected:
     /// @brief replace parent elements
@@ -210,9 +190,6 @@ protected:
         }
     }
 
-    /// @brief hierarchical connections
-    GNEGeometry::HierarchicalConnections myHierarchicalConnections;
-
 private:
     /// @brief hierarchical container with parents and children
     GNEHierarchicalContainer myHierarchicalContainer;
@@ -223,4 +200,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEHierarchicalElement& operator=(const GNEHierarchicalElement&) = delete;
 };
-

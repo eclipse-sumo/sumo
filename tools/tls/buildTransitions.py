@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,7 @@
 """
 Create tlLogic definitions with branching signal plans based on a simplified
 input: named green phases and list of successor green phases names
-The corresponding yellow and red phases will be build and the 'next' attribute
+The corresponding yellow and red phases will be built and the 'next' attribute
 will be set to the appropriate transition phase.
 """
 
@@ -26,28 +26,24 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import argparse
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 
 def get_options(args=None):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--description-file", dest="logic",
-                        help="Input logic description file (mandatory)")
-    parser.add_argument("-o", "--output-file", dest="out",
-                        help="Output route file (mandatory)")
-    parser.add_argument("-y", "--yellow-time", type=int, default=3, dest="yellowTime",
-                        help="Duration of yellow phase")
-    parser.add_argument("-r", "--red-time", type=int, default=0, dest="redTime",
-                        help="Duration of all-red phase durating each transition")
+    optParser = sumolib.options.ArgumentParser(
+        description="Create tlLogic definitions with branching plans based on simplified input.")
+    optParser.add_option("-d", "--description-file", category="input", dest="logic", required=True,
+                         type=optParser.data_file, help="Input logic description file (mandatory)")
+    optParser.add_option("-o", "--output-file", category="output", dest="out", required=True,
+                         type=optParser.data_file, help="Output route file (mandatory)")
+    optParser.add_option("-y", "--yellow-time", default=3, dest="yellowTime",
+                         type=int, help="Duration of yellow phase")
+    optParser.add_option("-r", "--red-time", default=0, dest="redTime",
+                         type=int, help="Duration of all-red phase during each transition")
 
-    options = parser.parse_args()
-
-    if options.logic is None or options.out is None:
-        parser.print_help()
-        sys.exit()
+    options = optParser.parse_args()
 
     return options
 

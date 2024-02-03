@@ -3,5 +3,11 @@
     <route id="r1" edges="beg beg2left left left2end end rend"/>
     <route id="r2" edges="beg beg2right right right2end end rend"/>
 
-    <rerouter id="rerouter" edges="beg" file="input_definition.def.xml" vTypes="canReroute"/>
+    <rerouter id="rerouter" edges="beg" vTypes="canReroute">
+	   <interval begin="0" end="86400">
+		   <routeProbReroute id="r0" probability="1"/>
+		   <routeProbReroute id="r1" probability="1"/>
+		   <routeProbReroute id="r2" probability="1"/>
+	   </interval>
+   </rerouter>
 </additional>

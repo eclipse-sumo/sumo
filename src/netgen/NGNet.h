@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -96,7 +96,7 @@ public:
 
     /** @brief Creates a grid network
      *
-     * Performs a souble-loop over numX, then numY. Builds NGNodes
+     * Performs a double-loop over numX, then numY. Builds NGNodes
      *  at the according positions and connects them using NGNet::connect.
      * Stores both the nodes and the edges within the internal container.
      *
@@ -107,10 +107,11 @@ public:
      * @param[in] numY The number of nodes in y-direction
      * @param[in] spaceX The space between nodes in x-direction
      * @param[in] spaceY The space between nodes in y-direction
-     * @param[in] attachLength The length of streets attached at the border
+     * @param[in] xAttachLength The length of streets attached at the border in x-direction
+     * @param[in] yAttachLength The length of streets attached at the border in y-direction
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength);
+    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double xAttachLength, double yAttachLength);
 
 
     /** @brief Creates a spider network
@@ -130,7 +131,7 @@ public:
      * @see NGNet::connect
      * @todo consolidate the name of the center node
      */
-    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter);
+    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, double attachLength);
 
 
     /** @brief Converts the stored network into its netbuilder-representation

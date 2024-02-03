@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -80,7 +80,7 @@ NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
         // was not set before (was not loaded)
         myTYellow = tyellow;
     } else if (forced && myTYellow < tyellow) {
-        WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + toString(myTYellow) + ", is:" + time2string(tyellow) + ")");
+        WRITE_WARNINGF(TL("TYellow of signal group '%' was less than the computed one; patched (was:%, is:%)"), getID(), toString(myTYellow), time2string(tyellow));
         myTYellow = tyellow;
     }
 }
@@ -297,7 +297,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
     logic->addStep(myCycleDuration + (*switchTimes.begin()) - prev, buildPhaseState(prev));
     // check whether any warnings were printed
     if (MsgHandler::getWarningInstance()->wasInformed()) {
-        WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
+        WRITE_WARNINGF(TL("During computation of traffic light '%'."), getID());
     }
     logic->closeBuilding();
 
@@ -415,13 +415,13 @@ NBLoadedTLDef::mustBrake(const NBConnection& possProhibited,
     int pos = 0;
     for (SignalGroupCont::const_iterator i = mySignalGroups.begin(); i != mySignalGroups.end(); i++) {
         SignalGroup* group = (*i).second;
-        // get otherlinks that have green
+        // get other links that have green
         int linkNo = group->getLinkNo();
         for (int j = 0; j < linkNo; j++) {
             // get the current connection (possible foe)
             const NBConnection& other = group->getConnection(j);
             NBConnection possProhibitor(other);
-            // if the connction ist still valid ...
+            // if the connection ist still valid ...
             if (possProhibitor.check(*myEdgeCont)) {
                 // ... do nothing if it starts at the same edge
                 if (possProhibited.getFrom() == possProhibitor.getFrom()) {
@@ -471,7 +471,7 @@ NBLoadedTLDef::collectNodes() {
 void
 NBLoadedTLDef::collectLinks() {
     myControlledLinks.clear();
-    // build the list of links which are controled by the traffic light
+    // build the list of links which are controlled by the traffic light
     for (EdgeVector::iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         NBEdge* incoming = *i;
         int noLanes = incoming->getNumLanes();
@@ -511,7 +511,7 @@ NBLoadedTLDef::collectLinks() {
                     pos++;
                 }
             } else {
-                WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID() + ")");
+                WRITE_WARNINGF(TL("Could not set signal on connection (signal: %, group: %)"), getID(), group->getID());
             }
         }
     }
@@ -609,7 +609,7 @@ NBLoadedTLDef::replaceRemoved(NBEdge* removed, int removedLane,
 void
 NBLoadedTLDef::initNeedsContRelation() const {
     if (!myNeedsContRelationReady) {
-        throw ProcessError("myNeedsContRelation was not propperly initialized\n");
+        throw ProcessError(TL("myNeedsContRelation was not properly initialized\n"));
     }
 }
 

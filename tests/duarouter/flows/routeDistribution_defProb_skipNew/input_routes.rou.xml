@@ -1,0 +1,8 @@
+<routes>
+    <routeDistribution id="rDist">
+        <route edges="WC CS SC CE"/>
+        <route edges="SC CE EC CN"/>
+    </routeDistribution>
+    <flow id="0" begin="0" number="100" period="2" route="rDist"/>
+
+</routes>

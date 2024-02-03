@@ -1,0 +1,9 @@
+Warning: Converting invalid rail_crossing to priority junction '1704693673'.
+Warning: Converting invalid rail_crossing to priority junction '1704693699'.
+Warning: Converting invalid rail_crossing to priority junction '2293276823'.
+Warning: Converting invalid rail_crossing to priority junction '2293276824'.
+Warning: Converting invalid rail_crossing to priority junction '2293276826'.
+Warning: Reducing junction cluster 1652675093,1652675097,1652675099,1704693785,2697454318,2697454319,3246050928,3246050929,3246050930,3246050931,3246050932,3366620135,3366620136,3366620142,3366620144,5836660314,583899005,7170324899 (parallel incoming -142575695,143308549#2).
+Warning: The traffic light '1525212345' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1525212345'
+Warning: 12 total messages of type: Converting invalid rail_crossing to priority junction '%'.

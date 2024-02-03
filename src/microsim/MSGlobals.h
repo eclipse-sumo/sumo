@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,8 +59,17 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** The speed threshold for gTimeToGridlockHighways */
+    static double gGridlockHighwaysSpeed;
+
     /** The time to wait for teleport on disconected routes */
     static SUMOTime gTimeToTeleportDisconnected;
+
+    /** The time to wait for teleport on bidi edges */
+    static SUMOTime gTimeToTeleportBidi;
+
+    /** Whether gridlocked vehicles shall be removed instead of teleporting */
+    static bool gRemoveGridlocked;
 
     /** Information how long a vehicle must wait for impatience to grow from 0 to 1 */
     static SUMOTime gTimeToImpatience;
@@ -77,6 +86,9 @@ public:
 
     /** information whether the routes shall be checked for connectivity */
     static bool gCheckRoutes;
+
+    /** information whether dangerous insertion speeds are permitted */
+    static bool gEmergencyInsert;
 
     /** information Duration of a lane change maneuver */
     static SUMOTime gLaneChangeDuration;
@@ -105,11 +117,18 @@ public:
     // whether Kirchhoff's laws are used for solving overhead wire circuit
     static bool gOverheadWireSolver;
 
+    // whether recuperation into the overhead wire is allowed
+    static bool gOverheadWireRecuperation;
+
+    // whether traction substation current limits are taken into account when solving the overhead wire circuit
+    static bool gOverheadWireCurrentLimits;
+
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 
     /// whether the simulation should replay previous stop times
     static bool gUseStopEnded;
+    static bool gUseStopStarted;
 
     /// whether unit tests are being run
     static bool gUnitTests;
@@ -126,11 +145,13 @@ public:
     /// how many threads to use
     static int gNumThreads;
 
-    /// treshold for warning about strong deceleration
+    /// threshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 
-    /// time penalty for passing a minor link when routing
+    /// (minimum) time penalty for passing a minor link when routing
     static double gMinorPenalty;
+    /// scaled (minimum) time penalty for passing a tls link when routing
+    static double gTLSPenalty;
 
     /// whether parking simulation includes manoeuver time and any associated lane blocking
     static bool gModelParkingManoeuver;
@@ -146,4 +167,13 @@ public:
 
     /// @brief Whether lefthand-drive is being simulated
     static bool gLefthand;
+
+    /// @brief Whether turning specific weights are estimated (and how much)
+    static double gWeightsSeparateTurns;
+
+    /// @brief The minimum waiting time before applying startupDelay
+    static SUMOTime gStartupWaitThreshold;
+
+    /// @brief Whether emission output of some type is needed (files or GUI)
+    static bool gHaveEmissions;
 };

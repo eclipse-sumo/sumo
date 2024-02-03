@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -68,7 +68,7 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open dlr-navteq-poi-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poi-file '" + *file + "'");
         loadPOIFile(*file, oc, toFill, tm);
@@ -83,7 +83,7 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open dlr-navteq-poly-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poly-file '" + *file + "'");
         loadPolyFile(*file, oc, toFill, tm);
@@ -125,23 +125,24 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         double x, y;
         stream >> x;
         if (stream.fail()) {
-            throw ProcessError("Invalid x coordinate for POI '" + name + "'.");
+            throw ProcessError(TLF("Invalid x coordinate for POI '%'.", name));
         }
         stream >> y;
         if (stream.fail()) {
-            throw ProcessError("Invalid y coordinate for POI '" + name + "'.");
+            throw ProcessError(TLF("Invalid y coordinate for POI '%'.", name));
         }
         Position pos(x, y);
         // check the poi
         if (name == "") {
-            throw ProcessError("The name of a POI is missing.");
+            throw ProcessError(TL("The name of a POI is missing."));
         }
         if (!GeoConvHelper::getProcessing().x2cartesian(pos, true)) {
-            throw ProcessError("Unable to project coordinates for POI '" + name + "'.");
+            throw ProcessError(TLF("Unable to project coordinates for POI '%'.", name));
         }
 
         // patch the values
         bool discard = oc.getBool("discard");
+        std::string icon = oc.getString("icon");
         double layer = oc.getFloat("layer");
         RGBColor color;
         if (tm.has(type)) {
@@ -150,6 +151,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             type = def.id;
             color = def.color;
             discard = def.discard;
+            icon = def.icon;
             layer = def.layer;
         } else {
             name = oc.getString("prefix") + name;
@@ -157,7 +159,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             color = c;
         }
         if (!discard) {
-            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, 0, layer);
+            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, false, 0, icon, layer);
             toFill.add(poi, OptionsCont::getOptions().isInStringVector("prune.keep-list", name));
         }
     }
@@ -172,11 +174,9 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poly
     // parse
-    int l = 0;
     LineReader lr(file);
     while (lr.hasMore()) {
         std::string line = lr.readLine();
-        ++l;
         // skip invalid/empty lines
         if (line.length() == 0 || line.find("#") != std::string::npos) {
             continue;
@@ -188,7 +188,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         StringTokenizer st(line, "\t");
         std::vector<std::string> values = st.getVector();
         if (values.size() < 6 || values.size() % 2 != 0) {
-            throw ProcessError("Invalid dlr-navteq-polygon - line: '" + line + "'.");
+            throw ProcessError(TLF("Invalid dlr-navteq-polygon - line: '%'.", line));
         }
         std::string id = values[0];
         std::string ort = values[1];
@@ -205,7 +205,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             double y = StringUtils::toDouble(ypos);
             Position pos(x, y);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
             }
             vec.push_back(pos);
         }
@@ -217,17 +217,18 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
 
         // check the polygon
         if (vec.size() == 0) {
-            WRITE_WARNING("The polygon '" + id + "' is empty.");
+            WRITE_WARNINGF(TL("The polygon '%' is empty."), id);
             continue;
         }
         if (id == "") {
-            WRITE_WARNING("The name of a polygon is missing; it will be discarded.");
+            WRITE_WARNING(TL("The name of a polygon is missing; it will be discarded."));
             continue;
         }
 
         // patch the values
         bool fill = vec.front() == vec.back();
         bool discard = oc.getBool("discard");
+        std::string icon = oc.getString("icon");
         double layer = oc.getFloat("layer");
         RGBColor color;
         if (tm.has(type)) {
@@ -237,6 +238,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             color = def.color;
             fill = fill && def.allowFill;
             discard = def.discard;
+            icon = def.icon;
             layer = def.layer;
         } else {
             name = oc.getString("prefix") + name;

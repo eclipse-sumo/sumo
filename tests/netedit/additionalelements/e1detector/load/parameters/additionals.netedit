@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 13:55:30 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <inductionLoop id="E1_01" lane="center0_1" pos="3.00" period="100.00" file="fileA.txt" vTypes="bus taxi private">
+        <param key="$$key with spaces%%" value="value4"/>
+        <param key="key1" value="value5"/>
+        <param key="key2" value=""/>
+        <param key="key3" value="$$value with spaces%%"/>
+        <param key="keyFinal" value="valueFinal"/>
+    </inductionLoop>
+</additional>

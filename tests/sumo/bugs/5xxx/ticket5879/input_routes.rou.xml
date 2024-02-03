@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r1" edges="begin end">
+        <stop lane="begin_0" endPos="20" duration="0.1"/>
+    </route>
+    <vType id="t1" sigma="0"/>
+    <vehicle id="veh0" route="r1" depart="0" type="t1" departLane="0" arrivalLane="1"/>
+</routes>

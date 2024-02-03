@@ -1,0 +1,262 @@
+plain []
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml"/>
+    </input>
+
+</configuration>
+----------
+replace ['-a', 'new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+replace ['--a', 'new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append+ ['+a', 'new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append++ ['++a', 'new.rou.xml']
+Error: On processing option '++a':
+ No option with the name '+a' exists.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append+- ['+-a', 'new.rou.xml']
+Error: Mixed parameter syntax in '+-a'.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append-+ ['-+a', 'new.rou.xml']
+Error: Mixed parameter syntax in '-+a'.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+replace ['-additional', 'new.rou.xml']
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+replace ['--additional', 'new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append+ ['+additional', 'new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append++ ['++additional', 'new.rou.xml']
+Error: On processing option '++additional':
+ No option with the name '+additional' exists.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append+- ['+-additional', 'new.rou.xml']
+Error: Mixed parameter syntax in '+-additional'.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append-+ ['-+additional', 'new.rou.xml']
+Error: Mixed parameter syntax in '-+additional'.
+Error: The parameter 'new.rou.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+replace ['-a=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+replace ['--a=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append+ ['+a=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append++ ['++a=new.rou.xml']
+Error: On processing option '++a=new.rou.xml':
+ No option with the name '+a' exists.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append+- ['+-a=new.rou.xml']
+Error: Mixed parameter syntax in '+-a=new.rou.xml'.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append-+ ['-+a=new.rou.xml']
+Error: Mixed parameter syntax in '-+a=new.rou.xml'.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+replace ['-additional=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="dditional=new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+replace ['--additional=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append+ ['+additional=new.rou.xml']
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
+    </input>
+
+</configuration>
+----------
+append++ ['++additional=new.rou.xml']
+Error: On processing option '++additional=new.rou.xml':
+ No option with the name '+additional' exists.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append+- ['+-additional=new.rou.xml']
+Error: Mixed parameter syntax in '+-additional=new.rou.xml'.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------
+append-+ ['-+additional=new.rou.xml']
+Error: Mixed parameter syntax in '-+additional=new.rou.xml'.
+Error: Could not parse commandline options.
+Quitting (on error).
+----------

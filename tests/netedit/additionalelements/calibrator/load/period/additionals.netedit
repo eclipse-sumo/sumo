@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-04 10:40:07 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Calibrators -->
+    <calibrator id="calibrator01" edge="center0" pos="20.00" output="calibrator01.txt"/>
+    <calibrator id="calibrator04" edge="center0" pos="26.00" period="120.50" output="calibrator04.txt"/>
+</additional>

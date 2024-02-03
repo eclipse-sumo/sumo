@@ -1,0 +1,3 @@
+Error: Attribute 'chargeInTransit' in definition of chargingStation 'chargingStation_1' Invalid Bool Format dummychargeintransit.
+Error: Attribute 'chargeInTransit' in definition of chargingStation 'chargingStation_2' Invalid Bool Format -1.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092752.14154/netedit.gui/additionalelements/chargingstation/load/chargeintransit/additionals.add.xml failed.

@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@ import sumolib.geomhelper
 from functools import reduce
 
 # taken from sumo/src/utils/common/SUMOVehicleClass.cpp
-SUMO_VEHICLE_CLASSES = (
+SUMO_VEHICLE_CLASSES = set([
     "public_emergency",  # deprecated
     "public_authority",  # deprecated
     "public_army",       # deprecated
@@ -58,20 +58,23 @@ SUMO_VEHICLE_CLASSES = (
     "evehicle",
     "ship",
     "custom1",
-    "custom2")
+    "custom2"])
+
+
+def is_vehicle_class(s):
+    return s in SUMO_VEHICLE_CLASSES
 
 
 def get_allowed(allow, disallow):
-    """ Normalize the given string attributes as a list of all allowed vClasses."""
+    """Normalize the given string attributes as a set of all allowed vClasses."""
     if allow is None and disallow is None:
         return SUMO_VEHICLE_CLASSES
     elif disallow is None:
-        return allow.split()
+        return set(allow.split())
     elif disallow == "all":
-        return ()
+        return set()
     else:
-        disallow = disallow.split()
-        return tuple([c for c in SUMO_VEHICLE_CLASSES if c not in disallow])
+        return SUMO_VEHICLE_CLASSES.difference(disallow.split())
 
 
 def addJunctionPos(shape, fromPos, toPos):
@@ -102,6 +105,7 @@ class Lane:
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
         self._neigh = None
+        self._selected = False
         edge.addLane(self)
 
     def getSpeed(self):
@@ -205,7 +209,16 @@ class Lane:
         self._outgoing.append(conn)
 
     def getOutgoing(self):
+        """
+        Returns all outgoing connections from this lane.
+        """
         return self._outgoing
+
+    def getOutgoingLanes(self):
+        """
+        Returns all outgoing lanes from this lane.
+        """
+        return [conn.getToLane() for conn in self.getOutgoing()]
 
     def getIncoming(self, onlyDirect=False):
         """
@@ -216,13 +229,13 @@ class Lane:
         lanes = [c.getFromLane() for c in candidates if self == c.getToLane()]
         if onlyDirect:
             hasInternal = False
-            for l in lanes:
-                if l.getID()[0] == ":":
+            for _lane in lanes:
+                if _lane.getID()[0] == ":":
                     hasInternal = True
                     break
             if hasInternal:
-                return [l for l in lanes if l.getID()[0] == ":" and
-                        l.getOutgoing()[0].getViaLaneID() == ""]
+                return [_lane for _lane in lanes if _lane.getID()[0] == ":" and
+                        _lane.getOutgoing()[0].getViaLaneID() == ""]
         return lanes
 
     def getConnection(self, toLane):
@@ -231,6 +244,14 @@ class Lane:
             if conn.getToLane() == toLane or conn.getViaLaneID() == toLane.getID():
                 return conn
         return None
+
+    def getPermissions(self):
+        """return the allowed vehicle classes"""
+        return self._allowed
+
+    def setPermissions(self, allowed):
+        """set the allowed vehicle classes"""
+        self._allowed = allowed
 
     def allows(self, vClass):
         """true if this lane allows the given vehicle class"""

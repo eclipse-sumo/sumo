@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-27 08:08:03 by Eclipse SUMO sumo Version v1_17_0+0039-e6e8160
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="3,10"/>
+        <save-state.files value="state.xml,state2.xml"/>
+    </output>
+
+    <time>
+        <begin value="1"/>
+        <end value="10"/>
+        <step-length value="2"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+0039-e6e8160" time="3.00" type="micro">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
+    <vType id="type0" sigma="0"/>
+    <vType id="type1" sigma="0"/>
+    <vType id="type2" sigma="0">
+        <param key="has.rerouting.device" value="false"/>
+    </vType>
+    <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
+</snapshot>

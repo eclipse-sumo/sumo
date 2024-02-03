@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-26 11:52:02.251142 by $Id$ v1_8_0+1899-f88c15b771
-  options: -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml <doubleminus>edgedata-attribute count <doubleminus>write-route-ids <doubleminus>write-flows number <doubleminus>threads 2
+
+<!-- generated on 2023-06-29 15:04:00.470326 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+    <threads value="2"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="300.0" -->
-    <route id="0_0" edges="-3 -3.180.00 11"/> <!-- 3 (route_2) -->
-    <route id="0_1" edges="-3 -3.180.00 15"/> <!-- 2 (route_1) -->
-    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 5 (route_0) -->
+    <route id="0_0" edges="-3 -3.180.00 11"/> <!-- 2 (route_2) -->
+    <route id="0_1" edges="-3 -3.180.00 15"/> <!-- 1 (route_1) -->
+    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 7 (route_0) -->
 
-    <flow id="0_2" begin="0.00" end="210.00" number="5" route="0_2"/>
-    <flow id="0_0" begin="30.00" end="240.00" number="3" route="0_0"/>
-    <flow id="0_1" begin="150.00" end="270.00" number="2" route="0_1"/>
+    <flow id="0_2" begin="18.51" end="300.00" number="7" route="0_2"/>
+    <flow id="0_0" begin="45.64" end="300.00" number="2" route="0_0"/>
+    <flow id="0_1" begin="157.43" end="300.00" number="1" route="0_1"/>
 <!-- begin="300.0" end="600.0" -->
-    <route id="300_0" edges="-3 -3.180.00 11"/> <!-- 3 (route_2) -->
-    <route id="300_1" edges="-3 -3.180.00 15"/> <!-- 3 (route_1) -->
-    <route id="300_2" edges="-3 -3.180.00 5"/> <!-- 2 (route_0) -->
+    <route id="300_0" edges="-3 -3.180.00 11"/> <!-- 8 (route_2) -->
 
-    <flow id="300_1" begin="300.00" end="375.00" number="3" route="300_1"/>
-    <flow id="300_0" begin="412.50" end="562.50" number="3" route="300_0"/>
-    <flow id="300_2" begin="450.00" end="525.00" number="2" route="300_2"/>
+    <flow id="300_0" begin="314.81" end="600.00" number="8" route="300_0"/>
 </routes>

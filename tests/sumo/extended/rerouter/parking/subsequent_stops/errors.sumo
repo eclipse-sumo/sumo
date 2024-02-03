@@ -1,0 +1,2 @@
+Warning: ParkingArea 'parkA1A2' is targeted by rerouter 'rr1' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkD1D2' is targeted by rerouter 'rr1' but doesn't have it's own rerouter. This may cause parking search to abort.

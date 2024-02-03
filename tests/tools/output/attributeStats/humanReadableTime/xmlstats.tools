@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-15 13:22:48.800462 by attributeStats.py v1_16_0+1305-b48d54a
+  options: -e tripinfo -a arrival -H input_data.xml <doubleminus>xml-output stats.xml
+-->
+
+<attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
+    <tripinfo>
+        <arrival count="100" min="00:00:26" minLabel="17" max="00:05:01" maxLabel="77" mean="00:02:41" Q1="00:01:57" median="00:02:39" Q3="00:03:19" meanAbs="00:02:41" medianAbs="00:02:39" stdDev="54.06">
+        <hist key="50.00" value="2"/>
+        <hist key="100.00" value="26"/>
+        <hist key="150.00" value="33"/>
+        <hist key="200.00" value="25"/>
+        <hist key="250.00" value="11"/>
+        <hist key="300.00" value="3"/>
+        </arrival>
+    </tripinfo>
+</attributeStats>

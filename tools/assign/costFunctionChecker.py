@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2009-08-31
 
 from __future__ import absolute_import
@@ -23,14 +24,13 @@ import os
 import sys
 import subprocess
 from datetime import datetime
-from optparse import OptionParser
 from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 
 
 def call(command, log):
-    if not isinstance(args, str):
+    if not isinstance(command, str):
         command = [str(c) for c in command]
     print("-" * 79, file=log)
     print(command, file=log)
@@ -133,59 +133,61 @@ def generateWeights(step, options, edges, weights, costFunction):
     fd.close()
 
 
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
-                     default=False, help="continues on unbuild routes")
-optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
-                     default=False, help="disables warnings")
+parser = sumolib.options.ArgumentParser()
+parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                    default=False, help="tell me what you are doing")
+parser.add_argument("--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+                    default=False, help="continues on unbuild routes")
+parser.add_argument("-w", "--disable-warnings", action="store_true", dest="noWarnings",
+                    default=False, help="disables warnings")
 
-optParser.add_option("-n", "--net-file", dest="net",
-                     help="SUMO network (mandatory)", metavar="FILE")
-optParser.add_option("-t", "--trips", dest="trips",
-                     help="trips in step 0 (this or flows is mandatory)", metavar="FILE")
-optParser.add_option("-F", "--flows",
-                     help="flows in step 0 (this or trips is mandatory)", metavar="FILE")
-optParser.add_option("-+", "--additional", dest="additional",
-                     default="", help="Additional files")
+parser.add_argument("-n", "--net-file", dest="net", type=parser.net_file,
+                    help="SUMO network (mandatory)", metavar="FILE")
+parser.add_argument("-t", "--trips", dest="trips", type=parser.route_file,
+                    help="trips in step 0 (this or flows is mandatory)", metavar="FILE")
+parser.add_argument("-F", "--flows", type=parser.route_file,
+                    help="flows in step 0 (this or trips is mandatory)", metavar="FILE")
+parser.add_argument("-+", "--additional", dest="additional", type=parser.additional_file,
+                    default="", help="Additional files")
 
-optParser.add_option("-b", "--begin", dest="begin",
-                     type="int", default=0, help="Set simulation/routing begin [default: %default]")
-optParser.add_option("-e", "--end", dest="end",
-                     type="int", help="Set simulation/routing end [default: %default]")
-optParser.add_option("-R", "--route-steps", dest="routeSteps",
-                     type="int", default=200, help="Set simulation route steps [default: %default]")
-optParser.add_option("-a", "--aggregation", dest="aggregation",
-                     type="int", default=900, help="Set main weights aggregation period [default: %default]")
-optParser.add_option("-A", "--gA", dest="gA",
-                     type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
-optParser.add_option("-B", "--gBeta", dest="gBeta",
-                     type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
+parser.add_argument("-b", "--begin", dest="begin",
+                    type=parser.time, default=0, help="Set simulation/routing begin [default: %(default)s]")
+parser.add_argument("-e", "--end", dest="end",
+                    type=parser.time, help="Set simulation/routing end [default: %(default)s]")
+parser.add_argument("-R", "--route-steps", dest="routeSteps",
+                    type=int, default=200, help="Set simulation route steps [default: %(default)s]")
+parser.add_argument("-a", "--aggregation", dest="aggregation",
+                    type=parser.time, default=900, help="Set main weights aggregation period [default: %(default)s]")
+parser.add_argument("-A", "--gA", dest="gA",
+                    type=float, default=.5, help="Sets Gawron's Alpha [default: %(default)s]")
+parser.add_argument("-B", "--gBeta", dest="gBeta",
+                    type=float, default=.9, help="Sets Gawron's Beta [default: %(default)s]")
 
-optParser.add_option("-f", "--first-step", dest="firstStep",
-                     type="int", default=0, help="First DUA step [default: %default]")
-optParser.add_option("-l", "--last-step", dest="lastStep",
-                     type="int", default=50, help="Last DUA step [default: %default]")
-optParser.add_option("-p", "--path", dest="path", help="Path to binaries")
+parser.add_argument("-f", "--first-step", dest="firstStep",
+                    type=int, default=0, help="First DUA step [default: %(default)s]")
+parser.add_argument("-l", "--last-step", dest="lastStep",
+                    type=int, default=50, help="Last DUA step [default: %(default)s]")
+parser.add_argument("-p", "--path", dest="path", type=str, help="Path to binaries")
 
-optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
-                     default=False, help="use current time to generate random number")
-optParser.add_option("-c", "--cost-function", dest="costfunc",
-                     default="identity", help="(python) function to use as cost function")
-(options, args) = optParser.parse_args()
+parser.add_argument("-y", "--absrand", dest="absrand", action="store_true",
+                    default=False, help="use current time to generate random number")
+parser.add_argument("--cost-function", dest="costfunc", type=str,
+                    default="identity", help="(python) function to use as cost function")
+
+options = parser.parse_args()
+
 if not options.net or not (options.trips or options.flows):
-    optParser.error(
+    parser.error(
         "At least --net-file and --trips or --flows have to be given!")
 
 
 duaBinary = sumolib.checkBinary("duarouter", options.path)
 log = open("dua-log.txt", "w+")
 
-parser = make_parser()
+saxparser = make_parser()
 reader = NetReader()
-parser.setContentHandler(reader)
-parser.parse(options.net)
+saxparser.setContentHandler(reader)
+saxparser.parse(options.net)
 edges = reader.getEdges()
 
 if "." in options.costfunc:
@@ -227,9 +229,9 @@ for step in range(options.firstStep, options.lastStep):
     # generating weights file
     print(">> Generating weights")
     reader = RouteReader()
-    parser.setContentHandler(reader)
+    saxparser.setContentHandler(reader)
     for f in files:
-        parser.parse(f)
+        saxparser.parse(f)
     # see evaluation of options.costfunc above
     generateWeights(step, options, edges, reader, costFunction)  # noqa
     print("<<")

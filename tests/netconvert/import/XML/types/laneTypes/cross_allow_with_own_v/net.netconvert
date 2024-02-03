@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:10 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-11-20 17:55:17 by Eclipse SUMO netconvert Version v1_15_0+0460-1d4bd5c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,13 +31,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -53,10 +57,10 @@ SPDX-License-Identifier: EPL-2.0
     </type>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" allow="passenger" speed="4.59" length="4.79" shape="497.00,517.50 498.15,515.77 499.30,515.20 500.45,515.77 500.53,515.90"/>
+        <lane id=":0_0_0" index="0" allow="passenger" speed="4.59" length="6.08" shape="497.00,517.50 498.15,515.77 499.30,515.20 500.45,515.77 501.25,516.97"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" allow="passenger" speed="4.59" length="1.93" shape="500.53,515.90 501.60,517.50"/>
+        <lane id=":0_4_0" index="0" allow="passenger" speed="4.59" length="0.64" shape="501.25,516.97 501.60,517.50"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" allow="passenger" speed="8.95" length="18.08" shape="517.50,512.00 510.54,512.34 505.58,513.38 502.59,515.09 501.60,517.50"/>
@@ -65,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_2_0" index="0" allow="passenger" speed="22.50" length="36.70" shape="512.00,482.50 510.38,493.59 506.80,503.75 503.23,512.03 501.60,517.50"/>
     </edge>
     <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" allow="passenger" speed="12.60" length="36.32" shape="482.50,491.75 490.86,493.36 496.83,498.19 500.41,506.23 501.60,517.50"/>
+        <lane id=":0_3_0" index="0" allow="passenger" speed="13.05" length="39.55" shape="482.50,488.00 490.86,489.84 496.83,495.38 500.41,504.59 501.60,517.50"/>
     </edge>
     <edge id=":4_0" function="internal">
         <lane id=":4_0_0" index="0" allow="passenger" speed="3.41" length="3.80" width="2.00" shape="501.60,1000.00 500.95,1000.98 500.30,1001.30 499.65,1000.98 499.00,1000.00"/>
@@ -141,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="18" state="gGrr"/>
+        <phase duration="17" state="gGrr"/>
         <phase duration="3"  state="yyrr"/>
         <phase duration="20" state="rGrr"/>
         <phase duration="3"  state="ryrr"/>
@@ -149,6 +153,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rryr"/>
         <phase duration="20" state="rrrG"/>
         <phase duration="3"  state="rrry"/>
+        <phase duration="1"  state="rrrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_4_0 :0_1_0 :0_2_0 :0_3_0" shape="486.50,517.50 503.20,517.50 504.79,515.28 506.78,514.50 509.56,513.94 513.13,513.61 517.50,513.50 517.50,496.80 515.28,495.21 514.50,493.22 513.94,490.44 513.61,486.87 513.50,482.50 496.80,482.50 495.21,484.72 493.22,485.50 490.44,486.06 486.87,486.39 482.50,486.50 482.50,503.20 484.72,504.79 485.50,506.78 486.06,509.56 486.39,513.13">
@@ -184,12 +189,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_4_0" type="internal" x="500.53" y="515.90" incLanes=":0_0_0 1si_1 2si_0 3si_0" intLanes=":0_1_0 :0_2_0 :0_3_0"/>
+    <junction id=":0_4_0" type="internal" x="501.25" y="516.97" incLanes=":0_0_0 1si_0 2si_0 3si_0" intLanes=":0_1_0 :0_2_0 :0_3_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="1" via=":m1_0_1" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="2" via=":m1_0_2" dir="s" state="M"/>
-    <connection from="1si" to="4o" fromLane="1" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="l" state="o"/>
+    <connection from="1si" to="4o" fromLane="0" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="l" state="o"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" via=":m2_0_0" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="1" via=":m2_0_1" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>

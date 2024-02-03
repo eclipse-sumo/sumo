@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,7 +29,7 @@
 // method definitions
 // ===========================================================================
 MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLPolicyDesirability(keyPrefix, parameters) {
 
     default_values["_STIM_COX"] = "1";
@@ -71,7 +71,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
     std::vector< std::map <std::string, std::string > > sliced_maps;
 
     for (int i = 0; i < size_family; i++) {
-        sliced_maps.push_back(std::map<std::string, std::string>());
+        sliced_maps.push_back(Parameterised::Map());
     }
 
     //For each param list, slice values
@@ -97,7 +97,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
     }
 
     for (int i = 0; i < size_family; i++) {
-        std::map<std::string, std::string>& ref_map = sliced_maps[i];
+        Parameterised::Map& ref_map = sliced_maps[i];
         family.push_back(new MSSOTLPolicy5DStimulus(keyPrefix, ref_map));
     }
 

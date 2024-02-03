@@ -1,0 +1,28 @@
+/* XPM */
+static const char *overheadwire_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c #008040",
+"X c gray66",
+"o c #C3C3C3",
+"O c gray95",
+"+ c None",
+/* pixels */
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"                ",
+"+++ ++OoX+++ +++",
+"++ +++OoX++ ++++",
+"                ",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"++++++OoX+++++++",
+"+++++OoooX++++++",
+"+++++OoooX++++++",
+"......oooX......"
+};

@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid frequency (missing) -->
+    <calibrator id="calibrator01" edge="center0" pos="20.00" output="calibrator01.txt"/>
+
+    <!-- non valid frequency (dummy) -->
+    <calibrator id="calibrator02" edge="center0" pos="22.00" period="dummyFrequency" output="calibrator02.txt"/>
+
+    <!-- non valid frequency (negative) -->
+    <calibrator id="calibrator03" edge="center0" pos="24.00" period="-50.00" output="calibrator03.txt"/>
+
+    <!-- valid frequency -->
+    <calibrator id="calibrator04" edge="center0" pos="26.00" period="120.50" output="calibrator04.txt"/>
+
+</additional>

@@ -1,3 +1,0 @@
-Warning: Essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator01' is missing; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator02' is invalid; Cannot be parsed to float; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator03' is invalid; Cannot be negative; laneCalibrator cannot be created

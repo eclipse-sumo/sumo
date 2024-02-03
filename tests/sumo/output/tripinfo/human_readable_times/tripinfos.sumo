@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-18 11:05:04 by Eclipse SUMO sumo Version v1_10_0+2398-470d12f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <human-readable-time value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="0" depart="00:00:00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="0.00" departDelay="00:00:00" arrival="00:10:35" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="1.97" duration="00:10:35" routeLength="1500.00" waitingTime="00:00:00" waitingCount="0" stopTime="00:00:00" timeLoss="00:02:14.72" rerouteNo="0" devices="tripinfo_0" vType="t1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="1" depart="00:00:10" departLane="4/1to3/1_0" departPos="100.00" departSpeed="9.00" departDelay="00:00:09.88" arrival="00:10:37" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="7.32" duration="00:10:27" routeLength="1500.00" waitingTime="00:00:00" waitingCount="0" stopTime="00:00:00" timeLoss="00:08:21.71" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.20" vaporized=""/>
+</tripinfos>

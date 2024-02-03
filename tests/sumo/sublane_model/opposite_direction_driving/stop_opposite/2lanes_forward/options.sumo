@@ -1,0 +1,4 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml --tripinfo-output tripinfos.xml
+--vehroute-output vehroutes.xml
+--vehroute-output.exit-times
+--lanechange-output lanechanges.xml

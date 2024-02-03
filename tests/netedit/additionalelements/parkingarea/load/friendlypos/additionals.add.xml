@@ -1,0 +1,17 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- non valid friendlyPos -->
+    <parkingArea id="parkingArea_0" lane="center1_0" startPos="5" endPos="10" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="dummyPos"/>
+
+    <!-- enabled friendlyPos, invalid positions 1 -->
+    <parkingArea id="parkingArea_1" lane="center1_0" startPos="-20" endPos="-10" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 2 -->
+    <parkingArea id="parkingArea_2" lane="center1_0" startPos="200" endPos="300" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 3 -->
+    <parkingArea id="parkingArea_3" lane="center1_0" startPos="50" endPos="20" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 4 -->
+    <parkingArea id="parkingArea_4" lane="center1_0" startPos="20" endPos="20" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
+
+</additional>

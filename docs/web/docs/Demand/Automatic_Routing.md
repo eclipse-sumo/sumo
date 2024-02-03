@@ -7,8 +7,8 @@ title: Automatic Routing
 Routing dynamically in the running simulation may be adequate in the
 following situations:
 
-- there is not enough time / computing power to wait for the dynamic
-  user equilibrium
+- there is not enough time / computing power to wait for the [dynamic
+  user equilibrium](Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium)
 - changes to the net occur while the simulation is running
 - vehicles need to adapt their route while running
 
@@ -100,7 +100,7 @@ without the need to instantiate the device for them explicitly. Whenever
 an error occurs on routing because no route can be found which includes
 all mandatory edges ("from", "to", and all stop edges in the correct
 order) and is connected (also respecting the vehicle class permissions)
-this is a fatal error and stops th simulation. This can be switched off
+this is a fatal error and stops the simulation. This can be switched off
 by using **--ignore-route-errors** which will leave the route untouched in the error case. If the
 vehicle did not have a route yet (because it was defined using a trip)
 and cannot find one and **--ignore-route-errors** is used, it will not be inserted.
@@ -114,6 +114,15 @@ loaded](../Demand/Importing_O/D_Matrices.md#describing_the_taz).
 Another way for defining the set of vehicles that are equipped with a
 rerouting device is via [generic
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
+
+The following parameters are supported as child elements of a `<vType>`, `<vehicle>`, `<trip>` or `<flow>`:
+
+- device.rerouting.period
+- device.rerouting.pre-period
+- device.rerouting.proability
+- device.rerouting.deterministic
+- has.rerouting.device
+
 
 # TraCI
 

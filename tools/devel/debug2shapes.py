@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,12 +20,16 @@
 """
 from __future__ import print_function
 import sys
+import os
 from collections import defaultdict
 
 COLORS = ["red", "green", "blue", "yellow", "cyan", "magenta", "orange"]
 
 outfile = sys.argv[1]
-shapesParts = sys.argv[2].split()
+if os.path.isfile(sys.argv[2]):
+    shapesParts = open(sys.argv[2]).read().split()
+else:
+    shapesParts = sys.argv[2].split()
 if len(sys.argv) == 4:
     fill = bool(sys.argv[3])
 else:
@@ -46,7 +50,8 @@ for p in shapesParts:
             id += "_%s" % ids[id]
         shape.append(pos)
     else:
-        shape.append(p)
+        if ',' in p:
+            shape.append(p)
 
 if shape:
     shapes.append((id, shape))
@@ -59,7 +64,7 @@ with open(outfile, 'w') as outf:
         outf.write("<shapes>\n")
         for i, (id, shape) in enumerate(shapes):
             if len(shape) > 1:
-                outf.write('    <poly id="%s" shape="%s" color="%s" fill="%s"/>\n' % (
+                outf.write('    <poly id="%s" shape="%s" color="%s" fill="%s" layer="100" lineWidth="0.1"/>\n' % (
                     id, " ".join(shape), COLORS[i % len(COLORS)], fill))
                 numPoly += 1
             else:

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,27 +60,14 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
 }
 
 
-bool
-SUMOSAXAttributesImpl_Xerces::getBool(int id) const {
-    return StringUtils::toBool(getString(id));
-}
-
-
-int
-SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
-    return StringUtils::toInt(getString(id));
-}
-
-
-long long int
-SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
-    return StringUtils::toLong(getString(id));
-}
-
-
 std::string
-SUMOSAXAttributesImpl_Xerces::getString(int id) const {
-    return StringUtils::transcode(getAttributeValueSecure(id));
+SUMOSAXAttributesImpl_Xerces::getString(int id, bool* isPresent) const {
+    const XMLCh* const xString = getAttributeValueSecure(id);
+    if (xString != nullptr) {
+        return StringUtils::transcode(getAttributeValueSecure(id));
+    }
+    *isPresent = false;
+    return "";
 }
 
 
@@ -93,12 +80,6 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id, const std::string& str) co
     } else {
         return getString(id);
     }
-}
-
-
-double
-SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
-    return StringUtils::toDouble(getString(id));
 }
 
 
@@ -139,127 +120,6 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
     } else {
         return StringUtils::transcode(v);
     }
-}
-
-
-SumoXMLEdgeFunc
-SUMOSAXAttributesImpl_Xerces::getEdgeFunc(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FUNCTION)) {
-        std::string funcString = getString(SUMO_ATTR_FUNCTION);
-        if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
-            return SUMOXMLDefinitions::EdgeFunctions.get(funcString);
-        }
-        ok = false;
-    }
-    return SumoXMLEdgeFunc::NORMAL;
-}
-
-
-SumoXMLNodeType
-SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_TYPE)) {
-        std::string typeString = getString(SUMO_ATTR_TYPE);
-        if (SUMOXMLDefinitions::NodeTypes.hasString(typeString)) {
-            return SUMOXMLDefinitions::NodeTypes.get(typeString);
-        }
-        ok = false;
-    }
-    return SumoXMLNodeType::UNKNOWN;
-}
-
-RightOfWay
-SUMOSAXAttributesImpl_Xerces::getRightOfWay(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
-        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
-        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
-            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
-        }
-        ok = false;
-    }
-    return RightOfWay::DEFAULT;
-}
-
-FringeType
-SUMOSAXAttributesImpl_Xerces::getFringeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FRINGE)) {
-        std::string fringeString = getString(SUMO_ATTR_FRINGE);
-        if (SUMOXMLDefinitions::FringeTypeValues.hasString(fringeString)) {
-            return SUMOXMLDefinitions::FringeTypeValues.get(fringeString);
-        }
-        ok = false;
-    }
-    return FringeType::DEFAULT;
-}
-
-RGBColor
-SUMOSAXAttributesImpl_Xerces::getColor() const {
-    return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
-}
-
-
-Position
-SUMOSAXAttributesImpl_Xerces::getPosition(int attr) const {
-    // declare string tokenizer
-    StringTokenizer st(getString(attr));
-    // check StringTokenizer
-    while (st.hasNext()) {
-        // obtain position
-        StringTokenizer pos(st.next(), ",");
-        // check that position has X-Y or X-Y-Z
-        if ((pos.size() != 2) && (pos.size() != 3)) {
-            throw FormatException("position format");
-        }
-        // obtain x and y
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        // check if return a X-Y or a X-Y-Z Position
-        if (pos.size() == 2) {
-            return Position(x, y);
-        } else {
-            // obtain z
-            double z = StringUtils::toDouble(pos.next());
-            return Position(x, y, z);
-        }
-    }
-    // empty positions aren't allowed
-    throw FormatException("position format");
-}
-
-
-PositionVector
-SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
-    StringTokenizer st(getString(attr));
-    PositionVector shape;
-    while (st.hasNext()) {
-        StringTokenizer pos(st.next(), ",");
-        if (pos.size() != 2 && pos.size() != 3) {
-            throw FormatException("shape format");
-        }
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        if (pos.size() == 2) {
-            shape.push_back(Position(x, y));
-        } else {
-            double z = StringUtils::toDouble(pos.next());
-            shape.push_back(Position(x, y, z));
-        }
-    }
-    return shape;
-}
-
-
-Boundary
-SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
-    std::string def = getString(attr);
-    StringTokenizer st(def, ",");
-    if (st.size() != 4) {
-        throw FormatException("boundary format");
-    }
-    const double xmin = StringUtils::toDouble(st.next());
-    const double ymin = StringUtils::toDouble(st.next());
-    const double xmax = StringUtils::toDouble(st.next());
-    const double ymax = StringUtils::toDouble(st.next());
-    return Boundary(xmin, ymin, xmax, ymax);
 }
 
 

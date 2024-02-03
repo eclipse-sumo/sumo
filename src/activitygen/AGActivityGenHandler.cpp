@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -166,16 +166,24 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
         double pop = 0;
         double work = 0;
 
+        std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         if (attrs.hasAttribute(AGEN_ATTR_POPULATION)) {
             pop = attrs.getFloat(AGEN_ATTR_POPULATION);
+            if (std::isnan(pop)) {
+                pop = 0;
+                WRITE_WARNINGF(TL("Invalid % value of edge % is treated as zero."), SUMOXMLDefinitions::Attrs.getString(AGEN_ATTR_POPULATION), eid);
+            }
         }
         if (attrs.hasAttribute(AGEN_ATTR_OUT_WORKPOSITION)) {
             work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
+            if (std::isnan(work)) {
+                work = 0;
+                WRITE_WARNINGF(TL("Invalid % value of edge % is treated as zero."), SUMOXMLDefinitions::Attrs.getString(AGEN_ATTR_OUT_WORKPOSITION), eid);
+            }
         }
-        std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         AGStreet* street = dynamic_cast<AGStreet*>(net->getEdge(eid));
         if (street == nullptr) {
-            WRITE_ERROR("Edge '" + eid + "' is not known.");
+            WRITE_ERRORF(TL("Edge '%' is not known."), eid);
             return;
         }
         street->setPopulation(pop * street->getLength());
@@ -326,7 +334,7 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
             throw ProcessError();
         }
         if (myCity.statData.busStations.count(refID) == 0) {
-            throw ProcessError("Unknown bus station " + toString(refID));
+            throw ProcessError(TLF("Unknown bus station '%'.", refID));
         }
         if (!isRevStation) {
             currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);

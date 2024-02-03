@@ -24,7 +24,7 @@ working GCC (version 3.3 and up should suffice) and probably some basic
 libraries Fox depends on.
 
 It has been tested successfully on several SuSE Linux installations and
-with a recent [cygwin](http://www.cygwin.org). Everything that needs
+with a recent [cygwin](https://www.cygwin.org). Everything that needs
 extra work on cygwin is described in the [cygwin
 section](#cygwin).
 
@@ -45,14 +45,14 @@ section](#cygwin).
 We use the GNU autotools for generating configure and Makefiles for
 Unix-like environments. Documentation can be found in the
 
-- [GNU autoconf pages](http://www.gnu.org/software/autoconf/),
-- [Manual for autoconf](http://www.gnu.org/software/autoconf/manual/),
+- [GNU autoconf pages](https://www.gnu.org/software/autoconf/),
+- [Manual for autoconf](https://www.gnu.org/software/autoconf/manual/),
 - [Manual for
   automake](https://www.gnu.org/software/automake/),
 - [Manual for
   libtool](https://www.gnu.org/software/libtool/manual/libtool.html), and
 - the
-  [Autobook](http://sources.redhat.com/autobook/autobook/autobook_toc.html).
+  [Autobook](https://sourceware.org/autobook/).
 
 #### The Libraries
 
@@ -191,7 +191,7 @@ sudo yum install xerces-c-devel cmake libxerces-c-dev  gdal-devel proj-develgl2p
 ```
 
 You need to download fox-toolkit from it's website and build manually
-http://www.fox-toolkit.org/download.html
+https://www.fox-toolkit.org/download.html
 
 #### Cygwin
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
-import random
+from random import Random
 
 # (seed)
 
@@ -38,17 +37,19 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--route-file", dest="routefile",
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-r", "--route-file", category='input', dest="routefile", required=True,
                          help="define the input route file with trips")
-    optParser.add_option("-o", "--output-file", dest="outfile",
+    optParser.add_option("-o", "--output-file", category='output', dest="outfile",
                          help="output route file with trips with parking stops")
-    optParser.add_option("-p", "--parking-areas", dest="parking",
-                         help="define the parking areas seperated by comma")
+    optParser.add_option("-p", "--parking-areas", category='input', dest="parking", required=True,
+                         help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-u", "--parking-until", dest="until",
                          help="define the parking until duration (in seconds)")
+    optParser.add_option("-l", "--parking-untilend", dest="untilend",
+                         help="define the parking until end variable duration (in seconds)")
     optParser.add_option("-b", "--parking-duration-begin", dest="durationBegin",
                          help="define the minimum parking duration (in seconds)")
     optParser.add_option("-e", "--parking-duration-end", dest="durationEnd",
@@ -57,19 +58,17 @@ def get_options(args=None):
                          help="tell me what you are doing")
     optParser.add_option("--random", action="store_true", default=False,
                          help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type="int", default=42,
+    optParser.add_option("-s", "--seed", type=int, default=42,
                          help="random seed")
-    (options, args) = optParser.parse_args(args=args)
-    # check route file and parkings
-    if not options.routefile or not options.parking:
-        optParser.print_help()
-        sys.exit()
-    return options
+    return optParser.parse_args(args=args)
 
 
 def main(options):
+    R1 = Random()
+    R2 = Random()
     if not options.random:
-        random.seed(options.seed)
+        R1.seed(options.seed)
+        R2.seed(options.seed)
     infile = options.routefile
     # set default output file
     if not options.outfile:
@@ -88,14 +87,19 @@ def main(options):
         # iterate over trips
         for trip in sumolib.xml.parse(infile, "trip", heterogeneous=True):
             # obtain random parking
-            random_parking = random.choice(parkings)
+            random_parking = R1.choice(parkings)
             # add child depending of durations
             if (options.durationBegin and options.durationEnd):
-                #obtain random duration
-                duration = random.randint(int(options.durationBegin), int(options.durationEnd))
+                # obtain random duration
+                duration = R2.randint(int(options.durationBegin), int(options.durationEnd))
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": duration})
             elif options.until:
-                trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
+                if options.untilend:
+                    # obtain random duration
+                    until = R2.randint(int(options.until), int(options.untilend))
+                    trip.addChild("stop", {"parkingArea": random_parking.id, "until": until})
+                else:
+                    trip.addChild("stop", {"parkingArea": random_parking.id, "until": options.until})
             else:
                 trip.addChild("stop", {"parkingArea": random_parking.id, "duration": int(options.duration)})
             # write trip
@@ -105,5 +109,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options()
     main(options)

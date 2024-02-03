@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,18 @@ public:
         IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
         myForward(forward),
-        myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())) { }
+        myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())),
+        myIsOpposite(false) {
+        if (!forward && (
+                    edge->getFunction() == SumoXMLEdgeFunc::NORMAL
+                    || edge->getFunction() == SumoXMLEdgeFunc::INTERNAL)) {
+            const L* sidewalk = getSidewalk<E, L>(edge);
+            if (sidewalk != nullptr && sidewalk->getPermissions() != SVC_PEDESTRIAN) {
+                // some non-pedestrian traffic is allowed
+                myIsOpposite = true;
+            }
+        }
+    }
 
     bool includeInRoute(bool allEdges) const {
         return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea() && !this->getEdge()->isInternal());
@@ -85,7 +96,7 @@ public:
 #ifdef IntermodalRouter_DEBUG_EFFORTS
         std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << this->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " fullLength=" << this->getLength() << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
 #endif
-        return length / trip->speed + tlsDelay;
+        return length / (trip->speed * (myIsOpposite ? gWeightsWalkOppositeFactor : 1)) + tlsDelay;
     }
 
     double getStartPos() const {
@@ -105,5 +116,8 @@ private:
 
     /// @brief the starting position for split edges
     const double myStartPos;
+
+    /// @brief whether this edge goes against the flow of traffic
+    bool myIsOpposite;
 
 };

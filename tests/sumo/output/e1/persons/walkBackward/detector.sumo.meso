@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-23 12:57:27 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+    <interval begin="0.00" end="60.00" id="det0" sampledSeconds="18.44" density="3.60" laneDensity="0.72" occupancy="0.36" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="3" arrived="0" entered="0" left="3"/>
+    <interval begin="60.00" end="120.00" id="det0" sampledSeconds="18.44" density="3.60" laneDensity="0.72" occupancy="0.36" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="3" arrived="0" entered="0" left="3"/>
+    <interval begin="120.00" end="180.00" id="det0" sampledSeconds="18.44" density="3.60" laneDensity="0.72" occupancy="0.36" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="3" arrived="0" entered="0" left="3"/>
+    <interval begin="180.00" end="240.00" id="det0" sampledSeconds="6.15" density="1.20" laneDensity="0.24" occupancy="0.12" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="1" arrived="0" entered="0" left="1"/>
+    <interval begin="240.00" end="285.00" id="det0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+</detector>

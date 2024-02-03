@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-549779.53,-5635549.22" convBoundary="-1.91,0.00,664.42,826.01" origBoundary="9.707448,50.869477,9.716987,50.876859" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="gneJ131" x="551.51" y="780.74" type="priority"/>
+    <node id="gneJ54" x="559.31" y="779.11" type="priority"/>
+    <node id="gneJ87" x="575.28" y="778.19" type="priority"/>
+</nodes>

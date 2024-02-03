@@ -1,0 +1,13 @@
+Loaded 98 routes (98 distinct)
+input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66, Q1 6.00, median 9.00, Q3 11.00
+ histogram: [(2, 2), (3, 3), (4, 8), (5, 6), (6, 10), (7, 8), (8, 12), (9, 10), (10, 12), (11, 7), (12, 3), (13, 7), (14, 4), (15, 4), (16, 2)]
+input route detector count: count 98, min 1.00 (7), max 15.00 (39), mean 7.66, Q1 5.00, median 8.00, Q3 10.00
+ histogram: [(1, 2), (2, 3), (3, 8), (4, 6), (5, 10), (6, 8), (7, 12), (8, 10), (9, 12), (10, 7), (11, 3), (12, 7), (13, 4), (14, 4), (15, 2)]
+Ignored 13 routes which pass fewer than 4 counting location
+Wrote 74 routes (58 distinct) achieving total count 658 (87.62%) at 138 locations. GEH<5 for 84.78%
+result route edge count: count 74, min 5.00 (8), max 16.00 (5), mean 9.89, Q1 8.00, median 10.00, Q3 12.00
+ histogram: [(5, 4), (6, 7), (7, 6), (8, 8), (9, 11), (10, 13), (11, 3), (12, 4), (13, 8), (14, 3), (15, 4), (16, 3)]
+result route detector count: count 74, min 4.00 (8), max 15.00 (5), mean 8.89, Q1 7.00, median 9.00, Q3 11.00
+ histogram: [(4, 4), (5, 7), (6, 6), (7, 8), (8, 11), (9, 13), (10, 3), (11, 4), (12, 8), (13, 3), (14, 4), (15, 3)]
+GEH: count 138, min 0.00 ([-58.121.42 -31] 109 109), max 12.06 ([-152.80.00 -131] 72 0), mean 2.09, Q1 0.00, median 0.00, Q3 3.81
+Warning: underflow locations: count 63, min 1.00 (('-58.121.42', '64')), max 4.00 (('-27', '-27.80.00')), mean 1.48, Q1 1.00, median 1.00, Q3 2.00 (total 93)

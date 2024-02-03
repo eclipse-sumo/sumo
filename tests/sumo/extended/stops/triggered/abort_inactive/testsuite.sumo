@@ -1,0 +1,14 @@
+# containers wait to be picked up when the vehicle stops
+early_expect_both
+
+# containers arrive to be picked up after the vehicle stops
+late_expect_both
+
+# persons wait to be picked up when the vehicle stops
+early_expect_both2
+
+# vehicle stops and waits for persons, persons arrive late and fill vehicle to capacity.
+late_expect_both2
+
+# vehicle stops and waits for persons and containers, persons arrive late 
+late_expect_both3

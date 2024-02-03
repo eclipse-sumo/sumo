@@ -13,9 +13,6 @@ ticket7149
 # collision on departure with extrapolate-departpos
 ticket7154
 
-# bluelight device with short final edge should not crash
-ticket7473
-
 # invalid xsd validation error
 ticket7647
 

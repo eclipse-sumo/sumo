@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -43,3 +43,5 @@ print("%s %.2f" % net.getShortestPath(net.getEdge(":C_12"), CE))
 print("%s %.2f" % net.getShortestPath(net.getEdge(":C_22"), CE))
 print("%s %.2f" % net.getShortestPath(SC, net.getEdge(":C_15")))
 print("%s %.2f" % net.getShortestPath(net.getEdge(":C_12"), net.getEdge(":C_15")))
+print("%s %.2f" % net.getShortestPath(CE, SC))
+print("%s %.2f" % net.getShortestPath(CE, SC, ignoreDirection=True))

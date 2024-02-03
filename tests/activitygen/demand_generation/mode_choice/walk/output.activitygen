@@ -1,7 +1,7 @@
 --> work position: 
   |-> in city: 2
-  |-> out city: 1
-  |-> in+out city: 3
+  |-> out city: 0
+  |-> in+out city: 2
 --> population: 
   |-> city households: 1
   |-> city people: 1

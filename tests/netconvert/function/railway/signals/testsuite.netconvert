@@ -1,3 +1,9 @@
 # make turnarounds at railSignal uncontrolled
 turns_uncontrolled
+
+# generate signal at edge with glitched geometry
+sharp_angle
+
+# generate signal at edge with glitched geometry
+sharp_angle_bidi
 discard

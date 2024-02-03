@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -257,7 +257,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        if (myWeightPeriod == SUMOTime_MAX) {
+        if (myWeightPeriod == SUMOTime_MAX && myHierarchy != nullptr) {
             // we only need one hierarchy
             return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                       mySVC, myHierarchy, this->myHavePermissions, this->myHaveRestrictions);
@@ -265,6 +265,14 @@ public:
         return new CHRouter<E, V>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                                   mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
     }
+
+
+    virtual void prohibit(const std::vector<E*>& toProhibit) {
+        if (toProhibit.size() > 0) {
+            WRITE_WARNINGF(TL("Routing algorithm CH does not support dynamic closing of edges%"), "");
+        }
+    }
+
 
     /// trigger hierarchy rebuild
     virtual void reset(const V* const vehicle) {
@@ -321,7 +329,7 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             if (!silent) {
-                this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+                this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
             }
             result = false;
         }

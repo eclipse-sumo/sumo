@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 19 22:35:37 2019 by Eclipse SUMO duarouter Version v1_1_0+0435-678c69824b
+<!-- generated on 2022-01-17 09:15:03 by Eclipse SUMO duarouter Version v1_11_0+1201-e485fb7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,10 +30,9 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="400.00">
-        <stop busStop="stopB_S" duration="0.10"/>
-        <ride cost="138.90" busStop="stopA_S" lines="tBA" intended="trainBA.0" depart="439.00"/> <!-- A -->
-        <walk cost="29.31" edges="accessA" departPos="800.00" busStop="stopA_E"/> <!-- A -->
-        <walk cost="1150.53" edges="accessA A0B0 accessC" departPos="300.00" busStop="stopC_E"/> <!-- C -->
+    <person id="p0" depart="0.00">
+        <personTrip from="accessA" to="railWE" arrivalPos="300.00" busStop="stopA_E" walkFactor="0.75" costs="177.29"/>
+        <ride to="railWE.1200" busStop="stopC_E" lines="ANY"/> <!-- C -->
+        <personTrip from="railWE.1200" to="accessC" departPos="400.00" walkFactor="0.75" costs="105.47"/>
     </person>
 </routes>

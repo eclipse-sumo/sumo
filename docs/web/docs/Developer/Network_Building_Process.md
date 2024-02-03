@@ -191,7 +191,7 @@ edge pairs with angle into a list sorted decreasing by the angle. After
 all combinations are computed, we go through the list and set those as
 turnarounds which we see at first, marking both the incoming and the
 outgoing edge as already seen what avoids to use them twice. We warn if
-an edge occures twice with an angle \>360° - multiple edges connecting
+an edge occurs twice with an angle \>360° - multiple edges connecting
 two same nodes.
 
 - **state**: yellow
@@ -290,9 +290,9 @@ following three cases must be distinguished:
 
 |                                                 |                                                      |
 | ----------------------------------------------- | ---------------------------------------------------- |
-| ![<File:laneShapeIntersectsWithNodeShape.png>](../images/LaneShapeIntersectsWithNodeShape.png "File:laneShapeIntersectsWithNodeShape.png") | The edge shape intersects with the node shape. Then, the shape is trimmed to the intersection point. This looks quite reasonable.                                                                          |
-| ![<File:laneShapeOutsideOfNodeShape.png>](../images/LaneShapeOutsideOfNodeShape.png "File:laneShapeOutsideOfNodeShape.png")                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
-| ![<File:laneShapeInsideOfNodeShape.png>](../images/LaneShapeInsideOfNodeShape.png "File:laneShapeInsideOfNodeShape.png")                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
+| ![laneShapeIntersectsWithNodeShape.png](../images/LaneShapeIntersectsWithNodeShape.png) | The edge shape intersects with the node shape. Then, the shape is trimmed to the intersection point. This looks quite reasonable.                                                                          |
+| ![laneShapeOutsideOfNodeShape.png](../images/LaneShapeOutsideOfNodeShape.png)                | The edge shape is outside the node shape. The the present algorithm extrapolates the last line of the edge shape and enlarges the edge to the new intersection point. This looks reasonable to me as well. |
+| ![laneShapeInsideOfNodeShape.png](../images/LaneShapeInsideOfNodeShape.png)                   | The edge shape is completely within the node shape. What should happen here? (The red dots show, what netconvert does at present.)                                                                         |
 
 So I am wondering, what the right behavior of netconvert would be in
 the third case.
@@ -306,32 +306,32 @@ the third case.
 | Action                                                                  | affects   |           |                 |
 | ----------------------------------------------------------------------- | --------- | --------- | --------------- |
 |                                                                         | **nodes** | **edges** | **connections** |
-| **Adapting the input**                                                  |    x      |   x       |      x          | 
-| '`Building node clusters`'                                              |    x      |   x       |      x          | 
-| '`Removing self-loops`'                                                 |    x      |           |      x          | 
-| '`Joining similar edges`'                                               |           |           |                 | 
-| '`Finding isolated roads`'                                              |           |           |                 | 
-| '`Removing unwished edges`'                                             |           |           |                 | 
-| '`Removing empty nodes and geometry nodes`' or '`Removing empty nodes`' |           |           |                 | 
-| '`Splitting geometry edges`'                                            |           |           |                 | 
-| '`Guessing and setting on-/off-ramps`'                                  |           |           |                 | 
-| **Moving network to origin**                                            |           |           |                 | 
-| **TLS position computation**                                            |           |           |                 | 
-| Assigning nodes to traffic lights                                       |           |           |                 | 
-| Joining traffic light nodes                                             |           |           |                 | 
-| **Computing connections between lanes**                                 |           |           |                 | 
-| Computing turning directions                                            |           |           |                 | 
-| Sorting nodes' edges                                                    |           |           |                 | 
-| Computing Approached Edges                                              |           |           |                 | 
-| Computing Approaching Lanes                                             |           |           |                 | 
-| Dividing of Lanes on Approached Lanes                                   |           |           |                 | 
-| Appending Turnarounds (optional)                                        |           |           |                 | 
-| Rechecking of lane endings                                              |           |           |                 | 
-| **Geometry computation**                                                |           |           |                 | 
-| Computing node shapes                                                   |           |           |                 | 
-| Computing edge shapes                                                   |           |           |                 | 
-| **Computing right-of-way and traffic light programs**                   |           |           |                 | 
-| Computing tls logics                                                    |           |           |                 | 
-| Computing node logics                                                   |           |           |                 | 
-| Computing traffic light logics                                          |           |           |                 | 
-| **Finishing inner edges (optional)**                                    |           |           |                 | 
+| **Adapting the input**                                                  |    x      |   x       |      x          |
+| '`Building node clusters`'                                              |    x      |   x       |      x          |
+| '`Removing self-loops`'                                                 |    x      |           |      x          |
+| '`Joining similar edges`'                                               |           |           |                 |
+| '`Finding isolated roads`'                                              |           |           |                 |
+| '`Removing unwished edges`'                                             |           |           |                 |
+| '`Removing empty nodes and geometry nodes`' or '`Removing empty nodes`' |           |           |                 |
+| '`Splitting geometry edges`'                                            |           |           |                 |
+| '`Guessing and setting on-/off-ramps`'                                  |           |           |                 |
+| **Moving network to origin**                                            |           |           |                 |
+| **TLS position computation**                                            |           |           |                 |
+| Assigning nodes to traffic lights                                       |           |           |                 |
+| Joining traffic light nodes                                             |           |           |                 |
+| **Computing connections between lanes**                                 |           |           |                 |
+| Computing turning directions                                            |           |           |                 |
+| Sorting nodes' edges                                                    |           |           |                 |
+| Computing Approached Edges                                              |           |           |                 |
+| Computing Approaching Lanes                                             |           |           |                 |
+| Dividing of Lanes on Approached Lanes                                   |           |           |                 |
+| Appending Turnarounds (optional)                                        |           |           |                 |
+| Rechecking of lane endings                                              |           |           |                 |
+| **Geometry computation**                                                |           |           |                 |
+| Computing node shapes                                                   |           |           |                 |
+| Computing edge shapes                                                   |           |           |                 |
+| **Computing right-of-way and traffic light programs**                   |           |           |                 |
+| Computing tls logics                                                    |           |           |                 |
+| Computing node logics                                                   |           |           |                 |
+| Computing traffic light logics                                          |           |           |                 |
+| **Finishing inner edges (optional)**                                    |           |           |                 |

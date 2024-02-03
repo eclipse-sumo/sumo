@@ -3,11 +3,11 @@ Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='
 Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-5.00, time=29.00 stage=move.
 Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.00, time=33.00 stage=move.
 Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.00, time=37.00 stage=move.
-Warning: Removing vehicle 'always_right.0' after earlier collision, lane='2o_0', time=39.00.
 Warning: Removing vehicle 'horizontal.0' after earlier collision, lane='2o_0', time=40.00.
+Warning: Removing vehicle 'always_right.0' after earlier collision, lane='2o_0', time=40.00.
 Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=41.00 stage=move.
-Warning: Removing vehicle 'always_right.1' after earlier collision, lane='2o_0', time=43.00.
 Warning: Removing vehicle 'horizontal.1' after earlier collision, lane='2o_0', time=44.00.
+Warning: Removing vehicle 'always_right.1' after earlier collision, lane='2o_0', time=44.00.
 Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-5.00, time=45.00 stage=move.
 Warning: Removing vehicle 'horizontal.2' after earlier collision, lane='2o_0', time=47.00.
 Warning: Removing vehicle 'always_right.2' after earlier collision, lane='2o_0', time=47.00.
@@ -15,10 +15,10 @@ Warning: Vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='
 Warning: Removing vehicle 'horizontal.3' after earlier collision, lane='2o_0', time=51.00.
 Warning: Removing vehicle 'always_right.3' after earlier collision, lane='2o_0', time=51.00.
 Warning: Vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-5.00, time=53.00 stage=move.
-Warning: Removing vehicle 'always_right.4' after earlier collision, lane='2o_0', time=54.00.
 Warning: Removing vehicle 'horizontal.4' after earlier collision, lane='2o_0', time=55.00.
-Warning: Removing vehicle 'always_right.5' after earlier collision, lane='2o_0', time=58.00.
+Warning: Removing vehicle 'always_right.4' after earlier collision, lane='2o_0', time=55.00.
 Warning: Removing vehicle 'horizontal.5' after earlier collision, lane='2o_0', time=59.00.
+Warning: Removing vehicle 'always_right.5' after earlier collision, lane='2o_0', time=59.00.
 Warning: Removing vehicle 'horizontal.6' after earlier collision, lane='2o_0', time=62.00.
 Warning: Removing vehicle 'always_right.6' after earlier collision, lane='2o_0', time=62.00.
 Warning: Removing vehicle 'always_right.7' after earlier collision, lane='2o_0', time=64.00.

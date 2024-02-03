@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:00 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-03 12:43:51 by Eclipse SUMO netconvert Version v1_10_0+1890-85a652c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,9 +36,9 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="0.00,0.00,200.00,0.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="0.00,0.00,300.00,0.00" projParameter="!"/>
 
     <edge id="01" from="0" to="1" priority="-1">
         <lane id="01_0" index="0" speed="23.00" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
@@ -46,13 +46,20 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="12" from="1" to="2" priority="-1">
         <lane id="12_0" index="0" speed="43.00" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
     </edge>
+    <edge id="23" from="2" to="3" priority="-1">
+        <lane id="23_0" index="0" speed="13.00" length="100.00" shape="200.00,-1.60 300.00,-1.60"/>
+    </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
     <junction id="1" type="priority" x="100.00" y="0.00" incLanes="01_0" intLanes="" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="2" type="dead_end" x="200.00" y="0.00" incLanes="12_0" intLanes="" shape="200.00,-3.20 200.00,0.00"/>
+    <junction id="2" type="priority" x="200.00" y="0.00" incLanes="12_0" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="3" type="dead_end" x="300.00" y="0.00" incLanes="23_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
 
     <connection from="01" to="12" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="12" to="23" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

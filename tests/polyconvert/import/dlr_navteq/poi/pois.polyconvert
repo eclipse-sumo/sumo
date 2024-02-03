@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Mar  8 00:01:22 2015 by SUMO polyconvert Version dev-SVN-r18045
+<!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,12 +13,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.scale value="5"/>
+        <proj.scale value="1e-05"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <report>
@@ -30,8 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="360180.57,5781233.23,363758.16,5788908.83" origBoundary="1295257.000000,5216475.000000,1300801.000000,5223282.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
-    <poi id="1" type="unknown" color="51,128,255" layer="-1.00" x="363758.16" y="5781233.23"/>
-    <poi id="2" type="unknown" color="51,128,255" layer="-1.00" x="360180.57" y="5788908.83"/>
+    <poi id="1" type="unknown" color="51,128,255" layer="-1.000000" lon="13.008010" lat="52.164750"/>
+    <poi id="2" type="unknown" color="51,128,255" layer="-1.00" lon="12.952570" lat="52.232820"/>
 </additional>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <vType id="DEFAULT_VEHTYPE" sigma="0" speedFactor="2"/>
+  <vehicle depart="0" id="veh0">
+      <route edges="SC CE EC"/>
+      <stop busStop="bStop" speed="20" tripId="newTripId"/>
+  </vehicle>
+</routes>

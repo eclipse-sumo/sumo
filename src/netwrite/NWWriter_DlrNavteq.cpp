@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,7 +53,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("dlr-navteq-output")) {
         return;
     }
-    std::map<NBEdge*, std::string> internalNodes;
+    std::map<const NBEdge*, std::string> internalNodes;
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont(), internalNodes);
     writeLinksUnsplitted(oc, nb.getEdgeCont(), internalNodes);
     writeTrafficSignals(oc, nb.getNodeCont());
@@ -63,7 +63,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc) {
-    device << "# Format matches Extraction version: V6.5 \n";
+    device << "# Format matches Extraction version: V" << oc.getString("dlr-navteq.version") << " \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
@@ -75,8 +75,9 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     device << "#\n";
 }
 
+
 void
-NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
     // For "real" nodes we simply use the node id.
     // For internal nodes (geometry vectors describing edge geometry in the parlance of this format)
     // we use the id of the edge and do not bother with
@@ -88,7 +89,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     const double geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
     device.setPrecision(oc.getInt("dlr-navteq.precision"));
     if (!haveGeo) {
-        WRITE_WARNING("DlrNavteq node data will be written in (floating point) cartesian coordinates");
+        WRITE_WARNING(TL("DlrNavteq node data will be written in (floating point) cartesian coordinates"));
     }
     // write format specifier
     device << "# NODE_ID\tIS_BETWEEN_NODE\tamount_of_geocoordinates\tx1\ty1\t[x2 y2  ... xn  yn]\n";
@@ -139,8 +140,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         avoid.insert(avoid.end(), reservedNodeIDs.begin(), reservedNodeIDs.end());
     }
     IDSupplier idSupplier("", avoid);
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto& edgeIt : ec) {
+        const NBEdge* const e = edgeIt.second;
         PositionVector geom = e->getGeometry();
         if (geom.size() > 2) {
             // the import NIImporter_DlrNavteq checks for the presence of a
@@ -152,38 +153,40 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             } else if (e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && hasOppositeID) {
                 // need to write left-border geometry instead
                 try {
                     geom.move2side(-e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             }
 
-            std::string internalNodeID = e->getID();
-            if (internalNodeID == UNDEFINED
-                    || (nc.retrieve(internalNodeID) != nullptr)
-                    || reservedNodeIDs.count(internalNodeID) > 0
-               ) {
-                // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
-                if (numericalIDs) {
-                    internalNodeID = idSupplier.getNext();
-                } else {
-                    internalNodeID += "_geometry";
+            if (geom.size() > 2) { // move2side might have changed the number of nodes
+                std::string internalNodeID = e->getID();
+                if (internalNodeID == UNDEFINED
+                        || (nc.retrieve(internalNodeID) != nullptr)
+                        || reservedNodeIDs.count(internalNodeID) > 0
+                   ) {
+                    // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
+                    if (numericalIDs) {
+                        internalNodeID = idSupplier.getNext();
+                    } else {
+                        internalNodeID += "_geometry";
+                    }
                 }
+                internalNodes[e] = internalNodeID;
+                device << internalNodeID << "\t1\t" << geom.size() - 2;
+                for (int ii = 1; ii < (int)geom.size() - 1; ++ii) {
+                    Position pos = geom[(int)ii];
+                    gch.cartesian2geo(pos);
+                    pos.mul(geoScale);
+                    device << "\t" << pos.x() << "\t" << pos.y();
+                }
+                device << "\n";
             }
-            internalNodes[e] = internalNodeID;
-            device << internalNodeID << "\t1\t" << geom.size() - 2;
-            for (int ii = 1; ii < (int)geom.size() - 1; ++ii) {
-                Position pos = geom[(int)ii];
-                gch.cartesian2geo(pos);
-                pos.mul(geoScale);
-                device << "\t" << pos.x() << "\t" << pos.y();
-            }
-            device << "\n";
         }
     }
     device.close();
@@ -191,31 +194,42 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
 
 void
-NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont& ec, const std::map<const NBEdge*, std::string>& internalNodes) {
+    const int majorVersion = StringUtils::toInt(StringTokenizer(oc.getString("dlr-navteq.version"), ".").next());
     std::map<const std::string, std::string> nameIDs;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
     // write format specifier
-    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\tFORM_OF_WAY\tBRUNNEL_TYPE\tFUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\tNAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\tAREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION\n";
+    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\tFORM_OF_WAY\tBRUNNEL_TYPE\t"
+           << "FUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\t"
+           << "NAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\t"
+           << "AREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION";
+    if (majorVersion > 6) {
+        device << "\tMAXHEIGHT\tMAXWIDTH\tMAXWEIGHT\tSURFACE";
+    }
+    device << "\n";
     // write edges
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto& edgeIt : ec) {
+        const NBEdge* const e = edgeIt.second;
         const int kph = speedInKph(e->getSpeed());
-        const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
+        const auto& internalIt = internalNodes.find(e);
+        const std::string& betweenNodeID = internalIt != internalNodes.end() ? internalIt->second : UNDEFINED;
         std::string nameID = UNDEFINED;
         std::string nameIDRegional = UNDEFINED;
         if (oc.getBool("output.street-names")) {
             const std::string& name = e->getStreetName();
             if (name != "") {
                 if (nameIDs.count(name) == 0) {
-                    nameIDs[name] = toString(nameIDs.size());
+                    const int tmp = (int)nameIDs.size();
+                    nameIDs[name] = toString(tmp);
                 }
                 nameID = nameIDs[name];
             }
             const std::string& name2 = e->getParameter("ref", "");
             if (name2 != "") {
                 if (nameIDs.count(name2) == 0) {
-                    nameIDs[name2] = toString(nameIDs.size());
+                    const int tmp = (int)nameIDs.size();
+                    nameIDs[name2] = toString(tmp);
                 }
                 nameIDRegional = nameIDs[name2];
             }
@@ -244,8 +258,14 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << UNDEFINED << "\t" // special_restrictions
                << UNDEFINED << "\t" // extended_number_of_lanes
                << UNDEFINED << "\t" // isRamp
-               << "0\t" // connection (between nodes always in order)
-               << "\n";
+               << "0"; // connection (between nodes always in order)
+        if (majorVersion > 6) {
+            device << "\t" << e->getParameter("maxheight", UNDEFINED)
+                   << "\t" << e->getParameter("maxwidth", UNDEFINED)
+                   << "\t" << e->getParameter("maxweight", UNDEFINED)
+                   << "\t" << e->getParameter("surface", UNDEFINED);
+        }
+        device << "\n";
     }
     if (oc.getBool("output.street-names")) {
         OutputDevice& namesDevice = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_names.txt");
@@ -288,7 +308,7 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
 
 
 int
-NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
+NWWriter_DlrNavteq::getRoadClass(const NBEdge* const edge) {
     // quoting the navteq manual:
     // As a general rule, Functional Road Class assignments have no direct
     // correlation with other road attributes like speed, controlled access, route type, etc.
@@ -394,10 +414,10 @@ NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
 
 
 int
-NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
-    if (edge->knowsParameter("bridge")) {
+NWWriter_DlrNavteq::getBrunnelType(const NBEdge* const edge) {
+    if (edge->hasParameter("bridge")) {
         return 1;
-    } else if (edge->knowsParameter("tunnel")) {
+    } else if (edge->hasParameter("tunnel")) {
         return 4;
     } else if (edge->getTypeID() == "route.ferry") {
         return 10;
@@ -407,7 +427,7 @@ NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
 
 
 int
-NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
+NWWriter_DlrNavteq::getFormOfWay(const NBEdge* const edge) {
     if (edge->getPermissions() == SVC_PEDESTRIAN) {
         return 15;
     } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
@@ -422,7 +442,7 @@ NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
 
 
 double
-NWWriter_DlrNavteq::getGraphLength(NBEdge* edge) {
+NWWriter_DlrNavteq::getGraphLength(const NBEdge* const edge) {
     PositionVector geom = edge->getGeometry();
     geom.push_back_noDoublePos(edge->getToNode()->getPosition());
     geom.push_front_noDoublePos(edge->getFromNode()->getPosition());
@@ -434,12 +454,12 @@ std::string
 NWWriter_DlrNavteq::getSinglePostalCode(const std::string& zipCode, const std::string edgeID) {
     // might be multiple codes
     if (zipCode.find_first_of(" ,;") != std::string::npos) {
-        WRITE_WARNING("ambiguous zip code '" + zipCode + "' for edge '" + edgeID + "'. (using first value)");
+        WRITE_WARNINGF("ambiguous zip code '%' for edge '%'. (using first value)", zipCode, edgeID);
         StringTokenizer st(zipCode, " ,;", true);
         std::vector<std::string> ret = st.getVector();
         return ret[0];
     } else if (zipCode.size() > 16) {
-        WRITE_WARNING("long zip code '" + zipCode + "' for edge '" + edgeID + "'");
+        WRITE_WARNINGF("long zip code '%' for edge '%'", zipCode, edgeID);
     }
     return zipCode;
 }

@@ -1,0 +1,7 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--fcd-output fcd.xml
+--step-length 0.1
+--default.action-step-length 1
+-t

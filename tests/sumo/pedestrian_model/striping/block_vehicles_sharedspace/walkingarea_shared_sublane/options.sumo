@@ -1,0 +1,8 @@
+--no-step-log
+--net-file net2.net.xml
+--route-files input_routes.rou.xml
+--pedestrian.striping.dawdling 0
+--collision.check-junctions
+--duration-log.statistics
+-e 1000
+--lateral-resolution 0.8

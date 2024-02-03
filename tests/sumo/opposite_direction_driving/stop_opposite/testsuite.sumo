@@ -1,0 +1,53 @@
+# stopping on the opposite side without other traffic
+noconflict
+
+# stopping on the opposite side without other traffic
+noconflict_parking
+
+# stopping on the opposite side without other traffic,
+# forward edge has 2 lanes
+2lanes_forward
+
+# stopping on the opposite side without other traffic,
+# need to cross 2 opposite lanes.
+2lanes_opposite
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2lanes_3opposite
+
+# stopping on the opposite side without other traffic,
+# 
+2lanes_3opposite_sidewalk
+
+# stopping on the opposite side without other traffic,
+# 
+1lanes_3opposite_multimodal
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2lanes_3opposite_long
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2edges
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
+2lanes_3opposite_continuous
+
+# stopping on the opposite side without oncoming traffic
+3oncoming_parking
+
+# stopping on the opposite side without oncoming traffic
+3oncoming_parking_continuous
+
+# stopping on the opposite side without other traffic,
+# need to cross 2 opposite lanes.
+# stops is near the end of the route
+2lanes_opposite_late_continuous
+
+# stopping on the opposite side without other traffic,
+# need to cross 2 opposite lanes.
+# stops is near the end of the route
+2lanes_opposite_late_arrivalLane_continuous

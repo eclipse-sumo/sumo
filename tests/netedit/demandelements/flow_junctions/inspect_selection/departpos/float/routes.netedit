@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-24 16:05:03 by Eclipse SUMO netedit Version v1_18_0+0458-be70fa69b0d
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flowA" begin="10.00" departLane="random" departPos="20.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" insertionChecks="speedLimit pedestrian all" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </flow>
+    <flow id="flowB" begin="20.00" departLane="free" departPos="20.00" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" insertionChecks="leaderGap junction speedLimit pedestrian all" fromJunction="Junction2" toJunction="Junction3" end="50.00" number="100">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </flow>
+</routes>

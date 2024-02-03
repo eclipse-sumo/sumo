@@ -1,0 +1,5 @@
+<viewsettings>
+    <scheme name="testing">
+        <background backgroundColor="white" showGrid="1" gridXSize="2.5" gridYSize="2.5"/>
+    </scheme>
+</viewsettings>

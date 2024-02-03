@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
+Warning: No weight data was loaded for attribute 'CO'.
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
+Loading done.
+Simulation version v1_14_1+1096-432bf3a started with time: 0.00.
+Simulation ended at time: 244.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.02s
+ Real time factor: 10166.7
+ UPS: 58083.333333
+Vehicles: 
+ Inserted: 10
+ Running: 0
+ Waiting: 0
+

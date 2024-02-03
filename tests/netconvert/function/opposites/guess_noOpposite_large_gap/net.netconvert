@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-10-07 11:42:10 by Eclipse SUMO netconvert Version v1_10_0+1328-637263e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <opposites.guess value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,1.50" convBoundary="0.00,0.00,200.00,3.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":E_0" function="internal">
+        <lane id=":E_0_0" index="0" speed="4.66" length="9.05" shape="200.00,-1.60 202.32,-0.05 203.10,1.50 202.32,3.05 200.00,4.60"/>
+    </edge>
+    <edge id=":W_0" function="internal">
+        <lane id=":W_0_0" index="0" speed="4.66" length="9.05" shape="0.00,4.60 -2.32,3.05 -3.10,1.50 -2.32,-0.05 0.00,-1.60"/>
+    </edge>
+
+    <edge id="EW" from="E" to="W" priority="1" shape="200.00,3.00 0.00,3.00">
+        <lane id="EW_0" index="0" speed="13.89" length="200.00" shape="200.00,4.60 0.00,4.60"/>
+    </edge>
+    <edge id="WE" from="W" to="E" priority="1" shape="0.00,0.00 200.00,0.00">
+        <lane id="WE_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="E" type="priority" x="200.00" y="1.50" incLanes="WE_0" intLanes=":E_0_0" shape="200.00,3.00 200.00,-3.20 200.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="W" type="priority" x="0.00" y="1.50" incLanes="EW_0" intLanes=":W_0_0" shape="0.00,0.00 0.00,6.20 0.00,3.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="EW" to="WE" fromLane="0" toLane="0" via=":W_0_0" dir="t" state="M"/>
+    <connection from="WE" to="EW" fromLane="0" toLane="0" via=":E_0_0" dir="t" state="M"/>
+
+    <connection from=":E_0" to="EW" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":W_0" to="WE" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

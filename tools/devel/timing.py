@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 
 """
 This script uses either a directory with historic sumo versions
-or git bisect to compare performance of differnt sumo versions.
+or git bisect to compare performance of different sumo versions.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -48,22 +48,22 @@ def runHistory(args, versions, extraInfo=""):
         command = ['/usr/bin/time', '-v', os.path.join(d, 'bin', 'sumo'), "-v", "-c", args.cfg]
         try:
             for _ in range(args.runs):
-                for l in subprocess.check_output(command, stderr=subprocess.STDOUT).splitlines():
-                    if "User time" in l:
-                        t = float(l.split(": ")[-1])  # noqa
-                    elif "wall clock" in l:
-                        w = float(l.split(":")[-1])  # noqa
-                    elif "UPS: " in l:
-                        u = 1e6 / max(1., float(l.split(": ")[-1]))  # noqa
-                    elif "Maximum resident" in l:
-                        m = float(l.split(": ")[-1])  # noqa
+                for ol in subprocess.check_output(command, stderr=subprocess.STDOUT).splitlines():
+                    if "User time" in ol:
+                        t = float(ol.split(": ")[-1])  # noqa
+                    elif "wall clock" in ol:
+                        w = float(ol.split(":")[-1])  # noqa
+                    elif "UPS: " in ol:
+                        u = 1e6 / max(1., float(ol.split(": ")[-1]))  # noqa
+                    elif "Maximum resident" in ol:
+                        m = float(ol.split(": ")[-1])  # noqa
                 # adapt the return values as needed below
                 results[d].append((u, t))
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError as err:
             if len(versions) == 1:
                 raise
             else:
-                print(e, file=sys.stderr)
+                print(err, file=sys.stderr)
                 continue
     with open(args.stats, "a") as out:
         for d, r in sorted(results.items()):

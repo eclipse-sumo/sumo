@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:24:16 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on 2022-12-04 16:29:52 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,6 +36,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="fast_follower" depart="0.00" departLane="beg_0" departPos="33.00" departSpeed="20.00" departDelay="0.00" arrival="16.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="16.00" routeLength="162.73" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.23" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="change_left" depart="0.00" departLane="end_1" departPos="10.00" departSpeed="1.00" departDelay="0.00" arrival="24.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="24.00" routeLength="102.83" waitingTime="9.00" waitingCount="1" stopTime="5.00" timeLoss="13.21" rerouteNo="0" devices="tripinfo_change_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="fast_follower" depart="0.00" departLane="beg_0" departPos="33.00" departSpeed="20.00" departDelay="0.00" arrival="10.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="10.00" routeLength="162.73" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.22" rerouteNo="0" devices="tripinfo_fast_follower" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="change_left" depart="0.00" departLane="end_1" departPos="10.00" departSpeed="1.00" departDelay="0.00" arrival="16.00" arrivalLane="end_0" arrivalPos="112.83" arrivalSpeed="20.00" duration="16.00" routeLength="102.83" waitingTime="1.00" waitingCount="1" stopTime="5.00" timeLoss="5.21" rerouteNo="0" devices="tripinfo_change_left" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

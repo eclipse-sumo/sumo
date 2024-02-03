@@ -1,0 +1,5 @@
+Error: Attribute 'pos' is missing in definition of a detEntry.
+Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double) dummyPosition.
+Error: Attribute 'pos' in definition of a detEntry is empty.
+Error: Could not build detEntry with ID 'entryExitDetector_0' in netedit; Invalid position over lane.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun103650.28403/netedit.gui/additionalelements/detentry/load/pos/additionals.add.xml failed.

@@ -1,0 +1,39 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output.original-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <offset.disable-normalization value="false"/>
+        <edges.join value="true"/>
+        <edges.join-tram-dist value="2.0"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.by-type value="highway.motorway,highway.motorway_link,highway.trunk,highway.trunk_link,highway.primary,highway.primary_link,highway.secondary,highway.secondary_link,highway.tertiary,highway.tertiary_link,highway.unclassified,highway.residential,highway.living_street,highway.service,railway.rail,railway.tram"/>
+    </edge_removal>
+
+    <junctions>
+        <junctions.join-same value="true"/>
+    </junctions>
+
+    <formats>
+        <osm.lane-access value="true"/>
+        <osm.stop-output.length value="20"/>
+        <osm.turn-lanes value="true"/>
+    </formats>
+
+    <report>
+        <error-log value="errorlog.log"/>
+    </report>
+
+</configuration>

@@ -1,0 +1,3 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x @BOX -y entered -i begin
+tools/visualization/plotXMLAttributes.py

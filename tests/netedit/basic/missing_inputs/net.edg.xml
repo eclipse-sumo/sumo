@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-24 09:24:49 by Eclipse SUMO netedit Version v1_18_0+0457-a12353752e9
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\demandelements\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="Edge0" from="Junction0" to="Junction1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="Edge1" from="Junction1" to="Junction2" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="Edge2" from="Junction2" to="Junction3" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="Edge3" from="Junction3" to="Junction2" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="Edge4" from="Junction2" to="Junction1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="Edge5" from="Junction1" to="Junction0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="EdgeBike0" from="Junction3" to="Junction4" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" allow="bus"/>
+    </edge>
+    <edge id="EdgeBike1" from="Junction4" to="Junction3" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" allow="bus"/>
+    </edge>
+    <edge id="EdgeCenter0" from="Junction4" to="JunctionCenter" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="EdgeCenter1" from="JunctionCenter" to="Junction4" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian bicycle" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+</edges>

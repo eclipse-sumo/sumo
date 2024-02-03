@@ -3,3 +3,4 @@
  --ptline-output ptlines.xml
  --no-internal-links
  --keep-edges.by-vclass passenger,tram,bus
+--output.original-names

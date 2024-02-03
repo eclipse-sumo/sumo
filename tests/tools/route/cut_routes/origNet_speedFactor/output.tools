@@ -1,5 +1,5 @@
 Valid area contains 4 edges
 Parsing routes from input_routes.rou.xml
 Parsed 2 vehicles, 0 persons, 0 flows and kept 1 routes
-Number of disconnected routes: 1.
+Number of disconnected routes: 1, broken routes: 0.
 Wrote 2 vTypes, 1 vehicles

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,19 +71,20 @@ fillOptions() {
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
 
-    NIFrame::fillOptions();
-    NBFrame::fillOptions(false);
-    NWFrame::fillOptions(false);
-    RandHelper::insertRandOptions();
+    NIFrame::fillOptions(oc);
+    NBFrame::fillOptions(oc, false);
+    NWFrame::fillOptions(oc, false);
+    RandHelper::insertRandOptions(oc);
 }
 
 
 bool
 checkOptions() {
-    bool ok = NIFrame::checkOptions();
-    ok &= NBFrame::checkOptions();
-    ok &= NWFrame::checkOptions();
-    ok &= SystemFrame::checkOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
+    bool ok = NIFrame::checkOptions(oc);
+    ok &= NBFrame::checkOptions(oc);
+    ok &= NWFrame::checkOptions(oc);
+    ok &= SystemFrame::checkOptions(oc);
     return ok;
 }
 
@@ -94,8 +95,7 @@ checkOptions() {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Network importer / builder for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Network importer / builder for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("netconvert", "Eclipse SUMO netconvert Version " VERSION_STRING);
     int ret = 0;
     try {
@@ -107,9 +107,12 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        if (oc.isSet("edge-files") && !oc.isSet("type-files") && oc.isDefault("ignore-errors.edge-type")) {
+            oc.setDefault("ignore-errors.edge-type", "true");
+        }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {
-            oc.set("aggregate-warnings", "5");
+            oc.setDefault("aggregate-warnings", "5");
         }
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
@@ -118,7 +121,7 @@ main(int argc, char** argv) {
         RandHelper::initRandGlobal();
         // build the projection
         if (!GeoConvHelper::init(oc)) {
-            throw ProcessError("Could not build projection!");
+            throw ProcessError(TL("Could not build projection!"));
         }
         NBNetBuilder nb;
         nb.applyOptions(oc);

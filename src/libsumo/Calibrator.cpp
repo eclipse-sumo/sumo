@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <microsim/trigger/MSCalibrator.h>
+#include <microsim/MSVehicleControl.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Calibrator.h"
@@ -42,11 +43,11 @@ ContextSubscriptionResults Calibrator::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Calibrator::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
-    for (auto& item : MSCalibrator::getInstances()) {
+    for (const auto& item : MSCalibrator::getInstances()) {
         ids.push_back(item.first);
     }
-    std::sort(ids.begin(), ids.end());
     return ids;
 }
 
@@ -72,32 +73,32 @@ Calibrator::getLaneID(const std::string& calibratorID) {
 
 double
 Calibrator::getVehsPerHour(const std::string& calibratorID) {
-    return getCalibratorState(getCalibrator(calibratorID)).q;
+    return Helper::getCalibratorState(getCalibrator(calibratorID)).q;
 }
 
 double
 Calibrator::getSpeed(const std::string& calibratorID) {
-    return getCalibratorState(getCalibrator(calibratorID)).v;
+    return Helper::getCalibratorState(getCalibrator(calibratorID)).v;
 }
 
 std::string
 Calibrator::getTypeID(const std::string& calibratorID) {
-    return getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->vtypeid;
+    return Helper::getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->vtypeid;
 }
 
 double
 Calibrator::getBegin(const std::string& calibratorID) {
-    return STEPS2TIME(getCalibratorState(getCalibrator(calibratorID)).begin);
+    return STEPS2TIME(Helper::getCalibratorState(getCalibrator(calibratorID)).begin);
 }
 
 double
 Calibrator::getEnd(const std::string& calibratorID) {
-    return STEPS2TIME(getCalibratorState(getCalibrator(calibratorID)).end);
+    return STEPS2TIME(Helper::getCalibratorState(getCalibrator(calibratorID)).end);
 }
 
 std::string
 Calibrator::getRouteID(const std::string& calibratorID) {
-    return getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->routeid;
+    return Helper::getCalibratorState(getCalibrator(calibratorID)).vehicleParameter->routeid;
 }
 
 std::string
@@ -185,14 +186,6 @@ Calibrator::getCalibrator(const std::string& id) {
     return it->second;
 }
 
-MSCalibrator::AspiredState
-Calibrator::getCalibratorState(const MSCalibrator* c) {
-    try {
-        return c->getCurrentStateInterval();
-    } catch (ProcessError& e) {
-        throw TraCIException(e.what());
-    }
-}
 
 std::shared_ptr<VariableWrapper>
 Calibrator::makeWrapper() {

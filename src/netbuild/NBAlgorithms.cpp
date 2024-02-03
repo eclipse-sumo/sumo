@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,10 @@
 
 
 //#define DEBUG_SETPRIORITIES
+//#define DEBUG_TURNAROUNDS
 #define DEBUGCOND (n.getID() == "C")
+//#define DEBUGCOND2(obj) (obj->getID() == "")
+#define DEBUGCOND2(obj) (true)
 
 // ===========================================================================
 // method definitions
@@ -62,19 +65,26 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     }
     std::vector<Combination> combinations;
     const bool geometryLike = node->geometryLike();
-    for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-        NBEdge* outedge = *j;
-        for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
-            NBEdge* e = *k;
+    for (NBEdge* outedge : outgoing) {
+        for (NBEdge* e : incoming) {
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             const double signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
             if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
                 // backwards curving edges can only be turnaround when there are
                 // non-default endpoints
+#ifdef DEBUG_TURNAROUNDS
+                if (DEBUGCOND2(node)) {
+                    std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " signedAngle=" << signedAngle << " skipped\n";
+                }
+#endif
                 continue;
             }
             double angle = fabs(signedAngle);
-            // std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
+#ifdef DEBUG_TURNAROUNDS
+            if (DEBUGCOND2(node)) {
+                std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
+            }
+#endif
             const bool badPermissions = ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
                                          && !geometryLike
                                          && outedge->getPermissions() != e->getPermissions());
@@ -94,7 +104,23 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
                 angle += 360;
             }
             if (angle < 160) {
-                continue;
+                if (angle > 135) {
+                    // could be a turnaround with a green median island, look at
+                    // angle further away from the junction
+                    const double inFA = getFarAngleAtNode(e, node);
+                    const double outFA = getFarAngleAtNode(outedge, node);
+                    const double signedFarAngle = NBHelpers::normRelAngle(inFA, outFA);
+#ifdef DEBUG_TURNAROUNDS
+                    if (DEBUGCOND2(node)) {
+                        std::cout << "    inFA=" << inFA << " outFA=" << outFA << " sFA=" << signedFarAngle << "\n";
+                    }
+#endif
+                    if (signedFarAngle > -160) {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
             }
             if (badPermissions) {
                 // penalty
@@ -110,13 +136,21 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     // sort combinations so that the ones with the highest angle are at the begin
     std::sort(combinations.begin(), combinations.end(), combination_by_angle_sorter());
     std::set<NBEdge*> seen;
-    //std::cout << "check combinations at " << node->getID() << "\n";
+#ifdef DEBUG_TURNAROUNDS
+    if (DEBUGCOND2(node)) {
+        std::cout << "check combinations at " << node->getID() << "\n";
+    }
+#endif
     for (std::vector<Combination>::const_iterator j = combinations.begin(); j != combinations.end(); ++j) {
-        //std::cout << " from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " a=" << (*j).angle << "\n";
+#ifdef DEBUG_TURNAROUNDS
+        if (DEBUGCOND2(node)) {
+            std::cout << " from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " a=" << (*j).angle << "\n";
+        }
+#endif
         if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
             if ((*j).angle > 360 && warn) {
-                WRITE_WARNINGF("Ambiguity in turnarounds computation at junction '%'.", node->getID());
+                WRITE_WARNINGF(TL("Ambiguity in turnarounds computation at junction '%'."), node->getID());
                 //std::cout << "  already seen: " << toString(seen) << "\n";
                 warn = false;
             }
@@ -127,9 +161,64 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
         seen.insert((*j).to);
         // set turnaround information
         bool onlyPossible = (*j).from->getConnections().size() != 0 && !(*j).from->isConnectedTo((*j).to);
-        //std::cout << "    setTurningDestination from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " onlyPossible=" << onlyPossible << "\n";
+#ifdef DEBUG_TURNAROUNDS
+        if (DEBUGCOND2(node)) {
+            std::cout << "    setTurningDestination from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " onlyPossible=" << onlyPossible << "\n";
+        }
+#endif
         (*j).from->setTurningDestination((*j).to, onlyPossible);
     }
+}
+
+
+double
+NBTurningDirectionsComputer::getFarAngleAtNode(const NBEdge* e, const NBNode* n, double dist) {
+    Position atNode;
+    Position far;
+    double angle;
+    const NBEdge* next = e;
+    if (e->getToNode() == n) {
+        // search upstream
+        atNode = e->getGeometry().back();
+        while (dist > 0) {
+            const double length = next->getGeometry().length();
+            if (dist <= length) {
+                far = next->getGeometry().positionAtOffset(length - dist);
+                break;
+            } else {
+                far = next->getGeometry().front();
+                dist -= length;
+                if (next->getToNode()->getIncomingEdges().size() == 1) {
+                    next = next->getToNode()->getIncomingEdges().front();
+                } else {
+                    break;
+                }
+            }
+        }
+        angle = far.angleTo2D(atNode);
+        //std::cout << " e=" << e->getID() << " n=" << n->getID() << " far=" << far << " atNode=" << atNode << " a=" << RAD2DEG(angle) << "\n";
+    } else {
+        // search downstream
+        atNode = e->getGeometry().front();
+        while (dist > 0) {
+            const double length = next->getGeometry().length();
+            if (dist <= length) {
+                far = next->getGeometry().positionAtOffset(dist);
+                break;
+            } else {
+                far = next->getGeometry().back();
+                dist -= length;
+                if (next->getToNode()->getOutgoingEdges().size() == 1) {
+                    next = next->getToNode()->getOutgoingEdges().front();
+                } else {
+                    break;
+                }
+            }
+        }
+        angle = atNode.angleTo2D(far);
+        //std::cout << " e=" << e->getID() << " n=" << n->getID() << " atNode=" << atNode << " far=" << far << " a=" << RAD2DEG(angle) << "\n";
+    }
+    return GeomHelper::legacyDegree(angle);
 }
 
 
@@ -210,7 +299,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             continue;
         }
         // determine the type
-        SumoXMLNodeType type = SumoXMLNodeType::RIGHT_BEFORE_LEFT;
+        SumoXMLNodeType type = oc.getBool("junctions.left-before-right") ? SumoXMLNodeType::LEFT_BEFORE_RIGHT : SumoXMLNodeType::RIGHT_BEFORE_LEFT;
         for (EdgeVector::const_iterator i = n->myIncomingEdges.begin(); i != n->myIncomingEdges.end(); i++) {
             for (EdgeVector::const_iterator j = i + 1; j != n->myIncomingEdges.end(); j++) {
                 // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
@@ -243,29 +332,34 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
         if (n->myType == SumoXMLNodeType::RAIL_CROSSING) {
             // check if it really is a rail crossing
             int numRailway = 0;
-            int numNonRailway = 0;
+            int numNonRailIn = 0;
+            int numNonRailOut = 0;
+            std::set<const NBNode*> nonRailNodes;
             int numNonRailwayNonPed = 0;
             for (NBEdge* e : n->getIncomingEdges()) {
                 if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
-                    numNonRailway++;
+                    numNonRailIn += 1;
                     if (e->getPermissions() != SVC_PEDESTRIAN) {
                         numNonRailwayNonPed++;
                     }
+                    nonRailNodes.insert(e->getFromNode());
                 } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
                     numRailway++;
                 }
             }
             for (NBEdge* e : n->getOutgoingEdges()) {
-                if (e->getPermissions() == SVC_PEDESTRIAN) {
-                    numNonRailway++;
+                if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+                    numNonRailOut += 1;
+                    nonRailNodes.insert(e->getToNode());
                 }
             }
-            if (numNonRailway == 0 || numRailway == 0) {
+            if (numNonRailIn == 0 || numNonRailOut == 0 || numRailway == 0) {
                 // not a crossing (maybe unregulated or rail_signal)
+                WRITE_WARNINGF(TL("Converting invalid rail_crossing to priority junction '%'."), n->getID());
                 n->myType = SumoXMLNodeType::PRIORITY;
-            } else if (numNonRailwayNonPed > 2) {
+            } else if (numNonRailwayNonPed > 2 || nonRailNodes.size() > 2) {
                 // does not look like a rail crossing (roads in conflict). maybe a traffic light?
-                WRITE_WARNINGF("Converting invalid rail_crossing to traffic_light at junction '%'.", n->getID());
+                WRITE_WARNINGF(TL("Converting invalid rail_crossing to traffic_light at junction '%'."), n->getID());
                 TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
                 NBTrafficLightDefinition* tlDef = new NBOwnTLDef(n->getID(), n, 0, type);
                 n->myType = SumoXMLNodeType::TRAFFIC_LIGHT;
@@ -274,7 +368,7 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
                     n->removeTrafficLight(tlDef);
                     n->myType = SumoXMLNodeType::PRIORITY;
                     delete tlDef;
-                    WRITE_WARNINGF("Could not allocate tls '%'.", n->getID());
+                    WRITE_WARNINGF(TL("Could not allocate tls '%'."), n->getID());
                 }
             }
         }
@@ -286,7 +380,7 @@ bool
 NBNodeTypeComputer::isRailwayNode(const NBNode* n) {
     bool hasRailway = false;
     for (NBEdge* e : n->getIncomingEdges()) {
-        if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+        if ((e->getPermissions() & ~(SVC_RAIL_CLASSES | SVC_TAXI)) != 0) {
             return false;
         } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
             hasRailway = true;
@@ -311,7 +405,10 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
             continue;
         }
         // compute the priorities on junction when needed
-        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
+        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT
+                && node.second->getType() != SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP
+                && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
             if (node.second->getRightOfWay() == RightOfWay::EDGEPRIORITY) {
                 for (NBEdge* e : node.second->getIncomingEdges()) {
                     e->setJunctionPriority(node.second, e->getPriority());
@@ -395,7 +492,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
         for (auto item : counterOutgoingEdges) {
             tmp2[item.first->getID()] = item.second->getID();
         }
-        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << bestOut->getID()
+        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << toString(bestOutgoing)
                   << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
                   << " mainExplicit=" << mainDirectionExplicit
                   << " forceStraight=" << forceStraight

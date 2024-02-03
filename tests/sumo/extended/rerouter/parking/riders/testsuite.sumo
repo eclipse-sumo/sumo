@@ -13,3 +13,15 @@ changeDest
 # reroute and set a new destination. Person plan must adapt.
 # New walking depart and arrival positin must take into account the new destination rather than the current position
 changeDest_longEdge
+
+# when rerouting, take subsequent stop (followin the ride) into account
+# 
+subsequent_stop
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_walk
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_trip

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 26 12:21:46 2021 by Eclipse SUMO netconvert Version v1_8_0+1855-f88c15b
+<!-- generated on 2022-01-07 16:21:22 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="-300.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -60,10 +60,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_3_0" index="0" speed="13.89" length="14.40" shape="107.20,101.60 92.80,101.60"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" speed="13.89" length="2.34" shape="107.20,101.60 106.00,100.80 105.60,100.00"/>
+        <lane id=":C_4_0" index="0" speed="13.89" length="1.44" shape="107.20,101.60 106.00,100.80"/>
     </edge>
     <edge id=":C_10" function="internal">
-        <lane id=":C_10_0" index="0" speed="13.89" length="2.34" shape="105.60,100.00 106.00,99.20 107.20,98.40"/>
+        <lane id=":C_10_0" index="0" speed="13.89" length="3.23" shape="106.00,100.80 105.60,100.00 106.00,99.20 107.20,98.40"/>
     </edge>
     <edge id=":C_5" function="internal">
         <lane id=":C_5_0" index="0" speed="13.89" length="9.03" shape="101.60,92.80 101.95,95.25 103.00,97.00 104.75,98.05 107.20,98.40"/>
@@ -78,10 +78,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_8_0" index="0" speed="13.89" length="14.40" shape="92.80,98.40 107.20,98.40"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" speed="13.89" length="5.93" shape="92.80,98.40 96.65,98.95 98.40,100.00"/>
+        <lane id=":C_9_0" index="0" speed="13.89" length="4.07" shape="92.80,98.40 96.65,98.95 96.80,99.04"/>
     </edge>
     <edge id=":C_11" function="internal">
-        <lane id=":C_11_0" index="0" speed="13.89" length="8.26" shape="98.40,100.00 99.40,100.60 101.05,103.35 101.60,107.20"/>
+        <lane id=":C_11_0" index="0" speed="13.89" length="10.13" shape="96.80,99.04 99.40,100.60 101.05,103.35 101.60,107.20"/>
     </edge>
     <edge id=":N_0" function="internal">
         <lane id=":N_0_0" index="0" speed="13.89" length="4.67" shape="101.60,200.00 100.80,201.20 100.00,201.60 99.20,201.20 98.40,200.00"/>
@@ -130,13 +130,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 EC_0 gneE0_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_10_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_11_0" shape="96.80,107.20 103.20,107.20 107.20,103.20 107.20,96.80 103.20,92.80 100.00,92.80 92.80,96.80 92.80,103.20">
         <request index="0" response="0000000000" foes="0010001000" cont="0"/>
-        <request index="1" response="1001100000" foes="1101111000" cont="0"/>
+        <request index="1" response="1011100000" foes="1111111000" cont="0"/>
         <request index="2" response="0001000000" foes="1001000000" cont="0"/>
         <request index="3" response="0011000011" foes="1011000011" cont="0"/>
         <request index="4" response="0100100010" foes="0100100010" cont="1"/>
         <request index="5" response="0000000000" foes="0100010010" cont="0"/>
         <request index="6" response="1000000000" foes="1100001110" cont="0"/>
-        <request index="7" response="1000000001" foes="1100001001" cont="0"/>
+        <request index="7" response="1000000001" foes="1100001011" cont="0"/>
         <request index="8" response="0011100010" foes="0011110010" cont="0"/>
         <request index="9" response="0011001110" foes="0011001110" cont="1"/>
     </junction>
@@ -152,8 +152,8 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ3" type="dead_end" x="-300.00" y="0.00" incLanes="" intLanes="" shape="-300.00,0.00 -300.00,-6.40"/>
 
-    <junction id=":C_10_0" type="internal" x="105.60" y="100.00" incLanes=":C_4_0 NC_0 WC_0 gneE0_0" intLanes=":C_1_0 :C_5_0 :C_8_0"/>
-    <junction id=":C_11_0" type="internal" x="98.40" y="100.00" incLanes=":C_9_0 EC_0" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_6_0 :C_7_0"/>
+    <junction id=":C_10_0" type="internal" x="106.00" y="100.80" incLanes=":C_4_0 NC_0 WC_0 gneE0_0" intLanes=":C_1_0 :C_5_0 :C_8_0"/>
+    <junction id=":C_11_0" type="internal" x="96.80" y="99.04" incLanes=":C_9_0 EC_0" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_6_0 :C_7_0"/>
 
     <connection from="CN" to="NC" fromLane="0" toLane="0" via=":N_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="0" toLane="0" via=":W_0_0" dir="t" state="M"/>

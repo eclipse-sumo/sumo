@@ -32,3 +32,9 @@ ticket8156
 
 # negative tau
 ticket8166
+
+# tau_jj calculation for long vehicles
+ticket8931
+
+# load network with opposite-direction information
+ticket10252

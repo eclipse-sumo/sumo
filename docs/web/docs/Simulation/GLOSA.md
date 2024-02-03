@@ -15,11 +15,11 @@ To attach a glosa device to a vehicle, the [standard device-equipment
 procedures](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) can
 be applied using `<device name>=glosa`.
 
-For instance, a single vehicle can be equiped with glosa as in the following minimal example
+For instance, a single vehicle can be equipped with glosa as in the following minimal example
 
-```
+```xml
     <vehicle id="v0" route="route0" depart="0">
-        <param key="has.glosa.device" value="true"/>  
+        <param key="has.glosa.device" value="true"/>
     </vehicle>
 ```
 
@@ -31,7 +31,7 @@ is compared with the time until the signal (for the intended movement) changes t
 If the vehicle would reach the stop line before the switch, a slow-down maneuver
 may be undertaken.
 
-If the speed can be reduced within reasoanble bounds (glosa.min-speed), the
+If the speed can be reduced within reasonable bounds (glosa.min-speed), the
 speed is reduced to the maximum possible value so that the vehicle reaches the
 stop line at the time of the phase change.
 
@@ -50,16 +50,16 @@ The speedFactor is changed back to the default after passing the traffic light.
 # Traffic lights
 
 All traffic lights types supply time-to-switch information via the duration
-attribute of their phases. 
+attribute of their phases.
 
 !!! caution
     This may cause invalid maneuvers with traffic-actuated traffic lights that
     may vary their phase duration.
-    
+
 The communication range may be customized by setting param "device.glosa.range" on the tlLogic. This may also be used to disable glosa functions for specific intersections.
 To update the parameter for a program that is embedded in the .net.xml file the following element can be loaded via **--additional-files**:
 
-```
+```xml
     <tlLogic id="C" programID="0">
         <param key="device.glosa.range" value="60"/>
     </tlLogic>
@@ -73,7 +73,7 @@ The following parameters affect the operation of the glosa device.
   become active (default 100). If the current traffic light also sets this parameter, the minimum value of the device and tls parameter is used.
 - device.glosa.min-speed: minimum speed for slow-down maneuver (default 5m/s)
 - device.glosa.max-speedfactor: maximum speedFactor for trying to reach a green
-  light (default 1.1) Setting a value of 1 will ensure perfect complience with the speed
+  light (default 1.1) Setting a value of 1 will ensure perfect compliance with the speed
   limit but may still cause slow drivers to speed up.
 - jmDriveAfterYellowTime: This junction model parameter encodes willingness to
   continue driving at yellow depending on running duration of the yellow phase

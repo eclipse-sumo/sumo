@@ -1,0 +1,6 @@
+<configuration>
+    <source value="source.net.xml"/>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <copy value="location"/>
+</configuration>

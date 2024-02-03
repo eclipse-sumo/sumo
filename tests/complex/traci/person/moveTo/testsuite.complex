@@ -1,0 +1,11 @@
+# call moveToXY directly after person.add
+after_creation
+
+# call moveToXY directly after person.add
+after_creation_walkingarea
+
+# call moveToXY directly after person.add
+after_creation_walkingarea2
+
+# call moveToXY directly after person.add
+after_creation_crossing

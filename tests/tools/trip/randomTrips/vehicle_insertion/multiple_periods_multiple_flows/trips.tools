@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:36.860838 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <begin value="0"/>
+    <end value="10"/>
+    <flows value="2"/>
+    <net-file value="net.net.xml"/>
+    <period value="1.0 0.5"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0#0" begin="0" end="5" period="2" from="3si" to="1o"/>
+    <flow id="1#0" begin="0" end="5" period="2" from="2fi" to="1si"/>
+    <flow id="0#1" begin="5" end="10" period="1" from="3si" to="1o"/>
+    <flow id="1#1" begin="5" end="10" period="1" from="2fi" to="1si"/>
+</routes>

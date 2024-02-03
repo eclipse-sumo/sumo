@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,8 +62,8 @@ RODFDetectorHandler::myStartElement(int element,
             if (!ok) {
                 throw ProcessError();
             }
-            ROEdge* edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-            int laneIndex = StringUtils::toIntSecure(lane.substr(lane.rfind('_') + 1), std::numeric_limits<int>::max());
+            ROEdge* edge = myNet->getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(lane));
+            int laneIndex = SUMOXMLDefinitions::getIndexFromLane(lane);
             if (edge == nullptr || laneIndex >= edge->getNumLanes()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
@@ -83,7 +83,7 @@ RODFDetectorHandler::myStartElement(int element,
             RODFDetector* detector = new RODFDetector(id, lane, pos, type);
             if (!myContainer.addDetector(detector)) {
                 delete detector;
-                throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
+                throw ProcessError(TLF("Could not add detector '%' (probably the id is already used).", id));
             }
         } catch (ProcessError& e) {
             if (myIgnoreErrors) {

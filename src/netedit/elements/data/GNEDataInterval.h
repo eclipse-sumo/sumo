@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ class GNEGenericData;
 
 /**
  * @class GNEDataInterval
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEDataInterval : public GNEHierarchicalElement, public Parameterised {
 
@@ -70,11 +70,11 @@ public:
     /// @brief specific attribute colors
     const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
+    const GUIGlObject* getGUIGlObject() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -82,9 +82,35 @@ public:
     /// @brief Returns element position in view
     Position getPositionInView() const;
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @brief check if draw move contour (red)
+    bool checkDrawMoveContour() const;
+
+    /// @}
+
     /// @name members and functions relative to write data elements into XML
     /// @{
-    /// @brief check if current data element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data element is valid to be written into XML (by default true, can be reimplemented in children)
     bool isDataIntervalValid() const;
 
     /// @brief return a string with the current data element problem (by default empty, can be reimplemented in children)
@@ -112,7 +138,17 @@ public:
     /// @brief get generic data children
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
+    /// @brief check if there is already a edgeRel defined between two edges
+    bool edgeRelExists(const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+
+    /// @brief check if there is already a TAZRel defined in one TAZ
+    bool TAZRelExists(const GNEAdditional* TAZ) const;
+
+    /// @brief check if there is already a TAZRel defined between two TAZs
+    bool TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
+
     /// @}
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -136,24 +172,10 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
@@ -168,7 +190,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief all attribute colors
@@ -193,9 +215,6 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
-
     /// @brief Invalidated copy constructor.
     GNEDataInterval(const GNEDataInterval&) = delete;
 
@@ -204,4 +223,3 @@ private:
 };
 
 /****************************************************************************/
-

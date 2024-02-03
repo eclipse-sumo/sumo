@@ -2,4 +2,5 @@
    <node id="0" x="0" y="0"/>
    <node id="1" x="100" y="0"/>
    <node id="2" x="200" y="0"/>
+   <node id="3" x="300" y="0"/>
 </nodes>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-25 08:45:35 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-457663.17,-3110931.13" convBoundary="0.00,0.00,200.70,100.00" origBoundary="-15.485060,28.108096,-15.404516,28.163947" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":436051055_0" function="internal">
+        <lane id=":436051055_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="5.99" length="7.49" shape="100.00,94.69 100.22,97.14 100.90,98.89 102.03,99.94 103.60,100.29"/>
+    </edge>
+    <edge id=":436051055_1" function="internal">
+        <lane id=":436051055_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="7.20" shape="96.40,100.29 103.60,100.29"/>
+    </edge>
+    <edge id=":436051055_c0" function="crossing" crossingEdges="37356409">
+        <lane id=":436051055_c0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="4.00" shape="98.40,96.69 101.60,96.69"/>
+    </edge>
+    <edge id=":436051055_w0" function="walkingarea">
+        <lane id=":436051055_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.24" width="4.00" shape="103.60,98.69 103.60,96.69 101.60,94.69 101.66,95.91 101.82,96.91 102.10,97.69 102.49,98.25 102.99,98.58"/>
+    </edge>
+    <edge id=":436051055_w1" function="walkingarea">
+        <lane id=":436051055_w1_0" index="0" allow="pedestrian" speed="2.78" length="2.24" width="4.00" shape="98.40,94.69 96.40,96.69 96.40,98.69 97.01,98.58 97.51,98.25 97.90,97.69 98.18,96.91 98.34,95.91"/>
+    </edge>
+
+    <edge id="30616907#0" from="338538580" to="436051055" name="Calle Núñez de Arce" priority="4" spreadType="center" shape="0.70,99.29 100.70,99.29">
+        <lane id="30616907#0_0" index="0" allow="pedestrian" speed="11.11" length="96.40" width="2.00" shape="0.00,97.69 96.40,97.69"/>
+        <lane id="30616907#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="96.40" shape="0.00,100.29 96.40,100.29"/>
+    </edge>
+    <edge id="30616907#1" from="436051055" to="432715440" name="Calle Núñez de Arce" priority="4" spreadType="center" shape="100.70,99.29 200.70,99.29">
+        <lane id="30616907#1_0" index="0" allow="pedestrian" speed="11.11" length="96.40" width="2.00" shape="103.60,97.69 200.00,97.69"/>
+        <lane id="30616907#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="96.40" shape="103.60,100.29 200.00,100.29"/>
+    </edge>
+    <edge id="37356409" from="436051053" to="436051055" name="Calle Alarcón" priority="4" spreadType="center">
+        <lane id="37356409_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="94.69" shape="100.00,0.00 100.00,94.69"/>
+    </edge>
+
+    <junction id="338538580" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,101.89 0.00,96.69"/>
+    <junction id="432715440" type="dead_end" x="200.00" y="100.00" incLanes="30616907#1_0 30616907#1_1" intLanes="" shape="200.00,96.69 200.00,101.89"/>
+    <junction id="436051053" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="98.40,0.00 101.60,0.00"/>
+    <junction id="436051055" type="priority" x="100.00" y="100.00" incLanes="37356409_0 30616907#0_0 30616907#0_1 :436051055_w1_0" intLanes=":436051055_0_0 :436051055_1_0 :436051055_c0_0" shape="103.60,101.89 103.60,96.69 102.49,96.47 102.10,96.19 101.82,95.80 101.66,95.30 101.60,94.69 98.40,94.69 98.18,95.80 97.90,96.19 97.51,96.47 97.01,96.63 96.40,96.69 96.40,101.89">
+        <request index="0" response="010" foes="110" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="001" foes="001" cont="0"/>
+    </junction>
+
+    <connection from="30616907#0" to="30616907#1" fromLane="1" toLane="1" via=":436051055_1_0" dir="s" state="M"/>
+    <connection from="37356409" to="30616907#1" fromLane="0" toLane="1" via=":436051055_0_0" dir="r" state="m"/>
+
+    <connection from=":436051055_0" to="30616907#1" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":436051055_1" to="30616907#1" fromLane="0" toLane="1" dir="s" state="M"/>
+
+    <connection from=":436051055_c0" to=":436051055_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":436051055_w0" to="30616907#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":436051055_w1" to=":436051055_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="30616907#0" to=":436051055_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>

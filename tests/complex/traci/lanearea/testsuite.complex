@@ -1,5 +1,14 @@
 # test lanearea detector
 lanearea
 
+# Tests the lanearea API for returning aggregated values
+intervalData
+
 # using the same runner as above
 subsecond
+
+# null output
+null
+
+# vehicle override
+override

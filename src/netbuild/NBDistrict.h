@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -133,7 +133,7 @@ public:
     /** @brief Replaces incoming edges from the vector (sinks) by the given edge
      *
      * When an edge is split/joined/removed/etc., it may get necessary to replace prior
-     *  edges by new ones. This method replaces all occurences of the edges from
+     *  edges by new ones. This method replaces all occurrences of the edges from
      *  "which" within incoming edges (sinks) by the given edge.
      *
      * The new sink edge's weight is the sum of the weights of the replaced edges.
@@ -147,7 +147,7 @@ public:
     /** @brief Replaces outgoing edges from the vector (source) by the given edge
      *
      * When an edge is split/joined/removed/etc., it may get necessary to replace prior
-     *  edges by new ones. This method replaces all occurences of the edges from
+     *  edges by new ones. This method replaces all occurrences of the edges from
      *  "which" within outgoing edges (sources) by the given edge.
      *
      * The new source edge's weight is the sum of the weights of the replaced edges.

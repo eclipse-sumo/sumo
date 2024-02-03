@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-08 23:25:06 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <processing>
+        <tls.all-off value="true"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49072"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="ego2" depart="9.00" type="pTypeIgnore" speedFactor="0.94">
+        <walk depart="9.00" departPos="10.00" arrival="66.00" arrivalPos="46.05" duration="57.00" routeLength="66.13" timeLoss="6.26" maxSpeed="1.30"/>
+    </personinfo>
+    <personinfo id="ego" depart="7.00" type="pTypeDefault" speedFactor="1.06">
+        <walk depart="7.00" departPos="82.10" arrival="97.00" arrivalPos="49.25" duration="90.00" routeLength="69.33" timeLoss="42.91" maxSpeed="1.47"/>
+    </personinfo>
+</tripinfos>

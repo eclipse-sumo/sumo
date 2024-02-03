@@ -19,7 +19,7 @@ The tool obtains parameter that describe the ranges and the emission classes to 
 
 The tool is located in {{SUMO}}/bin.
 
-The image shows the visualisation of CO2 emission of the [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md) "P_7_6" emission class. 
+The image shows the visualization of CO2 emission of the [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md) "P_7_6" emission class.
 
 
 ## Options
@@ -93,7 +93,7 @@ following columns:
 - HC emissions (in \[mg/s\])
 - PMx emissions (in \[mg/s\])
 - NOx emissions (in \[mg/s\])
-- fuel consumption (in \[ml/s\])
+- fuel consumption (in \[mg/s\])
 - electricity consumption (in \[Wh/s\])
 
 Additionally, the sums of the generated emissions / the consumed fuel
@@ -143,5 +143,5 @@ The tool is located in {{SUMO}}/bin.
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

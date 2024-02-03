@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:49 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:06 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -44,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-593345.09,-5779253.43" convBoundary="22505.06,17291.07,22652.47,17362.98" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -90,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="662904109" type="dead_end" x="22652.47" y="17330.83" incLanes="572217616_0" intLanes="" shape="22654.06,17330.70 22650.88,17330.96"/>
 
-    <connection from="-572217565" to="-572217567" fromLane="0" toLane="0" via=":552609822_1_0" dir="s" state="="/>
+    <connection from="-572217565" to="-572217567" fromLane="0" toLane="0" via=":552609822_1_0" dir="s" state="M"/>
     <connection from="-572217566" to="-572217567" fromLane="0" toLane="0" via=":552609822_0_0" dir="l" state="="/>
     <connection from="-572217567" to="572217564" fromLane="0" toLane="0" via=":662904038_0_0" dir="s" state="M"/>
     <connection from="572217564" to="572217616" fromLane="0" toLane="0" via=":54544854_0_0" dir="s" state="M"/>

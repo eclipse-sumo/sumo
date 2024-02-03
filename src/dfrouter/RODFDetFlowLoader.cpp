@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -68,16 +68,15 @@ RODFDetFlowLoader::read(const std::string& file) {
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
-            const double parsedTime = StringUtils::toDouble((myLineHandler.get("time"))) * myTimeScale - myTimeOffset;
+            const SUMOTime time = (SUMOTime)(StringUtils::toDouble(myLineHandler.get("time")) * (double)myTimeScale + .5) - myTimeOffset;
             // parsing as float to handle values which would cause int overflow
-            if (parsedTime < myStartTime || parsedTime >= myEndTime) {
+            if (time < myStartTime || time >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
-                    WRITE_WARNING("At least one value lies beyond given time boundaries.");
+                    WRITE_WARNING(TL("At least one value lies beyond given time boundaries."));
                 }
                 continue;
             }
-            const SUMOTime time = (SUMOTime)(parsedTime + .5);
             FlowDef fd;
             fd.isLKW = 0;
             fd.qPKW = StringUtils::toDouble(myLineHandler.get("qpkw"));
@@ -102,7 +101,7 @@ RODFDetFlowLoader::read(const std::string& file) {
             myStorage.addFlow(detName, time, fd);
             if (!myHaveWarnedAboutPartialDefs && !myLineHandler.hasFullDefinition()) {
                 myHaveWarnedAboutPartialDefs = true;
-                WRITE_WARNING("At least one line does not contain the correct number of columns.");
+                WRITE_WARNING(TL("At least one line does not contain the correct number of columns."));
             }
             continue;
         } catch (ProcessError& e) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,12 +23,13 @@ import sys
 
 outfile = sys.argv[1]
 ids = sys.argv[2].split()
-lanes = bool(sys.argv[3]) if len(sys.argv) > 3 else False
+objectType = sys.argv[3] if len(sys.argv) > 3 else "edge"
 
-if lanes:
+if objectType == "lane2edge":
+    objectType = "edge"
     ids = ['_'.join(id.split('_')[:-1]) for id in ids]
 
 with open(outfile, 'w') as outf:
     for id in ids:
-        outf.write("edge:%s\n" % id)
-    print("wrote %s edges to '%s'" % (len(ids), outfile))
+        outf.write("%s:%s\n" % (objectType, id))
+    print("wrote %s %s to '%s'" % (len(ids), objectType, outfile))

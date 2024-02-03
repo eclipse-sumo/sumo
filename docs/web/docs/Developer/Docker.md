@@ -28,7 +28,7 @@ SUMO.
 
 The [sumo-docker](https://hub.docker.com/r/similitude/sumo-docker/)
 project demonstrates how to Dockerize SUMO version 0.25.0 on top of
-Apache Mavern 3 with [TraCI4J](https://github.com/egueli/TraCI4J).
+Apache Maven 3 with [TraCI4J](https://github.com/egueli/TraCI4J).
 
 ### SUMO and JuPedSim
 
@@ -36,7 +36,7 @@ The
 [hybrid_sumo_jps](https://hub.docker.com/r/grgrlmml/hybrid_sumo_jps/)
 project aims on providing an easy to use docker image for running a
 hybrid simulation that couples SUMO with
-[JuPedSim](http://www.jupedsim.org). SUMO is a mighty simulator for all
+[JuPedSim](https://www.jupedsim.org). SUMO is a mighty simulator for all
 kinds of transport problems that focuses mainly on motorized traffic.
 While SUMO also provides a pedestrian model for simulating pedestrians
 on sidewalks, crossings or the like, it lacks of the capability to model

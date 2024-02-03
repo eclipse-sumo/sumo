@@ -1,0 +1,7 @@
+
+[Reported by behr_mi at 06Mär14:32:34]
+search_string:.
+search_file:output
+ignore_other_errors:1
+full_description:missing tls on rail crossing
+brief_description:see #12765

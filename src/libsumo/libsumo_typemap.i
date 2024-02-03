@@ -93,14 +93,6 @@
     $1 = PySequence_Check($input) ? 1 : 0;
 }
 
-%typemap(in) const std::vector<double>& (std::vector<double> values) {
-    const Py_ssize_t size = PySequence_Size($input);
-    for (Py_ssize_t i = 0; i < size; i++) {
-        values.push_back(PyFloat_AsDouble(PySequence_GetItem($input, i)));
-    }
-    $1 = &values;
-}
-
 // this is just a workaround to ignore the Simulation::start _stdout argument
 %typemap(in) void* {
     $1 = nullptr;
@@ -138,6 +130,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
                 pyVal = PyTuple_New(size);
                 for (Py_ssize_t i = 0; i < size; i++) {
                     PyTuple_SetItem(pyVal, i, PyUnicode_FromString(theStringList->value[i].c_str()));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIDoubleList* const theDoubleList = dynamic_cast<const libsumo::TraCIDoubleList*>(traciVal);
+            if (theDoubleList != nullptr) {
+                const Py_ssize_t size = theDoubleList->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, PyFloat_FromDouble(theDoubleList->value[i]));
                 }
             }
         }
@@ -306,6 +308,23 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
+%typemap(out) std::vector<libsumo::TraCIJunctionFoe> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddddssNN)",
+                                                        iter->foeId.c_str(),
+                                                        iter->egoDist,
+                                                        iter->foeDist,
+                                                        iter->egoExitDist,
+                                                        iter->foeExitDist,
+                                                        iter->egoLane.c_str(),
+                                                        iter->foeLane.c_str(),
+                                                        PyBool_FromLong(iter->egoResponse),
+                                                        PyBool_FromLong(iter->foeResponse)));
+    }
+};
+
 %typemap(out) std::vector<std::pair<std::string, double> > {
     $result = PyTuple_New($1.size());
     int index = 0;
@@ -314,22 +333,10 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
-%typemap(out) std::pair<int, int> {
-    $result = Py_BuildValue("(ii)", $1.first, $1.second);
-};
-
-%typemap(out) std::pair<std::string, double> {
-    $result = Py_BuildValue("(sd)", $1.first.c_str(), $1.second);
-};
-
-%typemap(out) std::pair<int, std::string> {
-    $result = Py_BuildValue("(is)", $1.first, $1.second.c_str());
-};
-
 %exceptionclass libsumo::TraCIException;
 %exceptionclass libsumo::FatalTraCIError;
 
-%pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
+%pythonprepend SWIG_MODULE::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, int, int) %{
     args = [str(a) for a in args[:13]] + list(args[13:])
@@ -338,7 +345,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             kwargs[key] = str(val)
 %}
 
-%pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
+%pythonappend SWIG_MODULE::Vehicle::getLeader(const std::string&, double) %{
     if val[0] == "" and vehicle._legacyGetLeader:
         return None
 %}
@@ -349,15 +356,36 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #ifdef _MSC_VER
 // ignore constant conditional expression (C4127) and unreachable/unsafe code warnings
 // and hidden local declaration (C4456), uninitialized variable (C4701), assignment in conditional expression (C4706)
-#pragma warning(disable:4127 4456 4701 4702 4706 4996)
+// also see config.h.cmake
+#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710 4668)
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+// ignore uninitialized fields for typeobject::tp_vectorcall and typeobject::tp_print
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
+#define SWIG_PYTHON_2_UNICODE
 
 #include <iostream>
 %}
 
+
+%include "std_shared_ptr.i"
+%shared_ptr(libsumo::TraCIPhase)
+#ifndef SWIGPYTHON
+%shared_ptr(libsumo::TraCIResult)
+%shared_ptr(libsumo::TraCIPosition)
+%shared_ptr(libsumo::TraCIRoadPosition)
+%shared_ptr(libsumo::TraCIColor)
+%shared_ptr(libsumo::TraCIPositionVector)
+%shared_ptr(libsumo::TraCIInt)
+%shared_ptr(libsumo::TraCIDouble)
+%shared_ptr(libsumo::TraCIString)
+%shared_ptr(libsumo::TraCIStringList)
+%shared_ptr(libsumo::TraCIDoubleList)
+%shared_ptr(libsumo::TraCINextStopData)
+%shared_ptr(libsumo::TraCINextStopDataVector)
+#endif
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
 %include "std_string.i"
@@ -365,11 +393,20 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "std_map.i"
 %template(StringVector) std::vector<std::string>;
 %template(IntVector) std::vector<int>;
+%template(DoubleVector) std::vector<double>;
+#ifdef SWIGPYTHON
 %template() std::map<std::string, std::string>;
+#else
+%template(StringStringMap) std::map<std::string, std::string>;
+#endif
 
 // replacing pair instances of standard types, see https://stackoverflow.com/questions/54733078
 %include "std_pair.i"
-%template() std::pair<std::string, std::string>;
+%template(StringStringPair) std::pair<std::string, std::string>;
+%template(IntStringPair) std::pair<int, std::string>;
+%template(IntIntPair) std::pair<int, int>;
+%template(StringDoublePair) std::pair<std::string, double>;
+%template(StringDoublePairVector) std::vector<std::pair<std::string, double> >;
 
 // exception handling
 %include "exception.i"
@@ -392,7 +429,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_ValueError, s.c_str());
@@ -411,7 +448,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_UnknownError, s.c_str());
@@ -420,5 +457,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         SWIG_exception(SWIG_UnknownError, "unknown exception");
     }
 }
+
+#if SWIG_VERSION < 0x040100 && defined(SWIGJAVA)
+// see https://github.com/supranational/blst/issues/53
+/* SWIG versions prior 4.1 were crossing the MinGW's ways on the path
+ * to JNI 'jlong' type */
+%begin %{
+#if defined(__MINGW32__) && defined(__int64)
+# undef __int64
+#endif
+%}
+#endif // SWIGJAVA
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;

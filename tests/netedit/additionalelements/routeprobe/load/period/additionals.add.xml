@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid period (missing) -->
+    <routeProbe id="routeProbe_0" edge="center1" file="routeProbe_0.txt" begin="0.00"/>
+
+    <!-- non valid period (invalid, dummy) -->
+    <routeProbe id="routeProbe_1" edge="center1" period="dummyFrequency" file="routeProbe_1.txt" begin="0.00"/>
+
+    <!-- non valid period (invalid, negative) -->
+    <routeProbe id="routeProbe_2" edge="center1" period="-120.30" file="routeProbe_2.txt" begin="0.00"/>
+
+    <!-- valid period-->
+    <routeProbe id="routeProbe_3" edge="center1" period="120.30" file="routeProbe_3.txt" begin="0.00"/>
+
+</additional>

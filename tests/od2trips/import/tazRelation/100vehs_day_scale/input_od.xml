@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="car" begin="0" end="1:0:0:0">
+      <tazRelation count="100" from="1" to="2"/>
+    </interval>
+</data>

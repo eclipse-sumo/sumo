@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/30/15 22:46:47 by SUMO Version dev-SVN-r19224
+<!-- generated on 2021-06-30 13:06:16 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,21 +9,24 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net3.net.xml"/>
         <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -183,12 +186,12 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="30.00">
         <edge id=":C_w2">
-            <person id="p0" pos="1.85" angle="119.79" stage="walking"/>
+            <person id="p0" pos="1.85" angle="97.99" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="31.00">
         <edge id=":C_w2">
-            <person id="p0" pos="3.24" angle="119.79" stage="walking"/>
+            <person id="p0" pos="3.24" angle="116.31" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="32.00">

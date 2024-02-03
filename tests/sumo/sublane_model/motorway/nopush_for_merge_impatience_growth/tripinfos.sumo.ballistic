@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 08:19:47 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-08-23 12:17:08 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -186,9 +187,9 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="B.146" depart="233.00" departLane="beg_1" departPos="7.82" departPosLat="0.00" departSpeed="28.16" departDelay="43.20" arrival="245.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="29.11" duration="12.00" routeLength="292.18" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.74" rerouteNo="0" devices="tripinfo_B.146" vType="t1" speedFactor="1.00" vaporized=""/>
     <tripinfo id="B.147" depart="234.00" departLane="beg_1" departPos="10.28" departPosLat="0.00" departSpeed="26.49" departDelay="42.90" arrival="246.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="28.54" duration="12.00" routeLength="289.72" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.74" rerouteNo="0" devices="tripinfo_B.147" vType="t1" speedFactor="0.97" vaporized=""/>
     <tripinfo id="B.149" depart="239.00" departLane="beg_1" departPos="41.02" departPosLat="0.00" departSpeed="32.10" departDelay="45.30" arrival="248.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="32.04" duration="9.00" routeLength="258.98" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.60" rerouteNo="0" devices="tripinfo_B.149" vType="t1" speedFactor="0.96" vaporized=""/>
-    <tripinfo id="B.150" depart="241.00" departLane="beg_1" departPos="83.15" departPosLat="0.00" departSpeed="27.88" departDelay="46.00" arrival="249.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.70" arrivalSpeed="32.75" duration="8.00" routeLength="216.85" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.29" rerouteNo="0" devices="tripinfo_B.150" vType="t1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="B.150" depart="241.00" departLane="beg_1" departPos="83.15" departPosLat="0.00" departSpeed="27.88" departDelay="46.00" arrival="249.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="32.75" duration="8.00" routeLength="216.85" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.29" rerouteNo="0" devices="tripinfo_B.150" vType="t1" speedFactor="1.00" vaporized=""/>
     <tripinfo id="B.151" depart="242.00" departLane="beg_1" departPos="101.72" departPosLat="0.00" departSpeed="23.57" departDelay="45.70" arrival="251.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="30.18" duration="9.00" routeLength="198.28" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.67" rerouteNo="0" devices="tripinfo_B.151" vType="t1" speedFactor="1.07" vaporized=""/>
-    <tripinfo id="B.152" depart="243.00" departLane="beg_1" departPos="106.68" departPosLat="0.00" departSpeed="20.74" departDelay="45.40" arrival="252.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.70" arrivalSpeed="28.80" duration="9.00" routeLength="193.32" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.24" rerouteNo="0" devices="tripinfo_B.152" vType="t1" speedFactor="0.93" vaporized=""/>
+    <tripinfo id="B.152" depart="243.00" departLane="beg_1" departPos="106.68" departPosLat="0.00" departSpeed="20.74" departDelay="45.40" arrival="252.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="28.80" duration="9.00" routeLength="193.32" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.24" rerouteNo="0" devices="tripinfo_B.152" vType="t1" speedFactor="0.93" vaporized=""/>
     <tripinfo id="B.153" depart="243.00" departLane="beg_1" departPos="29.43" departPosLat="0.00" departSpeed="28.34" departDelay="44.10" arrival="254.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="31.71" duration="11.00" routeLength="270.57" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.69" rerouteNo="0" devices="tripinfo_B.153" vType="t1" speedFactor="1.06" vaporized=""/>
     <tripinfo id="B.154" depart="246.00" departLane="beg_1" departPos="16.17" departPosLat="0.00" departSpeed="33.84" departDelay="45.80" arrival="256.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="36.16" duration="10.00" routeLength="283.83" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.52" rerouteNo="0" devices="tripinfo_B.154" vType="t1" speedFactor="1.12" vaporized=""/>
     <tripinfo id="B.155" depart="247.00" departLane="beg_1" departPos="23.46" departPosLat="0.00" departSpeed="31.65" departDelay="45.50" arrival="257.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="34.85" duration="10.00" routeLength="276.54" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.31" rerouteNo="0" devices="tripinfo_B.155" vType="t1" speedFactor="1.18" vaporized=""/>

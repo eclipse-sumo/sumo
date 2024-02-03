@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,8 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
+#include <config.h>
+
 #include <algorithm>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
@@ -61,7 +63,7 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
-        throw ProcessError("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
+        throw ProcessError(TL("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute"));
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized
@@ -176,7 +178,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
         for (const MSStop& s : veh->getStops()) {
-            if (s.collision) {
+            if (s.pars.collision) {
                 vars->crashed = true;
             }
         }
@@ -206,7 +208,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason usage) const {
 
     UNUSED_PARAMETER(pred);
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
@@ -214,7 +216,7 @@ MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2p
     if (vars->activeController != Plexe::DRIVER) {
         return _v(veh, gap2pred, speed, predSpeed);
     } else {
-        return myHumanDriver->followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
+        return myHumanDriver->followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel, pred, usage);
     }
 }
 
@@ -229,7 +231,7 @@ MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, dou
 }
 
 double
-MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel) const {
+MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel, const CalcReason usage) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
@@ -240,11 +242,11 @@ MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pre
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel);
+        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel, usage);
     }
 }
 
-double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
         double gap2pred, relSpeed;
@@ -254,7 +256,7 @@ double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double 
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
+        return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion, usage);
     }
 }
 
@@ -912,7 +914,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_TO_END) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -922,7 +924,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceToEnd;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         lastEdge = route->getEdges().back();
         positionOnEdge = veh->getPositionOnLane();
@@ -933,7 +935,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_FROM_BEGIN) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -943,7 +945,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceFromBegin;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         firstEdge = route->getEdges().front();
         positionOnEdge = veh->getPositionOnLane();

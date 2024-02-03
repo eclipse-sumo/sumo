@@ -1,2 +1,0 @@
-Warning: Essential unique string attribute 'lane' of parkingArea with ID 'parkingArea_01' is missing; parkingArea cannot be created
-Warning: The lane 'dummyLane' to use within the parkingArea 'parkingArea_02' is not known.

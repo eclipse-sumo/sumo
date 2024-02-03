@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-16 16:04:29 by Eclipse SUMO netedit Version v1_13_0+0928-b762cb7
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE2" from="gneJ1" to="gneJ0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian">
+            <neigh lane="gneE2_1"/>
+        </lane>
+    </edge>
+    <edge id="-gneE5" from="gneJ0" to="gneJ3" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE0" from="C" to="gneJ0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian">
+            <neigh lane="gneE1_2"/>
+        </lane>
+    </edge>
+    <edge id="gneE1" from="gneJ0" to="C" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" allow="bicycle" width="2.00"/>
+        <lane index="2" disallow="pedestrian rail_fast">
+            <neigh lane="gneE0_1"/>
+        </lane>
+    </edge>
+    <edge id="gneE2" from="gneJ0" to="gneJ1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian">
+            <neigh lane="-gneE2_1"/>
+        </lane>
+    </edge>
+    <edge id="gneE5" from="gneJ3" to="gneJ0" priority="-1" numLanes="2" speed="13.89" width="2.00">
+        <lane index="0" allow="pedestrian"/>
+        <lane index="1" allow="bicycle"/>
+    </edge>
+</edges>

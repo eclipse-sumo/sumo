@@ -1,0 +1,5 @@
+Error: Attribute 'begin' in definition of personFlow 'p_1' is empty.
+Error: Invalid begin time for personFlow 'p_2';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Negative begin time in the definition of personFlow 'p_3'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.25Jan182728.9838/netedit.daily.demand.personflow/demandelements/personflow/load/begin/routes.rou.xml failed.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  6 13:06:46 2014 by SUMO sumo Version dev-SVN-r16550
+<!-- generated on 2021-11-23 12:57:30 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,14 +13,24 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -33,14 +43,14 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="1.00" end="2.00" id="dump_1"/>
     <interval begin="2.00" end="3.00" id="dump_1"/>
     <interval begin="3.00" end="4.00" id="dump_1"/>
     <interval begin="4.00" end="5.00" id="dump_1"/>
     <interval begin="5.00" end="6.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" speedRelative="0.90" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="6.00" end="7.00" id="dump_1"/>
     <interval begin="7.00" end="8.00" id="dump_1"/>
@@ -77,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="38.00" end="39.00" id="dump_1"/>
     <interval begin="39.00" end="40.00" id="dump_1"/>
     <interval begin="40.00" end="41.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="41.00" end="42.00" id="dump_1"/>
     <interval begin="42.00" end="43.00" id="dump_1"/>
@@ -89,7 +99,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="48.00" end="49.00" id="dump_1"/>
     <interval begin="49.00" end="50.00" id="dump_1"/>
     <interval begin="50.00" end="51.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" speedRelative="0.90" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="51.00" end="52.00" id="dump_1"/>
     <interval begin="52.00" end="53.00" id="dump_1"/>
@@ -121,7 +131,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="78.00" end="79.00" id="dump_1"/>
     <interval begin="79.00" end="80.00" id="dump_1"/>
     <interval begin="80.00" end="81.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="40.00" traveltime="40.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="1.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="81.00" end="82.00" id="dump_1"/>
     <interval begin="82.00" end="83.00" id="dump_1"/>
@@ -137,7 +147,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="92.00" end="93.00" id="dump_1"/>
     <interval begin="93.00" end="94.00" id="dump_1"/>
     <interval begin="94.00" end="95.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="44.44" traveltime="44.44" waitingTime="0.00" timeLoss="0.00" speed="9.00" speedRelative="0.90" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="95.00" end="96.00" id="dump_1"/>
     <interval begin="96.00" end="97.00" id="dump_1"/>

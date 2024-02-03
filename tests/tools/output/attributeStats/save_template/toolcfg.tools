@@ -1,0 +1,17 @@
+<configuration>
+    <datafiles value="None" type="file" help="XML files to analyze" category="input" required="true" positional="true" listSeparator=" "/>
+    <verbose value="False" type="bool" help="Give more output" category="processing"/>
+    <element value="None" type="string" help="element to analyze" category="input"/>
+    <attribute value="None" type="string" help="attribute to analyze" category="input"/>
+    <id-attribute value="id" type="string" help="attribute to identify data elements" category="input"/>
+    <binwidth value="50" type="float" help="binning width of result histogram" category="processing"/>
+    <hist-output value="None" type="string" help="output file for histogram (gnuplot compatible)" category="output"/>
+    <full-output value="None" type="string" help="output file for full data dump" category="output"/>
+    <xml-output value="None" type="file" help="output statistic to xml file" category="output"/>
+    <xml-output.flat value="False" type="bool" help="legacy xml output" category="output"/>
+    <fast value="False" type="bool" help="use fast parser (does not track missing data)" category="processing"/>
+    <precision value="2" type="int" help="Set output precision" category="output"/>
+    <abs value="False" type="bool" help="include statistics on absolute values" category="processing"/>
+    <sum value="False" type="bool" help="include sum of values" category="processing"/>
+    <human-readable-time value="False" type="bool" help="interpret values as times and write them as h:m:s" category="output"/>
+</configuration>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,7 @@ bool MSPedestrianPushButton::isActivated() const {
 }
 
 bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MSEdge* crossing) {
-    const std::set<MSTransportable*> persons = walkingEdge->getPersons();
+    const std::set<MSTransportable*, ComparatorNumericalIdLess> persons = walkingEdge->getPersons();
     if (persons.size() > 0) {
         for (std::set<MSTransportable*>::const_iterator pIt = persons.begin(); pIt != persons.end(); ++pIt) {
             const MSPerson* person = (MSPerson*)*pIt;
@@ -209,4 +209,3 @@ void MSPedestrianPushButton::loadCrossingEdgeMap() {
         }
     }
 }
-

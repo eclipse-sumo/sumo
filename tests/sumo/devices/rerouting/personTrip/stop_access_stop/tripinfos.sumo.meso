@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 17 10:57:07 2020 by Eclipse SUMO sumo Version v1_8_0+0301-ed4f30242e
+<!-- generated on 2022-02-11 11:28:56 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -39,16 +44,18 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <stop duration="1.00" arrival="1.00" arrivalPos="800.00" actType="waiting"/>
-        <walk depart="1.00" departPos="111.92" arrival="20.00" arrivalPos="86.23" duration="19.00" routeLength="25.69" timeLoss="0.50" maxSpeed="1.39"/>
-        <access stop="stopA_W" depart="20.00" arrival="91.00" duration="71.00" routeLength="98.62"/>
+        <access stop="stopA_S" depart="1.00" arrival="13.00" duration="12.00" routeLength="17.52"/>
+        <walk depart="13.00" departPos="111.92" arrival="32.00" arrivalPos="86.23" duration="19.00" routeLength="25.69" timeLoss="0.50" maxSpeed="1.39"/>
+        <access stop="stopA_W" depart="32.00" arrival="103.00" duration="71.00" routeLength="98.62"/>
     </personinfo>
-    <personinfo id="p1" depart="100.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="p1" depart="100.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <stop duration="1.00" arrival="101.00" arrivalPos="100.00" actType="waiting"/>
         <walk depart="101.00" departPos="100.00" arrival="110.00" arrivalPos="111.92" duration="9.00" routeLength="11.92" timeLoss="0.42" maxSpeed="1.39"/>
         <access stop="stopA_S" depart="110.00" arrival="122.00" duration="12.00" routeLength="17.52"/>
-        <walk depart="122.00" departPos="111.92" arrival="141.00" arrivalPos="86.23" duration="19.00" routeLength="25.69" timeLoss="0.50" maxSpeed="1.39"/>
-        <access stop="stopA_W" depart="141.00" arrival="212.00" duration="71.00" routeLength="98.62"/>
+        <access stop="stopA_S" depart="122.00" arrival="134.00" duration="12.00" routeLength="17.52"/>
+        <walk depart="134.00" departPos="111.92" arrival="153.00" arrivalPos="86.23" duration="19.00" routeLength="25.69" timeLoss="0.50" maxSpeed="1.39"/>
+        <access stop="stopA_W" depart="153.00" arrival="224.00" duration="71.00" routeLength="98.62"/>
     </personinfo>
 </tripinfos>

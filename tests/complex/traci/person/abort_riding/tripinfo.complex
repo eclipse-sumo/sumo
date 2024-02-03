@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar  2 17:38:00 2021 by Eclipse SUMO sumo Version v1_8_0+1461-15ddf8e
+<!-- generated on 2022-08-28 19:20:33 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,14 +17,14 @@
     </report>
 
     <traci_server>
-        <remote-port value="36073"/>
+        <remote-port value="46849"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
         <ride waitingTime="5.00" vehicle="NULL" depart="-1" arrival="5.00" arrivalPos="90.60" duration="5.00" routeLength="-1.00" timeLoss="-0.00"/>
         <stop duration="0.00" arrival="5.00" arrivalPos="0.00" actType="last stage removed"/>
     </personinfo>

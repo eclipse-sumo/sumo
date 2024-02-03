@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml
+--routes=input_routes.rou.xml
+--default.speeddev 0.2
+--device.rerouting.probability 1
+--device.rerouting.period 30
+-t

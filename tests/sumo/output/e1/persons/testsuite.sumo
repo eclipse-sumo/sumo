@@ -1,0 +1,29 @@
+# default detector settings
+default
+
+# detect all walking persons on lane
+walk
+
+# detect persons walking in edge direction
+walkForward
+
+# detect persons walking in edge direction, detector is at the very start of the lane
+walkForward_detAStart
+
+# detect persons walking in edge direction, detector is at the very end of the lane
+walkForward_detAtEnd
+
+# detect persons walking against edge direction
+walkBackward
+
+# detect persons walking against edge direction, detector is at the start of the edge
+walkBackward_detAtStart
+
+# detect persons walking against edge direction, detector is at the end of the edge
+walkBackward_detAtEnd
+
+# detect persons riding in car
+car
+
+# test for #10909
+laneEnd

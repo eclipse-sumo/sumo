@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
+<!-- generated on 2023-09-01 10:46:08 by Eclipse SUMO dfrouter Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -8,6 +8,7 @@
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
         <save-configuration value="" synonymes="C save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL" help="Enforce relative paths when saving the configuration"/>
         <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
         <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
         <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
@@ -35,8 +36,8 @@
         <emitters-poi-output value="" type="FILE" help="Saves emitter positions as pois to FILE"/>
         <variable-speed-sign-output value="" synonymes="speed-trigger-output" type="FILE" help="Saves variable seed sign definitions for sink detectors to FILE"/>
         <end-reroute-output value="" type="FILE" help="Saves rerouter definitions for sink detectors to FILE"/>
-        <validation-output value="" type="FILE" help=""/>
-        <validation-output.add-sources value="false" type="BOOL" help=""/>
+        <validation-output value="" type="FILE" help="Write induction loop definitions for the given detector positions to FILE"/>
+        <validation-output.add-sources value="false" type="BOOL" help="Add source detectors to the validation output"/>
     </output>
 
     <processing>
@@ -58,10 +59,10 @@
         <time-offset value="0" type="TIME" help="Subtracts TIME seconds from (scaled) flow times"/>
         <time-step value="60" type="TIME" help="Expected distance between two successive data sets"/>
         <calibrator-output value="false" synonymes="write-calibrators" type="BOOL" help="Write calibrators to FILE"/>
-        <include-unused-routes value="false" type="BOOL" help=""/>
-        <revalidate-flows value="false" type="BOOL" help=""/>
+        <include-unused-routes value="false" type="BOOL" help="Include routes in the output which have no vehicles"/>
+        <revalidate-flows value="false" type="BOOL" help="Checks whether detectors with calculated flow 0 can attract additional traffic"/>
         <remove-empty-detectors value="false" type="BOOL" help="Removes empty detectors from the list"/>
-        <strict-sources value="false" type="BOOL" help=""/>
+        <strict-sources value="false" type="BOOL" help="Whether edges with unknown status can prevent an edge from becoming a source"/>
         <respect-concurrent-inflows value="false" type="BOOL" help="Try to determine further inflows to an inbetween detector when computing split probabilities"/>
         <scale value="1" type="FLOAT" help="Scale factor for flows"/>
     </processing>
@@ -86,13 +87,16 @@
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
-        <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
+        <language value="C" type="STR" help="Language to use in messages"/>
         <report-empty-detectors value="false" type="BOOL" help="Lists detectors with no flow (enable -v)"/>
         <print-absolute-flows value="false" type="BOOL" help="Prints aggregated detector flows"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of route parsing step"/>

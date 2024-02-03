@@ -11,3 +11,6 @@ trainStop_car_disconnected
 
 # person starting in a vehicle with ride attribute from
 person_triggered_invalidFrom
+
+# warning only
+unsuitable_vclass

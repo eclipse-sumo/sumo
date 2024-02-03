@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 20 22:34:45 2020 by Eclipse SUMO Version v1_6_0+0871-114e9ffca1
+<!-- generated on 2022-08-09 18:51:18 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
@@ -40,7 +44,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <DispatchInfo>
-    <dispatchShared time="60.00" id="trip_0" persons="1" sharingPersons="2" type="2" absLoss="19.94" relLoss="0.32" absLoss2="15.62" relLoss2="0.24"/>
-    <dispatchShared time="180.00" id="trip_1" persons="3" sharingPersons="8" type="2" absLoss="18.59" relLoss="0.31" absLoss2="0.00" relLoss2="0.00"/>
-    <dispatchShared time="360.00" id="trip_1" persons="4" sharingPersons="5" type="2" absLoss="0.39" relLoss="0.00" absLoss2="18.82" relLoss2="0.31"/>
+    <dispatchShared time="60.00" id="trip_0" persons="p1" sharingPersons="p2" type="2" absLoss="19.89" relLoss="0.32" absLoss2="15.62" relLoss2="0.24"/>
+    <dispatchShared time="240.00" id="trip_1" persons="p3" sharingPersons="p4" type="2" absLoss="20.53" relLoss="0.35" absLoss2="20.36" relLoss2="0.17"/>
 </DispatchInfo>

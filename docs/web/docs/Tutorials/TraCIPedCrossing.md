@@ -3,11 +3,10 @@ title: TraCIPedCrossing
 ---
 
 This tutorial shows how to use the Traffic Control Interface (in short
-TraCI) for building a pedestrian-actuated crossing. It assumes
+TraCI) to build a pedestrian-actuated crossing. It assumes
 familiarity with
 [Tutorials/TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md)
-which builds a vehicle-actuated controller. Additional information in
-regard to pedestrian modelling can be found at
+which builds a vehicle-actuated controller. Additional information related to pedestrian modelling can be found at
 [Simulation/Pedestrians](../Simulation/Pedestrians.md).
 
 All files mentioned here can also be found in the
@@ -42,13 +41,13 @@ python runner.py
 The control logic resides in the python script *runner.py*. It builds
 the network (via [netconvert](../netconvert.md)) generates the
 pedestrian routes (via
-[\[1\]](http://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
+[\[1\]](https://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
 and interacts with the simulation to controls the traffic light. It
 makes use of the TraCI python API bundled with SUMO. A description of
 the API can be found at
 [TraCI/Interfacing_TraCI_from_Python](../TraCI/Interfacing_TraCI_from_Python.md).
 For a detailed list of available functions see the [pydoc generated
-documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
+documentation](https://sumo.dlr.de/pydoc/traci.html).
 
 ## Traffic light control
 
@@ -56,7 +55,7 @@ The traffic light follows a fixed cycle of phases of as defined below.
 The definition below is taken from
 [pedcrossing.tll.xml]({{Source}}tests/complex/tutorial/traci_pedestrian_crossing/data/pedcrossing.tll.xml)
 
-```
+```xml
 <tlLogic id="C" type="static" programID="custom" offset="0">
   <phase duration="100000" state="GGGGr"/>
   <phase duration="4" state="yyyyr"/>
@@ -74,7 +73,7 @@ are *traci.trafficlights.getPhase()* and traci.trafficlights.setPhase().
 
 ## Person related TraCI functions
 
-To simulate the push button it must be known whether pedestrians are
+To simulate pressing the button, it must be known whether pedestrians are
 waiting to cross the intersection. The following TraCI functions are
 used:
 

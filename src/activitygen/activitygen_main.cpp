@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -61,12 +61,12 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     OptionsCont& oc = OptionsCont::getOptions();
     std::string file = oc.getString("net-file");
     if (file == "") {
-        throw ProcessError("Missing definition of network to load!");
+        throw ProcessError(TL("Missing definition of network to load!"));
     }
     if (!FileHelpers::isReadable(file)) {
-        throw ProcessError("The network file '" + file + "' could not be accessed.");
+        throw ProcessError(TLF("The network file '%' could not be accessed.", file));
     }
-    PROGRESS_BEGIN_MESSAGE("Loading net");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, true, 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
@@ -76,7 +76,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         PROGRESS_DONE_MESSAGE();
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
 }
@@ -85,9 +85,8 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 int
 main(int argc, char* argv[]) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
     oc.setApplicationDescription(
-        "Generates trips of persons throughout a day for the microscopic, multi-modal traffic simulation SUMO.");
+        TL("Generates trips of persons throughout a day for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("activitygen", "Eclipse SUMO activitygen Version " VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
     int ret = 0;
@@ -105,15 +104,15 @@ main(int argc, char* argv[]) {
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
 
         // Load network
         net = new RONet();
         AGStreet::Builder builder;
         loadNet(*net, builder);
-        WRITE_MESSAGE("Loaded " + toString(net->getEdgeNumber()) + " edges.");
+        WRITE_MESSAGEF(TL("Loaded % edges."), toString(net->getEdgeNumber()));
         if (oc.getBool("debug")) {
-            WRITE_MESSAGE("\n\t ---- begin AcitivtyGen ----\n");
+            WRITE_MESSAGE("\n\t ---- begin ActivityGen ----\n");
         }
 
         std::string statFile = oc.getString("stat-file");

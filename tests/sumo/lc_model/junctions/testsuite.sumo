@@ -1,0 +1,2 @@
+# the lane behind the traffic light is blocked, vehicles should "see" this even in a red phase
+blocker_beyond_tls

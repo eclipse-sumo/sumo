@@ -1,0 +1,3 @@
+Warning: Vehicle class 'bicycle' of vType 'bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Error: Vehicle 'bike38' is not allowed to depart on any lane of edge 'CE'.
+Quitting (on error).

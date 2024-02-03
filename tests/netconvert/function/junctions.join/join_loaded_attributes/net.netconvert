@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:50 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-06-18 17:38:34 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -23,13 +28,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="18.91,-4.39" convBoundary="0.00,0.00,119.19,101.64" origBoundary="-18.91,4.39,100.28,106.03" projParameter="!"/>
 
@@ -43,13 +47,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":joinedNode_2_0" index="0" speed="11.64" length="25.08" shape="64.77,54.31 58.93,51.59 53.50,44.77 49.54,36.25 49.45,35.74"/>
     </edge>
     <edge id=":joinedNode_3" function="internal">
-        <lane id=":joinedNode_3_0" index="0" speed="7.62" length="24.95" shape="64.77,54.31 57.79,49.42 55.54,44.63 58.01,39.96 62.97,36.83"/>
+        <lane id=":joinedNode_3_0" index="0" speed="7.62" length="24.30" shape="64.77,54.31 57.79,49.42 55.54,44.63 58.01,39.96 62.41,37.18"/>
     </edge>
     <edge id=":joinedNode_16" function="internal">
         <lane id=":joinedNode_16_0" index="0" speed="11.64" length="7.43" shape="49.45,35.74 48.12,28.43"/>
     </edge>
     <edge id=":joinedNode_17" function="internal">
-        <lane id=":joinedNode_17_0" index="0" speed="7.62" length="2.66" shape="62.97,36.83 65.22,35.41"/>
+        <lane id=":joinedNode_17_0" index="0" speed="7.62" length="3.32" shape="62.41,37.18 65.22,35.41"/>
     </edge>
     <edge id=":joinedNode_4" function="internal">
         <lane id=":joinedNode_4_0" index="0" speed="6.87" length="11.26" shape="58.28,28.79 58.32,31.62 59.49,33.66 61.79,34.92 65.22,35.41"/>
@@ -58,16 +62,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":joinedNode_5_0" index="0" speed="13.89" length="31.05" shape="58.28,28.79 58.08,35.03 58.40,44.30 58.77,53.57 58.75,59.83"/>
     </edge>
     <edge id=":joinedNode_6" function="internal">
-        <lane id=":joinedNode_6_0" index="0" speed="12.12" length="11.57" shape="58.28,28.79 55.25,36.22 53.10,39.04"/>
+        <lane id=":joinedNode_6_0" index="0" speed="12.12" length="8.76" shape="58.28,28.79 55.25,36.22 54.80,36.81"/>
     </edge>
     <edge id=":joinedNode_7" function="internal">
-        <lane id=":joinedNode_7_0" index="0" speed="5.84" length="12.47" shape="58.28,28.79 55.61,32.51 53.02,33.69 50.53,32.33 49.37,30.45"/>
+        <lane id=":joinedNode_7_0" index="0" speed="5.84" length="11.60" shape="58.28,28.79 55.61,32.51 53.02,33.69 50.53,32.33 49.82,31.19"/>
     </edge>
     <edge id=":joinedNode_18" function="internal">
-        <lane id=":joinedNode_18_0" index="0" speed="12.12" length="21.98" shape="53.10,39.04 49.41,43.91 42.41,49.74 35.91,51.60"/>
+        <lane id=":joinedNode_18_0" index="0" speed="12.12" length="24.78" shape="54.80,36.81 49.41,43.91 42.41,49.74 35.91,51.60"/>
     </edge>
     <edge id=":joinedNode_19" function="internal">
-        <lane id=":joinedNode_19_0" index="0" speed="5.84" length="2.38" shape="49.37,30.45 48.12,28.43"/>
+        <lane id=":joinedNode_19_0" index="0" speed="5.84" length="3.24" shape="49.82,31.19 48.12,28.43"/>
     </edge>
     <edge id=":joinedNode_8" function="internal">
         <lane id=":joinedNode_8_0" index="0" speed="7.27" length="12.07" shape="38.64,33.26 42.72,33.28 45.66,32.48 47.46,30.87 48.12,28.43"/>
@@ -79,13 +83,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":joinedNode_10_0" index="0" speed="12.30" length="27.48" shape="38.64,33.26 45.64,36.51 52.34,43.53 57.22,52.06 57.26,52.29"/>
     </edge>
     <edge id=":joinedNode_11" function="internal">
-        <lane id=":joinedNode_11_0" index="0" speed="7.56" length="24.09" shape="38.64,33.26 44.84,38.87 46.45,43.79 43.47,48.04 38.61,50.33"/>
+        <lane id=":joinedNode_11_0" index="0" speed="7.56" length="23.65" shape="38.64,33.26 44.84,38.87 46.45,43.79 43.47,48.04 39.01,50.14"/>
     </edge>
     <edge id=":joinedNode_20" function="internal">
         <lane id=":joinedNode_20_0" index="0" speed="12.30" length="7.68" shape="57.26,52.29 58.75,59.83"/>
     </edge>
     <edge id=":joinedNode_21" function="internal">
-        <lane id=":joinedNode_21_0" index="0" speed="7.56" length="2.98" shape="38.61,50.33 35.91,51.60"/>
+        <lane id=":joinedNode_21_0" index="0" speed="7.56" length="3.42" shape="39.01,50.14 35.91,51.60"/>
     </edge>
     <edge id=":joinedNode_12" function="internal">
         <lane id=":joinedNode_12_0" index="0" speed="6.77" length="9.20" shape="40.98,58.07 40.79,55.54 39.88,53.62 38.26,52.30 35.91,51.60"/>
@@ -94,16 +98,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":joinedNode_13_0" index="0" speed="13.89" length="30.51" shape="40.98,58.07 42.20,52.03 44.60,43.25 46.98,34.47 48.12,28.43"/>
     </edge>
     <edge id=":joinedNode_14" function="internal">
-        <lane id=":joinedNode_14_0" index="0" speed="12.47" length="7.98" shape="40.98,58.07 43.74,50.75 43.85,50.63"/>
+        <lane id=":joinedNode_14_0" index="0" speed="12.47" length="6.82" shape="40.98,58.07 43.39,51.69"/>
     </edge>
     <edge id=":joinedNode_15" function="internal">
-        <lane id=":joinedNode_15_0" index="0" speed="7.41" length="22.69" shape="40.98,58.07 46.08,51.85 50.75,50.07 54.97,52.73 57.16,56.84"/>
+        <lane id=":joinedNode_15_0" index="0" speed="7.41" length="22.51" shape="40.98,58.07 46.08,51.85 50.75,50.07 54.97,52.73 57.07,56.68"/>
     </edge>
     <edge id=":joinedNode_22" function="internal">
-        <lane id=":joinedNode_22_0" index="0" speed="12.47" length="26.96" shape="43.85,50.63 49.96,43.33 57.75,37.61 65.22,35.41"/>
+        <lane id=":joinedNode_22_0" index="0" speed="12.47" length="28.13" shape="43.39,51.69 43.74,50.75 49.96,43.33 57.75,37.61 65.22,35.41"/>
     </edge>
     <edge id=":joinedNode_23" function="internal">
-        <lane id=":joinedNode_23_0" index="0" speed="7.41" length="3.38" shape="57.16,56.84 58.75,59.83"/>
+        <lane id=":joinedNode_23_0" index="0" speed="7.41" length="3.56" shape="57.07,56.68 58.75,59.83"/>
     </edge>
 
     <edge id="gneE0" from="gneJ2" to="joinedNode" priority="1" spreadType="center" shape="62.89,0.71 57.23,35.22">
@@ -132,10 +136,12 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="foobar" type="static" programID="0" offset="0">
-        <phase duration="42" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="41" state="rrrrGGggrrrrGGgg"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
-        <phase duration="42" state="GGggrrrrGGggrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="41" state="GGggrrrrGGggrrrr"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="gneJ10" type="dead_end" x="119.19" y="53.02" incLanes="" intLanes="" shape="119.15,51.42 119.23,54.62"/>
@@ -166,13 +172,13 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <junction id=":joinedNode_16_0" type="internal" x="49.45" y="35.74" incLanes=":joinedNode_2_0 gneE3_0" intLanes=":joinedNode_5_0 :joinedNode_6_0 :joinedNode_7_0 :joinedNode_8_0 :joinedNode_9_0 :joinedNode_10_0 :joinedNode_13_0 :joinedNode_14_0"/>
-    <junction id=":joinedNode_17_0" type="internal" x="62.97" y="36.83" incLanes=":joinedNode_3_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":joinedNode_4_0 :joinedNode_9_0 :joinedNode_14_0"/>
-    <junction id=":joinedNode_18_0" type="internal" x="53.10" y="39.04" incLanes=":joinedNode_6_0 :joinedNode_14_0 gneE7_0" intLanes=":joinedNode_22_0 :joinedNode_1_0 :joinedNode_2_0 :joinedNode_9_0 :joinedNode_10_0 :joinedNode_11_0 :joinedNode_12_0 :joinedNode_13_0 :joinedNode_14_0"/>
-    <junction id=":joinedNode_19_0" type="internal" x="49.37" y="30.45" incLanes=":joinedNode_7_0 gneE3_0 gneE5_0 gneE7_0" intLanes=":joinedNode_2_0 :joinedNode_8_0 :joinedNode_13_0"/>
+    <junction id=":joinedNode_17_0" type="internal" x="62.41" y="37.18" incLanes=":joinedNode_3_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":joinedNode_4_0 :joinedNode_9_0 :joinedNode_14_0"/>
+    <junction id=":joinedNode_18_0" type="internal" x="54.80" y="36.81" incLanes=":joinedNode_6_0 :joinedNode_14_0 gneE7_0" intLanes=":joinedNode_22_0 :joinedNode_1_0 :joinedNode_2_0 :joinedNode_9_0 :joinedNode_10_0 :joinedNode_11_0 :joinedNode_12_0 :joinedNode_13_0 :joinedNode_14_0"/>
+    <junction id=":joinedNode_19_0" type="internal" x="49.82" y="31.19" incLanes=":joinedNode_7_0 gneE3_0 gneE5_0 gneE7_0" intLanes=":joinedNode_2_0 :joinedNode_8_0 :joinedNode_13_0"/>
     <junction id=":joinedNode_20_0" type="internal" x="57.26" y="52.29" incLanes=":joinedNode_10_0 gneE5_0" intLanes=":joinedNode_0_0 :joinedNode_1_0 :joinedNode_2_0 :joinedNode_5_0 :joinedNode_6_0 :joinedNode_13_0 :joinedNode_14_0 :joinedNode_15_0"/>
-    <junction id=":joinedNode_21_0" type="internal" x="38.61" y="50.33" incLanes=":joinedNode_11_0 gneE0_0 gneE5_0 gneE7_0" intLanes=":joinedNode_1_0 :joinedNode_6_0 :joinedNode_12_0"/>
-    <junction id=":joinedNode_22_0" type="internal" x="43.85" y="50.63" incLanes=":joinedNode_14_0 gneE0_0" intLanes=":joinedNode_1_0 :joinedNode_2_0 :joinedNode_3_0 :joinedNode_4_0 :joinedNode_5_0 :joinedNode_6_0 :joinedNode_9_0 :joinedNode_10_0"/>
-    <junction id=":joinedNode_23_0" type="internal" x="57.16" y="56.84" incLanes=":joinedNode_15_0 gneE0_0 gneE3_0 gneE5_0" intLanes=":joinedNode_0_0 :joinedNode_5_0 :joinedNode_10_0"/>
+    <junction id=":joinedNode_21_0" type="internal" x="39.01" y="50.14" incLanes=":joinedNode_11_0 gneE0_0 gneE5_0 gneE7_0" intLanes=":joinedNode_1_0 :joinedNode_6_0 :joinedNode_12_0"/>
+    <junction id=":joinedNode_22_0" type="internal" x="43.39" y="51.69" incLanes=":joinedNode_14_0 gneE0_0" intLanes=":joinedNode_1_0 :joinedNode_2_0 :joinedNode_3_0 :joinedNode_4_0 :joinedNode_5_0 :joinedNode_6_0 :joinedNode_9_0 :joinedNode_10_0"/>
+    <junction id=":joinedNode_23_0" type="internal" x="57.07" y="56.68" incLanes=":joinedNode_15_0 gneE0_0 gneE3_0 gneE5_0" intLanes=":joinedNode_0_0 :joinedNode_5_0 :joinedNode_10_0"/>
 
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_4_0" tl="foobar" linkIndex="4" dir="r" state="O"/>
     <connection from="gneE0" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_5_0" tl="foobar" linkIndex="5" dir="s" state="O"/>

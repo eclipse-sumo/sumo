@@ -1,0 +1,3 @@
+Error: Unknown vehicle class 'dummyAllow' encountered.
+Warning: SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouterelements\closingreroute\load\allow\additionals.add.xml failed.

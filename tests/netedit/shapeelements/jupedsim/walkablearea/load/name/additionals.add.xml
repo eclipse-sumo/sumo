@@ -1,0 +1,15 @@
+<additionals>
+
+    <!-- non valid layer (missing) -->
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" shape="-50.00,20.00 -40.00,20.00 -40.00,10.00 -50.00,10.00 -50.00,20.00"/>
+
+    <!-- non valid layer (dummy) -->
+    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" name="" shape="-50.00,0.00 -40.00,0.00 -40.00,-10.00 -50.00,-10.00 -50.00,0.00"/>
+
+    <!-- valid layer, negative -->
+    <poly id="jps.walkable_area_2" type="jupedsim.walkable_area" name="%%%%" shape="-50.00,-20.00 -40.00,-20.00 -40.00,-30.00 -50.00,-30.00 -50.00,-20.00"/>
+
+    <!-- valid layer -->
+    <poly id="jps.walkable_area_3" type="jupedsim.walkable_area" name="custom name" shape="-50.00,-20.00 -40.00,-20.00 -40.00,-30.00 -50.00,-30.00 -50.00,-20.00"/>
+
+</additionals>

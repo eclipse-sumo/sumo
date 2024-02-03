@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,49 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import functools
+import warnings
+
+
+def deprecated(old_name=None):
+    """This is a decorator which can be used to mark functions
+    as deprecated. It will result in a warning being emitted
+    when the function is used."""
+    def Inner(func):
+        @functools.wraps(func)
+        def new_func(*args, **kwargs):
+            if old_name is None:
+                msg = "Call to deprecated function %s." % (func.__name__)
+            else:
+                msg = "Call to deprecated function %s, use %s instead." % (old_name, func.__name__)
+            warnings.warn(msg, stacklevel=2)
+            return func(*args, **kwargs)
+        return new_func
+    return Inner
+
+
+def alias_param(param, alias, deprecate=True):
+    """
+    Decorator for aliasing a param in a function
+    """
+    if isinstance(param, str):
+        subst = [(param, alias)]
+    else:
+        subst = list(zip(param, alias))
+
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for par, ali in subst:
+                if ali in kwargs:
+                    kwargs[par] = kwargs[ali]
+                    del kwargs[ali]
+                    if deprecate:
+                        warnings.warn("Use of deprecated parameter %s in function %s, use %s instead." %
+                                      (ali, func.__name__, par), stacklevel=2)
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
 
 class TraCIException(Exception):

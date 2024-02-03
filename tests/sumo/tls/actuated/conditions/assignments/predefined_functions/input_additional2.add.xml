@@ -1,0 +1,42 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr" />
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr" />
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" />
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" />
+
+        <condition id="c"   value="-1"/>
+        <condition id="g0"  value="-1"/>
+        <condition id="g1"  value="-1"/>
+        <condition id="g2"  value="-1"/>
+        <condition id="g3"  value="-1"/>
+        <condition id="r0"  value="-1"/>
+        <condition id="r1"  value="-1"/>
+        <condition id="r2"  value="-1"/>
+        <condition id="r3"  value="-1"/>
+        <condition id="z00" value="-1"/>
+        <condition id="z01" value="-1"/>
+        <condition id="a00" value="-1"/>
+        <condition id="a01" value="-1"/>
+
+        <assignment id="c"   check="1" value="c:" />
+        <assignment id="g0"  check="1" value="g:0" />
+        <assignment id="g1"  check="1" value="g:1" />
+        <assignment id="g2"  check="1" value="g:2" />
+        <assignment id="g3"  check="1" value="g:3" />
+        <assignment id="r0"  check="1" value="r:0" />
+        <assignment id="r1"  check="1" value="r:1" />
+        <assignment id="r2"  check="1" value="r:2" />
+        <assignment id="r3"  check="1" value="r:3" />
+        <assignment id="z00" check="1" value="z:D0.0"/>
+        <assignment id="z01" check="1" value="z:D0.1"/>
+        <assignment id="a00" check="1" value="a:D0.0"/>
+        <assignment id="a01" check="1" value="a:D0.1"/>
+
+    </tlLogic>
+</additional>

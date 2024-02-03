@@ -1,0 +1,29 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   
+   <!-- West -->
+   <route id="WE" edges="1si 2o"/>
+   <route id="WN" edges="1si 4o"/>
+   <route id="WS" edges="1si 3o"/>
+
+   <!-- South -->
+   <route id="SN" edges="3si 4o"/>
+   <route id="SE" edges="3si 2o"/>
+   <route id="SW" edges="3si 1o"/>
+
+   <!-- North -->
+   <route id="NW" edges="4si 1o"/>
+   <route id="NE" edges="4si 2o"/>
+   <route id="NS" edges="4si 3o"/>
+
+   <!-- East -->
+   <route id="EW" edges="2si 1o"/>
+   <route id="EN" edges="2si 4o"/>
+   <route id="ES" edges="2si 3o"/>
+
+   <flow id="WN" route="WN" begin="80" probability="1" end="90"/>
+   <flow id="ES" route="ES" begin="93" probability="1" end="100"/>
+   <flow id="EW" route="EW" begin="100" probability="0.5" end="200"/>
+   <flow id="NS" route="NS" begin="120" probability="0.1" end="200"/>
+   <flow id="WN_1" route="WN" begin="130" probability="1" end="140"/>
+</routes>

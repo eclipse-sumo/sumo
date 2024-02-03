@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-17 07:59:42 by Eclipse SUMO netconvert Version v1_11_0+1195-b4aa5f6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="-E0" from="J1" to="J0" priority="-1">
+        <lane id="-E0_0" index="0" speed="13.89" length="100.00" shape="100.00,1.60 0.00,1.60"/>
+    </edge>
+    <edge id="-E1" from="J1" to="J0" priority="-1">
+        <lane id="-E1_0" index="0" speed="13.89" length="100.00" shape="100.00,1.60 0.00,1.60"/>
+    </edge>
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="E1" from="J0" to="J1" priority="-1">
+        <lane id="E1_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+
+    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="-E0_0 -E1_0" intLanes="" shape="0.00,3.20 0.00,0.00 0.00,-3.20">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="E0_0 E1_0" intLanes="" shape="100.00,0.00 100.00,-3.20 100.00,0.00 100.00,-3.20">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="-E0" to="E1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="-E1" to="E0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="E0" to="-E1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="E1" to="-E0" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

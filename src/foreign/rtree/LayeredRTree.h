@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 ///
 // A wrapper around RT-trees for for efficient storing of SUMO's GL-objects and
 // accessing them ordered by their layer
-// Note that we only need two layers at this time: 
+// Note that we only need two layers at this time:
 // 1 (GLO_LANE, GLO_VEHICLE, GLO_POI)
 // 2 all the rest
 // The search order returns layer 2 first because it must be drawn before layer
@@ -39,14 +39,14 @@
 // ===========================================================================
 /** @class LayeredRTree
  * @brief A RT-tree for efficient storing of SUMO's GL-objects in layers
- * 
+ *
  * This class maintains SUMORTrees for each layer (only 2 at the moment) but
  * provides the same interface as SUMORTree
  */
 class LayeredRTree : public SUMORTree {
 public:
     /// @brief Constructor
-    LayeredRTree() { 
+    LayeredRTree() {
         myLayers.push_back(new SUMORTree());
         myLayers.push_back(new SUMORTree());
     }

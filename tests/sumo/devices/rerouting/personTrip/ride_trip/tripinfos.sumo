@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  3 13:51:30 2020 by Eclipse SUMO sumo Version v1_8_0+0088-3887ce000b
+<!-- generated on 2022-11-08 23:25:53 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -39,19 +43,27 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="trainBA.0" depart="362.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="591.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.0 person_trainBA.0" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainAC.0" depart="451.00" departLane="railWE_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="715.00" arrivalLane="railWE_0" arrivalPos="1700.00" arrivalSpeed="11.25" duration="264.00" routeLength="1564.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="88.71" rerouteNo="0" devices="tripinfo_trainAC.0" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainCA.0" depart="522.00" departLane="railEW_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="786.00" arrivalLane="railEW_0" arrivalPos="1700.00" arrivalSpeed="11.25" duration="264.00" routeLength="1564.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="88.71" rerouteNo="0" devices="tripinfo_trainCA.0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="trainAB.1" depart="915.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1145.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="trainAB.1" depart="915.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1145.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.1 person_trainAB.1" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainBA.1" depart="962.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1191.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.1" vType="train" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE">
-        <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
-        <ride waitingTime="38.00" vehicle="trainBA.0" depart="439.00" arrival="508.00" arrivalPos="850.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
-        <walk depart="508.00" departPos="111.92" arrival="533.00" arrivalPos="81.39" duration="25.00" routeLength="30.53" timeLoss="3.02" maxSpeed="1.39"/>
-        <access stop="stopA_E" depart="533.00" arrival="606.00" duration="73.00" routeLength="102.24"/>
-        <walk depart="606.00" departPos="81.39" arrival="1568.00" arrivalPos="109.86" duration="962.00" routeLength="1199.65" timeLoss="98.25" maxSpeed="1.39"/>
-        <access stop="stopC_E" depart="1568.00" arrival="1579.00" duration="11.00" routeLength="15.46"/>
-    </personinfo>
-    <tripinfo id="busABCD.1" depart="1205.00" departLane="A1A0_1" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="1744.00" arrivalLane="B0B1_1" arrivalPos="487.60" arrivalSpeed="3.40" duration="539.00" routeLength="4975.02" waitingTime="1.00" waitingCount="1" stopTime="129.00" timeLoss="51.75" rerouteNo="0" devices="tripinfo_busABCD.1" vType="bus" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="busABCD.1" depart="1205.00" departLane="A1A0_1" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="1744.00" arrivalLane="B0B1_1" arrivalPos="487.60" arrivalSpeed="3.40" duration="539.00" routeLength="4975.02" waitingTime="1.00" waitingCount="1" stopTime="129.00" timeLoss="51.75" rerouteNo="0" devices="tripinfo_busABCD.1 person_busABCD.1" vType="bus" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainAB.2" depart="1515.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1745.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.2" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainBA.2" depart="1562.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1791.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.2" vType="train" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
+        <ride waitingTime="38.00" vehicle="trainBA.0" depart="439.00" arrival="508.00" arrivalPos="850.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
+        <access stop="stopA_S" depart="508.00" arrival="520.00" duration="12.00" routeLength="17.52"/>
+        <walk depart="520.00" departPos="111.92" arrival="545.00" arrivalPos="81.39" duration="25.00" routeLength="30.53" timeLoss="3.02" maxSpeed="1.39"/>
+        <access stop="stopA_E" depart="545.00" arrival="618.00" duration="73.00" routeLength="102.24"/>
+        <access stop="stopA_E" depart="618.00" arrival="691.00" duration="73.00" routeLength="102.24"/>
+        <walk depart="691.00" departPos="81.39" arrival="698.00" arrivalPos="90.19" duration="7.00" routeLength="8.80" timeLoss="0.66" maxSpeed="1.39"/>
+        <access stop="stopA_N" depart="698.00" arrival="698.00" duration="0.00" routeLength="1.01"/>
+        <ride waitingTime="303.00" vehicle="trainAB.1" depart="1001.00" arrival="1070.00" arrivalPos="950.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
+        <access stop="stopB_N" depart="1070.00" arrival="1071.00" duration="1.00" routeLength="0.04"/>
+        <walk depart="1071.00" departPos="91.16" arrival="1229.00" arrivalPos="894.80" duration="158.00" routeLength="199.18" timeLoss="14.59" maxSpeed="1.39"/>
+        <ride waitingTime="275.00" vehicle="busABCD.1" depart="1504.00" arrival="1624.00" arrivalPos="904.79" duration="120.00" routeLength="1501.58" timeLoss="11.90"/>
+        <walk depart="1624.00" departPos="904.79" arrival="1784.00" arrivalPos="109.86" duration="160.00" routeLength="199.92" timeLoss="16.05" maxSpeed="1.39"/>
+        <access stop="stopC_E" depart="1784.00" arrival="1795.00" duration="11.00" routeLength="15.46"/>
+    </personinfo>
     <tripinfo id="trainAB.3" depart="2115.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="2345.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.3" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainBA.3" depart="2162.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="2391.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.3" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainAC.1" depart="2251.00" departLane="railWE_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="2515.00" arrivalLane="railWE_0" arrivalPos="1700.00" arrivalSpeed="11.25" duration="264.00" routeLength="1564.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="88.71" rerouteNo="0" devices="tripinfo_trainAC.1" vType="train" speedFactor="1.00" vaporized=""/>

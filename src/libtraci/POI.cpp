@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,8 +94,8 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(POI, POI)
 
 
 void
-POI::setType(const std::string& poiID, const std::string& type) {
-    Dom::setString(libsumo::VAR_TYPE, poiID, type);
+POI::setType(const std::string& poiID, const std::string& poiType) {
+    Dom::setString(libsumo::VAR_TYPE, poiID, poiType);
 }
 
 
@@ -140,9 +140,10 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 
 bool
-POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
+POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType,
+         int layer, const std::string& imgFile, double width, double height, double angle, const std::string& icon) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 8);
+    StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, poiType);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(color.r);
@@ -157,6 +158,7 @@ POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor
     StoHelp::writeTypedDouble(content, width);
     StoHelp::writeTypedDouble(content, height);
     StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedString(content, icon);
     Dom::set(libsumo::ADD, poiID, &content);
     return true;
 }

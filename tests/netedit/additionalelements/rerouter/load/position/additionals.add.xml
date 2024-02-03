@@ -1,0 +1,11 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="rerouter_0" edges="center0 center1"/>
+
+    <rerouter id="rerouter_1" edges="center0 center1" pos="dummyPos"/>
+
+    <rerouter id="rerouter_2" edges="center0 center1" pos=""/>
+
+    <rerouter id="rerouter_3" edges="center0 center1" pos="40.00,-10.00"/>
+
+</additional>

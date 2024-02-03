@@ -1,0 +1,19 @@
+first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
+--> work position: 
+  |-> in city: 790
+  |-> out city: 80
+  |-> in+out city: 870
+--> population: 
+  |-> city households: 500
+  |-> city people: 1000
+    |-> city single: 190 / (in) couple: 620
+    |-> city adults: 810
+      |-> estimation: 810
+      |-> retired: 240
+    |-> city children: 190
+      |-> estimation: 190
+  |-> working people: 730
+    |-> working people in city: 530
+    |-> working people from outside: 200
+no problem during bus line trip generation...
+after public transportation: 248

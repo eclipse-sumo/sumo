@@ -49,6 +49,6 @@ set_property(TARGET netimport PROPERTY PROJECT_LABEL "z_netimport")
 
 file(GLOB TYPEMAP_DATA "${CMAKE_CURRENT_SOURCE_DIR}/../../data/typemap/*.typ.xml")
 add_custom_command(OUTPUT typemap.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py ${CMAKE_CURRENT_BINARY_DIR}/..
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/typemap.py ${CMAKE_CURRENT_BINARY_DIR}/..
                    DEPENDS ${TYPEMAP_DATA}
                    )

@@ -7,7 +7,7 @@ obtained from SUMO.
 
 ## Number of Vehicles within the Simulation over Time
 
-Let's assume You want to show the number of vehicles running through
+Let's assume you want to show the number of vehicles running through
 your simulation over time. You'll need the
 [summary-output](../Simulation/Output/Summary.md) that contains the
 number of vehicles within the simulation for each simulation time step.
@@ -25,11 +25,11 @@ plot, is the default. The following image will be shown:
 ![summary_running_mo.png](../images/Summary_running_mo.png
 "summary_running_mo.png")
 
-Now, let's assume You want to compare the number of running vehicles
+Now, let's assume you want to compare the number of running vehicles
 from different runs. The example below uses
 [summary-outputs](../Simulation/Output/Summary.md) from runs that
 cover different types of days of a week (mo\\summary.xml: Monday,
-dido\\summary.xml: Tuesday-Tursday, etc.). As we want to show only a
+dido\\summary.xml: Tuesday-Thursday, etc.). As we want to show only a
 single day, we limit the x-axis to \[0,86400\] (86400: seconds in a day)
 using **--xlim 0,86400** and we also save the figure into the file
 "summary_running_all.png" using **-o summary_running_all.png**. To know what is shown, we replace

@@ -1,0 +1,2 @@
+# <sumo/sumo-gui> <range> <lateralDistance> <downstreamDistance> <upstreamDistance> <testWithIncompatibleFilter (0/1)> <egoObjectType>
+sumo 50.0 50.0 50.0 50.0 0 person tests/complex/traci/ContextSubscriptionFilters/lateralDistance/persons/runner.py

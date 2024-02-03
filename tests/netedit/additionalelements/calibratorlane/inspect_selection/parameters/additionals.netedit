@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-23 10:28:31 by Eclipse SUMO netedit Version v1_16_0+0641-afa9a3e9180
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="RouteProbeA" begin="0.00" period="3600.00" edge="top" file="RouteProbeA.xml"/>
+    <routeProbe id="RouteProbeB" begin="0.00" period="3600.00" edge="bot" file="RouteProbeB.xml"/>
+    <routeProbe id="customRouteProbeName" begin="0.00" period="3600.00" edge="E1" file="RouteProbeB.xml"/>
+    <!-- Calibrators -->
+    <calibrator id="calibratorA" lane="center0_0" pos="20.00" period="30.00" name="NameA" output="fileA.txt" routeProbe="RouteProbeA">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </calibrator>
+    <calibrator id="calibratorB" lane="center1_0" pos="30.00" period="40.00" name="NameB" output="fileB.txt" routeProbe="RouteProbeB">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </calibrator>
+</additional>

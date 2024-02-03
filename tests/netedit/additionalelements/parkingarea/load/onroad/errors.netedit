@@ -1,0 +1,3 @@
+Error: Attribute 'onRoad' in definition of parkingArea 'parkingArea_0' Invalid Bool Format dummyonroad.
+Error: Could not build parkingArea with ID 'parkingArea_0' in netedit; Declared twice.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/parkingarea/load/onroad/additionals.add.xml failed.

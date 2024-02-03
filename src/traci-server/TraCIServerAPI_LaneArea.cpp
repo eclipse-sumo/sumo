@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,6 +59,7 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_PARAMETER
+            && variable != libsumo::VAR_VIRTUAL_DETECTION
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Set Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -67,6 +68,14 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     // process
     try {
         switch (variable) {
+            case libsumo::VAR_VIRTUAL_DETECTION: {
+                int vehNum = -1;
+                if (!server.readTypeCheckingInt(inputStorage, vehNum)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Overriding the number of detected vehicles requires an integer", outputStorage);
+                }
+                libsumo::LaneArea::overrideVehicleNumber(id, vehNum);
+                break;
+            }
             case libsumo::VAR_PARAMETER: {
                 StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");
                 const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");

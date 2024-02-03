@@ -1,0 +1,14 @@
+# use a ride definition to call a taxi
+1person
+
+# test taxi device attribute end
+end_of_work
+
+# handle taz while random circling
+taz
+
+# routing device active on taxi
+rerouting
+
+# taxis idle at the taxi stand and are dispatched again
+10persons

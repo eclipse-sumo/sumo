@@ -1,30 +1,4 @@
+function import_gtfs called at Mon, 12 Dec 2022 13:19:46 +0000
+function import_gtfs finished after 25.336553 seconds
 Success.
 Success.
-Warning! No mapping library found, falling back to tracemapper.
-Warning! No stop for (4783.734801625833, 13579.170072900131) on vehicle(id='257596', x='13.5828510', y='52.4344350', until='1980', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4848.258988778631, 13134.29141659569) on vehicle(id='257596', x='13.5839280', y='52.4304480', until='2040', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4931.650861333881, 12804.760433958843) on vehicle(id='257596', x='13.5852490', y='52.4275010', until='2100', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5007.951809230726, 12522.435069145635) on vehicle(id='257596', x='13.5864520', y='52.4249770', until='2160', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5103.526514093683, 12150.277930598706) on vehicle(id='257596', x='13.5879640', y='52.4216490', until='2220', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5166.764108447649, 11793.552629915066) on vehicle(id='257596', x='13.5889960', y='52.4184540', until='2280', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5188.417874486651, 11665.620848684572) on vehicle(id='257596', x='13.5893510', y='52.4173080', until='2340', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4783.734801625833, 13579.170072900131) on vehicle(id='257768', x='13.5828510', y='52.4344350', until='120', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4848.258988778631, 13134.29141659569) on vehicle(id='257768', x='13.5839280', y='52.4304480', until='180', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4931.650861333881, 12804.760433958843) on vehicle(id='257768', x='13.5852490', y='52.4275010', until='240', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5007.951809230726, 12522.435069145635) on vehicle(id='257768', x='13.5864520', y='52.4249770', until='300', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5103.526514093683, 12150.277930598706) on vehicle(id='257768', x='13.5879640', y='52.4216490', until='360', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5166.764108447649, 11793.552629915066) on vehicle(id='257768', x='13.5889960', y='52.4184540', until='420', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5188.417874486651, 11665.620848684572) on vehicle(id='257768', x='13.5893510', y='52.4173080', until='480', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4783.734801625833, 13579.170072900131) on vehicle(id='257791', x='13.5828510', y='52.4344350', until='960', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4848.258988778631, 13134.29141659569) on vehicle(id='257791', x='13.5839280', y='52.4304480', until='1020', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (4931.650861333881, 12804.760433958843) on vehicle(id='257791', x='13.5852490', y='52.4275010', until='1080', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5007.951809230726, 12522.435069145635) on vehicle(id='257791', x='13.5864520', y='52.4249770', until='1140', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5103.526514093683, 12150.277930598706) on vehicle(id='257791', x='13.5879640', y='52.4216490', until='1200', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5166.764108447649, 11793.552629915066) on vehicle(id='257791', x='13.5889960', y='52.4184540', until='1260', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for (5188.417874486651, 11665.620848684572) on vehicle(id='257791', x='13.5893510', y='52.4173080', until='1320', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! Skipping disconnected route '259570', no path found.
-Warning! Skipping disconnected route '259578', no path found.
-Warning! Skipping disconnected route '259780', no path found.
-Warning! Skipping disconnected route '259865', no path found.
-Warning! Skipping disconnected route '68252', no path found.
-Warning! Skipping disconnected route '68266', no path found.

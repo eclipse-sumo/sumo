@@ -1,0 +1,3 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x density -y left --yfactor 60 --ylabel vehs/hour
+tools/visualization/plotXMLAttributes.py

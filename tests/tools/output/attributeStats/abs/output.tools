@@ -1,0 +1,2 @@
+value exampleAttr: count 6, min -1212.00 (38), max 2138.00 (17), mean -116.33, Q1 -1209.00, median -144.00, Q3 -75.00, mean_abs 829.00, median_abs 1209.00, stdDev 1116.93
+ histogram: [(-1200, 2), (-200, 1), (-150, 1), (-100, 1), (2150, 1)]

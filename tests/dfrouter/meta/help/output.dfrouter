@@ -1,11 +1,13 @@
-Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
- Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO dfrouter Version v1_17_0+2470-b55cba8942c
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
 Usage: dfrouter [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
+  --save-configuration.relative        Enforce relative paths when saving the
+                                        configuration
   --save-template FILE                 Saves a configuration template (empty)
                                         into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
@@ -47,8 +49,10 @@ Output Options:
                                         sink detectors to FILE
   --end-reroute-output FILE            Saves rerouter definitions for sink
                                         detectors to FILE
-  --validation-output FILE             
-  --validation-output.add-sources      
+  --validation-output FILE             Write induction loop definitions for the
+                                        given detector positions to FILE
+  --validation-output.add-sources      Add source detectors to the validation
+                                        output
 
 Processing Options:
   --guess-empty-flows                  Derive missing flow values from upstream
@@ -79,10 +83,13 @@ Processing Options:
   --time-step TIME                     Expected distance between two successive
                                         data sets
   --calibrator-output                  Write calibrators to FILE
-  --include-unused-routes              
-  --revalidate-flows                   
+  --include-unused-routes              Include routes in the output which have
+                                        no vehicles
+  --revalidate-flows                   Checks whether detectors with calculated
+                                        flow 0 can attract additional traffic
   --remove-empty-detectors             Removes empty detectors from the list
-  --strict-sources                     
+  --strict-sources                     Whether edges with unknown status can
+                                        prevent an edge from becoming a source
   --respect-concurrent-inflows         Try to determine further inflows to an
                                         inbetween detector when computing split
                                         probabilities
@@ -110,10 +117,11 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
-  --xml-validation.net STR             Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
+                                        inputs ("never", "local", "auto" or
                                         "always")
+  --xml-validation.net STR             Set schema validation scheme of SUMO
+                                        network inputs ("never", "local", "auto"
+                                        or "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -122,6 +130,11 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
+  --language STR                       Language to use in messages
   --report-empty-detectors             Lists detectors with no flow (enable -v)
   --print-absolute-flows               Prints aggregated detector flows
   --no-step-log                        Disable console output of route parsing

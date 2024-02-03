@@ -1,16 +1,16 @@
 <add>
-    <tlLogic id="0" type="static" programID="o" offset="0.00">
+    <tlLogic id="0" type="actuated" programID="demo" offset="0.00">
       <phase duration="3.00" state="rryrrrrryrrr"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
-      <phase duration="25" state="rrrGGrrrrGGr"/>
+      <phase duration="25" minDur="20" maxDur="30" state="rrrGGrrrrGGr"/>
       <phase duration="3.00" state="rrryyrrrryyr"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
-      <phase duration="5" state="rrrrrGrrrrrG"/>
+      <phase duration="5" minDur="5" maxDur="10" state="rrrrrGrrrrrG"/>
       <phase duration="3.00" state="rrrrryrrrrry"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
-      <phase duration="33" state="GGrrrrGGrrrr"/>
+      <phase duration="33" minDur="28" maxDur="35" state="GGrrrrGGrrrr"/>
       <phase duration="3.00" state="yyrrrryyrrrr"/>
       <phase duration="3.00" state="rrrrrrrrrrrr"/>
-      <phase duration="5" state="rrGrrrrrGrrr"/>
+      <phase duration="5" minDur="5" maxDur="10" state="rrGrrrrrGrrr"/>
    </tlLogic>
 </add>

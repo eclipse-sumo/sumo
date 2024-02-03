@@ -5,7 +5,16 @@ queue_stop_start_lowAccel
 stop_exact
 
 # test speeds when stopping at exact position
+stop_exact_lowDecel
+
+# test speeds when stopping at exact position
 stop_exact_subsecond
+
+# test speeds when stopping at exact position
+stop_exact_laneEnd
+
+# test speeds when stopping at exact position
+stop_exact_laneEnd_subSecond
 
 # test insertion with maximum vehicle speed
 insert_with_maximum_speed
@@ -21,3 +30,22 @@ insertion_speed
 
 # test insertion of a fast vehicle behind a slow vehicle
 insertion_speed_step0.2
+
+# make sure that there is no crash when defining a large minGap (#10471)
+minGap8
+
+# collision when configured with low accel
+ticket11199
+
+# exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
+violateMingap
+
+# exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
+violateMingap_warn
+ticket11498
+
+# emergency braking on insertion
+ticket11564
+
+# right of way violation due to imprecise stopping on minor link
+ticket13369

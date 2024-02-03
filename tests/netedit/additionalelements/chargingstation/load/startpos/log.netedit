@@ -1,0 +1,4 @@
+Error: Attribute 'startPos' in definition of chargingStation 'chargingStation_1' Invalid Number Format (double) dummyStartPosition.
+Error: Could not build chargingStation with ID 'chargingStation_2' in netedit; Invalid position over lane.
+Error: Could not build chargingStation with ID 'chargingStation_3' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\chargingstation\load\startpos\additionals.add.xml failed.

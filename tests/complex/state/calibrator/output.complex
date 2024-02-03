@@ -1,0 +1,6 @@
+< </routes>
+>     <vehicle id="cali.0.0" type="car" depart="30.00" departPos="4.1818" departSpeed="30.7856" speedFactor="1.0600" arrival="42.00">
+>         <route edges="SC CN"/>
+>     </vehicle>
+> 
+> </routes>

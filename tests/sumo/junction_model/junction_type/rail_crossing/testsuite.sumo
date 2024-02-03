@@ -2,6 +2,25 @@
 # 
 basic
 
+# increased time gap
+# 
+time_gap
+
+# test space gap
+# 
+space_gap
+
+# test parameter opening time
+# 
+opening-time
+
+# test parameter yellow-time
+# 
+yellow-time
+
+# test parameter opening-delay
+opening-delay
+
 # train is inserted directly in front of the crossing
 # 
 sudden_insertion

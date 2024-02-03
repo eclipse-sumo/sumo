@@ -1,0 +1,6 @@
+Error: Attribute 'number' in definition of containerFlow 'p_0' Invalid Number Format (long long integer format) 23.00.
+Error: Attribute 'number' in definition of containerFlow 'p_1' is empty.
+Error: Attribute 'number' in definition of containerFlow 'p_2' Invalid Number Format (long long integer format) dummy.
+Error: Attribute 'number' in definition of containerFlow 'p_3' Invalid Number Format (long long integer format) -23.00.
+Error: Attribute 'number' in definition of containerFlow 'p_4' Invalid Number Format (long long integer format) 12.5.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containers.14Jul121719.3232/netedit.daily.demand.containers/demandelements/containerflow/load/number/routes.rou.xml failed.

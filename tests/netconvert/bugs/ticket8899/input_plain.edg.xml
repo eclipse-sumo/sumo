@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-03 12:24:37 by Eclipse SUMO netedit Version v1_9_2+0956-00ed1c6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/_bugs_ticket8899/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="2757332329" name="Karl-Marx-Allee" priority="12" type="cycleway.track|highway.primary" numLanes="3" speed="13.89" shape="247.62,46.40 261.16,43.78 467.52,3.80 471.41,3.05 486.57,0.00" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="76865761"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="76865761"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="76865761"/>
+        </lane>
+        <param key="origFrom" value="29271394"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="CN" from="C" to="3230525602" name="Lebuser Straße" priority="10" type="cycleway.lane|highway.tertiary" numLanes="2" speed="13.89" shape="249.39,62.83 250.95,76.09 253.96,94.93 255.35,104.80 257.07,116.95 257.59,120.51" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="4615623"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="4615623"/>
+        </lane>
+        <param key="origFrom" value="29271377"/>
+    </edge>
+    <edge id="CS" from="C" to="2782577071" name="Andreasstraße" priority="10" type="highway.tertiary" numLanes="1" speed="8.33" shape="247.96,48.12 246.19,36.86 245.47,32.84 240.70,10.84" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="273390877"/>
+        </lane>
+        <param key="origFrom" value="29271394"/>
+    </edge>
+    <edge id="CW" from="C" to="6711622876" name="Karl-Marx-Allee" priority="12" type="cycleway.track|highway.primary" numLanes="3" speed="13.89" shape="249.73,64.55 237.38,66.96 134.27,86.70 66.80,99.90 54.09,102.70 41.70,105.93 32.17,109.50 22.97,113.50 10.58,120.32 5.51,123.84 1.07,127.26" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="76865763 76865763 289837573 284757120 284757120 282627234"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="76865763 76865763 289837573 284757120 284757120 282627234"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="76865763 76865763 289837573 284757120 284757120 282627234"/>
+        </lane>
+        <param key="origFrom" value="29271377"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="EC" from="3230525600" to="C" name="Karl-Marx-Allee" priority="12" type="cycleway.track|highway.primary" numLanes="4" speed="13.89" shape="345.49,47.20 264.72,61.81 261.28,62.38 249.71,64.55" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="316869459"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="316869459"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="316869459"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="316869459"/>
+        </lane>
+        <param key="origTo" value="29271377"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+    <edge id="NC" from="3230525602" to="C" name="Lebuser Straße" priority="10" type="cycleway.lane|highway.tertiary" numLanes="2" speed="13.89" shape="257.59,120.51 257.07,116.95 255.35,104.80 253.96,94.93 250.95,76.09 249.39,62.83" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="4615623"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="4615623"/>
+        </lane>
+        <param key="origTo" value="29271377"/>
+    </edge>
+    <edge id="SC" from="2782577071" to="C" name="Andreasstraße" priority="10" type="highway.tertiary" numLanes="1" speed="8.33" shape="240.70,10.84 245.47,32.84 246.19,36.86 247.96,48.12" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="273390877"/>
+        </lane>
+        <param key="origTo" value="29271394"/>
+    </edge>
+    <edge id="WC" from="3069560068" to="C" name="Karl-Marx-Allee" priority="12" type="cycleway.track|highway.primary" numLanes="4" speed="13.89" shape="179.57,60.02 226.31,51.03 234.08,49.48 247.57,46.41" spreadType="center" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="302694753"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="302694753"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="302694753"/>
+        </lane>
+        <lane index="3">
+            <param key="origId" value="302694753"/>
+        </lane>
+        <param key="origTo" value="29271394"/>
+        <param key="ref" value="B 1;B 5"/>
+    </edge>
+</edges>

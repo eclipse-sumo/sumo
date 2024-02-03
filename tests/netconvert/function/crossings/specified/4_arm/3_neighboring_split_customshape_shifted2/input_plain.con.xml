@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 17 Jan 2019 11:29:04 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/function/crossings/specified/4_arm_3_neighboring_split_customshape_shifted2/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="CE"/>
+
+    <connection from="CN"/>
+
+    <connection from="CS"/>
+
+    <connection from="CW"/>
+
+    <connection from="EC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CW" fromLane="3" toLane="3"/>
+    <connection from="EC" to="CS" fromLane="3" toLane="3"/>
+
+    <connection from="NC" to="CW" fromLane="2" toLane="2"/>
+    <connection from="NC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="NC" to="CS" fromLane="3" toLane="3"/>
+    <connection from="NC" to="CE" fromLane="3" toLane="3"/>
+
+    <connection from="SC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="SC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="SC" to="CN" fromLane="3" toLane="3"/>
+    <connection from="SC" to="CW" fromLane="3" toLane="3"/>
+
+    <connection from="WC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CE" fromLane="3" toLane="3"/>
+    <connection from="WC" to="CN" fromLane="3" toLane="3"/>
+
+    <crossing node="C" edges="EC" priority="1" width="4.50" linkIndex="16"/>
+    <crossing node="C" edges="CE" priority="1" width="4.50" linkIndex="17"/>
+    <crossing node="C" edges="SC" priority="1" width="4.50" linkIndex="18" shape="204.29,104.82 213.58,101.02"/>
+    <crossing node="C" edges="CS" priority="1" width="4.50" linkIndex="19" shape="188.57,101.09 198.00,104.66"/>
+    <crossing node="C" edges="WC" priority="1" width="4.50" linkIndex="20"/>
+    <crossing node="C" edges="CW" priority="1" width="4.50" linkIndex="21"/>
+    <walkingArea node="C" edges="CW WC" shape="186.91,126.71 170.07,119.68 186.28,111.38"/>
+</connections>

@@ -1,3 +1,1 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'n1_car_0'; waited too long, from edge 'gneE4':0, time 305.94.
-Warning: Vehicle 'n1_car_0' teleports beyond arrival edge 'gneE7', time 309.87.

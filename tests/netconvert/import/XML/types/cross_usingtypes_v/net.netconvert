@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:11 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-05-09 15:52:06 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -22,20 +27,18 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
     <type id="a" priority="3" numLanes="3" speed="13.89"/>
     <type id="b" priority="2" numLanes="2" speed="11.11"/>
     <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle"/>
-    <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian"/>
 
     <edge id=":0_0" function="internal">
         <lane id=":0_0_0" index="0" allow="bicycle" speed="7.02" length="10.69" shape="492.00,511.10 491.81,506.94 491.23,503.98 490.26,502.19 488.90,501.60"/>
@@ -44,16 +47,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_1_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="495.20,511.10 495.70,503.60 496.80,497.67 497.90,492.90 498.40,488.90"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" allow="bicycle" speed="9.51" length="16.10" shape="498.40,511.10 499.19,505.54 501.57,501.58 505.54,499.19 506.76,499.02"/>
+        <lane id=":0_2_0" index="0" allow="bicycle" speed="9.51" length="8.69" shape="498.40,511.10 499.19,505.54 500.78,502.90"/>
     </edge>
     <edge id=":0_3" function="internal">
-        <lane id=":0_3_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="498.40,511.10 499.20,509.90 500.00,509.50"/>
+        <lane id=":0_3_0" index="0" allow="bicycle" speed="3.65" length="1.72" shape="498.40,511.10 499.20,509.90 499.44,509.78"/>
     </edge>
     <edge id=":0_16" function="internal">
-        <lane id=":0_16_0" index="0" allow="bicycle" speed="9.51" length="4.38" shape="506.76,499.02 511.10,498.40"/>
+        <lane id=":0_16_0" index="0" allow="bicycle" speed="9.51" length="11.79" shape="500.78,502.90 501.57,501.58 505.54,499.19 511.10,498.40"/>
     </edge>
     <edge id=":0_17" function="internal">
-        <lane id=":0_17_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="500.00,509.50 500.80,509.90 501.60,511.10"/>
+        <lane id=":0_17_0" index="0" allow="bicycle" speed="3.65" length="2.96" shape="499.44,509.78 500.00,509.50 500.80,509.90 501.60,511.10"/>
     </edge>
     <edge id=":0_4" function="internal">
         <lane id=":0_4_0" index="0" allow="bicycle" speed="7.02" length="10.69" shape="511.10,508.00 506.94,508.19 503.98,508.77 502.19,509.74 501.60,511.10"/>
@@ -62,16 +65,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_5_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="511.10,504.80 503.60,504.30 497.67,503.20 492.90,502.10 488.90,501.60"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" allow="bicycle" speed="9.51" length="16.10" shape="511.10,501.60 505.54,500.81 501.58,498.43 499.19,494.46 499.02,493.24"/>
+        <lane id=":0_6_0" index="0" allow="bicycle" speed="9.51" length="8.69" shape="511.10,501.60 505.54,500.81 502.90,499.22"/>
     </edge>
     <edge id=":0_7" function="internal">
-        <lane id=":0_7_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="511.10,501.60 509.90,500.80 509.50,500.00"/>
+        <lane id=":0_7_0" index="0" allow="bicycle" speed="3.65" length="1.72" shape="511.10,501.60 509.90,500.80 509.78,500.56"/>
     </edge>
     <edge id=":0_18" function="internal">
-        <lane id=":0_18_0" index="0" allow="bicycle" speed="9.51" length="4.38" shape="499.02,493.24 498.40,488.90"/>
+        <lane id=":0_18_0" index="0" allow="bicycle" speed="9.51" length="11.79" shape="502.90,499.22 501.58,498.43 499.19,494.46 498.40,488.90"/>
     </edge>
     <edge id=":0_19" function="internal">
-        <lane id=":0_19_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="509.50,500.00 509.90,499.20 511.10,498.40"/>
+        <lane id=":0_19_0" index="0" allow="bicycle" speed="3.65" length="2.96" shape="509.78,500.56 509.50,500.00 509.90,499.20 511.10,498.40"/>
     </edge>
     <edge id=":0_8" function="internal">
         <lane id=":0_8_0" index="0" allow="bicycle" speed="7.02" length="10.69" shape="508.00,488.90 508.19,493.06 508.77,496.02 509.74,497.81 511.10,498.40"/>
@@ -80,16 +83,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_9_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="504.80,488.90 504.30,496.40 503.20,502.33 502.10,507.10 501.60,511.10"/>
     </edge>
     <edge id=":0_10" function="internal">
-        <lane id=":0_10_0" index="0" allow="bicycle" speed="9.51" length="16.10" shape="501.60,488.90 500.81,494.46 498.43,498.42 494.46,500.81 493.24,500.98"/>
+        <lane id=":0_10_0" index="0" allow="bicycle" speed="9.51" length="8.69" shape="501.60,488.90 500.81,494.46 499.22,497.10"/>
     </edge>
     <edge id=":0_11" function="internal">
-        <lane id=":0_11_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="501.60,488.90 500.80,490.10 500.00,490.50"/>
+        <lane id=":0_11_0" index="0" allow="bicycle" speed="3.65" length="1.72" shape="501.60,488.90 500.80,490.10 500.56,490.22"/>
     </edge>
     <edge id=":0_20" function="internal">
-        <lane id=":0_20_0" index="0" allow="bicycle" speed="9.51" length="4.38" shape="493.24,500.98 488.90,501.60"/>
+        <lane id=":0_20_0" index="0" allow="bicycle" speed="9.51" length="11.79" shape="499.22,497.10 498.43,498.42 494.46,500.81 488.90,501.60"/>
     </edge>
     <edge id=":0_21" function="internal">
-        <lane id=":0_21_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="500.00,490.50 499.20,490.10 498.40,488.90"/>
+        <lane id=":0_21_0" index="0" allow="bicycle" speed="3.65" length="2.96" shape="500.56,490.22 500.00,490.50 499.20,490.10 498.40,488.90"/>
     </edge>
     <edge id=":0_12" function="internal">
         <lane id=":0_12_0" index="0" allow="bicycle" speed="7.02" length="10.69" shape="488.90,492.00 493.06,491.81 496.02,491.23 497.81,490.26 498.40,488.90"/>
@@ -98,16 +101,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_13_0" index="0" allow="bicycle" speed="12.50" length="22.47" shape="488.90,495.20 496.40,495.70 502.33,496.80 507.10,497.90 511.10,498.40"/>
     </edge>
     <edge id=":0_14" function="internal">
-        <lane id=":0_14_0" index="0" allow="bicycle" speed="9.51" length="16.10" shape="488.90,498.40 494.46,499.19 498.42,501.57 500.81,505.54 500.98,506.76"/>
+        <lane id=":0_14_0" index="0" allow="bicycle" speed="9.51" length="8.69" shape="488.90,498.40 494.46,499.19 497.10,500.78"/>
     </edge>
     <edge id=":0_15" function="internal">
-        <lane id=":0_15_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="488.90,498.40 490.10,499.20 490.50,500.00"/>
+        <lane id=":0_15_0" index="0" allow="bicycle" speed="3.65" length="1.72" shape="488.90,498.40 490.10,499.20 490.22,499.44"/>
     </edge>
     <edge id=":0_22" function="internal">
-        <lane id=":0_22_0" index="0" allow="bicycle" speed="9.51" length="4.38" shape="500.98,506.76 501.60,511.10"/>
+        <lane id=":0_22_0" index="0" allow="bicycle" speed="9.51" length="11.79" shape="497.10,500.78 498.42,501.57 500.81,505.54 501.60,511.10"/>
     </edge>
     <edge id=":0_23" function="internal">
-        <lane id=":0_23_0" index="0" allow="bicycle" speed="3.65" length="2.34" shape="490.50,500.00 490.10,500.80 488.90,501.60"/>
+        <lane id=":0_23_0" index="0" allow="bicycle" speed="3.65" length="2.96" shape="490.22,499.44 490.50,500.00 490.10,500.80 488.90,501.60"/>
     </edge>
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" allow="bicycle" speed="3.65" length="4.67" shape="0.00,501.60 -1.20,500.80 -1.60,500.00 -1.20,499.20 0.00,498.40"/>
@@ -253,14 +256,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_16_0" type="internal" x="506.76" y="499.02" incLanes=":0_2_0 3si_0 3si_1" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_13_0 :0_14_0"/>
-    <junction id=":0_17_0" type="internal" x="500.00" y="509.50" incLanes=":0_3_0 1si_2 2si_0 3si_1" intLanes=":0_4_0 :0_9_0 :0_14_0"/>
-    <junction id=":0_18_0" type="internal" x="499.02" y="493.24" incLanes=":0_6_0 1si_0 1si_1" intLanes=":0_1_0 :0_2_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0"/>
-    <junction id=":0_19_0" type="internal" x="509.50" y="500.00" incLanes=":0_7_0 1si_1 3si_0 4si_2" intLanes=":0_2_0 :0_8_0 :0_13_0"/>
-    <junction id=":0_20_0" type="internal" x="493.24" y="500.98" incLanes=":0_10_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_6_0 :0_13_0 :0_14_0 :0_15_0"/>
-    <junction id=":0_21_0" type="internal" x="500.00" y="490.50" incLanes=":0_11_0 1si_0 2si_2 4si_1" intLanes=":0_1_0 :0_6_0 :0_12_0"/>
-    <junction id=":0_22_0" type="internal" x="500.98" y="506.76" incLanes=":0_14_0 2si_0 2si_1" intLanes=":0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_9_0 :0_10_0"/>
-    <junction id=":0_23_0" type="internal" x="490.50" y="500.00" incLanes=":0_15_0 2si_1 3si_2 4si_0" intLanes=":0_0_0 :0_5_0 :0_10_0"/>
+    <junction id=":0_16_0" type="internal" x="500.78" y="502.90" incLanes=":0_2_0 3si_0 3si_1" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_13_0 :0_14_0"/>
+    <junction id=":0_17_0" type="internal" x="499.44" y="509.78" incLanes=":0_3_0 1si_2 2si_0 3si_1" intLanes=":0_4_0 :0_9_0 :0_14_0"/>
+    <junction id=":0_18_0" type="internal" x="502.90" y="499.22" incLanes=":0_6_0 1si_0 1si_1" intLanes=":0_1_0 :0_2_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0"/>
+    <junction id=":0_19_0" type="internal" x="509.78" y="500.56" incLanes=":0_7_0 1si_1 3si_0 4si_2" intLanes=":0_2_0 :0_8_0 :0_13_0"/>
+    <junction id=":0_20_0" type="internal" x="499.22" y="497.10" incLanes=":0_10_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_6_0 :0_13_0 :0_14_0 :0_15_0"/>
+    <junction id=":0_21_0" type="internal" x="500.56" y="490.22" incLanes=":0_11_0 1si_0 2si_2 4si_1" intLanes=":0_1_0 :0_6_0 :0_12_0"/>
+    <junction id=":0_22_0" type="internal" x="497.10" y="500.78" incLanes=":0_14_0 2si_0 2si_1" intLanes=":0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_9_0 :0_10_0"/>
+    <junction id=":0_23_0" type="internal" x="490.22" y="499.44" incLanes=":0_15_0 2si_1 3si_2 4si_0" intLanes=":0_0_0 :0_5_0 :0_10_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="1" via=":m1_0_1" dir="s" state="M"/>

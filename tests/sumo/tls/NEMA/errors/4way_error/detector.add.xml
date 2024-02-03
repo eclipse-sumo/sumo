@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-13 16:37:14 by Eclipse SUMO netedit Version 1.11.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/Users/max/Development/tmp/sumo/tests/sumo/basic/tls/actuated/basic/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/Users/max/Development/tmp/sumo/tests/sumo/basic/tls/NEMA/fixForceOff/4way_error/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/Users/max/Development/tmp/sumo/tests/sumo/basic/tls/NEMA/fixForceOff/4way_error/detector.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e2Detector id="e2Detector_1si_0_7" lane="1si_0" pos="240.00" length="10.00" freq="300.00" file="e2Detector_1si_0_7.xml"/>
+    <e2Detector id="e2Detector_1si_1_6" lane="1si_1" pos="240.00" length="10.00" freq="300.00" file="e2Detector_1si_1_6.xml"/>
+    <e2Detector id="e2Detector_2si_0_1" lane="2si_0" pos="240.00" length="10.00" freq="300.00" file="e2Detector_2si_0_1.xml"/>
+    <e2Detector id="e2Detector_2si_1_0" lane="2si_1" pos="240.00" length="10.00" freq="300.00" file="e2Detector_2si_1_0.xml"/>
+    <e2Detector id="e2Detector_3si_0_4" lane="3si_0" pos="240.00" length="10.00" freq="300.00" file="e2Detector_3si_0_4.xml"/>
+    <e2Detector id="e2Detector_3si_1_5" lane="3si_1" pos="240.00" length="10.00" freq="300.00" file="e2Detector_3si_1_5.xml"/>
+    <e2Detector id="e2Detector_4si_0_3" lane="4si_0" pos="240.00" length="10.00" freq="300.00" file="e2Detector_4si_0_3.xml"/>
+    <e2Detector id="e2Detector_4si_1_2" lane="4si_1" pos="240.00" length="10.00" freq="300.00" file="e2Detector_4si_1_2.xml"/>
+</additional>

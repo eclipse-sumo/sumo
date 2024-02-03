@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,40 +17,50 @@
 ///
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
-
-
+#include <config.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/Position.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
-#include "NBPTStopCont.h"
 #include "NBEdgeCont.h"
 #include "NBEdge.h"
 #include "NBNode.h"
-#include <utils/geom/Position.h>
+#include "NBPTPlatform.h"
+#include "NBPTStop.h"
+#include "NBPTStopCont.h"
 
 
+// ===========================================================================
+// static members
+// ===========================================================================
+std::set<std::string> NBPTStopCont::myIgnoredStops;
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NBPTStopCont::~NBPTStopCont() {
-    for (auto& myPTStop : myPTStops) {
-        delete myPTStop.second;
-    }
     myPTStops.clear();
 }
 
 
 bool
-NBPTStopCont::insert(NBPTStop* ptStop) {
+NBPTStopCont::insert(std::shared_ptr<NBPTStop> ptStop, bool floating) {
     std::string id = ptStop->getID();
     auto i = myPTStops.find(id);
     if (i != myPTStops.end()) {
         return false;
     }
     myPTStops[id] = ptStop;
+    if (floating) {
+        myFloatingStops.push_back(ptStop);
+    }
     return true;
 }
 
 
-NBPTStop*
+std::shared_ptr<NBPTStop>
 NBPTStopCont::get(std::string id) const {
     if (myPTStops.find(id) != myPTStops.end()) {
         return myPTStops.find(id)->second;
@@ -61,49 +71,45 @@ NBPTStopCont::get(std::string id) const {
 
 void
 NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
-    std::vector<NBPTStop*> reverseStops;
+    std::vector<std::shared_ptr<NBPTStop> > reverseStops;
     //first pass localize pt stop at correct side of the street; create stop for opposite side if needed
-    for (auto& myPTStop : myPTStops) {
-
-        NBPTStop* stop = myPTStop.second;
-
+    for (const auto& ptStopIt : myPTStops) {
+        std::shared_ptr<NBPTStop> const stop = ptStopIt.second;
         bool multipleStopPositions = stop->getIsMultipleStopPositions();
         bool platformsDefined = !stop->getPlatformCands().empty();
         if (!platformsDefined) {
             //create pt stop for reverse edge if edge exists
-            NBPTStop* reverseStop = getReverseStop(stop, cont);
+            std::shared_ptr<NBPTStop> reverseStop = getReverseStop(stop, cont);
             if (reverseStop != nullptr) {
                 reverseStops.push_back(reverseStop);
             }
         } else if (multipleStopPositions) {
             //create pt stop for closest platform at corresponding edge
             assignPTStopToEdgeOfClosestPlatform(stop, cont);
-
         } else {
             //create pt stop for each side of the street where a platform is defined (create additional pt stop as needed)
-            NBPTStop* additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
+            std::shared_ptr<NBPTStop> additionalStop = assignAndCreatNewPTStopAsNeeded(stop, cont);
             if (additionalStop != nullptr) {
                 reverseStops.push_back(additionalStop);
             }
         }
     }
-
-    //insrt new stops if any
-    for (auto& reverseStop : reverseStops) {
+    //insert new stops if any
+    for (std::shared_ptr<NBPTStop>& reverseStop : reverseStops) {
         insert(reverseStop);
     }
 }
 
 
-void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
+void
+NBPTStopCont::assignLanes(NBEdgeCont& cont) {
     //scnd pass set correct lane
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
-        NBPTStop* stop = i->second;
-
+        std::shared_ptr<NBPTStop> stop = i->second;
         if (!stop->findLaneAndComputeBusStopExtent(cont)) {
-            WRITE_WARNINGF("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!",
+            WRITE_WARNINGF(TL("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!"),
                            i->first, i->second->getName());
-            EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
+            //EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);
         } else {
@@ -116,9 +122,10 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 int
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     //scnd pass set correct lane
-    std::vector<NBPTStop*> toAdd;
+    int existingBidiStops = 0;
+    std::vector<std::shared_ptr<NBPTStop> > toAdd;
     for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
-        NBPTStop* stop = i->second;
+        std::shared_ptr<NBPTStop> stop = i->second;
         NBEdge* edge = ec.getByID(stop->getEdgeId());
         if (edge != nullptr && edge->isBidiRail()) {
             NBEdge* bidiEdge = edge->getTurnDestination(true);
@@ -126,18 +133,18 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
             const std::string id = getReverseID(stop->getID());
             if (myPTStops.count(id) > 0) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
-                    WRITE_WARNINGF("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'.",
+                    WRITE_WARNINGF(TL("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'."),
                                    bidiEdge->getID(), i->first, id, myPTStops[id]->getEdgeId());
                 }
                 continue;
             }
-            NBPTStop* bidiStop = new NBPTStop(id,
-                                              stop->getPosition(),
-                                              bidiEdge->getID(),
-                                              stop->getOrigEdgeId(),
-                                              stop->getLength(),
-                                              stop->getName(),
-                                              stop->getPermissions());
+            std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(id,
+                                                 stop->getPosition(),
+                                                 bidiEdge->getID(),
+                                                 stop->getOrigEdgeId(),
+                                                 stop->getLength(),
+                                                 stop->getName(),
+                                                 stop->getPermissions());
             if (bidiStop->findLaneAndComputeBusStopExtent(ec)) {
                 toAdd.push_back(bidiStop);
                 stop->setBidiStop(bidiStop);
@@ -146,28 +153,36 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 // should not happen
                 assert(false);
             }
+        } else if (edge != nullptr) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            if (bidiEdge != nullptr) {
+                const std::string id = getReverseID(stop->getID());
+                if (myPTStops.count(id) > 0) {
+                    existingBidiStops++;
+                }
+            }
         }
     }
-    for (NBPTStop* newStop : toAdd) {
+    for (std::shared_ptr<NBPTStop> newStop : toAdd) {
         myPTStops[newStop->getID()] = newStop;
     }
     if (toAdd.size() > 0) {
-        WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
+        WRITE_MESSAGEF(TL("Added % stops for superposed rail edges."), toString(toAdd.size()));
     }
-    return (int)toAdd.size();
+    return (int)toAdd.size() + existingBidiStops;
 }
 
 
-NBPTStop*
-NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
+std::shared_ptr<NBPTStop>
+NBPTStopCont::getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& ec) {
     std::string edgeId = pStop->getEdgeId();
-    NBEdge* edge = cont.getByID(edgeId);
+    NBEdge* edge = ec.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != nullptr) {
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
-            return new NBPTStop(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
-                                pStop->getLength(), pStop->getName(), pStop->getPermissions());
+            return std::make_shared<NBPTStop>(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+                                              pStop->getLength(), pStop->getName(), pStop->getPermissions());
         } else {
             return myPTStops[reverseID];
         }
@@ -176,10 +191,13 @@ NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
 }
 
 
-NBPTStop*
-NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont) {
+std::shared_ptr<NBPTStop>
+NBPTStopCont::assignAndCreatNewPTStopAsNeeded(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
+    if (edge == nullptr) {
+        return nullptr;
+    }
     bool rightOfEdge = false;
     bool leftOfEdge = false;
     const NBPTPlatform* left = nullptr;
@@ -196,8 +214,10 @@ NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont)
     }
 
     if (leftOfEdge && rightOfEdge) {
-        NBPTStop* leftStop = getReverseStop(pStop, cont);
-        leftStop->setPTStopLength(left->getLength());
+        std::shared_ptr<NBPTStop> leftStop = getReverseStop(pStop, cont);
+        if (leftStop) {
+            leftStop->setPTStopLength(left->getLength());
+        }
         return leftStop;
     } else if (leftOfEdge) {
         NBEdge* reverse = getReverseEdge(edge);
@@ -212,7 +232,7 @@ NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont)
 
 
 void
-NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont) {
+NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
@@ -249,7 +269,7 @@ NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position
         idx1 = idxTmp - 1;
     }
     if (idx1 < 0 || idx1 >= (int) geom.size() || idx2 < 0 || idx2 >= (int) geom.size()) {
-        WRITE_WARNINGF("Could not determine cross product for edge '%'.", edge->getID());
+        WRITE_WARNINGF(TL("Could not determine cross product for edge '%'."), edge->getID());
         return 0;
     }
     Position p1 = geom[idx1];
@@ -267,7 +287,7 @@ NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position
 
 
 const NBPTPlatform*
-NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
+NBPTStopCont::getClosestPlatformToPTStopPosition(std::shared_ptr<NBPTStop> pStop) {
     Position stopPosition = pStop->getPosition();
     const NBPTPlatform* closest = nullptr;
     double minSqrDist = std::numeric_limits<double>::max();
@@ -303,7 +323,7 @@ NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
     int numDeleted = 0;
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (cont.getByID(i->second->getEdgeId()) == nullptr) {
-            WRITE_WARNINGF("Removing pt stop '%' on non existing edge '%'.", i->first, i->second->getEdgeId());
+            WRITE_WARNINGF(TL("Removing pt stop '%' on non existing edge '%'."), i->first, i->second->getEdgeId());
             i = myPTStops.erase(i);
             numDeleted++;
         } else {
@@ -315,11 +335,9 @@ NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
 
 
 void
-NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
-    if (oc.isSet("ptstop-output")) {
-        for (auto stop : myPTStops) {
-            into.insert(stop.second->getEdgeId());
-        }
+NBPTStopCont::addEdges2Keep(const OptionsCont& /* oc */, std::set<std::string>& into) {
+    for (auto stop : myPTStops) {
+        into.insert(stop.second->getEdgeId());
     }
 }
 
@@ -332,9 +350,11 @@ NBPTStopCont::replaceEdge(const std::string& edgeID, const EdgeVector& replaceme
             myPTStopLookup[item.second->getEdgeId()].push_back(item.second);
         }
     }
-    for (NBPTStop* stop : myPTStopLookup[edgeID]) {
+    // make a copy because the vector gets modified
+    const std::vector<std::shared_ptr<NBPTStop> > stops = myPTStopLookup[edgeID];
+    for (std::shared_ptr<NBPTStop> stop : stops) {
         if (!stop->replaceEdge(edgeID, replacement)) {
-            WRITE_WARNINGF("Could not re-assign pt stop '%' after replacing edge '%'.", stop->getID(), edgeID);
+            WRITE_WARNINGF(TL("Could not re-assign pt stop '%' after replacing edge '%'."), stop->getID(), edgeID);
         } else {
             myPTStopLookup[stop->getEdgeId()].push_back(stop);
         }
@@ -363,20 +383,72 @@ void
 NBPTStopCont::alignIdSigns() {
     PTStopsCont stops = myPTStops;
     for (auto& i : stops) {
-        const std::string& stopId = i.second->getID();
-        if (i.second->getEdgeId() == "") {
+        std::shared_ptr<NBPTStop> s = i.second;
+        const std::string& stopId = s->getID();
+        if (s->getEdgeId() == "") {
             continue;
         }
-        const char edgeSign = i.second->getEdgeId().at(0);
+        const char edgeSign = s->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
-            i.second->setPTStopId(getReverseID(stopId));
+            const std::string reverseID = getReverseID(stopId);
+            std::shared_ptr<NBPTStop> rs = get(reverseID);
+            s->setPTStopId(reverseID);
             myPTStops.erase(stopId);
-            myPTStops[i.second->getID()] = i.second;
+            myPTStops[reverseID] = s;
+            if (rs != nullptr) {
+                rs->setPTStopId(stopId);
+                myPTStops[stopId] = rs;
+            }
         }
     }
 }
 
+void
+NBPTStopCont::assignEdgeForFloatingStops(NBEdgeCont& cont, double maxRadius) {
+    NamedRTree r;
+    SVCPermissions publicPermissions = SVC_BUS | SVC_TRAM | SVC_RAIL | SVC_RAIL_URBAN | SVC_TAXI;
+    for (const auto& item : cont) {
+        NBEdge* edge = item.second;
+        if ((edge->getPermissions() & publicPermissions) == 0) {
+            continue;
+        }
+        const Boundary& bound = edge->getGeometry().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        r.Insert(min, max, edge);
+    }
+    for (std::shared_ptr<NBPTStop> ptStop : myFloatingStops) {
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        const Position& pos = ptStop->getPosition();
+        float min[2] = {static_cast<float>(pos.x() - maxRadius), static_cast<float>(pos.y() - maxRadius)};
+        float max[2] = {static_cast<float>(pos.x() + maxRadius), static_cast<float>(pos.y() + maxRadius)};
+        r.Search(min, max, visitor);
+        std::vector<NBEdge*> nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            if ((e->getPermissions() & ptStop->getPermissions()) != 0) {
+                nearby.push_back(e);
+            }
+        }
+        std::sort(nearby.begin(), nearby.end(), [pos](NBEdge * a, NBEdge * b) {
+            return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
+        });
+
+        for (NBEdge* e : nearby) {
+            ptStop->setEdgeId(e->getID(), cont);
+            if (ptStop->getLaneId() != "") {
+                break;
+            }
+        }
+        if (ptStop->getLaneId() == "") {
+            WRITE_WARNINGF(TL("Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!"),
+                           ptStop->getID(), ptStop->getName());
+            myPTStops.erase(ptStop->getID());
+        }
+    }
+}
 
 void
 NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor) {
@@ -431,7 +503,7 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
 }
 
 
-NBPTStop*
+std::shared_ptr<NBPTStop>
 NBPTStopCont::findStop(const std::string& origEdgeID, Position pos, double threshold) const {
     for (auto& item : myPTStops) {
         if (item.second->getOrigEdgeId() == origEdgeID &&

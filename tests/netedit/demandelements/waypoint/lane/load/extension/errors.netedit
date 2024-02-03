@@ -1,0 +1,5 @@
+Error: Attribute 'extension' in definition of a stop is not a valid time value.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'Edge2_1'
+Error: Attribute 'extension' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'Edge2_1'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.21Jul154612.10604/netedit.gui/demandelements/waypoint/lane/load/extension/routes.rou.xml failed.

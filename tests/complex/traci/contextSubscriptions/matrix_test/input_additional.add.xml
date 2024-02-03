@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-17 10:38:30 by Eclipse SUMO netedit Version v1_13_0+0955-f7ce321
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="1si" file="rp_0.xml"/>
+    <routeProbe id="rp_1" begin="0.00" period="3600.00" edge="1si" file="rp_1.xml"/>
+    <routeProbe id="rp_2" begin="0.00" period="3600.00" edge="1o" file="rp_2.xml"/>
+    <routeProbe id="rp_3" begin="0.00" period="3600.00" edge="2si" file="rp_3.xml"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" lane="1si_6" pos="28.43">
+        <flow vehsPerHour="10" begin="0" end="3600"/>
+    </calibrator>
+    <calibrator id="ca_1" lane="1si_6" pos="41.85">
+        <flow vehsPerHour="10" begin="0" end="3600"/>
+    </calibrator>
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="1si_0" startPos="22.83" endPos="32.83"/>
+    <busStop id="bs_1" lane="1si_0" startPos="36.28" endPos="46.28"/>
+    <busStop id="bs_2" lane="2si_0" startPos="202.99" endPos="212.99"/>
+    <containerStop id="ct_0" lane="1si_0" startPos="55.98" endPos="65.98"/>
+    <containerStop id="ct_1" lane="1si_0" startPos="72.69" endPos="82.69"/>
+    <containerStop id="ct_2" lane="2si_0" startPos="192.34" endPos="202.34"/>
+    <chargingStation id="cs_0" lane="1si_1" startPos="35.95" endPos="45.95"/>
+    <chargingStation id="cs_1" lane="1si_1" startPos="22.87" endPos="32.87"/>
+    <chargingStation id="cs_2" lane="2si_1" startPos="203.87" endPos="213.87"/>
+    <parkingArea id="pa_0" lane="2si_0" startPos="218.68" endPos="228.68"/>
+    <parkingArea id="pa_1" lane="1si_0" startPos="11.54" endPos="21.54"/>
+    <parkingArea id="pa_3" lane="1si_0" startPos="1.07" endPos="11.07"/>
+    <!-- Detectors -->
+    <e1Detector id="e1_0" lane="1si_2" pos="11.15" period="300.00" file="e1_0.xml"/>
+    <e1Detector id="e1_1" lane="1si_2" pos="21.33" period="300.00" file="e1_1.xml"/>
+    <e1Detector id="e1_2" lane="2si_2" pos="226.83" period="300.00" file="e1_2.xml"/>
+    <instantInductionLoop id="e1i_0" lane="1si_5" pos="21.63" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="1si_5" pos="39.09" file="e1i_1.xml"/>
+    <instantInductionLoop id="e1i_2" lane="2si_5" pos="222.27" file="e1i_2.xml"/>
+    <e2Detector id="e2_0" lane="2si_3" pos="226.15" length="10.00" period="300.00" file="e2_0.xml"/>
+    <e2Detector id="e2_1" lane="1si_3" pos="12.58" length="10.00" period="300.00" file="e2_1.xml"/>
+    <e2Detector id="e2_2" lane="1si_3" pos="32.08" length="10.00" period="300.00" file="e2_2.xml"/>
+    <e3Detector id="e3_0" pos="281.07,507.88" period="300.00" file="e3_0.xml">
+        <detEntry lane="1si_4" pos="28.57"/>
+        <detExit lane="1si_4" pos="37.08"/>
+    </e3Detector>
+    <e3Detector id="e3_1" pos="545.30,488.29" period="300.00" file="e3_1.xml">
+        <detEntry lane="2si_4" pos="229.28"/>
+        <detExit lane="2si_4" pos="236.82"/>
+    </e3Detector>
+    <e3Detector id="e3_2" pos="266.14,508.24" period="300.00" file="e3_2.xml">
+        <detExit lane="1si_4" pos="17.66"/>
+        <detEntry lane="1si_4" pos="8.14"/>
+    </e3Detector>
+    <!-- Other additionals -->
+    <variableSpeedSign id="vs_0" lanes="1si_8" pos="235.27,474.90"/>
+    <variableSpeedSign id="vs_1" lanes="2si_6" pos="531.39,492.90"/>
+    <variableSpeedSign id="vs_2" lanes="1si_7" pos="235.86,486.23"/>
+    <!-- Shapes -->
+    <poly id="po_0" color="red" fill="0" layer="0.00" shape="261.126673,451.982114 272.090631,453.888889 276.221978,448.168563 265.258020,446.579584"/>
+    <poly id="po_1" color="red" fill="1" layer="0.00" shape="284.643568,452.458808 292.270669,454.047787 291.952873,446.420686"/>
+    <poly id="po_2" color="red" fill="1" layer="0.00" shape="524.273146,552.799226 540.629047,558.146347 543.145339,549.653860 533.394706,548.710251"/>
+    <poi id="poi_0" color="red" layer="202.00" x="274.48" y="459.55"/>
+    <poi id="poi_1" color="red" layer="202.00" x="284.53" y="459.72"/>
+    <poi id="poi_2" color="red" layer="202.00" x="535.23" y="538.10"/>
+</additional>

@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   
+    <!-- non valid speedThreshold (missing)-->
+    <laneAreaDetector id="E2_01" lane="center0_0" pos="27" length="10.00" period="120.00" file="fileA.txt" timeThreshold="1.00" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid speedThreshold (dummy)-->
+    <laneAreaDetector id="E2_02" lane="center0_0" pos="28" length="10.00" period="120.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="dummySpeedThreshold" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid speedThreshold (negative)-->
+    <laneAreaDetector id="E2_03" lane="center0_0" pos="29" length="10.00" period="120.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="-2" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- valid speedThreshold -->
+    <laneAreaDetector id="E2_04" lane="center0_0" pos="30" length="10.00" period="120.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="5" jamThreshold="10.00" friendlyPos="0"/>
+
+</additional>

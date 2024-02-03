@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -24,10 +24,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "AGAdult.h"
-#include "AGWorkPosition.h"
-#include <utils/common/RandHelper.h>
 #include <iostream>
+#include <utils/common/RandHelper.h>
+#include <utils/common/UtilExceptions.h>
+#include "AGWorkPosition.h"
+#include "AGAdult.h"
 
 
 // ===========================================================================
@@ -69,7 +70,9 @@ AGAdult::tryToWork(double rate, std::vector<AGWorkPosition>* wps) {
             work->let();
         }
         work = newWork;
-        work->take(this);
+        if (work != nullptr) {
+            work->take(this);
+        }
     } else {
         if (work != nullptr) {
             // Also sets work = 0 with the call back lostWorkPosition
@@ -104,7 +107,7 @@ AGAdult::getWorkPosition() const {
     if (work != nullptr) {
         return *work;
     }
-    throw std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed.");
+    throw ProcessError("AGAdult::getWorkPosition: Adult is unemployed.");
 }
 
 

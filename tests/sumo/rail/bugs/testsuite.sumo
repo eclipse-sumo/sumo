@@ -43,3 +43,36 @@ merge_check_flank_switch2
 # deadlock due to insufficient flank check for bidi flank
 # 
 ticket7563
+
+# ticket #10093
+# 
+reverse_after_waypoint
+
+# rail insertion with oncoming vehicle beyond protecting switch
+# 
+ticket11384
+
+# invalid insertion error
+# 
+ticket11440
+
+# deadlock avoidable due to arrival in the critical block
+ticket12184
+
+# deadlock avoidable due to arrival in the critical block
+ticket12184b
+
+# unsafe insertion with fast training coming from behind
+ticket12857
+
+# deadlock on bidirectional track
+ticket12858
+
+# unsafe reversal on top of rail signal
+ticket12868
+
+# unsafe rerouting
+ticket12873
+
+# unsafe insertion
+ticket13262

@@ -2,4 +2,5 @@
 input_additional.add.xml --route-files input_routes.rou.xml --end 400
 --collision.check-junctions
 --collision.stoptime 30
+--step-length 0.5
 

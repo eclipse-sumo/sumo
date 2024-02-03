@@ -1,0 +1,3 @@
+Error: Attribute 'speedThreshold' in definition of laneAreaDetector 'E2_02' Invalid Number Format (double) dummySpeedThreshold.
+Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Attribute speedThreshold cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e2detector/load/speedthreshold/additionals.add.xml failed.

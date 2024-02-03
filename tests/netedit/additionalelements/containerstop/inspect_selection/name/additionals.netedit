@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-10 09:30:22 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="containerStopA" name="common ContainerStop Name" lane="center1_1" startPos="5.00" endPos="10.00" friendlyPos="true" lines="line1 line2" containerCapacity="10" parkingLength="12.00">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </containerStop>
+    <containerStop id="containerStopB" name="common ContainerStop Name" lane="center1_0" startPos="15.00" endPos="20.00" lines="line3 line4" containerCapacity="20" parkingLength="15.00">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </containerStop>
+</additional>

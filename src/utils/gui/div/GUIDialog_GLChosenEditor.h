@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 #include <utils/foxtools/fxheader.h>
 
 #include <utils/gui/div/GUISelectedStorage.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 
 // ===========================================================================
@@ -44,7 +45,7 @@ class GUIMainWindow;
  * @see GUIMainWindow
  * @see GUISelectedStorage
  */
-class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage::UpdateTarget {
+class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage::UpdateTarget, GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLChosenEditor)
 
@@ -82,7 +83,7 @@ public:
      * Opens a file dialog and forces the selection container to save the list
      *  of selected objects when a file was chosen.
      *
-     * If the saveing failed, a message window is shown.
+     * If the saving failed, a message window is shown.
      *
      * @todo Recheck loading/saving of selections
      */
@@ -115,11 +116,11 @@ protected:
 
 private:
     /// @brief The list that holds the ids
-    FXList* myList;
+    FXList* myList = nullptr;
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIMainWindow* myParent = nullptr;
 
     /// @brief The storage
-    GUISelectedStorage* myStorage;
+    GUISelectedStorage* myStorage = nullptr;
 };

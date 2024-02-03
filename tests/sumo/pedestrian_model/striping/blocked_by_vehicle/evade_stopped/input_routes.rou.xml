@@ -6,9 +6,9 @@
         <stop lane="beg_0" endPos="60" duration="25"/>
     </vehicle>
     <person id="p0" depart="0" departPos="30.0">
-        <walk edges="beg" arrivalPos="80" departPosLat="1.6"/>
+        <walk edges="beg" arrivalPos="80" departPosLat="0"/>
     </person>
     <person id="p1" depart="0" departPos="70.0">
-        <walk edges="beg" arrivalPos="30" departPosLat="1.6"/>
+        <walk edges="beg" arrivalPos="30" departPosLat="0"/>
     </person>
 </routes>

@@ -12,17 +12,12 @@
 
 # tests for tickets in range [4000, 5000[
 4xxx
-
-# collision of long vehicles
-# collision_long_veh (automatically commented due to no test directory being found)
-
-# ticket672 (automatically commented due to no test directory being found)
-
-# ticket777 (automatically commented due to no test directory being found)
-
-# ticket1047 (automatically commented due to no test directory being found)
-
 5xxx
 6xxx
 7xxx
 8xxx
+9xxx
+10xxx
+11xxx
+12xxx
+13xxx

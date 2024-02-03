@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.257156 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 300000
+-->
+
+<battery-export>
+    <timestep interval="0-361">
+        <vehicle id="vehWithCustDepartEnergy" energyConsumed="299.55909999999994" totalEnergyConsumed="9816.9416" totalEnergyRegenerated="598.3154999999997" energyChargedInTransit="0.0" energyChargedStopped="0.0" timeStopped="0.0" aggregateNumber="54.0"/>
+        <vehicle id="vehWithBusStop" energyConsumed="1031.075500000001" totalEnergyConsumed="121812.227" totalEnergyRegenerated="10836.751000000006" energyChargedInTransit="105.5556" energyChargedStopped="1002.7781999999996" timeStopped="1081.0" aggregateNumber="214.0"/>
+        <vehicle id="vehWithChrgStn0" energyConsumed="590.9020999999987" totalEnergyConsumed="38266.9466" totalEnergyRegenerated="2575.091900000001" energyChargedInTransit="211.1112" energyChargedStopped="2375.0009999999997" timeStopped="1035.0" aggregateNumber="117.0"/>
+        <vehicle id="vehWithChrgStn1" energyConsumed="1486.7915000000014" totalEnergyConsumed="235379.96090000006" totalEnergyRegenerated="20655.097100000006" energyChargedInTransit="211.1112" energyChargedStopped="1952.7786000000008" timeStopped="2393.0" aggregateNumber="306.0"/>
+    </timestep>
+</battery-export>

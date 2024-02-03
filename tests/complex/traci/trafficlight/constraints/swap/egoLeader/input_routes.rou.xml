@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 21 Aug 2020 02:28:17 PM CEST by Eclipse SUMO netedit Version v1_6_0+1707-2370e97800
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+    <input>
+        <new value="true"/>
+    </input>
+    <output>
+        <output-file value="/home/kobo/dlr/debug/7435/net.net.xml"/>
+    </output>
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/7435/input_routes.rou.xml"/>
+    </netedit>
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+</configuration>
+d
+a
+h
+j
+n
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <trip id="t0" type="train" depart="0.00" from="h" to="g" departSpeed="max"/>
+    <trip id="t1" type="train" depart="0.00" from="c" to="g" departSpeed="max"/>
+    <trip id="t2" type="train" depart="0.00" from="a" to="g" departSpeed="max"/>
+
+</routes>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @file    duaIterate_analysis.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2012-09-06
 
 from __future__ import absolute_import
@@ -23,32 +24,30 @@ import os
 import sys
 import re
 import glob
-from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.miscutils import Statistics, uMax  # noqa
 from sumolib.output import parse_fast  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <dua-log.txt> [options]"
-    optParser = OptionParser()
-    optParser.add_option("--stdout",
-                         help="also parse the given FILE containing stdout of duaIterate")
-    optParser.add_option("-o", "--output", default="plot",
-                         help="output prefix for plotting with gnuplot")
-    optParser.add_option("-l", "--label-size", default=40, dest="label_size",
-                         help="limit length of the plot label to this size")
-    optParser.add_option("--limit", type=int,  default=uMax,
-                         help="only parse the first INT number of iterations")
-    optParser.add_option("--teleports", default="teleplot",
-                         help="output prefix for plotting teleport-prone edges")
-    optParser.add_option(
-        "--mpl", help="output prefix for matplotlib plots or SHOW for plotting to the display")
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        sys.exit(USAGE)
-    options.dualog = args[0]
+    parser = ArgumentParser()
+    parser.add_argument("--stdout", type=parser.file,
+                        help="also parse the given FILE containing stdout of duaIterate")
+    parser.add_argument("-o", "--output", category="output", default="plot",
+                        help="output prefix for plotting with gnuplot")
+    parser.add_argument("-l", "--label-size", default=40, dest="label_size", type=int,
+                        help="limit length of the plot label to this size")
+    parser.add_argument("--limit", type=int, default=uMax,
+                        help="only parse the first INT number of iterations")
+    parser.add_argument("--teleports", category="output", default="teleplot",
+                        help="output prefix for plotting teleport-prone edges")
+    parser.add_argument("--mpl", category="output",
+                        help="output prefix for matplotlib plots or SHOW for plotting to the display")
+    parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
+    options = parser.parse_args()
+    options.dualog = options.dualog[0]
     return options
 
 
@@ -70,41 +69,41 @@ def parse_dualog(dualog, limit):
     waiting = None
     haveMicrosim = None
     counts = defaultdict(lambda: 0)
-    for line in open(dualog):
-        try:
-            if "Warning: Teleporting vehicle" in line:
-                if haveMicrosim is None:
-                    if "lane='" in line:
-                        haveMicrosim = True
-                        reFrom = re.compile("lane='([^']*)'")
+    with open(dualog) as dualogIn:
+        for line in dualogIn:
+            try:
+                if "Warning: Teleporting vehicle" in line:
+                    if haveMicrosim is None:
+                        if "lane='" in line:
+                            haveMicrosim = True
+                            reFrom = re.compile("lane='([^']*)'")
+                        else:
+                            haveMicrosim = False
+                    teleports += 1
+                    edge = reFrom.search(line).group(1)
+                    if ':' in edge:  # mesosim output
+                        edge = edge.split(':')[0]
+                    counts[edge] += 1
+                elif "Inserted:" in line:
+                    inserted = reInserted.search(line).group(1)
+                    if "Loaded:" in line:  # optional output
+                        loaded = reLoaded.search(line).group(1)
                     else:
-                        haveMicrosim = False
-                teleports += 1
-                edge = reFrom.search(line).group(1)
-                if ':' in edge:  # mesosim output
-                    edge = edge.split(':')[0]
-                counts[edge] += 1
-            elif "Inserted:" in line:
-                inserted = reInserted.search(line).group(1)
-                if "Loaded:" in line:  # optional output
-                    loaded = reLoaded.search(line).group(1)
-                else:
-                    loaded = inserted
-            elif "Running:" in line:
-                running = reRunning.search(line).group(1)
-            elif "Waiting:" in line:
-                iteration = len(step_values)
-                if iteration > limit:
-                    break
-                waiting = reWaiting.search(line).group(1)
-                teleStats.add(teleports, iteration)
-                step_values.append(
-                    [inserted, running, waiting, teleports, loaded])
-                teleports = 0
-                step_counts.append(counts)
-                counts = defaultdict(lambda: 0)
-        except Exception:
-            sys.exit("error when parsing line '%s'" % line)
+                        loaded = inserted
+                elif "Running:" in line:
+                    running = reRunning.search(line).group(1)
+                elif "Waiting:" in line:
+                    iteration = len(step_values)
+                    if iteration > limit:
+                        break
+                    waiting = reWaiting.search(line).group(1)
+                    teleStats.add(teleports, iteration)
+                    step_values.append([inserted, running, waiting, teleports, loaded])
+                    teleports = 0
+                    step_counts.append(counts)
+                    counts = defaultdict(lambda: 0)
+            except Exception:
+                sys.exit("error when parsing line '%s'" % line)
 
     print("  parsed %s steps" % len(step_values))
     print(teleStats)

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-24 15:59:45 by Eclipse SUMO netedit Version v1_11_0+0045-3d546428cd6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\erdm_ja\sumo-dev\tests\tools\misc\generateParkingAreaRerouters\distribute\input_additional.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_A0B0_0_0" lane="A0B0_0" startPos="3.84" endPos="13.84" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_B0C0_0_1" lane="B0C0_0" startPos="3.73" endPos="13.73" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_C0D0_0_2" lane="C0D0_0" startPos="3.07" endPos="13.07" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_D0E0_0_3" lane="D0E0_0" startPos="2.40" endPos="12.40" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_E0F0_0_4" lane="E0F0_0" startPos="4.16" endPos="14.16" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_F0G0_0_5" lane="F0G0_0" startPos="4.98" endPos="14.98" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_G0H0_0_6" lane="G0H0_0" startPos="5.06" endPos="15.06" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_H0I0_0_7" lane="H0I0_0" startPos="4.77" endPos="14.77" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_I0J0_0_8" lane="I0J0_0" startPos="5.78" endPos="15.78" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_J0K0_0_9" lane="J0K0_0" startPos="6.04" endPos="16.04" roadsideCapacity="1"/>
+    <parkingArea id="parkingArea_K0L0_0_10" lane="K0L0_0" startPos="5.93" endPos="15.93" roadsideCapacity="1"/>
+</additional>

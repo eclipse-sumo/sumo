@@ -1,5 +1,20 @@
+# Given parameters comma-separated
+commaSeparated
+
 # No specific parameters given
 defaults
+
+# exclude certain conflict types from output 
+excludeConflictTypes
+
+# log only MDRAC using default threshold.
+onlyMDRAC
+
+# log only MDRAC using increased threshold - expected outcome: no written maxMDRAC because threshold is higher than default
+onlyMDRAC_threshold
+
+# log only MDRAC using default threshold with custom perception/reaction time
+onlyMDRAC_prt
 
 # log only TTC using default threshold.
 onlyTTC
@@ -45,3 +60,12 @@ filter_edges_no_conflict
 
 # White list of edges is given. Conflicts on these edges should be considered.
 filter_edges_with_conflict
+
+# default with option --device.ssm.write-positions
+writePositions_to_globalMeasures
+
+# default with option --device.ssm.write-lane-positions
+writeLanePositions_to_globalMeasures
+
+# default with options --device.ssm.trajectories and --device.ssm.write-lane-positions
+writeLanePositions

@@ -25,7 +25,7 @@ onto the edges of a network. For details, see
 
 You may use a XML schema definition file for setting up a od2trips
 configuration:
-[od2tripsConfiguration.xsd](http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd).
+[od2tripsConfiguration.xsd](https://sumo.dlr.de/xsd/od2tripsConfiguration.xsd).
 
 ### Configuration
 
@@ -38,6 +38,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
 | **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
 | **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
 | **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
 | **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
@@ -49,6 +50,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-n** {{DT_FILE}}<br> **--taz-files** {{DT_FILE}} | Loads TAZ (districts; also from networks) from FILE(s) |
 | **-d** {{DT_FILE}}<br> **--od-matrix-files** {{DT_FILE}} | Loads O/D-files from FILE(s) |
 | **--od-amitran-files** {{DT_FILE}} | Loads O/D-matrix in Amitran format from FILE(s) |
+| **-z** {{DT_FILE}}<br> **--tazrelation-files** {{DT_FILE}} | Loads O/D-matrix in tazRelation format from FILE(s) |
+| **--tazrelation-attribute** {{DT_STR}} | Define data attribute for loading counts (default 'count'); *default:* **count** |
 
 ### Output
 
@@ -64,7 +67,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--flow-output.probability** {{DT_BOOL}} | Writes probabilistic flow instead of evenly spaced flow; *default:* **false** |
 | **--pedestrians** {{DT_BOOL}} | Writes pedestrians instead of vehicles; *default:* **false** |
 | **--persontrips** {{DT_BOOL}} | Writes persontrips instead of vehicles; *default:* **false** |
-| **--persontrips.modes** {{DT_STR[]}} | Add modes attribute to personTrips |
+| **--persontrips.modes** {{DT_STR_LIST}} | Add modes attribute to personTrips |
 | **--ignore-vehicle-type** {{DT_BOOL}} | Does not save vtype information; *default:* **false** |
 | **--junctions** {{DT_BOOL}} | Writes trips between junctions; *default:* **false** |
 
@@ -73,7 +76,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-b** {{DT_TIME}}<br> **--begin** {{DT_TIME}} | Defines the begin time; Previous trips will be discarded; *default:* **0** |
-| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **9223372036854774** |
+| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **-1** |
 
 ### Processing
 
@@ -84,7 +87,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--different-source-sink** {{DT_BOOL}} | Always choose source and sink edge which are not identical; *default:* **false** |
 | **--vtype** {{DT_STR}} | Defines the name of the vehicle type to use |
 | **--prefix** {{DT_STR}} | Defines the prefix for vehicle names |
-| **--timeline** {{DT_STR[]}} | Uses STR[] as a timeline definition |
+| **--timeline** {{DT_STR_LIST}} | Uses STR[] as a timeline definition |
 | **--timeline.day-in-hours** {{DT_BOOL}} | Uses STR as a 24h-timeline definition; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of current time step; *default:* **false** |
 
@@ -112,12 +115,15 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 
 ### Random Number
@@ -134,5 +140,5 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
 # Notes
 
-The option --vtype only works when "--od-matrix-files" is used. For
-"Amitran" format, this is given by the "id" property of "actorConfig".
+* The option --vtype only works when "--od-matrix-files" is used. For "Amitran" format, this is given by the "id" property of "actorConfig".
+* With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](Netedit/editModesData.md).

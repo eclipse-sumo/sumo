@@ -1,0 +1,14 @@
+<routes>
+    <vType id="car"  sigma="0" vClass="truck"/>/> <!-- latAlignment="left"-->
+    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" speedFactor="2"/>
+
+    <route id="right" edges="SC CE"/>
+    <route id="straight" edges="SC CN"/>
+    <route id="left" edges="SC CW"/>
+
+    <flow id="right"    type="car" route="right"    begin="0" number="5" period="2" departLane="0" departSpeed="max"/>
+
+    <vehicle id="rescue" type="rescue" route="right" depart="12" departLane="0" departPos="0"/>
+
+
+</routes>

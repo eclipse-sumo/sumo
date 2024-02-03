@@ -1,72 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04.09.2020 15:38:37 by Eclipse SUMO netedit Version v1_6_0+1978-66ee23b95e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\net.net.xml"/>
-    </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Sep152508.10828\netedit.gui\selection\lockselection\lanes\log.txt"/>
-    </report>
-
-</configuration>
+<!-- generated on 2022-06-03 16:06:30 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e1Detector id="detector1" lane="3_1" pos="30.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector2" lane="3_2" pos="5.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector3" lane="8_1" pos="35.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector4" lane="8_2" pos="10.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector5" lane="4_1" pos="30.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector6" lane="4_2" pos="5.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector7" lane="7_1" pos="35.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <e1Detector id="detector8" lane="7_2" pos="10.00" freq="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <!-- Detectors -->
+    <inductionLoop id="detector1" lane="3_1" pos="30.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector2" lane="3_2" pos="5.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector3" lane="8_1" pos="35.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector4" lane="8_2" pos="10.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector5" lane="4_1" pos="30.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector6" lane="4_2" pos="5.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector7" lane="7_1" pos="35.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <inductionLoop id="detector8" lane="7_2" pos="10.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <!-- Shapes -->
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
     <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
     <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
@@ -74,4 +21,6 @@
     <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
     <poi id="POI_4" color="red" layer="3.00" lane="6_1" pos="28.00" width="0.00" height="0.00"/>
     <poi id="POI_5" color="red" layer="3.00" lane="3_1" pos="12.90" width="0.00" height="0.00"/>
+    <!-- TAZs -->
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
 </additional>

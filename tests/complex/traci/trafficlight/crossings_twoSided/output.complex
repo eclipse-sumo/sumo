@@ -1,0 +1,39 @@
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+trafficlight ('C',)
+trafficlight count 1
+waitingPersons 0
+examining C
+ryg rrrrrrrr
+rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=77.0, state='GGGGrrrr', minDur=77.0, maxDur=77.0), Phase(duration=3.0, state='yyyyrrrr', minDur=3.0, maxDur=3.0), Phase(duration=5.0, state='rrrrGGGG', minDur=5.0, maxDur=5.0), Phase(duration=5.0, state='rrrrGrrG', minDur=5.0, maxDur=5.0), Phase(duration=5.0, state='rrrrrrrr', minDur=5.0, maxDur=5.0, name='setByTraCI')), subParameter={}),)
+lanes ('EC_0', 'EC_1', 'WC_0', 'WC_1', ':C_w2_0', ':C_c1_0', ':C_w1_0', ':C_c2_0')
+links [[('EC_0', 'CW_0', ':C_0_0')], [('EC_1', 'CW_1', ':C_0_1')], [('WC_0', 'CE_0', ':C_2_0')], [('WC_1', 'CE_1', ':C_2_1')], [(':C_w2_0', ':C_c1_0', '')], [(':C_c1_0', ':C_w0_0', '')], [(':C_w1_0', ':C_c2_0', '')], [(':C_c2_0', ':C_w2_0', '')]]
+program 0
+phase 4
+phaseName setByTraCI
+switch 26.0
+duration 5.0
+numDefs=1 numPhases=[5]
+{0: ('C',)}
+step 3
+{0: ('C',)}
+step 4
+{0: ('C',)}
+step 5
+{0: ('C',)}
+caught Invalid tlsLinkIndex 16 for tls 'C' with maximum index 7.
+examining C
+ryg rrrrurrr
+rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=77.0, state='GGGGrrrr', minDur=77.0, maxDur=77.0), Phase(duration=3.0, state='yyyyrrrr', minDur=3.0, maxDur=3.0), Phase(duration=5.0, state='rrrrGGGG', minDur=5.0, maxDur=5.0), Phase(duration=5.0, state='rrrrGrrG', minDur=5.0, maxDur=5.0), Phase(duration=5.0, state='rrrrrrrr', minDur=5.0, maxDur=5.0, name='setByTraCI')), subParameter={}), Logic(programID='online', type=0, currentPhaseIndex=0, phases=(Phase(duration=1.0, state='rrrrurrr', minDur=1.0, maxDur=1.0),), subParameter={}))
+lanes ('EC_0', 'EC_1', 'WC_0', 'WC_1', ':C_w2_0', ':C_c1_0', ':C_w1_0', ':C_c2_0')
+links [[('EC_0', 'CW_0', ':C_0_0')], [('EC_1', 'CW_1', ':C_0_1')], [('WC_0', 'CE_0', ':C_2_0')], [('WC_1', 'CE_1', ':C_2_1')], [(':C_w2_0', ':C_c1_0', '')], [(':C_c1_0', ':C_w0_0', '')], [(':C_w1_0', ':C_c2_0', '')], [(':C_c2_0', ':C_w2_0', '')]]
+program online
+phase 0
+phaseName 
+switch 7.0
+duration 1.0
+set ryg rrrrurrr
+program online
+ryg ooooOOOO

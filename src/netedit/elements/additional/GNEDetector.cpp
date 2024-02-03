@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,12 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -37,30 +34,28 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
-        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, 
-        bool friendlyPos, const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(id, net, type, tag, name, 
-        {}, {}, parentLanes, {}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, double pos, const SUMOTime period,
+                         const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                         const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name, {}, {}, parentLanes, {}, {}, {}),
+              Parameterised(parameters),
+              myPositionOverLane(pos),
+              myPeriod(period),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const std::string& freq, 
-        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, bool friendlyPos, 
-        const std::map<std::string, std::string> &parameters, bool blockMovement) :
-    GNEAdditional(net, type, tag, name, 
-        {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
-        parameters, blockMovement),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
+                         const double pos, const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
+                         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(net, type, tag, icon, name, {}, {}, parentLanes, {additionalParent}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myPeriod(period),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -68,13 +63,16 @@ GNEDetector::~GNEDetector() {}
 
 
 GNEMoveOperation*
-GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
-    // check conditions
-    if (myBlockMovement) {
-        // element blocked, then nothing to move
+GNEDetector::getMoveOperation() {
+    // check modes and detector type
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
         return nullptr;
+    } else if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+        return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
+    } else if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+        return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
     } else {
-        // return move operation for additional placed over shape
+        // return move operation for detectors with single position placed over shape (E1, EntryExits..)
         return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                     myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
     }
@@ -87,25 +85,43 @@ GNEDetector::getPositionOverLane() const {
 }
 
 
+bool
+GNEDetector::checkDrawMoveContour() const {
+    // get edit modes
+    const auto& editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in move mode
+    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+            (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
+        // only move the first element
+        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    } else {
+        return false;
+    }
+}
+
+
 GNELane*
 GNEDetector::getLane() const {
     return getParentLanes().front();
 }
 
 
+Position
+GNEDetector::getPositionInView() const {
+    return myAdditionalGeometry.getShape().getPolygonCenter();
+}
+
+
 void
 GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
+    // nothing to update
 }
 
 void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // obtain new list of E2 lanes
         std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
         // update E2 Lanes
@@ -125,8 +141,9 @@ double
 GNEDetector::getGeometryPositionOverLane() const {
     double fixedPos = myPositionOverLane;
     const double len = getLane()->getParentEdge()->getNBEdge()->getFinalLength();
-    GNEAdditionalHandler::fixSinglePositionOverLane(fixedPos, len);
-    return fixedPos * getLane()->getLengthGeometryFactor();
+    double length = 0;
+    GNEAdditionalHandler::fixLanePosition(fixedPos, length, len);
+    return (fixedPos * getLane()->getLengthGeometryFactor());
 }
 
 
@@ -134,6 +151,12 @@ GNEDetector::getGeometryPositionOverLane() const {
 std::string
 GNEDetector::getParentName() const {
     return getLane()->getID();
+}
+
+
+const Parameterised::Map&
+GNEDetector::getACParametersMap() const {
+    return getParametersMap();
 }
 
 
@@ -150,16 +173,16 @@ GNEDetector::getHierarchyName() const {
 
 
 void
-GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
+GNEDetector::drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,
                          const RGBColor& mainColor, const RGBColor& secondColor) const {
     // push matrix
-    glPushMatrix();
+    GLHelper::pushMatrix();
     // set line width
     glLineWidth(1.0);
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -182,8 +205,8 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     glVertex2d(0, -2 + .1);
     // end draw line
     glEnd();
-    // outline if isn't being drawn for selecting
-    if ((scaledWidth * exaggeration > 1) && !s.drawForRectangleSelection) {
+    // draw center only in draw in level 2
+    if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // set main color
         GLHelper::setColor(secondColor);
         // set polygon mode
@@ -208,71 +231,61 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
         glVertex2d(0, -1.7);
         // end draw line
         glEnd();
+        //arrow
+        glTranslated(2, 0, 0);
+        GLHelper::setColor(mainColor);
+        GLHelper::drawTriangleAtEnd(Position(0, 0), Position(0.5, 0), (double) 0.5, (double) 1);
     }
     // pop matrix
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
-GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
-                              const std::string& logo, const RGBColor& textColor) const {
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
-        // calculate middle point
-        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
+    // only draw in level 2
+    if (d <= GUIVisualizationSettings::Detail::Text) {
         // calculate position
-        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = myAdditionalGeometry.getShape().front();
         // calculate rotation
-        double rot = 0;
-        if (myAdditionalGeometry.getShapeRotations().size() > 0) {
-            rot = myAdditionalGeometry.getShapeRotations().front();
-        } else if (myAdditionalGeometry.getShape().size() > 1)  {
-            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
-        }
+        const double rot = s.getTextAngle(myAdditionalGeometry.getShapeRotations().front() + 90);
         // Start pushing matrix
-        glPushMatrix();
+        GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
-        // rotate over lane
-        GNEGeometry::rotateOverLane(rot);
-        // move
-        glTranslated(-1, 0, 0);
         // scale text
         glScaled(exaggeration, exaggeration, 1);
         // draw E1 logo
-        GLHelper::drawText(logo, Position(), .1, 1.5, textColor);
+        GLHelper::drawText(logo + "     ", Position(), .1, 1.5, textColor, rot);
         // pop matrix
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
 
 void
-GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myPositionOverLane = moveResult.newFirstPos;
-    // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // reset lateral offset
-    myMoveElementLateralOffset = 0;
-    // begin change attribute
-    undoList->p_begin("position of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    // check if lane has to be changed
-    if (moveResult.newFirstLane) {
-        // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
+GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                const double exaggeration, const std::string& logo, const RGBColor& textColor) const {
+    // only draw in level 2
+    if (d <= GUIVisualizationSettings::Detail::Text) {
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double rot = s.getTextAngle(myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 90);
+        // Start pushing matrix
+        GLHelper::pushMatrix();
+        // Traslate to position
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // scale text
+        glScaled(exaggeration, exaggeration, 1);
+        // draw E1 logo
+        GLHelper::drawText(logo, Position(), .1, 1.5, textColor, rot);
+        // pop matrix
+        GLHelper::popMatrix();
     }
-    // end change attribute
-    undoList->p_end();
 }
 
 /****************************************************************************/

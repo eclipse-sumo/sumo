@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="default" carFollowModel="EIDM" sigmaleader="0" sigmagap="0" sigmaerror="0"/>
+    <vehicle id="0" type="default" depart="0" departSpeed="max">
+        <route edges="a b"/>
+    </vehicle>
+</routes>

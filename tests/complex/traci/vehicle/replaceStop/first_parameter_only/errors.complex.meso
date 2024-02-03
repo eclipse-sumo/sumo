@@ -1,0 +1,7 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Answered with error to command 0xc4: Could not set stop parameter for vehicle 'ego' (Triggered stop at index 0 cannot be changed into a waypoint by setting speed to 3.00)
+Warning: Join stops are not available in meso yet (vehicle 'ego', segment 'A1B1:0').
+Warning: Join stops are not available in meso yet (vehicle 'ego', segment 'B1C1:0').
+Warning: Join stops are not available in meso yet (vehicle 'ego', segment 'C1D1:0').
+Warning: Join stops are not available in meso yet (vehicle 'ego', segment 'D1D2:0').
+Warning: Join stops are not available in meso yet (vehicle 'ego', segment 'D2D3:0').

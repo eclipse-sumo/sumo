@@ -7,7 +7,7 @@ TraCI)](../TraCI.md) on a simple example. TraCI gives the
 possibility to control a running road traffic simulation. TraCI uses a
 TCP-based client/server architecture where SUMO acts as a server and the
 external script (the “controller”) is the client. In this tutorial the
-“controller” is a Python-Script which receives information about the
+“controller” is a python script which receives information about the
 simulation state from the server and then sends instructions back.
 
 It is assumed that road network building and routes definition is known
@@ -26,10 +26,10 @@ Our example plays on a simple signalized intersection with four
 approaches. We only have traffic on the horizontal axis and important
 vehicles (like trams, trains, fire engines, ...) on the vertical axis
 from north to south. On the approach in the north we have an induction
-loop to recognize entering vehicles. While no vehicle enters from the
-north we give green on the horizontal axis all the time but when a
+loop to recognize entering vehicles. As long as no vehicle enters from the
+north, we give green on the horizontal axis all the time; but when a
 vehicle enters the induction loop we switch the signal immediately so
-the vehicle can cross the intersection without a stop.
+the vehicle can cross the intersection without stopping.
 
 ![Image:ScreenshotCross.gif](../images/ScreenshotCross.gif "Image:ScreenshotCross.gif")
 
@@ -62,7 +62,7 @@ makes use of the TraCI python API bundled with SUMO. A description of
 the API can be found at
 [TraCI/Interfacing_TraCI_from_Python](../TraCI/Interfacing_TraCI_from_Python.md).
 For a detailed list of available functions see the [pydoc generated
-documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
+documentation](https://sumo.dlr.de/pydoc/traci.html).
 
 # Simulation
 
@@ -76,10 +76,10 @@ Then we start to control the simulation. We let the server simulate one
 simulation step, read the induction loop and switch the phase of the
 traffic light until the end is reached where no vehicle exists on the
 road anymore. If we find a vehicle on the induction loop the phase is
-switched such that the north south direction gets green. If no vehicle
+switched such that the north-south direction gets green. If no vehicle
 is on the detector, and we are not already in the process of switching
 (so EW has still green), we try to keep this phase by simply setting it
-again. At the end we close the connection.
+again. In the end, we close the connection.
 
 # TraCI
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Tue, 17 Jun 2003
 ///
 // Retrieves messages about the process and gives them further to output
@@ -25,6 +26,14 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <chrono>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -34,7 +43,6 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-
 MsgHandler::Factory MsgHandler::myFactory = nullptr;
 MsgHandler* MsgHandler::myDebugInstance = nullptr;
 MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
@@ -42,8 +50,12 @@ MsgHandler* MsgHandler::myErrorInstance = nullptr;
 MsgHandler* MsgHandler::myWarningInstance = nullptr;
 MsgHandler* MsgHandler::myMessageInstance = nullptr;
 bool MsgHandler::myAmProcessingProcess = false;
-bool MsgHandler::myWriteDebugMessages(false);
-bool MsgHandler::myWriteDebugGLMessages(false);
+bool MsgHandler::myWriteDebugMessages = false;
+bool MsgHandler::myWriteDebugGLMessages = false;
+bool MsgHandler::myWriteTimestamps = false;
+bool MsgHandler::myWriteProcessId = false;
+std::string MsgHandler::myErrorPrefix = "Error: ";
+std::string MsgHandler::myWarningPrefix = "Warning: ";
 
 
 // ===========================================================================
@@ -113,6 +125,31 @@ MsgHandler::enableDebugGLMessages(bool enable) {
     myWriteDebugGLMessages = enable;
 }
 
+
+std::string
+MsgHandler::insertLineBreaks(std::string msg, int lineWidth) {
+    // TODO: check what FXFont::getTextWidth can do
+    //int textWidth = getApp()->getNormalFont()->getTextWidth
+    if ((int)msg.size() <= lineWidth) {
+        return msg;
+    }
+    size_t pos = 0;
+    size_t nextLineBreak = msg.find('\n');
+    size_t spaceAfterLine = msg.find(' ', lineWidth);
+    while (spaceAfterLine != std::string::npos) {
+        if (nextLineBreak == std::string::npos || nextLineBreak > spaceAfterLine) {
+            msg = msg.replace(spaceAfterLine, 1, "\n");
+            pos = spaceAfterLine + 1;
+        } else {
+            pos = nextLineBreak + 1;
+        }
+        spaceAfterLine = msg.find(' ', pos + lineWidth);
+        nextLineBreak = msg.find('\n', pos);
+    }
+    return msg;
+}
+
+
 void
 MsgHandler::inform(std::string msg, bool addType) {
     if (addType && !myInitialMessages.empty() && myInitialMessages.size() < 5) {
@@ -147,6 +184,20 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
 
 
 void
+MsgHandler::endProcessMsg2(bool success, long duration) {
+    if (success) {
+        if (duration > -1) {
+            endProcessMsg(TLF("done (%ms).", toString(duration)));
+        } else {
+            endProcessMsg(TL("done."));
+        }
+    } else {
+        endProcessMsg(TL("failed."));
+    }
+}
+
+
+void
 MsgHandler::endProcessMsg(std::string msg) {
     // inform all other receivers
     for (auto i : myRetrievers) {
@@ -160,9 +211,6 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 void
 MsgHandler::clear(bool resetInformed) {
-    if (resetInformed) {
-        myWasInformed = false;
-    }
     if (myAggregationThreshold >= 0) {
         for (const auto& i : myAggregationCount) {
             if (i.second > myAggregationThreshold) {
@@ -178,6 +226,9 @@ MsgHandler::clear(bool resetInformed) {
         }
         myInitialMessages.clear();
         myWasInformed = wasInformed;
+    }
+    if (resetInformed) {
+        myWasInformed = false;
     }
 }
 
@@ -224,6 +275,43 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
     }
 }
 
+
+void
+MsgHandler::setupI18n(const std::string& locale) {
+#ifdef HAVE_INTL
+    if (locale != "") {
+#ifdef WIN32
+        _putenv_s("LANGUAGE", locale.data());
+#else
+        setenv("LANGUAGE", locale.data(), true);
+#endif
+    }
+    if (!setlocale(LC_MESSAGES, "")) {
+        WRITE_WARNINGF(TL("Could not set locale to '%'."), locale);
+    }
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath == nullptr) {
+        if (!bindtextdomain("sumo", nullptr)) {
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, could not find localized messages."));
+            return;
+        }
+    } else {
+        const std::string path = sumoPath + std::string("/data/locale/");
+        if (!bindtextdomain("sumo", path.data())) {
+            WRITE_WARNING(TL("Could not find localized messages."));
+            return;
+        }
+    }
+    bind_textdomain_codeset("sumo", "UTF-8");
+    textdomain("sumo");
+#else
+    UNUSED_PARAMETER(locale);
+#endif
+    myWarningPrefix = TL("Warning: ");
+    myErrorPrefix = TL("Error: ");
+}
+
+
 void
 MsgHandler::initOutputOptions() {
     // initialize console properly
@@ -243,6 +331,12 @@ MsgHandler::initOutputOptions() {
             getWarningInstance()->addRetriever(logFile);
         }
         getMessageInstance()->addRetriever(logFile);
+        if (oc.getBool("log.timestamps")) {
+            myWriteTimestamps = true;
+        }
+        if (oc.getBool("log.processid")) {
+            myWriteProcessId = true;
+        }
     }
     if (oc.isSet("message-log", false)) {
         OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
@@ -273,6 +367,34 @@ MsgHandler::cleanupOnEnd() {
     myDebugInstance = nullptr;
     delete myGLDebugInstance;
     myGLDebugInstance = nullptr;
+}
+
+
+std::string
+MsgHandler::buildTimestampPrefix(void) const {
+    std::stringstream prefix;
+    const std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
+    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
+    const std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
+
+    char timeString[21];
+    std::strftime(timeString, 21, "[%F %T", std::localtime(&now_time_t));
+    prefix << timeString << '.' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
+    return prefix.str();
+}
+
+
+std::string
+MsgHandler::buildProcessIdPrefix(void) const {
+    std::stringstream prefix;
+    prefix << "[PID: ";
+#ifdef WIN32
+    prefix << GetCurrentProcessId();
+#else
+    prefix << getpid();
+#endif
+    prefix << "] ";
+    return prefix.str();
 }
 
 

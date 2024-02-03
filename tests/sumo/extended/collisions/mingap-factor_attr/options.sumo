@@ -1,0 +1,3 @@
+--no-step-log -v --net-file=net.net.xml --additional-files
+input_additional.add.xml --route-files input_routes.rou.xml --end 500
+--collision.action remove

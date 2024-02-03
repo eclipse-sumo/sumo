@@ -1,0 +1,4 @@
+Error: Attribute 'endPos' in definition of chargingStation 'chargingStation_8' Invalid Number Format (double) dummyEndPosition.
+Error: Could not build chargingStation with ID 'chargingStation_9' in netedit; Invalid position over lane.
+Error: Could not build chargingStation with ID 'chargingStation_10' in netedit; Invalid position over lane.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\chargingstation\load\endpos\additionals.add.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,6 +84,14 @@ public:
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
     static double getAvgDepartDelay();
+    static double getAvgDepartDelayWaiting();
+    static double getTotalDepartDelay();
+
+    static double getAvgBikeRouteLength();
+    static double getAvgBikeTripSpeed();
+    static double getAvgBikeDuration();
+    static double getAvgBikeWaitingTime();
+    static double getAvgBikeTimeLoss();
 
     static double getAvgWalkRouteLength();
     static double getAvgWalkDuration();
@@ -172,6 +180,17 @@ public:
      */
     void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief update stopping time for meso
+    void updateStopTime(const SUMOTime time) {
+        myStoppingTime += time;
+    }
+
+
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to retrieve the given parameter from the global statistics. Throw exception for unsupported key
+    static std::string getGlobalParameter(const std::string& prefixedKey);
 
 private:
     /** @brief Constructor
@@ -193,7 +212,7 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double /* meanLengthOnLane */);
+                            const double meanLengthOnLane);
 
     /// @brief update stopping time after parking
     void updateParkingStopTime();
@@ -201,6 +220,8 @@ protected:
     static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index);
 
     static void writeRideStatistics(OutputDevice& od, const std::string& category, const int index);
+
+    static bool lowAcceleration(const SUMOTrafficObject& veh);
 
 private:
     /// @brief The lane the vehicle departed at
@@ -255,8 +276,8 @@ private:
     static std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> myPendingOutput;
 
     /// @brief global tripinfo statistics
-    static long myVehicleCount;
-    static long myUndepartedVehicleCount;
+    static int myVehicleCount;
+    static int myUndepartedVehicleCount;
     static double myTotalRouteLength;
     static double myTotalSpeed;
     static SUMOTime myTotalDuration;
@@ -265,7 +286,15 @@ private:
     static SUMOTime myTotalDepartDelay;
     static SUMOTime myWaitingDepartDelay;
 
-    static long myWalkCount;
+    /// @brief separate values for bicycles
+    static int myBikeCount;
+    static double myTotalBikeRouteLength;
+    static double myTotalBikeSpeed;
+    static SUMOTime myTotalBikeDuration;
+    static SUMOTime myTotalBikeWaitingTime;
+    static SUMOTime myTotalBikeTimeLoss;
+
+    static int myWalkCount;
     static double myTotalWalkRouteLength;
     static SUMOTime myTotalWalkDuration;
     static SUMOTime myTotalWalkTimeLoss;
@@ -276,7 +305,7 @@ private:
     static std::vector<int> myRideTaxiCount;
     static std::vector<int> myRideBikeCount;
     static std::vector<int> myRideAbortCount;
-    static std::vector<double> myTotalRideWaitingTime;
+    static std::vector<SUMOTime> myTotalRideWaitingTime;
     static std::vector<double> myTotalRideRouteLength;
     static std::vector<SUMOTime> myTotalRideDuration;
 

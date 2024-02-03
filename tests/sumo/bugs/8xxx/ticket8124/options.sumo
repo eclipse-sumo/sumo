@@ -1,0 +1,5 @@
+--no-step-log --net-file=net.net.xml
+-t
+-r input_routes.rou.xml
+-e 600
+--step-length 0.2

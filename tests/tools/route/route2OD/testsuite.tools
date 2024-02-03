@@ -1,0 +1,21 @@
+# Trips are defined with TAZ instead of edges. But the option edgeod is active.
+trips_no_edgeod
+
+# Trips are defined with TAZ instead of edges.
+trips_taz
+
+# load vehicles in standard form
+simple
+
+# load taz defined with tazSource and tazSink elements
+SourceSinks
+
+# load vehicles in standard form
+interval
+trips
+
+# generate edge-based OD
+edge
+
+# edge is part of two taz
+ambiguous_taz

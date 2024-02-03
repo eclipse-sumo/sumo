@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:04 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-11-09 22:44:56 by Eclipse SUMO netconvert Version v1_15_0+0083-092bfa1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,58 +26,57 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-690084.16,-5335366.27" convBoundary="0.00,0.00,600.07,286.25" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0" index="0" allow="bicycle" speed="13.89" length="18.84" width="3.50" shape="375.04,166.34 368.21,166.54 363.30,167.71 360.29,169.84 359.19,172.92"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0" index="0" allow="bicycle" speed="13.89" length="18.84" width="1.85" shape="375.04,166.34 368.21,166.54 363.30,167.71 360.29,169.84 359.19,172.92"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0" index="0" allow="bicycle" speed="13.89" length="38.77" width="1.50" shape="375.04,166.34 336.30,164.79"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0" index="0" allow="bicycle" speed="13.89" length="24.00" width="3.50" shape="373.50,166.28 372.25,166.24 357.76,165.99 353.55,167.48 350.79,167.80 350.80,166.79"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0" index="0" allow="bicycle" speed="13.89" length="24.00" width="1.85" shape="373.50,166.28 372.25,166.24 357.76,165.99 353.55,167.48 350.79,167.80 350.80,166.79"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="10.41" width="3.50" shape="379.04,163.93 370.14,164.22 368.68,164.58"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="13.70" width="3.50" shape="379.04,163.93 370.14,164.22 365.49,165.37"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="42.77" width="3.50" shape="379.04,163.93 336.31,162.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.23" width="3.50" shape="379.13,160.68 367.28,159.38 365.10,158.61"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="7.87" width="3.50" shape="379.13,160.68 371.31,159.82"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" allow="bicycle" speed="13.89" length="21.43" width="3.50" shape="350.80,166.79 350.86,161.94 350.99,157.02 350.95,152.83 351.72,145.40"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" allow="bicycle" speed="13.89" length="21.43" width="1.85" shape="350.80,166.79 350.86,161.94 350.99,157.02 350.95,152.83 351.72,145.40"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.40" width="3.50" shape="368.68,164.58 363.73,165.81 359.81,168.70 358.37,172.89"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="11.12" width="3.50" shape="365.49,165.37 363.73,165.81 359.81,168.70 358.37,172.89"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="19.70" width="3.50" shape="365.10,158.61 358.90,156.43 353.99,151.84 352.55,145.61"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="26.06" width="3.50" shape="371.31,159.82 367.28,159.38 358.90,156.43 353.99,151.84 352.55,145.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0" index="0" allow="bicycle" speed="13.89" length="19.23" width="1.50" shape="360.35,143.15 360.94,148.06 363.18,151.63 367.07,153.85 372.60,154.73"/>
@@ -82,41 +86,41 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="29.87" width="3.50" shape="356.22,143.11 356.41,151.28 357.22,159.87 358.06,167.53 358.37,172.89"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0" index="0" allow="bicycle" speed="13.89" length="5.52" width="1.50" shape="355.35,143.07 354.49,148.52"/>
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="8.49" width="3.50" shape="356.22,143.11 354.72,151.47"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0" index="0" allow="bicycle" speed="13.89" length="9.14" width="1.50" shape="355.35,143.07 353.92,152.10"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="5.02" width="3.50" shape="356.22,143.11 355.33,148.05"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" index="0" allow="bicycle" speed="13.89" length="27.21" width="1.50" shape="354.49,148.52 353.82,152.75 350.13,159.59 344.29,163.60 336.30,164.79"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" index="0" allow="bicycle" speed="13.89" length="23.59" width="1.50" shape="353.92,152.10 353.82,152.75 350.13,159.59 344.29,163.60 336.30,164.79"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="22.93" width="3.50" shape="354.72,151.47 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="26.40" width="3.50" shape="355.33,148.05 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" allow="bicycle" speed="13.89" length="19.83" width="3.50" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" allow="bicycle" speed="13.89" length="19.83" width="1.85" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0" index="0" allow="bicycle" speed="13.89" length="37.49" width="1.50" shape="335.16,152.77 372.60,154.73"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0" index="0" allow="bicycle" speed="13.89" length="27.12" width="3.50" shape="335.16,152.77 337.00,152.81 348.42,153.11 353.22,153.40 357.54,151.97 361.70,151.95 361.70,152.29"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0" index="0" allow="bicycle" speed="13.89" length="27.12" width="1.85" shape="335.16,152.77 337.00,152.81 348.42,153.11 353.22,153.40 357.54,151.97 361.70,151.95 361.70,152.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="9.16" width="3.50" shape="332.99,155.26 341.39,154.84 342.10,154.63"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="11.96" width="3.50" shape="332.99,155.26 341.39,154.84 344.80,153.86"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="39.54" width="3.50" shape="332.99,155.26 372.47,157.23"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="15.45" width="3.50" shape="332.95,158.51 344.27,159.66 348.11,160.99"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="12.28" width="3.50" shape="332.95,158.51 344.27,159.66 345.12,159.95"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" allow="bicycle" speed="13.89" length="20.97" width="3.50" shape="361.70,152.29 361.64,158.96 361.35,162.97 360.52,167.30 359.34,173.05"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" allow="bicycle" speed="13.89" length="20.97" width="1.85" shape="361.70,152.29 361.64,158.96 361.35,162.97 360.52,167.30 359.34,173.05"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="15.01" width="3.50" shape="342.10,154.63 347.45,153.09 351.17,150.01 352.55,145.61"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="12.20" width="3.50" shape="344.80,153.86 347.45,153.09 351.17,150.01 352.55,145.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="17.06" width="3.50" shape="348.11,160.99 352.28,162.44 356.98,166.85 358.37,172.89"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="20.23" width="3.50" shape="345.12,159.95 352.28,162.44 356.98,166.85 358.37,172.89"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0" index="0" allow="bicycle" speed="13.89" length="19.82" width="1.50" shape="350.75,174.77 349.99,170.54 347.33,167.47 342.77,165.55 336.30,164.79"/>
@@ -126,10 +130,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="29.36" width="3.50" shape="354.88,174.85 354.65,166.77 353.79,158.35 352.88,150.88 352.55,145.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="8.04" width="3.50" shape="354.88,174.85 356.25,166.93"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="4.28" width="3.50" shape="354.88,174.85 355.61,170.63"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="20.31" width="3.50" shape="356.25,166.93 359.64,161.36 365.05,158.12 372.47,157.23"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="24.06" width="3.50" shape="355.61,170.63 356.25,166.93 359.64,161.36 365.05,158.12 372.47,157.23"/>
     </edge>
 
     <edge id="EW1" from="gneJ10" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="583.53,166.27 376.20,158.95">
@@ -208,15 +212,15 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ6" type="dead_end" x="360.47" y="0.00" incLanes="" intLanes="" shape="360.47,0.00 366.96,0.27"/>
     <junction id="gneJ9" type="dead_end" x="600.07" y="166.42" incLanes="WE2_0 WE2_1" intLanes="" shape="600.23,161.42 600.07,166.42"/>
 
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" type="internal" x="350.80" y="166.79" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" type="internal" x="368.68" y="164.58" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 EW1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" type="internal" x="365.10" y="158.61" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" type="internal" x="354.49" y="148.52" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" type="internal" x="354.72" y="151.47" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" type="internal" x="361.70" y="152.29" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 EW1_0 EW1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" type="internal" x="342.10" y="154.63" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 WE1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" type="internal" x="348.11" y="160.99" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 EW1_0 EW1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" type="internal" x="356.25" y="166.93" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0 SN1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" type="internal" x="350.80" y="166.79" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 EW1_1 EW1_2 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" type="internal" x="365.49" y="165.37" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 EW1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" type="internal" x="371.31" y="159.82" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" type="internal" x="353.92" y="152.10" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" type="internal" x="355.33" y="148.05" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" type="internal" x="361.70" y="152.29" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 EW1_0 EW1_1 WE1_1 WE1_2" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" type="internal" x="344.80" y="153.86" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 WE1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" type="internal" x="345.12" y="159.95" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 EW1_0 EW1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" type="internal" x="355.61" y="170.63" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0 SN1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>
 
     <connection from="EW1" to="SN2" fromLane="0" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="0" dir="r" state="O"/>
     <connection from="EW1" to="EW2" fromLane="0" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="1" dir="s" state="O"/>

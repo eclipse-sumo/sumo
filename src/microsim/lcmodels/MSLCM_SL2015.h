@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,8 +40,8 @@ public:
     virtual ~MSLCM_SL2015();
 
     /// @brief Returns the model's id
-    LaneChangeModel getModelID() const {
-        return LCM_SL2015;
+    LaneChangeModel getModelID() const override {
+        return LaneChangeModel::SL2015;
     }
 
     /// @brief init cached parameters derived directly from model parameters
@@ -67,7 +67,7 @@ public:
                            const std::vector<MSVehicle::LaneQ>& preb,
                            MSVehicle** lastBlocked,
                            MSVehicle** firstBlocked,
-                           double& latDist, double& maneuverDist, int& blocked);
+                           double& latDist, double& maneuverDist, int& blocked) override;
 
     /** @brief Called to examine whether the vehicle wants to change
      * using the given laneOffset (this is a wrapper around wantsChangeSublane). XXX: no, it wraps _wantsChangeSublane
@@ -86,9 +86,9 @@ public:
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
         MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked);
+        MSVehicle** firstBlocked) override;
 
-    void* inform(void* info, MSVehicle* sender);
+    void* inform(void* info, MSVehicle* sender) override;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *         It uses information on LC-related desired speed-changes from
@@ -101,39 +101,45 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     double patchSpeed(const double min, const double wanted, const double max,
-                      const MSCFModel& cfModel);
-    /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
-                       const MSCFModel& cfModel);
+                      const MSCFModel& cfModel) override;
 
-    void changed();
+    void changed() override;
 
-    double getSafetyFactor() const;
+    void resetState() override;
 
-    double getOppositeSafetyFactor() const;
+    double getSafetyFactor() const override;
 
-    void prepareStep();
+    double getOppositeSafetyFactor() const override;
+
+    void prepareStep() override;
+
+    double getExtraReservation(int bestLaneOffset) const override;
 
     /// @brief whether the current vehicles shall be debugged
-    bool debugVehicle() const;
+    bool debugVehicle() const override;
 
-    void setOwnState(const int state);
+    void setOwnState(const int state) override;
 
     /// @brief Updates the value of safe lateral distances (mySafeLatDistLeft and mySafeLatDistRight)
     ///        during maneuver continuation in non-action steps.
-    virtual void updateSafeLatDist(const double travelledLatDist);
+    virtual void updateSafeLatDist(const double travelledLatDist) override;
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this laneChangeModel. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    double computeSpeedLat(double latDist, double& maneuverDist) const;
+    double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
+
+    LatAlignmentDefinition getDesiredAlignment() const override;
 
 protected:
+    /** helper function which contains the actual logic */
+    double _patchSpeed(double min, const double wanted, double max,
+                       const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
     int _wantsChangeSublane(
@@ -184,13 +190,11 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(const MSVehicle* blocker, int lcaCounter);
-
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) {
-        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    };
+    bool saveBlockerLength(double length, double foeLeftSpace) override;
+
+    /// @brief whether the ego vehicle is driving outside edgebounds
+    bool outsideEdge() const;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
@@ -215,19 +219,11 @@ protected:
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<double, int> Info;
 
-    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
-     *         and stores it into myLCAccelerationAdvices.
-     *  @note  This construction was introduced to deal with action step lengths,
-     *         where operation on the speed in the next sim step had to be replaced by acceleration
-     *         throughout the next action step.
-     */
-    void addLCSpeedAdvice(const double vSafe);
-
     /// @brief update expected speeds for each sublane of the current edge
-    void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex);
+    void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) override;
 
     /// @brief decide in which direction to move in case both directions are desirable
-    StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const;
+    StateAndDist decideDirection(StateAndDist sd1, StateAndDist sd2) const override;
 
     /// @brief return the most important change reason
     static int lowest_bit(int changeReason);
@@ -241,7 +237,9 @@ protected:
     int computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge);
 
     /// @brief get the longest vehicle in the given info
-    static CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi);
+    CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi) const;
+
+    bool tieBrakeLeader(const MSVehicle* veh) const;
 
     /// @brief get the slowest vehicle in the given info
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
@@ -262,7 +260,7 @@ protected:
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
-                              double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
+                              int laneOffset, double latDist, double foeOffset, bool leaders,
                               double& safeLatGapRight, double& safeLatGapLeft,
                               std::vector<CLeaderDist>* collectBlockers = 0) const;
 
@@ -275,6 +273,7 @@ protected:
     /// @brief compute strategic lane change actions
     /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
+                             const MSLane& neighLane,
                              int laneOffset,
                              const MSLeaderDistanceInfo& leaders,
                              const MSLeaderDistanceInfo& neighLeaders,
@@ -292,6 +291,9 @@ protected:
                              double& latDist
                             );
 
+
+    bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+                             double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
@@ -338,6 +340,9 @@ protected:
     /// @brief compute speed when committing to an urgent change that is safe in regard to leading vehicles
     double commitFollowSpeed(double speed, double latDist, double secondsToLeaveLane, const MSLeaderDistanceInfo& leaders, double foeOffset) const;
 
+    /// @brief estimate average speed over mySpeedGainLookahead time
+    double forecastAverageSpeed(double vSafe, double vMax, double gap, double vLeader) const;
+
     /// @brief compute speedGain when moving by the given amount
     double computeSpeedGain(double latDistSublane, double defaultNextSpeed) const;
 
@@ -356,6 +361,19 @@ protected:
     /// @brief return the right offset of the neighboring lane relative to the current edge
     double getNeighRight(const MSLane& neighLane) const;
 
+    /* @brief check whether vehicle speed is appropriate for the intended maneuver distance
+     * (rather than doing an orthgonal slide) */
+    bool preventSliding(double maneuverDist) const;
+
+    /// @brief check against thresholds
+    inline bool wantsKeepRight(double keepRightProb) const;
+
+    /// @brief check whether lane is an upcoming bidi lane
+    bool isBidi(const MSLane* lane) const;
+
+    /// @brief avoid unsafe lateral speed (overruling lcAccelLat)
+    double emergencySpeedLat(double speedLat) const;
+
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial
     double mySpeedGainProbabilityRight;
@@ -373,10 +391,6 @@ protected:
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
-
-    /// @brief vector of LC-related acceleration recommendations
-    ///        Filled in wantsChange() and applied in patchSpeed()
-    std::vector<double> myLCAccelerationAdvices;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
     std::vector<double> myExpectedSublaneSpeeds;
@@ -406,6 +420,8 @@ protected:
     double myKeepRightParam;
     double myOppositeParam;
     double mySublaneParam;
+    // @brief minimum lateral gap
+    double myMinGapLat;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
     double myPushy;
     // @brief willingness to undercut longitudinal safe gaps
@@ -433,6 +449,8 @@ protected:
     double myCooperativeSpeed;
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;
+    // @brief speed difference factor for overtaking the leader on the neighbor lane before changing to that lane
+    double myOvertakeDeltaSpeedFactor;
     //@}
 
     /// @name derived parameters

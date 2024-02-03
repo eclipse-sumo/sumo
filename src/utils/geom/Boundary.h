@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@
 #include <utility>
 
 #include "AbstractPoly.h"
-#include "Position.h"
+#include "PositionVector.h"
 
 
 // ===========================================================================
@@ -94,8 +94,12 @@ public:
 
     /// @name inherited from AbstractPoly
     /// @{
+
     /// @brief Returns whether the boundary contains the given coordinate
     bool around(const Position& p, double offset = 0) const;
+
+    /// @brief Returns whether the boundary contains the given 2D coordinate
+    bool around2D(const Position& p, double offset = 0) const;
 
     /// @brief Returns whether the boundary overlaps with the given polygon
     bool overlapsWith(const AbstractPoly& poly, double offset = 0) const;
@@ -105,7 +109,11 @@ public:
 
     /// @brief Returns whether the boundary crosses the given line
     bool crosses(const Position& p1, const Position& p2) const;
+
     /// @}
+
+    /// @brief return true if this boundary contains the given boundary (only X-Y)
+    double contains(const Boundary& b) const;
 
     /// @brief check if Boundary is Initialised
     bool isInitialised() const;
@@ -121,6 +129,11 @@ public:
      */
     Boundary& grow(double by);
 
+    /**@brief scale the boundary by the given amount
+     * @return a reference to the instance for further use
+     */
+    Boundary& scale(double by);
+
     /// @brief Increases the width of the boundary (x-axis)
     void growWidth(double by);
 
@@ -133,8 +146,14 @@ public:
     /// @brief Sets the boundary to the given values
     void set(double xmin, double ymin, double xmax, double ymax);
 
+    /// @brief Sets the boundary to the given values, ignoring min < max constraints
+    void setOffsets(double xmin, double ymin, double xmax, double ymax);
+
     /// @brief Moves the boundary by the given amount
     void moveby(double x, double y, double z = 0);
+
+    /// @brief get position vector (shape) based on this boundary
+    PositionVector getShape(const bool closeShape) const;
 
     /// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);

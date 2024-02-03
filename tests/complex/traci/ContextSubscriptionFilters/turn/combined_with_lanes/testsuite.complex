@@ -1,0 +1,5 @@
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m as well as all vehicles on lanes [-1, 0, 1] relative to the ego vehicle up to 50m downstream.
+down50_up0_foeDistToJunction50
+
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m as well as all vehicles on the ego vehicle's edge up to 50m downstream.
+noOpposite_down50_up0_foeDistToJunction50

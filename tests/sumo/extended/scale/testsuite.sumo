@@ -1,0 +1,35 @@
+# equidistance scaling of flow by 2
+flow_2
+
+# equidistance scaling of flow by 0.66
+flow_0.66
+
+# proportional scaling of probabilisitic flow by 2
+flow_prob_2
+
+# proportional scaling of probabilisitic flow by 0.5
+flow_prob_0.5
+
+# proportional scaling of probabilisitic flow by 2 (number instead of end defined)
+flow_number_prob_2
+
+# prevent id collision by using another suffix
+scale-suffix
+
+# load two types and scale them differently
+typeScale_1_2
+
+# load two types and scale them differently, also use global scale
+typeScale_1_2_scale2
+
+# load two types and scale them differently, also use global scale
+typeScale_1_2_scale0.5
+
+# load two types and scale them differently
+flow_typeScale_1_2
+
+# fair sampling from vTypeDistribution when upscaling flow
+flow_10_typeDist
+
+# fair sampling from vTypeDistribution when upscaling a vehicle
+10_typeDist

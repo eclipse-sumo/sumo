@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,9 +29,13 @@
 """
 
 import os
+import sys
 import numpy as np
 # import pandas as pd         # want to drop that dep
 import lxml.etree as lET
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 # polygon & POI
 # http://www.sumo.dlr.de/userdoc/Simulation/Shapes.html
@@ -144,16 +148,13 @@ def extract_lanes_width_data(rte, ):
 
 
 if __name__ == "__main__":
-
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("xodr_file", type=str,
-                        help="file path of open drive file")
-    parser.add_argument("net_file", type=str,
-                        help="file path of net file")
-    # parser.add_argument("workLog", type=str, help="work log file")
-    args = parser.parse_args()
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("xodr_file", category="input", required=True,
+                    help="file path of open drive file")
+    op.add_argument("net_file", category="input", required=True,
+                    help="file path of net file")
+    # op.add_argument("workLog", type=str, help="work log file")
+    args = op.parse_args()
 
     net_Fp = args.net_file  # td_Dp+'/sumo/net.net.xml'
     xodr_Fp = args.xodr_file  # td_Dp+'/OpenDrive/scen_T01.02.xodr'
@@ -182,10 +183,10 @@ if __name__ == "__main__":
     # edge_df = pd.DataFrame(edge_ids, columns=('rd_ref','lin_m',))   # 'lane'))
     # edge_df.lin_m = edge_df.lin_m.astype(float)
 
-    lane_ids = (l.attrib['id'].split('.', 1) for l in nlanes)
+    lane_ids = (lane.attrib['id'].split('.', 1) for lane in nlanes)
     lane_ids = ([c, l[0], ] + l[1].split('_') for c, l in enumerate(lane_ids))
     lane_ra = lol_T(list(lane_ids))
-    lane_ra.append([l.attrib['width'] for l in nlanes])
+    lane_ra.append([lane.attrib['width'] for lane in nlanes])
     # get max len of string id
     idS_max = max(map(len, lane_ra[1]))
     lane_ra = np.rec.fromarrays(lane_ra, names=('index', 'rd_ref', 'lin_m', 'lane', 'width'),
@@ -242,7 +243,7 @@ if __name__ == "__main__":
             poi['pos'] = "%e" % (lin_m - max_lin_m)
 
             # get the fitting laneSection from xodr
-            # find last upstream elementa by s offsets of the starts
+            # find last upstream element by s offsets of the starts
             ls_soff = np.r_[r.xpath('.//ns:laneSection/@s',
                                     namespaces={'ns': xodr_ns})].astype(float)
             ls_ind = find_upstream_lin_m(ls_soff, lin_m)

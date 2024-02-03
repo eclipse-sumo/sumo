@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,11 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNENetworkElement.h"
 
@@ -28,17 +33,15 @@
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
+GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
                                      const std::vector<GNEJunction*>& junctionParents,
                                      const std::vector<GNEEdge*>& edgeParents,
                                      const std::vector<GNELane*>& laneParents,
                                      const std::vector<GNEAdditional*>& additionalParents,
-                                     const std::vector<GNEShape*>& shapeParents,
-                                     const std::vector<GNETAZElement*>& TAZElementParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GUIGlObject(type, id, icon),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }
 
@@ -46,14 +49,14 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
 GNENetworkElement::~GNENetworkElement() {}
 
 
-const std::string&
-GNENetworkElement::getID() const {
-    return getMicrosimID();
+GUIGlObject*
+GNENetworkElement::getGUIGlObject() {
+    return this;
 }
 
 
-GUIGlObject*
-GNENetworkElement::getGUIGlObject() {
+const GUIGlObject*
+GNENetworkElement::getGUIGlObject() const {
     return this;
 }
 
@@ -67,6 +70,20 @@ GNENetworkElement::setShapeEdited(const bool value) {
 bool
 GNENetworkElement::isShapeEdited() const {
     return myShapeEdited;
+}
+
+
+bool
+GNENetworkElement::GNENetworkElement::isNetworkElementValid() const {
+    // implement in children
+    return true;
+}
+
+
+std::string
+GNENetworkElement::GNENetworkElement::getNetworkElementProblem() const {
+    // implement in children
+    return "";
 }
 
 
@@ -89,21 +106,41 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
 }
 
 
-Boundary
-GNENetworkElement::getCenteringBoundary() const {
-    return myBoundary;
+bool
+GNENetworkElement::isGLObjectLocked() const {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    } else {
+        return true;
+    }
 }
 
 
 void
-GNENetworkElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
+GNENetworkElement::markAsFrontElement() {
+    myNet->getViewNet()->setFrontAttributeCarrier(this);
 }
 
 
 void
-GNENetworkElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
+GNENetworkElement::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+}
+
+
+const std::string
+GNENetworkElement::getOptionalName() const {
+    try {
+        return getAttribute(SUMO_ATTR_NAME);
+    } catch (InvalidArgument&) {
+        return "";
+    }
 }
 
 
@@ -132,9 +169,33 @@ GNENetworkElement::getHierarchyName() const {
 
 
 void
-GNENetworkElement::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNENetworkElement::setNetworkElementID(const std::string& newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // enable save add elements if this network element has children
+    if (getChildAdditionals().size() > 0) {
+        myNet->getSavingStatus()->requireSaveAdditionals();
+    }
+    // enable save demand elements if this network element has children
+    if (getChildDemandElements().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDemandElements();
+    }
+    // enable save data elements if this network element has children
+    if (getChildGenericDatas().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDataElements();
+    }
 }
 
+
+bool
+GNENetworkElement::checkDrawingBoundarySelection() const {
+    if (!gViewObjectsHandler.getSelectionBoundary().isInitialised()) {
+        return true;
+    } else if (!gViewObjectsHandler.isElementSelected(this)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /****************************************************************************/

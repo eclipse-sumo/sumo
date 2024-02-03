@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 21 17:19:37 2021 by Eclipse SUMO sumo Version v1_8_0+0648-16ba97d7de
+<!-- generated on 2022-03-29 15:43:12 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_8_0+0648-16ba97d7de" time="10.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="10.00" type="micro">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" begin="2" end="0" depart="5.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" actionStepLength="3.00"/>
@@ -45,12 +50,12 @@ SPDX-License-Identifier: EPL-2.0
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="DEFAULT_VEHTYPE type0 type1" probabilities="1.00 1.00 1.00"/>
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" distance="7 0" speedFactor="1.00" state="17410 0 1 5.10 0 2.77 9000 0 0" pos="51.94 46.94 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" distance="7 0" speedFactor="1.0000" state="34818 0 1 5.10 0 2.77 9000 0 0" pos="51.94 46.94 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
         <device id="vehroute_v0" state="0 0.00 0.00 5.10 0"/>
     </vehicle>
-    <vehicle id="v1" type="type2" depart="0.00" route="r0" distance="7 0" speedFactor="1.00" state="1026 5000 1 5.10 0 1.67 9000 0 0" pos="2.90 4.90 2.30" speed="3.60 1.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="v1" type="type2" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 5000 1 5.10 0 1.67 9000 0 0" pos="2.90 4.90 2.30" speed="3.60 1.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_v1" state="0 0.00 0.00 5.10 0"/>
     </vehicle>
     <lane id="middle_0">

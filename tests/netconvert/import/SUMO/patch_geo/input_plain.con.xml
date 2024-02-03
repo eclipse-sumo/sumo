@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-28 14:15:12 by Eclipse SUMO netconvert Version v1_12_0+2358-3780045
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-239924883" to="-304426109#0" fromLane="0" toLane="0"/>
+    <connection from="-239924883" to="239924883" fromLane="0" toLane="0"/>
+
+    <connection from="-304426109#0"/>
+
+    <connection from="-4930543#0" to="-239924883" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="-4930543#0" to="4930543#0" fromLane="0" toLane="0"/>
+
+    <connection from="239924883" to="4930543#0" fromLane="0" toLane="0" keepClear="0"/>
+    <connection from="239924883" to="-239924883" fromLane="0" toLane="0"/>
+
+    <connection from="304426109#0" to="239924883" fromLane="0" toLane="0"/>
+    <connection from="304426109#0" to="-304426109#0" fromLane="0" toLane="0"/>
+
+    <connection from="4930543#0" to="-4930543#0" fromLane="0" toLane="0"/>
+
+</connections>

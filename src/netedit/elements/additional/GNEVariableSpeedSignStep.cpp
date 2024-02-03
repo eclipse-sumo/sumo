@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,24 +29,65 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string &speed) :
-    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "",
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
-        std::map<std::string, std::string>(), false),
-    myTime(time),
-    mySpeed(speed) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
+    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP),
+                  "", {}, {}, {}, {}, {}, {}),
+myTime(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
+    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP),
+                  "", {}, {}, {}, {variableSpeedSignParent}, {}, {}),
+myTime(time),
+mySpeed(speed) {
+    // update boundary of rerouter parent
+    variableSpeedSignParent->updateCenteringBoundary(true);
 }
 
 
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
+void
+GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_STEP);
+    device.writeAttr(SUMO_ATTR_TIME, time2string(myTime));
+    device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    device.closeTag();
+}
+
+
+bool
+GNEVariableSpeedSignStep::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSignStep::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSignStep::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
-GNEVariableSpeedSignStep::getMoveOperation(const double /*shapeOffset*/) {
+GNEVariableSpeedSignStep::getMoveOperation() {
     // VSS Steps cannot be moved
     return nullptr;
+}
+
+
+bool
+GNEVariableSpeedSignStep::checkDrawMoveContour() const {
+    return false;
 }
 
 
@@ -58,14 +99,25 @@ GNEVariableSpeedSignStep::getTime() const {
 
 void
 GNEVariableSpeedSignStep::updateGeometry() {
-    // This additional doesn't own a geometry
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
+}
+
+
+Position
+GNEVariableSpeedSignStep::getPositionInView() const {
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNEVariableSpeedSignStep::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    // nothing to do
 }
 
 
@@ -82,8 +134,11 @@ GNEVariableSpeedSignStep::getParentName() const {
 
 
 void
-GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
+    // draw rerouter interval as listed attribute
+    drawListedAdditional(s, getParentAdditionals().front()->getPositionInView(),
+                         0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
+                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h");
 }
 
 
@@ -91,15 +146,15 @@ std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_TIME:
             return time2string(myTime);
         case SUMO_ATTR_SPEED:
             return mySpeed;
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -117,6 +172,12 @@ GNEVariableSpeedSignStep::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNEVariableSpeedSignStep::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -125,8 +186,8 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
     switch (key) {
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
-        case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+        case GNE_ATTR_SELECTED:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -162,17 +223,11 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<double>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEVariableSpeedSignStep::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -200,8 +255,12 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_SPEED:
             mySpeed = value;
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -13,6 +13,9 @@ two_same_vehicles
 # two vehicles are moving; the first runs with 10m/s, the second with 9m/s
 two_vehicles_diff_speed
 
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+human_readable_times
+
 # two vehicles are moving; the first is 5m long, the second 15m
 two_vehicles_diff_length
 
@@ -42,6 +45,9 @@ depart_triggered_delayed
 
 # disable tripinfo output by default and enable it for selected vType
 enable_by_type
+
+# disable tripinfo output by default and enable it probabilistically for selected vType
+probability_by_type
 
 # Testing error cases
 errors

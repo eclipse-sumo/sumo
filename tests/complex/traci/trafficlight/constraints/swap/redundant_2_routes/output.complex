@@ -1,0 +1,7 @@
+ Retrying in 1 seconds
+constraints before swap
+ tls=H Constraint(signalId=H tripId=t1, foeId=t0, foeSignal=C, limit=4, type=0, mustWait=True, active=True)
+ tls=H Constraint(signalId=H tripId=t2, foeId=t0, foeSignal=C, limit=4, type=0, mustWait=True, active=True)
+constraints after swap
+ tls=C Constraint(signalId=C tripId=t0, foeId=t2, foeSignal=H, limit=4, type=0, mustWait=True, active=True)
+ tls=H Constraint(signalId=H tripId=t1, foeId=t0, foeSignal=C, limit=4, type=0, mustWait=True, active=True)

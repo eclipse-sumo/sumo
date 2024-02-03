@@ -1,3 +1,4 @@
-Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
-Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_0'
+Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_828110409_828110410_cluster_828110366_828110369'
+Warning: Unreachable edge '147676141#0' within tlLogic 'joinedS_828110409_828110410_cluster_828110366_828110369'
+Warning: Minor green from edge '147676141#0' to edge '68992992#2' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '147676141#0' to edge '68992992#2' exceeds 19.44m/s. Maybe a left-turn lane is missing.

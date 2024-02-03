@@ -1,0 +1,12 @@
+<additionals>
+
+    <!-- non valid layer (missing) -->
+    <poi id="POI_0" color="red" lane="center1_0" pos="20" width="0.00" height="0.00"/>
+
+    <!-- non valid layer (invalid) -->
+    <poi id="POI_1" color="red" type="$$%%" lane="center1_0" pos="20" width="0.00" height="0.00"/>
+
+    <!-- valid layer -->
+    <poi id="POI_2" color="red" type="customName" lane="center1_0" pos="20" width="0.00" height="0.00"/>
+
+</additionals>

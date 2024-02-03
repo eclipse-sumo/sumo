@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-05 15:34:30 by Eclipse SUMO netedit Version 1.16.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->
+    <route id="crushing_2_busy" edges="-E12 E28 E31 E8 E17 E23 E5 -E11 -E1 -E22" color="cyan"/>
+    <route id="crushing_2_normal" edges="-E12 E13 E8 E17 E23 E5 -E11 -E1 -E22" color="cyan"/>
+    <route id="crushing_2_switch" edges="-E12 E13 E32 E19 E14 -E11 -E1 -E22" color="cyan"/>
+    <!-- StoppingPlaces -->
+    <parkingArea id="pa_0" lane="E8_0" startPos="5.77" endPos="15.77" friendlyPos="true" roadsideCapacity="1"/>
+    <!-- Other additionals -->
+    <rerouter id="crushing_2_0" edges="-E12" pos="176.74,153.58">
+        <interval begin="0.00" end="900.00">
+            <routeProbReroute id="crushing_2_normal" probability="0.00"/>
+            <routeProbReroute id="crushing_2_busy" probability="0.00"/>
+            <routeProbReroute id="crushing_2_switch" probability="1.00"/>
+        </interval>
+    </rerouter>
+</additional>

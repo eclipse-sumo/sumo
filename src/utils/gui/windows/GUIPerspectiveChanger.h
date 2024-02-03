@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,6 +70,12 @@ public:
 
     /// @brief called when user releases left button
     virtual bool onLeftBtnRelease(void* data);
+
+    /// @brief called when user press middle button
+    virtual void onMiddleBtnPress(void* data);
+
+    /// @brief called when user releases middle button
+    virtual bool onMiddleBtnRelease(void* data);
 
     /// @brief called when user press right button
     virtual void onRightBtnPress(void* data);
@@ -144,7 +150,7 @@ public:
     Boundary getViewport(bool fixRatio = true);
 
     /// @brief set viewport
-    void setViewport(const Boundary& viewPort);
+    virtual void setViewport(const Boundary& viewPort);
 
 protected:
     /// @brief The parent window (canvas to scale)

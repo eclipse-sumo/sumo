@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 08:19:53 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-08-23 12:17:11 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -41,6 +42,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="EN_passenger" depart="0.00" departLane="EW11_1" departPos="463.94" departPosLat="0.15" departSpeed="0.00" departDelay="0.00" arrival="21.80" arrivalLane="SN2_2" arrivalPos="132.64" arrivalPosLat="0.70" arrivalSpeed="15.37" duration="21.80" routeLength="161.22" waitingTime="3.20" waitingCount="2" stopTime="0.00" timeLoss="11.26" rerouteNo="0" devices="tripinfo_EN_passenger" vType="passenger_bike_box_straightright" speedFactor="1.11" vaporized=""/>
+    <tripinfo id="EN_passenger" depart="0.00" departLane="EW11_1" departPos="463.94" departPosLat="0.15" departSpeed="0.00" departDelay="0.00" arrival="21.80" arrivalLane="SN2_2" arrivalPos="132.64" arrivalPosLat="0.70" arrivalSpeed="15.39" duration="21.80" routeLength="161.22" waitingTime="3.20" waitingCount="2" stopTime="0.00" timeLoss="11.25" rerouteNo="0" devices="tripinfo_EN_passenger" vType="passenger_bike_box_straightright" speedFactor="1.11" vaporized=""/>
     <tripinfo id="EW_bike" depart="0.00" departLane="EW11_1" departPos="463.94" departPosLat="-1.17" departSpeed="0.00" departDelay="0.00" arrival="38.20" arrivalLane="EW2_1" arrivalPos="144.56" arrivalPosLat="-0.17" arrivalSpeed="6.00" duration="38.20" routeLength="192.88" waitingTime="0.20" waitingCount="1" stopTime="0.00" timeLoss="5.95" rerouteNo="0" devices="tripinfo_EW_bike" vType="bicycle" speedFactor="0.95" vaporized=""/>
 </tripinfos>

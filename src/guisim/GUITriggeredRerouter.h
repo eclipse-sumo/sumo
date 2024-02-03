@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,14 +53,10 @@ public:
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability to reroute vehicles
-     * @param[in] aXMLFilename The file to read further definitions from
      * @param[in] off Whether the rerouter is off (not working) initially
      */
-    GUITriggeredRerouter(const std::string& id,
-                         const MSEdgeVector& edges, double prob,
-                         const std::string& aXMLFilename, bool off,
-                         SUMOTime timeThreshold,
-                         const std::string& vTypes,
+    GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
+                         bool off, bool optional, SUMOTime timeThreshold, const std::string& vTypes, const Position& pos,
                          SUMORTree& rtree);
 
 
@@ -89,7 +85,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -100,6 +95,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -108,7 +105,6 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -116,12 +112,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-
-
     GUIManipulator* openManipulator(GUIMainWindow& app,
                                     GUISUMOAbstractView& parent);
 
-    /// @brief shit route probabilities
+    /// @brief shift route probabilities
     void shiftProbs();
 
 public:
@@ -152,7 +146,6 @@ public:
         GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                            GUISUMOAbstractView& parent);
 
-
         /** @brief Returns an own parameter window
          *
          * @param[in] app The application needed to build the parameter window
@@ -163,6 +156,8 @@ public:
         GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
                 GUISUMOAbstractView& parent);
 
+        /// @brief return exaggeration associated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -170,7 +165,6 @@ public:
          * @see GUIGlObject::getCenteringBoundary
          */
         Boundary getCenteringBoundary() const;
-
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
@@ -215,6 +209,9 @@ public:
         /// The boundary of this rerouter
         Boundary myBoundary;
 
+        /// The sign half-widths
+        std::vector<double> myHalfWidths;
+
         /// @brief the index for this in edge in routeProbs
         int myDistIndex;
     };
@@ -250,14 +247,11 @@ public:
             ID_LAST
         };
         /// Constructor
-        GUIManip_TriggeredRerouter(GUIMainWindow& app,
-                                   const std::string& name, GUITriggeredRerouter& o,
-                                   int xpos, int ypos);
+        GUIManip_TriggeredRerouter(GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o);
 
         /// Destructor
         virtual ~GUIManip_TriggeredRerouter();
 
-        long onCmdOverride(FXObject*, FXSelector, void*);
         long onCmdClose(FXObject*, FXSelector, void*);
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);

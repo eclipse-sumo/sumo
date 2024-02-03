@@ -1,0 +1,5 @@
+Error: Invalid route '' used in flow 'flow_0'.
+Error: Attribute 'route' in definition of flow 'flow_1' is empty.
+Error: Invalid route '' used in flow 'flow_1'.
+Error: Invalid route 'route with invalid characters' used in routeFlow 'flow_2'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/via\routes.rou.xml failed.

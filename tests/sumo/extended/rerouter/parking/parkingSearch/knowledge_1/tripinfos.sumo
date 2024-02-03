@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-27 00:27:00 by Eclipse SUMO sumo Version v1_11_0+0155-d22fc9b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml,input_additional3.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.cost value="true"/>
+        <vehroute-output.route-length value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stopinfos.xml"/>
+        <stop-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="500"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="settings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="ego.0" depart="0.00" departLane="A0A1_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="500.00" routeLength="49.90" waitingTime="0.00" waitingCount="0" stopTime="495.00" timeLoss="1.41" rerouteNo="0" devices="vehroute_ego.0 tripinfo_ego.0 routing_ego.0" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego.1" depart="2.00" departLane="A0A1_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="498.00" routeLength="247.76" waitingTime="0.00" waitingCount="0" stopTime="473.00" timeLoss="7.16" rerouteNo="1" devices="vehroute_ego.1 tripinfo_ego.1 routing_ego.1" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.2" depart="4.00" departLane="A0A1_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="496.00" routeLength="151.40" waitingTime="0.00" waitingCount="0" stopTime="480.00" timeLoss="5.10" rerouteNo="1" devices="vehroute_ego.2 tripinfo_ego.2 routing_ego.2" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.3" depart="6.00" departLane="A0A1_0" departPos="5.10" departSpeed="13.60" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="494.00" routeLength="251.40" waitingTime="1.00" waitingCount="1" stopTime="467.00" timeLoss="8.90" rerouteNo="2" devices="vehroute_ego.3 tripinfo_ego.3 routing_ego.3" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.4" depart="8.00" departLane="A0A1_0" departPos="5.10" departSpeed="11.13" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="492.00" routeLength="347.76" waitingTime="0.00" waitingCount="0" stopTime="461.00" timeLoss="5.96" rerouteNo="2" devices="vehroute_ego.4 tripinfo_ego.4 routing_ego.4" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.5" depart="10.00" departLane="A0A1_0" departPos="5.10" departSpeed="8.45" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="490.00" routeLength="929.00" waitingTime="1.00" waitingCount="1" stopTime="409.00" timeLoss="14.12" rerouteNo="4" devices="vehroute_ego.5 tripinfo_ego.5 routing_ego.5" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.6" depart="12.00" departLane="A0A1_0" departPos="5.10" departSpeed="6.19" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="488.00" routeLength="921.30" waitingTime="3.00" waitingCount="2" stopTime="401.00" timeLoss="20.67" rerouteNo="4" devices="vehroute_ego.6 tripinfo_ego.6 routing_ego.6" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.7" depart="14.00" departLane="A0A1_0" departPos="5.10" departSpeed="5.76" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="486.00" routeLength="638.46" waitingTime="1.00" waitingCount="1" stopTime="429.00" timeLoss="11.04" rerouteNo="3" devices="vehroute_ego.7 tripinfo_ego.7 routing_ego.7" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.8" depart="16.00" departLane="A0A1_0" departPos="5.10" departSpeed="7.40" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="484.00" routeLength="1316.34" waitingTime="2.00" waitingCount="1" stopTime="363.00" timeLoss="26.23" rerouteNo="5" devices="vehroute_ego.8 tripinfo_ego.8 routing_ego.8" vType="car" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="ego.9" depart="18.00" departLane="A0A1_0" departPos="5.10" departSpeed="9.97" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="482.00" routeLength="1115.49" waitingTime="0.00" waitingCount="0" stopTime="388.00" timeLoss="13.69" rerouteNo="5" devices="vehroute_ego.9 tripinfo_ego.9 routing_ego.9" vType="car" speedFactor="1.00" vaporized="end"/>
+</tripinfos>

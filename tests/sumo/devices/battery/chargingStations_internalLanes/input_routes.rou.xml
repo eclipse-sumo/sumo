@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-08-02 12:57:14 by Eclipse SUMO netedit Version v1_18_0+0685-b0f154023fb
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType accel="1.0" decel="5.0" id="ElectricVehicle" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+		<param key="device.battery.capacity" value="35000"/>
+		<param key="device.battery.maxPower" value="100000"/>
+		<param key="vehicleMass" value="1600"/>
+		<param key="internalMomentOfInertia" value="30"/>
+		<param key="frontSurfaceArea" value="2.2"/>
+		<param key="airDragCoefficient" value="0.33"/>
+		<param key="radialDragCoefficient" value="0"/>
+		<param key="rollDragCoefficient" value="0.1"/>
+		<param key="constantPowerIntake" value="40"/>
+		<param key="propulsionEfficiency" value="0.8"/>
+		<param key="recuperationEfficiency" value="0.8"/>
+	</vType>
+	
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" type="ElectricVehicle" from="6" to="3"/>
+</routes>

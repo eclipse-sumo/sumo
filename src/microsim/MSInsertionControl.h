@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,8 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "MSNet.h"
+#include <set>
+#include <microsim/MSRouterDefs.h>
 #include "MSVehicleContainer.h"
 
 
@@ -35,6 +36,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSVehicleControl;
+class SUMOVehicle;
 class SUMOVehicleParameter;
 
 
@@ -135,6 +137,8 @@ public:
     /// @brief stops trying to emit the given vehicle (and delete it)
     void descheduleDeparture(const SUMOVehicle* veh);
 
+    /// @brief reverts a previous call to descheduleDeparture (only needed for departPos="random_free")
+    void retractDescheduleDeparture(const SUMOVehicle* veh);
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
     void clearPendingVehicles(const std::string& route);
@@ -149,7 +153,7 @@ public:
     /// @brief return the number of pending emits for the given lane
     int getPendingEmits(const MSLane* lane);
 
-    void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+    void adaptIntermodalRouter(MSTransportableRouter& router) const;
 
     /// @brief compute (optional) random offset to the departure time
     SUMOTime computeRandomDepartOffset() const;
@@ -162,9 +166,17 @@ public:
     void clearState();
 
     /// @brief retrieve internal RNG
-    std::mt19937* getFlowRNG() {
+    SumoRNG* getFlowRNG() {
         return &myFlowRNG;
     }
+
+    /// @brief checks whether the given flow still exists
+    bool hasFlow(const std::string& id) const {
+        return myFlowIDs.count(id) != 0;
+    }
+
+    /// @brief updates the flow scale value to keep track of TraCI-induced change
+    void updateScale(const std::string vtypeid);
 
 private:
     /** @brief Tries to emit the vehicle
@@ -193,6 +205,10 @@ private:
     void checkCandidates(SUMOTime time, const bool preCheck);
 
 
+private:
+
+    /// @brief init scale value of flow
+    static double initScale(const std::string vtypeid);
 
 private:
     /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)
@@ -218,6 +234,8 @@ private:
         SUMOVehicleParameter* pars;
         /// @brief the running index
         int index;
+        /// @brief the type scaling of this flow. Negative value indicates inhomogenous type distribution
+        double scale;
     };
 
     /// @brief Container for periodical vehicle parameters
@@ -252,6 +270,6 @@ private:
     MSInsertionControl& operator=(const MSInsertionControl&);
 
     /// @brief A random number generator for probabilistic flows
-    std::mt19937 myFlowRNG;
+    SumoRNG myFlowRNG;
 
 };

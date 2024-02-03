@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-19 15:26:26 by Eclipse SUMO sumo Version v1_10_0+0093-91ae0a8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <netstate-dump value="rawdump.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lanechange.duration value="3"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="ego" pos="146.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="ego" pos="146.20" speed="0.20" posLat="0.50" speedLat="0.50"/>
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="ego" pos="146.60" speed="0.40" posLat="1.57" speedLat="1.07"/>
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="147.20" speed="0.60" posLat="-0.57" speedLat="1.07"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="148.00" speed="0.80" posLat="0.00" speedLat="1.07"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="149.00" speed="1.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="150.20" speed="1.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="151.60" speed="1.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="153.20" speed="1.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="155.00" speed="1.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="157.00" speed="2.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="159.20" speed="2.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="161.60" speed="2.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="164.20" speed="2.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="167.00" speed="2.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="170.00" speed="3.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="173.20" speed="3.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="18.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="176.60" speed="3.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="180.20" speed="3.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="20.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.00" speed="0.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="184.00" speed="3.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="21.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.20" speed="0.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="188.00" speed="4.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="22.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="156.60" speed="0.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1">
+                <vehicle id="ego" pos="192.20" speed="4.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="23.00">
+        <edge id=":gneJ1_0">
+            <lane id=":gneJ1_0_0">
+                <vehicle id="ego" pos="0.60" speed="4.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="157.20" speed="0.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="24.00">
+        <edge id=":gneJ1_0">
+            <lane id=":gneJ1_0_0">
+                <vehicle id="ego" pos="5.20" speed="4.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="158.00" speed="0.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+    </timestep>
+    <timestep time="25.00">
+        <edge id="beg">
+            <lane id="beg_0">
+                <vehicle id="leader" pos="159.00" speed="1.00" posLat="1.00" speedLat="1.00"/>
+            </lane>
+            <lane id="beg_1"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="2.00" speed="4.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="26.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="160.20" speed="1.20" posLat="-1.13" speedLat="1.07"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="7.00" speed="5.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="27.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="161.60" speed="1.40" posLat="-0.07" speedLat="1.07"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="12.20" speed="5.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="28.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="163.20" speed="1.60" posLat="0.00" speedLat="1.07"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="17.60" speed="5.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="29.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="165.00" speed="1.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="23.20" speed="5.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="30.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="167.00" speed="2.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="29.00" speed="5.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="31.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="169.20" speed="2.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="35.00" speed="6.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="32.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="171.60" speed="2.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="41.20" speed="6.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="33.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="174.20" speed="2.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="47.60" speed="6.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="34.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="177.00" speed="2.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="54.20" speed="6.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="35.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="180.00" speed="3.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="61.00" speed="6.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="36.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="183.20" speed="3.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="68.00" speed="7.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="37.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="186.60" speed="3.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="75.20" speed="7.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="38.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="190.20" speed="3.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="82.60" speed="7.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="39.00">
+        <edge id="beg">
+            <lane id="beg_0"/>
+            <lane id="beg_1">
+                <vehicle id="leader" pos="194.00" speed="3.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="ego" pos="90.20" speed="7.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="40.00">
+        <edge id=":gneJ1_0">
+            <lane id=":gneJ1_0_0">
+                <vehicle id="leader" pos="2.00" speed="4.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="41.00">
+        <edge id=":gneJ1_0">
+            <lane id=":gneJ1_0_0">
+                <vehicle id="leader" pos="6.20" speed="4.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="42.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="2.60" speed="4.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="43.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="7.20" speed="4.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="44.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="12.00" speed="4.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="45.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="17.00" speed="5.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="46.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="22.20" speed="5.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="47.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="27.60" speed="5.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="48.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="33.20" speed="5.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="49.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="39.00" speed="5.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="50.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="45.00" speed="6.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="51.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="51.20" speed="6.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="52.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="57.60" speed="6.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="53.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="64.20" speed="6.60" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="54.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="71.00" speed="6.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="55.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="78.00" speed="7.00" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="56.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="85.20" speed="7.20" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="57.00">
+        <edge id="end">
+            <lane id="end_0">
+                <vehicle id="leader" pos="92.60" speed="7.40" posLat="0.00" speedLat="0.00"/>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="58.00"/>
+</netstate>

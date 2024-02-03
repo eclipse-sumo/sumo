@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 09:15:30 by Eclipse SUMO netedit Version v1_16_0+0965-87357b180fb
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <laneAreaDetector id="e2_0" lanes="center1_0 E5_1" pos="31.50" endPos="2.10" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lanes="E4_1 center0_0" pos="1.00" endPos="15.50" period="300.00" file="e2_1.xml"/>
+    <laneAreaDetector id="e2_2" lanes="top_0 E0_1" pos="27.00" endPos="1.00" period="300.00" file="e2_2.xml"/>
+    <laneAreaDetector id="e2_3" lanes="center1_1 center0_1" pos="25.50" endPos="21.50" period="300.00" file="e2_3.xml"/>
+    <laneAreaDetector id="e2_4" lanes="E1_1 bot_0" pos="2.10" endPos="15.00" period="300.00" file="e2_4.xml"/>
+    <laneAreaDetector id="e2_5" lanes="bot_0 E4_1" pos="29.00" endPos="1.00" period="300.00" file="e2_5.xml"/>
+    <laneAreaDetector id="e2_6" lanes="E5_1 top_0" pos="2.10" endPos="13.00" period="300.00" file="e2_6.xml"/>
+    <laneAreaDetector id="e2_7" lanes="E0_1 center1_0" pos="1.00" endPos="17.50" period="300.00" file="e2_7.xml"/>
+    <laneAreaDetector id="e2_8" lanes="center0_0 E1_1" pos="29.50" endPos="0.10" period="300.00" file="e2_8.xml"/>
+    <laneAreaDetector id="e2_9" lanes="center0_1 center1_1" pos="25.50" endPos="21.50" period="300.00" file="e2_9.xml"/>
+</additional>

@@ -1,0 +1,35 @@
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '31112387').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '85389834').
+Warning: Discarding unusable type 'railway.platform_edge' (first occurrence for edge '165415453').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '230976793').
+Warning: Ambiguous railway kilometrage direction for way '230976793' (assuming forward)
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '507023458').
+Warning: No way found for reference '318915602' in relation '5475034'
+Warning: Ignoring restriction relation '5475034' with unknown from-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1074960894' (Paul-Löbe-Haus/Reichstag). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1829854523' (Vera-Brittain-Ufer). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1829854563' (Schiffbauerdamm). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '3463843447' (Reichstagufer). Thus, it will be removed!
+Warning: Cannot revise pt stop localization for incomplete pt line '2076228'. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line '2076228'. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line '2076230'. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line '2076230'. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line '2076231'. Ignoring!
+Warning: PT stop '3869306760' has been moved to edge '-176043807#2'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673903'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673906'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673909'.
+Warning: Converting invalid rail_crossing to priority junction '4402536776'.
+Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
+Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
+Warning: The rail crossing '4567083492' does not have any roads.
+Warning: The rail crossing '4567083494' does not have any roads.
+Warning: The rail crossing '4603660236' does not have any roads.
+Warning: The rail crossing '4603660237' does not have any roads.
+Warning: The rail crossing 'cluster_8573868516_8573915417' does not have any roads.
+Warning: The traffic light '3820768522' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3820768522'
+Warning: 10 total messages of type: Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!
+Warning: 7 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,23 +29,27 @@ import numpy
 from optparse import OptionParser
 from datetime import datetime
 
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
+    os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
+
 # initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-c", "--configuration",
                      help="sumo configuration to run", metavar="FILE")
+optParser.add_option("-a", "--application", default=sumoBinary,
+                     help="application to run", metavar="FILE")
 optParser.add_option("-r", "--repeat", type="int", default="20",
                      help="how many times to run")
 # parse options
 (options, args) = optParser.parse_args()
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
+app = options.application
 elapsed = []
 for run in range(options.repeat):
     before = datetime.now()
-    subprocess.call([sumoBinary, '-c', options.configuration])
+    subprocess.call([app, '-c', options.configuration])
     td = datetime.now() - before
     elapsed.append(td.microseconds + 1000000 * td.seconds)
 a = numpy.array(elapsed)

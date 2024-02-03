@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00">
+        <interval begin="0.00" end="3600.00">
+
+            <closingLaneReroute id="center0_0"/>
+
+            <closingLaneReroute id="center0_0" allow="dummyAllow"/>
+
+            <closingLaneReroute id="center0_0" allow="passenger pedestrian" disallow="passenger pedestrian"/>
+
+            <closingLaneReroute id="center0_0" allow="passenger pedestrian"/>
+
+        </interval>
+    </rerouter>
+</additional>

@@ -1,0 +1,16 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Answered with error to command 0xc4: Stop replacement failed for vehicle 'ego' (Cannot replace reached stop).
+Traceback (most recent call last):
+  File "/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/vehicle/replaceStop/first_later/runner.py", line 49, in <module>
+    traci.vehicle.replaceStop(vehID, 0, "busStop_A2B2", flags=tc.STOP_BUS_STOP, duration=30)
+  File "/scr1/sumo/tools/traci/_vehicle.py", line 1104, in replaceStop
+    laneIndex, duration, flags, startPos, until, nextStopIndex, teleport)
+  File "/scr1/sumo/tools/traci/domain.py", line 189, in _setCmd
+    self._connection._sendCmd(self._cmdSetID, varID, objectID, format, *values)
+  File "/scr1/sumo/tools/traci/connection.py", line 181, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 98, in _sendExact
+    raise TraCIException(err, prefix[1], _RESULTS[prefix[2]])
+traci.exceptions.TraCIException: Stop replacement failed for vehicle 'ego' (Cannot replace reached stop).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).

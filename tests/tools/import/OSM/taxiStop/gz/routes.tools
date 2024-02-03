@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-04 13:44:47.835145 by osmTaxiStop.py v1_16_0+1874-2a4b3628006
+<configuration>
+    <osm-file value="data/osm_bbox.osm.xml.gz"/>
+    <output-file value="out.add.xml"/>
+    <fleet-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+     <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <trip id="taxi_chargingStation_0_0" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_1" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_2" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_3" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_4" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_5" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+    <trip id="taxi_chargingStation_0_6" type="taxi" depart="begin"><stop busStop="chargingStation_0" triggered="person"/></trip>
+</additional>

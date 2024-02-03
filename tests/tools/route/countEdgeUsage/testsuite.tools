@@ -1,11 +1,24 @@
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 basic
 
+# load 2 input files
+# 
+two_inputs
+
+# additional geo poi output
+poi
+
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 taz
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+taz_subpart
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 subpart
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+subpart_trip
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 subpart_file
@@ -18,3 +31,15 @@ begin_end
 
 # restrict included data by departure time
 period
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes_elements
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes_period
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+save_template

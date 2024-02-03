@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-27 21:07:33.994947 by osmTaxiStop.py v1_17_0+1315-61aa93e71eb
+<configuration>
+    <osm-file value="osm_bbox.osm.xml"/>
+    <output-file value="out.add.xml"/>
+    <fleet-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <chargingStation id="chargingStation_0" name="Grand Hotel" lane="-194069450#0_0" startPos="7.20" endPos="27.20"/>
+    <chargingStation id="chargingStation_1" name="Radisson" lane="24913519#2_0" startPos="0.00" endPos="28.41"/>
+    <chargingStation id="chargingStation_2" name="Bhf. Alexanderplatz" lane="-4790825#2_0" startPos="58.89" endPos="96.39"/>
+    <chargingStation id="chargingStation_3" name="Friedrichstadtpalast" lane="374734389#2_0" startPos="6.04" endPos="58.54"/>
+    <chargingStation id="chargingStation_4" name="Hackescher Markt" lane="-84960597#1_0" startPos="0.00" endPos="29.98"/>
+    <chargingStation id="chargingStation_5" name="Behren / Charlotten" lane="-24242882#1_0" startPos="73.17" endPos="93.17"/>
+    <chargingStation id="chargingStation_6" name="Jägerstr./ Friedrichstr." lane="-4588219#3_0" startPos="94.46" endPos="114.46"/>
+    <chargingStation id="chargingStation_7" name="Gendarmenmarkt" lane="-22972473#0_0" startPos="50.49" endPos="80.49"/>
+    <chargingStation id="chargingStation_8" name="Park Inn" lane="100405009#3_0" startPos="0.00" endPos="23.07"/>
+    <chargingStation id="chargingStation_9" name="Am Kupfergraben" lane="22972219#0_0" startPos="58.61" endPos="78.61"/>
+    <chargingStation id="chargingStation_10" name="Maritim Pro Arte" lane="158023913#0_0" startPos="58.39" endPos="88.39"/>
+    <chargingStation id="chargingStation_11" name="Georgenstraße" lane="24243052#3_0" startPos="1.83" endPos="46.83"/>
+    <chargingStation id="chargingStation_12" name="Staatsoper" lane="340498982#4_0" startPos="28.80" endPos="48.80"/>
+    <chargingStation id="chargingStation_13" name="Hotel de Rome" lane="24242882#1_0" startPos="73.16" endPos="93.16"/>
+    <chargingStation id="chargingStation_14" lane="112128418#5_0" startPos="51.26" endPos="71.26"/>
+</additional>

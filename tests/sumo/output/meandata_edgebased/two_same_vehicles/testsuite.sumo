@@ -10,3 +10,11 @@ interval60s
 # Two outputs; one sampling at 15s, one at 60s
 interval15s60s
 
+# One output; sampling at 60s, output only for some edges
+interval60s_edges
+
+# One output; sampling at 60s, output only for some edges
+interval60s_edgesFile
+
+# One output; sampling at 60s
+interval60s_aggregate

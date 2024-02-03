@@ -1,0 +1,30 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0.0"/>
+
+    <route id="r0" edges="a"/>
+    <route id="r1" edges="-a"/>
+
+    <vehicle id="stopped_fwd0" route="r0" departPos="stop" depart="0">
+        <stop lane="a_0" endPos="230" duration="600"/>
+    </vehicle>
+    <vehicle id="stopped_fwd1" route="r0" departPos="stop" depart="0">
+        <stop lane="a_0" endPos="220" duration="600"/>
+    </vehicle>
+    <vehicle id="stopped_fwd2" route="r0" departPos="stop" depart="0">
+        <stop lane="a_0" endPos="210" duration="600"/>
+    </vehicle>
+    <vehicle id="stopped_bwd0" route="r1" departPos="stop" depart="0">
+        <stop lane="-a_0" endPos="230" duration="600"/>
+    </vehicle>
+    <vehicle id="stopped_bwd1" route="r1" departPos="stop" depart="0">
+        <stop lane="-a_0" endPos="220" duration="600"/>
+    </vehicle>
+    <vehicle id="stopped_bwd2" route="r1" departPos="stop" depart="0">
+        <stop lane="-a_0" endPos="210" duration="600"/>
+    </vehicle>
+
+    <flow id="fwd" route="r0" begin="0" end="1000" period="exp(0.5)" departSpeed="max"/>
+    <flow id="bwd" route="r1" begin="0" end="1000" period="exp(0.5)" departSpeed="max"/>
+
+
+</routes>

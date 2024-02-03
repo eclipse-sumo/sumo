@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,20 +21,25 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include "StringUtils.h"
 #include "SysUtils.h"
 
 #ifndef WIN32
 #include <sys/time.h>
+#include <unistd.h>
 #else
 #define NOMINMAX
 #include <windows.h>
 #undef NOMINMAX
+#define stat _stat
 #endif
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 long
 SysUtils::getCurrentMillis() {
 #ifndef WIN32
@@ -74,7 +79,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
     StartupInfo.wShowWindow = SW_HIDE;
 
     // "/c" option - Do the command then terminate the command window
-    std::string winCmd = "CMD.exe /c " + cmd;
+    std::string winCmd = "CMD.exe /c " + StringUtils::transcodeToLocal(cmd);
     char* args = new char[winCmd.size() + 1];
     args[0] = 0;
     strcpy(args, winCmd.c_str());
@@ -97,6 +102,16 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
 #else
     return (unsigned long)system(cmd.c_str());
 #endif
+}
+
+
+long long
+SysUtils::getModifiedTime(const std::string& fname) {
+    struct stat result;
+    if (stat(fname.c_str(), &result) == 0) {
+        return result.st_mtime;
+    }
+    return -1;
 }
 
 

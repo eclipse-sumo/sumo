@@ -1,10 +1,10 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
-Loading additional-files from 'input_additional.add.xml' ... done (2ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_7_0+1305-726d850068 started with time: 0.00
+Simulation version v1_14_1+0331-153d228 started with time: 0.00.
 Simulation ended at time: 1957.00
 Reason: All vehicles have left the simulation.
-Statistics (avg):
+Statistics (avg of 1):
  RouteLength: 5919.72
  Speed: 3.03
  Duration: 1956.00
@@ -16,9 +16,9 @@ Pedestrian Statistics (avg of 320 walks):
  Duration: 27.25
  TimeLoss: 0.65
 Ride Statistics (avg of 160 rides):
- WaitingTime: 346.13
- RouteLength: 641.23
- Duration: 215.50
+ WaitingTime: 298.18
+ RouteLength: 739.96
+ Duration: 179.44
  Bus: 160
 
 DijkstraRouter answered 160 queries and explored 29.50 edges on average.

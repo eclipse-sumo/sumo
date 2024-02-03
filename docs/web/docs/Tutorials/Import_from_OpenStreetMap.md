@@ -26,7 +26,7 @@ You may also find the following pages useful:
 
 ![eichstaett.osm.png](../images/Eichstaett.osm.png "eichstaett.osm.png")
 
-The OpenStreetMap file created in this step. It shows the German city Eichstätt opened in JOSM.
+The OpenStreetMap file is created in this step. The picture shows the German city Eichstätt opened in JOSM.
 
 The first step in this tutorial is to obtain a map the vehicles can drive in. If
 you do not want to perform this step, you can take
@@ -41,18 +41,18 @@ this file as the map for your traffic simulation with SUMO.
 
 The data in OpenStreetMap is often not completely ready for traffic
 simulation though. For a good simulation, the map must usually be
-enhanced. I recommend you to do the following steps:
+enhanced. The following steps are recommended for the same:
 
 1.  Complete the map directly in OpenStreetMap. Follow the guidelines on
-    the [OpenStreetMap wiki](http://wiki.openstreetmap.org) in the area
+    the [OpenStreetMap wiki](https://wiki.openstreetmap.org) in the area
     *Map Making*. They give valuable hints what software to use and how
     to encode all attributes of the map. You should ensure that the map
     contains all data related to traffic simulation. (At this stage,
     fill in only correct data that can be well understood by others. Do
-    not tweak the map just for your simulation. This comes below.)
+    not tweak the map just for your simulation - that comes below.)
     For the given example of the city Eichstätt, I found that most
     streets were already in the map – they were sufficient for my
-    simulation. So I did only look at the tags (description of
+    simulation. So I only looked at the tags (description of
     properties) of the streets in OpenStreetMap and did not add new
     streets. I took a notebook with the OpenStreetMap editor JOSM, drove
     through the city and corrected the following attributes:
@@ -94,7 +94,7 @@ enhanced. I recommend you to do the following steps:
     OpenStreetMap to avoid conflicts with the modifications of other
     editors.
 2.  Now the map in OpenStreetMap should have the necessary quality for
-    your simulation. Next you should determine the desired detail of the
+    your simulation. Next, you should determine the desired detail of the
     map and export it in an [OpenStreetMap
     file](../OpenStreetMap_file.md). Be careful to never upload the
     map back to OpenStreetMap from now on.
@@ -109,7 +109,7 @@ enhanced. I recommend you to do the following steps:
     Map in the SUMO Net
     Format](#convert_the_map_in_a_sumo_network) below).
     You are able to tweak the map for your purpose, for example, by
-    adding or removing roads, changing their type, …
+    adding or removing roads, changing their type, and so on.
 
 Now you have a good map for your simulation in an [OpenStreetMap
 file](../OpenStreetMap_file.md). The image on the top shows the map
@@ -136,9 +136,8 @@ type. The article [SUMO edge type file](../SUMO_edge_type_file.md)
 provides several pre-defined SUMO edge type files and explains how you
 can compile your own edge type file.
 
-So determine in this step of the tutorial the implicit values of every
-highway type as defined by the OpenStreetMap community. [Several
-edge-type files suitable for OpenStreetMap are included with SUMO. Some
+In this step of the tutorial, determine the implicit values of every highway type defined by the OpenStreetMap community. [Several
+edge-type files suitable for OpenStreetMap are included with SUMO, some
 of them are meant to be
 combined.](../Networks/Import/OpenStreetMap.md#recommended_typemaps)
 
@@ -172,7 +171,7 @@ further information on this process in
 [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md)
 and [SUMO Road Networks](../Networks/SUMO_Road_Networks.md).
 
-![eichstaett.net.png](../images/Eichstaett.net.png "eichstaett.net.png") 
+![eichstaett.net.png](../images/Eichstaett.net.png "eichstaett.net.png")
 
 The map stored in the file eichstaett.net.xml. In this map, SUMO runs its simulation. Compare it with its source, the OpenStreetMap file shown in the image above.
 
@@ -187,7 +186,7 @@ Further options of netconvert can be very useful for the OpenStreetMap import:
   classes. These classes are given with this option. In [SUMO edge
   type file](../SUMO_edge_type_file.md) you can find a list of
   SUMO vehicle classes. Reducing unnecessary roads makes (i.e.
-  footpaths) makes it easier to work the with network. To obtain a
+  footpaths) makes it easier to work with the network. To obtain a
   network for simulation of passenger traffic only, the option **--keep-edges.by-vclass passenger** can be
   used.
 
@@ -197,20 +196,20 @@ Further options of netconvert can be very useful for the OpenStreetMap import:
   components of the network (Usually only *1* is desired). Warning:
   This could remove railroads or other edges you would like to keep.
   So check the messages of netconvert.
-  
+
 -  **--verbose**
-  
+
   Prints additional output.
 
 Now read the messages netconvert printed out very carefully. Try to
-understand the warnings. They give you a hint how your OpenStreetMap
+understand the warnings, if any - they can give you hints about how your OpenStreetMap
 file could be improved to make it suitable for conversion. Get back to
 your OpenStreetMap file in JOSM to fix errors or tweak the map for
 conversion. I found, for example, unconnected roads with this process. I
 also moved some junctions slightly, because netconvert had problems if
 two junctions are very close together. But finally, I managed to convert
 the OpenStreetMap file without any warnings in a SUMO network file.
-(Certainly the OpenStreetMap file eichstaett.osm I provided above is
+(Certainly the OpenStreetMap file `eichstaett.osm` I provided above is
 already the improved version.)
 
 *Congratulations\! When you performed all the steps so far, you have a
@@ -218,10 +217,11 @@ map suitable for traffic simulation with SUMO.* It is in the [SUMO
 network format](../Networks/SUMO_Road_Networks.md). The map of the
 tutorial's example is in the file
 [Tutorials/OSMActivityGen/eichstaett.net.xml](../Tutorials/OSMActivityGen/eichstaett.net.xml.md).
-Above on the right, you see an image that visualises the file. I opened
-eichstaett.net.xml with the program sumo-gui and took a screenshot.
+Above on the right, you see an image that visualizes the file. I opened
+`eichstaett.net.xml` with the program sumo-gui and took a screenshot.
 
 When you look back at the work you have done so far, most of it was
 necessary to polish the OpenStreetMap data for traffic simulation and to
-add missing information. A good map is hard to obtain but very important
+add missing information.
+A good map is hard to obtain but very important
 for traffic simulation.

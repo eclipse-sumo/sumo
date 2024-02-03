@@ -1,5 +1,0 @@
-Warning: Essential unique string attribute 'id' of poly is missing; poly cannot be created
-Warning: Invalid characters for polygon ID
-Warning: Format of essential unique string attribute 'id' of poly is invalid; ID contains invalid characters; poly cannot be created
-Warning: Invalid characters for polygon ID
-Warning: Polygon with ID 'poly_0' already exists.

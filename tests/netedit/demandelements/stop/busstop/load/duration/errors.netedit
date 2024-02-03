@@ -1,0 +1,6 @@
+Error: Attribute 'duration' in definition of a stop is not a valid time value.
+Error: Invalid duration or end time is given for a stop at 'busStopA'
+Error: Attribute 'duration' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop at 'busStopA'
+Error: Invalid duration or end time is given for a stop at 'busStopA'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stops.14Jul182757.2654/netedit.daily.demand.stops/demandelements/stop/busstop/load/duration/routes.rou.xml failed.

@@ -1,6 +1,7 @@
 set(utils_gui_events_STAT_SRCS
    GUIEvent.h
    GUIEvent_Message.h
+   GUIEvent_AddView.h
    GUIEvent_SimulationStep.h
 )
 

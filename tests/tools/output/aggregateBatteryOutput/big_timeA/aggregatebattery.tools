@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.259330 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 300000
+-->
+
+<battery-export>
+    <timestep interval="0-389">
+        <vehicle id="veh0" energyConsumed="389.0" totalEnergyConsumed="389.0" totalEnergyRegenerated="389.0" energyChargedInTransit="389.0" energyChargedStopped="389.0" timeStopped="0.0" aggregateNumber="389.0"/>
+    </timestep>
+</battery-export>

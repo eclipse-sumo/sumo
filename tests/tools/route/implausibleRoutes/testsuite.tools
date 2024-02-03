@@ -3,6 +3,7 @@ default
 # standalone routes
 standalone
 restriction-output
+xml-output
 
 # only rate by mininimu distance
 min-dist
@@ -18,3 +19,6 @@ edge_loop
 
 # network with internal links
 internal
+
+# unsorted input with vehicle types
+unsorted

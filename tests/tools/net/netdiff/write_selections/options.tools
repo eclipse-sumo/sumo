@@ -1,0 +1,3 @@
+source.net.xml dest.net.xml diff 
+--write-selections
+tools/net/netdiff.py

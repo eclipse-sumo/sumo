@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-09 16:43:42 by Eclipse SUMO netedit Version v1_17_0+0206-d379c67
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata2/debug/13225/net.net.xml"/>
+    </input>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <new-network value="false"/>
+    </netedit>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-E0" from="J1" to="J0" priority="-1" numLanes="2" speed="13.89" shape="98.87,-1.13 34.32,40.31 -1.13,98.87" bidi="E0">
+        <lane index="0"/>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
+    </edge>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="2" speed="13.89" shape="1.13,101.13 36.58,42.57 101.13,1.13" bidi="-E0">
+        <lane index="0"/>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
+    </edge>
+</edges>

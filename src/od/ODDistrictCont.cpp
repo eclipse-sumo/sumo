@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,7 +69,7 @@ ODDistrictCont::loadDistricts(std::vector<std::string> files) {
     for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
         const std::string& districtfile = *i;
         if (!FileHelpers::isReadable(districtfile)) {
-            throw ProcessError("Could not access network file '" + districtfile + "' to load.");
+            throw ProcessError(TLF("Could not access network file '%' to load.", districtfile));
         }
         PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
         // build the xml-parser and handler

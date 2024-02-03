@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 17 20:25:37 2018 by Eclipse SUMO Version v1_0_1+0313-d13dc10
+<!-- generated on 2023-03-14 14:56:00 by Eclipse SUMO sumo Version v1_16_0+1284-919e2e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0
         <ignore-route-errors value="true"/>
         <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
-        <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.dawdling value="0.0"/>
     </processing>
 
     <report>
@@ -34,16 +39,16 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="backward_backward" depart="0.00" type="DEFAULT_PEDTYPE">
-        <walk depart="0.00" departPos="0.00" arrival="1.00" arrivalPos="41.98" duration="1.00" routeLength="24.17" timeLoss="-16.40" maxSpeed="1.39"/>
+    <personinfo id="backward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="19.00" arrivalPos="41.98" duration="19.00" routeLength="31.49" timeLoss="-3.67" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="backward_forward" depart="0.00" type="DEFAULT_PEDTYPE">
-        <walk depart="0.00" departPos="0.00" arrival="31.00" arrivalPos="41.98" duration="31.00" routeLength="65.20" timeLoss="-15.94" maxSpeed="1.39"/>
+    <personinfo id="backward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="31.00" arrivalPos="41.98" duration="31.00" routeLength="47.83" timeLoss="-3.44" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="forward_backward" depart="0.00" type="DEFAULT_PEDTYPE">
-        <walk depart="0.00" departPos="0.00" arrival="290.00" arrivalPos="41.98" duration="290.00" routeLength="423.58" timeLoss="-14.98" maxSpeed="1.39"/>
+    <personinfo id="forward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="290.00" arrivalPos="41.98" duration="290.00" routeLength="407.92" timeLoss="-3.70" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="forward_forward" depart="0.00" type="DEFAULT_PEDTYPE">
-        <walk depart="0.00" departPos="0.00" arrival="320.00" arrivalPos="41.98" duration="320.00" routeLength="464.37" timeLoss="-14.34" maxSpeed="1.39"/>
+    <personinfo id="forward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="336.00" arrivalPos="41.98" duration="336.00" routeLength="471.23" timeLoss="-3.29" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

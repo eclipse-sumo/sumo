@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,15 +28,15 @@
 #include <map>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "MSSimpleTrafficLightLogic.h"
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
+#include "MSSimpleTrafficLightLogic.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class NLDetectorBuilder;
-
 
 // ===========================================================================
 // class definitions
@@ -47,6 +47,21 @@ class NLDetectorBuilder;
  */
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
+
+    typedef Parameterised::Map ConditionMap;
+    typedef std::vector<std::tuple<std::string, std::string, std::string> > AssignmentMap;
+
+    struct Function {
+        Function(const std::string& _id = "", int _nArgs = -1):
+            id(_id), nArgs(_nArgs) {}
+        std::string id;
+        int nArgs;
+        AssignmentMap assignments;
+    };
+
+    typedef std::map<std::string, Function> FunctionMap;
+
+
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -58,17 +73,21 @@ public:
      */
     MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& programID,
+                                const SUMOTime offset,
                                 const MSSimpleTrafficLightLogic::Phases& phases,
                                 int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameter,
-                                const std::string& basePath);
+                                const Parameterised::Map& parameter,
+                                const std::string& basePath,
+                                const ConditionMap& conditions = ConditionMap(),
+                                const AssignmentMap& assignments = AssignmentMap(),
+                                const FunctionMap& functions = FunctionMap());
 
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb);
+    void init(NLDetectorBuilder& nb) override;
 
 
     /// @brief Destructor
@@ -83,8 +102,13 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch() override;
     /// @}
+
+    SUMOTime getMinDur(int step = -1) const override;
+    SUMOTime getMaxDur(int step = -1) const override;
+    SUMOTime getEarliestEnd(int step = -1) const override;
+    SUMOTime getLatestEnd(int step = -1) const override;
 
     /// @name Changing phases and phase durations
     /// @{
@@ -97,11 +121,11 @@ public:
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
     void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
-                               int step, SUMOTime stepDuration);
+                               int step, SUMOTime stepDuration) override;
 
     /// @brief called when switching programs
-    void activateProgram();
-    void deactivateProgram();
+    void activateProgram() override;
+    void deactivateProgram() override;
 
     bool showDetectors() const {
         return myShowDetectors;
@@ -109,20 +133,46 @@ public:
 
     void setShowDetectors(bool show);
 
+    /// @brief try to get the value of the given parameter (including prefixed parameters)
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
+
     /**@brief Sets a parameter and updates internal constants */
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
+
+    /// @brief retrieve all detectors used by this program
+    std::map<std::string, double> getDetectorStates() const override;
+
+    /// @brief return all named conditions defined for this traffic light
+    std::map<std::string, double> getConditions() const override;
+
+    void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration) override;
 
 protected:
+    /// @brief initialize custom switching rules
+    void initAttributeOverride();
+    void initSwitchingRules();
+
     struct InductLoopInfo {
-        InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
+        InductLoopInfo(MSInductLoop* _loop, const MSLane* _lane, int numPhases, double _maxGap, double _jamThreshold):
             loop(_loop),
+            lane(_lane),
             servedPhase(numPhases, false),
-            maxGap(_maxGap)
+            maxGap(_maxGap),
+            jamThreshold(_jamThreshold)
         {}
+
+
+        bool isJammed() const {
+            return jamThreshold > 0 && loop->getOccupancyTime() >= jamThreshold;
+        }
+
         MSInductLoop* loop;
+        const MSLane* lane;
         SUMOTime lastGreenTime = 0;
         std::vector<bool> servedPhase;
         double maxGap;
+        double jamThreshold;
+
     };
 
     /// @brief Definition of a map from phases to induct loops controlling them
@@ -149,8 +199,26 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
-    /// @brief select am candidate phases based on detector states
+    /// @brief select among candidate phases based on detector states
     int decideNextPhase();
+
+    /// @brief select among candidate phases based on detector states and custom switching rules
+    int decideNextPhaseCustom(bool mustSwitch);
+
+    /// @brief evaluate custom switching condition
+    double evalExpression(const std::string& condition) const;
+
+    /// @brief evaluate atomic expression
+    double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) const;
+
+    /// @brief evaluate atomic expression
+    double evalAtomicExpression(const std::string& expr) const;
+
+    /// @brief evaluate function expression
+    double evalCustomFunction(const std::string& fun, const std::string& arg) const;
+
+    /// @brief execute assignemnts of the logic or a custom function
+    void executeAssignments(const AssignmentMap& assignments, ConditionMap& conditions, const ConditionMap& forbidden = ConditionMap()) const;
 
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
 
@@ -169,15 +237,38 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
+    template<typename T, SumoXMLTag Tag>
+    const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
+        const T* det = dynamic_cast<const T*>(
+                           MSNet::getInstance()->getDetectorControl().getTypedDetectors(Tag).get(
+                               (tryPrefix ? myDetectorPrefix : "") + arg));
+        if (det == nullptr) {
+            if (tryPrefix) {
+                // try again without prefix
+                return retrieveDetExpression<T, Tag>(arg, expr, false);
+            } else {
+                throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+            }
+        } else {
+            return det;
+        }
+    }
+
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
 
+    /// @brief extra loops for output/tracking
+    std::vector<const MSInductLoop*> myExtraLoops;
+    std::vector<const MSE2Collector*> myExtraE2;
 
     /// The maximum gap to check in seconds
     double myMaxGap;
+
+    /// The minimum continuous occupancy time to mark a detector as jammed
+    double myJamThreshold;
 
     /// The passing time used in seconds
     double myPassingTime;
@@ -191,6 +282,9 @@ protected:
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
 
+    /// Whether any of the phases has multiple targets
+    bool myHasMultiTarget;
+
     /// The output file for generated detectors
     std::string myFile;
 
@@ -202,13 +296,40 @@ protected:
 
     /// @brief last time trySwitch was called
     SUMOTime myLastTrySwitchTime;
+
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
+    std::vector<SUMOTime> myLinkRedTimes;
     /// @brief maximum consecutive time that the given link may remain green
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green
     std::vector<SUMOTime> myLinkMinGreenTimes;
 
+    /// @brief The custom switching conditions
+    ConditionMap myConditions;
+
+    /// @brief The condition assignments
+    AssignmentMap myAssignments;
+
+    /// @brief The loaded functions
+    FunctionMap myFunctions;
+
+    /// @brief The function call stack;
+    mutable std::vector<std::map<std::string, double> > myStack;
+
+    /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
+    std::set<std::string> myListedConditions;
+
     /// @brief whether the next switch time was requested via TraCI
     bool myTraCISwitch;
+
+    struct SwitchingRules {
+        bool enabled = false;
+    };
+
+    std::vector<SwitchingRules> mySwitchingRules;
+
+    const std::string myDetectorPrefix;
+
+    static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };

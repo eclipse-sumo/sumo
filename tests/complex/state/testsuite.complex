@@ -1,3 +1,6 @@
+# test state saving with persons
+persons
+
 # two vehicles saved and reloaded
 plain
 
@@ -19,6 +22,9 @@ disconnected
 # two vehicles saved and reloaded with xml output
 xml
 
+# ensure correct exitTimes after loading state
+vehroute_exit_times
+
 # include route and vtype dists with xml output
 dists_xml
 
@@ -35,6 +41,9 @@ save_collision_stopped
 save_cyclic_stops
 save_flow
 
+# flow saving with already ended vehicles
+save_flow50
+
 # save and load flow but do not load the original route file
 load_flow_state_only
 save_on_rail_signal
@@ -45,15 +54,53 @@ save_rail_signal_constraint
 
 # include the actual constraints in the saved state
 save_rail_signal_constraint_include
+save_rail_signal_approach_steplength
 save_rng
 save_routeDistribution
+
+# input contains routeDistribution embedded within a vehicle. See #13449
+save_routeDistribution2
 save_stopped
+save_stopped_until
 
 # like save_stopped but the input already containts started/ended information
 save_stopped_started_ended
+
+# save stops in named routes
+named_route_stops
 
 # restore further lanes according to previous route when loading state
 rail_furtherLane
 
 # test vehroute-output.exit-times after loading state
 exit_times
+
+# state loading / saving with a defined departEdge
+save_depart_edge
+
+# test for crash when loading additional file with vehicles before the state file
+default_begin
+
+# test for crash when loading additional file with vehicles before the state
+earlier_begin
+
+# when loading state, replace the vType attributes with new values
+replace_vtype
+
+# teleporting vehicles
+teleporting
+
+# teleporting vehicles
+teleporting_highbegin
+
+# load actuated tls
+actuated
+
+# test saving and load vehicles added by calibrator
+calibrator
+
+# see #11394
+continous_lanechange
+
+# two vehicles saved and reloaded
+replay

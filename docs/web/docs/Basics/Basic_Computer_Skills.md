@@ -22,8 +22,8 @@ Or by pressing the `Win` + `R` keys and entering `notepad`
 
 Notepad is a very basic text editor. You can increase your comfort and
 productivity by switching to an editor with more features. Consider
-[Notepad++](http://notepad-plus-plus.org/) or
-[vim](http://www.vim.org/download.php#pc) and also see this [comparison of text editors](https://en.wikipedia.org/wiki/Comparison_of_text_editors)
+[Notepad++](https://notepad-plus-plus.org/) or
+[vim](https://www.vim.org/download.php#pc) and also see this [comparison of text editors](https://en.wikipedia.org/wiki/Comparison_of_text_editors)
 
 !!! note
     Files used by SUMO have by convention names ending with
@@ -37,7 +37,7 @@ productivity by switching to an editor with more features. Consider
 
 To work with the various files needed by SUMO you must be able to find
 them on your file system. For starters learn about using Windows
-Explorer [here](https://www.teacherclick.com/winxp/t_4_1.htm) or
+Explorer [here](https://edu.gcfglobal.org/en/windowsbasics/working-with-files/1/) or
 [here](https://www.google.com/#q=windows+explorer+tutorial).
 
 # Running Programs from the Command Line
@@ -120,9 +120,9 @@ your `PATH` variable and the `SUMO_HOME` variable.
 !!! note
     If you have installed SUMO via the windows *.msi* installer file, this is done automatically.
 
-1.  On the Windows search box (on the Taskbar) search for *environment*. The best match result should be the "Edit the system environment variables" option. Open it.   
+1.  On the Windows search box (on the Taskbar) search for *environment*. The best match result should be the "Edit the system environment variables" option. Open it.
 ![](../images/win_environment_variables.png)
-2.  A small window should appear. Under *user variables* select **PATH** (or **Path** - Windows environment variables are case insensitive) and click *Edit*. If no such variable exists you must create it with the *New*-Button   
+2.  A small window should appear. Under *user variables* select **PATH** (or **Path** - Windows environment variables are case insensitive) and click *Edit*. If no such variable exists you must create it with the *New*-Button
 ![](../images/win_user_variables.png)
 3.  Append `;C:\Program Files\sumo-{{Version}}\bin` to the end of the **PATH** value
     (don't delete the existing values\!)
@@ -197,7 +197,7 @@ This will open the *.zshrc* file in TextEdit. Add the following line to that doc
 ```
 export SUMO_HOME="/your/path/to/sumo"
 ```
-Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.
 Save that document in TextEdit. Now you need to apply the changes by entering:
 ```
 source ~/.zshrc
@@ -218,7 +218,7 @@ This will open the *.bash_profile* file in TextEdit. Add the following line to t
 ```
 export SUMO_HOME="/your/path/to/sumo"
 ```
-Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.
 Save that document in TextEdit. Now you need to apply the changes by entering:
 ```
 source ~/.bash_profile

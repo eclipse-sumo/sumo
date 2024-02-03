@@ -1,0 +1,104 @@
+Warning: Ignoring track count 2 for edge '194973341'.
+Warning: Ignoring track count 2 for edge '321754188'.
+Warning: Ignoring track count 2 for edge '321754191'.
+Warning: Ignoring track count 2 for edge '321754197'.
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4067932').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4471817').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '4588220').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '4612961').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4613110').
+Warning: Ambiguous railway kilometrage direction for way '25946680' (assuming forward)
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '25959781').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '31112384').
+Warning: Discarding unusable type 'waterway.weir' (first occurrence for edge '31560876').
+Warning: Ambiguous railway kilometrage direction for way '32572620' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32572624' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '43185748').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '59683399').
+Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 374676 with no stops ignored. Probably OSM file is incomplete.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '1028113'.
+Warning: PT line in relation 1085700 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '3250129634' in relation '1123588'
+Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
+Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
+Warning: Platform '383505803' in relation: '1650240' is given as polygon, which currently is not supported.
+Warning: PT line in relation 1798225 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2227743 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '29177662' in relation '3832450'
+Warning: No way found for reference '134833998' in relation '3832450'
+Warning: No way found for reference '29177662' in relation '3832461'
+Warning: No way found for reference '134833998' in relation '3832461'
+Warning: Ignoring restriction relation '4806373' with unknown to-way.
+Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
+Warning: Platform '383505801' in relation: '5707635' is given as polygon, which currently is not supported.
+Warning: Ignoring restriction relation '7778535' with unknown to-way.
+Warning: Could not determine cross product for edge '24914992#0'.
+Warning: Could not determine cross product for edge '275177453'.
+Warning: Could not determine cross product for edge '43156728#2'.
+Warning: Could not determine cross product for edge '4402228'.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '587624704' (U Berliner Rathaus). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1257007152' (U Museumsinsel). Thus, it will be removed!
+Warning: Could not re-assign PT stop '1615531689', probably broken osm file.
+Warning: PT stop '4692172068' has been moved to edge '-326116285#2'.
+Warning: Could not re-assign PT stop '247600965', probably broken osm file.
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Could not re-assign PT stop '1823298700', probably broken osm file.
+Warning: Cannot assign stop 247603398 on edge '207364191' to pt line '2076231'. Ignoring!
+Warning: Cannot assign stop 247603398 on edge '207364191' to pt line '2076232'. Ignoring!
+Warning: PT stop '3869306766' has been moved to edge '-35557143#1'.
+Warning: PT stop '3869306760' has been moved to edge '-176043807#2'.
+Warning: PT stop '3867910428' has been moved to edge '478396988'.
+Warning: PT stop '3867910429' has been moved to edge '-478396988'.
+Warning: Cannot assign stop 3867910429 on edge '478396988' to pt line '2211985'. Ignoring!
+Warning: Converting invalid rail_crossing to priority junction '2831092401'.
+Warning: Converting invalid rail_crossing to priority junction '2831092402'.
+Warning: Converting invalid rail_crossing to priority junction '2831092403'.
+Warning: Converting invalid rail_crossing to priority junction '2924018416'.
+Warning: Converting invalid rail_crossing to priority junction '2924018417'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673916'.
+Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
+Warning: Not joining junctions 1673526976,29192953,4590472031,4590472049,4590472050 (it contains a pt stop edge).
+Warning: Reducing junction cluster 1673585734,26701256,29192960,3590535061,3590535063,4590472038,5632884667 (parallel incoming -15977422#0,-35578576#2).
+Warning: Reducing junction cluster 1803575761,21487209,2480337678,2656298207,29219440,341340978,3831343134,4566145597,5747234974 (long edge).
+Warning: Not joining junctions 27005148,3378459428 (only 1 edge within and no cross-traffic).
+Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=7.19)).
+Warning: Not joining junctions 29192958,3378459483,4121410267,4590472025,4590472045,4590472046 (long edge).
+Warning: Reducing junction cluster 3513423869,3513423870,3513423873,3513423879,3513423880,3513423881,3513423882 (parallel outgoing -310176513#6,54698846#0).
+Warning: Ambiguity in turnarounds computation at junction '1206481791'.
+Warning: Ambiguity in turnarounds computation at junction '1206481808'.
+Warning: Ambiguity in turnarounds computation at junction '5527777343'.
+Warning: Found sharp turn with radius 5.72 at the end of edge '-285825377'.
+Warning: Found sharp turn with radius 6.74 at the start of edge '-330832908'.
+Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
+Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
+Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
+Warning: Found angle of 179.72 degrees at edge '32590429', segment 0.
+Warning: Found angle of 179.79 degrees at edge '32590434#1', segment 14.
+Warning: The rail crossing '1157325170' does not have any roads.
+Warning: The rail crossing '4402536776' does not have any roads.
+Warning: The rail crossing '4567083492' does not have any roads.
+Warning: The rail crossing '4567083494' does not have any roads.
+Warning: The rail crossing '4603453625' does not have any roads.
+Warning: The traffic light '4363312288' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '4363312288'
+Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.90 due to turning radius of 1.51 (length=1.66, angle=168.28).
+Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
+Warning: 16 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
+Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 17 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 9 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 15 total messages of type: No way found for reference '%' in relation '%'
+Warning: 7 total messages of type: Not joining junctions % (%).
+Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
+Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
+Warning: 29 total messages of type: The rail crossing '%' does not have any roads.

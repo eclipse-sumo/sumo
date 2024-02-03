@@ -1,0 +1,75 @@
+# intersection connected to normal and bidi edges;  peds run on the right hand side on the normal road or sidewalk, but run in the middle righ after entering bidi
+ped_run_middle
+
+# intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
+bikeUnneededEmergencyBraking
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a vehicle wiggles when bikes are passing by.
+bikePassingWithoutWiggledVeh
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if SUMO identifies fault collisions, and if everlasting stop exists.
+bikeFaultCollision
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a bike avoid conflict with another bike, and if delayedTeleporting exists.
+bikeAvoidConflictWithBike
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if a bike avoid conflict with a vehicle.
+bikeAvoidConflictWithVeh
+
+# the car is driving on the right side and so the oncoming bike must also stay on (its) right side to pass.
+bikeOvertakeRight
+
+# the car is driving in the center side and  the oncoming bike should prefer passing on the right to passing on the left.
+bikePreferOvertakeRight
+
+# a single pair of bidi-edges and 2 vehicles
+1edge
+
+# a single pair of bidi-edges and 2 vehicles
+1edge_teleport_bidi
+
+# a single pair of bidi-edges and 2 vehicles
+1edge_teleport_bidi_custom
+
+# a single pair of bidi-edges (between normal edges) and 2 vehicles
+1edge_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
+2edges_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles,
+# broken departure symmetry
+2edges_between2
+
+# a single pair of bidi-edges and 2 vehicles in the same direction
+1edge_insertion
+
+# When a bike approaches a ped, the ped runs to the direction to bike, and his trajectories are weird.
+pedRunToBike
+
+# Pedestrians must be taken into account beyond the current edge. (#11483)
+pedestrian_beyond_junction
+
+# bike does not overtake the ped in front of him, although there is space; instead of overtaking it makes emergency braking.
+bikeNotOvertake
+
+# intersection connected with bidi-edges and paths for bike and pedestrian, 2 bikes have collision after passing the intersection
+collision_btw_bikes
+
+# intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
+# bikeDepartDelayOnBidi (automatically commented due to no test directory being found)
+
+# intersection connected with bidi-edges and paths for bike and pedestrian, 1 shuttle (customized vehicle) and 2 bike,
+# Check if the bikes coming from the left side and the shuttle from the upper side dangle until being teleported when they meet each other at the intersection (breakpoint: 1025).
+hangAtIntersectionWithBidi
+
+# intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
+# Check if the bike coming from the opposite side and the shuttle dangle until being teleported when they meet each other at the intersection (breakpoint: 508).
+dangleAtIntersectionWithBidi
+
+# intersection connected with bidi-edges,  Bike runs without deceleration until being very close to a ped within a crossing.
+emergency_braking_late_slow_down_within_crossing

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-22 10:40:01 by Eclipse SUMO sumo Version v1_16_0+0608-da6a604
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional4.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="59211"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0.00" arrival="257.00">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+        <stop lane="A1B1_0" startPos="5.00" endPos="50.00" posLat="-0.50" arrival="42.00" duration="30.00" until="100.00" started="16.00" ended="111.00" extension="10.00" triggered="join" parking="0" expected="p0 p1" permitted="p0 p1 p2" tripId="fancyID" line="S42" split="train0" join="train1" actType="test action"/>
+        <stop busStop="busStop_B1C1" duration="100.00"/>
+        <stop busStop="busStop_C1D1" duration="60.00" onDemand="1"/>
+        <param key="tripId" value="fancyID"/>
+    </vehicle>
+
+</routes>

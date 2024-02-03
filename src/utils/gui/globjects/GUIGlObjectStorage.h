@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,37 +58,32 @@ public:
 
     /** @brief Registers an object
      *
-     * This done within the constructor of the GUIGlObject; The object's "setGLID"
-     *  method is called giving the next free id.
+     * This is done within the constructor of the GUIGlObject.
+     * The next free id is calculated as well.
      *
      * @param[in] object The object to register
-     * @param[in] fullName The full name of the object to register
-     * @return the GUIGlObject under which the object has been registered
      */
-    GUIGlID registerObject(GUIGlObject* object, const std::string& fullName);
+    GUIGlID registerObject(GUIGlObject* object);
 
+    void changeName(GUIGlObject* object, const std::string& fullName);
 
     /** @brief Returns the object from the container locking it
      *
      * The lock prevents the object from being deleted while it is accessed.
-     * The object is moved from "myMap" to "myBlocked".
      *
      * @param[in] id The id of the object to return
-     * @return The object with the given id or 0 if no such object is known
+     * @return The object with the given id or nullptr if no such object is known
      */
-    GUIGlObject* getObjectBlocking(GUIGlID id);
-
+    GUIGlObject* getObjectBlocking(GUIGlID id) const;
 
     /** @brief Returns the object from the container locking it
      *
      * The lock prevents the object from being deleted while it is accessed.
-     * The object is moved from "myMap" to "myBlocked".
      *
      * @param[in] id The id of the object to return
-     * @return The object with the given id or 0 if no such object is known
+     * @return The object with the given id or nullptr if no such object is known
      */
-    GUIGlObject* getObjectBlocking(const std::string& fullName);
-
+    GUIGlObject* getObjectBlocking(const std::string& fullName) const;
 
     /** @brief Removes the named object from this container
      *
@@ -100,7 +95,6 @@ public:
      * @return Whether the object could be removed (and may be deleted)
      */
     bool remove(GUIGlID id);
-
 
     /** @brief Clears this container
      *
@@ -124,7 +118,6 @@ public:
         myNetObject = object;
     }
 
-
     /** @brief Returns the network object
      * @return The network object
      */
@@ -132,35 +125,21 @@ public:
         return myNetObject;
     }
 
-
-    /** @brief A single static instance of this class
-     */
+    /// @brief A single static instance of this class
     static GUIGlObjectStorage gIDStorage;
 
-
-    /** @brief Returns the set of all known ids
-     */
-    std::set<GUIGlID> getAllIDs() const;
+    /// @brief Returns the set of all known objects
+    const std::vector<GUIGlObject*>& getAllGLObjects() const;
 
 private:
-    /// @brief Definition of a container from numerical ids to objects
-    typedef std::map<GUIGlID, GUIGlObject*> ObjectMap;
+    /// @brief The known objects
+    std::vector<GUIGlObject*> myObjects;
 
-    /// @brief The known objects which are not accessed currently
-    ObjectMap myMap;
+    /// @brief The known objects by their full name
+    std::map<std::string, GUIGlObject*> myFullNameMap;
 
-    /* @brief The known objects by their fill name (used when loading selection
-     * from file */
-    std::map<std::string, GUIGlObject*>  myFullNameMap;
-
-    /// @brief The currently accessed objects
-    ObjectMap myBlocked;
-
-    /// @brief Objects to delete
-    ObjectMap my2Delete;
-
-    /// @brief The next id to give; initially zero, increased by one with each object registration
-    GUIGlID myAktID;
+    /// @brief The next id to give; initially one, increased by one with each object registration
+    GUIGlID myNextID;
 
     /// @brief A lock to avoid parallel access on the storages
     mutable FXMutex myLock;
@@ -168,13 +147,10 @@ private:
     /// @brief The network object
     GUIGlObject* myNetObject;
 
-
 private:
     /// @brief invalidated copy constructor
-    GUIGlObjectStorage(const GUIGlObjectStorage& s);
+    GUIGlObjectStorage(const GUIGlObjectStorage& s) = delete;
 
     /// @brief invalidate assignment operator
-    GUIGlObjectStorage& operator=(const GUIGlObjectStorage& s);
-
-
+    GUIGlObjectStorage& operator=(const GUIGlObjectStorage& s) = delete;
 };

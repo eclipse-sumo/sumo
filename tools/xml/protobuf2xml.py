@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,27 +26,27 @@ import sys
 import struct
 import contextlib
 
-from optparse import OptionParser
-import google.protobuf.descriptor
 import xml2csv
 import xml2protobuf
 
+import google.protobuf.descriptor  # we need to do this late because the xml2protobuf import modifies sys.path
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+import sumolib  # noqa
+
 
 def get_options():
-    optParser = OptionParser(
-        usage=os.path.basename(sys.argv[0]) + " [<options>] <input_file_or_port>")
-    optParser.add_option("-p", "--protodir", default=".",
-                         help="where to put and read .proto files")
-    optParser.add_option("-x", "--xsd", help="xsd schema to use")
-    optParser.add_option("-o", "--output", help="name for generic output file")
-    options, args = optParser.parse_args()
-    if len(args) != 1:
-        optParser.print_help()
-        sys.exit()
-    if not options.xsd:
-        print("a schema is mandatory", file=sys.stderr)
-        sys.exit()
-    options.source = args[0]
+    optParser = sumolib.options.ArgumentParser(description="Convert a protocol buffer to an XML file.")
+    optParser.add_argument("source", category="input", type=optParser.data_file, help="the input protobuf file")
+    optParser.add_argument("-p", "--protodir", category="input", default=".", help="where to put and read .proto files")
+    optParser.add_argument("-x", "--xsd", category="processing", required=True, help="xsd schema to use")
+    optParser.add_argument("-o", "--output", category="output",
+                           type=optParser.data_file, help="name for generic output file")
+    options = optParser.parse_args()
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options

@@ -1,8 +1,19 @@
+
+
 # rail signal constraint retrieval and modification
 constraints
 
+# tests for  tlLogic type 'NEMA'
+NEMA
+
 # Tests the trafficlight API
 trafficlight
+
+# Tests the trafficlight API for an intersection with controlled pedestrian crossings
+crossings
+
+# Tests the trafficlight API for an intersection with controlled pedestrian crossings where each direction is controlled separately
+crossings_twoSided
 
 # test offset manipulation
 offset
@@ -15,3 +26,9 @@ getBlocking_reroute
 
 # tests interaction with actuated traffic light
 actuated
+
+# tests interaction with actuated traffic light that uses custom switching conditions
+actuated_conditions
+
+# Overwrite signal program with TraCI-generated phases twice
+setLogic_repeated

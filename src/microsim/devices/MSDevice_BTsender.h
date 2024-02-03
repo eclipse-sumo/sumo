@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,9 @@
 
 #include <set>
 #include <string>
+#include <microsim/MSMoveReminder.h>
 #include "MSVehicleDevice.h"
+#include "MSTransportableDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/geom/Boundary.h>
 
@@ -44,42 +46,22 @@ class SUMOTrafficObject;
  *
  * @see MSDevice
  */
-class MSDevice_BTsender : public MSVehicleDevice {
+class MSDevice_BTsender {
 public:
-    /** @brief Inserts MSDevice_BTsender-options
-     * @param[filled] oc The options container to add the options to
-     */
-    static void insertOptions(OptionsCont& oc);
-
-
-    /** @brief Build devices for the given vehicle, if needed
-     *
-     * The options are read and evaluated whether a bt-sender-device shall be built
-     *  for the given vehicle.
-     *
-     * The built device is stored in the given vector.
-     *
-     * @param[in] v The vehicle for which a device may be built
-     * @param[filled] into The vector to store the built device in
-     */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
-
 
     /** @brief removes remaining vehicleInformation in sVehicles
      */
     static void cleanup();
 
+    /// @brief return either lane or edge id (depending on availability)
+    static std::string getLocation(const SUMOTrafficObject& o);
 
     /// for accessing the maps of running/arrived vehicles
     friend class MSDevice_BTreceiver;
 
-
-
 public:
     /// @brief Destructor.
     ~MSDevice_BTsender();
-
-
 
     /// @name Methods inherited from MSMoveReminder.
     /// @{
@@ -92,7 +74,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -120,14 +102,8 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
-
-    /// @brief return the name for this type of device
-    const std::string deviceName() const {
-        return "btsender";
-    }
-
 
     /** @class VehicleState
      * @brief A single movement state of the vehicle
@@ -202,19 +178,16 @@ public:
 
 
 
-private:
-    /** @brief Constructor
-     *
-     * @param[in] holder The vehicle that holds this device
-     * @param[in] id The ID of the device
-     */
-    MSDevice_BTsender(SUMOVehicle& holder, const std::string& id);
 
 
 
 protected:
     /// @brief The list of arrived senders
     static std::map<std::string, VehicleInformation*> sVehicles;
+
+    /** @brief Constructor
+     */
+    MSDevice_BTsender() { }
 
 
 
@@ -225,5 +198,108 @@ private:
     /// @brief Invalidated assignment operator.
     MSDevice_BTsender& operator=(const MSDevice_BTsender&);
 
+
+};
+
+
+class MSVehicleDevice_BTsender : public MSDevice_BTsender, public MSVehicleDevice {
+public:
+
+    /** @brief Inserts MSDevice_BTsender-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
+
+    /** @brief Build devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether a bt-sender-device shall be built
+     *  for the given vehicle.
+     *
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which a device may be built
+     * @param[filled] into The vector to store the built device in
+     */
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
+
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "btsender";
+    }
+
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTsender::notifyEnter(veh, reason, enteredLane);
+    }
+
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) {
+        return MSDevice_BTsender::notifyMove(veh, oldPos, newPos, newSpeed);
+    }
+
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTsender::notifyLeave(veh, lastPos, reason, enteredLane);
+    }
+
+
+private:
+    /** @brief Constructor
+     *
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSVehicleDevice_BTsender(SUMOVehicle& holder, const std::string& id) :
+        MSVehicleDevice(holder, id) {
+    }
+
+};
+
+class MSTransportableDevice_BTsender : public MSDevice_BTsender, public MSTransportableDevice {
+public:
+
+    /** @brief Inserts MSDevice_BTsender-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
+
+    /** @brief Build devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether a bt-sender-device shall be built
+     *  for the given vehicle.
+     *
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which a device may be built
+     * @param[filled] into The vector to store the built device in
+     */
+    static void buildDevices(MSTransportable& t, std::vector<MSTransportableDevice*>& into);
+
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "btsender";
+    }
+
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTsender::notifyEnter(veh, reason, enteredLane);
+    }
+
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) {
+        return MSDevice_BTsender::notifyMove(veh, oldPos, newPos, newSpeed);
+    }
+
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTsender::notifyLeave(veh, lastPos, reason, enteredLane);
+    }
+
+
+private:
+    /** @brief Constructor
+     *
+     * @param[in] holder The transportable that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSTransportableDevice_BTsender(MSTransportable& holder, const std::string& id) :
+        MSTransportableDevice(holder, id) {
+    }
 
 };

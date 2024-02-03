@@ -1,0 +1,5 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: The lane with the id ':C_w2_0' is not known (while building e1Detector 'all').
+Error: The lane with the id ':C_w2_0' is not known (while building e1Detector 'cSN').
+Error: The lane with the id ':C_w2_0' is not known (while building e1Detector 'cSW').
+Quitting (on error).

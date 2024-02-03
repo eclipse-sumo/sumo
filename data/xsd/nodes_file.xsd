@@ -33,9 +33,9 @@
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <xsd:attribute name="x" type="xsd:float" use="optional"/>
-        <xsd:attribute name="y" type="xsd:float" use="optional"/>
-        <xsd:attribute name="z" type="xsd:float" use="optional"/>
+        <xsd:attribute name="x" type="floatType" use="optional"/>
+        <xsd:attribute name="y" type="floatType" use="optional"/>
+        <xsd:attribute name="z" type="floatType" use="optional"/>
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
@@ -49,6 +49,8 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="default"/>
+                    <xsd:enumeration value="mixedPriority"/>
+                    <xsd:enumeration value="allwayStop"/>
                     <xsd:enumeration value="edgePriority"/>
                 </xsd:restriction>
             </xsd:simpleType>

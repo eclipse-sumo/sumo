@@ -5,6 +5,9 @@ ignore_errors_invalid_depart_edge
 # randomize edge weights
 random-factor
 
+# write costs
+costs
+
 # Testing loop removal
 remove_loops
 
@@ -20,6 +23,9 @@ measure
 # shortest path finding related tests
 routing
 repair
+
+# test option --skip-new-routes
+skip_routing
 
 # keep some or all of the old routes
 keep_routes

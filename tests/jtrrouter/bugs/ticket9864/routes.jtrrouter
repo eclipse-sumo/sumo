@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-03 13:03:03 by Eclipse SUMO jtrrouter Version v1_11_0+0700-dcd90a9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_flows.flows.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <accept-all-destinations value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="standard_car" speedFactor="1.20"/>
+    <vehicle id="a.0" type="standard_car" depart="0.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.1" type="standard_car" depart="36.00">
+        <route edges="beg beg2left left left2end end -end -right2end -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.2" type="standard_car" depart="72.00">
+        <route edges="beg beg2right -beg2right beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.3" type="standard_car" depart="108.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.4" type="standard_car" depart="144.00">
+        <route edges="beg middle -left2end -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.5" type="standard_car" depart="180.00">
+        <route edges="beg beg2left -beg2left middle -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.6" type="standard_car" depart="216.00">
+        <route edges="beg middle end -end -middle beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.7" type="standard_car" depart="252.00">
+        <route edges="beg middle -right2end -right -beg2right beg2right right right2end end -end -left2end left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.8" type="standard_car" depart="288.00">
+        <route edges="beg beg2left -beg2left middle -middle beg2right right right2end -left2end -left left left2end end -end -right2end -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.9" type="standard_car" depart="324.00">
+        <route edges="beg beg2right right -right -beg2right beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.10" type="standard_car" depart="360.00">
+        <route edges="beg beg2right right -right -beg2right beg2left left -left -beg2left middle end -end -right2end right2end -left2end left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.11" type="standard_car" depart="396.00">
+        <route edges="beg middle -right2end right2end -left2end left2end end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.12" type="standard_car" depart="432.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.13" type="standard_car" depart="468.00">
+        <route edges="beg beg2left -beg2left beg2right right right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.14" type="standard_car" depart="504.00">
+        <route edges="beg middle -left2end left2end -right2end right2end end -end -middle beg2right right -right -beg2right beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.15" type="standard_car" depart="540.00">
+        <route edges="beg beg2left left -left -beg2left middle end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.16" type="standard_car" depart="576.00">
+        <route edges="beg beg2left -beg2left beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.17" type="standard_car" depart="612.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.18" type="standard_car" depart="648.00">
+        <route edges="beg middle -right2end right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.19" type="standard_car" depart="684.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.20" type="standard_car" depart="720.00">
+        <route edges="beg beg2right right -right -beg2right beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.21" type="standard_car" depart="756.00">
+        <route edges="beg middle -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.22" type="standard_car" depart="792.00">
+        <route edges="beg beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.23" type="standard_car" depart="828.00">
+        <route edges="beg middle -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.24" type="standard_car" depart="864.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.25" type="standard_car" depart="900.00">
+        <route edges="beg beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.26" type="standard_car" depart="936.00">
+        <route edges="beg beg2right right right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.27" type="standard_car" depart="972.00">
+        <route edges="beg middle -left2end -left left left2end end -end -middle beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.28" type="standard_car" depart="1008.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.29" type="standard_car" depart="1044.00">
+        <route edges="beg middle end -end -middle beg2left left -left -beg2left beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.30" type="standard_car" depart="1080.00">
+        <route edges="beg middle -right2end right2end end -end -middle beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.31" type="standard_car" depart="1116.00">
+        <route edges="beg beg2right right -right -beg2right beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.32" type="standard_car" depart="1152.00">
+        <route edges="beg middle -right2end right2end end -end -middle beg2right right -right -beg2right beg2left left left2end -left2end -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.33" type="standard_car" depart="1188.00">
+        <route edges="beg middle -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.34" type="standard_car" depart="1224.00">
+        <route edges="beg beg2right right -right -beg2right middle -right2end right2end end -end -left2end -left left left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.35" type="standard_car" depart="1260.00">
+        <route edges="beg middle -left2end left2end -right2end -right -beg2right beg2right right right2end end -end -middle beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.36" type="standard_car" depart="1296.00">
+        <route edges="beg beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.37" type="standard_car" depart="1332.00">
+        <route edges="beg middle -middle beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.38" type="standard_car" depart="1368.00">
+        <route edges="beg beg2right -beg2right beg2left left left2end -right2end right2end -middle middle end -end -left2end -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.39" type="standard_car" depart="1404.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.40" type="standard_car" depart="1440.00">
+        <route edges="beg beg2left -beg2left beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.41" type="standard_car" depart="1476.00">
+        <route edges="beg beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.42" type="standard_car" depart="1512.00">
+        <route edges="beg middle -middle beg2right right right2end -right2end -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.43" type="standard_car" depart="1548.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.44" type="standard_car" depart="1584.00">
+        <route edges="beg beg2right right right2end -left2end -left -beg2left middle end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.45" type="standard_car" depart="1620.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.46" type="standard_car" depart="1656.00">
+        <route edges="beg beg2left left -left -beg2left middle -right2end -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.47" type="standard_car" depart="1692.00">
+        <route edges="beg beg2right right right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.48" type="standard_car" depart="1728.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.49" type="standard_car" depart="1764.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.50" type="standard_car" depart="1800.00">
+        <route edges="beg beg2right -beg2right beg2left left left2end -right2end right2end -left2end -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.51" type="standard_car" depart="1836.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.52" type="standard_car" depart="1872.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.53" type="standard_car" depart="1908.00">
+        <route edges="beg beg2left -beg2left middle -left2end -left left left2end -right2end right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.54" type="standard_car" depart="1944.00">
+        <route edges="beg beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.55" type="standard_car" depart="1980.00">
+        <route edges="beg beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.56" type="standard_car" depart="2016.00">
+        <route edges="beg beg2right right -right -beg2right beg2left -beg2left middle end -end -right2end right2end -left2end -left left left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.57" type="standard_car" depart="2052.00">
+        <route edges="beg middle -left2end left2end -middle beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.58" type="standard_car" depart="2088.00">
+        <route edges="beg beg2left left left2end -right2end right2end end -end -left2end -left -beg2left middle -middle beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.59" type="standard_car" depart="2124.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.60" type="standard_car" depart="2160.00">
+        <route edges="beg beg2left left -left -beg2left middle -right2end -right -beg2right beg2right right right2end end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.61" type="standard_car" depart="2196.00">
+        <route edges="beg middle end -end -right2end right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.62" type="standard_car" depart="2232.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.63" type="standard_car" depart="2268.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.64" type="standard_car" depart="2304.00">
+        <route edges="beg middle -left2end -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.65" type="standard_car" depart="2340.00">
+        <route edges="beg beg2left left -left -beg2left middle end -end -middle beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.66" type="standard_car" depart="2376.00">
+        <route edges="beg beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.67" type="standard_car" depart="2412.00">
+        <route edges="beg beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.68" type="standard_car" depart="2448.00">
+        <route edges="beg beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.69" type="standard_car" depart="2484.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.70" type="standard_car" depart="2520.00">
+        <route edges="beg beg2left -beg2left middle -right2end right2end -middle beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.71" type="standard_car" depart="2556.00">
+        <route edges="beg middle -middle beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.72" type="standard_car" depart="2592.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.73" type="standard_car" depart="2628.00">
+        <route edges="beg beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.74" type="standard_car" depart="2664.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.75" type="standard_car" depart="2700.00">
+        <route edges="beg beg2right right right2end -middle middle -right2end -right -beg2right beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.76" type="standard_car" depart="2736.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.77" type="standard_car" depart="2772.00">
+        <route edges="beg beg2left left -left -beg2left beg2right -beg2right middle -right2end right2end end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.78" type="standard_car" depart="2808.00">
+        <route edges="beg middle -right2end -right right right2end end -end -middle beg2left left -left -beg2left beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.79" type="standard_car" depart="2844.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.80" type="standard_car" depart="2880.00">
+        <route edges="beg middle end -end -right2end -right right right2end -middle beg2right -beg2right beg2left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.81" type="standard_car" depart="2916.00">
+        <route edges="beg beg2right right -right -beg2right middle -left2end -left left left2end end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.82" type="standard_car" depart="2952.00">
+        <route edges="beg middle end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.83" type="standard_car" depart="2988.00">
+        <route edges="beg beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.84" type="standard_car" depart="3024.00">
+        <route edges="beg beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.85" type="standard_car" depart="3060.00">
+        <route edges="beg beg2left left -left -beg2left beg2right right right2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.86" type="standard_car" depart="3096.00">
+        <route edges="beg middle -right2end right2end -middle beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.87" type="standard_car" depart="3132.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.88" type="standard_car" depart="3168.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.89" type="standard_car" depart="3204.00">
+        <route edges="beg beg2left -beg2left beg2right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.90" type="standard_car" depart="3240.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.91" type="standard_car" depart="3276.00">
+        <route edges="beg beg2right -beg2right middle -right2end -right right right2end end -end -left2end -left left left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.92" type="standard_car" depart="3312.00">
+        <route edges="beg beg2left -beg2left middle -right2end right2end end -end -middle beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.93" type="standard_car" depart="3348.00">
+        <route edges="beg middle end -end -right2end -right right right2end -left2end left2end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.94" type="standard_car" depart="3384.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.95" type="standard_car" depart="3420.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+    <vehicle id="a.96" type="standard_car" depart="3456.00">
+        <route edges="beg beg2right -beg2right beg2left left -left -beg2left -beg"/>
+    </vehicle>
+    <vehicle id="a.97" type="standard_car" depart="3492.00">
+        <route edges="beg middle -left2end left2end -middle beg2left -beg2left beg2right right -right -beg2right -beg"/>
+    </vehicle>
+    <vehicle id="a.98" type="standard_car" depart="3528.00">
+        <route edges="beg beg2right right right2end end -end -middle -beg"/>
+    </vehicle>
+    <vehicle id="a.99" type="standard_car" depart="3564.00">
+        <route edges="beg -beg"/>
+    </vehicle>
+</routes>

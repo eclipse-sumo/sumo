@@ -11,6 +11,7 @@ copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_nodes.nod.xml
+copy_test_path:input_plain.tll.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_trips.trips_foo.xml
 copy_test_path:input_trips.trips_bar.xml
@@ -20,6 +21,7 @@ copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.xml
 copy_test_path:input_detectors.det.xml
 copy_test_path:input_stops.xml
+copy_test_path:input_config.xml
 copy_test_path:tracefile.txt
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
@@ -47,6 +49,7 @@ copy_test_path:e1.add.xml
 copy_test_path:e2.add.xml
 copy_test_path:e3.add.xml
 copy_test_path:connections.con.xml
+copy_test_path:selection.txt
 copy_test_path:source.net.xml
 copy_test_path:source.nod.xml
 copy_test_path:source.edg.xml
@@ -73,16 +76,23 @@ copy_test_path:weights.via.xml
 copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
-copy_test_path:config.txt
+copy_test_path:config_file.txt
 copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
 copy_test_path:input_data.xml
+copy_test_path:input_data2.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
+copy_test_path:sim2.sumocfg
 copy_test_path:gtfs.zip
+copy_test_path:battery.xml
+copy_test_path:input.dxf
+copy_test_path:log.txt
 
 [collate_file]
+scaledObj:scaledObj.rou.xml
+scaled:scaled.rou.xml
 detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
@@ -92,6 +102,7 @@ connections:connections.con.xml
 turndefs:turn-defs.xml
 turns:turns.xml
 edgedata:edgedata.xml
+od:od.xml
 changednet:input_net.net.xml.chg
 edges:edges.edg.xml
 nodes:nodes.nod.xml
@@ -111,13 +122,20 @@ flows:out.flows.xml
 routes:out.rou.xml
 routesA:outA.rou.xml
 routesB:outB.rou.xml
-tripinfos:4/tripinfo_004.xml
+tripinfos:004/tripinfo_004.xml
 additional:out.add.xml
+additional2:out2.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
 diff_con:diff.con.xml
 diff_tll:diff.tll.xml
 diff_xml:diff.xml
+created_sel:diff.created.sel.txt
+deleted_sel:diff.deleted.sel.txt
+changed_sel:diff.changed.sel.txt
+created_shapes:diff.created.shape.xml
+deleted_shapes:diff.deleted.shape.xml
+changed_shapes:diff.changed.shape.xml
 omnet:omnet.xml
 shawn:shawn.xml
 dri:test.dri
@@ -137,6 +155,7 @@ dualog:dua.log
 image:image.svg
 csv:out*.csv
 csv:1.csv
+csv:1_*.csv
 xml:out.xml
 xml2:out2.xml
 net:net.net.xml
@@ -150,7 +169,16 @@ selection2:selection.comp2.txt
 histogram:histogram.dat
 fullstats:fullstats.dat
 xmlstats:stats.xml
-osmimport:*/osm.net.xml
+xmlstats0:000/stats.xml
+xmlstats1:001/stats.xml
+xmlstats1:1.stats.xml
+xmlstats1:stats1.xml
+xmlstats1:sim_1.stats.xml
+xmlstats2:2.stats.xml
+xmlstats2:stats2.xml
+xmlstats2:sim2_1.stats.xml
+xmlstats3:3.stats.xml
+osmimport:*/osm.net.xml.gz
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
 ptroutes:*/osm_pt.rou.xml
@@ -170,6 +198,10 @@ parkingA:parkingA.csv
 parkingB:parkingB.csv
 parkingC:parkingC.csv
 parkingD:parkingD.csv
+vehicleA:vehicleA.xml
+vehicleB:vehicleB.xml
+vehicleA:vehicleA.csv
+vehicleB:vehicleB.csv
 validate0:validate0.rou.xml
 validate900:validate900.rou.xml
 validate2700:validate2700.rou.xml
@@ -177,8 +209,12 @@ validate1800:validate1800.rou.xml
 vehtypes:vehtypes.xml
 tripinfos:tripinfos.xml
 gtfs_missing:gtfs_missing.xml
-gtfs_routes:gtfs_publictransport.rou.xml
-gtfs_additional:gtfs_publictransport.add.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
+aggregatebattery:aggregatebattery.xml
+
+[collate_script]
+osmimport:$SUMO_HOME/tests/unzip.py
 
 [run_dependent_text]
 output:Begin time
@@ -197,12 +233,17 @@ output:Building scenario in.*{REPLACE Building scenario in <DIR>}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
-output:Warning: Module 'rtree' not available. Using brute-force fallback
+output:Warning: Module 'rtree' not available.
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
+output:Could not connect to TraCI server
 output:Retrying in
 output:00000 *${REPLACE 00000}
 output:Cache: hits
+output:function .* called at .*
+output:function .* finished after .*
+output:optional arguments:{REPLACE options:}
+output:succeeded after .*{REPLACE succeeded after TIME}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
@@ -211,7 +252,9 @@ dualog:(.*ms)
 dualog:Simulation.*started with{REPLACE Simulation started with}
 dualog:.*'-c',{REPLACE '-c',}
 dualog:\\\\{REPLACE /}
-
+dualog:Suppressions used:{[->]}--------------------------------------------
+dualog:--------------------------------------------{LINES 2}
+tracefile:traci.start(.*){REPLACE traci.start(...)}
 trips:<!-- generated on{[->]}-->
 vehtypes:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
@@ -222,6 +265,10 @@ routesA:<!-- generated on{[->]}-->
 routesB:<!-- generated on{[->]}-->
 xml:<!-- generated on{[->]}-->
 toolcfg:<!-- generated on{[->]}-->
+created_shapes:<!-- generated on{[->]}-->
+deleted_shapes:<!-- generated on{[->]}-->
+changed_shapes:<!-- generated on{[->]}-->
+aggregatebattery:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
@@ -236,35 +283,70 @@ errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x
 errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
-errors:/home/
-errors:C:
-errors:D:
+errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
+errors:/.*/tests/../tools/{REPLACE sumo/tools/}
+errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
+errors:.*[/\\]([a-zA-Z0-9]*).py", line [0-9]+{REPLACE \1.py}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
+errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
+errors:Matplotlib is building the font cache; this may take a moment.
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
+errors:schemaCheck.py
+errors:site-packages/ortools.*DeprecationWarning:
+errors:remaining_args \.\.\.
+errors:FutureWarning:{LINES 2}
+errors:\^\^\^
+errors:something strange happend{REPLACE something strange happened}
+errors:LinAlgWarning: Ill-conditioned matrix
+errors:= opt.linprog(
+errors:return sp.linalg.solve
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
 flows:<!-- generated on{[->]}-->
 turns:<!-- generated on{[->]}-->
 xmlstats:<!-- generated on{[->]}-->
+xmlstats0:<!-- generated on{[->]}-->
+xmlstats1:<!-- generated on{[->]}-->
+xmlstats2:<!-- generated on{[->]}-->
+xmlstats3:<!-- generated on{[->]}-->
+xmlstats:<performance
+xmlstats0:<performance
+xmlstats1:<performance
+xmlstats2:<performance
+xmlstats3:<performance
 edgedata:<!-- generated on{[->]}-->
+od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!-- generated on{[->]}-->
+additional2:<!-- generated on{[->]}-->
 osmimport:<!--{[->]}-->
 osmstops:<!--{[->]}-->
 osmlines:<!--{[->]}-->
-ptroutes:<!--{[->]}-->
+ptroutes:<!-- generated on{[->]}-->
 osmbatch:python.*randomTrips\.py"{REPLACE python /path/to/randomTrips.py}
 osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 osmbatch:python.*ptlines2flows\.py{REPLACE python /path/to/ptlines2flows.py}
 osmbatch:-attributes.*--{REPLACE -attributes <attrs-with-os-dependent-quoting> --}
 osmbatch:#!/bin/bash
+image:<g id="matplotlib.axis
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
-image:http:{REPLACE https:}
-image-600:http:{REPLACE https:}
-image-800:http:{REPLACE https:}
+image:<dc:date>
+image:\)scale\({REPLACE ) scale(}
+image:\)rotate\({REPLACE ) rotate(}
+image:\)translate\({REPLACE ) translate(}
+image-600:<g id="matplotlib.axis
+image-600:<dc:date>
+image-600:\)scale\({REPLACE ) scale(}
+image-600:\)translate\({REPLACE ) translate(}
+image-800:<g id="matplotlib.axis
+image-800:<dc:date>
+image-800:\)scale\({REPLACE ) scale(}
+image-800:\)translate\({REPLACE ) translate(}
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->
@@ -272,6 +354,8 @@ diff_nod:<!-- generated on{[->]}-->
 diff_tll:<!-- generated on{[->]}-->
 diff_xml:<!-- generated on{[->]}-->
 meandata:<!-- generated on{[->]}-->
+scaled:<!-- generated on{[->]}-->
+scaledObj:<!-- generated on{[->]}-->
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
 
@@ -287,8 +371,13 @@ osmtrips:0.0101
 ptroutes:0.0101
 summary:0.0001
 routes:0.0001
-output:0.0001
+output:0.0101
+xml:0.0001
 csv:0.0101
+dualog:0.0101
+xmlstats:0.0101
+aggregatebattery:0.0101
+additional:0.0001
 
 [unordered_text]
 errors:ERROR:SCHEMA

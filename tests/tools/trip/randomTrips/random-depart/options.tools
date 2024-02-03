@@ -1,0 +1,2 @@
+-n net.net.xml -b 8:0:0 -e 9:0:0 -p 360
+--random-depart

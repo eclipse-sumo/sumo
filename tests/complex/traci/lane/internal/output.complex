@@ -1,0 +1,44 @@
+step 0
+step 1
+step 2
+examining :C_15_0
+length 27.7
+maxSpeed 13.89
+width 3.2
+allowed ('passenger',)
+disallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2')
+linkNum 1
+links [('CN_3', True, True, False)]
+linksExtended [('CN_3', True, True, False, '', 'M', 's', 0.0)]
+shape ((104.95, 85.4), (104.95, 113.1))
+edge :C_15
+CO2 0.0
+CO 0.0
+HC 0.0
+PMx 0.0
+NOx 0.0
+Fuel 0.0
+Noise 0.0
+Elec 0.0
+meanSpeed 13.89
+occupancy 0.0
+lastLength 0.0
+traveltime 1.9942404607631388
+numVeh 0
+haltVeh 0
+vehIds ()
+waiting time 0.0
+after setAllowed ('taxi',) ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2')
+after setDisallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2') ('bus',)
+after setMaxSpeed 42.0
+after setLength 123.0
+{16: 0}
+step 3
+pending :C_15_0 ()
+{16: 0}
+step 4
+pending :C_15_0 ()
+{16: 0}
+step 5
+pending :C_15_0 ()
+{16: 0}

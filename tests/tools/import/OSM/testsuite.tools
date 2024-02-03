@@ -3,6 +3,7 @@ build_passenger
 
 # test all modes on the default location of osmWebWizard.py
 webWizard
+webWizard_saveTemplate
 
 # test extraction of taxi stands as chargingStations
 taxiStop

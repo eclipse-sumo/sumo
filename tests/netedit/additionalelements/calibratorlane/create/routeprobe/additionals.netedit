@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-21 09:35:51 by Eclipse SUMO netedit Version v1_16_0+0488-c85d0c5ea0d
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="routeProbe_0" begin="0.00" period="100.00" edge="center1" file="routeProbe_0.txt"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" lane="center1_1" pos="9.00"/>
+</additional>

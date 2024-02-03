@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,30 +14,20 @@
 # @author Leonhard Luecken
 # @date   2017-04-09
 
-import os
-import sys
-
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from simpla._platoonmode import PlatoonMode  # noqa
-import simpla._reporting as rp  # noqa
+from ._platoonmode import PlatoonMode
+from . import _reporting as rp
+from . import _config as cfg
 
 warn = rp.Warner("Platoon")
 report = rp.Reporter("Platoon")
 
 
 class Platoon(object):
-    '''
-    '''
 
     # static platoon ID counter
     _nextID = 0
 
-    def __init__(self, vehicles, controlInterval, registerVehicles=True):
+    def __init__(self, vehicles, controlInterval, maxVehicles, registerVehicles=True):
         '''Platoon(list(PVehicle), float, bool) -> Platoon
 
         Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'.
@@ -49,6 +39,7 @@ class Platoon(object):
         self._ID = Platoon._nextID
         Platoon._nextID += 1
         self._vehicles = vehicles
+        self._maxVehicles = maxVehicles
         if registerVehicles:
             self.registerVehicles()
 
@@ -239,10 +230,15 @@ class Platoon(object):
 
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
         # splitImpatience = 1. - math.exp(min([0., self._vehicles[index]._timeUntilSplit]))
-        pltn = Platoon(self._vehicles[index:], self._controlInterval, False)
+
+        # check whether the split is safe and only create the new platoon afterwards
+        if not self._vehicles[index].isSwitchSafe(mode):
+            return None
+        pltn = Platoon(self._vehicles[index:], self._controlInterval, cfg.MAX_VEHICLES, False)
 
         if not pltn.setModeWithImpatience(mode, self._controlInterval):
             # could not split off platoon safely
+            # TODO: this should not happen because it leaves the platoon object unconnected to the PlatoonManager
             return None
 
         # split can be taken out safely -> reduce vehicles in this platoon
@@ -261,6 +257,10 @@ class Platoon(object):
 
         Tries to add the given platoon to the end of this. Returns True if this could safely be executed.
         '''
+        # respect maximum platoon size
+        if self.size() + pltn.size() > self._maxVehicles:
+            return False
+
         vehs = pltn.getVehicles()
         if self.getMode() == PlatoonMode.CATCHUP:
             if pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval):

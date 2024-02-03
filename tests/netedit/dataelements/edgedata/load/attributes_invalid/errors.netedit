@@ -1,0 +1,5 @@
+Error: attribute name expected
+ In file '/home/palcraft/.texttest/tmp/netedit.daily.data.edgedata.25Jan182728.9788/netedit.daily.data.edgedata/dataelements/edgedata/load/attributes_invalid/datas.dat.xml'
+ At line/column 62/27.
+
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.edgedata.25Jan182728.9788/netedit.daily.data.edgedata/dataelements/edgedata/load/attributes_invalid/datas.dat.xml failed.

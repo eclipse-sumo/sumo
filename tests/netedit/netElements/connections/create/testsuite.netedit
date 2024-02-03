@@ -1,8 +1,0 @@
-# create connection
-default
-
-# create invalid connection
-invalid
-
-# create yield connection
-yield

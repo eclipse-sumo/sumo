@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11.07.2018 10:38:09 by Eclipse SUMO netedit Version 88bb7b0b92
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_-gneE5_0_0" lane="-gneE5_0" startPos="6.00" endPos="15.00"/>
+    <entryExitDetector id="entryExitDetector_0" pos="40.00,40.00" period="100.00" file="entryExitDetector_0.txt">
+        <detEntry lane="-gneE11_0" pos="14.00"/>
+        <detExit lane="gneE11_0" pos="13.00"/>
+    </entryExitDetector>
+    <rerouter id="rerouter_0" edges="-gneE9 gneE9" pos="69.38,43.40"/>
+</additional>

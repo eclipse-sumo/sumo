@@ -1,11 +1,11 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-network element
+Network
 edge
 allow
 passenger
-C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\operations\save\selection.txt
+/home/palcraft/.texttest/tmp/netedit.daily.selection.25Aug083803.19709/netedit.daily.selection/selection/operations/save/selection.txt
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

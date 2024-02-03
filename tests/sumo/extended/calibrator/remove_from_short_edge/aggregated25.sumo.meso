@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 09:17:19 2020 by Eclipse SUMO sumo Version v1_7_0+1330-045eb6693b
+<!-- generated on 2021-11-23 12:57:34 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,8 +40,8 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="300.00" id="expect10vehs">
-        <edge id="beg" sampledSeconds="2915.01" traveltime="18.07" overlapTraveltime="18.25" density="19.43" laneDensity="19.43" occupancy="9.72" waitingTime="0.00" timeLoss="12.96" speed="27.68" departed="167" arrived="0" entered="0" left="157" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="1461.36" traveltime="39.03" overlapTraveltime="39.21" density="4.49" laneDensity="4.49" occupancy="2.24" waitingTime="0.00" timeLoss="0.00" speed="27.80" departed="0" arrived="35" entered="40" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="middle" sampledSeconds="23.47" traveltime="0.54" overlapTraveltime="0.72" density="5.22" laneDensity="5.22" occupancy="2.61" waitingTime="0.00" timeLoss="0.02" speed="27.78" departed="0" arrived="0" entered="157" left="157" laneChangedFrom="0" laneChangedTo="0" vaporized="117"/>
+        <edge id="beg" sampledSeconds="2915.01" traveltime="18.07" overlapTraveltime="18.25" density="19.43" laneDensity="19.43" occupancy="9.72" waitingTime="0.00" timeLoss="12.96" speed="27.68" speedRelative="1.00" departed="167" arrived="0" entered="0" left="157" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="1461.36" traveltime="39.03" overlapTraveltime="39.21" density="4.49" laneDensity="4.49" occupancy="2.24" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="0" arrived="35" entered="40" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="23.47" traveltime="0.54" overlapTraveltime="0.72" density="5.22" laneDensity="5.22" occupancy="2.61" waitingTime="0.00" timeLoss="0.02" speed="27.78" speedRelative="1.00" departed="0" arrived="0" entered="157" left="157" laneChangedFrom="0" laneChangedTo="0" vaporized="117"/>
     </interval>
 </meandata>

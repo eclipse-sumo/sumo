@@ -1,14 +1,15 @@
+<?xml version="1.0" ?>
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vTypeDistribution id="exampleDist">
-        <vType id="exampleDist0" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist1" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist2" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist3" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist4" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist5" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist6" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist7" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist8" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-        <vType id="exampleDist9" lcMinGapLat="0.700" lcImpatience="-0.500" class="passenger"/>
-    </vTypeDistribution>
+   <vTypeDistribution id="exampleDist">
+      <vType id="exampleDist0" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist1" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist2" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist3" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist4" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist5" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist6" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist7" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist8" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+      <vType id="exampleDist9" lcMinGapLat="0.700" lcImpatience="0.000" class="passenger"/>
+   </vTypeDistribution>
 </additional>

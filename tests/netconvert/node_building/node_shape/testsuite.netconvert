@@ -14,6 +14,9 @@ sharp_angles6
 sharp_angles7
 sharp_angles8
 sharp_angles9
+
+# see #13505
+sharp_angles_tram
 3bidi
 3bidi_divided_at_angle
 3bidi_2
@@ -30,3 +33,9 @@ roundabout_dense_geometry
 
 # see #6585
 high_overlap
+
+# see #12735
+curved_back
+
+# force building junctions with minimal shapes.
+minimal-shape

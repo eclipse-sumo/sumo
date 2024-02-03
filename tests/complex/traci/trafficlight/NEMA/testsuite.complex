@@ -1,0 +1,14 @@
+# test offset manipulation
+offset
+
+# test timing manipulation
+splits
+
+# test timing manipulation
+splits_invalid
+
+# test timing manipulation
+maxGreens
+
+# retrieve requested phases
+phaseCalls

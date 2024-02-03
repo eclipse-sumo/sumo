@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.167470 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 60
+-->
+
+<battery-export>
+    <timestep interval="0-59">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="60-119">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="120-179">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="180-239">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="240-299">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="300-359">
+        <vehicle id="veh0" energyConsumed="60.0" totalEnergyConsumed="60.0" totalEnergyRegenerated="60.0" energyChargedInTransit="60.0" energyChargedStopped="60.0" timeStopped="0.0" aggregateNumber="60.0"/>
+    </timestep>
+    <timestep interval="360-389">
+        <vehicle id="veh0" energyConsumed="29.0" totalEnergyConsumed="29.0" totalEnergyRegenerated="29.0" energyChargedInTransit="29.0" energyChargedStopped="29.0" timeStopped="0.0" aggregateNumber="29.0"/>
+    </timestep>
+</battery-export>

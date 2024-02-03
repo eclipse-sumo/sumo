@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,7 +41,8 @@ class GUIBasePersonHelper {
 public:
 
     static void drawAction_drawAsTriangle(const double angle, const double length, const double width);
-    static void drawAction_drawAsCircle(const double length, const double width, double detail);
+    static void drawAction_drawAsCircle(const double angle, const double length, const double width, double detail);
+    static void drawAction_drawAsCenteredCircle(const double length, const double width, double detail);
     static void drawAction_drawAsPoly(const double angle, const double length, const double width);
     static void drawAction_drawAsImage(const double angle, const double length, const double width, const std::string& file,
                                        const SUMOVehicleShape guiShape, const double exaggeration);

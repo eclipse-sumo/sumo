@@ -1,4 +1,8 @@
-Warning: Teleporting vehicle '15'; collision with vehicle '14', lane='1/1to2/1_0', gap=-0.51, time=10.00 stage=move.
-Warning: Vehicle '15' ends teleporting on edge '2/1to3/1', time 10.00.
-Warning: Teleporting vehicle '17'; collision with vehicle '16', lane='1/1to2/1_0', gap=-1.18, time=13.00 stage=move.
-Warning: Vehicle '17' ends teleporting on edge '2/1to3/1', time 13.00.
+Warning: Teleporting vehicle '7'; collision with vehicle '6', lane='1/1to2/1_0', gap=-0.73, time=5.00 stage=move.
+Warning: Vehicle '7' ends teleporting on edge '2/1to3/1', time=5.00.
+Warning: Teleporting vehicle '20'; collision with vehicle '19', lane='1/1to2/1_0', gap=-0.26, time=34.00 stage=move.
+Warning: Vehicle '20' ends teleporting on edge '2/1to3/1', time=34.00.
+Warning: Teleporting vehicle '18'; collision with vehicle '17', lane='1/1to2/1_0', gap=-0.77, time=52.00 stage=move.
+Warning: Teleporting vehicle '24'; collision with vehicle '23', lane='1/1to2/1_0', gap=-0.15, time=52.00 stage=move.
+Warning: Vehicle '18' ends teleporting on edge '2/1to3/1', time=52.00.
+Warning: Vehicle '24' ends teleporting on edge '2/1to3/1', time=52.00.

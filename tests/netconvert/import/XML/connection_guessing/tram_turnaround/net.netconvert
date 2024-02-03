@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:27 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:52 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,7 +19,7 @@
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="20.00,30.00" convBoundary="0.00,0.00,220.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -30,10 +30,10 @@
         <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="20.00" shape="100.00,-1.60 120.00,-1.60"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="passenger" speed="8.31" length="22.53" shape="100.00,-1.60 108.70,4.20 111.60,10.00 109.10,15.00"/>
+        <lane id=":C_2_0" index="0" allow="passenger" speed="8.31" length="21.60" shape="100.00,-1.60 108.70,4.20 111.60,10.00 109.52,14.17"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="passenger" speed="8.31" length="11.35" shape="109.10,15.00 108.70,15.80 100.00,21.60"/>
+        <lane id=":C_6_0" index="0" allow="passenger" speed="8.31" length="12.28" shape="109.52,14.17 108.70,15.80 100.00,21.60"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" allow="tram" speed="13.89" length="20.00" shape="100.00,3.40 120.00,3.40"/>
@@ -87,7 +87,7 @@
     <junction id="gneJ6" type="dead_end" x="220.00" y="20.00" incLanes="" intLanes="" shape="220.00,20.00 220.00,23.20"/>
     <junction id="gneJ8" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
 
-    <junction id=":C_6_0" type="internal" x="109.10" y="15.00" incLanes=":C_2_0 gneE2_0 gneE3_0 gneE5_0" intLanes=":C_0_0 :C_3_0 :C_4_0"/>
+    <junction id=":C_6_0" type="internal" x="109.52" y="14.17" incLanes=":C_2_0 gneE2_0 gneE3_0 gneE5_0" intLanes=":C_0_0 :C_3_0 :C_4_0"/>
 
     <connection from="gneE2" to="gneE6" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
     <connection from="gneE3" to="gneE7" fromLane="0" toLane="0" via=":C_4_0" dir="s" state="M"/>

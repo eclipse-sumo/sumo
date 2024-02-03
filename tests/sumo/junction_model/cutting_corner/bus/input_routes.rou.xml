@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-10 09:01:46 by Eclipse SUMO netedit Version v1_11_0+0970-4853dbc
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <trip id="blocker" depart="0.00" from="NC" to="CS" departPos="-10">
+        <stop edge="CS" endPos="1" duration="100"/>
+    </trip>
+    <trip id="car" depart="0.00" from="SC" to="CW"/>
+    <trip id="bus" type="bus" depart="2.00" from="SC" to="CW"/>
+</routes>

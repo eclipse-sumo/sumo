@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-02 12:00:27 by Eclipse SUMO sumo Version v1_12_0+1020-bb2d224
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <processing>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00" departPos="10.00" arrival="8.00">
+        <walk edges="2/1to1/1" arrivalPos="20.00"/>
+    </person>
+
+    <person id="p2" depart="100.00" departPos="10.00" arrival="108.00">
+        <walk edges="2/1to1/1" arrivalPos="20.00"/>
+    </person>
+
+</routes>

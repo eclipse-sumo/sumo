@@ -1,0 +1,4 @@
+Error: The shape 'dummyGuiShape' for vType 'vType0' is not known.
+Error: Attribute 'guiShape' in definition of vType 'vType1' is empty.
+Error: The shape 'unknown' for vType 'vType2' is not known.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/guishape/routes.rou.xml failed.

@@ -15,10 +15,10 @@ using [7Zip](https://www.7-zip.org/),
 package contains the binaries, all dlls needed, the examples, tools, and
 documentation in HTML format.
 
-- Download 64 bit installer: [sumo-win64-{{Version}}.msi](http://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.msi?download)
-- Download 64 bit zip: [sumo-win64-{{Version}}.zip](http://prdownloads.sourceforge.net/sumo/sumo-win64-{{Version}}.zip?download)
-- Download 32 bit installer: [sumo-win32-{{Version}}.msi](http://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.msi?download)
-- Download 32 bit zip: [sumo-win32-{{Version}}.zip](http://prdownloads.sourceforge.net/sumo/sumo-win32-{{Version}}.zip?download)
+- Download 64-bit installer: [sumo-win64-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi)
+- Download 64-bit zip: [sumo-win64-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip)
+- Download 64-bit installer with all extras (contains GPL code): [sumo-win64extra-{{Version}}.msi](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.msi)
+- Download 64-bit zip with all extras (contains GPL code): [sumo-win64extra-{{Version}}.zip](https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip)
 
 Within the installation folder, you will find a folder named "**bin**".
 Here, you can find the executables (programs). You may double click on
@@ -28,7 +28,7 @@ in **docs/examples**. All other applications
 etc.) have to be run from the command line. To facilitate this there is
 also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read
-[Basics/Basic_Computer_Skills\#Running_Programs_from_the_Command_Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
+[Running Programs from the Command Line](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 If you want a bleeding edge nightly build or need tests or source files,
 you can download them from the [Download](../Downloads.md) page.
@@ -59,15 +59,29 @@ sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 Precompiled binaries for different distributions like openSUSE and
-Fedora can be found at these [repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/).
+Fedora can be found at these [repositories for binary Linux versions](https://download.opensuse.org/repositories/home:/behrisch/).
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
+SUMO's precompiled binary is also available as a Flatpak and is hosted on [Flathub](https://flathub.org/apps/details/org.eclipse.sumo). Any system that supports Flatpak should be able to run SUMO this way. Install Flatpak and add the Flathub repository as [directed here](https://flatpak.org/setup/).
+
+To install SUMO:
+```
+flatpak install flathub org.eclipse.sumo
+```
+There should be a SUMO launcher in your menu.
+
+To uninstall SUMO:
+```
+flatpak remove org.eclipse.sumo
+```
+Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/flathub/org.eclipse.sumo/issues).
+
 # macOS
 
-SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
+SUMO can be easily installed on macOS by using [Homebrew](https://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 Please make sure your homebrew installation is up-to-date:
 ```
@@ -77,16 +91,21 @@ If you want to use sumo-gui and/or netedit, you need to install XQuartz as a req
 ```
 brew install --cask xquartz
 ```
-You can then install the latest stable release of SUMO with the following commands:
+It may be necessary to logout and login again or even reboot to activate the XQuartz integration.
+You can then install the latest stable release of SUMO (with minimal requirements: ```fox```, ```proj```, ```xerces-c```) with the following commands:
 ```
 brew tap dlr-ts/sumo
 brew install sumo
 ```
-To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
+!!! note
+    It is possible to install older vesions of SUMO using Homebrew. Running `brew search sumo` will list all available versions (v1.0.1 or newer). To install a specific version (e.g. version 1.9.0), just run `brew install sumo@1.9.0`.
+
+If you need to compile SUMO with support for other libraries, such as GDAL, you need to provide further command line options [as described here](https://github.com/DLR-TS/homebrew-sumo#usage).
+To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands.
 ```
 touch ~/.bashrc; open ~/.bashrc
 ```
-Just insert the following new line at the end of the file: 
+Just insert the following new line at the end of the file:
 ```
 export SUMO_HOME=/your/path/to/sumo
 ```
@@ -108,10 +127,12 @@ These application bundles determine the location of your SUMO installation by ev
 !!! note
     When using these launchers for the first time, macOS may need you to authorize them to run.
 
+For building SUMO from its sources see [building SUMO on macOS](MacOS_Build.md).
+
 ## macOS Troubleshooting
 
 ### Segmentation faults on macOS Catalina
-If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
+If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse-sumo/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
 ```brew uninstall --ignore-dependencies fox```
@@ -126,10 +147,14 @@ If you encounter segmentation faults on macOS Catalina, please follow the follow
 ```brew install fox```
 
 ### Blank screen after update to XQuartz 2.8.0_beta3
-If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse/sumo/issues/8208), try resetting your DISPLAY environment variable:
+If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse-sumo/sumo/issues/8208), try resetting your DISPLAY environment variable:
 
 ```export DISPLAY=:0.0```
 
+# Additional Tools
+SUMO contains lots of [Python tools](../Tools/index.md) which are part of the sources and the Windows distribution
+and may be packaged on Linux in the sumo or a separate sumo-tools package. To take full advantage of these tools
+you need several additional python modules. The easiest way to install them is to use `pip install -r $SUMO_HOME/tools/requirements.txt`.
 
 # via Docker
 

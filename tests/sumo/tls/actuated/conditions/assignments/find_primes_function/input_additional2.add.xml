@@ -1,0 +1,30 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="1"  state="ggrrggrr" minDur="0" maxDur="1" next="1 0"/>
+        <phase duration="1e10"  state="ooOOooOO" finalTarget="i = limit"/>
+
+        <condition id="i"  value="2"/>
+        <condition id="j" value="2"/>
+        <condition id="limit" value="100"/>
+        <condition id="maxPrime" value="0"/>
+        <condition id="isDivisor" value="0"/>
+        <condition id="foundPrime" value="0"/>
+
+        <function id="divisible" nArgs="2">
+            <assignment id="$0" check="1" value="0"/>
+            <assignment id="$0" check="($1 % $2 == 0) and ($1 != $2)" value="1"/>
+        </function>
+
+        <assignment id="isDivisor" check="1" value="divisible:i,j"/>
+        <assignment id="foundPrime" check="1" value="0"/>
+        <assignment id="foundPrime" check="j >= i" value="1"/>
+        <assignment id="maxPrime" check="foundPrime" value="i"/>
+        <assignment id="i" check="isDivisor or foundPrime" value="i + 1"/>
+        <assignment id="j" check="isDivisor or foundPrime" value="2"/>
+        <assignment id="j" check="!(isDivisor or foundPrime)" value="j + 1"/>
+
+        <param key="hide-conditions" value="limit"/>
+
+    </tlLogic>
+</additional>

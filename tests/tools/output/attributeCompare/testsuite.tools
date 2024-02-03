@@ -1,0 +1,20 @@
+# subtract all attributes in the input files
+default
+
+# subtract all attributes in the input files
+xml_output
+
+# subtract all attributes in the input files
+verbose
+
+# use only one attribute
+attribute
+
+# specify element and attribute
+element_attribute
+
+# group by edge id
+id_attribute
+
+# group by edge id and interval begin
+id_attribute2

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,12 +19,15 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
@@ -33,48 +36,44 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNERide : public GNEDemandElement, public Parameterised {
+class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] viewNet view in which this Ride is placed
+    /**@brief general constructor for rides
+     * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
      * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-            double arrivalPosition, const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for person edge->busStop
-     * @param[in] viewNet view in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
      * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
      * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-            double arrivalPosition, const std::vector<std::string>& lines);
+    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
+                              GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                              GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                              double arrivalPosition, const std::vector<std::string>& lines);
+
+    /// @brief default constructor
+    GNERide(SumoXMLTag tag, GNENet* net);
 
     /// @brief destructor
     ~GNERide();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    bool isDemandElementValid() const;
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
+    Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
@@ -140,22 +139,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -199,20 +195,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
@@ -226,12 +208,9 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
@@ -239,14 +218,23 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
-
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildRide
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     * @param[in] lines list of lines
+     */
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
+            const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

@@ -1,1 +1,1 @@
---hist-output histogram.dat --binwidth 1 input_data.xml tools/output/attributeStats.py 
+-e tripinfo -a timeLoss --hist-output histogram.dat --binwidth 1 input_data.xml tools/output/attributeStats.py 

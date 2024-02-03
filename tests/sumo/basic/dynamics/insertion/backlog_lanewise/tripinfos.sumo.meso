@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jun 16 22:44:39 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<!-- generated on 2022-04-05 10:30:35 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,6 +31,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -39,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="blocker" depart="0.00" departLane="" departPos="0.00" departSpeed="0.94" departDelay="0.00" arrival="106.00" arrivalLane="" arrivalPos="192.00" arrivalSpeed="36.00" duration="106.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="100.00" rerouteNo="0" devices="tripinfo_blocker" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="106.00" arrivalLane="" arrivalPos="192.00" arrivalSpeed="36.00" duration="106.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="100.00" rerouteNo="0" devices="tripinfo_blocker" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="backlogged" depart="0.00" departLane="" departPos="0.00" departSpeed="0.93" departDelay="0.00" arrival="107.00" arrivalLane="" arrivalPos="192.00" arrivalSpeed="36.00" duration="107.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="100.67" rerouteNo="0" devices="tripinfo_backlogged" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="unblocked.0" depart="0.00" departLane="" departPos="0.00" departSpeed="0.92" departDelay="0.00" arrival="107.00" arrivalLane="" arrivalPos="192.00" arrivalSpeed="36.00" duration="107.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="101.34" rerouteNo="0" devices="tripinfo_unblocked.0" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="unblocked.1" depart="10.00" departLane="" departPos="0.00" departSpeed="1.01" departDelay="0.00" arrival="108.00" arrivalLane="" arrivalPos="192.00" arrivalSpeed="36.00" duration="98.00" routeLength="192.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="92.01" rerouteNo="0" devices="tripinfo_unblocked.1" vType="t0" speedFactor="1.00" vaporized=""/>

@@ -1,22 +1,27 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '5363708').
-Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurence for edge '7216737').
-Warning: Discarding unusable type 'railway.construction' (first occurence for edge '11390634').
-Warning: Discarding unusable type 'highway.construction' (first occurence for edge '24154002').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693').
-Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (5 incoming edges).
-Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '5363708').
+Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurrence for edge '7216737').
+Warning: Discarding unusable type 'railway.construction' (first occurrence for edge '11390634').
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '24154002').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '24214693').
+Warning: PT line in relation 35040 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 35055 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 35032 with no stops ignored. Probably OSM file is incomplete.
+Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (parallel incoming 6137233#4,6137239#2).
+Warning: Minor green from edge '7216737#3' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
-@@ -977,7 +977,7 @@
+@@ -887,7 +887,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
--    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.15 498.66,311.83 498.65,311.60">
-+    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.13 498.66,311.82 498.65,311.57">
+-    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="492.27,312.15 498.66,311.83 498.65,311.60">
++    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="492.27,312.13 498.66,311.82 498.65,311.57">
          <request index="0" response="00" foes="00"/>
          <request index="1" response="00" foes="00"/>
      </junction>

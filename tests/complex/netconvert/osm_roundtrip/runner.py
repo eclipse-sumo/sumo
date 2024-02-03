@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,17 +24,12 @@ then import the built network again and check for idempotency
 """
 from __future__ import absolute_import
 
-
 import sys
 import os
 import subprocess
 import difflib
-sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
-if 'SUMO_HOME' in os.environ:
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 osm_input = 'osm.xml'
@@ -46,20 +41,19 @@ netconvert = sumolib.checkBinary('netconvert')
 # filter header and projection clause
 
 
-def filter(lines, start_element):
+def filtered(file_name, start_element):
     skippedHeader = False
-    result = []
-    for l in lines:
-        if start_element in l:
-            skippedHeader = True
-        if not skippedHeader:
-            continue
-        if '<location' in l:
-            continue
-        if '<projection' in l:
-            continue
-        result.append(l)
-    return result
+    with open(file_name) as f:
+        for line in f:
+            if start_element in line:
+                skippedHeader = True
+            if not skippedHeader:
+                continue
+            if '<location' in line:
+                continue
+            if '<projection' in line:
+                continue
+            yield line
 
 
 def get_filtered_lines(prefix):
@@ -70,7 +64,7 @@ def get_filtered_lines(prefix):
             ('.edg.xml', '<edges '),
             ('.con.xml', '<connections '),
             ('.tll.xml', '<tlLogics ')]:
-        result += filter(open(prefix + suffix).readlines(), start_element)
+        result += list(filtered(prefix + suffix, start_element))
     return result
 
 

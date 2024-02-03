@@ -22,7 +22,7 @@ population in the means of vehicle emission class distribution.
 An edge-based emissions output is defined way within an {{AdditionalFile}} as following:
 
 ```xml
-<edgeData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+<edgeData id="<DETECTOR_ID>" type="emissions" period="<PERIOD>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
 ### Lane-Based Emission Output
@@ -30,7 +30,7 @@ An edge-based emissions output is defined way within an {{AdditionalFile}} as fo
 A lane-based emissions output is defined way within an {{AdditionalFile}} as following:
 
 ```xml
-<laneData id="<DETECTOR_ID>" type="emissions" freq="<FREQUENCY>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
+<laneData id="<DETECTOR_ID>" type="emissions" period="<PERIOD>" file="<OUTPUT_FILE>" [excludeEmpty="true"]/>
 ```
 
 ### Attributes, for both Edge- and Lane-Based Emission Output
@@ -39,14 +39,18 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | -------------- | ------------------------------ | --------------------------------------- |
 | **id**         | id (string)                    | The id of the detector             |
 | **file**       | filename                       | The path to the output file. The path may be relative.     |
-| freq           | int (time)                     | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated   |
+| period (alias freq) | int (time)                | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated   |
 | begin          | int (time)                     | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.    |
 | end            | int (time)                     | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.     |
 | withInternal   | bool                     | If set, junction internal edges/lanes will be written as well; *default: false*.  |
 | maxTraveltime  | float (time)                   | The maximum traveltime in seconds to write if only very small movements occur; *default 100000*.   |
 | minSamples     | float (time)                   | The minimum total number of seconds vehicles have to be on the edge / lane to consider it non-empty; *default: \>0*.    |
-| excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
+| excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not used by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
 | vTypes         | string                   | space separated list of vehicle type ids to consider, "" means all; *default ""*. |
+| writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
+| edges  | string list                  | restrict output to the given list of edge ids        |
+| edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations)        |
+| aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
 
 ## Generated Output
 
@@ -55,6 +59,10 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 ### Lane-Based Network States
 
 ### Value Descriptions
+
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 | Name                | Type                 | Description                     |
 | ------------------- | -------------------- | --------------------------------------------------- |
@@ -69,7 +77,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | HC_abs             | mg                   | The complete amount of HC emitted by the vehicles on this lane/edge during the aggregation period                                                                                 |
 | PMx_abs            | mg                   | The complete amount of PM<sub>x</sub> emitted by the vehicles on this lane/edge during the aggregation period                                                                     |
 | NOx_abs            | mg                   | The complete amount of NO<sub>x</sub> emitted by the vehicles on this lane/edge during the aggregation period                                                                     |
-| fuel_abs           | ml                   | The complete amount of fuel the vehicles on this lane/edge during the aggregation period have consumed                                                                            |
+| fuel_abs           | mg                   | The complete amount of fuel the vehicles on this lane/edge during the aggregation period have consumed                                                                            |
 | electricity_abs    | Wh                   | The complete amount of electricity the vehicles on this lane/edge during the aggregation period have consumed                                                                     |
 | CO_normed          | g/km/h               | CO emissions during this interval normed by time and edge/lane length                                                                                                             |
 | CO2_normed         | g/km/h               | CO<sub>2</sub> emissions during this interval normed by time and edge/lane length                                                                                                 |

@@ -7,44 +7,59 @@ title: Emissions
 SUMO includes the following emission models:
 
 - [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v2.1
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v2.1
   emissions data base (open source);
 - [HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v3.1
+  emissions data base (open source);
+- [HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md): A
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v4.2
   emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
-  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
-  emission model (closed source, commercial).
+  [PHEM](https://www.itna.tugraz.at/en/research/areas/em/simulation/phem.html)
+  emission model (model is open source, but full data sets are only commercially available);
+- [PHEMlight5](../Models/Emissions/PHEMlight5.md), the V5 version of PHEMlight
+  supporting deterioration emission model (model is open source, but full data sets are only commercially available);
 - [Electric Vehicle
   Model](../Models/Electric.md#emission_output): an
   electricity-consumption model by [Kurczveil, T., López, P.A.,
   Schnieder](../Models/Electric.md#publications).
+- [MMP Electric Vehicle Model](../Models/MMPEVEM.md): an
+  electricity-consumption model by [Kevin Badalian from Teaching and Research
+  Area Mechatronics in Mobile Propulsion (MMP), RWTH Aachen
+  University](../Models/MMPEVEM.md#publications).
 
 Literature on the Models and their implementation can be found at [the
 DLR electronic library
-(http://elib.dlr.de/89398/)](http://elib.dlr.de/89398/).
+(https://elib.dlr.de/89398/)](https://elib.dlr.de/89398/).
 
 # Using Models
 
 All models implement different vehicle emission classes. These classes
 can be assigned to vehicles by using the vehicle type attribute
-`emissionClass`. If the model has different classes, the definition 
+`emissionClass`. If the model has different classes, the definition
 has the form `emissionClass="<model>/<class>"` e.g. `HBEFA3/PC_G_EU4`.
 If the model has only one class (for instance the Electric Vehicle Model),
-the `<class>` can be omitted in the input and will show up as `default` 
-in the output. There is one special model `Zero` which does not 
+the `<class>` can be omitted in the input and will show up as `default`
+in the output. There is one special model `Zero` which does not
 generate emissions or energy consumption at all.
 
 Available emission classes
-can be found within the emission model descriptions ([HBEFA
-v2.1-based](../Models/Emissions/HBEFA-based.md), [HBEFA
-v3.1-based](../Models/Emissions/HBEFA3-based.md),
-[PHEMlight](../Models/Emissions/PHEMlight.md)). The current default
+can be found within the emission model descriptions
+([HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md),
+[HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md),
+[HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md),
+[PHEMlight](../Models/Emissions/PHEMlight.md),
+[PHEMlight5](../Models/Emissions/PHEMlight5.md)). The current default
 model is `HBEFA3/PC_G_EU4` (a gasoline powered Euro norm 4 passenger car
 modeled using the HBEFA3 based model).
 
 # Pollutants / Measurements covered by models
+
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 <table class="tg">
   <tr>
@@ -81,6 +96,16 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
+    <td class="tg-0pky">HBEFA v4.2-based<br><code>emissionClass="HBEFA4/..."</code></td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+  </tr>
+  <tr>
     <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight/..."</code></td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
@@ -88,7 +113,17 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">(x)</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight5/..."</code></td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">(x)</td>
   </tr>
   <tr>
     <td class="tg-0pky">Electric Vehicle Model<br><code>emissionClass="Energy"</code></td>
@@ -111,6 +146,10 @@ modeled using the HBEFA3 based model).
     <td class="tg-9wq8">-</td>
   </tr>
 </table>
+
+PHEMlight and PHEMlight5 generate electricity consumption values only if the
+data files for battery powered or hybrid vehicles are available (which are not part of
+the free data set).
 
 # Outputs
 
@@ -142,12 +181,32 @@ following output can be used:
   during each simulation step (or for the whole edge in
   [Simulation/Meso](../Simulation/Meso.md)).
 
+# Standing vehicles
+
+A vehicle can have either a foreseeable stop on its route or stop at a junction or in a jam.
+In both cases it will still produce emissions / consume energy as long as the motor is running.
+For planned stops SUMO will switch off the engine immediately if the duration is longer than 300s
+(configurable via the vehicle type parameter `shutOffStopDuration`).
+
+The automated start/stop also for unplanned stops is not enabled by default but can be set using
+the vehicle type parameter `shutOffAutoDuration`. This expects a value in seconds and will switch
+off the engine automatically if the vehicle does not move for longer than the given time.
+
+# Coasting vehicles
+
+A rolling (combustion driven) vehicle which does not accelerate actively (coasting) will not consume
+fuel because the engine gets switch off automatically in this case. All PHEMlight and HBEFA models use
+a threshold depending on the current speed, acceleration and slope to determine whether the vehicle is
+in this regime and set all emission values to zero. The value depends of course also on the
+characteristics of the vehicle such as mass and front area. For details see the code of
+PollutantsInterface::Helper::getCoastingDecel.
+
 # Further Interfaces
 
 The tool [traceExporter.py](../Tools/TraceExporter.md) converts
 SUMO's [fcd-output](../Simulation/Output/FCDOutput.md) into files
 that can be directly read by the
-[PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
+[PHEM](https://www.itna.tugraz.at/en/research/areas/em/)
 application. A [tutorial on generating trace files (including PHEM input
 files)](../Tutorials/Trace_File_Generation.md) using this tool is
 available.
@@ -155,11 +214,11 @@ available.
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="">This part of SUMO was developed, reworked, or extended within the project
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

@@ -1,4 +1,4 @@
-Warning: Teleporting vehicle '0'; waited too long (wrong lane) (disconnected), lane='beg_0', time=47.00.
-Warning: Vehicle '0' ends teleporting on edge 'end', time 47.00.
+Warning: Teleporting vehicle '0'; waited too long (wrong lane, disconnected), lane='beg_0', time=47.00.
+Warning: Vehicle '0' ends teleporting on edge 'end', time=47.00.
 Warning: Teleporting vehicle '1'; waited too long (yield), lane='middle_0', time=176.00.
-Warning: Vehicle '1' ends teleporting on edge 'end', time 176.00.
+Warning: Vehicle '1' ends teleporting on edge 'end', time=176.00.

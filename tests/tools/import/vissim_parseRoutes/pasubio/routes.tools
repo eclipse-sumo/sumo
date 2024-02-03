@@ -1,4 +1,13 @@
-<routes>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-19 15:59:45.028429 by vissim_parseRoutes.py v1_16_0+2200-fc4278a7f46
+<configuration>
+    <vissimNet value="vissim.inp"/>
+    <edgemap value="203:203[0]"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="Audinot_12_0" depart="0"><route edges="131 745 65 517 57 490 62 506 159 820 42 439 39 429 35 414 38 427 15 10097 24 380 22 10075 59 10077 53 10071 53 10083 79 574 68 10041 11 10043 84 592 180 889 136"/></vehicle>
     <vehicle id="Costa_50_0" depart="0"><route edges="78 10073 56 10079 21 370 23 10070 103 10089 16 354 37 420 36 417 40 433 41 437 160 826 61 10032 58 494 200 956 60"/></vehicle>
     <vehicle id="Pepoli_8_0" depart="0"><route edges="210 10015 43 10019 134"/></vehicle>

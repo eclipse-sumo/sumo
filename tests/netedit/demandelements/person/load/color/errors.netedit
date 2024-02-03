@@ -1,0 +1,3 @@
+Error: Attribute 'color' in definition of person 'p_1' Invalid color definition ''.
+Error: Attribute 'color' in definition of person 'p_2' Invalid color definition 'dummycolor'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.person.25Jan182728.9835/netedit.daily.demand.person/demandelements/person/load/color/routes.rou.xml failed.

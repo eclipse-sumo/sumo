@@ -11,7 +11,7 @@ namespace PHEMlightdll
     {
         //--------------------------------------------------------------------------------------------------
         // Constructors
-        //--------------------------------------------------------------------------------------------------      
+        //--------------------------------------------------------------------------------------------------
 
         #region Constructor
         public CEP(bool heavyVehicle,
@@ -241,7 +241,7 @@ namespace PHEMlightdll
         #endif
 
         //--------------------------------------------------------------------------------------------------
-        // Members 
+        // Members
         //--------------------------------------------------------------------------------------------------
 
         #region HeavyVehicle
@@ -368,7 +368,7 @@ namespace PHEMlightdll
         #endregion
 
         //--------------------------------------------------------------------------------------------------
-        // Methods 
+        // Methods
         //--------------------------------------------------------------------------------------------------
 
         #region CalcPower
@@ -410,7 +410,7 @@ namespace PHEMlightdll
             List<double> emissionCurve;
             List<double> powerPattern;
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int upperIndex;
             int lowerIndex;
 
@@ -487,7 +487,7 @@ namespace PHEMlightdll
             List<double> emissionCurve;
             List<double> powerPattern;
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int upperIndex;
             int lowerIndex;
 
@@ -690,7 +690,7 @@ namespace PHEMlightdll
                 return;
             }
 
-            // bisection search to find correct position in power pattern	
+            // bisection search to find correct position in power pattern
             int middleIndex = (pattern.Count - 1) / 2;
             upperIndex = pattern.Count - 1;
             lowerIndex = 0;

@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ class pVehicleState(object):
         self.edgeID = traci.vehicle.getRoadID(ID)
         self.laneID = traci.vehicle.getLaneID(ID)
         self.laneIX = traci.vehicle.getLaneIndex(ID)
-        self.leaderInfo = traci.vehicle.getLeader(ID, 50.)
+        self.leaderInfo = traci.vehicle.getLeader(ID, cfg.CATCHUP_DIST)
         # must be set by vehicle creator (PlatoonManager._addVehicle()) to guarantee function in first step
         self.leader = None
         # Whether a possible platooning partner for the vehicle is located further downstream within _catchupDistance
@@ -66,7 +66,7 @@ class PVehicle(object):
         '''Constructor(string, float)
 
         Create a PVehicle representing a SUMOVehicle for the PlatoonManager. The controlInterval is only piped through
-        to the singelton platoon created by the vehicle.
+        to the singleton platoon created by the vehicle.
         '''
         # vehicle ID (should be the one used in SUMO)
         self._ID = ID
@@ -100,7 +100,7 @@ class PVehicle(object):
         # activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)
         self._switchImpatienceFactor = cfg.SWITCH_IMPATIENCE_FACTOR
         # create a new platoon containing only this vehicle
-        self._platoon = Platoon([self], controlInterval)
+        self._platoon = Platoon([self], controlInterval, cfg.MAX_VEHICLES)
         # the time left until splitting from a platoon if loosing coherence as a follower
         self._timeUntilSplit = cfg.PLATOON_SPLIT_TIME
         # Whether split conditions are fulfilled (i.e. leader in th platoon
@@ -259,8 +259,9 @@ class PVehicle(object):
         TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
               the travel speed and not the road's speed limit.
         '''
-        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode] \
-            / (1. + self._switchImpatienceFactor * switchWaitingTime)
+        speedFactorBase = self._speedFactors[self._currentPlatoonMode] \
+            if self._currentPlatoonMode is PlatoonMode.NONE else cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        self._activeSpeedFactor = speedFactorBase / (1. + self._switchImpatienceFactor * switchWaitingTime)
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 
     def _resetActiveSpeedFactor(self):
@@ -270,7 +271,7 @@ class PVehicle(object):
         '''
         self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode]
         if self._activeSpeedFactor is None:
-            assert(self._currentPlatoonMode is PlatoonMode.NONE)
+            assert self._currentPlatoonMode is PlatoonMode.NONE
             self._activeSpeedFactor = self._speedFactors[self._currentPlatoonMode]
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 

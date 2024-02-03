@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 step 0
 step 1
@@ -16,6 +15,7 @@ vehData [('horiz', 5.0, 2.859373873965989, -1.0, 'DEFAULT_VEHTYPE')]
 position 10.0
 laneID 2fi_0
 parameter 42
+parameter from XML 1337
 {16: 1}
 step 3
 {16: 1}

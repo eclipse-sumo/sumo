@@ -1,0 +1,8 @@
+--osm-files osm.xml --junctions.join 
+--sidewalks.guess
+--crossings.guess
+--roundabouts.guess
+--osm.elevation false
+--no-turnarounds
+--type-files
+$SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertPedestrians.typ.xml

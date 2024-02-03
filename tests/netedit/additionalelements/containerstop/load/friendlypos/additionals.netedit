@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-10 09:46:33 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="containerStop_01" name="containerStop" lane="center1_1" startPos="5.00" endPos="10.00" lines="lineA lineB"/>
+    <containerStop id="containerStop_02" name="containerStop" lane="center1_1" startPos="15.00" endPos="20.00" friendlyPos="true" lines="lineA lineB"/>
+    <containerStop id="containerStop_03" name="containerStop" lane="center1_1" startPos="-10.00" endPos="-20.00" friendlyPos="true" lines="lineA lineB"/>
+    <containerStop id="containerStop_04" name="containerStop" lane="center1_1" startPos="-20.00" endPos="-10.00" friendlyPos="true" lines="lineA lineB"/>
+    <containerStop id="containerStop_05" name="containerStop" lane="center1_1" startPos="200.00" endPos="300.00" friendlyPos="true" lines="lineA lineB"/>
+    <containerStop id="containerStop_06" name="containerStop" lane="center1_1" startPos="50.00" endPos="20.00" friendlyPos="true" lines="lineA lineB"/>
+    <containerStop id="containerStop_07" name="containerStop" lane="center1_1" startPos="20.00" endPos="20.00" friendlyPos="true" lines="lineA lineB"/>
+</additional>

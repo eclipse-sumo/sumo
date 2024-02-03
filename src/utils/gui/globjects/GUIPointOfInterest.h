@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,11 +29,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /*
@@ -50,7 +45,9 @@ public:
      * @param[in[ geo use GEO coordinates (lon/lat)
      * @param[in] lane The Lane in which this POI is placed
      * @param[in] posOverLane The position over Lane
+     * @param[in] friendlyPos enable or disable friendlyPos
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -58,16 +55,13 @@ public:
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      */
-    GUIPointOfInterest(const std::string& id, const std::string& type,
-                       const RGBColor& color, const Position& pos, bool geo,
-                       const std::string& lane, double posOverLane, double posLat,
-                       double layer, double angle, const std::string& imgFile,
-                       bool relativePath, double width, double height);
+    GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color,
+                       const Position& pos, bool geo, const std::string& lane, double posOverLane,
+                       bool friendlyPos, double posLat, const std::string& icon, double layer, double angle,
+                       const std::string& imgFile, bool relativePath, double width, double height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();
-
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -79,9 +73,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -90,23 +82,32 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
-
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
+
+    double getClickPriority() const override {
+        return getShapeLayer();
+    }
+
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const override {
+        return getShapeName();
+    }
     //@}
 
     /// @brief check if POI can be drawn
@@ -116,5 +117,6 @@ public:
     static void setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool forceSelectionColor);
 
     /// @brief draw inner POI (before pushName() )
-    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor, const double layer);
+    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor,
+                             const double layer, const double width, const double height);
 };

@@ -31,3 +31,6 @@ random
 
 # set detectors as via-edges
 via-detectors
+
+# two sources and sinks
+flow-output

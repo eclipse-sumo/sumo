@@ -7,6 +7,8 @@ unknown_option
 # Test for not buildable plain output
 false_plain_output
 
+# Test for not buildable gz output
+false_gz_output
+
 # Tests for using more than one input type
 multiple_types
-

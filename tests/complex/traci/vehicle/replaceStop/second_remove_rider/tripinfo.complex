@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-28 19:20:24 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional4.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49271"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="ego" depart="0.00" departLane="A0A1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="184.00" arrivalLane="D2D3_0" arrivalPos="92.10" arrivalSpeed="12.94" duration="184.00" routeLength="584.86" waitingTime="1.00" waitingCount="1" stopTime="120.00" timeLoss="18.20" rerouteNo="1" devices="tripinfo_ego routing_ego" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="rider" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+        <stop duration="0.00" arrival="0.00" arrivalPos="51.95" actType="waiting"/>
+        <ride waitingTime="178.00" vehicle="alternative" depart="178.00" arrival="195.00" arrivalPos="64.05" duration="17.00" routeLength="107.14" timeLoss="9.37"/>
+    </personinfo>
+    <tripinfo id="alternative" depart="100.00" departLane="A0A1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="351.00" arrivalLane="D2D3_0" arrivalPos="92.10" arrivalSpeed="12.98" duration="251.00" routeLength="584.86" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="28.62" rerouteNo="1" devices="tripinfo_alternative routing_alternative person_alternative" vType="DEFAULT_VEHTYPE" speedFactor="1.01" vaporized=""/>
+</tripinfos>

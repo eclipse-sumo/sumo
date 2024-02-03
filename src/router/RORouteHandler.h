@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,12 @@ public:
     /// @brief standard destructor
     virtual ~RORouteHandler();
 
+    /// @brief Checks whether the route file is sorted by departure time if needed
+    bool checkLastDepart();
+
 protected:
+    void deleteActivePlanAndVehicleParameter();
+
     /// @name inherited from GenericSAXHandler
     //@{
 
@@ -149,16 +154,10 @@ protected:
     const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person from a personFlow
-    void addFlowPerson(SUMOTime depart, const std::string& baseID, int i);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
@@ -210,7 +209,7 @@ protected:
     SUMOTime myActiveRoutePeriod;
 
     /// @brief The plan of the current person
-    ROPerson* myActivePerson;
+    std::vector<ROPerson::PlanItem*>* myActivePlan;
 
     /// @brief The plan of the current container
     OutputDevice_String* myActiveContainerPlan;
@@ -236,6 +235,9 @@ protected:
     /// @brief maximum distance when map-matching
     const double myMapMatchingDistance;
     const bool myMapMatchJunctions;
+
+    /// @brief whether input is read all at once (no sorting check is necessary)
+    const bool myUnsortedInput;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;

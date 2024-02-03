@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -123,7 +123,7 @@ AGWorkPosition::take(AGAdult* worker) {
         myStatData->workPositions--;
         myAdult = worker;
     } else {
-        throw (std::runtime_error("Work position already occupied. Cannot give it to another adult."));
+        throw ProcessError(TL("Work position already occupied. Cannot give it to another adult."));
     }
 }
 

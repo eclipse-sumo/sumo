@@ -1,0 +1,47 @@
+ Retrying in 1 seconds
+stop parameters for index 0 at time 6.0:
+index 0
+edge A1B1
+lane 0
+startPos 5.00
+endPos 50.00
+posLat -0.50
+arrival 42.00
+duration 30.00
+until 100.00
+extension 10.00
+parking 0
+triggered join
+permitted p0 p1 p2
+expected p0 p1
+actType test action
+tripId fancyID
+split train0
+join train1
+line S42
+speed 0.00
+started 83.00
+ended 102.00
+stop parameters for index -1 at time 150.0:
+index 0
+edge A1B1
+lane 0
+startPos 5.00
+endPos 50.00
+posLat -0.50
+arrival 42.00
+duration 30.00
+until 100.00
+extension 10.00
+parking 0
+triggered join
+permitted p0 p1 p2
+expected p0 p1
+actType test action
+tripId fancyID
+split train0
+join train1
+line S42
+speed 0.00
+started 16.00
+ended 111.00

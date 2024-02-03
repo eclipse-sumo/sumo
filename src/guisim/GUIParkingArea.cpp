@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,9 +55,10 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
                                double frompos, double topos, unsigned int capacity,
                                double width, double length, double angle, const std::string& name,
                                bool onRoad,
-                               const std::string& departPos) :
-    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos),
-    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id) {
+                               const std::string& departPos,
+                               bool lefthand) :
+    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand),
+    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
@@ -92,7 +93,7 @@ GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -103,12 +104,12 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("name", false, getMyName());
-    ret->mkItem("begin position [m]", false, myBegPos);
-    ret->mkItem("end position [m]", false, myEndPos);
-    ret->mkItem("occupancy [#]", true, getOccupancy());
-    ret->mkItem("capacity [#]", false, getCapacity());
-    ret->mkItem("alternatives [#]", false, getNumAlternatives());
+    ret->mkItem(TL("name"), false, getMyName());
+    ret->mkItem(TL("begin position [m]"), false, myBegPos);
+    ret->mkItem(TL("end position [m]"), false, myEndPos);
+    ret->mkItem(TL("occupancy [#]"), true, getOccupancy());
+    ret->mkItem(TL("capacity [#]"), false, getCapacity());
+    ret->mkItem(TL("alternatives [#]"), false, getNumAlternatives());
     // close building
     ret->closeBuilding();
     return ret;
@@ -117,8 +118,8 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     RGBColor grey(177, 184, 186, 171);
     RGBColor blue(83, 89, 172, 255);
     RGBColor red(255, 0, 0, 255);
@@ -126,33 +127,33 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
+    const double exaggeration = getExaggeration(s);
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2. * MIN2(1.0, exaggeration));
     // draw details unless zoomed out to far
-    const double exaggeration = s.addSize.getExaggeration(s, this);
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
         // calculate shape lengt
         double ShapeLength = 0;
-        for (const auto &length : myShapeLengths) {
+        for (const auto& length : myShapeLengths) {
             ShapeLength += length;
         }
         // calculate index Updater
         int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength);
         // check if indexUpdater is 0
-        if (indexUpdater == 0) {
+        if (indexUpdater == 0 || (myCapacity != myRoadSideCapacity)) {
             indexUpdater = 1;
         }
         // draw spaceOccupancies
         for (int i = 0; i < (int)mySpaceOccupancies.size(); i += indexUpdater) {
-            GLHelper::drawSpaceOccupancies(exaggeration, mySpaceOccupancies.at(i).position, mySpaceOccupancies.at(i).rotation, 
-                mySpaceOccupancies.at(i).width, mySpaceOccupancies.at(i).length, mySpaceOccupancies.at(i).vehicle ? true : false);
+            GLHelper::drawSpaceOccupancies(exaggeration, mySpaceOccupancies.at(i).position, mySpaceOccupancies.at(i).rotation,
+                                           mySpaceOccupancies.at(i).width, mySpaceOccupancies.at(i).length, mySpaceOccupancies.at(i).vehicle ? true : false);
         }
         GLHelper::setColor(blue);
         // draw the lines
         for (size_t i = 0; i != myLines.size(); ++i) {
             // push a new matrix for every line
-            glPushMatrix();
+            GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(180, 1, 0, 0);
@@ -160,7 +161,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
-            glPopMatrix();
+            GLHelper::popMatrix();
 
         }
         // draw the sign
@@ -174,22 +175,24 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
+        if (s.drawDetail(10, exaggeration)) {
             GLHelper::drawText("P", Position(), .1, 1.6, blue, mySignRot);
         }
     }
-    glPopMatrix();
-    if (s.addFullName.show && getMyName() != "") {
+    GLHelper::popMatrix();
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }
-    glPopName();
+    GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
-    // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
-    myLane.getVehiclesSecure();
-    for (std::set<const MSVehicle*>::const_iterator v = myLane.getParkingVehicles().begin(); v != myLane.getParkingVehicles().end(); ++v) {
-        static_cast<const GUIVehicle*>(*v)->drawGL(s);
+    if (myCapacity != myRoadSideCapacity) {
+        // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
+        myLane.getVehiclesSecure();
+        for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
+            static_cast<const GUIVehicle*>(v)->drawGL(s);
+        }
+        myLane.releaseVehicles();
     }
-    myLane.releaseVehicles();
 }
 
 void
@@ -202,6 +205,13 @@ GUIParkingArea::addLotEntry(double x, double y, double z,
     b.grow(MAX2(width, length) + 5);
     myBoundary.add(b);
 }
+
+
+double
+GUIParkingArea::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 Boundary
 GUIParkingArea::getCenteringBoundary() const {

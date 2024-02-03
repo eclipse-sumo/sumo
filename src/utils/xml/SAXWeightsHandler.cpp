@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -80,8 +80,13 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
+            myCurrentID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
             myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
             myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
+            if (myCurrentTimeEnd < myCurrentTimeBeg) {
+                WRITE_ERROR("Interval end time " + toString(myCurrentTimeEnd) + " is lower than interval begin time " + toString(myCurrentTimeBeg));
+                myCurrentTimeEnd = myCurrentTimeBeg;
+            }
         }
         break;
         case SUMO_TAG_EDGE: {
@@ -93,6 +98,11 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_EDGEREL: {
             tryParseEdgeRel(attrs);
         }
+        break;
+        case SUMO_TAG_TAZREL: {
+            tryParseTazRel(attrs);
+        }
+        break;
         break;
         case SUMO_TAG_LANE: {
             tryParse(attrs, false);
@@ -132,7 +142,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                     definition->myNoLanes++;
                     definition->myHadAttribute = true;
                 } catch (EmptyData&) {
-                    WRITE_ERROR("Missing value '" + definition->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    WRITE_ERRORF(TL("Missing value '%' in edge '%'."), definition->myAttributeName, myCurrentEdgeID);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID +
                                 "' at time step " + toString(myCurrentTimeBeg) + ".");
@@ -154,6 +164,22 @@ SAXWeightsHandler::tryParseEdgeRel(const SUMOSAXAttributes& attrs) {
                 ret->myDestination.addEdgeRelWeight(from, to,
                                                     attrs.getFloat(ret->myAttributeName),
                                                     myCurrentTimeBeg, myCurrentTimeEnd);
+            }
+        }
+    }
+}
+
+void
+SAXWeightsHandler::tryParseTazRel(const SUMOSAXAttributes& attrs) {
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+        bool ok = true;
+        const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+        for (ToRetrieveDefinition* ret : myDefinitions) {
+            if (attrs.hasAttribute(ret->myAttributeName)) {
+                ret->myDestination.addTazRelWeight(myCurrentID, from, to,
+                                                   attrs.getFloat(ret->myAttributeName),
+                                                   myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
     }

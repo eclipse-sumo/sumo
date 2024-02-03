@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@
 #include <cmath>
 #include <string>
 #include <utils/common/StdDefs.h>
-#include <utils/common/FileHelpers.h>
+#include <utils/common/SUMOTime.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
 // Factor that the minimum emergency decel is increased by in corresponding situations
@@ -71,6 +71,21 @@ public:
     virtual ~MSCFModel();
 
 
+    /** @enum CalcReason
+     * @brief What the return value of stop/follow/free-Speed is used for
+     */
+    enum CalcReason {
+        /// @brief the return value is used for calculating the next speed
+        CURRENT,
+        /// @brief the return value is used for calculating future speeds
+        FUTURE,
+        /// @brief the return value is used for calculating junction stop speeds
+        CURRENT_WAIT,
+        /// @brief the return value is used for lane change calculations
+        LANE_CHANGE
+    };
+
+
     /// @name Methods to override by model implementation
     /// @{
 
@@ -90,6 +105,9 @@ public:
         return vMax;
     }
 
+    /// @brief apply speed adaptation on startup
+    virtual double applyStartupDelay(const MSVehicle* veh, const double vMin, const double vMax, const SUMOTime addTime = 0) const;
+
 
     /** @brief Computes the vehicle's safe speed without a leader
      *
@@ -101,10 +119,11 @@ public:
      * @param[in] seen The look ahead distance
      * @param[in] maxSpeed The maximum allowed speed
      * @param[in] onInsertion whether speed at insertion is asked for
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                             double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's follow speed (no dawdling)
@@ -114,9 +133,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
-    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const = 0;
+    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                               double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -140,11 +161,12 @@ public:
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-        return stopSpeed(veh, speed, gap, myDecel);
+    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap, const CalcReason usage = CalcReason::CURRENT) const {
+        return stopSpeed(veh, speed, gap, myDecel, usage);
     }
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -154,10 +176,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
      * @param[in] decel The desired deceleration rate
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const = 0;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
@@ -192,6 +215,17 @@ public:
      * @todo evaluate signature
      */
     virtual double interactionGap(const MSVehicle* const veh, double vL) const;
+
+
+    /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
+     * @param[in] maxSpeed The maximum achievable speed in the next step
+     * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
+     */
+    virtual double maximumLaneSpeedCF(const MSVehicle* const veh, double maxSpeed, double maxSpeedLane) const {
+        double result = MIN2(maxSpeed, maxSpeedLane);
+        applyOwnSpeedPerceptionError(veh, result);
+        return result;
+    }
 
 
     /** @brief Returns the model's ID; the XML-Tag number is used
@@ -247,12 +281,18 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the vehicle type's startupDelay
+     * @return The startupDelay
+     */
+    inline SUMOTime getStartupDelay() const {
+        return myStartupDelay;
+    }
+
     /** @brief Get the factor of minGap that must be maintained to avoid a collision event
      */
     inline double getCollisionMinGapFactor() const {
         return myCollisionMinGapFactor;
     }
-
 
     /// @name Virtual methods with default implementation
     /// @{
@@ -270,6 +310,11 @@ public:
      */
     virtual double getHeadwayTime() const {
         return myHeadwayTime;
+    }
+
+    /// @brief whether startupDelay should be applied after stopping
+    virtual bool startupDelayStopped() const {
+        return false;
     }
     /// @}
 
@@ -292,6 +337,16 @@ public:
      * @return The maximum possible speed for the next step
      */
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
+
+
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    inline virtual double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        return maxNextSpeed(speed, veh);
+    }
 
 
     /** @brief Returns the minimum speed given the current speed
@@ -322,7 +377,7 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    virtual double brakeGap(const double speed) const {
+    double brakeGap(const double speed) const {
         return brakeGap(speed, myDecel, myHeadwayTime);
     }
 
@@ -339,21 +394,14 @@ public:
      * @param[in] leaderSpeed LEADER's speed
      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
      */
-    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
-        // The solution approach leaderBrakeGap >= followerBrakeGap is not
-        // secure when the follower can brake harder than the leader because the paths may still cross.
-        // As a workaround we use a value of leaderDecel which errs on the side of caution
-        const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
-        return secureGap;
-    }
+    virtual double getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     virtual /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity
      * @return The velocity after maximum deceleration
      */
     inline double getSpeedAfterMaxDecel(double v) const {
-        return MAX2((double) 0, v - (double) ACCEL2SPEED(myDecel));
+        return MAX2(0., v - ACCEL2SPEED(myDecel));
     }
     /// @}
 
@@ -505,6 +553,12 @@ public:
         myApparentDecel = decel;
     }
 
+    /** @brief Sets a new value for the factor of minGap that must be maintained to avoid a collision event
+     * @param[in] factor The new minGap factor
+     */
+    inline void setCollisionMinGapFactor(const double factor) {
+        myCollisionMinGapFactor = factor;
+    }
 
     /** @brief Sets a new value for driver imperfection
      * @param[in] accel The new driver imperfection
@@ -549,20 +603,23 @@ public:
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
-     * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] decel The desired deceleration rate
+     * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
+     * @param[in] relaxEmergency Whether emergency deceleration should be reduced (at the cost of staying in a dangerous situation for longer)
      */
-    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1, bool relaxEmergency = true) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
      * @param[in] decel The desired deceleration rate
+     * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
+     * @param[in] headway The desired time headway to be included in the calculations (-1 induces the use of myHeadway)
      */
-    double maximumSafeStopSpeedEuler(double gap, double decel, double headway = -1) const;
+    double maximumSafeStopSpeedEuler(double gap, double decel, bool onInsertion, double headway) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -603,9 +660,17 @@ public:
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(key);
         UNUSED_PARAMETER(value);
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported by carFollowModel");
     }
 
 protected:
+
+    /** @brief Overwrites sped by the perceived values obtained from the vehicle's driver state,
+     *  @see MSCFModel_Krauss::freeSpeed()
+     * @param[in] veh The vehicle (EGO)
+     * @param[in, out] speed The vehicle's speed
+     */
+    void applyOwnSpeedPerceptionError(const MSVehicle* const veh, double& speed) const;
 
     /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
      *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model
@@ -644,9 +709,9 @@ protected:
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
 
+    /// @brief The startup delay after halting [s]
+    SUMOTime myStartupDelay;
+
 
 
 };
-
-
-

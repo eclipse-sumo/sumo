@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-09 10:04:15 by Eclipse SUMO netconvert Version v1_15_0+2198-1709483215c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <edge-files value="splits.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-200.00,-25.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="a" from="gneJ0" to="a.30" priority="-1">
+        <lane id="a_0" index="0" allow="rail" speed="13.89" length="30.00" shape="-200.00,-1.60 -170.00,-1.60"/>
+    </edge>
+    <edge id="a.230" from="a.230" to="a.270" priority="-1">
+        <lane id="a.230_0" index="0" allow="rail" speed="13.89" length="40.00" shape="30.00,-1.60 70.00,-1.60"/>
+    </edge>
+    <edge id="a.270" from="a.270" to="a.430" priority="-1">
+        <lane id="a.270_0" index="0" allow="rail" speed="13.89" length="160.00" shape="70.00,-1.60 230.00,-1.60"/>
+    </edge>
+    <edge id="a.30" from="a.30" to="a.70" priority="-1">
+        <lane id="a.30_0" index="0" allow="rail" speed="13.89" length="40.00" shape="-170.00,-1.60 -130.00,-1.60"/>
+    </edge>
+    <edge id="a.430" from="a.430" to="a.470" priority="-1">
+        <lane id="a.430_0" index="0" allow="rail" speed="13.89" length="40.00" shape="230.00,-1.60 270.00,-1.60"/>
+    </edge>
+    <edge id="a.470" from="a.470" to="gneJ1" priority="-1">
+        <lane id="a.470_0" index="0" allow="rail" speed="13.89" length="30.00" shape="270.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="a.70" from="a.70" to="a.230" priority="-1">
+        <lane id="a.70_0" index="0" allow="rail" speed="13.89" length="160.00" shape="-130.00,-1.60 30.00,-1.60"/>
+    </edge>
+    <edge id="b" from="gneJ2" to="gneJ3" priority="-1">
+        <lane id="b_0" index="0" speed="13.89" length="100.00" shape="-200.00,-26.60 -100.00,-26.60"/>
+    </edge>
+    <edge id="c" from="gneJ6" to="gneJ7" priority="-1">
+        <lane id="c_0" index="0" speed="13.89" length="100.00" shape="0.00,-26.60 100.00,-26.60"/>
+    </edge>
+    <edge id="d" from="gneJ4" to="gneJ5" priority="-1">
+        <lane id="d_0" index="0" speed="13.89" length="100.00" shape="200.00,-26.60 300.00,-26.60"/>
+    </edge>
+
+    <junction id="a.230" type="priority" x="30.00" y="0.00" incLanes="a.70_0" intLanes="" shape="30.00,0.00 30.00,-3.20 30.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="a.270" type="priority" x="70.00" y="0.00" incLanes="a.230_0" intLanes="" shape="70.00,0.00 70.00,-3.20 70.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="a.30" type="priority" x="-170.00" y="0.00" incLanes="a_0" intLanes="" shape="-170.00,0.00 -170.00,-3.20 -170.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="a.430" type="priority" x="230.00" y="0.00" incLanes="a.270_0" intLanes="" shape="230.00,0.00 230.00,-3.20 230.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="a.470" type="priority" x="270.00" y="0.00" incLanes="a.430_0" intLanes="" shape="270.00,0.00 270.00,-3.20 270.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="a.70" type="priority" x="-130.00" y="0.00" incLanes="a.30_0" intLanes="" shape="-130.00,0.00 -130.00,-3.20 -130.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ0" type="dead_end" x="-200.00" y="0.00" incLanes="" intLanes="" shape="-200.00,0.00 -200.00,-3.20"/>
+    <junction id="gneJ1" type="dead_end" x="300.00" y="0.00" incLanes="a.470_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+    <junction id="gneJ2" type="dead_end" x="-200.00" y="-25.00" incLanes="" intLanes="" shape="-200.00,-25.00 -200.00,-28.20"/>
+    <junction id="gneJ3" type="dead_end" x="-100.00" y="-25.00" incLanes="b_0" intLanes="" shape="-100.00,-28.20 -100.00,-25.00"/>
+    <junction id="gneJ4" type="dead_end" x="200.00" y="-25.00" incLanes="" intLanes="" shape="200.00,-25.00 200.00,-28.20"/>
+    <junction id="gneJ5" type="dead_end" x="300.00" y="-25.00" incLanes="d_0" intLanes="" shape="300.00,-28.20 300.00,-25.00"/>
+    <junction id="gneJ6" type="dead_end" x="0.00" y="-25.00" incLanes="" intLanes="" shape="0.00,-25.00 0.00,-28.20"/>
+    <junction id="gneJ7" type="dead_end" x="100.00" y="-25.00" incLanes="c_0" intLanes="" shape="100.00,-28.20 100.00,-25.00"/>
+
+    <connection from="a" to="a.30" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a.230" to="a.270" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a.270" to="a.430" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a.30" to="a.70" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a.430" to="a.470" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a.70" to="a.230" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

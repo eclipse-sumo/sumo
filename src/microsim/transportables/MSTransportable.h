@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,11 +24,13 @@
 #include <cassert>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
+#include <microsim/MSRouterDefs.h>
 #include "MSStage.h"
 
 
@@ -45,7 +47,6 @@ class SUMOVehicleParameter;
 class SUMOVehicle;
 class MSTransportableDevice;
 
-typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -59,29 +60,41 @@ class MSTransportable : public SUMOTrafficObject {
 public:
     /// @name inherited from SUMOTrafficObject
     /// @{
-    bool isPerson() const {
+    inline bool isPerson() const {
         return myAmPerson;
     }
 
-    bool isContainer() const {
+    inline bool isContainer() const {
         return !myAmPerson;
     }
 
-    bool isStopped() const {
+    inline std::string getObjectType() {
+        return myAmPerson ? "Person" : "Container";
+    }
+
+    inline NumericalID getNumericalID() const {
+        return myNumericalID;
+    }
+
+    inline bool isStopped() const {
         return getCurrentStageType() == MSStageType::WAITING;
     }
 
     double getSlope() const;
 
-    double getChosenSpeedFactor() const {
-        return 1.0;
-    }
-
     SUMOVehicleClass getVClass() const;
 
+    /// @brief whether the transportable (persons) is jammed as defined by the current pedestrian model
+    virtual bool isJammed() const {
+        return false;
+    }
+
+    /** @brief Returns the maximum speed (the minimum of desired and physical maximum speed)
+     * @return The objects's maximum speed
+     */
     double getMaxSpeed() const;
 
-    SUMOTime getWaitingTime() const;
+    SUMOTime getWaitingTime(const bool accumulated = false) const;
 
     double getPreviousSpeed() const {
         return getSpeed();
@@ -95,9 +108,7 @@ public:
         return getEdgePos();
     }
 
-    double getBackPositionOnLane(const MSLane* /*lane*/) const {
-        return getEdgePos();
-    }
+    double getBackPositionOnLane(const MSLane* lane) const;
 
     Position getPosition(const double /*offset*/) const {
         return getPosition();
@@ -135,13 +146,19 @@ public:
     }
 
     /// @brief returns the associated RNG
-    std::mt19937* getRNG() const;
+    SumoRNG* getRNG() const;
+
+    /// @brief returns the index of the associated RNG
+    int getRNGIndex() const;
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const;
 
     /// logs depart time of the current stage
     void setDeparted(SUMOTime now);
+
+    /// logs depart time of the current stage
+    SUMOTime getDeparture() const;
 
     /// Returns the current destination.
     const MSEdge* getDestination() const {
@@ -171,6 +188,9 @@ public:
     /// @brief Return the position on the edge
     virtual double getEdgePos() const;
 
+    /// @brief Return the movement directon on the edge
+    virtual int getDirection() const;
+
     /// @brief Return the Network coordinate of the transportable
     virtual Position getPosition() const;
 
@@ -184,7 +204,7 @@ public:
     virtual double getSpeed() const;
 
     /// @brief the current speed factor of the transportable (where applicable)
-    virtual double getSpeedFactor() const {
+    virtual double getChosenSpeedFactor() const {
         return 1;
     }
 
@@ -213,25 +233,40 @@ public:
         return *myStep;
     }
 
-    /// @brief Return the current stage
-    MSStage* getNextStage(int next) const {
-        assert(myStep + next >= myPlan->begin());
-        assert(myStep + next < myPlan->end());
-        return *(myStep + next);
+    /// @brief Return the next (or previous) stage denoted by the offset
+    inline MSStage* getNextStage(int offset) const {
+        assert(myStep + offset >= myPlan->begin());
+        assert(myStep + offset < myPlan->end());
+        return *(myStep + offset);
     }
 
-    /// @brief Return the edges of the nth next stage
-    ConstMSEdgeVector getEdges(int next) const {
-        assert(myStep + next < myPlan->end());
-        assert(myStep + next >= myPlan->begin());
-        return (*(myStep + next))->getEdges();
+    /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
+    const std::set<NumericalID> getUpcomingEdgeIDs() const;
+
+    /// @brief Return the total number stages in this person's plan
+    inline int getNumStages() const {
+        return (int)myPlan->size();
     }
 
     /// @brief Return the number of remaining stages (including the current)
-    int getNumRemainingStages() const;
+    inline int getNumRemainingStages() const {
+        return (int)(myPlan->end() - myStep);
+    }
 
-    /// @brief Return the total number stages in this persons plan
-    int getNumStages() const;
+    /// @brief Return the index of the current stage
+    inline int getCurrentStageIndex() const {
+        return (int)(myStep - myPlan->begin());
+    }
+
+    /// @brief return the index of the edge within the route
+    inline int getRoutePosition() const {
+        return (*myStep)->getRoutePosition();
+    }
+
+    /// @brief returns the next edge ptr (used by walking persons)
+    virtual const MSEdge* getNextEdgePtr() const {
+        return nullptr;
+    }
 
     /** @brief Called on writing tripinfo output
      *
@@ -257,6 +292,11 @@ public:
         return (*myStep)->isWaiting4Vehicle();
     }
 
+    void setAbortWaiting(const SUMOTime timeout);
+
+    /// @brief Abort current stage (used for aborting waiting for a vehicle)
+    SUMOTime abortStage(SUMOTime step);
+
     /// @brief The vehicle associated with this transportable
     SUMOVehicle* getVehicle() const {
         return (*myStep)->getVehicle();
@@ -266,9 +306,9 @@ public:
     void appendStage(MSStage* stage, int next = -1);
 
     /// @brief removes the nth next stage
-    void removeStage(int next);
+    void removeStage(int next, bool stayInSim = true);
 
-    /// sets the walking speed (ignored in other stages)
+    /// @brief set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
     void setSpeed(double speed);
 
     /// @brief returns the final arrival pos
@@ -281,6 +321,17 @@ public:
         return myPlan->back()->getEdges().back();
     }
 
+    /** @brief Returns the end point for reroutes (usually the last edge of the route)
+     *
+     * @return The rerouting end point
+     */
+    const MSEdge* getRerouteDestination() const  {
+        return getArrivalEdge();
+    }
+
+    /// Replaces the current route by the given one
+    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+
     /** @brief Replaces the current vehicle type by the one given
     *
     * If the currently used vehicle type is marked as being used by this vehicle
@@ -291,7 +342,6 @@ public:
     */
     void replaceVehicleType(MSVehicleType* type);
 
-
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
     *
     * If the currently used vehicle type is already marked as being used by this vehicle
@@ -300,7 +350,6 @@ public:
     * @see MSTransportable::myVType
     */
     MSVehicleType& getSingularType();
-
 
     /// @brief return the bounding box of the person
     PositionVector getBoundingBox() const;
@@ -314,8 +363,11 @@ public:
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
-    /// @brief Returns a device of the given type if it exists or 0
-    MSTransportableDevice* getDevice(const std::type_info& type) const;
+    /// @brief Returns a device of the given type if it exists or nullptr if not
+    MSDevice* getDevice(const std::type_info& type) const;
+
+    /// @brief set individual junction model paramete (not type related)
+    void setJunctionModelParameter(const std::string& key, const std::string& value);
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -325,6 +377,11 @@ public:
     }
 
     virtual bool hasInfluencer() const {
+        return false;
+    }
+
+    /// @brief whether this transportable is selected in the GUI
+    virtual bool isSelected() const {
         return false;
     }
 
@@ -358,6 +415,12 @@ protected:
 
 private:
     const bool myAmPerson;
+
+    const NumericalID myNumericalID;
+
+    WrappingCommand<MSTransportable>* myAbortCommand;
+
+    static NumericalID myCurrentNumericalIndex;
 
 private:
     /// @brief Invalidated copy constructor.

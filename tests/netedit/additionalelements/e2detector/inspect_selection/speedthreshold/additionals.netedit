@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-02 15:51:59 by Eclipse SUMO netedit Version v1_16_0+0946-47763bcb329
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <laneAreaDetector id="E2_A" name="A" lane="center0_0" pos="5.00" length="5.00" tl="gneJ0" period="120.00" file="fileA.txt" vTypes="Type1 Type2 Type3" speedThreshold="6.30">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </laneAreaDetector>
+    <laneAreaDetector id="E2_B" name="B" lane="center0_0" pos="15.00" length="5.00" tl="gneJ0" period="240.00" file="fileB.txt" vTypes="Type4 Type5 Type6" timeThreshold="6.30" speedThreshold="6.30" jamThreshold="6.30">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </laneAreaDetector>
+</additional>

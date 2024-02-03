@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,34 @@ class MultiEntryExitDomain(Domain):
                         tc.CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, tc.RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE,
                         tc.CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT, tc.RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT,
                         subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
+
+    def getEntryLanes(self, detID):
+        """getEntryLanes(string) -> list(string)
+
+        Returns the list of ids of the detector's entry lanes.
+        """
+        return self._getUniversal(tc.VAR_LANES, detID)
+
+    def getExitLanes(self, detID):
+        """getExitLanes(string) -> list(string)
+
+        Returns the list of ids of the detector's exit lanes.
+        """
+        return self._getUniversal(tc.VAR_EXIT_LANES, detID)
+
+    def getEntryPositions(self, detID):
+        """getEntryPositions(string) -> list(double)
+
+        Returns the list of positions of the detector's entry lanes.
+        """
+        return self._getUniversal(tc.VAR_POSITION, detID)
+
+    def getExitPositions(self, detID):
+        """getExitPositions(string) -> list(double)
+
+        Returns the list of positions of the detector's exit lanes.
+        """
+        return self._getUniversal(tc.VAR_EXIT_POSITIONS, detID)
 
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer
@@ -59,3 +87,35 @@ class MultiEntryExitDomain(Domain):
         Returns the number of vehicles which were halting during the last time step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
+
+    def getLastIntervalMeanTravelTime(self, detID):
+        """getLastIntervalMeanTravelTime(string) -> double
+
+        Returns the average travel time of vehicles that passed the detector in
+        the previous completed measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_TRAVELTIME, detID)
+
+    def getLastIntervalMeanHaltsPerVehicle(self, detID):
+        """getLastIntervalMeanHaltsPerVehicle(string) -> double
+
+        Returns the average number of halts of vehicles that passed the detector in
+        the previous completed measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER, detID)
+
+    def getLastIntervalMeanTimeLoss(self, detID):
+        """getLastIntervalMeanTimeLoss(string) -> double
+
+        Returns the average time loss of vehicles that passed the detector in
+        the previous completed measurement interval
+        """
+        return self._getUniversal(tc.VAR_TIMELOSS, detID)
+
+    def getLastIntervalVehicleSum(self, detID):
+        """getLastIntervalVehicleSum(string) -> integer
+
+        Returns the number of vehicles that passed the detector in
+        the previous completed measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_VEHICLE_NUMBER, detID)

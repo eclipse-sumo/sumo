@@ -1,0 +1,26 @@
+/* XPM */
+static const char * green_edge_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+" 	c None",
+".	c Black",
+"X	c Gray50",
+"o	c Green",
+/* pixels */
+" ...            ",
+".XXX.           ",
+".XXX.           ",
+".XXX..          ",
+" ...oo.         ",
+"   .ooo.        ",
+"    .ooo.       ",
+"     .ooo.      ",
+"      .ooo.     ",
+"       .ooo.    ",
+"        .ooo.   ",
+"         .oo... ",
+"          ..XXX.",
+"           .XXX.",
+"           .XXX.",
+"            ... "
+};

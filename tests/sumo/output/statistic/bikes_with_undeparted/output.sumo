@@ -1,0 +1,29 @@
+Loading net-file from 'net2.net.xml' ... done (3ms).
+Loading done.
+Simulation version v1_10_0+0487-96e8a86 started with time: 0.00.
+Simulation ended at time: 45.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 0.01s
+ Real time factor: 4500
+ UPS: 136800.000000
+Vehicles: 
+ Inserted: 64 (Loaded: 91)
+ Running: 58
+ Waiting: 26
+Statistics (avg of 33):
+ RouteLength: 66.59
+ Speed: 3.56
+ Duration: 19.21
+ WaitingTime: 7.61
+ TimeLoss: 13.46
+Bike Statistics (avg of 31):
+ RouteLength: 76.86
+ Speed: 3.11
+ Duration: 23.68
+ WaitingTime: 6.42
+ TimeLoss: 8.88
+Statistics (avg of 64):
+ DepartDelay: 12.27
+ DepartDelayWaiting: 7.38
+

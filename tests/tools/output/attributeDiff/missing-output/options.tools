@@ -1,0 +1,4 @@
+input_data.xml input_data2.xml --xml-output stats.xml
+--id-attribute tripId,busStop
+-m stats1.xml
+-M stats2.xml

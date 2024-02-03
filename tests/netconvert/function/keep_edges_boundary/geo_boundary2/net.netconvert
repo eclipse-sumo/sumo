@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:45 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:05 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -50,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399909.39,-5809365.64" convBoundary="0.00,0.00,1173.95,767.39" origBoundary="13.519602,52.425528,13.545248,52.434465" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -814,22 +819,22 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-26004787#0" to="5198585#8" fromLane="0" toLane="0" dir="L" state="m"/>
     <connection from="-26004787#0" to="26004868#0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26004787#0" to="26004787#0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="-26004787#1" to="26004861#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004787#1" to="26004861#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004787#1" to="-26004787#0" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004787#1" to="-26004861#0" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004787#1" to="26004787#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004787#2" to="26004966#2" fromLane="0" toLane="0" dir="R" state="="/>
+    <connection from="-26004787#2" to="26004966#2" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="-26004787#2" to="-26004787#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004787#2" to="-26004966#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004787#2" to="26004787#2" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004861#0" to="-26004868#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004861#0" to="-26004868#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004861#0" to="26004868#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004861#0" to="26004861#0" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004861#1" to="-26004787#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004861#1" to="-26004787#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004861#1" to="-26004861#0" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004861#1" to="26004787#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004861#1" to="26004861#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004861#2" to="26004966#3" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004861#2" to="26004966#3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004861#2" to="-26004861#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004861#2" to="-26004966#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004861#2" to="26004861#2" fromLane="0" toLane="0" dir="t" state="="/>
@@ -837,29 +842,29 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-26004868#0" to="-5198585#7" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-26004868#0" to="5198585#8" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26004868#0" to="26004868#0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="-26004868#1" to="26004861#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004868#1" to="26004861#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004868#1" to="-26004868#0" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004868#1" to="26004868#1" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-26004966#0" to="26004966#0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="-26004966#1" to="-26004868#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004966#1" to="-26004868#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004966#1" to="-26004966#0" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004966#1" to="26004966#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004966#2" to="-26004787#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004966#2" to="-26004787#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004966#2" to="-26004966#1" fromLane="0" toLane="0" dir="R" state="="/>
     <connection from="-26004966#2" to="26004787#2" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004966#2" to="26004966#2" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26004966#3" to="-26004861#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26004966#3" to="-26004861#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26004966#3" to="-26004966#2" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26004966#3" to="26004861#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004966#3" to="26004966#3" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-26816553" to="26816553" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="-26816553" to="26816553" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-26843019" to="-5198596#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-26843019" to="5198596#2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26843019" to="26843019" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-26843038#0" to="-5198596#0" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-26843038#0" to="5198596#1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26843038#0" to="26843038#0" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="-26843038#1" to="-26843038#2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-26843038#1" to="-26843038#2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-26843038#1" to="-26843038#0" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-26843038#1" to="26843038#1" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-26843038#2" to="-26843038#1" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -971,42 +976,42 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="24152812#0" to="24152812#1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="24152812#1" to="7216737#2" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="24152812#1" to="-7216737#1" fromLane="0" toLane="1" dir="l" state="m"/>
-    <connection from="26004787#0" to="-26004861#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004787#0" to="-26004861#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004787#0" to="26004787#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26004787#0" to="26004861#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004787#0" to="-26004787#0" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004787#1" to="-26004966#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004787#1" to="-26004966#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004787#1" to="26004787#2" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26004787#1" to="26004966#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004787#1" to="-26004787#1" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="26004787#2" to="5784968#3" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="26004787#2" to="-5784968#2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="26004787#2" to="-26004787#2" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="26004861#0" to="26004787#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004861#0" to="26004787#1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004861#0" to="26004861#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26004861#0" to="-26004787#0" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004861#0" to="-26004861#0" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004861#1" to="-26004966#2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004861#1" to="-26004966#2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004861#1" to="26004861#2" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26004861#1" to="26004966#3" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004861#1" to="-26004861#1" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="26004861#2" to="5784968#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="26004861#2" to="-5784968#0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="26004861#2" to="-26004861#2" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="26004868#0" to="26004868#1" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="26004868#0" to="26004868#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="26004868#0" to="26004861#0" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004868#0" to="-26004868#0" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004868#1" to="-26004966#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004868#1" to="-26004966#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004868#1" to="26004966#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004868#1" to="-26004868#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004966#0" to="26004966#1" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="26004966#0" to="26004966#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="26004966#0" to="-26004868#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004966#0" to="-26004966#0" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004966#1" to="26004787#2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004966#1" to="26004787#2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004966#1" to="26004966#2" fromLane="0" toLane="0" dir="L" state="="/>
     <connection from="26004966#1" to="-26004787#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004966#1" to="-26004966#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="26004966#2" to="26004861#2" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26004966#2" to="26004861#2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26004966#2" to="26004966#3" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="26004966#2" to="-26004861#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26004966#2" to="-26004966#2" fromLane="0" toLane="0" dir="t" state="="/>
@@ -1019,12 +1024,12 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="26843019" to="-5198585#3" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="26843019" to="5198585#4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="26843019" to="-26843019" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="26843038#0" to="26843038#1" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="26843038#0" to="26843038#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="26843038#0" to="-26843038#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26843038#0" to="-26843038#0" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="26843038#1" to="26843038#2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="26843038#1" to="-26843038#1" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="26843038#2" to="-26843038#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="26843038#2" to="-26843038#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26843038#2" to="26843038#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="26843038#2" to="-26843038#2" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="27437972#0" to="27437972#1" fromLane="0" toLane="0" dir="s" state="M"/>

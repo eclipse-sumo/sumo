@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,6 +75,8 @@ public:
         MSVehicle*                lastBlocked;
         /// @brief the farthest downstream vehicle on this edge that is blocked from changing to this lane
         MSVehicle*                firstBlocked;
+        /// @brief the next vehicle downstream of the ego vehicle that is stopped (and thus an obstacle)
+        MSVehicle*                lastStopped;
 
         double dens;
 
@@ -93,6 +95,9 @@ public:
 
         // the vehicles in front of the current vehicle (including those on the next edge, contiously update during change() ))
         MSLeaderDistanceInfo aheadNext;
+
+        /// vehicles that cannot be stored in ahead because they are outside the lane bounds
+        std::vector<MSVehicle*>  outsideBounds;
         ///@}
 
     };
@@ -148,8 +153,14 @@ protected:
 
 
     /** try changing to the opposite direction edge. */
-    bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
-    std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, double> neighOncoming, double searchDist, double& vMax);
+    bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, MSVehicle* lastStopped);
+
+    std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
+            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr,
+            MSLane::MinorLinkMode mLinkMode = MSLane::MinorLinkMode::FOLLOW_NEVER);
+
+    std::pair<MSVehicle* const, double> getOncomingOppositeVehicle(const MSVehicle* vehicle,
+            std::pair<MSVehicle*, double> overtaken, double searchDist);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
@@ -231,11 +242,69 @@ protected:
      */
     static void computeOvertakingTime(const MSVehicle* vehicle, double vMax, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
 
-    // @brief return leader vehicle that is to be overtaken
-    static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
+    /** @brief return leader vehicle that is to be overtaken
+     * @param[out] maxSpace The maxium space that can be used for the overtaking maneuver (limits speed)
+     * @param[in] vehicle The vehicle that wants to overtake
+     * @param[in] leader The vehicle to be overtaken and the gap to this vehicle
+     * @param[in] maxLookAhead The maximum lookahead distance
+     *
+     * This methods calls itself recursively to find the leader of a column of
+     * vehicles to be overtaken (if there is no sufficient gap for stopping in between)
+     */
+    static std::pair<MSVehicle*, double> getColumnleader(double& maxSpace, MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
-    static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
+    static const MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor, bool& contsEnd);
+
+    /// @brief whether vehicle has an opposite-direction stop within relevant range
+    static bool hasOppositeStop(MSVehicle* vehicle);
+
+    /// @brief decide whether to change (back or forth) for an opposite stop
+    bool checkOppositeStop(MSVehicle* vehicle, const MSLane* oncomingLane, const MSLane* opposite, std::pair<MSVehicle*, double> leader);
+
+    /** @brief avoid opposite-diretion deadlock when vehicles are stopped on both sides of the road
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
+    bool avoidDeadlock(MSVehicle* vehicle,
+                       std::pair<MSVehicle*, double> neighLead,
+                       std::pair<MSVehicle*, double> overtaken,
+                       std::pair<MSVehicle*, double> leader);
+
+    /** @brief keep stopping to resolve opposite-diretion deadlock while there is oncoming traffic
+     * The method may call saveBlockerLength to affect vehicle speed in the next step
+     */
+    bool resolveDeadlock(MSVehicle* vehicle,
+                         std::pair<MSVehicle* const, double> leader,
+                         std::pair<MSVehicle*, double> neighLead,
+                         std::pair<MSVehicle*, double> overtaken);
+
+    /// @brief check whether to keep stopping for oncoming vehicles in the deadlock zone
+    bool yieldToDeadlockOncoming(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist);
+
+    /// @brief check whether to yield for oncoming vehicles that have waited longer for opposite overtaking
+    bool yieldToOppositeWaiting(const MSVehicle* vehicle, const MSVehicle* stoppedNeigh, double dist, SUMOTime deltaWait = 0);
+
+    /// @brief determine for how long the vehicle can drive safely on the opposite side
+    double computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLength, const MSLane* source, double usableDist,
+                                     std::pair<MSVehicle*, double> oncoming, double vMax, double oncomingSpeed,
+                                     std::pair<MSVehicle*, double> neighLead,
+                                     std::pair<MSVehicle*, double> overtaken,
+                                     std::pair<MSVehicle*, double> neighFollow,
+                                     double surplusGap, const MSLane* opposite,
+                                     bool canOvertake);
+
+    // @brief compute distance that can safely be driven on the opposite side
+    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,
+                                    double spaceToOvertake, double& oncomingSpeed, bool oncomingOpposite = false);
+
+    // @brief find hilltop within searchDistance
+    static bool foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold);
+
+    /// @brief add LaneQ for opposite lanes
+    static std::vector<MSVehicle::LaneQ> getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, double oppositeLength);
+
+    /// @brief compute maximum maneuver speed
+    static double getMaxOvertakingSpeed(const MSVehicle* vehicle, double maxSpaceToOvertake);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

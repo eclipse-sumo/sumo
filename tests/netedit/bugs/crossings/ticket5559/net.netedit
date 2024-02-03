@@ -1,58 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01.10.2019 12:13:43 by Eclipse SUMO netedit Version v1_3_1+0537-bbd1e65fde
+<!-- generated on 2023-01-26 10:04:18 by Eclipse SUMO netedit Version v1_15_0+1963-12923ba0e0a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\additionals.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\routes.xml"/>
-    </netedit>
-
     <visualisation>
-        <window-size value="700,500"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct121339.10116/netedit.gui/bugs/crossings/ticket5559\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket5559/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -71,28 +70,28 @@
         <lane id=":C_5_0" index="0" allow="rail" speed="27.78" length="24.80" shape="87.60,98.40 112.40,98.40"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="110.15,96.80 110.15,103.20"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="110.15,96.80 110.15,103.20"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="89.85,103.20 89.85,96.80"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="89.85,103.20 89.85,96.80"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="87.60,103.20 89.10,104.70 92.10,104.70 91.93,103.77 91.46,103.26 90.74,103.06 89.82,103.06 88.76,103.15"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="87.60,103.20 89.10,104.70 92.10,104.70 91.93,103.77 91.46,103.26 90.74,103.06 89.82,103.06 88.76,103.15"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="107.90,104.70 110.90,104.70 112.40,103.20 111.24,103.15 110.18,103.06 109.26,103.06 108.54,103.26 108.07,103.77"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="107.90,104.70 110.90,104.70 112.40,103.20 111.24,103.15 110.18,103.06 109.26,103.06 108.54,103.26 108.07,103.77"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="112.40,96.80 110.90,95.30 107.90,95.30 108.07,96.23 108.54,96.74 109.26,96.94 110.18,96.94 111.24,96.85"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="112.40,96.80 110.90,95.30 107.90,95.30 108.07,96.23 108.54,96.74 109.26,96.94 110.18,96.94 111.24,96.85"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="92.10,95.30 89.10,95.30 87.60,96.80 88.76,96.85 89.82,96.94 90.74,96.94 91.46,96.74 91.93,96.23"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="92.10,95.30 89.10,95.30 87.60,96.80 88.76,96.85 89.82,96.94 90.74,96.94 91.46,96.74 91.93,96.23"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="92.10,200.00 89.10,200.00 110.90,200.00 107.90,200.00"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.80" width="3.00" shape="92.10,200.00 89.10,200.00 110.90,200.00 107.90,200.00"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="107.90,0.00 110.90,0.00 89.10,0.00 92.10,0.00"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.80" width="3.00" shape="107.90,0.00 110.90,0.00 89.10,0.00 92.10,0.00"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="10">

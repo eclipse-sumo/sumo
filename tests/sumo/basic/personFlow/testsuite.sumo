@@ -1,8 +1,28 @@
 # person with a single ride
 ride
+
+# a flow of persons with triggered vehicles
+ride_triggered
+
+# a flow of persons in a flow of triggered vehicles
+ride_triggeredFlow
 walk_personsPerHour
+
+# Copy of walk_personsPerHour
+walk_typeDist
+walk_poisson
 walk_probability
 walk_departPos_random
+walk_routeDist
+
+# defaut depart and arrival positions
+walk_routeDist_defaults
+
+# routes have different start edges
+walk_routeDist2
+
+# routes have different start edges, default depart and arrival positions
+walk_routeDist2_defaults
 
 # test whether a chain of walks rides and stops works
 trip_chain
@@ -21,3 +41,9 @@ walkRoute_busStop_walk
 
 # ride from one station to another	
 busStop_ride_busStop
+
+# large personFlow starting at a busStop with insufficient capacity
+busStop_ride_busStop_capacity
+
+# check correct arrival when there are multiple stops on the same edge
+three_trainStops_at_one_edge

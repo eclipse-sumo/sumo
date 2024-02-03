@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,49 +23,52 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
-try:
-    import xml.etree.cElementTree as ET
-except ImportError as e:
-    print("recovering from ImportError '%s'" % e)
-    import xml.etree.ElementTree as ET
-
+from lxml import etree as ET
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-f", "--file", dest="file", help="define the XML input file")
-    optParser.add_option("-o", "--output", dest="output", help="define the XML output file")
-    optParser.add_option("-t", "--tag", dest="tag", help="tag to edit")
-    optParser.add_option("-a", "--attribute", dest="attribute", help="attribute to edit")
-    optParser.add_option("-v", "--value", dest="value", help="value to update (deletes attribute if not specified)")
-    (options, args) = optParser.parse_args(args=args)
-    if not options.file:
-        optParser.print_help()
-        sys.exit()
+    optParser = sumolib.options.ArgumentParser(description="Set or remove an attribute for the specified XML element.")
+    optParser.add_argument("-f", "--file", category="input", required=True,
+                           type=optParser.data_file, help="define the XML input file")
+    optParser.add_argument("-o", "--output", category="output", required=True,
+                           type=optParser.data_file, help="define the XML output file")
+    optParser.add_argument("-t", "--tag", required=False, help="tag to edit")
+    optParser.add_argument("-a", "--attribute", required=True, help="attribute to edit")
+    optParser.add_argument("-v", "--value", help="value to update (deletes attribute if not specified)")
+    optParser.add_argument("-u", "--upper-limit", dest="maximum",
+                           help="updates to this maximum value (reduces all greater values)")
+    options = optParser.parse_args(args=args)
     return options
+
+
+def traverseNodes(parent):
+    for node in parent:
+        yield parent, node
+        for x in traverseNodes(node):
+            yield x
 
 
 def main(options):
     # parse tree
     tree = ET.parse(options.file)
     # iterate over all XML elements
-    for node in tree.getroot():
-        # check tag
-        if node.tag == options.tag:
+    for parent, node in traverseNodes(tree.getroot()):
+        # check tag (take all tags if it is not specified)
+        if options.tag is None or node.tag == options.tag:
             # continue depending of operation
             if options.value is not None:
                 # set new attribute (or modify existent)
                 node.set(options.attribute, options.value)
-            else:
+            elif options.maximum is not None:
+                attribute_value = node.get(options.attribute)
+                if attribute_value is not None:
+                    if float(attribute_value) > float(options.maximum):
+                        node.set(options.attribute, options.maximum)
+            elif options.attribute in node.attrib:
                 # delete attribute
                 del node.attrib[options.attribute]
     # write modified tree
@@ -73,5 +76,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
-    main(options)
+    main(get_options())

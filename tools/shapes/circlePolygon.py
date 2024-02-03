@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,12 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import math
-from optparse import OptionParser
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..'))
+import sumolib  # noqa
 
 
 def setCircle(idx, x, y, r, c, prefix, type, color, fill, layer, output):
@@ -40,32 +43,37 @@ def setCircle(idx, x, y, r, c, prefix, type, color, fill, layer, output):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-r", "--radius", type="float", default=100,
-                         help="default radius")
-    optParser.add_option("-p", "--prefix", default="poly",
-                         help="id prefix")
-    optParser.add_option("-t", "--type", default="unknown",
-                         help="type string")
-    optParser.add_option("-c", "--color", default="1,0,0",
-                         help="color string")
-    optParser.add_option("-f", "--fill", action="store_true",
-                         default=False, help="fill the polygons")
-    optParser.add_option("-l", "--layer", type="int", default=-1,
-                         help="layer")
-    optParser.add_option("-x", "--corners", type="int", default=100,
-                         help="default number of corners")
-    optParser.add_option(
-        "-o", "--output-file", help="output file (default: standard output)")
-    (options, args) = optParser.parse_args()
 
-    if len(args) == 0:
-        print("Usage: " + sys.argv[0] + " x,y[[,r],c] ...", file=sys.stderr)
-        sys.exit()
+    op = sumolib.options.ArgumentParser(description="Make a circle polygon")
+
+    op.add_option("files", nargs='+', category="input", type=op.file_list,
+                  help="List of XML files to plot")
+    op.add_option("-r", "--radius", type=float, default=100,
+                  help="default radius")
+    op.add_option("-p", "--prefix", default="poly",
+                  help="id prefix")
+    op.add_option("-t", "--type", default="unknown",
+                  help="type string")
+    op.add_option("--color", default="1,0,0",
+                  help="color string")
+    op.add_option("-f", "--fill", action="store_true",
+                  default=False, help="fill the polygons")
+    op.add_option("-l", "--layer", type=float, default=-1,
+                  help="layer")
+    op.add_option("-x", "--corners", type=int, default=100,
+                  help="default number of corners")
+    op.add_option("-o", "--output-file", category="output", type=op.file,
+                  help="output file (default: standard output)")
+
+    try:
+        options = op.parse_args()
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
 
     output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
     print("<additional>", file=output)
-    for idx, d in enumerate(args):
+    for idx, d in enumerate(options.files):
         desc = d.split(",")
         x = float(desc[0])
         y = float(desc[1])

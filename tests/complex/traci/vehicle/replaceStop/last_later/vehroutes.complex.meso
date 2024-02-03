@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 17 09:55:18 2021 by Eclipse SUMO sumo Version v1_8_0+1675-3a731ba
+<!-- generated on 2023-06-28 08:44:35 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,16 +13,12 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="57542"/>
+        <remote-port value="55157"/>
     </traci_server>
 
     <mesoscopic>
@@ -36,7 +32,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="ego" depart="0.00" arrival="188.00">
         <routeDistribution>
-            <route replacedOnEdge="B1C1" reason="traci:replaceStop" replacedAtTime="90.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+            <route replacedOnEdge="B1C1" replacedOnIndex="2" reason="traci:replaceStop" replacedAtTime="90.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
             <route edges="A0A1 A1B1 B1C1 C1C2 C2D2 D2D3"/>
         </routeDistribution>
         <stop busStop="busStop_A1B1" duration="60.00"/>

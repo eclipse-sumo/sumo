@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@ public:
     */
     MSSOTLPhaseTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                  const std::string& id, const std::string& programID,
-                                 const Phases& phases, int step, SUMOTime delay, const std::map<std::string, std::string>& parameters);
+                                 const Phases& phases, int step, SUMOTime delay, const Parameterised::Map& parameters);
 
     /**
      * @brief Constructor with sensors passed
@@ -48,7 +48,7 @@ public:
      */
     MSSOTLPhaseTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                  const std::string& id, const std::string& programID,
-                                 const Phases& phases, int step, SUMOTime delay, const std::map<std::string, std::string>& parameters, MSSOTLSensors* sensors);
+                                 const Phases& phases, int step, SUMOTime delay, const Parameterised::Map& parameters, MSSOTLSensors* sensors);
 
 protected:
 

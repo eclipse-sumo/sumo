@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,10 @@
 // Debug flags
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
+//#define DEBUG_SAVE_BLOCKER_LENGTH
+
+#define DEBUG_COND (veh.isSelected())
+//#define DEBUG_COND (true)
 
 
 // ===========================================================================
@@ -212,5 +216,149 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 }
 
 
+bool
+MSLCHelper::updateBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength) {
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " veh=" << veh.getID()
+                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
+                  << " bState=" << (blocker == 0 ? "None" : toString((LaneChangeAction)blocker->getLaneChangeModel().getOwnState()))
+                  << "\n";
+    }
+#endif
+    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
+        // is there enough space in front of us for the blocker?
+        const double potential = leftSpace - veh.getCarFollowModel().brakeGap(
+                                     veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
+        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
+            // save at least his length in myLeadingBlockerLength
+            leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " saving myLeadingBlockerLength=" << leadingBlockerLength
+                          << "\n";
+            }
+#endif
+        } else {
+            // we cannot save enough space for the blocker. It needs to save
+            // space for ego instead
+            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap(), leftSpace);
+            //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                          << " potential=" << potential
+                          << " myReserved=" << leadingBlockerLength
+                          << " canReserve=" << canReserve
+                          << " reliefConnection=" << reliefConnection
+                          << "\n";
+            }
+#endif
+            if (!canReserve && !reliefConnection) {
+                const int blockerState = blocker->getLaneChangeModel().getOwnState();
+                if ((blockerState & LCA_STRATEGIC) != 0
+                        && (blockerState & LCA_URGENT) != 0) {
+                    // reserve anyway and try to avoid deadlock with emergency deceleration
+                    leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+                    if (DEBUG_COND) {
+                        std::cout << "   reserving anyway to avoid deadlock (will cause emergency braking)\n";
+                    }
+#endif
+                }
+            }
+            return canReserve;
+        }
+    }
+    return true;
+}
+
+
+bool
+MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
+    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLengthSecs());
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
+    }
+#endif
+    return potential >= requested;
+}
+
+
+bool
+MSLCHelper::divergentRoute(const MSVehicle& v1, const MSVehicle& v2) {
+    // a sufficient, but not necessary condition for divergence
+    return (v1.getLane()->isInternal() && v2.getLane()->isInternal()
+            && v1.getLane()->getEdge().getFromJunction() == v2.getLane()->getEdge().getFromJunction()
+            && &v1.getLane()->getEdge() != &v2.getLane()->getEdge());
+}
+
+
+double
+MSLCHelper::getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle& follower, double currentGap, double leaderPlannedSpeed) {
+    // whatever speed the follower choses in the next step, it will change both
+    // the secureGap and the required followSpeed.
+    // Let's assume the leader maintains speed
+    const double nextGap = currentGap + SPEED2DIST(leaderPlannedSpeed - follower.getSpeed());
+    double sGap = follower.getCarFollowModel().getSecureGap(&follower, &leader, follower.getSpeed(), leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+    if (nextGap >= sGap) {
+        // follower may still accelerate
+        const double nextGapMin = currentGap + SPEED2DIST(leaderPlannedSpeed - follower.getCarFollowModel().maxNextSpeed(follower.getSpeed(), &follower));
+        const double vSafe = follower.getCarFollowModel().followSpeed(
+                                 &follower, follower.getSpeed(), nextGapMin, leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+        return MAX2(vSafe, follower.getSpeed());
+    } else {
+        // follower must brake. The following brakes conservatively since the actual gap will be lower due to braking.
+        const double vSafe = follower.getCarFollowModel().followSpeed(
+                                 &follower, follower.getSpeed(), nextGap, leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+        // avoid emergency deceleration
+        return MAX2(vSafe, follower.getCarFollowModel().minNextSpeed(follower.getSpeed(), &follower));
+    }
+}
+
+
+bool
+MSLCHelper::isBidiLeader(const MSVehicle* leader, const std::vector<MSLane*>& cont) {
+    if (leader == nullptr) {
+        return false;
+    }
+    const MSLane* lane1 = leader->getLane()->getNormalSuccessorLane()->getBidiLane();
+    const MSLane* lane2 = leader->getLane()->getNormalPredecessorLane()->getBidiLane();
+    if (lane1 == nullptr && lane2 == nullptr) {
+        return false;
+    }
+    bool result = std::find(cont.begin(), cont.end(), lane1) != cont.end();
+    if (!result && lane1 != lane2 && lane2 != nullptr) {
+        result = std::find(cont.begin(), cont.end(), lane2) != cont.end();
+    }
+    return result;
+}
+
+
+bool
+MSLCHelper::isBidiFollower(const MSVehicle* ego, const MSVehicle* follower) {
+    if (follower == nullptr) {
+        return false;
+    }
+    bool result = false;
+    const MSLane* lane1 = follower->getLane()->getNormalSuccessorLane()->getBidiLane();
+    const MSLane* lane2 = follower->getLane()->getNormalPredecessorLane()->getBidiLane();
+    const ConstMSEdgeVector& route = ego->getRoute().getEdges();
+    if (lane1 != nullptr) {
+        result = std::find(route.begin(), route.end(), &lane1->getEdge()) != route.end();
+    }
+    if (!result && lane1 != lane2 && lane2 != nullptr) {
+        result = std::find(route.begin(), route.end(), &lane2->getEdge()) != route.end();
+    }
+    return result;
+}
 
 /****************************************************************************/

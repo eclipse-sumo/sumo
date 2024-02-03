@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,11 +40,11 @@ ContextSubscriptionResults VariableSpeedSign::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 VariableSpeedSign::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     for (auto& item : MSLaneSpeedTrigger::getInstances()) {
         ids.push_back(item.first);
     }
-    std::sort(ids.begin(), ids.end());
     return ids;
 }
 

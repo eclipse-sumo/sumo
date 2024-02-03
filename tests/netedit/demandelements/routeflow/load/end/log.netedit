@@ -1,0 +1,4 @@
+Error: Attribute 'end' in definition of flow 'flow_0' is empty.
+Error: Attribute 'end' in definition of flow 'flow_1' is not a valid time value.
+Error: Flow 'flow_2' ends before its begin time.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\routeflow\load\end\routes.rou.xml failed.

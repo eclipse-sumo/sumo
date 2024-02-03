@@ -1,0 +1,27 @@
+/* XPM */
+static const char * poly_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c #9F0000",
+"X c red",
+"o c None",
+"u c white",
+/* pixels */
+"o  ooooooooooooo",
+" uu oooooooooooo",
+" uu oooooooooooo",
+"o  .oooooooooooo",
+"oo.X.ooooooooooo",
+"oo.XX.oooooooooo",
+"oo.XXX.ooooooooo",
+"oo.XXXX.oooooooo",
+"oo.XXXXX.ooooooo",
+"oo.XXXXXX.oooooo",
+"oo.XXXXXXX.ooooo",
+"oo.XXXXXXXX.oooo",
+"o  XXXXXXXXX.  o",
+" uu ........ uu ",
+" uu oooooooo uu ",
+"o  oooooooooo  o"
+};

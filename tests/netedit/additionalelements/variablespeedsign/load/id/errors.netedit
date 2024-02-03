@@ -1,0 +1,3 @@
+Error: Attribute 'id' is missing in definition of a variableSpeedSign.
+Error: Could not build variableSpeedSign with ID 'customID' in netedit; Declared twice.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/variablespeedsign/load/id/additionals.add.xml failed.

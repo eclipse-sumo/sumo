@@ -1,2 +1,5 @@
 # test strategic lane change when entering bicycle box
 lane_choice
+
+# test interaction with cars when entering bicycle box
+with_cars

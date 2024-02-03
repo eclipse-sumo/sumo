@@ -1,3 +1,0 @@
-Warning: Essential positive float attribute 'pos' of calibrator with ID 'calibrator01' is missing; calibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of calibrator with ID 'calibrator02' is invalid; Cannot be parsed to float; calibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of calibrator with ID 'calibrator03' is invalid; Cannot be negative; calibrator cannot be created

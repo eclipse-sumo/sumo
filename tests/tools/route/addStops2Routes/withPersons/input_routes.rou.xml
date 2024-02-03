@@ -1,0 +1,10 @@
+<routes>
+    <vType id="type1" vClass="bicycle"/>
+    <vehicle id="0_parkingA" type="type1" depart="0" color="1,0,0">
+        <route edges="SC CN"/>
+    </vehicle>
+    <person id="p0" depart="1">
+        <walk edges="SC CN"/>
+    </person>
+
+</routes>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 14:26:09 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Other additionals -->
+    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00">
+        <interval begin="0.00" end="3600.00">
+            <closingReroute id="center0"/>
+            <closingReroute id="center0" allow="all"/>
+            <closingReroute id="center0" allow="pedestrian passenger"/>
+            <closingReroute id="center0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2"/>
+        </interval>
+    </rerouter>
+</additional>

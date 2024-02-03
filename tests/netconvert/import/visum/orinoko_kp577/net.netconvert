@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:28 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-05-09 15:52:19 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,116 +34,22 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-4436760.00,-5472772.50" convBoundary="0.00,0.00,4020.00,3207.50" origBoundary="4436760.00,5472772.50,4440780.00,5475980.00" projParameter="!"/>
 
     <type id="0" priority="1000" numLanes="1" speed="1000.00" disallow="all" oneway="0"/>
-    <type id="1" priority="999" numLanes="25" speed="36.11" allow="passenger truck" oneway="0"/>
-    <type id="10" priority="999" numLanes="30" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="11" priority="999" numLanes="28" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="12" priority="999" numLanes="25" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="13" priority="999" numLanes="48" speed="36.11" allow="passenger truck" oneway="0"/>
-    <type id="14" priority="999" numLanes="44" speed="33.33" allow="passenger truck" oneway="0"/>
-    <type id="15" priority="999" numLanes="41" speed="30.56" allow="passenger truck" oneway="0"/>
-    <type id="16" priority="999" numLanes="38" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="17" priority="998" numLanes="17" speed="30.56" allow="passenger truck" oneway="0"/>
-    <type id="18" priority="998" numLanes="16" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="19" priority="998" numLanes="15" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="2" priority="999" numLanes="24" speed="33.33" allow="passenger truck" oneway="0"/>
-    <type id="20" priority="998" numLanes="14" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="21" priority="995" numLanes="9" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="22" priority="995" numLanes="8" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="23" priority="995" numLanes="7" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="24" priority="994" numLanes="7" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="25" priority="994" numLanes="7" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="26" priority="994" numLanes="6" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="27" priority="994" numLanes="5" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="28" priority="994" numLanes="5" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="29" priority="994" numLanes="4" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="3" priority="999" numLanes="23" speed="30.56" allow="passenger truck" oneway="0"/>
-    <type id="30" priority="994" numLanes="3" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="31" priority="996" numLanes="14" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="32" priority="996" numLanes="13" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="33" priority="996" numLanes="12" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="34" priority="996" numLanes="10" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="35" priority="996" numLanes="9" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="36" priority="996" numLanes="8" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="37" priority="996" numLanes="6" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="38" priority="997" numLanes="20" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="39" priority="997" numLanes="19" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="4" priority="999" numLanes="22" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="40" priority="997" numLanes="17" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="41" priority="997" numLanes="15" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="42" priority="997" numLanes="14" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="43" priority="997" numLanes="12" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="44" priority="991" numLanes="8" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="45" priority="991" numLanes="8" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="46" priority="991" numLanes="7" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="47" priority="991" numLanes="7" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="48" priority="991" numLanes="6" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="49" priority="991" numLanes="5" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="5" priority="999" numLanes="21" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="50" priority="992" numLanes="22" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="51" priority="992" numLanes="20" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="52" priority="992" numLanes="19" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="53" priority="992" numLanes="18" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="54" priority="992" numLanes="17" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="55" priority="992" numLanes="15" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="56" priority="993" numLanes="33" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="57" priority="993" numLanes="30" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="58" priority="993" numLanes="28" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="59" priority="993" numLanes="26" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="6" priority="999" numLanes="20" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="60" priority="993" numLanes="24" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="61" priority="993" numLanes="22" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="62" priority="990" numLanes="16" speed="19.44" allow="passenger truck" oneway="0"/>
-    <type id="63" priority="990" numLanes="14" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="64" priority="990" numLanes="13" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="65" priority="988" numLanes="7" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="66" priority="988" numLanes="7" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="67" priority="988" numLanes="6" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="68" priority="988" numLanes="5" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="69" priority="988" numLanes="5" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="7" priority="999" numLanes="37" speed="36.11" allow="passenger truck" oneway="0"/>
-    <type id="70" priority="988" numLanes="4" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="71" priority="988" numLanes="3" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="72" priority="988" numLanes="2" speed="5.56" allow="passenger truck" oneway="0"/>
-    <type id="73" priority="989" numLanes="14" speed="16.67" allow="passenger truck" oneway="0"/>
-    <type id="74" priority="989" numLanes="13" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="75" priority="989" numLanes="12" speed="13.89" allow="passenger truck" oneway="0"/>
-    <type id="76" priority="989" numLanes="10" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="77" priority="989" numLanes="9" speed="11.11" allow="passenger truck" oneway="0"/>
-    <type id="78" priority="989" numLanes="8" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="79" priority="989" numLanes="6" speed="8.33" allow="passenger truck" oneway="0"/>
-    <type id="8" priority="999" numLanes="34" speed="33.33" allow="passenger truck" oneway="0"/>
-    <type id="80" priority="987" numLanes="3" speed="5.56" allow="passenger truck" oneway="0"/>
     <type id="81" priority="988" numLanes="3" speed="8.33" allow="passenger truck" oneway="0"/>
     <type id="82" priority="988" numLanes="5" speed="11.11" allow="passenger truck" oneway="0"/>
     <type id="83" priority="988" numLanes="7" speed="13.89" allow="passenger truck" oneway="0"/>
     <type id="84" priority="989" numLanes="10" speed="16.67" allow="passenger truck" oneway="0"/>
     <type id="85" priority="989" numLanes="13" speed="19.44" allow="passenger truck" oneway="0"/>
     <type id="86" priority="994" numLanes="8" speed="22.22" allow="passenger truck" oneway="0"/>
-    <type id="87" priority="996" numLanes="8" speed="25.00" allow="passenger truck" oneway="0"/>
-    <type id="88" priority="997" numLanes="13" speed="27.78" allow="passenger truck" oneway="0"/>
-    <type id="89" priority="998" numLanes="19" speed="30.56" allow="passenger truck" oneway="0"/>
-    <type id="9" priority="999" numLanes="32" speed="30.56" allow="passenger truck" oneway="0"/>
-    <type id="90" priority="901" numLanes="2" speed="5.56" allow="passenger truck" oneway="0"/>
-    <type id="91" priority="1" numLanes="56" speed="27.78" oneway="0"/>
-    <type id="92" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="93" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="94" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="95" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="96" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="97" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="98" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
-    <type id="99" priority="1" numLanes="56" speed="27.78" disallow="all" oneway="0"/>
 
     <edge id="-53091382" from="1556" to="1555" priority="-1" type="83" shape="560.00,507.50 421.00,485.00 270.00,485.50 141.50,507.00 73.50,530.00 0.00,587.50">
         <lane id="-53091382_0" index="0" allow="passenger truck bicycle" speed="13.89" length="587.20" shape="559.37,509.02 420.87,486.60 270.14,487.10 141.89,508.56 74.27,531.43 0.99,588.76"/>

@@ -33,8 +33,8 @@ below any other `#include` or `#define` macros). The debugging code
 #endif
 ```
 
-Thus, it can be switched on and off by (un)commenting the `#define
-DEBUG_THIS_CODE` line.
+Thus, it can be switched on and off by (un)commenting the
+`#define DEBUG_THIS_CODE` line.
 
 Sometimes it is useful to combine this with a condition for more
 specific debugging output. For instance, if only output for the vehicle

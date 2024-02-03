@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,26 +24,22 @@ initial/final turn-around by replacing the attribute names 'from' and 'to' with
 'fromTaz' and 'toTaz'
 """
 from __future__ import absolute_import
-import sys
-from optparse import OptionParser
+from functools import reduce
 
 import sumolib  # noqa
-from functools import reduce
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <netfile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--outfile", help="name of output file")
-    optParser.add_option("-r", "--radius", type=float, default=10., help="maximum air distance around the edge")
-    optParser.add_option("-t", "--travel-distance", type=float, help="maximum travel distance in the graph")
-    optParser.add_option("--symmetrical", action="store_true",
-                         default=False, help="extend the bidi-relationship to be symmetrical")
-    options, args = optParser.parse_args()
-    try:
-        options.net, = args
-    except Exception:
-        sys.exit(USAGE)
+    arg_parser = sumolib.options.ArgumentParser()
+    arg_parser.add_argument("-o", "--outfile", category="output", help="name of output file")
+    arg_parser.add_argument("-r", "--radius", category="processing", type=float, default=10.,
+                            help="maximum air distance around the edge")
+    arg_parser.add_argument("-t", "--travel-distance", category="processing", type=float,
+                            help="maximum travel distance in the graph")
+    arg_parser.add_argument("--symmetrical", action="store_true", default=False,
+                            help="extend the bidi-relationship to be symmetrical")
+    arg_parser.add_argument("net", category="input", help="SUMO network file")
+    options = arg_parser.parse_args()
     if options.outfile is None:
         options.outfile = options.net + ".taz.xml"
     return options
@@ -105,18 +101,16 @@ def computeAllBidiTaz(net, radius, travelDist, symmetrical):
 
 def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
-    with open(outFile, 'w') as outf:
-        sumolib.writeXMLHeader(
-            outf, "$Id$")  # noqa
-        outf.write('<tazs>\n')
+    with sumolib.openz(outFile, mode='w') as outf:
+        sumolib.writeXMLHeader(outf)
+        outf.write(u'<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):
-            outf.write('    <taz id="%s" edges="%s"/>\n' % (
+            outf.write(u'    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
-        outf.write('</tazs>\n')
+        outf.write(u'</tazs>\n')
     return net
 
 
 if __name__ == "__main__":
-    options = parse_args()
-    main(options.net, options.outfile, options.radius,
-         options.travel_distance, options.symmetrical)
+    opts = parse_args()
+    main(opts.net, opts.outfile, opts.radius, opts.travel_distance, opts.symmetrical)

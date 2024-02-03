@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log 
+--net-file=net.net.xml
+--routes=input_routes.rou.xml 
+--device.rerouting.probability 1
+--device.rerouting.period 10

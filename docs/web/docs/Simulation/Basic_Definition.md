@@ -25,11 +25,12 @@ Routes are normally given to the simulation modules using the option **--route-f
 (or **-r** {{DT_Routes}}\[,{{DT_Routes}}]\*). As you can see, you can use more than one route file within a
 single simulation run.
 
-The routes MUST be sorted. The reason is that we want to simulate large
-road networks with up to millions of routes. Using a plain PC this is
-only possible if you do not keep all routes in memory. All files given
-as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise. Starting at the begin time step,
-new routes are loaded every n time steps for the next n time steps. n
+!!! caution
+    The vehicular elements (trips, vehicles, flows) must be sorted by depart / begin time.
+
+The reason is that route files are read incrementally to conserve memory and enable large simulations.
+All files given as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise.
+Starting at the begin time step, new routes are loaded every n time steps for the next n time steps. n
 may be controlled using the **--route-steps** {{DT_INT}} where <=0 forces
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) to load the file
 completely. Fetching routes for the next steps only implies that the
@@ -38,6 +39,9 @@ routes that use them.
 
 You may also give routes including vehicle definitions as {{AdditionalFile}} to
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md).
+
+!!! caution
+    vTypes and named routes must precede vehicle definitions which reference those types and routes.
 
 ## Additional Files
 
@@ -60,10 +64,8 @@ One ore more {{AdditionalFile}}(s) are used to load additional entities:
   [routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)
 
 All these additional structures / definitions are given to the
-simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*. The list of given files is processed
-incrementally, this means each file is read completely from top to
-bottom and the list is processed starting with the first file of the
-list.
+simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*.
+Each file is read completely into memory and the list of files is processed from left to right.
 
 ## Parsing Order
 
@@ -105,19 +107,19 @@ The simulation ends in the following cases:
 
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) use a time step
 of one second per default. You may override this using the **--step-length** {{DT_TIME}} option. {{DT_TIME}} is
-by giving a value in seconds between \[0.001 and 1.0\]. 
+by giving a value in seconds between \[0.001 and 1.0\].
 
 Example: **--step-length 0.01** will run the simulation using time steps of 10ms.
 
 !!! caution
-    Technically, larger values can be used but many car-following models are not tested with values above 1 and may fail to work as expected.The step-length also sets a lower bound on driver reaction times which increases the likelyhood of collisions when using values above 1 without adapting other mdel parameters (tau).
+    Technically, larger values can be used but many car-following models are not tested with values above 1 and may fail to work as expected.The step-length also sets a lower bound on driver reaction times which increases the likelihood of collisions when using values above 1 without adapting other model parameters (tau).
 
 Setting a lower step-length has many consequences:
 
 - the simulation takes longer to simulate a given amount of time (because it needs more steps to do so)
 - the generated movements are generally smoother
 - vehicle insertion and lane changing succeed more often in a given amount of time since the conditions are checked more often
-- the frequence of vehicle speed adaptation increases unless prevented by setting action-step-length (see below)
+- the frequency of vehicle speed adaptation increases unless prevented by setting action-step-length (see below)
 
 
 # Defining the Action Step Length
@@ -149,7 +151,7 @@ considers the acceleration constant during one time step. It can be
 activated by giving the option **--step-method.ballistic** or including the following into the
 configuration file:
 
-```
+```xml
 <processing>
    <step-method.ballistic value="true"/>
 </processing>
@@ -159,7 +161,7 @@ Especially for larger time-steps (e.g. 1sec.) ballistic update yields
 more realistic dynamics for car-following models based on continuous
 dynamics. See also [*Martin Treiber, Venkatesan Kanagaraj*, Comparing
 Numerical Integration Schemes for Time-Continuous Car-Following
-Models](http://arxiv.org/abs/1403.4881).
+Models](https://arxiv.org/abs/1403.4881).
 
 Ballistic update causes positions to be updated with the average speed
 between time steps instead of the speed of the current time step.

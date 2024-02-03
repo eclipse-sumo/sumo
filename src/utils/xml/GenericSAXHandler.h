@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occurring elements and attributes into enums
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -39,7 +39,7 @@
 // ===========================================================================
 /**
  * @class GenericSAXHandler
- * @brief A handler which converts occuring elements and attributes into enums
+ * @brief A handler which converts occurring elements and attributes into enums
  *
  * Normally, when using a standard SAX-handler, we would have to compare
  *  the incoming XMLCh*-element names with the ones we can parse. The same
@@ -76,9 +76,9 @@ public:
      *  internal container. This container is cleared within the destructor.
      *
      * @param[in] tags The list of known tags
-     * @param[in] terminatorTag The tag which signales the end of tags (usually the last entry)
+     * @param[in] terminatorTag The tag which indicates the end of tags (usually the last entry)
      * @param[in] attrs The list of known attributes
-     * @param[in] terminatorAttr The attr which signales the end of attrs (usually the last entry)
+     * @param[in] terminatorAttr The attr which indicates the end of attrs (usually the last entry)
      * @param[in] file The name of the processed file
      * @param[in] expectedRoot The expected root element, empty string disables the check
      *
@@ -199,6 +199,28 @@ public:
     //@}
 
 
+    void setSection(const int element, const bool seen) {
+        mySection = element;
+        mySectionSeen = seen;
+        mySectionOpen = seen;
+        mySectionEnded = false;
+    }
+
+    bool sectionFinished() const {
+        return mySectionEnded;
+    }
+
+    std::pair<int, SUMOSAXAttributes*> retrieveNextSectionStart() {
+        std::pair<int, SUMOSAXAttributes*> ret = myNextSectionStart;
+        myNextSectionStart.first = -1;
+        myNextSectionStart.second = nullptr;
+        return ret;
+    }
+
+    void needsCharacterData(const bool value = true) {
+        myCollectCharacterData = value;
+    }
+
     // Reader needs access to myStartElement, myEndElement
     friend class SUMOSAXReader;
 
@@ -248,6 +270,8 @@ protected:
      */
     virtual void myEndElement(int element);
 
+    /// @brief signal endElement to the parent handler (special case for MSCalibrator)
+    void callParentEnd(int element);
 
 private:
     /**
@@ -311,8 +335,25 @@ private:
     /// @brief The root element to expect, empty string disables the check
     std::string myExpectedRoot;
 
+    /// @brief whether the reader should collect character data
+    bool myCollectCharacterData = false;
+
     /// @brief whether the reader has already seen the root element
-    bool myRootSeen;
+    bool myRootSeen = false;
+
+    /// @brief The tag indicating the current section to parse
+    int mySection = -1;
+
+    /// @brief whether the reader has already seen the begin of the section
+    bool mySectionSeen = false;
+
+    /// @brief whether the reader has already seen the end of the section
+    bool mySectionEnded = false;
+
+    /// @brief whether an element of the current section is open
+    bool mySectionOpen = false;
+
+    std::pair<int, SUMOSAXAttributes*> myNextSectionStart;
 
 private:
     /// @brief invalidated copy constructor

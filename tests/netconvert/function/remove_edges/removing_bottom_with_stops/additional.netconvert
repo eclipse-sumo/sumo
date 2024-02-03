@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct  6 13:32:38 2020 by Eclipse SUMO netconvert Version v1_7_0+0512-6daea31f98
+<!-- generated on 2022-11-07 16:36:13 by Eclipse SUMO netconvert Version v1_14_1+2254-abbc76d4ea0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -31,15 +36,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00" friendlyPos="true">
-        <access lane="3o_0" pos="100.00" length="20.00" friendlyPos="1"/>
-    </busStop>
+    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00" friendlyPos="true"/>
     <busStop id="busStop_4si_0_3" lane="4si_0" startPos="54.69" endPos="64.69" friendlyPos="true"/>
 </additional>

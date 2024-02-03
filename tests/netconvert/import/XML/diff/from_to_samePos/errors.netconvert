@@ -1,0 +1,3 @@
+Warning: Edge's 'WC' from- and to-node are at the same position.
+Warning: Edge's 'CW' from- and to-node are at the same position.
+Warning: Intersecting left turns at junction 'C' from lane 'WC_1' and lane 'NC_0' (increase junction radius to avoid this).

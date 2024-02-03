@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,12 +40,10 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIDialog_AppSettings(FXMainWindow* parent);
+    GUIDialog_AppSettings(GUIMainWindow* parent);
 
     /// @brief Destructor
     ~GUIDialog_AppSettings();
-
-
 
     /// @name FOX-callbacks
     /// @{
@@ -58,10 +56,17 @@ public:
 
     /// @brief Called on button change
     long onCmdSelect(FXObject*, FXSelector sel, void*);
+
     /// @}
 
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUIDialog_AppSettings)
 
 private:
+    /// @brief The main GUI window
+    GUIMainWindow* myParent;
+
     /// @brief Information whether the application shall be quit
     bool myAppQuitOnEnd;
 
@@ -77,8 +82,15 @@ private:
     /// @brief Information whether locate links appear in messages
     bool myLocateLinks;
 
+    /// @brief Offset when adding breakpoints
+    FXRealSpinner* myBreakPointOffset;
 
-protected:
-    FOX_CONSTRUCTOR(GUIDialog_AppSettings)
+    /// @brief The list that holds the URLs
+    FXTable* myTable;
 
+    /// @brief Invalidated copy constructor.
+    GUIDialog_AppSettings(const GUIDialog_AppSettings&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GUIDialog_AppSettings& operator=(const GUIDialog_AppSettings&) = delete;
 };

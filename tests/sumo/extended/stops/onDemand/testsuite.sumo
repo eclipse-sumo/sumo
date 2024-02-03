@@ -1,0 +1,23 @@
+# skip stop since there are no persons present
+no_persons
+
+# stop for schedule 
+no_persons_until
+
+# do not stop for schedule 
+no_persons_until_late
+
+# there is a person on board but it doesn't want to exit at the stop
+person_noExit
+
+# there is a person on board and it wants to leave at the stop
+person_exit
+
+# there is a person on board and it wants to leave at but in a different spot
+person_exitFurther
+
+# there is a person waiting for this bus
+person_enter
+
+# there is a person waiting for this bus
+person_enterFurther

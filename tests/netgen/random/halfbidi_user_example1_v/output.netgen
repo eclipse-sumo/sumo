@@ -2,39 +2,39 @@
    200 nodes generated.
    414 edges generated.
 Removing self-loops ... done (0ms).
-Removing empty nodes ... done (0ms).
+Removing empty nodes ... done (1ms).
    0 nodes removed.
 Moving network to origin ... done (1ms).
-Computing turning directions ... done (0ms).
+Computing turning directions ... done (1ms).
 Assigning nodes to traffic lights ... done (0ms).
-Sorting nodes' edges ... done (1ms).
-Computing node shapes ... done (10ms).
-Computing edge shapes ... done (11ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (14ms).
+Computing edge shapes ... done (8ms).
 Computing node types ... done (0ms).
-Computing priorities ... done (2ms).
+Computing priorities ... done (1ms).
 Computing approached edges ... done (1ms).
-Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (3ms).
+Guessing and setting roundabouts ... done (1ms).
+Computing approaching lanes ... done (4ms).
 Dividing of lanes on approached lanes ... done (2ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (6ms).
+Computing node logics ... done (9ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
 Building inner edges ... 
-done (21ms).
+done (31ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Dead-end junctions          : 27
-  Priority junctions          : 173
+  Dead-end junctions          : 28
+  Priority junctions          : 172
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -1263.68,-1880.98,1199.60,1596.45
   Applied offset     : 1263.68,1880.98
   Converted boundary : 0.00,0.00,2463.28,3477.43
 -----------------------------------------------------
-Writing network ... done (96ms).
+Writing network ... done (122ms).
 Success.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 20:41:01 2020 by Eclipse SUMO sumo Version v1_7_0+1213-669ca66b46
+<!-- generated on 2022-03-30 11:00:10 by Eclipse SUMO sumo Version v1_12_0+1770-c60e6e70bb3
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,16 +31,16 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1213-669ca66b46" time="350.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1770-c60e6e70bb3" time="350.00" type="meso">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" distance="735.6 1" speedFactor="1.00" reroute="1" state="0 8 0 0 0 366620 319860 9223372036854775807">
-        <stop lane="SC_0" until="60.00" actualArrival="0.00" depart="67.00"/>
-        <stop lane="CN_0" until="120.00" actualArrival="66.62" depart="127.00"/>
-        <stop lane="SC_0" until="240.00" actualArrival="139.86" depart="247.00"/>
-        <stop lane="CN_0" until="300.00" actualArrival="246.62" depart="307.00"/>
-        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="v0" depart="0.00" route="!v0!var#1" distance="735.6 1" speedFactor="1.0000" reroute="1" state="262144 0 8 0 0 0 366620 319860 9223372036854775807">
+        <stop lane="SC_0" until="60.00" started="0.00" ended="67.00"/>
+        <stop lane="CN_0" until="120.00" started="66.62" ended="127.00"/>
+        <stop lane="SC_0" until="240.00" started="139.86" ended="247.00"/>
+        <stop lane="CN_0" until="300.00" started="246.62" ended="307.00"/>
+        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00" started="319.86"/>
         <stop lane="CN_0" startPos="91.75" endPos="91.95" until="420.00"/>
         <stop lane="SC_0" startPos="91.75" endPos="91.95" until="480.00"/>
         <stop lane="CN_0" startPos="91.75" endPos="91.95" until="540.00"/>
@@ -60,4 +60,5 @@
         <vehicles time="248289" value="v0"/>
         <vehicles time="-1" value=""/>
     </segment>
+    <tlLogic id="C" programID="0" phase="5" duration="2000"/>
 </snapshot>

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-21 22:00:49.126368 by generateRailSignalConstraints.py v1_7_0+0165-cab5e40fad
-  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v
+
+<!-- generated on 2022-07-07 11:20:45.985900 by generateRailSignalConstraints.py v1_13_0+1343-240e5d48340
+<configuration>
+    <additional-file value="input_additional.add.xml"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <until-from-duration value="True"/>
+    <verbose value="True"/>
+</configuration>
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
         <insertionPredecessor tripId="t0" tl="A" foes="t1"/>

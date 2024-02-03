@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 step 0.0
 step 1.0
@@ -277,155 +276,155 @@ Neigh infos for ego:
 step 17.0
 Neigh infos for ego:
   rightFollowers:
-  [('r0.1', 10.736321771510859)]
+  [('r0.1', 10.138200305838126)]
   rightLeaders:
-  [('r1.0', -6.597668779620875), ('r1.1', 1.1729774980917966)]
+  [('r1.0', -6.577235109012577), ('r1.1', 0.8304883399158882)]
   leftFollowers:
-  [('l0.0', 37.274815746036325), ('l0.1', 17.891944071350594)]
+  [('l0.0', 37.19435253200399), ('l0.1', 17.81148085731826)]
   leftLeaders:
-  [('l1.0', -6.912251727658287), ('l1.1', 7.881718980727754)]
+  [('l1.0', -6.831788513625952), ('l1.1', 7.962182194760089)]
   rightFollowers (only blocking):
   []
   rightLeaders (only blocking):
-  [('r1.0', -6.597668779620875), ('r1.1', 1.1729774980917966)]
+  [('r1.0', -6.577235109012577), ('r1.1', 0.8304883399158882)]
   leftFollowers (only blocking):
   []
   leftLeaders (only blocking):
-  [('l1.0', -6.912251727658287), ('l1.1', 7.881718980727754)]
+  [('l1.0', -6.831788513625952), ('l1.1', 7.962182194760089)]
 step 18.0
 Neigh infos for ego:
   rightFollowers:
-  [('r0.1', 13.509232567218106), ('r1.0', -5.092151587875577)]
+  [('r0.1', 12.504728821376318), ('r1.0', -6.039121327130118)]
   rightLeaders:
-  [('r1.1', -2.2361742023005604)]
+  [('r1.1', -1.211074206219024)]
   leftFollowers:
-  [('l0.1', 21.70943128757642), ('l1.0', -4.888303327746712)]
+  [('l0.1', 20.897619823971752), ('l1.0', -5.700114791351382)]
   leftLeaders:
-  [('l1.1', 4.706534885033079)]
+  [('l1.1', 5.518346348637749)]
   rightFollowers (only blocking):
-  [('r1.0', -5.092151587875577)]
+  [('r1.0', -6.039121327130118)]
   rightLeaders (only blocking):
-  [('r1.1', -2.2361742023005604)]
+  [('r1.1', -1.211074206219024)]
   leftFollowers (only blocking):
-  [('l1.0', -4.888303327746712)]
+  [('l1.0', -5.700114791351382)]
   leftLeaders (only blocking):
-  [('l1.1', 4.706534885033079)]
+  [('l1.1', 5.518346348637749)]
 step 19.0
 Neigh infos for ego:
   rightFollowers:
-  [('r0.1', 16.700187798530777), ('r1.0', -2.6182055462878395)]
+  [('r0.1', 15.232299211795436), ('r1.0', -3.4769998849164665)]
   rightLeaders:
-  [('r1.1', -4.727235292207411)]
+  [('r1.1', -4.134655923100155)]
   leftFollowers:
-  [('l0.1', 24.160808083714898), ('l1.0', -2.0142808452043823)]
+  [('l0.1', 23.04565075454022), ('l1.0', -3.129438174379061)]
   leftLeaders:
-  [('l1.1', 1.9320237123668562)]
+  [('l1.1', 3.047181041541535)]
   rightFollowers (only blocking):
-  [('r1.0', -2.6182055462878395)]
+  [('r1.0', -3.4769998849164665)]
   rightLeaders (only blocking):
-  [('r1.1', -4.727235292207411)]
+  [('r1.1', -4.134655923100155)]
   leftFollowers (only blocking):
-  [('l1.0', -2.0142808452043823)]
+  [('l1.0', -3.129438174379061)]
   leftLeaders (only blocking):
-  [('l1.1', 1.9320237123668562)]
+  [('l1.1', 3.047181041541535)]
 step 20.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 0.6350173236746173), ('r1.1', -6.6580815631626535)]
+  [('r0.1', 17.973161364401676), ('r1.0', -0.0963685720050762)]
   rightLeaders:
-  []
+  [('r1.1', -7.117244269935384)]
   leftFollowers:
-  [('l0.1', 26.93926466535217), ('l1.0', 1.0355842385385188)]
+  [('l0.1', 26.060282497521484), ('l1.0', 0.15660207070783372)]
   leftLeaders:
-  [('l1.1', -1.7327436877824027)]
+  [('l1.1', -0.8537615199517177)]
   rightFollowers (only blocking):
-  [('r1.0', 0.6350173236746173), ('r1.1', -6.6580815631626535)]
+  [('r1.0', -0.0963685720050762)]
   rightLeaders (only blocking):
-  []
+  [('r1.1', -7.117244269935384)]
   leftFollowers (only blocking):
-  [('l1.0', 1.0355842385385188)]
+  [('l1.0', 0.15660207070783372)]
   leftLeaders (only blocking):
-  [('l1.1', -1.7327436877824027)]
+  [('l1.1', -0.8537615199517177)]
 step 21.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 3.158683181242992), ('r1.1', -4.272695090108584)]
+  [('r1.0', 2.912912918642178), ('r1.1', -4.4163430684469915)]
   rightLeaders:
   []
   leftFollowers:
-  [('l0.1', 29.52885097478608), ('l1.0', 4.451723900754928)]
+  [('l0.1', 28.820175910313623), ('l1.0', 3.743048836282469)]
   leftLeaders:
-  [('l1.1', -4.36534001202412)]
+  [('l1.1', -3.6566649475516613)]
   rightFollowers (only blocking):
-  [('r1.0', 3.158683181242992), ('r1.1', -4.272695090108584)]
+  [('r1.0', 2.912912918642178), ('r1.1', -4.4163430684469915)]
   rightLeaders (only blocking):
   []
   leftFollowers (only blocking):
   []
   leftLeaders (only blocking):
-  [('l1.1', -4.36534001202412)]
+  [('l1.1', -3.6566649475516613)]
 step 22.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 6.984845457051847), ('r1.1', -1.4961783687137427)]
+  [('r1.0', 6.265373479237809), ('r1.1', -1.928541474442028)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 8.1768591907462), ('l1.1', -7.2912063039718475)]
+  [('l0.1', 31.789217537746765), ('l1.0', 6.80859883396235)]
   leftLeaders:
-  []
+  [('l1.1', -6.340533339244303)]
   rightFollowers (only blocking):
-  [('r1.1', -1.4961783687137427)]
+  [('r1.1', -1.928541474442028)]
   rightLeaders (only blocking):
   []
   leftFollowers (only blocking):
-  [('l1.1', -7.2912063039718475)]
-  leftLeaders (only blocking):
   []
+  leftLeaders (only blocking):
+  [('l1.1', -6.340533339244303)]
 step 23.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 9.961473492472408), ('r1.1', 1.792091055861647)]
+  [('r1.0', 9.158567098188257), ('r1.1', 1.653697153641815)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 11.438690180224341), ('l1.1', -4.239196688486288)]
+  [('l1.0', 9.862277451492844), ('l1.1', -5.815609417217786)]
   leftLeaders:
   []
   rightFollowers (only blocking):
-  [('r1.1', 1.792091055861647)]
+  [('r1.1', 1.653697153641815)]
   rightLeaders (only blocking):
   []
   leftFollowers (only blocking):
-  [('l1.1', -4.239196688486288)]
+  [('l1.1', -5.815609417217786)]
   leftLeaders (only blocking):
   []
 step 24.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 12.937158591516322), ('r1.1', 3.9031171883149227)]
+  [('r1.0', 12.355494686362363), ('r1.1', 4.9290995058063345)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 13.807226265787165), ('l1.1', -2.0485852582082202)]
+  [('l1.0', 12.99534456078618), ('l1.1', -2.8604669632092055)]
   leftLeaders:
   []
   rightFollowers (only blocking):
-  [('r1.1', 3.9031171883149227)]
+  []
   rightLeaders (only blocking):
   []
   leftFollowers (only blocking):
-  [('l1.1', -2.0485852582082202)]
+  [('l1.1', -2.8604669632092055)]
   leftLeaders (only blocking):
   []
 step 25.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 16.238751100799107), ('r1.1', 6.402915814857977)]
+  [('r1.0', 15.211498650935539), ('r1.1', 7.978881832039008)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 16.577989260809545), ('l1.1', 1.3989257701011866)]
+  [('l1.0', 15.491888307294857), ('l1.1', 0.31282481658649886)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -433,17 +432,17 @@ Neigh infos for ego:
   rightLeaders (only blocking):
   []
   leftFollowers (only blocking):
-  [('l1.1', 1.3989257701011866)]
+  [('l1.1', 0.31282481658649886)]
   leftLeaders (only blocking):
   []
 step 26.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 19.580952965771814), ('r1.1', 9.640141978264808)]
+  [('r1.0', 18.034091173090133), ('r1.1', 10.77810500395583)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 19.78635719912222), ('l1.1', 4.5546273577967895)]
+  [('l1.0', 18.86173039917003), ('l1.1', 3.630000557844596)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -457,11 +456,11 @@ Neigh infos for ego:
 step 27.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 21.974691716393522), ('r1.1', 12.353680343630742)]
+  [('r1.0', 20.590755020592496), ('r1.1', 13.880460261700762)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 22.65174430280274), ('l1.1', 7.391992694230794)]
+  [('l1.0', 21.840047293946213), ('l1.1', 6.580295685374267)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -475,11 +474,11 @@ Neigh infos for ego:
 step 28.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 25.25101731984887), ('r1.1', 15.823784308745587)]
+  [('r1.0', 24.324013055134685), ('r1.1', 17.746588788139718)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 25.09293689736637), ('l1.1', 10.015053599625901)]
+  [('l1.0', 24.669218009659176), ('l1.1', 9.591334711918705)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -493,11 +492,11 @@ Neigh infos for ego:
 step 29.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 28.363560476705572), ('r1.1', 19.598804782938316)]
+  [('r1.0', 26.823218238812046), ('r1.1', 20.09949830614687)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 28.036001672518523), ('l1.1', 13.494066074320187)]
+  [('l1.0', 26.896428198196986), ('l1.1', 12.35449259999865)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -511,11 +510,11 @@ Neigh infos for ego:
 step 30.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 31.15438876493289), ('r1.1', 23.05305960730101)]
+  [('r1.0', 30.6257714001826), ('r1.1', 24.10104550823945)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 30.962539665483916), ('l1.1', 16.212798430830276)]
+  [('l1.0', 30.176097651095176), ('l1.1', 15.426356416441536)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -529,11 +528,11 @@ Neigh infos for ego:
 step 31.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 33.54733415235404), ('r1.1', 25.76038357757136)]
+  [('r1.0', 33.133374341191825), ('r1.1', 26.714424878215425)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 34.47649292423023), ('l1.1', 19.00620458813944)]
+  [('l1.0', 33.03298741819901), ('l1.1', 17.562699082108225)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -547,11 +546,11 @@ Neigh infos for ego:
 step 32.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 36.33901284833729), ('r1.1', 28.68493276545138)]
+  [('r1.0', 35.16482725425914), ('r1.1', 29.631711929308267)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 37.20888193345917), ('l1.1', 21.4134221089613)]
+  [('l1.0', 35.67059501212378), ('l1.1', 19.875135187625915)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -565,11 +564,11 @@ Neigh infos for ego:
 step 33.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 39.00543582847354), ('r1.1', 31.632842870908917)]
+  [('r1.0', 38.86979861010809), ('r1.1', 32.78235530561301)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 40.5985363363103), ('l1.1', 23.981282839113874)]
+  [('l1.0', 39.42282960594639), ('l1.1', 22.80557610874996)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -583,11 +582,11 @@ Neigh infos for ego:
 step 34.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 41.60580846411375), ('r1.1', 34.325253146688624)]
+  [('r1.0', 42.33893526070955), ('r1.1', 36.19408408600094)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 43.69753327348934), ('l1.1', 26.54643964674517)]
+  [('l1.0', 42.5587654087945), ('l1.1', 25.40767178205033)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -601,11 +600,11 @@ Neigh infos for ego:
 step 35.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 44.67356339329774), ('r1.1', 37.36027978759648)]
+  [('r1.0', 45.10979848150089), ('r1.1', 39.61036402337163)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 46.54844474394258), ('l1.1', 28.610787240577963)]
+  [('l1.0', 45.97229195909955), ('l1.1', 28.03463445573493)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -619,11 +618,11 @@ Neigh infos for ego:
 step 36.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 47.58654874250868), ('r1.1', 40.37904156577417)]
+  [('r1.0', 47.56009118894224), ('r1.1', 42.20578525728172)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 49.79952472147636), ('l1.1', 31.122713515391695)]
+  [('l1.0', 49.310630847533275), ('l1.1', 30.63381964144861)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -637,11 +636,11 @@ Neigh infos for ego:
 step 37.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 50.8651744409168), ('r1.1', 42.68227020846979)]
+  [('r1.0', 50.50119646901089), ('r1.1', 44.32778038897362)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 52.590117791754324), ('l1.1', 33.80013571190011)]
+  [('l1.0', 51.83560206214247), ('l1.1', 33.04561998228826)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -655,11 +654,11 @@ Neigh infos for ego:
 step 38.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 53.22678032111395), ('r1.1', 45.28471509257821)]
+  [('r1.0', 52.954247596780874), ('r1.1', 46.63925093128347)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 55.136677863649254), ('l1.1', 36.273999144593404)]
+  [('l1.0', 54.47842466772073), ('l1.1', 35.61574594866488)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -673,11 +672,11 @@ Neigh infos for ego:
 step 39.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 56.21776198981067), ('r1.1', 47.58117337724869)]
+  [('r1.0', 55.581669494800366), ('r1.1', 48.97885679753685)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 57.835913642088116), ('l1.1', 38.85123135644213)]
+  [('l1.0', 57.17766044615959), ('l1.1', 38.192978160513604)]
   leftLeaders:
   []
   rightFollowers (only blocking):
@@ -691,11 +690,11 @@ Neigh infos for ego:
 step 40.0
 Neigh infos for ego:
   rightFollowers:
-  [('r1.0', 59.12134637509861), ('r1.1', 50.918872088444644)]
+  [('r1.0', 58.24661387061617), ('r1.1', 52.2897016283069)]
   rightLeaders:
   []
   leftFollowers:
-  [('l1.0', 60.693605811925764), ('l1.1', 41.11009355248804)]
+  [('l1.0', 60.03535261599724), ('l1.1', 40.451840356559515)]
   leftLeaders:
   []
   rightFollowers (only blocking):

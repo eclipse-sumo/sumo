@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 /// @author  Laura Bieker
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    07.05.2009
 ///
 // APIs for getting/setting lane values via TraCI
@@ -120,7 +121,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
-            && variable != libsumo::VAR_PARAMETER) {
+            && variable != libsumo::VAR_PARAMETER && variable != libsumo::LANE_CHANGES) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -137,6 +138,11 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 libsumo::Lane::setMaxSpeed(id, value);
                 break;
             }
+            case libsumo::VAR_FRICTION: {
+                const double value = StoHelp::readTypedDouble(inputStorage, "The friction must be given as a double.");
+                libsumo::Lane::setFriction(id, value);
+                break;
+            }
             case libsumo::VAR_LENGTH: {
                 const double value = StoHelp::readTypedDouble(inputStorage, "The length must be given as a double.");
                 libsumo::Lane::setLength(id, value);
@@ -150,6 +156,13 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             case libsumo::LANE_DISALLOWED: {
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Not allowed vehicle classes must be given as a list of strings.");
                 libsumo::Lane::setDisallowed(id, classes);
+                break;
+            }
+            case libsumo::LANE_CHANGES: {
+                StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting lane change permissions.");
+                const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Vehicle classes allowed to change lane must be given as a list of strings.");
+                const int direction = StoHelp::readTypedByte(inputStorage, "The lane change direction must be given as an integer.");
+                libsumo::Lane::setChangePermissions(id, classes, direction);
                 break;
             }
             case libsumo::VAR_PARAMETER: {

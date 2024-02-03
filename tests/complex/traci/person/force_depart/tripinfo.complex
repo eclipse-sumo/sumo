@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-28 19:20:33 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="41065"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="0" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+        <walk depart="0.00" departPos="81.95" arrival="28.00" arrivalPos="10.00" duration="28.00" routeLength="20.00" timeLoss="14.42" maxSpeed="1.47"/>
+    </personinfo>
+</tripinfos>

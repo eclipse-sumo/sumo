@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,9 @@
 class GNEChargingStation : public GNEStoppingPlace {
 
 public:
+    /// @brief default Constructor of charging station
+    GNEChargingStation(GNENet* net);
+
     /**@brief Constructor of charging station
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
@@ -40,34 +43,45 @@ public:
      * @param[in] efficiency efficiency of the charge [0,1]
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in timeSteps in the charge
+     * @param[in] chargeType charge type (fuel or electric)
+     * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
-     * @param[in] blockMovement enable or disable additional movement
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, 
-                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, 
-                       bool friendlyPosition, const std::map<std::string, std::string> &parameters, bool blockMovement);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
+                       const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEChargingStation();
 
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -83,7 +97,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -92,16 +106,22 @@ public:
 
 protected:
     /// @brief Charging power pro timestep
-    double myChargingPower;
+    double myChargingPower = 0;
 
     /// @brief efficiency of the charge
-    double myEfficiency;
+    double myEfficiency = 0;
 
     /// @brief enable or disable charge in transit
-    bool myChargeInTransit;
+    bool myChargeInTransit = false;
 
     /// @brief delay in the starting of charge
-    SUMOTime myChargeDelay;
+    SUMOTime myChargeDelay = 0;
+
+    /// @brief charging type
+    std::string myChargeType = "normal";
+
+    /// @brief waiting time before start charging
+    SUMOTime myWaitingTime = 0;
 
 private:
     /// @brief set attribute after validation
@@ -113,5 +133,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEChargingStation& operator=(const GNEChargingStation&) = delete;
 };
-
-

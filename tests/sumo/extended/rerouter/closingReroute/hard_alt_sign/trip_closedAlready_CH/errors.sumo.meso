@@ -1,0 +1,2 @@
+Error: Vehicle 'tripClosedAlready' has no valid route. No connection between edge 'middle' and edge 'middle2'.
+Quitting (on error).

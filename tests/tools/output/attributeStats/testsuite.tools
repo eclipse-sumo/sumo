@@ -1,5 +1,11 @@
+## save template
+save_template
+
 # analyze tripinfo timeloss
 default
+
+# analyze tripinfo timeloss from two output files
+2_files
 
 # analyze tripinfo timeloss
 histogram_output
@@ -9,6 +15,9 @@ full_output
 
 # analyze tripinfo timeloss
 xml_output
+
+# analyze tripinfo timeloss
+xml_output.legacy
 
 # analyze tripinfo 
 attribute
@@ -22,3 +31,7 @@ data_issues
 # use fast parser
 fast
 precision
+humanReadableTime
+
+# include statistics on absolute values
+abs

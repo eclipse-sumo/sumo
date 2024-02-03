@@ -1,5 +1,17 @@
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m. Account for crossings as foe lanes.
+turn_d50_u50_crossing
+
 # Return all foes approaching junctions, which are closer than 50m, at a distance < 50m.
 turn_d50_u50
 
 # Return all foes approaching junctions, which are closer than 250m, at a distance < 250m.
 turn_d250_u250
+
+# Combination of turn filter with lanes filter
+combined_with_lanes
+
+# Combination of turn filter with lateralDistance filter
+combined_with_lateralDistance
+
+# detect and filter surrounding persons
+persons

@@ -1,4 +1,7 @@
 default
+
+# test default turn-around generation with bike lane at passenger-dead-end
+default_bike_lane
 no-turnarounds
 no-turnarounds.tls
 no-turnarounds.except-deadend
@@ -10,3 +13,6 @@ no-turnarounds.except-turnlane_no-turnarounds.fringe
 
 # change default of --no-turnarounds.geometry to False
 no-turnarounds.geometry_false
+
+# should create turnaround from the next available lane
+inner_green_verge

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 15:16:12 by Eclipse SUMO netconvert Version v1_16_0+1364-d01baf5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-1" from="0" to="1" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="-2" from="0" to="2" priority="-1" numLanes="3" speed="55.56"/>
+    <edge id="-3" from="0" to="3" priority="-2" numLanes="3" speed="55.56"/>
+    <edge id="-4" from="0" to="4" priority="-3" numLanes="3" speed="55.56"/>
+    <edge id="1" from="1" to="0" priority="-4" numLanes="3" speed="55.56"/>
+    <edge id="2" from="2" to="0" priority="0" numLanes="3" speed="55.56"/>
+    <edge id="3" from="3" to="0" priority="0" numLanes="2" speed="33.33"/>
+    <edge id="4" from="4" to="0" priority="0" numLanes="2" speed="33.33"/>
+</edges>

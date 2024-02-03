@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+
+    <rerouter id="parkA0A1" edges="A0A1">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkA0A1" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkA1A2" visible="true"/> <!-- dist: 182.7 -->
+            <parkingAreaReroute id="parkB1B2" visible="true"/> <!-- dist: 273.3 -->
+            <parkingAreaReroute id="parkA2A3" visible="true"/> <!-- dist: 274.8 -->
+            <parkingAreaReroute id="parkB0B1" visible="true"/> <!-- dist: 363.9 -->
+            <parkingAreaReroute id="parkB2B3" visible="true"/> <!-- dist: 363.9 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkA2A3" edges="A2A3">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkA2A3" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkD0D1" visible="true"/> <!-- dist: 365.4 -->
+        </interval>
+    </rerouter>
+
+
+    <rerouter id="parkD0D1" edges="D0D1">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkD0D1" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkD2D3" visible="true"/> <!-- dist: 182.7 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkD1D2" edges="D1D2">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkD1D2" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkD2D3" visible="true"/> <!-- dist: 182.7 -->
+            <parkingAreaReroute id="parkC2C3" visible="true"/> <!-- dist: 271.8 -->
+            <parkingAreaReroute id="parkB2B3" visible="true"/> <!-- dist: 362.4 -->
+            <parkingAreaReroute id="parkC1C2" visible="true"/> <!-- dist: 362.4 -->
+            <parkingAreaReroute id="parkD0D1" visible="true"/> <!-- dist: 365.4 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parkD2D3" edges="D2D3">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parkD2D3" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parkC2C3" visible="true"/> <!-- dist: 365.4 -->
+            <parkingAreaReroute id="parkD1D2" visible="true"/> <!-- dist: 365.4 -->
+            <parkingAreaReroute id="parkB2B3" visible="true"/> <!-- dist: 456.0 -->
+            <parkingAreaReroute id="parkC1C2" visible="true"/> <!-- dist: 456.0 -->
+            <parkingAreaReroute id="parkD0D1" visible="true"/> <!-- dist: 459.0 -->
+        </interval>
+    </rerouter>
+</additional>

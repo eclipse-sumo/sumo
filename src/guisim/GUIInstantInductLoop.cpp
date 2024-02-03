@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUIInstantInductLoop.h"
@@ -41,8 +42,9 @@
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
-        const std::string& vTypes)
-    : MSInstantInductLoop(id, od, lane, positionInMeters, vTypes) {}
+        const std::string name, const std::string& vTypes,
+        const std::string& nextEdges) :
+    MSInstantInductLoop(id, od, lane, positionInMeters, name, vTypes, nextEdges) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() {}
@@ -58,7 +60,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1INSTANT)),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
@@ -68,6 +70,12 @@ GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, doubl
 
 
 GUIInstantInductLoop::MyWrapper::~MyWrapper() {}
+
+
+double
+GUIInstantInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -85,25 +93,29 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("position [m]", false, myPosition);
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("name"), false, myDetector.myName);
+    ret->mkItem(TL("position [m]"), false, myPosition);
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 
 
 void
 GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 0, 1);
-    glPushMatrix();
-    glTranslated(0, 0, getType());
+    GLHelper::pushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, 1);
@@ -124,10 +136,10 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
@@ -141,9 +153,9 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
         glVertex2d(0, -1.7);
         glEnd();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

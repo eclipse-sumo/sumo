@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="ped" vClass="pedestrian" />
+    <personFlow id="p" type="ped" color="1,1,0" begin="0" end="60" period="10">
+        <walk edges="CW CN" />
+    </personFlow>
+
+    <vType sigma="0" id="car" jmCrossingGap="0" jmIgnoreFoeProb="1" jmIgnoreFoeSpeed="99" jmIgnoreJunctionFoeProb="1" />
+    <flow id="carFlow" type="car" begin="2" end="60" period="20">
+        <route edges="WC CN"/>
+    </flow>
+
+</routes>

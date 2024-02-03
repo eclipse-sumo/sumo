@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,10 +24,6 @@
 
 #include <string>
 #include <iostream>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
@@ -71,6 +67,9 @@ NIXMLNodesHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_LOCATION:
             myLocation = NIImporter_SUMO::loadLocation(attrs);
+            if (myLocation) {
+                GeoConvHelper::setLoadedPlain(getFileName(), *myLocation);
+            }
             break;
         case SUMO_TAG_NODE:
             addNode(attrs);
@@ -146,10 +145,10 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     }
     if (xOk && yOk) {
         if (needConversion && !NBNetBuilder::transformCoordinate(myPosition, true, myLocation)) {
-            WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), myID);
         }
     } else {
-        WRITE_ERROR("Missing position (at node ID='" + myID + "').");
+        WRITE_ERRORF(TL("Missing position (at node ID='%')."), myID);
     }
     bool updateEdgeGeometries = node != nullptr && myPosition != node->getPosition();
     node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont);
@@ -178,15 +177,17 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     }
     std::set<NBTrafficLightDefinition*> oldTLS;
     // check whether a prior node shall be modified
+    const bool isPatch = node != nullptr;
     if (node == nullptr) {
         node = new NBNode(nodeID, position, type);
         if (!nc.insert(node)) {
-            throw ProcessError("Could not insert node though checked this before (id='" + nodeID + "').");
+            throw ProcessError(TLF("Could not insert node though checked this before (id='%').", nodeID));
         }
     } else {
         // patch information
         oldTLS = node->getControllingTLS();
-        if (node->getType() == SumoXMLNodeType::PRIORITY && type == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+        if (node->getType() == SumoXMLNodeType::PRIORITY
+                && (type == SumoXMLNodeType::RIGHT_BEFORE_LEFT || type == SumoXMLNodeType::LEFT_BEFORE_RIGHT)) {
             ec.removeRoundabout(node);
         }
         node->reinit(position, type, updateEdgeGeometries);
@@ -194,6 +195,8 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     // process traffic light definition
     if (NBNode::isTrafficLight(type)) {
         processTrafficLightDefinitions(attrs, node, tlc);
+    } else if (isPatch && typeS != "") {
+        nc.markAsNotTLS(node);
     }
     // remove previously set tls if this node is not controlled by them
     for (std::set<NBTrafficLightDefinition*>::iterator i = oldTLS.begin(); i != oldTLS.end(); ++i) {
@@ -207,7 +210,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nodeID.c_str(), ok, PositionVector());
         if (!NBNetBuilder::transformCoordinates(shape)) {
-            WRITE_ERROR("Unable to project node shape at node '" + node->getID() + "'.");
+            WRITE_ERRORF(TL("Unable to project node shape at node '%'."), node->getID());
         }
         if (shape.size() > 2) {
             shape.closePolygon();
@@ -222,16 +225,8 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
         node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, nodeID.c_str(), ok));
     }
-
-    // set optional right-of-way hint
-    if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
-        node->setRightOfWay(attrs.getRightOfWay(ok));
-    }
-
-    // set optional fringe type
-    if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
-        node->setFringeType(attrs.getFringeType(ok));
-    }
+    node->setRightOfWay(attrs.getOpt<RightOfWay>(SUMO_ATTR_RIGHT_OF_WAY, nodeID.c_str(), ok, node->getRightOfWay()));
+    node->setFringeType(attrs.getOpt<FringeType>(SUMO_ATTR_FRINGE, nodeID.c_str(), ok, node->getFringeType()));
     // set optional name
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
         node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, nodeID.c_str(), ok));
@@ -263,10 +258,9 @@ void
 NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string clusterString = attrs.get<std::string>(SUMO_ATTR_NODES, nullptr, ok);
-    std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
-    std::sort(ids.begin(), ids.end());
+    const std::set<std::string>& cluster = StringTokenizer(clusterString).getSet();
 
-    myID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "cluster_" + joinToString(ids, "_"));
+    myID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, myNodeCont.createClusterId(cluster));
 
     Position pos = Position::INVALID;
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
@@ -281,7 +275,7 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
 
     NBNode* node = processNodeType(attrs, nullptr, myID, pos, false, myNodeCont, myEdgeCont, myTLLogicCont);
     if (ok) {
-        myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()), node);
+        myNodeCont.addCluster2Join(cluster, node);
     }
 }
 
@@ -324,7 +318,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + currentNode->getID() + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for node '%'."), typeS, currentNode->getID());
         return;
     }
     TrafficLightLayout layout = TrafficLightLayout::DEFAULT;
@@ -333,7 +327,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         if (SUMOXMLDefinitions::TrafficLightLayouts.hasString(layoutS)) {
             layout = SUMOXMLDefinitions::TrafficLightLayouts.get(layoutS);
         } else {
-            WRITE_ERROR("Unknown traffic light layout '" + typeS + "' for node '" + currentNode->getID() + "'.");
+            WRITE_ERRORF(TL("Unknown traffic light layout '%' for node '%'."), typeS, currentNode->getID());
             return;
         }
     }
@@ -344,7 +338,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
             tlDefs.insert(def);
             def->addNode(currentNode);
             if (def->getType() != type && attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
-                WRITE_WARNINGF("Changing traffic light type '%' to '%' for tl '%'.", toString(def->getType()), typeS, tlID);
+                WRITE_WARNINGF(TL("Changing traffic light type '%' to '%' for tl '%'."), toString(def->getType()), typeS, tlID);
                 def->setType(type);
                 if (type != TrafficLightType::STATIC && dynamic_cast<NBLoadedSUMOTLDef*>(def) != nullptr) {
                     dynamic_cast<NBLoadedSUMOTLDef*>(def)->guessMinMaxDuration();
@@ -361,13 +355,13 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
-            throw ProcessError("Could not allocate tls '" + currentNode->getID() + "'.");
+            throw ProcessError(TLF("Could not allocate tls '%'.", currentNode->getID()));
         }
         tlDef->setLayout(layout);
         tlDefs.insert(tlDef);
     }
     // process inner edges which shall be controlled
-    const std::vector<std::string>& controlledInner = attrs.getOptStringVector(SUMO_ATTR_CONTROLLED_INNER, nullptr, ok);
+    const std::vector<std::string>& controlledInner = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_CONTROLLED_INNER, nullptr, ok);
     if (controlledInner.size() != 0) {
         for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it != tlDefs.end(); it++) {
             (*it)->addControlledInnerEdges(controlledInner);

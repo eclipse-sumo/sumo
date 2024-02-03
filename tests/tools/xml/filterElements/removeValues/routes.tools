@@ -1,0 +1,284 @@
+<routes>
+    <trip depart="107052.00" departLane="best" departSpeed="max" id="100044898_100028734_339_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmbode-B-4.private"/>
+    </trip>
+    <trip depart="109420.00" departLane="best" departSpeed="max" id="100082232_100052157_389_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Zimmer-A-1.private"/>
+    </trip>
+    <trip depart="109760.00" departLane="best" departSpeed="max" id="100040095_100025828_383_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-A-3.private"/>
+    </trip>
+    <trip depart="110104.00" departLane="best" departSpeed="max" id="100149884_100090660_395_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gruenewald-A-2.private"/>
+    </trip>
+    <trip depart="111862.00" departLane="best" departSpeed="max" id="100162591_100097758_429_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-B-1.private"/>
+    </trip>
+    <trip depart="112593.81" departLane="best" departSpeed="max" id="100320234_100186795_424_0" to="30429265#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Langerkamp-A-2.private"/>
+    </trip>
+    <trip depart="112707.00" departLane="best" departSpeed="max" id="100161534_100097132_443_0" to="316764353" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gliesmaroder-A-7.private"/>
+    </trip>
+    <trip depart="112804.00" departLane="best" departSpeed="max" id="100091292_100057396_443_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Georgwestermann-A-4.private"/>
+    </trip>
+    <trip depart="112871.84" departLane="best" departSpeed="max" id="100323732_100190293_431_0" to="30429265#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Fasanen-A-5.private"/>
+    </trip>
+    <trip depart="113237.02" departLane="best" departSpeed="max" id="100803526_100438370_433_0" to="30424681#3" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-A-3.private"/>
+    </trip>
+    <trip depart="113373.00" departLane="best" departSpeed="max" id="100032823_100021483_443_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Jasper-B-1.private"/>
+    </trip>
+    <trip depart="113446.00" departLane="best" departSpeed="max" id="100161960_100097378_447_0" to="-512158810#6" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-A-4.private"/>
+    </trip>
+    <trip depart="114736.00" departLane="best" departSpeed="max" id="100220064_100129771_466_0" to="207083565#5" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Heinrich-B-2.private"/>
+    </trip>
+    <trip depart="114812.70" departLane="best" departSpeed="max" id="100869313_100472801_457_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-B-1.private"/>
+    </trip>
+    <trip depart="114938.00" departLane="best" departSpeed="max" id="100165103_100099208_475_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Heinrich-A-1.private"/>
+    </trip>
+    <trip depart="115918.00" departLane="best" departSpeed="max" id="100024463_100016315_489_0" to="-24526524#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlmarx-A-4.private"/>
+    </trip>
+    <trip depart="116124.00" departLane="best" departSpeed="max" id="100164511_100098862_495_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Boecklin-B-3.private"/>
+    </trip>
+    <trip depart="118271.00" departLane="best" departSpeed="max" id="100216222_100127610_531_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Georgwestermann-A-4.private"/>
+    </trip>
+    <trip depart="118396.00" departLane="best" departSpeed="max" id="100039385_100025361_537_0" to="-24526524#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Zimmer-A-1.private"/>
+    </trip>
+    <trip depart="119658.00" departLane="best" departSpeed="max" id="100083463_100052917_547_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gliesmaroder-A-2.private"/>
+    </trip>
+    <trip depart="119912.00" departLane="best" departSpeed="max" id="100013937_100009753_560_0" to="-24663733#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmbode-A-1.private"/>
+    </trip>
+    <trip depart="120198.00" departLane="best" departSpeed="max" id="100040271_100025914_570_0" to="30425927#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Feuerbach-A-2.private"/>
+    </trip>
+    <trip depart="120366.00" departLane="best" departSpeed="max" id="100084509_100053458_571_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-B-5.private"/>
+    </trip>
+    <trip depart="120484.00" departLane="best" departSpeed="max" id="100141231_100085590_571_0" to="512158812#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Feuerbach-A-2.private"/>
+    </trip>
+    <trip depart="121244.00" departLane="best" departSpeed="max" id="100045120_100028915_587_0" to="30429265#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Haenselmann-B-1.private"/>
+    </trip>
+    <trip depart="123656.00" departLane="best" departSpeed="max" id="100705418_100387909_615_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Allerstrasse-A-3.private"/>
+    </trip>
+    <trip depart="123910.00" departLane="best" departSpeed="max" id="100032089_100020954_618_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Hagenring-B-7.private"/>
+    </trip>
+    <trip depart="126420.00" departLane="best" departSpeed="max" id="100167107_100100403_660_0" to="445787491#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Altewiekring-B-10.private"/>
+    </trip>
+    <trip depart="126558.00" departLane="best" departSpeed="max" id="100031285_100020466_669_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-B-3.private"/>
+    </trip>
+    <trip depart="127103.00" departLane="best" departSpeed="max" id="100433144_100249213_681_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gruen-B-2.private"/>
+    </trip>
+    <trip depart="129348.49" departLane="best" departSpeed="max" id="100016036_100011058_710_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Waterloo-B-3.private"/>
+    </trip>
+    <trip depart="130967.00" departLane="best" departSpeed="max" id="100178609_100106892_750_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Georgwestermann-A-1.private"/>
+    </trip>
+    <trip depart="130994.00" departLane="best" departSpeed="max" id="100092942_100058454_745_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Soitzwegstrasse-B-1.private"/>
+    </trip>
+    <trip depart="131357.32" departLane="best" departSpeed="max" id="100031173_100020418_735_0" to="60151069#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Altewiekring-B-6.private"/>
+    </trip>
+    <trip depart="131657.00" departLane="best" departSpeed="max" id="100156275_100094362_751_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Altewiekring-B-6.private"/>
+    </trip>
+    <trip depart="131932.00" departLane="best" departSpeed="max" id="100017628_100012166_765_0" to="-159245988#6" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Comenius-B-1.private"/>
+    </trip>
+    <trip depart="131951.00" departLane="best" departSpeed="max" id="100159070_100095858_760_0" to="30429265#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Altewiekring-B-6.private"/>
+    </trip>
+    <trip depart="132979.00" departLane="best" departSpeed="max" id="100072211_100045664_781_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-B-5.private"/>
+    </trip>
+    <trip depart="136278.00" departLane="best" departSpeed="max" id="100084548_100053467_835_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Waterloo-A-5.private"/>
+    </trip>
+    <trip depart="136439.00" departLane="best" departSpeed="max" id="100018116_100012467_839_0" to="-501199049#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Allerstrasse-A-1.private"/>
+    </trip>
+    <trip depart="136500.00" departLane="best" departSpeed="max" id="100223891_100131863_839_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Leonhard-A-1.private"/>
+    </trip>
+    <trip depart="136903.00" departLane="best" departSpeed="max" id="100919631_100496894_839_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Nussberg-B-3.private"/>
+    </trip>
+    <trip depart="137584.00" departLane="best" departSpeed="max" id="100169781_100101886_856_0" to="321714434#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Hagenring-B-8.private"/>
+    </trip>
+    <trip depart="139105.00" departLane="best" departSpeed="max" id="100233867_100137391_876_0" to="-24526524#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-A-3.private"/>
+    </trip>
+    <trip depart="139480.00" departLane="best" departSpeed="max" id="100346477_100213038_885_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wachholtz-B-2.private"/>
+    </trip>
+    <trip depart="139539.00" departLane="best" departSpeed="max" id="100036445_100023597_879_0" to="375217310#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Heinrich-A-3.private"/>
+    </trip>
+    <trip depart="139555.02" departLane="best" departSpeed="max" id="100642433_100355957_873_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Spitzwegstrasse-B-3.private"/>
+    </trip>
+    <trip depart="139745.00" departLane="best" departSpeed="max" id="100153400_100092703_893_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Herder-B-1.private"/>
+    </trip>
+    <trip depart="140081.00" departLane="best" departSpeed="max" id="100017354_100011990_889_0" to="33274940" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Fontane-B-1.private"/>
+    </trip>
+    <trip depart="140531.00" departLane="best" departSpeed="max" id="100006932_100004979_897_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Doernberg-B-1.private"/>
+    </trip>
+    <trip depart="141397.32" departLane="best" departSpeed="max" id="100028608_100018797_905_0" to="23257958#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Herzoginelisabeth-A-5.private"/>
+    </trip>
+    <trip depart="142571.00" departLane="best" departSpeed="max" id="100022180_100014914_933_0" to="-38167738#10" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Herzoginelisabeth-A-3.private"/>
+    </trip>
+    <trip depart="142590.00" departLane="best" departSpeed="max" id="100019406_100013216_935_0" to="316764351#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-A-1.private"/>
+    </trip>
+    <trip depart="142643.54" departLane="best" departSpeed="max" id="100007583_100005356_935_0" to="23295226#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Allerstrasse-B-2.private"/>
+    </trip>
+    <trip depart="142899.00" departLane="best" departSpeed="max" id="100026203_100017380_943_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Jasper-B-3.private"/>
+    </trip>
+    <trip depart="143245.00" departLane="best" departSpeed="max" id="100080057_100050658_943_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Freytag-A-1.private"/>
+    </trip>
+    <trip depart="143412.00" departLane="best" departSpeed="max" id="100145660_100088192_948_0" to="512158815#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmraabe-B-3.private"/>
+    </trip>
+    <trip depart="143681.26" departLane="best" departSpeed="max" id="100149561_100090493_960_0" to="-38167738#10" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-A-5.private"/>
+    </trip>
+    <trip depart="144508.00" departLane="best" departSpeed="max" id="100765397_100422429_965_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Rosen-B-1.private"/>
+    </trip>
+    <trip depart="144532.00" departLane="best" departSpeed="max" id="100219748_100129531_965_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Helmstedter-B-3.private"/>
+    </trip>
+    <trip depart="144699.00" departLane="best" departSpeed="max" id="100499897_100283868_973_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Waterloo-A-1.private"/>
+    </trip>
+    <trip depart="145042.00" departLane="best" departSpeed="max" id="100015101_100010448_975_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-A-3.private"/>
+    </trip>
+    <trip depart="145346.00" departLane="best" departSpeed="max" id="100009512_100006714_980_0" to="23207363#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Allerstrasse-A-2.private"/>
+    </trip>
+    <trip depart="145355.30" departLane="best" departSpeed="max" id="100150572_100091066_965_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Menzel-B-1.private"/>
+    </trip>
+    <trip depart="146416.00" departLane="best" departSpeed="max" id="100017755_100012287_1005_0" to="4543873#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Fasanen-A-1.private"/>
+    </trip>
+    <trip depart="147636.00" departLane="best" departSpeed="max" id="100832612_100457656_1021_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Leonhard-A-1.private"/>
+    </trip>
+    <trip depart="147892.00" departLane="best" departSpeed="max" id="100083849_100053083_1025_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmbode-A-3.private"/>
+    </trip>
+    <trip depart="148915.91" departLane="best" departSpeed="max" id="100025788_100017106_1025_0" to="165574143#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Helmstedter-B-1.private"/>
+    </trip>
+    <trip depart="149005.93" departLane="best" departSpeed="max" id="100018157_100012482_1025_0" to="-8032493#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-B-2.private"/>
+    </trip>
+    <trip depart="149507.00" departLane="best" departSpeed="max" id="100771491_100424768_1055_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Nussberg-B-1.private"/>
+    </trip>
+    <trip depart="149752.26" departLane="best" departSpeed="max" id="100084085_100053282_1054_0" to="-38167738#10" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Kollwitz-A-2.private"/>
+    </trip>
+    <trip depart="150073.00" departLane="best" departSpeed="max" id="100214790_100126828_1065_0" to="445787491#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Herder-B-1.private"/>
+    </trip>
+    <trip depart="150415.00" departLane="best" departSpeed="max" id="100033557_100021826_1071_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Boecklin-A-4.private"/>
+    </trip>
+    <trip depart="150654.00" departLane="best" departSpeed="max" id="100028508_100018711_1064_0" to="512158815#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Comenius-A-1.private"/>
+    </trip>
+    <trip depart="150666.00" departLane="best" departSpeed="max" id="100034671_100022504_1075_0" to="-23312087#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Hopfengarten-A-3.private"/>
+    </trip>
+    <trip depart="150831.00" departLane="best" departSpeed="max" id="100178406_100106743_1076_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Richardstrauss-A-1.private"/>
+    </trip>
+    <trip depart="151141.00" departLane="best" departSpeed="max" id="100024326_100016247_1086_0" to="147688814" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-B-5.private"/>
+    </trip>
+    <trip depart="151408.00" departLane="best" departSpeed="max" id="100152077_100091966_1081_0" to="-512158810#6" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Altewiekring-B-10.private"/>
+    </trip>
+    <trip depart="151870.00" departLane="best" departSpeed="max" id="100154775_100093460_1085_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Georgwestermann-A-6.private"/>
+    </trip>
+    <trip depart="151904.00" departLane="best" departSpeed="max" id="100089974_100056677_1087_0" to="30429265#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Korfes-B-5.private"/>
+    </trip>
+    <trip depart="152497.00" departLane="best" departSpeed="max" id="100035440_100023032_1106_0" to="-377715252#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Scharnhost-B-2.private"/>
+    </trip>
+    <trip depart="153663.00" departLane="best" departSpeed="max" id="100149463_100090395_1115_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Menzel-B-1.private"/>
+    </trip>
+    <trip depart="156221.00" departLane="best" departSpeed="max" id="100028606_100018795_1166_0" to="5229165#6" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmraabe-A-2.private"/>
+    </trip>
+    <trip depart="156849.77" departLane="best" departSpeed="max" id="100038407_100024743_1145_0" to="321714437#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-A-1.private"/>
+    </trip>
+    <trip depart="158053.00" departLane="best" departSpeed="max" id="100036025_100023304_1195_0" to="23258242#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gliesmaroder-A-2.private"/>
+    </trip>
+    <trip depart="158479.00" departLane="best" departSpeed="max" id="100100845_100062980_1205_0" to="-316764349#2" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Schunterstrasse-B-2.private"/>
+    </trip>
+    <trip depart="159357.00" departLane="best" departSpeed="max" id="100020866_100014137_1210_0" to="-533526560#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Rosen-A-4.private"/>
+    </trip>
+    <trip depart="159762.00" departLane="best" departSpeed="max" id="100233282_100137008_1222_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlmarx-A-4.private"/>
+    </trip>
+    <trip depart="161473.00" departLane="best" departSpeed="max" id="100037043_100024012_1246_0" to="321714437#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Doernberg-A-1.private"/>
+    </trip>
+    <trip depart="163419.00" departLane="best" departSpeed="max" id="100167204_100100451_1280_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Bennemann-B-1.private"/>
+    </trip>
+    <trip depart="163722.00" departLane="best" departSpeed="max" id="100093303_100058658_1291_0" to="5058977#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Karlstrasse-B-1.private"/>
+    </trip>
+    <trip depart="164935.00" departLane="best" departSpeed="max" id="100638789_100353306_1305_0" to="501199051#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Nussberg-B-1.private"/>
+    </trip>
+    <trip depart="165164.00" departLane="best" departSpeed="max" id="100039125_100025169_1311_0" to="-23292244#1" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wachholtz-A-2.private"/>
+    </trip>
+    <trip depart="172854.00" departLane="best" departSpeed="max" id="100083906_100053140_1441_0" to="525452872" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Gruenewald-A-1.private"/>
+    </trip>
+    </routes>

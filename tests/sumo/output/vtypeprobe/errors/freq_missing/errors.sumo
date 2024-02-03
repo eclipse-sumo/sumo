@@ -1,3 +1,1 @@
 Warning: VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.
-Error: Attribute 'freq' is missing in definition of vTypeProbe 'test1'.
-Quitting (on error).

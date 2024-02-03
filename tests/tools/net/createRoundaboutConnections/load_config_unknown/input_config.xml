@@ -1,0 +1,4 @@
+<configuration>
+    <net-file value="net.net.xml"/>
+    <bla value="true"/>
+</configuration>

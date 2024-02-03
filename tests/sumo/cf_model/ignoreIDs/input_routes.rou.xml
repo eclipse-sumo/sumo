@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="0"/>
+    <vehicle id="first" depart="0" route="r0" departSpeed="max">
+        <stop lane="0_0" endPos="300" duration="60"/>
+    </vehicle>
+    <vehicle id="second" depart="1" route="r0" departSpeed="max">
+        <param key="carFollowModel.ignoreIDs" value="first"/>
+    </vehicle>
+</routes>

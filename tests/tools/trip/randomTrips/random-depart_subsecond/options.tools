@@ -1,0 +1,2 @@
+-n net.net.xml -e 10 -p 0.25
+--random-depart

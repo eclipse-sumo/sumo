@@ -1,9 +1,9 @@
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done.
-Parsing edges from osm-file 'osm.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (6ms).
+Parsing edges from osm-file 'osm.xml' ... done (7ms).
 Removing duplicate edges ... done.
 Parsing relations from osm-file 'osm.xml' ... 
-done.
+done (9ms).
  Import done:
    56 nodes loaded.
    33 types loaded.
@@ -11,22 +11,25 @@ done.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Finding isolated roads ... done (0ms).
+Processing public transport stops ... done (0ms).
+Revising public transport stops based on pt lines ... 
+done (0ms).
 Removing empty nodes and geometry nodes ... done (0ms).
    32 nodes removed.
-Moving network to origin ... done (0ms).
+Moving network to origin ... done (1ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Guessing and setting on-/off-ramps ... done (0ms).
 Removing sharp turn with radius 5.53 at the start of edge '151059738#0'.
 Removing sharp turn with radius 8.38 at the start of edge '151059738#0'.
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
-Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (1ms).
+Guessing and setting roundabouts ... done (1ms).
+Computing approaching lanes ... done (0ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
@@ -48,5 +51,5 @@ Summary:
   Applied offset     : -355340.39,-5645704.86
   Converted boundary : 0.00,0.00,364.54,256.22
 -----------------------------------------------------
-Writing network ... done (5ms).
+Writing network ... done (2ms).
 Success.

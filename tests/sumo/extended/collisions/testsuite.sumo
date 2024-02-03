@@ -1,3 +1,6 @@
+check_junctions
+intermodal
+
 # ignore collisions
 none
 
@@ -6,6 +9,7 @@ warn
 
 # only warn about physical collisions
 mingap-factor
+mingap-factor_attr
 
 # teleport the rear vehicle
 teleport
@@ -24,4 +28,6 @@ stoptime_remove_highspeed
 
 # fix inlap into earlier lanes
 stop_inlap
-check_junctions
+
+# the same pair of vehicles has multiple distinct collisions
+warn_repeated

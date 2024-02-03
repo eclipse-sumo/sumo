@@ -1,0 +1,7 @@
+Error: Invalid Car-Following-Model Attribute apparentDecel. Cannot be parsed to float
+Error: Invalid parsing embedded VType
+Error: Invalid Car-Following-Model Attribute apparentDecel. Must be greater than 0
+Error: Invalid parsing embedded VType
+Error: Invalid Car-Following-Model Attribute apparentDecel. Must be greater than 0
+Error: Invalid parsing embedded VType
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/carfollowingmodel_params/apparentdecel/routes.rou.xml failed.

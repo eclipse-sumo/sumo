@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,11 +73,11 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     LineReader lr;
     // load nodes
     std::map<std::string, PositionVector> myGeoms;
-    PROGRESS_BEGIN_MESSAGE("Loading nodes");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading nodes"));
     std::string file = oc.getString("dlr-navteq-prefix") + "_nodes_unsplitted.txt";
     NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
     if (!lr.setFile(file)) {
-        throw ProcessError("The file '" + file + "' could not be opened.");
+        throw ProcessError(TLF("The file '%' could not be opened.", file));
     }
     lr.readAll(handler1);
     PROGRESS_DONE_MESSAGE();
@@ -87,22 +87,22 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.getBool("output.street-names")) {
         file = oc.getString("dlr-navteq-prefix") + "_names.txt";
         if (lr.setFile(file)) {
-            PROGRESS_BEGIN_MESSAGE("Loading street names");
+            PROGRESS_BEGIN_MESSAGE(TL("Loading street names"));
             NamesHandler handler4(file, streetNames);
             lr.readAll(handler4);
             PROGRESS_DONE_MESSAGE();
         } else {
-            WRITE_WARNING("Output will not contain street names because the file '" + file + "' was not found");
+            WRITE_WARNINGF(TL("Output will not contain street names because the file '%' was not found"), file);
         }
     }
 
     // load edges
-    PROGRESS_BEGIN_MESSAGE("Loading edges");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading edges"));
     file = oc.getString("dlr-navteq-prefix") + "_links_unsplitted.txt";
     // parse the file
     EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), file, myGeoms, streetNames);
     if (!lr.setFile(file)) {
-        throw ProcessError("The file '" + file + "' could not be opened.");
+        throw ProcessError(TLF("The file '%' could not be opened.", file));
     }
     lr.readAll(handler2);
     nb.getEdgeCont().recheckLaneSpread();
@@ -111,7 +111,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load traffic lights if given
     file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading traffic lights"));
         TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), nb.getEdgeCont(), file);
         lr.readAll(handler3);
         PROGRESS_DONE_MESSAGE();
@@ -120,7 +120,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load prohibited manoeuvres if given
     file = oc.getString("dlr-navteq-prefix") + "_prohibited_manoeuvres.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading prohibited manoeuvres");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading prohibited manoeuvres"));
         ProhibitionHandler handler6(nb.getEdgeCont(), file, csTime);
         lr.readAll(handler6);
         PROGRESS_DONE_MESSAGE();
@@ -129,7 +129,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load connected lanes if given
     file = oc.getString("dlr-navteq-prefix") + "_connected_lanes.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading connected lanes");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading connected lanes"));
         ConnectedLanesHandler handler7(nb.getEdgeCont());
         lr.readAll(handler7);
         PROGRESS_DONE_MESSAGE();
@@ -138,7 +138,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load time restrictions if given
     file = oc.getString("dlr-navteq-prefix") + "_links_timerestrictions.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading time restrictions");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading time restrictions"));
         if (!oc.isDefault("construction-date")) {
             csTime = readDate(oc.getString("construction-date"));
         }
@@ -207,27 +207,27 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         if (myNodeCont.size() == 0) { // be generous with extra data at beginning of file
             return true;
         }
-        throw ProcessError("Non-numerical value for intermediate status in node " + id + ".");
+        throw ProcessError(TLF("Non-numerical value for intermediate status in node %.", id));
     }
     // number of geometrical information
     stream >> no_geoms;
     if (stream.fail()) {
-        throw ProcessError("Non-numerical value for number of geometries in node " + id + ".");
+        throw ProcessError(TLF("Non-numerical value for number of geometries in node %.", id));
     }
     // geometrical information
     PositionVector geoms;
     for (int i = 0; i < no_geoms; i++) {
         stream >> x;
         if (stream.fail()) {
-            throw ProcessError("Non-numerical value for x-position in node " + id + ".");
+            throw ProcessError(TLF("Non-numerical value for x-position in node %.", id));
         }
         stream >> y;
         if (stream.fail()) {
-            throw ProcessError("Non-numerical value for y-position in node " + id + ".");
+            throw ProcessError(TLF("Non-numerical value for y-position in node %.", id));
         }
         Position pos(x, y);
         if (!NBNetBuilder::transformCoordinate(pos, true)) {
-            throw ProcessError("Unable to project coordinates for node " + id + ".");
+            throw ProcessError(TLF("Unable to project coordinates for node %.", id));
         }
         geoms.push_back(pos);
     }
@@ -236,7 +236,11 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         NBNode* n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
-            throw ProcessError("Could not add node '" + id + "'.");
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNINGF(TL("Could not add node '%'."), id);
+            } else {
+                throw ProcessError(TLF("Could not add node '%'.", id));
+            }
         }
     } else {
         myGeoms[id] = geoms;
@@ -292,7 +296,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         return true;
     }
     if (myColumns.empty()) {
-        throw ProcessError("Missing version string in file '" + myFile + "'.");
+        throw ProcessError(TLF("Missing version string in file '%'.", myFile));
     }
     // interpret link attributes
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
@@ -302,14 +306,14 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     try {
         form_of_way = StringUtils::toInt(getColumn(st, FORM_OF_WAY));
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for form_of_way of link '" + id + "'.");
+        throw ProcessError(TLF("Non-numerical value for form_of_way of link '%'.", id));
     }
     // brunnel type (bridge/tunnel/ferry (for permissions)
     int brunnel_type;
     try {
         brunnel_type = StringUtils::toInt(getColumn(st, BRUNNEL_TYPE));
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for brunnel_type of link '" + id + "'.");
+        throw ProcessError(TLF("Non-numerical value for brunnel_type of link '%'.", id));
     }
     // priority based on street_type / frc
     int priority;
@@ -322,7 +326,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             priority -= 2; // parking/service access assume lowered curb
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for street_type of link '" + id + "').");
+        throw ProcessError(TLF("Non-numerical value for street_type of link '%').", id));
     }
     // street name
     std::string streetName = getStreetNameFromIDs(
@@ -344,7 +348,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     try {
         speed = StringUtils::toInt(getColumn(st, SPEED_RESTRICTION, "-1")) / 3.6;
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for the SPEED_RESTRICTION of link '" + id + "'.");
+        throw ProcessError(TLF("Non-numerical value for the SPEED_RESTRICTION of link '%'.", id));
     }
     if (speed < 0) {
         // speed category as fallback
@@ -359,7 +363,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             numLanes = NINavTeqHelper::getLaneNumber(id, getColumn(st, NUMBER_OF_LANES), speed);
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for the number of lanes of link '" + id + "'.");
+        throw ProcessError(TLF("Non-numerical value for the number of lanes of link '%'.", id));
     }
 
     const std::string navTeqTypeId = getColumn(st, VEHICLE_TYPE) + "_" + getColumn(st, FORM_OF_WAY);
@@ -367,7 +371,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     NBEdge* e = nullptr;
     const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
-        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, NBEdge::UNSPECIFIED_FRICTION, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT, streetName);
     } else {
         PositionVector geoms = myGeoms[interID];
@@ -377,7 +381,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.insert(geoms.begin(), from->getPosition());
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
-        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, NBEdge::UNSPECIFIED_FRICTION, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, LaneSpreadFunction::CENTER, streetName, origID);
     }
 
@@ -413,7 +417,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // insert the edge to the network
     if (!myEdgeCont.insert(e)) {
         delete e;
-        throw ProcessError("Could not add edge '" + id + "'.");
+        throw ProcessError(TLF("Could not add edge '%'.", id));
     }
     return true;
 }
@@ -424,7 +428,7 @@ NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnN
     assert(!myColumns.empty());
     if (myColumns[name] == MISSING_COLUMN) {
         if (fallback == "") {
-            throw ProcessError("Missing column " + toString(name) + ".");
+            throw ProcessError(TLF("Missing column %.", toString(name)));
         } else {
             return fallback;
         }
@@ -435,7 +439,7 @@ NIImporter_DlrNavteq::EdgesHandler::getColumn(const StringTokenizer& st, ColumnN
         if ((int) st.size() <= -myColumns[name]) {
             // the column is not present
             if (fallback == "") {
-                throw ProcessError("Missing optional column " + toString(name) + " without default value.");
+                throw ProcessError(TLF("Missing optional column % without default value.", toString(name)));
             } else {
                 return fallback;
             }
@@ -492,7 +496,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
     const std::string edgeID = st.get(5);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
-        WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
+        WRITE_WARNINGF(TL("The traffic light edge '%' could not be found."), edgeID);
     } else {
         NBNode* node = edge->getToNode();
         if (node->getType() != SumoXMLNodeType::TRAFFIC_LIGHT) {
@@ -504,7 +508,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
             if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
-                throw ProcessError("Could not allocate tls for '" + node->getID() + "'.");
+                throw ProcessError(TLF("Could not allocate tls for '%'.", node->getID()));
             }
         }
     }
@@ -642,12 +646,13 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::printSummary() {
 int
 NIImporter_DlrNavteq::readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack) {
     int result = fallBack;
-    size_t pos = s.find(prefix);
+    const size_t pos = s.find(prefix);
     if (pos != std::string::npos) {
-        sscanf(s.substr(pos).c_str(), (prefix + "%i").c_str(), &result);
+        sscanf(s.substr(pos + prefix.size()).c_str(), "%i", &result);
     }
     return result;
 }
+
 
 time_t
 NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& duration) {
@@ -694,7 +699,7 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
         } catch (...) {
         }
     }
-    WRITE_ERROR("Could not parse YYYY-MM-DD date '" + yyyymmdd + "'");
+    WRITE_ERRORF(TL("Could not parse YYYY-MM-DD date '%'"), yyyymmdd);
     time_t now;
     time(&now);
     return now;
@@ -739,7 +744,7 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
         const std::string throughTraffic = st.next();
         const std::string vehicleType = st.next();
         if (validityPeriod != UNDEFINED) {
-            WRITE_WARNINGF("Ignoring temporary prohibited manoeuvre (%).", validityPeriod);
+            WRITE_WARNINGF(TL("Ignoring temporary prohibited manoeuvre (%)."), validityPeriod);
             return true;
         }
     }
@@ -748,12 +753,12 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown start edge '%'."), startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown end edge '%'."), endEdge);
         return true;
     }
     from->removeFromConnections(to, -1, -1, true);
@@ -793,34 +798,34 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown start edge '%'."), startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown end edge '%'."), endEdge);
         return true;
     }
     int fromLane = StringUtils::toInt(fromLaneS) - 1; // one based
     if (fromLane < 0 || fromLane >= from->getNumLanes()) {
-        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection from edge '%' with % lanes.", fromLaneS, startEdge, from->getNumLanes());
+        WRITE_WARNINGF(TL("Ignoring invalid lane index '%' in connection from edge '%' with % lanes."), fromLaneS, startEdge, from->getNumLanes());
         return true;
     }
     int toLane = StringUtils::toInt(toLaneS) - 1; // one based
     if (toLane < 0 || toLane >= to->getNumLanes()) {
-        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection to edge '%' with % lanes", toLaneS, endEdge, to->getNumLanes());
+        WRITE_WARNINGF(TL("Ignoring invalid lane index '%' in connection to edge '%' with % lanes"), toLaneS, endEdge, to->getNumLanes());
         return true;
     }
     if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
-            WRITE_WARNINGF("Could not set loaded connection from '%' to '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
+            WRITE_WARNINGF(TL("Could not set loaded connection from '%' to '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
         }
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this
         const bool warnOnly = st.size() > 7;
         myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, KEEPCLEAR_UNSPECIFIED,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_FRICTION, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);

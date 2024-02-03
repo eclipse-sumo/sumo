@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="west_north" edges="west -north"/>
+    <route id="east_west" edges="east -west"/>
+
+    <vType id="vehicle_west_north" speedDev="0.1" length="4.6" color="0,0,1" jmTimegapMinor="300" impatience="off" jmIgnoreKeepClearTime="0"/>
+    <vType id="vehicle_east_west"  speedDev="0.1" length="4.6" color="0,1,1" />
+
+    <flow id="flow_west_north" type="vehicle_west_north" route="west_north" begin="0" departSpeed="desired" departPos="base" departLane="best" vehsPerHour="1000.0" />
+    <flow id="flow_east_west" type="vehicle_east_west" route="east_west" begin="0" departSpeed="desired" departPos="base" departLane="best" vehsPerHour="4000.0" />
+</routes>

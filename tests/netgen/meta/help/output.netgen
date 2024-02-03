@@ -1,15 +1,17 @@
-Eclipse SUMO netgenerate Version v1_9_0+0211-902d84e2bd
- Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
 
 Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
-  In dependance to these switches other options are used.
+  In dependence to these switches other options are used.
  
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
+  --save-configuration.relative        Enforce relative paths when saving the
+                                        configuration
   --save-template FILE                 Saves a configuration template (empty)
                                         into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
@@ -32,6 +34,12 @@ Grid Network Options:
   --grid.attach-length FLOAT           The length of streets attached at the
                                         boundary;
                                         0 means no streets are attached
+  --grid.x-attach-length FLOAT         The length of streets attached at the
+                                        boundary in x direction;
+                                        0 means no streets are attached
+  --grid.y-attach-length FLOAT         The length of streets attached at the
+                                        boundary in y direction;
+                                        0 means no streets are attached
 
 Spider Network Options:
   -s, --spider                         Forces NETGEN to build a spider-net-like
@@ -40,13 +48,14 @@ Spider Network Options:
   --spider.circle-number INT           The number of circles of the net
   --spider.space-radius FLOAT          The distances between the circles
   --spider.omit-center                 Omit the central node of the network
+  --spider.attach-length FLOAT         The length of streets attached at the
+                                        boundary;
+                                        0 means no streets are attached
 
 Random Network Options:
   -r, --rand                           Forces NETGEN to build a random network
   --rand.iterations INT                Describes how many times an edge shall
                                         be added to the net
-  --rand.bidi-probability FLOAT        Defines the probability to build a
-                                        reverse edge
   --rand.max-distance FLOAT            The maximum distance for each edge
   --rand.min-distance FLOAT            The minimum distance for each edge
   --rand.min-angle FLOAT               The minimum angle for each pair of
@@ -67,10 +76,6 @@ Random Network Options:
                                         neighbors
   --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
                                         neighbors
-  --rand.random-lanenumber             Draw lane numbers randomly from
-                                        [1,default.lanenumber]
-  --rand.random-priority               Draw edge priority randomly from
-                                        [1,default.priority]
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
 
@@ -95,8 +100,10 @@ Output Options:
                                         readability when possible
   -o, --output-file FILE               The generated net will be written to
                                         FILE
-  --plain-output-prefix FILE           Prefix of files to write plain xml
+  -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
+  --plain-output.lanes                 Write all lanes and their attributes
+                                        even when they are not customized
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins
@@ -110,6 +117,8 @@ Output Options:
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
                                         dlr-navteq files with the given PREFIX
+  --dlr-navteq.version STR             The dlr-navteq output format version to
+                                        write
   --dlr-navteq.precision INT           The network coordinates are written with
                                         the specified level of output precision
   --output.street-names                Street names will be included in the
@@ -134,6 +143,14 @@ Processing Options:
   --perturb-z STR                      Apply random spatial perturbation in z
                                         direction according the the given
                                         distribution
+  --bidi-probability FLOAT             Defines the probability to build a
+                                        reverse edge
+  --random-lanenumber                  Draw lane numbers randomly from
+                                        [1,default.lanenumber]
+  --random-priority                    Draw edge priority randomly from
+                                        [1,default.priority]
+  --random-type                        Draw edge type randomly from all loaded
+                                        types
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                         edges to ensure that all IDs are
                                         integers
@@ -144,10 +161,31 @@ Processing Options:
   --reserved-ids FILE                  Ensures that generated ids do not
                                         included any of the typed IDs from FILE
                                         (sumo-gui selection file format)
+  --geometry.split                     Splits edges across geometry nodes
+  -R, --geometry.remove                Replace nodes which only define edge
+                                        geometry by geometry points (joins
+                                        edges)
+  --geometry.remove.keep-edges.explicit STR[]  Ensure that the given list of
+                                        edges is not modified
+  --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
+                                        are not modified (Each id on a single
+                                        line. Selection files from sumo-gui are
+                                        also supported)
+  --geometry.remove.min-length FLOAT   Allow merging edges with differing
+                                        attributes when their length is below
+                                        min-length
+  --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
+                                        lane widths if the difference is below
+                                        FLOAT
+  --geometry.remove.max-junction-size FLOAT  Prevent removal of junctions with
+                                        a size above FLOAT as defined by custom
+                                        edge endpoints
+  --geometry.max-segment-length FLOAT  splits geometry to restrict segment
+                                        length
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                         in % above FLOAT.
-  --geometry.max-grade.fix             Smooth edge edge geometries with a grade
-                                        in above the warning threshold.
+  --geometry.max-grade.fix             Smooth edge geometries with a grade
+                                        above the warning threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
@@ -161,6 +199,8 @@ Processing Options:
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                         length
   --fringe.guess                       Enable guessing of network fringe nodes
+  --fringe.guess.speed-threshold FLOAT  Guess disconnected edges above the given
+                                        speed as outer fringe
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                         nodes and are close to each other
@@ -172,12 +212,17 @@ Building Defaults Options:
   --default.spreadtype STR             The default method for computing lane
                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  --default.friction FLOAT             The default friction on an edge
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                         crossing
+  --default.crossing-speed FLOAT       The default speed 'limit' on a
+                                        pedestrian crossing (in m/s)
+  --default.walkingarea-speed FLOAT    The default speed 'limit' on a
+                                        pedestrian walkingarea (in m/s)
   --default.allow STR                  The default for allowed vehicle classes
   --default.disallow STR               The default for disallowed vehicle
                                         classes
@@ -190,7 +235,7 @@ Building Defaults Options:
   --default.right-of-way STR           The default algorithm for computing
                                         right of way rules ('default',
                                         'edgePriority')
-  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
+  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 TLS Building Options:
   --tls.set STR[]                      Interprets STR[] as list of junctions to
@@ -204,6 +249,8 @@ TLS Building Options:
   --tls.join                           Tries to cluster tls-controlled nodes
   --tls.join-dist FLOAT                Determines the maximal distance for
                                         joining traffic lights (defaults to 20)
+  --tls.join-exclude STR[]             Interprets STR[] as list of tls ids to
+                                        exclude from joining
   --tls.uncontrolled-within            Do not control edges that lie fully
                                         within a joined traffic light. This may
                                         cause collisions but allows old traffic
@@ -231,6 +278,12 @@ TLS Building Options:
   --tls.left-green.time INT            Use INT as green phase duration for left
                                         turns (s). Setting this value to 0
                                         disables additional left-turning phases
+  --tls.nema.vehExt INT                Set INT as fixed time for intermediate
+                                        vehext phase after every switch
+  --tls.nema.yellow INT                Set INT as fixed time for intermediate
+                                        NEMA yellow phase after every switch
+  --tls.nema.red INT                   Set INT as fixed time for intermediate
+                                        NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
                                         pedestrian crossings (s).
   --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian
@@ -260,6 +313,10 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.rebuild                        rebuild all traffic light plans in the
+                                        network
+  --tls.discard-simple                 Does not instantiate traffic lights at
+                                        geometry-like nodes
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
@@ -297,6 +354,8 @@ Junctions Options:
                                         right-before-left junctions when the
                                         incoming edge speeds are below FLOAT
                                         (m/s)
+  --junctions.left-before-right        Build left-before-right junctions
+                                        instead of right-before-left junctions
   --no-internal-links                  Omits internal links
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
@@ -315,6 +374,10 @@ Junctions Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                         joining junctions (defaults to 10)
+  --junctions.join-same                Joins junctions that have the same
+                                        coordinates even if not connected
+  --max-join-ids INT                   Abbreviate junction or TLS id if it
+                                        joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to
@@ -330,7 +393,7 @@ Junctions Options:
                                         lane-changing while turning
   --junctions.limit-turn-speed FLOAT   Limits speed on junctions to an average
                                         lateral acceleration of at most FLOAT
-                                        m/s^2)
+                                        (m/s^2)
   --junctions.limit-turn-speed.min-angle FLOAT  Do not limit turn speed for
                                         angular changes below FLOAT (degrees).
                                         The value is subtracted from the
@@ -353,6 +416,10 @@ Junctions Options:
   --junctions.higher-speed             Use maximum value of incoming and
                                         outgoing edge speed on junction instead
                                         of average
+  --junctions.minimal-shape            Build junctions with minimal shapes
+                                        (ignoring edge overlap)
+  --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
+                                        internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
                                         and intersections
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
@@ -403,7 +470,8 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                        inputs ("never", "local", "auto" or
+                                        "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -412,6 +480,11 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
+  --language STR                       Language to use in messages
 
 Random Number Options:
   --random                             Initialises the random number generator

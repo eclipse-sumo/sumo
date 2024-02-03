@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      label 'my-agent-pod'
+      inheritFrom 'my-agent-pod'
       yaml """
 apiVersion: v1
 kind: Pod
@@ -24,7 +24,7 @@ spec:
         cpu: "1"
       requests:
         memory: "2Gi"
-        cpu: "1"    
+        cpu: "1"
     command:
     - cat
     env:
@@ -65,11 +65,11 @@ spec:
         container('ubuntu-sumo') {
           sh '''
             git fetch --tags --force
-            mkdir -p cmake-build 
-            cd cmake-build 
-            export CC=gcc; export CXX=g++; 
+            mkdir -p cmake-build
+            cd cmake-build
+            export CC=gcc; export CXX=g++;
             cmake ..
-            make -j2 
+            make -j2
           '''
         }
       }
@@ -98,7 +98,7 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
-            cd cmake-build/src/libtraci 
+            cd cmake-build/src/libtraci
             mvn --batch-mode deploy
           '''
         }

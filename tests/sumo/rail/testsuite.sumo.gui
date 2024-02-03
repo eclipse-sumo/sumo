@@ -28,12 +28,9 @@ two_passing_loops
 # as above but with intermediate nodes on the tracks
 two_passing_loops2
 
-# frontal train collision
-collision
+# train insertion should try to prevent a frontal collision
+bidi_conflict_insertion
 crossing_tracks
-
-# as above but without rail signals
-crossing_tracks_collision
 
 # rerouting trains that pass each other in a complex network
 alternativeRoute

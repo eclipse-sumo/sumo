@@ -1,0 +1,9 @@
+Loading SUMO network: net.net.xml
+Loading parking file: input_additional.add.xml
+Computing distances and sorting parking alternatives.
+Warning: Module 'rtree' not available. Using slow brute-force search for alternative parkingAreas
+Cache: hits -1, misses -1, used 50.0%.
+Computed 6 rerouters.
+Creation of out.add.xml
+out.add.xml created.
+Done.

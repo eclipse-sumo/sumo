@@ -1,0 +1,17 @@
+# multiple stations
+plain
+
+# Copy of horizontal
+horizontal
+
+# multiple stations converted separatedly
+stations
+
+# multiple stations converted separatedly, automatically create the region file from the input
+split
+
+# multiple stations converted separatedly, automatically create the region file from the input and split the network for ambiguous edges
+splitNet
+
+# multiple stations converted separatedly
+stations_horizontal

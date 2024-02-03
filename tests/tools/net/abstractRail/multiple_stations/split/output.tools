@@ -1,0 +1,24 @@
+Creating region file 'net.taz.xml'
+Reading net
+Processing region 'Bestensee' with 2 edges
+Starting optimization with 4 inequalities
+Optimization succeeded after 0.00532078742980957s (score=3.4830080197278065e-10)
+Processing region 'Eichwalde' with 28 edges
+Starting optimization with 133 inequalities
+Optimization succeeded after 0.07814240455627441s (score=51.80000042121995)
+Processing region 'Königs Wusterhausen' with 108 edges
+Starting optimization with 900 inequalities
+Optimization succeeded after 34.2087779045105s (score=2451.8000027795338)
+Processing region 'Niederlehme' with 5 edges
+Starting optimization with 10 inequalities
+Optimization succeeded after 0.004766225814819336s (score=2.8439263187378757e-09)
+Processing region 'Wildau' with 17 edges
+Starting optimization with 74 inequalities
+Optimization succeeded after 0.022295713424682617s (score=87.60000000457408)
+Processing region 'Zeesen' with 6 edges
+Starting optimization with 18 inequalities
+Optimization succeeded after 0.007177829742431641s (score=1.2000000908186286)
+Processing region 'Zeuthen' with 20 edges
+Starting optimization with 94 inequalities
+Optimization succeeded after 0.0466763973236084s (score=86.60000001281384)
+Building new net

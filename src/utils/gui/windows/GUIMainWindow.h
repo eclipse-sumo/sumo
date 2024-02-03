@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include "GUIAppEnum.h"
 
 
 // ===========================================================================
@@ -36,6 +37,7 @@
 class GUIEvent;
 class GUIGlChildWindow;
 class GUISUMOAbstractView;
+class MFXStaticToolTip;
 
 
 // ===========================================================================
@@ -45,7 +47,7 @@ class GUIMainWindow : public FXMainWindow {
 
 public:
     /// @brief constructor
-    GUIMainWindow(FXApp* a);
+    GUIMainWindow(FXApp* app);
 
     /// @brief destructor
     virtual ~GUIMainWindow();
@@ -71,17 +73,28 @@ public:
     /// @brief get specific view by ID
     GUIGlChildWindow* getViewByID(const std::string& id) const;
 
+    void removeViewByID(const std::string& id);
+
     /// @brief get views
     const std::vector<GUIGlChildWindow*>& getViews() const;
 
     /// @brief update childrens
-    void updateChildren();
+    void updateChildren(int msg = MID_SIMSTEP);
 
     /// @brief get bold front
     FXFont* getBoldFont();
 
+    /// @brief get fallback front
+    FXFont* getFallbackFont();
+
     /// @brief get GL Visual
     FXGLVisual* getGLVisual() const;
+
+    /// @brief get static toolTip for menus
+    MFXStaticToolTip* getStaticTooltipMenu() const;
+
+    /// @brief get static toolTip for view
+    MFXStaticToolTip* getStaticTooltipView() const;
 
     /// @brief get build GL Canvas (must be implemented in all children)
     virtual FXGLCanvas* getBuildGLCanvas() const = 0;
@@ -96,10 +109,16 @@ public:
     virtual void setStatusBarText(const std::string&) { }
 
     /// @brief get cartesian label
-    FXLabel& getCartesianLabel();
+    FXLabel* getCartesianLabel();
 
     /// @brief get geo label
-    FXLabel& getGeoLabel();
+    FXLabel* getGeoLabel();
+
+    /// @brief get test label
+    FXLabel* getTestLabel();
+
+    /// @brief get test frame
+    FXHorizontalFrame* getTestFrame();
 
     /// @brief return whether the gui is in gaming mode
     bool isGaming() const;
@@ -148,57 +167,98 @@ public:
         return myAmFullScreen;
     }
 
+    const std::map<std::string, std::string>& getOnlineMaps() const {
+        return myOnlineMaps;
+    }
+
+    void addOnlineMap(const std::string& name, const std::string& url) {
+        myOnlineMaps[name] = url;
+    }
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();
     }
 
+    // @brief called when changes language
+    long onCmdChangeLanguage(FXObject*, FXSelector, void*);
+
+    // @brief called when language is updated
+    long onUpdChangeLanguage(FXObject*, FXSelector, void*);
+
 protected:
-    /// @brief fox need this
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIMainWindow)
 
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 
+    /// @brief list of GLWindows
     std::vector<GUIGlChildWindow*> myGLWindows;
 
+    /// @brief list of tracker windows
     std::vector<FXMainWindow*> myTrackerWindows;
 
-    /// A lock to make the removal and addition of trackers secure
+    /// @brief A lock to make the removal and addition of trackers secure
     FXMutex myTrackerLock;
 
-    /// Font used for popup-menu titles
-    FXFont* myBoldFont;
+    /// @brief Font used for popup-menu titles
+    FXFont* myBoldFont = nullptr;
 
-    /// The multi view panel
-    FXMDIClient* myMDIClient;
+    /// @brief Fallback font for extended characters support
+    FXFont* myFallbackFont = nullptr;
 
-    /// The status bar
-    FXStatusBar* myStatusbar;
+    /// @brief The multi view panel
+    FXMDIClient* myMDIClient = nullptr;
 
-    /// Labels for the current cartesian and geo-coordinate
-    FXLabel* myCartesianCoordinate, *myGeoCoordinate;
+    /// @brief The status bar
+    FXStatusBar* myStatusbar = nullptr;
 
-    FXHorizontalFrame* myCartesianFrame, *myGeoFrame;
+    /// @brief Labels for the current cartesian, geo-coordinate and test coordinates
+    FXLabel* myCartesianCoordinate = nullptr;
+    FXLabel* myGeoCoordinate = nullptr;
+    FXLabel* myTestCoordinate = nullptr;
 
-    /// The gl-visual used
-    FXGLVisual* myGLVisual;
+    /// @brief frames for coordinates
+    FXHorizontalFrame* myTraCiFrame = nullptr;
+    FXHorizontalFrame* myCartesianFrame = nullptr;
+    FXHorizontalFrame* myGeoFrame = nullptr;
+    FXHorizontalFrame* myTestFrame = nullptr;
 
-    FXDockSite* myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
+    /// @brief The gl-visual used
+    FXGLVisual* myGLVisual = nullptr;
 
-    /// information whether the gui is currently in gaming mode
+    /// @brief dock sites
+    FXDockSite* myTopDock = nullptr;
+    FXDockSite* myBottomDock = nullptr;
+    FXDockSite* myLeftDock = nullptr;
+    FXDockSite* myRightDock = nullptr;
+
+    /// @brief Language menu common to all applications
+    FXMenuPane* myLanguageMenu = nullptr;
+
+    /// @brief static toolTip used in menus
+    MFXStaticToolTip* myStaticTooltipMenu = nullptr;
+
+    /// @brief static toolTip used in view
+    MFXStaticToolTip* myStaticTooltipView = nullptr;
+
+    /// @brief information whether the gui is currently in gaming mode
     bool myAmGaming;
 
-    /// information whether the locator should list internal structures
+    /// @brief information whether the locator should list internal structures
     bool myListInternal;
 
-    /// information whether the locator should list parking vehicles
+    /// @brief information whether the locator should list parking vehicles
     bool myListParking;
 
-    /// information whether the locator should list teleporting vehicles
+    /// @brief information whether the locator should list teleporting vehicles
     bool myListTeleporting;
 
-    /// the singleton window instance
+    /// @brief online mapping services for the context menu
+    std::map<std::string, std::string> myOnlineMaps;
+
+    /// @brief the singleton window instance
     static GUIMainWindow* myInstance;
 
     /// @brief perform initial window positioning and sizing according to user options / previous call
@@ -206,4 +266,7 @@ protected:
 
     /// @brief record window position and size in registry
     void storeWindowSizeAndPos();
+
+    void buildLanguageMenu(FXMenuBar* menuBar);
+
 };

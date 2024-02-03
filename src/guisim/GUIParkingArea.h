@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,7 +75,8 @@ public:
                    double frompos, double topos, unsigned int capacity,
                    double width, double length, double angle, const std::string& name,
                    bool onRoad,
-                   const std::string& departPos);
+                   const std::string& departPos,
+                   bool lefthand);
 
 
     /// @brief Destructor
@@ -96,7 +97,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * Container stops have no parameter windows (yet).
@@ -109,6 +109,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -132,6 +134,9 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
+    const Position& getSignPos() const {
+        return mySignPos;
+    }
 
 private:
     /// @brief The rotations of the shape parts

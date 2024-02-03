@@ -10,11 +10,17 @@ chargingStations
 # track fuel consumption from vehicle emissionClass instead of electricity
 trackFuel
 
+# track fuel consumption from vehicle emissionClass instead of electricity
+trackFuel_truck
+
 # track fuel consumption from vehicle emissionClass instead of electricity but emissionClass is Energy
 trackFuel_elec
 
 # leave the road while charging
 chargingStations_parked
+
+# leave the road while charging
+chargingStations_parkingCapacity
 
 # usually loaded from vehicle parameter,
 # default taken from vType parameter
@@ -26,11 +32,17 @@ chargingStations_output
 # as above but with step length 0.2
 chargingStations_output_subseconds
 
-# Vehicle with a different stoppingTreshold taking different chargingStations, every with a different configuration 
-stoppingTreshold
+# Vehicle with a different stoppingThreshold taking different chargingStations, every with a different configuration 
+stoppingThreshold
 
 # test parameter for influencing recuperation by deceleration level
 recuperateByDecel
 
 # compare battery output with aggregated consumption
 tripinfo_emission
+
+# charging stations placed in internal lanes
+chargingStations_internalLanes
+
+# distribution of charging levels
+chargeLevelDist

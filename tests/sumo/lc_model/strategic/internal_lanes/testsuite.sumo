@@ -1,0 +1,8 @@
+# no intermediate junctions on approach
+all_normal
+
+# several intermediate junctions (that do not affect speed)
+intermediate
+
+# several large intermediate junctions (that do not affect speed)
+intermediate_large

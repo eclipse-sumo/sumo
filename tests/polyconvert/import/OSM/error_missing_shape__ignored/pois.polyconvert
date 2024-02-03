@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Mar  7 23:10:26 2015 by SUMO polyconvert Version dev-SVN-r18045
+<!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,17 +14,20 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.scale value="0"/>
+        <proj.scale value="1"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <processing>
         <all-attributes value="true"/>
         <ignore-errors value="true"/>
+        <poi-layer-offset value="5"/>
     </processing>
 
     <report>
@@ -36,6 +39,4 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.000000,10000000000.000000,-10000000000.000000,-10000000000.000000" projParameter="UTM"/>
-
 </additional>

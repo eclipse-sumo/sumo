@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,12 +51,14 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes, bool show);
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, double length,
+                  std::string name, const std::string& vTypes,
+                  const std::string& nextEdges,
+                  int detectPersons, bool show);
 
 
     /// @brief Destructor
     ~GUIInductLoop();
-
 
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector
@@ -82,13 +84,13 @@ public:
      * @brief A MSInductLoop-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
+
     public:
         /// @brief Constructor
         MyWrapper(GUIInductLoop& detector, double pos);
 
         /// @brief Destructor
         ~MyWrapper();
-
 
         /// @name inherited from GUIGlObject
         //@{
@@ -100,30 +102,33 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow* getParameterWindow(
-            GUIMainWindow& app, GUISUMOAbstractView& parent);
-
+        GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
          * @return The boundary the object is within
          * @see GUIGlObject::getCenteringBoundary
          */
-        Boundary getCenteringBoundary() const;
-
+        Boundary getCenteringBoundary() const override;
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const;
+        void drawGL(const GUIVisualizationSettings& s) const override;
         //@}
 
-
-        /// @brief set (outline) color for extra visualiaztion
+        /// @brief set (outline) color for extra visualization
         void setSpecialColor(const RGBColor* color) {
             mySpecialColor = color;
         }
+
+    protected:
+        /// @brief whether this detector has an active virtual detector call
+        bool haveOverride() const override;
+
+        /// @brief toggle virtual detector call
+        void toggleOverride() const override;
 
     private:
         /// @brief The wrapped detector
@@ -132,17 +137,35 @@ public:
         /// @brief The detector's boundary
         Boundary myBoundary;
 
+        /// @brief The rotations of the shape parts
+        std::vector<double> myFGShapeRotations;
+
+        /// @brief The lengths of the shape parts
+        std::vector<double> myFGShapeLengths;
+
+        /// @brief The shape
+        PositionVector myFGShape;
+
         /// @brief The position in full-geometry mode
         Position myFGPosition;
 
         /// @brief The rotation in full-geometry mode
         double myFGRotation;
 
+        PositionVector myOutline;
+        PositionVector myIndicators;
+
         /// @brief The position on the lane
         double myPosition;
 
+        /// @brief Whether this detector has defined a length
+        bool myHaveLength;
+
         /// @brief color for extra visualization
         const RGBColor* mySpecialColor;
+
+    private:
+        void setOutlineColor() const;
 
     private:
         /// @brief Invalidated copy constructor.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov  4 16:53:19 2020 by Eclipse SUMO duarouter Version v1_7_0+0817-17e5fc960b
+<!-- generated on 2021-06-10 09:08:41 by Eclipse SUMO duarouter Version v1_9_2+0439-960336d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -100,20 +100,20 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="rend_depart_connector:rend_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
         <edge id="beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_fwd250.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_fwd-1.00:beg2left" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left:beg2left_fwd250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_fwd-1.00:beg2left" traveltime="18.41" effort="0.00"/>
+        <edge id="beg2left:beg2left_fwd250.00" traveltime="18.41" effort="0.00"/>
         <edge id="beg2left_bwd-1.00" traveltime="180.00" effort="0.00"/>
-        <edge id="beg2left_bwd250.00:beg2left" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left:beg2left_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_bwd250.00:beg2left" traveltime="18.41" effort="0.00"/>
+        <edge id="beg2left:beg2left_bwd-1.00" traveltime="18.41" effort="0.00"/>
         <edge id="beg2left_car250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_depart_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_arrival_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_fwd0.00" traveltime="143.42" effort="0.00"/>
-        <edge id="beg2left2_fwd-1.00:beg2left" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left:beg2left2_fwd0.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left2_fwd-1.00:beg2left" traveltime="19.31" effort="0.00"/>
+        <edge id="beg2left:beg2left2_fwd0.00" traveltime="19.31" effort="0.00"/>
         <edge id="beg2left2_bwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left2_bwd0.00:beg2left" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left:beg2left2_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left2_bwd0.00:beg2left" traveltime="19.31" effort="0.00"/>
+        <edge id="beg2left:beg2left2_bwd-1.00" traveltime="19.31" effort="0.00"/>
         <edge id="beg2left2_car0.00" traveltime="7.17" effort="0.00"/>
         <edge id="beg2left2_depart_connector0.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left2_arrival_connector0.00" traveltime="0.00" effort="0.00"/>

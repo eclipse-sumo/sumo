@@ -26,7 +26,7 @@ title: FAQ
 
   To allow for the efficient simulation of very large scenarios, it is
   also possible to run SUMO as a [**mesoscopic** simulation](Simulation/Meso.md).
-  
+
   SUMO also supports **macroscopic** traffic assignment using the
   [marouter](marouter.md) application.
 
@@ -40,7 +40,7 @@ title: FAQ
 
 ### Are there any tutorials or ready to use scenarios?
 
-  The main page for [tutorials](Tutorials/index.md) lists several for beginners and advanced topics, there 
+  The main page for [tutorials](Tutorials/index.md) lists several for beginners and advanced topics, there
   are also some [videos on YouTube](https://www.youtube.com/results?search_query=sumo+simulation+tutorial).
   For scenarios have a look at our [scenario page](Data/Scenarios.md).
 
@@ -48,12 +48,12 @@ title: FAQ
 
 - Tell us about your extensions on the [developer mailing list](https://accounts.eclipse.org/mailing-list/sumo-dev)
 - Send us patches (bug fixes as well as extensions) either to the same
-  list or as pull requests at <https://github.com/eclipse/sumo> (also
+  list or as pull requests at <https://github.com/eclipse-sumo/sumo> (also
   see next question).
 - Report bugs (crashes, surprising behavior) or invalid documentation
   at [sumo-user](https://accounts.eclipse.org/mailing-list/sumo-user)
-  or at <https://github.com/eclipse/sumo/issues>
-- The main development team at the [DLR](http://sumo.dlr.de) is always
+  or at <https://github.com/eclipse-sumo/sumo/issues>
+- The main development team at the [DLR](https://sumo.dlr.de) is always
   looking for project partners. [Contact us](Contact.md) to
   discuss your proposals.
 - Make your SUMO simulation scenarios publicly available
@@ -64,7 +64,7 @@ title: FAQ
 - Contribute to this wiki ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
-- Join us at the annual [SUMO User Conference](https://eclipse.org/sumo/conference/)
+- Join us at the annual [SUMO User Conference](https://eclipse.dev/sumo/conference/)
 
 ### How do code contributions work?
 
@@ -118,7 +118,7 @@ git push
 
 ### How do I contribute to the documentation?
 
-The documentation is part of the code repository so the same rules as in the previous question apply. 
+The documentation is part of the code repository so the same rules as in the previous question apply.
 If you just want to have a simple typo fixed you can always drop us a line at sumo@dlr.de or at sumo-dev@eclipse.org.
 
 ### How do I cite SUMO
@@ -174,9 +174,13 @@ always use the latest version of SUMO.
 - a screenshot or error output showing the unexpected behavior (this
   may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
-  and all files referenced therein) in a zip-archive. Please remove
+  and all files referenced therein) in a zip-archive.
+- if your use case involves [TraCI](TraCI.md), please reduce your script to the bare minimum that is needed to show the problem. Then either include the script itself or [generate a log of all traci commands](TraCI/Interfacing_TraCI_from_Python.md#generating_a_log_of_all_traci_commands) and include this.
+- Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
-  find the minimum input example which still shows the problem.
+  find the minimum input example which still shows the problem. This includes
+  cutting the network (or inputs) using [netedit](Netedit/index.md)
+  or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter--osmconvert)
 - a description at which time step (for simulations) and on which
   edge/junction the problem occurs
 
@@ -191,32 +195,39 @@ always use the latest version of SUMO.
   See above but **please** give enough details when asking on the
   mailing list.
 
-### What should I do to get helpful answers on the mailing list?
+### What should I do to get helpful answers on the mailing list or on the issue tracker?
 
 - Make your question specific
   - avoid vague terms.
   - Always name the SUMO version to which your question applies
   - Include relevant warnings/errors/stack-traces in your question
-    (please copy the text and avoid screenshots to reproduce text
-    messages). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
+- whenever possible copy text rather than screenshots of text
+- When sending screenshots of sumo-gui or netedit, please include the whole screen so the application version and simulation time are visible.
+- Attach scenario files including .sumocfg as a zip archive
+  - make sure that your scenario is not random (avoid option **--random**)
+  - if your setup involves TraCI and your (python) runner program is slightly complicated or has further dependencies, attach a [TraCI-traceFile](TraCI/Interfacing_TraCI_from_Python.md#generating_a_log_of_all_traci_commands) instead of your whole traci script.
+- describe what you are trying to accomplish
+- describe how what you see differs from your expectations
 - Phrase your question using familiar terms (not everyone is an expert
 in your domain).
-- Don't ask for too many things in a single post.
+- Don't ask for too many things in a single post / issue.
 - Do some research on your own before you post the question (otherwise
 you may appear to be lazy).
   - read the FAQ
   - read the documentation
   - check out the [Tutorials](Tutorials/index.md)
-  - do a web search (past questions and answers from the mailing
-    list can be found by google)
+  - do a web search (past questions and answers from the mailing list can be found by google)
+  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_in_this_wiki)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
+- if you put your question into an issue an the issue was closed, put your follow-up questions into the closed issue rather than open an new issue
 - Be polite
 - Good Example questions:
-  - How can I get data X out of SUMO?
-  - How can I influence aspect Y of a simulation?
-  - My simulation does Z though I do not expect it to. How do I fix that?
+  - How can I get data *X* out of SUMO?
+  - How can I influence aspect *Y* of a simulation?
+  - My simulation aborted with error "`<ERROR MESSAGE GOES HERE>`". What does that mean?
+  - My simulation does *Z* though I expected it to do *X*. How do I fix that?
 
 ### I asked a question on the mailing list and did not get an answer within X days. Why?
 
@@ -236,13 +247,22 @@ according to the above suggestions.
 
   Unfortunately, we do not have the resources to do other peoples
   projects for free.
-  [Contact](http://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/)
+  [Contact](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/)
   us for paid consultancy.
   We try to help out with bugs and give pointers to the relevant
   documentation but this free support is limited to what we can do in
   our spare time.
 
 ## TraCI
+
+### My [TraCI](TraCI.md)-program is to slow. What can I do?
+
+  TraCI communicates over sockets and this communication is slow. You can often reduce the number of TraCI commands via the following strategies.
+
+  - store results that do not change (i.e. vehicle length) rather than retrieving them again repeatedly
+  - use [subscriptions](TraCI/Object_Variable_Subscription.md) or [context subscriptions](TraCI/Object_Context_Subscription.md) to reduce the number of 'get' commands for things that you need in every step
+
+   Even larger gains can be hand by switching to [libsumo](Libsumo.md). This can be done with a single line of code and completely eliminates the slow socket communication.
 
 ### My [TraCI](TraCI.md)-program is not working as intended. Can you help me debug it?
 
@@ -260,7 +280,7 @@ the TraCI script being run. Here are some guidelines for figuring out
 what is happening:
 
 - The SUMO error *connection reset by peer* indicates a problem in the
-script. The python strack trace should point to the problem (in the
+script. The python stack trace should point to the problem (in the
 simplest case, the script ends without calling *traci.close()*)
 - The error **TraCIFatalError** *connection closed by SUMO* indicates
 a problem with SUMO
@@ -271,17 +291,7 @@ of error can be safely handled by the script with *try/except*
 figure out what went wrong in a simulation run or why the simulation
 aborted.
 - If SUMO crashes (just stops instead of quitting with an error
-message) here is how to debug it:
-  - in the options to *traci.start()* add *\['--save-configuration',
-    'debug.sumocfg'\]*
-  - run your script (sumo will not start and the script will try to
-    connect repeatedly)
-  - run the debug version of sumo with the saved configuration in a
-    debugger while the script is still trying to connect
-
-```
-gdb --args sumoD -c debug.sumocfg
-```
+message) [you can run sumo in a debugger while executing your script](TraCI/Interfacing_TraCI_from_Python.md#debugging_a_traci_session_on_linux) and send the stack trace to the developers.
 
 ### Error: tcpip::Storage::readIsSafe: want to read 8 bytes from Storage, but only 4 remaining
 
@@ -303,7 +313,7 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
 
   Yes. It is supported since version 0.24.0. To create a new network for
   lefthand traffic, the option **--lefthand** must be set.
-  
+
   To convert an existing network to lefthand driving, there are two options. Abstract networks (no geo-reference, coordinates do not matter much) can be processed with netconvert:
 ```
     netconvert -s righthand.net.xml --flip-y-axis -o lefthand.net.xml
@@ -344,31 +354,31 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
   in [sumo](sumo.md) or [duarouter](duarouter.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
   When these options are used, multiple cores on the machine are used.
-  
+
   There is no support for multi-node parallelization.
-  
+
   When running [sumo-gui](sumo-gui.md), an additional thread is used for visualization.
-  
+
   The python TraCI library allows controlling multiple simulations
   from a single script either by calling *traci.connect* and storing
   the returned connection object or by calling
   *traci.start(label=...)* and retrieving the connection object with
   *traci.getConnection(label)*.
-  
-  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767). 
+
+  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767).
   Some parts of the simulation can already be run in parallel when setting option **--threads** but this does not lead to meaningful speedup yet.
 
 ## Building / Installation
 
 ### How do I access the code repository?
 
-Since 2018-04-10 SUMO moved to [the organizational Eclipse account at GitHub](https://github.com/eclipse/sumo/). You have the choice to
+Since 2018-04-10 SUMO moved to [the organizational Eclipse account at GitHub](https://github.com/eclipse-sumo/sumo/). You have the choice to
 access the repository using git or subversion. There are plenty of
 clients for all platforms. If you use the command line client, you
 can checkout sumo using the following command (for git):
 
 ```
-git clone --recursive https://github.com/eclipse/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 ```
 
 If you want to see the full project history in your git checkout please
@@ -383,13 +393,13 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git and Subversion?
 
-  There are the [Git book](https://git-scm.com/book/de/v1) and the
-  [Subversion book](http://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
+  There are the [Git book](https://git-scm.com/book/) and the
+  [Subversion book](https://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
 
   see
-  [Alternative download and older releases](Downloads.md#sumo_-_alternative_download_and_older_releases).
+  [Alternative download and older releases](Downloads.md#older_releases_and_alternative_download).
   On Linux, older versions [must be built from source](Installing/Linux_Build.md).
 
 ### How to check out revision 5499 (or any other outdated sumo)?
@@ -480,8 +490,8 @@ and simply type `git pull`.
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
-  can be disabled by using the option **--xml-validation never** or by deleting the schema
-  information at the top of the XML input file(s).
+  can be disabled by using the option **--xml-validation never** or by [deleting the schema
+  information](XMLValidation.md#disabling_schema_validation) at the top of the XML input file(s).
 
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
 
@@ -515,9 +525,13 @@ At line/column 10/46
   Files\\foo.xml* even when adding quotation marks. Since 1.0.0 the ',' (comma) is used so these paths should work.
   Additionally, SUMO may fail to load files if the name contains characters outside
   the basic [ASCII set](https://en.wikipedia.org/wiki/Ascii).
-  
+
 ### Windows 10 is blocking the execution of sumo-gui and netedit. How come?
   Executable files downloaded from the internet may trigger the windows 10 security warning. You can work around this by clicking on the 'More Info' Text and then selecting 'Run Anyway' in the subsequent dialog.
+
+### what about warning: pj_obj_create: Cannot find proj.db
+
+  This warning concerns the database of named projections (EPSG codes) and gridshifts for the [proj library](https://proj.org). Unless performing fancy coordinate transformations (i.e. with netconvert) or trying to import unusual network files, the warning can be safely ignored. Otherwise, it should help to set the [PROJ_DATA](https://proj.org/en/9.2/usage/environmentvars.html#envvar-PROJ_DATA) environment variable.
 
 ## netconvert
 
@@ -624,10 +638,16 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 ## netedit
 
-### How can I obtain netedit?
+### How can I edit lane attributes?
 
-  [netedit](Netedit/index.md) is available as part of the regular
-  distribution since version 0.25.0.
+see [inspecting lanes](Netedit/editModesCommon.md#inspecting_lanes)
+
+### How can I edit connection attributes?
+
+see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
+
+!!! note
+    Connection mode is only used for adding and removing connections but not for editing connection attributes
 
 ## Traffic Demand Generation
 
@@ -663,6 +683,8 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 - You can use [jtrrouter](jtrrouter.md) to [generate vehicles which drive randomly around the network with configurable turning ratios](Tutorials/Manhattan.md#generating_vehicles)
 
+- You can define a circular route with attribute `repeat="X"` where X is sufficiently large to cover the intended simulation time.
+
 - You can use the option **--max-num-vehicles** to set the desired number. Vehicle
   insertions are delayed whenever this number would be exceeded. To
   avoid a large number of delayed vehicles it is recommended to also
@@ -672,7 +694,7 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   whole simulation is much larger the specified value because some
   vehicles leave the simulation and new vehicles with distinct IDs are
   inserted to replace them.
-  
+
 - You can use [rerouters](Simulation/Rerouter.md) in the
   simulation. Rerouters, assign a new route for vehicles driving
   across them and thus prevent them from leaving the network. For an
@@ -717,14 +739,21 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   street. This mapping can be done using the python sumolib coming
   with sumo, see
   [Tools/Sumolib\#locate_nearby_edges_based_on_the_geo-coordinate](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
-  or directly by using duarouter's functionality to map (geo) coordinates
+
+  Duarouter supports mapping of x,y and lon,lat coordinates
   using the attributes [fromXY, fromLonLat and their relatives](Demand/Shortest_or_Optimal_Path_Routing.md).
+  For high-quality GPS data it is sufficient to define
+  ```
+    <trip id="myVeh" viaLonLat="Lon0,Lat0  Lon1,Lat1  Lon2,Lat2 ..." depart="0"/>
+  ```
 
   This will fail when there is an edge in the route which did not get
   hit by a data point or if you have a mismatch (for instance matching
   an edge which goes in the "wrong" direction). In the former case you
   can easily repair the route using [duarouter](duarouter.md)
-  with **--repair**. Another small script which helps here is
+  with **--repair** (happens automatically when using via-coordinates).
+
+  Another small script which helps here is
   [Tools/Routes\#tracemapper.py](Tools/Routes.md#tracemapperpy).
   You can also use the map matching plugin from
   [Contributed/SUMOPy](Contributed/SUMOPy.md) here.
@@ -732,7 +761,7 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
   For more complex cases (i.e. large temporal gaps or spatial errors)
   the problem is known as [Map Matching](https://en.wikipedia.org/wiki/Map_matching). Open source
   tools exist to facilitate this
-  ([MatchGPX2OSM](http://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM)
+  ([MatchGPX2OSM](https://wiki.openstreetmap.org/wiki/Routing/Travel_Time_Analysis/MatchGPX2OSM)
   [graphhopper](https://github.com/graphhopper/map-matching)).
 
   To exactly reproduce high-resolution trajectories, it is possible to
@@ -772,7 +801,7 @@ registered
   build your network. Editing networks by hand is very complicated and
   error-prone.
 
-### How do I change the duration of cycles and phases?
+### How do I change the duration of traffic light cycles and phases?
 
   use [netedit](Netedit/index.md#traffic_lights)
 
@@ -780,7 +809,7 @@ registered
 
   There may be several reasons why you do not see the cars.
 
-- The simulation is not yet running (click the "play" button (![Play.gif](images/Play.gif "Play")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
+- The simulation is not yet running (click the "play" button (![icon_play.png](images/icon_play.png "Play")), see [sumo-gui#Usage_Description](sumo-gui.md#usage_description))
 - If your simulation area is too big, cars will not be displayed
   unless you zoom into the net. Cars are simply to small when looking
   from far away. To change this you may also set the option *Draw with
@@ -789,6 +818,10 @@ registered
   being seen. To avoid this, you may [increase the *Delay*-value](sumo-gui.md#usage_description) to slow down
   the simulation.
 - [You might have outdated graphic card drivers](sumo-gui.md#windows_and_buttons_appear_but_no_netcars_are_visible_vehicles_are_not_visible_or_flicker_roads_are_drawn_on_top_of_vehicles)
+- You did not [define any vehicles](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md)
+- All your vehicles are set to depart before the simulation **--begin** time
+- Your vehicles are set to depart much later than the simulation **--begin** time
+
 
 ### Different departure times with different time step size
 
@@ -801,6 +834,7 @@ registered
   almost on second 1 (0.99...). If time steps of 0.1 seconds are used,
   the same vehicle is inserted into the network at the end of the time
   step between 0 and 0.1, this means almost on 0.1 (0.099...).
+  See also [VehicleInsertion](Simulation/VehicleInsertion.md)
 
 ### How to save a simulation state and proceed later and/or differently
 
@@ -845,7 +879,7 @@ Deadlocks in a scenario can have many causes:
     starting on the same edge).
 4.  invalid routing
   - only shortest path were used instead of [a user assignment algorithm](Demand/Dynamic_User_Assignment.md)
-  - to many vehicles start/end their route with a [turn-around](Simulation/Turnarounds.md).
+  - to many vehicles start/end their route with a [turn-around](Simulation/Turnarounds.md). Can be fixed by computing [routes between junctions](Demand/Shortest_or_Optimal_Path_Routing.md#routing_between_junctions) instead of between edges.
 5.  invalid insertion (vehicles being inserted on the wrong lane close
     to the end of an edge where they need to change to another turn
     lane). This can be fixed by setting the vehicle attribute `departLane="best"`
@@ -856,11 +890,28 @@ The best course of action typically is to observe the simulation using
 [sumo-gui](sumo-gui.md) and figure out where the first jam
 develops.
 
+### Two vehicles want to change lanes in opposite directions and are blocking each other. How to prevent this?
+
+Drivers are highly conscious of strategic lane choice requirements and try to change onto the needed lane well in advance.
+There are several reasons why a counter-lane-change-deadlock can happen:
+
+- Vehicles are unable to enter the desired lane because the connection layout at preceding junctions prevents it. This can be fixed by closely examining the connections ahead of the deadlock.
+- Vehicles are inserted on the wrong lane close to an intersection where they need to change lanes. To fix this, set the vehicle attribute `departLane="best"`
+- Vehicle streams must perform at weaving maneuver where they are forced to change lanes with limited space to do so. This often occurs at motorway ramps that combine an on-ramp with an off-ramp with little distance in between. The danger of deadlocks can be removed by adding an additional network connection [as explained here](Simulation/Motorways.md#combined_on-off-ramps). Similar deadlocks may also occur at multi-lane roundabouts and the same solution of adding an extra connection (from the inside lane to the outside) applies.
+
+
 ### Why do the vehicles perform unexpected lane-changing maneuvers?
 
   This may be caused by invalid lane-to-lane connections. Check the
   connections in [sumo-gui](sumo-gui.md) by activating
   *Junctions-\>show lane to lane connections* in the [gui settings dialog](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation).
+
+### Why do the vehicles not use all available lanes?
+
+  The main reason is usually that only the lanes they use allow them to continue their route. You should check the downstream junction
+  whether the connections are correct. If the number of lanes is reduced without further streets being involved
+  (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
+  for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
 
 ### How do I get high flows/vehicle densities?
 
@@ -881,6 +932,8 @@ To increase flows even further the following settings can be used
 - `<vType sigma="0" minGap="1" length="3" .../>`
 - `<vType tau="0.5" .../>` (should not be lower than step-length)
 
+See [table of insertion capacity achievable with different options and insertion attributes](Simulation/RoadCapacity.md#further_headway_effects).
+
 ### How do I insert vehicles with a fixed density?
 
 To start a simulation with 65 evenly-spaced vehicles on a specific lane
@@ -896,7 +949,7 @@ of a 1km highway, do the following:
 - you can use insertion method 'last' which places vehicles at their
   desired headway for a given speed (repeat for every lane):
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="1" number="65" departPos="last" departSpeed="7.885" departLane="0"/>
 ```
 
@@ -907,9 +960,12 @@ density:
   equilibrium speed from above: 15.385m / 7.885m/s = 1.951s
 - use the equilibrium speed as departSpeed
 
-```
+```xml
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
+!!! caution
+    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how-do-i-get-high-flowsvehicle-densities) for further adjustment.
+
 
 ### How do I force a lane change?
 
@@ -940,8 +996,8 @@ density:
 
 ### How fast can SUMO run?
 
-This really depends on how many vehicles you have in your simulation at any given time (and to some extent on how strongly vehicles interact at intersections and how many lanes each vehicle has to chose during lane-changing). 
-When running in verbose mode, SUMO will tell you the UPS metric. This is vehicle **up**dates **p**er **s**econd. A number of x tells you that you could run x vehicles in real-time at a step length of 1 second. 
+This really depends on how many vehicles you have in your simulation at any given time (and to some extent on how strongly vehicles interact at intersections and how many lanes each vehicle has to chose during lane-changing).
+When running in verbose mode, SUMO will tell you the UPS metric. This is vehicle **up**dates **p**er **s**econd. A number of x tells you that you could run x vehicles in real-time at a step length of 1 second.
 Running time is inversely proportional to step-length (**--step-length 0.1** computes 10 times as many steps compared to the default of 1s and thus takes 10 times as long).
 
 Some examples on an average desktop PC:
@@ -954,7 +1010,33 @@ In a city simulation of one day running with 80k UPS where a vehicle spends on a
 
 Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
+### How to perform repeated simulations with different results
+
+By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
+To change this, either option **--seed** or option **--random** must be used.
+In order to collect distinct output from multiple runs, it is advisable to set option **--output-prefix**.
+Running a simulation 3 times with different results could be done in a batch file like this:
+
+```
+sumo -c run.sumocfg --seed 1 --output-prefix 1.
+sumo -c run.sumocfg --seed 2 --output-prefix 2.
+sumo -c run.sumocfg --seed 3 --output-prefix 3.
+```
+
+The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this, parallelize it and even add output options to avoid modifying the .sumocfg:
+
+`tools/runSeeds.py -a sumo -k run.sumocfg --seeds 1:4 --threads 4 --statistic-output stats.xml`
+
+The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to generated statistics for multiple runs:
+i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command
+`tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
+
 ## Visualization
+
+### How can I get satellite / aerial background images for my simulation
+
+The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simples solution to obtain a scenario with background images.
+Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
 
 ### sumo-gui breaks
 
@@ -978,7 +1060,7 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
 There are several ways to build videos from your SUMO simulation. You
 can use screen capturing tools like VLC Player
-[\[1\]](http://www.videolan.org/vlc). The disadvantage of this approach is
+[\[1\]](https://www.videolan.org/vlc). The disadvantage of this approach is
 the requirement of a (very) fast CPU to capture the video in real time,
 it depends on the chosen resolution and screen size of the simulation.
 
@@ -1003,8 +1085,8 @@ command to get a new image for each new timestep.
 ```
 
 Next you have to glue the images together. This job can be done
-graphically with virtualdub [\[2\]](http://www.virtualdub.org) or via
-commandline with ffmpeg [\[3\]](http://www.ffmpeg.org). An example command
+graphically with virtualdub [\[2\]](https://www.virtualdub.org) or via
+commandline with ffmpeg [\[3\]](https://www.ffmpeg.org). An example command
 for ffmpeg is shown below.
 
 ```
@@ -1026,14 +1108,14 @@ mechanism
 
 ### Incompatibility with DisplayLink devices
 
-Drivers of [DisplayLink](http://www.DisplayLink.com) devices are
+Drivers of [DisplayLink](https://www.DisplayLink.com) devices are
 incompatibles with Fox Library. If sumo-gui or netedit presents graphics
-problem like [this](http://sumo.dlr.de/docs/images/DisplayLinkError.png)
+problem like [this](https://sumo.dlr.de/docs/images/DisplayLinkError.png)
 during the execution, DisplayLink drivers must be uninstalled.
 
 ### Distorted view with green lines all over the network
 
-If your sumo-gui looks [like this](https://github.com/eclipse/sumo/issues/7511)
+If your sumo-gui looks [like this](https://github.com/eclipse-sumo/sumo/issues/7511)
 it is probably again a problem with your display driver. It seems to occur most
 of the time with on board (Intel) graphics together with a dedicated nvidia card.
 To fix it install the latest nvidia drivers, open the nvidia system control panel
@@ -1041,11 +1123,16 @@ To fix it install the latest nvidia drivers, open the nvidia system control pane
 and select nvidia as your preferred graphics processor. If this does not fix it, try
 to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding out.)
 
-### SUMO-GUI and NETEDIT flickering
+### sumo-gui and netedit flickering
 
-There is a know problem in Windows 10 with scaling and flickering in certain applications. 
-If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
-The only known solution is leaving Scaling at 100%
+There is a know problem in Windows 10 with scaling and flickering in certain applications.
+If scaling is greater than 100%, a flickering may appear in sumo-gui and netedit during mouse movement.
+The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card.
+If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
+
+### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
+
+Install the [Noto Fonts](https://en.wikipedia.org/wiki/Noto_fonts) package for your distribution.
 
 ## Upgrading
 
@@ -1057,7 +1144,7 @@ The only known solution is leaving Scaling at 100%
   ensure that the correct version of the application is called from
   the command line (see
   [Basics/Basic_Computer_Skills\#Configuring_Path_Settings](Basics/Basic_Computer_Skills.md#configuring_path_settings)).
-  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`) 
+  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`)
   from a command line that you wish to use for calling applications and traci scripts.
 
 ### [sumo](sumo.md) warns about deprecated networks or fails to load them
@@ -1123,18 +1210,33 @@ python script.py <argument>
 ### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to generate Scenario on Windows 10
 
 This can happen with an outdated version of python 2.7. Updating to
-2.715 (64bit) has been reported as fixing this problem.
+2.7.15 (64bit) has been reported as fixing this problem.
+
+Also have a look at the output in the shell window that opens. If it reports missing or outdated
+SSL certificates try: `pip install certifi`.
+
+### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to load the browser page on Linux
+
+This happens when you are using a version of Firefox that was installed from a [snap package](https://en.wikipedia.org/wiki/Snap_(software)) (Which is the default since Ubuntu 22.04).
+As a work-around you can [install a .deb package](https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22).
 
 ## (Communication) Network Simulators
 
 ### How do I use *.tcl* files with NS2?
 
-  Questions regarding NS2 should be put to [the NS2 mailing list](http://www.isi.edu/nsnam/ns/ns-lists.html).
+  Questions regarding NS2 should be put to [the NS2 mailing list](https://www.isi.edu/nsnam/ns/ns-lists.html).
 
 ### How do I combine SUMO with a network simulator?
 
-  Check out [veins](http://veins.car2x.org/).
-  
+  Check out [veins](https://veins.car2x.org/).
+
+### Can SUMO simulate V2V / V2X messages?
+
+  Sumo generally does not model messaging. The best way to do so is by managing the messages with connected code.
+  If you want to simulate the application layer and can work with the assumption that messages "just work", you can often handle the messages with your own (simple) TraCI code. If you need to simulate the physical process, using a network simulator is recommended (see above).
+  Sumo supports a [vehicle device](Simulation/Bluetooth.md) to log connectivity events but this is not designed to integrate with an application layer and aims only at logging.
+
+
 ## Validity
 ### What are publications on SUMO's validity?
 - https://elib.dlr.de/120856/

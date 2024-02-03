@@ -1,4 +1,0 @@
-Warning: Essential unique float attribute 'pos' of e2Detector with ID 'E2_01' is missing; e2Detector cannot be created
-Warning: Format of essential unique float attribute 'pos' of e2Detector with ID 'E2_02' is invalid; Cannot be parsed to float; e2Detector cannot be created
-Warning: Invalid position for e2Detector with ID = 'E2_03'.
-Warning: Invalid position for e2Detector with ID = 'E2_04'.

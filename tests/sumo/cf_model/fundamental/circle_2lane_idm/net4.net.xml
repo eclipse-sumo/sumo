@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-06 09:49:36 by Eclipse SUMO netconvert Version v1_12_0+1978-7472f85
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net4.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net4.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="2"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1589.00,1511.23" convBoundary="0.00,0.00,1284.68,1221.80" origBoundary="-1589.00,-1511.23,1589.00,1511.23" projParameter="!"/>
+
+    <edge id=":8/1_0" function="internal">
+        <lane id=":8/1_0_0" index="0" speed="30.00" length="2.04" shape="441.06,-3.88 441.80,-4.39 442.36,-4.67 442.98,-4.78 443.88,-4.80"/>
+        <lane id=":8/1_0_1" index="1" speed="30.00" length="2.04" shape="442.94,-1.29 443.19,-1.46 443.37,-1.56 443.58,-1.59 443.88,-1.60"/>
+    </edge>
+    <edge id=":9/1_0" function="internal">
+        <lane id=":9/1_0_0" index="0" speed="30.00" length="2.04" shape="840.80,-4.80 841.70,-4.78 842.32,-4.67 842.88,-4.39 843.62,-3.88"/>
+        <lane id=":9/1_0_1" index="1" speed="30.00" length="2.04" shape="840.80,-1.60 841.10,-1.59 841.31,-1.56 841.49,-1.46 841.74,-1.29"/>
+    </edge>
+
+    <edge id="a" from="9/1" to="8/1" priority="-1" shape="840.80,0.00 1161.96,233.36 1284.68,610.92 1161.96,988.44 840.80,1221.80 443.88,1221.80 122.68,988.44 0.00,610.92 122.68,233.36 443.88,0.00">
+        <lane id="a_0" index="0" speed="30.00" length="3589.49" shape="843.62,-3.88 1166.04,230.39 1289.73,610.92 1166.04,991.41 842.36,1226.60 442.32,1226.60 118.60,991.41 -5.05,610.92 118.60,230.39 441.06,-3.88"/>
+        <lane id="a_1" index="1" speed="30.00" length="3589.49" shape="841.74,-1.29 1163.32,232.37 1286.36,610.92 1163.32,989.43 841.32,1223.40 443.36,1223.40 121.32,989.43 -1.68,610.92 121.32,232.37 442.94,-1.29"/>
+    </edge>
+    <edge id="b" from="8/1" to="9/1" priority="-1">
+        <lane id="b_0" index="0" speed="30.00" length="396.92" shape="443.88,-4.80 840.80,-4.80"/>
+        <lane id="b_1" index="1" speed="30.00" length="396.92" shape="443.88,-1.60 840.80,-1.60"/>
+    </edge>
+
+    <junction id="8/1" type="priority" x="443.88" y="0.00" incLanes="a_0 a_1" intLanes=":8/1_0_0 :8/1_0_1" shape="443.88,0.00 443.88,-6.40 440.12,-5.18">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="9/1" type="priority" x="840.80" y="0.00" incLanes="b_0 b_1" intLanes=":9/1_0_0 :9/1_0_1" shape="840.80,0.00 844.56,-5.18 840.80,-6.40">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":8/1_0_0" dir="s" state="M"/>
+    <connection from="a" to="b" fromLane="1" toLane="1" via=":8/1_0_1" dir="s" state="M"/>
+    <connection from="b" to="a" fromLane="0" toLane="0" via=":9/1_0_0" dir="s" state="M"/>
+    <connection from="b" to="a" fromLane="1" toLane="1" via=":9/1_0_1" dir="s" state="M"/>
+
+    <connection from=":8/1_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":8/1_0" to="b" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":9/1_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9/1_0" to="a" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

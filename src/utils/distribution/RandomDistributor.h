@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,7 +108,7 @@ public:
      * @param[in] which The random number generator to use; the static one will be used if 0 is passed
      * @return the drawn member
      */
-    T get(std::mt19937* which = 0) const {
+    T get(SumoRNG* which = nullptr) const {
         if (myProb == 0) {
             throw OutOfBoundsException();
         }

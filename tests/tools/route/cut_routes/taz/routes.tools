@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:39:04.696000 by cutRoutes.py
-  options: input_net.net.xml input_routes.rou.xml -a input_additional.add.xml <doubleminus>routes-output out.rou.xml <doubleminus>stops-output out.add.xml
--->
+
+<!-- generated on 2022-07-07 11:06:17.505707 by cutRoutes.py v1_13_0+1343-240e5d48340
+  options: input_net.net.xml input_routes.rou.xml -a input_additional.add.xml <doubleminus>routes-output out.rou.xml <doubleminus>stops-output out.add.xml-->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 </routes>

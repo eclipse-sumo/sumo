@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 # @author  Yun-Pang Floetteroed
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2010-09-15
 
 """
@@ -34,8 +35,7 @@ import os
 import sys
 import glob
 from datetime import datetime
-from argparse import ArgumentParser
-from duaIterate import call, writeSUMOConf, addGenericOptions
+from duaIterate import call, writeSUMOConf, addGenericOptions, generateEdgedataAddFile
 
 if 'SUMO_HOME' in os.environ:
     TOOLS_DIR = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -48,18 +48,18 @@ else:
 def initOptions():
     jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + \
         glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
-    argParser = ArgumentParser()
+    argParser = sumolib.options.ArgumentParser()
     addGenericOptions(argParser)
-    argParser.add_argument("-r", "--route-alternatives", dest="routes",
+    argParser.add_argument("-r", "--route-alternatives", dest="routes", type=argParser.route_file,
                            help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
-    argParser.add_argument("-d", "--detector-values", dest="detvals",
+    argParser.add_argument("-d", "--detector-values", dest="detvals", type=argParser.file,
                            help="adapt to the flow on the given edges", metavar="FILE")
-    argParser.add_argument("-c", "--classpath", dest="classpath", default=os.pathsep.join(jars),
-                           help="classpath for the calibrator [default: %default]")
+    argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars), type=str,
+                           help="classpath for the calibrator [default: %(default)s]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
-                           type=int, default=100, help="last step of the calibration [default: %default]")
+                           type=int, default=100, help="last step of the calibration [default: %(default)s]")
     argParser.add_argument("-S", "--demandscale", dest="demandscale",
-                           type=float, default=2., help="scaled demand [default: %default]")
+                           type=float, default=2., help="scaled demand [default: %(default)s]")
     argParser.add_argument("-F", "--freezeit",  dest="freezeit",
                            type=int, default=85, help="define the number of iterations for stablizing the results " +
                                                       "in the DTA-calibration")
@@ -80,9 +80,9 @@ def initOptions():
                            default=False, help="No summaries are written by the simulation")
     argParser.add_argument("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                            default=False, help="No tripinfos are written by the simulation")
-    argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix",
+    argParser.add_argument("-M", "--matrix-prefix", dest="fmaprefix", type=str,
                            help="prefix of OD matrix files in visum format")
-    argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix",
+    argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix", type=str,
                            default='-CLONE', help="postfix attached to clone ids")
     argParser.add_argument("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
                            default=False, help="if entering vehicles are assumed to cross the upstream sensor of" +
@@ -99,9 +99,11 @@ def main():
 
     options = argParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
-        argParser.error(
-            "--net-file, --routes and --detector-values have to be given!")
-
+        argParser.error("--net-file, --routes and --detector-values have to be given!")
+    if "cadyts" not in options.classpath:
+        print("""Warning! No cadyts.jar has been found or given. Please use the --classpath option
+ to point to an existing jar file. You may also download it
+ from https://sumo.dlr.de/daily/cadyts.jar and place it in %s/bin.""" % os.environ['SUMO_HOME'], file=sys.stderr)
     sumoBinary = sumolib.checkBinary("sumo", options.path)
     calibrator = ["java", "-cp", options.classpath, "-Xmx1G",
                   "floetteroed.cadyts.interfaces.sumo.SumoController"]
@@ -112,6 +114,7 @@ def main():
     evalprefix = None
     if options.evalprefix:
         evalprefix = options.evalprefix
+    EDGEDATA_ADD = "edgedata.add.xml"
 
     # begin the calibration
     if options.fmaprefix:
@@ -128,12 +131,13 @@ def main():
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                            "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink,
                            "-cntlastlink", options.cntlastlink], log)
-
+    #
+    generateEdgedataAddFile(EDGEDATA_ADD, options)
     for step in range(options.calibStep):
         print('calibration step:', step)
         files = []
         current_directory = os.getcwd()
-        final_directory = os.path.join(current_directory, str(step))
+        final_directory = os.path.join(current_directory, "%03i" % step)
         if not os.path.exists(final_directory):
             os.makedirs(final_directory)
 
@@ -154,7 +158,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        call([sumoBinary, "-c", "%s/iteration_%03i.sumocfg" % (step, step)], log)
+        call([sumoBinary, "-c", "%03i/iteration_%03i.sumocfg" % (step, step)], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -166,7 +170,7 @@ def main():
                 step, step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
             call(calibrator + ["UPDATE", "-netfile",
-                               "%s/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
+                               "%03i/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
         print("< Step %s ended (duration: %s)" %
               (step, datetime.now() - btime))
         print("------------------\n")

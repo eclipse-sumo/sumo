@@ -18,15 +18,23 @@ copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
 copy_test_path:osm.xml
+copy_test_path:osm2.xml
 copy_test_path:osm.xml.gz
 copy_test_path:matsim.xml
 copy_test_path:vissim.inpx
 copy_test_path:opendrive.xodr
+copy_test_path:included.xodr
 copy_test_path:input_plain.nod.xml
 copy_test_path:input_plain.edg.xml
 copy_test_path:input_plain.con.xml
 copy_test_path:input_plain.tll.xml
 copy_test_path:input_plain.typ.xml
+copy_test_path:input_plain2.nod.xml
+copy_test_path:input_plain2.edg.xml
+copy_test_path:input_plain2.con.xml
+copy_test_path:input_plain2.tll.xml
+copy_test_path:input_plain2.typ.xml
+copy_test_path:input_shapes.add.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
 copy_test_path:data
@@ -35,6 +43,7 @@ copy_test_path:input_ptlines.xml
 copy_test_path:osmNetconvertPedestrians.typ.xml
 copy_test_path:osmNetconvert.typ.xml
 copy_test_path:osmNetconvertUrbanDe.typ.xml
+copy_test_path:osm.netccfg
 
 [collate_file]
 net:net.net.xml
@@ -70,6 +79,7 @@ joined_nodes:<!--{[->]}-->
 topology:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="[^"]*"{REPLACE date="DATE"}
+foreign:<!--{[->]}-->
 pois:<!--{[->]}-->
 output:Parsing types from '.*/data/typemap/{REPLACE Parsing types from 'sumo/data/typemap/}
 output:done \(.*\)\.{REPLACE done.}
@@ -99,3 +109,4 @@ cfg:0.000000001
 plain_nodes:0.00000101
 plain_edges:0.00000101
 elmar_nodes:0.0101
+additional:0.0101

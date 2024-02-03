@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-07 17:50:31 by Eclipse SUMO netconvert Version v1_14_1+1517-7c4eae2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-459083.72,-5255432.35" convBoundary="0.00,0.00,612.59,258.29" origBoundary="8.370932,47.273043,8.707403,47.488999" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":247434898_0" function="internal">
+        <lane id=":247434898_0_0" index="0" speed="6.39" length="10.74" width="3.60" shape="408.40,56.88 406.22,54.01 404.10,52.58 402.02,52.60 400.00,54.06"/>
+    </edge>
+    <edge id=":247434898_1" function="internal">
+        <lane id=":247434898_1_0" index="0" speed="10.27" length="18.19" width="3.60" shape="408.40,56.88 404.92,50.74 402.80,45.92 402.04,42.41 402.64,40.21"/>
+    </edge>
+    <edge id=":247434898_2" function="internal">
+        <lane id=":247434898_2_0" index="0" speed="7.43" length="8.97" width="2.70" shape="410.94,47.13 409.77,49.04 409.34,51.06 409.65,53.21 410.70,55.47"/>
+    </edge>
+    <edge id=":247434898_3" function="internal">
+        <lane id=":247434898_3_0" index="0" speed="15.24" length="12.33" width="3.60" shape="408.18,44.82 400.00,54.06"/>
+    </edge>
+    <edge id=":247434898_4" function="internal">
+        <lane id=":247434898_4_0" index="0" speed="15.24" length="11.99" width="3.60" shape="394.69,49.19 402.64,40.21"/>
+    </edge>
+    <edge id=":247434898_5" function="internal">
+        <lane id=":247434898_5_0" index="0" speed="7.98" length="4.12" width="2.70" shape="397.34,51.62 400.65,49.17"/>
+    </edge>
+    <edge id=":247434898_6" function="internal">
+        <lane id=":247434898_6_0" index="0" speed="7.98" length="12.82" width="2.70" shape="400.65,49.17 403.98,48.99 407.33,51.09 410.70,55.47"/>
+    </edge>
+    <edge id=":305255404_0" function="internal">
+        <lane id=":305255404_0_0" index="0" speed="7.30" length="11.87" width="3.60" shape="93.40,235.11 92.66,231.15 91.37,228.40 89.53,226.87 87.14,226.56"/>
+    </edge>
+    <edge id=":305255404_1" function="internal">
+        <lane id=":305255404_1_0" index="0" speed="8.87" length="16.71" width="3.60" shape="93.40,235.11 93.29,229.50 94.23,225.30 96.24,222.52 99.31,221.14"/>
+    </edge>
+    <edge id=":305255404_2" function="internal">
+        <lane id=":305255404_2_0" index="0" speed="6.73" length="8.99" width="2.70" shape="100.62,228.22 98.42,228.99 96.93,230.35 96.15,232.30 96.08,234.84"/>
+    </edge>
+    <edge id=":305255404_3" function="internal">
+        <lane id=":305255404_3_0" index="0" speed="18.01" length="12.97" width="3.60" shape="99.97,224.68 87.14,226.56"/>
+    </edge>
+    <edge id=":305255404_4" function="internal">
+        <lane id=":305255404_4_0" index="0" speed="18.01" length="13.20" width="3.60" shape="86.34,219.40 90.42,219.50 93.42,220.35 96.12,221.16 99.31,221.14"/>
+    </edge>
+    <edge id=":305255404_5" function="internal">
+        <lane id=":305255404_5_0" index="0" speed="8.71" length="3.47" width="2.70" shape="86.74,222.98 90.19,223.37"/>
+    </edge>
+    <edge id=":305255404_6" function="internal">
+        <lane id=":305255404_6_0" index="0" speed="8.71" length="13.52" width="2.70" shape="90.19,223.37 90.34,223.39 93.10,225.50 95.01,229.32 96.08,234.84"/>
+    </edge>
+    <edge id=":434325155_0" function="internal">
+        <lane id=":434325155_0_0" index="0" speed="8.33" length="12.73" width="2.70" shape="426.42,77.82 423.09,78.51 420.22,79.26 417.39,80.16 414.20,81.33"/>
+    </edge>
+    <edge id=":434325155_1" function="internal">
+        <lane id=":434325155_1_0" index="0" speed="8.33" length="12.97" width="2.70" shape="426.42,77.82 423.13,77.95 420.31,77.01 417.95,75.00 416.05,71.93"/>
+    </edge>
+    <edge id=":434325155_2" function="internal">
+        <lane id=":434325155_2_0" index="0" speed="7.23" length="9.36" width="2.70" shape="418.50,70.79 419.89,73.06 421.58,74.54 423.59,75.24 425.92,75.17"/>
+    </edge>
+    <edge id=":434325155_3" function="internal">
+        <lane id=":434325155_3_0" index="0" speed="7.51" length="13.19" width="2.70" shape="418.50,70.79 419.55,74.29 419.18,77.22 417.40,79.56 414.20,81.33"/>
+    </edge>
+    <edge id=":434325155_4" function="internal">
+        <lane id=":434325155_4_0" index="0" speed="6.17" length="8.61" width="2.70" shape="413.24,78.81 415.33,77.65 416.49,76.12 416.73,74.21 416.05,71.93"/>
+    </edge>
+    <edge id=":434325155_5" function="internal">
+        <lane id=":434325155_5_0" index="0" speed="8.33" length="13.21" width="2.70" shape="413.24,78.81 416.51,77.62 419.49,76.67 422.52,75.88 425.92,75.17"/>
+    </edge>
+    <edge id=":461700819_0" function="internal">
+        <lane id=":461700819_0_0" index="0" speed="7.90" length="7.39" width="2.70" shape="97.26,246.41 97.65,248.01 98.52,249.47 99.84,250.81 101.63,252.02"/>
+    </edge>
+    <edge id=":461932913_0" function="internal">
+        <lane id=":461932913_0_0" index="0" speed="7.65" length="7.62" width="2.70" shape="103.23,253.25 104.79,254.80 106.41,255.82 108.10,256.32 109.84,256.30"/>
+    </edge>
+    <edge id=":47056735_0" function="internal">
+        <lane id=":47056735_0_0" index="0" speed="13.80" length="7.59" width="3.60" shape="359.04,98.73 357.51,100.38 356.43,101.48 355.29,102.52 353.59,103.99"/>
+    </edge>
+    <edge id=":47056735_1" function="internal">
+        <lane id=":47056735_1_0" index="0" speed="13.80" length="7.61" width="3.60" shape="351.25,101.25 352.52,99.43 352.61,97.69 352.65,95.87 353.73,93.86"/>
+        <lane id=":47056735_1_1" index="1" speed="13.80" length="7.61" width="3.60" shape="351.25,101.25 352.86,99.87 353.93,98.89 354.95,97.85 356.39,96.30"/>
+    </edge>
+    <edge id=":6412845260_0" function="internal">
+        <lane id=":6412845260_0_0" index="0" speed="13.80" length="8.50" width="3.60" shape="182.14,206.04 179.95,207.34 178.89,208.98 177.83,210.63 175.65,211.93"/>
+        <lane id=":6412845260_0_1" index="1" speed="13.80" length="8.50" width="3.60" shape="182.14,206.04 174.53,208.51"/>
+    </edge>
+    <edge id=":6412845260_2" function="internal">
+        <lane id=":6412845260_2_0" index="0" speed="13.80" length="8.00" width="3.60" shape="173.42,205.09 181.03,202.61"/>
+    </edge>
+
+    <edge id="-36985677" from="6412845260" to="47056735" priority="11" type="highway.secondary" shape="177.78,205.56 212.83,194.20 259.19,171.65 306.25,142.09 355.26,100.19">
+        <lane id="-36985677_0" index="0" speed="13.80" length="200.00" width="3.60" shape="181.03,202.61 212.16,192.53 258.32,170.07 305.18,140.64 351.25,101.25">
+            <param key="origId" value="36985677"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="-36985678" from="247434898" to="434325155" priority="3" type="highway.residential" shape="403.97,47.06 412.44,60.89 420.17,77.62">
+        <lane id="-36985678_0" index="0" speed="8.33" length="17.22" width="2.70" shape="410.70,55.47 413.63,60.25 418.50,70.79">
+            <param key="origId" value="36985678"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="-38867748" from="305255404" to="461700819" priority="3" type="highway.residential">
+        <lane id="-38867748_0" index="0" speed="8.33" length="11.63" width="2.70" shape="96.08,234.84 97.26,246.41">
+            <param key="origId" value="38867748"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="-605015893" from="434325155" to="247434893" priority="3" type="highway.residential" shape="420.17,77.62 435.52,74.74 448.72,75.42 463.80,74.99 473.36,74.14 491.97,72.57 511.41,70.66 526.17,69.11 544.03,67.32 593.63,77.54 603.13,78.03 606.07,121.46 609.12,137.56 612.59,170.99">
+        <lane id="-605015893_0" index="0" speed="8.33" length="274.77" width="2.70" shape="425.92,75.17 435.43,73.38 448.74,74.07 463.72,73.64 473.24,72.79 491.85,71.23 511.27,69.32 526.03,67.77 544.10,65.96 593.80,76.20 604.40,76.74 607.41,121.29 610.46,137.36 613.93,170.85">
+            <param key="origId" value="605015893 605015894 605015891 605015892 31312057 22964977"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="layer" value="-1"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="-684478253#1" from="247434898" to="94576278" priority="11" type="highway.secondary" shape="403.97,47.06 438.89,5.14 442.62,0.00">
+        <lane id="-684478253#1_0" index="0" speed="16.67" length="56.26" width="3.60" shape="402.64,40.21 434.63,1.82 438.25,-3.17">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <lane id="-684478253#1_1" index="1" disallow="all" speed="16.67" length="56.26" width="3.60" shape="405.41,42.52 437.47,4.03 441.16,-1.06">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <param key="bus:lanes:backward" value="designated|permissive"/>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="4"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="maxspeed" value="60"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+        <param key="vehicle:lanes:backward" value="no|yes"/>
+    </edge>
+    <edge id="-684478254" from="47056735" to="247434898" priority="11" type="highway.secondary">
+        <lane id="-684478254_0" index="0" speed="13.80" length="60.61" width="3.60" shape="353.73,93.86 394.69,49.19">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <lane id="-684478254_1" index="1" speed="13.80" length="60.61" width="3.60" shape="356.39,96.30 397.34,51.62">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="-684478255#1" from="305255404" to="6412845260" priority="11" type="highway.secondary" shape="93.63,224.03 115.32,219.99 157.55,212.14 177.78,205.56">
+        <lane id="-684478255#1_0" index="0" speed="13.80" length="75.95" width="3.60" shape="99.31,221.14 114.99,218.22 157.11,210.39 173.42,205.09">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="1"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+    </edge>
+    <edge id="-684478256" from="295511806" to="305255404" priority="11" type="highway.secondary" shape="0.00,234.02 51.83,228.66 93.63,224.03">
+        <lane id="-684478256_0" index="0" speed="22.22" length="87.40" width="3.60" shape="-0.56,228.65 51.26,223.29 86.34,219.40">
+            <param key="origId" value="684478256 670870213"/>
+        </lane>
+        <lane id="-684478256_1" index="1" speed="22.22" length="87.40" width="3.60" shape="-0.19,232.23 51.64,226.87 86.74,222.98">
+            <param key="origId" value="684478256 670870213"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="maxspeed" value="80"/>
+        <param key="name" value="Furttalstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="-856802543#1" from="461932913" to="434325155" priority="3" type="highway.residential" shape="105.93,258.29 111.81,257.36 115.49,256.45 119.03,254.87 122.62,251.73 130.03,244.01 135.05,239.08 137.82,236.51 145.41,232.57 152.55,229.40 192.26,216.35 215.79,207.07 261.11,187.64 287.31,171.79 314.76,151.81 356.29,118.41 361.84,113.81 380.80,97.90 388.08,93.18 411.22,81.02 420.17,77.62">
+        <lane id="-856802543#1_0" index="0" speed="8.33" length="355.54" width="2.70" shape="109.84,256.30 111.54,256.04 115.05,255.17 118.29,253.72 121.69,250.75 129.07,243.06 134.12,238.10 137.04,235.40 144.82,231.35 152.06,228.14 191.80,215.08 215.28,205.82 260.49,186.44 286.56,170.66 313.94,150.74 355.44,117.36 360.98,112.77 380.00,96.81 387.40,92.01 410.66,79.79 413.24,78.81">
+            <param key="origId" value="856802543 856802543 210954518 210954518 27802454"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="22964977#0" from="247434893" to="434325155" priority="3" type="highway.residential" shape="612.59,170.99 609.12,137.56 606.07,121.46 603.13,78.03 593.63,77.54 544.03,67.32 526.17,69.11 511.41,70.66 491.97,72.57 473.36,74.14 463.80,74.99 448.72,75.42 435.52,74.74 420.17,77.62">
+        <lane id="22964977#0_0" index="0" speed="8.33" length="269.42" width="2.70" shape="611.25,171.13 607.78,137.76 604.73,121.63 601.86,79.32 593.46,78.88 543.96,68.68 526.31,70.45 511.55,72.00 492.09,73.91 473.48,75.49 463.88,76.34 448.70,76.77 435.61,76.10 426.42,77.82">
+            <param key="origId" value="22964977 31312057 605015892 605015891 605015894 605015893"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Bachtobelstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="27802454#0" from="434325155" to="461932913" priority="3" type="highway.residential" shape="420.17,77.62 411.22,81.02 388.08,93.18 380.80,97.90 361.84,113.81 356.29,118.41 314.76,151.81 287.31,171.79 261.11,187.64 215.79,207.07 192.26,216.35 152.55,229.40 145.41,232.57 137.82,236.51 135.05,239.08 130.03,244.01 122.62,251.73 119.03,254.87 115.49,256.45 111.81,257.36 105.93,258.29">
+        <lane id="27802454#0_0" index="0" speed="8.33" length="356.10" width="2.70" shape="414.20,81.33 411.78,82.25 388.76,94.35 381.60,98.99 362.71,114.85 357.14,119.46 315.58,152.88 288.06,172.92 261.73,188.84 216.30,208.32 192.72,217.62 153.04,230.66 146.00,233.79 138.60,237.62 135.98,240.06 130.99,244.96 123.55,252.71 119.77,256.02 115.93,257.73 112.08,258.68 110.27,258.97">
+            <param key="origId" value="27802454 210954518 210954518 856802543 856802543"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+    </edge>
+    <edge id="36985677" from="47056735" to="6412845260" priority="11" type="highway.secondary" shape="355.26,100.19 306.25,142.09 259.19,171.65 212.83,194.20 177.78,205.56">
+        <lane id="36985677_0" index="0" speed="13.80" length="201.42" width="3.60" shape="353.59,103.99 307.32,143.54 260.06,173.23 213.50,195.87 182.14,206.04">
+            <param key="origId" value="36985677"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="36985678" from="434325155" to="247434898" priority="3" type="highway.residential" shape="420.17,77.62 412.44,60.89 403.97,47.06">
+        <lane id="36985678_0" index="0" speed="8.33" length="16.91" width="2.70" shape="416.05,71.93 411.25,61.53 408.40,56.88">
+            <param key="origId" value="36985678"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Hummelackerstrasse"/>
+    </edge>
+    <edge id="38867744#2" from="461700819" to="461932913" priority="3" type="highway.residential" spreadType="center" shape="96.31,250.47 99.63,250.89 102.73,252.65 104.78,255.08 105.93,258.29">
+        <lane id="38867744#2_0" index="0" speed="8.33" length="2.05" width="2.70" shape="101.63,252.02 102.73,252.65 103.23,253.25">
+            <param key="origId" value="38867744"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="junction" value="roundabout"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="38867748" from="461700819" to="305255404" priority="3" type="highway.residential">
+        <lane id="38867748_0" index="0" speed="8.33" length="11.63" width="2.70" shape="94.57,246.68 93.40,235.11">
+            <param key="origId" value="38867748"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="maxspeed" value="30"/>
+        <param key="name" value="Steinstrasse"/>
+        <param key="surface" value="asphalt"/>
+    </edge>
+    <edge id="670870213" from="305255404" to="295511806" priority="11" type="highway.secondary" shape="93.63,224.03 51.83,228.66 0.00,234.02">
+        <lane id="670870213_0" index="0" speed="22.22" length="87.44" width="3.60" shape="87.14,226.56 52.02,230.45 0.19,235.81">
+            <param key="origId" value="670870213 684478256"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="maxspeed" value="80"/>
+        <param key="name" value="Furttalstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="684478253#0" from="94576278" to="247434898" priority="11" type="highway.secondary" shape="442.62,0.00 438.89,5.14 403.97,47.06">
+        <lane id="684478253#0_0" index="0" speed="16.67" length="56.74" width="3.60" shape="446.99,3.17 443.15,8.46 410.94,47.13">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <lane id="684478253#0_1" index="1" speed="16.67" length="56.74" width="3.60" shape="444.08,1.06 440.31,6.25 408.18,44.82">
+            <param key="origId" value="684478253"/>
+        </lane>
+        <param key="bus:lanes:backward" value="designated|permissive"/>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="4"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="maxspeed" value="60"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+        <param key="vehicle:lanes:backward" value="no|yes"/>
+    </edge>
+    <edge id="684478254" from="247434898" to="47056735" priority="11" type="highway.secondary">
+        <lane id="684478254_0" index="0" speed="13.80" length="60.61" width="3.60" shape="400.00,54.06 359.04,98.73">
+            <param key="origId" value="684478254"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="2"/>
+        <param key="lanes:forward" value="1"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:backward" value="left|through"/>
+    </edge>
+    <edge id="684478255#0" from="6412845260" to="305255404" priority="11" type="highway.secondary" shape="177.78,205.56 157.55,212.14 115.32,219.99 93.63,224.03">
+        <lane id="684478255#0_0" index="0" speed="13.80" length="76.65" width="3.60" shape="175.65,211.93 158.88,217.38 116.31,225.30 100.62,228.22">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <lane id="684478255#0_1" index="1" speed="13.80" length="76.65" width="3.60" shape="174.53,208.51 157.99,213.89 115.65,221.76 99.97,224.68">
+            <param key="origId" value="684478255"/>
+        </lane>
+        <param key="highway" value="secondary"/>
+        <param key="lanes" value="3"/>
+        <param key="lanes:backward" value="1"/>
+        <param key="lanes:forward" value="2"/>
+        <param key="name" value="Buchserstrasse"/>
+        <param key="ref" value="297"/>
+        <param key="surface" value="asphalt"/>
+        <param key="turn:lanes:forward" value="through|right"/>
+    </edge>
+
+    <junction id="247434893" type="dead_end" x="612.59" y="170.99" incLanes="-605015893_0" intLanes="" shape="612.59,170.99 615.28,170.71 612.59,170.99"/>
+    <junction id="247434898" type="priority" x="403.97" y="47.06" incLanes="36985678_0 684478253#0_0 684478253#0_1 -684478254_0 -684478254_1" intLanes=":247434898_0_0 :247434898_1_0 :247434898_2_0 :247434898_3_0 :247434898_4_0 :247434898_6_0" shape="407.25,57.58 411.85,54.76 410.98,52.53 410.93,51.44 411.14,50.37 411.60,49.31 412.33,48.28 401.26,39.06 393.36,47.97 401.32,55.27 403.18,54.22 404.16,54.38 405.16,54.99 406.19,56.06">
+        <request index="0" response="001000" foes="001000" cont="0"/>
+        <request index="1" response="111000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="100000" cont="0"/>
+        <request index="3" response="000000" foes="100011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="001100" foes="001110" cont="1"/>
+    </junction>
+    <junction id="295511806" type="dead_end" x="0.00" y="234.02" incLanes="670870213_0" intLanes="" shape="0.00,234.02 0.37,237.60 0.00,234.02"/>
+    <junction id="305255404" type="priority" x="93.63" y="224.03" incLanes="38867748_0 684478255#0_0 684478255#0_1 -684478256_0 -684478256_1" intLanes=":305255404_0_0 :305255404_1_0 :305255404_2_0 :305255404_3_0 :305255404_4_0 :305255404_6_0" shape="92.05,235.25 97.43,234.70 97.64,232.41 98.11,231.53 98.81,230.84 99.76,230.32 100.95,229.99 98.98,219.37 96.26,219.60 94.25,219.29 92.59,218.67 90.92,218.02 88.89,217.58 86.14,217.62 87.33,228.35 89.63,228.92 90.50,229.85 91.20,231.22 91.72,233.02">
+        <request index="0" response="001000" foes="001000" cont="0"/>
+        <request index="1" response="111000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="100000" cont="0"/>
+        <request index="3" response="000000" foes="100011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="001100" foes="001110" cont="1"/>
+    </junction>
+    <junction id="434325155" type="right_before_left" x="420.17" y="77.62" incLanes="22964977#0_0 -36985678_0 -856802543#1_0" intLanes=":434325155_0_0 :434325155_1_0 :434325155_2_0 :434325155_3_0 :434325155_4_0 :434325155_5_0" shape="426.67,79.15 425.67,73.84 423.26,73.77 422.22,73.31 421.28,72.56 420.45,71.54 419.73,70.23 414.83,72.49 415.34,74.67 415.15,75.57 414.66,76.35 413.86,77.01 412.77,77.54 414.68,82.59 417.17,81.65 419.02,80.97 420.56,80.47 422.13,80.06 424.06,79.65">
+        <request index="0" response="000000" foes="001000" cont="0"/>
+        <request index="1" response="110000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="100000" cont="0"/>
+        <request index="3" response="000011" foes="100011" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="001100" foes="001110" cont="0"/>
+    </junction>
+    <junction id="461700819" type="priority" x="96.31" y="250.47" incLanes="-38867748_0" intLanes=":461700819_0_0" shape="101.42,253.46 101.83,250.59 100.15,249.36 99.54,248.67 99.08,247.92 98.76,247.12 98.60,246.27 93.23,246.82 94.23,248.49 95.38,249.53 96.96,250.71 98.98,252.02">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="461932913" type="priority" x="105.93" y="258.29" incLanes="27802454#0_0 38867744#2_0" intLanes=":461932913_0_0" shape="110.48,260.30 109.63,254.97 107.83,254.92 106.97,254.64 106.14,254.18 105.35,253.55 104.58,252.75 101.89,253.75 103.76,255.18 105.00,256.80 105.92,258.33 106.91,259.57 108.30,260.30">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="47056735" type="priority" x="355.26" y="100.19" incLanes="684478254_0 -36985677_0" intLanes=":47056735_0_0 :47056735_1_0 :47056735_1_1" shape="360.37,99.95 352.41,92.65 351.30,95.22 351.36,96.39 351.39,97.53 351.07,98.69 350.08,99.88 354.76,105.36 356.94,103.47 357.69,102.78 358.40,102.06 359.24,101.17">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="6412845260" type="priority" x="177.78" y="205.56" incLanes="36985677_0 -684478255#1_0" intLanes=":6412845260_0_0 :6412845260_0_1 :6412845260_2_0" shape="182.70,207.75 180.48,200.90 172.86,203.37 176.20,213.64 178.81,211.81 180.09,209.58 181.06,208.56">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="94576278" type="dead_end" x="442.62" y="0.00" incLanes="-684478253#1_0 -684478253#1_1" intLanes="" shape="442.62,-0.00 436.79,-4.23 439.71,-2.11"/>
+
+    <junction id=":247434898_6_0" type="internal" x="400.65" y="49.17" incLanes=":247434898_5_0 684478253#0_0 684478253#0_1" intLanes=":247434898_1_0 :247434898_2_0 :247434898_3_0"/>
+    <junction id=":305255404_6_0" type="internal" x="90.19" y="223.37" incLanes=":305255404_5_0 684478255#0_0 684478255#0_1" intLanes=":305255404_1_0 :305255404_2_0 :305255404_3_0"/>
+
+    <connection from="-36985677" to="-684478254" fromLane="0" toLane="0" via=":47056735_1_0" dir="s" state="M"/>
+    <connection from="-36985677" to="-684478254" fromLane="0" toLane="1" via=":47056735_1_1" dir="s" state="M"/>
+    <connection from="-36985678" to="-605015893" fromLane="0" toLane="0" via=":434325155_2_0" dir="r" state="M"/>
+    <connection from="-36985678" to="27802454#0" fromLane="0" toLane="0" via=":434325155_3_0" dir="l" state="="/>
+    <connection from="-38867748" to="38867744#2" fromLane="0" toLane="0" via=":461700819_0_0" dir="r" state="M" visibility="9.00"/>
+    <connection from="-684478254" to="-684478253#1" fromLane="0" toLane="0" via=":247434898_4_0" dir="s" state="M"/>
+    <connection from="-684478254" to="-36985678" fromLane="1" toLane="0" via=":247434898_5_0" dir="l" state="m"/>
+    <connection from="-684478255#1" to="-36985677" fromLane="0" toLane="0" via=":6412845260_2_0" dir="s" state="M"/>
+    <connection from="-684478256" to="-684478255#1" fromLane="0" toLane="0" via=":305255404_4_0" dir="s" state="M"/>
+    <connection from="-684478256" to="-38867748" fromLane="1" toLane="0" via=":305255404_5_0" dir="l" state="m"/>
+    <connection from="-856802543#1" to="36985678" fromLane="0" toLane="0" via=":434325155_4_0" dir="r" state="M"/>
+    <connection from="-856802543#1" to="-605015893" fromLane="0" toLane="0" via=":434325155_5_0" dir="s" state="="/>
+    <connection from="22964977#0" to="27802454#0" fromLane="0" toLane="0" via=":434325155_0_0" dir="s" state="M"/>
+    <connection from="22964977#0" to="36985678" fromLane="0" toLane="0" via=":434325155_1_0" dir="l" state="="/>
+    <connection from="36985677" to="684478255#0" fromLane="0" toLane="0" via=":6412845260_0_0" dir="s" state="M"/>
+    <connection from="36985677" to="684478255#0" fromLane="0" toLane="1" via=":6412845260_0_1" dir="s" state="M"/>
+    <connection from="36985678" to="684478254" fromLane="0" toLane="0" via=":247434898_0_0" dir="r" state="m"/>
+    <connection from="36985678" to="-684478253#1" fromLane="0" toLane="0" via=":247434898_1_0" dir="l" state="m"/>
+    <connection from="38867744#2" to="-856802543#1" fromLane="0" toLane="0" via=":461932913_0_0" dir="r" state="M"/>
+    <connection from="38867748" to="670870213" fromLane="0" toLane="0" via=":305255404_0_0" dir="r" state="m"/>
+    <connection from="38867748" to="-684478255#1" fromLane="0" toLane="0" via=":305255404_1_0" dir="l" state="m"/>
+    <connection from="684478253#0" to="-36985678" fromLane="0" toLane="0" via=":247434898_2_0" dir="r" state="M"/>
+    <connection from="684478253#0" to="684478254" fromLane="1" toLane="0" via=":247434898_3_0" dir="s" state="M"/>
+    <connection from="684478254" to="36985677" fromLane="0" toLane="0" via=":47056735_0_0" dir="s" state="M"/>
+    <connection from="684478255#0" to="-38867748" fromLane="0" toLane="0" via=":305255404_2_0" dir="r" state="M"/>
+    <connection from="684478255#0" to="670870213" fromLane="1" toLane="0" via=":305255404_3_0" dir="s" state="M"/>
+
+    <connection from=":247434898_0" to="684478254" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":247434898_1" to="-684478253#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":247434898_2" to="-36985678" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":247434898_3" to="684478254" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":247434898_4" to="-684478253#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":247434898_5" to="-36985678" fromLane="0" toLane="0" via=":247434898_6_0" dir="l" state="m"/>
+    <connection from=":247434898_6" to="-36985678" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":305255404_0" to="670870213" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":305255404_1" to="-684478255#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":305255404_2" to="-38867748" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":305255404_3" to="670870213" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":305255404_4" to="-684478255#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":305255404_5" to="-38867748" fromLane="0" toLane="0" via=":305255404_6_0" dir="l" state="m"/>
+    <connection from=":305255404_6" to="-38867748" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":434325155_0" to="27802454#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":434325155_1" to="36985678" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":434325155_2" to="-605015893" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":434325155_3" to="27802454#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":434325155_4" to="36985678" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":434325155_5" to="-605015893" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":461700819_0" to="38867744#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":461932913_0" to="-856802543#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":47056735_0" to="36985677" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":47056735_1" to="-684478254" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":47056735_1" to="-684478254" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":6412845260_0" to="684478255#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":6412845260_0" to="684478255#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":6412845260_2" to="-36985677" fromLane="0" toLane="0" dir="s" state="M"/>
+
+    <roundabout nodes="461932913" edges="38867744#2"/>
+
+</net>

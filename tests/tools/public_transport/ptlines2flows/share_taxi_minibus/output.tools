@@ -1,0 +1,10 @@
+generating trips...
+Cannot extend route to fringe for line '3' (not enough edges given)
+Imported 2 lines with 4 stops and skipped 0 lines
+   minibus: 1
+   share_taxi: 1
+done.
+running SUMO to determine actual departure times...
+done.
+creating routes...
+done.

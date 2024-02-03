@@ -1,0 +1,8 @@
+Loading SUMO network: net.net.xml
+Loading parking file: input_additional.add.xml
+Computing distances and sorting parking alternatives.
+Computed 3 rerouters.
+Creation of out.add.xml
+out.add.xml created.
+Done.
+Cache: hits 0, misses 6, used 0.0%.

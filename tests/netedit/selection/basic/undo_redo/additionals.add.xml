@@ -1,0 +1,23 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop" lane="3_1" startPos="0.20" endPos="10.20"/>
+
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector1" lane="6_1" pos="36.66" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector2" lane="6_1" pos="26.66" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector3" lane="2_1" pos="4.87" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector4" lane="2_1" pos="5.87" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="6.40" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector6" lane="4_1" pos="7.40" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector7" lane="7_2" pos="36.48" friendlyPos="1"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="26.48" friendlyPos="1"/>
+
+    <poly id="poly" color="green" fill="1" layer="0.00" shape="35.00,63.00 29.00,63.00 29.00,69.00 35.00,69.00 35.00,63.00"/>
+
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+
+    <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
+    <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
+    <poi id="POI_2" color="red" layer="3.00" x="29.00" y="72.00" width="0.00" height="0.00"/>
+    <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
+    <poi id="POI_4" color="red" layer="3.00" lane="6_1" pos="28.00" width="0.00" height="0.00"/>
+    <poi id="POI_5" color="red" layer="3.00" lane="3_1" pos="12.90" width="0.00" height="0.00"/>
+</additional>

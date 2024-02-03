@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:33 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:04 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -48,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-30.00,0.00,30.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
 
@@ -132,13 +137,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
     <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
     <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0" via=":node_up_0_0" dir="t" state="M"/>
-    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" dir="s" state="="/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" dir="s" state="M"/>
     <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_7_0" dir="l" state="="/>
     <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_8_0" dir="t" state="="/>
-    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" dir="r" state="="/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" dir="r" state="M"/>
     <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_4_0" dir="s" state="="/>
     <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_5_0" dir="t" state="="/>
-    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_0_0" dir="r" state="="/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_0_0" dir="r" state="M"/>
     <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_1_0" dir="l" state="="/>
     <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_2_0" dir="t" state="="/>
 

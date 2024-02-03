@@ -1,0 +1,3 @@
+Error: Attribute 'color' in definition of trip 'trip_0' Invalid color definition 'dummycolor'.
+Error: Attribute 'color' in definition of trip 'trip_1' Invalid color definition ''.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.25Jan182728.9910/netedit.daily.demand.trip/demandelements/trip/load/color/routes.rou.xml failed.

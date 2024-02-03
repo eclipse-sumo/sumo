@@ -1,2 +1,2 @@
-Error: Attribute 'priority' in definition of edge '4' is not of type int.
+Error: Attribute 'priority' in definition of edge '4' Invalid Number Format (long long integer format) a.
 Quitting (on error).

@@ -1,2 +1,4 @@
+Warning: Teleporting vehicle 'tripCloseEnroute'; waited too long, from edge 'middle':4, time=336.99.
 Warning: Vehicle 'tripCloseEnroute' is not allowed on source edge 'middle2'.
 Warning: No route for vehicle 'tripCloseEnroute' found.
+Warning: Vehicle 'tripCloseEnroute' ends teleporting on edge 'end':0, time=354.99.

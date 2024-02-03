@@ -1,0 +1,23 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
+
+   <tlLogic id="0" type="static" programID="S1" offset="0">
+      <phase duration="50" state="GGggrrrrGGggrrrr"/>
+   </tlLogic>
+
+   <tlLogic id="0" type="static" programID="S2" offset="0">
+      <phase duration="50" state="rrrrGGggrrrrGGgg"/>
+   </tlLogic>
+
+
+	<WAUT startProg="0" refTime="0" id="w1">
+		<wautSwitch to="S1" time="200"></wautSwitch>
+	</WAUT>
+
+	<wautJunction junctionID="0" wautID="w1"></wautJunction>
+
+
+
+
+
+</additional>

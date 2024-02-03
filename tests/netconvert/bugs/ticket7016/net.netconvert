@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:04 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-05-09 15:52:52 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -22,105 +27,34 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-348988.12,-5782727.78" convBoundary="38097.03,33904.72,38556.87,34057.72" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <type id="0000000001_-1" allow="pedestrian"/>
-    <type id="0000000001_15" allow="pedestrian"/>
-    <type id="0001000000_3" allow="emergency"/>
-    <type id="0001000001_11" allow="emergency pedestrian"/>
-    <type id="0001000001_13" allow="emergency pedestrian"/>
-    <type id="0001000001_2" allow="emergency pedestrian"/>
-    <type id="0001000001_3" allow="emergency pedestrian"/>
-    <type id="0001001001_13" allow="emergency pedestrian delivery"/>
-    <type id="0001001001_14" allow="emergency pedestrian delivery"/>
-    <type id="0001001001_3" allow="emergency pedestrian delivery"/>
-    <type id="0001010000_3" allow="emergency bus coach"/>
-    <type id="0001010001_11" allow="emergency pedestrian bus coach"/>
-    <type id="0001010001_3" allow="emergency pedestrian bus coach"/>
-    <type id="0001011001_14" allow="emergency pedestrian delivery"/>
-    <type id="0001100000_3" allow="emergency taxi"/>
-    <type id="0001100001_3" allow="emergency pedestrian taxi"/>
-    <type id="0001101001_14" allow="emergency pedestrian delivery"/>
-    <type id="0001101001_3" allow="emergency pedestrian taxi delivery"/>
-    <type id="0001110000_3" allow="emergency taxi bus coach"/>
-    <type id="0001110001_2" allow="emergency pedestrian taxi bus coach"/>
-    <type id="0001110001_3" allow="emergency pedestrian taxi bus coach"/>
-    <type id="0001111001_14" allow="emergency pedestrian delivery"/>
-    <type id="0111000001_3" allow="emergency vip pedestrian passenger hov"/>
-    <type id="0111001001_3" allow="emergency vip pedestrian passenger hov delivery"/>
-    <type id="0111100001_3" allow="emergency vip pedestrian passenger hov taxi"/>
-    <type id="0111101001_3" allow="emergency vip pedestrian passenger hov taxi delivery"/>
-    <type id="0111101101_3" allow="emergency vip pedestrian passenger hov taxi delivery truck trailer custom1"/>
-    <type id="0111110001_3" allow="emergency vip pedestrian passenger hov taxi bus coach"/>
-    <type id="0111111000_13" allow="emergency vip passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_11" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_12" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_13" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_2" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_3" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111001_4" allow="emergency vip pedestrian passenger hov taxi bus coach delivery"/>
-    <type id="0111111100_1" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111100_10" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111100_12" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111100_13" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111100_2" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111100_3" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111101_11" allow="emergency vip pedestrian passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111101_14" allow="emergency pedestrian delivery"/>
-    <type id="0111111101_2" allow="emergency vip pedestrian passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="0111111101_3" allow="emergency vip pedestrian passenger hov taxi bus coach delivery truck trailer custom1"/>
-    <type id="1000000000_-1" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_10" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_11" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_12" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_13" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_2" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_4" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_5" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000000_9" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000100_10" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000100_13" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000100_2" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000000100_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000001100_2" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1000001100_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1001010001_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1001011001_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1001110001_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110001101_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110111100_11" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110111100_12" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110111100_13" disallow="tram rail_urban rail rail_electric ship"/>
     <type id="1110111100_2" disallow="tram rail_urban rail rail_electric ship"/>
     <type id="1110111100_3" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110111100_4" disallow="tram rail_urban rail rail_electric ship"/>
-    <type id="1110111100_5" disallow="tram rail_urban rail rail_electric ship"/>
 
     <edge id="-53475491" from="cluster_61034039_61034040_61034041_61034042" to="61034044" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38274.24,33914.28 38288.37,33908.39 38302.55,33904.72">
         <lane id="-53475491_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="54.72" shape="38274.24,33914.28 38288.37,33908.39 38302.28,33904.79">
@@ -333,7 +267,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="53475480" to="835919103" fromLane="0" toLane="0" tl="joinedS_63" linkIndex="13" dir="r" state="o"/>
     <connection from="53475480" to="53475361" fromLane="0" toLane="0" tl="joinedS_63" linkIndex="14" dir="s" state="o"/>
     <connection from="53475480" to="-821622631" fromLane="0" toLane="1" tl="joinedS_63" linkIndex="15" dir="l" state="o"/>
-    <connection from="53475490" to="53475480" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="53475490" to="53475480" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="53475492" to="53475454" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="53475492" to="53475454" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="53496442" to="-77270050" fromLane="1" toLane="1" dir="t" state="M"/>

@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@ from __future__ import absolute_import
 
 from xml.sax import handler, parse
 from .. import color
+from .. import miscutils
 
 
 def getBoundingBox(shape):
@@ -41,6 +42,8 @@ class Polygon:
         self.id = id
         self.type = type
         self.color = color
+        if layer is not None:
+            layer = miscutils.intIfPossible(float(layer))
         self.layer = layer
         self.fill = fill
         self.shape = shape
@@ -99,8 +102,8 @@ class PolygonReader(handler.ContentHandler):
                 cshape.append((float(p[0]), float(p[1])))
             if name == 'poly' and not self._includeTaz:
                 c = color.decodeXML(attrs['color'])
-                poly = Polygon(attrs['id'], attrs['type'], c, float(
-                               attrs['layer']), attrs['fill'], cshape)
+                poly = Polygon(attrs['id'], attrs.get('type'), c,
+                               attrs.get('layer'), attrs.get('fill'), cshape)
             else:
                 poly = Polygon(attrs['id'], color=attrs.get('color'), shape=cshape)
             self._id2poly[poly.id] = poly

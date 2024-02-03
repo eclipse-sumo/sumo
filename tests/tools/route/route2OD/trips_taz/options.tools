@@ -1,0 +1,2 @@
+-r input_trips.trips.xml -a input_additional.add.xml -o od.xml
+tools/route/route2OD.py

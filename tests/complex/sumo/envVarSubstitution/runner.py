@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,6 +16,7 @@
 # @date    2019-11-10
 
 from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -29,6 +30,19 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 # Set the example environment variable
 os.environ["NETFILENAME"] = "input_net"
+os.environ["HOME"] = os.path.abspath(os.curdir)
+
+# write config
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg",
+                 "--collision-output", "~/collision.xml",
+                 "--tripinfo", "${PID}.trips.xml", "--summary", "sum${UTC}.xml", "--log", "log${LOCALTIME}.log"])
 
 # file output direct
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg"])
+subprocess.call([sumoBinary, "-c", "config.sumocfg"])
+
+files = list(sorted(os.listdir(".")))
+print("uncheck:", files, os.curdir)
+assert(files[0].endswith(".trips.xml"))
+assert(int(files[0][:-10]) > 0)
+assert("collision.xml" in files)
+assert(len(files) == 11)

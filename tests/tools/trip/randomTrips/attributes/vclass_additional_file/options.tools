@@ -1,0 +1,1 @@
+-n net2.net.xml -s 42 --vclass truck -a input_additional.add.xml -r out.rou.xml -t 'type="truck"' -e 10

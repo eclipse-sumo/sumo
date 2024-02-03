@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-10-05 11:39:05 by Eclipse SUMO netconvert Version v1_10_0+1263-edb8ddf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <output-file value="ignore.net.xml"/>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
         <output.street-names value="true"/>
     </output>
@@ -31,9 +31,13 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="-10860201" to="10860201" fromLane="1" toLane="1"/>
 
-    <connection from="10860201" to="-10860201" fromLane="1" toLane="1"/>
+    <connection from="-10860203" to="-10860201" fromLane="0" toLane="1"/>
+
+    <connection from="10860201" to="10860203" fromLane="1" toLane="0"/>
+
+    <connection from="10860203" to="-10860203" fromLane="0" toLane="0"/>
 
 </connections>

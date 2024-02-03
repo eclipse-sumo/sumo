@@ -1,4 +1,4 @@
 Error: Missing argument(s)
 Call: CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*
  The values within the csv-file are supposed to be divided by ';'.
- <VALUENAME>s give the attribute names in order of their appearence within the csv-file .
+ <VALUENAME>s give the attribute names in order of their appearance within the csv-file .

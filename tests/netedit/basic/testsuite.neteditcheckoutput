@@ -6,4 +6,12 @@ reload
 
 quit
 
+configs
+
+modes
+
 about_dialog
+
+pyautogui_error
+
+missing_inputs

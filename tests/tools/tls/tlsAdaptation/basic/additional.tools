@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<additional>
+
+<!-- generated on 2022-11-19 09:52:37.197639 by tlsCycleAdaptation.py v1_15_0+0435-d3a86478ecd
+<configuration>
+    <begin value="25200"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <program value="newProg"/>
+    <route-files value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="cluster_1037005497_2683362682" type="static" programID="newProg" offset="0">
         <phase duration="51" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
-        <phase duration="6" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
+        <phase duration="4" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
         <phase duration="42" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
-        <phase duration="6" state="rrrrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrr"/>
         <phase duration="14" state="rrrrrrrrGGGGGGggggrrrrrrrrGGGGGGgggg"/>
-        <phase duration="6" state="rrrrrrrryyyyyyyyyyrrrrrrrryyyyyyyyyy"/>
+        <phase duration="4" state="rrrrrrrryyyyyyyyyyrrrrrrrryyyyyyyyyy"/>
     </tlLogic>
 </additional>

@@ -1,13 +1,13 @@
-Running main() from gtest_main.cc
-[==========] Running 2 tests from 1 test case.
+Running main() from C:\Librerias\SUMOLibraries\googletest-1.11.0\googletest\src\gtest_main.cc
+[==========] Running 2 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 2 tests from FXWorkerThread
-[ RUN      ] FXWorkerThread.test_init
-[       OK ] FXWorkerThread.test_init (1 ms)
-[ RUN      ] FXWorkerThread.test_get_all
-[       OK ] FXWorkerThread.test_get_all (1 ms)
-[----------] 2 tests from FXWorkerThread (2 ms total)
+[----------] 2 tests from MFXWorkerThread
+[ RUN      ] MFXWorkerThread.test_init
+[       OK ] MFXWorkerThread.test_init (1 ms)
+[ RUN      ] MFXWorkerThread.test_get_all
+[       OK ] MFXWorkerThread.test_get_all (1 ms)
+[----------] 2 tests from MFXWorkerThread (3 ms total)
 
 [----------] Global test environment tear-down
-[==========] 2 tests from 1 test case ran. (2 ms total)
+[==========] 2 tests from 1 test suite ran. (3 ms total)
 [  PASSED  ] 2 tests.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataInterval, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bool forward) :
-    GNEChange(forward, dataInterval->isAttributeCarrierSelected()),
+    GNEChange(Supermode::DATA, forward, dataInterval->isAttributeCarrierSelected()),
     myDataInterval(dataInterval),
     myDataSetParent(dataInterval->getDataSetParent()) {
     myDataInterval->incRef("GNEChange_DataInterval");
@@ -43,16 +43,15 @@ GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bo
 
 GNEChange_DataInterval::~GNEChange_DataInterval() {
     myDataInterval->decRef("GNEChange_DataInterval");
-    if (myDataInterval->unreferenced()) {
+    if (myDataInterval->unreferenced() &&
+            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent->getID(), false) &&
+            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
                     myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
                     myDataInterval->getAttribute(SUMO_ATTR_END) + "] in ~GNEChange_DataInterval()");
         // check that data interval don't exist
-        if (myDataInterval->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
-                myDataSetParent->dataIntervalChildrenExist(myDataInterval)) {
-            myDataSetParent->removeDataIntervalChild(myDataInterval);
-        }
+        myDataSetParent->removeDataIntervalChild(myDataInterval);
         // delete dataInterval
         delete myDataInterval;
     }
@@ -76,8 +75,8 @@ GNEChange_DataInterval::undo() {
         // add data interval into data set parent
         myDataSetParent->addDataIntervalChild(myDataInterval);
     }
-    // Requiere always save elements
-    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myDataInterval->getDataSetParent()->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -98,27 +97,27 @@ GNEChange_DataInterval::redo() {
         // remove data interval from data set parent
         myDataSetParent->removeDataIntervalChild(myDataInterval);
     }
-    // Requiere always save elements
-    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
+    // require always save elements
+    myDataInterval->getDataSetParent()->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataInterval->getTagStr()).c_str();
+        return (TL("Undo create ") + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     } else {
-        return ("Undo delete " + myDataInterval->getTagStr()).c_str();
+        return (TL("Undo delete ") + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     }
 }
 
 
-FXString
+std::string
 GNEChange_DataInterval::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataInterval->getTagStr()).c_str();
+        return (TL("Redo create ") + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     } else {
-        return ("Redo delete " + myDataInterval->getTagStr()).c_str();
+        return (TL("Redo delete ") + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     }
 }
 

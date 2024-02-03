@@ -1,0 +1,3 @@
+Error: Could not build laneAreaDetector with ID 'E2_01' in netedit; List of lanes isn't valid.
+Error: Could not build laneAreaDetector 'E2_02' in netedit; lane 'dummyLane' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun100756.19514/netedit.gui/additionalelements/e2detector/load/lane/additionals.add.xml failed.

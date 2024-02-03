@@ -1,0 +1,2 @@
+Warning: Cannot check for all deadlocks on swapConstraints because the route for vehicle 't3' is not computed yet
+Warning: Cannot check for all deadlocks on swapConstraints because the route for vehicle 't2' is not computed yet

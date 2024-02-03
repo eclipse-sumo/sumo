@@ -1,0 +1,4 @@
+Error: Attribute 'cycleTime' in definition of route 'route_0' is empty.
+Error: Attribute 'cycleTime' in definition of route 'route_1' is not a valid time value.
+Error: cycleTime of destProbReroute must be equal or greater than 0
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\route\load\cycletime\routes.rou.xml failed.

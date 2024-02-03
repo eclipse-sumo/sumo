@@ -1,1 +1,0 @@
-fcd.xml -o image.png --csv-output out.csv tools/plot_trajectories.py --filter-edges EC,CW

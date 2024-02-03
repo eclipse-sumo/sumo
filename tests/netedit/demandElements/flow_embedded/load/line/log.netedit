@@ -1,5 +1,0 @@
-Warning: Essential unique string attribute 'to' of flow with ID 'flow_0' is missing; flow cannot be created
-Error: Attribute 'line' in definition of flow 'flow_1' is empty.
-Warning: Essential unique string attribute 'to' of flow with ID 'flow_1' is missing; flow cannot be created
-Warning: Essential unique string attribute 'to' of flow with ID 'flow_2' is missing; flow cannot be created
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Feb155605.23684\netedit.gui\demandElements\flow_embedded\load\line\input_routes.rou.xml failed.

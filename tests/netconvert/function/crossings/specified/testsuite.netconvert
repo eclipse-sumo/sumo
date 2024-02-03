@@ -1,5 +1,17 @@
+4_arm
+
+# cross a road
+2_arm
+2_corner
+
+# one of the edges has no sidewalks
+2_corner_someForbidden
+
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
+
+# see #12234
+2_arm_invalid
 
 # 3 arm junction where the crossing arm only has a sidewalk on the opposite side
 3_arm_1_opposite_sidewalk_1_crossing
@@ -10,119 +22,22 @@
 # a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
 3_arm_service_entering
 3_arm_unprioritized
-
-# 4 arm junction with crossings on all sides
-4_arm_complete
-
-# this is net3.net.xml in the sumo test suite
-4_arm_cycles_green_verge
-
-# 4 arm junction with crossings on all sides, built for a left-hand network
-4_arm_complete_lefthand
-
-# 4 arm junction with crossings on all sides. Set a cycle time that cannot be met
-4_arm_complete_cycletime
-
-# slanted 4 arm junction with crossings on all sides
-4_arm_slanted_complete
-
-# 4 arm junction without crossing but with walkingareas
-4_arm_0_walkingareas
-
-# 4 arm junction without crossing but with walkingareas re-import from net.xml
-4_arm_0_walkingareas_sumonet
-
-# 4 arm junction with crossings on all sides and custom tl indices
-4_arm_customTLIndex
+3_arm_unprioritized2
 
 # 4 arm junction with crossings on all sides and custom tl indices
 sumonet_customTLIndex
 
-# 4 arm junction with crossings on all sides and custom tl indices for both directions
-4_arm_customTLIndex2
-
 # 4 arm junction with crossings on all sides and custom primary and secondary tl indices
 sumonet_customTLIndex2
 
-# 4 arm junction with 1 crossing
-4_arm_1
-
-# 4 arm junction with 1 crossing (with custom shape)
-4_arm_1_customshape
-
-# 4 arm junction with 1 crossing (with custom shape), shifted by normalization
-4_arm_1_customshape_normalized
-
 # reimport .net.xml and keep the crossings with its custom shape
 sumonet_customshape
-
-# 4 arm junction with crossings on 2 opposite sides
-4_arm_2_opposite
-
-# 4 arm junction with 2 crossings on neighboring sides
-4_arm_2_neighboring
-4_arm_2_neighboring_corner_detail
-
-# without green verge
-4_arm_2_neighboring_corner_detail_noverge
-
-# crossings have intermediate walking areas
-4_arm_3_neighboring_split
-
-# custom walking area shapes
-4_arm_3_neighboring_split_customshape
-
-# test custom walking area shapes and shifting the network
-4_arm_3_neighboring_split_customshape_shifted
-
-# custom walking area shapes, shifter by user defined offset
-4_arm_3_neighboring_split_customshape_shifted2
-
-# custom walking area width
-4_arm_3_neighboring_split_customsWidth
 
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_custom_washape
 
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_customshapes_shifted
-4_arm_mixed_priority
-
-# reimport .net.xml and keep the crossings with their original priorities
-4_arm_mixed_priority_from_sumonet
-
-# crossing positions should not be affected by offset of non-pedestrian lanes
-4_arm_endOffset
-
-# 4 arm junction with crossings on all sides and sidewalks between road and bike lane
-4_arm_outer_bikelane
-
-# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (bike lane allows pedestrian)
-4_arm_outer_bikelane2
-
-# 4 arm junction with crossings on all sides and sidewalks between road and bike lane (extra edge to model bike lane)
-4_arm_outer_bikelane3
-
-# a sidewalk is to the left of a road lane
-4_arm_leftsidewalk
-
-# a sidewalk is located between two road lanes
-4_arm_enclosed_sidewalk
-
-# a sidewalk is located between two road lanes of the same edge
-4_arm_enclosed_sidewalk2
-
-# 4 arm junction with crossings on all sides and additional diagonal crossings
-4_arm_pedscramble
-
-# 4 arm junction with crossings on all sides and type traffic_light_right_on_red
-4_arm_right_on_red
-
-# duplicated crossings shall be rejected
-4_arm_duplicate
-
-# underlying priority junction has a turning priority road but tls layout is oncoming.  Related to #7764
-4_arm_bent_priority_tls_oncoming
 
 # a walkingarea should not try to follow the connection shape if there can be no adjacent road connection
 sharp_angle_incompatible_vclass

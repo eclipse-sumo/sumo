@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -113,6 +113,10 @@ public:
      * @see WrappingCommand
      */
     bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+
+    /// @brief called to do the rerouting we missed whuile stopping
+    void notifyStopEnded();
+
     /// @}
 
     /// @brief return the name for this type of device
@@ -163,6 +167,9 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    void setActive(bool active) {
+        myActive = active;
+    }
 
 private:
 
@@ -204,6 +211,8 @@ private:
      */
     SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime);
 
+    /// @brief rebuild reroute command according to period
+    void rebuildRerouteCommand();
 
 private:
     /// @brief The period with which a vehicle shall be rerouted
@@ -223,6 +232,15 @@ private:
 
     /// @brief Whether the equipped vehicle may receive dispatch information at a rail signal
     bool myRerouteRailSignal;
+
+    /// @brief the previous time that a vehicle entered a lane
+    SUMOTime myLastLaneEntryTime;
+
+    /// @brief Whether the equipped vehicle missed a reroute while stopping and should do so after the stop has ended
+    bool myRerouteAfterStop;
+
+    /// @brief Whether the equipped vehicle may perform rerouting
+    bool myActive;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -1,5 +1,5 @@
-Eclipse SUMO polyconvert Version v1_8_0+1803-fe50666
- Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO polyconvert Version v1_19_0+0280-744f1199eca
+ Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
 
@@ -7,6 +7,8 @@ Usage: polyconvert [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE     Loads the named config on startup
   -C, --save-configuration FILE     Saves current configuration into FILE
+  --save-configuration.relative     Enforce relative paths when saving the
+                                     configuration
   --save-template FILE              Saves a configuration template (empty) into
                                      FILE
   --save-schema FILE                Saves the configuration schema into FILE
@@ -18,15 +20,15 @@ Input Options:
                                      offset and projection
   --dlr-navteq-poly-files FILE      Reads polygons from FILE assuming they're
                                      coded in DLR-Navteq (Elmar)-format
-  --dlr-navteq-poi-files FILE       Reads pois from FILE+ assuming they're
-                                     coded in DLR-Navteq (Elmar)-format
+  --dlr-navteq-poi-files FILE       Reads pois from FILE assuming they're coded
+                                     in DLR-Navteq (Elmar)-format
   --visum-files FILE                Reads polygons from FILE assuming it's a
                                      Visum-net
   --visum.language-file FILE        Load language mappings from FILE
   --xml-files FILE                  Reads pois and shapes from FILE assuming
                                      they're coded in XML
-  --osm-files FILE                  Reads pois from FILE+ assuming they're
-                                     coded in OSM
+  --osm-files FILE                  Reads pois from FILE assuming they're coded
+                                     in OSM
   --osm.keep-full-type              The type will be made of the key-value -
                                      pair
   --osm.use-name                    The id will be set from the given 'name'
@@ -34,7 +36,7 @@ Input Options:
   --osm.merge-relations FLOAT       If FLOAT >= 0, assemble one polygon from
                                      all ways of a relation if they all connect
                                      with gaps below FLOAT
-  --shapefile-prefixes FILE         Reads shapes from shapefiles FILE+
+  --shapefile-prefixes FILE         Reads shapes from shapefiles FILE
   --shapefile.guess-projection      Guesses the shapefile's projection
   --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
   --shapefile.id-column STR         Defines in which column the id can be found
@@ -81,8 +83,10 @@ Projection Options:
 
 Pruning Options:
   --prune.in-net                    Enables pruning on net boundaries
-  --prune.in-net.offsets STR        Uses STR as offset definition added to the
-                                     net boundaries
+  --prune.in-net.offsets STR        Uses FLOAT,FLOAT,FLOAT,FLOAT as offset
+                                     definition added to the net boundary.
+                                     Positive values grow the boundary on all
+                                     sides while negative values shrink it.
   --prune.boundary STR              Uses STR as pruning boundary
   --prune.keep-list STR             Items in STR will be kept though out of
                                      boundary
@@ -102,6 +106,7 @@ Building Defaults Options:
   --prefix STR                      Sets STR as default prefix
   --type STR                        Sets STR as default type
   --fill                            Fills polygons by default
+  --icon STR                        Sets STR as default icon
   --layer FLOAT                     Sets FLOAT as default layer
   --discard                         Sets default action to discard
 
@@ -111,9 +116,9 @@ Report Options:
   -?, --help                        Prints this screen or selected topics
   -V, --version                     Prints the current version
   -X, --xml-validation STR          Set schema validation scheme of XML inputs
-                                     ("never", "auto" or "always")
+                                     ("never", "local", "auto" or "always")
   --xml-validation.net STR          Set schema validation scheme of SUMO
-                                     network inputs ("never", "auto" or
+                                     network inputs ("never", "local", "auto" or
                                      "always")
   -W, --no-warnings                 Disables output of warnings
   --aggregate-warnings INT          Aggregate warnings of the same type
@@ -123,6 +128,9 @@ Report Options:
   --message-log FILE                Writes all non-error messages to FILE
                                      (implies verbose)
   --error-log FILE                  Writes all warnings and errors to FILE
+  --log.timestamps                  Writes timestamps in front of all messages
+  --log.processid                   Writes process ID in front of all messages
+  --language STR                    Language to use in messages
 
 
 Examples:

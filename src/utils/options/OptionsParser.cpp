@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,20 +34,21 @@
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char** argv) {
+OptionsParser::parse(const std::vector<std::string>& args, const bool ignoreAppenders) {
     bool ok = true;
+    const int argc = (int)args.size();
     for (int i = 1; i < argc;) {
         try {
             int add;
             // try to set the current option
             if (i < argc - 1) {
-                add = check(argv[i], argv[i + 1], ok);
+                add = check(args[i], &args[i + 1], ok, ignoreAppenders);
             } else {
-                add = check(argv[i], nullptr, ok);
+                add = check(args[i], nullptr, ok, ignoreAppenders);
             }
             i += add;
         } catch (ProcessError& e) {
-            WRITE_ERROR("On processing option '" + std::string(argv[i]) + "':\n " + e.what());
+            WRITE_ERROR("On processing option '" + args[i] + "':\n " + e.what());
             i++;
             ok = false;
         }
@@ -57,7 +58,7 @@ OptionsParser::parse(int argc, char** argv) {
 
 
 int
-OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
+OptionsParser::check(const std::string& arg1, const std::string* const arg2, bool& ok, const bool ignoreAppenders) {
     // the first argument should be an option
     // (only the second may be a free string)
     if (!checkParameter(arg1)) {
@@ -66,43 +67,49 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     }
 
     OptionsCont& oc = OptionsCont::getOptions();
+    const bool append = arg1[0] == '+';
     // process not abbreviated switches
-    if (!isAbbreviation(arg1)) {
-        std::string tmp(arg1 + 2);
+    if (append || arg1[1] == '-') {
+        const std::string tmp(arg1.substr(append ? 1 : 2));
         const std::string::size_type idx1 = tmp.find('=');
+        if (append && ignoreAppenders) {
+            return idx1 == std::string::npos ? 2 : 1;
+        }
         // check whether a parameter was submitted
         if (idx1 != std::string::npos) {
-            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));
+            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1), append);
         } else {
-            if (arg2 == nullptr || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
-                ok &= oc.set(convert(arg1 + 2), "true");
+            if (arg2 == nullptr || (oc.isBool(tmp) && (*arg2)[0] == '-')) {
+                ok &= oc.set(tmp, "true");
             } else {
-                ok &= oc.set(convert(arg1 + 2), convert(arg2));
+                ok &= oc.set(tmp, *arg2, append);
                 return 2;
             }
         }
         return 1;
     }
     // go through the abbreviated switches
-    for (int i = 1; arg1[i] != 0; i++) {
+    const int len = (int)arg1.size();
+    for (int i = 1; i < len; i++) {
         // set boolean switches
-        if (oc.isBool(convert(arg1[i]))) {
-            if (arg2 == nullptr || arg2[0] == '-' || arg1[i + 1] != 0) {
-                ok &= oc.set(convert(arg1[i]), "true");
+        const std::string abbr = arg1.substr(i, 1);
+        if (oc.isBool(abbr)) {
+            if (arg2 == nullptr || (*arg2)[0] == '-' || i != len - 1) {
+                ok &= oc.set(abbr, "true");
             } else {
-                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                ok &= oc.set(abbr, *arg2);
                 return 2;
             }
             // set non-boolean switches
         } else {
             // check whether the parameter comes directly after the switch
             //  and process if so
-            if (arg2 == nullptr || arg1[i + 1] != 0) {
-                ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
+            if (arg2 == nullptr || i != len - 1) {
+                ok &= processNonBooleanSingleSwitch(oc, arg1.substr(i), append);
                 return 1;
                 // process parameter following after a space
             } else {
-                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                ok &= oc.set(abbr, *arg2, append);
                 // option name and attribute were in two arguments
                 return 2;
             }
@@ -114,55 +121,36 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg) {
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const std::string& arg, const bool append) {
     if (arg[1] == '=') {
-        if (strlen(arg) < 3) {
-            WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
+        if (arg.size() < 3) {
+            WRITE_ERRORF(TL("Missing value for parameter '%'."), arg.substr(0, 1));
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg + 2));
+            return oc.set(arg.substr(0, 1), arg.substr(2), append);
         }
     } else {
-        if (strlen(arg) < 2) {
-            WRITE_ERROR("Missing value for parameter '" + std::string(arg) + "'.");
+        if (arg.size() < 2) {
+            WRITE_ERRORF(TL("Missing value for parameter '%'."), arg);
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg + 1));
+            return oc.set(arg.substr(0, 1), arg.substr(1), append);
         }
     }
 }
 
 
 bool
-OptionsParser::checkParameter(const char* arg1) {
-    if (arg1[0] != '-') {
-        WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
+OptionsParser::checkParameter(const std::string& arg1) {
+    if (arg1[0] != '-' && arg1[0] != '+') {
+        WRITE_ERRORF(TL("The parameter '%' is not allowed in this context.\n Switch or parameter name expected."), arg1);
+        return false;
+    }
+    if ((arg1[0] == '-' && arg1[1] == '+') || (arg1[0] == '+' && arg1[1] == '-')) {
+        WRITE_ERRORF(TL("Mixed parameter syntax in '%'."), arg1);
         return false;
     }
     return true;
-}
-
-
-bool
-OptionsParser::isAbbreviation(const char* arg1) {
-    return arg1[1] != '-';
-}
-
-
-std::string
-OptionsParser::convert(const char* arg) {
-    std::string s(arg);
-    return s;
-}
-
-
-std::string
-OptionsParser::convert(char abbr) {
-    char buf[2];
-    buf[0] = abbr;
-    buf[1] = 0;
-    std::string s(buf);
-    return buf;
 }
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,14 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
+from sumolib.options import ArgumentParser  # noqa
+
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("tripinfos", category="input", type=optParser.file, help="Trip Info file")
+    optParser.add_argument("--length", type=float, default=0.1, help="length threshold (default: 0.1)")
+    return optParser.parse_args()
 
 
 def main(tripinfos, lengthThreshold=0.1):
@@ -62,4 +70,5 @@ def main(tripinfos, lengthThreshold=0.1):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    options = parse_args()
+    main(options.tripinfos, options.length)

@@ -1,0 +1,23 @@
+# add vehicle with route on internal
+add_internal
+
+# add trip (ticket4307)
+addTrip
+
+# add trip with high insertion speed at edge end (ticket9257)
+addTrip2
+
+# test removing and re-inserting the same vehicle id in a single simulation step (#5647)
+remove_reinsert
+
+# add a vehicle with triggered departure
+departTriggered
+
+# test error handling and reporting
+departSpeed_invalid
+
+# test error handling and reporting
+departSpeed_invalid_ignore
+
+# check recording of specified vehicle attributes
+attributes

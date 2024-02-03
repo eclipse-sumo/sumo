@@ -1,0 +1,6 @@
+Error: Attribute 'depart' is missing in definition of person 'p_0'.
+Error: Attribute 'depart' in definition of person 'p_1' is empty.
+Error: Invalid departure time for vehicle 'p_2';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Negative departure time in the definition of vehicle 'p_3'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.person.25Jan182728.9835/netedit.daily.demand.person/demandelements/person/load/depart/routes.rou.xml failed.

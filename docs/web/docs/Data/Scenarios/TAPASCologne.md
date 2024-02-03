@@ -7,16 +7,16 @@ title: TAPASCologne
 ## Availability
 
 ![88x31.png](../../images/88x31.png "88x31.png") The data is available under the
-[Creative Commons](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+[Creative Commons](https://creativecommons.org/licenses/by-nc-sa/3.0/)
 license. You **must tell where the data is from**, it is **not allowed
 to use it for commercial** purposes, as soon as you use it **we want to
 be informed** about it (use the
-[sumo-user](https://dev.eclipse.org/mailman/listinfo/sumo-user).
+[sumo-user](https://dev.eclipse.org/mailman/listinfo/sumo-user) mailing list).
 
 The data can be [downloaded from our scenario
-repository](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
+repository](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
 There also vehicle traces available from the [KolnTrace project at CITI
-Lab](http://kolntrace.project.citi-lab.fr/).
+Lab](https://kolntrace.project.citi-lab.fr/).
 
 ## About
 
@@ -29,10 +29,10 @@ population generated based on information about travelling habits of
 Germans and on information about the infrastructure of the area they
 live in. More information about the system can be found within this
 [publication on
-TAPAS](http://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf). The
+TAPAS](https://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf). The
 original data was using a closed-source road network and was mapped onto
 one stemming from the [OpenStreetMap
-project](http://www.openstreetmap.de/).
+project](https://www.openstreetmap.de/).
 
 As is, TAPASCologne is only hardly usable. Work must be put into
 improving the network quality, as well as into verification of the
@@ -94,7 +94,7 @@ network type (passenger, roadvehicles, all), a shape file is included.
 
 - Solved problems on importing OSM road networks, including
   [defect 17: OSM network importer creates large
-  junctions](https://github.com/eclipse/sumo/issues/17)
+  junctions](https://github.com/eclipse-sumo/sumo/issues/17)
 - Includes joined tls (solves few synchronization problems)
 - Patched import of shapes (POIs/Polygons) and included them
 - Remapped the routes
@@ -163,7 +163,7 @@ The below images show the structure of demand data over 24 hour period.
 This shows normal behavior of mobility. Peak hours like \~8-9am ,
 \~4-6pm during which the number of trips are usually high. More
 information of the city of cologne can be found in the link
-[\[1\]](http://www.stadt-koeln.de/mediaasset/content/pdf15/stadtkoeln_zahlenspiegel_e_bfrei.pdf).
+[\[1\]](https://www.stadt-koeln.de/mediaasset/content/pdf15/stadtkoeln_zahlenspiegel_e_bfrei.pdf).
 The total number of trips (made by cars) over 24h is very close to the
 number of registered cars\*3 (3 trips per registered car). There are
 around \~420415\*3 (\~1.2 million) trips which matches the number in the

@@ -3,7 +3,7 @@ title: Zone To Zone
 ---
 
 We first explain the general concept of Zone to zone demand generation
-before we describe how to procede with SUMOPy.
+before we describe how to proceed with SUMOPy.
 
 1.  *Zone definition*: Definition of Zones, in SUMO also called “Traffic
     Assignment Zones” (TAZ). A TAZ defines the area where participants

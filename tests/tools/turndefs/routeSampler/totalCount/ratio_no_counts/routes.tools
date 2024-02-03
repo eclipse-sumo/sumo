@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-29 15:04:05.906044 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-ratio-files value="input_turns.xml"/>
+    <turn-ratio-attribute value="ratio"/>
+    <write-flows value="number"/>
+    <total-count value="20"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="3600.0" -->
+    <flow id="0" begin="108.73" end="3600.00" number="3">
+        <route edges="3 3.180.00 -3"/>
+    </flow>
+    <flow id="2" begin="137.69" end="3600.00" number="10">
+        <route edges="3 3.180.00 27"/>
+    </flow>
+    <flow id="1" begin="318.03" end="3600.00" number="7">
+        <route edges="3 3.180.00 -71"/>
+    </flow>
+</routes>

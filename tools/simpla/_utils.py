@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -101,7 +101,7 @@ class GapController(traci.StepListener):
             return
 
         (leaderID, gap) = leaderInfo
-        assert(leaderID != "")
+        assert leaderID != ""
 
         self._egoSpeed = traci.vehicle.getSpeed(self._vehID)
         self._leaderSpeed = traci.vehicle.getSpeed(leaderID)

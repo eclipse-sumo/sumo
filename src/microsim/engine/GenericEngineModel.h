@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <map>
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/Parameterised.h>
 
 /**
  * This is an interface for plexe engine models. It provides two virtual methods
@@ -33,31 +34,10 @@
 class GenericEngineModel {
 
 public:
-
-    typedef std::map<std::string, std::string> ParMap;
-
-protected:
-
-    //class name, used to log information
-    std::string className;
-    //minimum and maximum acceleration of the model, if any
-    double maxAcceleration_mpsps, maxDeceleration_mpsps;
-
-    /**
-     * Prints a parameter error
-     */
-    void printParameterError(std::string parameter, std::string value);
-
-    /**
-     * Parses a value from the parameter map
-     */
-    void parseParameter(const ParMap& parameters, std::string parameter, double& value);
-    void parseParameter(const ParMap& parameters, std::string parameter, int& value);
-    void parseParameter(const ParMap& parameters, std::string parameter, std::string& value);
-
-public:
-
+    /// @brief constructor
     GenericEngineModel() : maxAcceleration_mpsps(1.5), maxDeceleration_mpsps(7) {};
+
+    /// @brief destructor
     virtual ~GenericEngineModel() {};
 
     /**
@@ -98,4 +78,22 @@ public:
      */
     void setMaximumDeceleration(double maxDec);
 
+protected:
+    //class name, used to log information
+    std::string className;
+
+    //minimum and maximum acceleration of the model, if any
+    double maxAcceleration_mpsps, maxDeceleration_mpsps;
+
+    /**
+     * Prints a parameter error
+     */
+    void printParameterError(std::string parameter, std::string value);
+
+    /**
+     * Parses a value from the parameter map
+     */
+    void parseParameter(const Parameterised::Map& parameters, std::string parameter, double& value);
+    void parseParameter(const Parameterised::Map& parameters, std::string parameter, int& value);
+    void parseParameter(const Parameterised::Map& parameters, std::string parameter, std::string& value);
 };

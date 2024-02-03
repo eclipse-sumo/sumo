@@ -1,0 +1,5 @@
+Error: Attribute 'personsPerHour' in definition of personFlow 'p_1' Invalid Number Format (double) dummyPeriod.
+Error: Attribute 'personsPerHour' in definition of personFlow 'p_2' is empty.
+Error: Invalid repetition rate in the definition of personFlow 'p_3'.
+Error: Invalid repetition rate in the definition of personFlow 'p_4'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.26Jan095535.11214/netedit.daily.demand.personflow/demandelements/personflow/load/personsperhour/routes.rou.xml failed.

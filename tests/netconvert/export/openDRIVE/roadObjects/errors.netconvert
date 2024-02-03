@@ -1,0 +1,13 @@
+Warning: Edge '150394034#2' is not connected to outgoing edges at junction 'cluster_4565322441_5397577486_768038174_863119413'.
+Warning: Lane '150394036#1_0' is not connected from any incoming edge at junction 'cluster_4565322441_5397577486_768038174_863119413'.
+Warning: Lane '72157172_1' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
+Warning: Lane '72157172_2' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
+Warning: Lane '72157172_3' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
+Warning: Invalid pedestrian topology at junction '2054749637'; crossing ':2054749637_c0' starts and ends at walkingarea ':2054749637_w0'.
+Warning: Invalid pedestrian topology at junction '3182529366'; crossing ':3182529366_c0' starts and ends at walkingarea ':3182529366_w0'.
+Warning: The rail crossing 'cluster_1827996436_1827996440' does not have any roads.
+Warning: The rail crossing 'cluster_1827996511_1827996525' does not have any roads.
+Warning: The rail crossing 'cluster_3792418585_3792418767' does not have any roads.
+Warning: Could not compute smooth shape for edge '24540240#0'.
+Warning: Could not compute smooth shape from lane '150394036#1_0' to lane '93628049#0_0'. Use option 'junctions.scurve-stretch' or increase radius of junction '1633112618' to fix this.
+Warning: Could not compute smooth shape from lane '24914992#1_3' to lane '171826985#0_3'. Use option 'junctions.scurve-stretch' or increase radius of junction '1827996417' to fix this.

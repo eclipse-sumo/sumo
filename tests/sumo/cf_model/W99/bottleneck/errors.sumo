@@ -1,210 +1,240 @@
-Warning: Vehicle 'high.34' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=63.00.
-Warning: Vehicle 'high.40' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=64.00.
-Warning: Vehicle 'high.47' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=77.00.
-Warning: Vehicle 'high.55' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=78.00.
-Warning: Vehicle 'high.52' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=94.00.
-Warning: Vehicle 'high.50' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=95.00.
-Warning: Vehicle 'high.53' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=95.00.
-Warning: Vehicle 'high.52' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=96.00.
-Warning: Vehicle 'high.49' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=98.00.
-Warning: Vehicle 'high.58' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=100.00.
-Warning: Vehicle 'high.60' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=102.00.
-Warning: Vehicle 'high.55' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=103.00.
-Warning: Vehicle 'high.74' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=146.00.
-Warning: Vehicle 'high.65' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=156.00.
-Warning: Vehicle 'high.78' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=160.00.
-Warning: Vehicle 'high.85' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=168.00.
-Warning: Vehicle 'high.90' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=174.00.
-Warning: Vehicle 'high.90' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=177.00.
-Warning: Vehicle 'high.100' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=180.00.
-Warning: Vehicle 'high.105' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=210.00.
-Warning: Vehicle 'high.106' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=214.00.
-Warning: Vehicle 'high.110' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=214.00.
-Warning: Vehicle 'high.114' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=216.00.
-Warning: Vehicle 'high.117' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=219.00.
-Warning: Vehicle 'high.118' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=220.00.
-Warning: Vehicle 'high.113' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=221.00.
-Warning: Vehicle 'high.120' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=222.00.
-Warning: Vehicle 'high.113' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=224.00.
-Warning: Vehicle 'high.123' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=252.00.
-Warning: Vehicle 'high.127' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=253.00.
-Warning: Vehicle 'high.126' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=254.00.
-Warning: Vehicle 'high.130' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=257.00.
-Warning: Vehicle 'high.131' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=258.00.
-Warning: Vehicle 'high.134' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=272.00.
-Warning: Vehicle 'high.138' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=274.00.
-Warning: Vehicle 'high.140' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=275.00.
-Warning: Vehicle 'high.136' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=276.00.
-Warning: Vehicle 'high.140' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=278.00.
-Warning: Vehicle 'high.142' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=278.00.
-Warning: Vehicle 'high.139' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=282.00.
-Warning: Vehicle 'high.143' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=284.00.
-Warning: Vehicle 'high.146' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=286.00.
-Warning: Vehicle 'high.147' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=287.00.
-Warning: Vehicle 'high.162' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=343.00.
-Warning: Vehicle 'high.166' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=349.00.
-Warning: Vehicle 'high.172' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=350.00.
-Warning: Vehicle 'high.186' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=374.00.
-Warning: Vehicle 'high.187' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=375.00.
-Warning: Vehicle 'high.179' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=379.00.
-Warning: Vehicle 'high.192' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=381.00.
-Warning: Vehicle 'high.195' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=382.00.
-Warning: Vehicle 'high.201' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=411.00.
-Warning: Vehicle 'high.201' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=414.00.
-Warning: Vehicle 'high.204' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=415.00.
-Warning: Vehicle 'high.216' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=424.00.
-Warning: Vehicle 'high.216' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=426.00.
-Warning: Vehicle 'high.215' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=430.00.
-Warning: Vehicle 'high.217' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=436.00.
-Warning: Vehicle 'high.234' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=479.00.
-Warning: Vehicle 'high.227' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=480.00.
-Warning: Vehicle 'high.237' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=482.00.
-Warning: Vehicle 'high.235' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=483.00.
-Warning: Vehicle 'high.237' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=484.00.
-Warning: Vehicle 'high.241' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=489.00.
-Warning: Vehicle 'high.246' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=516.00.
-Warning: Vehicle 'high.252' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=517.00.
-Warning: Vehicle 'high.254' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=517.00.
-Warning: Vehicle 'high.257' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=521.00.
-Warning: Vehicle 'high.256' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=523.00.
-Warning: Vehicle 'high.260' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=525.00.
-Warning: Vehicle 'high.264' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=526.00.
-Warning: Vehicle 'high.267' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=545.00.
-Warning: Vehicle 'high.272' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=545.00.
-Warning: Vehicle 'high.271' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=546.00.
-Warning: Vehicle 'high.273' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=546.00.
-Warning: Vehicle 'high.275' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=550.00.
-Warning: Vehicle 'high.277' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=553.00.
-Warning: Vehicle 'high.279' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=554.00.
-Warning: Vehicle 'high.282' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=587.00.
-Warning: Vehicle 'high.291' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=590.00.
-Warning: Vehicle 'high.291' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=592.00.
-Warning: Vehicle 'high.295' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=593.00.
-Warning: Vehicle 'high.293' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=594.00.
-Warning: Vehicle 'high.294' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=596.00.
-Warning: Vehicle 'high.295' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=606.00.
-Warning: Vehicle 'high.308' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=622.00.
-Warning: Vehicle 'high.314' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=622.00.
-Warning: Vehicle 'high.315' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=624.00.
-Warning: Vehicle 'high.306' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=626.00.
-Warning: Vehicle 'high.323' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=666.00.
-Warning: Vehicle 'high.323' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=674.00.
-Warning: Vehicle 'high.328' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=683.00.
-Warning: Vehicle 'high.327' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=684.00.
-Warning: Vehicle 'high.352' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=718.00.
-Warning: Vehicle 'high.351' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=719.00.
-Warning: Vehicle 'high.353' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=720.00.
-Warning: Vehicle 'high.353' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=725.00.
-Warning: Vehicle 'high.356' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=729.00.
-Warning: Vehicle 'high.363' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=753.00.
-Warning: Vehicle 'high.364' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=756.00.
-Warning: Vehicle 'high.366' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=757.00.
-Warning: Vehicle 'high.375' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=765.00.
-Warning: Vehicle 'high.378' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=769.00.
-Warning: Vehicle 'high.373' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=770.00.
-Warning: Vehicle 'high.376' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=771.00.
-Warning: Vehicle 'high.389' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=810.00.
-Warning: Vehicle 'high.403' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=838.00.
-Warning: Vehicle 'high.406' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=842.00.
-Warning: Vehicle 'high.417' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=867.00.
-Warning: Vehicle 'high.418' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=873.00.
-Warning: Vehicle 'high.419' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=873.00.
-Warning: Vehicle 'high.427' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=884.00.
-Warning: Vehicle 'high.430' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=898.00.
-Warning: Vehicle 'high.467' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=966.00.
-Warning: Vehicle 'high.465' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=966.00.
-Warning: Vehicle 'high.470' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=967.00.
-Warning: Vehicle 'high.468' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=968.00.
-Warning: Vehicle 'high.472' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=973.00.
-Warning: Vehicle 'high.471' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=974.00.
-Warning: Vehicle 'high.469' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=977.00.
-Warning: Vehicle 'high.476' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=979.00.
-Warning: Vehicle 'high.471' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=980.00.
-Warning: Vehicle 'high.483' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=997.00.
-Warning: Vehicle 'high.487' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=999.00.
-Warning: Vehicle 'high.471' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1002.00.
-Warning: Vehicle 'high.498' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1028.00.
-Warning: Vehicle 'high.512' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1059.00.
-Warning: Vehicle 'high.521' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1068.00.
-Warning: Vehicle 'high.524' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1069.00.
-Warning: Vehicle 'high.525' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1086.00.
-Warning: Vehicle 'high.542' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1116.00.
-Warning: Vehicle 'high.582' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1212.00.
-Warning: Vehicle 'high.585' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1213.00.
-Warning: Vehicle 'high.583' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1213.00.
-Warning: Vehicle 'high.581' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1214.00.
-Warning: Vehicle 'high.589' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1217.00.
-Warning: Vehicle 'high.607' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1245.00.
-Warning: Vehicle 'high.607' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1248.00.
-Warning: Vehicle 'high.608' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1250.00.
-Warning: Vehicle 'high.597' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1250.00.
-Warning: Vehicle 'high.605' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1251.00.
-Warning: Vehicle 'high.611' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1254.00.
-Warning: Vehicle 'high.612' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1266.00.
-Warning: Vehicle 'high.615' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1268.00.
-Warning: Vehicle 'high.616' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1269.00.
-Warning: Vehicle 'high.622' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1271.00.
-Warning: Vehicle 'high.623' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1273.00.
-Warning: Vehicle 'high.623' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1277.00.
-Warning: Vehicle 'high.627' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1278.00.
-Warning: Vehicle 'high.632' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1314.00.
-Warning: Vehicle 'high.639' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1316.00.
-Warning: Vehicle 'high.642' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1323.00.
-Warning: Vehicle 'high.640' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1328.00.
-Warning: Vehicle 'high.647' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1341.00.
-Warning: Vehicle 'high.650' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1341.00.
-Warning: Vehicle 'high.653' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1342.00.
-Warning: Vehicle 'high.649' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1343.00.
-Warning: Vehicle 'high.664' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1357.00.
-Warning: Vehicle 'high.667' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1377.00.
-Warning: Vehicle 'high.662' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1378.00.
-Warning: Vehicle 'high.667' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1379.00.
-Warning: Vehicle 'high.675' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1382.00.
-Warning: Vehicle 'high.677' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1383.00.
-Warning: Vehicle 'high.686' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1383.00.
-Warning: Vehicle 'high.675' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1384.00.
-Warning: Vehicle 'high.686' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1385.00.
-Warning: Vehicle 'high.678' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1386.00.
-Warning: Vehicle 'high.679' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1389.00.
-Warning: Vehicle 'high.689' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1416.00.
-Warning: Vehicle 'high.685' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1417.00.
-Warning: Vehicle 'high.687' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1424.00.
-Warning: Vehicle 'high.689' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1425.00.
-Warning: Vehicle 'high.697' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1433.00.
-Warning: Vehicle 'high.696' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1433.00.
-Warning: Vehicle 'high.699' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1434.00.
-Warning: Vehicle 'high.704' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1440.00.
-Warning: Vehicle 'high.710' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1460.00.
-Warning: Vehicle 'high.719' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1462.00.
-Warning: Vehicle 'high.717' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1464.00.
-Warning: Vehicle 'high.719' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1466.00.
-Warning: Vehicle 'high.727' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1486.00.
-Warning: Vehicle 'high.738' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1515.00.
-Warning: Vehicle 'high.739' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1515.00.
-Warning: Vehicle 'high.737' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1516.00.
-Warning: Vehicle 'high.736' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1517.00.
-Warning: Vehicle 'high.760' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1564.00.
-Warning: Vehicle 'high.750' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1564.00.
-Warning: Vehicle 'high.758' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1565.00.
-Warning: Vehicle 'high.761' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1569.00.
-Warning: Vehicle 'high.762' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1571.00.
-Warning: Vehicle 'high.764' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1572.00.
-Warning: Vehicle 'high.760' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1574.00.
-Warning: Vehicle 'high.768' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1574.00.
-Warning: Vehicle 'high.782' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1614.00.
-Warning: Vehicle 'high.783' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1629.00.
-Warning: Vehicle 'high.785' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1630.00.
-Warning: Vehicle 'high.787' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1632.00.
-Warning: Vehicle 'high.789' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1633.00.
-Warning: Vehicle 'high.788' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1634.00.
-Warning: Vehicle 'high.791' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1637.00.
-Warning: Vehicle 'high.793' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1641.00.
-Warning: Vehicle 'high.792' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1644.00.
-Warning: Vehicle 'high.797' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1646.00.
-Warning: Vehicle 'high.814' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1690.00.
-Warning: Vehicle 'high.815' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1691.00.
-Warning: Vehicle 'high.817' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1694.00.
-Warning: Vehicle 'high.818' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1695.00.
-Warning: Vehicle 'high.818' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1699.00.
-Warning: Vehicle 'high.820' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1701.00.
-Warning: Vehicle 'high.827' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1727.00.
+Warning: Vehicle 'high.23' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=48.00.
+Warning: Vehicle 'high.26' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=59.00.
+Warning: Vehicle 'high.53' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=88.00.
+Warning: Vehicle 'high.40' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=93.00.
+Warning: Vehicle 'high.52' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=95.00.
+Warning: Vehicle 'high.59' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=97.00.
+Warning: Vehicle 'high.57' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=103.00.
+Warning: Vehicle 'high.65' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=112.00.
+Warning: Vehicle 'high.70' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=113.00.
+Warning: Vehicle 'high.71' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=116.00.
+Warning: Vehicle 'high.72' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=117.00.
+Warning: Vehicle 'high.74' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=121.00.
+Warning: Vehicle 'high.76' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=133.00.
+Warning: Vehicle 'high.86' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=156.00.
+Warning: Vehicle 'high.80' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=159.00.
+Warning: Vehicle 'high.89' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=163.00.
+Warning: Vehicle 'high.83' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=167.00.
+Warning: Vehicle 'high.93' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=181.00.
+Warning: Vehicle 'high.94' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=186.00.
+Warning: Vehicle 'high.103' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=194.00.
+Warning: Vehicle 'high.100' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=195.00.
+Warning: Vehicle 'high.103' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=199.00.
+Warning: Vehicle 'high.104' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=201.00.
+Warning: Vehicle 'high.105' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=202.00.
+Warning: Vehicle 'high.111' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=211.00.
+Warning: Vehicle 'high.122' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=230.00.
+Warning: Vehicle 'high.120' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=230.00.
+Warning: Vehicle 'high.121' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=230.00.
+Warning: Vehicle 'high.127' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=231.00.
+Warning: Vehicle 'high.137' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=262.00.
+Warning: Vehicle 'high.133' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=264.00.
+Warning: Vehicle 'high.140' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=284.00.
+Warning: Vehicle 'high.148' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=294.00.
+Warning: Vehicle 'high.152' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=308.00.
+Warning: Vehicle 'high.166' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=325.00.
+Warning: Vehicle 'high.157' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=326.00.
+Warning: Vehicle 'high.163' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=329.00.
+Warning: Vehicle 'high.168' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=343.00.
+Warning: Vehicle 'high.172' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=349.00.
+Warning: Vehicle 'high.170' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=349.00.
+Warning: Vehicle 'high.173' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=351.00.
+Warning: Vehicle 'high.176' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=355.00.
+Warning: Vehicle 'high.179' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=356.00.
+Warning: Vehicle 'high.187' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=379.00.
+Warning: Vehicle 'high.188' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=380.00.
+Warning: Teleporting vehicle 'high.189'; collision with vehicle 'high.185', lane='jam_0', gap=-2.38, time=380.00 stage=move.
+Warning: Vehicle 'high.189' ends teleporting on edge 'bottleneck', time=380.00.
+Warning: Vehicle 'high.187' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=381.00.
+Warning: Vehicle 'high.197' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=384.00.
+Warning: Vehicle 'high.127' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=384.00.
+Warning: Vehicle 'high.190' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=386.00.
+Warning: Vehicle 'high.194' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=386.00.
+Warning: Vehicle 'high.197' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=387.00.
+Warning: Vehicle 'high.195' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=389.00.
+Warning: Vehicle 'high.193' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=390.00.
+Warning: Vehicle 'high.204' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=419.00.
+Warning: Vehicle 'high.207' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=424.00.
+Warning: Vehicle 'high.209' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=427.00.
+Warning: Vehicle 'high.207' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=428.00.
+Warning: Vehicle 'high.211' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=429.00.
+Warning: Vehicle 'high.222' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=455.00.
+Warning: Vehicle 'high.227' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=466.00.
+Warning: Vehicle 'high.228' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=468.00.
+Warning: Vehicle 'high.232' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=476.00.
+Warning: Vehicle 'high.239' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=492.00.
+Warning: Vehicle 'high.246' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=495.00.
+Warning: Vehicle 'high.245' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=496.00.
+Warning: Vehicle 'high.266' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=551.00.
+Warning: Vehicle 'high.271' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=552.00.
+Warning: Vehicle 'high.272' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=556.00.
+Warning: Vehicle 'high.274' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=556.00.
+Warning: Vehicle 'high.261' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=557.00.
+Warning: Vehicle 'high.275' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=557.00.
+Warning: Vehicle 'high.280' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=561.00.
+Warning: Vehicle 'high.277' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=562.00.
+Warning: Vehicle 'high.285' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=569.00.
+Warning: Vehicle 'high.286' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=571.00.
+Warning: Vehicle 'high.287' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=580.00.
+Warning: Vehicle 'high.294' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=595.00.
+Warning: Vehicle 'high.292' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=597.00.
+Warning: Vehicle 'high.293' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=598.00.
+Warning: Vehicle 'high.293' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=600.00.
+Warning: Vehicle 'high.302' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=620.00.
+Warning: Vehicle 'high.301' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=621.00.
+Warning: Teleporting vehicle 'high.312'; collision with vehicle 'high.303', lane='jam_0', gap=-0.70, time=654.00 stage=move.
+Warning: Vehicle 'high.312' ends teleporting on edge 'bottleneck', time=654.00.
+Warning: Vehicle 'high.324' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=657.00.
+Warning: Vehicle 'high.326' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=672.00.
+Warning: Vehicle 'high.328' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=675.00.
+Warning: Vehicle 'high.327' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=675.00.
+Warning: Vehicle 'high.330' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=678.00.
+Warning: Vehicle 'high.331' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=679.00.
+Warning: Vehicle 'high.336' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=700.00.
+Warning: Vehicle 'high.339' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=701.00.
+Warning: Vehicle 'high.340' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=702.00.
+Warning: Vehicle 'high.345' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=704.00.
+Warning: Vehicle 'high.349' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=709.00.
+Warning: Vehicle 'high.356' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=740.00.
+Warning: Vehicle 'high.358' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=740.00.
+Warning: Teleporting vehicle 'high.356'; collision with vehicle 'high.349', lane='jam_0', gap=-2.35, time=741.00 stage=move.
+Warning: Vehicle 'high.356' ends teleporting on edge 'bottleneck', time=744.00.
+Warning: Vehicle 'high.362' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=745.00.
+Warning: Vehicle 'high.352' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=746.00.
+Warning: Vehicle 'high.359' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=747.00.
+Warning: Vehicle 'high.364' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=759.00.
+Warning: Vehicle 'high.359' performs emergency braking on lane 'jam_0' with decel=9.00, wished=4.50, severity=1.00, time=763.00.
+Warning: Vehicle 'high.376' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=772.00.
+Warning: Vehicle 'high.374' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=775.00.
+Warning: Vehicle 'high.383' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=777.00.
+Warning: Vehicle 'high.378' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=779.00.
+Warning: Vehicle 'high.386' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=783.00.
+Warning: Vehicle 'high.397' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=817.00.
+Warning: Vehicle 'high.396' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=820.00.
+Warning: Vehicle 'high.407' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=833.00.
+Warning: Vehicle 'high.408' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=835.00.
+Warning: Vehicle 'high.411' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=852.00.
+Warning: Vehicle 'high.409' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=853.00.
+Warning: Vehicle 'high.409' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=855.00.
+Warning: Vehicle 'high.419' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=856.00.
+Warning: Vehicle 'high.412' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=857.00.
+Warning: Vehicle 'high.419' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=860.00.
+Warning: Vehicle 'high.415' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=861.00.
+Warning: Vehicle 'high.416' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=862.00.
+Warning: Vehicle 'high.417' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=862.00.
+Warning: Vehicle 'high.423' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=864.00.
+Warning: Vehicle 'high.418' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=868.00.
+Warning: Vehicle 'high.418' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=870.00.
+Warning: Vehicle 'high.425' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=873.00.
+Warning: Vehicle 'high.449' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=939.00.
+Warning: Vehicle 'high.460' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=946.00.
+Warning: Vehicle 'high.460' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=950.00.
+Warning: Vehicle 'high.464' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=964.00.
+Warning: Vehicle 'high.461' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=965.00.
+Warning: Vehicle 'high.462' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=966.00.
+Warning: Vehicle 'high.468' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=970.00.
+Warning: Vehicle 'high.470' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=974.00.
+Warning: Vehicle 'high.474' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=978.00.
+Warning: Vehicle 'high.481' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=991.00.
+Warning: Vehicle 'high.479' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=992.00.
+Warning: Vehicle 'high.482' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=992.00.
+Warning: Vehicle 'high.495' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1023.00.
+Warning: Vehicle 'high.497' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1038.00.
+Warning: Vehicle 'high.499' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1040.00.
+Warning: Vehicle 'high.503' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1044.00.
+Warning: Vehicle 'high.510' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1049.00.
+Warning: Vehicle 'high.512' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1051.00.
+Warning: Vehicle 'high.524' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1076.00.
+Warning: Vehicle 'high.522' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1083.00.
+Warning: Vehicle 'high.523' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1083.00.
+Warning: Vehicle 'high.520' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1085.00.
+Warning: Vehicle 'high.526' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=1086.00.
+Warning: Vehicle 'high.532' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1105.00.
+Warning: Vehicle 'high.541' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1111.00.
+Warning: Vehicle 'high.525' performs emergency braking on lane 'jam_0' with decel=9.00, wished=4.50, severity=1.00, time=1113.00.
+Warning: Vehicle 'high.542' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1113.00.
+Warning: Vehicle 'high.541' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=1114.00.
+Warning: Vehicle 'high.542' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=1116.00.
+Warning: Vehicle 'high.550' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1134.00.
+Warning: Vehicle 'high.549' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1134.00.
+Warning: Teleporting vehicle 'high.546'; collision with vehicle 'high.513', lane='jam_0', gap=-1.80, time=1134.00 stage=move.
+Warning: Vehicle 'high.546' ends teleporting on edge 'bottleneck', time=1135.00.
+Warning: Vehicle 'high.549' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1136.00.
+Warning: Vehicle 'high.552' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1137.00.
+Warning: Vehicle 'high.553' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=1140.00.
+Warning: Vehicle 'high.556' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1144.00.
+Warning: Vehicle 'high.568' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1169.00.
+Warning: Vehicle 'high.568' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1173.00.
+Warning: Vehicle 'high.562' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=1177.00.
+Warning: Vehicle 'high.562' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1179.00.
+Warning: Vehicle 'high.573' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1181.00.
+Warning: Vehicle 'high.585' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=1215.00.
+Warning: Vehicle 'high.581' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=1216.00.
+Warning: Vehicle 'high.584' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1216.00.
+Warning: Vehicle 'high.583' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=1217.00.
+Warning: Vehicle 'high.583' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=1220.00.
+Warning: Vehicle 'high.588' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1222.00.
+Warning: Vehicle 'high.587' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=1225.00.
+Warning: Vehicle 'high.596' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1226.00.
+Warning: Vehicle 'high.589' performs emergency braking on lane 'middle_0' with decel=7.00, wished=4.00, severity=1.00, time=1227.00.
+Warning: Vehicle 'high.598' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1239.00.
+Warning: Vehicle 'high.599' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=1242.00.
+Warning: Vehicle 'high.597' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1242.00.
+Warning: Vehicle 'high.597' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1245.00.
+Warning: Vehicle 'high.608' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=1250.00.
+Warning: Vehicle 'high.608' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1252.00.
+Warning: Vehicle 'high.610' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1255.00.
+Warning: Vehicle 'high.621' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1287.00.
+Warning: Vehicle 'high.622' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=1289.00.
+Warning: Vehicle 'high.623' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1295.00.
+Warning: Vehicle 'high.630' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1297.00.
+Warning: Vehicle 'high.639' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1326.00.
+Warning: Vehicle 'high.637' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1327.00.
+Warning: Vehicle 'high.644' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1333.00.
+Warning: Vehicle 'high.642' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1336.00.
+Warning: Vehicle 'high.642' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1338.00.
+Warning: Vehicle 'high.663' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1372.00.
+Warning: Vehicle 'high.655' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1373.00.
+Warning: Vehicle 'high.660' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1376.00.
+Warning: Vehicle 'high.650' performs emergency braking on lane 'jam_0' with decel=9.00, wished=4.50, severity=1.00, time=1379.00.
+Warning: Vehicle 'high.669' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1380.00.
+Warning: Vehicle 'high.671' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1385.00.
+Warning: Vehicle 'high.674' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=1400.00.
+Warning: Teleporting vehicle 'high.674'; collision with vehicle 'high.662', lane='jam_0', gap=-0.19, time=1401.00 stage=move.
+Warning: Vehicle 'high.674' ends teleporting on edge 'bottleneck', time=1401.00.
+Warning: Vehicle 'high.679' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1413.00.
+Warning: Vehicle 'high.699' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1448.00.
+Warning: Vehicle 'high.696' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1451.00.
+Warning: Vehicle 'high.701' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1453.00.
+Warning: Vehicle 'high.686' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=1459.00.
+Warning: Vehicle 'high.699' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=1460.00.
+Warning: Vehicle 'high.705' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1467.00.
+Warning: Vehicle 'high.711' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1470.00.
+Warning: Vehicle 'high.714' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1491.00.
+Warning: Vehicle 'high.706' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1493.00.
+Warning: Vehicle 'high.724' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1495.00.
+Warning: Vehicle 'high.721' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1497.00.
+Warning: Vehicle 'high.731' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1516.00.
+Warning: Vehicle 'high.727' performs emergency braking on lane 'jam_0' with decel=7.00, wished=4.00, severity=1.00, time=1517.00.
+Warning: Vehicle 'high.740' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1527.00.
+Warning: Vehicle 'high.746' performs emergency braking on lane 'jam_0' with decel=9.00, wished=4.50, severity=1.00, time=1574.00.
+Warning: Vehicle 'high.741' performs emergency braking on lane 'jam_0' with decel=9.00, wished=4.50, severity=1.00, time=1586.00.
+Warning: Vehicle 'high.763' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1587.00.
+Warning: Vehicle 'high.760' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1594.00.
+Warning: Vehicle 'high.768' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1595.00.
+Warning: Vehicle 'high.767' performs emergency braking on lane 'start_1' with decel=7.00, wished=4.00, severity=1.00, time=1596.00.
+Warning: Vehicle 'high.769' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=1599.00.
+Warning: Vehicle 'high.783' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1625.00.
+Warning: Vehicle 'high.790' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1646.00.
+Warning: Vehicle 'high.796' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1671.00.
+Warning: Vehicle 'high.801' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1676.00.
+Warning: Vehicle 'high.803' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1691.00.
+Warning: Vehicle 'high.809' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1691.00.
+Warning: Vehicle 'high.815' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1704.00.
+Warning: Vehicle 'high.814' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=1706.00.
+Warning: Vehicle 'high.815' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=1707.00.
+Warning: Vehicle 'high.823' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=1709.00.
+Warning: Vehicle 'high.818' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1710.00.
+Warning: Vehicle 'high.827' performs emergency braking on lane 'jam_1' with decel=7.00, wished=4.00, severity=1.00, time=1734.00.
+Warning: Vehicle 'high.833' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=1734.00.
+Warning: Vehicle 'high.832' performs emergency braking on lane 'jam_1' with decel=9.00, wished=4.50, severity=1.00, time=1735.00.

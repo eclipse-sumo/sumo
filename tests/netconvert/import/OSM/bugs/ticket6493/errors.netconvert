@@ -1,8 +1,30 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '119432576').
+Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '1670309356' in relation '4443863'
+Warning: PT line in relation 6048504 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 6078594 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 6080292 with no stops ignored. Probably OSM file is incomplete.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1051792010' (Heumarkt). Thus, it will be removed!
+Warning: Cannot revise pt stop localization for pt line '1633562', which has no route edges. Ignoring!
+Warning: Removed invalid stop '1341148995' from line '1633562'.
+Warning: Removed invalid stop '300403950' from line '1633562'.
+Warning: Removed invalid stop '300403947' from line '1633562'.
+Warning: Removed invalid stop '256572343' from line '1633562'.
+Warning: Cannot revise pt stop localization for pt line '1646140', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3312029132' from line '1646140'.
+Warning: Cannot revise pt stop localization for pt line '1694577', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '34411', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '34488', which has no route edges. Ignoring!
+Warning: Removing pt stop '1025250562' on non existing edge ''.
+Warning: Removing pt stop '1341148995' on non existing edge ''.
+Warning: Removing pt stop '1979567864' on non existing edge ''.
+Warning: Removing pt stop '256572343' on non existing edge ''.
+Warning: Removing pt stop '300403947' on non existing edge ''.
+Warning: Removed 12 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '295035351'.
+Warning: Converting invalid rail_crossing to priority junction '3312029525'.
 Warning: Reducing junction cluster 1093872774,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
-Warning: Reducing junction cluster 313566,368880,84510146 (5 incoming edges).
+Warning: Reducing junction cluster 313566,368880,84510146 (parallel incoming -8225118#0,751186388).
 Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).
 Warning: Not joining junctions 368879,659614608 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 4333150952,443847,660638854 (not compact (maxEdge=4534554#2 length=6.97)).
@@ -15,3 +37,6 @@ Warning: Found sharp turn with radius 8.58 at the start of edge '8225153#2'.
 Warning: The traffic light '1496363648' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1496363648'
 Warning: Speed of straight connection '145345139#0_0->169453889_0' reduced by 8.91 due to turning radius of 15.22 (length=9.03, angle=50.88).
+Warning: 8 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
+Warning: 32 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 12 total messages of type: Removing pt stop '%' on non existing edge '%'.

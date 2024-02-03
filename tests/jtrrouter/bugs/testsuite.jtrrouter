@@ -10,3 +10,15 @@ ticket99
 # Tests for ticket328 (incorrect calculations of exit times in *.rou.alt.xml)
 ticket328
 ticket3443
+
+# Test for warning for unsorted input flows
+ticket9327
+
+# Test handling unsorted input flows with option --unosorted-input
+ticket9327b
+
+# test for vType interpretation
+ticket9864
+
+# crash when using poisson flow
+ticket11834

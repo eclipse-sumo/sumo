@@ -1,0 +1,29 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="default" carFollowModel="ACC"/> 
+    <vType id="unstable" carFollowModel="ACC" collisionAvoidanceGainSpeed="0.07" collisionAvoidanceGainSpace="0.23" 
+                         gapClosingControlGainSpeed="0.07" gapClosingControlGainSpace="0.23" speedDev="0.0"/>
+
+    <vType id="leader"  sigma="0" speedDev="0.0" maxSpeed="29.5" accel="0.125" decel="0.125"/>
+    <vType id="leader2" sigma="0" speedDev="0.0" maxSpeed="29.5" accel="0.25" decel="0.25"/>
+    <vType id="leader3" sigma="0" speedDev="0.0" maxSpeed="29.5" accel="0.5" decel="0.5"/>
+    <vType id="leader4" sigma="0" speedDev="0.0" maxSpeed="29.5" accel="1" decel="1"/>
+
+    <calibrator id="c1" edge="1" pos="0" vTypes="leader">
+        <flow type="leader2" begin="0" end="1:0:0:0"/>
+    </calibrator>
+    <calibrator id="c2" edge="2" pos="0" vTypes="leader2">
+        <flow type="leader3" begin="0" end="1:0:0:0"/>
+    </calibrator>
+    <calibrator id="c3" edge="3" pos="0" vTypes="leader3">
+        <flow type="leader4" begin="0" end="1:0:0:0"/>
+    </calibrator>
+
+    <route id="r0" edges="0 1 2 3"/>
+    <vehicle id="first" type="leader" depart="0" route="r0" departSpeed="max">
+        <stop edge="0" startPos="2000" endPos="3000" speed="25.5" />
+        <stop edge="1" startPos="2000" endPos="3000" speed="25.5" />
+        <stop edge="2" startPos="2000" endPos="3000" speed="25.5" />
+        <stop edge="3" startPos="2000" endPos="3000" speed="25.5" />
+    </vehicle>
+    <flow id="flow" type="unstable" begin="1" number="10" period="2" route="r0" departSpeed="25.5"/>
+</additional>

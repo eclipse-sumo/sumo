@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ protected:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @see MSLaneSpeedTrigger
-     * @exception ProcessError If the XML definition file is errornous
+     * @exception ProcessError If the XML definition file is erroneous
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
             const std::string& id, const std::vector<MSLane*>& destLanes,
@@ -86,14 +86,12 @@ protected:
      * @param[in] net The net the rerouter belongs to
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
-     * @param[in] file The file to read the reroute definitions from
+     * @param[in] prob The probability the rerouter reroutes vehicles with
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
-            double prob, const std::string& file, bool off,
-            SUMOTime timeThreshold,
-            const std::string& vTypes) override;
+            double prob, bool off, bool optional, SUMOTime timeThreshold,
+            const std::string& vTypes, const Position& pos) override;
 
 
     /** @brief Builds a bus stop
@@ -136,7 +134,8 @@ protected:
                                   unsigned int capacity,
                                   double width, double length, double angle, const std::string& name,
                                   bool onRoad,
-                                  const std::string& departPos) override;
+                                  const std::string& departPos,
+                                  bool lefthand) override;
 
 
     /** @brief Builds a charging station
@@ -152,12 +151,14 @@ protected:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
                                       double frompos, double topos, const std::string& name,
-                                      double chargingPower, double efficiency,
-                                      bool chargeInTransit, double chargeDelay) override;
+                                      double chargingPower, double efficiency, bool chargeInTransit,
+                                      SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) override;
 
     /** @brief Builds an overhead wire segment
     *

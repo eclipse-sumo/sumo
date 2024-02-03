@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,8 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <map>
-#include <iostream>
 #include <cassert>
 #include <utils/foxtools/fxheader.h>
 #include "GUIGlObject.h"
@@ -39,49 +37,59 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage() :
-    myAktID(1),
-    myLock(true)
-{}
+    myNextID(1),
+    myLock(true) {
+    myObjects.push_back(nullptr);
+}
 
 
 GUIGlObjectStorage::~GUIGlObjectStorage() {}
 
 
 GUIGlID
-GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) {
+GUIGlObjectStorage::registerObject(GUIGlObject* object) {
     FXMutexLock locker(myLock);
-    GUIGlID id = myAktID++;
-    myMap[id] = object;
-    myFullNameMap[fullName] = object;
+    const GUIGlID id = myNextID;
+    if (id == myObjects.size()) {
+        myObjects.push_back(object);
+    } else {
+        myObjects[id] = object;
+    }
+    while (myNextID < myObjects.size() && myObjects[myNextID] != nullptr) {
+        myNextID++;
+    }
     return id;
 }
 
 
-GUIGlObject*
-GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
+void
+GUIGlObjectStorage::changeName(GUIGlObject* object, const std::string& fullName) {
     FXMutexLock locker(myLock);
-    ObjectMap::iterator i = myMap.find(id);
-    if (i == myMap.end()) {
-        i = myBlocked.find(id);
-        if (i != myBlocked.end()) {
-            GUIGlObject* o = (*i).second;
-            return o;
-        }
-        return nullptr;
-    }
-    GUIGlObject* o = (*i).second;
-    myMap.erase(id);
-    myBlocked[id] = o;
-    return o;
+    myFullNameMap.erase(object->getFullName());
+    myFullNameMap[fullName] = object;
 }
 
 
 GUIGlObject*
-GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
+GUIGlObjectStorage::getObjectBlocking(GUIGlID id) const {
     FXMutexLock locker(myLock);
-    if (myFullNameMap.count(fullName)) {
-        GUIGlID id = myFullNameMap[fullName]->getGlID();
-        return getObjectBlocking(id);
+    if (id < myObjects.size() && myObjects[id] != nullptr) {
+        GUIGlObject* const o = myObjects[id];
+        o->setBlocked();
+        return o;
+    }
+    return nullptr;
+}
+
+
+GUIGlObject*
+GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) const {
+    FXMutexLock locker(myLock);
+    auto findIt = myFullNameMap.find(fullName);
+    if (findIt != myFullNameMap.end()) {
+        GUIGlObject* const o = findIt->second;
+        o->setBlocked();
+        return o;
     }
     return nullptr;
 }
@@ -90,52 +98,39 @@ GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
 bool
 GUIGlObjectStorage::remove(GUIGlID id) {
     FXMutexLock locker(myLock);
-    ObjectMap::iterator i = myMap.find(id);
-    if (i == myMap.end()) {
-        i = myBlocked.find(id);
-        assert(i != myBlocked.end());
-        GUIGlObject* o = (*i).second;
-        myFullNameMap.erase(o->getFullName());
-        myBlocked.erase(id);
-        my2Delete[id] = o;
-        return false;
+    assert(id < myObjects.size() && myObjects[id] != nullptr);
+    myFullNameMap.erase(myObjects[id]->getFullName());
+    const bool wasBlocked = myObjects[id]->isBlocked();
+    myObjects[id] = nullptr;
+    if (id < myNextID) {
+        myNextID = id;
     }
-    myFullNameMap.erase(i->second->getFullName());
-    myMap.erase(id);
-    return true;
+    return !wasBlocked;
 }
 
 
 void
 GUIGlObjectStorage::clear() {
     FXMutexLock locker(myLock);
-    myMap.clear();
-    myAktID = 0;
+    myObjects.clear();
+    myObjects.push_back(nullptr);
+    myFullNameMap.clear();
+    myNextID = 1;
 }
 
 
 void
 GUIGlObjectStorage::unblockObject(GUIGlID id) {
     FXMutexLock locker(myLock);
-    ObjectMap::iterator i = myBlocked.find(id);
-    if (i == myBlocked.end()) {
-        return;
+    if (id < myObjects.size() && myObjects[id] != nullptr) {
+        myObjects[id]->setBlocked(false);
     }
-    GUIGlObject* o = (*i).second;
-    myBlocked.erase(id);
-    myMap[id] = o;
 }
 
 
-std::set<GUIGlID>
-GUIGlObjectStorage::getAllIDs() const {
-    FXMutexLock locker(myLock);
-    std::set<GUIGlID> result;
-    for (ObjectMap::const_iterator it = myMap.begin(); it != myMap.end(); it++) {
-        result.insert(it->first);
-    }
-    return result;
+const std::vector<GUIGlObject*>&
+GUIGlObjectStorage::getAllGLObjects() const {
+    return myObjects;
 }
-
 
 /****************************************************************************/

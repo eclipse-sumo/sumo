@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,10 +23,6 @@
 
 #include <string>
 #include <iostream>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -115,7 +111,7 @@ NIXMLTrafficLightsHandler::myEndElement(int element) {
 NBLoadedSUMOTLDef*
 NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
-        WRITE_ERROR("Definition of tlLogic '" + currentTL->getID() + "' was not finished.");
+        WRITE_ERRORF(TL("Definition of tlLogic '%' was not finished."), currentTL->getID());
         return nullptr;
     }
     bool ok = true;
@@ -128,7 +124,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
         return nullptr;
     }
     // there are three scenarios to consider
@@ -141,7 +137,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(id);
     if (programs.size() == 0) {
         if (!myIgnoreUnknown) {
-            WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+            WRITE_ERRORF(TL("Cannot load traffic light program for unknown id '%', programID '%'."), id, programID);
         }
         return nullptr;
     }
@@ -159,7 +155,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
                 newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
                              id, NBTrafficLightDefinition::DefaultProgramID));
                 if (newDef == nullptr) {
-                    WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+                    WRITE_ERRORF(TL("Cannot load traffic light program for unknown id '%', programID '%'."), id, programID);
                     return nullptr;
                 }
             } else {
@@ -206,6 +202,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     }
     if (ok) {
         myResetPhases = true;
+        mySeenIDs.insert(id);
         return loadedDef;
     } else {
         return nullptr;
@@ -272,7 +269,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     } else {
         SumoXMLNodeType type = from->getToNode()->getType();
         if (type != SumoXMLNodeType::RAIL_CROSSING && type != SumoXMLNodeType::RAIL_SIGNAL) {
-            WRITE_ERROR("The traffic light '" + tlID + "' is not known.");
+            WRITE_ERRORF(TL("The traffic light '%' is not known."), tlID);
         }
     }
 }
@@ -318,7 +315,7 @@ NIXMLTrafficLightsHandler::retrieveEdge(
     std::string edgeID = attrs.get<std::string>(attr, nullptr, ok);
     NBEdge* edge = myEdgeCont.retrieve(edgeID, true);
     if (edge == nullptr) {
-        WRITE_ERROR("Unknown edge '" + edgeID + "' given in connection.");
+        WRITE_ERRORF(TL("Unknown edge '%' given in connection."), edgeID);
         ok = false;
     }
     return edge;
@@ -331,7 +328,7 @@ NIXMLTrafficLightsHandler::retrieveLaneIndex(
     int laneIndex = attrs.get<int>(attr, nullptr, ok);
     if (edge->getNumLanes() <= laneIndex) {
         if (!isDelete) {
-            WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
+            WRITE_ERRORF(TL("Invalid lane index '%' for edge '%'."), toString(laneIndex), edge->getID());
         }
         ok = false;
     }

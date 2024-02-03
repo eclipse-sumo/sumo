@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-21 11:10:36 by Eclipse SUMO netedit Version v1_11_0+1358-7676868
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/localdata2/debug/roundaboutPermissionBug/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-83.27,-132.71,78.81,136.46" origBoundary="-286.23,-264.80,306.22,310.27" projParameter="!"/>
+
+    <node id="106" x="-1.31" y="-132.71" type="dead_end"/>
+    <node id="257" x="78.81" y="4.77" z="0.08" type="dead_end"/>
+    <node id="422" x="-83.27" y="-6.70" z="-0.01" type="dead_end"/>
+    <node id="524" x="14.73" y="14.00" type="priority"/>
+    <node id="584" x="7.08" y="-22.37" type="priority"/>
+    <node id="594" x="22.02" y="-6.60" type="priority"/>
+    <node id="604" x="2.89" y="136.46" z="-0.04" type="dead_end"/>
+    <node id="678" x="-22.91" y="-6.19" type="priority"/>
+    <node id="685" x="-10.53" y="-20.83" type="priority"/>
+    <node id="731" x="2.33" y="42.96" type="priority"/>
+    <node id="831" x="-15.13" y="15.85" type="priority"/>
+</nodes>

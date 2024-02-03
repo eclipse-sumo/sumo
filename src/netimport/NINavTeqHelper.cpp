@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,10 +58,10 @@ NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) 
             case 8:
                 return (double) 5 / (double) 3.6; //< 11 KPH / < 6 MPH
             default:
-                throw ProcessError("Invalid speed code (edge '" + id + "').");
+                throw ProcessError(TLF("Invalid speed code (edge '%').", id));
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's speed type occurred (edge '" + id + "').");
+        throw ProcessError(TLF("Non-numerical value for an edge's speed type occurred (edge '%').", id));
     }
 }
 
@@ -87,11 +87,11 @@ NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS,
                 case 3:
                     return 4;
                 default:
-                    throw ProcessError("Invalid lane number (edge '" + id + "').");
+                    throw ProcessError(TLF("Invalid lane number (edge '%').", id));
             }
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's lane number occurred (edge '" + id + "'.");
+        throw ProcessError(TLF("Non-numerical value for an edge's lane number occurred (edge '%'.", id));
     }
 }
 

@@ -26,6 +26,16 @@ set(utils_gui_div_STAT_SRCS
    GUIDesigns.h
    GUIDesigns.cpp
    GLObjectValuePassConnector.h
+   GUIGeometry.h
+   GUIGeometry.cpp
+   GUIDottedGeometry.h
+   GUIDottedGeometry.cpp
+   GUIViewObjectsHandler.cpp
+   GUIViewObjectsHandler.h
+   GUIGlobalViewObjectsHandler.h
+   GUIGlobalViewObjectsHandler.cpp
+   GUIPersistentWindowPos.h
+   GUIPersistentWindowPos.cpp
 )
 
 add_library(utils_gui_div STATIC ${utils_gui_div_STAT_SRCS})

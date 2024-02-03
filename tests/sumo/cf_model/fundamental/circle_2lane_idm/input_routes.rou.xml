@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="car"                  speedFactor="normc(1.1,0.2,1,2)"    tau="0.8" minGap="5" carFollowModel="IDM" lcAssertive="2"/>
+    <vType id="truck0" probability="19" color="red" vClass="truck" speedFactor="normc(0.625,0.1,0.6,0.8)" minGap="10" lcSpeedGain="0" carFollowModel="IDM"/>
+    <vType id="truck1" probability="01" color="blue" vClass="truck" speedFactor="normc(0.8,0.01,0.6,0.8)"  minGap="10"  carFollowModel="IDM" lcAssertive="2"/>
+    <flow id="c" type="car"   begin="0.00" route="circle" end="1" number="60" departSpeed="15" departPos="last" departLane="1"/>
+    <flow id="t0" type="truck0" begin="0.00" route="circle" end="1" number="50" departSpeed="10" departPos="last" departLane="0"/>
+    <flow id="t1" type="truck1" begin="0.00" route="circle" end="1" number="5" departSpeed="10" departPos="last" departLane="0"/>
+</routes>

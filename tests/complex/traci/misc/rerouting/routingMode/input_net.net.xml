@@ -48,7 +48,7 @@
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="10" state="G"/>
         <phase duration="3"  state="y"/>
-        <phase duration="20" state="r"/>
+        <phase duration="50" state="r"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="110.00" y="0.00" incLanes="middle_0" intLanes="" shape="110.00,0.00 110.00,-3.20 110.00,0.00">

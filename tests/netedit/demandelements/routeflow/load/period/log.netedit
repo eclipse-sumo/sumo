@@ -1,0 +1,8 @@
+Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
+Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
+Error: Attribute 'period' in definition of flow 'flow_2' is not a valid time value.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Attribute 'period' in definition of flow 'flow_3' is empty.
+Error: Invalid repetition rate in the definition of flow 'flow_4'.
+Error: Invalid repetition rate in the definition of flow 'flow_5'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\routeflow\load\period\routes.rou.xml failed.

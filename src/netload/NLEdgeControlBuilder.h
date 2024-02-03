@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,7 +95,7 @@ public:
      * @see MSLane
      * @todo Definitely not a good way
      */
-    virtual MSLane* addLane(const std::string& id, double maxSpeed,
+    virtual MSLane* addLane(const std::string& id, double maxSpeed, double friction,
                             double length, const PositionVector& shape,
                             double width,
                             SVCPermissions permissions,
@@ -105,13 +105,11 @@ public:
 
     /** @brief process a stopOffset element (originates either from the active edge or lane).
      */
-    void addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
-
+    void addStopOffsets(const StopOffset& stopOffsets);
 
     /** @brief Return info about currently processed edge or lane
      */
     std::string reportCurrentEdgeOrLane() const;
-
 
     /** @brief Adds a neighbor to the current lane
      *
@@ -119,7 +117,6 @@ public:
      * @see MSLane
      */
     virtual void addNeigh(const std::string id);
-
 
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
@@ -130,7 +127,7 @@ public:
     void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl* build(double networkVersion);
+    MSEdgeControl* build(const MMVersion& networkVersion);
 
 
     /** @brief Builds an edge instance (MSEdge in this case)
@@ -165,7 +162,7 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
-    std::map<SVCPermissions, double> myCurrentDefaultStopOffsets;
+    StopOffset myCurrentDefaultStopOffset;
 
     /// @brief The index of the currently active lane (-1 if none is active)
     int myCurrentLaneIndex;
@@ -174,16 +171,17 @@ protected:
     std::vector<MSLane*>* myLaneStorage;
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
-    std::map<MSEdge*, std::string> myBidiEdges;
+    std::map<MSEdge*, std::string, ComparatorNumericalIdLess> myBidiEdges;
 
-
-    /** @brief set the stopOffset for the last added lane.
-     */
-    void updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
+    std::vector<std::pair<MSLane*, std::string> > myOppositeLanes;
 
     /** @brief set the stopOffset for the last added lane.
      */
-    void setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets);
+    void updateCurrentLaneStopOffset(const StopOffset& stopOffset);
+
+    /** @brief set the stopOffset for the last added lane.
+     */
+    void setDefaultStopOffset(const StopOffset& stopOffset);
 
     /** @brief
      */

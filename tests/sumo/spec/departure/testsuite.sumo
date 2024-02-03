@@ -19,8 +19,20 @@ approach_slow_lane
 # test option --random-depart-offset
 depart_random
 
+# test departure at simulation begin
+depart_begin
+
 # test option --extrapolate-departpos
 extrapolate_departpos
 
+# test insertion on short edge (#10298)
+extrapolate_departpos_short
+
+# checks using departPosLat with the default model
+posLat_beyondLane
+
 # Errors on emission
 errors
+
+# tests selective removal of safety checks during insertion
+insertionChecks

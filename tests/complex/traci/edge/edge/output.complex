@@ -1,5 +1,3 @@
-Loading configuration ... done.
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -10,25 +8,27 @@ laneNumber 1
 streetName exampleStreetName1
 adaptedTraveltime -1.0
 effort -1.0
-CO2 4962.09802901
-CO 148.404394312
-HC 0.793287746206
-PMx 0.106890250159
-NOx 2.197042561
-Fuel 2.1330214171
-Noise 68.9661301311
+CO2 4962.098029013955
+CO 148.4043943117062
+HC 0.793287746205698
+PMx 0.10689025015863887
+NOx 2.197042560996833
+Fuel 1582.7018914848818
+Noise 68.96613013111516
 Elec 0.0
-meanSpeed 4.03334372395
-occupancy 0.0201207243461
+meanSpeed 4.033343723951839
+occupancy 0.02012072434607646
 lastLength 5.0
-traveltime 61.6114115255
+traveltime 61.61141152545303
 numVeh 1
 haltVeh 0
 vehIds ('horiz',)
 personIds ('p0',)
 waiting time 0.0
-checking occupancy with unicode id 0.0201207243461
-traveltime after adaption 61.6114115255
+angle (with default relative position) 270.0
+angle (with some relative position) 270.0
+checking occupancy with unicode id 0.02012072434607646
+traveltime after adaption 61.61141152545303
 adaptedTraveltime after adaption 42.0
 adaptedTraveltime after adaption in interval (check time 0) 42.0
 adaptedTraveltime after adaption in interval (check time 15) 24.0
@@ -46,23 +46,26 @@ step 4
 step 5
 {16: 1}
 {'2fi': {16: 1}}
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.114035087719298
 pending ('veh3',)
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.114035087719298
 pending ('veh3',)
-3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=10.26 travelTime=23.114035087719298
 pending ('veh3',)
-3si count=2 meanSpeed=2.2495 travelTime=105.423427428
+3si count=2 meanSpeed=8.06975 travelTime=29.387527494655966
 pending ()
-3si count=2 meanSpeed=2.2495 travelTime=105.423427428
+3si count=2 meanSpeed=8.06975 travelTime=29.387527494655966
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
-3si count=2 meanSpeed=3.0 travelTime=79.05
+3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
+allow_0 ()
+allow_1 ('bicycle',)
+allow_2 ('pedestrian', 'bicycle')

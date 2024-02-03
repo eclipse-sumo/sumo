@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -76,7 +76,7 @@ private:
      * @param[in] node The node to check connections of
      * @return Whether the settings allow to connect both nodes
      */
-    bool checkAngles(NGNode* node);
+    bool checkAngles(const NGNode* const node);
 
 
     /** @brief Checks whether connecting the given two nodes complies with the set restrictions

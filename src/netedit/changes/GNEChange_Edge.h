@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,10 +46,10 @@ public:
     /// @name inherited from GNEChange
     /// @{
     /// @brief get undo Name
-    FXString undoName() const;
+    std::string undoName() const;
 
     /// @brief get Redo name
-    FXString redoName() const;
+    std::string redoName() const;
 
     /// @brief undo action
     void undo();
@@ -65,9 +65,6 @@ protected:
     /// @brief remove given lane from parents and children
     void removeEdgeLanes();
 
-    /// @brief vector of references to vector of parent shapes (used by edge lanes)
-    std::vector<std::vector<GNEShape*> > myLaneParentShapes;
-
     /// @brief vector of references to vector of parent additionals (used by edge lanes)
     std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
 
@@ -76,9 +73,6 @@ protected:
 
     /// @brief vector of references to vector of parent generic datas (used by edge lanes)
     std::vector<std::vector<GNEGenericData*> > myLaneParentGenericData;
-
-    /// @brief vector of references to vector of child shapes (used by edge lanes)
-    std::vector<std::vector<GNEShape*> > myChildLaneShapes;
 
     /// @brief vector of references to vector of child additional (used by edge lanes)
     std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;

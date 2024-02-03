@@ -1,0 +1,12 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '142944424').
+Warning: Discarding unusable type '' (first occurrence for edge '683142360').
+Warning: PT line in relation 61382 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 62923 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 1687358 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '23138735' in relation '2459156'
+Warning: Ignoring restriction relation '2459156' with unknown to-way.
+Warning: PT line in relation 8135939 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 12044389 with no stops ignored. Probably OSM file is incomplete.
+Warning: The traffic light '583485655' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '583485655'
+Warning: 6 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.

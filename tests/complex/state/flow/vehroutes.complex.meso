@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 20 07:16:05 2020 by Eclipse SUMO sumo Version v1_7_0+1147-206f008743
+<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,23 +30,23 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00" speedFactor="1.06" arrival="151.00">
+    <vehicle id="0.0" depart="0.00" arrival="151.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     </vehicle>
 
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00" speedFactor="0.94" arrival="181.00">
+    <vehicle id="0.1" depart="10.00" arrival="181.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     </vehicle>
 
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00" speedFactor="1.01" arrival="183.00">
+    <vehicle id="0.2" depart="20.00" arrival="183.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     </vehicle>
 
-    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00" speedFactor="1.08" arrival="185.00">
+    <vehicle id="0.3" depart="30.00" arrival="185.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     </vehicle>
 
-    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00" speedFactor="1.03" arrival="196.00">
+    <vehicle id="0.4" depart="40.00" arrival="196.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     </vehicle>
 

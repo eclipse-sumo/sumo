@@ -1,0 +1,3 @@
+Error: Attribute 'off' in definition of rerouter 'rerouter_0' is empty.
+Error: Attribute 'off' in definition of rerouter 'rerouter_1' Invalid Bool Format dummyoff.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092836.15879/netedit.gui/additionalelements/rerouter/load/off/additionals.add.xml failed.

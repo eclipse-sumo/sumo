@@ -34,10 +34,9 @@ detector
 # tests for district tools (especially visum and net mapping)
 district
 
-# tests for visualisation tools
-visualisation
-build
-projects
+# tests for visualization tools
+visualization
+build_config
 
 # test functions that aren't yet used by a tested tool
 sumolib
@@ -47,3 +46,6 @@ devel
 
 # tests for drt tools
 drt
+
+# generating trigger elements
+trigger

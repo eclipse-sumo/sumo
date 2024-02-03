@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:24:17 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on 2022-02-11 10:28:24 by Eclipse SUMO sumo Version v1_12_0+0483-df84147
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,6 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -34,27 +40,27 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="0.00"/>
     <timestep id="1.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="0" impatience="0.00" arrivalTime="2.89" arrivalTimeBraking="3.38" leaveTime="4.46" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="2.30" leaveTime="3.88" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="2.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="0" impatience="0.00" arrivalTime="3.87" arrivalTimeBraking="3.87" leaveTime="5.44" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="2.57" leaveTime="4.14" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="3.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="0" impatience="0.00" arrivalTime="3.87" arrivalTimeBraking="4.19" leaveTime="5.44" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="3.14" leaveTime="4.71" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="4.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="0" impatience="0.00" arrivalTime="3.87" arrivalTimeBraking="4.75" leaveTime="5.44" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="3.75" leaveTime="5.32" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="5.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="5.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="0" impatience="0.00" arrivalTime="4.36" arrivalTimeBraking="5.36" leaveTime="5.78" arrivalSpeed="8.27" arrivalSpeedBraking="8.27" leaveSpeed="5.00" willPass="1"/>
+            <approaching id="0" impatience="0.00" arrivalTime="4.36" leaveTime="5.78" arrivalSpeed="8.27" arrivalSpeedBraking="8.27" leaveSpeed="5.00" willPass="1"/>
         </link>
     </timestep>
     <timestep id="6.00"/>
@@ -79,27 +85,27 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="25.00"/>
     <timestep id="26.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="1" impatience="0.00" arrivalTime="27.89" arrivalTimeBraking="28.38" leaveTime="29.06" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="27.30" leaveTime="28.47" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
         </link>
     </timestep>
     <timestep id="27.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="1" impatience="0.00" arrivalTime="28.87" arrivalTimeBraking="28.87" leaveTime="30.04" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="27.57" leaveTime="28.74" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
         </link>
     </timestep>
     <timestep id="28.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="1" impatience="0.00" arrivalTime="28.87" arrivalTimeBraking="29.19" leaveTime="30.04" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="28.14" leaveTime="29.30" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
         </link>
     </timestep>
     <timestep id="29.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="1" impatience="0.00" arrivalTime="28.87" arrivalTimeBraking="29.75" leaveTime="30.04" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="28.75" leaveTime="29.91" arrivalSpeed="6.95" arrivalSpeedBraking="6.95" leaveSpeed="9.13" willPass="1"/>
         </link>
     </timestep>
     <timestep id="30.00">
         <link from="right2end_0" via="" to="end_0">
-            <approaching id="1" impatience="0.00" arrivalTime="29.36" arrivalTimeBraking="30.36" leaveTime="30.38" arrivalSpeed="8.27" arrivalSpeedBraking="8.27" leaveSpeed="10.17" willPass="1"/>
+            <approaching id="1" impatience="0.00" arrivalTime="29.36" leaveTime="30.38" arrivalSpeed="8.27" arrivalSpeedBraking="8.27" leaveSpeed="10.17" willPass="1"/>
         </link>
     </timestep>
     <timestep id="31.00"/>

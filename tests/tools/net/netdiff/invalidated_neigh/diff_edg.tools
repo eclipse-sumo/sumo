@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-12-15 07:18:49.256458 by netdiff.py v1_8_0+0245-a8a7ca15b4
+
+<!-- generated on 2023-01-26 23:21:39.878172 by netdiff.py v1_15_0+1985-a4f015c
   options: source.net.xml dest.net.xml diff <doubleminus>copy location
 -->
-<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
     <!-- Copied Elements -->
     <edge id="CN" numLanes="1">
         <lane index="0" >

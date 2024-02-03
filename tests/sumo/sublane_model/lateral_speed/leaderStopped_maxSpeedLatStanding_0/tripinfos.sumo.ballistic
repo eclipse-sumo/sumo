@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 19:29:16 by Eclipse SUMO sumo Version v1_10_0+0140-a65051a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <netstate-dump value="rawdump.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="leader" depart="0.00" departLane="beg_0" departPos="156.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="58.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="7.60" duration="58.00" routeLength="144.00" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="27.33" rerouteNo="0" devices="tripinfo_leader" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="1.00" departLane="beg_0" departPos="146.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="61.00" arrivalLane="end_0" arrivalPos="96.00" arrivalPosLat="0.00" arrivalSpeed="7.87" duration="60.00" routeLength="154.00" waitingTime="15.00" waitingCount="1" stopTime="0.00" timeLoss="48.56" rerouteNo="0" devices="tripinfo_ego" vType="t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

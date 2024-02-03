@@ -1,0 +1,34 @@
+<edges>
+    <edge id="1fi">
+        <split lanes="1" pos="20.0" idBefore="1fi.before"/>
+        <split pos="-20.0" idBefore="1fi" idAfter="1fi.after"/>
+    </edge>
+    <edge id="1si">
+        <split lanes="1 2" pos="20.0" idBefore="1si.before"/>
+        <split pos="-20.0" idBefore="1si" idAfter="1si.after"/>
+    </edge>
+    <edge id="2fi">
+        <split lanes="1" pos="20.0" idBefore="2fi.before"/>
+        <split pos="-20.0" idBefore="2fi" idAfter="2fi.after"/>
+    </edge>
+    <edge id="2si">
+        <split lanes="1 2" pos="20.0" idBefore="2si.before"/>
+        <split pos="-20.0" idBefore="2si" idAfter="2si.after"/>
+    </edge>
+    <edge id="3fi">
+        <split lanes="1" pos="20.0" idBefore="3fi.before"/>
+        <split pos="-20.0" idBefore="3fi" idAfter="3fi.after"/>
+    </edge>
+    <edge id="3si">
+        <split lanes="1 2" pos="20.0" idBefore="3si.before"/>
+        <split pos="-20.0" idBefore="3si" idAfter="3si.after"/>
+    </edge>
+    <edge id="4fi">
+        <split lanes="1" pos="20.0" idBefore="4fi.before"/>
+        <split pos="-20.0" idBefore="4fi" idAfter="4fi.after"/>
+    </edge>
+    <edge id="4si">
+        <split lanes="1 2" pos="20.0" idBefore="4si.before"/>
+        <split pos="-20.0" idBefore="4si" idAfter="4si.after"/>
+    </edge>
+</edges>

@@ -15,7 +15,7 @@ Starting process 4 with steplength 2.0
 Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
 Process 1 ended at step 99.0
@@ -41,7 +41,7 @@ Starting process 4 with steplength 0.1
 Loading net-file from 'input_net.net.xml' ... done (4ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
 Process 1 ended at step 100.0
@@ -69,7 +69,7 @@ Starting process 4 with steplength 2.0
 Loading net-file from 'input_net.net.xml' ... done (2ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
 Process 1 ended at step 99.0
@@ -95,7 +95,7 @@ Starting process 4 with steplength 0.1
 Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
 Simulation ended at time: 101.00
 Reason: TraCI requested termination.
 Process 1 ended at step 100.0

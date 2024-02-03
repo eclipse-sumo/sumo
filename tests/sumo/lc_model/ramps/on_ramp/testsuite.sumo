@@ -1,0 +1,23 @@
+# a vehicle on the main highway should change to the left to help vehicles on the ramp with merging.
+blocker_on_main_frees_lane
+
+# This test shows undesireable dynamics:
+# A brakes to let B merge but B breaks as well so it does not help
+blocker_on_main_brakes
+
+# This test shows undesireable dynamics:
+# A brakes to let B merge but A is much to fast for this to be useful
+blocker_on_main_brakes2
+
+# This test shows undesireable dynamics:
+# This is an expanded case of test 'blocker_on_main_brakes2'
+# A flow of vehicles on the main road tries to help a vehicle merge from the ramp.
+# Everyone brakes only a little but this accumulates into a standstill on the main highway.
+blocker_on_main_brakes3
+
+# This test shows undesireable dynamics:
+# This is similar to test 'blocker_on_main_brakes3' but now the main road has two lanes with parallel flows.
+# The right flow of vehicles brakes to help a vehicle merge from the ramp. 
+# The reason here is that they all try to help with merging by changing lanes themselves which causes them to brake until standstill.
+# 
+blocker_on_main_brakes4

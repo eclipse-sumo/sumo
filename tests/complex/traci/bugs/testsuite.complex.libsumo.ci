@@ -1,0 +1,125 @@
+# trafficlight.setCompleteRedYellowGreenDefinition
+ticket1010
+
+# Defect vehicle after loading a state in which it is added but not inserted
+#ticket1433
+
+# distance calculation from/to internal edges
+ticket2321
+
+# vehicle.addStop when the vehicle is too fast to stop
+ticket2777
+
+# vehicle add/remove in the same simstep
+ticket2803
+
+# vehicle.setSignals
+ticket2804
+
+# speedMode (red light violation) with sublane model
+ticket3140
+
+# erase stop
+ticket3348
+
+# subscribe begin>0
+ticket3349
+
+# Resuming with traci from loading a state without setting a begin option induces traci crash.
+#ticket3505
+
+# Altered conditions similar to the ones causing bug 3505: 
+# load-offset > 0
+#ticket3505_with_load_offset
+
+# Altered conditions similar to the ones causing bug 3505: 
+# begin > save-time
+#ticket3505_test_with_begin_ge_savetime
+
+# Save CF parameters changed over traci.  Note: The initial test version does not test the complete set of corresponding parameters.
+ticket3522
+
+# vehicle.changeLane with sublane model
+ticket3634
+
+# test vehicle.getDistance() for looped route
+ticket3648
+
+# vehicle.getLaneChangeState() with setLaneChangeMode()
+ticket3810
+
+# use busStop as shortcut without intending to use public transport
+ticket4141
+
+# crash on first call to simulationStep(time)
+ticket4214
+
+# traffic light type
+ticket4324
+ticket4418
+ticket4432
+
+# closing and re-opening a lane
+ticket4514
+ticket4563
+
+# invalid vehicle.getDrivingDistance
+ticket4642
+
+# failure to add vehicle in long simulation
+ticket4920
+
+# sumo aborts with error when calling traci.simulation.getDistanceRoad and no route is found
+ticket5114
+
+# invalid lane change when moving to a new edge
+ticket5309
+
+# crash when calling setRoute with a single internal edge
+ticket5390
+
+# bestLanse not updated after skipping stop with vehicle.setStop
+ticket5561
+
+# remove person from destination stop on removal from simultion
+ticket5620
+
+# crash when calling getPosition on a personTrip before departure
+ticket5674
+
+# stop with duration=0 and until < 0 should trigger removal
+# stop with duraiton=0 and until >= 0 should not trigger removal 
+ticket5712
+
+# changing vehicle type parameters should still trigger vtype specific rerouter
+ticket5831
+
+# moveTo with internal lane
+ticket5932
+
+# use changeLaneRelative to change to the right
+ticket5990
+
+# reset object lists (doesn't happen with libsumo)
+ticket6239
+
+# handle invalid departSpeed without crashing
+ticket6626
+
+# update rtree when adding/removing polygons and POIs
+ticket7057
+
+# crash when switching to cfmodel with vehicle variables
+ticket7949
+
+# crash during lane-changing after calling moveTo with an internal lane
+ticket8714
+
+# crash when calling libsumo twice
+ticket8945
+
+# do not return left+right in lanechange state
+ticket10212
+
+# do not return left+right in lanechange state
+ticket10212b

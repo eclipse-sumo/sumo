@@ -4,18 +4,22 @@ add_subdirectory(demand)
 add_subdirectory(data)
 
 set(netedit_elements_SRCS
-   GNEAttributeProperties.h
-   GNEAttributeProperties.cpp
-   GNETagProperties.h
-   GNETagProperties.cpp
-   GNEAttributeCarrier.h
    GNEAttributeCarrier.cpp
-   GNEHierarchicalContainer.h
-   GNEHierarchicalContainer.cpp
-   GNEHierarchicalElement.h
-   GNEHierarchicalElement.cpp
-   GNECandidateElement.h
+   GNEAttributeCarrier.h
+   GNEAttributeProperties.cpp
+   GNEAttributeProperties.h
    GNECandidateElement.cpp
+   GNECandidateElement.h
+   GNEGeneralHandler.cpp
+   GNEGeneralHandler.h
+   GNEHierarchicalContainer.cpp
+   GNEHierarchicalContainer.h
+   GNEHierarchicalElement.cpp
+   GNEHierarchicalElement.h
+   GNEContour.cpp
+   GNEContour.h
+   GNETagProperties.cpp
+   GNETagProperties.h
    )
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})

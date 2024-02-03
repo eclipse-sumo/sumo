@@ -1,0 +1,1 @@
+fcd.xml -o image.png --csv-output out.csv -t tg tools/plot_trajectories.py

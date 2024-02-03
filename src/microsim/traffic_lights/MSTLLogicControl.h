@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,10 +87,8 @@ public:
         /// @brief Constructor
         TLSLogicVariants();
 
-
         /// @brief Destructor
         ~TLSLogicVariants();
-
 
         /** @brief Verifies traffic lights loaded from the network
          *
@@ -100,8 +98,7 @@ public:
          */
         bool checkOriginalTLS() const;
 
-
-        /** @brief Adds a logic (program)
+        /** @brief Adds a logic (program). In case of an error the logic gets deleted.
          *
          * @param[in] programID The sub-id of this program
          * @param[in] logic The logic to add
@@ -110,8 +107,6 @@ public:
          */
         bool addLogic(const std::string& programID, MSTrafficLightLogic* logic, bool netWasLoaded,
                       bool isNewDefault = true);
-
-
 
         MSTrafficLightLogic* getLogic(const std::string& programID) const;
         void addSwitchCommand(OnSwitchAction* c);
@@ -141,7 +136,6 @@ public:
         void addLink(MSLink* link, MSLane* lane, int pos);
         void ignoreLinkIndex(int pos);
 
-
     private:
         /// @brief The currently used program
         MSTrafficLightLogic* myCurrentProgram;
@@ -158,7 +152,6 @@ public:
         /// @brief The list of actions/commands to execute on switch
         std::vector<OnSwitchAction*> mySwitchActions;
 
-
     private:
         /// @brief Invalidated copy constructor.
         TLSLogicVariants(const TLSLogicVariants&);
@@ -170,14 +163,11 @@ public:
     };
 
 
-
     /// @brief Constructor
     MSTLLogicControl();
 
-
     /// @brief Destructor
     ~MSTLLogicControl();
-
 
     /** @brief Lets MSTLLogicControl know that the network has been loaded
      *
@@ -198,7 +188,6 @@ public:
      */
     bool closeNetworkReading();
 
-
     /** @brief Lets all running (current) tls programs apply their current signal states to links they control
      * @param[in] t The current time
      * @see MSTrafficLightLogic::setTrafficLightSignals
@@ -207,14 +196,12 @@ public:
      */
     void setTrafficLightSignals(SUMOTime t) const;
 
-
     /** @brief Returns a vector which contains all logics
      *
      * All logics are included, active (current) and non-active
      * @return A vector containing all loaded logics
      */
     std::vector<MSTrafficLightLogic*> getAllLogics() const;
-
 
     /** @brief Returns the variants of a named tls
      *
@@ -224,7 +211,6 @@ public:
      */
     TLSLogicVariants& get(const std::string& id) const;
 
-
     /** @brief Returns a single program (variant) defined by the tls id and the program programID
      *
      * @param[in] id The id of the tls to get program of
@@ -233,7 +219,6 @@ public:
      */
     MSTrafficLightLogic* get(const std::string& id, const std::string& programID) const;
 
-
     /** @brief Returns the active program of a named tls
      *
      * @param[in] id The id of the tls to get the active program of
@@ -241,14 +226,12 @@ public:
      */
     MSTrafficLightLogic* getActive(const std::string& id) const;
 
-
     /**
      * Returns the ids of all existing variants-structures, wich are the ids of their
      * contained tls logics (not the logic's programm-ids)
      * @return the list of ids
      */
     std::vector<std::string> getAllTLIds() const;
-
 
     /** @brief Adds a tls program to the container
      *
@@ -259,7 +242,7 @@ public:
      * If the tls to add is loaded from an additional file (indicated by myNetWasLoaded,
      *  see closeNetworkReading), links from previously loaded tls are adapted to the logic.
      *  This may throw a ProcessError in the case no tls program was loaded for this
-     *  tls before (was not defined in the network).
+     *  tls before (was not defined in the network). In case of an error the logic gets deleted.
      *
      * The parameter newDefault defines whether this program will be used as the new
      *  default program of this tls. This means that an existing tls program for this
@@ -274,21 +257,17 @@ public:
     bool add(const std::string& id, const std::string& programID,
              MSTrafficLightLogic* logic, bool newDefault = true);
 
-
-
     /** @brief Returns the information whether the named tls is stored
      * @param[in] id The id of the tls to ask for
      * @return Whether a tls with the given id is known
      */
     bool knows(const std::string& id) const;
 
-
     /** @brief Returns whether the given tls program is the currently active for his tls
      * @param[in] tl The tls to ask for
      * @return Whether the given tl is currently active (or a different program is used)
      */
     bool isActive(const MSTrafficLightLogic* tl) const;
-
 
     /** @brief Switches the named (id) tls to the named (programID) program
      *
@@ -299,8 +278,6 @@ public:
      * @exception ProcessError If either the tls or the program to switch to is not known
      */
     void switchTo(const std::string& id, const std::string& programID);
-
-
 
     /// @name WAUT definition methods
     /// @{
@@ -384,7 +361,7 @@ public:
     void saveState(OutputDevice& out);
 
     /** @brief Clear all tls states before quick-loading state */
-    void clearState();
+    void clearState(SUMOTime time, bool quickReload = false);
 
 
 

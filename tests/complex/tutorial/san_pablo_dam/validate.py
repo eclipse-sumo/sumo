@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,11 +28,12 @@ verbose = False
 
 def readTimes(obsfile):
     times = []
-    for line in open(obsfile):
-        ll = line.split(':')
-        if ll:
-            times.append(
-                3600 * int(ll[0]) + 60 * int(ll[1]) + int(float(ll[2])))
+    with open(obsfile) as ifile:
+        for line in ifile:
+            ll = line.split(':')
+            if ll:
+                times.append(
+                    3600 * int(ll[0]) + 60 * int(ll[1]) + int(float(ll[2])))
     return times
 
 
@@ -70,12 +71,13 @@ def validate(sumoBinary):
     obs2Nr = {'obs1': 1, 'obs2': 2, 'obs3': 3,
               'obs4': 4, 'obs5': 5, 'obs6': 6, 'obs7': 7}
 
-    for line in open('data/detector.xml'):
-        if line.find('<interval') != -1:
-            ll = line.split('"')
-            iObs = obs2Nr[ll[5]]
-            if int(ll[7]) > 0:
-                simTimes[iObs].append(float(ll[1]))
+    with open('data/detector.xml') as ifile:
+        for line in ifile:
+            if line.find('<interval') != -1:
+                ll = line.split('"')
+                iObs = obs2Nr[ll[5]]
+                if int(ll[7]) > 0:
+                    simTimes[iObs].append(float(ll[1]))
 
     # convert simTimes[][] into travel-times:
     for i in range(1, 8):

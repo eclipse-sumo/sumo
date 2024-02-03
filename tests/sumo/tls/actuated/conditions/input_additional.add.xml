@@ -1,0 +1,29 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSSwitchStates" source="C" dest="tls_state_switch.xml"/>
+
+    <inductionLoop id="NC0" lane="NC_0" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="w"/>
+    </inductionLoop>
+    <inductionLoop id="NC1" lane="NC_1" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="e"/>
+    </inductionLoop>
+    <inductionLoop id="EC0" lane="EC_0" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="d"/>
+    </inductionLoop>
+    <inductionLoop id="EC1" lane="EC_1" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="f"/>
+    </inductionLoop>
+    <inductionLoop id="SC0" lane="SC_0" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="c"/>
+    </inductionLoop>
+    <inductionLoop id="SC1" lane="SC_1" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="x"/>
+    </inductionLoop>
+    <inductionLoop id="WC0" lane="WC_0" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="s"/>
+    </inductionLoop>
+    <inductionLoop id="WC1" lane="WC_1" pos="-20" file="detector.xml" freq="3600">
+        <param key="hotkey" value="a"/>
+    </inductionLoop>
+
+</additional>

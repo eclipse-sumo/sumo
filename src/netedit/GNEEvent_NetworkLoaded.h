@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,26 +41,26 @@ class GNENet;
 class GNEEvent_NetworkLoaded : public GUIEvent {
 public:
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNENet* net,
-                           const std::string& file,
-                           const std::string& settingsFile,
-                           const bool viewportFromRegistry)
-        : GUIEvent(EVENT_SIMULATION_LOADED),
-          myNet(net), myFile(file), mySettingsFile(settingsFile), myViewportFromRegistry(viewportFromRegistry) { }
+    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file,
+                           const std::string& _settingsFile, const bool _viewportFromRegistry) :
+        GUIEvent(GUIEventType::SIMULATION_LOADED),
+        net(_net),
+        file(_file),
+        settingsFile(_settingsFile),
+        viewportFromRegistry(_viewportFromRegistry) { }
 
     /// @brief destructor
     ~GNEEvent_NetworkLoaded() { }
 
-public:
     /// @brief the loaded net
-    GNENet* myNet;
+    GNENet* net;
 
     /// @brief the name of the loaded file
-    std::string myFile;
+    const std::string file;
 
     /// @brief the name of the settings file to load
-    std::string mySettingsFile;
+    const std::string settingsFile;
 
     /// @brief whether loading viewport from registry
-    bool myViewportFromRegistry;
+    const bool viewportFromRegistry;
 };

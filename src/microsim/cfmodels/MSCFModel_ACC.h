@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,8 @@ public:
     * @return EGO's safe speed
     * @see MSCFModel::ffeV
     */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -76,7 +77,7 @@ public:
     * @see MSCFModel::ffeS
     * @todo generic Interface, models can call for the values they need
     */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
     /** @brief Returns the a gap such that the gap mode acceleration of the follower is zero
      * @param[in] veh The vehicle itself, for obtaining other values
@@ -161,9 +162,9 @@ private:
     double myGapControlGainSpace;
     double myCollisionAvoidanceGainSpeed;
     double myCollisionAvoidanceGainSpace;
+    double myEmergencyThreshold;
 
 private:
     /// @brief Invalidated assignment operator
     MSCFModel_ACC& operator=(const MSCFModel_ACC& s);
 };
-

@@ -6,3 +6,6 @@ cars_with_offset_flow_out_at_red
 
 # Passenger cars have to wait 10m to the lane end
 cars_with_offset_departSpeed_max
+
+# Passenger cars have to wait 10m to the lane end, while bicycles may proceed until the end but the lane is only 5 m long
+offset_exceeds_laneLength

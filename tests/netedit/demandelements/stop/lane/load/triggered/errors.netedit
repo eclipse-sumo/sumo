@@ -1,0 +1,11 @@
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'Edge2_1'
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: There is another flowRoute with the same ID='routeFlow_0'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.21Jul154557.6915/netedit.gui/demandelements/stop/lane/load/triggered/routes.rou.xml failed.

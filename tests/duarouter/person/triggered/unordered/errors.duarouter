@@ -1,0 +1,5 @@
+Error: Unknown vehicle 'v0' in triggered departure for person 'p0'.
+Warning: Discarding person 'p0' because her plan is empty
+Error: Unknown vehicle 'v0' in triggered departure for person 'p1'.
+Warning: Discarding person 'p1' because her plan is empty
+Quitting (on error).

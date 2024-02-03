@@ -1,5 +1,5 @@
-Running main() from gtest_main.cc
-[==========] Running 44 tests from 5 test cases.
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 44 tests from 5 test suites.
 [----------] Global test environment set-up.
 [----------] 10 tests from StringTokenizer
 [ RUN      ] StringTokenizer.test_split_with_whitechar
@@ -17,23 +17,25 @@ Running main() from gtest_main.cc
 [ RUN      ] StringTokenizer.test_method_front
 [       OK ] StringTokenizer.test_method_front (0 ms)
 [ RUN      ] StringTokenizer.test_method_get
-[       OK ] StringTokenizer.test_method_get (1 ms)
+[       OK ] StringTokenizer.test_method_get (0 ms)
 [ RUN      ] StringTokenizer.test_method_get_with_empty_data
 [       OK ] StringTokenizer.test_method_get_with_empty_data (0 ms)
 [ RUN      ] StringTokenizer.test_method_getVector
 [       OK ] StringTokenizer.test_method_getVector (0 ms)
-[----------] 10 tests from StringTokenizer (1 ms total)
+[----------] 10 tests from StringTokenizer (0 ms total)
 
-[----------] 3 tests from FileHelpers
+[----------] 4 tests from FileHelpers
 [ RUN      ] FileHelpers.test_method_checkForRelativity
 [       OK ] FileHelpers.test_method_checkForRelativity (0 ms)
 [ RUN      ] FileHelpers.test_method_getConfigurationRelative
 [       OK ] FileHelpers.test_method_getConfigurationRelative (0 ms)
 [ RUN      ] FileHelpers.test_method_getFilePath
 [       OK ] FileHelpers.test_method_getFilePath (0 ms)
-[----------] 3 tests from FileHelpers (0 ms total)
+[ RUN      ] FileHelpers.test_method_fixRelative
+[       OK ] FileHelpers.test_method_fixRelative (0 ms)
+[----------] 4 tests from FileHelpers (0 ms total)
 
-[----------] 14 tests from StringUtils
+[----------] 13 tests from StringUtils
 [ RUN      ] StringUtils.test_method_prune
 [       OK ] StringUtils.test_method_prune (0 ms)
 [ RUN      ] StringUtils.test_method_to_lower_case
@@ -50,8 +52,6 @@ Running main() from gtest_main.cc
 [       OK ] StringUtils.test_method_replace_empty_second_argument (0 ms)
 [ RUN      ] StringUtils.test_method_replace_empty_third_argument
 [       OK ] StringUtils.test_method_replace_empty_third_argument (0 ms)
-[ RUN      ] StringUtils.test_method_toTimeString
-[       OK ] StringUtils.test_method_toTimeString (0 ms)
 [ RUN      ] StringUtils.test_method_escapeXML
 [       OK ] StringUtils.test_method_escapeXML (0 ms)
 [ RUN      ] StringUtils.test_toInt
@@ -59,10 +59,10 @@ Running main() from gtest_main.cc
 [ RUN      ] StringUtils.test_toLong
 [       OK ] StringUtils.test_toLong (0 ms)
 [ RUN      ] StringUtils.test_toDouble
-[       OK ] StringUtils.test_toDouble (2 ms)
+[       OK ] StringUtils.test_toDouble (0 ms)
 [ RUN      ] StringUtils.test_toBool
 [       OK ] StringUtils.test_toBool (0 ms)
-[----------] 14 tests from StringUtils (2 ms total)
+[----------] 13 tests from StringUtils (0 ms total)
 
 [----------] 7 tests from RGBColor
 [ RUN      ] RGBColor.test_parseColor_with_wrong_string
@@ -105,5 +105,5 @@ Running main() from gtest_main.cc
 [----------] 10 tests from ValueTimeLine (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 44 tests from 5 test cases ran. (4 ms total)
+[==========] 44 tests from 5 test suites ran. (0 ms total)
 [  PASSED  ] 44 tests.

@@ -1,0 +1,27 @@
+/* XPM */
+static const char *tool_import_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+"4 c #5AA02C",
+"v c #D7F4D7",
+"B c white",
+"V c None",
+/* pixels */
+"VV         VVVVV",
+"VV BBBBBB B VVVV",
+"VV BBBBBB BB VVV",
+"VV BBBBBB BBB VV",
+"VV BBBBBB     VV",
+"VV BBB4BBBBBB VV",
+"VV BBB44BBBBB VV",
+"4444444v4BBBB VV",
+"4vvvvvvvv4BBB VV",
+"4vvvvvvvvv4BB VV",
+"4vvvvvvvv4BBB VV",
+"4444444v4BBBB VV",
+"VV BBB44BBBBB VV",
+"VV BBB4BBBBBB VV",
+"VV BBBBBBBBBB VV",
+"VV            VV"
+};

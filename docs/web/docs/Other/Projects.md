@@ -6,6 +6,62 @@ title: Projects
 
 ### Current Projects
 
+- [ReTraSON](https://verkehrsforschung.dlr.de/de/projekte/retrason-infrastrukturelle-transformation-suedostniedersachsen)
+   Infrastructure Transformation in Lower Saxony (German)
+
+- [SHOW](https://www.uitp.org/projects/show/)
+shows the integration of fleets of automated vehicles in public transport, demand-responsive transport (DRT), Mobility a Service (MaaS) and Logistics as a Service (LaaS) schemes
+
+- [Spurplan](https://verkehrsforschung.dlr.de/de/projekte/sumo-spurplan-5-deadlock-aufbereitung-fuer-grossraeumige-szenarien)
+SUMO is being expanded and improved in various areas for modeling rail traffic
+
+- [VMo4Orte](https://verkehrsforschung.dlr.de/en/projects/vmo4orte)
+Development of solution modules that can be used to contribute to the transformation of the transport system
+
+- [MoCKiii](https://verkehrsforschung.dlr.de/de/projekte/projekt-mockiii-visualisierte-verkehrsmittelnutzung-fuer-die-stadt-koeln)
+Creation of a dash board with which the city of Cologne can easily detect the current traffic situation, changes in mobility behavior and the traffic situation in order to then be able to initiate suitable countermeasures
+
+- [KoKoVi](https://verkehrsforschung.dlr.de/de/projekte/kokovi)
+Transport as a cooperative and networked system
+
+- [TAPAS](https://verkehrsforschung.dlr.de/en/projects/tapas-model-future-demand-passenger-transport-urban-areas)
+Model for data on the future development of passenger transport demand in urban areas
+
+
+### Past Projects
+
+- [ITS for Asia](https://verkehrsforschung.dlr.de/en/projects/itsforasia)
+Monitoring intersections to identify accident spots
+
+- [Digitaler Knoten 4.0](https://verkehrsforschung.dlr.de/de/projekte/digitaler-knoten-40)
+Investigation of networked, efficient and safe organization of mixed traffic situations
+
+- [UrMo Digital](https://verkehrsforschung.dlr.de/de/projekte/urmo-digital)
+Investigation of mobility and logistics concepts under the influence of digitalization
+
+- [Local Traffic Safety Analyzer (LTSA)](https://verkehrsforschung.dlr.de/de/projekte/local-traffic-safety-analyzer-ltsa)
+In terms of infrastructure, it recognizes and analyzes the road and provides movement lines (trajectories) as well as messages describing the situation for road users
+
+- [DATAMOST](https://verkehrsforschung.dlr.de/en/projects/datamost-data-and-model-based-solutions-transformation-mobility)
+Data and Model-based Solutions for the Transformation of Mobility
+
+- [DIGEST](https://verkehrsforschung.dlr.de/de/projekte/digest-digitaler-zwilling-des-verkehrssystems-strasse)
+Digital twin of the road transport system
+
+- [ALFRIED](https://verkehrsforschung.dlr.de/de/projekte/automatisiertes-und-vernetztes-fahren-der-logistik-am-testfeld-friedrichshafen-kurz)
+Automatisiertes und vernetztes Fahren in der Logistik am Testfeld Friedrichshafen
+
+- [Spurplan-4](https://verkehrsforschung.dlr.de/de/projekte/spurplan-4)
+Simulation of regional rail traffic for regular operations, disrupted operations and planning interventions
+
+- [VM50City](https://verkehrsforschung.dlr.de/de/projekte/vm50kcity-automatisierung-und-digitalisierung-der-verkehrssteuerung-auf)
+Examination of established categories of measures for potential and feasibility for small and medium-sized cities
+
+- [eUVM](https://verkehrsforschung.dlr.de/de/projekte/euvm-reduktion-von-luftschadstoffen-berlin-durch-optimiertes-verkehrsmanagement)
+Testing and implementing suitable measures to reduce traffic-related emissions
+
+- [AutomoVer](https://verkehrsforschung.dlr.de/de/projekte/automatisierung-des-verkehrssystems)
+Development of guidance for decision-makers
 - [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
@@ -15,45 +71,44 @@ title: Projects
   innovative traffic light control with V2X Communication.
 - [VABENE](https://verkehrsforschung.dlr.de/en/projects/vabene). SUMO simulates and predicts
   large-scale traffic for disaster and public event management
-- [I.MoVe](http://verkehrsforschung.dlr.de/de/projekte/imove)
+- [I.MoVe](https://verkehrsforschung.dlr.de/de/projekte/imove)
   developing additional car following models
-- [Urban Mobility](http://www.urmo.info/) Intermodal routing and
+- [Urban Mobility](https://web.archive.org/web/20180329070141/http://www.urmo.info/) Intermodal routing and
   modeling of transfer between vehicles in SUMO
-- [Mobility Inside](http://www.mobilityinside.de/) Using SUMO's
+- [Mobility Inside](https://www.mobility-inside.de/) Using SUMO's
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
-- [MENDEL](http://mendel-projekt.de/en/home-2/) modeling electric
-  buses and optimizing charging with respect to grid load
-
-### Past Projects
-
 - [VEU](https://www.dlr.de/VEU/). In this project, SUMO is used to
   simulated the traffic of Berlin
 - [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
-- [AMITRAN](https://web.archive.org/web/20180815190303/http://www.amitran.eu/)
-- [MODUM](https://web.archive.org/web/20180831121624/http://modum-project.eu/)
-- [iTetris](http://www.ict-itetris.eu/) An Integrated Wireless and
+- [AMITRAN](https://web.archive.org/web/20180815190303/https://www.amitran.eu/)
+CO2 Assessment Methodology for ICT in Transport
+- [MODUM](https://web.archive.org/web/20180831121624/https://modum-project.eu/)
+Addresses the environmental footprint in the transport sector by developing a new approach for pro-active demand-responsive management of traffic
+- [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
-- Delphi: country-wide traffic analysis and prognosis for Germany
-- [ORINOKO](https://www.dlr.de/vf/en/desktopdefault.aspx/tabid-958/4508_read-2854/4508_page-17/): improvements on mobility in the
+- [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
+- [ORINOKO](https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
-- [Soccer2006](https://web.archive.org/web/20150705081516/http://www.dlr.de/desktopdefault.aspx/tabid-1296):
+- [Soccer2006](https://web.archive.org/web/20150705081516/https://www.dlr.de/desktopdefault.aspx/tabid-1296):
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
 - [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
   A virtual traffic management centre
-- [INVENT](http://www.invent-online.de/): Evaluation of modern traffic
+- [INVENT](https://www.invent-online.de/): Evaluation of modern traffic
   management approaches
-- [OIS](https://web.archive.org/web/20040826034935/http://www.dlr.de/vf/forschung/projekte/ois): Verification of
+- [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
-- [CityMobil](http://www.citymobil.org/) Automatic urban
+- [CityMobil](https://web.archive.org/web/20191204150245/http://www.citymobil-project.eu/) Automatic urban
   transportation. A [simulation for a parking lot](../Tutorials/CityMobil.md) inspired by the Rome
   demonstrator is included with SUMO.
-- [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
+- [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
+- [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
+  buses and optimizing charging with respect to grid load
 
 ## At other Institutions
 
@@ -61,27 +116,27 @@ title: Projects
 
 - [MultiAgent Control of Traffic
   Signals](https://github.com/k0emt/macts)
-- [VENTOS](http://maniam.github.io/VENTOS/) a VEhicular NeTwork Open
+- [VENTOS](https://maniam.github.io/VENTOS/) a VEhicular NeTwork Open
   Simulator
 - [Webots](https://www.cyberbotics.com/) a 3D physics robot simulator
   connected to SUMO
-- [eWorld](https://web.archive.org/web/20161205050209/http://eworld.sourceforge.net/) - an application that
+- [eWorld](https://web.archive.org/web/20161205050209/https://eworld.sourceforge.net/) - an application that
   allows to convert and enrich roads networks; interaction is done via
   the [TraCI](../TraCI.md)-protocol
-- [Environmental Monitoring in/of Metropolitan Areas](http://www.ibr.cs.tu-bs.de/projects/emma/index.xml?lang=en)
+- [Environmental Monitoring in/of Metropolitan Areas](https://www.ibr.cs.tu-bs.de/projects/emma/index.xml?lang=en)
   by Sven Lahde, Michael Doering, Wolf-Bastian Pöttner, Moritz Rosin,
   Gerrit Lammert and Lars Wolf from the University of Braunschweig,
   Germany
-- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](https://web.archive.org/web/20180307071524/http://auto-nomos.de/) Axel Wegener, Horst Hellbrück
+- [AutoNomos - A Distributed and Self-Regulating Approach for Organizing a Large System of Mobile Objects.](https://web.archive.org/web/20180307071524/https://auto-nomos.de/) Axel Wegener, Horst Hellbrück
   and Stefan Fischer from the University of Luebeck, Germany in
   cooperation with Sándor Fekete from Braunschweig Technical
   University, Germany
 - [TraNS - Traffic and Network Simulation environment for design, implementation
   and realistic evaluation of VANET
-  applications](http://trans.epfl.ch)
+  applications](https://web.archive.org/web/20190512111856/http://lca.epfl.ch/projects/trans/)
   by Michal Piorkowski, Maxim Raya, Ada Lezama Lugo and Jean-Pierre
-  Hubaux from [Laboratory for Computer Communications and Applications
-  (LCA)](http://lcawww.epfl.ch), [EPFL](http://www.epfl.ch),
+  Hubaux from Laboratory for Computer Communications and Applications
+  (LCA), [EPFL](https://www.epfl.ch),
   Switzerland
   TraNS is the first open-source project providing a full-blown
   application-centric evaluation framework for VANETs. It has a unique
@@ -99,7 +154,7 @@ title: Projects
   (2)](../Publications.md#sommeryaogermandressler2008_2)
 - "Assessment of traffic regulation policies for the minimization of
   pollutants emissions"
-  by Mauro Bianchi at [CEFRIEL](http://www.cefriel.it/), Italy.
+  by Mauro Bianchi at [CEFRIEL](https://www.cefriel.it/), Italy.
   This project uses SUMO in combination with EMEP/CORINAIR methodology
   for evaluating the impact of different traffic regulation strategies
   on pollutants emissions. Traffic simulations are performed offline
@@ -108,7 +163,7 @@ title: Projects
   hypothesize an online regulation system with a network of sensors
   that is used to recognize the current traffic situations and deploy
   the optimal traffic regulation policies.
-- [Fidens – Trust between Cooperative Systems in Application to VANETs](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/)
+- [Fidens – Trust between Cooperative Systems in Application to VANETs](https://web.archive.org/web/20120313075112/https://www.ldv.ei.tum.de/en/research/fidens/)
   This project investigates trust in vehicular networks (VANETs).
   Besides the trust research, it features a simulation environment for
   large scale vehicular network applications. Our typical scenario
@@ -119,10 +174,12 @@ title: Projects
   controlled. To do so, it simulates the effects of the underlying
   layers, not their protocols in detail. This makes it especially fast
   and suitable for application developers.
+- [PedSUMO](https://github.com/M-Colley/pedsumo): PedSUMO is an enhancement to SUMO that explores the dynamic interaction between automated vehicles and pedestrians at unprioritized crossings, focusing on pedestrian behavior in response to vehicle-priority communication methods. This open-source project offers detailed algorithms, parameter insights, and an initial data analysis of Ingolstadt, Germany, paving the way for understanding the complex impact of automated vehicles in urban environments.
+
 
 ### Past Projects
 
-- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cl.cam.ac.uk/research/dtg/www/publications/public/jjd27/ciiHandout.pdf)
+- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cottinghams.com/david/downloads/ciiCongestionPoster.pdf)
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
@@ -132,7 +189,7 @@ title: Projects
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
   publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
-- [Rapid Generation of Realistic Simulation for VANET](https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
+- [Rapid Generation of Realistic Simulation for VANET](http://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!
@@ -144,8 +201,8 @@ title: Projects
 - "Analyse und Simulation von Verkettbarkeitsmaßen in pseudonymer,
   mobiler
   Kommunikation" by Clemens Honomichl; Diploma thesis; 2008
-- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
-- [Metro Traffic Simulator](https://tech.d-itlab.co.jp/author/osamumasutani/)
+- [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/https://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
+- [Metro Traffic Simulator](https://www.youtube.com/watch?v=P9rHo6yHRNc)
 
 ## Code repositories with SUMO related stuff
 
@@ -158,6 +215,8 @@ title: Projects
 - [PyPML - Python Parking Monitoring Library](https://github.com/lcodeca/PyPML)
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen) - An Activity-based Multi-modal Mobility Scenario Generator for SUMO.
 - [RLLIB+SUMO Utils](https://github.com/lcodeca/rllibsumoutils) is a connector between the RLLIB library and SUMO that uses TraCI. It can be tested using [RLLIB+SUMO Docker](https://github.com/lcodeca/rllibsumodocker) based on a GPU-enabled official TensorFlow image.
+- [DCARP-SUMO-Simulation](https://github.com/HawkTom/DCARP-SUMO-Simulation) Benchmarking Dynamic Capacitated Arc Routing Algorithms Using Real-World Traffic Simulation. There is also a [related paper](https://ieeexplore.ieee.org/abstract/document/9870399)
+- [RandomActivityGen](https://github.com/d610f20/random-activitygen-py/)  generating a population [statistics file](../Demand/Activity-based_Demand_Generation.md#the_statistics_file) for [ACTIVITYGEN](../activitygen.md).
 
 ### Visualization related
 

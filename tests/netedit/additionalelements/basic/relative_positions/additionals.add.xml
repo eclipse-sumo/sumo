@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop" lane="center1_0" startPos="35.00" endPos="45.00" friendlyPos="0"/>
+    <calibrator id="calibrator1" lane="center1_0" pos="5.00" period="100.00" output="calibrator1.txt"/>
+    <calibrator id="calibrator2" edge="center1" pos="10.00" period="100.00" output="calibrator2.txt"/>
+    <chargingStation id="chargingStation" lane="center1_1" startPos="35.00" endPos="45.00" friendlyPos="0" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
+    <containerStop id="containerStop" lane="center1_1" startPos="35.00" endPos="45.00" friendlyPos="0"/>
+    <inductionLoop id="inductionLoop" lane="center0_1" pos="10.00" period="100.00" file="inductionLoop.txt" vTypes="bus taxi private" friendlyPos="0"/>
+    <laneAreaDetector id="laneAreaDetector" lane="center0_1" pos="5.00" length="10.00" period="100.00" file="laneAreaDetector.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+    <entryExitDetector id="entryExitDetector" period="100.00" file="entryExitDetector.txt" timeThreshold="1.00" speedThreshold="1.39" pos="10.00,-15.00">
+        <detEntry lane="center0_0" pos="5.00" friendlyPos="0"/>
+        <detExit lane="center0_0" pos="15.00" friendlyPos="0"/>
+    </entryExitDetector>
+    <instantInductionLoop id="instantInductionLoop" lane="center0_1" pos="12.00" period="100.00" file="instantInductionLoop.txt" friendlyPos="0"/>
+    <rerouter id="rerouter" edges="center1" probability="1.00" off="0" pos="15.15,-14.96"/>
+    <routeProbe id="routeProbe" edge="center1" period="100.00" file="routeProbe.txt" begin="0.00"/>
+    <vaporizer id="vaporizer" begin="0.00" end="10.00"/>
+    <variableSpeedSign id="variableSpeedSign" lanes="center1_0" pos="19.52,-14.87"/>
+</additional>

@@ -1,0 +1,7 @@
+Error: Invalid repetition probability in the definition of personFlow 'p_0'.
+Error: Attribute 'probability' in definition of personFlow 'p_1' Invalid Number Format (double) dummyProb.
+Error: Attribute 'probability' in definition of personFlow 'p_2' is empty.
+Error: Invalid repetition probability in the definition of personFlow 'p_3'.
+Error: Invalid repetition probability in the definition of personFlow 'p_4'.
+Error: Invalid repetition probability in the definition of personFlow 'p_5'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.26Jan095535.11214/netedit.daily.demand.personflow/demandelements/personflow/load/probability/routes.rou.xml failed.

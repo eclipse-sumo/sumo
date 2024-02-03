@@ -1,0 +1,3 @@
+<additional>
+    <e1Detector id="0" lane=":C_w0_0" pos="0" length="2" file="detector.xml" detectPersons="walk" nextEdges=":C_c3"/>
+</additional>

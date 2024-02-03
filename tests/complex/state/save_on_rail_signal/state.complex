@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 16:26:43 by Eclipse SUMO sumo Version v1_9_1+0257-435dafc
+<!-- generated on 2022-08-28 16:17:21 by Eclipse SUMO sumo Version v1_14_1+0593-392bf46
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,41 +26,37 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_1+0257-435dafc" time="116.00" type="micro">
-    <route id="!train" state="0" edges="a b e"/>
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_1+0593-392bf46" time="116.00" type="micro">
     <route id="!train2" state="0" edges="-e -b -d"/>
     <route id="!train3" state="0" edges="-e -b -d"/>
-    <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
+    <delay number="2" begin="3" end="1" depart="31.00" time="31.00"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="0 0" speedFactor="1.00" state="18 0 0 20.10 104000 109.71 115000 0 0" pos="93.64 73.64 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 1 0 104000"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="136.06 0" speedFactor="1.00" state="18 0 0 20.10 0 6.51 115000 0 1" pos="2.00 118.06 2.00" speed="2.00 0.00" angle="225.22" posLat="0.00" waitingTime="100000 0">
-        <stop lane="-e_0" duration="100.00" started="15.00" ended="115.00"/>
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 31000 0 20.10 0 5.65 115000 1 0" pos="136.06 116.06 0.00" speed="0.00 0.00" angle="225.00" posLat="0.00" waitingTime="100000 0">
+        <stop lane="-e_0" startPos="135.86" endPos="136.06" duration="31.00" started="46.00"/>
     </vehicle>
-    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.00" state="18 110000 0 20.10 0 0.67 115000 0 0" pos="80.22 60.22 9.61" speed="9.61 10.91" angle="225.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 20.10 0 0.67 115000 0 0" pos="80.22 60.22 9.61" speed="9.61 10.91" angle="225.00" posLat="0.00" waitingTime="100000 0"/>
+    <lane id=":A_0_0">
+        <link to="-d_0">
+            <approaching id="train2" arrivalTime="183304" arrivalSpeed="5.72" departSpeed="5.72" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="210.05"/>
+        </link>
+    </lane>
     <lane id=":B_0_0">
-        <vehicles value="train2"/>
         <link to="-b_0">
-            <approaching id="train2" arrivalTime="116862" arrivalSpeed="5.72" departSpeed="5.72" request="1" arrivalTimeBraking="146862" arrivalSpeedBraking="0.00" waitingTime="0" distance="7.19"/>
-            <approaching id="train3" arrivalTime="120647" arrivalSpeed="11.00" departSpeed="11.00" request="1" arrivalTimeBraking="150647" arrivalSpeedBraking="0.00" waitingTime="0" distance="72.64"/>
+            <approaching id="train2" arrivalTime="147862" arrivalSpeed="5.72" departSpeed="5.72" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="7.19"/>
+            <approaching id="train3" arrivalTime="120647" arrivalSpeed="11.00" departSpeed="11.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="72.64"/>
         </link>
     </lane>
     <lane id="-b_0">
         <link to=":A_0_0">
-            <approaching id="train2" arrivalTime="132149" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalTimeBraking="162149" arrivalSpeedBraking="0.00" waitingTime="0" distance="202.86"/>
-            <approaching id="train3" arrivalTime="133647" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalTimeBraking="163647" arrivalSpeedBraking="0.00" waitingTime="0" distance="268.31"/>
+            <approaching id="train2" arrivalTime="163149" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="202.86"/>
+            <approaching id="train3" arrivalTime="133647" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="268.31"/>
         </link>
     </lane>
     <lane id="-e_0">
-        <vehicles value="train3"/>
+        <vehicles value="train3 train2"/>
         <link to=":B_0_0">
-            <approaching id="train2" arrivalTime="115000" arrivalSpeed="2.00" departSpeed="5.72" request="1" arrivalTimeBraking="145000" arrivalSpeedBraking="0.00" waitingTime="0" distance="0.00"/>
-            <approaching id="train3" arrivalTime="120813" arrivalSpeed="9.61" departSpeed="11.00" request="1" arrivalTimeBraking="150813" arrivalSpeedBraking="0.00" waitingTime="0" distance="65.45"/>
-        </link>
-    </lane>
-    <lane id="a_0">
-        <vehicles value="train"/>
-        <link to=":A_2_0">
-            <approaching id="train" arrivalTime="115501" arrivalSpeed="0.00" departSpeed="2.00" request="0" arrivalTimeBraking="145501" arrivalSpeedBraking="0.00" waitingTime="103000" distance="1.00"/>
+            <approaching id="train2" arrivalTime="146000" arrivalSpeed="2.00" departSpeed="5.72" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="0.00"/>
+            <approaching id="train3" arrivalTime="120813" arrivalSpeed="9.61" departSpeed="11.00" request="1" arrivalSpeedBraking="0.00" waitingTime="0" distance="65.45"/>
         </link>
     </lane>
 </snapshot>

@@ -1,0 +1,5 @@
+-n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
+--min-stops 0
+--extend-to-fringe
+--verbose
+tools/ptlines2flows.py

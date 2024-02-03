@@ -3,8 +3,9 @@
         <route edges="right2end end"/>
     </vehicle>
 
-    <vType sigma="0" id="tflow" speedDev="0.20"/>
-    <flow id="priority" type="tflow" begin="0" end="500" departPos="800" departSpeed="max" period="2.3">
+    <vType sigma="0" id="tflow" speedDev="0.0"/>
+    <flow id="priority" type="tflow" begin="0" end="500" departPos="800" departSpeed="max" period="4.1">
+        <param key="has.tripinfo.device" value="false"/>
         <route edges="middle end"/>
     </flow>
 </routes>

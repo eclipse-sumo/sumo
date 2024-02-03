@@ -1,0 +1,8 @@
+Warning: At NEMA tlLogic '0', actuated phase 3 has no controlling detector
+Warning: At NEMA tlLogic '0, linkIndex 7 has no controlling detector
+Warning: Teleporting vehicle 'WE.112'; collision with vehicle 'SE.23', lane='2o_0', gap=-6.60, time=781.00 stage=move.
+Warning: Vehicle 'WE.112' teleports beyond arrival edge '2o', time=781.00.
+Warning: Teleporting vehicle 'SE.24'; collision with vehicle 'WE.114', lane='2o_0', gap=-0.00, time=786.00 stage=move.
+Warning: Vehicle 'SE.24' teleports beyond arrival edge '2o', time=786.00.
+Warning: Teleporting vehicle 'SE.48'; collision with vehicle 'WE.240', lane='2o_0', gap=-6.80, time=1347.00 stage=move.
+Warning: Vehicle 'SE.48' teleports beyond arrival edge '2o', time=1347.00.

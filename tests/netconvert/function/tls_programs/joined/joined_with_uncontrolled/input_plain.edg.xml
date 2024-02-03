@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 01 Apr 2019 10:42:54 AM CEST by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/acosta_net/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+        <check-lane-foes.all value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="161" from="52" to="79" priority="-1" numLanes="3" speed="13.89" shape="983.88,831.75 1036.44,831.75 1064.69,831.07 1176.38,827.25" spreadType="center"/>
+    <edge id="17" from="15" to="16" priority="-1" numLanes="2" speed="13.89" shape="792.63,816.82 722.50,844.50 700.88,849.32 664.50,853.25" spreadType="center"/>
+    <edge id="171" from="62" to="52" priority="-1" numLanes="1" speed="13.89" shape="966.81,642.88 966.81,654.25 975.56,823.94" spreadType="center"/>
+    <edge id="18" from="17" to="15" priority="-1" numLanes="2" speed="13.89" shape="818.25,843.82 807.81,819.82" spreadType="center"/>
+    <edge id="181" from="81" to="17" priority="-1" numLanes="2" speed="13.89" shape="846.38,906.32 819.81,846.94" spreadType="center"/>
+    <edge id="191" from="82" to="15" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="222" from="87" to="222-end" priority="-1" numLanes="1" speed="13.89" shape="983.31,860.44 979.38,840.57" spreadType="center"/>
+    <edge id="69" from="15" to="52" priority="-1" numLanes="2" speed="13.89" shape="787.00,804.94 824.70,801.24 839.19,805.07 897.81,824.50 943.75,831.75 964.88,831.75" spreadType="center"/>
+    <edge id="72[0]" from="9" to="53" priority="-1" numLanes="3" speed="13.89" shape="593.19,849.13 648.44,845.94 696.50,840.07 718.06,835.82 768.63,816.34" spreadType="center"/>
+    <edge id="72[1]" from="53" to="15" priority="-1" numLanes="2" speed="13.89" shape="768.63,816.34 787.00,808.94" spreadType="center"/>
+    <edge id="74" from="23" to="53" priority="-1" numLanes="1" speed="13.89" shape="537.25,719.50 566.81,726.38 639.25,743.07 701.63,761.57 747.25,774.75 755.94,782.13 758.94,793.88 758.56,804.07 760.25,808.69 768.63,816.34" spreadType="center"/>
+
+
+</edges>

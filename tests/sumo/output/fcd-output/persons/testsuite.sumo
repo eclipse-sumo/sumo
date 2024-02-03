@@ -1,0 +1,17 @@
+# output not from every person
+person_by_param
+
+# output not from every person (disabled globally via device.fcd.probability)
+person_by_options_and_param
+
+# Copy of person_attributes
+person_attributes
+
+# output not from every person
+riding
+
+# disable person fcd-output
+riding_noPersons
+
+# disable person fcd-output
+riding_noPersons_radius

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,9 +35,9 @@ from sumolib.miscutils import parseTime  # noqa
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-r", "--route-file", dest="routeFile",
+    parser.add_argument("-r", "--route-file", category='input', dest="routeFile",
                         help="Input route file")
-    parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
+    parser.add_argument("-o", "--output-file", category='output', dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("-s", "--seed", type=int, default=42,
                         help="random seed")
@@ -69,9 +69,9 @@ def main(options):
     if options.seed:
         random.seed(options.seed)
 
-    with open(options.out, 'w') as outf:
+    with open(options.routeFile) as routes, open(options.out, 'w') as outf:
         pat = re.compile(r'(.* duration=")([^"]*)(".*)')
-        for line in open(options.routeFile):
+        for line in routes:
             if "<stop" in line and "duration" in line:
                 if random.random() < options.probability:
                     if options.min == options.max:

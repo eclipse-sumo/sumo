@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,8 +21,11 @@
 #include <config.h>
 
 #include <vector>
+#include <cassert>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSMoveReminder.h>
 
 
 // ===========================================================================
@@ -30,7 +33,6 @@
 // ===========================================================================
 class MSEdge;
 class MSLink;
-class MSMoveReminder;
 class MSDetectorFileOutput;
 class MSVehicleControl;
 class MEVehicle;
@@ -45,6 +47,25 @@ class OutputDevice;
  * @brief A single mesoscopic segment (cell)
  */
 class MESegment : public Named {
+public:
+    static const double DO_NOT_PATCH_JAM_THRESHOLD;
+    static const int PARKING_QUEUE = -1;
+
+    /// @brief edge type specific meso parameters
+    struct MesoEdgeType {
+        SUMOTime tauff;
+        SUMOTime taufj;
+        SUMOTime taujf;
+        SUMOTime taujj;
+        double jamThreshold;
+        bool junctionControl;
+        double tlsPenalty;
+        double tlsFlowPenalty;
+        SUMOTime minorPenalty;
+        bool overtaking;
+    };
+
+
 private:
     class Queue {
     public:
@@ -86,9 +107,17 @@ private:
             myBlockTime = t;
         }
 
+        inline void setPermissions(SVCPermissions p) {
+            myPermissions = p;
+        }
+
+        void addDetector(MSMoveReminder* data);
+
+        void addReminders(MEVehicle* veh) const;
+
     private:
         /// The vClass permissions for this queue
-        const SVCPermissions myPermissions;
+        SVCPermissions myPermissions;
 
         std::vector<MEVehicle*> myVehicles;
 
@@ -101,9 +130,9 @@ private:
         /// @brief The block time
         SUMOTime myBlockTime = -1;
 
-    private:
-        /// @brief Invalidated assignment operator.
-        Queue& operator=(const Queue&) = delete;
+        /// @brief The data collection for all kinds of detectors
+        std::vector<MSMoveReminder*> myDetectorData;
+
     };
 
 public:
@@ -114,24 +143,18 @@ public:
      * @param[in] length The segment's length
      * @param[in] speed The speed allowed on this segment
      * @param[in] idx The running index of this segment within the segment's edge
-     * @param[in] tauff The factor for free-free headway time
-     * @param[in] taufj The factor for free-jam headway time
-     * @param[in] taujf The factor for jam-free headway time
-     * @param[in] taujj The factor for jam-jam headway time
-     * @param[in] jamThresh percentage of occupied space before the segment is jammed
      * @param[in] multiQueue whether to install multiple queues on this segment
-     * @param[in] junctionControl whether junction control is enabled on this segment
-     * @todo recheck the id; using a ':' as divider is not really nice
+     * @param[in] edgeType edge type specific meso parameters such as the different taus
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
               const double length, const double speed,
               const int idx,
               const bool multiQueue,
-              const MSNet::MesoEdgeType& edgeTyp);
+              const MesoEdgeType& edgeType);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
-    void initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent);
+    void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const double capacity);
 
     /// @name Measure collection
     /// @{
@@ -139,20 +162,23 @@ public:
     /** @brief Adds a data collector for a detector to this segment
      *
      * @param[in] data The data collector to add
+     * @param[in] queueIndex The queue (aka lane) to use, -1 means all
      */
-    void addDetector(MSMoveReminder* data);
+    void addDetector(MSMoveReminder* data, int queueIndex = -1);
 
     /** @brief Removes a data collector for a detector from this segment
      *
      * @param[in] data The data collector to remove
+     * @note: currently not used
      */
-    void removeDetector(MSMoveReminder* data);
+    // void removeDetector(MSMoveReminder* data);
 
-    /** @brief Updates data of a detector for all vehicle queues
+    /** @brief Updates data of a detector for one or all vehicle queues
      *
      * @param[in] data The detector data to update
+     * @param[in] queueIndex The queue (aka lane) to use, -1 means all
      */
-    void prepareDetectorForWriting(MSMoveReminder& data);
+    void prepareDetectorForWriting(MSMoveReminder& data, int queueIndex = -1);
     /// @}
 
     /** @brief Returns whether the given vehicle would still fit into the segment
@@ -217,6 +243,14 @@ public:
         return myLength;
     }
 
+    /** @brief Returns the sum of the lengths of all usable lanes of the segment in meters.
+     *
+     * @return the capacity of the segment
+     */
+    inline double getCapacity() const {
+        return myCapacity;
+    }
+
     /** @brief Returns the occupany of the segment (the sum of the vehicle lengths + minGaps)
      *
      * @return the occupany of the segment in meters
@@ -238,7 +272,7 @@ public:
 
     /** @brief Returns the relative occupany of the segment (percentage of road used))
      * at which the segment is considered jammed
-     * @return the jam treshold of the segment in percent
+     * @return the jam threshold of the segment in percent
      */
     inline double getRelativeJamThreshold() const {
         return myJamThreshold / myCapacity;
@@ -432,8 +466,6 @@ public:
         return myTau_ff;
     }
 
-    static const double DO_NOT_PATCH_JAM_THRESHOLD;
-
     /// @brief add this lanes MoveReminders to the given vehicle
     void addReminders(MEVehicle* veh) const;
 
@@ -442,6 +474,9 @@ public:
      * @return The time penalty
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
+
+    /// @brief called when permissions change due to Rerouter or TraCI
+    void updatePermissions();
 
 private:
     bool overtake();
@@ -469,11 +504,11 @@ private:
     bool limitedControlOverride(const MSLink* link) const;
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
-    inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {
-        return tau + (SUMOTime)(lengthWithGap * myTau_length);
+    inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap, double vehicleTau) const {
+        return (SUMOTime)((double)tau * vehicleTau + lengthWithGap * myTau_length);
     }
 
-    SUMOTime getTauJJ(int nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
+    SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
 
 private:
     /// @brief The microsim edge this segment belongs to
@@ -512,16 +547,13 @@ private:
     double myTau_length;
 
     /// @brief The number of lanes represented by the queue * the length of the lane
-    const double myCapacity;
+    double myCapacity = 0.;
 
     /// @brief The number of lanes represented by the queue * the length of the lane
-    double myQueueCapacity;
+    double myQueueCapacity = 0.;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     double myJamThreshold;
-
-    /// @brief The data collection for all kinds of detectors
-    std::vector<MSMoveReminder*> myDetectorData;
 
     /// @brief The car queues. Vehicles are inserted in the front and removed in the back
     std::vector<Queue> myQueues;

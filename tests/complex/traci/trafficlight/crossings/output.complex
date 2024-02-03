@@ -1,0 +1,38 @@
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+trafficlight ('C',)
+trafficlight count 1
+waitingPersons 0
+examining C
+ryg rrrrrrrrrrryrrrrrrrrrrryrrrr
+rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=28.0, state='rrrrrrgGgGGgrrrrrrgGgGGgGrGr', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='rrrrrrgGgGGgrrrrrrgGgGGgrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='rrrrrryyyyygrrrrrryyyyygrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrrrrrrrGrrrrrrrrrrrGrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrrrrrrrryrrrrrrrrrrryrrrr', minDur=3.0, maxDur=3.0, name='setByTraCI'), Phase(duration=28.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrGrG', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='yyyyygrrrrrryyyyygrrrrrrrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrGrrrrrrrrrrrGrrrrrrrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrryrrrrrrrrrrryrrrrrrrrrr', minDur=3.0, maxDur=3.0)), subParameter={}),)
+lanes ('NC_2', 'NC_2', 'NC_3', 'NC_3', 'NC_4', 'NC_4', 'EC_2', 'EC_2', 'EC_3', 'EC_3', 'EC_4', 'EC_4', 'SC_2', 'SC_2', 'SC_3', 'SC_3', 'SC_4', 'SC_4', 'WC_2', 'WC_2', 'WC_3', 'WC_3', 'WC_4', 'WC_4', ':C_w1_0', ':C_w2_0', ':C_w3_0', ':C_w0_0')
+links [[('NC_2', 'CW_2', ':C_0_0')], [('NC_2', 'CS_2', ':C_1_0')], [('NC_3', 'CW_3', ':C_2_0')], [('NC_3', 'CS_3', ':C_3_0')], [('NC_4', 'CS_4', ':C_3_1')], [('NC_4', 'CE_4', ':C_5_0')], [('EC_2', 'CN_2', ':C_6_0')], [('EC_2', 'CW_2', ':C_7_0')], [('EC_3', 'CN_3', ':C_8_0')], [('EC_3', 'CW_3', ':C_9_0')], [('EC_4', 'CW_4', ':C_9_1')], [('EC_4', 'CS_4', ':C_11_0')], [('SC_2', 'CE_2', ':C_12_0')], [('SC_2', 'CN_2', ':C_13_0')], [('SC_3', 'CE_3', ':C_14_0')], [('SC_3', 'CN_3', ':C_15_0')], [('SC_4', 'CN_4', ':C_15_1')], [('SC_4', 'CW_4', ':C_17_0')], [('WC_2', 'CS_2', ':C_18_0')], [('WC_2', 'CE_2', ':C_19_0')], [('WC_3', 'CS_3', ':C_20_0')], [('WC_3', 'CE_3', ':C_21_0')], [('WC_4', 'CE_4', ':C_21_1')], [('WC_4', 'CN_4', ':C_23_0')], [(':C_w1_0', ':C_c0_0', '')], [(':C_w2_0', ':C_c1_0', '')], [(':C_w3_0', ':C_c2_0', '')], [(':C_w0_0', ':C_c3_0', '')]]
+program 0
+phase 4
+phaseName setByTraCI
+switch 26.0
+duration 3.0
+numDefs=1 numPhases=[10]
+{0: ('C',)}
+step 3
+{0: ('C',)}
+step 4
+{0: ('C',)}
+step 5
+{0: ('C',)}
+examining C
+ryg rrrrurrrrrryrrrrurrrrrryrrrr
+rygdef (Logic(programID='0', type=0, currentPhaseIndex=4, phases=(Phase(duration=28.0, state='rrrrrrgGgGGgrrrrrrgGgGGgGrGr', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='rrrrrrgGgGGgrrrrrrgGgGGgrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='rrrrrryyyyygrrrrrryyyyygrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrrrrrrrGrrrrrrrrrrrGrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrrrrrrrryrrrrrrrrrrryrrrr', minDur=3.0, maxDur=3.0, name='setByTraCI'), Phase(duration=28.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrGrG', minDur=28.0, maxDur=28.0), Phase(duration=5.0, state='gGgGGgrrrrrrgGgGGgrrrrrrrrrr', minDur=5.0, maxDur=5.0), Phase(duration=3.0, state='yyyyygrrrrrryyyyygrrrrrrrrrr', minDur=3.0, maxDur=3.0), Phase(duration=6.0, state='rrrrrGrrrrrrrrrrrGrrrrrrrrrr', minDur=6.0, maxDur=6.0), Phase(duration=3.0, state='rrrrryrrrrrrrrrrryrrrrrrrrrr', minDur=3.0, maxDur=3.0)), subParameter={}), Logic(programID='online', type=0, currentPhaseIndex=0, phases=(Phase(duration=1.0, state='rrrrurrrrrryrrrrurrrrrryrrrr', minDur=1.0, maxDur=1.0),), subParameter={}))
+lanes ('NC_2', 'NC_2', 'NC_3', 'NC_3', 'NC_4', 'NC_4', 'EC_2', 'EC_2', 'EC_3', 'EC_3', 'EC_4', 'EC_4', 'SC_2', 'SC_2', 'SC_3', 'SC_3', 'SC_4', 'SC_4', 'WC_2', 'WC_2', 'WC_3', 'WC_3', 'WC_4', 'WC_4', ':C_w1_0', ':C_w2_0', ':C_w3_0', ':C_w0_0')
+links [[('NC_2', 'CW_2', ':C_0_0')], [('NC_2', 'CS_2', ':C_1_0')], [('NC_3', 'CW_3', ':C_2_0')], [('NC_3', 'CS_3', ':C_3_0')], [('NC_4', 'CS_4', ':C_3_1')], [('NC_4', 'CE_4', ':C_5_0')], [('EC_2', 'CN_2', ':C_6_0')], [('EC_2', 'CW_2', ':C_7_0')], [('EC_3', 'CN_3', ':C_8_0')], [('EC_3', 'CW_3', ':C_9_0')], [('EC_4', 'CW_4', ':C_9_1')], [('EC_4', 'CS_4', ':C_11_0')], [('SC_2', 'CE_2', ':C_12_0')], [('SC_2', 'CN_2', ':C_13_0')], [('SC_3', 'CE_3', ':C_14_0')], [('SC_3', 'CN_3', ':C_15_0')], [('SC_4', 'CN_4', ':C_15_1')], [('SC_4', 'CW_4', ':C_17_0')], [('WC_2', 'CS_2', ':C_18_0')], [('WC_2', 'CE_2', ':C_19_0')], [('WC_3', 'CS_3', ':C_20_0')], [('WC_3', 'CE_3', ':C_21_0')], [('WC_4', 'CE_4', ':C_21_1')], [('WC_4', 'CN_4', ':C_23_0')], [(':C_w1_0', ':C_c0_0', '')], [(':C_w2_0', ':C_c1_0', '')], [(':C_w3_0', ':C_c2_0', '')], [(':C_w0_0', ':C_c3_0', '')]]
+program online
+phase 0
+phaseName 
+switch 7.0
+duration 1.0
+set ryg rrrrurrrrrryrrrrurrrrrryrrrr
+program online
+ryg ooooooooooooooooooooooooOOOO

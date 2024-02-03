@@ -1,0 +1,31 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_PEDTYPE" speedDev="0" vClass="pedestrian"/>
+
+    <routeDistribution id="rDist">
+        <route id="r0" edges="beg beg2left"/>
+        <route id="r1" edges="beg middle"/>
+        <route id="r2" edges="beg beg2right"/>
+    </routeDistribution>
+
+    <person id="p0" depart="0" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p1" depart="1" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p2" depart="2" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p3" depart="3" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p4" depart="4" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p5" depart="5" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+    <person id="p6" depart="6" departPos="-50">
+        <walk route="rDist" arrivalPos="50"/>
+    </person>
+</routes>

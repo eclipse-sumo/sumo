@@ -1,0 +1,3 @@
+Warning: At NEMA tlLogic '2881', Ring 1 does not add to cycle length.
+Warning: At NEMA tlLogic '2881', Ring 2 does not add to cycle length.
+Warning: At NEMA tlLogic '2881', the phases before barrier 2 from both rings do not add up. (ring1=93.00, ring2=99.00)

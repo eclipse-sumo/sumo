@@ -1,8 +1,20 @@
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
+# test routing on shared roads
+opposite-factor
+
+# person uses "normal" vehicle connection as part of the walk
+vehicle_connection
+
 # Copy of basic
 basic
+
+# Copy of basic
+2persontrips
+
+# Copy of basic
+2persontrips_disconnected
 
 # person with a type
 vtype
@@ -81,8 +93,14 @@ intermodal_car_walk_input
 # car and walk in one trip but no stop for changing modes
 intermodal_car_walk_no_place
 
+# car and walk in one trip
+intermodal_car_walk_junctionTaz
+
 # train access
 access
+
+# train access with random position
+access_random
 
 # walk to train stop via access
 access_walk
@@ -108,6 +126,7 @@ car_public_walk5
 
 # check correct routing network when using internal edges
 car_public_walk_internal
+car_public_walk_parkingAreas
 
 # output bus route as well
 ptline_routing
@@ -158,4 +177,10 @@ taz
 
 # last edge of the ride differs from first edge of the walk
 atJunction_ride_walk
+
+# see #11820
+toJunction_twice
+
+# trip between identical stops
+sameStops
 errors

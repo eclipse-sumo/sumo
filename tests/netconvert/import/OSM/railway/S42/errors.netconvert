@@ -1,0 +1,7 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4407773').
+Warning: Ambiguous railway kilometrage direction for way '4407773' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '4471971' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '4490198' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '4615230' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '4740765' (assuming forward)
+Warning: 21 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)

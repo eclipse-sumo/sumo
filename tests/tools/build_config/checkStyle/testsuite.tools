@@ -1,0 +1,19 @@
+header
+
+# check python scripts in tools dir
+tools
+
+# check python scripts in tests/netedit
+netedit
+
+# check python scripts in tests/netedit/additionalElements
+netedit_additionals
+
+# check python scripts in tests/netedit/demandElements
+netedit_demand
+
+# check python scripts in tests/complex
+complex
+
+# check python scripts in tests/tools
+tooltests

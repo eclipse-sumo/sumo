@@ -1,4 +1,26 @@
+Warning: PT line in relation 3016480 with no stops ignored. Probably OSM file is incomplete.
+Warning: Cannot revise pt stop localization for pt line '1320025', which has no route edges. Ignoring!
+Warning: Removed invalid stop '1664524672' from line '1320025'.
+Warning: Removed invalid stop '1383433664' from line '1320025'.
+Warning: Removed invalid stop '255559795' from line '1320025'.
+Warning: Removed invalid stop '255559792' from line '1320025'.
+Warning: Removed invalid stop '605463652' from line '1320025'.
+Warning: Cannot revise pt stop localization for pt line '1320438', which has no route edges. Ignoring!
+Warning: Removing pt stop '1383433664' on non existing edge ''.
+Warning: Removing pt stop '1664524672' on non existing edge ''.
+Warning: Removing pt stop '255559792' on non existing edge ''.
+Warning: Removing pt stop '255559795' on non existing edge ''.
+Warning: Removing pt stop '3547698968' on non existing edge ''.
+Warning: Removed 14 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '1673186150'.
+Warning: Converting invalid rail_crossing to priority junction '2344517607'.
+Warning: Converting invalid rail_crossing to priority junction '267923528'.
+Warning: Converting invalid rail_crossing to priority junction '267923531'.
+Warning: Converting invalid rail_crossing to priority junction '3474210017'.
 Warning: Shape for junction '2078932912' has distance 44.54 to its given position.
 Warning: The traffic light 'cluster_3548410431_4494632692' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'cluster_3548410431_4494632692'
 Warning: Speed of straight connection '8091275#0_0->7796753_0' reduced by 11.24 due to turning radius of 21.92 (length=6.09, angle=31.53).
+Warning: 14 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 14 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 14 total messages of type: Removing pt stop '%' on non existing edge '%'.

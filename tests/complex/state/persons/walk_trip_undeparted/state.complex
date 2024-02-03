@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-29 15:43:02 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="50.00" type="micro">
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <transportables type="person" state="0 1 0 1 0 0 0 0 0 0">
+        <person id="walk_trip" type="DEFAULT_PEDTYPE" depart="100.00" speedFactor="1.0600" state="262144 0 -1">
+            <walk from="3/1to2/1" to="1/1to0/1"/>
+        </person>
+    </transportables>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+</snapshot>

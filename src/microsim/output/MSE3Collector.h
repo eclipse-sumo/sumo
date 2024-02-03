@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,6 +41,7 @@
 // ===========================================================================
 class SUMOTrafficObject;
 class OutputDevice;
+class MSTransportable;
 
 
 // ===========================================================================
@@ -55,7 +56,7 @@ class OutputDevice;
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
  */
-class MSE3Collector : public MSDetectorFileOutput, public Parameterised {
+class MSE3Collector : public MSDetectorFileOutput {
 public:
     /**
      * @class MSE3EntryReminder
@@ -116,6 +117,10 @@ public:
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         /// @}
 
+
+        double getPosition() const {
+            return myPosition;
+        }
 
     private:
         /// @brief The parent collector
@@ -192,6 +197,10 @@ public:
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
+        double getPosition() const {
+            return myPosition;
+        }
+
 
     private:
         /// @brief The parent collector
@@ -224,7 +233,9 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes, bool openEntry);
+                  const std::string name, const std::string& vTypes,
+                  const std::string& nextEdges,
+                  int detectPersons, bool openEntry, bool expectArrival);
 
 
     /// @brief Destructor
@@ -244,7 +255,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder, bool isBackward = false);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -263,8 +274,13 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
+    /// @brief Returns the entry cross sections
+    const CrossSectionVector& getEntries() const;
+
+    /// @brief Returns the exit cross sections
+    const CrossSectionVector& getExits() const;
 
     /// @name Methods returning current values
     /// @{
@@ -300,6 +316,25 @@ public:
     std::vector<std::string> getCurrentVehicleIDs() const;
     /// @}
 
+    /// @name Methods returning values from the previous interval
+    /// @{
+
+    double getLastIntervalMeanTravelTime() const {
+        return myLastMeanTravelTime;
+    }
+
+    double getLastIntervalMeanHaltsPerVehicle() const {
+        return myLastMeanHaltsPerVehicle;
+    }
+
+    double getLastIntervalMeanTimeLoss() const {
+        return myLastMeanTimeLoss;
+    }
+
+    int getLastIntervalVehicleSum() const {
+        return myLastVehicleSum;
+    }
+    /// @}
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -339,10 +374,16 @@ public:
     void detectorUpdate(const SUMOTime step);
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState();
+    virtual void clearState(SUMOTime step);
 
 protected:
-    /// @brief The detector's entries
+    void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);
+
+protected:
+    /// @brief name
+    std::string myName;
+
+    /// @brief The detector's entrys
     CrossSectionVector myEntries;
 
     /// @brief The detector's exits
@@ -417,12 +458,21 @@ protected:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Storages for last written values
+    /// @{
+    double myLastMeanTravelTime;
+    double myLastMeanHaltsPerVehicle;
+    double myLastMeanTimeLoss;
+    int myLastVehicleSum;
+    /// @}
 
     /// @brief Information when the last reset has been done
     SUMOTime myLastResetTime;
 
     /// @brief whether this dector is declared as having incomplete entry detectors
     const bool myOpenEntry;
+    /// @brief Whether the detector expects vehicles to arrive inside (and doesn't issue a warning in this case)
+    const bool myExpectArrival;
 
 private:
     /// @brief Invalidated copy constructor.

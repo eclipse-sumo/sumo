@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,7 @@ private:
     /// @brief helper function to write the response for VAR_NEXT_STOPS and VAR_NEXT_STOPS2
     static void writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full);
 
+    static bool insertReplaceStop(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, const std::string& id, bool replace);
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Vehicle(const TraCIServerAPI_Vehicle& s);

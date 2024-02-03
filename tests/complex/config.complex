@@ -9,6 +9,7 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
+copy_test_path:input_routes3.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
@@ -16,6 +17,7 @@ copy_test_path:input_net3.net.xml
 copy_test_path:input_net4.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional3.add.xml
 copy_test_path:input_additional4.add.xml
 copy_test_path:input_definitionA.def.xml
 copy_test_path:input_definitionB.def.xml
@@ -39,6 +41,7 @@ copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
 copy_test_path:runnerlib.py
+copy_test_path:validate.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:input_additional_template.add.xml
@@ -48,6 +51,7 @@ copy_test_path:vtype.map
 copy_test_path:vtype2.map
 copy_test_path:vtype3.map
 copy_test_path:img.jpeg
+copy_test_path:fcd.xml
 test_data_ignore:.svn
 
 [collate_file]
@@ -56,24 +60,34 @@ vehroutes2:vehroutes2.xml
 state:state.xml
 state2:state2.xml
 tripinfo:tripinfo.xml
+tripinfo2:tripinfo2.xml
 net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
+fcd2:fcd2.xml
+fcd3:fcd3.xml
+fcd4:fcd4.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
+tls_state2:tls_state2.xml
 log:log.txt
 log2:log2.txt
 cadytslog:cadySumo-log.txt
-png:out.png
-png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 ssm:ssm.xml
+summary:summary.xml
+statistics:statistics.xml
+statistics2:statistics2.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
+vtypes:vtypes.xml
+cfg:config.sumocfg
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -91,9 +105,18 @@ output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:([0-9]* ms){REPLACE (TIME)}
+log:([0-9]*ms){REPLACE (TIME)}
+log2:([0-9]*ms){REPLACE (TIME)}
 output:version .*SUMO .*{REPLACE version SUMO}
+log:version .* started .*{REPLACE version started}
+log2:version .* started .*{REPLACE version started}
 output:Running main\(\) from .*gtest_main.cc{REPLACE Running main() from gtest_main.cc}
 output: test case{REPLACE  test suite}
+output:function .* called at .*
+output:function .* finished after .*
+output:Cannot read local schema .*,{REPLACE Cannot read local schema <schema>,}
+output:version .* started via libsumo {REPLACE started }
+output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
@@ -103,16 +126,26 @@ net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
+tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+fcd2:<!--{[->]}-->
+fcd3:<!--{[->]}-->
+fcd4:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
+summary:<!--{[->]}-->
+statistics:<!--{[->]}-->
+statistics2:<!--{[->]}-->
+statistics:<performance 
+statistics2:<performance 
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
 tls_state:<!--{[->]}-->
+tls_state2:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
@@ -136,14 +169,20 @@ errors:Warning: State was written with sumo version
 errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
+errors:Matplotlib is building the font cache; this may take a moment.
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:\\{REPLACE /}
 ps:%%CreationDate
+gtfs_additional:<!-- generated on{[->]}-->
+gtfs_routes:<!-- generated on{[->]}-->
+vtypes:<!-- generated on{[->]}-->
 
 [unordered_text]
 output:^Simulation ended at time:
 output:^Reason: TraCI requested termination.
 output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
-output:Process [0-9]:
+output:Process [0-9]
 output:Starting process
 output:[0-9] stepping \(step 
 output:^Loading configuration ... done.
@@ -152,18 +191,19 @@ output:does not supply vehicle parameter
 errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
+errors:^UserWarning:
+errors:getNextStops
 
 
 [floating_point_tolerance]
-output:0.0001
+output:0.0101
 net:0.0101
 vss:0.0001
-results:0.00101
+results:0.0101
 tripinfo:0.0101
 fcd:0.0101
 log:0.0101
 
 [batch_extra_version]
 gcc4_64:perf
-msvc12Win32:perf
-msvc12x64:perf
+msvc16x64:perf

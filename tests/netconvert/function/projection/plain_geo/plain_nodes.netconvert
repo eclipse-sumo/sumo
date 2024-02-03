@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <node id="0" x="12.014696" y="48.121418" type="priority" shape="12.014650,48.121482 12.014736,48.121484 12.014737,48.121609 12.015046,48.121619 12.015065,48.121364 12.014732,48.121356 12.014692,48.121346 12.014601,48.121387 12.014598,48.121444"/>
     <node id="1" x="12.061386" y="48.087529" type="dead_end"/>
     <node id="gneJ0" x="12.013354" y="48.121383" type="dead_end"/>

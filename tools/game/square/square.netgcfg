@@ -9,7 +9,7 @@
     </grid_network>
 
     <output>
-        <output-file value="square.tmp.net.xml"/>
+        <output-file value="square.net.xml"/>
     </output>
 
     <building_defaults>

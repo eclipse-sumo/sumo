@@ -1,3 +1,8 @@
+<!--
+MkDocs version : {{ mkdocs_version }}
+Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
+{% if page and page.meta.revision_date %}Last edit: {{ page.meta.revision_date.strftime('%d %B %Y') }}{% endif %}
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,7 +46,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="{{ 'js/jquery-1.10.2.min.js'|url }}" defer></script>
+        <script src="{{ 'js/jquery-3.7.0.min.js'|url }}" defer></script>
         <script src="{{ 'js/bootstrap.min.js'|url }}" defer></script>
         {%- if config.theme.highlightjs %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -136,7 +141,7 @@
                       {%- block search_button %}
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> <u>S</u>earch
+                                <i class="fa-solid fa-magnifying-glass"></i> <u>S</u>earch
                             </a>
                         </li>
                       {%- endblock %}
@@ -146,9 +151,9 @@
                             <li class="nav-item">
                                 <a rel="edit" href="{{ page.edit_url }}" class="nav-link">
                                     {%- if config.repo_name == 'GitHub' -%}
-                                        <i class="fa fa-github"></i> <u>E</u>dit on {{ config.repo_name }}
+                                        <i class="fa-brands fa-github"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- elif config.repo_name == 'Bitbucket' -%}
-                                        <i class="fa fa-bitbucket"></i> <u>E</u>dit on {{ config.repo_name }}
+                                        <i class="fa-brands fa-bitbucket"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- elif config.repo_name == 'GitLab' -%}
                                         <i class="fa fa-gitlab"></i> <u>E</u>dit on {{ config.repo_name }}
                                     {%- else -%}
@@ -160,11 +165,11 @@
                             <li class="nav-item">
                                 <a rel="edit" href="{{ config.repo_url }}" class="nav-link">
                                     {%- if config.repo_name == 'GitHub' -%}
-                                        <i class="fa fa-github"></i> {{ config.repo_name }}
+                                        <i class="fa-brands fa-github"></i> {{ config.repo_name }}
                                     {%- elif config.repo_name == 'Bitbucket' -%}
-                                        <i class="fa fa-bitbucket"></i> {{ config.repo_name }}
+                                        <i class="fa-brands fa-bitbucket"></i> {{ config.repo_name }}
                                     {%- elif config.repo_name == 'GitLab' -%}
-                                        <i class="fa fa-gitlab"></i> {{ config.repo_name }}
+                                        <i class="fa-brands fa-gitlab"></i> {{ config.repo_name }}
                                     {%- else -%}
                                     {{ config.repo_name }}
                                     {%- endif -%}
@@ -174,16 +179,33 @@
                       {%- endblock %}
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            More <i class="fa fa-chevron-circle-down"></i>
+                            More <i class="fa-solid fa-circle-chevron-down"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item no-arrow-link" href="https://github.com/eclipse/sumo/issues">Report a Bug / Issue / Typo</a>
                             <a class="dropdown-item" href="{{ 'Editing_Articles.html'|url }}">Help on editing articles</a>
+                            <a class="dropdown-item" href="https://github.com/eclipse/sumo/commits/main/docs/web">Recent documentation changes</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mkdocs_keyboard_modal">Keyboard Shortcuts</a>
                             <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
                             <span class="dropdown-item" id="dark-mode-div">Dark mode <label id="theme-switch" class="theme-switch" for="checkbox_theme">
                               <input type="checkbox" id="checkbox_theme">
                           </label></span>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="languagedrop" data-toggle="dropdown">
+                            <i class="fa-solid fa-language"></i> Languages <i class="fa-solid fa-circle-chevron-down"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <span class="dropdown-item">
+                              Translations are generated automatically by Google Translate:
+                            </span>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=de">Deutsch</a>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=es">Español</a>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=fr">Français</a>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=it">Italiano</a>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=hu">Magyar</a>
+                            <a class="dropdown-item" href="https://sumo-dlr-de.translate.goog/docs/{{page.url}}?_x_tr_sl=en&_x_tr_tl=tr">Türkçe</a>
                           </div>
                         </li>
                     </ul>
@@ -197,7 +219,6 @@
                 <div class="col-md-3">
                   <div class="text-center"><a href="{{ 'index.html'|url }}" style="display: inline-block; margin-top: 5px;"><img src="{{'images/sumo-logo.png'|url}}" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
                   {% include "toc.html" %}
-                  <!-- {% if page.is_homepage %}{% include "note.html" %}{% endif %} -->
                 </div>
                 <div class="col-md-9 main-area" role="main">
                   {% if page and not (page.is_top_level and page.is_index and page.file.url == "index.html") %} <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
@@ -208,7 +229,7 @@
                 </div>
             {%- endblock %}
           </div>
-          <button onclick="goTopFunction()" id="goToTop" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+          <button onclick="goTopFunction()" id="goToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
         </div>
 
         <footer class="col-md-12">
@@ -220,7 +241,7 @@
           {%- if config.copyright %}
             <p>{{ config.copyright }}</p>
           {%- endif %}
-          <p>Follow us on <a class="no-arrow-link" href="https://www.twitter.com/eclipsesumo/"><i class="fa fa-twitter"></i></a> <a class="no-arrow-link" href="https://www.facebook.com/simulationofurbanmobility/"><i class="fa fa-facebook-square"></i></a> <a class="no-arrow-link" href="https://www.instagram.com/eclipse.sumo/"><i class="fa fa-instagram"></i></a>
+          <p>Follow us on <a class="no-arrow-link" href="https://www.twitter.com/eclipsesumo/"><i class="fa-brands fa-x-twitter"></i></a> <a class="no-arrow-link" href="https://www.facebook.com/simulationofurbanmobility/"><i class="fa-brands fa-facebook"></i></a> <a class="no-arrow-link" href="https://www.instagram.com/eclipse.sumo/"><i class="fa-brands fa-instagram"></i></a>
           | Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a></p>
         {%- endblock %}
         </footer>
@@ -230,7 +251,7 @@
       {% include "search_modal.html" %}
       <script>
         window.onscroll = function() {scrollFunction()};
-        
+
         function scrollFunction() {
           if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             document.getElementById("goToTop").style.display = "block";
@@ -238,7 +259,7 @@
             document.getElementById("goToTop").style.display = "none";
           }
         }
-    
+
         function goTopFunction() {
           document.body.scrollTop = 0;
           document.documentElement.scrollTop = 0;
@@ -254,7 +275,7 @@
 
         <script>
           const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
-  
+
           function switchTheme(e) {
               if (e.target.checked) {
                   localStorage.setItem('sumo-docs-theme', 'dark');
@@ -264,11 +285,11 @@
                   localStorage.setItem('sumo-docs-theme', 'light');
                   document.documentElement.setAttribute('data-theme', 'light');
                   toggleSwitch.checked = false;
-              }    
+              }
           }
-  
+
           toggleSwitch.addEventListener('change', switchTheme, false);
-  
+
           if (document.documentElement.getAttribute("data-theme") == "dark"){
               toggleSwitch.checked = true;
           }
@@ -279,9 +300,3 @@
       {%- include "keyboard-modal.html" %}
     </body>
 </html>
-{% if page and page.is_homepage %}
-<!--
-MkDocs version : {{ mkdocs_version }}
-Build Date UTC : {{ build_date_utc }}
--->
-{% endif %}

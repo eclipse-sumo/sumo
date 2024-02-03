@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -177,7 +177,7 @@ def dijkstraBoost(boostGraph, start):
 class DijkstraRouter(handler.ContentHandler):
 
     """standalone class for routing on a sumolib network.
-    The edges from the network recieve new attribute 'cost' based on
+    The edges from the network receive new attribute 'cost' based on
     a loaded meanData output
     """
 
@@ -243,7 +243,7 @@ class DijkstraRouter(handler.ContentHandler):
                 if self.net.hasEdge(id):
                     result.append(self.net.getEdge(id))
                 else:
-                    raise Exception("unkown edge '%s'" % id)
+                    raise Exception("unknown edge '%s'" % id)
             else:
                 result.append(id)
         return result
@@ -255,5 +255,5 @@ class DijkstraRouter(handler.ContentHandler):
         if dest in D:
             return D[dest]
         else:
-            raise("No path between %s and %s found" %
-                  (start.getID(), dest.getID()))
+            raise ("No path between %s and %s found" %
+                   (start.getID(), dest.getID()))

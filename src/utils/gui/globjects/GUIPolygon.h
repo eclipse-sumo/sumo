@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,11 +32,53 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+/// @brief most likely I'm reinventing the wheel here
+struct GLPrimitive {
+    GLenum type;
+    std::vector<Position> vert;
+};
+
+
+class TesselatedPolygon : public SUMOPolygon {
+
+public:
+
+    /** @brief Constructor
+     * @param[in] id The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] layer The layer of the polygon
+     * @param[in] angle The rotation of the polygon
+     * @param[in] imgFile The raster image of the polygon
+     * @param[in] relativePath set image file as relative path
+     * @param[in] shape The shape of the polygon
+     * @param[in] geo specify if shape was loaded as GEO
+     * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
+     */
+    TesselatedPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
+                      bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
+                      bool relativePath = false, const std::string& name = DEFAULT_NAME,
+                      const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
+        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters)
+    {}
+
+    /// @brief Destructor
+    ~TesselatedPolygon() {}
+
+    /// @brief perform the tesselation / drawing
+    void drawTesselation(const PositionVector& shape) const;
+
+    /// @brief id of the display list for the cached tesselation
+    mutable std::vector<GLPrimitive> myTesselation;
+};
+
 /*
  * @class GUIPolygon
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon : public SUMOPolygon, public GUIGlObject_AbstractAdd {
+class GUIPolygon : public TesselatedPolygon, public GUIGlObject_AbstractAdd {
 
 public:
     /** @brief Constructor
@@ -48,17 +90,16 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
-    GUIPolygon(const std::string& id, const std::string& type,
-               const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-               double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false);
+    GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
+               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
+               bool relativePath = false, const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
     ~GUIPolygon();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -70,9 +111,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -81,33 +120,41 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
-
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    virtual void drawGL(const GUIVisualizationSettings& s) const;
+    virtual void drawGL(const GUIVisualizationSettings& s) const override;
+
+    double getClickPriority() const override {
+        return getShapeLayer();
+    }
+
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const override {
+        return getShapeName();
+    }
     //@}
 
-
     /// @brief set a new shape and update the tesselation
-    virtual void setShape(const PositionVector& shape);
+    virtual void setShape(const PositionVector& shape) override;
 
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    virtual void setShapeNaviDegree(const double angle) {
+    virtual void setShapeNaviDegree(const double angle) override {
         SUMOPolygon::setShapeNaviDegree(angle);
         if (angle != 0.) {
             setShape(myShape);
@@ -115,28 +162,33 @@ public:
     }
 
     /// @brief set color
-    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor);
+    static RGBColor setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride);
 
     /// @brief check if Polygon can be drawn
     static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o);
 
     /// @brief draw inner Polygon (before pushName() )
-    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, const PositionVector shape, double layer, bool disableSelectionColor);
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
+                                 const PositionVector shape, const double layer, const bool fill,
+                                 const bool disableSelectionColor = false,
+                                 const int alphaOverride = -1,
+                                 const bool disableText = false);
+
+    inline void activate(bool isActive) {
+        myIsActive = isActive;
+    }
+
+    inline bool isActive(void) const {
+        return myIsActive;
+    }
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
     mutable FXMutex myLock;
 
-    /// @brief id of the display list for the cached tesselation
-    mutable GLuint myDisplayList;
-
     /// @brief shape rotated on the centroid, if rotation is needed, nullptr otherwise
     PositionVector* myRotatedShape;
 
-    /// @brief store the drawing commands in a display list
-    void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
-
-    // @brief perform the tesselation / drawing
-    static void performTesselation(const bool fill, const PositionVector& shape, const double lineWidth);
-
+    /// @brief Is the polygon will be drawn or not
+    bool myIsActive;
 };

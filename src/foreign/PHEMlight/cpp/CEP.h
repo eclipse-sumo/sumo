@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
@@ -20,10 +20,8 @@
 ///
 //
 /****************************************************************************/
-
-
-#ifndef PHEMlightCEP
-#define PHEMlightCEP
+#pragma once
+#include <config.h>
 
 #define _USE_MATH_DEFINES
 #include <string>
@@ -40,14 +38,14 @@ namespace PHEMlightdll {
     class CEP {
         //--------------------------------------------------------------------------------------------------
         // Constructors
-        //--------------------------------------------------------------------------------------------------      
+        //--------------------------------------------------------------------------------------------------
 
     public:
         CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants);
 
 
         //--------------------------------------------------------------------------------------------------
-        // Members 
+        // Members
         //--------------------------------------------------------------------------------------------------
 
     private:
@@ -131,7 +129,7 @@ namespace PHEMlightdll {
 
 
         //--------------------------------------------------------------------------------------------------
-        // Methods 
+        // Methods
         //--------------------------------------------------------------------------------------------------
 
     public:
@@ -169,6 +167,3 @@ namespace PHEMlightdll {
         void InitializeInstanceFields();
     };
 }
-
-
-#endif	//#ifndef PHEMlightCEP

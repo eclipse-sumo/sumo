@@ -1,9 +1,9 @@
 function getSearchTerm(){
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
+    let sPageURL = window.location.search.substring(1);
+    let sURLVariables = sPageURL.split('&');
+    for (let i = 0; i < sURLVariables.length; i++)
     {
-        var sParameterName = sURLVariables[i].split('=');
+        let sParameterName = sURLVariables[i].split('=');
         if (sParameterName[0] == 'q')
         {
             return sParameterName[1];
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     $('table').addClass('table table-striped table-hover');
 
-    // Improve the scrollspy behaviour when users click on a TOC item.
+    // Improve the scrollspy behavior when users click on a TOC item.
     $(".bs-sidenav a").on("click", function() {
         var clicked = this;
         setTimeout(function() {
@@ -97,7 +97,7 @@ $("li.disabled a").click(function() {
     event.preventDefault();
 });
 
-var keyCodes = {
+const keyCodes = {
   8: 'backspace',
   9: 'tab',
   13: 'enter',
@@ -210,3 +210,92 @@ var keyCodes = {
   221: '&rsqb;',
   222: '&apos;',
 };
+
+////////////////////////////////////////////////////
+// Copy code - based on https://www.roboleary.net/2022/01/13/copy-code-to-clipboard-blog.html
+////////////////////////////////////////////////////
+
+const copyButtonLabel = "Copy";
+
+// you can use a class selector instead if you, or the syntax highlighting library adds one to the 'pre'.
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+    button.classList.add("copyCodeButton");
+    button.innerText = copyButtonLabel;
+    button.addEventListener("click", copyCode);
+    block.appendChild(button);
+  }
+});
+
+async function copyCode(event) {
+  const button = event.srcElement;
+  const pre = button.parentElement;
+  let code = pre.querySelector("code");
+  let text = code.innerText;
+  await navigator.clipboard.writeText(text);
+
+  button.innerText = "Copied!";
+  button.style.color = "#338033";
+
+  setTimeout(()=> {
+    button.innerText = copyButtonLabel;
+    button.style.color = "#1e1e1e";
+  },1000)
+}
+
+////////////////////////////////////////////////////
+// https://gomakethings.com/how-to-lazy-load-youtube-videos-with-vanilla-javascript/
+////////////////////////////////////////////////////
+
+// Get all of the videos
+let videos = document.querySelectorAll('[data-youtube]');
+
+for (let video of videos) {
+	// Get the video ID
+	let id = new URL(video.href).searchParams.get('v');
+
+    // Add the ID to the data-youtube attribute
+	video.setAttribute('data-youtube', id);
+
+	// Add a role of button
+	video.setAttribute('role', 'button');
+
+	// Add a thumbnail
+	video.innerHTML =
+		`${video.textContent}<br><div class="video-container">
+        <img alt="" class="tutorial-video" src="https://img.youtube.com/vi/${id}/maxresdefault.jpg">
+        <div class="centered video-text">Click to load external resources from YouTube.</div>
+        </div>`;
+}
+
+/**
+ * Handle click events on the video thumbnails
+ * @param  {Event} event The event object
+ */
+function clickHandler (event) {
+
+	// Get the video link
+	let link = event.target.closest('[data-youtube]');
+	if (!link) return;
+
+	// Prevent the URL from redirecting users
+	event.preventDefault();
+
+	// Get the video ID
+	let id = link.getAttribute('data-youtube');
+
+	// Create the player
+	let player = document.createElement('div');
+	player.innerHTML = `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+	// Inject the player into the UI
+	link.replaceWith(player);
+
+}
+
+// Detect clicks on the video thumbnails
+document.addEventListener('click', clickHandler);

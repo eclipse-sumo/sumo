@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail_urban"/>
+    <flow id="train" type="train" from="gneE0" to="gneE0" line="train" begin="0" end="1000" period="300">
+       <stop busStop="beg2left" until="10"/>
+       <stop busStop="left2end" until="60"/>
+    </flow>
+    <person id="p0" depart="0">
+        <personTrip from="beg" to="end" modes="public"/>
+    </person>
+    <person id="p1" depart="0">
+        <personTrip from="end" to="beg" modes="public"/>
+    </person>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -58,18 +58,18 @@ void AGFrame::fillOptions() {
     // Insert options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-    oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to create trips for");
+    oc.addDescription("net-file", "Input", TL("Use FILE as SUMO-network to create trips for"));
 
     oc.doRegister("stat-file", 's', new Option_FileName());
-    oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
+    oc.addDescription("stat-file", "Input", TL("Loads the SUMO-statistics FILE"));
 
     // need to do this here to be able to check for network and route input options
     SystemFrame::addReportOptions(oc);
-    RandHelper::insertRandOptions();
+    RandHelper::insertRandOptions(oc);
 
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output", true);
-    oc.addDescription("output-file", "Output", "Write generated trips to FILE");
+    oc.addDescription("output-file", "Output", TL("Write generated trips to FILE"));
 
     oc.doRegister("debug", new Option_Bool(false));
     oc.addDescription("debug", "Report",
@@ -78,13 +78,13 @@ void AGFrame::fillOptions() {
     // TODO: What time options are consistent with other parts of SUMO and
     // useful for the user?
     oc.doRegister("begin", 'b', new Option_Integer(0));
-    oc.addDescription("begin", "Time", "Sets the time of beginning of the simulation during the first day (in seconds)");
+    oc.addDescription("begin", "Time", TL("Sets the time of beginning of the simulation during the first day (in seconds)"));
 
     oc.doRegister("end", 'e', new Option_Integer(0));
-    oc.addDescription("end", "Time", "Sets the time of ending of the simulation during the last day (in seconds)");
+    oc.addDescription("end", "Time", TL("Sets the time of ending of the simulation during the last day (in seconds)"));
 
     oc.doRegister("duration-d", new Option_Integer(1));
-    oc.addDescription("duration-d", "Time", "Sets the duration of the simulation in days");
+    oc.addDescription("duration-d", "Time", TL("Sets the duration of the simulation in days"));
 }
 
 

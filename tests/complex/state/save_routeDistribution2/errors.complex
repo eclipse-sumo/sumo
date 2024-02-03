@@ -1,0 +1,2 @@
+/scr1/sumo/tools/sumolib/net/__init__.py:34: ImportWarning: Not importing directory '/home/erdm_ja/scr1/sumo/tests/complex/state/xml': missing __init__.py
+  from xml.sax import handler, parse

@@ -1,0 +1,26 @@
+/* XPM */
+static const char * view3_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"15 16 4 1",
+" 	c None",
+".	c Black",
+"X	c #4abd0b",
+"o	c Gray100",
+/* pixels */
+"   .........   ",
+"  .XXXXXXXXX.  ",
+" .XX.......XX. ",
+".XX..ooooo..XX.",
+".XX.ooooooo.XX.",
+".XX.oo...oo.XX.",
+".XX......oo.XX.",
+".XXXXX.ooo..XX.",
+".XX......oo.XX.",
+".XX.oo...oo.XX.",
+".XX.ooo..oo.XX.",
+".XX..ooooo..XX.",
+".XXX..ooo..XXX.",
+" .XXX.....XXX. ",
+"  .XXXXXXXXX.  ",
+"   .........   "
+};

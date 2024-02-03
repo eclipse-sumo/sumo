@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,74 +78,74 @@ fillOptions() {
     // original network
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-    oc.addDescription("net-file", "Input", "Loads SUMO-network FILE as reference to offset and projection");
+    oc.addDescription("net-file", "Input", TL("Loads SUMO-network FILE as reference to offset and projection"));
 
     // dlrnavteq import
     oc.doRegister("dlr-navteq-poly-files", new Option_FileName());
-    oc.addDescription("dlr-navteq-poly-files", "Input", "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format");
+    oc.addDescription("dlr-navteq-poly-files", "Input", TL("Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
     oc.doRegister("dlr-navteq-poi-files", new Option_FileName());
-    oc.addDescription("dlr-navteq-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format");
+    oc.addDescription("dlr-navteq-poi-files", "Input", TL("Reads pois from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
 
     // visum import
     oc.doRegister("visum-files", new Option_FileName());
     oc.addSynonyme("visum-files", "visum");
-    oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
+    oc.addDescription("visum-files", "Input", TL("Reads polygons from FILE assuming it's a Visum-net"));
 
     oc.doRegister("visum.language-file", new Option_FileName());
-    oc.addDescription("visum.language-file", "Input", "Load language mappings from FILE");
+    oc.addDescription("visum.language-file", "Input", TL("Load language mappings from FILE"));
 
     // xml import
     oc.doRegister("xml-files", new Option_FileName());
     oc.addSynonyme("xml-files", "xml");
-    oc.addDescription("xml-files", "Input", "Reads pois and shapes from FILE assuming they're coded in XML");
+    oc.addDescription("xml-files", "Input", TL("Reads pois and shapes from FILE assuming they're coded in XML"));
 
     // osm import
     oc.doRegister("osm-files", new Option_FileName());
     oc.addSynonyme("osm-files", "osm");
-    oc.addDescription("osm-files", "Input", "Reads pois from FILE+ assuming they're coded in OSM");
+    oc.addDescription("osm-files", "Input", TL("Reads pois from FILE assuming they're coded in OSM"));
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
-    oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair");
+    oc.addDescription("osm.keep-full-type", "Input", TL("The type will be made of the key-value - pair"));
     oc.doRegister("osm.use-name", new Option_Bool(false));
-    oc.addDescription("osm.use-name", "Input", "The id will be set from the given 'name' attribute");
+    oc.addDescription("osm.use-name", "Input", TL("The id will be set from the given 'name' attribute"));
     oc.doRegister("osm.merge-relations", new Option_Float(-1));
-    oc.addDescription("osm.merge-relations", "Input", "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT");
+    oc.addDescription("osm.merge-relations", "Input", TL("If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"));
 
     // arcview import
     oc.doRegister("shapefile-prefixes", new Option_FileName());
     oc.addSynonyme("shapefile-prefixes", "shapefile-prefix");
     oc.addSynonyme("shapefile-prefixes", "shapefile");
     oc.addSynonyme("shapefile-prefixes", "shape-files", true);
-    oc.addDescription("shapefile-prefixes", "Input", "Reads shapes from shapefiles FILE+");
+    oc.addDescription("shapefile-prefixes", "Input", TL("Reads shapes from shapefiles FILE"));
 
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
-    oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
+    oc.addDescription("shapefile.guess-projection", "Input", TL("Guesses the shapefile's projection"));
 
     oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
-    oc.addDescription("shapefile.traditional-axis-mapping", "Input", "Use traditional axis order (lon, lat)");
+    oc.addDescription("shapefile.traditional-axis-mapping", "Input", TL("Use traditional axis order (lon, lat)"));
 
     oc.doRegister("shapefile.id-column", new Option_String());
     oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
-    oc.addDescription("shapefile.id-column", "Input", "Defines in which column the id can be found");
+    oc.addDescription("shapefile.id-column", "Input", TL("Defines in which column the id can be found"));
 
     oc.doRegister("shapefile.type-columns", new Option_StringVector());
     oc.addSynonyme("shapefile.type-columns", "shapefile.type-column");
-    oc.addDescription("shapefile.type-columns", "Input", "Defines which columns form the type id (comma separated list)");
+    oc.addDescription("shapefile.type-columns", "Input", TL("Defines which columns form the type id (comma separated list)"));
 
     oc.doRegister("shapefile.use-running-id", new Option_Bool(false));
-    oc.addDescription("shapefile.use-running-id", "Input", "A running number will be used as id");
+    oc.addDescription("shapefile.use-running-id", "Input", TL("A running number will be used as id"));
 
     oc.doRegister("shapefile.add-param", new Option_Bool(false));
-    oc.addDescription("shapefile.add-param", "Input", "Extract all additional columns as params");
+    oc.addDescription("shapefile.add-param", "Input", TL("Extract all additional columns as params"));
 
     oc.doRegister("shapefile.fill", new Option_String());
-    oc.addDescription("shapefile.fill", "Input", "[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type");
+    oc.addDescription("shapefile.fill", "Input", TL("[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type"));
 
     // typemap reading
     oc.doRegister("type-file", new Option_FileName());
     oc.addSynonyme("type-file", "typemap", true);
-    oc.addDescription("type-file", "Input", "Reads types from FILE");
+    oc.addDescription("type-file", "Input", TL("Reads types from FILE"));
 
     // need to do this here to be able to check for network and route input options
     SystemFrame::addReportOptions(oc);
@@ -153,83 +153,86 @@ fillOptions() {
     // output
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write generated polygons/pois to FILE");
+    oc.addDescription("output-file", "Output", TL("Write generated polygons/pois to FILE"));
 
     oc.doRegister("dlr-tdp-output", new Option_FileName());
-    oc.addDescription("dlr-tdp-output", "Output", "Write generated polygons/pois to a dlr-tdp file with the given prefix");
+    oc.addDescription("dlr-tdp-output", "Output", TL("Write generated polygons/pois to a dlr-tdp file with the given prefix"));
 
 
-    // prunning options
+    // pruning options
     oc.doRegister("prune.in-net", new Option_Bool(false));
     oc.addSynonyme("prune.in-net", "prune.on-net", true);
-    oc.addDescription("prune.in-net", "Pruning", "Enables pruning on net boundaries");
+    oc.addDescription("prune.in-net", TL("Pruning"), TL("Enables pruning on net boundaries"));
 
     oc.doRegister("prune.in-net.offsets", new Option_String("0,0,0,0"));
     oc.addSynonyme("prune.in-net.offsets", "prune.on-net.offsets", true);
-    oc.addDescription("prune.in-net.offsets", "Pruning", "Uses STR as offset definition added to the net boundaries");
+    oc.addDescription("prune.in-net.offsets", TL("Pruning"), TL("Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it."));
 
     oc.doRegister("prune.boundary", new Option_String());
-    oc.addDescription("prune.boundary", "Pruning", "Uses STR as pruning boundary");
+    oc.addDescription("prune.boundary", TL("Pruning"), TL("Uses STR as pruning boundary"));
 
     oc.doRegister("prune.keep-list", new Option_String());
     oc.addSynonyme("prune.keep-list", "prune.keep");
     oc.addSynonyme("prune.keep-list", "prune.ignore", true);
-    oc.addDescription("prune.keep-list", "Pruning", "Items in STR will be kept though out of boundary");
+    oc.addDescription("prune.keep-list", TL("Pruning"), TL("Items in STR will be kept though out of boundary"));
 
     oc.doRegister("prune.explicit", new Option_StringVector(StringVector({ "" })));
     oc.addSynonyme("prune.explicit", "remove");
-    oc.addDescription("prune.explicit", "Pruning", "Items with names in STR[] will be removed");
+    oc.addDescription("prune.explicit", TL("Pruning"), TL("Items with names in STR[] will be removed"));
 
 
     oc.doRegister("offset.x", new Option_Float(0));
     oc.addSynonyme("offset.x", "x-offset-to-apply", true);
-    oc.addDescription("offset.x", "Processing", "Adds FLOAT to net x-positions");
+    oc.addDescription("offset.x", "Processing", TL("Adds FLOAT to net x-positions"));
 
     oc.doRegister("offset.y", new Option_Float(0));
     oc.addSynonyme("offset.y", "y-offset-to-apply", true);
-    oc.addDescription("offset.y", "Processing", "Adds FLOAT to net y-positions");
+    oc.addDescription("offset.y", "Processing", TL("Adds FLOAT to net y-positions"));
 
     oc.doRegister("offset.z", new Option_Float(0));
-    oc.addDescription("offset.z", "Processing", "Adds FLOAT to net z-positions");
+    oc.addDescription("offset.z", "Processing", TL("Adds FLOAT to net z-positions"));
 
     oc.doRegister("all-attributes", new Option_Bool(false));
-    oc.addDescription("all-attributes", "Processing", "Imports all attributes as key/value pairs");
+    oc.addDescription("all-attributes", "Processing", TL("Imports all attributes as key/value pairs"));
 
     oc.doRegister("ignore-errors", new Option_Bool(false));
-    oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
+    oc.addDescription("ignore-errors", "Processing", TL("Continue on broken input"));
 
     oc.doRegister("poi-layer-offset", new Option_Float(0));
-    oc.addDescription("poi-layer-offset", "Processing", "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)");
+    oc.addDescription("poi-layer-offset", "Processing", TL("Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"));
 
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
-    oc.addDescription("color", "Building Defaults", "Sets STR as default color");
+    oc.addDescription("color", "Building Defaults", TL("Sets STR as default color"));
 
     oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", "Building Defaults", "Sets STR as default prefix");
+    oc.addDescription("prefix", "Building Defaults", TL("Sets STR as default prefix"));
 
     oc.doRegister("type", new Option_String("unknown"));
-    oc.addDescription("type", "Building Defaults", "Sets STR as default type");
+    oc.addDescription("type", "Building Defaults", TL("Sets STR as default type"));
 
-    oc.doRegister("fill", new Option_Bool("false"));
-    oc.addDescription("fill", "Building Defaults", "Fills polygons by default");
+    oc.doRegister("fill", new Option_Bool(true));
+    oc.addDescription("fill", "Building Defaults", TL("Fills polygons by default"));
+
+    oc.doRegister("icon", new Option_String(SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE)));
+    oc.addDescription("icon", "Building Defaults", TL("Sets STR as default icon"));
 
     oc.doRegister("layer", new Option_Float(-1));
-    oc.addDescription("layer", "Building Defaults", "Sets FLOAT as default layer");
+    oc.addDescription("layer", "Building Defaults", TL("Sets FLOAT as default layer"));
 
     oc.doRegister("discard", new Option_Bool(false));
-    oc.addDescription("discard", "Building Defaults", "Sets default action to discard");
+    oc.addDescription("discard", "Building Defaults", TL("Sets default action to discard"));
 
     // projection
     oc.doRegister("proj.plain-geo", new Option_Bool(false));
-    oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in output");
+    oc.addDescription("proj.plain-geo", "Projection", TL("Write geo coordinates in output"));
 }
 
 
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("polyconvert", "Eclipse SUMO polyconvert Version " VERSION_STRING);
     int ret = 0;
     try {
@@ -242,8 +245,11 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
+        if (oc.isDefault("aggregate-warnings")) {
+            oc.setDefault("aggregate-warnings", "5");
+        }
         MsgHandler::initOutputOptions();
         // build the projection
         double scale = 1.0;
@@ -254,15 +260,20 @@ main(int argc, char** argv) {
             // from the given options
 #ifdef PROJ_API_FILE
             const int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
+            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files") || oc.isSet("shapefile-prefixes")) && numProjections == 0) {
+                // input is lon,lat and projecting it to UTM ensures accurate handling of geometry
                 oc.set("proj.utm", "true");
+                if (oc.isDefault("proj.plain-geo")) {
+                    // without reference to a network, raw UTM isn't helpful so we better write the data out as lon,lat
+                    oc.set("proj.plain-geo", "true");
+                }
             }
             if (oc.isDefault("proj.scale")) {
                 oc.set("proj.scale", toString(scale, 5));
             }
 #endif
             if (!GeoConvHelper::init(oc)) {
-                throw ProcessError("Could not build projection!");
+                throw ProcessError(TL("Could not build projection!"));
             }
         } else {
             // from the supplied network
@@ -274,16 +285,17 @@ main(int argc, char** argv) {
         bool prune = false;
         if (oc.getBool("prune.in-net")) {
             if (!oc.isSet("net")) {
-                throw ProcessError("In order to prune the input on the net, you have to supply a network.");
+                throw ProcessError(TL("In order to prune the input on the net, you have to supply a network."));
             }
             bool ok = true;
             // !!! no proper error handling
-            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok);
-            pruningBoundary = Boundary(
-                                  pruningBoundary.xmin() + offsets.xmin(),
-                                  pruningBoundary.ymin() + offsets.ymin(),
-                                  pruningBoundary.xmax() + offsets.xmax(),
-                                  pruningBoundary.ymax() + offsets.ymax());
+            Boundary offsets = GeomConvHelper::parseBoundaryReporting(
+                                   oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
+            pruningBoundary.setOffsets(
+                pruningBoundary.xmin() - offsets.xmin(),
+                pruningBoundary.ymin() - offsets.ymin(),
+                pruningBoundary.xmax() + offsets.xmax(),
+                pruningBoundary.ymax() + offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {
@@ -293,7 +305,7 @@ main(int argc, char** argv) {
             prune = true;
         }
         if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
-            oc.set("poi-layer-offset", "5"); // sufficient when using the default typemap
+            oc.setDefault("poi-layer-offset", "5"); // sufficient when using the default typemap
         }
 
         PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
@@ -302,7 +314,7 @@ main(int argc, char** argv) {
         if (!oc.isSet("type-file")) {
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == nullptr) {
-                WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, using built in type maps."));
             } else {
                 const std::string path = sumoPath + std::string("/data/typemap/");
                 if (oc.isSet("dlr-navteq-poly-files")) {

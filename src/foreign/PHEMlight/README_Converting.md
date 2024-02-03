@@ -1,8 +1,8 @@
 How to convert the PHEMlight C# code to C++
 ===========================================
 
-- Use C# to C++ converter by Tangible Software
-- load the ConverterOptions.dat via Import Settings
+- Use C# to C++ converter by Tangible Software https://www.tangiblesoftwaresolutions.com/download.html
+- load the ConverterOptions.opt via Import Settings
 - Select "Convert all C# in folder"
 - Select the dll_code folder as source and the cpp folder as target
 - determine changes in Start.cpp (function PHEMLight::CreateVehicleStateData) which need to go into HelpersPHEMlight::compute

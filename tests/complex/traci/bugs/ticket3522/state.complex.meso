@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 11:56:34 2020 by Eclipse SUMO sumo Version v1_7_0+1276-9d3ac85106
+<!-- generated on 2023-06-28 08:43:07 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,17 +14,13 @@
         <save-state.files value="state.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="42347"/>
+        <remote-port value="37783"/>
     </traci_server>
 
     <mesoscopic>
@@ -34,20 +30,20 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1276-9d3ac85106" time="50.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1317-06f42fb" time="50.00" type="meso">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="1.00"/>
     <vType id="t1" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
     <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5"/>
     <vType id="t2@veh2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
-    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="0 1 0 0 0 50000 40000 9223372036854775807">
+    <vehicle id="veh0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 0 0 0 50000 40000 9223372036854775807">
         <device id="vehroute_veh0" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="10000 1 0 0 0 57170 47736 9223372036854775807">
+    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2074 10000 1 0 0 0 57170 47736 9223372036854775807">
         <device id="vehroute_veh1" state="10.60 0.00 0"/>
     </vehicle>
-    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.01" state="20000 0 0 2 0 49691 39794 9223372036854775807">
+    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.0104" state="2074 20000 0 0 2 0 49691 39794 9223372036854775807">
         <device id="vehroute_veh2" state="10.10 0.00 0"/>
     </vehicle>
     <segment id="3/1to2/1:0">
@@ -60,9 +56,24 @@
         <vehicles time="41574" value=""/>
     </segment>
     <segment id="4/1to3/1:2">
-        <vehicles time="40182" value="veh2"/>
+        <vehicles time="40521" value="veh2"/>
     </segment>
     <segment id="4/1to3/1:3">
-        <vehicles time="49616" value=""/>
+        <vehicles time="49955" value=""/>
     </segment>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
 </snapshot>

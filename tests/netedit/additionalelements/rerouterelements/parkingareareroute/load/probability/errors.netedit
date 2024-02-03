@@ -1,0 +1,3 @@
+Error: Attribute 'probability' in definition of a parkingAreaReroute Invalid Number Format (double) dummyProb.
+Error: Probability of parkingAreaReroute must be equal or greater than 0
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092838.16002/netedit.gui/additionalelements/rerouterelements/parkingareareroute/load/probability/additionals.add.xml failed.

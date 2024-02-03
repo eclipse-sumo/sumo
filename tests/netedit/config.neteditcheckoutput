@@ -140,6 +140,7 @@ errors:Cannot find local schema '[^']*'{REPLACE Cannot find local schema}
 errors:Could not find connection between
 errors:primary document entity.*{REPLACE primary document entity <path_to_file>}
 errors:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
+errors:aborted waiting{LINES 1}
 log:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 cfg:<movereminder{LINES 2}
 cfg:movereminder

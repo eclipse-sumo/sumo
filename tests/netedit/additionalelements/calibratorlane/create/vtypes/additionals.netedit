@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-21 09:17:47 by Eclipse SUMO netedit Version v1_16_0+0488-c85d0c5ea0d
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Calibrators -->
+    <calibrator id="ca_0" lane="center1_1" pos="9.00" vTypes="type1 type2"/>
+</additional>

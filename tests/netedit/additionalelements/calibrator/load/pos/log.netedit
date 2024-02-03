@@ -1,0 +1,3 @@
+Error: Attribute 'pos' is missing in definition of calibrator 'calibrator01'.
+Error: Attribute 'pos' in definition of calibrator 'calibrator02' Invalid Number Format (double) dummyPosition.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibrator\load\pos\additionals.add.xml failed.

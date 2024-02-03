@@ -1,3 +1,0 @@
-Error: Invalid arrivalPos definition for flow 'flow_0';
- must be one of ("random", "max", or a float)
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\routeflow\load\arrivalPos\input_routes.rou.xml failed.

@@ -6,7 +6,7 @@ title: ScenarioGuide
 
 This Tutorial is meant to serve as a high-level guide for building a
 [sumo](../sumo.md) scenario. It provides an outline of the typical
-steps when building a scenario and lists the recommended wiki pages for
+steps followed when building a scenario and lists the recommended documentation pages for
 each step.
 
 !!! note
@@ -24,7 +24,7 @@ interface.
 ## If you already have some network data
 
 Check whether a direct import is possible:
-[Networks/Import](../Networks/Import.md). Otherwise you will need
+[Networks/Import](../Networks/Import.md). Otherwise, you will need
 to convert the data to a simple XML-format which can be read by
 [netconvert](../netconvert.md). Read this page:
 [Networks/Import](../Networks/Import.md).
@@ -32,24 +32,24 @@ to convert the data to a simple XML-format which can be read by
 ## If you do not yet have any network data
 
 Use publicly available network data from
-[OpenStreetMap](http://www.openstreetmap.org/) as described here:
+[OpenStreetMap](https://www.openstreetmap.org/) as described here:
 [Networks/Import/OpenStreetMapDownload](../Networks/Import/OpenStreetMapDownload.md).
 Then import the network as described here:
 [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 
 # Generate the traffic
 
-First you should understand the basics of vehicle modelling:
+First, you should understand the basics of vehicle modelling:
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
-You have various ways to insert vehicles into the map. Your choice
+There are various ways to insert vehicles into the map. Your choice
 basically depends on what kind of information about the traffic you
 have:
 [Demand/Introduction_to_demand_modelling_in_SUMO](../Demand/Introduction_to_demand_modelling_in_SUMO.md).
 
 # Improve your Scenario
 
-Most methods for network import leave some aspect of deficient network
-quality. Very often this manifests as unexpected/unrealistic traffic
+Most methods for network imports lead to deficiencies in network
+quality. These often manifest as unexpected/unrealistic traffic
 jams and teleporting vehicle errors.
 
 ## Modifying the Network
@@ -60,15 +60,14 @@ lights. The recommended ways to perform the necessary changes include:
 
 1.  Encode the changes in *plain-xml* files as described in
     [Networks/Building_Networks_from_own_XML-descriptions](../Networks/PlainXML.md).
-    Most XML-attributes are optional so you only need to set the values
-    you would like to change.
-2.  patch your network using [netconvert](../netconvert.md) by
+    Most XML-attributes are optional so you only need to set the values that you would like to change.
+2.  Patch your network using [netconvert](../netconvert.md) by
     loading the net.xml along with the plain-xml files. You can even use
     this during the initial import (i.e. load an OSM-file along with
     your plain-xml files)
-3.  directly adjust your network with GUI: after opening the program
-    [netedit](../Netedit/index.md) you load the network file
-    (\*.net.xml)that needs to be modified. Then you choose the
+3.  Directly adjust your network with GUI: after opening the program
+    [netedit](../Netedit/index.md) you first load the network file
+    (\*.net.xml) that needs to be modified. Then, you choose the
     respective functions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to
     combine intersections or edges.
@@ -82,7 +81,7 @@ prepare a file like this:
 
 patch.nod.xml :
 
-```
+```xml
 <nodes>
     <node id="id_of_the_node_you_want_to_modify" type="right_before_left"/>
 <nodes>
@@ -102,8 +101,8 @@ netconvert --osm-file yourOSMfile.xml --node-files patch.nod.xml ...<other 
 
 ### Modifying an imported network via plain.xml
 
-Instead of patching individual elements you can also convert your
-network to plain.xml and modify the plain file and then re-assemble the
+Instead of patching individual elements, you can also convert your
+network to plain.xml, modify the plain file and then re-assemble the
 network like this:
 
 ```
@@ -149,10 +148,10 @@ positions with a few lines of python code.
 
 ## Traffic Light Programs
 
-In almost all cases the traffic light programs will have been guessed by
+In almost all cases, the traffic light programs will have been guessed by
 [netconvert](../netconvert.md) and turn out different from the real
 traffic lights. A simple way to improve traffic lights programs is
-making them start their program cycle at a different time. Experiment
+making them start their program cycles at a different times. Experiment
 with the option **--tls.half-offset** and all the other **--tls.\*** options of
 [netconvert](../netconvert.md).
 
@@ -160,7 +159,7 @@ A more practical and efficient way to improve your traffic lights is to
 [give the program explicitly with a *tls.xml*
 file](../Networks/PlainXML.md#traffic_light_program_definition).
 
-At this time [netconvert](../netconvert.md) only supports the
+As of now, [netconvert](../netconvert.md) only supports the
 creation of static traffic light programs. For dynamic traffic lights
 see
 [Tutorials/TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md).

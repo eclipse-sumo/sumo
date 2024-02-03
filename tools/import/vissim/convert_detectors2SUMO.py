@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,19 +24,15 @@ see documentation
 from __future__ import absolute_import
 from __future__ import print_function
 
-import argparse
+import os
+import sys
 from xml.dom import minidom
 from xml.dom.minidom import Document
 
-# want the sumolib tools
-import sys
-import os
 import numpy as np
-THIS_PATH = os.path.abspath(__file__)
-addpath = os.path.abspath(THIS_PATH + '/../../../sumolib')
-if addpath not in sys.path:
-    sys.path.append(addpath)
-import geomhelper  # noqa
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
 def dict_from_node_attributes(node):
@@ -115,7 +111,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
         shape = []
         for point in polyline:
             shape.append(point.split(","))
-        edge_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+        edge_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
             sumo_loop_coords,
             [[float(coord) for coord in point] for point in shape])
         ind_loop.setAttribute("pos", str(edge_offset))
@@ -142,7 +138,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
                 shape = []
                 for point in polyline:
                     shape.append(point.split(","))
-                start_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+                start_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
                     sumo_point,
                     [[float(coord) for coord in point] for point in shape])
                 det_entry.setAttribute("lane", lane["id"])
@@ -164,7 +160,7 @@ def create_measurement_file(induction_tab, travel_time_tab,
                 shape = []
                 for point in polyline:
                     shape.append(point.split(","))
-                end_offset = geomhelper.polygonOffsetWithMinimumDistanceToPoint(
+                end_offset = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(
                     sumo_point,
                     [[float(coord) for coord in point] for point in shape])
                 det_exit.setAttribute("lane", lane["id"])
@@ -189,7 +185,7 @@ def get_point_on_polyline(points, pathlen):
     if rem_len <= 1.0e-3:
         return P
     Q = np.array(points[index])
-    PQ = Q - P  # Vektior PQ
+    PQ = Q - P  # Vektor PQ
     vn = PQ / np.linalg.norm(PQ)                # normierter Richtungsvektor
     return P + vn * rem_len
 
@@ -301,15 +297,14 @@ def get_conn_verb_rel(conn_tab, from_to_tab):
 
 # MAIN
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='detector conversion utility (VISSIM.inpx to SUMO)')
-    parser.add_argument('--vissim-input', '-V', type=str,
-                        help='VISSIM inpx file path')
-    parser.add_argument('--output-file', '-o', type=str,
-                        help='output file name')
-    parser.add_argument('--SUMO-net', '-S', type=str,
-                        help='SUMO net file path')
-    args = parser.parse_args()
+    op = sumolib.options.ArgumentParser(description='detector conversion utility (VISSIM.inpx to SUMO)')
+    op.add_argument('--vissim-input', '-V', category="input", required=True, type=op.file,
+                    help='VISSIM inpx file path')
+    op.add_argument('--output-file', '-o', category="output", required=True, type=op.file,
+                    help='output file name')
+    op.add_argument('--SUMO-net', '-S', category="input", required=True, type=op.net_file,
+                    help='SUMO net file path')
+    args = op.parse_args()
     print("\n", args, "\n")
     print('\n---\n\n* loading VISSIM net:\n\t', args.vissim_input)
     sumo_doc = minidom.parse(args.SUMO_net)

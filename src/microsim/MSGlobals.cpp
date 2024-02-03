@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,12 +34,17 @@ SUMOTime MSGlobals::gIgnoreJunctionBlocker;
 
 SUMOTime MSGlobals::gTimeToGridlock;
 SUMOTime MSGlobals::gTimeToGridlockHighways;
+double MSGlobals::gGridlockHighwaysSpeed;
 SUMOTime MSGlobals::gTimeToTeleportDisconnected;
+SUMOTime MSGlobals::gTimeToTeleportBidi;
+bool MSGlobals::gRemoveGridlocked;
+
 SUMOTime MSGlobals::gTimeToImpatience;
 
 bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
+bool MSGlobals::gEmergencyInsert;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 
@@ -51,6 +56,8 @@ bool MSGlobals::gMesoLimitedJunctionControl;
 MELoop* MSGlobals::gMesoNet;
 
 bool MSGlobals::gOverheadWireSolver;
+bool MSGlobals::gOverheadWireRecuperation;
+bool MSGlobals::gOverheadWireCurrentLimits;
 
 bool MSGlobals::gSemiImplicitEulerUpdate;
 
@@ -61,6 +68,7 @@ SUMOTime MSGlobals::gActionStepLength;
 double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
 
 bool MSGlobals::gUseStopEnded(false);
+bool MSGlobals::gUseStopStarted(false);
 
 bool MSGlobals::gUnitTests(false);
 
@@ -74,6 +82,7 @@ int MSGlobals::gNumThreads;
 double MSGlobals::gEmergencyDecelWarningThreshold(1);
 
 double MSGlobals::gMinorPenalty(0);
+double MSGlobals::gTLSPenalty(0);
 
 bool MSGlobals::gModelParkingManoeuver;
 
@@ -84,5 +93,10 @@ double MSGlobals::gTLSYellowMinDecel;
 
 bool MSGlobals::gLefthand(false);
 
+double MSGlobals::gWeightsSeparateTurns(0);
+
+SUMOTime MSGlobals::gStartupWaitThreshold(0);
+
+bool MSGlobals::gHaveEmissions(false);
 
 /****************************************************************************/

@@ -27,7 +27,7 @@ You can give [activitygen](../activitygen.md) a first try with the following exa
 While activitygen has been developed
 mainly to generate traffic demand for larger networks, this example
 features the small network shown in the image on the right. Download the
-files [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.net.xml]({{Source}}tests/activitygen/demand_generation/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.stat.xml ]({{Source}}tests/activitygen/demand_generation/activitygen-example.stat.xml ) to follow this example.
+files [{{SUMO}}/tests/activitygen/activitygen-example.net.xml]({{Source}}tests/activitygen/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/activitygen-example.stat.xml ]({{Source}}tests/activitygen/activitygen-example.stat.xml ) to follow this example.
 
 To run this example, use the following commands:
 
@@ -154,9 +154,9 @@ coherently, we need a precise age distribution of this population.
     <parameters ... />
 
     <population>
-        <bracket beginAge="0" endAge"4" peopleNbr="1745" />
+        <bracket beginAge="0" endAge="4" peopleNbr="1745" />
             ...
-        <bracket beginAge="66" endAge"90" peopleNbr="978" />
+        <bracket beginAge="66" endAge="90" peopleNbr="978" />
     </population>
 
 </city>
@@ -612,13 +612,14 @@ these facilities. In [activitygen](../activitygen.md)
 buses do not show up in the simulation.
 - According to some distance criteria between locations and bus
 stations, fewer care trips are generated since people are assumed to
-take the bus. Public transport travel times are not considered.-
+take the bus. Public transport travel times are not considered.
+- Activitigen assumes a fully connected network and may created invalid trips if the input network isn't fully connected. A possible solution is to filter out invalid trips with the command `duarouter -n your.net.xml -r old.rou.xml --ignore-errors --write-trips -o filtered.rou.xml` but this may also reduce a lot of traffic and require compensation elsewhere
 
 ## Model Documentation
 
 ActivityGen was developed as a tool for the evaluation of trust
 scenarios in VANETs. The work was part of the project [Fidens: Trust
-between Cooperative Systems](https://web.archive.org/web/20120313075112/http://www.ldv.ei.tum.de/en/research/fidens/) featuring
+between Cooperative Systems](https://web.archive.org/web/20120313075112/https://www.ldv.ei.tum.de/en/research/fidens/) featuring
 trusted probabilistic knowledge processing in vehicular networks. For
 further documentation on the internals of the model, refer to the source
 code in [{{SUMO}}/src/activitygen]({{Source}}src/activitygen) or ask the [original

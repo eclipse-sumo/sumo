@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 /// @file    MSDevice_ElecHybrid.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // A device which stands as an implementation ElecHybrid and which outputs movereminder calls
 /****************************************************************************/
@@ -25,11 +25,13 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/emissions/EnergyParams.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class MSDevice_Emissions;
 
 
 // ===========================================================================
@@ -182,10 +184,21 @@ public:
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
+    /// @brief Attempt to store energy into battery pack and return the energy that could not be accomodated due to SOC limits
+    double storeEnergyToBattery(const double energy);
+
+    /// @brief Add energyWasted to the total sum myTotalEnergyWasted
+    void updateTotalEnergyWasted(const double energyWasted);
+
     void setConsum(const double consumption);
 
     double acceleration(SUMOVehicle& veh, double power, double oldSpeed);
+
+    /// @brief return energy consumption in Wh (power multiplied by TS)
     double consumption(SUMOVehicle& veh, double a, double newSpeed);
+
+    /// @brief compute charged energy properly considering recuperation and propulsion efficiency during charging battery from overhead wire or discharing battery to recuperate into overhead wire
+    double computeChargedEnergy(double energyIn);
 
     MSOverheadWire* getActOverheadWireSegment() {
         return myActOverheadWireSegment;
@@ -202,9 +215,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param);
-
-    void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower);
 
 protected:
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
@@ -216,8 +227,8 @@ protected:
     /// @brief Parameter, overhead wire charging power to battery, if the battery SoC is not full (in Watt)
     double myOverheadWireChargingPower;
 
-    /// @brief Parameter collection
-    std::map<int, double> myParam;
+    /// @brief Parameter holding emission device
+    MSDevice_Emissions* myEmissionDevice;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
@@ -241,15 +252,15 @@ protected:
 
     /// @name Tripinfo statistics
     /// @{
-    double myMaxBatteryPower;
-    double myMinBatteryPower;
-    double myTotalPowerConsumed;
-    double myTotalPowerRegenerated;
+    double myMaxBatteryCharge;
+    double myMinBatteryCharge;
+    double myTotalEnergyConsumed;
+    double myTotalEnergyRegenerated;
 
     /// @brief Energy that could not be stored back to the battery or traction station
     /// and was wasted on resistors. This is approximate, we ignore the use of classical
     /// brakes in lower speeds.
-    double myTotalPowerWasted;
+    double myTotalEnergyWasted;
     /// @}
 
     /// @name Power management parameters

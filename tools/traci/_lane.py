@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -74,6 +74,13 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MAXSPEED, laneID)
 
+    def getFriction(self, laneID):
+        """getFriction(string) -> double
+
+        Returns the friction on the lane.
+        """
+        return self._getUniversal(tc.VAR_FRICTION, laneID)
+
     def getWidth(self, laneID):
         """getWidth(string) -> double
 
@@ -94,6 +101,14 @@ class LaneDomain(Domain):
         Returns a list of disallowed vehicle classes.
         """
         return self._getUniversal(tc.LANE_DISALLOWED, laneID)
+
+    def getChangePermissions(self, laneID, direction):
+        """getChangePermissions(string, int) -> list(string)
+
+        Returns a list of vehicle classesa allowed to change to the neighbor lane indicated by the direction
+        (left=0, right=1).
+        """
+        return self._getUniversal(tc.LANE_CHANGES, laneID, "b", direction)
 
     def getLinkNumber(self, laneID):
         """getLinkNumber(string) -> integer
@@ -144,42 +159,48 @@ class LaneDomain(Domain):
     def getCO2Emission(self, laneID):
         """getCO2Emission(string) -> double
 
-        Returns the CO2 emission in mg for the last time step on the given lane.
+        Returns the CO2 emission in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_CO2EMISSION, laneID)
 
     def getCOEmission(self, laneID):
         """getCOEmission(string) -> double
 
-        Returns the CO emission in mg for the last time step on the given lane.
+        Returns the CO emission in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_COEMISSION, laneID)
 
     def getHCEmission(self, laneID):
         """getHCEmission(string) -> double
 
-        Returns the HC emission in mg for the last time step on the given lane.
+        Returns the HC emission in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_HCEMISSION, laneID)
 
     def getPMxEmission(self, laneID):
         """getPMxEmission(string) -> double
 
-        Returns the particular matter emission in mg for the last time step on the given lane.
+        Returns the particular matter emission in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_PMXEMISSION, laneID)
 
     def getNOxEmission(self, laneID):
         """getNOxEmission(string) -> double
 
-        Returns the NOx emission in mg for the last time step on the given lane.
+        Returns the NOx emission in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_NOXEMISSION, laneID)
 
     def getFuelConsumption(self, laneID):
         """getFuelConsumption(string) -> double
 
-        Returns the fuel consumption in ml for the last time step on the given lane.
+        Returns the fuel consumption in mg/s for the last time step on the given lane.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_FUELCONSUMPTION, laneID)
 
@@ -193,7 +214,8 @@ class LaneDomain(Domain):
     def getElectricityConsumption(self, laneID):
         """getElectricityConsumption(string) -> double
 
-        Returns the electricity consumption in ml for the last time step.
+        Returns the electricity consumption in Wh/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, laneID)
 
@@ -256,21 +278,29 @@ class LaneDomain(Domain):
 
     def getFoes(self, laneID, toLaneID):
         """getFoes(string, string) -> list(string)
-        Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
+        Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID.
         """
         return self._getUniversal(tc.VAR_FOES, laneID, "s", toLaneID)
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
-        Returns the ids of internal lanes that are in conflict with the given internal lane id
+        Returns the ids of internal lanes that are in conflict with the given internal lane id.
         """
         return self.getFoes(laneID, "")
 
     def getPendingVehicles(self, laneID):
         """getPendingVehicles(string) -> list(string)
-        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay)
+        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay).
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
+
+    def getAngle(self, laneID, relativePosition=tc.INVALID_DOUBLE_VALUE):
+        """getAngle(string, double) -> double
+        Returns the heading of the straight line segment formed by the lane at the given position.
+        If the given position equals TraCI constant INVALID_DOUBLE_VALUE, it returns the total angle
+        formed by the lane, from its start point to its end point.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, laneID, "d", relativePosition)
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
@@ -290,12 +320,27 @@ class LaneDomain(Domain):
             disallowedClasses = [disallowedClasses]
         self._setCmd(tc.LANE_DISALLOWED, laneID, "l", disallowedClasses)
 
+    def setChangePermissions(self, laneID, allowedClasses, direction):
+        """setChangePermissions(string, list, int) -> None
+
+        Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction
+        (left=1, right=-1).
+        """
+        self._setCmd(tc.LANE_CHANGES, laneID, "tlb", 2, allowedClasses, direction)
+
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None
 
         Sets a new maximum allowed speed on the lane in m/s.
         """
         self._setCmd(tc.VAR_MAXSPEED, laneID, "d", speed)
+
+    def setFriction(self, laneID, friction):
+        """setFriction(string, double) -> None
+
+        Sets the friction of the lane.
+        """
+        self._setCmd(tc.VAR_FRICTION, laneID, "d", friction)
 
     def setLength(self, laneID, length):
         """setLength(string, double) -> None

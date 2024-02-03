@@ -1,0 +1,6 @@
+read 3 TAZ
+No toTaz found for edge 'D1D2' of vehicle '2' 
+No fromTaz found for edge 'C0D0' of vehicle '4' 
+read 10 vehicles
+No fromTaz found for 1 edges and no toTaz found for 1 edges
+Wrote 5 OD-pairs (5 distinct) in 1 intervals (8 vehicles total)

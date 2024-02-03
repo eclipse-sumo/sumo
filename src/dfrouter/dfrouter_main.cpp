@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -67,13 +67,13 @@
 void
 readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
     if (!oc.isSet("detector-files")) {
-        throw ProcessError("No detector file given (use --detector-files <FILE>).");
+        throw ProcessError(TL("No detector file given (use --detector-files <FILE>)."));
     }
     // read definitions stored in XML-format
     std::vector<std::string> files = oc.getStringVector("detector-files");
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
-            throw ProcessError("Could not open detector file '" + *fileIt + "'");
+            throw ProcessError(TLF("Could not open detector file '%'", *fileIt));
         }
         PROGRESS_BEGIN_MESSAGE("Loading detector definitions from '" + *fileIt + "'");
         RODFDetectorHandler handler(optNet, oc.getBool("ignore-invalid-detectors"), detectors, *fileIt);
@@ -85,7 +85,7 @@ readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
         }
     }
     if (detectors.getDetectors().empty()) {
-        throw ProcessError("No detectors found.");
+        throw ProcessError(TL("No detectors found."));
     }
 }
 
@@ -100,7 +100,7 @@ readDetectorFlows(RODFDetectorFlows& flows, OptionsCont& oc, RODFDetectorCon& dc
     std::vector<std::string> files = oc.getStringVector("measure-files");
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
-            throw ProcessError("The measure-file '" + *fileIt + "' can not be opened.");
+            throw ProcessError(TLF("The measure-file '%' can not be opened.", *fileIt));
         }
         // parse
         PROGRESS_BEGIN_MESSAGE("Loading flows from '" + *fileIt + "'");
@@ -121,11 +121,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     // if a network was loaded... (mode1)
     if (optNet != nullptr) {
         if (oc.getBool("remove-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE("Removing empty detectors");
+            PROGRESS_BEGIN_MESSAGE(TL("Removing empty detectors"));
             optNet->removeEmptyDetectors(detectors, flows);
             PROGRESS_DONE_MESSAGE();
         } else  if (oc.getBool("report-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE("Scanning for empty detectors");
+            PROGRESS_BEGIN_MESSAGE(TL("Scanning for empty detectors"));
             optNet->reportEmptyDetectors(detectors, flows);
             PROGRESS_DONE_MESSAGE();
         }
@@ -140,11 +140,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
             }
         }
         if (i == detectors.getDetectors().end() && !oc.getBool("routes-for-all")) {
-            throw ProcessError("No source detectors found.");
+            throw ProcessError(TL("No source detectors found."));
         }
         // compute routes between the detectors (optionally)
         if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
-            PROGRESS_BEGIN_MESSAGE("Computing routes");
+            PROGRESS_BEGIN_MESSAGE(TL("Computing routes"));
             optNet->buildRoutes(detectors,
                                 oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),
                                 !oc.getBool("keep-longer-routes"), oc.getInt("max-search-depth"));
@@ -155,11 +155,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     // check
     // whether the detectors are valid
     if (!detectors.detectorsHaveCompleteTypes()) {
-        throw ProcessError("The detector types are not defined; use in combination with a network");
+        throw ProcessError(TL("The detector types are not defined; use in combination with a network"));
     }
     // whether the detectors have routes
     if (!detectors.detectorsHaveRoutes()) {
-        throw ProcessError("The emitters have no routes; use in combination with a network");
+        throw ProcessError(TL("The emitters have no routes; use in combination with a network"));
     }
 
     // save the detectors if wished
@@ -190,12 +190,12 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     if (oc.isSet("emitters-output") || oc.isSet("emitters-poi-output")) {
         optNet->buildEdgeFlowMap(flows, detectors, begin, end, step); // !!!
         if (oc.getBool("revalidate-flows")) {
-            PROGRESS_BEGIN_MESSAGE("Rechecking loaded flows");
+            PROGRESS_BEGIN_MESSAGE(TL("Rechecking loaded flows"));
             optNet->revalidateFlows(detectors, flows, begin, end, step);
             PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-output")) {
-            PROGRESS_BEGIN_MESSAGE("Writing emitters");
+            PROGRESS_BEGIN_MESSAGE(TL("Writing emitters"));
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
                                     begin, end, step,
                                     *optNet,
@@ -207,28 +207,28 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
             PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-poi-output")) {
-            PROGRESS_BEGIN_MESSAGE("Writing emitter pois");
+            PROGRESS_BEGIN_MESSAGE(TL("Writing emitter pois"));
             detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows);
             PROGRESS_DONE_MESSAGE();
         }
     }
     // save end speed trigger if wished
     if (oc.isSet("variable-speed-sign-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing speed triggers");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing speed triggers"));
         detectors.writeSpeedTrigger(optNet, oc.getString("variable-speed-sign-output"), flows,
                                     begin, end, step);
         PROGRESS_DONE_MESSAGE();
     }
     // save checking detectors if wished
     if (oc.isSet("validation-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing validation detectors");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing validation detectors"));
         detectors.writeValidationDetectors(oc.getString("validation-output"),
                                            oc.getBool("validation-output.add-sources"), true, true); // !!!
         PROGRESS_DONE_MESSAGE();
     }
     // build global rerouter on end if wished
     if (oc.isSet("end-reroute-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing highway end rerouter");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing highway end rerouter"));
         detectors.writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
         PROGRESS_DONE_MESSAGE();
     }
@@ -248,8 +248,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
+    oc.setApplicationDescription(TL("Builds vehicle routes for SUMO using detector values."));
     oc.setApplicationName("dfrouter", "Eclipse SUMO dfrouter Version " VERSION_STRING);
     int ret = 0;
     RODFNet* net = nullptr;
@@ -265,7 +264,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         MsgHandler::initOutputOptions();
         if (!RODFFrame::checkOptions()) {

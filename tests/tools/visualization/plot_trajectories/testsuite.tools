@@ -1,0 +1,16 @@
+# Copy of plain
+plain
+filter_edges
+filter_ids
+
+# gzipped input
+gz
+multiple_files
+
+# plot person trajectories
+persons
+kilometrage
+
+# handle missing distance attrs
+kilometrage_missing
+leaderGap

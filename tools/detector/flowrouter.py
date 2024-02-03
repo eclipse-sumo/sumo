@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,13 +14,14 @@
 # @file    flowrouter.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
+# @author  Mirko Barthauer
 # @date    2007-06-28
 
 """
 This script does flow routing similar to the dfrouter.
 It has three mandatory parameters, the SUMO net (.net.xml), a file
 specifying detectors and one for the flows. It may detect the type
-of the detectors (source, sink, inbetween) itself or read it from
+of the detectors (source, sink, in between) itself or read it from
 the detectors file.
 """
 from __future__ import absolute_import
@@ -31,10 +32,10 @@ import random
 import sys
 import heapq
 from xml.sax import make_parser, handler
-from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 from sumolib.net.lane import get_allowed  # noqa
 import detector  # noqa
 
@@ -88,6 +89,7 @@ class Vertex:
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net. The members are accessed directly.
 class Edge:
+    lanebased = False
 
     def __init__(self, label, source, target, kind, linkDir=None):
         self.label = label
@@ -166,13 +168,14 @@ class Net:
         self._edgeRestriction = {}
         self._routeRestriction = {}
         if options.restrictionfile:
-            for f in options.restrictionfile.split(","):
-                for line in open(f):
-                    ls = line.split()
-                    if len(ls) == 2:
-                        self._edgeRestriction[ls[1]] = int(ls[0])
-                    else:
-                        self._routeRestriction[tuple(ls[1:])] = int(ls[0])
+            for f in options.restrictionfile:
+                with open(f) as fp:
+                    for line in fp:
+                        ls = line.split()
+                        if len(ls) == 2:
+                            self._edgeRestriction[ls[1]] = int(ls[0])
+                        else:
+                            self._routeRestriction[tuple(ls[1:])] = int(ls[0])
             if options.verbose:
                 print("Loaded %s edge restrictions and %s route restrictions" %
                       (len(self._edgeRestriction), len(self._routeRestriction)))
@@ -379,7 +382,7 @@ class Net:
             else:
                 if DEBUG:
                     print("      trying to split", routeStub)
-                assert(len(currEdge.routes) > 0)
+                assert (len(currEdge.routes) > 0)
                 for route in currEdge.routes + currEdge.newRoutes:
                     if route.newFrequency == 0:
                         continue
@@ -493,7 +496,11 @@ class Net:
             edge = currVertex.inPathEdge
             if edge.target == currVertex:
                 if edge.kind == "real":
-                    route.insert(0, edge.label)
+                    if Edge.lanebased:
+                        edgeID = edge.label[:edge.label.rfind("_")]
+                        route.insert(0, edgeID)
+                    else:
+                        route.insert(0, edge.label)
                 routeEdgeObj.insert(0, edge)
                 currVertex = edge.source
             else:
@@ -753,9 +760,15 @@ class Net:
                                 viaEdges.append(e)
                         if viaEdges:
                             via = ' via="%s"' % " ".join(viaEdges)
-                    print('    <flow id="%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' %
-                          (route.routeID, options.params, route.routeID,
-                           int(route.frequency), begin, end, via), file=emitOut)
+                    if options.pedestrians:
+                        print('    <personFlow id="%s" %s number="%s" begin="%s" end="%s">' %
+                              (route.routeID, options.params, int(route.frequency), begin, end), file=emitOut)
+                        print('        <walk route="%s"/>' % route.routeID, file=emitOut)
+                        print('    </personFlow>', file=emitOut)
+                    else:
+                        print('    <flow id="%s" %s route="%s" number="%s" begin="%s" end="%s"%s/>' %
+                              (route.routeID, options.params, route.routeID,
+                               int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
             print("Writing %s vehicles from %s sources between time %s and %s (minutes)" % (
@@ -903,86 +916,99 @@ def addFlowFile(option, opt_str, value, parser):
     parser.rargs = parser.rargs[index:]
 
 
-optParser = OptionParser()
-optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-d", "--detector-file", dest="detfile",
-                     help="read detectors from FILE (mandatory)", metavar="FILE")
-optParser.add_option("--revalidate-detectors", action="store_true", dest="revalidate",
-                     default=False, help="ignore source and sink information in detector file")
-optParser.add_option("-f", "--detector-flow-files", dest="flowfiles",
-                     action="callback", callback=addFlowFile, type="string",
-                     help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
-optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
-                     help="which column contains flows", metavar="STRING")
-optParser.add_option("-o", "--routes-output", dest="routefile",
-                     help="write routes to FILE", metavar="FILE")
-optParser.add_option("-e", "--emitters-output", dest="emitfile",
-                     help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
-optParser.add_option("-y", "--params", help="vehicle / flow params to use (vType, departPos etc.)",
-                     default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
-optParser.add_option("-t", "--trimmed-output", dest="trimfile",
-                     help="write edges of trimmed network to FILE", metavar="FILE")
-optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
-                     help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
-optParser.add_option("--source-sink-output", dest="source_sink_output",
-                     help="write sources and sinks in detector format to FILE", metavar="FILE")
-optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                     default=0.0, help="only consider edges where the fastest lane allows at least this " +
-                                       "maxspeed (m/s)")
-optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
-                     help="limit the number of vehicles per lane and hour to this value")
-optParser.add_option("--max-turn-flow", type="int", dest="maxturnflow",
-                     help="limit the number of vehicles per turn-around connection and hour to this value")
-optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
-                     help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' " +
-                           "followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')",
-                           metavar="FILE+")
-optParser.add_option("-s", "--synthetic-flows", dest="syntheticflowfile",
-                     help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')",
-                     metavar="FILE")
-optParser.add_option("--timeline", default=("0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8," +
-                                            "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"),
-                     help="use time line for artificial detector values")
-optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
-                     default=False, help='keep edges with detectors when deleting "slow" edges')
-optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
-                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-optParser.add_option("-l", "--lane-based", action="store_true", dest="lanebased",
-                     default=False, help="do not aggregate detector data and connections to edges")
-optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
-optParser.add_option("-b", "--begin", type="int", help="begin time in minutes")
-optParser.add_option("--limit", type="int", help="limit the amount of flow assigned in a single step")
-optParser.add_option("--vclass", help="only consider lanes that allow the given vehicle class")
-optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
-                     default=False, help="suppress warnings")
-optParser.add_option("--random", action="store_true", dest="random",
-                     default=False, help="write route distributions instead of separate flows")
-optParser.add_option("--via-detectors", action="store_true", dest="viadetectors",
-                     default=False, help="set used detectors as via-edges for generated flows")
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("--debug", action="store_true", default=False, help="tell me what you are doing in high detail")
-(options, args) = optParser.parse_args()
+parser = ArgumentParser()
+parser.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
+                    help="read SUMO network from FILE (mandatory)", metavar="FILE")
+parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
+                    help="read detectors from FILE (mandatory)", metavar="FILE")
+parser.add_argument("--revalidate-detectors", action="store_true", dest="revalidate",
+                    default=False, help="ignore source and sink information in detector file")
+parser.add_argument("-f", "--detector-flow-files", dest="flowfiles", type=ArgumentParser.file,
+                    nargs="+", category="input",
+                    help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
+parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
+                    help="which column contains flows", metavar="STRING")
+parser.add_argument("-o", "--routes-output", dest="routefile", category="output", type=ArgumentParser.route_file,
+                    help="write routes to FILE", metavar="FILE")
+parser.add_argument("-e", "--emitters-output", dest="emitfile", category="output", type=ArgumentParser.file,
+                    help="write emitters to FILE and create files per emitter (needs -o)", metavar="FILE")
+parser.add_argument("-y", "--params", help="vehicle / flow params to use (vType, departPos etc.)", type=str,
+                    default='departSpeed="max" departPos="last" departLane="best"', metavar="STRING")
+parser.add_argument("-t", "--trimmed-output", dest="trimfile", category="output", type=ArgumentParser.file,
+                    help="write edges of trimmed network to FILE", metavar="FILE")
+parser.add_argument("-p", "--flow-poi-output", dest="flowpoifile", category="output", type=ArgumentParser.file,
+                    help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
+parser.add_argument("--source-sink-output", dest="source_sink_output", category="output", type=ArgumentParser.file,
+                    help="write sources and sinks in detector format to FILE", metavar="FILE")
+parser.add_argument("-m", "--min-speed", type=float, dest="minspeed",
+                    default=0.0, help="only consider edges where the fastest lane allows at least this " +
+                    "maxspeed (m/s)")
+parser.add_argument("-M", "--max-flow", type=int, dest="maxflow",
+                    help="limit the number of vehicles per lane and hour to this value")
+parser.add_argument("--max-turn-flow", type=int, dest="maxturnflow",
+                    help="limit the number of vehicles per turn-around connection and hour to this value")
+parser.add_argument("-r", "--flow-restrictions", dest="restrictionfile", nargs="+", type=ArgumentParser.file,
+                    help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' " +
+                    "followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')",
+                    metavar="FILE+")
+parser.add_argument("-s", "--synthetic-flows", dest="syntheticflowfile", type=ArgumentParser.file,
+                    help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')",
+                    metavar="FILE")
+parser.add_argument("--timeline", default=("0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8," +
+                                           "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"), type=str,
+                    help="use time line for artificial detector values")
+parser.add_argument("-D", "--keep-det", action="store_true", dest="keepdet",
+                    default=False, help='keep edges with detectors when deleting "slow" edges')
+parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
+                    default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+parser.add_argument("-l", "--lane-based", action="store_true", dest="lanebased",
+                    default=False, help="do not aggregate detector data and connections to edges")
+parser.add_argument("-i", "--interval", type=ArgumentParser.time, help="aggregation interval in minutes")
+parser.add_argument("-b", "--begin", type=ArgumentParser.time, help="begin time in minutes")
+parser.add_argument("--pedestrians", action="store_true",
+                    default=False, help="write pedestrian flows instead of vehicles flows")
+parser.add_argument("--limit", type=int, help="limit the amount of flow assigned in a single step")
+parser.add_argument("--vclass", help="only consider lanes that allow the given vehicle class")
+parser.add_argument("-q", "--quiet", action="store_true", dest="quiet",
+                    default=False, help="suppress warnings")
+parser.add_argument("--random", action="store_true", dest="random",
+                    default=False, help="write route distributions instead of separate flows")
+parser.add_argument("--via-detectors", action="store_true", dest="viadetectors",
+                    default=False, help="set used detectors as via-edges for generated flows")
+parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                    default=False, help="tell me what you are doing")
+parser.add_argument("--debug", action="store_true", default=False, help="tell me what you are doing in high detail")
+options = parser.parse_args()
 if not options.netfile or not options.detfile or not options.flowfiles:
-    optParser.print_help()
+    parser.print_help()
     sys.exit()
 if options.emitfile and not options.routefile:
-    optParser.print_help()
+    parser.print_help()
     sys.exit()
 if (options.restrictionfile is not None or options.maxflow is not None) and options.interval is None:
     print("Restrictions need interval length")
-    optParser.print_help()
+    parser.print_help()
     sys.exit()
 
+if options.pedestrians:
+    if options.random:
+        print("Pedestrian output does not support option 'random'")
+        sys.exit()
+    # filtering out params that are not suitable for persons
+    params = options.params.split()
+    params = [p for p in params if "departSpeed" not in p and "departPos" not in
+              p and "departLane" not in p]
+    options.params = ' '.join(params)
+
 DEBUG = options.debug
-parser = make_parser()
+saxParser = make_parser()
 if options.verbose:
     print("Reading net")
+Edge.lanebased = options.lanebased
 net = Net()
 reader = NetDetectorFlowReader(net)
-parser.setContentHandler(reader)
-parser.parse(options.netfile)
+saxParser.setContentHandler(reader)
+saxParser.parse(options.netfile)
 if options.verbose:
     print(len(net._edges), "edges read")
     print("Reading detectors")

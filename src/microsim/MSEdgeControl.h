@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,15 +38,16 @@
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicle.h>
+#include <microsim/MSRouterDefs.h>
 
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXSynchSet.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXSynchSet.h>
 //#define THREAD_POOL
 #ifdef THREAD_POOL
 #include <utils/threadpool/WorkStealingThreadPool.h>
 #else
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #endif
 
@@ -54,12 +55,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSEdge;
-class MSLane;
-class MSJunction;
 class OutputDevice;
 
-typedef std::vector<MSEdge*> MSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -81,8 +78,6 @@ typedef std::vector<MSEdge*> MSEdgeVector;
 class MSEdgeControl {
 
 public:
-    typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
-
     /** @brief Constructor
      *
      * Builds LaneUsage information for each lane and assigns them to lanes.
@@ -196,9 +191,18 @@ public:
     /// @brief update meso edge type parameters
     void setMesoTypes();
 
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Reconstruct the current state
+     */
+    void setActiveLanes(std::list<MSLane*> lanes);
+
+
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool& getThreadPool() {
+    MFXWorkerThread::Pool& getThreadPool() {
         return myThreadPool;
     }
 #endif
@@ -230,10 +234,10 @@ public:
      * @class WorkerThread
      * @brief the thread which provides the router instance as context
      */
-    class WorkerThread : public FXWorkerThread {
+    class WorkerThread : public MFXWorkerThread {
     public:
-        WorkerThread(FXWorkerThread::Pool& pool)
-            : FXWorkerThread(pool), myRouterProvider(nullptr) {}
+        WorkerThread(MFXWorkerThread::Pool& pool)
+            : MFXWorkerThread(pool), myRouterProvider(nullptr) {}
 
         bool setRouterProvider(MSRouterProvider* routerProvider) {
             if (myRouterProvider == nullptr) {
@@ -242,8 +246,11 @@ public:
             }
             return false;
         }
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicleClass svc) const {
+        MSVehicleRouter& getRouter(SUMOVehicleClass svc) const {
             return myRouterProvider->getVehicleRouter(svc);
+        }
+        MSTransportableRouter& getIntermodalRouter() const {
+            return myRouterProvider->getIntermodalRouter();
         }
         virtual ~WorkerThread() {
             stop();
@@ -268,7 +275,7 @@ private:
     std::list<MSLane*> myActiveLanes;
 
     /// @brief A storage for lanes which shall be integrated because vehicles have moved onto them
-    FXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
+    MFXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
     std::set<MSLane*, ComparatorNumericalIdLess> myChangedStateLanes;
@@ -277,7 +284,7 @@ private:
     std::vector<SUMOTime> myLastLaneChange;
 
     /// @brief Additional lanes for which collision checking must be performed
-    FXSynchSet<MSLane*, std::set<MSLane*, ComparatorNumericalIdLess> > myInactiveCheckCollisions;
+    MFXSynchSet<MSLane*, std::set<MSLane*, ComparatorNumericalIdLess> > myInactiveCheckCollisions;
 
     double myMinLengthGeometryFactor;
 
@@ -285,7 +292,7 @@ private:
     WorkStealingThreadPool<> myThreadPool;
 #else
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool myThreadPool;
+    MFXWorkerThread::Pool myThreadPool;
 #endif
 #endif
 

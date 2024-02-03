@@ -1,0 +1,4 @@
+Warning: Unused states in tlLogic 'J0', program '0' in phase 0 after tl-index 23
+Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 1 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 0 when switching to phase 0.
+Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 24.

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>org.eclipse.sumo</id>
+    <launchable type="desktop-id">org.eclipse.sumo.desktop</launchable>
+    <name>SUMO</name>
+    <summary>A Microscopic Traffic Simulation</summary>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>EPL-2.0 OR GPL-2.0-or-later</project_license>
+    <description>
+        <p>
+           SUMO allows modelling of intermodal traffic systems including road vehicles, public transport and pedestrians.
+           Included with SUMO is a wealth of supporting tools which handle tasks such as route finding, visualization,
+           network import and emission calculation. SUMO can be enhanced with custom models and provides various APIs
+           to remotely control the simulation.
+        </p>
+    </description>
+    <url type="homepage">https://www.eclipse.dev/sumo/</url>
+    <url type="help">https://sumo.dlr.de/docs/</url>
+    <url type="bugtracker">https://github.com/eclipse-sumo/sumo/issues</url>
+    <developer_name>German Aerospace Center and contributors</developer_name>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot1.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot2.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot3.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot4.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot5.png</image>
+        </screenshot>
+        <screenshot>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot6.png</image>
+        </screenshot>
+    </screenshots>
+    <content_rating type="oars-1.1"/>
+    <releases>
+        <release version="v1_19_0" date="2023-11-07"/>
+        <release version="v1_18_0" date="2023-06-29"/>
+        <release version="v1_17_0" date="2023-04-25"/>
+        <release version="v1_16_0" date="2023-02-07"/>
+        <release version="v1_15_0" date="2022-11-08"/>
+        <release version="v1_14_1" date="2022-07-19"/>
+        <release version="v1_14_0" date="2022-07-12"/>
+        <release version="v1_13_0" date="2022-05-03"/>
+        <release version="v1_12_0" date="2022-01-25"/>
+        <release version="v1_11_0" date="2021-11-22"/>
+    </releases>
+</component>

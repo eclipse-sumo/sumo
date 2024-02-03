@@ -1,0 +1,2 @@
+--no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml --route-files=input_routes.rou.xml --additional-files=input_additional.add.xml 
+--device.rerouting.probability 1

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    plot_trajectories.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2018-08-18
 
 """
@@ -28,7 +29,6 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
@@ -38,40 +38,63 @@ import math  # noqa
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.options import ArgumentParser  # noqa
+from sumolib.visualization import helpers  # noqa
+
+KEYS = {
+    't': 'Time',
+    's': 'Speed',
+    'd': 'Distance',
+    'a': 'Acceleration',
+    'i': 'Angle',
+    'x': 'x-Position',
+    'y': 'y-Position',
+    'k': 'kilometrage',
+    'g': 'gap',
+}
 
 
 def getOptions(args=None):
-    optParser = OptionParser()
-    optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select two letters from [t, s, d, a, i, x, y] to plot"
-                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
+    optParser = ArgumentParser(conflict_handler="resolve")
+    helpers.addInteractionOptions(optParser)
+    helpers.addPlotOptions(optParser)
+    optParser.add_option("-t", "--trajectory-type", category="processing", dest="ttype", default="ds",
+                         help="select two letters from [t, s, d, a, i, x, y, k, g] to plot"
+                         + " Time, Speed, Distance, Acceleration, Angle,"
+                         + " x-Position, y-Position, Kilometrage, leaderGap."
                          + " Default 'ds' plots Distance vs. Speed")
-    optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
-    optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
-    optParser.add_option("-b", "--ballistic", action="store_true", default=False,
+    optParser.add_option("--persons", category="processing", action="store_true",
+                         default=False, help="plot person trajectories")
+    optParser.add_option("-s", "--show", category="processing", action="store_true",
+                         default=False, help="show plot directly")
+    optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
+    optParser.add_option("-b", "--ballistic", category="processing", action="store_true", default=False,
                          help="perform ballistic integration of distance")
-    optParser.add_option("--filter-route", dest="filterRoute",
+    optParser.add_option("--filter-route", category="processing", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--filter-edges", dest="filterEdges",
+    optParser.add_option("--filter-edges", category="processing", dest="filterEdges",
                          help="only consider data for the given list of edges")
-    optParser.add_option("--filter-ids", dest="filterIDs",
+    optParser.add_option("--filter-ids", category="processing", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", category="processing", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
-    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
+    optParser.add_option("-i", "--invert-distance-angle", category="processing", dest="invertDistanceAngle", type=float,
                          help="invert distance for trajectories with a average angle near FLOAT")
-    optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
+    optParser.add_option("--label", category="processing", help="plot label (default input file name")
+    optParser.add_option("--invert-yaxis", category="processing", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
-    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    optParser.add_option("--legend", category="processing", action="store_true", default=False, help="Add legend")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true",
+                         default=False, help="tell me what you are doing")
+    optParser.add_option("fcdfiles", nargs="+", category="input", type=ArgumentParser.file, help="FCD input file(s)")
 
-    options, args = optParser.parse_args(args=args)
-    if len(args) < 1:
-        sys.exit("mandatory argument FCD_FILE missing")
-    options.fcdfiles = args
+    options, args = optParser.parse_known_args(args=args)
+
+    # keep old presets from before integration of common options
+    options.nolegend = not options.legend
+    if options.show:
+        sys.stderr.write("Option --show is now set by default and will be removed in the future." +
+                         "Use --blind to disable the plot window\n")
 
     if options.filterRoute is not None:
         options.filterRoute = options.filterRoute.split(',')
@@ -86,7 +109,7 @@ def write_csv(data, fname):
     with open(fname, 'w') as f:
         for veh, vals in sorted(data.items()):
             f.write('"%s"\n' % veh)
-            for x in zip(*vals):
+            for x in zip(*[vals[k] for k in KEYS if k in vals]):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
 
@@ -109,24 +132,16 @@ def main(options):
     fig = plt.figure(figsize=(14, 9), dpi=100)
     fig.canvas.mpl_connect('pick_event', onpick)
 
-    xdata = 2
-    ydata = 1
-    typespec = {
-        't': ('Time', 0),
-        's': ('Speed', 1),
-        'd': ('Distance', 2),
-        'a': ('Acceleration', 3),
-        'i': ('Angle', 4),
-        'x': ('x-Position', 5),
-        'y': ('y-Position', 6),
-    }
-
+    xdata = None
+    ydata = None
     shortFileNames = short_names(options.fcdfiles)
+    xdata = options.ttype[0]
+    ydata = options.ttype[1]
     if (len(options.ttype) == 2
-            and options.ttype[0] in typespec
-            and options.ttype[1] in typespec):
-        xLabel, xdata = typespec[options.ttype[0]]
-        yLabel, ydata = typespec[options.ttype[1]]
+            and xdata in KEYS
+            and ydata in KEYS):
+        xLabel = KEYS[xdata]
+        yLabel = KEYS[ydata]
         plt.xlabel(xLabel)
         plt.ylabel(yLabel)
         plt.title(','.join(shortFileNames) if options.label is None else options.label)
@@ -140,11 +155,19 @@ def main(options):
         location = 'edge'
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
-    data = defaultdict(lambda: ([], [], [], [], [], [], []))
+    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions, kilometrage)
+    attrs = ['id', 'x', 'y', 'angle', 'speed', location]
+    if 'k' in options.ttype:
+        attrs.append('distance')
+    if 'g' in options.ttype:
+        attrs.append('leaderGap')
+    data = defaultdict(lambda: defaultdict(list))
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
+        totalVehs = 0
+        filteredVehs = 0
         for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
-                                                   element, ['id', 'x', 'y', 'angle', 'speed', location]):
+                                                   element, attrs):
+            totalVehs += 1
             vehID = vehicle.id
             if options.filterIDs and vehID not in options.filterIDs:
                 continue
@@ -166,24 +189,35 @@ def main(options):
             prevSpeed = speed
             prevDist = 0
             if vehID in data:
-                prevTime = data[vehID][0][-1]
-                prevSpeed = data[vehID][1][-1]
-                prevDist = data[vehID][2][-1]
-            data[vehID][0].append(time)
-            data[vehID][1].append(speed)
-            data[vehID][4].append(float(vehicle.angle))
-            data[vehID][5].append(float(vehicle.x))
-            data[vehID][6].append(float(vehicle.y))
+                prevTime = data[vehID]['t'][-1]
+                prevSpeed = data[vehID]['s'][-1]
+                prevDist = data[vehID]['d'][-1]
+            data[vehID]['t'].append(time)
+            data[vehID]['s'].append(speed)
+            data[vehID]['i'].append(float(vehicle.angle))
+            data[vehID]['x'].append(float(vehicle.x))
+            data[vehID]['y'].append(float(vehicle.y))
+            if 'k' in options.ttype:
+                data[vehID]['k'].append(float(vehicle.distance))
+            if 'g' in options.ttype:
+                data[vehID]['g'].append(float(vehicle.leaderGap))
             if prevTime == time:
-                data[vehID][3].append(0)
+                data[vehID]['a'].append(0)
             else:
-                data[vehID][3].append((speed - prevSpeed) / (time - prevTime))
+                data[vehID]['a'].append((speed - prevSpeed) / (time - prevTime))
 
             if options.ballistic:
                 avgSpeed = (speed + prevSpeed) / 2
             else:
                 avgSpeed = speed
-            data[vehID][2].append(prevDist + (time - prevTime) * avgSpeed)
+            data[vehID]['d'].append(prevDist + (time - prevTime) * avgSpeed)
+            filteredVehs += 1
+        if totalVehs == 0 or filteredVehs == 0 or options.verbose:
+            print("Found %s datapoints in %s and kept %s" % (
+                totalVehs, fcdfile, filteredVehs))
+
+    if filteredVehs == 0:
+        sys.exit()
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
@@ -208,6 +242,10 @@ def main(options):
     minX = uMax
     maxX = uMin
 
+    addArgs = {"picker": line_picker, "linestyle": options.linestyle}
+    if options.marker is not None:
+        addArgs["marker"] = options.marker
+
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False
@@ -230,18 +268,12 @@ def main(options):
         minX = min(minX, min(d[xdata]))
         maxX = max(maxX, max(d[xdata]))
 
-        plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
+        plt.plot(d[xdata], d[ydata], label=vehID, **addArgs)
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
-
-    if options.legend > 0:
-        plt.legend()
-
-    plt.savefig(options.output)
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
-    if options.show:
-        plt.show()
+    helpers.closeFigure(fig, fig.axes[0], options)
 
 
 if __name__ == "__main__":

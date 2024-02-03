@@ -6,7 +6,7 @@ title: Xml
 
 This converts any of the sumo xml files into a flat csv (character
 separated values) representation. CSV-Files are easy to parse and can be
-opened in [LibreOffice](http://www.libreoffice.org/) or Microsoft Excel.
+opened in [LibreOffice](https://www.libreoffice.org/) or Microsoft Excel.
 Usage:
 
 ```
@@ -19,7 +19,12 @@ used to quote all fields. Furthermore you can supply an xsd schema file
 using **--xsd** {{DT_FILE}} to aid the parsing and get headings also for attributes which may
 be not in the current file. If you give the additional **--validation** option the input
 file will be validated against the schema. This requires
-[lxml](http://lxml.de/) to be installed.
+[lxml](https://lxml.de/) to be installed.
+
+If you do not use the **--xsd** option
+the script will determine the attributes to parse from the first line (or block) it parses.
+If your file does not contain all wanted attributes in the first occuring element they will not get
+parsed!
 
 Please note that instead of an input file name you can give a number
 which will be interpreted as a server port where the script listens for
@@ -78,10 +83,10 @@ python tools/xml/protobuf2xml.py -x schema.xsd input.protomsg
 The options have the same meaning as above.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="">This part of SUMO was developed, reworked, or extended within the project
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
 
 
 ## changeAttribute.py
@@ -90,6 +95,18 @@ This sets/removes the specified attribute on all tags (elements) in the input fi
 If option **--value** (**-v**) is not given, the attribute is removed. Otherwise it is added/modified to the given value.
 
 ```
-python tools/xml/tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
+python tools/xml/tools/xml/changeAttribute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
 ```
 
+## filterElements.py
+
+This removes the specified element from the input file subject to the following conditions:
+
+- all occurrences of the element (default)
+- all elements that have a specified attribute matching a value from a given list (**--attribute** ATTR **--remove-values VAL1,VAL2**)
+- all elements that have a specified attribute not matching a value from a given list (**--attribute** ATTR **--keep-values VAL1,VAL2**)
+
+Example call:
+```
+python tools/xml/tools/xml/filterElements.py -f stopoutput.xml -o filtered.xml -t stopinfo -a delay --remove-values 0
+```

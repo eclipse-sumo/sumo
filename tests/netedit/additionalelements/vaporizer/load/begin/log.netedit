@@ -1,0 +1,5 @@
+Error: Attribute 'begin' is missing in definition of a vaporizer.
+Error: Attribute 'begin' is missing in definition of a vaporizer.
+Error: Attribute 'begin' in definition of a vaporizer is not a valid time value.
+Error: Could not build vaporizer with ID 'bot' in netedit; Attribute begin cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/vaporizer/load/begin/additionals.add.xml failed.

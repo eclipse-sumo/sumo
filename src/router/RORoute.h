@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -166,9 +166,15 @@ public:
      */
     void recheckForLoops(const ConstROEdgeVector& mandatory);
 
+
+    /// @brief check whether the route is valid for the given vehicle
+    bool isValid(const ROVehicle& veh, bool ignoreErrors) const;
+
     OutputDevice&
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                       const bool withCosts, const bool withExitTimes) const;
+                       const bool withCosts, const bool withProb,
+                       const bool withExitTimes, const bool withLength,
+                       const std::string& id = "") const;
 
     /** @brief add additional vehicles/probability
      */
@@ -191,6 +197,9 @@ public:
             }
         }
     }
+
+    /// @brief return edges that shall be written in the route definition
+    ConstROEdgeVector getNormalEdges() const;
 
 private:
     /// @brief The costs of the route

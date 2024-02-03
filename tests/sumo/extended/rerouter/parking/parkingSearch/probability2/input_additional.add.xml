@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 19 Jun 2018 09:29:14 PM CEST by Eclipse SUMO netedit Version 5755134
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkA0A1" lane="A0A1_0" startPos="35" endPos="55" roadsideCapacity="0" width="2.00" length="5"/>
+    <parkingArea id="parkB0B1" lane="B0B1_0" startPos="25" endPos="75" roadsideCapacity="20" width="2.00" length="5" angle="90"/>
+    <parkingArea id="parkB2B3" lane="B2B3_0" startPos="25" endPos="75" roadsideCapacity="20" width="2.00" length="5" angle="90"/>
+</additional>

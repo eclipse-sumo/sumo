@@ -1,4 +1,4 @@
 Traceback (most recent call last):
-  File "D:\SUMO\tests\..\tools/shapes/debug2shapes.py", line 28, in <module>
-    shapesParts = sys.argv[2].split()
+  File "C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\..\tools/devel/debug2shapes.py", line 29, in <module>
+    if os.path.isfile(sys.argv[2]):
 IndexError: list index out of range

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,12 +47,16 @@ class MSDevice_Battery;
  * @brief Definition of charging stations
  */
 class MSChargingStation : public MSStoppingPlace {
-public:
 
+public:
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                      const std::string& name,
-                      double chargingPower, double efficency, bool chargeInTransit, double chargeDelay);
+                      const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
+                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
+
+    MSChargingStation(const std::string& chargingStationID, const MSParkingArea* parkingArea, const std::string& name, double chargingPower,
+                      double efficency, bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
+                      SUMOTime waitingTime);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -67,19 +71,18 @@ public:
     bool getChargeInTransit() const;
 
     /// @brief Get Charge Delay
-    double getChargeDelay() const;
+    SUMOTime getChargeDelay() const;
 
-    /// @brief Set charging station's charging power
-    void setChargingPower(double chargingPower);
+    /// @brief Get charge type
+    const std::string& getChargeType() const;
 
-    /// @brief Set efficiency of the charging station
-    void setEfficency(double efficency);
+    /// @brief Get waiting time
+    SUMOTime getWaitingTime() const;
 
-    /// @brief Set charge in transit of the charging station
-    void setChargeInTransit(bool chargeInTransit);
-
-    /// @brief Set charge delay of the charging station
-    void setChargeDelay(double chargeDelay);
+    /** @brief Get the parking area the charging station is placed on
+     * @return pointer to the parking area or nullptr
+     */
+    const MSParkingArea* getParkingArea() const;
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
@@ -147,22 +150,31 @@ protected:
     static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
 
     /// @brief Charging station's charging power
-    double myChargingPower;
+    double myChargingPower = 0;
 
     /// @brief Efficiency of the charging station
-    double myEfficiency;
+    double myEfficiency = 0;
 
     /// @brief Allow charge in transit
     bool myChargeInTransit;
 
     /// @brief Charge Delay
-    double myChargeDelay;
+    SUMOTime myChargeDelay = 0;
+
+    /// @brief charge type
+    const std::string myChargeType = "normal";
+
+    /// @brief waiting time
+    SUMOTime myWaitingTime = 0;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
-    bool myChargingVehicle;
+    bool myChargingVehicle = false;
 
     /// @brief total energy charged by this charging station
-    double myTotalCharge;
+    double myTotalCharge = 0;
+
+    /// @brief parkingArea the charging station is placed on
+    const MSParkingArea* myParkingArea = nullptr;
 
     /// @brief map with the charges of this charging station (key = vehicleID)
     std::map<std::string, std::vector<Charge> > myChargeValues;
@@ -171,9 +183,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    MSChargingStation(const MSChargingStation&);
+    MSChargingStation(const MSChargingStation&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MSChargingStation& operator=(const MSChargingStation&);
+    MSChargingStation& operator=(const MSChargingStation&) = delete;
 };
-

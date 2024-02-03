@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <e1Detector id="straight" lane="SC_0" pos="-1" file="detector.xml" nextEdges="CN"/>
+   <e1Detector id="right"    lane="SC_0" pos="-1" file="detector.xml" nextEdges="CE"/>
+   <e1Detector id="left"     lane="SC_0" pos="-1" file="detector.xml" nextEdges="CW"/>
+
+</additional>

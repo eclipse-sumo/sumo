@@ -1,0 +1,3 @@
+Error: Attribute 'minGap' in definition of vType 'vType0' Invalid Number Format (double) dummyMinGap.
+Error: minGap must be equal or greater than 0
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/mingap/routes.rou.xml failed.

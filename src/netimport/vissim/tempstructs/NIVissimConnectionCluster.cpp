@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -493,7 +493,7 @@ NIVissimConnectionCluster::buildNodeClusters() {
         }
         nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundary, 5.0);
         if (nodes.size() > 1) {
-            WRITE_WARNING("NIVissimConnectionCluster:More than a single node");
+            WRITE_WARNING(TL("NIVissimConnectionCluster:More than a single node"));
             //          throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
         }
         if (nodes.size() > 0) {
@@ -530,12 +530,6 @@ NIVissimConnectionCluster::_debugOut(std::ostream& into) {
 bool
 NIVissimConnectionCluster::hasNodeCluster() const {
     return myNodeCluster != -1;
-}
-
-
-int
-NIVissimConnectionCluster::dictSize() {
-    return (int)myClusters.size();
 }
 
 
@@ -665,7 +659,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
                     */
     }
     // what else?
-    WRITE_WARNING("NIVissimConnectionCluster: how to get an edge's position?");
+    WRITE_WARNING(TL("NIVissimConnectionCluster: how to get an edge's position?"));
     // !!!
     assert(myBoundary.xmin() <= myBoundary.xmax());
     NIVissimEdge* edge = NIVissimEdge::dictionary(edgeid);

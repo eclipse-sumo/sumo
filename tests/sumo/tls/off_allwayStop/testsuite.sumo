@@ -1,0 +1,12 @@
+# the tls are configured to use allwayStop when switched off but they are not switched off
+default
+
+# switch all tls off with option,
+# the tls are configured to use allwayStop in this case
+all_off
+
+# switch all tls off with option,
+# the tls are configured to use allwayStop in this case
+# 
+# traffic conflict is left turn vs oncoming
+all_off_left_oncoming

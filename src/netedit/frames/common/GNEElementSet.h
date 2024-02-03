@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,7 +33,7 @@ class GNEMatchAttribute;
 // class definitions
 // ===========================================================================
 
-class GNEElementSet : protected FXGroupBox {
+class GNEElementSet : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementSet)
 
@@ -45,7 +45,7 @@ public:
         SHAPE,
         TAZ,
         DEMAND,
-        DATA,
+        GENERICDATA,
         INVALID,
     };
 
@@ -92,7 +92,7 @@ private:
     GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
 
     /// @brief Combo Box with the element sets
-    FXComboBox* mySetComboBox;
+    MFXComboBoxIcon* mySetComboBox;
 
     /// @brief current element set selected
     Type myCurrentSet;

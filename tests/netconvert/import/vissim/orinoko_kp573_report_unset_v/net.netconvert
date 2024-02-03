@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:29 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-01-06 08:14:46 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -34,13 +39,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-4437088.42,-5472770.75" convBoundary="0.00,0.00,3287.61,4145.70" origBoundary="4437087.79,5472770.75,4440376.83,5476917.69" projParameter="!"/>
 
@@ -569,23 +573,24 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="605000045" type="traffic_light" x="921.46" y="2665.39" incLanes="1000704_0 1000702[1]_0 1000702[1]_1 1000701_0 1000714+1000713_0 1000714+1000713_1 1000714+1000713_2 1000710_0 1000710_1 1000708_0 1000708_1 1000706_0 1000705[1]_0" intLanes="" shape="928.01,2687.19 939.74,2674.82 938.15,2671.38 938.49,2669.28 939.60,2666.94 941.46,2664.35 944.09,2661.52 929.83,2646.93 927.69,2648.66 925.55,2649.66 923.43,2649.92 921.32,2649.44 919.21,2648.23 917.12,2646.29 906.11,2656.87 907.89,2659.44 908.72,2662.44 908.60,2665.88 907.54,2669.75 905.52,2674.06 902.55,2678.81 919.32,2690.43 920.89,2688.42 922.42,2686.99 923.89,2686.16 925.31,2685.91 926.68,2686.26">
-        <request index="0"  response="00000000000000000" foes="00111100011111100"/>
-        <request index="1"  response="00000000000000000" foes="00110000000000000"/>
-        <request index="2"  response="10000000100000001" foes="11110000110000001"/>
-        <request index="3"  response="10000000100000001" foes="11110000110000001"/>
-        <request index="4"  response="10001100100000001" foes="10001101110000001"/>
-        <request index="5"  response="00001100000000001" foes="00001100000000001"/>
-        <request index="6"  response="00001100000000001" foes="00001100000000001"/>
-        <request index="7"  response="00111100000011101" foes="00111100000011101"/>
-        <request index="8"  response="10000000000000000" foes="10111100000011100"/>
-        <request index="9"  response="10000000000010000" foes="10000000000010000"/>
-        <request index="10" response="00000000000000000" foes="00000000000000000"/>
-        <request index="11" response="00000000100000001" foes="10000000111110001"/>
-        <request index="12" response="00000000100000001" foes="10000000111110001"/>
-        <request index="13" response="10000000100001111" foes="10000000110001111"/>
-        <request index="14" response="10000000100001111" foes="10000000110001111"/>
-        <request index="15" response="00000000000001100" foes="00000000000001100"/>
-        <request index="16" response="00001100000000000" foes="00111101100011100"/>
+        <request index="0"  response="000000000000000000" foes="001111000111111100"/>
+        <request index="1"  response="000000000000000000" foes="001100000110000000"/>
+        <request index="2"  response="100000001000000001" foes="111100001110000001"/>
+        <request index="3"  response="100000001000000001" foes="111100001110000001"/>
+        <request index="4"  response="100011001000000001" foes="100011011110000001"/>
+        <request index="5"  response="000011000000000001" foes="000011000000000001"/>
+        <request index="6"  response="000011000000000001" foes="000011000000000001"/>
+        <request index="7"  response="001111000000011111" foes="001111000000011111"/>
+        <request index="8"  response="001111000000011111" foes="001111000000011111"/>
+        <request index="9"  response="100000000000000000" foes="101111000000011100"/>
+        <request index="10" response="100000000000010000" foes="100000000000010000"/>
+        <request index="11" response="000000000000000000" foes="000000000000000000"/>
+        <request index="12" response="000000001000000001" foes="100000001111110001"/>
+        <request index="13" response="000000001000000001" foes="100000001111110001"/>
+        <request index="14" response="100000001000001111" foes="100000001110001111"/>
+        <request index="15" response="100000001000001111" foes="100000001110001111"/>
+        <request index="16" response="000000000000001100" foes="000000000000001100"/>
+        <request index="17" response="000011000000000000" foes="001111011000011100"/>
     </junction>
     <junction id="605000046" type="priority" x="979.50" y="2619.09" incLanes="1000702[0]_0 1000702[0]_1" intLanes="" shape="983.69,2615.16 977.45,2613.72 976.39,2616.36 975.68,2617.12 974.81,2617.79 973.75,2618.59 972.47,2619.72 974.71,2622.01 974.86,2621.97 974.93,2621.99 974.98,2622.03 975.00,2622.09 981.68,2623.86">
         <request index="0" response="000" foes="000"/>
@@ -638,6 +643,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1000712" to="35" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="1000714+1000713" to="1000700" fromLane="0" toLane="0" tl="1" linkIndex="6" dir="r" state="o"/>
     <connection from="1000714+1000713" to="1000700" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="1000714+1000713" to="1000703" fromLane="1" toLane="0" dir="s" state="m"/>
     <connection from="1000714+1000713" to="1000703" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="1000714+1000713" to="1000707" fromLane="2" toLane="1" tl="1" linkIndex="9" dir="l" state="o"/>
     <connection from="1000714+1000713" to="1000712" fromLane="2" toLane="1" dir="t" state="m"/>

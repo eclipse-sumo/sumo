@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-13 14:46:45.104614 by generateParkingAreaRerouters.py v1_11_0+0531-b47db43
+<configuration>
+    <min-capacity-visibility-true value="68"/>
+    <max-distance-alternatives value="3000.0"/>
+    <max-distance-visibility-true value="0.0"/>
+    <distribute value="2,1,1,1"/>
+    <max-number-alternatives value="40"/>
+    <opposite-visible value="True"/>
+    <output value="input_additional2.add.xml"/>
+    <parking-areas value="input_additional.add.xml"/>
+    <prefer-visible value="True"/>
+    <sumo-net value="net.net.xml"/>
+</configuration>
+
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="-5134673#1_0" edges="-5134673#1">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="-5134673#1_0" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="40916540_0" visible="true"/> <!-- dist: 4.4 -->
+            <parkingAreaReroute id="Fasanen-B-5" visible="false"/> <!-- dist: 41.1 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="40916540_0" edges="40916540">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="40916540_0" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="-5134673#1_0" visible="true"/> <!-- dist: 26.1 -->
+            <parkingAreaReroute id="Fasanen-B-5" visible="false"/> <!-- dist: 66.3 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="Fasanen-B-5" edges="-4364840#0 4364840#0">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="Fasanen-B-5" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+</additional>

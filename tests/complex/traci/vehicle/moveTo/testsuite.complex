@@ -1,0 +1,8 @@
+# check whether vehicles moved with moveTo can register on a detector
+moveTo_detector
+
+# test vehicle.getDistance
+odometer
+
+# continously correct vehicle positions
+controller_loop

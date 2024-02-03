@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 
 """
 compute statistics on route lengths for a single route or
-for the lenght-difference between two sets of routes.
+for the length-difference between two sets of routes.
 Routes must be children of <vehicle> elements and when comparing two sets of
 routes, the same vehicle ids must appear.
 """
@@ -26,34 +26,33 @@ from __future__ import print_function
 
 import os
 import sys
-from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(os.path.join(tools))
-    from sumolib.output import parse  # noqa
-    from sumolib.net import readNet  # noqa
-    from sumolib.miscutils import Statistics  # noqa
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
+import sumolib  # noqa
+from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <rou.xml> [<rou2.xml>]"""
-    optParser = OptionParser(usage=USAGE)
+    USAGE = """Usage %(prog)s [options] <rou.xml> [<rou2.xml>]"""
+    optParser = sumolib.options.ArgumentParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
+    optParser.add_option("-f", "--fast", action="store_true",
+                         default=False, help="Use fast xml parser (does not work with length and numEdges)")
     optParser.add_option("-n", "--network",
                          help="The network file to use with attribute 'length'")
-    optParser.add_option("--attribute", type="string",
-                         default="length", help="attribute to analyze [length,depart,numEdges]")
-    optParser.add_option("--binwidth", type="float",
+    optParser.add_option("-a", "--attribute", default="length",
+                         help="attribute to analyze [length,depart,numEdges,duration,routeLength,speed,speedKmh]")
+    optParser.add_option("-b", "--binwidth", type=float,
                          default=500, help="binning width of result histogram")
-    optParser.add_option("--hist-output", type="string",
-                         default=None, help="output file for histogram (gnuplot compatible)")
-    optParser.add_option("--full-output", type="string",
-                         default=None, help="output file for full data dump")
-    options, args = optParser.parse_args()
+    optParser.add_option("-l", "--minlength", type=float,
+                         default=0, help="only use routes with a minimum route length")
+    optParser.add_option("--hist-output", help="output file for histogram (gnuplot compatible)")
+    optParser.add_option("--full-output", help="output file for full data dump")
+    options, args = optParser.parse_known_args()
 
     if len(args) not in (1, 2):
         sys.exit(USAGE)
@@ -72,16 +71,28 @@ def main():
     net = None
     attribute_retriever = None
     if options.attribute == "length":
-        net = readNet(options.network)
+        net = sumolib.net.readNet(options.network)
 
         def attribute_retriever(vehicle):
             return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
     elif options.attribute == "depart":
         def attribute_retriever(vehicle):
-            return float(vehicle.depart)
+            return parseTime(vehicle.depart)
     elif options.attribute == "numEdges":
         def attribute_retriever(vehicle):
             return len(vehicle.route[0].edges.split())
+    elif options.attribute == "duration":
+        def attribute_retriever(vehicle):
+            return parseTime(vehicle.arrival) - parseTime(vehicle.depart)
+    elif options.attribute == "routeLength":
+        def attribute_retriever(vehicle):
+            return float(vehicle.routeLength)
+    elif options.attribute == "speed":
+        def attribute_retriever(vehicle):
+            return float(vehicle.routeLength) / (parseTime(vehicle.arrival) - parseTime(vehicle.depart))
+    elif options.attribute == "speedKmh":
+        def attribute_retriever(vehicle):
+            return 3.6 * float(vehicle.routeLength) / (parseTime(vehicle.arrival) - parseTime(vehicle.depart))
     else:
         sys.exit("Invalid value '%s' for option --attribute" % options.attribute)
 
@@ -90,22 +101,29 @@ def main():
 
     if options.routeFile2 is None:
         # write statistics on a single route file
-        stats = Statistics(
-            "route %ss" % options.attribute, histogram=True, scale=options.binwidth)
+        stats = Statistics("route %ss" % options.attribute, histogram=True, scale=options.binwidth)
 
-    for vehicle in parse(options.routeFile, 'vehicle'):
-        length = attribute_retriever(vehicle)
-        if options.routeFile2 is None:
-            stats.add(length, vehicle.id)
-        lengths[vehicle.id] = length
+    if options.fast:
+        def parse(routes):
+            return sumolib.xml.parse_fast(routes, 'vehicle', ['id', 'depart', 'arrival', 'routeLength'])
+    else:
+        def parse(routes):
+            return sumolib.xml.parse(routes, 'vehicle')
+
+    for vehicle in parse(options.routeFile):
+        if vehicle.routeLength is None or float(vehicle.routeLength) >= options.minlength:
+            length = attribute_retriever(vehicle)
+            if options.routeFile2 is None:
+                stats.add(length, vehicle.id)
+            lengths[vehicle.id] = length
 
     if options.routeFile2 is not None:
         # compare route lengths between two files
-        stats = Statistics(
-            "route %s difference" % options.attribute, histogram=True, scale=options.binwidth)
-        for vehicle in parse(options.routeFile2, 'vehicle'):
-            lengths2[vehicle.id] = attribute_retriever(vehicle)
-            stats.add(lengths2[vehicle.id] - lengths[vehicle.id], vehicle.id)
+        stats = Statistics("route %s difference" % options.attribute, histogram=True, scale=options.binwidth)
+        for vehicle in parse(options.routeFile2):
+            if vehicle.routeLength is None or float(vehicle.routeLength) >= options.minlength:
+                lengths2[vehicle.id] = attribute_retriever(vehicle)
+                stats.add(lengths2[vehicle.id] - lengths[vehicle.id], vehicle.id)
     print(stats)
 
     if options.hist_output is not None:

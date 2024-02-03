@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:03 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-03-02 15:11:27 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,34 +29,33 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-290178.00,-91006.00" convBoundary="0.00,0.00,115.00,351.00" origBoundary="290003.00,90001.00,294997.29,95000.00" projParameter="!"/>
 
     <edge id="osgb4000000025305632" from="osgb4000000025275959" to="osgb4000000025275970" priority="0" length="213.38" shape="79.00,26.00 69.00,69.00 66.00,97.00 63.00,113.00 60.00,125.00 52.00,150.00 36.00,192.00 33.00,199.00 22.66,224.00 21.00,228.00 20.00,230.00">
-        <lane id="osgb4000000025305632_0" index="0" speed="13.40" length="213.38" shape="83.19,29.18 73.74,69.80 70.75,97.70 70.11,101.13"/>
-        <lane id="osgb4000000025305632_1" index="1" speed="13.40" length="213.38" shape="80.07,28.46 70.58,69.27 67.58,97.23 67.13,99.67"/>
+        <lane id="osgb4000000025305632_0" index="0" speed="13.40" length="213.38" shape="83.23,29.00 73.74,69.80 70.75,97.70 67.69,114.03 64.62,126.31 56.53,151.59 40.45,193.80 37.42,200.86 27.10,225.84 26.04,228.38"/>
+        <lane id="osgb4000000025305632_1" index="1" speed="13.40" length="213.38" shape="80.11,28.28 70.58,69.27 67.58,97.23 64.56,113.34 61.54,125.44 53.51,150.53 37.48,192.60 34.47,199.62 24.14,224.61 23.17,226.95"/>
     </edge>
     <edge id="osgb4000000025305633" from="osgb4000000025275970" to="osgb4000000025275978" priority="0" length="124.90" shape="20.00,230.00 16.00,238.00 11.00,250.00 8.00,259.00 2.00,281.00 1.00,288.00 0.00,303.00 0.00,305.00 2.00,314.00 4.00,325.00 4.00,348.00 3.00,351.00">
-        <lane id="osgb4000000025305633_0" index="0" speed="13.40" length="124.90" shape="34.02,212.69 20.37,240.00 15.50,251.68 12.60,260.39 6.71,281.97 5.78,288.50 4.80,303.16 4.80,304.47 6.71,313.05 8.80,324.57 8.80,348.78 7.55,352.52"/>
-        <lane id="osgb4000000025305633_1" index="1" speed="13.40" length="124.90" shape="31.16,211.26 17.46,238.67 12.50,250.56 9.53,259.46 3.57,281.32 2.59,288.17 1.60,303.05 1.60,304.82 3.57,313.68 5.60,324.86 5.60,348.26 4.52,351.51"/>
+        <lane id="osgb4000000025305633_0" index="0" speed="13.40" length="124.90" shape="22.44,235.86 20.37,240.00 15.50,251.68 12.60,260.39 6.71,281.97 5.78,288.50 4.80,303.16 4.80,304.47 6.71,313.05 8.80,324.57 8.80,348.78 7.55,352.52"/>
+        <lane id="osgb4000000025305633_1" index="1" speed="13.40" length="124.90" shape="19.58,234.43 17.46,238.67 12.50,250.56 9.53,259.46 3.57,281.32 2.59,288.17 1.60,303.05 1.60,304.82 3.57,313.68 5.60,324.86 5.60,348.26 4.52,351.51"/>
     </edge>
     <edge id="osgb4000000025305634" from="osgb4000000025275970" to="osgb4000000025275959" priority="0" length="297.43" shape="20.00,230.00 25.00,226.00 27.00,224.00 32.00,219.00 44.00,198.00 55.00,173.00 72.00,127.00 80.00,96.00 82.00,87.00 85.00,77.00 89.66,64.09 92.00,57.00 95.00,42.00 98.00,31.00 103.00,22.00 113.00,8.00 114.00,5.00 115.00,0.00 111.00,0.00 108.00,2.00 104.00,5.00 103.29,5.78 79.00,26.00">
-        <lane id="osgb4000000025305634_0" index="0" speed="13.40" length="297.43" shape="73.15,103.32 75.33,94.88 77.35,85.79 80.44,75.49 85.12,62.52 87.35,55.77 90.33,40.90 93.52,29.18 98.94,19.43 108.67,5.80 109.35,3.77 109.14,4.80 112.45,4.80 110.77,5.92 107.24,8.57 106.62,9.26 83.72,28.31"/>
-        <lane id="osgb4000000025305634_1" index="1" speed="13.40" length="297.43" shape="75.74,106.12 78.44,95.63 80.45,86.60 83.48,76.50 88.15,63.57 90.45,56.59 93.44,41.63 96.51,30.39 101.65,21.14 111.56,7.27 112.45,4.59 113.05,1.60 111.48,1.60 108.92,3.31 105.08,6.19 104.40,6.94 81.68,25.85"/>
+        <lane id="osgb4000000025305634_0" index="0" speed="13.40" length="297.43" shape="35.96,202.39 39.71,195.84 50.55,171.20 67.41,125.56 75.33,94.88 77.35,85.79 80.44,75.49 85.12,62.52 87.35,55.77 90.33,40.90 93.52,29.18 98.94,19.43 105.32,10.50 105.45,10.54 106.62,9.26 83.84,28.22"/>
+        <lane id="osgb4000000025305634_1" index="1" speed="13.40" length="297.43" shape="38.14,205.03 42.57,197.28 53.52,172.40 70.47,126.52 78.44,95.63 80.45,86.60 83.48,76.50 88.15,63.57 90.45,56.59 93.44,41.63 96.51,30.39 101.65,21.14 111.56,7.27 112.45,4.59 113.05,1.60 111.48,1.60 108.92,3.31 105.08,6.19 104.40,6.94 81.80,25.75"/>
     </edge>
 
-    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.75,29.54 80.65,24.62 79.50,25.66 79.17,26.10 78.92,26.60 78.72,27.24 78.51,28.09">
+    <junction id="osgb4000000025275959" type="priority" x="79.00" y="26.00" incLanes="osgb4000000025305634_0 osgb4000000025305634_1" intLanes="" shape="84.79,29.36 80.78,24.52 79.61,25.54 79.25,25.96 78.99,26.45 78.77,27.07 78.55,27.92">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="osgb4000000025275970" type="priority" x="20.00" y="230.00" incLanes="osgb4000000025305632_0 osgb4000000025305632_1" intLanes="" shape="77.03,107.52 71.86,101.92 71.60,101.87 65.64,98.93 62.15,114.18 56.76,133.82 50.15,155.57 42.98,177.13 35.95,196.21 29.73,210.54 35.45,213.40 41.98,199.48 49.81,181.39 58.09,161.15 65.96,140.76 72.55,122.22">
+    <junction id="osgb4000000025275970" type="priority" x="20.00" y="230.00" incLanes="osgb4000000025305632_0 osgb4000000025305632_1" intLanes="" shape="39.23,206.35 34.87,201.07 27.47,229.10 21.73,226.23 18.14,233.71 23.87,236.57">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

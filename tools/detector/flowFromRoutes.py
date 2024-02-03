@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2007-06-28
 
 from __future__ import absolute_import
@@ -24,13 +25,13 @@ import sys
 import os
 
 from xml.sax import make_parser, handler
-from optparse import OptionParser
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 
 from sumolib.miscutils import uMin, uMax  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import detector  # noqa
 from detector import relError  # noqa
 
@@ -215,41 +216,41 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 print_record(*cols)
 
 
-optParser = OptionParser()
-optParser.add_option("-d", "--detector-file", dest="detfile",
-                     help="read detectors from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-r", "--routes", dest="routefile",
-                     help="read routes from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-e", "--emitters", dest="emitfile",
-                     help="read emitters from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
-                     help="read detector flows to compare to from FILE", metavar="FILE")
-optParser.add_option("-c", "--flow-column", dest="flowcol", default="qPKW",
-                     help="which column contains flows", metavar="STRING")
-optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
-                     default=False, help="respect detectors without data (or with permanent zero) with zero flow")
-optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
-                     default=False, help="emitter files in dfrouter style (explicit routes)")
-optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
-optParser.add_option("--long-names", action="store_true", dest="longnames",
-                     default=False, help="do not use abbreviated names for detector groups")
-optParser.add_option("--first-name", action="store_true", dest="firstname",
-                     default=False, help="use first id in group as representative")
-optParser.add_option("--edge-names", action="store_true", dest="edgenames",
-                     default=False, help="include detector group edge name in output")
-optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
-optParser.add_option("--end", type="float", default=None, help="end time in minutes")
-optParser.add_option("--geh", action="store_true", dest="geh",
-                     default=False, help="compare flows using GEH measure")
-optParser.add_option("--geh-treshold", type="float", default=5, dest="geh_threshold",
-                     help="report percentage of detectors below threshold")
-optParser.add_option("--write-time", action="store_true", dest="writetime",
-                     default=False, help="write time in output")
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-(options, args) = optParser.parse_args()
+parser = ArgumentParser()
+parser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ArgumentParser.additional_file,
+                    help="read detectors from FILE (mandatory)", metavar="FILE")
+parser.add_argument("-r", "--routes", dest="routefile", category="input", type=ArgumentParser.route_file,
+                    help="read routes from FILE (mandatory)", metavar="FILE")
+parser.add_argument("-e", "--emitters", dest="emitfile", category="input", type=ArgumentParser.file,
+                    help="read emitters from FILE (mandatory)", metavar="FILE")
+parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=ArgumentParser.file,
+                    help="read detector flows to compare to from FILE", metavar="FILE")
+parser.add_argument("--flow-column", dest="flowcol", default="qPKW", type=str,
+                    help="which column contains flows", metavar="STRING")
+parser.add_argument("-z", "--respect-zero", action="store_true", dest="respectzero",
+                    default=False, help="respect detectors without data (or with permanent zero) with zero flow")
+parser.add_argument("-D", "--dfrouter-style", action="store_true", dest="dfrstyle",
+                    default=False, help="emitter files in dfrouter style (explicit routes)")
+parser.add_argument("-i", "--interval", type=ArgumentParser.time, help="aggregation interval in minutes")
+parser.add_argument("--long-names", action="store_true", dest="longnames",
+                    default=False, help="do not use abbreviated names for detector groups")
+parser.add_argument("--first-name", action="store_true", dest="firstname",
+                    default=False, help="use first id in group as representative")
+parser.add_argument("--edge-names", action="store_true", dest="edgenames",
+                    default=False, help="include detector group edge name in output")
+parser.add_argument("-b", "--begin", type=ArgumentParser.time, default=0, help="begin time in minutes")
+parser.add_argument("--end", type=ArgumentParser.time, default=None, help="end time in minutes")
+parser.add_argument("--geh", action="store_true", dest="geh",
+                    default=False, help="compare flows using GEH measure")
+parser.add_argument("--geh-threshold", type=float, default=5, dest="geh_threshold",
+                    help="report percentage of detectors below threshold")
+parser.add_argument("--write-time", action="store_true", dest="writetime",
+                    default=False, help="write time in output")
+parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                    default=False, help="tell me what you are doing")
+options = parser.parse_args()
 if not options.detfile or not options.routefile or not options.emitfile:
-    optParser.print_help()
+    parser.print_help()
     sys.exit()
 parser = make_parser()
 if options.verbose:

@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:$SUMO_BINARY
 copy_test_path:net.net.xml
+copy_test_path:net.net.xml.gz
 copy_test_path:net2.net.xml
 copy_test_path:net3.net.xml
 copy_test_path:net4.net.xml
@@ -11,6 +12,8 @@ copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional3.add.xml
+copy_test_path:input_additional4.add.xml
 copy_test_path:input_definition.def.xml
 copy_test_path:input_definition2.def.xml
 copy_test_path:input_trips.trips.xml
@@ -18,6 +21,7 @@ copy_test_path:input_districts.taz.xml
 copy_test_path:busnet.net.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:settings.xml
+copy_test_path:settings2.xml
 copy_test_path:input_state.xml
 copy_test_path:input_meso_state.xml
 copy_test_path:lookuptable
@@ -39,17 +43,21 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+personinfos:personinfos.xml
 statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
 vtypeprobe:vtypeprobe.xml
+personroutes:personroutes.xml
 vehroutes:vehroutes.xml
 vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
 tls_state:tls_state.xml
 tls_switch:tls_switch.xml
 tls_state_switch:tls_state_switch.xml
+tls_program:tls_program.xml
 physstates:physstates.xml
 cfg:config.cfg
+cfg:data/config.cfg
 fcd:fcd.xml
 full:full.xml
 vtk:vtk.txt
@@ -118,12 +126,14 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+personinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->
+personroutes:^<!--{[->]}-->
 fcd:<!--{[->]}-->
 full:<!--{[->]}-->
 queue:<!--{[->]}-->
@@ -153,6 +163,7 @@ state_12:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
+tls_program:<!--{[->]}-->
 physstates:<!--{[->]}-->
 c2x_cluster_info:<!--{[->]}-->
 c2x_saved_info:<!--{[->]}-->
@@ -177,13 +188,14 @@ cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script
 cfg:embedded python
-cfg:<osg-view
+cfg:osg-view
 cfg:OpenSceneGraph
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 ps:%%CreationDate
 ps2:%%CreationDate
+statistic:<performance
 
 [floating_point_tolerance]
 output:0.0101

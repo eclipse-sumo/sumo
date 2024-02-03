@@ -2,5 +2,5 @@
 --max-number-alternatives 4
 --max-distance-alternatives 150
 --min-capacity-visibility-true 50
---max-distance-visibility-true 1000
+--max-distance-visibility-true 100
 tools/generateParkingAreaRerouters.py

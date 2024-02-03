@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -35,6 +36,11 @@ class SUMOVehicleParameter;
 class MSEdge;
 class MSLane;
 class Position;
+class MSDevice;
+class MSRoute;
+
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
+
 
 // ===========================================================================
 // class definitions
@@ -45,6 +51,7 @@ class Position;
  */
 class SUMOTrafficObject : public Named {
 public:
+    typedef long long int NumericalID;
 
     /// @brief Constructor
     SUMOTrafficObject(const std::string& id) : Named(id) {}
@@ -73,6 +80,11 @@ public:
         return false;
     }
 
+    /// @brief return the numerical ID which is only for internal usage
+    //  (especially fast comparison in maps which need vehicles as keys)
+    virtual NumericalID getNumericalID() const = 0;
+
+
     /** @brief Returns the object's "vehicle" type
      * @return The vehicle's type
      */
@@ -98,7 +110,10 @@ public:
     /** @brief Returns the associated RNG for this object
     * @return The vehicle's associated RNG
     */
-    virtual std::mt19937* getRNG() const = 0;
+    virtual SumoRNG* getRNG() const = 0;
+
+    /// @brief @return The index of the associated RNG
+    virtual int getRNGIndex() const = 0;
 
     /** @brief Returns whether the object is at a stop
      * @return Whether it has stopped
@@ -111,11 +126,29 @@ public:
      */
     virtual const MSEdge* getEdge() const = 0;
 
+    /// @brief returns the next edge (possibly an internal edge)
+    virtual const MSEdge* getNextEdgePtr() const = 0;
+
+    /// @brief returns the numerical IDs of edges to be used (possibly of future stages)
+    virtual const std::set<NumericalID> getUpcomingEdgeIDs() const = 0;
+
     /** @brief Returns the lane the object is currently at
      *
      * @return The current lane or nullptr if the object is not on a lane
      */
     virtual const MSLane* getLane() const = 0;
+
+    /// @brief return index of edge within route
+    virtual int getRoutePosition() const = 0;
+
+    /** @brief Returns the end point for reroutes (usually the last edge of the route)
+     *
+     * @return The rerouting end point
+     */
+    virtual const MSEdge* getRerouteDestination() const = 0;
+
+    /// Replaces the current route by the given one
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Returns the slope of the road at object's position in degrees
      * @return The slope
@@ -129,12 +162,12 @@ public:
      */
     virtual SUMOVehicleClass getVClass() const = 0;
 
-    /** @brief Returns the object's maximum speed
+    /** @brief Returns the object's maximum speed (minimum of technical and desired maximum speed)
      * @return The object's maximum speed
      */
     virtual double getMaxSpeed() const = 0;
 
-    virtual SUMOTime getWaitingTime() const = 0;
+    virtual SUMOTime getWaitingTime(const bool accumulated = false) const = 0;
 
     /** @brief Returns the object's current speed
      * @return The object's speed
@@ -183,5 +216,12 @@ public:
 
     /// @brief whether the vehicle is individually influenced (via TraCI or special parameters)
     virtual bool hasInfluencer() const = 0;
+
+    /// @brief whether this object is selected in the GUI
+    virtual bool isSelected() const = 0;
+
+    /// @brief Returns a device of the given type if it exists or nullptr if not
+    virtual MSDevice* getDevice(const std::type_info& type) const = 0;
+
 
 };

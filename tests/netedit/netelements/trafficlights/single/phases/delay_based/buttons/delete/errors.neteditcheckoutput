@@ -1,0 +1,89 @@
+Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 4.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=305.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=305.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=306.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=306.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=616.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=616.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=617.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=617.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=926.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=926.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=927.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=927.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=1237.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=1237.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=1240.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=1240.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=1547.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=1547.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=1552.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=1552.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=1856.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=1856.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=1864.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=1864.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=2170.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=2170.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=2175.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=2175.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=2480.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=2480.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=2487.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=2487.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=2791.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=2791.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=2800.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=2800.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=3106.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=3106.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=3111.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=3111.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=3417.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=3417.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=3423.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=3423.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=3727.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=3727.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=3734.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=3734.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=4038.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=4038.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=4045.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=4045.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=4349.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=4349.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=4356.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=4356.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=4660.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=4660.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=4666.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=4666.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=4971.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=4971.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=4977.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=4977.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=5281.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=5281.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=5289.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=5289.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=5593.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=5593.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=5601.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=5601.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=5906.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=5906.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=5913.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=5913.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=6217.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=6217.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=6224.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=6224.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=6528.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=6528.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=6535.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=6535.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E1_2', time=6839.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E0', time=6839.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E0_2', time=6846.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E1', time=6846.00.

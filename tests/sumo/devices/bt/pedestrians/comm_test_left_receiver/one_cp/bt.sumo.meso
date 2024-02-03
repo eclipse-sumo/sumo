@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-03 20:39:07 by Eclipse SUMO sumo Version v1_14_1+2214-c901407
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.range value="50"/>
+        <person-device.btsender.explicit value="right"/>
+        <person-device.btreceiver.explicit value="left"/>
+    </communication>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="left">
+        <seen id="right" tBeg="3.00" observerPosBeg="-33.71,464.64,-33.71" observerSpeedBeg="1.39" observerLaneIDBeg="beg" observerLanePosBeg="0.00" seenPosBeg="4.13,498.35" seenSpeedBeg="1.39" seenLaneIDBeg="beg" seenLanePosBeg="4.17" tEnd="377.44" observerPosEnd="501.65,521.14" observerSpeedEnd="1.39" observerLaneIDEnd="beg2left" observerLanePosEnd="20.78" seenPosEnd="498.35,471.25" seenSpeedEnd="1.39" seenLaneIDEnd="beg2right" seenLanePosEnd="25.00" observerRoute="beg beg2left" seenRoute="beg beg2right">
+            <recognitionPoint t="4.00" observerPos="1.38,498.35" observerSpeed="1.39" observerLaneID="beg" observerLanePos="1.39" seenPos="5.50,498.35" seenSpeed="1.39" seenLaneID="beg" seenLanePos="5.56"/>
+        </seen>
+        <seen id="right" tBeg="1791.13" observerPosBeg="1498.35,532.94" observerSpeedBeg="1.39" observerLaneIDBeg="left2end" observerLanePosBeg="472.31" seenPosBeg="1501.65,483.05" seenSpeedBeg="1.39" seenLaneIDBeg="right2end" seenLanePosBeg="488.89" tEnd="2355.00" observerPosEnd="2248.61,498.35" observerSpeedEnd="1.39" observerLaneIDEnd="rend" observerLanePosEnd="248.61" seenPosEnd="2248.61,498.35" seenSpeedEnd="1.39" seenLaneIDEnd="rend" seenLanePosEnd="248.61" observerRoute="left2end end rend" seenRoute="right2end end rend">
+            <recognitionPoint t="1792.00" observerPos="1498.35,532.94" observerSpeed="1.39" observerLaneID="left2end" observerLanePos="472.31" seenPos="1501.65,483.05" seenSpeed="1.39" seenLaneID="right2end" seenLanePos="488.89"/>
+        </seen>
+    </bt>
+</bt-output>

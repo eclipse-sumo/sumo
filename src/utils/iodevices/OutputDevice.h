@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,7 +74,7 @@ public:
      * @return The corresponding (built or existing) device
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static OutputDevice& getDevice(const std::string& name);
+    static OutputDevice& getDevice(const std::string& name, bool usePrefix = true);
 
 
     /** @brief Creates the device using the output definition stored in the named option
@@ -113,6 +113,9 @@ public:
      */
     static OutputDevice& getDeviceByOption(const std::string& name);
 
+    /**  Flushes all registered devices
+     */
+    static void flushAll();
 
     /**  Closes all registered devices
      */
@@ -146,6 +149,13 @@ public:
      */
     virtual bool ok();
 
+    /** @brief returns the information whether the device will discard all output
+     * @return Whether the device redirects to /dev/null
+     */
+    virtual bool isNull() {
+        return false;
+    }
+
     /// @brief get filename or suitable description of this device
     const std::string& getFilename();
 
@@ -154,12 +164,15 @@ public:
     void close();
 
 
-    /** @brief Sets the precison or resets it to default
+    /** @brief Sets the precision or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
     void setPrecision(int precision = gPrecision);
 
-    /** @brief Returns the precison of the underlying stream
+    /// @brief return precision set on the device
+    int precision();
+
+    /** @brief Returns the precision of the underlying stream
      */
     int getPrecision() {
         return (int)getOStream().precision();
@@ -178,7 +191,8 @@ public:
      */
     bool writeXMLHeader(const std::string& rootElement,
                         const std::string& schemaFile,
-                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>());
+                        std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>(),
+                        bool includeConfig = true);
 
 
     template <typename E>
@@ -242,6 +256,10 @@ public:
         return *this;
     }
 
+    inline bool useAttribute(const SumoXMLAttr attr, long long int attributeMask) const {
+        return (attributeMask & ((long long int)1 << attr)) != 0;
+    }
+
     /** @brief writes a named attribute unless filtered
      *
      * @param[in] attr The attribute (name)
@@ -252,7 +270,7 @@ public:
     template <typename T>
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
-        if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
+        if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         }
         return *this;
@@ -324,6 +342,10 @@ public:
         getOStream().flush();
     }
 
+    bool wroteHeader() const {
+        return myFormatter->wroteHeader();
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;
@@ -340,21 +362,21 @@ private:
     /// @brief map from names to output devices
     static std::map<std::string, OutputDevice*> myOutputDevices;
 
+    /// @brief old console code page to restore after ending
+    static int myPrevConsoleCP;
+
+protected:
+    const std::string myFilename;
 
 private:
     /// @brief The formatter for XML
-    OutputFormatter* myFormatter;
-
-protected:
-    std::string myFilename;
-
-public:
-    /// @brief Invalidated copy constructor.
-    OutputDevice(const OutputDevice&);
+    OutputFormatter* const myFormatter;
 
 private:
+    /// @brief Invalidated copy constructor.
+    OutputDevice(const OutputDevice&) = delete;
 
     /// @brief Invalidated assignment operator.
-    OutputDevice& operator=(const OutputDevice&);
+    OutputDevice& operator=(const OutputDevice&) = delete;
 
 };

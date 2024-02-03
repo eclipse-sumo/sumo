@@ -1,0 +1,1 @@
+input_net.net.xml input_routes2.rou.xml -o trips.trips.xml --orig-net net.net.xml --pt-input input_routes.rou.xml --pt-output out.rou.xml -a input_additional.add.xml --stops-output out.xml tools/route/cutRoutes.py

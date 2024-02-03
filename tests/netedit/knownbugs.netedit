@@ -1,0 +1,9 @@
+
+[Reported by Windows at 02Mai09:05:08]
+search_string:TestFunctions: Netedit closed successfully
+trigger_on_absence:1
+search_file:output
+ignore_other_errors:1
+full_description:Rerun
+rerun_count:1
+rerun_only:1

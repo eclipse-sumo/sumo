@@ -1,0 +1,10 @@
+<routes>
+    <person id="walk_ride" depart="0">
+        <walk edges="111325188#1 111325188#2 391493945#0 391493945#1" busStop="2029039195"/>
+		<ride from="391493945#1" busStop="4032629820" lines="140:0"/>
+    </person>
+    <person id="ride_walk" depart="0">
+		<ride from="53356539#0" trainStop="2029039199" lines="140:1"/>
+        <walk edges="111325187#1 111325187#2"/>
+    </person>
+</routes>

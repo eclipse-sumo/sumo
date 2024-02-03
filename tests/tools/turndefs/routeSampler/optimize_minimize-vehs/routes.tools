@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-03-05 20:58:46.989114 by $Id$ v1_8_0+1508-1a217e5cd8
-  options: -r input_routes2.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>optimize 5 <doubleminus>minimize-vehicles 0.5 -I -f number
+
+<!-- generated on 2023-09-16 07:34:08.561453 by routeSampler.py v1_18_0+1600-ddd21fefb94
+<configuration>
+    <route-files value="input_routes2.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+    <optimize value="5"/>
+    <minimize-vehicles value="0.5"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
     <route id="4" edges="-131 -131.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27"/> <!-- 3 -->
@@ -12,7 +21,7 @@
     <route id="14" edges="-37 -37.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00"/> <!-- 4 -->
     <route id="16" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 -60 -60.80.00"/> <!-- 1 -->
     <route id="17" edges="-45 -45.80.00 -27 -27.80.00 -3 -3.180.00 3"/> <!-- 1 -->
-    <route id="18" edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/> <!-- 2 -->
+    <route id="18" edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/> <!-- 3 -->
     <route id="19" edges="-58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27"/> <!-- 1 -->
     <route id="20" edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/> <!-- 5 -->
     <route id="22" edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23 23.80.00"/> <!-- 1 -->
@@ -27,34 +36,32 @@
     <route id="35" edges="15 15.180.00 -123 -123.121.42 -120 -120.180.00 -75 -75.121.42 -60"/> <!-- 2 -->
     <route id="39" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131"/> <!-- 2 -->
     <route id="42" edges="31.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/> <!-- 2 -->
-    <route id="43" edges="43 68 -45 -45.80.00 -27 -27.80.00 27 27.80.00 45"/> <!-- 1 -->
     <route id="44" edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00"/> <!-- 3 -->
     <route id="48" edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/> <!-- 1 -->
 
-    <flow id="4" begin="0.00" end="92.94" number="3" route="4"/>
-    <flow id="11" begin="2.02" end="3.02" number="1" route="11"/>
-    <flow id="32" begin="4.04" end="82.84" number="4" route="32"/>
-    <flow id="20" begin="6.06" end="94.96" number="5" route="20"/>
-    <flow id="12" begin="8.08" end="54.55" number="2" route="12"/>
-    <flow id="44" begin="10.10" end="74.76" number="3" route="44"/>
-    <flow id="14" begin="12.12" end="72.73" number="4" route="14"/>
-    <flow id="13" begin="14.14" end="58.59" number="2" route="13"/>
-    <flow id="48" begin="16.16" end="17.16" number="1" route="48"/>
-    <flow id="16" begin="26.27" end="27.27" number="1" route="16"/>
-    <flow id="28" begin="30.31" end="31.31" number="1" route="28"/>
-    <flow id="39" begin="32.33" end="84.86" number="2" route="39"/>
-    <flow id="42" begin="34.35" end="70.71" number="2" route="42"/>
-    <flow id="23" begin="36.37" end="52.53" number="2" route="23"/>
-    <flow id="18" begin="40.41" end="46.47" number="2" route="18"/>
-    <flow id="35" begin="44.45" end="96.98" number="2" route="35"/>
-    <flow id="26" begin="48.49" end="78.80" number="2" route="26"/>
-    <flow id="31" begin="56.57" end="64.65" number="2" route="31"/>
-    <flow id="25" begin="60.61" end="61.61" number="1" route="25"/>
-    <flow id="27" begin="62.63" end="63.63" number="1" route="27"/>
-    <flow id="17" begin="66.67" end="67.67" number="1" route="17"/>
-    <flow id="8" begin="68.69" end="69.69" number="1" route="8"/>
-    <flow id="24" begin="76.78" end="77.78" number="1" route="24"/>
-    <flow id="22" begin="86.88" end="87.88" number="1" route="22"/>
-    <flow id="43" begin="88.90" end="89.90" number="1" route="43"/>
-    <flow id="19" begin="90.92" end="91.92" number="1" route="19"/>
+    <flow id="16" begin="3.65" end="99.00" number="1" route="16"/>
+    <flow id="19" begin="5.10" end="99.00" number="1" route="19"/>
+    <flow id="20" begin="5.52" end="99.00" number="5" route="20"/>
+    <flow id="32" begin="5.88" end="99.00" number="4" route="32"/>
+    <flow id="14" begin="7.05" end="99.00" number="4" route="14"/>
+    <flow id="23" begin="11.86" end="99.00" number="2" route="23"/>
+    <flow id="24" begin="14.34" end="99.00" number="1" route="24"/>
+    <flow id="13" begin="14.89" end="99.00" number="2" route="13"/>
+    <flow id="18" begin="16.59" end="99.00" number="3" route="18"/>
+    <flow id="39" begin="18.21" end="99.00" number="2" route="39"/>
+    <flow id="44" begin="20.91" end="99.00" number="3" route="44"/>
+    <flow id="27" begin="23.96" end="99.00" number="1" route="27"/>
+    <flow id="12" begin="24.61" end="99.00" number="2" route="12"/>
+    <flow id="11" begin="24.93" end="99.00" number="1" route="11"/>
+    <flow id="42" begin="31.30" end="99.00" number="2" route="42"/>
+    <flow id="4" begin="32.07" end="99.00" number="3" route="4"/>
+    <flow id="35" begin="36.05" end="99.00" number="2" route="35"/>
+    <flow id="31" begin="37.70" end="99.00" number="2" route="31"/>
+    <flow id="25" begin="48.46" end="99.00" number="1" route="25"/>
+    <flow id="26" begin="48.79" end="99.00" number="2" route="26"/>
+    <flow id="48" begin="53.04" end="99.00" number="1" route="48"/>
+    <flow id="17" begin="60.35" end="99.00" number="1" route="17"/>
+    <flow id="28" begin="66.54" end="99.00" number="1" route="28"/>
+    <flow id="22" begin="89.92" end="99.00" number="1" route="22"/>
+    <flow id="8" begin="95.28" end="99.00" number="1" route="8"/>
 </routes>

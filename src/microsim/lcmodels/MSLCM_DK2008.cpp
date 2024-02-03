@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_DK2008::MSLCM_DK2008(MSVehicle& v)
-    : MSAbstractLaneChangeModel(v, LCM_DK2008),
+    : MSAbstractLaneChangeModel(v, LaneChangeModel::DK2008),
       myChangeProbability(0),
       myLeadingBlockerLength(0), myLeftSpace(0) {}
 
@@ -144,7 +144,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
                 }
-                myVSafes.push_back(myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), (double)(gap - 0.1), (*lastBlocked)->getSpeed(), (*lastBlocked)->getCarFollowModel().getMaxDecel()));
+                myVSafes.push_back(getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), (double)(gap - 0.1), (*lastBlocked)->getSpeed(), (*lastBlocked)->getCarFollowModel().getMaxDecel()));
                 (*lastBlocked) = nullptr;
             }
             return ret;
@@ -172,7 +172,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     if (fabs(best.length - curr.length) > MIN2((double) .1, best.lane->getLength()) && bestLaneOffset < 0 && currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second > 0 && neighLead.second > leader.second) {
-            myVSafes.push_back(myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()) - (double) 0.5);
+            myVSafes.push_back(getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()) - (double) 0.5);
         }
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1, right
@@ -245,20 +245,20 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     double thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     double neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
     if (neighLead.first == 0) {
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighDist, 0, 0));
+        neighLaneVSafe = MIN2(neighLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighDist, 0, 0));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+        neighLaneVSafe = MIN2(neighLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
     }
     if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), currentDist, 0, 0));
+        thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), currentDist, 0, 0));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+        thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
 
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe - neighLaneVSafe > 5. / 3.6) {
         // ok, the current lane is faster than the right one...
         if (myChangeProbability < 0) {
@@ -270,7 +270,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     }
 
     // let's recheck the "Rechtsfahrgebot"
-    double vmax = MIN2(myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle), myVehicle.getVehicleType().getMaxSpeed());
+    double vmax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     vmax -= (double)(5. / 2.6);
     if (neighLaneVSafe >= vmax) {
         myChangeProbability -= TS * ((neighLaneVSafe - vmax) / (vmax));
@@ -351,7 +351,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
                 }
-                myVSafes.push_back(myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), (double)(gap - 0.1), (*lastBlocked)->getSpeed(), (*lastBlocked)->getCarFollowModel().getMaxDecel()));
+                myVSafes.push_back(getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), (double)(gap - 0.1), (*lastBlocked)->getSpeed(), (*lastBlocked)->getCarFollowModel().getMaxDecel()));
                 (*lastBlocked) = nullptr;
             }
             return ret;
@@ -379,7 +379,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
             currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
         informBlocker(msgPass, blocked, LCA_MLEFT, neighLead, neighFollow);
         if (neighLead.second > 0 && neighLead.second > leader.second) {
-            myVSafes.push_back(myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()) - (double) 0.5);
+            myVSafes.push_back(getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()) - (double) 0.5);
         }
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1, left
@@ -459,19 +459,19 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     double neighLaneVSafe = neighLane.getVehicleMaxSpeed(&myVehicle);
     double thisLaneVSafe = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     if (neighLead.first == 0) {
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighDist, 0, 0)); // !!! warum nicht die Folgesgeschw.?
+        neighLaneVSafe = MIN2(neighLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighDist, 0, 0)); // !!! warum nicht die Folgesgeschw.?
     } else {
         // @todo: what if leader is below safe gap?!!!
-        neighLaneVSafe = MIN2(neighLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
+        neighLaneVSafe = MIN2(neighLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed(), neighLead.first->getCarFollowModel().getMaxDecel()));
     }
     if (leader.first == 0) {
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), currentDist, 0, 0));
+        thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), currentDist, 0, 0));
     } else {
         // @todo: what if leader is below safe gap?!!!
-        thisLaneVSafe = MIN2(thisLaneVSafe, myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
+        thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe > neighLaneVSafe) {
         // this lane is better
         if (myChangeProbability > 0) {
@@ -501,7 +501,7 @@ MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
         if (space > 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
@@ -614,10 +614,10 @@ MSLCM_DK2008::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             - MAX2(nv->getSpeed() - (double) ACCEL2DIST(nv->getCarFollowModel().getMaxDecel()) * (double) 2.0, (double) 0);
         if (neighFollow.second > 0 && decelGap > 0 && decelGap >= nv->getCarFollowModel().getSecureGap(nv, &myVehicle,
                 nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
-            double vsafe = myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
+            double vsafe = getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
-            double vsafe = neighFollow.second <= 0 ? 0 : myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
+            double vsafe = neighFollow.second <= 0 ? 0 : getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }
     }
@@ -639,6 +639,7 @@ MSLCM_DK2008::prepareStep() {
     myDontBrake = false;
     // truncate myChangeProbability to work around numerical instability between different builds
     myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
+    resetSpeedLat();
 }
 
 

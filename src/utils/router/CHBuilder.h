@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,8 +94,8 @@ public:
         mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),
         mySVC(svc),
         myUpdateCount(0) {
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myCHInfos.push_back(CHInfo(*i));
+        for (const E* const e : edges) {
+            myCHInfos.push_back(CHInfo(e));
         }
     }
 
@@ -144,27 +144,25 @@ public:
             const E* const edge = max->edge;
             // add outgoing connections to the forward search
             const int edgeID = edge->getNumericalID();
-            for (typename CHConnections::const_iterator it = max->followers.begin(); it != max->followers.end(); it++) {
-                const CHConnection& con = *it;
+            for (const CHConnection& con : max->followers) {
                 result->forwardUplinks[edgeID].push_back(Connection(con.target->edge->getNumericalID(), con.cost, con.permissions));
                 disconnect(con.target->approaching, max);
                 con.target->updatePriority(0);
             }
             // add incoming connections to the backward search
-            for (typename CHConnections::const_iterator it = max->approaching.begin(); it != max->approaching.end(); it++) {
-                const CHConnection& con = *it;
+            for (const CHConnection& con : max->approaching) {
                 result->backwardUplinks[edgeID].push_back(Connection(con.target->edge->getNumericalID(), con.cost, con.permissions));
                 disconnect(con.target->followers, max);
                 con.target->updatePriority(0);
             }
             // add shortcuts to the net
-            for (typename std::vector<Shortcut>::const_iterator it = max->shortcuts.begin(); it != max->shortcuts.end(); it++) {
-                const ConstEdgePair& edgePair = it->edgePair;
+            for (const Shortcut& s : max->shortcuts) {
+                const ConstEdgePair& edgePair = s.edgePair;
                 result->shortcuts[edgePair] = edge;
                 CHInfo* from = getCHInfo(edgePair.first);
                 CHInfo* to = getCHInfo(edgePair.second);
-                from->followers.push_back(CHConnection(to, it->cost, it->permissions, it->underlying));
-                to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
+                from->followers.push_back(CHConnection(to, s.cost, s.permissions, s.underlying));
+                to->approaching.push_back(CHConnection(from, s.cost, s.permissions, s.underlying));
             }
             // if you need to debug the chrouter with MSVC uncomment the following line, hierarchy building will get slower and the hierarchy may change though
             //std::make_heap(queue.begin(), queue.end(), myCmp);
@@ -227,7 +225,7 @@ private:
     class CHInfo {
     public:
         /// @brief Constructor
-        CHInfo(const E* e) :
+        CHInfo(const E* const e) :
             edge(e),
             priority(0.),
             contractedNeighbors(0),
@@ -242,7 +240,7 @@ private:
 
         /// @brief recompute the contraction priority and report whether it changed
         bool updatePriority(SPTree<CHInfo, CHConnection>* spTree) {
-            if (spTree != 0) {
+            if (spTree != nullptr) {
                 updateShortcuts(spTree);
                 updateLevel();
             } else {
@@ -264,12 +262,10 @@ private:
 #endif
             shortcuts.clear();
             underlyingTotal = 0;
-            for (typename CHConnections::iterator it_a = approaching.begin(); it_a != approaching.end(); it_a++) {
-                CHConnection& aInfo = *it_a;
+            for (const CHConnection& aInfo : approaching) {
                 // build shortest path tree in a fixed neighborhood
                 spTree->rebuildFrom(aInfo.target, this);
-                for (typename CHConnections::iterator it_f = followers.begin(); it_f != followers.end(); it_f++) {
-                    CHConnection& fInfo = *it_f;
+                for (const CHConnection& fInfo : followers) {
                     const double viaCost = aInfo.cost + fInfo.cost;
                     const SVCPermissions viaPermissions = (aInfo.permissions & fInfo.permissions);
                     if (fInfo.target->traveltime > viaCost) {
@@ -300,10 +296,9 @@ private:
             }
             // insert shortcuts needed due to unmet permissions
             if (validatePermissions) {
-                const CHConnectionPairs& pairs = spTree->getNeededShortcuts(this);
-                for (typename CHConnectionPairs::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
-                    const CHConnection* aInfo = it->first;
-                    const CHConnection* fInfo = it->second;
+                for (const CHConnectionPair& chcp : spTree->getNeededShortcuts(this)) {
+                    const CHConnection* aInfo = chcp.first;
+                    const CHConnection* fInfo = chcp.second;
                     const double viaCost = aInfo->cost + fInfo->cost;
                     const SVCPermissions viaPermissions = (aInfo->permissions & fInfo->permissions);
                     const int underlying = aInfo->underlying + fInfo->underlying;
@@ -318,16 +313,13 @@ private:
         // update level as defined by Abraham
         void updateLevel() {
             int maxLower = std::numeric_limits<int>::min();
-            int otherRank;
-            for (typename CHConnections::iterator it = approaching.begin(); it != approaching.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
+            for (const CHConnection& con : approaching) {
+                if (con.target->rank < rank) {
                     maxLower = MAX2(rank, maxLower);
                 }
             }
-            for (typename CHConnections::iterator it = followers.begin(); it != followers.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
+            for (const CHConnection& con : followers) {
+                if (con.target->rank < rank) {
                     maxLower = MAX2(rank, maxLower);
                 }
             }
@@ -340,18 +332,20 @@ private:
 
         // resets state before rebuilding the hierarchy
         void resetContractionState() {
+            priority = 0.;
+            shortcuts.clear();
             contractedNeighbors = 0;
             rank = -1;
             level = 0;
             underlyingTotal = 0;
-            shortcuts.clear();
             followers.clear();
             approaching.clear();
+            reset();  // just to make sure
         }
 
 
-        /// @brief The current edge - not const since it may receive shortcut edges
-        const E* edge;
+        /// @brief The current edge
+        const E* const edge;
         /// @brief The contraction priority
         double priority;
         /// @brief The needed shortcuts
@@ -366,8 +360,10 @@ private:
         CHConnections followers;
         CHConnections approaching;
 
+        /// @name members used in SPTree
+        /// @{
 
-        /// members used in SPTree
+        /// whether the edge has been visited during shortest path search
         bool visited;
         /// Effort to reach the edge
         double traveltime;
@@ -381,8 +377,11 @@ private:
         inline void reset() {
             traveltime = std::numeric_limits<double>::max();
             visited = false;
+            depth = 0;
+            permissions = SVC_IGNORING;
         }
 
+        /// @}
 
         /// debugging methods
         inline void debugNoWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
@@ -447,7 +446,7 @@ private:
             follower->approaching.push_back(CHConnection(&info, cost, permissions, 1));
         }
 #ifdef CHRouter_DEBUG_WEIGHTS
-        std::cout << time << ": " << edge->getID() << " cost: " << cost << "\n";
+        std::cout << time << ": " << edge->getID() << " baseCost: " << baseCost << "\n";
 #endif
         // @todo: check whether we even need to save approaching in ROEdge;
     }
@@ -483,14 +482,15 @@ private:
         }
     }
 
+#ifdef CHRouter_DEBUG_CONTRACTION_QUEUE
     // helper method for debugging
     void debugPrintQueue(std::vector<CHInfo*>& queue) {
-        for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); it++) {
-            CHInfo* chInfo = *it;
+        for (const CHInfo* const chInfo : queue) {
             std::cout << "(" << chInfo->edge->getID() << "," << chInfo->priority << ") ";
         }
         std::cout << "\n";
     }
+#endif
 
 private:
     /// @brief all edges with numerical ids

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,17 +25,16 @@ import os
 import sys
 import re
 import random
-import glob
 import pickle
 import bisect
 import ctypes
 
 from xml.sax import make_parser, handler
 from collections import defaultdict
-from optparse import OptionParser
-import gzip
 
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector'))
+sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
+             os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
+import sumolib  # noqa
 from detector import DetectorReader, LaneMap  # noqa
 
 
@@ -61,10 +60,10 @@ def checkDirOpen(path, mode='w'):
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, collectFile, edgeCountFile, pythonEdgeFile, collectAll=False):
-        """when parsing, collects all routes with their multiplicities in _routeOccurences.
+        """when parsing, collects all routes with their multiplicities in _routeOccurrences.
         when closeAll() is called the edge distributions are created"""
         handler.ContentHandler.__init__(self)
-        self._routeOccurences = defaultdict(lambda: 0)  # listOfEdges -> count
+        self._routeOccurrences = defaultdict(lambda: 0)  # listOfEdges -> count
         self._vehID = None
         self._routeString = ''
         self._routeDistributions = {}
@@ -98,16 +97,16 @@ class RouteReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-            self._routeOccurences[self._routeString] += 1
+            self._routeOccurrences[self._routeString] += 1
 
     def closeAll(self):
-        """build edge distributions from self._routeOccurences"""
+        """build edge distributions from self._routeOccurrences"""
         # build distributions
         # edge -> (route -> prob)
         edgeCount = defaultdict(lambda: 0)
         routeProbs = defaultdict(dict)
         numRoutesTotal = 0
-        for index, (edgeString, count) in enumerate(self._routeOccurences.items()):
+        for index, (edgeString, count) in enumerate(self._routeOccurrences.items()):
             edges = edgeString.split()
             routeID = 'r%s' % index
             numRoutesTotal += count
@@ -119,7 +118,7 @@ class RouteReader(handler.ContentHandler):
                 if edge in self._routeDistributions:
                     routeProbs[edge][routeID] = count
         print(("writing distributions for %s routes (%s unique)" % (
-            numRoutesTotal, len(self._routeOccurences))))
+            numRoutesTotal, len(self._routeOccurrences))))
         # write distributions
         for edge, filename in self._routeDistributions.items():
             if edge in routeProbs:
@@ -148,8 +147,7 @@ class RouteReader(handler.ContentHandler):
             pythonOut.close()
 
 
-def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
-               safactor, sufactor):
+def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID, safactor, sufactor):
     if verbose:
         print("Writing types to file", os.path.basename(typesFile))
         print("... in dir", os.path.dirname(typesFile), "TEXTTEST_IGNORE")
@@ -167,15 +165,12 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile('depart="([^"]+)"')
+    pattern = re.compile(u'depart="([^"]+)"')
     # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        if '.gz' in routesIn:
-            f = gzip.open(routesIn, 'rb')
-        else:
-            f = open(routesIn, 'r')
+        f = sumolib.xml._open(routesIn)
         while True:
             pos = f.tell()
             line = f.readline()
@@ -224,6 +219,8 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
             out[day].close()
     print("</vtypes>", file=vtypes)
     vtypes.close()
+    for f in files:
+        f.close()
 
 
 class DepartChanger(handler.ContentHandler):
@@ -255,41 +252,34 @@ class DepartChanger(handler.ContentHandler):
 
 
 def main(args=None):
-    optParser = OptionParser(usage="usage: %prog [options] <routefiles>")
-    optParser.add_option("-f", "--detector-file", dest="detfile",
-                         help="read detectors from FILE", metavar="FILE")
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
-    optParser.add_option("-s", "--step", dest="step", type="int", default=900,
-                         help="time split step in seconds")
-    optParser.add_option("-n", "--next-day", dest="nextday", type="int", default=2700,
-                         help="how far to go into the next day in seconds")
-    optParser.add_option("-t", "--types-file", dest="typesfile", default="vehtypes.xml",
-                         help="write vehicle types to FILE", metavar="FILE")
-    optParser.add_option("-c", "--route-collection", dest="collectfile",
-                         help="write route collection for the distributions to FILE", metavar="FILE")
-    optParser.add_option("-o", "--routes-prefix", dest="routesprefix", default="validate/validate_mofr_",
-                         help="let time splitted route files start with PREFIX", metavar="PREFIX")
-    optParser.add_option("-e", "--edge-count", dest="edgecount",
-                         help="dump number of routes for each edge to FILE", metavar="FILE")
-    optParser.add_option("-p", "--pickle-edges", dest="pickleedge",
-                         help="dump used edges as pickled set to FILE", metavar="FILE")
-    optParser.add_option("-a", "--saturday-factor", dest="safact", type="float", default=0.,
-                         help="generate saturday files scaled down by FACTOR", metavar="FACTOR")
-    optParser.add_option("-u", "--sunday-factor", dest="sufact", type="float", default=0.,
-                         help="generate sunday files scaled down by FACTOR", metavar="FACTOR")
-    optParser.add_option("-m", "--modify-id", action="store_true", dest="modifyid",
-                         default=False, help="try to make vehicle and route ids unique")
-    (options, args) = optParser.parse_args(args=args)
-    if len(args) == 0:
-        optParser.print_help()
-        sys.exit()
-    if os.name == "posix":
-        expandedArgs = args
-    else:
-        expandedArgs = []
-        for arg in args:
-            expandedArgs += glob.glob(arg)
+    ap = sumolib.options.ArgumentParser(usage="usage: %prog [options] <routefiles>")
+    ap.add_argument("-f", "--detector-file", dest="detfile", category="input", type=ap.file,
+                    help="read detectors from FILE", metavar="FILE")
+    ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
+                    default=False, help="tell me what you are doing")
+    ap.add_argument("-s", "--step", dest="step", type=int, default=900,
+                    help="time split step in seconds")
+    ap.add_argument("-n", "--next-day", dest="nextday", type=int, default=2700,
+                    help="how far to go into the next day in seconds")
+    ap.add_argument("-t", "--types-file", dest="typesfile", default="vehtypes.xml",
+                    help="write vehicle types to FILE", metavar="FILE")
+    ap.add_argument("--route-collection", dest="collectfile", category="output", type=ap.route_file,
+                    help="write route collection for the distributions to FILE", metavar="FILE")
+    ap.add_argument("-o", "--routes-prefix", dest="routesprefix", default="validate/validate_mofr_",
+                    help="let time splitted route files start with PREFIX", metavar="PREFIX")
+    ap.add_argument("-e", "--edge-count", dest="edgecount",
+                    help="dump number of routes for each edge to FILE", metavar="FILE")
+    ap.add_argument("-p", "--pickle-edges", dest="pickleedge",
+                    help="dump used edges as pickled set to FILE", metavar="FILE")
+    ap.add_argument("-a", "--saturday-factor", dest="safact", type=float, default=0.,
+                    help="generate saturday files scaled down by FACTOR", metavar="FACTOR")
+    ap.add_argument("-u", "--sunday-factor", dest="sufact", type=float, default=0.,
+                    help="generate sunday files scaled down by FACTOR", metavar="FACTOR")
+    ap.add_argument("-m", "--modify-id", action="store_true", dest="modifyid",
+                    default=False, help="try to make vehicle and route ids unique")
+    ap.add_argument("routefiles", category="input", type=ap.file_list,
+                    nargs="+", help="list of route files")
+    options = ap.parse_args(args=args)
     tempPrefix = options.routesprefix
     reader = None
     if options.detfile:
@@ -299,11 +289,11 @@ def main(args=None):
             print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge)
         detReader = DetectorReader(options.detfile, laneMap=LaneMap())
-        for edge, group in detReader.getGroups():
+        for edge, _ in detReader.getGroups():
             reader.addEdge(edge)
     elif options.collectfile:
         reader = RouteReader(options.collectfile, options.edgecount, options.pickleedge, True)
-    splitFiles(expandedArgs, options.typesfile, tempPrefix, options.step,
+    splitFiles(options.routefiles, options.typesfile, tempPrefix, options.step,
                options.verbose, options.modifyid, options.safact, options.sufact)
     if reader:
         parser = make_parser()

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStopA" lane="3_1" startPos="3.90" endPos="13.90"/>
+    <busStop id="busStopB" lane="4_1" startPos="3.90" endPos="13.90"/>
+    <busStop id="busStopC" lane="7_1" startPos="25.00" endPos="35.00"/>
+    <busStop id="busStopD" lane="8_1" startPos="25.00" endPos="35.00"/>
+
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector1" lane="3_1" pos="30.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector2" lane="3_2" pos="5.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector3" lane="8_1" pos="35.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector4" lane="8_2" pos="10.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector5" lane="4_1" pos="30.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector6" lane="4_2" pos="5.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector7" lane="7_1" pos="35.00"/>
+    <inductionLoop period="100.00" file="E1Output.txt" id="detector8" lane="7_2" pos="10.00"/>
+
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+
+    <poly id="poly" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
+
+    <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
+    <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
+    <poi id="POI_2" color="red" layer="3.00" x="29.00" y="72.00" width="0.00" height="0.00"/>
+    <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
+    <poi id="POI_4" color="red" layer="3.00" lane="6_1" pos="28.00" width="0.00" height="0.00"/>
+    <poi id="POI_5" color="red" layer="3.00" lane="3_1" pos="12.90" width="0.00" height="0.00"/>
+</additional>

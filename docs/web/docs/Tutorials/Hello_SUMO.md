@@ -7,17 +7,17 @@ title: Hello SUMO
 
 ## Introduction
 
-This tutorial aims at first time Sumo users. We are building the
+This tutorial is aimed at first time SUMO users. We are building the
 simplest net possible and let a single car drive on it. All files
 mentioned here can also be found in the {{SUMO}}/docs/tutorial/hello directory.
 The most recent version can be found in the repository at [{{SUMO}}/tests/complex/tutorial/hello/data/]({{Source}}tests/complex/tutorial/hello/data/).
 
 In [sumo](../sumo.md) a street network consists of nodes
 (junctions) and edges (streets connecting the junctions). Thus, if we
-want to create a network with two streets, subsequent to each other, we
-need three nodes and two edges. We will see in the section on
-[\#Routes](#routes), why the simplest network cannot contain
-only one edge.
+want to create a network with two streets subsequent to each other, we
+need three nodes and two edges. We will see why the simplest network cannot contain
+only one edge, in the section on
+[\#Routes](#routes).
 
 ## Nodes
 
@@ -41,7 +41,7 @@ Sumo node files.
 
 Now we are connecting the nodes with edges. This is as easy as it
 sounds. We have a source node id, a target node id, and an edge id for
-future reference. Edges are directed, thus every vehicle travelling this
+future reference. Edges are directed, thus every vehicle traveling this
 edge will start at the node given in `from`
 and end at the node given in `to`.
 
@@ -53,7 +53,7 @@ and end at the node given in `to`.
 ```
 
 Save this data into a file called `hello.edg.xml`. Now that we have
-nodes and edges we can call the first SUMO tool to create a network.
+nodes and edges, we can call the first SUMO tool to create a network.
 Make sure [netconvert](../netconvert.md) is somewhere in your
 `PATH` and call
 
@@ -66,16 +66,15 @@ This will generate our network called `hello.net.xml`.
 ## Routes
 
 Now that we have a net, we still need a car. In [sumo](../sumo.md)
-the vehicles have types defining their basic properties such as length,
+the vehicles have types that define their basic properties such as length,
 acceleration and deceleration, and maximum speed. Furthermore it needs a
-so called sigma parameter which introduces some random behavior and is
-due to the car following model used. Setting it to 0 gives a
+so called sigma parameter which introduces some random behavior owing to the car following model used. Setting it to 0 gives a
 deterministic car.
 
 Now we define a route for our car which simply consists of the two edges
 we defined.
 
-Last but not least we define our single car mainly referring to the
+Last but not least, we define our single car mainly referring to the
 entries before and giving it a departure time as in the following
 `hello.rou.xml` file. There are many more attributes for customizing a
 vehicle and its type. See "[Definition of Vehicles, Vehicle Types, and

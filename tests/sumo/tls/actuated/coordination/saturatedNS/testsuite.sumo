@@ -1,0 +1,16 @@
+# uncooordinated
+default
+earliest_latest
+earliest_latest_coordinated
+
+# latestEnd < earliestEnd
+latestEnd_wrap
+
+# latestEnd < earliestEnd
+latestEnd_wrap_coordinated
+
+# actuated with fixed cycle length of 100s
+fixedCycle_coordinated
+
+# actuated with fixed cycle length of 100s, phase 0 always starts at time 20 relative to the global cycle
+fixedCycle_coordinated_offset

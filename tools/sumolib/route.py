@@ -1,5 +1,5 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,16 +12,12 @@
 
 # @file    route.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2013-10-23
 
 from __future__ import print_function
-import os
-import sys
-SUMO_HOME = os.environ.get('SUMO_HOME',
-                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
-sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.miscutils import euclidean  # noqa
-from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint  # noqa
+from .miscutils import euclidean
+from .geomhelper import polygonOffsetWithMinimumDistanceToPoint
 
 try:
     basestring
@@ -89,26 +85,36 @@ def _getMinPath(paths):
     return minPath
 
 
-def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1, debug=False):
+def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
+             debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
-    paths = {}
+    paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
-    for pos in trace:
+    for idx, pos in enumerate(trace):
         newPaths = {}
-        candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
+        if vias and idx in vias:
+            if net.hasEdge(vias[idx]):
+                candidates = [(net.getEdge(vias[idx]), 0.)]
+            else:
+                print("Unknown via edge %s for %s,%s" % (vias[idx], pos[0], pos[1]))
+                candidates = []
+        else:
+            candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
         if debug:
             print("\n\npos:%s, %s" % (pos[0], pos[1]))
-            print("candidates:%s\n" % candidates)
-        if len(candidates) == 0 and verbose:
+            print("candidates:%s\n" % [(e.getID(), c) for e, c in candidates])
+        if verbose and not candidates:
             print("Found no candidate edges for %s,%s" % pos)
 
         for edge, d in candidates:
+            if vClass is not None and not edge.allows(vClass):
+                continue
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector
@@ -117,45 +123,56 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 for path, (dist, lastBase) in paths.items():
                     if debug:
                         print("*** extending path %s by edge '%s'" % ([e.getID() for e in path], edge.getID()))
-                        print("              lastBase: %s, base: %s, advance: %s, old dist: %s, minDist: %s" %
+                        print("              lastBase: %.2f, base: %.2f, advance: %.2f, old dist: %.2f, minDist: %.2f" %
                               (lastBase, base, advance, dist, minDist))
                     if dist < minDist:
-                        if edge == path[-1]:
-                            baseDiff = lastBase + advance - base
+                        if edge == path[-1] and base > lastBase:
+                            pathLength = base - lastBase
+                            baseDiff = advance - pathLength
                             extension = ()
                             if debug:
                                 print("---------- same edge")
                         else:
-                            maxGap = min(airDistFactor * advance + edge.getLength() + path[-1].getLength(), fillGaps)
-                            extension, cost = net.getShortestPath(path[-1], edge, maxGap, includeFromToCost=False)
+                            penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
+                            maxGap = min(penalty + edge.getLength() + path[-1].getLength(), fillGaps)
+                            extension, cost = net.getOptimalPath(path[-1], edge, maxCost=maxGap,
+                                                                 reversalPenalty=reversalPenalty,
+                                                                 fromPos=lastBase, toPos=base)
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
                                     edge.getFromNode().getCoord())
-                                if gapPenalty < 0:
-                                    gapPenalty = airDistFactor * advance
+                                pathLength = path[-1].getLength() - lastBase + base + airLineDist + penalty
                                 baseDiff = abs(lastBase + advance -
-                                               path[-1].getLength() - base - airLineDist) + gapPenalty
+                                               path[-1].getLength() - base - airLineDist) + penalty
                                 extension = (edge,)
                             else:
-                                baseDiff = lastBase + advance - (cost - edge.getLength()) - base
+                                pathLength = cost
+                                baseDiff = advance - pathLength
                                 extension = extension[1:]
                             if debug:
-                                print("---------- extension path: %s, cost: %s, baseDiff: %s" %
-                                      (extension, cost, baseDiff))
-                        dist += baseDiff * baseDiff
+                                print("---------- extension path: %s, cost: %.2f, pathLength: %.2f" %
+                                      (extension, cost, pathLength))
+                        dist += d * d + pathLength
+                        if direction:
+                            dist += baseDiff * baseDiff
                         if dist < minDist:
                             minDist = dist
                             minPath = path + extension
                         if debug:
-                            print("*** new dist: %s baseDiff: %s minDist: %s" % (dist, baseDiff, minDist))
+                            print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f" % (dist, baseDiff, minDist))
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:
                 newPaths[(edge,)] = (d * d, base)
         if not newPaths:
+            # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
-                result += _getMinPath(paths)
+                minPath = _getMinPath(paths)
+                if len(result) > 0 and minPath[0] in result:
+                    cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
+                    minPath = minPath[cropIndex+1:]
+                result += minPath
         paths = newPaths
         lastPos = pos
     if paths:

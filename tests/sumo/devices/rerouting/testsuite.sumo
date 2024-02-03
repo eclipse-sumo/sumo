@@ -24,9 +24,13 @@ personTrip
 
 # use periodic rerouting to avoid congestion
 reroute_congestions
+tlsPenalty
 
 # handlng stops while rerouting
 stops
+
+# test routing if vehicle speeds on the same edge strongly differ by turning direction
+turn_specific_speeds
 
 # handle input errors
 invalid_adaptation_interval
@@ -36,3 +40,6 @@ invalid_pre_period
 
 # faulty routes
 disconnected
+
+# faulty routes with a single edge
+single_edge

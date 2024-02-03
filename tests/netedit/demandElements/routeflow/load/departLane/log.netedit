@@ -1,6 +1,0 @@
-Error: Invalid departLane definition for flow 'flow_0';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
-Error: Invalid departLane definition for flow 'flow_1';
- must be one of ("random", "free", "allowed", "best", "first", or an int>=0)
-Error: Invalid departLane used in flowRoute 'flow_3'. 500 is greater than number of lanes
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Aug102157.12256\netedit.gui\demandElements\routeflow\load\departLane\input_routes.rou.xml failed.

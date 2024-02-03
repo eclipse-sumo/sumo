@@ -16,14 +16,30 @@ first_teleport
 # replace second stop after the vehicle has departed
 second
 
+# replace stop that was added from a named route before the vehicle has departed	
+routeStop_init
+
 # replace second stop with "" after the vehicle has departed
 second_remove
+
+# replace all stops with "" after the vehicle has departed
+remove_reroute
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport
+
+# replace second stop with "" after the vehicle has departed before the vehicle has departed
+second_remove_init
 
 # replace second stop after the vehicle has departed
 second_teleport
 
 # replace second stop after the vehicle has departed. new stop isn't reachable
 second_unreachable_teleport
+
+# replace second stop after the vehicle has departed. new stop isn't reachable,
+# finish teleport instantly despite oncoming train.
+second_teleport_oncoming
 
 # change attributes of second stop without rerouting
 second_change_attribute
@@ -34,6 +50,9 @@ last
 # replace last stop after the vehicle has reached the second stop
 last_later
 
+# replace last stop while the vehicle is on the second stop and make it teleport to the third
+last_same_location_teleport
+
 # replace last stop on the destination edge and update destination
 last_destination
 
@@ -43,5 +62,30 @@ all
 # replace stop with invalid index
 invalid
 
+# try to replace the current stop after it has been reached
+reached_invalid
+
 # test replaceStop failure
 unreachable
+
+# replace second stop with "" after the vehicle has departed.
+# riders with "ANY" from the first stop to the second stop should be aware
+second_remove_rider
+
+# replace first stop while on a junction leading away from the new stop
+on_junction
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter
+
+# replace first stop after the vehicle has departed using setStopParameter
+first_parameter_edge
+
+# replace parameters of first stop (but keep the location)
+first_parameter_only
+
+# replace parameters of first stop (but keep the location)
+first_parameter_only_triggered
+
+# change userDefined stop params
+customParam

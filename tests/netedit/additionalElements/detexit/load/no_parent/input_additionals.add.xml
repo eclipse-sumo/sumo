@@ -1,6 +1,0 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-
-	<!-- Entry without E3 parent -->
-	<detExit lane="gneE1_0" pos="10"/>
-	
-</additional>

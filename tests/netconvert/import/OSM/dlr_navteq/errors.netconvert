@@ -1,22 +1,20 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46150483').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '81096583').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '46150483').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '81096583').
 Warning: No way found for reference '320741893' in relation '3422297'
 Warning: Ignoring restriction relation '3422297' with unknown to-way.
-Warning: Found sharp turn with radius 6.56 at the end of edge '415852874'.
-Warning: Found angle of 138.43 degrees at edge '415852890', segment 0.
-Warning: Found sharp turn with radius 6.56 at the start of edge '415852963'.
-Warning: Found angle of 138.43 degrees at edge '415852988', segment 5.
-Warning: ambiguous zip code '12489;12345' for edge '415852866'. (using first value)
+Warning: Found sharp turn with radius 6.56 at the end of edge '415852875'.
+Warning: Found angle of 138.43 degrees at edge '415852891', segment 0.
+Warning: Found sharp turn with radius 6.56 at the start of edge '415852964'.
+Warning: Found angle of 138.43 degrees at edge '415852990', segment 5.
 Warning: ambiguous zip code '12489;12345' for edge '415852867'. (using first value)
-Warning: ambiguous zip code '12489;12345' for edge '415852955'. (using first value)
+Warning: ambiguous zip code '12489;12345' for edge '415852868'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852956'. (using first value)
-Warning: ambiguous zip code '12489;12345;67890' for edge '415852977'. (using first value)
-Warning: ambiguous zip code '12489;12345;67890' for edge '415852978'. (using first value)
+Warning: ambiguous zip code '12489;12345' for edge '415852957'. (using first value)
 Warning: ambiguous zip code '12489;12345;67890' for edge '415852979'. (using first value)
-Warning: ambiguous zip code '12487; 12345' for edge '415852980'. (using first value)
-Warning: 12 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 12 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 8 total messages of type: ambiguous zip code '%' for edge '%'. (using first value)

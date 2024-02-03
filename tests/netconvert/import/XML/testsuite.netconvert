@@ -38,6 +38,9 @@ edge_overwrite
 # Tests for setting an offset
 offset
 
+# Tests for setting friction
+friction
+
 # Load a diff to a sumo network (along with the network)
 # to rebuild the diff files call
 # $SUMO_HOME/tools/net/netdiff.py input_net.net.xml net.netconvert input_plain
@@ -61,11 +64,16 @@ junctionLogic
 
 # tests for roundabouts specified via xml
 roundabout
-
 connection_guessing
 
 # test load public transport related files
 public_transport
+
+# check classification of link direction
+link_direction
+
+# declare bidi edges
+bidi
 
 # declared edge length should be writen back into the plain-output
 loaded_length
@@ -87,8 +95,18 @@ distance
 
 # import junction name from plain xml
 junction_name
+
 # import params from plain xml
 params
 
 # test special characters in edge ids
 special_chars
+
+# write plain output will all lane data
+plainLanes
+
+# merge 2 geo-referenced networks
+merge_geo
+
+# merge 2 geo-referenced networks	with exlicit location data in edges file
+merge_geo2

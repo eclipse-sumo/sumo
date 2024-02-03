@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-17 07:50:29 by Eclipse SUMO netedit Version v1_11_0+1194-7e54f5e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="/localdata2/debug/9949/input_plain"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-100.00,200.00,100.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <node id="J0" x="0.00" y="0.00" type="priority"/>
+    <node id="J1" x="100.00" y="0.00" type="priority"/>
+    <node id="J2" x="200.00" y="0.00" type="dead_end"/>
+    <node id="J3" x="-100.00" y="0.00" type="dead_end"/>
+    <node id="J4" x="0.00" y="100.00" type="dead_end"/>
+    <node id="J5" x="0.00" y="-100.00" type="dead_end"/>
+    <node id="J6" x="100.00" y="100.00" type="dead_end"/>
+    <node id="J7" x="100.00" y="-100.00" type="dead_end"/>
+</nodes>

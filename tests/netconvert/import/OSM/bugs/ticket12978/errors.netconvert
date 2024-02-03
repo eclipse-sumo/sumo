@@ -1,0 +1,49 @@
+Warning: Unknown lane use specifier '' ignored for way '23167504'
+Warning: Unknown lane use specifier '' ignored for way '29188369'
+Warning: Unknown lane use specifier '' ignored for way '32391476'
+Warning: Unknown lane use specifier '' ignored for way '170032520'
+Warning: Unknown lane use specifier '' ignored for way '371348311'
+Warning: Ignoring turn sign information for 2 lanes on edge -4743859#0 with 1 driving lanes
+Warning: Ignoring turn sign information for 2 lanes on edge -4743859#1 with 1 driving lanes
+Warning: Discarding way '4803408' because it has only 1 node(s)
+Warning: Discarding way '5880360' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '6275387').
+Warning: Discarding way '12516315' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '23167504').
+Warning: Discarding way '26850365' because it has only 1 node(s)
+Warning: Discarding way '37071275' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '170045672').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '221965672').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '371732298').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '519007143').
+Warning: Ignoring turn sign information for 4 lanes on edge -672153089 with 3 driving lanes
+Warning: Ignoring turn sign information for 2 lanes on edge 1121159178 with 1 driving lanes
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '1152997292').
+Warning: Removing pt stop '1811884593' on non existing edge '170032548#0'.
+Warning: Removing pt stop '1811884599' on non existing edge '170032540#1'.
+Warning: Removing pt stop '3897201585' on non existing edge '386400695#1'.
+Warning: Removing pt stop '455530' on non existing edge '386400695#0'.
+Warning: Removing pt stop '7108387794' on non existing edge '528212765#2'.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '29542844' (Zürich Hardbrücke). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '451950188' (Zürich Hardbrücke). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1231420433' (Zürich Hardbrücke). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1231420555' (Zürich Hardbrücke). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2309435510' (Güterbahnhof). Thus, it will be removed!
+Warning: Found sharp turn with radius 5.22 at the start of edge '5880361'.
+Warning: Cannot apply turn sign information for edge '-23167504#0' because there are 2 signed connections with directions 's' but target edge '-371727494#2' has only 1 suitable lanes
+Warning: Cannot apply turn sign information for edge '1155769670' because there are 3 signed directions but only 1 targets
+Warning: Cannot apply turn sign information for edge '170045675#1' because there are 2 signed directions but only 1 targets
+Warning: Cannot apply turn sign information for edge '371727494#2' because the target edge '-826188136#1' has no suitable lanes
+Warning: Cannot apply turn sign information for edge '377211844#1' because there are 1 signed directions and 2 targets (after target pruning)
+Warning: Cannot apply turn sign information for edge '4533223#1' because there are 2 signed directions but only 1 targets
+Warning: Cannot apply turn sign information for edge '612484420' because there are 2 signed directions but only 1 targets
+Warning: The traffic light '2923898716' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2923898716'
+Warning: The traffic light '5176233944' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '5176233944'
+Warning: Speed of straight connection '32391477#1_1->4730804_1' reduced by 7.95 due to turning radius of 6.42 (length=1.58, angle=31.11).
+Warning: Speed of straight connection '4310918#1_0->30581192#0_0' reduced by 5.37 due to turning radius of 13.19 (length=3.88, angle=32.93).
+Warning: 6 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
+Warning: 6 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 30 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 14 total messages of type: Unknown lane use specifier '%' ignored for way '%'

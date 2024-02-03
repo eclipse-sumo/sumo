@@ -1,0 +1,3 @@
+Error: Unknown lateral alignment 'dummyLatAlignment' when parsing vType 'vType00';
+ must be one of ("right", "center", "arbitrary", "nice", "compact", "left" or a float)
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Apr150627.12140\netedit.gui\demandelements\vehicletype\load\latalignment\routes.rou.xml failed.

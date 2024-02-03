@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing end position -->
+    <chargingStation id="chargingStation_7" lane="center1_1" startPos="35" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid end position 1 -->
+    <chargingStation id="chargingStation_8" lane="center1_1" startPos="35" endPos="dummyEndPosition" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid end position 2 -->
+    <chargingStation id="chargingStation_9" lane="center1_1" startPos="35" endPos="40000" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid end position 3 -->
+    <chargingStation id="chargingStation_10" lane="center1_1" startPos="35" endPos="25" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- valid end position -->
+    <chargingStation id="chargingStation_10" lane="center1_1" startPos="35" endPos="40" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+</additional>

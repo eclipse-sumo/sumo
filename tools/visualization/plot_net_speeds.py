@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 import matplotlib  # noqa
 
@@ -35,29 +36,25 @@ import matplotlib  # noqa
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-n", "--net", dest="net", metavar="FILE",
-                         help="Defines the network to read")
-    optParser.add_option("--edge-width", dest="defaultWidth",
-                         type="float", default=1, help="Defines the edge width")
-    optParser.add_option("--edge-color", dest="defaultColor",
-                         default='k', help="Defines the edge color")
-    optParser.add_option("--minV", dest="minV",
-                         type="float", default=None, help="Define the minimum value boundary")
-    optParser.add_option("--maxV", dest="maxV",
-                         type="float", default=None, help="Define the maximum value boundary")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+    ap = ArgumentParser()
+    ap.add_argument("-n", "--net", dest="net", category="input", type=ap.net_file, metavar="FILE",
+                    required=True, help="Defines the network to read")
+    ap.add_argument("--edge-width", dest="defaultWidth", category="visualization",
+                    type=float, default=1, help="Defines the edge width")
+    ap.add_argument("--edge-color", dest="defaultColor", category="visualization",
+                    default='k', help="Defines the edge color")
+    ap.add_argument("--minV", dest="minV",
+                    type=float, default=None, help="Define the minimum value boundary")
+    ap.add_argument("--maxV", dest="maxV",
+                    type=float, default=None, help="Define the maximum value boundary")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
+    options = ap.parse_args(args=args)
 
-    if options.net is None:
-        print("Error: a network to load must be given.")
-        return 1
     if options.verbose:
         print("Reading network from '%s'" % options.net)
     net = sumolib.net.readNet(options.net)
@@ -91,14 +88,18 @@ def main(args=None):
     # drawing the legend, at least for the colors
     print("%s -> %s" % (minV, maxV))
     sm = matplotlib.cm.ScalarMappable(
-        cmap=matplotlib.cm.get_cmap(options.colormap), norm=matplotlib.colors.Normalize(vmin=minV, vmax=maxV))
-    # "fake up the array of the scalar mappable. Urgh..."
-    # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
-    sm._A = []
-    plt.colorbar(sm)
+        cmap=helpers.getColorMap(options), norm=matplotlib.colors.Normalize(vmin=minV, vmax=maxV))
+    if sys.version_info.major < 3:
+        # "fake up the array of the scalar mappable. Urgh..."
+        # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+        sm._A = []
+    plt.colorbar(sm, ax=ax)
     options.nolegend = True
     helpers.closeFigure(fig, ax, options)
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main()
+    except ValueError as e:
+        sys.exit(e)

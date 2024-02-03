@@ -5,7 +5,7 @@ title: ToC Device
 ## Overview
 
 The ToC Device provides facilities to model a take-over of control (ToC)
-in automated vehicles.
+in automated vehicles. It was developed within the project [TransAID](https://www.transaid.eu), see Lücken et al.(2019) [\[1\]](#references).
 
 To this end the user has to specify at least the two [vehicle
 types](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types),
@@ -95,7 +95,7 @@ user has to issue a take-over request (TOR) via
 [TraCI](TraCI.md). The corresponding command is (here exemplary
 for the python client)
 
-```
+```python
 traci.vehicle.setParameter(<VEHICLE_ID>, "device.toc.requestToC", <AVAILABLE_LEAD_TIME>)
 ```
 
@@ -132,3 +132,10 @@ vehicle is assumed to drive with a decreased performance. This is
 modeled by temporarily elevated magnitudes of the driver's perception
 errors, i.e., a decreased driver awareness (see [Driver
 State](Driver_State.md)).
+
+# References
+
+1. Lücken, L., Mintsis, E., Kallirroi, N. P., Alms, R., Flötteröd, Y. P., & Koutras, D. (2019).
+	From Automated to Manual - Modeling Control Transitions with SUMO.
+	EasyChair. SUMO User Conference 2019, 13.-15. May 2019, Berlin, Germany.
+    <https://doi.org/10.29007/sfgk>

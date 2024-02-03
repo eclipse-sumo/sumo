@@ -1,0 +1,5 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml 
+--edgedata-attribute None
+--arrival-attribute count
+-f number
+-o out.rou.xml 

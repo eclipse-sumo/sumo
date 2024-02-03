@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,8 +23,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
@@ -58,6 +58,8 @@ print("haltVeh", traci.edge.getLastStepHaltingNumber(edgeID))
 print("vehIds", traci.edge.getLastStepVehicleIDs(edgeID))
 print("personIds", traci.edge.getLastStepPersonIDs(edgeID))
 print("waiting time", traci.edge.getWaitingTime(edgeID))
+print("angle (with default relative position)", traci.edge.getAngle(edgeID))
+print("angle (with some relative position)", traci.edge.getAngle(edgeID, 10))
 # testing unicode
 print("checking occupancy with unicode id",
       traci.edge.getLastStepOccupancy(str(edgeID)))
@@ -104,5 +106,11 @@ for step in range(10):
         traci.edge.getLastStepMeanSpeed("3si"),
         traci.edge.getTraveltime("3si")))
     print("pending", traci.edge.getPendingVehicles("3si"))
+
+print("allow_0", traci.lane.getAllowed(edgeID + "_0"))
+traci.edge.setAllowed(edgeID, "bicycle")
+print("allow_1", traci.lane.getAllowed(edgeID + "_0"))
+traci.edge.setAllowed(edgeID, ["bicycle", "pedestrian"])
+print("allow_2", traci.lane.getAllowed(edgeID + "_0"))
 
 traci.close()

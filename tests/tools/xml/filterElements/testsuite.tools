@@ -1,0 +1,9 @@
+all
+keepValues
+removeValues
+
+# keep elements with attributes within a given interval
+keepInterval
+
+# remove elements with attributes within a given interval
+removeInterval

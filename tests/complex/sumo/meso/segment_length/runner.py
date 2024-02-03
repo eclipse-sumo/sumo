@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,9 +35,11 @@ def call(cmd):
     #    print(cmd)
     #    sys.stdout.flush()
     #    subprocess.call(cmd)#, stdout=open(os.devnull, "w"))
-    subprocess.call(cmd, stdout=open(os.devnull, "w"))
-    for s in sumolib.xml.parse("stats.xml", "vehicleTripStatistics"):
-        return float(s.duration)
+    with open(os.devnull, "w") as out:
+        subprocess.call(cmd, stdout=out)
+    with open("stats.xml") as stats:
+        for s in sumolib.xml.parse(stats, "vehicleTripStatistics"):
+            return float(s.duration)
 
 
 subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "--grid.length", "500", "-o", "int.net.xml"])

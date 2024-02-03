@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/02/16 22:34:20 by SUMO polyconvert Version dev-SVN-r20320
+<!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,16 +11,17 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <osm-files value="osm.xml"/>
         <osm.keep-full-type value="true"/>
-        <type-file value="D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumo/data/typemap/osmPolyconvert.typ.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.scale value="0"/>
+        <proj.scale value="1"/>
         <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
     </projection>
 
     <processing>
@@ -36,8 +37,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="399823.45,5809422.23,399986.69,5809486.66" origBoundary="13.526699,52.425832,13.529100,52.426404" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
-
-    <poly id="-974" type="polygon.overpass" color="51,128,255" fill="0" layer="-1.00" shape="399863.40,5809422.23 399824.64,5809486.66 399823.45,5809472.85 399862.26,5809457.18 399986.69,5809471.75"/>
-    <poi id="32266935" type="amenity.parking" color="184,184,179" layer="4.00" x="399824.64" y="5809486.66"/>
+    <poly id="-974" type="polygon.overpass" color="51,128,255" fill="0" layer="-1.000000" geo="1" shape="13.527302,52.425832 13.526713,52.426404 13.526699,52.426279 13.527275,52.426146 13.529100,52.426299"/>
+    <poi id="32266935" type="amenity.parking" color="184,184,179" layer="4.00" lon="13.526713" lat="52.426404"/>
 </additional>

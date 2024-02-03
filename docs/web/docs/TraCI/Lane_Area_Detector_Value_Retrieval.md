@@ -14,7 +14,7 @@ value returned is the state of the asked variable/value within the last
 simulation step. Please note that for asking values from your detectors
 [you have to define
 them](../Simulation/Output/Lanearea_Detectors_(E2).md) within an {{AdditionalFile}}
-and load them at the start of the simulation. The `freq` and `file` attributes do
+and load them at the start of the simulation. The `period` and `file` attributes do
 not matter for TraCI.
 
 The following variable values can be retrieved, the type of the return
@@ -38,6 +38,14 @@ value is also shown in the table.
 | last step halting vehicles number (0x14)          | int        | Returns the number of vehicles which were halting during the last time step                                              | [getJamLengthVehicle](https://sumo.dlr.de/pydoc/traci._lanearea.html#LaneAreaDomain-getJamLengthVehicle)           |
 | last step jam length in number of vehicles (0x18) | int        | Returns the number of vehicles which were halting on the loop during the last time step                                  | [getJamLengthVehicle](https://sumo.dlr.de/pydoc/traci._lanearea.html#LaneAreaDomain-getJamLengthVehicle)           |
 | last step jam length in meters (0x19)             | int        | Returns the length of the jam in meters                                                                                  | [getJamLengthMeters](https://sumo.dlr.de/pydoc/traci._lanearea.html#LaneAreaDomain-getJamLengthMeters)             |
+| interval occupancy (0x23)  | double | The average percentage of the detector length that was occupied by a vehicle during the current interval | [getIntervalOccupancy](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalOccupancy)  |
+| interval speed (0x24)  | double | The average (time mean) speed of vehicles during the current interval | [getIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalMeanSpeed)  |
+| interval number (0x25)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the current interval | [getIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalVehicleNumber)  |
+| interval max jam length in meters (0x32)   | stringList | The maximum jam length in meters during the current interval | [getIntervalMaxJamLengthInMeters](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalMaxJamLengthInMeters)  |
+| last interval occupancy (0x27)  | double | The average percentage of the detector length that was occupied by a vehicle during the previous interval | [getLastIntervalOccupancy](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalOccupancy)  |
+| last interval speed (0x28)  | double | The average (time mean) speed of vehicles during the previous interval | [getLastIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalMeanSpeed)  |
+| last interval number (0x29)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalVehicleNumber)  |
+| last interval max jam length in meters (0x33)   | stringList | TThe maximum jam length in meters during the previous interval | [getLastIntervalMaxJamLengthInMeters](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalMaxJamLengthInMeterss)  |
 
 ## Response 0xbd: LaneAreaDetector Variable
 

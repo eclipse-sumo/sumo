@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-04-26 15:19:15 by Eclipse SUMO sumo Version 1.17.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\osm.net.xml.gz"/>
+        <route-files value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\bikes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-prefix value="0."/>
+        <tripinfo-output value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\tripinfos.xml"/>
+        <personinfo-output value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\personinfos.xml"/>
+        <edgedata-output value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\edgedata.xml"/>
+        <statistic-output value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2023\tutorial\05_runMany.final\stats.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <tls.actuated.jam-threshold value="30"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+</configuration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="401193.99" clockEnd="401214.80" clockDuration="20.81" traciDuration="48.33" realTimeFactor="1459.36" vehicleUpdatesPerSecond="16670.03" personUpdatesPerSecond="705860.08" begin="0.00" end="30362.00" duration="30362.00"/>
+    <vehicles loaded="1004" inserted="1004" running="0" waiting="0"/>
+    <teleports total="2" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="2" emergencyStops="0"/>
+    <persons loaded="502" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+    <vehicleTripStatistics count="0" routeLength="0.00" speed="0.00" duration="0.00" waitingTime="0.00" timeLoss="0.00" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="0.00" totalDepartDelay="330446.00"/>
+    <bikeTripStatistics count="1004" routeLength="1151.26" speed="3.57" duration="345.44" waitingTime="68.87" timeLoss="130.66" totalTravelTime="346820.00"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="1004" waitingTime="329.13" routeLength="1151.26" duration="345.44" bus="0" train="0" taxi="0" bike="1004" aborted="0"/>
+    <transportStatistics number="0"/>
+</statistics>

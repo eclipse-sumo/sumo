@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,38 +55,28 @@ public:
 
 public:
     /// Use this constructor only.
-    MSBitSetLogic(int nLinks,
-                  Logic* logic,
-                  Foes* foes,
+    MSBitSetLogic(int nLinks, const Logic& logic, const Foes& foes,
                   std::bitset<SUMO_MAX_CONNECTIONS> conts)
         : MSJunctionLogic(nLinks), myLogic(logic),
           myInternalLinksFoes(foes), myConts(conts) {}
 
-
-    /// Destructor.
-    ~MSBitSetLogic() {
-        delete myLogic;
-        delete myInternalLinksFoes;
-    }
-
-
     /// @brief Returns the response for the given link
     const MSLogicJunction::LinkBits& getResponseFor(int linkIndex) const {
-        return (*myLogic)[linkIndex];
+        return myLogic[linkIndex];
     }
 
     /// @brief Returns the foes for the given link
     const MSLogicJunction::LinkBits& getFoesFor(int linkIndex) const {
-        return (*myInternalLinksFoes)[linkIndex];
+        return myInternalLinksFoes[linkIndex];
     }
 
     bool getIsCont(int linkIndex) const {
         return myConts.test(linkIndex);
     }
 
-    virtual bool hasFoes() const {
-        for (typename Logic::const_iterator i = myLogic->begin(); i != myLogic->end(); ++i) {
-            if ((*i).any()) {
+    bool hasFoes() const {
+        for (const auto& i : myLogic) {
+            if (i.any()) {
                 return true;
             }
         }
@@ -95,19 +85,19 @@ public:
 
 private:
     /// junctions logic based on std::bitset
-    Logic* myLogic;
+    const Logic myLogic;
 
     /// internal lanes logic
-    Foes* myInternalLinksFoes;
+    const Foes myInternalLinksFoes;
 
-    std::bitset<SUMO_MAX_CONNECTIONS> myConts;
+    const std::bitset<SUMO_MAX_CONNECTIONS> myConts;
 
 private:
     /// @brief Invalidated copy constructor.
-    MSBitSetLogic(const MSBitSetLogic&);
+    MSBitSetLogic(const MSBitSetLogic&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MSBitSetLogic& operator=(const MSBitSetLogic&);
+    MSBitSetLogic& operator=(const MSBitSetLogic&) = delete;
 
 };
 

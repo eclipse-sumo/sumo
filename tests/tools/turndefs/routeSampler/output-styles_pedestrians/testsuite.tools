@@ -5,6 +5,9 @@ write-route-distribution
 write-flows-number
 write-flows-probability
 
+# Copy of write-flows-probability
+write-flows-poisson
+
 # -f number -i
 f-number-i
 f-probability-i

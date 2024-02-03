@@ -1,17 +1,17 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time 37.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time 117.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time 137.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time 217.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time 337.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time 417.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time 437.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time 517.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time 637.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time 717.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time 737.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time 817.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time 937.00 (stop-output will be merged)
-Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time 1017.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time 1037.00 (stop-output will be merged)
-Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time 1117.00 (stop-output will be merged)
+Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time=110.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time=180.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time=210.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time=280.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time=410.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time=480.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time=510.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time=580.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time=710.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time=780.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time=810.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time=880.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'CN:0', time=1010.00 (stop-output will be merged).
+Warning: Vehicle '0.0' has multiple stops on segment 'NC:0', time=1080.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'CN:0', time=1110.00 (stop-output will be merged).
+Warning: Vehicle '0.1' has multiple stops on segment 'NC:0', time=1180.00 (stop-output will be merged).

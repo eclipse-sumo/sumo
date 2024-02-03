@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,7 +87,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) override;
     /// @}
 
 
@@ -107,8 +107,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice& dev,
-                        SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) override;
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -118,24 +117,32 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const;
+    void writeXMLDetectorProlog(OutputDevice& dev) const override;
     /// @}
 
     /* @brief sample a route from the routeDistribution
      * @param[in] last Retrieve route from the previous (complete) collection interval
      */
-    const MSRoute* sampleRoute(bool last = true) const;
+    ConstMSRoutePtr sampleRoute(bool last = true) const;
 
     const MSEdge* getEdge() {
         return myEdge;
     }
 
+    void clearState(SUMOTime step) override;
+
 private:
+    void initDistributions();
+
+private:
+    std::string myDistID;
+    std::string myLastID;
+
     /// @brief The previous distribution of routes (probability->route)
-    std::pair<std::string, RandomDistributor<const MSRoute*>*> myLastRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myLastRouteDistribution;
 
     /// @brief The current distribution of routes (probability->route)
-    std::pair<std::string, RandomDistributor<const MSRoute*>*> myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief the edge of this route probe
     const MSEdge* myEdge;

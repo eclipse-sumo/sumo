@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mo 21 Sep 2020 08:04:28 CEST by Eclipse SUMO netedit Version v1_7_0+0142-aff530ec25
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumoCMake/tests/sumo/lc_model/overtaking/overtaking_right_road_speed/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumoCMake/tests/sumo/lc_model/overtaking/overtaking_right_road_speed/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-6000.00,0.00,-3000.00,1.60" origBoundary="-6000.00,-50.00,3500.00,1.60" projParameter="!"/>
+
+    <edge id="beg" from="A" to="B" priority="-1" spreadType="center" shape="-6000.00,1.60 -3000.00,1.60" distance="10000.00">
+        <lane id="beg_0" index="0" speed="16.67" length="3003.20" shape="-6000.00,-1.60 -3000.00,-1.60"/>
+        <lane id="beg_1" index="1" speed="16.67" length="3003.20" shape="-6000.00,1.60 -3000.00,1.60"/>
+        <lane id="beg_2" index="2" speed="16.67" length="3003.20" shape="-6000.00,4.80 -3000.00,4.80"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="-6000.00" y="0.00" incLanes="" intLanes="" shape="-6000.00,6.40 -6000.00,-3.20"/>
+    <junction id="B" type="dead_end" x="-3000.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="-3000.00,-3.20 -3000.00,6.40"/>
+
+</net>

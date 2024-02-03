@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="osmconvert 0.8.10">
+	<bounds minlat="52.4726" minlon="13.501266" maxlat="52.475068" maxlon="13.510077"/>
+	<node id="244157464" lat="52.4728786" lon="13.5097019" version="10"/>
+	<node id="244157475" lat="52.4749366" lon="13.5076669" version="11"/>
+	<node id="244157497" lat="52.4728923" lon="13.5098788" version="9"/>
+	<node id="244157499" lat="52.4743111" lon="13.5083474" version="7"/>
+	<node id="244157501" lat="52.4739926" lon="13.5085486" version="4"/>
+	<node id="244159088" lat="52.473201" lon="13.5047701" version="4"/>
+	<node id="5061820386" lat="52.4730152" lon="13.5097584" version="5">
+		<tag k="button_operated" v="yes"/>
+		<tag k="crossing" v="traffic_signals"/>
+		<tag k="highway" v="crossing"/>
+		<tag k="kerb" v="lowered"/>
+		<tag k="tactile_paving" v="yes"/>
+		<tag k="traffic_signals:sound" v="yes"/>
+		<tag k="traffic_signals:vibration" v="yes"/>
+	</node>
+	<way id="1119385764" version="3">
+		<nd ref="5061820386"/>
+		<nd ref="244157499"/>
+		<nd ref="244157475"/>
+		<tag k="cycleway:right" v="lane"/>
+		<tag k="cycleway:right:lane" v="exclusive"/>
+		<tag k="destination" v="Zentrum;Friedrichshain"/>
+		<tag k="destination:symbol" v="centre;"/>
+		<tag k="fixme" v="cycleway:separation noch unvollständig"/>
+		<tag k="foot" v="yes"/>
+		<tag k="hazmat:water" v="no"/>
+		<tag k="highway" v="secondary"/>
+		<tag k="lanes" v="1"/>
+		<tag k="lit" v="yes"/>
+		<tag k="maxspeed" v="50"/>
+		<tag k="name" v="Rummelsburger Landstraße"/>
+		<tag k="oneway" v="yes"/>
+		<tag k="postal_code" v="12459"/>
+		<tag k="sidewalk" v="no"/>
+		<tag k="smoothness" v="good"/>
+		<tag k="surface" v="asphalt"/>
+	</way>
+</osm>

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -102,6 +102,10 @@ public:
         return myAlternatives.front();
     }
 
+    const RORoute* getUsedRoute() const {
+        return myAlternatives[myLastUsed];
+    }
+
     /** @brief Saves the built route / route alternatives
      *
      * Writes the route into the given stream.
@@ -111,17 +115,8 @@ public:
      * @return The same device for further usage
      */
     OutputDevice& writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                                     bool asAlternatives, bool withExitTimes) const;
+                                     bool asAlternatives, bool withExitTimes, bool withCost, bool withLength) const;
 
-    /** @brief Returns a origin-destination copy of the route definition.
-     *
-     * The resulting route definition contains only a single route with
-     * origin and destination edge copied from this one
-     *
-     * @param[in] id The id for the new route definition
-     * @return the new route definition
-     */
-    RORouteDef* copyOrigDest(const std::string& id) const;
 
     /** @brief Returns a deep copy of the route definition.
      *

@@ -1,0 +1,7 @@
+<routes>
+    <route id="r0" edges="a"/>
+    <vehicle id="parking" depart="0" route="r0" departPos="stop">
+        <stop lane="a_0" endPos="100" duration="100" parking="true"/>
+    </vehicle>
+    <vehicle id="ego" depart="0" route="r0"/>
+</routes>

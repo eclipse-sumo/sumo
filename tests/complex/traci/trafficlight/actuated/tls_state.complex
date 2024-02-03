@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 10 10:54:51 2021 by Eclipse SUMO sumo Version v1_8_0+1076-acd2094
+<!-- generated on 2022-12-04 17:49:05 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="42027"/>
+        <remote-port value="46087"/>
     </traci_server>
 
     <gui_only>
@@ -51,11 +51,11 @@
         <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="8.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="9.00"  state="rrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
-        <phase duration="7.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="6.00"  state="GGGggrrrrrGGGggrrrrr"/>
         <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
@@ -67,7 +67,7 @@
         <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="24.00" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="60.00" state="rrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
@@ -79,10 +79,7 @@
         <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
         <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
-        <phase duration="60.00" state="GGGggrrrrrGGGggrrrrr"/>
-        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
-        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
-        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="17.00" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="52.00" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="1.00"  state="yyyggrrrrryyyggrrrrr"/>
     </tlLogic>
 </additional>

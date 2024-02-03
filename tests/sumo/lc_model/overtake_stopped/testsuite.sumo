@@ -6,3 +6,9 @@ overtake_stopped_on_the_left_low_space
 
 # overtaking a stopped vehicle should not lead to total breakdown in flow
 stopped_right
+
+# overtake a vehicle that is 1000m
+very_long
+
+# do not try to overtake when stopped vehicle blocks the intended stop position (#12320)
+stop_same_pos

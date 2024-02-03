@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-07 16:08:22 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <parkingArea id="pa_0" lane="center0_0" startPos="28.00" endPos="38.00">
+        <space x="-24.00" y="8.00"/>
+    </parkingArea>
+    <parkingArea id="pa_1" lane="center0_0" startPos="12.00" endPos="22.00">
+        <space x="20.00" y="8.00"/>
+    </parkingArea>
+    <parkingArea id="pa_10" lane="center1_0" startPos="12.00" endPos="22.00">
+        <space x="-14.00" y="-14.00"/>
+    </parkingArea>
+    <parkingArea id="pa_12" lane="center1_0" startPos="28.00" endPos="38.00">
+        <space x="18.00" y="-14.00"/>
+    </parkingArea>
+    <parkingArea id="pa_2" lane="center1_1" startPos="14.00" endPos="24.00">
+        <space x="-20.00" y="-14.00"/>
+    </parkingArea>
+    <parkingArea id="pa_3" lane="center1_1" startPos="26.00" endPos="36.00">
+        <space x="24.00" y="-14.00"/>
+    </parkingArea>
+    <parkingArea id="pa_4" lane="top_0" startPos="12.00" endPos="22.00">
+        <space x="12.00" y="22.00"/>
+    </parkingArea>
+    <parkingArea id="pa_5" lane="top_0" startPos="28.00" endPos="38.00">
+        <space x="-20.00" y="22.00"/>
+    </parkingArea>
+    <parkingArea id="pa_6" lane="bot_0" startPos="12.00" endPos="22.00">
+        <space x="-12.00" y="-26.00"/>
+    </parkingArea>
+    <parkingArea id="pa_7" lane="bot_0" startPos="28.00" endPos="38.00">
+        <space x="20.00" y="-26.00"/>
+    </parkingArea>
+    <parkingArea id="pa_8" lane="center0_1" startPos="26.00" endPos="36.00">
+        <space x="-18.00" y="8.00"/>
+    </parkingArea>
+    <parkingArea id="pa_9" lane="center0_1" startPos="14.00" endPos="24.00">
+        <space x="14.00" y="8.00"/>
+    </parkingArea>
+</additional>

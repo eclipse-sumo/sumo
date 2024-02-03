@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,7 +41,7 @@ class ParkingAreaDomain(Domain):
         return self._getUniversal(tc.VAR_POSITION, stopID)
 
     def getEndPos(self, stopID):
-        """getStartPos(string) -> double
+        """getEndPos(string) -> double
 
         The end position of the stop along the lane measured in m.
         """
@@ -55,13 +55,13 @@ class ParkingAreaDomain(Domain):
         return self._getUniversal(tc.VAR_NAME, stopID)
 
     def getVehicleCount(self, stopID):
-        """getParkingAreaWaiting() -> integer
+        """getVehicleCount(string) -> integer
         Get the total number of vehicles stopped at the named parking area.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getParkingAreaWaiting() -> list(string)
+        """getVehicleIDs(string) -> list(string)
         Get the IDs of vehicles stopped at the named parking area.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)

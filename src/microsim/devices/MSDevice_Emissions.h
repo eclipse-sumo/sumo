@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 #include <microsim/MSVehicle.h>
 #include "MSVehicleDevice.h"
 
@@ -75,6 +76,15 @@ public:
 
 
 public:
+    /** @brief Constructor
+     *
+     * @param[in] holder The vehicle that holds this device
+     */
+    MSDevice_Emissions(SUMOVehicle& holder);
+
+    /// @brief Destructor.
+    ~MSDevice_Emissions();
+
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
 
@@ -120,10 +130,6 @@ public:
      */
     void generateOutput(OutputDevice* tripinfoOut) const;
 
-
-    /// @brief Destructor.
-    ~MSDevice_Emissions();
-
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -138,18 +144,8 @@ protected:
                             const double meanLengthOnLane);
 
 private:
-    /** @brief Constructor
-     *
-     * @param[in] holder The vehicle that holds this device
-     * @param[in] id The ID of the device
-     */
-    MSDevice_Emissions(SUMOVehicle& holder, const std::string& id);
-
-
-private:
     /// @brief Internal storages for pollutant/fuel sum in mg or ml
     PollutantsInterface::Emissions myEmissions;
-
 
 private:
     /// @brief Invalidated copy constructor.
@@ -157,6 +153,5 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSDevice_Emissions& operator=(const MSDevice_Emissions&);
-
 
 };

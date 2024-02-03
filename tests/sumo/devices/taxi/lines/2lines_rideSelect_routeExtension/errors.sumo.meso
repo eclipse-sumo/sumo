@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Vehicle 'trip_A' aborted waiting for a person that will never come.
+Warning: Vehicle 'trip_B' aborted waiting for a person that will never come.

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <utility>
 #include <utils/xml/SUMOSAXHandler.h>
 
+class EnergyParams;
 
 // ===========================================================================
 // class definitions
@@ -45,6 +46,7 @@ public:
      */
     TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
                         const SUMOEmissionClass defaultClass,
+                        EnergyParams* params, long long int attributes,
                         const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -52,16 +54,18 @@ public:
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-            const SUMOEmissionClass c, double& v,
+            const SUMOEmissionClass c, EnergyParams* params, double& v,
             double& a, double& s);
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
+                        EnergyParams* params, long long int attributes,
                         double t, double& v,
                         double& a, double& s);
 
     bool writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
+                           EnergyParams* params,
                            SUMOTime t, double& v,
                            double a = INVALID_VALUE, double s = INVALID_VALUE);
 
@@ -87,12 +91,16 @@ protected:
                         const SUMOSAXAttributes& attrs);
     //@}
 
+private:
+    void writeOptional(std::ostream& o, long long int attributes, const SumoXMLAttr attr, double v);
 
 private:
     const bool myComputeA;
     const bool myComputeAForward;
     const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
+    EnergyParams* myParams;
+    long long int myAttributes;
     const double myDefaultSlope;
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;

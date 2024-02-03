@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@ of the CityMobil parking lot.
 """
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
 import random
 import subprocess
 import os
@@ -36,6 +37,7 @@ from constants import CYBER_SPEED, CYBER_LENGTH
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
+random.seed(42)
 # network building
 nodes = open("%s.nod.xml" % PREFIX, "w")
 sumolib.xml.writeHeader(nodes, root="nodes")
@@ -155,9 +157,11 @@ with open("%s_bus.rou.xml" % PREFIX, "w") as routes:
     print("""    <flow id="b" from="cyberin" to="cyberout" type="bus"
           begin="50" period="100" number="%s" line="taxi">""" %
           (TOTAL_CAPACITY // BUS_CAPACITY), file=routes)
-    for row in range(DOUBLE_ROWS-1):
-        edgeID = "cyber%sto%s" % (row, row + 1)
-        print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
+    for repeat in range(400 // TOTAL_CAPACITY):
+        for row in range(DOUBLE_ROWS-1):
+            edgeID = "cyber%sto%s" % (row, row + 1)
+            print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
+        print('    <stop edge="cyberout" duration="10"/>', file=routes)
     print("    </flow>\n</routes>", file=routes)
 
 # passenger car demand

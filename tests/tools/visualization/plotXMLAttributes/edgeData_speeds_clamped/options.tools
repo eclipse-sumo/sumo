@@ -1,0 +1,5 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x begin -y speed --filter-ids 120,-120
+--xclamp 300:
+--yclamp 2:10
+tools/visualization/plotXMLAttributes.py

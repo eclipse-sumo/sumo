@@ -10,7 +10,7 @@
     
     <processing>
         <ignore-route-errors value="true"/>
-        <overhead-wire-solver value="true"/>
+        <overhead-wire.solver value="true"/>
         <no-internal-links value="true"/>
     </processing>
     
@@ -21,10 +21,6 @@
     <elechybrid_device>
          <device.elechybrid.explicit value="test1,test2"/>
     </elechybrid_device>
-    
-    <battery>
-         <device.battery.explicit value="test1"/>
-    </battery>
     
     <output>
         <tripinfo-output.write-unfinished  value="true"/>

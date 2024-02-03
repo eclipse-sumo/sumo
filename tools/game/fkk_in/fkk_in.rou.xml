@@ -1,0 +1,31 @@
+<routes>
+    <vTypeDistribution id="DEFAULT_VEHTYPE">
+        <vType id="passenger" length="5.0" minGap="2.5" guiShape="passenger" osgFile="vw_golf.3ds" probability="20" />
+        <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" osgFile="tour_bus.3ds" width="2.4" probability="2"/>
+        <vType id="truck/trailer" length="16.25" minGap="2.5" guiShape="truck/trailer" osgFile="lorry.3ds" width="2.6" probability="1"/>
+        <vType id="bicycle" length="1.6" minGap="2.5" vClass="bicycle" probability="5"/>
+    </vTypeDistribution>
+
+    <flow id="1_right" from="737320747#4" to="-148050455#0" begin="0" end="90000" period="30" departSpeed="max"/>
+    <flow id="2_right" from="29119850" to="-137246371#1" begin="0" end="90000" period="30" departSpeed="max"/>
+
+    <flow id="1_left" from="737320747#4" to="-137246371#1" begin="0" end="90000" period="45" departSpeed="max"/>
+    <flow id="2_left" from="29119850" to="-148050455#0" begin="0" end="90000" period="55" departSpeed="max"/>
+
+    <flow id="1_horizontal" from="737320747#4" to="116687469#0" begin="0" end="90000" period="15" departSpeed="max"/>
+    <flow id="2_horizontal" from="29119850" to="54169280#1" begin="0" end="90000" period="30" departSpeed="max"/>
+
+    <flow id="3_right" from="148050455#0" to="116687469#0" begin="0" end="90000" period="30" departSpeed="max"/>
+    <flow id="4_right" from="30399663#0" to="54169280#1" begin="0" end="90000" period="40" departSpeed="max"/>
+    <flow id="4_left" from="30399663#0" to="116687469#0" begin="0" end="90000" period="12" departSpeed="max"/>
+
+    <flow id="3_vertical" from="148050455#0" to="-137246371#1" begin="20" end="90000" period="20" departSpeed="max"/>
+    <flow id="4_vertical" from="30399663#0" to="-148050455#0" begin="20" end="90000" period="20" departSpeed="max"/>
+
+    <flow id="4_left0" from="30399663#0" to="116687469#0" begin="20" end="90000" period="10" departSpeed="max"/>
+    <flow id="1_horizontal0" from="737320747#4" to="116687469#0" begin="50" end="90000" period="20" departSpeed="max"/>
+    <flow id="3_vertical0" from="148050455#0" to="-137246371#1" begin="60" end="90000" period="20" departSpeed="max"/>
+    <flow id="4_right0" from="30399663#0" to="54169280#1" begin="70" end="90000" period="40" departSpeed="max"/>
+    <flow id="2_left0" from="29119850" to="-148050455#0" begin="80" end="90000" period="60" departSpeed="max"/>
+
+</routes>

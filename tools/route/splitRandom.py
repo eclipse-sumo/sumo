@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 import random
 
 # (seed)
@@ -35,27 +34,28 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-r", "--route-file", dest="routefile",
-                         help="define the input route file with trips or vehicles")
-    optParser.add_option("-n", "--number", dest="number",
-                         help="number of trips/vehicles to split (not together with percent)")
-    optParser.add_option("-p", "--percent", dest="percent",
-                         help="percent of trips/vehicles to split (not toghether with number")
-    optParser.add_option("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
-                         help="define the first output route file")
-    optParser.add_option("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
-                         help="define the second output route file")
-    optParser.add_option("--random", action="store_true", default=False,
-                         help="use a random seed to initialize the random number generator")
-    optParser.add_option("-s", "--seed", type="int", default=42,
-                         help="random seed")
-    (options, args) = optParser.parse_args(args=args)
+    ap = ArgumentParser()
+    ap.add_argument("-r", "--route-file", dest="routefile", category="input", type=ap.route_file,
+                    help="define the input route file with trips or vehicles")
+    ap.add_argument("-n", "--number", dest="number", category="input", type=int,
+                    help="number of trips/vehicles to split (not together with percent)")
+    ap.add_argument("-p", "--percent", dest="percent", category="input", type=float,
+                    help="percent of trips/vehicles to split (not together with number")
+    ap.add_argument("-a", "--output-file-a", dest="outputA", default="tripsA.rou.xml",
+                    category="output", type=ap.route_file, help="define the first output route file")
+    ap.add_argument("-b", "--output-file-b", dest="outputB", default="tripsB.rou.xml",
+                    category="output", type=ap.route_file, help="define the second output route file")
+    ap.add_argument("--random", action="store_true", default=False, category="random",
+                    help="use a random seed to initialize the random number generator")
+    ap.add_argument("-s", "--seed", type=int, default=42, category="random",
+                    help="random seed")
+    options = ap.parse_args(args=args)
     if not options.routefile or not (options.number or options.percent) or (options.number and options.percent):
-        optParser.print_help()
+        ap.print_help()
         sys.exit()
     return options
 
@@ -110,5 +110,5 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
+    options = get_options(sys.argv[1:])
     main(options)

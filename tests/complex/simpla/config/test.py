@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    test.py
 # @author  Leonhard Luecken
+# @author  Mirko Barthauer
 # @date    2017
 
 import unittest as ut
@@ -84,6 +85,7 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
                 <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
 catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             """
+        self.cfg_body7 = '<edgeLookAhead value="2"/><distLookAhead value="300.0"/>'
 
         # start a sumo instance
         self.sumocfg = os.path.join(self.testDir, "sumo.sumocfg")
@@ -234,6 +236,13 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             # print ("Vehicles: %s"%traci.vehicle.getIDList())
             traci.simulationStep()
 
+    def test_lookAhead(self):
+        print("Testing lookAhead settings only...")
+        self.patchConfigFile(self.cfg_body7)
+        simpla.load(self.CFG1)
+        self.assertEqual(cfg.EDGE_LOOKAHEAD, 2)
+        self.assertEqual(cfg.DIST_LOOKAHEAD, 300.0)
+
 # ~ # restrict run to specific tests
 # ~ selected_test = 5
 # ~ tests = [a for a in dir(TestConfig) if a.startswith("test")]
@@ -247,7 +256,4 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
 
 
 if __name__ == "__main__":
-    if sys.version.startswith("3"):
-        ut.main(warnings="ignore")
-    else:
-        ut.main()
+    ut.main()

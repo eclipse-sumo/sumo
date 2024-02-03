@@ -1,0 +1,15 @@
+--vehroute-output vehroutes.xml
+--fcd-output fcd.xml
+--no-step-log --no-duration-log -n
+input_net.net.xml -r input_routes.rou.xml --save-state.times 50
+--save-state.files state.xml  --save-state.transportables
+--pedestrian.striping.dawdling 0
+:
+--vehroute-output vehroutes2.xml
+--fcd-output fcd2.xml
+--no-step-log --no-duration-log -n
+input_net.net.xml --load-state state.xml
+--pedestrian.striping.dawdling 0
+--compare vehroutes:7:3,fcd:69:3
+
+tests/complex/state/runner.py

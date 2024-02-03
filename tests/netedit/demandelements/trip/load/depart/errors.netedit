@@ -1,0 +1,4 @@
+Error: Invalid departure time for vehicle 'trip_0';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: Negative departure time in the definition of vehicle 'trip_1'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.25Jan182728.9910/netedit.daily.demand.trip/demandelements/trip/load/depart/routes.rou.xml failed.

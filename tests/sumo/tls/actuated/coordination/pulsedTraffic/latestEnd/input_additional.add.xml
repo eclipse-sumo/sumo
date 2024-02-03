@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="B0" type="actuated" programID="custom" offset="0">
+        <phase duration="42" state="GGggrrrrGGggrrrr" minDur="5" maxDur="90"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="42" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="90" latestEnd="60"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+
+    <tlLogic id="C0" type="actuated" programID="custom" offset="0">
+        <phase duration="42" state="GGggrrrrGGggrrrr" minDur="5" maxDur="90"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="42" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="90" latestEnd="60"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+</additional>

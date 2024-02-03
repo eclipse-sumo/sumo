@@ -1,0 +1,28 @@
+/* XPM */
+static const char *transhipcontainerstop_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c None",
+"x c #63b8ff",
+"n c black",
+". c #004A7F",
+"k c #666666",
+"r c red",
+/* pixels */
+" n     n     r  ",
+"n n    nn   rrr ",
+"n n nnnnnn rrrrr",
+"nnn    nn   rrr ",
+"n n    n     r  ",
+"                ",
+"                ",
+"   ...      .   ",
+"    ..       .  ",
+"   . . kkkk   . ",
+"  .   xxxxk   . ",
+" .   kxxxxk   . ",
+" .   kxxxx   .  ",
+" .   kkkk . .   ",
+"  .       ..    ",
+"   .      ...   "
+};

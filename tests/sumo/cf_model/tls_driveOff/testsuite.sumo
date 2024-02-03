@@ -1,0 +1,38 @@
+# the standard structure for model tests
+default
+
+# idm model test
+idm
+
+# idm model with memory test
+idmm
+
+# kerner model test
+kerner
+
+# original krauss model test
+krauss
+
+# wiedemann model test
+wiedemann
+
+# wiedemann model test
+W99
+
+# ACC model test
+ACC
+
+# CACC model test
+CACC
+
+# EIDM model test
+EIDM
+
+# the standard structure for model tests
+default_startupDelay0.5
+
+# the standard structure for model tests
+default_startupDelay1
+
+# lange changing speed advice should not overrule startupDelay
+default_startupDelay2_noPatchLC

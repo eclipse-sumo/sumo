@@ -1,0 +1,7 @@
+Error: Invalid train type 'dummy_trainType' used in Car-Following-Attribute trainType
+Error: Invalid parsing embedded VType
+Error: Invalid train type '-3' used in Car-Following-Attribute trainType
+Error: Invalid parsing embedded VType
+Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
+Error: Invalid parsing embedded VType
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/carfollowingmodel_params/train_type/routes.rou.xml failed.

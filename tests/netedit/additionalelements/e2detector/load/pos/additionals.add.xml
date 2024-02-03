@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid position (missing) -->
+    <laneAreaDetector id="E2_01" lane="center0_0" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid position (dummy) -->
+    <laneAreaDetector id="E2_02" lane="center0_0" pos="dummyPosition" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid position (negative) -->
+    <laneAreaDetector id="E2_03" lane="center0_0" pos="-5" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid position (overpassing lane length) -->
+    <laneAreaDetector id="E2_04" lane="center0_0" pos="3000" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- valid position -->
+    <laneAreaDetector id="E2_05" lane="center0_0" pos="10" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+</additional>

@@ -2,13 +2,14 @@
  *  file:       euler.h
  * ---------------------------------------------------
  *  purpose:	free method for computing spirals
- *              in OpenDRIVE applications 
+ *              in OpenDRIVE applications
  * ---------------------------------------------------
  *  using methods of CEPHES library
  * ---------------------------------------------------
  *  first edit:	09.03.2010 by M. Dupuis @ VIRES GmbH
  *  last mod.:  02.05.2017 by Michael Scholz @ German Aerospace Center (DLR)
  *  last mod.:  05.07.2017 by Jakob Erdmann @ German Aerospace Center (DLR)
+ *  last mod.:  14.05.2022 by Michael Behrisch @ German Aerospace Center (DLR)
  * ===================================================
     Copyright 2010 VIRES Simulationstechnologie GmbH
 	Copyright 2017 German Aerospace Center (DLR)
@@ -21,15 +22,19 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
-    
+
+
     NOTE:
-    The methods have been realized using the CEPHES library 
+    The methods have been realized using the CEPHES library
         http://www.netlib.org/cephes/
-    and do neither constitute the only nor the exclusive way of implementing 
-    spirals for OpenDRIVE applications. Their sole purpose is to facilitate 
+    and do neither constitute the only nor the exclusive way of implementing
+    spirals for OpenDRIVE applications. Their sole purpose is to facilitate
     the interpretation of OpenDRIVE spiral data.
  */
+
+#ifdef _MSC_VER
+#pragma warning(disable:4820 4514 5045)
+#endif
 
 /* ====== INCLUSIONS ====== */
 #include <stdio.h>
@@ -179,7 +184,7 @@ static void fresnel( double xxa, double *ssa, double *cca )
 
     x  = fabs( xxa );
     x2 = x * x;
-    
+
     if ( x2 < 2.5625 )
     {
         t = x2 * x2;
@@ -234,12 +239,12 @@ void odrSpiral( double s, double cDot, double *x, double *y, double *t )
 
     a = 1.0 / sqrt( fabs( cDot ) );
     a *= sqrt( M_PI );
-    
+
     fresnel( s / a, y, x );
-    
+
     *x *= a;
     *y *= a;
-    
+
     if ( cDot < 0.0 )
         *y *= -1.0;
 

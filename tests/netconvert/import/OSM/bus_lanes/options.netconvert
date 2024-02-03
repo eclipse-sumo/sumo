@@ -1,2 +1,2 @@
- --osm-files osm.xml
+ --osm-files osm.xml,osm2.xml
  --osm.extra-attributes all

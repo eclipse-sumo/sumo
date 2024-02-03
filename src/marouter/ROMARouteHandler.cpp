@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,16 +55,16 @@ ROMARouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         if (!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz) {
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
-            } else if (attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROMJUNCTION) + "-source";
+            } else if (attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION)) {
+                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM_JUNCTION) + "-source";
             }
 
         }
         if (!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz) {
             if (attrs.hasAttribute(SUMO_ATTR_TO)) {
                 myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO);
-            } else if (attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
-                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TOJUNCTION) + "-sink";
+            } else if (attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO_JUNCTION) + "-sink";
             }
         }
     } else if (element == SUMO_TAG_PARAM && !myTazParamKeys.empty()) {
@@ -84,7 +84,7 @@ void
 ROMARouteHandler::myEndElement(int element) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
         if (myVehicleParameter->fromTaz == "" || myVehicleParameter->toTaz == "") {
-            WRITE_WARNING("No origin or no destination given, ignoring '" + myVehicleParameter->id + "'!");
+            WRITE_WARNINGF(TL("No origin or no destination given, ignoring '%'!"), myVehicleParameter->id);
         } else {
             int quota = getScalingQuota(myScale, myNumLoaded);
             for (int i = 0; i < quota; i++) {

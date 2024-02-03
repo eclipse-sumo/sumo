@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 14:00:52 2014 by SUMO duarouter Version dev-SVN-r15793
+<!-- generated on 2021-11-09 21:13:42 by Eclipse SUMO duarouter Version v1_10_0+2081-61814bb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,19 +10,19 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <trip-files value="input_trips.trips.xml"/>
+        <route-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
-
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <ignore-errors value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -31,6 +31,61 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" type="foo" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="a.0" type="x" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="a.1" type="x" depart="10.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="a.2" type="x" depart="20.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.0" type="y" depart="3602.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.1" type="y" depart="3605.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.2" type="y" depart="3610.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.3" type="y" depart="3616.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.4" type="y" depart="3620.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.5" type="y" depart="3630.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.6" type="y" depart="3635.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="b.7" type="y" depart="3648.00">
         <routeDistribution last="0">
             <route cost="107.91" probability="1.00000000" edges="beg middle end"/>
         </routeDistribution>

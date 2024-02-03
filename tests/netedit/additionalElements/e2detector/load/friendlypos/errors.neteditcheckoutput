@@ -1,2 +1,0 @@
-Warning: No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos
-Warning: Adjusted detector positioning to meet requirement length >= 0.10. New position is [49.90,50.00]

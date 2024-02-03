@@ -1,14 +1,6 @@
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
 
 
 Testing adding and removing connected vehicles...
- Retrying in 1 seconds
 Loading vehicle type mappings from file 'vtype.map'... (Config)
 original type: 'connected' (Config)
 platoon leader type: 'connected_pLeader' (Config)
@@ -29,7 +21,6 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
 Testing platoon manager initialization...
- Retrying in 1 seconds
 Loading vehicle type mappings from file 'vtype.map'... (Config)
 original type: 'connected' (Config)
 platoon leader type: 'connected_pLeader' (Config)
@@ -41,17 +32,14 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
 Testing specification per vtypemap xml-element...
- Retrying in 1 seconds
 Initializing simpla.PlatoonManager... (PlatoonManager)
 Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
 Testing specification per vtypemap xml-element with missing modes...
- Retrying in 1 seconds
 
 
 Testing Warnings...
- Retrying in 1 seconds
 Loading vehicle type mappings from file 'vtype.map'... (Config)
 original type: 'connected' (Config)
 platoon leader type: 'connected_pLeader' (Config)
@@ -64,7 +52,6 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 
 
 Testing platoon formation...
- Retrying in 1 seconds
 Loading vehicle type mappings from file 'vtype.map'... (Config)
 original type: 'connected' (Config)
 platoon leader type: 'connected_pLeader' (Config)
@@ -77,10 +64,9 @@ Managing all vTypes selected by ['connected'] (PlatoonManager)
 3.1: Adding vehicle 'connected.2' (PlatoonManager)
 13.7: Platoon '1' joined Platoon '0', which now contains vehicles:
 ['connected.1', 'connected.2'] (PlatoonManager)
-75.0: Platoon '0' splits (ID of new platoon: '6'):
+75.0: Platoon '0' splits (ID of new platoon: '2'):
     Platoon '0': ['connected.1']
-    Platoon '6': ['connected.2'] (PlatoonManager)
+    Platoon '2': ['connected.2'] (PlatoonManager)
 
 
 Testing Exceptions for unknown vTypes...
- Retrying in 1 seconds

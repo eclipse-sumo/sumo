@@ -1,0 +1,32 @@
+/* XPM */
+static const char *save_demandelements_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 10 1",
+"  c black",
+". c #040404",
+"X c None",
+"o c #808304",
+"O c #FFD800",
+"+ c #0026FF",
+"@ c cyan",
+"# c #808080",
+"$ c #B6BAB7",
+"% c #BFC2BF",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"X..............X",
+"X.o.++++++++.$.X",
+"X.o++@@@@@@++..X",
+"X.o+@@@@@@@@+o.X",
+"X.o++++++++++o.X",
+"X.o+O+####+O+o.X",
+"X.o++++++++++o.X",
+"X.o  ######  o.X",
+"X.oooooooooooo.X",
+"X.oo.........o.X",
+"X.oo......%%.o.X",
+"X.oo......%%.o.X",
+"X.oo......%%.o.X",
+"XX.............X",
+"XXXXXXXXXXXXXXXX"
+};

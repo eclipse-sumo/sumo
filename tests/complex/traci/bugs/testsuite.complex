@@ -54,9 +54,6 @@ ticket4141
 # crash on first call to simulationStep(time)
 ticket4214
 
-# add trip
-ticket4307
-
 # traffic light type
 ticket4324
 ticket4418
@@ -71,9 +68,6 @@ ticket4642
 
 # failure to add vehicle in long simulation
 ticket4920
-
-# moveToXY and opposite direction driving
-ticket5029
 
 # sumo aborts with error when calling traci.simulation.getDistanceRoad and no route is found
 ticket5114
@@ -106,6 +100,9 @@ ticket5932
 # use changeLaneRelative to change to the right
 ticket5990
 
+# reset object lists (doesn't happen with libsumo)
+ticket6239
+
 # handle invalid departSpeed without crashing
 ticket6626
 
@@ -117,3 +114,37 @@ ticket7949
 
 # crash during lane-changing after calling moveTo with an internal lane
 ticket8714
+
+# crash when calling libsumo twice
+ticket8945
+
+# do not return left+right in lanechange state
+ticket10212
+
+# do not return left+right in lanechange state
+ticket10212b
+
+# bestlanes must be updated after changing vClass
+ticket11117
+
+# no sim loaded
+ticket11215
+
+# moveXY after aborting stop with setStop
+ticket11870
+
+# failure to perform traci lane change
+ticket12810
+
+# failure to perform traci lane change (like 12810 but with different additional
+# change motivations)
+ticket12944
+
+# invalid route offset after moveToXY moves backwards onto internal lane
+ticket13053
+
+# missing vehicle type in save state
+ticket13384
+
+# follower overtakes leader slowing down to a non-official stop (v=0)
+ticket13710

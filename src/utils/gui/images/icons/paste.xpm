@@ -1,0 +1,34 @@
+/* XPM */
+static const char *paste_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 12 1",
+". c #396BBD",
+"1 c #6A92D2",
+"2 c #73B5EF",
+"3 c white",
+"e c #C6DEF7",
+"i c #DEE7F7",
+"  c None",
+"k c #9C6321",
+"h c #A57B42",
+"g c #DEAD7B",
+"= c #D59D66",
+"4 c #FFC90E",
+/* pixels */
+"   kkkkkk       ",
+"ghkk4444kkhg    ",
+"hggk4444kggh    ",
+"kg=kkkkkk=gk    ",
+"kg====........  ",
+"kg====.3333331. ",
+"kg====.32222311.",
+"kg====.3eeeei33.",
+"kg====.32222223.",
+"kg====.3eeeeee3.",
+"kg====.32222223.",
+"kg====.3eeeeee3.",
+"kg====.32222223.",
+"hggggg.3eeeeee3.",
+"ghkkkk.33333333.",
+"      .........."
+};

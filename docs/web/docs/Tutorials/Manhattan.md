@@ -6,13 +6,13 @@ title: Manhattan
 
 This Tutorial explains how to build a [Manhattan Mobility
 Model](https://en.wikipedia.org/wiki/Manhattan_mobility_model) in SUMO.
-In this model a fixed number of vehicles drive randomly on a manhattan
+In this model, a fixed number of vehicles drive randomly on a Manhattan
 grid network. All files can also be found in the
 {{SUMO}}/docs/tutorial/manhattan directory.
 
 # Creating the network
 
-Creating manhattan grid networks is supported by the
+Creating Manhattan grid networks is supported by the
 [netgenerate](../netgenerate.md) application. The option **--grid** creates
 grid networks. The number of grid cells can be set using the option **--grid.number**.
 There are various options to configure the size and number of the cells
@@ -44,9 +44,9 @@ used to generated suitable randomFlows with the following options.
 ```
 
 The option **--flows 100** defines the number of vehicles that shall drive in the
-network. Usually a `<flow>` is used to defined multiple vehicles but in this
+network. Usually a `<flow>` is used to define multiple vehicles but in this
 case each flow generates just a single vehicle at the start of the
-simulation. (hence option **--end 1**). The option **--jtrrouter** must be set to generated flows
+simulation (hence the option **--end 1**). The option **--jtrrouter** must be set to generate flows
 without destination. Otherwise the generated vehicles might end their
 trip too early. The arguments supplied to option **--trip-attributes** are set to ensure that
 multiple vehicles may enter the source edge in the first step.

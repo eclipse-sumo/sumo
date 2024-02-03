@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+    <type id="show_clipping" numLanes="4">
+        <laneType index="0" width="1"/>
+        <laneType index="1" width="9" disallow="all"/>
+        <laneType index="2" width="1"/>
+        <laneType index="3" width="4.5" disallow="all"/>
+    </type>
+</types>

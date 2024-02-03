@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,8 +71,8 @@ public:
     static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, int maxRoutes = std::numeric_limits<int>::max());
 
 
-    /// @brief generate vehroute output for vehicles which are still in the network
-    static void generateOutputForUnfinished();
+    /// @brief generate vehroute output for pending vehicles at sim end, either due to sorting or because they are still in the net
+    static void writePendingOutput(const bool includeUnfinished);
 
 
 public:
@@ -114,7 +114,7 @@ public:
         return "vehroute";
     }
 
-    void stopEnded(const SUMOVehicleParameter::Stop& stop);
+    void notifyStopEnded();
 
     /** @brief Called on writing vehroutes output
      *
@@ -128,7 +128,7 @@ public:
      * @param[in] index The index of the route to retrieve
      * @return the route at the index
      */
-    const MSRoute* getRoute(int index) const;
+    ConstMSRoutePtr getRoute(int index) const;
 
 
     /** @brief Saves the state of the device
@@ -143,6 +143,20 @@ public:
     */
     void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief Information needed to sort vehicle / transportable output by departure time
+    struct SortedRouteInfo {
+        /// @brief route output device
+        OutputDevice* routeOut = nullptr;
+
+        /// @brief Map needed to sort vehicles by departure time
+        std::map<const SUMOTime, int> departureCounts;
+
+        /// @brief pregenerated route output sorted by time
+        std::map<const SUMOTime, std::map<const std::string, std::string> > routeXML;
+    };
+
+    static void registerTransportableDepart(SUMOTime depart);
+    static void writeSortedOutput(SortedRouteInfo* routeInfo, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
 
 private:
     /** @brief Constructor
@@ -172,8 +186,6 @@ private:
     /** @brief Called on route change
      */
     void addRoute(const std::string& info);
-
-
 
 private:
     /// @brief A shortcut for the Option "vehroute-output.exit-times"
@@ -206,6 +218,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.stop-edges"
     static bool myWriteStopPriorEdges;
 
+    /// @brief A shortcut for the Option "vehroute-output.internal"
+    static bool myWriteInternal;
+
     /** @class StateListener
      * @brief A class that is notified about reroutings
      */
@@ -229,11 +244,8 @@ private:
     /// @brief A class that is notified about reroutings
     static StateListener myStateListener;
 
-    /// @brief Map needed to sort vehicles by departure time
-    static std::map<const SUMOTime, int> myDepartureCounts;
-
-    /// @todo: describe
-    static std::map<const SUMOTime, std::map<const std::string, std::string> > myRouteInfos;
+    /// @brief Information needed to sort vehicles by departure time
+    static SortedRouteInfo myRouteInfos;
 
 
     /**
@@ -252,8 +264,12 @@ private:
          * @param[in] time_ The time the route was replaced
          * @param[in] route_ The prior route
          */
-        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_, const std::string& info_)
-            : edge(edge_), time(time_), route(route_), info(info_) {}
+        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, ConstMSRoutePtr const route_,
+                         const std::string& info_, int lastRouteIndex_, int newRouteIndex_) :
+            edge(edge_), time(time_), route(route_), info(info_),
+            lastRouteIndex(lastRouteIndex_),
+            newRouteIndex(newRouteIndex_)
+        {}
 
         /// @brief Destructor
         ~RouteReplaceInfo() { }
@@ -265,20 +281,28 @@ private:
         SUMOTime time;
 
         /// @brief The prior route
-        const MSRoute* route;
+        ConstMSRoutePtr route;
 
         /// @brief Information regarding rerouting
         std::string info;
 
+        /// @brief The last index in the replaced route
+        // (vehicle may or may not have driven to the end of it)
+        int lastRouteIndex;
+
+        /// @brief The current index in the replacement route
+        // (new route may or may not include prior driven route edges)
+        int newRouteIndex;
+
     };
 
     /// @brief The currently used route
-    const MSRoute* myCurrentRoute;
+    ConstMSRoutePtr myCurrentRoute;
 
     /// @brief Prior routes
     std::vector<RouteReplaceInfo> myReplacedRoutes;
 
-    /// @brief The times the vehicle exites an edge
+    /// @brief The times at which the vehicle exits an edge
     std::vector<SUMOTime> myExits;
 
     /// @brief The maximum number of routes to report
@@ -286,6 +310,9 @@ private:
 
     /// @brief The last edge the exit time was saved for
     const MSEdge* myLastSavedAt;
+
+    /// @brief The route index of the last edge that the vehicle left
+    int myLastRouteIndex;
 
     /// @brief The lane the vehicle departed at
     int myDepartLane;

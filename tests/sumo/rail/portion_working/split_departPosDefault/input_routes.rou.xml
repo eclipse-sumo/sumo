@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail"/>
+    <vType id="splitTrain" vClass="rail" length="50"/>
+    <trip id="t0" type="train" depart="0.00" from="b" to="c">
+        <stop busStop="B" duration="60.00" split="t1"/>
+    </trip>
+    <!-- should be on the same track while t0 is split -->
+    <trip id="other" type="splitTrain" depart="2" from="b" to="c"/>
+
+    <trip id="t1" type="splitTrain" depart="split" from="b" to="e">
+        <stop busStop="B" duration="60.00"/>
+    </trip>
+</routes>

@@ -12,6 +12,7 @@
 
     <xsd:complexType name="edgesType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="location" type="locationType" maxOccurs="1"/>
             <xsd:element name="edge" type="edgeType"/>
             <xsd:element name="roundabout" type="roundaboutType"/>
             <xsd:element name="delete" type="deleteType"/>
@@ -45,12 +46,13 @@
         <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="friction" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="sidewalkWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="bikeLaneWidth" type="nonNegativeFloatType"/>
-        <xsd:attribute name="distance" type="xsd:float"/>
+        <xsd:attribute name="distance" type="floatType"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -70,6 +72,7 @@
         </xsd:choice>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="friction" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>

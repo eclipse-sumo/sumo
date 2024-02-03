@@ -1,0 +1,2 @@
+Error: Attribute 'join' in definition of a stop is empty.
+Warning: Vehicle 'vehicle_0' aborted waiting to be joined to vehicle 'customJoin'.

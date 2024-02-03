@@ -8,6 +8,6 @@
         <route edges="beg"/>
     </vehicle>
     <person id="p0" depart="0" departPos="90.0">
-        <walk edges="beg" arrivalPos="10" departPosLat="1.6"/>
+        <walk edges="beg" arrivalPos="10" departPosLat="0"/>
     </person>
 </routes>

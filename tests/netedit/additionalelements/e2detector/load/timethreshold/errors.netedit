@@ -1,0 +1,3 @@
+Error: Attribute 'timeThreshold' in definition of laneAreaDetector 'E2_02' is not a valid time value.
+Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Attribute timeThreshold cannot be negative.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e2detector/load/timethreshold/additionals.add.xml failed.

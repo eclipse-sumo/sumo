@@ -1,0 +1,5 @@
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Attribute 'id' in definition of a route is empty.
+Error: Could not build route with ID '%%$$$%  $$%' in netedit; ID contains invalid characters.
+Error: There is another route with the same ID='route_0'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.25Jan182728.9850/netedit.daily.demand.route/demandelements/route/load/id/routes.rou.xml failed.

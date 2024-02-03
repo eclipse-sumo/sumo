@@ -1,0 +1,71 @@
+Loading net ... done.
+Loaded 266 edges.
+Reading input ... first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
+done.
+Consolidating statistics ... done.
+Building street representation ... done.
+Generating work positions ... --> work position: 
+  |-> in city: 790
+  |-> out city: 0
+  |-> in+out city: 790
+done.
+Building bus lines ... done.
+Generating population ... --> population: 
+  |-> city households: 500
+  |-> city people: 1000
+    |-> city single: 190 / (in) couple: 620
+    |-> city adults: 810
+      |-> estimation: 810
+      |-> retired: 240
+    |-> city children: 190
+      |-> estimation: 190
+done.
+Allocating schools ... done.
+Allocating work places ...   |-> working people: 757
+    |-> working people in city: 557
+    |-> working people from outside: 200
+done.
+Allocating car places ... done.
+no problem during bus line trip generation...
+after public transportation: 248
+no problem during households' trips generation...
+after household activities: 872
+after incoming/outgoing traffic: 872
+Before Random traffic generation (days are still entire):
+- Total number of trips: 1532
+- Total daily trips: 660
+- Total one-day trips: 212
+added uniform random trips: 383
+no problem during random traffic generation...
+after random traffic: 1255
+total trips generated: 1255
+total trips finally taken: 952
+...sorted by departure time.
+
+first real trip: 1, 0:26:51
+last real trip: 1, 23:57:53
+histogram[ hour 0 ] = 5
+histogram[ hour 1 ] = 8
+histogram[ hour 2 ] = 7
+histogram[ hour 3 ] = 5
+histogram[ hour 4 ] = 8
+histogram[ hour 5 ] = 9
+histogram[ hour 6 ] = 34
+histogram[ hour 7 ] = 35
+histogram[ hour 8 ] = 187
+histogram[ hour 9 ] = 110
+histogram[ hour 10 ] = 10
+histogram[ hour 11 ] = 32
+histogram[ hour 12 ] = 34
+histogram[ hour 13 ] = 9
+histogram[ hour 14 ] = 12
+histogram[ hour 15 ] = 13
+histogram[ hour 16 ] = 42
+histogram[ hour 17 ] = 147
+histogram[ hour 18 ] = 82
+histogram[ hour 19 ] = 25
+histogram[ hour 20 ] = 29
+histogram[ hour 21 ] = 36
+histogram[ hour 22 ] = 34
+histogram[ hour 23 ] = 39
+Success.

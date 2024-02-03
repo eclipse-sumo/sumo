@@ -1,0 +1,23 @@
+Reading net
+Processing region 'Bestensee' with 2 edges
+Starting optimization with 4 inequalities
+Optimization succeeded after 0.029738187789916992s (score=3.4830080197278065e-10)
+Processing region 'Eichwalde' with 28 edges
+Starting optimization with 133 inequalities
+Optimization succeeded after 0.3639411926269531s (score=51.80000042121995)
+Processing region 'Königs Wusterhausen' with 108 edges
+Starting optimization with 900 inequalities
+Optimization succeeded after 125.20207238197327s (score=2451.8000027795338)
+Processing region 'Niederlehme' with 5 edges
+Starting optimization with 10 inequalities
+Optimization succeeded after 0.008437633514404297s (score=2.8439263187378757e-09)
+Processing region 'Wildau' with 17 edges
+Starting optimization with 74 inequalities
+Optimization succeeded after 0.02876114845275879s (score=87.60000000457408)
+Processing region 'Zeesen' with 6 edges
+Starting optimization with 18 inequalities
+Optimization succeeded after 0.047864675521850586s (score=1.2000000908186286)
+Processing region 'Zeuthen' with 20 edges
+Starting optimization with 94 inequalities
+Optimization succeeded after 0.1648120880126953s (score=86.60000001281384)
+Building new net

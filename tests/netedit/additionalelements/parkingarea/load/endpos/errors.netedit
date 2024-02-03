@@ -1,0 +1,4 @@
+Error: Attribute 'endPos' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummyEndPos.
+Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Invalid position over lane.
+Error: Could not build parkingArea with ID 'parkingArea_3' in netedit; Invalid position over lane.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092825.15409/netedit.gui/additionalelements/parkingarea/load/endpos/additionals.add.xml failed.

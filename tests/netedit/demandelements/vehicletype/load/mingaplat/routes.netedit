@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-07 09:30:03 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="vType2" minGapLat="0.00"/>
+    <vType id="vType3" minGapLat="12.00"/>
+    <vType id="vType4" minGapLat="4.50"/>
+</routes>

@@ -1,3 +1,7 @@
+# Test scenario based in the GTFS data from Brunswick
+# The stop_times file was reduced to 9 trips for a 
+# better analysis of the results
+
 # import bus lines of brunswick innenstadt
 import_bus_routes
 

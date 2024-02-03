@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 //#define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
 #define RailEdge_DEBUG_COND(obj) (true)
 
+#define REVERSAL_SLACK (POSITION_EPS + NUMERICAL_EPS)
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -51,9 +53,14 @@ public:
         myOriginal(nullptr),
         myTurnaround(nullptr),
         myIsVirtual(true),
-        myMaxLength(turnStart->getLength()),
+        myMaxLength(turnStart->getLength() - REVERSAL_SLACK),
         myStartLength(turnStart->getLength()) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
+    }
+
+    /// @brief Destructor.
+    virtual ~RailEdge() {
+        delete myTurnaround;
     }
 
     void update(double maxTrainLength, const std::vector<const E*>& replacementEdges) {
@@ -83,7 +90,7 @@ public:
                 continue;
             }
             const E* bidi = prev->getBidiEdge();
-            if (backward->isConnectedTo(*bidi, SVC_IGNORING)) {
+            if (bidi != nullptr && backward->isConnectedTo(*bidi, SVC_IGNORING)) {
                 _RailEdge* prevRailEdge = prev->getRailwayRoutingEdge();
                 if (prevRailEdge->myTurnaround == nullptr) {
                     prevRailEdge->myTurnaround = new _RailEdge(prev, bidi, numericalID++);
@@ -108,7 +115,7 @@ public:
 
                 if (notFound) {
                     // prevent loops in replacementEdges
-                    prevRailEdge->myTurnaround->update(prev->getLength() + maxTrainLength, replacementEdges);
+                    prevRailEdge->myTurnaround->update(prev->getLength() + maxTrainLength - REVERSAL_SLACK, replacementEdges);
                     std::vector<const E*> replacementEdges2;
                     replacementEdges2.push_back(prev);
                     replacementEdges2.insert(replacementEdges2.end(), replacementEdges.begin(), replacementEdges.end());
@@ -136,8 +143,11 @@ public:
                 std::cout << "RailEdge " << getID() << " actual turnaround " << myTurnaround->getID() << "\n";
 #endif
                 myTurnaround->myIsVirtual = false;
+                // ensure at least one virtual turnaround (at the start of the
+                // edge) to avoid driving up to the end of long edges
+                const double initialDist = MAX2(maxTrainLength - getLength(), POSITION_EPS);
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
-                                maxTrainLength - getLength(), getLength(), std::vector<const E*> {myOriginal});
+                                initialDist, getLength(), std::vector<const E*> {myOriginal});
             } else {
                 myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
                                           viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
@@ -174,6 +184,7 @@ public:
         } else {
             double seen = myStartLength;
             int nPushed = 0;
+            //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             if (seen >= length && !myIsVirtual) {
                 return;
             }
@@ -182,10 +193,10 @@ public:
                 into.push_back(edge);
                 nPushed++;
                 seen += edge->getLength();
+                //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
                 }
-                //std::cout << "insertOriginalEdges length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
             }
             const int last = (int)into.size() - 1;
             for (int i = 0; i < nPushed; i++) {

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,7 +42,7 @@ ContextSubscriptionResults MeanData::myContextSubscriptionResults;
 std::vector<std::string>
 MeanData::getIDList() {
     std::vector<std::string> ids;
-    for (auto item : MSNet::getInstance()->getDetectorControl().getMeanData()) {
+    for (const auto& item : MSNet::getInstance()->getDetectorControl().getMeanData()) {
         ids.push_back(item.first);
     }
     std::sort(ids.begin(), ids.end());
@@ -80,7 +80,7 @@ MeanData::getMeanData(const std::string& id) {
         throw TraCIException("MeanData '" + id + "' is not known");
     }
     if (it->second.size() > 1) {
-        WRITE_WARNING("Found " + toString(it->second.size()) + " meanData definitions with id '" + id + "'.");
+        WRITE_WARNINGF(TL("Found % meanData definitions with id '%'."), toString(it->second.size()), id);
     }
     return it->second.front();
 }

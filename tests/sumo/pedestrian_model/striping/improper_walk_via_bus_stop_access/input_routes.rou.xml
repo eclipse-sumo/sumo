@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped_pedestrian" vClass="pedestrian"
+		maxSpeed="1.15"
+        speedDev="0.1"
+		speedFactor="1.1"/>
+    <person id="ped1" type="ped_pedestrian" depart="0.0"  departPos="1">
+        <walk edges="a" busStop="b1"/> <!-- Studenthuset -->
+        <walk edges="d"/>
+    </person>
+    <person id="ped2" type="ped_pedestrian" depart="0.0" departPos="44">
+        <walk edges="j" busStop="b1"/> <!-- Studenthuset -->
+        <walk edges="d"/>
+    </person>
+</routes>

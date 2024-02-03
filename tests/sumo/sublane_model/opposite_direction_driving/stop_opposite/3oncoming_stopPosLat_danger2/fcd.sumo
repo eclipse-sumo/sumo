@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-16 11:33:23 by Eclipse SUMO sumo Version v1_15_0+1045-4474c27
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="ego" x="0.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="0.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="200.00" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="ego" x="2.60" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="2.60" pos="2.60" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="186.11" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.89" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="ego" x="7.80" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="5.20" pos="7.80" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="172.22" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.78" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="200.00" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="ego" x="15.60" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.80" pos="15.60" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="158.33" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.67" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="186.11" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.89" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="ego" x="26.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.40" pos="26.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="144.44" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.56" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="172.22" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.78" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="ego" x="39.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="39.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="130.55" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.45" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="158.33" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.67" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="ego" x="52.89" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="52.89" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="116.66" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="83.34" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="144.44" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.56" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="ego" x="66.78" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="66.78" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="102.77" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="97.23" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="130.55" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.45" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="ego" x="79.02" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.24" pos="79.02" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="88.88" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="111.12" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="116.66" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="83.34" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="ego" x="86.76" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.74" pos="86.76" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="74.99" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="125.01" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="102.77" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="97.23" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="ego" x="90.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="3.24" pos="90.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="61.10" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="138.90" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="88.88" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="111.12" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="ego" x="90.00" y="-0.60" angle="78.46" type="DEFAULT_VEHTYPE" speed="0.00" pos="90.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="47.21" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="152.79" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="74.99" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="125.01" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="ego" x="90.00" y="0.40" angle="67.16" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="33.32" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="166.68" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="61.10" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="138.90" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="200.00" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="0.00" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="56.54" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="19.43" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="180.57" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="47.21" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="152.79" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="186.11" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="13.89" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="46.94" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming1" x="5.54" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="194.46" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="33.32" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="166.68" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="172.22" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="27.78" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="38.53" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="19.43" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="180.57" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="158.33" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="41.67" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="31.38" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming2" x="5.54" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="194.46" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="144.44" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="55.56" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="25.40" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="130.55" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="69.45" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="20.48" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="116.66" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="83.34" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="16.47" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="104.11" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="12.55" pos="95.89" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="13.22" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="97.35" y="0.60" angle="261.58" type="DEFAULT_VEHTYPE" speed="6.75" pos="102.65" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="10.60" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="95.10" y="-0.40" angle="254.00" type="DEFAULT_VEHTYPE" speed="2.25" pos="95.10" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="ego" x="90.00" y="2.30" angle="8.49" type="DEFAULT_VEHTYPE" speed="0.00" pos="110.00" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="90.25" y="-0.40" angle="258.32" type="DEFAULT_VEHTYPE" speed="4.85" pos="90.25" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="ego" x="92.60" y="2.30" angle="37.49" type="DEFAULT_VEHTYPE" speed="2.60" pos="107.40" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="82.80" y="-0.40" angle="270.00" type="DEFAULT_VEHTYPE" speed="7.45" pos="82.80" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="ego" x="97.80" y="1.30" angle="100.89" type="DEFAULT_VEHTYPE" speed="5.20" pos="102.20" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="79.84" y="-0.40" angle="270.00" type="DEFAULT_VEHTYPE" speed="2.95" pos="79.84" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="ego" x="98.50" y="0.30" angle="110.67" type="DEFAULT_VEHTYPE" speed="0.70" pos="101.50" lane="-a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="76.89" y="0.60" angle="281.54" type="DEFAULT_VEHTYPE" speed="2.95" pos="123.11" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="ego" x="101.80" y="-0.70" angle="108.04" type="DEFAULT_VEHTYPE" speed="3.30" pos="101.80" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="71.34" y="1.60" angle="280.21" type="DEFAULT_VEHTYPE" speed="5.55" pos="128.66" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="ego" x="107.70" y="-1.60" angle="98.67" type="DEFAULT_VEHTYPE" speed="5.90" pos="107.70" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="63.18" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="8.15" pos="136.82" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="ego" x="116.20" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.50" pos="116.20" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="52.43" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="10.75" pos="147.57" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="ego" x="127.30" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.10" pos="127.30" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="39.08" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.35" pos="160.92" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="ego" x="141.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.70" pos="141.00" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="25.19" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="174.81" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="ego" x="154.89" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="154.89" lane="a_0" slope="0.00"/>
+        <vehicle id="oncoming3" x="11.30" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="188.70" lane="-a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="ego" x="168.78" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="168.78" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="ego" x="182.67" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="182.67" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="ego" x="196.56" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="196.56" lane="a_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00"/>
+</fcd-export>

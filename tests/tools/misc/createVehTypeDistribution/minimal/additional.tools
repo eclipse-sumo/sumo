@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <vTypeDistribution id="exampleDist">
+      <vType id="exampleDist0" carFollowModel="IDM"/>
+      <vType id="exampleDist1" carFollowModel="IDM"/>
+      <vType id="exampleDist2" carFollowModel="IDM"/>
+      <vType id="exampleDist3" carFollowModel="IDM"/>
+      <vType id="exampleDist4" carFollowModel="IDM"/>
+      <vType id="exampleDist5" carFollowModel="IDM"/>
+      <vType id="exampleDist6" carFollowModel="IDM"/>
+      <vType id="exampleDist7" carFollowModel="IDM"/>
+      <vType id="exampleDist8" carFollowModel="IDM"/>
+      <vType id="exampleDist9" carFollowModel="IDM"/>
+   </vTypeDistribution>
+</additional>

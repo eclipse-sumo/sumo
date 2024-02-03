@@ -4,7 +4,7 @@ format 55
   modified_by 17 "Daniel"
 
 
-  
+
   // class settings
   default_attribute_visibility protected default_relation_visibility protected default_operation_visibility public
   //class diagram settings
@@ -29,13 +29,13 @@ format 55
   //activity diagram settings
   package_name_in_tab no show_context no show_opaque_action_definition no auto_label_position yes write_flow_label_horizontally no draw_all_relations yes shadow yes
   show_infonote yes drawing_language uml
-  
-  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activityaction_color transparent parameterpin_color white 
+
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activityaction_color transparent parameterpin_color white
   font_size 8
   diagram_format A4
 
   mark_for_import
-  
+
   ncouples 1
   key "html dir" value "d:/projects/sumo/rbuild/sumo/docs/uml/"
   package_ref 128033 // polyconvert

@@ -1,6 +1,6 @@
-Loading net-file from 'net.net.xml' ... done (3ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_7_0+0644-c2b60a409c started with time: 0.00
+Simulation version v1_14_1+0331-153d228 started with time: 0.00.
 Simulation ended at time: 80.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -11,7 +11,7 @@ Vehicles:
  Inserted: 20
  Running: 0
  Waiting: 0
-Statistics (avg):
+Statistics (avg of 20):
  RouteLength: 256.80
  Speed: 7.74
  Duration: 33.20

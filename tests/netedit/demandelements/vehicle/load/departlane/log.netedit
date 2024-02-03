@@ -1,0 +1,2 @@
+Error: Invalid departLane used in vehicle 'vehicle_3'. 500 is greater than number of lanes
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle.12Apr084441.4881/netedit.daily.demand.vehicle/demandelements/vehicle/load/departlane/routes.rou.xml failed.

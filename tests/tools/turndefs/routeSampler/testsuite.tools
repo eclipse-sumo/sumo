@@ -2,6 +2,10 @@
 # 
 output-styles
 
+# write stops that are found in the input
+# 
+stops
+
 # 
 # 
 output-styles_pedestrians
@@ -11,6 +15,15 @@ intervals
 
 # sample routes by probabilites or counts
 weighted
+
+# make use of turn-ratios in addition to counts
+ratios
+
+# test option total-count
+totalCount
+
+# test origin destination inputs
+OD
 verbose
 
 # save configuration file
@@ -22,8 +35,17 @@ save_template
 # using edgedata as input
 edgedata
 
-# test option --od-files
-od_files
+# using edgedata as input to specify departure counts
+edgedata_departures
+
+# using edgedata as input to specify arrival counts
+edgedata_arrivals
+
+# load candidate routes from walk elements (needed for reverse walking)
+walk_input
+
+# using another GEH threshold
+geh
 
 # test additional vehicle attributes
 attrs
@@ -63,8 +85,10 @@ via
 # define sequence restriction with gap
 turn-max-gap
 
-# invalid options
-invalid_options
+# set minimum number of visited counting locations per route
+min_count
+min_count2
 
-# test bad input
-no_routes
+# set minimum number of visited counting locations per route
+min_count_optimize
+errors

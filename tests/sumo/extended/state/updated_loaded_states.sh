@@ -25,8 +25,12 @@ cp save_actionStepLength2/state.sumo.meso load_and_save_actionStepLength2/input_
 
 sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg
+
 sumo -c load_shifted/saveState.sumocfg
 sumo -c load_shifted/saveMesoState.sumocfg
+
+sumo -c load_and_save_same/saveState.sumocfg
+sumo -c load_and_save_same/saveMesoState.sumocfg
 
 rm load_arriving/tripinfos.xml
 rm load_shifted/tripinfos.xml

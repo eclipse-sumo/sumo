@@ -15,7 +15,7 @@ The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
 detectors [you have to define
 them](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
-within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
+within an {{AdditionalFile}} and load them at the start of the simulation. The `period` and `file`
 attributes do not matter for TraCI.
 
 The following variable values can be retrieved, the type of the return
@@ -38,7 +38,14 @@ value is also shown in the table.
 | last step mean vehicle length (0x15)         | double              | The mean length of vehicles which were on the detector in the last step \[m\]                                    | [getLastStepMeanLength](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastStepMeanLength)       |
 | last step's time since last detection (0x16) | double              | The time since last detection \[s\]                                                                              | [getTimeSinceDetection](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getTimeSinceDetection)       |
 | last step's vehicle data (0x17)              | complex (see below) | A complex structure containing several information about vehicles which passed the detector                      | [getVehicleData](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getVehicleData)                     |
-
+| interval occupancy (0x23)  | double | The percentage of the time the detector was occupied by a vehicle during the current interval | [getIntervalOccupancy](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalOccupancy)  |
+| interval speed (0x24)  | double | The average (time mean) speed of vehicles during the current interval | [getIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalMeanSpeed)  |
+| interval number (0x25)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the current interval | [getIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalVehicleNumber)  |
+| interval ids (0x26)   | stringList | The ids of vehicles (or persons, if so configured) that passed the detector during the current interval | [getIntervalVehicleIDs](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getIntervalVehicleIDs)  |
+| last interval occupancy (0x27)  | double | The percentage of the time the detector was occupied by a vehicle during the previous interval | [getLastIntervalOccupancy](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalOccupancy)  |
+| last interval speed (0x28)  | double | The average (time mean) speed of vehicles during the previous interval | [getLastIntervalMeanSpeed](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalMeanSpeed)  |
+| last interval number (0x29)  |int | The number of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleNumber](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalVehicleNumber)  |
+| last interval ids (0x2a)   | stringList | The ids of vehicles (or persons, if so configured) that passed the detector during the previous interval | [getLastIntervalVehicleIDs](https://sumo.dlr.de/pydoc/traci._inductionloop.html#InductionLoopDomain-getLastIntervalVehicleIDs)  |
 
 ## Response 0xb0: Induction Loop Variable
 

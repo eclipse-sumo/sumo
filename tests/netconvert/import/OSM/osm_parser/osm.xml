@@ -12,7 +12,6 @@
    	  </tag>   
   </node>
   <node id='-6' timestamp='2009-04-08T20:36:39Z' visible='true' version='1' lat='48.8607851' lon='11.2265919' />
-  <tag k='highway' v='traffic_signals' />
   <node id='-7' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8735825' lon='11.2261575' />
   <node id='-8' timestamp='2009-06-11T15:27:30Z' visible='true' version='1' lat='48.8751626' lon='11.2357725' />
   <node id='-9' timestamp='2009-04-08T20:37:11Z' visible='true' version='31' lat='48.858675' lon='11.237141' />
@@ -131,7 +130,8 @@
   <node id='-118' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.8598845' lon='11.2453071' />
   <node id='-119' visible='true' lat='48.86926496459531' lon='11.22378129482755' />
   <node id='-122' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.85988' />
-  <node id='-123' visible='true' lat='48.869' lon='11.223' />
+  <node id='b-123' visible='true' lat='48.869' lon='11.223' />
+  <tag k='highway' v='traffic_signals' />
   <way id='-120' action='modify' timestamp='2008-10-28T17:38:39Z' visible='true' version='15'>
     <nd ref='-82' />
     <nd ref='-28' />

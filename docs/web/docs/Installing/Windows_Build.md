@@ -17,7 +17,8 @@ may also [download pre-build Windows binaries](../Downloads.md).
 - SUMO sources (either an unpacked src zip or a git clone, see
   [Getting the source code](../Installing/Linux_Build.md#getting_the_source_code))
 - Installed Libraries (Xerces-C, Proj, Fox) preferably by cloning <https://github.com/DLR-TS/SUMOLibraries/>
-  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory
+  - Make sure that the `SUMO_LIBRARIES` environment variable points to your cloned directory in case you didn't put the libraries in the same directory as the SUMO repository
+  - Note that in case you don't have admin rights, you can still configure environment variables for you only
 
 ## Recommended Windows setup
 
@@ -28,7 +29,7 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 ![](../images/VSInstall.png)
 
-- Clone https://github.com/eclipse/sumo or open your existing local SUMO folder
+- Clone https://github.com/eclipse-sumo/sumo or open your existing local SUMO folder
 - Go to team explorer
   - Choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
 - Now be patient until CMake starts configuring
@@ -39,7 +40,7 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 CMake settings can easily be modified, loaded and saved using *Project -> CMake Settings* in Visual Studio.
 
-![](../images/vs_cmake_settings.png)   
+![](../images/vs_cmake_settings.png)
 Editing the CMake settings using Visual Studio
 
 ### Optional but still recommended steps
@@ -51,18 +52,19 @@ Editing the CMake settings using Visual Studio
 - If you decide to use the Python which comes with Visual Studio
   - Test start a python script and add association
   - Add Python to the path (also the Scripts dir), find it at `C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64`
-  - Install pyautogui, matplotlib, rtree, pyproj, lxml, pipwin following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
-- If not, use `pip install pyautogui matplotlib pyproj lxml pipwin`
+  - Install pyautogui, scipy, rtree, pyproj, lxml following the instructions https://docs.microsoft.com/en-us/visualstudio/python/tutorial-working-with-python-in-visual-studio-step-05-installing-packages?view=vs-2019
+- If not, use `pip install tools\requirements.txt`, possibly with the `--user` option if you don't have admin rights
 
-- Run `pipwin install rtree` (or download Rtree [from here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#rtree) and install it manually)
 - (after 30 days) Setup a Microsoft account (if you do not already have one) and register your Visual Studio
 
 ## Further notes
 
-If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](http://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommend python modules as above.
+If you need a different python version or want to test with multiple Pythons you can either install them directly from Visual Studio or [Download Python for Windows](https://www.python.org/download/) and install it. Most SUMO tools should work with Python 2 and 3. Please make sure that you install the recommended python modules as explained above and that the `PATH` environment variable contains the directory where the desired Python interpreter is.
+
+If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interepreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentionned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
 
 If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
-using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
+using `git clone --recursive https://github.com/eclipse-sumo/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
 
 The command for the [Libraries](#libraries) is: `git clone --recursive https://github.com/DLR-TS/SUMOLibraries`. If you do not place the libraries in the same folder as SUMO, you will need to set the **SUMO_LIBRARIES** environment variable to the directory.
 
@@ -88,7 +90,7 @@ this repository and define an environment variable `SUMO_LIBRARIES`
 pointing to the resulting directory. They are build using Visual Studio
 2019, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2019 Runtime Distributable for running
-SUMO (tested with Visual Studio 2019). 
+SUMO (tested with Visual Studio 2019).
 
 For details on building your
 own and also on how to use different versions and additional libraries
@@ -98,6 +100,15 @@ and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
 folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 `32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
 64 bit version first.
+
+## Install python packages
+
+For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
+From your SUMO directory you can install them using pip:
+
+```
+pip install -r tools\requirements.txt
+```
 
 ## Manual CMake configuration
 
@@ -117,13 +128,13 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 
 Visual guide:
 
-![](../images/CMakeConfiguration1.png)   
+![](../images/CMakeConfiguration1.png)
 Selecting Solution (Visual Studio, Eclipse, etc.) in the CMake gui
 
-![](../images/CMakeConfiguration4.png)   
+![](../images/CMakeConfiguration4.png)
 Libraries successfully configured
 
-![](../images/CMakeConfiguration5.png)   
+![](../images/CMakeConfiguration5.png)
 Generated solution
 
 ### Method 2: Via CMake command line
@@ -159,10 +170,10 @@ If you want to compile using CLang in Windows, just add "ClangCL" in CMake's "Op
   - Python libraries can be specified manually (e.g.
     <PythonFolder\>\\libs\\python<version\>.lib)
 
-![](../images/CMakeConfiguration6.png)   
+![](../images/CMakeConfiguration6.png)
 Python library fields in the CMake Cache
 
-![](../images/CMakePython1.png)   
+![](../images/CMakePython1.png)
 Two different Python versions at the same time
 
 ### Linker reports something similar to "LINK : fatal error LNK1104: cannot open file 'C:\\Program.obj'"
@@ -180,13 +191,13 @@ this, unless you are building from the [source code
 repository](../FAQ.md#how_do_i_access_the_code_repository). In
 this case you should probably install Python. Even if Python is
 installed the file associations may be broken which causes the
-generation of `src/version.h` via the `tools/build/version.py` script to fail. Either
+generation of `src/version.h` via the `tools/build_config/version.py` script to fail. Either
 repair your file associations or undefine **HAVE_VERSION_H** in
-`src/windows_config.h`.
+`src/config.h.cmake`.
 
 If you did install Python correctly, double check that it passes
 [command line
-arguments](http://stackoverflow.com/questions/2640971/windows-is-not-passing-command-line-arguments-to-python-programs-executed-from-t).
+arguments](https://stackoverflow.com/questions/2640971/windows-is-not-passing-command-line-arguments-to-python-programs-executed-from-t).
 For a quick fix, you can also execute the following commands manually:
 
 ```
@@ -208,3 +219,24 @@ MSVCR140.dll). You can check if all dependencies are correct using
 ### In debug mode, execution cannot proceed because MSVCR120D.dll/MSVCR140D.dll was not found
 
 Your version of Visual Studio doesn't support Debugging, you can only compile in release mode.
+
+## How to build JuPedSim and then build SUMO with JuPedSim
+
+In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim, in case the release version of JuPedSim that comes with SUMO isn't sufficient for your needs. You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter proposes a similar procedure. First of all, clone the JuPedSim repository:
+
+``` bash
+git clone https://github.com/PedestrianDynamics/jupedsim.git
+```
+
+Outside the repository directory, but at the same level, create two directories `jupedsim-build` and `jupedsim-install` (for instance), then type:
+
+``` bash
+cd jupedsim-build
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
+cmake --build . --config Release
+cmake --install . --config Release
+```
+
+You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
+
+For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#jupedsim).

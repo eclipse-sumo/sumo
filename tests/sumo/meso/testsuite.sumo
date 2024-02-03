@@ -16,6 +16,9 @@ tls_penalty_routing
 
 # minor_penalty should affect empty-network travel times
 minor_penalty_routing
+
+# minor_penalty should affect empty-network travel times but ignore traffic light states
+minor_penalty_routing_tls
 bugs
 
 # test edge type specific meso parameters
@@ -23,3 +26,6 @@ edge_type
 
 # tests for lane queues in meso 
 lane_queue
+
+# ignoring lanes by vclass
+ignore_lanes

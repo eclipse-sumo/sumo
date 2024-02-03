@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
+    <xsd:element name="data">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="interval" minOccurs="0" maxOccurs="unbounded" type="intervalType"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="intervalType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="edge" type="edgeDataType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="edgeRelation" type="edgeRelationType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="tazRelation" type="tazRelationType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="begin" type="timeType" use="required"/>
+        <xsd:attribute name="end" type="timeType" use="required"/>
+        <xsd:attribute name="id" type="xsd:string" use="optional" />
+    </xsd:complexType>
+
+    <xsd:complexType name="edgeDataType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="count" type="floatType" use="optional"/>
+        <xsd:anyAttribute processContents="lax"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="edgeRelationType">
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+        <xsd:attribute name="count" type="floatType" use="optional"/>
+        <xsd:attribute name="probability" type="floatType" use="optional"/>
+        <xsd:anyAttribute processContents="lax"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="tazRelationType">
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+        <xsd:attribute name="count" type="floatType" use="optional"/>
+        <xsd:anyAttribute processContents="lax"/>
+    </xsd:complexType>
+
+</xsd:schema>

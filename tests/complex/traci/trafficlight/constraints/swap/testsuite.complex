@@ -30,9 +30,26 @@ redundant_1
 # deadlock must be resolved (only solution is to let the waiting vehicle keep waiting)
 redundant_2
 
+# deadlock must be resolved (only solution is to let the waiting vehicle keep waiting)
+redundant_2_routes
+
 # a foeInsertion constraint can no longer be swapped (to avoid deadlock) after the vehicle has been inserted (even if the constraint has not yet been fulfulled because the inserted vehicle has not passed the next signal).
 # Instead it must be treated like an implicit constraint (foe2 follows foe on the same track)
 foeInsertion
 
 # prevent false positive foeLeader deadlock check in looped network
 looped
+
+# the ego vehicle isn't yet at the signal and the deadlock which must be resolved has foe2 between ego and the ego-signal:
+# 
+# foe2 waits for foe, ego is behind foe2
+egoLeader
+
+# a single swap would cause deadlock involving an insertionPredecessor constraint and so requires an additional swap
+insertion
+
+# a single swap would cause deadlock involving an insertionPredecessor constraint and so requires an additional swap, using a mix of vehID and tripId in constraints
+insertion_tripId
+
+# test handling of params during swap
+bidi

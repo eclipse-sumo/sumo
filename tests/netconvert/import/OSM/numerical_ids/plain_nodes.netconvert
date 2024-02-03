@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:41 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -36,21 +41,16 @@ SPDX-License-Identifier: EPL-2.0
         <junctions.join value="true"/>
     </junctions>
 
-    <formats>
-        <osm.all-attributes value="true"/>
-    </formats>
-
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="-399345.66,-5809365.64" convBoundary="0.00,0.00,1737.68,767.39" origBoundary="13.364829,52.424764,13.574340,52.459643" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-399345.66,-5809365.64" convBoundary="0.00,0.00,1737.68,767.39" origBoundary="13.364829,52.425528,13.574263,52.459607" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="175648134" x="15.68" y="168.06" type="priority"/>
     <node id="261599791" x="33.97" y="176.57" type="traffic_light" tl="261599791"/>
@@ -92,11 +92,10 @@ SPDX-License-Identifier: EPL-2.0
     <node id="294831566" x="562.43" y="315.09" type="right_before_left"/>
     <node id="294831567" x="492.35" y="390.75" type="priority"/>
     <node id="294831568" x="897.77" y="599.27" type="priority"/>
-    <node id="294831569" x="610.52" y="562.52" type="priority"/>
-    <node id="294831570" x="615.26" y="422.75" type="priority"/>
-    <node id="32266935" x="478.98" y="121.02" type="traffic_light" tl="32266935"/>
+    <node id="294831569" x="478.39" y="114.11" type="traffic_light" tl="294831569"/>
+    <node id="294831570" x="610.52" y="562.52" type="priority"/>
+    <node id="294831571" x="615.26" y="422.75" type="priority"/>
     <node id="32266936" x="472.77" y="49.00" type="priority"/>
-    <node id="32266938" x="477.79" y="107.21" type="priority"/>
     <node id="36268369" x="641.03" y="106.11" type="priority"/>
     <node id="36268375" x="760.15" y="265.38" type="priority"/>
     <node id="36268376" x="891.20" y="379.38" type="priority"/>

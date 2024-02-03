@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,11 +48,16 @@ SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
     const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
     if (state != myPreviousState || myLogics.getActive()->getProgramID() != myPreviousProgramID) {
-        myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
-                       << "\" id=\"" << myLogics.getActive()->getID()
-                       << "\" programID=\"" << myLogics.getActive()->getProgramID()
-                       << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-                       << "\" state=\"" << state << "\"/>\n";
+        myOutputDevice.openTag("tlsState");
+        myOutputDevice.writeAttr(SUMO_ATTR_TIME, time2string(currentTime));
+        myOutputDevice.writeAttr(SUMO_ATTR_ID, myLogics.getActive()->getID());
+        myOutputDevice.writeAttr(SUMO_ATTR_PROGRAMID, myLogics.getActive()->getProgramID());
+        myOutputDevice.writeAttr(SUMO_ATTR_PHASE, myLogics.getActive()->getCurrentPhaseIndex());
+        myOutputDevice.writeAttr(SUMO_ATTR_STATE, myLogics.getActive()->getCurrentPhaseDef().getState());
+        if (!myLogics.getActive()->getCurrentPhaseDef().getName().empty()) {
+            myOutputDevice.writeAttr(SUMO_ATTR_NAME, myLogics.getActive()->getCurrentPhaseDef().getName());
+        }
+        myOutputDevice.closeTag();
         myPreviousState = state;
         myPreviousProgramID = myLogics.getActive()->getProgramID();
     }

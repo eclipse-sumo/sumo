@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -43,9 +43,9 @@ with open(patchfile, 'w') as outf:
     # parse always returns a generator but there is only one root element
     nodes = list(sumolib.xml.parse('plain.nod.xml', 'nodes', attrs))[0]
     for node in nodes.node:
-        node.addChild("param", { "key": "origPos", "value" : "%s %s" % (node.x, node.y) } )
-        node.x = float(node.x) + random.randint(-20, 20)
-        node.y = float(node.y) + random.randint(-20, 20)
+        node.addChild("param", {"key": "origPos", "value": "%s %s" % (node.x, node.y)})
+        node.x = "%.2f" % (float(node.x) + random.random() * 40. - 20.)
+        node.y = "%.2f" % (float(node.y) + random.random() * 40. - 20.)
     outf.write(nodes.toXML())
 
 # rebuild

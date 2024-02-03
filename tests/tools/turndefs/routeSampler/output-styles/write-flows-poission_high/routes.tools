@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-29 14:40:33.674806 by routeSampler.py v1_17_0+1318-85f891f765f
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <write-flows value="poisson"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="1001.0" -->
+    <flow id="0" begin="0.00" end="1001.00" period="exp(1.0020)">
+        <route edges="-43.80.00 -27 -27.80.00 -71 -55 -55.80.00"/>
+    </flow>
+    <flow id="1" begin="0.00" end="1001.00" period="exp(0.9990)">
+        <route edges="60.80.00 75 75.121.42 -75"/>
+    </flow>
+    <flow id="2" begin="0.00" end="1001.00" period="exp(1.4985)">
+        <route edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/>
+    </flow>
+</routes>

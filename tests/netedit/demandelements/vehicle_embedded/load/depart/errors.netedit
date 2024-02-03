@@ -1,0 +1,6 @@
+Error: Invalid departure time for vehicle 'vehicle_0';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Negative departure time in the definition of vehicle 'vehicle_1'.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.25Jan182728.9940/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/depart/routes.rou.xml failed.

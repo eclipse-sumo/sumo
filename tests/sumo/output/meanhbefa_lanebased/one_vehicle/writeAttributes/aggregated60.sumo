@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 31 13:52:06 2020 by Eclipse SUMO Version v1_5_0+1028-b310b5206c
+<!-- generated on 2024-01-22 09:44:48 by Eclipse SUMO sumo Version v1_14_1+11363-50b43697ca8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="3/1to2/1_0" NOx_abs="19.467778" CO_normed="80.850000" HC_perVeh="5.322222"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" NOx_abs="21.066917" CO_normed="87.491250" HC_perVeh="5.322222"/>
+            <lane id="4/1to3/1_0" NOx_abs="20.858333" CO_normed="86.625000" HC_perVeh="5.322222"/>
         </edge>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
@@ -49,10 +54,10 @@ SPDX-License-Identifier: EPL-2.0
             <lane id="1/1to0/1_0" NOx_abs="5.562222" CO_normed="23.100000" HC_perVeh="5.322222"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" NOx_abs="28.019694" CO_normed="116.366250" HC_perVeh="5.322222"/>
+            <lane id="2/1to1/1_0" NOx_abs="27.811111" CO_normed="115.500000" HC_perVeh="5.322222"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" NOx_abs="8.551917" CO_normed="35.516250" HC_perVeh="5.322222"/>
+            <lane id="3/1to2/1_0" NOx_abs="8.343333" CO_normed="34.650000" HC_perVeh="5.322222"/>
         </edge>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">

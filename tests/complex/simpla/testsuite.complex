@@ -1,8 +1,23 @@
+# query information about current platoon(s)
+statistics
+
+# one vehicle more than allowed to join the platoon
+max_size
+
+# Use more vehicle types than given in vTypeMap  #11219
+vtypemap_incomplete
+
+# minimal platooning with a few vehicles using headway thresholds
+headway
+
 # Tests configuration parsing
 config
 
 # Tests basic platoon manager functionalities.
 platoon_manager
+
+# minimal platooning with a few vehicles
+basic
 
 # Tests the openGap method
 openGap

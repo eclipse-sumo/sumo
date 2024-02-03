@@ -21,6 +21,10 @@ reverse_before_stop_impossible
 # 
 reverse_before_further_stop_tooLong
 
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal). The given route is too short to let the train head reach the stop at reversal
+# 
+reverse_before_stop_bad_route
+
 # train serving a public transport line must reverse direction at a branch track
 # Input taken from
 # tests/netconvert/function/railway/repair/stops_reverse_en_route
@@ -51,3 +55,12 @@ anticipate_reversal
 
 # unsafe speed when approaching reversal should cause emergency stop instead of collision
 anticipate_reversal_unafe_insertion
+
+# reversal must be delayed if the bidi-edges of 'furtherLanes' lie beyond the end of the route
+reverse_at_route_end
+
+# reversal must be delayed if the bidi-edges of 'furtherLanes' lie beyond the end of the route
+reverse_at_route_end_impossible
+
+# see #13260
+double_reversal_same_dir

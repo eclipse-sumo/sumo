@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-27 23:00:27 by Eclipse SUMO sumo Version v1_16_0+1707-833d692
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <personinfo-output value="personinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="30.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="20.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="10.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="90.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="80.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="70.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="60.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
+    </personinfo>
+    <personinfo id="p.8" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="75.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p.9" depart="90.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="65.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>

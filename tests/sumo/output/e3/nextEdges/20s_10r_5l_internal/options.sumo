@@ -1,0 +1,3 @@
+--no-step-log --no-duration-log --net-file=net4.net.xml -r input_routes.rou.xml
+--aggregate-warnings 5
+-a input_additional.add.xml

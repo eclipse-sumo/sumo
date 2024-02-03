@@ -1,0 +1,7 @@
+--no-step-log -t --net-file=net2.net.xml 
+--route-files input_routes.rou.xml 
+--collision-output collisions.xml
+--collision.action warn
+--lanechange.duration 3
+--step-length 0.5
+

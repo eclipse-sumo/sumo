@@ -1,3 +1,4 @@
+NEMA
 default
 default_actuated
 static
@@ -13,6 +14,9 @@ right_on_red
 
 # test node type "traffic_light_right_on_red" with one lane in each direction
 right_on_red_1lane
+
+# test connection guessing for right-on-red
+right_on_red_3lanes_out
 
 # adapt junction logic to custom tls program
 right_on_red_custom_program
@@ -31,3 +35,6 @@ uncontrolled_links_joinedTls
 
 # test option
 static_ignore-internal-junction-jam
+
+# Copy of default
+off_allwayStop

@@ -1,2 +1,0 @@
-Warning: Essential unique string attribute 'lane' of chargingStation with ID 'chargingStation_0' is missing; chargingStation cannot be created
-Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_1' is not known.

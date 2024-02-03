@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,41 +30,11 @@
 // method definitions
 // ===========================================================================
 
-Parameterised::Parameterised() :
-    myAttrType(ParameterisedAttrType::STRING) {
-}
+Parameterised::Parameterised() {}
 
 
-Parameterised::Parameterised(ParameterisedAttrType attrType) :
-    myAttrType(attrType) {
-}
-
-
-Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) :
-    myAttrType(ParameterisedAttrType::STRING),
+Parameterised::Parameterised(const Parameterised::Map& mapArg) :
     myMap(mapArg) {
-}
-
-
-Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) :
-    myAttrType(attrType) {
-    // check if map has to be cleaned
-    if (myAttrType == ParameterisedAttrType::DOUBLE) {
-        // iterate over map
-        for (const auto& keyValue : mapArg) {
-            try {
-                // try to parse to do double, and if fails, write warning
-                StringUtils::toDouble(keyValue.second);
-                // insert keyValue in map
-                myMap.insert(keyValue);
-            } catch (NumberFormatException&) {
-                WRITE_WARNING("Invalid conversion from string to double (" + keyValue.second + ")");
-            }
-        }
-    } else {
-        // just update myMap
-        myMap = mapArg;
-    }
 }
 
 
@@ -73,18 +43,7 @@ Parameterised::~Parameterised() {}
 
 void
 Parameterised::setParameter(const std::string& key, const std::string& value) {
-    if (myAttrType == ParameterisedAttrType::DOUBLE) {
-        try {
-            // try to parse to do double, and if fails, write warning
-            StringUtils::toDouble(value);
-            // insert in map
-            myMap[key] = value;
-        } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to double (" + value + ")");
-        }
-    } else {
-        myMap[key] = value;
-    }
+    myMap[key] = value;
 }
 
 
@@ -95,7 +54,7 @@ Parameterised::unsetParameter(const std::string& key) {
 
 
 void
-Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
+Parameterised::updateParameters(const Parameterised::Map& mapArg) {
     for (const auto& keyValue : mapArg) {
         setParameter(keyValue.first, keyValue.second);
     }
@@ -103,7 +62,7 @@ Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg
 
 
 bool
-Parameterised::knowsParameter(const std::string& key) const {
+Parameterised::hasParameter(const std::string& key) const {
     return myMap.find(key) != myMap.end();
 }
 
@@ -125,10 +84,10 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
         try {
             return StringUtils::toDouble(i->second);
         } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
+            WRITE_WARNINGF(TL("Invalid conversion from string to double (%)"), i->second);
             return defaultValue;
         } catch (EmptyData&) {
-            WRITE_WARNING("Invalid conversion from string to double (empty value)");
+            WRITE_WARNING(TL("Invalid conversion from string to double (empty value)"));
             return defaultValue;
         }
     }
@@ -136,13 +95,34 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
 }
 
 
+std::vector<double>
+Parameterised::getDoubles(const std::string& key, std::vector<double> defaultValue) const {
+    const auto i = myMap.find(key);
+    if (i != myMap.end()) {
+        try {
+            std::vector<double> result;
+            for (const std::string& s : StringTokenizer(i->second).getVector()) {
+                result.push_back(StringUtils::toDouble(s));
+            }
+            return result;
+        } catch (NumberFormatException&) {
+            WRITE_WARNINGF(TL("Invalid conversion from string to doubles (%)"), i->second);
+            return defaultValue;
+        } catch (EmptyData&) {
+            WRITE_WARNING(TL("Invalid conversion from string to doubles (empty value)"));
+            return defaultValue;
+        }
+    }
+    return defaultValue;
+}
+
 void
 Parameterised::clearParameter() {
     myMap.clear();
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 Parameterised::getParametersMap() const {
     return myMap;
 }
@@ -166,23 +146,7 @@ Parameterised::getParametersStr(const std::string kvsep, const std::string sep) 
 
 void
 Parameterised::setParameters(const Parameterised& params) {
-    // first clear map
-    myMap.clear();
-    // set parameter
-    for (const auto& keyValue : params.getParametersMap()) {
-        setParameter(keyValue.first, keyValue.second);
-    }
-}
-
-
-void
-Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
-    // first clear map
-    myMap.clear();
-    // set parameter
-    for (const auto& keyValue : paramsMap) {
-        setParameter(keyValue.first, keyValue.second);
-    }
+    myMap = params.getParametersMap();
 }
 
 
@@ -214,16 +178,47 @@ Parameterised::writeParams(OutputDevice& device) const {
 
 
 bool
-Parameterised::areParametersValid(const std::string& value, bool report,
-                                  const ParameterisedAttrType attrType, const std::string kvsep, const std::string sep) {
+Parameterised::areParametersValid(const std::string& value, bool report, const std::string kvsep, const std::string sep) {
     std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
     for (const auto& keyValueStr : parameters) {
         // check if parameter is valid
-        if (!isParameterValid(keyValueStr, attrType, kvsep, sep)) {
+        if (!isParameterValid(keyValueStr, kvsep, sep)) {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
+                WRITE_WARNINGF(TL("Invalid format of parameter (%)"), keyValueStr);
+            }
+            return false;
+        }
+    }
+    // all ok, then return true
+    return true;
+}
+
+
+bool
+Parameterised::areAttributesValid(const std::string& value, bool report, const std::string kvsep, const std::string sep) {
+    std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
+    // first check if parsed parameters are valid
+    for (const auto& keyValueStr : parameters) {
+        // check if parameter is valid
+        if (isParameterValid(keyValueStr, kvsep, sep)) {
+            // separate key and value
+            const auto attr = StringTokenizer(value, kvsep).getVector().front();
+            // get first letter
+            const auto letter = StringTokenizer(value, kvsep).getVector().front().front();
+            // check key
+            if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
+                // report depending of flag
+                if (report) {
+                    WRITE_WARNINGF(TL("Invalid format of attribute '%'. Attribute must start with a letter"), attr);
+                }
+                return false;
+            }
+        } else {
+            // report depending of flag
+            if (report) {
+                WRITE_WARNINGF(TL("Invalid format of attribute (%)"), keyValueStr);
             }
             return false;
         }
@@ -237,8 +232,7 @@ Parameterised::areParametersValid(const std::string& value, bool report,
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType attrType,
-                                const std::string& kvsep, const std::string& sep) {
+Parameterised::isParameterValid(const std::string& value, const std::string& kvsep, const std::string& sep) {
     if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
     }
@@ -249,18 +243,6 @@ Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType 
         // check if key and value contains valid characters
         if (SUMOXMLDefinitions::isValidParameterKey(keyValueStr.front()) == false) {
             return false;
-        } else if (attrType == ParameterisedAttrType::DOUBLE) {
-            // first check if value is empty
-            if (keyValueStr.back().empty()) {
-                return false;
-            }
-            // check if can be parsed to double
-            try {
-                StringUtils::toDouble(keyValueStr.back());
-                return true;
-            } catch (NumberFormatException&) {
-                return false;
-            }
         } else {
             // key=value valid, then return true
             return true;

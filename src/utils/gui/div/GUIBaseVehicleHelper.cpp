@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GUIBaseVehicleHelper.cpp
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    Feb 2018
 ///
 // Functions used in GUIBaseVehicleHelper and GNEVehicle
@@ -20,6 +21,7 @@
 #include <config.h>
 #include <utils/foxtools/fxheader.h>
 
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -54,6 +56,8 @@ static const double vehiclePoly_PassengerVanRightGlass[] = { 0.36, -.43,  0.20, 
 static const double vehiclePoly_PassengerVanLeftGlass[] = { 0.36, .43,  0.20, .47,  0.98, .47,  0.91, .37,  0.31, .37,  0.20, .47,  -10000 };
 static const double vehiclePoly_PassengerVanBackGlass[] = { 0.95, 0,  0.94, 0,  0.94, 0.3,  0.98, 0.4,  0.98, -.4,  0.94, -.3,  0.94, 0,  -10000 };
 
+static const double vehiclePoly_TaxiSign[] = { .56, .241,  .56, -.241,  .49, -.241,  .49, .241,    -10000 };
+
 static const double vehiclePoly_DeliveryMediumRightGlass[] = { 0.21, -.43,  0.20, -.47,  0.38, -.47,  0.38, -.37,  0.31, -.37,  0.20, -.47,  -10000 };
 static const double vehiclePoly_DeliveryMediumLeftGlass[] = { 0.21, .43,  0.20, .47,  0.38, .47,  0.38, .37,  0.31, .37,  0.20, .47,  -10000 };
 
@@ -65,13 +69,15 @@ static const double vehiclePoly_TransportLeftGlass[] = { 0.36, .47,  0.10, .48, 
 static const double vehiclePoly_EVehicleBody[] = { .5, 0,  0, 0,  0, .3,  0.08, .44,  0.25, .5,  0.75, .5,  .92, .44,  1, .3,  1, -.3,  .92, -.44,  .75, -.5,  .25, -.5,  0.08, -.44,  0, -.3,  0, 0,  -1000 };
 static const double vehiclePoly_EVehicleFrontGlass[] = { .5, 0,  0.05, .05,  0.05, .25,  0.13, .39,  0.3, .45,  0.70, .45,  .87, .39,  .95, .25,  .95, -.25,  .87, -.39,  .70, -.45,  .3, -.45,  0.13, -.39,  0.05, -.25,  0.05, 0.05,  -1000 };
 //static const double vehiclePoly_EVehicleFrontGlass[] = { 0.35,0,  0.1,0,  0.1,0.4,  0.43,0.3,  0.43,-0.3,  0.1,-0.4,  0.1,0,  -10000 };
-static const double vehiclePoly_EVehicleBackGlass[] =  { 0.65, 0,  0.9, 0,  0.9, 0.4,  0.57, 0.3,  0.57, -0.3,  0.9, -0.4,  0.9, 0,  -10000 };
+//static const double vehiclePoly_EVehicleBackGlass[] =  { 0.65, 0,  0.9, 0,  0.9, 0.4,  0.57, 0.3,  0.57, -0.3,  0.9, -0.4,  0.9, 0,  -10000 };
 
 static const double vehiclePoly_Ship[] =  { 0.25, 0,  0, 0,  0.1, 0.25, 0.2, 0.45, 0.25, 0.5,  0.95, 0.5, 1.0, 0.45,   1.0, -0.45, 0.95, -0.5,  0.25, -0.5, 0.2, -0.45,  0.1, -0.25, 0, 0,   -10000 };
 static const double vehiclePoly_ShipDeck[] =  { 0.5, 0,  0.25, 0.4,  0.95, 0.4, 0.95, -0.4, 0.25, -0.4, 0.25, 0.4, -10000 };
 static const double vehiclePoly_ShipSuperStructure[] =  { 0.8, 0,  0.5, 0.3,  0.85, 0.3,  0.85, -0.3, 0.5, -0.3,  0.5, 0.3,  -10000 };
 
 static const double vehiclePoly_Cyclist[] =  { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
+static const double vehiclePoly_BicycleSeat[] = { 0.565, 0,  0.570, 0.03,  0.575, 0.05,  0.585, 0.06,  0.645, 0.06,  0.665, 0.07,  0.685, 0.10,  0.695, 0.13,  0.715, 0.16,  0.735, 0.18,  0.742, 0.17,  0.745, 0.16,  0.755, 0.13,  0.76, 0.11,  0.765, 0,  0.76, -0.11,  0.755, -0.13,  0.745, -0.16,  0.742, -0.17,  0.735, -0.18,  0.715, -0.16,  0.695, -0.13,  0.685, -0.10,  0.665, -0.07,  0.645, -0.06,  0.585, -0.06,  0.575, -0.05,  0.57, -0.03,     -10000 };
+static const double vehiclePoly_MotorcycleSeat[] = { 0.5, 0,  0.503, 0.072,  0.506, 0.097,  0.518, 0.135,  0.539, 0.162,  0.567, 0.183,  0.641, 0.194,  0.698, 0.202,  0.706, 0.194,  0.713, 0.189,  0.721, 0.162,  0.729, 0.132,  0.732, 0.097,  0.734, 0.051,  0.735, 0,  0.734, -0.051,  0.732, -0.097,  0.729, -0.132,  0.721, -0.162,  0.713, -0.189,  0.706, -0.194,  0.698, -0.202,  0.641, -0.194,  0.567, -0.183,  0.539, -0.162,  0.518, -0.135,  0.506, -0.097,  0.503, -0.072,     -10000 };
 
 static const double vehiclePoly_EmergencySign[] =   { .2, .5,  -.2, .5,  -.2, -.5,  .2, -.5, -10000 };
 static const double vehiclePoly_Emergency[] =   { .1, .1,  -.1, .1,  -.1, -.1,  .1, -.1, -10000 };
@@ -85,7 +91,13 @@ static const double vehiclePoly_EmergencyLadder5[] =   { .05, .3, .0, .3, .0, -.
 static const double vehiclePoly_EmergencyLadder6[] =   { -.25, .3, -.2, .3, -.2, -.3, -.25, -.3, -10000 };
 static const double vehiclePoly_EmergencyLadder7[] =   { .25, .3, .2, .3, .2, -.3, .25, -.3, -10000 };
 
-static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
+static const double vehiclePoly_scooterBase[] = { -.17, .5, -.2, .5, -.2, -.5, -.17, -.5, -10000 };
+static const double vehiclePoly_scooterBase2[] = { .98, .05, 1., .05, 1., -.05, .98, -.05, -10000 };
+static const double vehiclePoly_scooterBase3[] = { -.32, .6, .32, .6, .32, -.6, -.32, -.6, -10000 };
+
+static const double vehiclePoly_aircraft[] = {0.633, -0.500, 0.609, -0.465, 0.563, -0.460, 0.517, -0.168, 0.413, -0.156, 0.509, -0.053, 0.509, 0.053, 0.413, -0.156, 0.413, 0.156, 0.385, -0.101, 0.385, 0.101, 0.354, -0.058, 0.354, 0.058, 0.109, -0.050, 0.109, 0.050, 0, -0.003, 0, 0.003, 0, 0.003, 0.633, 0.500, 0.633, 0.500, 0.609, 0.465, 0.563, 0.460, 0.517, 0.168, 0.413, 0.156, 0.509, 0.053, 0.385, 0.101, 0.326, 0.158, 0.326, 0.108, 0.413, 0.156, 0.385, 0.101, 0.509, 0.053, 0.509, -0.053, 0.761, 0.043, 0.761, -0.043, 0.830, 0.030, 0.830, -0.030, 0.952, -0.196, 0.933, -0.196, 0.907, -0.008, 0.830, 0.030, 0.933, 0.196, 0.952, 0.196, 0.907, 0.008, 0.830, 0.030, 0.907, -0.008, 1.000, 0.003, 0.907, 0.008, 0.354, -0.058, 0.509, -0.053, 0.413, -0.156, 0.385, -0.101, 0.326, -0.158, 0.326, -0.108, 0.385, -0.101, -10000};
+static const double vehiclePoly_aircraftEngines[] = {0.326, -0.158, 0.413, -0.156, 0.326, -0.108, 0.385, -0.101, 0.385, -0.101, 0.385, 0.101, 0.385, 0.101, 0.326, 0.108, 0.413, 0.156, 0.326, 0.158, -10000};
+//static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
 // ===========================================================================
 // method definitions
@@ -93,7 +105,7 @@ static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 
 
 void
 GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, offset * .1);
     glPolygonOffset(0, (GLfloat) - offset);
     glBegin(GL_TRIANGLE_FAN);
@@ -103,69 +115,90 @@ GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
         i = i + 2;
     }
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length) {
-    glPushMatrix();
+GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length, bool amReversed) {
+    GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLE_STRIP);
-    glVertex2d(0., 0.);
-    glVertex2d(-.5, .15);
-    glVertex2d(.5, .15);
-    glVertex2d(-.5, 1.);
-    glVertex2d(.5, 1.);
+    if (amReversed) {
+        glVertex2d(-.5, 0.);
+        glVertex2d(.5, 0.);
+        glVertex2d(-.5, .85);
+        glVertex2d(.5, .85);
+        glVertex2d(0., 1.);
+    } else {
+        glVertex2d(0., 0.);
+        glVertex2d(-.5, .15);
+        glVertex2d(.5, .15);
+        glVertex2d(-.5, 1.);
+        glVertex2d(.5, 1.);
+    }
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, const double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, const double length, bool amReversed) {
     if (length >= 8.) {
-        drawAction_drawVehicleAsBoxPlus(width, length);
+        drawAction_drawVehicleAsBoxPlus(width, length, amReversed);
         return;
     }
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(-.5, 1.);
-    glVertex2d(.5, 1.);
+    if (amReversed) {
+        glVertex2d(0., 1.);
+        glVertex2d(-.5, 0.);
+        glVertex2d(.5, 0.);
+    } else {
+        glVertex2d(0., 0.);
+        glVertex2d(-.5, 1.);
+        glVertex2d(.5, 1.);
+    }
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, const double length, double detail) {
-    const double maxDim = MAX2(MIN2(4 * width, length), width);
+GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, double detail) {
     const int steps = MIN2(MAX2(16, int(detail / 5)), 64);
-    GLHelper::drawFilledCircle(maxDim / 5, steps);
+    GLHelper::drawFilledCircle(width / 2, steps);
 }
 
 void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-        int carriageIndex) {
+        int carriageIndex, bool isStopped, bool amReversed) {
     UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glRotated(90, 0, 0, 1);
+
     glScaled(length, width, 1.);
+
+    // If the vehicle is 'logically' reversed then reverse the drawing box
+    //  NB at the moment the only vehicles that will have amReversed set true are trains. Here this supports a train with guiShape="aircraft"
+    if (amReversed) {
+        glRotatef(180, 0, 0, 1);
+        glTranslated(-1, 0, 0);
+    }
 
     // draw main body
     switch (shape) {
-        case SVS_UNKNOWN:
+        case SUMOVehicleShape::UNKNOWN:
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
             break;
-        case SVS_PEDESTRIAN:
+        case SUMOVehicleShape::PEDESTRIAN:
             glTranslated(0, 0, .045);
             GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.045);
@@ -175,45 +208,56 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawFilledCircle(0.25);
             glTranslated(0, 0, -.04);
             break;
-        case SVS_BICYCLE:
-        case SVS_MOPED:
-        case SVS_MOTORCYCLE: {
+        case SUMOVehicleShape::BICYCLE:
+        case SUMOVehicleShape::MOPED:
+        case SUMOVehicleShape::MOTORCYCLE: {
             darker = current.changedBrightness(-50);
-            // body
-            drawPoly(vehiclePoly_Cyclist, 4);
-            // head
-            glPushMatrix();
-            glTranslated(0.4, 0, .5);
-            glScaled(0.1, 0.2, 1);
-            GLHelper::setColor(darker);
-            GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            if (!isStopped) {
+                // body
+                drawPoly(vehiclePoly_Cyclist, 4);
+                // head
+                GLHelper::pushMatrix();
+                glTranslated(0.4, 0, .5);
+                glScaled(0.1, 0.2, 1);
+                GLHelper::setColor(darker);
+                GLHelper::drawFilledCircle(1);
+                GLHelper::popMatrix();
+            } else if (shape == SUMOVehicleShape::BICYCLE) {
+                // seat
+                GLHelper::setColor(darker);
+                drawPoly(vehiclePoly_BicycleSeat, 4);
+            } else {
+                // seat
+                GLHelper::setColor(darker);
+                drawPoly(vehiclePoly_MotorcycleSeat, 4);
+            }
             // bike frame
             GLHelper::setColor(RGBColor::GREY);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0.5, 0, .3);
             glScaled(0.5, 0.05, 1);
             GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            GLHelper::popMatrix();
             // handle bar
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(0.25, 0, .3);
             glScaled(0.02, 0.5, 1);
             GLHelper::drawFilledCircle(1);
-            glPopMatrix();
+            GLHelper::popMatrix();
         }
         break;
-        case SVS_PASSENGER:
-        case SVS_PASSENGER_SEDAN:
-        case SVS_PASSENGER_HATCHBACK:
-        case SVS_PASSENGER_WAGON:
+        case SUMOVehicleShape::PASSENGER:
+        case SUMOVehicleShape::PASSENGER_SEDAN:
+        case SUMOVehicleShape::PASSENGER_HATCHBACK:
+        case SUMOVehicleShape::PASSENGER_WAGON:
+        case SUMOVehicleShape::TAXI:
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
             break;
-        case SVS_PASSENGER_VAN:
+        case SUMOVehicleShape::PASSENGER_VAN:
             drawPoly(vehiclePoly_PassengerVanBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
@@ -223,7 +267,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_PassengerVanLeftGlass, 4.5);
             drawPoly(vehiclePoly_PassengerVanBackGlass, 4.5);
             break;
-        case SVS_DELIVERY:
+        case SUMOVehicleShape::DELIVERY:
             drawPoly(vehiclePoly_PassengerVanBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
@@ -232,9 +276,9 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_DeliveryMediumRightGlass, 4.5);
             drawPoly(vehiclePoly_DeliveryMediumLeftGlass, 4.5);
             break;
-        case SVS_TRUCK:
-        case SVS_TRUCK_SEMITRAILER:
-        case SVS_TRUCK_1TRAILER:
+        case SUMOVehicleShape::TRUCK:
+        case SUMOVehicleShape::TRUCK_SEMITRAILER:
+        case SUMOVehicleShape::TRUCK_1TRAILER:
             if (carriageIndex < 1) {
                 glScaled(1. / (length), 1, 1.);
                 drawPoly(vehiclePoly_TransportBody, 4);
@@ -244,9 +288,9 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
                 drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
             }
             break;
-        case SVS_BUS:
-        case SVS_BUS_COACH:
-        case SVS_BUS_TROLLEY: {
+        case SUMOVehicleShape::BUS:
+        case SUMOVehicleShape::BUS_COACH:
+        case SUMOVehicleShape::BUS_TROLLEY: {
             double ml = length;
             glScaled(1. / (length), 1, 1.);
             glTranslated(0, 0, .04);
@@ -292,11 +336,39 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glTranslated(0, 0, -.045);
         }
         break;
-        case SVS_BUS_FLEXIBLE:
-        case SVS_RAIL:
-        case SVS_RAIL_CAR:
-        case SVS_RAIL_CARGO:
-        case SVS_E_VEHICLE:
+        case SUMOVehicleShape::BUS_FLEXIBLE:
+        case SUMOVehicleShape::RAIL:
+        case SUMOVehicleShape::RAIL_CAR:
+        case SUMOVehicleShape::RAIL_CARGO: {
+            // generic rail carriage (see GUIVehicle::drawAction_drawCarriageClass)
+            glRotated(-90, 0, 0, 1);
+            const double xCornerCut = 0.3 / width;
+            const double yCornerCut = 0.4 / length;
+            const double drawnCarriageLength = 1;
+            const double halfWidth = 0.5;
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + xCornerCut, 0);
+            glVertex2d(-halfWidth, yCornerCut);
+            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(halfWidth, yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 0);
+            glEnd();
+            // assume we are only rendering the head of the train (carriage rendering was disabled via param)
+            glTranslated(0, 0, 0.1);
+            glColor3d(0, 0, 0);
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+            glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+            glEnd();
+        }
+        break;
+
+        case SUMOVehicleShape::E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_EVehicleFrontGlass, 4.5);
@@ -321,8 +393,8 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glTranslated(0, 0, -.048);
             //drawPoly(vehiclePoly_EVehicleBackGlass, 4.5);
             break;
-        case SVS_ANT:
-            glPushMatrix();
+        case SUMOVehicleShape::ANT:
+            GLHelper::pushMatrix();
             // ant is stretched via vehicle length
             GLHelper::setColor(darker);
             // draw left side
@@ -351,9 +423,9 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawFilledCircle(.2, 16);
             glTranslated(.4, 0, 0);
             GLHelper::drawFilledCircle(.3, 16);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
-        case SVS_SHIP: {
+        case SUMOVehicleShape::SHIP: {
             drawPoly(vehiclePoly_Ship, 4);
             GLHelper::setColor(current.changedBrightness(-30));
             drawPoly(vehiclePoly_ShipDeck, 5);
@@ -361,7 +433,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_ShipSuperStructure, 6);
             break;
         }
-        case SVS_EMERGENCY: // similar to delivery
+        case SUMOVehicleShape::EMERGENCY: // similar to delivery
             drawPoly(vehiclePoly_PassengerVanBody, 4);
             GLHelper::setColor(darker);
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
@@ -377,7 +449,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_Emergency, 5);
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
-        case SVS_FIREBRIGADE: // similar to delivery in red orange
+        case SUMOVehicleShape::FIREBRIGADE: // similar to delivery in red orange
             drawPoly(vehiclePoly_PassengerVanBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
@@ -398,7 +470,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_EmergencyLadder6, 5);
             drawPoly(vehiclePoly_EmergencyLadder7, 5);
             break;
-        case SVS_POLICE: // similar to passenger grey with blue
+        case SUMOVehicleShape::POLICE: // similar to passenger grey with blue
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
@@ -412,20 +484,101 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_Emergency, 5);
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
-        case SVS_RICKSHAW: // Rickshaw
+        case SUMOVehicleShape::RICKSHAW: // Rickshaw
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             // wheels
             GLHelper::setColor(darker);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(.5, .5, -0.1);
             GLHelper::drawFilledCircle(.3, 6);
-            glPopMatrix();
+            GLHelper::popMatrix();
             //other wheel
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glTranslated(.5, -.5, -0.1);
             GLHelper::drawFilledCircle(.3, 6);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
+
+        case SUMOVehicleShape::AIRCRAFT: // Aircraft polygon has many points but we do not expect to have high numbers of aircraft being visualised!
+            GLHelper::pushMatrix();
+            glBegin(GL_TRIANGLE_STRIP);
+            {
+                int i = 0;
+                while (vehiclePoly_aircraft[i] > -999) {
+                    glVertex2d(vehiclePoly_aircraft[i], vehiclePoly_aircraft[i + 1]);
+                    i = i + 2;
+                }
+            }
+            glEnd();
+            GLHelper::setColor(current.changedBrightness(-30));
+            glTranslated(0, 0, 0.1);
+            glBegin(GL_TRIANGLE_STRIP);
+            {
+                int i = 0;
+                while (vehiclePoly_aircraftEngines[i] > -999) {
+                    glVertex2d(vehiclePoly_aircraftEngines[i], vehiclePoly_aircraftEngines[i + 1]);
+                    i = i + 2;
+                }
+            }
+            glEnd();
+            GLHelper::popMatrix();
+            // navigation lights
+            glColor3d(1.f, 0, 0);
+            GLHelper::pushMatrix();
+            glTranslated(0.62, -0.49, 0.1);
+            GLHelper::drawFilledCircle(-.01, 6);
+            GLHelper::popMatrix();
+            glColor3d(0, 1.f, 0);
+            GLHelper::pushMatrix();
+            glTranslated(0.62, 0.49, 0.1);
+            GLHelper::drawFilledCircle(-.01, 6);
+            GLHelper::popMatrix();
+            break;
+
+        case SUMOVehicleShape::SCOOTER: {
+            RGBColor darker2 = current.changedBrightness(-25);
+            GLHelper::pushMatrix();
+            // front small oval
+            GLHelper::setColor(darker);
+            glTranslated(0.2, 0, 0.15); // glTranslated(0.3, 0, 0.15);
+            glScaled(0.09, 0.13, 0.7); // was glScaled(0.04, 0.06, 0.7);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // handlebar
+            GLHelper::pushMatrix();
+            glTranslated(0.42, 0, 0.1); // was glTranslated(0.5, 0, 0.1);
+            glColor3d(0.3, 0.3, 0.3);
+            drawPoly(vehiclePoly_scooterBase, 5);
+            GLHelper::popMatrix();
+            // front oval
+            GLHelper::pushMatrix();
+            GLHelper::setColor(darker2);
+            glTranslated(0.17, 0, 0.1); // was glTranslated(0.29, 0, 0.1);
+            glScaled(0.17, 0.19, 0.9); // was glScaled(0.07, 0.08, 0.9);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // tail rectangle
+            GLHelper::pushMatrix();
+            glColor3d(0.3, 0.3, 0.3);
+            drawPoly(vehiclePoly_scooterBase2, 5);
+            // tail oval
+            GLHelper::setColor(darker2);
+            glTranslated(0.83, 0, 0.1); // was glTranslated(0.71, 0, 0.1);
+            glScaled(0.17, 0.17, 0.9); // was glScaled(0.07, 0.08, 0.9);
+            GLHelper::drawFilledCircle(1, 20);
+            GLHelper::popMatrix();
+            // base oval
+            GLHelper::pushMatrix();
+            GLHelper::setColor(lighter);
+            glTranslated(0.5, 0, 0.1); // was glTranslated(0.5, 0, 0.1);
+            glScaled(0.5, 0.28, 0.9); // was glScaled(0.28, 0.14, 0.9);
+            GLHelper::drawFilledCircle(1, 30);
+            // center rectangle
+            GLHelper::setColor(current);
+            drawPoly(vehiclePoly_scooterBase3, 5);
+            GLHelper::popMatrix();
+            break;
+        }
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -437,9 +590,9 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
 
     // draw decorations
     switch (shape) {
-        case SVS_PEDESTRIAN:
+        case SUMOVehicleShape::PEDESTRIAN:
             break;
-        case SVS_BICYCLE:
+        case SUMOVehicleShape::BICYCLE:
             //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(1 / 2., 0);
@@ -455,8 +608,8 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glVertex2d(0, 0);
             glEnd();
             break;
-        case SVS_MOPED:
-        case SVS_MOTORCYCLE:
+        case SUMOVehicleShape::MOPED:
+        case SUMOVehicleShape::MOTORCYCLE:
             //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(1 / 2., 0);
@@ -472,36 +625,67 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             glVertex2d(0, 0);
             glEnd();
             break;
-        case SVS_PASSENGER:
-        case SVS_PASSENGER_SEDAN:
+        case SUMOVehicleShape::PASSENGER:
+        case SUMOVehicleShape::PASSENGER_SEDAN:
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
             drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
             drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
             break;
-        case SVS_PASSENGER_HATCHBACK:
+        case SUMOVehicleShape::PASSENGER_HATCHBACK:
             drawPoly(vehiclePoly_PassengerHatchbackRightGlass, 4.5);
             drawPoly(vehiclePoly_PassengerHatchbackLeftGlass, 4.5);
             drawPoly(vehiclePoly_PassengerHatchbackBackGlass, 4.5);
             break;
-        case SVS_PASSENGER_WAGON:
+        case SUMOVehicleShape::PASSENGER_WAGON:
             drawPoly(vehiclePoly_PassengerWagonRightGlass, 4.5);
             drawPoly(vehiclePoly_PassengerWagonLeftGlass, 4.5);
             drawPoly(vehiclePoly_PassengerWagonBackGlass, 4.5);
             break;
-        case SVS_PASSENGER_VAN:
-        case SVS_DELIVERY:
+        case SUMOVehicleShape::PASSENGER_VAN:
+        case SUMOVehicleShape::DELIVERY:
             break;
-        case SVS_TRUCK:
+        case SUMOVehicleShape::TAXI:
+            drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
+            drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
+            drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
+
+            glTranslated(0, 0, 6);
+            glColor3d(0, 0, 0);
+            // square-pattern in front
+            glRectd(0.146, 0.24675, 0.171, 0.176);
+            glRectd(0.121, 0.176, 0.146, 0.1055);
+            glRectd(0.146, 0.1055, 0.171, 0.035);
+            glRectd(0.121, 0.035, 0.146, -0.035);
+            glRectd(0.146, -0.1055, 0.171, -0.035);
+            glRectd(0.121, -0.176, 0.146, -0.1055);
+            glRectd(0.146, -0.24675, 0.171, -0.176);
+            // square-pattern at the back
+            glRectd(0.913, 0.24675, 0.938, 0.176);
+            glRectd(0.888, 0.176, 0.913, 0.1055);
+            glRectd(0.888, 0.176, 0.913, 0.1055);
+            glRectd(0.913, 0.1055, 0.938, 0.035);
+            glRectd(0.888, 0.035, 0.913, -0.035);
+            glRectd(0.913, -0.1055, 0.938, -0.035);
+            glRectd(0.888, -0.176, 0.913, -0.1055);
+            glRectd(0.888, -0.176, 0.913, -0.1055);
+            glRectd(0.913, -0.24675, 0.938, -0.176);
+
+            GLHelper::setColor(darker);
+            drawPoly(vehiclePoly_TaxiSign, 5);
+            glScaled(0.2, 0.5, 1);
+            GLHelper::drawText("TAXI", Position(2.58, 0), 5, 0.3, RGBColor::BLACK, 90);
+            break;
+        case SUMOVehicleShape::TRUCK:
             GLHelper::setColor(current);
             GLHelper::drawBoxLine(Position(2.3, 0), 90., length - 2.3, .5);
             break;
-        case SVS_TRUCK_SEMITRAILER:
+        case SUMOVehicleShape::TRUCK_SEMITRAILER:
             if (carriageIndex < 0) {
                 GLHelper::setColor(current);
                 GLHelper::drawBoxLine(Position(2.8, 0), 90., length - 2.8, .5);
             }
             break;
-        case SVS_TRUCK_1TRAILER: {
+        case SUMOVehicleShape::TRUCK_1TRAILER: {
             GLHelper::setColor(current);
             double l = length - 2.3;
             if (carriageIndex != 0) {
@@ -513,8 +697,8 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             }
             break;
         }
-        case SVS_BUS_TROLLEY:
-            glPushMatrix();
+        case SUMOVehicleShape::BUS_TROLLEY:
+            GLHelper::pushMatrix();
             glTranslated(0, 0, .1);
             GLHelper::setColor(darker);
             GLHelper::drawBoxLine(Position(3.8, 0), 90., 1, .3);
@@ -524,21 +708,23 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawBoxLine(Position(4.3, -.2), 90., 1, .06);
             GLHelper::drawBoxLine(Position(5.3, .2), 90., 3, .03);
             GLHelper::drawBoxLine(Position(5.3, -.2), 90., 3, .03);
-            glPopMatrix();
+            GLHelper::popMatrix();
             break;
-        case SVS_BUS:
-        case SVS_BUS_COACH:
-        case SVS_BUS_FLEXIBLE:
-        case SVS_RAIL:
-        case SVS_RAIL_CAR:
-        case SVS_RAIL_CARGO:
-        case SVS_E_VEHICLE:
-        case SVS_ANT:
-        case SVS_SHIP:
-        case SVS_EMERGENCY:
-        case SVS_FIREBRIGADE:
-        case SVS_POLICE:
-        case SVS_RICKSHAW:
+        case SUMOVehicleShape::BUS:
+        case SUMOVehicleShape::BUS_COACH:
+        case SUMOVehicleShape::BUS_FLEXIBLE:
+        case SUMOVehicleShape::RAIL:
+        case SUMOVehicleShape::RAIL_CAR:
+        case SUMOVehicleShape::RAIL_CARGO:
+        case SUMOVehicleShape::E_VEHICLE:
+        case SUMOVehicleShape::ANT:
+        case SUMOVehicleShape::SHIP:
+        case SUMOVehicleShape::EMERGENCY:
+        case SUMOVehicleShape::FIREBRIGADE:
+        case SUMOVehicleShape::POLICE:
+        case SUMOVehicleShape::RICKSHAW:
+        case SUMOVehicleShape::AIRCRAFT:
+        case SUMOVehicleShape::SCOOTER:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
@@ -615,18 +801,16 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
     glEnd();
     */
 
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 bool
-GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, const double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& /* s */, const std::string& file, const GUIGlObject* /* o */, const double width, double length) {
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.vehicleSize.getExaggeration(s, o);
-            const double halfWidth = width / 2.0 * exaggeration;
-            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length * exaggeration);
+            GUITexturesHelper::drawTexturedBox(textureID, -width * 0.5, 0, width * 0.5, length);
             return true;
         }
     }

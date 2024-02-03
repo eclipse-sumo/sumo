@@ -1,0 +1,4 @@
+--osm-files osm.xml --junctions.join --keep-edges.by-vclass passenger
+--keep-edges.components 1
+-R
+--osm.extra-attributes surface

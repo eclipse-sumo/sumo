@@ -1,4 +1,0 @@
-Warning: Essential unique string attribute 'id' of calibrator is missing; calibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of calibrator is invalid; ID contains invalid characters; calibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of calibrator is invalid; ID cannot be empty; calibrator cannot be created
-Warning: There is another calibrator with the same ID='calibrator01'.

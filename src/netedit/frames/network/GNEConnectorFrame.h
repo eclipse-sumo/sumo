@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,7 +40,7 @@ public:
     // class CurrentLane
     // ===========================================================================
 
-    class CurrentLane : protected FXGroupBox {
+    class CurrentLane : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -61,7 +61,7 @@ public:
     // class ConnectionModifications
     // ===========================================================================
 
-    class ConnectionModifications : protected FXGroupBox {
+    class ConnectionModifications : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionModifications)
 
@@ -103,7 +103,7 @@ public:
     // class ConnectionOperations
     // ===========================================================================
 
-    class ConnectionOperations : protected FXGroupBox {
+    class ConnectionOperations : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionOperations)
 
@@ -166,7 +166,7 @@ public:
     // class ConnectionSelection
     // ===========================================================================
 
-    class ConnectionSelection : protected FXGroupBox {
+    class ConnectionSelection : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -174,44 +174,37 @@ public:
 
         /// @brief destructor
         ~ConnectionSelection();
-
-    private:
-        /// @brief Selection Hint
-        FXLabel* myHoldShiftLabel;
-
-        /// @brief hold control label
-        FXLabel* myHoldControlLabel;
     };
 
     // ===========================================================================
-    // class ConnectionLegend
+    // class Legend
     // ===========================================================================
 
-    class ConnectionLegend : protected FXGroupBox {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
-        ConnectionLegend(GNEConnectorFrame* connectorFrameParent);
+        Legend(GNEConnectorFrame* connectorFrameParent);
 
         /// @brief destructor
-        ~ConnectionLegend();
+        ~Legend();
 
     private:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEConnectorFrame();
 
     /**@brief either sets the current lane or toggles the connection of the
-     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param viewObjects collection of objects under cursor after click over view
      */
-    void handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    void handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief get pointer to ConnectionModifications modul
     ConnectionModifications* getConnectionModifications() const;
@@ -249,16 +242,16 @@ private:
     CurrentLane* myCurrentLane;
 
     /// @brief ConnectionModifications modul
-    ConnectionModifications* myConnectionModifications;
+    GNEConnectorFrame::ConnectionModifications* myConnectionModifications = nullptr;
 
     /// @brief ConnectionOperations modul
-    ConnectionOperations* myConnectionOperations;
+    GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
 
     /// @brief ConnectionSelection modul
-    ConnectionSelection* myConnectionSelection;
+    GNEConnectorFrame::ConnectionSelection* myConnectionSelection = nullptr;
 
-    /// @brief ConnectionLegend modul
-    ConnectionLegend* myConnectionLegend;
+    /// @brief Legend modul
+    GNEConnectorFrame::Legend* myLegend = nullptr;
 
     /// @brief the lane of which connections are to be modified
     GNELane* myCurrentEditedLane;

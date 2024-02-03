@@ -1,0 +1,41 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- busStops in lane "gneE0_0"-->
+    <busStop id="busStop_00" lane="gneE0_0" startPos="05" endPos="10" lines="line1 line2"/>
+    <busStop id="busStop_01" lane="gneE0_0" startPos="10" endPos="15" lines="line1 line2"/>
+    <busStop id="busStop_02" lane="gneE0_0" startPos="15" endPos="20" lines="line1 line2"/>
+    <busStop id="busStop_03" lane="gneE0_0" startPos="20" endPos="25" lines="line1 line2"/>
+    <busStop id="busStop_04" lane="gneE0_0" startPos="25" endPos="30" lines="line1 line2"/>
+    <busStop id="busStop_05" lane="gneE0_0" startPos="30" endPos="35" lines="line1 line2"/>
+    <busStop id="busStop_06" lane="gneE0_0" startPos="35" endPos="40" lines="line1 line2"/>
+    <busStop id="busStop_07" lane="gneE0_0" startPos="40" endPos="45" lines="line1 line2"/>
+    <busStop id="busStop_08" lane="gneE0_0" startPos="45" endPos="50" lines="line1 line2"/>
+
+    <!-- id with "ToRemove" -->
+    <busStop id="busStop_IDToRemove1" lane="gneE1_0" startPos="05" endPos="10" lines="line1 line2"/>
+    <busStop id="busStop_IDToRemove2" lane="gneE1_0" startPos="10" endPos="15" lines="line1 line2"/>
+
+    <!-- starPosition between 15 and 25 -->
+    <busStop id="busStop_12" lane="gneE1_0" startPos="15" endPos="20" lines="line1 line2"/>
+    <busStop id="busStop_13" lane="gneE1_0" startPos="20" endPos="25" lines="line1 line2"/>
+
+    <!-- endPosition between 30 and 35 -->
+    <busStop id="busStop_14" lane="gneE1_0" startPos="25" endPos="30" lines="line1 line2"/>
+    <busStop id="busStop_15" lane="gneE1_0" startPos="30" endPos="35" lines="line1 line2"/>
+
+    <!-- lines with "ToRemove" -->
+    <busStop id="busStop_16" lane="gneE1_0" startPos="35" endPos="40" lines="linetoRemove1 line2"/>
+    <busStop id="busStop_17" lane="gneE1_0" startPos="40" endPos="45" lines="line1 lineToRemove2"/>
+
+    <!-- this busStop cannot be deleted -->
+    <busStop id="busStop_18" lane="gneE1_0" startPos="45" endPos="50" lines="line1 line2"/>
+
+    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.00,20.00 0.00,20.00 0.00,10.00 10.00,10.00 10.00,20.00"/>
+    <poly id="poly_1" color="green" fill="1" layer="0.00" shape="40.00,20.00 40.00,10.00 50.00,10.00 50.00,20.00 40.00,20.00"/>
+
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+
+    <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="40.00" width="0.00" height="0.00"/>
+    <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="10.00" width="0.00" height="0.00"/>
+    <poi id="POI_2" color="red" layer="3.00" x="10.00" y="-10.00" width="0.00" height="0.00"/>
+    <poi id="POI_3" color="red" layer="3.00" x="40.00" y="-10.00" width="0.00" height="0.00"/>
+</additional>

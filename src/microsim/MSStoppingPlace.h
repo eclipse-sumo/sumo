@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,14 @@ class Position;
  */
 class MSStoppingPlace : public Named, public Parameterised {
 public:
+    struct Access {
+        MSLane* const lane;
+        const double startPos;
+        const double endPos;
+        const double length;
+        const bool useDoors;
+    };
+
     /** @brief Constructor
      *
      * @param[in] id The id of the stop
@@ -74,7 +82,7 @@ public:
                     const std::string name = "",
                     int capacity = 0,
                     double parkingLength = 0,
-                    const RGBColor& color = RGBColor::WHITE);
+                    const RGBColor& color = RGBColor::INVISIBLE);
 
 
 
@@ -102,6 +110,8 @@ public:
      */
     double getEndLanePosition() const;
 
+    /// @brief the position in the middle of the stop shape
+    Position getCenterPos() const;
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -131,9 +141,11 @@ public:
 
     /** @brief Returns the last free position on this stop
      *
+     * @param[in] forVehicle The vehicle that wants to stop here
+     * @param[in] brakePos the first position on the stop lane that the vehicle can stop at
      * @return The last free position of this bus stop
      */
-    double getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;
@@ -142,7 +154,7 @@ public:
      *
      * @return The next free waiting place for pedestrians / containers
      */
-    virtual Position getWaitPosition(MSTransportable* person) const;
+    Position getWaitPosition(MSTransportable* person) const;
 
     /** @brief Returns the lane position corresponding to getWaitPosition()
      *
@@ -187,18 +199,18 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* lane, const double pos, double length);
+    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors);
 
     /// @brief lanes and positions connected to this stop
-    const std::vector<std::tuple<MSLane*, double, double> >& getAllAccessPos() const {
+    const std::vector<Access>& getAllAccessPos() const {
         return myAccessPos;
     }
 
     /// @brief the position on the given edge which is connected to this stop, -1 on failure
-    double getAccessPos(const MSEdge* edge) const;
+    double getAccessPos(const MSEdge* edge, SumoRNG* rng = nullptr) const;
 
-    /// @brief the distance from the access on the given edge to the stop, -1 on failure
-    double getAccessDistance(const MSEdge* edge) const;
+    /// @brief the access on the given edge to the stop, nullptr if there is none
+    const Access* getAccess(const MSEdge* edge) const;
 
     const std::string& getMyName() const;
 
@@ -262,6 +274,8 @@ protected:
 
     /// @brief The last free position at this stop (variable)
     double myLastFreePos;
+    /// @brief The length of the last parking vehicle (or 0 if there is none)
+    const SUMOVehicle* myLastParking;
 
     /// @brief The name of the stopping place
     const std::string myName;
@@ -278,14 +292,12 @@ protected:
     /// @brief row depth of waiting transportables
     const double myTransportableDepth;
 
-protected:
-
     /// @brief Persons waiting at this stop (mapped to waiting position)
     std::map<const MSTransportable*, int> myWaitingTransportables;
     std::set<int> myWaitingSpots;
 
     /// @brief lanes and positions connected to this stop
-    std::vector<std::tuple<MSLane*, double, double> > myAccessPos;
+    std::vector<Access> myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

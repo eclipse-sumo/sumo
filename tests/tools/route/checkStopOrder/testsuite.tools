@@ -1,6 +1,13 @@
 # Copy of basic
 basic
 stopTable
+filterIds
+
+# integrated table for multple locations (i.e. parallel tracks in the same station)
+stopTable2
+
+# integrated table for multple locations (i.e. parallel tracks in the same station)
+stopTable_wildcard
 
 # detect inconsistence in a single vehicle schedule
 1veh_inconsistent

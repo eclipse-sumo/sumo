@@ -1,0 +1,4 @@
+Error: Attribute 'edges' is missing in definition of rerouter 'rerouter_0'.
+Error: Attribute 'edges' in definition of rerouter 'rerouter_1' is empty.
+Error: Could not build rerouter in netedit; edge doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092836.15879/netedit.gui/additionalelements/rerouter/load/edges/additionals.add.xml failed.

@@ -26,11 +26,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="CEä" from="C" to="E" priority="2" numLanes="2"/>
+    <edge id="CE:ä" from="C" to="E:" priority="2" numLanes="2"/>
     <edge id="CNß" from="C" to="N" priority="2" numLanes="2"/>
     <edge id="CSø" from="C" to="S" priority="2" numLanes="2"/>
     <edge id="CäW" from="C" to="W" priority="2" numLanes="2"/>
-    <edge id="EßC" from="E" to="C" priority="2" numLanes="2"/>
+    <edge id="EßC" from="E:" to="C" priority="2" numLanes="2"/>
     <edge id="NøC" from="N" to="C" priority="2" numLanes="2"/>
     <edge id="äSC" from="S" to="C" priority="2" numLanes="2"/>
     <edge id="ßWC" from="W" to="C" priority="2" numLanes="2"/>

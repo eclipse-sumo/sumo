@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,9 +34,10 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GenericSAXHandler;
 class IStreamInputSource;
-
+class SUMOSAXAttributes;
 
 // ===========================================================================
 // class definitions
@@ -50,13 +51,14 @@ class IStreamInputSource;
  * SAX2XMLReader.
  */
 class SUMOSAXReader {
+
 public:
     /**
      * @brief Constructor
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool);
+    SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool);
 
     /// Destructor
     ~SUMOSAXReader();
@@ -68,66 +70,124 @@ public:
      */
     void setHandler(GenericSAXHandler& handler);
 
-    void setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme);
+    /**
+     * @brief Sets a new validation scheme and applies the validation settings to the XML reader
+     *
+     * If no new scheme is given, the settings of the current scheme are applied.
+     *
+     * @param[in] validationScheme The validation scheme (one of "never", "local", "auto", or "always")
+     */
+    void setValidation(std::string validationScheme = "");
 
+    /**
+     * @brief Parse the given file completely by calling parse of myXMLReader
+     *
+     * This throws a ProcessError if the file is not readable and can handle gzipped XML as well.
+     *
+     * @param[in] systemID file name
+     */
     void parse(std::string systemID);
 
+    /**
+     * @brief Parse XML from the given string
+     *
+     * @param[in] content XML string
+     */
     void parseString(std::string content);
 
+    /**
+     * @brief Start parsing the given file using parseFirst of myXMLReader
+     *
+     * @param[in] systemID file name
+     * @return whether the prolog could be parsed successfully
+     */
     bool parseFirst(std::string systemID);
 
+    /**
+     * @brief Continue a progressive parse started by parseFirst
+     *
+     * @return whether the next token could be parsed successfully
+     */
     bool parseNext();
 
+    /**
+     * @brief Continue a progressive parse started by parseFirst until the given element is encountered
+     *
+     * The parse will continue until the section encapsulated by the element is completed
+     *
+     * @return whether the next section could be parsed successfully
+     */
+    bool parseSection(int element);
+
 private:
+    /// @brief Local Schema Resolver
     class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
+
     public:
+        /// @brief constructor
+        LocalSchemaResolver(const bool haveFallback, const bool noOp);
+
+        /// @brief resolve entity
         XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
-        void setHandler(GenericSAXHandler& handler);
+
     private:
-        GenericSAXHandler* myHandler;
+        /// @brief flag for check if we have fallback
+        const bool myHaveFallback;
+
+        /// @brief flag for check if there is an operation
+        const bool myNoOp;
     };
 
-private:
     /**
-     * @brief Builds a reader
+     * @brief Builds a reader, if needed
      *
-     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
-     *  fails, 0 is returned. Otherwise the validation is set matching the value of
-     *  "myEnableValidation". If validation is not wanted, a WFXMLScanner is used
+     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader,
+     *  if no reader has been created yet. If this
+     *  fails, a ProcessError is thrown. Otherwise the validation is set matching the value of
+     *  "myValidationScheme". If validation is not wanted, a WFXMLScanner is used
      *  (see http://www.ibm.com/developerworks/library/x-xercesperf.html).
-     *
-     * @return The built Xerces-SAX-reader, 0 if something failed
      */
-    XERCES_CPP_NAMESPACE::SAX2XMLReader* getSAXReader();
+    void ensureSAXReader();
 
-
-private:
+    /// @brief generic SAX Handler
     GenericSAXHandler* myHandler;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+    std::string myValidationScheme;
 
     /// @brief Schema cache to be used for grammars which are not declared
     XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
 
+    /// @brief token
     XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 
+    /// @brief XML reader
     XERCES_CPP_NAMESPACE::SAX2XMLReader* myXMLReader;
 
+    /// @brief istream
     std::unique_ptr<std::istream> myIStream;
 
+    /// @brief input stream
     std::unique_ptr<IStreamInputSource> myInputStream;
 
     /// @brief The stack of begun xml elements
     std::vector<SumoXMLTag> myXMLStack;
 
+    /// @brief schema resolver
     LocalSchemaResolver mySchemaResolver;
 
-private:
+    /// @brief local resolver
+    LocalSchemaResolver myLocalResolver;
+
+    /// @brief no operation resolver
+    LocalSchemaResolver myNoOpResolver;
+
+    /// @brief next section
+    std::pair<int, SUMOSAXAttributes*> myNextSection;
+
     /// @brief invalidated copy constructor
-    SUMOSAXReader(const SUMOSAXReader& s);
+    SUMOSAXReader(const SUMOSAXReader& s) = delete;
 
     /// @brief invalidated assignment operator
-    const SUMOSAXReader& operator=(const SUMOSAXReader& s);
-
+    const SUMOSAXReader& operator=(const SUMOSAXReader& s) = delete;
 };

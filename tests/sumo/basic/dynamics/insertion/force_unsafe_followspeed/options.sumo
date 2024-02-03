@@ -2,4 +2,4 @@
 --net-file=motorway.net.xml
 --routes=input_routes.rou.xml
 --tripinfo-output tripinfos.xml
---ignore-route-errors
+--emergency-insert

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ptLines>
+<!-- comment on single line -->
+    <ptLine id="0" name="bus0" line="line0" type="bus"> 
+        <route edges="edge0"/> <!-- comment at end of line -->
+    </ptLine>
+    <!-- comment on
+    multiple lines -->
+
+    <ptLine id="1" line="line1" type="bus">
+        <route edges="edge0 edge1"/>    <!-- comment starting at the end
+    over multiple lines -->
+    </ptLine>
+ <!-- comment at begin of line -->    <ptLine id="2" name="bus2" line="line2" type="bus">
+        <route edges="edge0 edge1 edge2"/>
+    </ptLine>
+   <ptLine id="3" name="bus3" line="line3" type="bus"> <!-- comment in between --> <route edges="edge0 edge1 edge2"/> </ptLine>
+    <ptLine id="4" line="line4" type="bus">    <!-- comment in between
+    over multiple lines --> <route edges="edge0 edge1"/>
+    </ptLine>
+</ptLines>

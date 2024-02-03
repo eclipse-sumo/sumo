@@ -1,0 +1,4 @@
+<routes>
+   <vType id="standard_car" speedFactor="1.2"/>
+  <flow id="a" from="beg" begin="0" end="3600" vehsPerHour="100" type="standard_car"/>
+</routes>

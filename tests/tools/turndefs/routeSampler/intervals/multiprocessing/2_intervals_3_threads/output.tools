@@ -1,0 +1,8 @@
+0: Wrote 10 routes (3 distinct) achieving total count 17 (85.00%) at 2 locations. GEH<5 for 100.00%
+Warning: underflow locations: count 1, min 3.00 (('5',)), max 3.00 (('5',)), mean 3.00, Q1 3.00, median 3.00, Q3 3.00 (total 3)
+300: Wrote 8 routes (1 distinct) achieving total count 16 (100.00%) at 2 locations. GEH<5 for 100.00%
+avg interval input count: count 2, min 16.00 (300.0), max 20.00 (0.0), mean 18.00, Q1 16.00, median 20.00, Q3 20.00
+avg interval written vehs: count 2, min 8.00 (300.0), max 10.00 (0.0), mean 9.00, Q1 8.00, median 10.00, Q3 10.00
+avg interval underflow: count 2, min 0.00 (300.0), max 3.00 (0.0), mean 1.50, Q1 0.00, median 3.00, Q3 3.00
+avg interval overflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 2, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00

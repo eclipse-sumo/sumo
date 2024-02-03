@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2018-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2018-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,15 +20,35 @@ from __future__ import print_function
 
 import sys
 import os
+import logging
 import unittest
 
 # Do not use SUMO_HOME here to ensure you are always testing the
 # functions from the same tree the test is in
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', '..', 'tools', 'turn-defs'))
-
-import collectinghandler  # noqa
 import connections  # noqa
 import turndefinitions  # noqa
+
+
+class CollectingHandler(logging.Handler):
+
+    """ Handler for loggers from logging module. Collects all log messages. """
+
+    def __init__(self, level=0):
+        """ Constructor. The level parameter stands for logging level. """
+
+        self.log_records = []
+        logging.Handler.__init__(self, level)
+
+    def handle(self, record):
+        """ See logging.Handler.handle(self, record) docs. """
+
+        self.log_records.append(record)
+
+    def emit(self, record):
+        """ See logging.Handler.emit(self, record) docs. """
+
+        pass  # do not emit the record. Other handlers can do that.
 
 
 class TurnDefinitionsTestCase(unittest.TestCase):
@@ -71,7 +91,7 @@ class TurnDefinitionsTestCase(unittest.TestCase):
                                                                        "destination"))
 
     def test_probability_overflow_raises_warning_on_initial_add(self):
-        collecting_handler = collectinghandler.CollectingHandler()
+        collecting_handler = CollectingHandler()
         self.turn_definitions.logger.addHandler(collecting_handler)
 
         self.turn_definitions.add("source", "destination", 101)
@@ -82,7 +102,7 @@ class TurnDefinitionsTestCase(unittest.TestCase):
                 for record in collecting_handler.log_records])
 
     def test_probability_overflow_raises_warning_after_addition(self):
-        collecting_handler = collectinghandler.CollectingHandler()
+        collecting_handler = CollectingHandler()
         self.turn_definitions.logger.addHandler(collecting_handler)
 
         self.turn_definitions.add("source", "destination", 90)
@@ -310,7 +330,7 @@ class ConnectionsTestCase(unittest.TestCase):
             "source", "source lane", "destination 2")
 
     def test_readd_raises_warning(self):
-        collecting_handler = collectinghandler.CollectingHandler()
+        collecting_handler = CollectingHandler()
         self.connections.logger.addHandler(collecting_handler)
 
         self.connections.add("source", "source lane", "destination")

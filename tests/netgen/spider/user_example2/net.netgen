@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:06 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-06-27 19:12:49 by Eclipse SUMO netgenerate Version v1_17_0+1314-3b4163efbeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <spider_network>
@@ -32,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="300.00,300.00" convBoundary="0.00,0.00,600.00,600.00" origBoundary="-300.00,-300.00,300.00,300.00" projParameter="!"/>
 
@@ -200,7 +205,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110110" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="1/2" type="priority" x="500.00" y="300.00" incLanes="1/3to1/2_0 4/2to1/2_0 1/1to1/2_0 2/2to1/2_0" intLanes="" shape="505.33,303.20 505.33,296.80 502.47,296.59 500.44,295.96 498.91,294.92 497.54,293.48 496.00,291.65 493.97,289.45 489.45,293.97 490.57,295.54 490.57,296.09 490.18,296.49 489.42,296.72 488.27,296.80 488.27,303.20 490.18,303.51 490.57,303.91 490.57,304.46 490.20,305.16 489.45,306.03 493.97,310.55 496.33,308.31 498.50,306.47 500.49,305.04 502.29,304.02 503.90,303.40">
+    <junction id="1/2" type="priority" x="500.00" y="300.00" incLanes="1/3to1/2_0 4/2to1/2_0 1/1to1/2_0 2/2to1/2_0" intLanes="" shape="505.33,303.20 505.33,296.80 502.29,295.98 500.49,294.96 498.50,293.53 496.33,291.69 493.97,289.45 489.45,293.97 490.57,295.54 490.57,296.09 490.18,296.49 489.42,296.72 488.27,296.80 488.27,303.20 490.18,303.51 490.57,303.91 490.57,304.46 490.20,305.16 489.45,306.03 493.97,310.55 496.33,308.31 498.50,306.47 500.49,305.04 502.29,304.02 503.90,303.40">
         <request index="0"  response="0000000000000000" foes="1000010000100000"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000"/>
@@ -276,7 +281,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="3/1" type="priority" x="200.00" y="300.00" incLanes="2/1to3/1_0 1to3/1_0 4/1to3/1_0 3/2to3/1_0" intLanes="" shape="206.03,310.55 210.55,306.03 209.43,304.46 209.43,303.91 209.82,303.51 210.58,303.28 211.73,303.20 211.73,296.80 209.82,296.49 209.43,296.09 209.43,295.54 209.80,294.84 210.55,293.97 206.03,289.45 203.67,291.69 201.50,293.53 199.51,294.96 197.71,295.98 196.10,296.60 194.67,296.80 194.67,303.20 197.71,304.02 199.51,305.04 201.50,306.47 203.67,308.31">
+    <junction id="3/1" type="priority" x="200.00" y="300.00" incLanes="2/1to3/1_0 1to3/1_0 4/1to3/1_0 3/2to3/1_0" intLanes="" shape="206.03,310.55 210.55,306.03 209.43,304.46 209.43,303.91 209.82,303.51 210.58,303.28 211.73,303.20 211.73,296.80 209.82,296.49 209.43,296.09 209.43,295.54 209.80,294.84 210.55,293.97 206.03,289.45 204.00,291.65 202.46,293.48 201.09,294.92 199.56,295.96 197.53,296.59 194.67,296.80 194.67,303.20 197.71,304.02 199.51,305.04 201.50,306.47 203.67,308.31">
         <request index="0"  response="0000000000100000" foes="1000010000100000"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000"/>
@@ -294,7 +299,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000000000110000" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="3/2" type="priority" x="100.00" y="300.00" incLanes="2/2to3/2_0 3/1to3/2_0 4/2to3/2_0 3/3to3/2_0" intLanes="" shape="106.03,310.55 110.55,306.03 109.43,304.46 109.43,303.91 109.82,303.51 110.58,303.28 111.73,303.20 111.73,296.80 109.82,296.49 109.43,296.09 109.43,295.54 109.80,294.84 110.55,293.97 106.03,289.45 104.00,291.65 102.46,293.48 101.09,294.92 99.56,295.96 97.53,296.59 94.67,296.80 94.67,303.20 97.71,304.02 99.51,305.04 101.50,306.47 103.67,308.31">
+    <junction id="3/2" type="priority" x="100.00" y="300.00" incLanes="2/2to3/2_0 3/1to3/2_0 4/2to3/2_0 3/3to3/2_0" intLanes="" shape="106.03,310.55 110.55,306.03 109.43,304.46 109.43,303.91 109.82,303.51 110.58,303.28 111.73,303.20 111.73,296.80 109.82,296.49 109.43,296.09 109.43,295.54 109.80,294.84 110.55,293.97 106.03,289.45 104.00,291.65 102.46,293.48 101.09,294.92 99.56,295.96 97.53,296.59 94.67,296.80 94.67,303.20 97.53,303.41 99.56,304.04 101.09,305.08 102.46,306.52 104.00,308.35">
         <request index="0"  response="0000000000100000" foes="1000010000100000"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000"/>

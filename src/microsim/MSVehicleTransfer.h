@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,7 @@
 #include <vector>
 #include <map>
 #include <set>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 
 
 // ===========================================================================
@@ -132,14 +132,16 @@ protected:
         SUMOTime myProceedTime;
         /// @brief whether the vehicle is or was parking
         bool myParking;
+        /// @brief whether the vehicle is or was jumping
+        bool myJumping;
 
         /** @brief Constructor
          * @param[in] veh The teleported vehicle
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking)
-            : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
+        VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking, bool jumping)
+            : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking), myJumping(jumping) { }
 
         /// @brief sort by vehicle ID for repeatable parallel simulation
         bool operator<(const VehicleInformation& v2) const;
@@ -147,7 +149,7 @@ protected:
 
 
     /// @brief The information about stored vehicles to move virtually
-    FXSynchQue<VehicleInformation, std::vector<VehicleInformation> > myVehicles;
+    MFXSynchQue<VehicleInformation, std::vector<VehicleInformation> > myVehicles;
 
     /// @brief The static singleton-instance
     static MSVehicleTransfer* myInstance;

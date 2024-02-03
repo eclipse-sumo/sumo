@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,10 +35,10 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select node 1
-netedit.leftClick(referencePosition, 50, 45)
+netedit.leftClick(referencePosition, 216, 58)
 
 # select node 2
-netedit.leftClick(referencePosition, 160, 45)
+netedit.leftClick(referencePosition, 333, 58)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -47,10 +47,10 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 3
-netedit.leftClick(referencePosition, 265, 45)
+netedit.leftClick(referencePosition, 448, 64)
 
 # select node 4
-netedit.leftClick(referencePosition, 380, 45)
+netedit.leftClick(referencePosition, 566, 64)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -59,10 +59,10 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 5
-netedit.leftClick(referencePosition, 55, 165)
+netedit.leftClick(referencePosition, 214, 180)
 
 # select node 6
-netedit.leftClick(referencePosition, 150, 165)
+netedit.leftClick(referencePosition, 335, 294)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -71,31 +71,31 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 8
-netedit.leftClick(referencePosition, 332, 165)
+netedit.leftClick(referencePosition, 510, 174)
 
 # select node 9
-netedit.leftClick(referencePosition, 450, 165)
+netedit.leftClick(referencePosition, 623, 174)
 
 # select node 10
-netedit.leftClick(referencePosition, 550, 165)
+netedit.leftClick(referencePosition, 739, 174)
 
 # inspect node 11
-netedit.leftClick(referencePosition, 340, 270)
+netedit.leftClick(referencePosition, 510, 294)
 
 # inspect node 12
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 623, 294)
 
 # inspect node 13
-netedit.leftClick(referencePosition, 550, 270)
+netedit.leftClick(referencePosition, 739, 294)
 
 # inspect node 14
-netedit.leftClick(referencePosition, 340, 385)
+netedit.leftClick(referencePosition, 510, 410)
 
 # inspect node 15
-netedit.leftClick(referencePosition, 450, 385)
+netedit.leftClick(referencePosition, 623, 410)
 
 # inspect node 16
-netedit.leftClick(referencePosition, 550, 385)
+netedit.leftClick(referencePosition, 739, 410)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -115,11 +115,8 @@ netedit.redo(referencePosition, 4)
 # rebuild network
 netedit.rebuildNetwork()
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

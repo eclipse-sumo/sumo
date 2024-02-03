@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,17 +69,6 @@
 #include "ROMARouteHandler.h"
 #include "ROMAEdge.h"
 
-// ===========================================================================
-// method declaration
-// ===========================================================================
-
-void initNet(RONet& net, ROLoader& loader, OptionsCont& oc);
-double getTravelTime(const ROEdge* const edge, const ROVehicle* const veh, double time);
-void computeAllPairs(RONet& net, OptionsCont& oc);
-void writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh);
-void writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh);
-void computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix);
-
 
 // ===========================================================================
 // Method implementation
@@ -98,12 +87,6 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     ROMAEdgeBuilder builder;
     ROEdge::setGlobalOptions(oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
-    // initialize the travel times
-    /* const SUMOTime begin = string2time(oc.getString("begin"));
-    const SUMOTime end = string2time(oc.getString("end"));
-    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        (*i).second->addTravelTime(STEPS2TIME(begin), STEPS2TIME(end), (*i).second->getLength() / (*i).second->getSpeedLimit());
-    }*/
     // load the weights when wished/available
     if (oc.isSet("weight-files")) {
         loader.loadWeights(net, "weight-files", oc.getString("weight-attribute"), false, oc.getBool("weights.expand"));
@@ -157,29 +140,6 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
 
 
 /**
- * Writes the travel times for a single interval
- */
-void
-writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROMAAssignments& a) {
-    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
-    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
-        if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
-            dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
-            const double traveltime = edge->getTravelTime(a.getDefaultVehicle(), STEPS2TIME(begin));
-            const double flow = edge->getFlow(STEPS2TIME(begin));
-            dev.writeAttr("traveltime", traveltime);
-            dev.writeAttr("speed", edge->getLength() / traveltime);
-            dev.writeAttr("entered", flow);
-            dev.writeAttr("flowCapacityRatio", 100. * flow / a.getCapacity(edge));
-            dev.closeTag();
-        }
-    }
-    dev.closeTag();
-}
-
-
-/**
  * Computes the routes saving them
  */
 void
@@ -194,8 +154,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     if (oc.isDefault("begin") && matrix.getBegin() >= 0) {
         begin = matrix.getBegin();
     }
-    if (oc.isDefault("end") && matrix.getEnd() >= 0) {
-        end = matrix.getEnd();
+    if (oc.isDefault("end")) {
+        end = matrix.getEnd() >= 0 ? matrix.getEnd() : SUMOTime_MAX;
     }
     DijkstraRouter<ROEdge, ROVehicle>::Operation ttOp = oc.getInt("paths") > 1 ? &ROMAAssignments::getPenalizedTT : &ROEdge::getTravelTimeStatic;
     if (measure == "traveltime" && priorityFactor == 0) {
@@ -203,20 +163,21 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttOp, nullptr, false, nullptr, net.hasPermissions());
         } else if (routingAlgorithm == "astar") {
             router = new AStarRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttOp, nullptr, net.hasPermissions());
-        } else if (routingAlgorithm == "CH") {
+        } else if (routingAlgorithm == "CH" && !net.hasPermissions()) {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), false);
-        } else if (routingAlgorithm == "CHWrapper") {
+        } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
+            // use CHWrapper instead of CH if the net has permissions
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
-                begin, end, weightPeriod, oc.getInt("routing-threads"));
+                begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;
@@ -246,7 +207,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             op = &ROEdge::getStoredEffort;
         }
         if (measure != "traveltime" && !net.hasLoadedEffort()) {
-            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
+            WRITE_WARNINGF(TL("No weight data was loaded for attribute '%'."), measure);
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
     }
@@ -259,9 +220,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         matrix.sortByBeginTime();
+        bool haveOutput = OutputDevice::createDeviceByOption("netload-output", "meandata");
         ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"),
-                          oc.getInt("max-alternatives"), oc.getBool("capacities.default"), net, matrix, *router);
+                          oc.getInt("max-alternatives"), oc.getBool("capacities.default"), net, matrix, *router,
+                          haveOutput ? &OutputDevice::getDeviceByOption("netload-output") : nullptr);
         a.resetFlows();
 #ifdef HAVE_FOX
         // this is just to init the CHRouter with the default vehicle
@@ -273,7 +236,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 #endif
         std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "UE") {
-            WRITE_WARNING("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE').");
+            WRITE_WARNING(TL("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE')."));
             assignMethod = "SUE";
         }
         if (assignMethod == "incremental") {
@@ -283,7 +246,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                   oc.getInt("paths"), oc.getFloat("paths.penalty"), oc.getFloat("tolerance"), oc.getString("route-choice-method"));
         }
         // update path costs and output
-        bool haveOutput = false;
         OutputDevice* dev = net.getRouteOutput();
         if (dev != nullptr) {
             std::vector<std::string> tazParamKeys;
@@ -307,7 +269,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 if (c->departures.empty()) {
                     const SUMOTime b = MAX2(begin, c->begin);
                     const SUMOTime e = MIN2(end, c->end);
-                    const int numVehs = int(c->vehicleNumber * (e - b) / (c->end - c->begin));
+                    const int numVehs = int(c->vehicleNumber * (double)(e - b) / (double)(c->end - c->begin));
                     OutputDevice_String od(1);
                     od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
                     od.writeAttr(SUMO_ATTR_BEGIN, time2string(b)).writeAttr(SUMO_ATTR_END, time2string(e));
@@ -316,7 +278,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                     for (RORoute* const r : c->pathsVector) {
                         r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
-                        r->writeXMLDefinition(od, nullptr, true, false);
+                        r->writeXMLDefinition(od, nullptr, true, true, false, false);
                     }
                     od.closeTag();
                     od.closeTag();
@@ -334,7 +296,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (RORoute* const r : c->pathsVector) {
                                 r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
-                                r->writeXMLDefinition(od, nullptr, true, false);
+                                r->writeXMLDefinition(od, nullptr, true, true, false, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {
@@ -357,25 +319,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             }
             haveOutput = true;
         }
-        if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
-            if (oc.getBool("additive-traffic")) {
-                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a);
-            } else {
-                SUMOTime lastCell = 0;
-                for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
-                    if ((*i)->end > lastCell) {
-                        lastCell = (*i)->end;
-                    }
-                }
-                const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-                for (SUMOTime start = begin; start < MIN2(end, lastCell); start += interval) {
-                    writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a);
-                }
-            }
-            haveOutput = true;
-        }
         if (!haveOutput) {
-            throw ProcessError("No output file given.");
+            throw ProcessError(TL("No output file given."));
         }
         // end the processing
         net.cleanup();
@@ -392,7 +337,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes");
+    oc.setApplicationDescription(TL("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes."));
     oc.setApplicationName("marouter", "Eclipse SUMO marouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
@@ -405,7 +350,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        SystemFrame::checkOptions();
+        SystemFrame::checkOptions(oc);
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
         if (!ROMAFrame::checkOptions()) {
@@ -428,21 +373,21 @@ main(int argc, char** argv) {
             }
         }
         if (net->getDistricts().empty()) {
-            WRITE_WARNING("No districts loaded, will use edge ids!");
+            WRITE_WARNING(TL("No districts loaded, will use edge ids!"));
         }
         // load districts
         ODDistrictCont districts;
         districts.makeDistricts(net->getDistricts());
         // load the matrix
-        ODMatrix matrix(districts);
+        ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);
         if (matrix.getNumLoaded() == matrix.getNumDiscarded()) {
-            throw ProcessError("No valid vehicles loaded.");
+            throw ProcessError(TL("No valid vehicles loaded."));
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
-            throw ProcessError("Loading failed.");
+            throw ProcessError(TL("Loading failed."));
         }
         MsgHandler::getErrorInstance()->clear();
         WRITE_MESSAGE(toString(matrix.getNumLoaded() - matrix.getNumDiscarded()) + " valid vehicles loaded (total seen: " + toString(matrix.getNumLoaded()) + ").");

@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,9 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     GUIInstantInductLoop(const std::string& id, OutputDevice& od,
-                         MSLane* const lane, double positionInMeters, const std::string& vTypes);
+                         MSLane* const lane, double positionInMeters,
+                         const std::string name, const std::string& vTypes,
+                         const std::string& nextEdges);
 
 
     /// @brief Destructor
@@ -70,7 +72,6 @@ public:
         /// @brief Destructor
         ~MyWrapper();
 
-
         /// @name inherited from GUIGlObject
         //@{
 
@@ -84,6 +85,8 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+        /// @brief return exaggeration associated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -92,7 +95,6 @@ public:
          */
         Boundary getCenteringBoundary() const;
 
-
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
@@ -100,10 +102,8 @@ public:
         void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
-
         /// @brief Returns the detector itself
         GUIInstantInductLoop& getLoop();
-
 
     private:
         /// @brief The wrapped detector

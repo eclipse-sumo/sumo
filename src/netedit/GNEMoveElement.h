@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,14 +20,17 @@
 #pragma once
 #include <config.h>
 
-#include "GNEGeometry.h"
+#include <utils/gui/div/GUIGeometry.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
+class GNELane;
 class GNEMoveElement;
 class GNEUndoList;
+class GNEViewNet;
+class GUIGlObject;
 
 // ===========================================================================
 // class definitions
@@ -37,6 +40,23 @@ class GNEUndoList;
 class GNEMoveOperation {
 
 public:
+    enum class OperationType {
+        POSITION,
+        ENTIRE_SHAPE,
+        GEOMETRY_POINTS,
+        WIDTH,
+        HEIGHT,
+        LENGTH,
+        ONE_LANE,
+        ONE_LANE_MOVEFIRST,
+        ONE_LANE_MOVESECOND,
+        ONE_LANE_MOVEBOTH,
+        TWO_LANES_MOVEFIRST,
+        TWO_LANES_MOVESECOND,
+        TWO_LANES_MOVEBOTH_FIRST,
+        TWO_LANES_MOVEBOTH_SECOND,
+    };
+
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const Position originalPosition);
@@ -44,6 +64,12 @@ public:
     /// @brief constructor for entire geometries (Polygon with blocked shapes)
     GNEMoveOperation(GNEMoveElement* moveElement,
                      const PositionVector originalShape);
+
+    /// @brief constructor for entire geometries (Polygon with blocked shapes)
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const PositionVector originalShape,
+                     const bool firstGeometryPoint,
+                     const OperationType operationType);
 
     /// @brief constructor for elements with editable shapes (edges, polygons...)
     GNEMoveOperation(GNEMoveElement* moveElement,
@@ -63,7 +89,8 @@ public:
                      const GNELane* lane,
                      const double firstPosition,
                      const double secondPosition,
-                     const bool allowChangeLane);
+                     const bool allowChangeLane,
+                     const OperationType operationType);
 
     /// @brief constructor for elements placed over two lanes with two positions (E2 Multilane, vehicles..)
     GNEMoveOperation(GNEMoveElement* moveElement,
@@ -71,7 +98,8 @@ public:
                      const double firstStartPos,
                      const GNELane* secondLane,
                      const double secondStartPos,
-                     const bool allowChangeLane);
+                     const bool allowChangeLane,
+                     const OperationType operationType);
 
     /// @brief destructor
     ~GNEMoveOperation();
@@ -107,6 +135,12 @@ public:
 
     /// @brief allow change lane
     const bool allowChangeLane;
+
+    /// @brief first position (used for edit with/height
+    const bool firstGeometryPoint;
+
+    /// @brief operation type
+    const OperationType operationType;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -147,7 +181,7 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult();
+    GNEMoveResult(const GNEMoveOperation* moveOperation);
 
     /// @brief destructor
     ~GNEMoveResult();
@@ -160,6 +194,9 @@ public:
 
     /// @brief shape points to move (of shapeToMove)
     std::vector<int> geometryPointsToMove;
+
+    /// @brief move operation
+    const GNEMoveOperation::OperationType operationType;
 
     /// @brief lane offset
     double firstLaneOffset;
@@ -192,10 +229,13 @@ public:
     /// @brief constructor
     GNEMoveElement();
 
-    /**@brief get move operation for the given shapeOffset
+    //// @brief empty destructor
+    virtual ~GNEMoveElement() {}
+
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+    virtual GNEMoveOperation* getMoveOperation() = 0;
 
     /// @brief remove geometry point in the clicked position
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
@@ -210,6 +250,9 @@ protected:
     /// @brief move element lateral offset (used by elements placed over lanes
     double myMoveElementLateralOffset;
 
+    /// @brief calculate move shape operation
+    GNEMoveOperation* calculateMoveShapeOperation(const GUIGlObject* obj, const PositionVector originalShape, const bool maintainShapeClosed);
+
 private:
     /// @brief set move shape
     virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
@@ -217,17 +260,30 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
+    /// @brief calculate lane offset
+    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition, const double secondPosition,
+                                      const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+
     /// @brief calculate single movement over one lane
-    static void calculateSingleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, const GNEMoveOffset& offset);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
+                                    const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate double movement over one lane
-    static void calculateDoubleMovementOverOneLane(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double firstPos,
+                                    const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate double movement over two lanes
-    static void calculateDoubleMovementOverTwoLanes(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const GNEMoveOffset& offset);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos,
+                                    const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
-    static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane* &newLane, double &laneOffset);
+    static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
+
+    // @brief adjust both positions
+    static void adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, GNEMoveResult& moveResult, const GNEMoveOffset& offset);
+
+    /// @brief calculate width/height shape
+    static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

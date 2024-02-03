@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,11 +61,13 @@ GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() {
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*, FXSelector, void*) {
     std::string trackerName = myVarName + " from " + myObject->getFullName();
-    GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
     TrackerValueDesc* newTracked = new TrackerValueDesc(myVarName, RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
-    tr->addTracked(*myObject, mySource->copy(), newTracked);
-    tr->create();
-    tr->show();
+    if (!GUIParameterTracker::addTrackedMultiplot(*myObject, mySource->copy(), newTracked)) {
+        GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+        tr->addTracked(*myObject, mySource->copy(), newTracked);
+        tr->create();
+        tr->show();
+    }
     return 1;
 }
 

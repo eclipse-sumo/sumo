@@ -28,7 +28,7 @@ value is also shown in the table.
 <th><p>Variable</p></th>
 <th><p>ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -143,13 +143,13 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>signal states (0x5b)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the state of a vehicle's signals, see <a href="../TraCI/Vehicle_Signalling.html" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
+<td><p>An integer encoding the state of a vehicle's signals, see <a href="../TraCI/Vehicle_Signalling.md" title="wikilink">TraCI/Vehicle Signalling</a> for more information.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSignals">getSignals</a></p></td>
 </tr>
 <tr class="even">
 <td><p>routing mode (0x89)</p></td>
 <td><p>int</p></td>
-<td><p>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
+<td><p>An integer encoding the <a href="../Simulation/Routing.md#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRoutingMode">getRoutingMode</a></p></td>
 </tr>
 <tr class="even">
@@ -197,7 +197,7 @@ value is also shown in the table.
 <td><p>fuel consumption<br />
 (id 0x65)</p></td>
 <td><p>double</p></td>
-<td><p>Vehicle's fuel consumption in ml/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
+<td><p>Vehicle's fuel consumption in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getFuelConsumption">getFuelConsumption</a></p></td>
 </tr>
 <tr class="odd">
@@ -221,7 +221,7 @@ value is also shown in the table.
 </tr>
 <tr class="even">
 <td><p>stop state (id 0xb5)</p></td>
-<td><p>ubyte</p></td>
+<td><p>int</p></td>
 <td><p>value = 1 * stopped + 2 * parking + 4 * triggered + 8 * containerTriggered + 16 * atBusStop + 32 * atContainerStop + 64 * atChargingStation + 128 * atParkingArea</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopState">getStopState</a><br />
 <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-isAtBusStop">isAtBusStop</a><br />
@@ -353,12 +353,12 @@ value is also shown in the table.
 <tr class="even">
 <td><p>speed mode (0xb3)</p></td>
 <td><p>int bitset (see below)</p></td>
-<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="../TraCI/Change_Vehicle_State.html#speed_mode_0xb3" title="wikilink">set speedmode command</a> for details.</p></td>
+<td><p>Retrieves how the values set by speed (0x40) and slowdown (0x14) shall be treated. See the <a href="../TraCI/Change_Vehicle_State.md#speed_mode_0xb3" title="wikilink">set speedmode command</a> for details.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSpeedMode">getSpeedMode</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>lane change mode (0xb6)</p></td>
-<td><p>int bitset (see <a href="../TraCI/Change_Vehicle_State.html#lane_change_mode_0xb6" title="wikilink">below</a>)</p></td>
+<td><p>int bitset (see <a href="../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6" title="wikilink">below</a>)</p></td>
 <td><p>Get information on how lane changing in general and lane changing requests by TraCI are performed.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeMode">getLaneChangeMode</a></p></td>
 </tr>
@@ -417,6 +417,18 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getMaxSpeedLat">getMaxSpeedLat</a></p></td>
 </tr>
 <tr class="odd">
+<td><p>boarding duration (0x2f)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the boarding duration of the vehicle in s</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getBoardingDuration">getBoarding</a></p></td>
+</tr>
+<tr class="even">
+<td><p>current impatience (0x26)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the current [dynamic impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getImpatience">getImpatience</a></p></td>
+</tr>
+<tr class="odd">
 <td><p>lateral gap (0xbb)</p></td>
 <td><p>double</p></td>
 <td><p>Returns the desired lateral gap of this vehicle at 50km/h in m.</p></td>
@@ -453,10 +465,40 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStops">getStops</a></p></td>
 </tr>
 <tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><p>timeLoss (0x8c)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the accumulated timeLoss of the vehicle in s </p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTimeLoss">getTimeLoss</a></p></td>
+</tr>
+<tr class="even">
+<td><p>loaded list (0x24)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all loaded vehicle ids that have not yet arrived. This includes vehicles that are meant to depart in the future.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLoadedIDList">getLoadedIDList</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>teleporting list (0x25)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all vehicles that are currently [teleporting/jumping](Simulation/Why_Vehicles_are_teleporting.md)</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTeleportingIDList">getTeleportingIDList</a></p></td>
+</tr>
+<tr class="even">
+  <td><p>next links (0x33)</p></td>
+  <td><p>complex</p></td>
+  <td><p>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>actual departure time (0x3a)</p></td>
+<td><p>double</p></td>
+<td><p><Returns the actual departure time (after possibly queueing for insertion)/p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDeparture">getDeparture</a></p></td>
+</tr>
+<tr class="even">
+  <td><p>departure delay (0x3b)</p></td>
+  <td><p>double</p></td>
+  <td><p>Returns the time difference between the planned and the actual departure</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDepartDelay">getDepartDelay</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -508,7 +550,7 @@ Some further messages require additional parameters.
 <th><p>Request ValueType</p></th>
 <th><p>Response ValueType</p></th>
 <th><p>Description</p></th>
-<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.html" title="wikilink">Python Method</a></p></th>
+<th><p><a href="../TraCI/Interfacing_TraCI_from_Python.md" title="wikilink">Python Method</a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -544,16 +586,16 @@ Some further messages require additional parameters.
 <td><p>change lane information (0x13)</p></td>
 <td><p>compound , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
 <td><p>int, int <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
-<td><p>Return whether the vehicle could change lanes in the specified direction (right: -1, left: 1. sublane-change within current lane: 0).<br />
+<td><p>Return whether the vehicle could change lanes in the specified direction in the previous step (right: -1, left: 1. sublane-change within current lane: 0).<br />
 Return the lane change state for the vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeState">getLaneChangeState</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-couldChangeLane">couldChangeLane</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-wantsAndCouldChangeLane">wantsAndCouldChangeLane</a></p></td>
 </tr>
 <tr class="even">
-<td><p>neighboring vehicles (0x13)</p></td>
-<td><p>byte , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
-<td><p>stringList <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
-<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html" title="wikilink">sublane model</a>)</p></td>
-<td><p><a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
+<td><p>neighboring vehicles (0xbf)</p></td>
+<td><p>byte , <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
+<td><p>stringList <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
+<td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.md" title="wikilink">sublane model</a>)</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>followSpeed (0x1c)</p></td>
@@ -575,6 +617,18 @@ Return the lane change state for the vehicle.</p></td>
 <td><p>double</p></td>
 <td><p>Return the safe speed for stopping at gap computed by the carFollowModel of vehicle</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopSpeed">getStopSpeed</a></p></td>
+</tr>
+  <tr class="even">
+  <td><p>junction foes (0x37)</p></td>
+  <td><p>complex</p></td>
+  <td><p>Returns the list of foes within a certain distance of the ego vehicle.</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getJunctionFoes">getJunctionFoes</a></p></td>
+</tr>
+<tr class="odd">
+  <td><p>stop parameters (0x55)</p></td>
+  <td><p>string</p></td>
+  <td><p>Returns the attribute by the given name for the stop of the given index (0 is the next stop, -1 is the previous stop etc) for the specified vehicle. If customParam is set to True (1), the user defined custom parameter will returned instead.
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopParameter">getStopParameter</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -637,6 +691,8 @@ Each value is a bitset with the following meaning:
 - 2^13: overlapping
 - 2^14: insufficient space
 - 2^15: sublane
+- 2^28: insufficient speed
+- 2^30: undetermined
 
 ### neighboring vehicles (0xbf)
 
@@ -680,6 +736,25 @@ The returned value is the safe gap for following the given leader in m.
 The returned value is the safe speed in m/s for stopping after gap when braking
 from the given speed.
 
+### junction foes (0x37)
+
+|         byte          |  double |
+| :-------------------: |  :----: |
+| value type *double*   |  lookahead distance in m   |
+
+The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.
+
+### stopParameter (0x55)
+
+|         byte          | int   | int | string | byte
+| :-------------------: | :---: | :----: | :----: |:----: |
+| value type *compound* | 3     | stopIndex  | param    | customParam
+
+The stopIndex must be in range [-numberOfPassedStops, numberORemaingStops - 1]
+The customParam is interpreted as a boolean and deterines whether an attribute values or a user defined parama is returned.
+
+
 ## Device and LaneChangeModel Parameter Retrieval 0x7e
 
 Vehicles supports retrieval of device parameters using the [generic
@@ -722,6 +797,9 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.taxi.occupiedTime
 - device.taxi.occupiedDistance
 - device.taxi.currentCustomers
+- device.tripinfo.waitingTime (total waiting time)
+- device.tripinfo.waitingCount
+- device.tripinfo.stopTime (total stopping time)
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
@@ -738,3 +816,17 @@ call](../TraCI/GenericParameters.md#get_parameter).
   [parameters supported by the
   laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
   of the vehicle. i.e. *lcStrategic*)
+
+### Supported carFollowModel Parameters
+
+Some carFollowModels permit access to further vehicle-specific parameters.
+
+- carFollowModel.caccCommunicationsOverride (only CACC)
+
+### Supported further Parameters
+
+- parking.rerouteCount: number of times vehicle rerouted to another parkingArea during the current search
+- parking.memory.IDList:  all parkingAreas considered so far
+- parking.memory.score:  latest scores for the list of considered parkingAreas (smaller is better)
+- parking.memory.blockedAtTime: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (possibly via remote information)
+- parking.memory.blockedAtTimeLocal: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (upon physically visiting that area)

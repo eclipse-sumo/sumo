@@ -1,14 +1,14 @@
 # test for rerouting ahead of an occupied parkingArea
 visibility
 
+# tests for determining the destination parkingArea from a list of alternatives when there is no prior knowledge of capacity, (iteratively until a space is found)
+parkingSearch
+
 # tests for rerouting persons along with the vehicles
 riders
 
 # complex test scenario by Mirco
 complex
-
-# block on road line while using parkingArea
-onRoad
 
 # parkingArea is too short for the given roadsideCapacity (lots overlap)
 roadsideCapacity_short
@@ -44,14 +44,6 @@ skip_too_close
 # when rerouting, take subsequent stops into account
 subsequent_stops
 
-# when rerouting, take subsequent stops into account
-# this may trigger adaptation of multiple person stages.
-subsequent_stops_rider_walk
-
-# when rerouting, take subsequent stops into account
-# this may trigger adaptation of multiple person stages.
-subsequent_stops_rider_trip
-
 # check subsequent stops and their lane position relative to the new parkingArea
 subsequent_stop_requires_loop
 
@@ -66,3 +58,9 @@ roadside_slope
 
 # reroute full parking (see #8338)
 reroute_fullparking
+
+# vehicle moves passed rerouter edge in a single step (#9780)
+reroute_on_junction
+
+# test what happens if brakeGap prevents the vehicle from taken the first free space.
+brakeGap_beyond_firstSpace

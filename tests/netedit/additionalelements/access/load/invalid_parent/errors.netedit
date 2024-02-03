@@ -1,0 +1,3 @@
+Error: Attribute 'id' is missing in definition of a busStop.
+Error: 'access' must be defined within the definition of a 'busStop' (found '').
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092750.14063/netedit.gui/additionalelements/access/load/invalid_parent/additionals.add.xml failed.

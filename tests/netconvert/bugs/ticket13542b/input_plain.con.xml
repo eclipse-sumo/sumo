@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-05 16:41:19 by Eclipse SUMO netedit Version v1_18_0+0121-c04b76e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-23925119#3" to="23925119#3" fromLane="0" toLane="0"/>
+
+    <connection from="1102336903#0" to="-23925119#3" fromLane="0" toLane="0"/>
+    <connection from="1102336903#0" to="40191606" fromLane="0" toLane="0"/>
+    <connection from="1102336903#0" to="40191606" fromLane="1" toLane="1"/>
+    <connection from="1102336903#0" to="40191606" fromLane="2" toLane="2"/>
+
+    <connection from="23925119#3" to="886496552#6" fromLane="0" toLane="1"/>
+    <connection from="23925119#3" to="40191606" fromLane="0" toLane="0"/>
+    <connection from="23925119#3" to="-23925119#3" fromLane="0" toLane="0"/>
+
+    <connection from="886496552#4" to="-23925119#3" fromLane="1" toLane="0"/>
+    <connection from="886496552#4" to="886496552#6" fromLane="1" toLane="1"/>
+
+    <connection from="886496552#6" to="886496552#7" fromLane="1" toLane="1"/>
+
+    <crossing node="9945733962" edges="886496552#6" priority="0" width="4.00"/>
+    <crossing node="cluster_261705708_8243171049_987195315_9945733967" edges="-23925119#3 23925119#3" priority="1" width="4.00" linkIndex="9"/>
+    <crossing node="cluster_261705708_8243171049_987195315_9945733967" edges="886496552#4" priority="1" width="4.00" linkIndex="10"/>
+    <crossing node="cluster_261705708_8243171049_987195315_9945733967" edges="1102336903#0" priority="1" width="4.00" linkIndex="11"/>
+    <crossing node="cluster_261705708_8243171049_987195315_9945733967" edges="40191606" priority="1" width="4.00" linkIndex="12"/>
+    <crossing node="cluster_261705708_8243171049_987195315_9945733967" edges="886496552#6" priority="1" width="4.00" linkIndex="13"/>
+</connections>

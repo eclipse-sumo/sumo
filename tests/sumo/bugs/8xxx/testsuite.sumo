@@ -1,8 +1,32 @@
 # invalid braking before red pedestrian crossing
 ticket8116
 
+# vehicles wait within junction (stuck on red) while oncoming still have green
+ticket8124
+
 # early abort due to invalid active vehicle count
 ticket8397
 
 # invalid departPos when using departPos="stop"
 ticket8404
+
+# vehicle briefly invisible (at time 1.2)
+ticket8749
+
+# invalid deceleration
+ticket8798
+
+# collision on junction due to premature acceleration
+ticket8817
+
+# invalid best lanes
+ticket8900
+
+# invalid times written beyond 25 days
+ticket8912
+
+# collision on junction
+ticket8952
+
+# warning after emergency braking with ballistic update
+ticket8978

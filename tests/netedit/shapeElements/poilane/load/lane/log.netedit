@@ -1,2 +1,0 @@
-Warning: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_1'.
-Warning: The lane 'dummyLane' to use within the PoI 'POI_2' is not known.

@@ -30,5 +30,8 @@ kraussX
 ACC
 CACC
 
+# EIDM model test
+EIDM
+
 # initialize with high density and set model parameters for stop and go
 circle_stop_and_go

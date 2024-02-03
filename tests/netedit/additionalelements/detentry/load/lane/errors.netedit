@@ -1,0 +1,3 @@
+Error: Attribute 'lane' is missing in definition of a detEntry.
+Error: Could not build detEntry in netedit; lane 'dummyLane' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun103650.28403/netedit.gui/additionalelements/detentry/load/lane/additionals.add.xml failed.

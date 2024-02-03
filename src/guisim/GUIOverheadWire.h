@@ -1,6 +1,6 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 /// @file    GUIOverheadWire.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // The gui-version of a MSOverheadWire
 /****************************************************************************/
@@ -97,6 +97,9 @@ public:
     */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
     *
     * @return The boundary the object is within
@@ -164,6 +167,9 @@ public:
     */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
     *
     * @return The boundary the object is within
@@ -183,5 +189,3 @@ private:
     /// @brief The shape
     PositionVector myFGShape;
 };
-
-

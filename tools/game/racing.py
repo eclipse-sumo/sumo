@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# -*- coding: utf-8 -*-
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,10 +34,10 @@ else:
     import Queue
     from Tkinter import Button, Frame, Tk
 
+GAME_DIR = os.path.dirname(__file__)
 try:
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME",
-                                                os.path.join(os.path.dirname(__file__), '..')), "tools"))
-    from sumolib import checkBinary  # noqa
+    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(GAME_DIR, '..')), "tools"))
+    import sumolib  # noqa
     import traci  # noqa
 except ImportError:
     sys.exit(
@@ -47,8 +47,15 @@ except ImportError:
 try:
     import autopy  # noqa
 except ImportError:
-    sys.stderr.write("autopy not installed. Can only use keyboard control.")
+    sys.stderr.write("autopy not installed. Can only use keyboard control.\n")
     autopy = None
+
+# Check for playsound import
+try:
+    import playsound  # noqa
+except ImportError:
+    sys.stderr.write("playsound not installed. Sounds will not be played on collisions.\n")
+    playsound = None
 
 
 eventQueue = Queue.Queue()
@@ -129,7 +136,7 @@ class RacingClient:
 
     def workerThread(self):
         try:
-            traci.start([checkBinary("sumo-gui"), "-c", self.sumocfg,
+            traci.start([sumolib.checkBinary("sumo-gui"), "-c", self.sumocfg,
                          "--lateral-resolution", "0.32",
                          "--collision.action", "warn",
                          "--step-length", str(TS)])
@@ -201,6 +208,12 @@ class RacingClient:
                     traci.vehicle.setLine(self.egoID, str(speed))
                     x3, y3 = traci.vehicle.getPosition(self.egoID)
                     x, y = x2, y2
+
+                    # Check for collisions involving the ego car
+                    if playsound:
+                        if self.egoID in traci.simulation.getCollidingVehiclesIDList():
+                            playsound.playsound(os.path.join(GAME_DIR, "sounds", "car_horn1.wav"), False)
+
                     traci.simulationStep()
                     if VERBOSE:
                         print(("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f " +
@@ -234,7 +247,19 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
     root.mainloop()
 
 
-if len(sys.argv) < 3:
-    main(*sys.argv[1:])
-else:
-    print("racing.py <sumocfg> [<egoID>]")
+if __name__ == "__main__":
+    parser = sumolib.options.ArgumentParser()
+    parser.add_argument('--sumocfg', default=os.path.join(GAME_DIR, "racing", "racing.sumocfg"),
+                        help=".sumocfg file path")
+    parser.add_argument('--ego', default="ego", help="vehicle ego id")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                        help="tell me what you are doing")
+    parser.add_argument("-m", "--mouse", action="store_true", default=False,
+                        help="use mouse features")
+    args = parser.parse_args()
+
+    VERBOSE = args.verbose
+    # Disabling mouse control unless explicitly mentioned
+    if not args.mouse:
+        autopy = None
+    main(args.sumocfg, args.ego)

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 13 Feb 2019 03:38:03 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="bs_miv_detail.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/debug_5177.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="23620034#0" from="27978463" to="1360995279" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="3327.03,6975.33 3305.45,6952.00 3279.21,6924.99 3254.72,6900.62 3230.53,6876.07 3190.47,6835.49 3172.16,6818.04 3148.52,6795.53" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="23620034"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="23620034"/>
+        </lane>
+    </edge>
+    <edge id="24271242#0" from="28449350" to="A391_AS_Weststadt" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3424.60,6975.03 3414.71,6986.13 3405.05,6993.63 3395.68,6997.69 3393.14,6998.56 3379.50,7001.35" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="24271242"/>
+        </lane>
+        <param key="origTo" value="262797983"/>
+    </edge>
+    <edge id="24271243#0" from="262797985" to="27989672" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3327.02,6949.12 3334.92,6952.99 3340.54,6954.69 3345.20,6955.17 3352.66,6952.61 3360.66,6947.78 3368.98,6939.79" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="24271243"/>
+        </lane>
+    </edge>
+    <edge id="24271244#0" from="27978467" to="A391_AS_Weststadt" priority="12" type="highway.motorway_link" numLanes="2" speed="13.89" shape="3309.62,7029.14 3323.28,7013.21 3331.22,7008.49 3338.59,7005.53 3343.14,7003.77 3352.11,7002.26" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="24271244"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="24271244"/>
+        </lane>
+        <param key="origTo" value="262797995"/>
+    </edge>
+    <edge id="24271246#0" from="262798000" to="262797998" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3397.72,7048.09 3384.94,7049.68 3382.18,7051.08 3375.96,7054.26 3365.60,7065.14" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="24271246"/>
+        </lane>
+    </edge>
+    <edge id="24271247#0" from="A391_AS_Weststadt" to="262797998" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3372.45,7024.14 3372.99,7034.43 3371.73,7041.31 3371.05,7045.05 3365.60,7065.14" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="24271247"/>
+        </lane>
+        <param key="origFrom" value="28089474"/>
+    </edge>
+    <edge id="273049372" from="262797990" to="27978467" priority="12" type="highway.motorway_link" numLanes="2" speed="13.89" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="273049372"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="273049372"/>
+        </lane>
+    </edge>
+    <edge id="273049374" from="1669070252" to="28449350" priority="12" type="highway.motorway_link" numLanes="2" speed="13.89" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="273049374"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="273049374"/>
+        </lane>
+    </edge>
+    <edge id="27571114" from="21586801" to="21586805" priority="13" type="highway.motorway" numLanes="2" speed="22.22" shape="3190.40,7298.33 3224.79,7239.96 3283.82,7138.61 3342.23,7034.96 3384.86,6956.98 3421.13,6897.19 3456.08,6844.33 3489.42,6799.72 3522.66,6760.02 3581.09,6701.90 3604.03,6679.35" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="27571114 27571110 24271241 24271238"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="27571114 27571110 24271241 24271238"/>
+        </lane>
+    </edge>
+    <edge id="27571138#1" from="3144419517" to="A391_AS_Weststadt" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="3470.56,7086.81 3451.23,7074.63 3431.45,7061.30 3418.03,7051.65 3386.40,7025.47 3367.14,7006.56" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="27571138"/>
+        </lane>
+        <param key="origTo" value="3144419513"/>
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="27571138#3" from="A391_AS_Weststadt" to="cluster_255864423_255864438_27978474_27978494_3144419500_3144419501_416838797_59708187" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="3361.78,7001.31 3348.45,6988.21 3318.42,6958.19 3290.02,6929.08 3234.86,6871.15 3165.91,6799.42 3158.83,6792.26 3127.84,6760.97 3111.14,6744.18 3104.90,6739.08" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="27571138"/>
+        </lane>
+        <param key="origFrom" value="3144419510"/>
+        <param key="origTo" value="255864438"/>
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="309123999#6" from="3144419502" to="A391_AS_Weststadt" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="3113.50,6741.59 3129.86,6758.25 3168.43,6796.98 3177.17,6806.07 3237.40,6868.73 3292.55,6926.65 3320.91,6955.72 3350.92,6985.73 3365.01,6999.50" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="309123999"/>
+        </lane>
+        <param key="origTo" value="3144419511"/>
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="309123999#8" from="A391_AS_Weststadt" to="3144419516" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="3366.77,7001.39 3388.75,7022.87 3420.17,7048.88 3442.48,7064.82 3466.18,7080.13 3472.38,7083.83" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="309123999"/>
+        </lane>
+        <param key="origFrom" value="3144419512"/>
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="309292086" from="28449348" to="28099239" priority="13" type="highway.motorway" numLanes="2" speed="22.22" shape="3649.25,6658.26 3587.87,6710.13 3535.20,6760.76 3501.93,6800.18 3462.69,6852.86 3413.30,6930.09 3392.76,6965.26 3349.44,7042.43 3291.27,7146.21 3234.31,7245.08 3198.97,7304.63" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="309292086 24271239 24271240 27571111"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="309292086 24271239 24271240 27571111"/>
+        </lane>
+    </edge>
+    <edge id="310964897#0" from="28449350" to="28089476" priority="12" type="highway.motorway_link" numLanes="2" speed="13.89" shape="3424.60,6975.03 3412.24,7006.35 3409.65,7014.06 3409.42,7016.53 3409.15,7019.36 3410.84,7029.86" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="310964897"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="310964897"/>
+        </lane>
+    </edge>
+    <edge id="325528576" from="262797985" to="A391_AS_Weststadt" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="3327.02,6949.12 3344.60,6966.60 3361.41,6983.14" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="325528576"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="325528576"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="325528576"/>
+        </lane>
+        <param key="origTo" value="26189982"/>
+    </edge>
+    <edge id="325528578" from="A391_AS_Weststadt" to="27978463" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="3352.11,7002.26 3343.54,6993.05 3327.03,6975.33" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="325528578"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="325528578"/>
+        </lane>
+        <param key="origFrom" value="262797995"/>
+    </edge>
+    <edge id="325528579#0" from="1360001952" to="262797985" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="3244.15,6864.59 3271.46,6892.43 3285.65,6907.27 3327.02,6949.12" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="325528579"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="325528579"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="325528579"/>
+        </lane>
+    </edge>
+    <edge id="325528580#0" from="1230277350" to="262798000" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="3541.44,7132.06 3505.25,7117.67 3475.16,7102.11 3472.80,7100.73 3446.72,7085.46 3433.32,7076.17 3417.50,7064.28 3402.26,7052.24 3397.72,7048.09" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="325528580"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="325528580"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="325528580"/>
+        </lane>
+    </edge>
+    <edge id="325528584#0" from="27978467" to="27978463" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3309.62,7029.14 3319.44,7005.07 3325.29,6989.65 3326.40,6982.82 3327.03,6975.33" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="325528584"/>
+        </lane>
+    </edge>
+    <edge id="32755484#0" from="28089476" to="249296949" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="32755484"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="32755484"/>
+        </lane>
+    </edge>
+    <edge id="32755484#1" from="249296949" to="3882539351" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="3424.23,7040.94 3440.34,7052.78 3448.80,7058.86 3457.00,7063.98 3476.93,7076.56 3483.85,7080.37 3503.74,7090.96 3521.19,7099.06 3534.43,7105.23 3547.83,7110.61 3561.36,7115.71 3575.41,7120.61 3602.31,7128.57 3620.90,7133.07 3630.78,7135.23 3640.72,7137.01 3653.29,7139.31 3673.78,7142.02 3702.07,7144.35 3751.01,7145.53 3784.91,7145.31 3803.51,7145.22 3843.03,7144.57" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="32755484 27571132 27571133"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="32755484 27571132 27571133"/>
+        </lane>
+    </edge>
+    <edge id="32755914" from="A391_AS_Weststadt" to="28089476" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="3379.50,7001.35 3410.84,7029.86" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="32755914"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="32755914"/>
+        </lane>
+        <param key="origFrom" value="262797983"/>
+    </edge>
+    <edge id="32905474" from="262797998" to="28099239" priority="12" type="highway.motorway_link" numLanes="1" speed="22.22" shape="3365.60,7065.14 3357.44,7077.57 3346.23,7094.40 3322.87,7127.77 3299.51,7161.28 3276.48,7194.95 3241.00,7248.97 3203.08,7307.11" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="32905474 27571112"/>
+        </lane>
+    </edge>
+    <edge id="32905536" from="262798000" to="A391_AS_Weststadt" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="3397.72,7048.09 3372.45,7024.14" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
+        <lane index="0">
+            <param key="origId" value="32905536"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="32905536"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="32905536"/>
+        </lane>
+        <param key="origTo" value="28089474"/>
+    </edge>
+    <edge id="4526773#0" from="A391_AS_Weststadt" to="27989672" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" shape="3361.41,6983.14 3360.82,6971.58 3361.02,6970.03 3362.20,6961.13 3364.52,6951.38 3368.98,6939.79" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="4526773"/>
+        </lane>
+        <param key="origFrom" value="26189982"/>
+    </edge>
+    <edge id="4526773#2" from="27989672" to="27989673" priority="12" type="highway.motorway_link" numLanes="1" speed="13.89" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="4526773"/>
+        </lane>
+    </edge>
+
+
+</edges>

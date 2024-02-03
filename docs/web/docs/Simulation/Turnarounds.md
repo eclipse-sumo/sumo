@@ -4,9 +4,9 @@ title: Turnarounds
 
 # Introduction
 Vehicles that wish to perform a turn-around maneuver can be a source of jams and deadlocks in the simulation.
-A typical reason why vehicles need to perform a turn-around is because they have to depart and arrive in a particular direction on their first and last edge and this does not fit their preferred direction of travel. 
+A typical reason why vehicles need to perform a turn-around is because they have to depart and arrive in a particular direction on their first and last edge and this does not fit their preferred direction of travel.
 
-In some way, this behavior is unrealistic because in reality, vehicles that depart from home can often select their initial directly of travel freely without the need for a turn-around. In other situations such as parallel parking on a divided road, turn-arounds are often necessary. 
+In some way, this behavior is unrealistic because in reality, vehicles that depart from home can often select their initial directly of travel freely without the need for a turn-around. In other situations such as parallel parking on a divided road, turn-arounds are often necessary.
 
 Consequently, there are two avenues for avoiding the negative effects of turn-arounds described below.
 
@@ -28,12 +28,12 @@ with
     When loading trips with `fromJunction` or `toJunction` attributes with [sumo](../sumo.md) or [duarouter](../duarouter.md), the option **--junction-taz** must be set or an equivalent TAZ-file must be loaded.
 
 ## Trips between TAZ
-Instead of departing as junctions (which internally use specialised TAZ), the
+Instead of departing as junctions (which internally use specialized TAZ), the
 user may define traffic larger assignment zones (TAZ / districts) as origins and
 destinations of travel. This will also cause vehicles to pick a suitable
 direction. If the main goal of these zones is to avoid turnarounds, then the
 tool [generateBidiDistricts.py](../Tools/District.md#generatebididistrictspy) may
-be used. 
+be used.
 
 ## Modifying existing routes
 If routes between edges already exist, the [duarouter option **--remove-loops**](../duarouter.md) can be used to shorten the roads in a way that avoids turn-arounds.
