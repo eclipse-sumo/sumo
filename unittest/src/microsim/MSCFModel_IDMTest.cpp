@@ -84,7 +84,6 @@ protected :
         veh = new MSVehicleMock(defs, route, type, 1);
         veh->setTentativeLaneAndPosition(dummyLane, 0);
         veh->initDevices();
-        MSGlobals::gSemiImplicitEulerUpdate = true;
     }
 
     virtual void TearDown() {

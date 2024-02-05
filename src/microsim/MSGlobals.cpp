@@ -48,7 +48,7 @@ bool MSGlobals::gEmergencyInsert;
 
 SUMOTime MSGlobals::gLaneChangeDuration;
 
-double MSGlobals::gLateralResolution;
+double MSGlobals::gLateralResolution(-1.); // default for unitTest
 
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
@@ -59,13 +59,13 @@ bool MSGlobals::gOverheadWireSolver;
 bool MSGlobals::gOverheadWireRecuperation;
 bool MSGlobals::gOverheadWireCurrentLimits;
 
-bool MSGlobals::gSemiImplicitEulerUpdate;
+bool MSGlobals::gSemiImplicitEulerUpdate(true); // default for unitTest
 
 SUMOTime MSGlobals::gWaitingTimeMemory;
 
 SUMOTime MSGlobals::gActionStepLength;
 
-double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
+double MSGlobals::gDefaultEmergencyDecel(-1.); // default for unitTest
 
 bool MSGlobals::gUseStopEnded(false);
 bool MSGlobals::gUseStopStarted(false);
