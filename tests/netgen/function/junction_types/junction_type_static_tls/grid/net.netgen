@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:28 by Eclipse SUMO netgenerate Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-05 21:47:43 by Eclipse SUMO netgenerate Version v1_19_0+0760-3b673ba7376
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
@@ -362,28 +367,22 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="A0" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="A1" type="static" programID="0" offset="0">
         <phase duration="42" state="GggrrrGGg"/>
-        <phase duration="3"  state="yyyrrryyy"/>
+        <phase duration="3"  state="yyyrrrGyy"/>
         <phase duration="42" state="rrrGGgGrr"/>
-        <phase duration="3"  state="rrryyyyrr"/>
+        <phase duration="3"  state="rrryyyGrr"/>
     </tlLogic>
     <tlLogic id="A2" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="B0" type="static" programID="0" offset="0">
         <phase duration="42" state="rrrGGgGgg"/>
-        <phase duration="3"  state="rrryyyyyy"/>
+        <phase duration="3"  state="rrrGyyyyy"/>
         <phase duration="42" state="GGgGrrrrr"/>
-        <phase duration="3"  state="yyyyrrrrr"/>
+        <phase duration="3"  state="yyyGrrrrr"/>
     </tlLogic>
     <tlLogic id="B1" type="static" programID="0" offset="0">
         <phase duration="42" state="GGggrrrrGGggrrrr"/>
@@ -393,27 +392,21 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
     <tlLogic id="B2" type="static" programID="0" offset="0">
         <phase duration="42" state="GggrrrGGg"/>
-        <phase duration="3"  state="yyyrrryyy"/>
+        <phase duration="3"  state="yyyrrrGyy"/>
         <phase duration="42" state="rrrGGgGrr"/>
-        <phase duration="3"  state="rrryyyyrr"/>
+        <phase duration="3"  state="rrryyyGrr"/>
     </tlLogic>
     <tlLogic id="C0" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="C1" type="static" programID="0" offset="0">
         <phase duration="42" state="GGgGggrrr"/>
-        <phase duration="3"  state="yyyyyyrrr"/>
+        <phase duration="3"  state="Gyyyyyrrr"/>
         <phase duration="42" state="GrrrrrGGg"/>
-        <phase duration="3"  state="yrrrrryyy"/>
+        <phase duration="3"  state="Grrrrryyy"/>
     </tlLogic>
     <tlLogic id="C2" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
 
     <junction id="A0" type="traffic_light" x="0.00" y="0.00" incLanes="A1A0_0 B0A0_0" intLanes=":A0_0_0 :A0_1_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
