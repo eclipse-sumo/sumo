@@ -2907,6 +2907,10 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         }
         MSLane* const nextNonInternalLane = *laneIter;
         const MSLink* const link = foeLane->getLinkTo(nextNonInternalLane);
+        if (link == nullptr) {
+            // encountered incomplete route
+            return nullptr;
+        }
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());
