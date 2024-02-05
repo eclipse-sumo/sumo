@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-30 08:12+0100\n"
-"PO-Revision-Date: 2024-01-25 13:25+0000\n"
+"PO-Revision-Date: 2024-02-05 13:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15617,60 +15617,64 @@ msgstr "Copia posizione geografica negli appunti"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:333
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "Mostra posizione geografica in "
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:351
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "Apri manipolatore..."
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:390
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:413
 msgid "type: %"
-msgstr ""
+msgstr "tipo: %"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
-msgstr ""
+msgstr "&Salva modifiche"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:88
 msgid "&Don't save"
-msgstr ""
+msgstr "&Non salvare"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&Cancella"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:58
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "Sostituisce il punto di interesse '%'"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:83
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "Sostituisce il poligono '%'"
 
 #: D:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1046
 msgid "Instance was previously created"
-msgstr ""
+msgstr "La rappresentazione era stata creata prima"
 
 #: D:\Repos\sumo/src\utils\gui\images\GUITextureSubSys.cpp:191
 msgid "Undefined texture"
-msgstr ""
+msgstr "Struttura indefinita"
 
 #: D:\Repos\sumo/src\utils\gui\images\VClassIcons.cpp:92
 msgid "Invalid vClass"
-msgstr ""
+msgstr "Classe di veicoli invalida"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
+"L'attributo 'value' non si usa più per punti di interruzione. Per favore usa "
+"'time' al posto suo."
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:384
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
+"L'attributo 'filename' non si usa più per immagini di fondo. Per favore usa "
+"'file' al posto suo."
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:560
 msgid " Could not decode breakpoint '%'"
-msgstr ""
+msgstr " Non ho potuto decodificare il punto di interruzione '%'"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:626
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:873
