@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:06 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-05 19:09:16 by Eclipse SUMO netconvert Version v1_14_1+11488-9edb4743019
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -1623,7 +1623,7 @@
         <lane id="22917250_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="393.64" shape="-0.54,510.75 85.68,495.98 172.10,476.10 211.69,464.10 258.97,446.26 296.53,427.86 330.66,408.35 351.80,392.72 365.57,383.17">
             <param key="origId" value="22917250"/>
         </lane>
-        <lane id="22917250_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="393.64" shape="0.00,513.91 86.31,499.12 172.92,479.20 212.72,467.13 260.24,449.20 298.03,430.69 332.41,411.03 353.66,395.32 367.39,385.80">
+        <lane id="22917250_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="393.64" shape="-0.00,513.91 86.31,499.12 172.92,479.20 212.72,467.13 260.24,449.20 298.03,430.69 332.41,411.03 353.66,395.32 367.39,385.80">
             <param key="origId" value="22917250"/>
         </lane>
         <lane id="22917250_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="393.64" shape="0.54,517.06 86.94,502.26 173.74,482.29 213.75,470.16 261.52,452.14 299.53,433.52 334.16,413.72 355.53,397.92 369.21,388.43">
@@ -1735,15 +1735,15 @@
     </tlLogic>
     <tlLogic id="GS_cluster_1560223510_1906766907" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGgGGggrrr"/>
-        <phase duration="3"  state="yyyyyyyyrrr"/>
+        <phase duration="3"  state="Gyyyyyyyrrr"/>
         <phase duration="42" state="GrrrrrrrGGg"/>
-        <phase duration="3"  state="yrrrrrrryyy"/>
+        <phase duration="3"  state="Grrrrrrryyy"/>
     </tlLogic>
     <tlLogic id="GS_cluster_1560223815_1560223847_301292612_56231397" type="static" programID="0" offset="0">
         <phase duration="42" state="GGggrrrrGGGg"/>
-        <phase duration="3"  state="yyyyrrrryyyy"/>
+        <phase duration="3"  state="yyyyrrrrGyyy"/>
         <phase duration="42" state="rrrrGGGgGrrr"/>
-        <phase duration="3"  state="rrrryyyyyrrr"/>
+        <phase duration="3"  state="rrrryyyyGrrr"/>
     </tlLogic>
     <tlLogic id="GS_cluster_492462300_671564296" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrGGGggrrrr"/>
