@@ -120,7 +120,9 @@ public:
         /// @brief The vehicle got removed via the GUI
         NOTIFICATION_VAPORIZED_GUI,
         /// @brief The vehicle got vaporized with a vaporizer
-        NOTIFICATION_VAPORIZED_VAPORIZER
+        NOTIFICATION_VAPORIZED_VAPORIZER,
+        /// @brief The vehicle got removed via stationfinder device
+        NOTIFICATION_VAPORIZED_BREAKDOWN
     };
 
 

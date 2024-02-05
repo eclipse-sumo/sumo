@@ -1579,9 +1579,9 @@ MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // when coming out of vehicleTransfer we must shift the time forward
         return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().pars.collision
-                || (myStops.front().getSpeed() > 0
-                    && (myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS))
-                    && (myStops.front().pars.parking == ParkingType::ONROAD || getSpeed() >= SUMO_const_haltingSpeed)));
+                || myStops.front().pars.breakDown || (myStops.front().getSpeed() > 0
+                        && (myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS))
+                        && (myStops.front().pars.parking == ParkingType::ONROAD || getSpeed() >= SUMO_const_haltingSpeed)));
     } else {
         return false;
     }
@@ -1600,6 +1600,12 @@ MSVehicle::remainingStopDuration() const {
 SUMOTime
 MSVehicle::collisionStopTime() const {
     return (myStops.empty() || !myStops.front().pars.collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
+}
+
+
+bool
+MSVehicle::brokeDown() const {
+    return isStopped() && !myStops.empty() && myStops.front().pars.breakDown;
 }
 
 

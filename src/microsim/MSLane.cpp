@@ -21,6 +21,7 @@
 /// @author  Christoph Sommer
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    Mon, 05 Mar 2001
 ///
 // Representation of a lane in the micro simulation
@@ -2224,6 +2225,12 @@ MSLane::executeMovements(const SUMOTime t) {
                            veh->getID(), getID(), time2string(t));
             MSNet::getInstance()->getVehicleControl().registerCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
+        } else if (veh->brokeDown()) {
+            veh->resumeFromStopping();
+            WRITE_WARNINGF(TL("Removing vehicle '%' after breaking down, lane='%', time=%."),
+                           veh->getID(), veh->getLane()->getID(), time2string(t));
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_BREAKDOWN);
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {

@@ -158,6 +158,7 @@ public:
      */
     double getDistanceBetween(double fromPos, double toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
 
+
     /// @brief Returns the color
     const RGBColor& getColor() const;
 

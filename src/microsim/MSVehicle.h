@@ -1025,6 +1025,10 @@ public:
      */
     SUMOTime collisionStopTime() const;
 
+    /** @brief Returns how long the vehicle has been stopped already due to lack of energy.
+     */
+    bool brokeDown() const;
+
     /** @brief Returns the information whether the vehicle is fully controlled via TraCI
      * @return Whether the vehicle is remote-controlled
      */
