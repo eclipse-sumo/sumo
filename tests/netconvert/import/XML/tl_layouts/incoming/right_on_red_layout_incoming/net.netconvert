@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:43 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-05 10:31:41 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -23,7 +28,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -137,13 +141,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="0" type="static" programID="0" offset="0">
         <phase duration="18" state="GGGgGrrrrrrrsrrr"/>
-        <phase duration="3"  state="yyyyyrrrrrrrsrrr"/>
+        <phase duration="3"  state="yyyyGrrrrrrrsrrr"/>
         <phase duration="20" state="srrrGGGgGrrrrrrr"/>
-        <phase duration="3"  state="srrryyyyyrrrrrrr"/>
+        <phase duration="3"  state="srrryyyyGrrrrrrr"/>
         <phase duration="20" state="rrrrsrrrGGGgGrrr"/>
-        <phase duration="3"  state="rrrrsrrryyyyyrrr"/>
+        <phase duration="3"  state="rrrrsrrryyyyGrrr"/>
         <phase duration="20" state="GrrrrrrrsrrrGGGg"/>
-        <phase duration="3"  state="yrrrrrrrsrrryyyy"/>
+        <phase duration="3"  state="Grrrrrrrsrrryyyy"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light_right_on_red" x="500.00" y="500.00" incLanes="4fi_0 4fi_1 2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_16_0 :0_4_0 :0_5_0 :0_6_0 :0_17_0 :0_8_0 :0_9_0 :0_10_0 :0_18_0 :0_12_0 :0_13_0 :0_14_0 :0_19_0" shape="493.60,510.40 503.20,510.40 504.00,508.18 505.00,507.40 506.40,506.84 508.20,506.51 510.40,506.40 510.40,496.80 508.18,496.00 507.40,495.00 506.84,493.60 506.51,491.80 506.40,489.60 496.80,489.60 496.00,491.82 495.00,492.60 493.60,493.16 491.80,493.49 489.60,493.60 489.60,503.20 491.82,504.00 492.60,505.00 493.16,506.40 493.49,508.20">

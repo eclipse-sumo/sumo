@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 07:26:02 by Eclipse SUMO netconvert Version v1_18_0+1356-453c2451b02
+<!-- generated on 2024-02-05 10:32:10 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <dlr-navteq-output value="elmar_output"/>
+        <dlr-navteq.version value="7"/>
         <dlr-navteq.precision value="2"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
@@ -2847,11 +2848,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="A 113"/>
         <param key="surface" value="concrete"/>
     </edge>
-    <edge id="292525978" from="260479469" to="32266926" priority="14" type="highway.motorway" spreadType="center" shape="898.24,442.97 854.58,462.18 799.90,483.90 758.44,497.32 671.88,517.67 584.60,532.02">
+    <edge id="292525978" from="260479469" to="32266926" priority="14" type="highway.motorway" spreadType="center" shape="898.24,442.97 854.58,462.18 799.90,483.90 758.44,497.32 671.89,517.67 584.60,532.02">
         <lane id="292525978_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="326.75" shape="898.96,446.14 855.82,465.13 800.98,486.91 759.30,500.41 672.51,520.81 585.12,535.17">
             <param key="origId" value="292525978"/>
         </lane>
-        <lane id="292525978_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="326.75" shape="897.57,443.26 854.58,462.18 799.90,483.90 758.44,497.32 671.88,517.67 584.60,532.02">
+        <lane id="292525978_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="326.75" shape="897.57,443.26 854.58,462.18 799.90,483.90 758.44,497.32 671.89,517.67 584.60,532.02">
             <param key="origId" value="292525978"/>
         </lane>
         <lane id="292525978_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="326.75" shape="896.17,440.38 853.35,459.23 798.81,480.89 757.58,494.24 671.26,514.53 584.08,528.86">
@@ -4282,15 +4283,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="21" state="rrrrrrrrrrrrrggGgggrrrrrrrGGggggGggggg"/>
         <phase duration="3"  state="rrrrrrrrrrrrrggygggrrrrrrryyggggyggggg"/>
         <phase duration="6"  state="rrrrrrrrrrrrrggrgggrrrrrrrrrGgggrggggg"/>
-        <phase duration="3"  state="rrrrrrrrrrrrryyryyyrrrrrrrrryyyyryyyyy"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrgyryyyrrrrrrrrryyyyryyyyy"/>
         <phase duration="21" state="rrrrrrrGGGGGgGrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrryyyyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="4167993270" type="static" programID="0" offset="0">
         <phase duration="42" state="GGggrrrrGGGg"/>
-        <phase duration="3"  state="yyyyrrrryyyy"/>
+        <phase duration="3"  state="yyyyrrrrGyyy"/>
         <phase duration="42" state="rrrrGGGgGrrr"/>
-        <phase duration="3"  state="rrrryyyyyrrr"/>
+        <phase duration="3"  state="rrrryyyyGrrr"/>
     </tlLogic>
     <tlLogic id="4167993273" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrGGGggrrrr"/>
@@ -4917,7 +4918,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="0000000" foes="0001110" cont="0"/>
         <param key="origId" value="1292264830"/>
     </junction>
-    <junction id="4167993265" type="traffic_light" x="1472.73" y="302.83" incLanes="415852937_0 415852937_1 415852937_2 415852973_0 415852973_1 415852973_2 283317455_0 224769565_0 415852970_0 415852970_1 415852970_2" intLanes=":4167993265_0_0 :4167993265_1_0 :4167993265_2_0 :4167993265_27_0 :4167993265_28_0 :4167993265_5_0 :4167993265_6_0 :4167993265_6_1 :4167993265_8_0 :4167993265_29_0 :4167993265_30_0 :4167993265_11_0 :4167993265_12_0 :4167993265_31_0 :4167993265_32_0 :4167993265_33_0 :4167993265_16_0 :4167993265_17_0 :4167993265_34_0 :4167993265_19_0 :4167993265_35_0 :4167993265_21_0 :4167993265_22_0 :4167993265_23_0 :4167993265_23_1 :4167993265_36_0 :4167993265_37_0" shape="1464.22,322.46 1477.00,321.76 1477.32,319.46 1477.83,318.59 1478.57,317.90 1479.56,317.40 1480.77,317.08 1479.55,298.08 1477.27,296.99 1476.41,295.50 1475.73,293.39 1475.25,290.64 1474.95,287.26 1468.56,287.61 1467.51,289.96 1466.09,290.89 1464.07,291.67 1461.45,292.28 1458.23,292.74 1459.94,317.62 1462.19,318.03 1463.00,318.69 1463.61,319.65 1464.02,320.90">
+    <junction id="4167993265" type="traffic_light" x="1472.73" y="302.83" incLanes="415852937_0 415852937_1 415852937_2 415852973_0 415852973_1 415852973_2 283317455_0 224769565_0 415852970_0 415852970_1 415852970_2" intLanes=":4167993265_0_0 :4167993265_1_0 :4167993265_2_0 :4167993265_27_0 :4167993265_28_0 :4167993265_5_0 :4167993265_6_0 :4167993265_6_1 :4167993265_8_0 :4167993265_29_0 :4167993265_30_0 :4167993265_11_0 :4167993265_12_0 :4167993265_31_0 :4167993265_32_0 :4167993265_33_0 :4167993265_16_0 :4167993265_17_0 :4167993265_34_0 :4167993265_19_0 :4167993265_35_0 :4167993265_21_0 :4167993265_22_0 :4167993265_23_0 :4167993265_23_1 :4167993265_36_0 :4167993265_37_0" shape="1464.22,322.46 1477.00,321.76 1477.32,319.46 1477.83,318.59 1478.57,317.90 1479.56,317.40 1480.77,317.08 1479.55,298.08 1477.27,296.99 1476.41,295.50 1475.73,293.39 1475.25,290.64 1474.95,287.26 1468.56,287.61 1467.51,289.96 1466.09,290.89 1464.07,291.67 1461.45,292.28 1458.23,292.74 1459.94,317.62 1462.19,318.03 1463.01,318.69 1463.61,319.65 1464.02,320.90">
         <request index="0"  response="000000000000000000011000000" foes="000000010000000000011000000" cont="0"/>
         <request index="1"  response="011111000000000000111000000" foes="011111110000110000111000000" cont="0"/>
         <request index="2"  response="011110001100000001111000000" foes="011110001111110001111000000" cont="0"/>
@@ -5192,7 +5193,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="835806371" type="priority" x="0.00" y="805.89" incLanes="-69923147_0" intLanes=":835806371_0_0" shape="0.00,805.89 2.08,808.33 0.00,805.89">
+    <junction id="835806371" type="priority" x="0.00" y="805.89" incLanes="-69923147_0" intLanes=":835806371_0_0" shape="0.00,805.89 2.08,808.33 -0.00,805.89">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="837777441" type="priority" x="1557.80" y="624.50" incLanes="-70139065_0" intLanes=":837777441_0_0" shape="1557.80,624.50 1559.80,624.45 1557.80,624.50">

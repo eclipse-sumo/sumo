@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-11 15:21:19 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
+<!-- generated on 2024-02-05 10:32:17 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -224,9 +224,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="cluster_10836944686_156384137_156384139_300386714_#2more" type="static" programID="0" offset="0">
         <phase duration="78" state="GGGGggg"/>
-        <phase duration="3"  state="yyyyggg"/>
+        <phase duration="3"  state="yyGGggg"/>
         <phase duration="6"  state="rrGGGGG"/>
-        <phase duration="3"  state="rryyyyy"/>
+        <phase duration="3"  state="rrGGggg"/>
     </tlLogic>
 
     <junction id="10836944685" type="priority" x="67.95" y="143.35" incLanes="4479836#1_0" intLanes=":10836944685_0_0" shape="66.46,143.94 69.53,143.04 69.44,142.75 66.38,143.66">
@@ -271,7 +271,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="917982633" type="dead_end" x="102.16" y="174.24" incLanes="374407128_0 374407128_1" intLanes="" shape="103.93,171.58 100.39,176.91"/>
-    <junction id="94580802" type="traffic_light" x="106.27" y="0.00" incLanes="27361348_0 27361348_1" intLanes=":94580802_0_0" shape="106.27,0.00 100.31,-2.34 106.27,0.00">
+    <junction id="94580802" type="traffic_light" x="106.27" y="0.00" incLanes="27361348_0 27361348_1" intLanes=":94580802_0_0" shape="106.27,-0.00 100.31,-2.34 106.27,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="cluster_10836944686_156384137_156384139_300386714_#2more" type="traffic_light" x="53.26" y="149.46" incLanes="27361375#0_0 27361375#0_1 69537613_0 69537613_1 69537613_2 69537613_3" intLanes=":cluster_10836944686_156384137_156384139_300386714_#2more_0_0 :cluster_10836944686_156384137_156384139_300386714_#2more_0_1 :cluster_10836944686_156384137_156384139_300386714_#2more_2_0 :cluster_10836944686_156384137_156384139_300386714_#2more_2_1 :cluster_10836944686_156384137_156384139_300386714_#2more_7_0 :cluster_10836944686_156384137_156384139_300386714_#2more_8_0 :cluster_10836944686_156384137_156384139_300386714_#2more_9_0" shape="64.25,154.48 66.74,148.58 64.71,147.44 63.11,145.91 61.94,143.99 61.20,141.69 60.89,139.00 61.01,135.93 54.64,135.28 41.91,156.92 36.26,153.91 34.58,151.40 59.69,156.91 60.58,154.86 61.26,154.30 62.10,154.05 63.10,154.11">

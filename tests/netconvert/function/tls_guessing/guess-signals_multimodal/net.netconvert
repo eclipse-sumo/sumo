@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-29 10:11:26 by Eclipse SUMO netconvert Version v1_15_0+0663-5f2c467
+<!-- generated on 2024-02-05 10:32:24 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -132,9 +132,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="GS_cluster_2292787672_259083790" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGGgrrr"/>
-        <phase duration="3"  state="yyyyyrrr"/>
+        <phase duration="3"  state="Gyyyyrrr"/>
         <phase duration="42" state="GrrrrGGg"/>
-        <phase duration="3"  state="yrrrryyy"/>
+        <phase duration="3"  state="Grrrryyy"/>
     </tlLogic>
 
     <junction id="2292787678" type="priority" x="146.49" y="173.36" incLanes="27488602#1.9_0 -27488602#2_0" intLanes=":2292787678_0_0 :2292787678_1_0" shape="148.59,175.78 144.62,170.76 144.36,170.97 148.39,175.94">
@@ -145,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="310458128" type="dead_end" x="209.18" y="225.18" incLanes="" intLanes="" shape="210.46,224.22 207.90,226.14"/>
-    <junction id="310541110" type="right_before_left" x="0.00" y="292.12" incLanes="27488602#2_0" intLanes=":310541110_0_0" shape="0.00,292.12 2.02,294.61 0.00,292.12">
+    <junction id="310541110" type="right_before_left" x="0.00" y="292.12" incLanes="27488602#2_0" intLanes=":310541110_0_0" shape="-0.00,292.12 2.02,294.61 -0.00,292.12">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="313574" type="dead_end" x="255.77" y="268.94" incLanes="220153138#0_0 220153138#0_1" intLanes="" shape="258.27,266.94 253.27,270.94"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-26 16:16:07 by Eclipse SUMO netconvert Version v1_17_0+1272-c705dc1
+<!-- generated on 2024-02-05 10:32:14 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -864,9 +864,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="201579267" type="static" programID="0" offset="0">
         <phase duration="42" state="GGgrrrGGGg"/>
-        <phase duration="3"  state="yyyrrryyyy"/>
+        <phase duration="3"  state="yyyrrrGyyy"/>
         <phase duration="42" state="rrrGGGGrrr"/>
-        <phase duration="3"  state="rrryyyyrrr"/>
+        <phase duration="3"  state="rrryyyGrrr"/>
     </tlLogic>
     <tlLogic id="201588819" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGrrr"/>
@@ -894,15 +894,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="cluster_201484298_3646958907" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGGgrr"/>
-        <phase duration="3"  state="yyyyyrr"/>
+        <phase duration="3"  state="Gyyyyrr"/>
         <phase duration="42" state="GrrrrGG"/>
-        <phase duration="3"  state="yrrrryy"/>
+        <phase duration="3"  state="Grrrryy"/>
     </tlLogic>
     <tlLogic id="joinedS_201178387_201649895" type="static" programID="0" offset="0">
         <phase duration="42" state="rrGGgGG"/>
-        <phase duration="3"  state="rryyyyy"/>
+        <phase duration="3"  state="rrGGyyy"/>
         <phase duration="42" state="GGGGrrr"/>
-        <phase duration="3"  state="yyyyrrr"/>
+        <phase duration="3"  state="yyGGrrr"/>
     </tlLogic>
     <tlLogic id="joinedS_201220797_201220801_3645231524_3645231555" type="static" programID="0" offset="0">
         <phase duration="15" state="GGrrrrrrrrrr"/>
@@ -922,7 +922,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="6"  state="rrgrrrrrgg"/>
         <phase duration="3"  state="rryrrrrryy"/>
         <phase duration="37" state="rrrGGGGGrr"/>
-        <phase duration="3"  state="rrryyyyyrr"/>
+        <phase duration="3"  state="rrryyyyGrr"/>
     </tlLogic>
 
     <junction id="1802287943" type="priority" x="161.83" y="1399.71" incLanes="360094882_0 480176669_0" intLanes="" shape="165.05,1399.51 158.66,1399.58 158.65,1399.64 158.63,1399.68 158.63,1399.71 165.01,1400.04 165.02,1399.77 165.03,1399.70 165.03,1399.62">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-06 08:14:52 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
+<!-- generated on 2024-02-05 10:32:50 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -117,9 +117,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="B1" type="static" programID="0" offset="0">
         <phase duration="42" state="rrrGGGgGGgg"/>
-        <phase duration="3"  state="rrryyyyyyyy"/>
+        <phase duration="3"  state="rrrGyyyyyyy"/>
         <phase duration="42" state="GGgGrrrrrrr"/>
-        <phase duration="3"  state="yyyyrrrrrrr"/>
+        <phase duration="3"  state="yyyGrrrrrrr"/>
     </tlLogic>
 
     <junction id="A0" type="priority" x="100.00" y="100.00" incLanes="A1A0_0 B0A0_0 bottom0A0_0 bottom0A0_1 left0A0_0" intLanes="" shape="96.80,107.20 103.20,107.20 104.00,104.98 105.00,104.20 106.40,103.64 108.20,103.31 110.40,103.20 110.40,96.80 108.18,96.36 107.40,95.80 106.84,95.02 106.51,94.02 106.40,92.80 93.60,92.80 93.16,95.02 92.60,95.80 91.82,96.36 90.82,96.69 89.60,96.80 89.60,103.20 91.80,103.31 93.60,103.64 95.00,104.20 96.00,104.98 96.60,105.98">

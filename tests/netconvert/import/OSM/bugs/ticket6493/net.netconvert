@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:33 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-05 10:32:15 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1230,7 +1230,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="8225118#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.01" shape="295.45,327.16 297.44,332.52 300.82,340.09"/>
     </edge>
     <edge id="8225132" from="1352560" to="1352604" priority="3" type="highway.residential" spreadType="center" shape="0.00,338.90 36.32,337.85 72.49,335.39 110.68,331.19 140.09,327.70">
-        <lane id="8225132_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="133.12" shape="0.00,338.90 36.32,337.85 72.49,335.39 110.68,331.19 132.64,328.58"/>
+        <lane id="8225132_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="133.12" shape="-0.00,338.90 36.32,337.85 72.49,335.39 110.68,331.19 132.64,328.58"/>
     </edge>
     <edge id="8225144#0" from="1352581" to="1093872785" priority="3" type="highway.residential">
         <lane id="8225144#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="18.46" shape="318.72,376.65 327.74,392.76"/>
@@ -1300,10 +1300,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrryyyrrr"/>
     </tlLogic>
     <tlLogic id="GS_356267937" type="static" programID="0" offset="0">
-        <phase duration="40" state="GGGG"/>
-        <phase duration="5"  state="yyyy"/>
-        <phase duration="40" state="GGGG"/>
-        <phase duration="5"  state="yyyy"/>
+        <phase duration="90" state="GGGG"/>
     </tlLogic>
     <tlLogic id="GS_cluster_313566_368880" type="static" programID="0" offset="0">
         <phase duration="32" state="rrrrGGGGggrrrrGGGgg"/>
@@ -1327,7 +1324,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="GS_cluster_443826_443827_443828_443829" type="static" programID="0" offset="0">
         <phase duration="27" state="rrrrrrGGGGrrrrGGGgg"/>
-        <phase duration="6"  state="rrrrrryyyyrrrryyygg"/>
+        <phase duration="6"  state="rrrrrryyyyrrrrGGGgg"/>
         <phase duration="6"  state="rrrrrrrrrrrrrrGGGGG"/>
         <phase duration="6"  state="rrrrrrrrrrrrrryyyyy"/>
         <phase duration="27" state="GGGrrrrrrrGGggrrrrr"/>
@@ -1632,7 +1629,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="6249003746" type="dead_end" x="737.67" y="540.18" incLanes="" intLanes="" shape="745.41,542.22 729.94,538.13"/>
-    <junction id="6249003756" type="priority" x="142.39" y="0.00" incLanes="-8196629#3_0" intLanes=":6249003756_0_0" shape="142.39,0.00 139.54,1.47 142.39,-0.00">
+    <junction id="6249003756" type="priority" x="142.39" y="0.00" incLanes="-8196629#3_0" intLanes=":6249003756_0_0" shape="142.39,-0.00 139.54,1.47 142.39,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="659614608" type="priority" x="184.71" y="316.82" incLanes="24900359#0_0" intLanes=":659614608_0_0 :659614608_1_0" shape="189.40,318.49 189.45,315.29 187.71,314.92 187.10,314.47 186.67,313.86 186.41,313.07 186.33,312.11 183.13,312.10 182.79,314.11 182.36,314.88 181.77,315.51 181.01,315.98 180.08,316.30 180.84,319.41 183.96,318.71 185.07,318.54 186.20,318.47 187.56,318.46">

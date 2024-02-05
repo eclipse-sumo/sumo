@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 17:53:11 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2024-02-05 10:31:36 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-390659.60,-5819888.28" convBoundary="0.00,0.00,252.42,174.11" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-144014237#0" from="cluster_25664673_4590472030_4590472039_4590472040" to="1085513888" priority="17" type="railway.tram" spreadType="center" shape="127.66,82.06 124.51,79.89 119.48,76.84 114.49,74.71" bidi="144014237#0">
-        <lane id="-144014237#0_0" index="0" allow="tram" speed="13.89" length="16.62" shape="113.84,74.46 113.67,74.37">
+        <lane id="-144014237#0_0" index="0" allow="tram" speed="13.89" length="16.63" shape="113.84,74.46 113.67,74.37">
             <param key="origId" value="144014237"/>
         </lane>
         <param key="origFrom" value="4590472039"/>
@@ -178,13 +178,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918" type="actuated" programID="0" offset="0">
         <phase duration="18" state="rGGGGgrrrrrrrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="ryyyyyrrrrrrrry"/>
+        <phase duration="3"  state="rGyyyyrrrrrrrrG"/>
         <phase duration="20" state="GGrrrrGGrrrGrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyrrrryyrrryrry"/>
+        <phase duration="3"  state="yGrrrrggrrrgrrG"/>
         <phase duration="20" state="rGGGGgggrrrggGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="ryyyyyyyrrryyyy"/>
+        <phase duration="3"  state="ryyyyggyrrryyyG"/>
         <phase duration="20" state="rrrrrGGrGGGrrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrrryyryyyrrry"/>
+        <phase duration="3"  state="rrrrrgyryyyrrrG"/>
     </tlLogic>
 
     <junction id="1085513888" type="priority" x="114.49" y="74.71" incLanes="-144014237#0_0 93584121#1_0" intLanes="" shape="113.96,76.22 115.22,73.28 115.07,73.22 115.02,73.20 114.90,73.16">
@@ -193,7 +193,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="1673527063" type="dead_end" x="139.64" y="89.92" incLanes="144014237#1_0 463829469#0_0" intLanes="" shape="138.98,87.61 137.27,90.32 137.96,90.93 138.19,91.29 138.35,91.69 138.42,92.13 138.42,92.61 140.41,92.77 140.40,90.40 140.22,89.46 139.92,88.68 139.51,88.06"/>
     <junction id="1673585734" type="dead_end" x="119.83" y="173.90" incLanes="-195411594#3_0" intLanes="" shape="121.42,174.03 118.24,173.77 121.42,174.03 118.24,173.77"/>
-    <junction id="25664657" type="dead_end" x="132.74" y="0.00" incLanes="153698394#1_0 153698394#1_1" intLanes="" shape="132.74,0.00 127.55,-0.32 132.74,0.00"/>
+    <junction id="25664657" type="dead_end" x="132.74" y="0.00" incLanes="153698394#1_0 153698394#1_1" intLanes="" shape="132.74,-0.00 127.55,-0.32 132.74,-0.00"/>
     <junction id="5632884667" type="dead_end" x="122.06" y="174.11" incLanes="-35578576#2_0 -35578576#2_1" intLanes="" shape="122.06,174.11 127.24,174.59 122.06,174.11"/>
     <junction id="cluster_25664673_4590472030_4590472039_4590472040" type="traffic_light" x="126.43" y="83.57" incLanes="35578576#2_0 35578576#2_1 -340498976#0_0 -144014237#1_0 -153698394#1_0 144014237#0_0 -93584121#1_0 83517336#0_0 83517336#0_1 22820560#0_0" intLanes="" shape="122.63,94.93 132.97,93.82 133.43,93.12 134.10,93.23 135.08,93.67 136.35,94.41 137.92,95.47 142.01,89.52 140.86,87.23 123.03,72.62 113.66,72.62 112.23,75.43 110.83,75.36 111.69,72.28 112.90,68.89 110.63,75.72 113.83,77.21 116.54,79.38 118.79,82.24 120.55,85.78 121.83,90.01">
         <request index="0"  response="1001000011100" foes="1011100011100"/>

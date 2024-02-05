@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-04 13:17:32 by Eclipse SUMO netconvert Version v1_18_0+0061-a2f1ffe04c7
+<!-- generated on 2024-02-05 10:32:21 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -706,17 +706,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="joinedS_2453091696_cluster_1537334946_2453091683_7202621463_8355251671_#1more_cluster_2453091662_2453091707_31532419_31532420_#1more" type="actuated" programID="0" offset="0">
         <phase duration="11" state="GGGGrrrrrrrrrrrGGGGrrrrrrggggGGGGGrrrrrrrrrrrrrrr" minDur="7" maxDur="50"/>
-        <phase duration="4"  state="yyyyrrrrrrrrrrryyyyrrrrrryyyyyyyyyrrrrrrrrrrrrrrr"/>
-        <phase duration="11" state="rrrrggggggggGGGggrrgrrgrrggggrrrrrgrrgrrGGGgrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrryyyyyyyyyyyyyrryrryrryyyyrrrrryrryrryyyyrrrrr"/>
-        <phase duration="11" state="rrrrggggggggGGGggrrgrrgrrggggrrrrrgrrgrrGGGgrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrryyyyyyyyyyyyyrryrryrryyyyrrrrryrryrryyyyrrrrr"/>
+        <phase duration="4"  state="yyyyrrrrrrrrrrrggyyrrrrrrggggyyyyyrrrrrrrrrrrrrrr"/>
+        <phase duration="26" state="rrrrggggggggGGGggrrgrrgrrggggrrrrrgrrgrrGGGgrrrrr" minDur="10" maxDur="100"/>
+        <phase duration="4"  state="rrrryyyyyyyyyyyggrrgrrgrryyyyrrrrryrryrryyyyrrrrr"/>
         <phase duration="11" state="rrrrrrrrrrrrrrrGGGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrryyyyyyyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGyyyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrGGGGGGrrrrrrrrr" minDur="5" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrryyyyrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrryyyyyyrrrrrrrrr"/>
         <phase duration="11" state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG" minDur="7" maxDur="50"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrrrrryyyyy"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
 
     <junction id="1537334925" type="right_before_left" x="314.35" y="84.54" incLanes="35084893#1_0" intLanes=":1537334925_0_0" shape="314.35,84.54 311.16,84.27 314.35,84.54">

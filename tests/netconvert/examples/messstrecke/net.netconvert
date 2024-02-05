@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:38 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-05 10:31:37 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -333,11 +337,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
         <phase duration="36" state="GGgrrGGG"/>
-        <phase duration="4"  state="yygrryyy"/>
+        <phase duration="4"  state="GGgrryyy"/>
         <phase duration="6"  state="GGGrrrrr"/>
         <phase duration="4"  state="yyyrrrrr"/>
         <phase duration="36" state="rrrGGGrr"/>
-        <phase duration="4"  state="rrryyyrr"/>
+        <phase duration="4"  state="rrryyGrr"/>
     </tlLogic>
 
     <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.27,184.00 1914.87,184.00 1914.04,180.97 1912.50,179.03 1911.91,177.79 1911.67,176.00 1905.27,176.00">

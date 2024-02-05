@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-11 13:36:45 by Eclipse SUMO netconvert Version v1_17_0+0232-fd0d62f
+<!-- generated on 2024-02-05 10:32:01 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -154,9 +154,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="38" state="GGGggrrrGGGgrrr"/>
         <phase duration="3"  state="yyyggrrryyygrrr"/>
         <phase duration="6"  state="rrrGGrrrrrrGrrr"/>
-        <phase duration="3"  state="rrryyrrrrrryrrr"/>
+        <phase duration="3"  state="rrryGrrrrrryrrr"/>
         <phase duration="37" state="rrrrGGGgrrrrGGG"/>
-        <phase duration="3"  state="rrrryyyyrrrryyy"/>
+        <phase duration="3"  state="rrrrgyyyrrrryyy"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_15_0 :C_16_0 :C_5_0 :C_5_1 :C_17_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_13_1" shape="93.60,110.40 106.40,110.40 110.40,106.40 110.40,93.60 106.40,89.60 93.60,89.60 89.60,93.60 89.60,106.40">

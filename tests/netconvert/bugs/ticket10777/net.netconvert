@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 14:12:58 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
+<!-- generated on 2024-02-05 10:33:03 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -400,7 +400,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="561742170" from="5414385984" to="5416200780" priority="1" type="highway.footway" spreadType="center" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 0.00,29.11">
-        <lane id="561742170_0" index="0" allow="pedestrian" speed="2.78" length="292.30" width="2.00" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 -0.00,29.11">
+        <lane id="561742170_0" index="0" allow="pedestrian" speed="2.78" length="292.30" width="2.00" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 0.00,29.11">
             <param key="origId" value="561742170"/>
         </lane>
     </edge>
@@ -469,11 +469,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="cluster_28114806_286726503_2952513732_2952513733_#2more" type="actuated" programID="0" offset="0">
         <phase duration="24" state="rrrrGGGGGgg" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrryyyyygg"/>
+        <phase duration="3"  state="rrrryGGGGgg"/>
         <phase duration="6"  state="rrrrrGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrrryyyyyy"/>
+        <phase duration="3"  state="rrrrrGGGGyy"/>
         <phase duration="24" state="GrrGGGGGGrr" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yrryyyyyyrr"/>
+        <phase duration="3"  state="yrrGyyyyyrr"/>
         <phase duration="24" state="rGGGrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="ryyyrrrrrrr"/>
     </tlLogic>

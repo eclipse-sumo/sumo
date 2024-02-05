@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 17:53:19 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2024-02-05 10:32:23 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -441,7 +441,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="cluster_205334989_205335651_2431065505_264059960_4291687761_4320038430_4320038433_4377396882_4377396886_988611930" type="static" programID="0" offset="0">
         <phase duration="27" state="rrrrrrrGGGGG"/>
-        <phase duration="3"  state="rrrrrrryyyyy"/>
+        <phase duration="3"  state="rrrrrrrGGyyy"/>
         <phase duration="27" state="rrrrGGGGGrrr"/>
         <phase duration="3"  state="rrrryyyyyrrr"/>
         <phase duration="27" state="GGGGrrrrrrrr"/>
@@ -465,37 +465,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="6"  state="rrrrrrrrrrrGrrrrrrrrrrrrrrr"/>
         <phase duration="4"  state="rrrrrrrrrrryrrrrrrrrrrrrrrr"/>
         <phase duration="6"  state="rrGGrrrrrrrrrrrGGGrrrrrrrrr"/>
-        <phase duration="4"  state="rryyrrrrrrrrrrryyyrrrrrrrrr"/>
+        <phase duration="4"  state="rrGGrrrrrrrrrrryyyrrrrrrrrr"/>
         <phase duration="6"  state="rrGGrrrrrrrrGGGrrrGGGrrrrrr"/>
-        <phase duration="4"  state="rryyrrrrrrrryyyrrryyyrrrrrr"/>
+        <phase duration="4"  state="rrGGrrrrrrrrGGGrrryyyrrrrrr"/>
         <phase duration="6"  state="rrGGrrrrrrrrGGGrrrrrrGGGrrr"/>
-        <phase duration="4"  state="rryyrrrrrrrryyyrrrrrryyyrrr"/>
+        <phase duration="4"  state="rrGGrrrrrrrrGGGrrrrrryyyrrr"/>
         <phase duration="6"  state="rrGGrrrrrrrrGGGrrrrrrrrrGGG"/>
         <phase duration="4"  state="rryyrrrrrrrryyyrrrrrrrrryyy"/>
     </tlLogic>
     <tlLogic id="joinedG_1139052687_257163520_cluster_1139455558_1140137806_1140137809_1140137960_1140138004_1140138013_1140138101_257163521" type="static" programID="0" offset="0">
         <phase duration="18" state="GGGGrrGGGrrrrrGGGGrrr"/>
-        <phase duration="3"  state="yyyyrryyyrrrrryyyyrrr"/>
+        <phase duration="3"  state="yyyyrrGGgrrrrrGGGGrrr"/>
         <phase duration="20" state="rrrrGGGGgGGrrrGGGGrrr"/>
-        <phase duration="3"  state="rrrryyyyyyyrrryyyyrrr"/>
+        <phase duration="3"  state="rrrrGGGGgyyrrrGyyyrrr"/>
         <phase duration="20" state="rrrrGGGGGrrGGGGrrrrrr"/>
         <phase duration="3"  state="rrrryyyyyrryyyyrrrrrr"/>
         <phase duration="20" state="rrGGrrrrrrrrrrrrrrGGG"/>
-        <phase duration="3"  state="rryyrrrrrrrrrrrrrryyy"/>
+        <phase duration="3"  state="rrGGrrrrrrrrrrrrrryyy"/>
     </tlLogic>
     <tlLogic id="joinedG_205334993_205334994_25726347" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGGGGggGGrr"/>
-        <phase duration="3"  state="yyyyyyyyyyrr"/>
+        <phase duration="3"  state="yyyGGGggyyrr"/>
         <phase duration="42" state="rrrGGGGGrrGG"/>
-        <phase duration="3"  state="rrryyyyyrryy"/>
+        <phase duration="3"  state="rrrGGGggrryy"/>
     </tlLogic>
     <tlLogic id="joinedG_205335646_4377397121_4377397122_cluster_205335636_205335647" type="static" programID="0" offset="0">
         <phase duration="36" state="GGGrrrGGGgrrrrGGGGgrrrr"/>
-        <phase duration="4"  state="yyyrrryyygrrrryyyygrrrr"/>
+        <phase duration="4"  state="GGGrrryyygrrrryyyygrrrr"/>
         <phase duration="6"  state="GGGrrrrrrGrrrrrrrrGrrrr"/>
-        <phase duration="4"  state="yyyrrrrrryrrrrrrrryrrrr"/>
+        <phase duration="4"  state="GGgrrrrrryrrrrrrrryrrrr"/>
         <phase duration="36" state="GGgGGGrrrrGGGgrrrrrGGGg"/>
-        <phase duration="4"  state="yyyyyyrrrryyyyrrrrryyyy"/>
+        <phase duration="4"  state="GGgyyyrrrryyyyrrrrryyyy"/>
     </tlLogic>
 
     <junction id="1138859472" type="traffic_light" x="538.21" y="271.67" incLanes="692496092_0 692496092_1 692496092_2 624801641_0 624801641_1" intLanes="" shape="540.75,277.15 542.82,267.77 534.93,265.77 533.34,273.99 536.14,274.95 537.05,275.53 537.96,276.11 539.11,276.66">
@@ -520,7 +520,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="1138891317" type="priority" x="0.00" y="0.00" incLanes="-22281157_0 -22281157_1" intLanes="" shape="0.00,0.00 -3.52,5.34 0.00,0.00">
+    <junction id="1138891317" type="priority" x="0.00" y="0.00" incLanes="-22281157_0 -22281157_1" intLanes="" shape="-0.00,0.00 -3.52,5.34 -0.00,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1138891360" type="priority" x="122.06" y="80.71" incLanes="429696853#0_0 429696853#0_1 429696853#0_2 19745762#0_0 19745762#0_1" intLanes="" shape="125.44,88.34 130.39,80.12 118.36,72.86 113.39,81.08 114.98,82.53 115.32,83.36 115.37,84.26 115.11,85.23 114.56,86.26 119.90,89.79">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
+<!-- generated on 2024-02-05 10:32:07 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2135,7 +2135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="155062261_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.94" length="183.86" shape="176.55,384.20 173.82,382.80 148.21,368.67 102.36,341.99 42.09,306.59 20.78,294.34 17.16,292.59"/>
     </edge>
     <edge id="164434950" from="1760726710" to="1760726565" priority="20" type="railway.rail" spreadType="center" shape="0.00,105.12 22.23,108.79 40.29,111.16 59.60,111.99 84.31,112.96 107.08,112.00 134.13,110.54 157.87,108.83 180.65,106.14 203.60,102.47 231.57,98.20 259.27,91.99 309.45,80.74 333.13,73.70 351.24,66.90">
-        <lane id="164434950_0" index="0" allow="rail rail_electric rail_fast" speed="20.12" length="356.82" shape="0.00,105.12 22.23,108.79 40.29,111.16 59.60,111.99 84.31,112.96 107.08,112.00 134.13,110.54 157.87,108.83 180.65,106.14 203.60,102.47 231.57,98.20 259.27,91.99 309.45,80.74 333.13,73.70 351.24,66.90"/>
+        <lane id="164434950_0" index="0" allow="rail rail_electric rail_fast" speed="20.12" length="356.82" shape="-0.00,105.12 22.23,108.79 40.29,111.16 59.60,111.99 84.31,112.96 107.08,112.00 134.13,110.54 157.87,108.83 180.65,106.14 203.60,102.47 231.57,98.20 259.27,91.99 309.45,80.74 333.13,73.70 351.24,66.90"/>
     </edge>
     <edge id="164434961" from="1760726675" to="1760733985" priority="20" type="railway.rail" spreadType="center" shape="1.92,96.48 34.43,100.79 57.44,101.88 80.85,102.21 103.11,101.08 123.80,98.89 152.55,93.03 168.64,89.81 190.78,83.85 212.15,76.09 236.42,65.28 258.24,53.98 268.85,48.52 284.04,40.09 301.16,32.16 319.03,25.24 338.70,18.86 357.91,13.15 377.17,8.29 402.73,3.56">
         <lane id="164434961_0" index="0" allow="rail rail_electric rail_fast" speed="13.41" length="418.81" shape="1.92,96.48 34.43,100.79 57.44,101.88 80.85,102.21 103.11,101.08 123.80,98.89 152.55,93.03 168.64,89.81 190.78,83.85 212.15,76.09 236.42,65.28 258.24,53.98 268.85,48.52 284.04,40.09 301.16,32.16 319.03,25.24 338.70,18.86 357.91,13.15 377.17,8.29 402.73,3.56"/>
@@ -2857,9 +2857,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="5502464285" type="static" programID="0" offset="0">
         <phase duration="42" state="rrrGGrrrGGgg"/>
-        <phase duration="3"  state="rrryyrrryyyy"/>
+        <phase duration="3"  state="rrryyrrryyyg"/>
         <phase duration="42" state="GggrrGGgrrrG"/>
-        <phase duration="3"  state="yyyrryyyrrry"/>
+        <phase duration="3"  state="yyyrryyyrrrg"/>
     </tlLogic>
     <tlLogic id="5502464290" type="static" programID="0" offset="0">
         <phase duration="82" state="GG"/>

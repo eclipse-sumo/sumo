@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
+<!-- generated on 2024-02-05 10:32:07 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2231,7 +2231,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="25159688#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="8.88" shape="275.67,190.48 269.77,197.12"/>
     </edge>
     <edge id="25211335" from="21619537" to="1760726663" priority="20" type="railway.rail" spreadType="center" shape="402.49,-0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93">
-        <lane id="25211335_0" index="0" allow="rail rail_electric rail_fast" speed="13.41" length="417.33" shape="402.49,0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93"/>
+        <lane id="25211335_0" index="0" allow="rail rail_electric rail_fast" speed="13.41" length="417.33" shape="402.49,-0.00 376.55,4.43 356.87,9.41 337.11,15.17 317.27,21.80 300.02,28.72 282.12,37.13 266.87,45.41 257.88,50.09 234.64,62.12 208.46,73.37 184.82,81.13 165.03,86.53 148.71,90.09 118.13,96.23 94.67,98.23 74.21,98.55 47.40,98.23 32.12,97.12 3.15,92.93"/>
     </edge>
     <edge id="25211346" from="9780020" to="1760726700" priority="20" type="railway.rail" spreadType="center" shape="349.05,64.23 331.69,70.80 308.34,78.03 255.32,89.12 233.57,94.28 207.10,98.90 182.74,102.69 153.56,105.85 102.26,108.95 87.97,109.37 71.44,109.09 42.17,107.28 23.48,105.05 1.08,101.24">
         <lane id="25211346_0" index="0" allow="rail rail_electric rail_fast" speed="20.12" length="353.49" shape="349.05,64.23 331.69,70.80 308.34,78.03 255.32,89.12 233.57,94.28 207.10,98.90 182.74,102.69 153.56,105.85 102.26,108.95 87.97,109.37 71.44,109.09 42.17,107.28 23.48,105.05 1.08,101.24"/>
@@ -2860,9 +2860,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="5502464285" type="static" programID="0" offset="0">
         <phase duration="42" state="GGrrrGGggrrr"/>
-        <phase duration="3"  state="yyrrryyyyrrr"/>
+        <phase duration="3"  state="yyrrryyygrrr"/>
         <phase duration="42" state="rrGGgrrrGGgg"/>
-        <phase duration="3"  state="rryyyrrryyyy"/>
+        <phase duration="3"  state="rryyyrrrgyyy"/>
     </tlLogic>
     <tlLogic id="5502464290" type="static" programID="0" offset="0">
         <phase duration="82" state="GG"/>
@@ -3169,7 +3169,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="2592978106" type="right_before_left" x="409.86" y="238.28" incLanes="-321325247#1_0 253362215#1_0 321325247#0_0" intLanes=":2592978106_0_0 :2592978106_1_0 :2592978106_2_0 :2592978106_3_0 :2592978106_4_0 :2592978106_5_0" shape="410.71,235.18 408.62,241.23 407.30,241.12 406.50,241.28 405.60,241.58 404.61,242.01 403.52,242.59 402.57,239.45 403.14,238.96 403.21,238.72 403.14,238.48 402.92,238.24 402.55,238.00 405.56,232.35 407.43,233.49 408.06,233.93 408.72,234.33 409.54,234.74">
+    <junction id="2592978106" type="right_before_left" x="409.86" y="238.28" incLanes="-321325247#1_0 253362215#1_0 321325247#0_0" intLanes=":2592978106_0_0 :2592978106_1_0 :2592978106_2_0 :2592978106_3_0 :2592978106_4_0 :2592978106_5_0" shape="410.71,235.18 408.62,241.23 407.30,241.12 406.50,241.28 405.60,241.58 404.61,242.01 403.52,242.59 402.57,239.45 403.14,238.96 403.21,238.72 403.14,238.48 402.92,238.24 402.55,238.00 405.56,232.35 407.43,233.49 408.07,233.93 408.72,234.33 409.54,234.74">
         <request index="0" response="000000" foes="101000" cont="0"/>
         <request index="1" response="010100" foes="010100" cont="0"/>
         <request index="2" response="000000" foes="010010" cont="0"/>

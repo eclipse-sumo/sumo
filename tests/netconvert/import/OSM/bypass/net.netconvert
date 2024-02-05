@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-12 11:25:51 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
+<!-- generated on 2024-02-05 10:32:10 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -328,19 +328,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="cluster_1595145584_2546740042_259566585_320356071_#4more" type="static" programID="0" offset="0">
         <phase duration="33" state="GGrrrrGGG"/>
-        <phase duration="6"  state="yyrrrryyy"/>
+        <phase duration="6"  state="GGrrrryyy"/>
         <phase duration="6"  state="GGGGrrrrr"/>
-        <phase duration="6"  state="yyyyrrrrr"/>
+        <phase duration="6"  state="GGyyrrrrr"/>
         <phase duration="33" state="GGrrGGGGG"/>
-        <phase duration="6"  state="yyrryyyyy"/>
+        <phase duration="6"  state="GGrryyGGG"/>
     </tlLogic>
     <tlLogic id="cluster_1670775121_2203517104_2362397358_585156" type="static" programID="0" offset="0">
         <phase duration="24" state="rGGGgGrrr"/>
-        <phase duration="6"  state="ryyyyyrrr"/>
+        <phase duration="6"  state="ryyyyGrrr"/>
         <phase duration="24" state="rrrrrGGGG"/>
-        <phase duration="6"  state="rrrrryyyy"/>
+        <phase duration="6"  state="rrrrryyyG"/>
         <phase duration="24" state="GGrrrrrrG"/>
-        <phase duration="6"  state="yyrrrrrry"/>
+        <phase duration="6"  state="yGrrrrrry"/>
     </tlLogic>
 
     <junction id="1595145557" type="priority" x="140.37" y="55.56" incLanes="185283362_0 185283362_1 185283362_2" intLanes=":1595145557_0_0 :1595145557_0_1 :1595145557_2_0" shape="136.58,61.33 134.49,51.96 132.25,52.50 130.60,52.97 129.23,53.36 127.86,53.67 126.18,53.90 123.88,54.04 123.86,57.25 127.11,57.20 128.09,57.26 128.64,57.37 128.77,57.53 128.47,57.75 131.25,63.52 133.16,62.53 133.84,62.19 134.53,61.89 135.39,61.62">

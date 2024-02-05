@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 18:48:31 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2024-02-05 10:32:07 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -131,7 +131,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_2833725823_75143074_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.43" length="28.77" shape="1837.60,653.64 1838.49,658.11 1835.05,662.75 1828.31,667.49 1819.32,672.28"/>
     </edge>
     <edge id=":cluster_2833725823_75143074_5" function="internal">
-        <lane id=":cluster_2833725823_75143074_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.69" length="1.66" shape="1837.60,653.64 1837.33,655.11 1837.23,655.23"/>
+        <lane id=":cluster_2833725823_75143074_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.69" length="1.66" shape="1837.60,653.64 1837.33,655.10 1837.23,655.23"/>
     </edge>
     <edge id=":cluster_2833725823_75143074_11" function="internal">
         <lane id=":cluster_2833725823_75143074_11_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.69" length="3.17" shape="1837.23,655.23 1836.74,655.81 1835.82,655.77 1834.57,654.96"/>
@@ -198,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="171257621#1_0" index="0" allow="tram" speed="13.89" length="4.15" shape="1810.90,686.63 1809.91,686.76 1806.78,687.15"/>
     </edge>
     <edge id="171257621#3" from="cluster_1823188364_253943505" to="1823188526" priority="17" type="railway.tram" spreadType="center" shape="1779.17,689.95 1764.41,693.34 1747.01,699.17 1719.58,712.08 1691.25,725.62 1647.81,747.00 1459.81,836.43 1123.70,997.02 1109.81,1003.34 932.39,1089.35 874.45,1120.40 833.01,1153.67 796.70,1189.65 744.56,1246.70 720.80,1271.83 697.15,1295.82 646.05,1337.12 609.82,1360.15 570.89,1380.61 525.36,1398.65 498.64,1407.38 475.38,1413.46 446.53,1419.39 413.94,1424.65 374.34,1431.21 362.21,1433.21 244.71,1451.17 186.53,1459.28 128.24,1466.49 0.00,1481.73">
-        <lane id="171257621#3_0" index="0" allow="tram" speed="13.89" length="1977.40" shape="1770.38,691.97 1764.41,693.34 1747.01,699.17 1719.58,712.08 1691.25,725.62 1647.81,747.00 1459.81,836.43 1123.70,997.02 1109.81,1003.34 932.39,1089.35 874.45,1120.40 833.01,1153.67 796.70,1189.65 744.56,1246.70 720.80,1271.83 697.15,1295.82 646.05,1337.12 609.82,1360.15 570.89,1380.61 525.36,1398.65 498.64,1407.38 475.38,1413.46 446.53,1419.39 413.94,1424.65 374.34,1431.21 362.21,1433.21 244.71,1451.17 186.53,1459.28 128.24,1466.49 -0.00,1481.73"/>
+        <lane id="171257621#3_0" index="0" allow="tram" speed="13.89" length="1977.40" shape="1770.38,691.97 1764.41,693.34 1747.01,699.17 1719.58,712.08 1691.25,725.62 1647.81,747.00 1459.81,836.43 1123.70,997.02 1109.81,1003.34 932.39,1089.35 874.45,1120.40 833.01,1153.67 796.70,1189.65 744.56,1246.70 720.80,1271.83 697.15,1295.82 646.05,1337.12 609.82,1360.15 570.89,1380.61 525.36,1398.65 498.64,1407.38 475.38,1413.46 446.53,1419.39 413.94,1424.65 374.34,1431.21 362.21,1433.21 244.71,1451.17 186.53,1459.28 128.24,1466.49 0.00,1481.73"/>
     </edge>
     <edge id="31091054#1" from="cluster_2833725823_75143074" to="cluster_1823188364_253943505" priority="11" type="highway.secondary" shape="1823.06,668.70 1819.70,670.31 1796.70,681.60 1786.90,686.27">
         <lane id="31091054#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="16.67" length="15.56" shape="1819.32,672.28 1805.34,679.14"/>
@@ -227,9 +227,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="cluster_2833725823_75143074" type="static" programID="0" offset="0">
         <phase duration="39" state="GggrrrGGg"/>
-        <phase duration="6"  state="yyyrrryyy"/>
+        <phase duration="6"  state="yyyrrrGyy"/>
         <phase duration="39" state="rrrGGgGrr"/>
-        <phase duration="6"  state="rrryyyyrr"/>
+        <phase duration="6"  state="rrryyyGrr"/>
     </tlLogic>
 
     <junction id="1200460322" type="priority" x="1428.38" y="669.38" incLanes="-734152397#1_0" intLanes=":1200460322_0_0" shape="1428.38,669.38 1428.60,672.57 1428.38,669.38">

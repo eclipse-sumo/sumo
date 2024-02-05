@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-21 08:49:42 by Eclipse SUMO netconvert Version v1_16_0+2267-d952ac6734d
+<!-- generated on 2024-02-05 10:32:38 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2500,9 +2500,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_#3more" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGggGGgggrrrrr"/>
-        <phase duration="3"  state="yyyyyyyyyyrrrrr"/>
+        <phase duration="3"  state="Gyyyyyyyyyrrrrr"/>
         <phase duration="42" state="GrrrrrrrrrGGGGg"/>
-        <phase duration="3"  state="yrrrrrrrrryyyyy"/>
+        <phase duration="3"  state="Grrrrrrrrryyyyy"/>
     </tlLogic>
 
     <junction id="1292264830" type="priority" x="4422.99" y="509.31" incLanes="24214694#3_0 24214694#3_1 -114949101#0_0 -24214694#4_0 -24214694#4_1" intLanes="" shape="4417.24,514.31 4429.59,513.12 4431.21,511.37 4430.31,505.03 4428.68,503.75 4416.34,504.94">
@@ -4866,7 +4866,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="14" response="0000011000110000" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="cluster_1560223404_2335739502" type="priority" x="4413.14" y="374.30" incLanes="190083618#0_0 190083618#0_1 190083618#0_2 190083618#0_3 -190083609#1_0 -190083609#1_1 -190083609#1_2 -190083609#1_3 190083616#1_0 190083616#1_1 224769565_0 196674458#0_0 196674458#0_1 196674458#0_2 196674458#0_3" intLanes="" shape="4401.05,394.06 4419.84,393.47 4422.86,391.69 4420.88,369.78 4419.01,365.24 4406.65,366.24 4397.33,368.72 4399.45,390.68">
+    <junction id="cluster_1560223404_2335739502" type="priority" x="4413.14" y="374.29" incLanes="190083618#0_0 190083618#0_1 190083618#0_2 190083618#0_3 -190083609#1_0 -190083609#1_1 -190083609#1_2 -190083609#1_3 190083616#1_0 190083616#1_1 224769565_0 196674458#0_0 196674458#0_1 196674458#0_2 196674458#0_3" intLanes="" shape="4401.05,394.06 4419.84,393.47 4422.86,391.69 4420.88,369.78 4419.01,365.24 4406.65,366.24 4397.33,368.72 4399.45,390.68">
         <request index="0"  response="00000000000011000000" foes="00000011000011000000"/>
         <request index="1"  response="01111000000111000000" foes="01111111000111000000"/>
         <request index="2"  response="01110000110111000000" foes="01110000111111000000"/>
@@ -5015,7 +5015,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="cluster_1568241232_1654992651" type="priority" x="4457.73" y="162.90" incLanes="-143308673#0_0 169076556#0_0 169076556#0_1 -152709214_0 -169076556#2_0 -169076556#2_1" intLanes="" shape="4460.72,169.17 4466.60,166.64 4467.39,164.69 4463.42,155.08 4451.04,155.67 4446.35,160.03 4445.96,161.64 4449.50,171.41">
+    <junction id="cluster_1568241232_1654992651" type="priority" x="4457.73" y="162.89" incLanes="-143308673#0_0 169076556#0_0 169076556#0_1 -152709214_0 -169076556#2_0 -169076556#2_1" intLanes="" shape="4460.72,169.17 4466.60,166.64 4467.39,164.69 4463.42,155.08 4451.04,155.67 4446.35,160.03 4445.96,161.64 4449.50,171.41">
         <request index="0"  response="00000000010000" foes="10001000010000"/>
         <request index="1"  response="01100000110000" foes="01111000110000"/>
         <request index="2"  response="01100110110000" foes="01100111110000"/>
@@ -5157,7 +5157,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="16" response="000001110001001110" foes="000001110001011110"/>
         <request index="17" response="000001000001000001" foes="000001000001000001"/>
     </junction>
-    <junction id="cluster_56231598_56242441_945141732_945141877" type="priority" x="4540.99" y="677.31" incLanes="143308546#5_0 143308546#5_1 143308546#5_2 81096576_0 143308542#0_0 143308542#0_1 143308542#0_2 122666823_0" intLanes="" shape="4546.83,689.42 4553.73,671.84 4553.16,670.04 4549.17,667.37 4535.01,665.11 4529.61,683.91 4530.65,685.77 4533.73,686.63">
+    <junction id="cluster_56231598_56242441_945141732_945141877" type="priority" x="4540.98" y="677.31" incLanes="143308546#5_0 143308546#5_1 143308546#5_2 81096576_0 143308542#0_0 143308542#0_1 143308542#0_2 122666823_0" intLanes="" shape="4546.83,689.42 4553.73,671.84 4553.16,670.04 4549.17,667.37 4535.01,665.11 4529.61,683.91 4530.65,685.77 4533.73,686.63">
         <request index="0"  response="000000000000" foes="110001100000"/>
         <request index="1"  response="000000000000" foes="110001100000"/>
         <request index="2"  response="001100000000" foes="001111100000"/>

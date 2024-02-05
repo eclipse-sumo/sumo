@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-11 08:26:55 by Eclipse SUMO netconvert Version v1_17_0+0224-416c3f6
+<!-- generated on 2024-02-05 10:32:10 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -422,7 +422,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-143308673#1" from="1653119660" to="1853142973" priority="1" type="highway.service" shape="4514.26,243.92 4502.41,261.97 4484.41,265.69 4469.43,188.80">
         <lane id="-143308673#1_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="118.31" shape="4513.33,248.25 4503.39,263.40 4483.15,267.59 4468.31,191.43"/>
     </edge>
-    <edge id="-143308685#0" from="1568241546" to="1568241558" priority="1" type="highway.service" shape="4392.68,722.97 4391.82,727.51 4390.04,736.62">
+    <edge id="-143308685#0" from="1568241546" to="1568241558" priority="1" type="highway.service" shape="4392.68,722.97 4391.82,727.50 4390.04,736.62">
         <lane id="-143308685#0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="13.90" shape="4393.39,727.80 4392.91,730.25"/>
     </edge>
     <edge id="-143308685#1" from="1568241549" to="1568241546" priority="1" type="highway.service" shape="4417.93,724.22 4393.65,718.08 4392.68,722.97">
@@ -1685,7 +1685,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="143308601#2" from="1568241303" to="260702833" priority="3" type="highway.residential">
         <lane id="143308601#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="29.67" shape="4211.18,280.52 4188.82,283.70"/>
     </edge>
-    <edge id="143308608" from="1568241558" to="1568241546" priority="1" type="highway.service" shape="4390.04,736.62 4391.82,727.51 4392.68,722.97">
+    <edge id="143308608" from="1568241558" to="1568241546" priority="1" type="highway.service" shape="4390.04,736.62 4391.82,727.50 4392.68,722.97">
         <lane id="143308608_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="13.90" shape="4389.77,729.64 4390.25,727.20"/>
     </edge>
     <edge id="143308618" from="1568241247" to="1653119638" priority="1" type="highway.service" shape="4347.08,176.67 4341.51,150.66 4337.92,130.80 4311.73,137.35">
@@ -2636,9 +2636,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </tlLogic>
     <tlLogic id="GS_cluster_1560223815_1560223847_301292612_56231397" type="static" programID="0" offset="0">
         <phase duration="42" state="GGggrrrrGGGg"/>
-        <phase duration="3"  state="yyyyrrrryyyy"/>
+        <phase duration="3"  state="yyyyrrrrGyyy"/>
         <phase duration="42" state="rrrrGGGgGrrr"/>
-        <phase duration="3"  state="rrrryyyyyrrr"/>
+        <phase duration="3"  state="rrrryyyyGrrr"/>
     </tlLogic>
     <tlLogic id="GS_cluster_492462300_671564296" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrGGGggrrrr"/>
@@ -2820,7 +2820,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="148491631" type="priority" x="3349.50" y="134.06" incLanes="31763024#1_0" intLanes="" shape="3349.50,134.06 3348.10,136.93 3349.50,134.06">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="0.00,3531.77 1.62,3532.94 0.00,3531.77">
+    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="-0.00,3531.77 1.62,3532.94 0.00,3531.77">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1520039998" type="priority" x="3508.25" y="797.56" incLanes="138624421#4_0 -52460499#5_0 -52460499#5_1 52460499#4_0 52460499#4_1" intLanes="" shape="3513.22,803.73 3516.15,798.04 3514.92,797.16 3514.55,796.66 3514.33,796.12 3514.27,795.54 3514.36,794.91 3504.33,792.18 3503.45,795.16 3503.07,796.18 3502.63,797.18 3502.04,798.37 3501.24,799.97 3510.56,804.60 3511.25,803.71 3511.67,803.49 3512.14,803.42 3512.66,803.50">

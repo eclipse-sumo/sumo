@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 18:48:32 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2024-02-05 10:32:15 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2857,14 +2857,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrryyyrrr"/>
     </tlLogic>
     <tlLogic id="GS_356267937" type="static" programID="0" offset="0">
-        <phase duration="40" state="GGGG"/>
-        <phase duration="5"  state="yyyy"/>
-        <phase duration="40" state="GGGG"/>
-        <phase duration="5"  state="yyyy"/>
+        <phase duration="90" state="GGGG"/>
     </tlLogic>
     <tlLogic id="cluster_1806157952_1806157953_1806157954_1806157955_#7more" type="static" programID="0" offset="0">
         <phase duration="27" state="rrrrrrrGGGGrrrrGGGgg"/>
-        <phase duration="6"  state="rrrrrrryyyyrrrryyygg"/>
+        <phase duration="6"  state="rrrrrrryyyyrrrrGGGgg"/>
         <phase duration="6"  state="rrrrrrrrrrrrrrrGGGGG"/>
         <phase duration="6"  state="rrrrrrrrrrrrrrryyyyy"/>
         <phase duration="27" state="GGGGrrrrrrrGGggrrrrr"/>
@@ -3481,7 +3478,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="6249003746" type="dead_end" x="737.67" y="540.18" incLanes="" intLanes="" shape="745.41,542.22 729.94,538.13"/>
-    <junction id="6249003756" type="priority" x="142.39" y="0.00" incLanes="-8196629#0_0" intLanes=":6249003756_0_0" shape="142.39,0.00 139.54,1.47 142.39,0.00">
+    <junction id="6249003756" type="priority" x="142.39" y="0.00" incLanes="-8196629#0_0" intLanes=":6249003756_0_0" shape="142.39,-0.00 139.54,1.47 142.39,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="658929993" type="priority" x="193.25" y="493.74" incLanes="8142293#0_0" intLanes=":658929993_0_0" shape="195.78,495.85 196.54,494.00 195.84,493.53 195.65,493.23 195.58,492.89 195.62,492.50 195.77,492.07 192.85,490.75 190.81,495.39 193.75,496.64 194.24,495.94 194.56,495.76 194.92,495.68 195.33,495.71">

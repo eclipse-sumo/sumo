@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:08 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-05 10:32:20 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -104,9 +108,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="15031750" type="static" programID="0" offset="0">
         <phase duration="42" state="GGgGggrrr"/>
-        <phase duration="3"  state="yyyyyyrrr"/>
+        <phase duration="3"  state="Gyyyyyrrr"/>
         <phase duration="42" state="GrrrrrGGg"/>
-        <phase duration="3"  state="yrrrrryyy"/>
+        <phase duration="3"  state="Grrrrryyy"/>
     </tlLogic>
 
     <junction id="15031750" type="traffic_light" x="212.00" y="61.00" incLanes="-15033109_0 -15033077_0 -15033110_0" intLanes=":15031750_0_0 :15031750_1_0 :15031750_9_0 :15031750_3_0 :15031750_10_0 :15031750_11_0 :15031750_6_0 :15031750_7_0 :15031750_12_0" shape="217.93,66.14 219.78,60.01 205.89,55.91 204.12,62.06 206.12,63.10 206.70,63.85 207.00,64.74 207.02,65.79 206.76,66.98 212.87,68.90 213.98,66.85 214.75,66.25 215.67,65.93 216.73,65.89">

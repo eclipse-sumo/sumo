@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:22 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-05 10:33:00 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -23,7 +28,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -119,11 +123,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="c2a" type="static" programID="0" offset="0">
         <phase duration="27" state="rrGGGGGgGGgrrGGG"/>
-        <phase duration="3"  state="rryyyyyyyyyrryyy"/>
+        <phase duration="3"  state="rrGyyyyyGGgrryyy"/>
         <phase duration="27" state="GGGrrrrrGGGrrrrr"/>
         <phase duration="3"  state="yyyrrrrryyyrrrrr"/>
         <phase duration="27" state="rrrrrGGGrrrGGGrr"/>
-        <phase duration="3"  state="rrrrryyyrrryyyrr"/>
+        <phase duration="3"  state="rrrrrGGgrrryyGrr"/>
     </tlLogic>
 
     <junction id="54534761" type="traffic_light" x="203.72" y="91.65" incLanes="-51812270_0 717744589_0 717744589_1 -51811859_0 -51811859_1" intLanes=":54534761_0_0 :54534761_1_0 :54534761_2_0 :54534761_3_0 :54534761_3_1 :54534761_5_0 :54534761_5_1 :54534761_8_0" shape="212.60,98.05 214.66,91.99 212.71,90.86 212.16,90.09 211.90,89.18 211.93,88.13 212.24,86.94 200.21,82.57 195.33,96.32 207.42,100.51 208.58,98.56 209.37,98.01 210.30,97.74 211.38,97.75">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-19 16:52:55 by Eclipse SUMO netconvert Version v1_15_0+0444-dbd4d39ef68
+<!-- generated on 2024-02-05 10:33:02 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -503,46 +503,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="gneJ55" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="sz1" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="sz135" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="sz14" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="sz3" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="sz5" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
     <tlLogic id="szJ25" type="static" programID="0" offset="0">
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
-        <phase duration="42" state="GG"/>
-        <phase duration="3"  state="yy"/>
+        <phase duration="90" state="GG"/>
     </tlLogic>
 
     <junction id="gneJ0" type="priority" x="631.28" y="139.33" incLanes="-gneE4_0 gneE58_0 gneE3_0" intLanes=":gneJ0_0_0 :gneJ0_6_0 :gneJ0_2_0 :gneJ0_3_0 :gneJ0_4_0 :gneJ0_7_0" shape="631.89,141.01 633.30,140.51 631.99,136.58 629.13,137.48 629.32,138.58 629.30,139.11 629.21,139.64 629.03,140.16 628.78,140.67 630.08,141.42 630.81,140.45 631.13,140.27 631.42,140.31 631.67,140.56">
