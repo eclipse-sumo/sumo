@@ -23,7 +23,7 @@
 
 
 <routes>
-  <vType color="blue" emissionClass="MMPEVEM" id="BMW_i3" vClass="passenger">
+  <vType emissionClass="MMPEVEM" id="BMW_i3" vClass="passenger" mass="1417">
     <param key="has.battery.device" value="true"/>
     <param key="device.battery.capacity" value="39000"/>
     <param key="device.battery.maxPower" value="125000"/>
@@ -32,7 +32,6 @@
     <param key="maximumRecuperationPower" value="50000"/>
     <param key="gearRatio" value="9.665"/>
     <param key="gearEfficiency" value="0.96"/>
-    <param key="vehicleMass" value="1417"/>
     <param key="constantPowerIntake" value="360"/>
     <param key="rollDragCoefficient" value="0.007"/>
     <param key="airDragCoefficient" value="0.29"/>
