@@ -323,6 +323,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             UNUSED_PARAMETER(result);
             assert(result == false); // The person has not arrived yet.
             stage->activateEntryReminders(person);
+            // Adapt speed to lane's speed limit.
             JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
             const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
             if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
@@ -346,6 +347,32 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             }
         }
         ++stateIt;
+    }
+
+    // Remove pedestrians that are in a predefined area, at a predefined rate.
+    for (const auto& vanishingArea : myVanishingAreas) {
+        std::vector<JPS_Point> vanishingAreaBoundary = vanishingArea.second.vanishingAreaBoundary;
+        JPS_AgentIdIterator agentsInVanishingAreaIterator = JPS_Simulation_AgentsInPolygon(myJPSSimulation, vanishingAreaBoundary.data(), vanishingAreaBoundary.size());
+        SUMOTime elapsedTime = time - myLastRemovalTime;
+        if (elapsedTime >= vanishingArea.second.period) {
+            const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInVanishingAreaIterator);
+            if (agentID != 0) {
+                auto lambda = [agentID](PState* p) { return p->getAgentId() == agentID; };
+                std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
+                PState* state = *iterator;
+                MSPerson* person = state->getPerson();
+                // Code below only works if the removal happens at the last stage.
+                const bool finalStage = person->getNumRemainingStages() == 1;
+                if (finalStage) {
+                    WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), vanishingArea.first);
+                    while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+                    registerArrived();
+                    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+                    myPedestrianStates.erase(iterator);
+                    myLastRemovalTime = time;
+                }
+            }
+        }
     }
 
     JPS_ErrorMessage_Free(message);
@@ -793,6 +820,14 @@ MSPModel_JuPedSim::initialize() {
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(maxAreaConnectedComponentPolygon);
     preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+
+    for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
+        if (polygonWithID.second->getShapeType() == "jupedsim.vanishing_area") {
+            std::vector<JPS_Point> vanishingAreaBoundary = convertToJPSPoints(polygonWithID.second->getShape());
+            SUMOTime period = (SUMOTime)(1.0 / std::stod(polygonWithID.second->getParameter("frequency", "1.0"))) * 1000; // SUMOTime is in ms.
+            myVanishingAreas.insert(std::make_pair(polygonWithID.second->getID(), VanishingAreaData{vanishingAreaBoundary, period}));
+        }
+    }
 
     JPS_ErrorMessage message = nullptr;
     myJPSGeometry = JPS_GeometryBuilder_Build(myJPSGeometryBuilder, &message);
