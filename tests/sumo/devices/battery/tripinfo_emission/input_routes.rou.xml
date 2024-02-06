@@ -1,8 +1,7 @@
 <routes>
-    <vType accel="2.6" decel="4.5" id="PKW" impatience="0.05" length="4.5" maxSpeed="41.667" minGap="2.5" sigma="0.5" speedDev="0.05" speedFactor="1.07" tau="1" vClass="private" emissionClass="Energy/unknown">
+    <vType accel="2.6" decel="4.5" id="PKW" impatience="0.05" length="4.5" maxSpeed="41.667" minGap="2.5" sigma="0.5" speedDev="0.05" speedFactor="1.07" tau="1" vClass="private" emissionClass="Energy/unknown" mass="1600">
       <param key="device.battery.capacity" value="35000"/>
       <param key="device.battery.maxPower" value="100000"/>
-      <param key="vehicleMass" value="1600"/>
       <param key="internalMomentOfInertia" value="30"/>
       <param key="frontSurfaceArea" value="2.2"/>
       <param key="airDragCoefficient" value="0.33"/>

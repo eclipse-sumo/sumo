@@ -1,1 +1,2 @@
+Warning: The vType 'ElectricVehicle1' has a 'vehicleMass' parameter, which is deprecated. Please use the 'mass' attribute (for the empty mass) and the 'loading' parameter, if needed.
 Warning: The battery device is active for vehicle 'veh0' but no emission class is set. Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!
