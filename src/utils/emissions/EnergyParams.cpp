@@ -53,7 +53,10 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) :
                 myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
             }
         }
-        myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        if (typeParams->wasSet(VTYPEPARS_MASS_SET)) {
+            myMap[SUMO_ATTR_MASS] = typeParams->mass;
+        }
+        myMap[SUMO_ATTR_LOADING] = typeParams->getDouble("loading", INVALID_DOUBLE);
         myMap[SUMO_ATTR_WIDTH] = typeParams->width;
         myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
     }
@@ -68,15 +71,24 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_WAITINGTIME] = -1.;
 
     if (c != EMISSION_CLASS_UNSPECIFIED && StringUtils::startsWith(PollutantsInterface::getName(c), "PHEMlight5/")) {
-        myMap[SUMO_ATTR_VEHICLEMASS] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_MASS] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_LOADING] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_FRONTSURFACEAREA] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = INVALID_DOUBLE;
         return;
     }
+    const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
+    myMap[SUMO_ATTR_MASS] = defaultValues.mass;
+    myMap[SUMO_ATTR_LOADING] = INVALID_DOUBLE;
+    myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
+    myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
+
     // default values from
     // https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
-    myMap[SUMO_ATTR_VEHICLEMASS] = 1830.;
+    if (c != EMISSION_CLASS_UNSPECIFIED && StringUtils::startsWith(PollutantsInterface::getName(c), "Energy/")) {
+        myMap[SUMO_ATTR_MASS] = 1830.;
+    }
     myMap[SUMO_ATTR_FRONTSURFACEAREA] = 2.6;
     myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.35;
     myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 0.01;
@@ -101,11 +113,6 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_INTERNALBATTERYRESISTANCE] = 0.1142;  // [Ohm]
     myMap[SUMO_ATTR_NOMINALBATTERYVOLTAGE] = 396.0;       // [V]
     myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
-
-    const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
-    myMap[SUMO_ATTR_MASS] = defaultValues.mass;
-    myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
-    myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
 }
 
 

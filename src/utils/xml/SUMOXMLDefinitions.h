@@ -889,6 +889,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SHUT_OFF_STOP,
     /// @brief engine gets switched off if stopping duration exceeds value
     SUMO_ATTR_SHUT_OFF_AUTO,
+    /// @brief additional mass loaded on the vehicle
+    SUMO_ATTR_LOADING,
     /// @}
 
     /// @name Car following model attributes

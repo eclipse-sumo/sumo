@@ -147,9 +147,9 @@ double
 HelpersPHEMlight5::calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, const double a, const double slope, const EnergyParams* param) const {
     // copy of CEP::CalcWheelPower
     const double rotFactor = currCep->GetRotationalCoeffecient(v);
-    const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
+    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, currCep->getVehicleMass());
     const double massRot = currCep->getVehicleMassRot();
-    const double load = currCep->getVehicleLoading();
+    const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
     const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
 
     double power = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * currCep->getResistance(v) * v;
@@ -169,9 +169,9 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
         }
         // this is a copy of CEP::GetMaxAccel
         const double rotFactor = currCep->GetRotationalCoeffecient(v);
-        const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
+        const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, currCep->getVehicleMass());
         const double massRot = currCep->getVehicleMassRot();
-        const double load = currCep->getVehicleLoading();
+        const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
         const double pMaxForAcc = currCep->GetPMaxNorm(v) * currCep->getRatedPower() - calcPower(currCep, v, 0, slope, param);
         const double maxAcc = (pMaxForAcc * 1000) / ((mass * rotFactor + massRot + load) * v);
         return MIN2(a, maxAcc);
@@ -188,8 +188,8 @@ HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, c
         return v / PHEMlightdllV5::Constants::SPEED_DCEL_MIN * getCoastingDecel(c, PHEMlightdllV5::Constants::SPEED_DCEL_MIN, a, slope, param);
     }
     const double rotFactor = currCep->GetRotationalCoeffecient(v);
-    const double mass = param->getDoubleOptional(SUMO_ATTR_VEHICLEMASS, currCep->getVehicleMass());
-    const double load = currCep->getVehicleLoading();
+    const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, currCep->getVehicleMass());
+    const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
     const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
 
     const double fRoll = currCep->getResistance(v, true) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;

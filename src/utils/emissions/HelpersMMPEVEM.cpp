@@ -203,7 +203,7 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
 
     // Extract all required parameters
     // Vehicle mass
-    const double m = ptr_energyParams->getDouble(SUMO_ATTR_VEHICLEMASS);
+    const double m = ptr_energyParams->getDouble(SUMO_ATTR_MASS) + ptr_energyParams->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
     // Wheel radius
     const double r_wheel = ptr_energyParams->getDouble(SUMO_ATTR_WHEELRADIUS);
     // Internal moment of inertia

@@ -596,6 +596,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     // general emission / consumption
     { "shutOffStopDuration",    SUMO_ATTR_SHUT_OFF_STOP },
     { "shutOffAutoDuration",    SUMO_ATTR_SHUT_OFF_AUTO },
+    { "loading",                SUMO_ATTR_LOADING },
 
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },

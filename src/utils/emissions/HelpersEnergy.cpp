@@ -53,7 +53,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     //       Approximation order could be improved. Refs. #2592.
 
     const double lastV = v - ACCEL2SPEED(a);
-    const double mass = param->getDouble(SUMO_ATTR_VEHICLEMASS);
+    const double mass = param->getDouble(SUMO_ATTR_MASS) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
 
     // calculate power needed for potential energy difference
     double power = mass * GRAVITY * sin(DEG2RAD(slope)) * v;
@@ -157,7 +157,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     //
     // Power used for accelerating, `Prest`, is the total used power minus power wasted by running resistances.
 
-    const double mass = param->getDouble(SUMO_ATTR_VEHICLEMASS);
+    const double mass = param->getDouble(SUMO_ATTR_MASS) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
     double const1, const2, const3;
     double Prest;
     int numX;
