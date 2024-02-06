@@ -162,6 +162,12 @@ private:
     JPS_CollisionFreeSpeedModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
+    struct VanishingAreaData {
+        std::vector<JPS_Point> vanishingAreaBoundary;
+        SUMOTime period;
+    };
+    std::map<std::string, VanishingAreaData> myVanishingAreas;
+    SUMOTime myLastRemovalTime;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
