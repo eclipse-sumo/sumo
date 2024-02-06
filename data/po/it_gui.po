@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-01-30 08:12+0100\n"
-"PO-Revision-Date: 2024-02-05 13:50+0000\n"
+"PO-Revision-Date: 2024-02-06 15:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15698,65 +15698,65 @@ msgstr " Non ho potuto decodificare il punto di interruzione '%'"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1672
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1673
 msgid "uniform"
-msgstr ""
+msgstr "uniforme"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:626
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1499
 msgid "road"
-msgstr ""
+msgstr "carreggiata"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:627
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1500
 msgid "sidewalk"
-msgstr ""
+msgstr "marciapiede"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:628
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1501
 msgid "bike lane"
-msgstr ""
+msgstr "corsia ciclabile"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:629
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1502
 msgid "green verge"
-msgstr ""
+msgstr "spartitraffico verde"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:630
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1503
 msgid "waterway"
-msgstr ""
+msgstr "corso d'acqua navigabile"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:631
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1504
 msgid "railway"
-msgstr ""
+msgstr "ferrovia"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:632
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1505
 msgid "rails on road"
-msgstr ""
+msgstr "binari nella carreggiata"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:633
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1506
 msgid "no passenger"
-msgstr ""
+msgstr "senza trasporto di passeggeri"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:634
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1507
 msgid "closed"
-msgstr ""
+msgstr "chiuso"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:635
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1288
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1508
 msgid "connector"
-msgstr ""
+msgstr "connettore"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:636
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1509
 msgid "forbidden"
-msgstr ""
+msgstr "proibito"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:638
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:983
@@ -15775,7 +15775,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1646
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1660
 msgid "unselected"
-msgstr ""
+msgstr "non selezionato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:639
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:984
@@ -15794,73 +15794,73 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1647
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1661
 msgid "selected"
-msgstr ""
+msgstr "selezionato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1198
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "per limite di velocità (per ogni corsia)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:662
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1201
 msgid "by current occupancy (lanewise, brutto)"
-msgstr ""
+msgstr "per occupazione attuale (per ogni corsia, valore brutto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:668
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1204
 msgid "by current occupancy (lanewise, netto)"
-msgstr ""
+msgstr "per occupazione attuale (per ogni corsia, valore netto)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:674
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1207
 msgid "by first vehicle waiting time (lanewise)"
-msgstr ""
+msgstr "per tempo d'attesa del primo veicolo (per ogni corsia)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:680
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1210
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "per numero di corsie (per ogni arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:684
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:923
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1214
 msgid "by CO2 emissions"
-msgstr ""
+msgstr "per emissioni CO2"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:692
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:931
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1217
 msgid "by CO emissions"
-msgstr ""
+msgstr "per emissioni CO"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:700
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:939
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1220
 msgid "by PMx emissions"
-msgstr ""
+msgstr "per emissioni PMx"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:708
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:947
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1223
 msgid "by NOx emissions"
-msgstr ""
+msgstr "per emissioni NOx"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:716
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:955
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1226
 msgid "by HC emissions"
-msgstr ""
+msgstr "per emissioni HC"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:724
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:963
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1229
 msgid "by fuel consumption"
-msgstr ""
+msgstr "per consumo di carburante"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:732
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1232
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "per emissioni di rumore (Harmonoise)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:741
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1236
