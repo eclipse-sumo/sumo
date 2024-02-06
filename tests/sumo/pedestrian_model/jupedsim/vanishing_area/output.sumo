@@ -1,0 +1,21 @@
+Loading net-file from 'net.net.xml' ... done (11ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading done.
+Geometry generation for JuPedSim done.
+Simulation version v1_19_0+0707-807931593a9 started with time: 0.00.
+Person 'pf_2.0' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Simulation ended at time: 60.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 3.19s
+ Real time factor: 18.8029
+ UPS: 0.000000
+ UPS-Persons: 1419.304293
+Vehicles: 
+ Inserted: 0
+ Running: 0
+ Waiting: 0
+Persons: 
+ Inserted: 9000
+ Running: 149
+
