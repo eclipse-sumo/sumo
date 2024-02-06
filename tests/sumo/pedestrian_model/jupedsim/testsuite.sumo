@@ -1,5 +1,8 @@
 two_edges
 
+# This test checks the mechanism that removes pedestrians at a certain rate who enter a vanishing area.
+vanishing_area
+
 # This test checks that when a pedestrian walks on a new edge, the max speed of the new edge is taken into account.
 speed_change
 
