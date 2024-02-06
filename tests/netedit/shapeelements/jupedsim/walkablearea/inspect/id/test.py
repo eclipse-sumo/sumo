@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeElement("jps.walkableArea")
+netedit.changeElement("jupedsim.walkable_area")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
