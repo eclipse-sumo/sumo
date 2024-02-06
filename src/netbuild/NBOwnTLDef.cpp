@@ -840,6 +840,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 updatedState = true;
             }
         }
+        UNUSED_PARAMETER(updatedState);  // disable warning
 #ifdef DEBUG_PHASES
         if (DEBUGCOND) {
             if (updatedState) {

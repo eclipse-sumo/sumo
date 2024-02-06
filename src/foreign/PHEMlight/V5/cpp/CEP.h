@@ -49,10 +49,7 @@ namespace PHEMlightdllV5 {
         bool privateHeavyVehicle;
         std::string privateFuelType;
         std::string privateCalcType;
-        eNormalizingType privateNormalizingType;
         double privateRatedPower;
-        double privateNormalizingPower;
-        double privateDrivingPower;
 
     public:
         CEP(VEHPHEMLightJSON::VEH* Vehicle, std::vector<std::string>& headerLineFCvalues, std::vector<std::vector<double> >& matrixFCvalues, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<double>& idlingFCvalues, std::vector<double>& idlingPollutants);

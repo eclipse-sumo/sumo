@@ -121,7 +121,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+    virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
      * @param[in] c the emission class
