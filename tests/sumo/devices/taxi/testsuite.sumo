@@ -12,4 +12,7 @@ lines
 # test ride sharing
 shared
 2taxis_10persons
+
+# Tests for prebookung using ride params "earliestPickupTime" and "reservationTime".
+prebooking
 bugs
