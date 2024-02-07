@@ -93,6 +93,9 @@ Please note the extra `#define` for enabling GUI code which is not needed if you
 
 ### Example Code (test.cpp)
 
+The example assumes you have the named sumocfg file in your current working directory and the SUMO `bin` directory included 
+in the `PATH` environmental variable. Otherwise you need to provide the full file path.
+
 ```cpp
 #include <iostream>
 #define HAVE_LIBSUMOGUI  // if you are on Windows or have libsumo compiled yourself without GUI you should remove this line
