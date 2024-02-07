@@ -108,76 +108,74 @@ MSCFModel_CC::createVehicleVariables() const {
     return (VehicleVariables*)vars;
 }
 
+bool
+MSCFModel_CC::isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), left ? +1 : -1);
+    // bit 1: query lateral direction (left:0, right:1)
+    // bit 2: query longitudinal direction (followers:0, leaders:1)
+    // bit 3: blocking (return all:0, return only blockers:1)
+    auto followers = libsumo::Vehicle::getNeighbors(veh->getID(), left ? 0b100 : 0b101);
+    auto leaders = libsumo::Vehicle::getNeighbors(veh->getID(), left ? 0b110 : 0b111);
+    bool noNeighbors = followers.empty() && leaders.empty();
+    if (!(state.second & LCA_BLOCKED) && noNeighbors) {
+        // leader is not blocked. check all the members
+        for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
+            const std::pair<int, int> mState = libsumo::Vehicle::getLaneChangeState(m->second, left ? +1 : -1);
+            followers = libsumo::Vehicle::getNeighbors(m->second, left ? 0b100 : 0b101);
+            leaders = libsumo::Vehicle::getNeighbors(m->second, left ? 0b110 : 0b111);
+            noNeighbors = followers.empty() && leaders.empty();
+            if (mState.second & LCA_BLOCKED || !noNeighbors)
+                return false;
+        }
+    }
+    else {
+        return false;
+    }
+    return true;
+}
+
+void
+MSCFModel_CC::changeWholePlatoonLane(MSVehicle* const veh, int direction) const {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() + direction, 0);
+    for (auto & member : vars->members) {
+        libsumo::Vehicle::changeLane(member.second, veh->getLaneIndex() + direction, 0);
+    }
+}
+
 void
 MSCFModel_CC::performAutoLaneChange(MSVehicle* const veh) const {
-    bool canChange;
-    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     // check for left lane change
     std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), +1);
     int traciState = state.first;
     if (traciState & LCA_LEFT && traciState & LCA_SPEEDGAIN) {
         // we can gain by moving left. check that all vehicles can move left
-        // bit 1: query lateral direction (left:0, right:1)
-        // bit 2: query longitudinal direction (followers:0, leaders:1)
-        // bit 3: blocking (return all:0, return only blockers:1)
-        auto leftFollowers = libsumo::Vehicle::getNeighbors(veh->getID(), 0b100); //leftFollowers 000 + blocking 100
-        auto leftLeaders = libsumo::Vehicle::getNeighbors(veh->getID(), 0b110); //leftLeaders 010 + blocking 100
-        bool noNeighOnTheLeft = leftFollowers.empty() && leftLeaders.empty();
-        if (!(state.second & LCA_BLOCKED) && noNeighOnTheLeft) {
-            // leader is not blocked. check all the members
-            canChange = true;
-            for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
-                const std::pair<int, int> mState = libsumo::Vehicle::getLaneChangeState(m->second, +1);
-                leftFollowers = libsumo::Vehicle::getNeighbors(m->second, 0b100); //leftFollowers 000 + blocking 100
-                leftLeaders = libsumo::Vehicle::getNeighbors(m->second, 0b110); //leftLeaders 010 + blocking 100
-                noNeighOnTheLeft = leftFollowers.empty() && leftLeaders.empty();
-                if (mState.second & LCA_BLOCKED || !noNeighOnTheLeft) {
-                    canChange = false;
-                    break;
-                }
-            }
-            if (canChange) {
-                libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() + 1, 0);
-                for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
-                    libsumo::Vehicle::changeLane(m->second, veh->getLaneIndex() + 1, 0);
-                }
-            }
-
-        }
+        if (isPlatoonLaneChangeSafe(veh, true))
+            changeWholePlatoonLane(veh, +1);
     }
+    // check for right lane change
     state = libsumo::Vehicle::getLaneChangeState(veh->getID(), -1);
     traciState = state.first;
     if (traciState & LCA_RIGHT && traciState & LCA_KEEPRIGHT) {
         // we should move back right. check that all vehicles can move right
-        // bit 1: query lateral direction (left:0, right:1)
-        // bit 2: query longitudinal direction (followers:0, leaders:1)
-        // bit 3: blocking (return all:0, return only blockers:1)
-        auto rightFollowers = libsumo::Vehicle::getNeighbors(veh->getID(), 0b101); //rightFollowers 001 = 1 + blocking 100
-        auto rightLeaders = libsumo::Vehicle::getNeighbors(veh->getID(), 0b111); //rightLeaders 011 = 3 + blocking 100
-        bool noNeighOnTheRight = rightFollowers.empty() && rightLeaders.empty();
-        if (!(state.second & LCA_BLOCKED) && noNeighOnTheRight) {
-            // leader is not blocked. check all the members
-            canChange = true;
-            for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
-                const std::pair<int, int> mState = libsumo::Vehicle::getLaneChangeState(m->second, -1);
-                rightFollowers = libsumo::Vehicle::getNeighbors(m->second, 0b101); //rightFollowers 001 = 1 + blocking 100
-                rightLeaders = libsumo::Vehicle::getNeighbors(m->second, 0b111); //rightLeaders 011 = 3 + blocking 100
-                noNeighOnTheRight = rightFollowers.empty() && rightLeaders.empty();
-                if (mState.second & LCA_BLOCKED || !noNeighOnTheRight) {
-                    canChange = false;
-                    break;
-                }
-            }
-            if (canChange) {
-                libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() - 1, 1);
-                for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
-                    libsumo::Vehicle::changeLane(m->second, veh->getLaneIndex() - 1, 1);
-                }
-            }
-
-        }
+        if (isPlatoonLaneChangeSafe(veh, false))
+            changeWholePlatoonLane(veh, -1);
     }
+}
 
+void
+MSCFModel_CC::performPlatoonLaneChange(MSVehicle* const veh) const {
+    auto *vars = (CC_VehicleVariables *) veh->getCarFollowVariables();
+    int currentLane = veh->getLaneIndex();
+    if (currentLane == vars->platoonFixedLane) {
+        // platoon has already reached the desired lane
+        vars->platoonFixedLane = -1;
+        return;
+    }
+    bool left = currentLane < vars->platoonFixedLane;
+    if (isPlatoonLaneChangeSafe(veh, left))
+        changeWholePlatoonLane(veh, left ? +1 : -1);
 }
 
 double
@@ -204,6 +202,10 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     if (vars->activeController != Plexe::DRIVER) {
         veh->setChosenSpeedFactor(vars->ccDesiredSpeed / veh->getLane()->getSpeedLimit());
+    }
+
+    if (vars->platoonFixedLane >= 0) {
+        performPlatoonLaneChange(veh);
     }
 
     if (vars->autoLaneChange) {
@@ -742,6 +744,16 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
         }
         if (key.compare(PAR_ENABLE_AUTO_LANE_CHANGE) == 0) {
             vars->autoLaneChange = StringUtils::toInt(value.c_str()) == 1;
+            // if the user enables automatic lane changing, any request for a fixed lane is deleted
+            if (vars->autoLaneChange)
+                vars->platoonFixedLane = -1;
+            return;
+        }
+        if (key.compare(PAR_PLATOON_FIXED_LANE) == 0) {
+            vars->platoonFixedLane = StringUtils::toInt(value.c_str());
+            // asking a leader to change the lane for the whole platoon automatically disables auto lane change
+            if (vars->platoonFixedLane >= 0)
+                vars->autoLaneChange = false;
             return;
         }
         if (key.compare(CC_PAR_CACC_XI) == 0) {

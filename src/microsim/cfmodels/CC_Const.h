@@ -182,4 +182,7 @@ struct VEHICLE_DATA {
 // let the leader automatically change lane for the whole platoon if there is a speed advantage
 #define PAR_ENABLE_AUTO_LANE_CHANGE      "ccalc"
 
+// perform a lane change for a whole platoon
+#define PAR_PLATOON_FIXED_LANE           "ccpfl"
+
 }
