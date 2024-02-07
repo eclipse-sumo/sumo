@@ -213,7 +213,7 @@ protected:
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
-    Command* myReservationCommand;
+    
 
 private:
     /// brief register waiting person (on proceed or loadState)
@@ -230,13 +230,17 @@ private:
     class BookReservation : public Command {
     public:
         BookReservation(MSTransportable* transportable, SUMOTime earliestPickupTime, MSStageDriving* stage) :
-            myTransportable(transportable), myEarliestPickupTime(earliestPickupTime), myStage(stage) {}
+            myTransportable(transportable), myEarliestPickupTime(earliestPickupTime), myStage(stage), myWaitingPos(stage->myWaitingPos) {}
         SUMOTime execute(SUMOTime currentTime);
         
-    private:
+    public:
         MSTransportable* myTransportable;
         SUMOTime myEarliestPickupTime;
         MSStageDriving* myStage;
+        double myWaitingPos;
     };
+
+protected:
+    BookReservation* myReservationCommand;
 
 };

@@ -175,6 +175,51 @@ MSDispatch::removeReservation(MSTransportable* person,
 }
 
 
+Reservation*
+MSDispatch::updateReservationFromPos(MSTransportable* person,
+                                     const MSEdge* from, double fromPos,
+                                     const MSEdge* to, double toPos,
+                                     std::string group, double newFromPos) {
+    if (group == "") {
+        // the default empty group implies, no grouping is wanted (and
+        // transportable ids are unique)
+        group = person->getID();
+    }
+    Reservation* result = nullptr;
+    std::string updatedID = "";
+    auto it = myGroupReservations.find(group);
+    if (it != myGroupReservations.end()) {
+        for (auto itRes = it->second.begin(); itRes != it->second.end(); itRes++) {
+            Reservation* res = *itRes;
+            // TODO: if there is already a reservation with the newFromPos, add to this reservation
+            // TODO: if there are other persons in this reservation, create a new reservation for the updated one
+            if (res->persons.count(person) != 0
+                    && res->from == from
+                    && res->to == to
+                    && res->fromPos == fromPos
+                    && res->toPos == toPos) {
+                // update fromPos
+                res->fromPos = newFromPos;
+                result = res;
+                updatedID = res->id;
+                break;
+            }
+        }
+    }
+#ifdef DEBUG_RESERVATION
+    if (DEBUG_COND2(person)) std::cout << SIMTIME
+                                            << " updateReservationFromPos p=" << person->getID()
+                                            << " from=" << from->getID() << " fromPos=" << fromPos
+                                            << " to=" << to->getID() << " toPos=" << toPos
+                                            << " group=" << group
+                                            << " newFromPos=" << newFromPos
+                                            << " updatedID=" << updatedID
+                                            << "\n";
+#endif
+    return result;
+}
+
+
 std::vector<Reservation*>
 MSDispatch::getReservations() {
     std::vector<Reservation*> reservations;

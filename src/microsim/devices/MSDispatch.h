@@ -141,6 +141,14 @@ public:
                                           const MSEdge* to, double toPos,
                                           std::string group);
 
+    /// @brief update fromPos of the person's reservation.
+    /// TODO: if there is already a reservation with the newFromPos, add to this reservation
+    /// TODO: if there are other persons in this reservation, create a new reservation for the updated one
+    virtual Reservation* updateReservationFromPos(MSTransportable* person,
+                                                 const MSEdge* from, double fromPos,
+                                                 const MSEdge* to, double toPos,
+                                                 std::string group, double newFromPos);
+
     /// @brief erase reservation from storage
     virtual void fulfilledReservation(const Reservation* res);
 

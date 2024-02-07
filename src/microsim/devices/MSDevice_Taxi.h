@@ -93,6 +93,13 @@ public:
                                   const MSEdge* to, double toPos,
                                   const std::string& group);
 
+    /// @brief update reservation's fromPos due to pre-booking
+    static void updateReservationFromPos(MSTransportable* person,
+                                         const std::set<std::string>& lines,
+                                         const MSEdge* from, double fromPos,
+                                         const MSEdge* to, double toPos,
+                                         const std::string& group, double newFromPos);
+
     /// @brief period command to trigger the dispatch algorithm
     static SUMOTime triggerDispatch(SUMOTime currentTime);
 
@@ -218,7 +225,7 @@ private:
     void prepareStop(ConstMSEdgeVector& edges,
                      std::vector<SUMOVehicleParameter::Stop>& stops,
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
-                     const std::string& action);
+                     const std::string& action, const Reservation* res);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge, const std::string& action);
