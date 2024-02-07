@@ -62,7 +62,8 @@ CC_VehicleVariables::CC_VehicleVariables() :
     flatbedKa(2.4), flatbedKv(0.6), flatbedKp(12), flatbedD(5), flatbedH(4),
     engine(0), engineModel(CC_ENGINE_MODEL_FOLM),
     usePrediction(false),
-    autoLaneChange(false) {
+    autoLaneChange(false),
+    platoonFixedLane(-1) {
     fakeData.frontAcceleration = 0;
     fakeData.frontControllerAcceleration = 0;
     fakeData.frontDistance = 0;

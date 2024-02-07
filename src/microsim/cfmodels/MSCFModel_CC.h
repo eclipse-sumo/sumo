@@ -268,7 +268,10 @@ private:
     void resetConsensus(const MSVehicle* veh) const;
 
 private:
+    bool isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const;
+    void changeWholePlatoonLane(MSVehicle* const veh, int direction) const;
     void performAutoLaneChange(MSVehicle* const veh) const;
+    void performPlatoonLaneChange(MSVehicle* const veh) const;
 
     double _v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const;
 
