@@ -157,8 +157,9 @@ private:
     GEOSGeometry* myGEOSPedestrianNetwork;
     bool myHaveAdditionalWalkableAreas;
 
-    JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
+    JPS_Geometry myJPSGeometryWithTrains;
+    JPS_CollisionFreeSpeedModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
     struct VanishingAreaData {
@@ -166,7 +167,8 @@ private:
         SUMOTime period;
     };
     std::map<std::string, VanishingAreaData> myVanishingAreas;
-    SUMOTime myLastRemovalTime = 0;
+    SUMOTime myLastRemovalTime;
+    std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
@@ -188,7 +190,8 @@ private:
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
     static double getHoleArea(const GEOSGeometry* hole);
+    void preparePolygonForJPS(const GEOSGeometry* polygon, JPS_GeometryBuilder geometryBuilder);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId);
-    void preparePolygonForJPS(const GEOSGeometry* polygon);
+    JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename);
 };
