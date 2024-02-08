@@ -351,10 +351,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
     // Remove pedestrians that are in a predefined area, at a predefined rate.
     for (const auto& vanishingArea : myVanishingAreas) {
-        std::vector<JPS_Point> vanishingAreaBoundary = vanishingArea.second.vanishingAreaBoundary;
+        const std::vector<JPS_Point>& vanishingAreaBoundary = vanishingArea.second.vanishingAreaBoundary;
         JPS_AgentIdIterator agentsInVanishingAreaIterator = JPS_Simulation_AgentsInPolygon(myJPSSimulation, vanishingAreaBoundary.data(), vanishingAreaBoundary.size());
-        SUMOTime elapsedTime = time - myLastRemovalTime;
-        if (elapsedTime >= vanishingArea.second.period) {
+        if (time - myLastRemovalTime >= vanishingArea.second.period) {
             const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInVanishingAreaIterator);
             if (agentID != 0) {
                 auto lambda = [agentID](PState * p) {
@@ -375,6 +374,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 }
             }
         }
+        JPS_AgentIdIterator_Free(agentsInVanishingAreaIterator);
     }
 
     JPS_ErrorMessage_Free(message);
