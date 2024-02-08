@@ -50,7 +50,7 @@ Before compiling and running LiSuM it is recommended to have the following softw
 In a command or terminal window execute the Maven command install (`mvn install`) in the traas, lisum-core and lisum-gui folders (in that order).
 For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command.
 
-When LiSuM is started for the first time, the user is prompt to select a
+When LiSuM is started for the first time, the user is prompted to select a
 directory which is going to be used as the workspace directory. The
 workspace is the directory where LiSuM looks for existing simulation
 projects, where new ones should be stored and where the system
