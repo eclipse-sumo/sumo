@@ -159,7 +159,6 @@ private:
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
-    JPS_CollisionFreeSpeedModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
     struct VanishingAreaData {

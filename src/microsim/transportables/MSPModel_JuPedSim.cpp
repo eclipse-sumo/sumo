@@ -69,7 +69,6 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
-    JPS_CollisionFreeSpeedModelBuilder_Free(myJPSModelBuilder);
     JPS_Geometry_Free(myJPSGeometry);
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
@@ -840,8 +839,26 @@ MSPModel_JuPedSim::initialize() {
     } else {
         WRITE_MESSAGE("Geometry generation for JuPedSim done.");
     }
-    myJPSModelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(myJPSModelBuilder, &message);
+
+    std::string model = "CollisionFreeSpeed";
+    double strengthNeighborRepulsion = 8.;
+    double rangeNeighborRepulsion = .1;
+    double strengthGeometryRepulsion = 5.;
+    double rangeGeometryRepulsion = .02;
+    for (const MSVehicleType* type : myNetwork->getVehicleControl().getPedestrianTypes()) {
+        model = type->getParameter().getParameter("jupedsim.model", model);
+        strengthNeighborRepulsion = type->getParameter().getDouble("jupedsim.strengthNeighborRepulsion", strengthNeighborRepulsion);
+        rangeNeighborRepulsion = type->getParameter().getDouble("jupedsim.rangeNeighborRepulsion", rangeNeighborRepulsion);
+        strengthGeometryRepulsion = type->getParameter().getDouble("jupedsim.strengthGeometryRepulsion", strengthGeometryRepulsion);
+        rangeGeometryRepulsion = type->getParameter().getDouble("jupedsim.rangeGeometryRepulsion", rangeGeometryRepulsion);
+    }
+    if (model == "CollisionFreeSpeed") {
+        JPS_CollisionFreeSpeedModelBuilder modelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(strengthNeighborRepulsion, rangeNeighborRepulsion, strengthGeometryRepulsion, rangeGeometryRepulsion);
+        myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(modelBuilder, &message);
+        JPS_CollisionFreeSpeedModelBuilder_Free(modelBuilder);
+    } else {
+        throw ProcessError(TLF("Unknown JuPedSim model: %", model));
+    }
     if (myJPSModel == nullptr) {
         const std::string error = TLF("Error creating the pedestrian model: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
