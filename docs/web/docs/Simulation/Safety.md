@@ -36,7 +36,7 @@ with the stopping time in seconds.
 
 ## Intermodal Collisions
 
-The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisiosn raise warning by default.
+The collision action only gets triggered on vehicle-vehicle collision but not on vehicle-pedestrian collisions. Instead, intermodal collisions raise warning by default.
 
 The behavior can be changed by setting the options **--intermodal-collision.action** and **--intermodal-collision.stoptime** which work like the vehicle-on-vehicle collision options described above.
 
