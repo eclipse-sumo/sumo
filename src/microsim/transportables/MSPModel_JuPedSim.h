@@ -167,7 +167,7 @@ private:
         SUMOTime period;
     };
     std::map<std::string, VanishingAreaData> myVanishingAreas;
-    SUMOTime myLastRemovalTime;
+    SUMOTime myLastRemovalTime = 0;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
