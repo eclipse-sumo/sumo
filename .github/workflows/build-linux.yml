@@ -23,7 +23,7 @@ jobs:
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
-        jps_version: ['v1.0.5']
+        jps_version: ['v1.0.6']
         # include:
         #   - build_type: full
         #     jps_version: master
@@ -52,7 +52,7 @@ jobs:
 
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: dieghernan/cff-validator@v2.3
+      uses: dieghernan/cff-validator@v3
       with:
         citation-path: sumo/CITATION.cff
 
