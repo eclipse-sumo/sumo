@@ -357,7 +357,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         if (elapsedTime >= vanishingArea.second.period) {
             const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInVanishingAreaIterator);
             if (agentID != 0) {
-                auto lambda = [agentID](PState* p) { return p->getAgentId() == agentID; };
+                auto lambda = [agentID](PState * p) {
+                    return p->getAgentId() == agentID;
+                };
                 std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
                 PState* state = *iterator;
                 MSPerson* person = state->getPerson();
@@ -824,7 +826,7 @@ MSPModel_JuPedSim::initialize() {
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         if (polygonWithID.second->getShapeType() == "jupedsim.vanishing_area") {
             std::vector<JPS_Point> vanishingAreaBoundary = convertToJPSPoints(polygonWithID.second->getShape());
-            SUMOTime period = (SUMOTime)(1.0 / std::stod(polygonWithID.second->getParameter("frequency", "1.0"))) * 1000; // SUMOTime is in ms.
+            SUMOTime period = string2time(polygonWithID.second->getParameter("period", "1"));
             myVanishingAreas.insert(std::make_pair(polygonWithID.second->getID(), VanishingAreaData{vanishingAreaBoundary, period}));
         }
     }

@@ -6,7 +6,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
     <poly id="jupedsim.vanishing_area_1" type="jupedsim.vanishing_area" color="green" fill="1" layer="3.00" shape="1712.012992,2043.376863 1710.643636,2048.207646 1723.234102,2051.897299 1724.755608,2046.952403 1712.012992,2043.376863">
-        <param key="frequency" value="0.33"/>
+        <param key="period" value="3"/>
     </poly>
     <!-- JuPedSim elements -->
     <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="1709.216847,2047.782243 1707.204938,2054.823926 1722.042769,2058.879180 1724.086114,2052.026114 1709.216847,2047.782243"/>
