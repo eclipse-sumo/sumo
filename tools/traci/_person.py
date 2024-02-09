@@ -182,7 +182,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_EDGES, personID, "i", nextStageIndex)
 
     def getStage(self, personID, nextStageIndex=0):
-        """getStage(string, int) -> int
+        """getStage(string, int) -> stage
         Returns the the nth stage object (type simulation.Stage)
         Attribute type of this object has the following meaning:
           0 for not-yet-departed
