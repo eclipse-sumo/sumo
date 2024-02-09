@@ -184,12 +184,6 @@ private:
      * passengerSeats are computed beginning at firstPassengerCarriage */
     void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const;
 
-    /* @brief return the previous lane in this vehicles route including internal lanes
-     * @param[in] current The lane of which the predecessor should be returned
-     * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
-     */
-    MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
-
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
 

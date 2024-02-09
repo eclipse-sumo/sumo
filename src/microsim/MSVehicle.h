@@ -2056,7 +2056,12 @@ public:
     inline double accelThresholdForWaiting() const {
         return 0.5 * getCarFollowModel().getMaxAccel();
     }
-
+    
+    /* @brief return the previous lane in this vehicles route including internal lanes
+     * @param[in] current The lane of which the predecessor should be returned
+     * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
+     */
+    const MSLane* getPreviousLane(const MSLane* current, int& furtherIndex) const;
 
 protected:
 
