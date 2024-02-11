@@ -39,7 +39,7 @@ jobs:
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps ccache googletest
+        brew install --overwrite xerces-c fox proj gdal gl2ps ccache googletest
 #        python3 -m pip install texttest
 
     - name: ccache
