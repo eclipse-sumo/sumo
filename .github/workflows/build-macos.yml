@@ -38,9 +38,9 @@ jobs:
 
     - name: Preparing Build System
       run: |
-        brew install --cask xquartz       
-        brew install python@3.11 || brew link --overwrite python@3.11
-        brew install python@3.12 || brew link --overwrite python@3.12       
+        brew update
+        brew upgrade || brew link --overwrite python@3.12
+        brew install --cask xquartz
         brew install xerces-c fox proj gdal gl2ps ccache googletest
 #        python3 -m pip install texttest
 
