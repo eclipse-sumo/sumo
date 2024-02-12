@@ -3904,7 +3904,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // Create handler
     GNEGeneralHandler handler(myNet, routeFile, true, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "reloading demand elements from '" + routeFile + "'");
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("reloading demand elements from '%'", routeFile));
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // Run parser for additionals

@@ -189,7 +189,8 @@ public:
             const std::string oID = originStopID != "" ? originStopID : from->getID();
             const std::string dType = stopID != "" ? "stop" : "edge";
             const std::string dID = stopID != "" ? stopID : to->getID();
-            this->myErrorMsgHandler->informf("No connection between % '%' and % '%' found.", oType, oID, dType, dID);
+            this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
+            this->myErrorMsgHandler->informf(TL("No connection between % '%' and % '%' found."), oType, oID, dType, dID);
         }
         if (into.size() > 0) {
             into.back().arrivalPos = arrivalPos;

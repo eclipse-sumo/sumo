@@ -219,7 +219,7 @@ public:
             std::copy(best.begin(), best.end(), std::back_inserter(into));
             return true;
         } else if (!silent && myErrorMsgHandler != nullptr) {
-            myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
+            myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."), from->getID(), to->getID());
         }
         return false;
     }

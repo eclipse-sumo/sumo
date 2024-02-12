@@ -153,7 +153,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
     myTable->setColumnWidth(2, 390);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
-    myTable->setColumnText(2, "Conflict");
+    myTable->setColumnText(2, TL("Conflict"));
     myTable->getRowHeader()->setWidth(0);
     // Declare pointer to FXTableItem
     FXTableItem* item = nullptr;

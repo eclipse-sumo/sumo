@@ -139,9 +139,9 @@ GNEEdge::isNetworkElementValid() const {
 
 std::string
 GNEEdge::getNetworkElementProblem() const {
-    return "Parent junctions are in the same position: " +
-           toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
-           toString(getFromJunction()->getNBNode()->getPosition().y());
+    return TLF("Parent junctions are in the same position: %, %",
+               toString(getFromJunction()->getNBNode()->getPosition().x()),
+               toString(getFromJunction()->getNBNode()->getPosition().y()));
 }
 
 

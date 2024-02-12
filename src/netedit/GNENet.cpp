@@ -310,7 +310,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         edge = new GNEEdge(this, nbe, wasSplit);
     }
     // add edge using undo list
-    undoList->begin(edge, "create " + toString(SUMO_TAG_EDGE));
+    undoList->begin(edge, TL("create edge"));
     undoList->add(new GNEChange_Edge(edge, true), true);
     // recompute connection
     if (recomputeConnections) {

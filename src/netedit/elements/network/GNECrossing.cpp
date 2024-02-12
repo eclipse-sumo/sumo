@@ -71,7 +71,7 @@ GNECrossing::isNetworkElementValid() const {
 
 std::string
 GNECrossing::getNetworkElementProblem() const {
-    return "Crossing's edges don't support pedestrians";
+    return TL("Crossing's edges don't support pedestrians");
 }
 
 
@@ -191,7 +191,7 @@ GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->begin(this, "remove geometry point of " + getTagStr());
+                undoList->begin(this, TLF("remove geometry point of %", getTagStr()));
                 GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
@@ -304,7 +304,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // create menu commands
-        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
+        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, TL("Set custom crossing shape"), nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
@@ -690,7 +690,7 @@ GNECrossing::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(this, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->begin(this, TLF("moving % of %", toString(SUMO_ATTR_CUSTOMSHAPE), getTagStr()));
     GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }

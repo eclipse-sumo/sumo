@@ -496,19 +496,19 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             buildTLSOperations(parent, ret, numSelectedJunctions);
         }
         // create menu commands
-        GUIDesigns::buildFXMenuCommand(ret, "Reset edge endpoints", nullptr, &parent, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS);
-        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
-        FXMenuCommand* mcResetCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
-        FXMenuCommand* mcReplaceByGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
-        FXMenuCommand* mcSplitJunction = GUIDesigns::buildFXMenuCommand(ret, "Split junction (" + toString(numEndpoints) + " end points)", nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
-        FXMenuCommand* mcSplitJunctionAndReconnect = GUIDesigns::buildFXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Reset edge endpoints"), nullptr, &parent, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS);
+        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, TL("Set custom junction shape"), nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
+        FXMenuCommand* mcResetCustomShape = GUIDesigns::buildFXMenuCommand(ret, TL("Reset junction shape"), nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
+        FXMenuCommand* mcReplaceByGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Replace junction by geometry point"), nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
+        FXMenuCommand* mcSplitJunction = GUIDesigns::buildFXMenuCommand(ret, TLF("Split junction (% end points)", numEndpoints), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
+        FXMenuCommand* mcSplitJunctionAndReconnect = GUIDesigns::buildFXMenuCommand(ret, TL("Split junction and reconnect"), nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
         // check if is a roundabout
         if (myNBNode->isRoundabout()) {
-            GUIDesigns::buildFXMenuCommand(ret, "Select roundabout", nullptr, &parent, MID_GNE_JUNCTION_SELECT_ROUNDABOUT);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Select roundabout"), nullptr, &parent, MID_GNE_JUNCTION_SELECT_ROUNDABOUT);
         } else {
             // get radius
             const double radius = (myNBNode->getRadius() == NBNode::UNSPECIFIED_RADIUS) ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNBNode->getRadius();
-            const std::string menuEntryInfo = "Convert to roundabout (using junction attribute radius " + toString(radius) + ")";
+            const std::string menuEntryInfo = TLF("Convert to roundabout (using junction attribute radius %)", toString(radius));
             FXMenuCommand* mcRoundabout = GUIDesigns::buildFXMenuCommand(ret, menuEntryInfo.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
             // check if disable depending of number of edges
             if ((getChildEdges().size() < 2) ||
@@ -517,9 +517,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
         }
         // check multijunctions
-        const std::string multi = ((numSelectedJunctions > 1) && isAttributeCarrierSelected()) ? " of " + toString(numSelectedJunctions) + " junctions" : "";
-        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, "Clear connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
-        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, "Reset connections" + multi, nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
+        const std::string multi = ((numSelectedJunctions > 1) && isAttributeCarrierSelected()) ? TLF(" of % junctions", numSelectedJunctions) : "";
+        FXMenuCommand* mcClearConnections = GUIDesigns::buildFXMenuCommand(ret, TL("Clear connections") + multi, nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
+        FXMenuCommand* mcResetConnections = GUIDesigns::buildFXMenuCommand(ret, TL("Reset connections") + multi, nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
         // check if current mode  is correct
         if (invalidMode) {
             mcCustomShape->disable();
@@ -542,7 +542,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if ((myNBNode->getIncomingEdges().size() == 2) && (myNBNode->getOutgoingEdges().size() == 2)) {
             NBTurningDirectionsComputer::computeTurnDirectionsForNode(myNBNode, false);
         }
-        std::string reason = "wrong edit mode";
+        std::string reason = TL("wrong edit mode");
         if (invalidMode || !myNBNode->checkIsRemovableReporting(reason)) {
             mcReplaceByGeometryPoint->setText(mcReplaceByGeometryPoint->getText() + " (" + reason.c_str() + ")");
             mcReplaceByGeometryPoint->disable();
