@@ -169,7 +169,7 @@ Ctrl+M or by clicking on the "Grid" button on the simulation toolbar. In
 this dialog it is possible to change the behavior of all available
 control units of the simulation by turning them off and on, selecting
 the program, or enabling or disabling program settings like VA
-(Verkehrsabhänhig) and ÖV (Öffentliche Verkehrsmittel).
+("Verkehrsabhängig" = actuated) and ÖV ("Öffentliche Verkehrsmittel" = public transport).
 
 It is also possible to deactivate the communication with LISA+ by
 unclicking the check box right of the control units combo box (image
