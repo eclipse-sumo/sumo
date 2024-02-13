@@ -355,21 +355,23 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         if (time - myLastRemovalTime >= vanishingArea.second.period) {
             const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInVanishingAreaIterator);
             if (agentID != 0) {
-                auto lambda = [agentID](PState * p) {
+                auto lambda = [agentID](const PState * const p) {
                     return p->getAgentId() == agentID;
                 };
                 std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
-                PState* state = *iterator;
-                MSPerson* person = state->getPerson();
-                // Code below only works if the removal happens at the last stage.
-                const bool finalStage = person->getNumRemainingStages() == 1;
-                if (finalStage) {
-                    WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), vanishingArea.first);
-                    while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
-                    registerArrived();
-                    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
-                    myPedestrianStates.erase(iterator);
-                    myLastRemovalTime = time;
+                if (iterator != myPedestrianStates.end()) {
+                    const PState* const state = *iterator;
+                    MSPerson* const person = state->getPerson();
+                    // Code below only works if the removal happens at the last stage.
+                    const bool finalStage = person->getNumRemainingStages() == 1;
+                    if (finalStage) {
+                        WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), vanishingArea.first);
+                        while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+                        registerArrived();
+                        JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+                        myPedestrianStates.erase(iterator);
+                        myLastRemovalTime = time;
+                    }
                 }
             }
         }
