@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-12 13:41+0100\n"
-"PO-Revision-Date: 2024-02-06 15:29+0000\n"
+"PO-Revision-Date: 2024-02-13 17:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14751,21 +14751,25 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/network/GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
-msgstr ""
+msgstr "La catenaria selezionata è invalida."
 
 #: /home/behr_mi/sumo/src/netedit/frames/network/GNEWireFrame.cpp:117
 #, c-format
 msgid "A % needs at least two lane positions"
-msgstr ""
+msgstr "Un/una % ha bisogno di almeno due posizioni su corsie"
 
 #: /home/behr_mi/sumo/src/netedit/frames/network/GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
 msgstr ""
+"Non supportato. Crea passi per limiti di velocità dinamici utilizzando il "
+"modulo apposito"
 
 #: /home/behr_mi/sumo/src/netedit/netedit_main.cpp:49
 msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
 msgstr ""
+"Editore grafico di reti SUMO, della domanda di traffico e di infrastrutture "
+"addizionali."
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNENetDiffTool.cpp:142
 msgid "Original network"
@@ -14805,73 +14809,73 @@ msgstr "Carica forme per elementi rimossi"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNENetDiffTool.cpp:181
 msgid "load shapes from '"
-msgstr ""
+msgstr "carica forme da '"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNENetDiffTool.cpp:185
 msgid "Loading of shape file failed: "
-msgstr ""
+msgstr "Il caricamento di forme dall'archivio seguente è fallito: "
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNENetDiffTool.cpp:188
 msgid "Loading of shape file successfully: "
-msgstr ""
+msgstr "Le forme dell'archivio seguente sono state caricate con successo: "
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNEPythonTool.cpp:43
 msgid "Execute python tool '"
-msgstr ""
+msgstr "Esegui utensile Python '"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNEPythonTool.cpp:192
 #, c-format
 msgid "Loaded % configuration."
-msgstr ""
+msgstr "Configurazione % caricata."
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNEPythonTool.cpp:221
 #, c-format
 msgid "Saved % configuration."
-msgstr ""
+msgstr "Configurazione % salvata."
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunNetgenerate.cpp:100
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunPythonTool.cpp:62
 msgid "cancelled by user\n"
-msgstr ""
+msgstr "cancellato dall'utente\n"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunNetgenerate.cpp:144
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunPythonTool.cpp:106
 msgid "starting process...\n"
-msgstr ""
+msgstr "inizio del processo...\n"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunNetgenerate.cpp:162
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunPythonTool.cpp:124
 msgid "error processing command\n"
-msgstr ""
+msgstr "errore accaduto eseguendo il commando\n"
 
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunNetgenerate.cpp:177
 #: /home/behr_mi/sumo/src/netedit/tools/GNERunPythonTool.cpp:139
 msgid "process finished\n"
-msgstr ""
+msgstr "processo terminato\n"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
-msgstr ""
+msgstr "&Carica selezione"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:77
 msgid "&Save selection"
-msgstr ""
+msgstr "&Salva selezione"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:81
 msgid "&Deselect chosen"
-msgstr ""
+msgstr "&Deseleziona elementi scelti"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:83
 msgid "&Clear selection"
-msgstr ""
+msgstr "&Annulla selezione"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:87
 msgid "Cl&ose"
-msgstr ""
+msgstr "Chiudi"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "Errori accaduti durante il caricamento della selezione"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIMessageWindow.cpp:171
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIMessageWindow.cpp:173
@@ -14882,7 +14886,7 @@ msgstr " ora"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIMessageWindow.cpp:184
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "Metti un punto di interruzione a %"
 
 #: /home/behr_mi/sumo/src/utils/gui/div/GUIParameterTableWindow.cpp:76
 msgid "Name"
