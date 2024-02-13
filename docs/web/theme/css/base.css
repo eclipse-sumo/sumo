@@ -111,6 +111,11 @@ background-color: rgba(0,0,0,.05) !important; /* for incompatible Browsers  */
 background-color: var(--table-stripe-color) !important;
 }
 
+.col-md-9 {
+flex: 1 0 75%;
+max-width: 100%;
+}
+
 .col-md-9 img {
 max-width: 100%;
 display: inline-block;
@@ -635,10 +640,10 @@ color: #0645ad;
 color: var(--a-color);
 }
 
-@media (max-width: 768px) {
 .col-md-3 {
-max-width: 800px;
+max-width: 25em;
 }
+@media (max-width: 768px) {
 .main-area {
 border-radius:0;
 }
