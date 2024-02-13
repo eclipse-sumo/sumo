@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSIdling.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    17.08.2020
 ///
 // An algorithm that performs Idling for the taxi device
@@ -208,9 +209,10 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         std::string error;
         if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
             WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
+        } else {
+            //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
+            veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
         }
-        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
-        veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
     } else {
         //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  already driving to parkingArea\n";
     }
