@@ -1,0 +1,6 @@
+--net-file=net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--fcd-output fcd.xml
+--device.fcd.period 0.1
+--step-length 0.01
