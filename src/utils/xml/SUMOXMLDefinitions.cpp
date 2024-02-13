@@ -262,8 +262,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "internalLane",                           GNE_TAG_INTERNAL_LANE },
     { "poiLane",                                GNE_TAG_POILANE },
     { "poiGeo",                                 GNE_TAG_POIGEO },
-    { "jps.walkableArea",                       GNE_TAG_JPS_WALKABLEAREA },
-    { "jps.obstacle",                           GNE_TAG_JPS_OBSTACLE },
+    { "jupedsim.walkable_area",                 GNE_TAG_JPS_WALKABLEAREA },
+    { "jupedsim.obstacle",                      GNE_TAG_JPS_OBSTACLE },
     { "flowRoute",                              GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                          GNE_TAG_FLOW_WITHROUTE },
     // GNE waypoints

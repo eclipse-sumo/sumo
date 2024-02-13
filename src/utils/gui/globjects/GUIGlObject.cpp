@@ -102,8 +102,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
     //
-    {"jps.walkableArea",        GLO_JPS_WALKABLEAREA},
-    {"jps.obstacle",            GLO_JPS_OBSTACLE},
+    {"jupedsim.walkable_area",  GLO_JPS_WALKABLEAREA},
+    {"jupedsim.obstacle",       GLO_JPS_OBSTACLE},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
