@@ -62,6 +62,9 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/devices/MSDevice_Transportable.h>
 #include "MSEdgeControl.h"
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
@@ -71,19 +74,16 @@
 #include "MSStop.h"
 #include "MSStoppingPlace.h"
 #include "MSParkingArea.h"
-#include "devices/MSDevice_Transportable.h"
-#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSMoveReminder.h"
-#include <microsim/transportables/MSTransportableControl.h>
 #include "MSLane.h"
 #include "MSJunction.h"
-#include "MSVehicle.h"
 #include "MSEdge.h"
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
+#include "MSVehicle.h"
 
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
@@ -7566,6 +7566,7 @@ MSVehicle::setExitManoeuvre() {
 
 MSVehicle::Manoeuvre::Manoeuvre() : myManoeuvreStop(""), myManoeuvreStartTime(0), myManoeuvreCompleteTime(0), myManoeuvreType(MSVehicle::MANOEUVRE_NONE), myGUIIncrement(0) {}
 
+
 MSVehicle::Manoeuvre::Manoeuvre(const Manoeuvre& manoeuvre) {
     myManoeuvreStop = manoeuvre.myManoeuvreStop;
     myManoeuvreStartTime = manoeuvre.myManoeuvreStartTime;
@@ -7573,6 +7574,7 @@ MSVehicle::Manoeuvre::Manoeuvre(const Manoeuvre& manoeuvre) {
     myManoeuvreType = manoeuvre.myManoeuvreType;
     myGUIIncrement = manoeuvre.myGUIIncrement;
 }
+
 
 MSVehicle::Manoeuvre&
 MSVehicle::Manoeuvre::operator=(const Manoeuvre& manoeuvre) {
@@ -7584,6 +7586,7 @@ MSVehicle::Manoeuvre::operator=(const Manoeuvre& manoeuvre) {
     return *this;
 }
 
+
 bool
 MSVehicle::Manoeuvre::operator!=(const Manoeuvre& manoeuvre) {
     return (myManoeuvreStop != manoeuvre.myManoeuvreStop ||
@@ -7594,15 +7597,18 @@ MSVehicle::Manoeuvre::operator!=(const Manoeuvre& manoeuvre) {
            );
 }
 
+
 double
 MSVehicle::Manoeuvre::getGUIIncrement() const {
     return (myGUIIncrement);
 }
 
+
 MSVehicle::ManoeuvreType
 MSVehicle::Manoeuvre::getManoeuvreType() const {
     return (myManoeuvreType);
 }
+
 
 MSVehicle::ManoeuvreType
 MSVehicle::getManoeuvreType() const {
@@ -7614,6 +7620,7 @@ void
 MSVehicle::setManoeuvreType(const MSVehicle::ManoeuvreType mType) {
     myManoeuvre.setManoeuvreType(mType);
 }
+
 
 void
 MSVehicle::Manoeuvre::setManoeuvreType(const MSVehicle::ManoeuvreType mType) {
@@ -7651,6 +7658,7 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
 
     return (true);
 }
+
 
 bool
 MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh) {
@@ -7693,6 +7701,7 @@ MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh) {
 
     return (true);
 }
+
 
 bool
 MSVehicle::Manoeuvre::entryManoeuvreIsComplete(MSVehicle* veh) {
@@ -7737,10 +7746,13 @@ bool
 MSVehicle::Manoeuvre::manoeuvreIsComplete() const {
     return (MSNet::getInstance()->getCurrentTimeStep() >= myManoeuvreCompleteTime);
 }
+
+
 bool
 MSVehicle::manoeuvreIsComplete() const {
     return (myManoeuvre.manoeuvreIsComplete());
 }
+
 
 std::pair<double, double>
 MSVehicle::estimateTimeToNextStop() const {
@@ -7836,6 +7848,7 @@ MSVehicle::estimateTimeToNextStop() const {
     }
 }
 
+
 double
 MSVehicle::getStopDelay() const {
     if (hasStops() && myStops.front().pars.until >= 0) {
@@ -7856,6 +7869,7 @@ MSVehicle::getStopDelay() const {
         return -1;
     }
 }
+
 
 double
 MSVehicle::getStopArrivalDelay() const {
@@ -7878,6 +7892,7 @@ MSVehicle::getCurrentEdge() const {
     return myLane != nullptr ? &myLane->getEdge() : getEdge();
 }
 
+
 const MSEdge*
 MSVehicle::getNextEdgePtr() const {
     if (myLane == nullptr || (myCurrEdge + 1) == myRoute->end()) {
@@ -7891,5 +7906,60 @@ MSVehicle::getNextEdgePtr() const {
         return nextInternal ? nextInternal : nextNormal;
     }
 }
+
+
+const MSLane*
+MSVehicle::getPreviousLane(const MSLane* current, int& furtherIndex) const {
+    if (furtherIndex < (int)myFurtherLanes.size()) {
+        return myFurtherLanes[furtherIndex++];
+    } else {
+        // try to use route information
+        int routeIndex = getRoutePosition();
+        bool resultInternal;
+        if (MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks()) {
+            if (myLane->isInternal()) {
+                if (furtherIndex % 2 == 0) {
+                    routeIndex -= (furtherIndex + 0) / 2;
+                    resultInternal = false;
+                } else {
+                    routeIndex -= (furtherIndex + 1) / 2;
+                    resultInternal = false;
+                }
+            } else {
+                if (furtherIndex % 2 != 0) {
+                    routeIndex -= (furtherIndex + 1) / 2;
+                    resultInternal = false;
+                } else {
+                    routeIndex -= (furtherIndex + 2) / 2;
+                    resultInternal = true;
+                }
+            }
+        } else {
+            routeIndex -= furtherIndex;
+            resultInternal = false;
+        }
+        furtherIndex++;
+        if (routeIndex >= 0) {
+            if (resultInternal) {
+                const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
+                for (MSLane* cand : prevNormal->getLanes()) {
+                    for (MSLink* link : cand->getLinkCont()) {
+                        if (link->getLane() == current) {
+                            if (link->getViaLane() != nullptr) {
+                                return link->getViaLane();
+                            } else {
+                                return const_cast<MSLane*>(link->getLaneBefore());
+                            }
+                        }
+                    }
+                }
+            } else {
+                return myRoute->getEdges()[routeIndex]->getLanes()[0];
+            }
+        }
+    }
+    return current;
+}
+
 
 /****************************************************************************/

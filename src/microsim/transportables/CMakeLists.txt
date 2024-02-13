@@ -31,6 +31,8 @@ set(microsim_transportables_STAT_SRCS
         MSTransportable.h
         MSTransportableControl.cpp
         MSTransportableControl.h
+        MSTrainHelper.cpp
+        MSTrainHelper.h
         ${microsim_transportables_JPS_SRCS}
         )
 
