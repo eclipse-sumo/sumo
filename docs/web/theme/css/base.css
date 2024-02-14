@@ -112,8 +112,8 @@ background-color: var(--table-stripe-color) !important;
 }
 
 .col-md-9 {
-flex: 1 0 75%;
-max-width: 100%;
+flex: 1 0 80%;
+max-width: 80%;
 }
 
 .col-md-9 img {
@@ -641,7 +641,7 @@ color: var(--a-color);
 }
 
 .col-md-3 {
-max-width: 25em;
+max-width: 20%;
 }
 @media (max-width: 768px) {
 .main-area {
