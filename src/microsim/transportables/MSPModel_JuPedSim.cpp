@@ -379,6 +379,17 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                     }
                 }
             }
+        } else {  // areaType == "influencer"
+            for (JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea); agentID != 0; agentID = JPS_AgentIdIterator_Next(agentsInArea)) {
+                if (area.params.count("speed") > 0) {
+                    const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, agentID, nullptr);
+                    JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+                    const double newMaxSpeed = StringUtils::toDouble(area.params.at("speed"));
+                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+                        JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+                    }
+                }
+            }
         }
         JPS_AgentIdIterator_Free(agentsInArea);
     }
