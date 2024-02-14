@@ -1223,7 +1223,7 @@ Special handling of other attributes:
 - when the 'until' value is set, vehicles may stop when reaching a waypoint too early
 
 ## Jumps
-When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration immediately after finishing the stop and re-enter it on the start of the next edge of it's route. Having a disconnected route after a jump-stop is permitted.
+When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration immediately after finishing the stop and re-enter it on the start of the next edge of it's route. Having a disconnected route after a jump-stop is permitted. When giving jumps as [router input](Demand/Shortest_or_Optimal_Path_Routing.md#routing_between_stops), disconnected routes are created by design.
 
 A typical use case for jumps would be a public transport vehicle that has some of it's stops outside the simulated area and is expected to re-enter it at a later time after leaving the simulation  (while preserving it's ID and delay).
 
