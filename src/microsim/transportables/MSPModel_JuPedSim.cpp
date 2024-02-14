@@ -351,33 +351,36 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
     }
 
     // Remove pedestrians that are in a predefined area, at a predefined rate.
-    for (const auto& vanishingArea : myVanishingAreas) {
-        const std::vector<JPS_Point>& vanishingAreaBoundary = vanishingArea.second.vanishingAreaBoundary;
-        JPS_AgentIdIterator agentsInVanishingAreaIterator = JPS_Simulation_AgentsInPolygon(myJPSSimulation, vanishingAreaBoundary.data(), vanishingAreaBoundary.size());
-        if (time - myLastRemovalTime >= vanishingArea.second.period) {
-            const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInVanishingAreaIterator);
-            if (agentID != 0) {
-                auto lambda = [agentID](const PState * const p) {
-                    return p->getAgentId() == agentID;
-                };
-                std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
-                if (iterator != myPedestrianStates.end()) {
-                    const PState* const state = *iterator;
-                    MSPerson* const person = state->getPerson();
-                    // Code below only works if the removal happens at the last stage.
-                    const bool finalStage = person->getNumRemainingStages() == 1;
-                    if (finalStage) {
-                        WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), vanishingArea.first);
-                        while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
-                        registerArrived();
-                        JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
-                        myPedestrianStates.erase(iterator);
-                        myLastRemovalTime = time;
+    for (const AreaData& area : myAreas) {
+        const std::vector<JPS_Point>& areaBoundary = area.areaBoundary;
+        JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
+        if (area.areaType == "vanishing_area") {
+            const SUMOTime period = area.params.count("period") > 0 ? string2time(area.params.at("period")) : 1000;
+            if (time - myLastRemovalTime >= period) {
+                const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
+                if (agentID != 0) {
+                    auto lambda = [agentID](const PState * const p) {
+                        return p->getAgentId() == agentID;
+                    };
+                    std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
+                    if (iterator != myPedestrianStates.end()) {
+                        const PState* const state = *iterator;
+                        MSPerson* const person = state->getPerson();
+                        // Code below only works if the removal happens at the last stage.
+                        const bool finalStage = person->getNumRemainingStages() == 1;
+                        if (finalStage) {
+                            WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area.id);
+                            while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+                            registerArrived();
+                            JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+                            myPedestrianStates.erase(iterator);
+                            myLastRemovalTime = time;
+                        }
                     }
                 }
             }
         }
-        JPS_AgentIdIterator_Free(agentsInVanishingAreaIterator);
+        JPS_AgentIdIterator_Free(agentsInArea);
     }
 
     JPS_ErrorMessage_Free(message);
@@ -685,18 +688,6 @@ MSPModel_JuPedSim::getCoordinates(const GEOSGeometry* geometry) {
 
 
 std::vector<JPS_Point>
-MSPModel_JuPedSim::convertToJPSPoints(const PositionVector& coordinates) {
-    std::vector<JPS_Point> pointVector;
-    for (const Position& p : coordinates) {
-        pointVector.push_back({p.x(), p.y()});
-    }
-    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream.
-    pointVector.pop_back();
-    return pointVector;
-}
-
-
-std::vector<JPS_Point>
 MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
     std::vector<JPS_Point> pointVector;
     const GEOSCoordSequence* coordinateSequence = GEOSGeom_getCoordSeq(geometry);
@@ -805,8 +796,6 @@ MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon)
         const std::string error = TLF("Error while generating geometry: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
         throw ProcessError(error);
-    } else {
-        PROGRESS_DONE_MESSAGE();
     }
     JPS_GeometryBuilder_Free(geometryBuilder);
     return geometry;
@@ -832,6 +821,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     PROGRESS_BEGIN_MESSAGE("Generating initial JuPedSim geometry for pedestrian network");
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetwork);
+    PROGRESS_DONE_MESSAGE();
     myJPSGeometryWithTrains = nullptr;
     JPS_ErrorMessage message = nullptr;
 
@@ -867,10 +857,18 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     }
     // Polygons that define vanishing areas aren't part of the regular JuPedSim geometry.
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
-        if (polygonWithID.second->getShapeType() == "jupedsim.vanishing_area") {
-            const std::vector<JPS_Point>& vanishingAreaBoundary = convertToJPSPoints(polygonWithID.second->getShape());
-            const SUMOTime period = string2time(polygonWithID.second->getParameter("period", "1"));
-            myVanishingAreas.insert(std::make_pair(polygonWithID.second->getID(), VanishingAreaData{vanishingAreaBoundary, period}));
+        const SUMOPolygon* const poly = polygonWithID.second;
+        if (poly->getShapeType() == "jupedsim.vanishing_area" || poly->getShapeType() == "jupedsim.influencer") {
+            std::vector<JPS_Point> areaBoundary;
+            for (const Position& p : poly->getShape()) {
+                areaBoundary.push_back({p.x(), p.y()});
+            }
+            // Make sure the shape is not repeating the first point.
+            if (areaBoundary.back().x == areaBoundary.front().x && areaBoundary.back().y == areaBoundary.front().y) {
+                areaBoundary.pop_back();
+            }
+            const std::string& type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
+            myAreas.push_back(AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap()});
         }
     }
 }

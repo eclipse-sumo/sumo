@@ -161,11 +161,13 @@ private:
     JPS_Geometry myJPSGeometryWithTrains;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
-    struct VanishingAreaData {
-        const std::vector<JPS_Point> vanishingAreaBoundary;
-        SUMOTime period;
+    struct AreaData {
+        const std::string id;
+        const std::string areaType;
+        const std::vector<JPS_Point> areaBoundary;
+        const Parameterised::Map params;
     };
-    std::map<std::string, VanishingAreaData> myVanishingAreas;
+    std::vector<AreaData> myAreas;
     SUMOTime myLastRemovalTime = 0;
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
@@ -187,7 +189,6 @@ private:
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const GEOSGeometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
-    static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
     static double getHoleArea(const GEOSGeometry* hole);
     void preparePolygonForJPS(const GEOSGeometry* polygon, JPS_GeometryBuilder geometryBuilder);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId);
