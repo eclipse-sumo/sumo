@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="0.00">
+        <route edges="E0 E1 E2 E3 E4 E5"/>
+        <stop busStop="bs_0" duration="5.00" jump="12.00"/>
+        <stop busStop="bs_2" duration="5.00"/>
+    </vehicle>
+</routes>

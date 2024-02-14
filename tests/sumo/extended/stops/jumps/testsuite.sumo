@@ -22,6 +22,9 @@ jump2
 # define an explicit jump despite there being a possible route
 jump_connected
 
+# define an explicit jump together with a fully connected route
+jump_route_connected
+
 # define a jump where to next stop is on the same edge
 jump_same
 
