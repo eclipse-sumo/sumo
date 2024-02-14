@@ -18,6 +18,9 @@ aggregation interval of the output.
 Generally, this can be computed for any kind of scenario as long as this
 scenario covers the desired range of traffic densities.
 
+Plots may be created with [plotXMLAttributes](../Tools/Visualization.md#fundamental_diagram_from_edgedata).
+<img src="../images/plotAttrs_fundamental.png" width="800px"/>
+
 # Fundamental diagram of a closed circular route
 
 A common scenario that is used to generate the fundamental diagram is a
