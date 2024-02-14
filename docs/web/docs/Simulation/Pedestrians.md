@@ -16,6 +16,8 @@ following. For edges that allow both modes, typically the rightmost lane
 (the one with index 0) allows only pedestrians and the other lanes
 disallow pedestrians. The rightmost lane is then called a **sidewalk**.
 
+![pedestrian_network](images/pedestrian_network.png "elements of a pedestrian network")
+
 # Building a network for pedestrian simulation
 
 When walking along an edge, pedestrians use sidewalks where available. A
