@@ -126,3 +126,6 @@ tripinfoRetrieval
 
 # retrieving TLS info with multiple links
 getNextTLS
+
+# get numbr of alighting persons at the next stop
+alightingPersons

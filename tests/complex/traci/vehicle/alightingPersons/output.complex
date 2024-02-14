@@ -1,0 +1,63 @@
+time 0.0
+  next stop stop_SC
+  alighting passengers []
+time 10.0
+  next stop stop_SC
+  alighting passengers []
+time 20.0
+  next stop stop_SC
+  alighting passengers []
+time 30.0
+  next stop stop_SC
+  alighting passengers []
+time 40.0
+  next stop stop_SC
+  alighting passengers []
+time 50.0
+  next stop stop_SC
+  alighting passengers []
+time 60.0
+  next stop stop_NC
+  alighting passengers []
+time 70.0
+  next stop stop_NC
+  alighting passengers []
+time 80.0
+  next stop stop_NC
+  alighting passengers []
+time 90.0
+  next stop stop_NC
+  alighting passengers []
+time 100.0
+  next stop stop_NC
+  alighting passengers []
+time 110.0
+  next stop stop_NC
+  alighting passengers []
+time 120.0
+  next stop stop_NC
+  alighting passengers []
+time 130.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 140.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 150.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 160.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 170.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 180.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 190.0
+  next stop stop_CS
+  alighting passengers ['pSC.0', 'pSC.1', 'pSC.2', 'pSC.3', 'pSC.4', 'pNC.0', 'pNC.1', 'pNC.2']
+time 200.0
+  next stop stop_CS
+  alighting passengers ['pNC.2']
