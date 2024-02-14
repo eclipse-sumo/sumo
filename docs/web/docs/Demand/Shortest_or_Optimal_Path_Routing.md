@@ -54,6 +54,13 @@ the router using an XML-file. The syntax of a single trip definition is:
 ## Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the duarouter option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
+## Routing between Stops
+
+- When defining a `<trip>` with [stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)-elements, routing will performed for each stop (starting a the trip origin or the prior stop) and ending at the destination.
+- If at least one stop is provided, either one of the `from` or `to` attributes (or `fromJunction`, `fromTaz`, ...) may be omitted.
+- If at least two stops are provied both of the `from` and `to` attributes may be omitted (the first stop serves as the origin while the last stop serves as the destination)
+- If a a stop with a [`jump`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)-attribute is given, the subsequent part of the route (to the next stop or the destination) will be disconnected
+
 ## Mapmatching
 Since version 1.2 duarouter supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configured using option **--mapmatch.distance** (since version 1.5)
 
