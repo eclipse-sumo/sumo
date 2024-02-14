@@ -112,3 +112,6 @@ was removed from or - later - it is currently "passing". The vehicle is
 reinserted into the network if there is enough place to be placed on a
 lane which allows to continue its drive. Consequently a vehicle may
 teleport multiple times within one simulation.
+
+!!! note
+    Outputs react differently to teleporting vehicles. While [meanData-output](Output/Lane-_or_Edge-based_Traffic_Measures.md) counts teleports explicitly, [fcd-output](Output/FCDOutput.md) does not record vehicles while they are teleporting.
