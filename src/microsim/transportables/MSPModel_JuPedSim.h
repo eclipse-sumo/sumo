@@ -159,11 +159,10 @@ private:
 
     JPS_Geometry myJPSGeometry;
     JPS_Geometry myJPSGeometryWithTrains;
-    JPS_CollisionFreeSpeedModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
     struct VanishingAreaData {
-        std::vector<JPS_Point> vanishingAreaBoundary;
+        const std::vector<JPS_Point> vanishingAreaBoundary;
         SUMOTime period;
     };
     std::map<std::string, VanishingAreaData> myVanishingAreas;
@@ -175,7 +174,7 @@ private:
     static const double GEOS_MIN_AREA;
     static const double GEOS_BUFFERED_SEGMENT_WIDTH;
 
-    void initialize();
+    void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
     bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID);
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
