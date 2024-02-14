@@ -260,6 +260,9 @@ vehicle only once but they include/exclude some special cases.
   script can display values of this output as a colored net (and
   further [visualization tools](../../Tools/Visualization.md)
   exist).
+- [plotXMLAttributes](../../Tools/Visualization.md#fundamental_diagram_from_edgedata) can extract and plot values such as the [Fundamental Diagram](../../Tutorials/FundamentalDiagram.md) below
+
+<img src="../../images/plotAttrs_fundamental.png" width="600px"/>
 
 ## See Also
 
