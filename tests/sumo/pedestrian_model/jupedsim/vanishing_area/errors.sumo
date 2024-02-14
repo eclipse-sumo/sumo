@@ -1,4 +1,4 @@
-Warning: While generating geometry 2 connected components were detected, 97.51% of total pedestrian area is covered by the first.
+Warning: While generating geometry 2 connected components were detected, 97.51% of total pedestrian area is covered by the largest.
 Warning: Error while adding person 'pf_0.10' as JuPedSim agent: Model constraint violation: Agent (1596.52, 1889.3) too close to agent (1596.6354138289284, 1889.5504644398566): distance 0.2757766986904751
 Warning: Error while adding person 'pf_1.10' as JuPedSim agent: Model constraint violation: Agent (1790.93, 1898.96) too close to agent (1790.9555326732425, 1899.2345921887609): distance 0.27577669867371
 Warning: Error while adding person 'pf_2.10' as JuPedSim agent: Model constraint violation: Agent (1799.82, 2076.16) too close to agent (1799.547239134107, 2076.023280800467): distance 0.3051075703477827
