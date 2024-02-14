@@ -108,6 +108,7 @@ output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:--python-script
 output:--osg-view{LINES 2}
+output:--pedestrian.jupedsim{LINES 2}
 output:movereminder-output{LINES 2}
 output:Simulation.*started with{REPLACE Simulation started with}
 calibrator_log:<!--{[->]}-->
@@ -190,6 +191,8 @@ cfg:<python-script
 cfg:embedded python
 cfg:osg-view
 cfg:OpenSceneGraph
+cfg:pedestrian.jupedsim
+cfg:JuPedSim
 cfg:^$
 weights:<!--{[->]}-->
 lanechanges:<!--{[->]}-->

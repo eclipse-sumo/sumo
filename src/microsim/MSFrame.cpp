@@ -550,20 +550,22 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
     oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
+#ifdef JPS_VERSION
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
     oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
-    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
     oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeed"));
-    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in jupedsim"));
+    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"));
     oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
-    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
-    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-neighbor-repulsion", "Processing", TL("The neighbor repulsion range of the JuPedSim model (in meters)"));
     oc.doRegister("pedestrian.jupedsim.strength-geometry-repulsion", new Option_Float(5.));
-    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The geometry repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-geometry-repulsion", new Option_Float(.02));
-    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
+    oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
+#endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
     oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
