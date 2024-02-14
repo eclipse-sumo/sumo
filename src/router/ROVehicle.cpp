@@ -214,14 +214,23 @@ void
 ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const {
     auto itM = mandatory.begin();
     auto itS = getParameter().stops.begin();
-    while (itM != mandatory.end() && itS != getParameter().stops.end()) {
+    auto itSEnd = getParameter().stops.end();
+    while (itM != mandatory.end() && itS != itSEnd) {
+        bool repeatMandatory = false;
+        // if we stop twice on the same edge, we must treat this as a repeated
+        // mandatory edge (even though the edge appears only once in the mandatory vector)
         if ((*itM)->getID() == itS->edge) {
             if (itS->jump >= 0) {
                 jumpStarts.insert(itM);
             }
             itS++;
+            if (itS != itSEnd && itS->edge == (itS - 1)->edge) {
+                repeatMandatory = true;
+            }
         }
-        itM++;
+        if (!repeatMandatory) {
+            itM++;
+        }
     }
 }
 
