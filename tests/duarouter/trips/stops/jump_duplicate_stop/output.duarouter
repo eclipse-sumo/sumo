@@ -1,0 +1,7 @@
+ collectJumps veh=v0 mandatory=E0 stopEdge=E0 jump=-1
+ collectJumps veh=v0 mandatory=E2 stopEdge=E0 jump=-1
+ collectJumps veh=v0 mandatory=E3 stopEdge=E0 jump=-1
+ collectJumps veh=v0 mandatory=E5 stopEdge=E0 jump=-1
+ hasJumps  mIndex=0 jumpStarts=0
+ hasJumps  mIndex=0 jumpStarts=0
+ hasJumps  mIndex=1 jumpStarts=0

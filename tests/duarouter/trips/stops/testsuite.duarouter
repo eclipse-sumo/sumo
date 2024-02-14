@@ -13,6 +13,9 @@ jump_end
 # jump twice
 jump2
 
+# see #14324
+jump_duplicate_stop
+
 # define an explicit jump despite there being a possible route
 jump_connected
 
