@@ -40,7 +40,7 @@ class MSVehicle;
  */
 class MSTrainHelper {
 public:
-    MSTrainHelper(const MSVehicle* vehicle, bool reversed, bool secondaryShape=false, double exaggeration=1.0) 
+    MSTrainHelper(const MSVehicle* vehicle, bool reversed=false, bool secondaryShape=false, double exaggeration=1.0) 
         : myTrain(vehicle) {
         computeTrainDimensions(exaggeration);
         computeCarriages(secondaryShape, reversed);
@@ -92,8 +92,16 @@ public:
         return myFirstCarriageLength;
     }
 
+    inline int getCarriageDoors(void) const {
+        return myCarriageDoors;
+    }
+
     inline int getFirstCarriageNo(void) const {
         return myFirstCarriageNo;
+    }
+
+    inline int getFirstPassengerCarriage(void) const {
+        return myFirstPassengerCarriage;
     }
     
     inline bool isReversed(void) const {
@@ -125,7 +133,9 @@ private:
     double myCarriageLengthWithGap;
     double myCarriageLength;
     double myFirstCarriageLength;
+    int myCarriageDoors;
     int myFirstCarriageNo;
+    int myFirstPassengerCarriage;
     bool myIsReversed;
     std::vector<Carriage*> myCarriages;
 

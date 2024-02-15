@@ -33,6 +33,7 @@ MSTrainHelper::getCarriageShapes(void) {
     for (const Carriage* carriage: myCarriages) {
         Position direction = carriage->front - carriage->back;
         Position perp = Position(-direction.y(), direction.x());
+        perp.norm2D();
         PositionVector shape;
         shape.push_back(carriage->front + perp*myHalfWidth);
         shape.push_back(carriage->front - perp*myHalfWidth); 
@@ -73,6 +74,7 @@ MSTrainHelper::computeTrainDimensions(double exaggeration) {
         myCarriageLengthWithGap = (myLength - myLocomotiveLength) / (myNumCarriages - 1);
         myCarriageLength = myCarriageLengthWithGap - myCarriageGap;
     }
+    myCarriageDoors = vtype.getParameter().carriageDoors;
 }
     
 
@@ -101,6 +103,9 @@ MSTrainHelper::computeCarriages(bool secondaryShape, bool reversed) {
             carriageBackOffset = carriageOffset - myCarriageLength;
         }
     }
+
+    myFirstPassengerCarriage = myDefaultLength == myLocomotiveLength || myNumCarriages == 1
+                                       || (myTrain->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
 
     const double lateralOffset = (myTrain->isParking() && myTrain->getNextStopParameter()->posLat == INVALID_DOUBLE
                                   ? (myTrain->getLane()->getWidth() * (MSGlobals::gLefthand ? -1 : 1))
@@ -141,7 +146,13 @@ MSTrainHelper::computeCarriages(bool secondaryShape, bool reversed) {
         
         carriage->front = lane->getShape(secondaryShape).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
         carriage->back = backLane->getShape(secondaryShape).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
-        // TODO: compute the doors.
+        Position direction = carriage->front - carriage->back;
+        direction.norm2D();
+        double carriageLength = (i == myFirstCarriageNo ? myLocomotiveLength : myCarriageLengthWithGap - myCarriageGap);
+        for (int j = 1; j <= myCarriageDoors; j++) {
+            const double doorOffset = j * carriageLength / (myCarriageDoors + 1);
+            carriage->doors.push_back(carriage->front - direction*doorOffset);
+        }
         myCarriages.push_back(carriage);
 
         carriageOffset -= (curCLength + myCarriageGap);
