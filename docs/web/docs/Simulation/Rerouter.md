@@ -313,7 +313,7 @@ Parking search refers to the situation where a vehicle encounters an occupied pa
 ```
 
 !!! caution
-    Up to version 1.10.0 parking memory was 0 which could cause vehicles to only visited a small set of areas repeatedly
+    Up to version 1.10.0 parking memory was 0 which could cause vehicles to visit only a small set of areas repeatedly.
 
 ### Determining the alternative parking area
 
