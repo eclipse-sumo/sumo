@@ -33,13 +33,14 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/transportables/MSPerson.h>
+#include <microsim/MSTrainHelper.h>
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel.h>
+#include <microsim/transportables/MSPerson.h>
 
 
 #define DEFAULT_CARRIAGE_DOOR_WIDTH 1.5
@@ -429,25 +430,23 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 }
             }
             if (useDoors) {
-                // TODO refactor this with GUIVehicle::drawAction_drawCarriageClass
-                const SUMOVTypeParameter& pars = myVehicle->getVehicleType().getParameter();
-                const double totalLength = myVehicle->getVehicleType().getLength();
-                const int numCarriages = MAX2(1, 1 + (int)((totalLength - pars.locomotiveLength) / (pars.carriageLength + pars.carriageGap) + 0.5));
-                const int firstPassengerCarriage = numCarriages == 1
-                                                   || (myVehicle->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
-                const int randomCarriage = RandHelper::rand(numCarriages - firstPassengerCarriage) + firstPassengerCarriage;
-                const double positionOnLane = myVehicle->getPositionOnLane();
-                if (randomCarriage == 0) {
-                    const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * pars.locomotiveLength;
-                    myArrivalPos = positionOnLane - randomDoorOffset;
-                } else {
-                    const double carriageLengthWithGap = totalLength / numCarriages;
-                    const double frontPosOnLane = positionOnLane - pars.locomotiveLength - pars.carriageGap - carriageLengthWithGap * (randomCarriage - 1);
-                    const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * (carriageLengthWithGap - pars.carriageGap);
-                    myArrivalPos = frontPosOnLane - randomDoorOffset;
+                const MSVehicle* train = dynamic_cast<const MSVehicle*>(myVehicle);
+                if (train != nullptr) {
+                    const MSTrainHelper trainHelper(train);
+                    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
+                    const int randomCarriageIx = RandHelper::rand(trainHelper.getNumCarriages() - trainHelper.getFirstPassengerCarriage()) + trainHelper.getFirstPassengerCarriage();
+                    const MSTrainHelper::Carriage* randomCarriage = carriages[randomCarriageIx];
+                    const int randomDoorIx = RandHelper::rand(trainHelper.getCarriageDoors());
+                    Position randomDoor = randomCarriage->doors[randomDoorIx];
+                    // Jitter the position before projection because of possible train curvature.
+                    Position direction = randomCarriage->front - randomCarriage->back;
+                    direction.norm2D();
+                    randomDoor.add(direction * RandHelper::rand(-0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH));
+                    // Project onto the lane.
+                    myArrivalPos = myVehicle->getLane()->getShape().nearest_offset_to_point2D(randomDoor);
+                    myArrivalPos = myVehicle->getLane()->interpolateGeometryPosToLanePos(myArrivalPos);
+                    myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
                 }
-                myArrivalPos += RandHelper::rand(-0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH);
-                myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
             }
         }
     } else {
