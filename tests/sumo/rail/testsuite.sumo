@@ -64,3 +64,6 @@ crossing
 
 # test for various types of train collision
 collision
+
+# Tests train unboarding with pedestrians.
+unboarding
