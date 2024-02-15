@@ -53,7 +53,6 @@
 // ===========================================================================
 MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
     MSCFModel(vtype), myDelta(vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_DELTA, 4.)),
-    myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))),
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTPersDrive(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 3)),
     myTreaction(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0.5)),
@@ -106,13 +105,13 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
     double x;
     if (gap >= 0 || MSGlobals::gComputeLC) {
         double a = 1.;
-        double b = myHeadwayTime * myTwoSqrtAccelDecel - predSpeed;
-        double c = -sqrt(1 + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel;
+        double b = myHeadwayTime * (2 * sqrt(getCurrentAccel(egoSpeed) * myDecel)) - predSpeed;
+        double c = -sqrt(1 + myDecel / (2 * getCurrentAccel(egoSpeed))) * gap * (2 * sqrt(getCurrentAccel(egoSpeed) * myDecel));
         // with myDecel/myAccel, the intended deceleration is myDecel
         // with myDecel/(2*myAccel), the intended deceleration is myDecel/2
         // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
 
-        // double c = -sqrt(1 - pow(egoSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+        // double c = -sqrt(1 - pow(egoSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + myDecel / (2 * getCurrentAccel(egoSpeed))) * gap * (2 * sqrt(getCurrentAccel(egoSpeed) * myDecel)); // c calculation when using the IDM!
 
         // myDecel is positive, but is intended as negative value here, therefore + instead of -
         // quadratic formula
@@ -173,13 +172,13 @@ MSCFModel_EIDM::maximumSafeStopSpeed(double gap, double decel, double currentSpe
             return 0;
         }
         double a = 1.;
-        double b = headway * myTwoSqrtAccelDecel - 0.;
-        double c = -sqrt(1 + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel;
+        double b = headway * (2 * sqrt(getCurrentAccel(currentSpeed) * myDecel)) - 0.;
+        double c = -sqrt(1 + decel / (2 * getCurrentAccel(currentSpeed))) * g * (2 * sqrt(getCurrentAccel(currentSpeed) * myDecel));
         // with decel/myAccel, the intended deceleration is decel
         // with decel/(2*myAccel), the intended deceleration is decel/2
         // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term currentSpeed/vMax is not present
 
-        // double c = -sqrt(1 - pow(currentSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+        // double c = -sqrt(1 - pow(currentSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + decel / (2 * getCurrentAccel(currentSpeed))) * g * (2 * sqrt(getCurrentAccel(currentSpeed) * myDecel)); // c calculation when using the IDM!
 
         // decel is positive, but is intended as negative value here, therefore + instead of -
         // quadratic formula
@@ -203,14 +202,15 @@ MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, do
     // dawdling/drivingerror is now calculated here (in finalizeSpeed, not in stop-/follow-/freeSpeed anymore):
     // Instead of just multiplying mySigmaerror with vars->myw_error, we add a factor depending on the criticality of the situation,
     // measured with s*/gap. Because when the driver drives "freely" (nothing in front) he may dawdle more than in e.g. congested traffic!
-    double s = MAX2(0., vars->myv_est * myHeadwayTime + vars->myv_est * (vars->myv_est - vars->myv_est_l) / myTwoSqrtAccelDecel);
+    double Accel_vMax = getCurrentAccel(vMax);
+	double s = MAX2(0., vars->myv_est * myHeadwayTime + vars->myv_est * (vars->myv_est - vars->myv_est_l) / (2 * sqrt(Accel_vMax * myDecel)));
     if (vars->myrespectMinGap) {
         s += myType->getMinGap() + EIDM_POS_ACC_EPS;
     } else {
-        const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, myAccel);
+        const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0));
         s += minGapStop_EPS + EIDM_POS_ACC_EPS;
     }
-    const double intensity = MIN2(myAccel, MAX2(vMax - 0.5 * myAccel, 0.0));
+    const double intensity = MIN2(Accel_vMax, MAX2(vMax - 0.5 * Accel_vMax, 0.0));
     const double criticality = MIN2(MAX2(s / vars->mys_est - 0.5, -0.4), 0.0);
 
     const double drivingerror = mySigmaerror * vars->myw_error * intensity * (2.75 * 2.75 * criticality * criticality + 1.0);
@@ -245,7 +245,7 @@ MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, con
         if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
                 vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && // the last activation is at least 4 seconds ago
                 vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
-                veh->getAcceleration() < MIN2(myAccel / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+                veh->getAcceleration() < MIN2(getCurrentAccel(currentSpeed) / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
             vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations); // activate the drive off term
         }
         // Calculation of the Drive Off term
@@ -676,7 +676,7 @@ MSCFModel_EIDM::interactionGap(const MSVehicle* const veh, double vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const double acc = myAccel * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
+    const double acc = getCurrentAccel(veh->getSpeed()) * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
     const double vNext = veh->getSpeed() + acc;
     const double gap = (vNext - vL) * (veh->getSpeed() + vL) / (2 * myDecel) + vL;
 
@@ -691,12 +691,12 @@ MSCFModel_EIDM::getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* co
     // SecureGap depends on v0 and may be higher than just looking at s* (In case of the IDM)
     //VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double delta_v = speed - leaderSpeed;
-    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel); // is calculated without MinGap because it is compared to a gap without MinGap!
+    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / (2 * sqrt(getCurrentAccel(speed) * myDecel))); // is calculated without MinGap because it is compared to a gap without MinGap!
     // For the IDM: - pow(speed / veh->getLane()->getVehicleMaxSpeed(veh), myDelta)) must be added to (myDecel / myAccel + 1)!
     // For the IIDM: Left out the case check for estSpeed > v0, assuming this is not needed here. The vehicle therefore may brake harder when newSpeed > v0 occurs!
     // The secure gap is calculated using -myDecel as secure maximal acceleration (using myDecel/myAccel)!
 
-    double erg = sqrt((s * s) / (myDecel / myAccel + 1.0));
+    double erg = sqrt((s * s) / (myDecel / getCurrentAccel(speed) + 1.0));
     return MIN2(s, erg);
 }
 
@@ -706,17 +706,18 @@ MSCFModel_EIDM::internalsecuregap(const MSVehicle* const veh, const double speed
     // SecureGap depends on v0 and may be higher than just looking at s* (In case of the IDM)
     // internalsecuregap uses a targetDecel instead of myDecel!
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+	double Accel_speed = getCurrentAccel(speed);
     const double delta_v = speed - leaderSpeed;
-    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel); // is calculated without MinGap because it is compared to a gap without MinGap!
+    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / (2 * sqrt(Accel_speed * myDecel))); // is calculated without MinGap because it is compared to a gap without MinGap!
     // For the IDM: - pow(speed / veh->getLane()->getVehicleMaxSpeed(veh), myDelta)) must be added to (myDecel / myAccel + 1)!
     // the secure gap is calculated using -myDecel as secure maximal acceleration (using myDecel/myAccel)!
 
     double erg;
     if (speed <= vars->v0_int) {
-        erg = sqrt((s * s) / (MAX2(targetDecel / myAccel + 1.0, 1.0)));
+        erg = sqrt((s * s) / (MAX2(targetDecel / Accel_speed + 1.0, 1.0)));
     } else { // speed > v0
-        double a_free = - myDecel * (1.0 - pow(vars->v0_int / speed, myAccel * myDelta / myDecel));
-        erg = sqrt((s * s) / (MAX2(targetDecel / myAccel + 1.0 + a_free / myAccel, 1.0)));
+        double a_free = - myDecel * (1.0 - pow(vars->v0_int / speed, Accel_speed * myDelta / myDecel));
+        erg = sqrt((s * s) / (MAX2(targetDecel / Accel_speed + 1.0 + a_free / Accel_speed, 1.0)));
     }
 
     return erg;
@@ -873,7 +874,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     double a_leader = NUMERICAL_EPS; // Default without a leader, should not be 0!
     double newSpeed = egoSpeed;
     bool lastrespectMinGap = respectMinGap;
-    const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, myAccel);
+    const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0));
 
     // When doing the Follow-Calculation in adapttoLeader (MSVehicle.cpp) the mingap gets subtracted from the current gap (maybe this is needed for the Krauss-Model!).
     // For the IDM this Mingap is needed or else the vehicle will stop at two times mingap behind the leader!
@@ -941,7 +942,10 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         double headwayTime = myHeadwayTime;
         MSVehicle* leader;
 
-        double s = MAX2(0., estSpeed * headwayTime + estSpeed * (estSpeed - estleaderSpeed) / myTwoSqrtAccelDecel);
+        double Accel_estSpeed = getCurrentAccel(estSpeed);
+        double Accel_current_estSpeed = getCurrentAccel(current_estSpeed);
+
+        double s = MAX2(0., estSpeed * headwayTime + estSpeed * (estSpeed - estleaderSpeed) / (2 * sqrt(Accel_estSpeed * myDecel)));
         if (lastrespectMinGap) {
             s += myType->getMinGap() + EIDM_POS_ACC_EPS;
         } else {
@@ -952,43 +956,43 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // Here: When the gap is very small, s* is influenced to then always be bigger than the gap. With this there are no oscillations in accel at small gaps!
         if (lastrespectMinGap) {
             // The allowed position error when coming to a stop behind a leader is higher with higher timesteps (approx. 0.5m at 1.0s timstep, 0.1m at 0.1s)
-            if (estGap < myType->getMinGap() + (TS * 10 + 1) * EIDM_POS_ACC_EPS && estSpeed < EST_REAC_THRESHOLD && s < estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel)) {
-                s = estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel);
+            if (estGap < myType->getMinGap() + (TS * 10 + 1) * EIDM_POS_ACC_EPS && estSpeed < EST_REAC_THRESHOLD && s < estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / Accel_estSpeed)) {
+                s = estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / Accel_estSpeed);
             }
         } else {
-            if (estGap < minGapStop_EPS + 2 * EIDM_POS_ACC_EPS && s < estGap * sqrt(1 + EIDM_POS_ACC_EPS / myAccel)) {
+            if (estGap < minGapStop_EPS + 2 * EIDM_POS_ACC_EPS && s < estGap * sqrt(1 + EIDM_POS_ACC_EPS / Accel_estSpeed)) {
                 // when the vehicle wants to stop (stopSpeed), it may take long to come to a full stop
                 // To lower this stop time, we restrict the deceleration to always be higher than 0.05m/s^2 when stopping
-                s = estGap * sqrt(1 + EIDM_POS_ACC_EPS / myAccel);
+                s = estGap * sqrt(1 + EIDM_POS_ACC_EPS / Accel_estSpeed);
             }
         }
 
         // IDM calculation:
-        // wantedacc = myAccel * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (estGap * estGap));
+        // wantedacc = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (estGap * estGap));
 
         // IIDM calculation -NOT- from the original Treiber/Kesting publication:
         // With the saved variables from the last Action Point
         /*double wantedacc;
-        double a_free = myAccel * (1. - pow(estSpeed / v0, myDelta));
+        double a_free = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta));
         if (s >= estGap) { // This is the IIDM
-            wantedacc = myAccel * (1. - (s * s) / (estGap * estGap));
+            wantedacc = Accel_estSpeed * (1. - (s * s) / (estGap * estGap));
         } else {
-            wantedacc = a_free * (1. - pow(s / estGap, 2*myAccel / fabs(a_free)));
+            wantedacc = a_free * (1. - pow(s / estGap, 2*Accel_estSpeed / fabs(a_free)));
         }*/ // Old calculation form without the distinction between v > v0 and v <= v0!!! Published it in the EIDM with this form, but may be worse than original IIDM!
 
         // IIDM calculation from the original Treiber/Kesting publication:
         // With the saved variables from the last Action Point
         if (estSpeed <= v0) {
-            a_free = myAccel * (1. - pow(estSpeed / v0, myDelta));
+            a_free = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta));
             if (s >= estGap) {
-                wantedacc = myAccel * (1. - (s * s) / (estGap * estGap));
+                wantedacc = Accel_estSpeed * (1. - (s * s) / (estGap * estGap));
             } else {
-                wantedacc = a_free * (1. - pow(s / estGap, 2 * myAccel / a_free));
+                wantedacc = a_free * (1. - pow(s / estGap, 2 * Accel_estSpeed / a_free));
             }
         } else { // estSpeed > v0
-            a_free = - myDecel * (1. - pow(v0 / estSpeed, myAccel * myDelta / myDecel));
+            a_free = - myDecel * (1. - pow(v0 / estSpeed, Accel_estSpeed * myDelta / myDecel));
             if (s >= estGap) {
-                wantedacc = a_free + myAccel * (1. - (s * s) / (estGap * estGap));
+                wantedacc = a_free + Accel_estSpeed * (1. - (s * s) / (estGap * estGap));
             } else {
                 wantedacc = a_free;
             }
@@ -998,7 +1002,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // IIDM calculation from the original Treiber/Kesting publication:
         // With the current variables (what would the acceleration be without reaction time)
         if (usage == CalcReason::CURRENT) {
-            woulds = MAX2(0., current_estSpeed * headwayTime + current_estSpeed * (current_estSpeed - current_estleaderSpeed) / myTwoSqrtAccelDecel); // s_soll
+            woulds = MAX2(0., current_estSpeed * headwayTime + current_estSpeed * (current_estSpeed - current_estleaderSpeed) / (2 * sqrt(Accel_current_estSpeed * myDecel))); // s_soll
             if (respectMinGap) {
                 woulds += myType->getMinGap() + EIDM_POS_ACC_EPS; // when behind a vehicle use MinGap and when at a junction then not????
             } else {
@@ -1006,16 +1010,16 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
             }
 
             if (current_estSpeed <= v0) {
-                woulda_free = myAccel * (1. - pow(current_estSpeed / v0, myDelta));
+                woulda_free = Accel_current_estSpeed * (1. - pow(current_estSpeed / v0, myDelta));
                 if (woulds >= current_estGap) {
-                    wouldacc = myAccel * (1. - (woulds * woulds) / (current_estGap * current_estGap));
+                    wouldacc = Accel_current_estSpeed * (1. - (woulds * woulds) / (current_estGap * current_estGap));
                 } else {
-                    wouldacc = woulda_free * (1. - pow(woulds / current_estGap, 2 * myAccel / woulda_free));
+                    wouldacc = woulda_free * (1. - pow(woulds / current_estGap, 2 * Accel_current_estSpeed / woulda_free));
                 }
             } else { // current_estSpeed > v0
-                woulda_free =  - myDecel * (1. - pow(v0 / current_estSpeed, myAccel * myDelta / myDecel));
+                woulda_free =  - myDecel * (1. - pow(v0 / current_estSpeed, Accel_current_estSpeed * myDelta / myDecel));
                 if (woulds >= current_estGap) {
-                    wouldacc = woulda_free + myAccel * (1. - (woulds * woulds) / (current_estGap * current_estGap));
+                    wouldacc = woulda_free + Accel_current_estSpeed * (1. - (woulds * woulds) / (current_estGap * current_estGap));
                 } else {
                     wouldacc = woulda_free;
                 }
@@ -1030,29 +1034,29 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // IIDM calculation -NOT- from the original Treiber/Kesting publication:
         // Resulting acceleration also with the correct drive off term.
         double calc_gap = estGap;
-        /*a_free = myAccel * (1. - pow(estSpeed / v0, myDelta));
+        /*a_free = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta));
         if (s >= calc_gap) { // This is the IIDM
-            acc = myAccel * (1. - (s * s) / (calc_gap * calc_gap));
+            acc = Accel_estSpeed * (1. - (s * s) / (calc_gap * calc_gap));
         } else {
-            acc = a_free * (1. - pow(s / calc_gap, 2*myAccel / fabs(a_free)));
+            acc = a_free * (1. - pow(s / calc_gap, 2*Accel_estSpeed / fabs(a_free)));
         } */ // Old calculation form without the distinction between v > v0 and v <= v0!!! Published it in the EIDM with this form, but may be worse than original IIDM!
 
         // IDM calculation:
-        // acc = myAccel * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (calc_gap * calc_gap));
+        // acc = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (calc_gap * calc_gap));
 
         // IIDM calculation from the original Treiber/Kesting publication:
         // Resulting acceleration also with the correct drive off term.
         if (estSpeed <= v0) {
-            a_free = myAccel * (1. - pow(estSpeed / v0, myDelta));
+            a_free = Accel_estSpeed * (1. - pow(estSpeed / v0, myDelta));
             if (s >= calc_gap) {
-                acc = myAccel * (1. - (s * s) / (calc_gap * calc_gap));
+                acc = Accel_estSpeed * (1. - (s * s) / (calc_gap * calc_gap));
             } else {
-                acc = a_free * (1. - pow(s / calc_gap, 2 * myAccel / a_free));
+                acc = a_free * (1. - pow(s / calc_gap, 2 * Accel_estSpeed / a_free));
             }
         } else { // estSpeed > v0
-            a_free = - myDecel * (1. - pow(v0 / estSpeed, myAccel * myDelta / myDecel));
+            a_free = - myDecel * (1. - pow(v0 / estSpeed, Accel_estSpeed * myDelta / myDecel));
             if (s >= calc_gap) {
-                acc = a_free + myAccel * (1. - (s * s) / (calc_gap * calc_gap));
+                acc = a_free + Accel_estSpeed * (1. - (s * s) / (calc_gap * calc_gap));
             } else {
                 acc = a_free;
             }
@@ -1065,7 +1069,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 
             leader = (MSVehicle*)veh->getLeader(estGap + 25).first;
             if (leader != nullptr && lastrespectMinGap && estleaderSpeed >= SPEED_EPS) {
-                a_leader = MIN2(leader->getAcceleration(), myAccel);
+                a_leader = MIN2(leader->getAcceleration(), Accel_estSpeed);
                 // Change a_leader to lower values when far away from leader or else far away leaders influence the ego-vehicle!
                 if (estGap > s * 3 / 2) { // maybe estGap > 2*s???
                     a_leader = a_leader * (s * 3 / 2) / estGap;

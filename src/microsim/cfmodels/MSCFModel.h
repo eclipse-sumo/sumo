@@ -25,6 +25,7 @@
 
 #include <cmath>
 #include <string>
+#include <vector>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 
@@ -107,6 +108,9 @@ public:
 
     /// @brief apply speed adaptation on startup
     virtual double applyStartupDelay(const MSVehicle* veh, const double vMin, const double vMax, const SUMOTime addTime = 0) const;
+
+    /// @brief Get current interpolated value from a profile
+    virtual double interpolateProfile(const double speed, const std::vector<std::pair<double, double> > profile) const;
 
 
     /** @brief Computes the vehicle's safe speed without a leader
@@ -281,12 +285,38 @@ public:
         return myApparentDecel;
     }
 
+
     /** @brief Get the vehicle type's startupDelay
      * @return The startupDelay
      */
     inline SUMOTime getStartupDelay() const {
         return myStartupDelay;
     }
+
+
+    /** @brief Get the vehicle type's maximum acceleration profile depending on the velocity [m/s^2]
+     * @return The maximum acceleration profile (in m/s^2) of vehicles of this class
+     */
+    inline std::vector<std::pair<double, double> > getMaxAccelProfile() const {
+        return myMaxAccelProfile;
+    }
+
+
+    /** @brief Get the vehicle type's desired acceleration profile depending on the velocity [m/s^2]
+     * @return The desired acceleration profile (in m/s^2) of vehicles of this class
+     */
+    inline std::vector<std::pair<double, double> > getDesAccelProfile() const {
+        return myDesAccelProfile;
+    }
+
+
+    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
+     * @return The maximum acceleration (in m/s^2) of vehicles of this class
+     */
+    virtual inline double getCurrentAccel(const double speed) const {
+        return myAccel;
+    }
+
 
     /** @brief Get the factor of minGap that must be maintained to avoid a collision event
      */
@@ -553,12 +583,29 @@ public:
         myApparentDecel = decel;
     }
 
+
     /** @brief Sets a new value for the factor of minGap that must be maintained to avoid a collision event
      * @param[in] factor The new minGap factor
      */
     inline void setCollisionMinGapFactor(const double factor) {
         myCollisionMinGapFactor = factor;
     }
+
+
+    /** @brief Sets a new value for maximum acceleration profile [m/s^2]
+     * @param[in] accelProfile The new acceleration profile in m/s^2
+     */
+    virtual void setMaxAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+        myMaxAccelProfile = accelProfile;
+    }
+
+    /** @brief Sets a new value for desired acceleration profile [m/s^2]
+     * @param[in] accelProfile The new acceleration profile in m/s^2
+     */
+    virtual void setDesAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+        myDesAccelProfile = accelProfile;
+    }
+
 
     /** @brief Sets a new value for driver imperfection
      * @param[in] accel The new driver imperfection
@@ -711,6 +758,12 @@ protected:
 
     /// @brief The startup delay after halting [s]
     SUMOTime myStartupDelay;
+
+    /// @brief The vehicle's maximum acceleration profile [m/s^2]
+    std::vector<std::pair<double, double> > myMaxAccelProfile;
+
+    /// @brief The vehicle's desired acceleration profile [m/s^2]
+    std::vector<std::pair<double, double> > myDesAccelProfile;
 
 
 

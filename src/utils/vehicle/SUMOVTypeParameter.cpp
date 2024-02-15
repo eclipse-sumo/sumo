@@ -25,6 +25,7 @@
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
@@ -595,6 +596,40 @@ SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string d
 }
 
 
+std::vector<std::pair<double, double> >
+SUMOVTypeParameter::getCFProfile(const SumoXMLAttr attr, const std::vector<std::pair<double, double> > defaultProfile) const {
+    if (cfParameter.count(attr)) {
+        return createCFProfile(attr, cfParameter.find(attr)->second);
+    } else {
+        return defaultProfile;
+    }
+}
+
+
+std::vector<std::pair<double, double> >
+SUMOVTypeParameter::createCFProfile(const SumoXMLAttr attr, const std::string profile) const {
+    StringTokenizer st(profile, ",");
+    std::vector<std::pair<double, double>> vectorProfile;
+    int pairsCount = 0;
+    double p1, p2;
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next());
+        p1 = StringUtils::toDouble(pos.next());
+        p2 = StringUtils::toDouble(pos.next());
+        vectorProfile.push_back(std::make_pair(p1, p2));
+    }
+
+    if (vectorProfile[0].first > 0.) {
+        vectorProfile.insert(vectorProfile.begin(),std::make_pair(0.0, vectorProfile[0].second));
+    }
+    if (vectorProfile.back().first < (10000 / 3.6)) {
+        vectorProfile.push_back(std::make_pair((10000 / 3.6), vectorProfile.back().second));
+    }
+
+    return vectorProfile;
+}
+
+
 double
 SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (lcParameter.count(attr)) {
@@ -962,6 +997,56 @@ SUMOVTypeParameter::getTimeToTeleport(SUMOTime defaultValue) const {
 SUMOTime
 SUMOVTypeParameter::getTimeToTeleportBidi(SUMOTime defaultValue) const {
     return timeToTeleportBidi == TTT_UNSET ? defaultValue : timeToTeleportBidi;
+}
+
+std::vector<std::pair<double, double> >
+SUMOVTypeParameter::getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double maxAccel) {
+    std::vector<std::pair<double, double> > MaxAccelProfile;
+    switch (vc) {
+    case SVC_PEDESTRIAN:
+    case SVC_BICYCLE:
+    case SVC_MOTORCYCLE:
+    case SVC_MOPED:
+    case SVC_TRUCK:
+    case SVC_TRAILER:
+    case SVC_BUS:
+    case SVC_COACH:
+    case SVC_TRAM:
+    case SVC_RAIL_URBAN:
+    case SVC_RAIL:
+    case SVC_RAIL_ELECTRIC:
+    case SVC_RAIL_FAST:
+    case SVC_SHIP:
+    default:
+        MaxAccelProfile.push_back(std::make_pair(0.0, maxAccel));
+        MaxAccelProfile.push_back(std::make_pair((10000 / 3.6), maxAccel));
+        return MaxAccelProfile;
+    }
+}
+
+std::vector<std::pair<double, double> >
+SUMOVTypeParameter::getDefaultDesAccelProfile(const SUMOVehicleClass vc, double desAccel) {
+    std::vector<std::pair<double, double> > DesAccelProfile;
+    switch (vc) {
+    case SVC_PEDESTRIAN:
+    case SVC_BICYCLE:
+    case SVC_MOTORCYCLE:
+    case SVC_MOPED:
+    case SVC_TRUCK:
+    case SVC_TRAILER:
+    case SVC_BUS:
+    case SVC_COACH:
+    case SVC_TRAM:
+    case SVC_RAIL_URBAN:
+    case SVC_RAIL:
+    case SVC_RAIL_ELECTRIC:
+    case SVC_RAIL_FAST:
+    case SVC_SHIP:
+    default:
+        DesAccelProfile.push_back(std::make_pair(0.0, desAccel));
+        DesAccelProfile.push_back(std::make_pair((10000 / 3.6), desAccel));
+        return DesAccelProfile;
+    }
 }
 
 /****************************************************************************/

@@ -379,6 +379,16 @@ public:
      */
     void setApparentDecel(double apparentDecel);
 
+    /** @brief Set a new value for this type's maximum acceleration profile.
+     * @param[in] accelProfile The new acceleration profile of this type
+     */
+    void setMaxAccelProfile(std::vector<std::pair<double, double> > accelProfile);
+
+    /** @brief Set a new value for this type's desired acceleration profile.
+     * @param[in] accelProfile The new acceleration profile of this type
+     */
+    void setDesAccelProfile(std::vector<std::pair<double, double> > accelProfile);
+
     /** @brief Set a new value for this type's imperfection.
      * @param[in] imperfection The new imperfection of this type
      */

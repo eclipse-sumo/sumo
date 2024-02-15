@@ -494,6 +494,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "decel",                  SUMO_ATTR_DECEL },
     { "emergencyDecel",         SUMO_ATTR_EMERGENCYDECEL },
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
+    { "maxAccelProfile",        SUMO_ATTR_MAXACCEL_PROFILE },
+    { "desAccelProfile",        SUMO_ATTR_DESACCEL_PROFILE },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "vClasses",               SUMO_ATTR_VCLASSES },

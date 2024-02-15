@@ -1231,6 +1231,13 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                 }
                 // add parsedCFMAttribute to cfParameter
                 into->cfParameter[it] = parsedCFMAttribute;
+            } else if (it == SUMO_ATTR_MAXACCEL_PROFILE || it == SUMO_ATTR_DESACCEL_PROFILE) {
+                if (parseProfile(into, parsedCFMAttribute, it)) {
+                    into->cfParameter[it] = parsedCFMAttribute;
+                } else {
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of <speed accel> pairs"), toString(it));
+                    return false;
+                }
             } else {
                 // declare a double in wich save CFM float attribute
                 double CFMDoubleAttribute = -1;
@@ -1287,6 +1294,8 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         genericParams.insert(SUMO_ATTR_DECEL);
         genericParams.insert(SUMO_ATTR_APPARENTDECEL);
         genericParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        genericParams.insert(SUMO_ATTR_MAXACCEL_PROFILE);
+        genericParams.insert(SUMO_ATTR_DESACCEL_PROFILE);
         genericParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
         genericParams.insert(SUMO_ATTR_STARTUP_DELAY);
         // Krauss
@@ -1702,6 +1711,51 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 bool
 SUMOVehicleParserHelper::isInternalRouteID(const std::string& id) {
     return id.substr(0, 1) == "!";
+}
+
+
+bool
+SUMOVehicleParserHelper::parseProfile(SUMOVTypeParameter* vtype, const std::string atm, const SumoXMLAttr attr) {
+    StringTokenizer st(atm, ",");
+    std::vector<std::pair<double, double>> vectorProfile;
+    int pairsCount = 0;
+    double prevP1 = 0.;
+    double p1, p2;
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next());
+        if (pos.size() != 2) {
+            WRITE_ERRORF(TL("Profile format for vType '%' % contains an invalid pair."), vtype->id, atm);
+            return false;
+        } else {
+            try {
+                p1 = StringUtils::toDouble(pos.next());
+                p2 = StringUtils::toDouble(pos.next());
+                vectorProfile.push_back(std::make_pair(p1, p2));
+            } catch (...) {
+                WRITE_ERRORF(TL("Pair '%' for vType '%' Profile cannot be parsed as 'double double'"), st.get(pairsCount), vtype->id);
+                return false;
+            }
+            if (attr == SUMO_ATTR_MAXACCEL_PROFILE || attr == SUMO_ATTR_DESACCEL_PROFILE) {
+                if (p1 < 0.) {
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. A speed value is lower than 0"), toString(attr));
+                    return false;
+                } else if (p2 < 0.) {
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. An accel value is lower than 0"), toString(attr));
+                    return false;
+                } else if (p1 < prevP1) {
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. All speed values must increase strictly monotone"), toString(attr));
+                    return false;
+                }
+            }
+            prevP1 = p1;
+            pairsCount++;
+        }
+    }
+    if (vectorProfile.size() == 0) {
+        WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. The string is empty"), toString(attr));
+        return false;
+    }
+    return true;
 }
 
 

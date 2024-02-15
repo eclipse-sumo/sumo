@@ -172,6 +172,17 @@ public:
      */
     static bool isInternalRouteID(const std::string& id);
 
+    /** @brief Parse string containing a vector of pairs
+     *
+     * @param[in] vtype - the vtype element constructed in the parser
+     * @param[in] atm - containing separated pairs "A1,B1 A2,B2"
+     * @param[in] attr - XML-attribute that is being parsed
+     * @exception ProcessError If an attribute's value is invalid
+     *
+     * @note  if the vector parameter set is an empty string, then the vtype map will not be changed
+     */
+    static bool parseProfile(SUMOVTypeParameter* vtype, const std::string atm, const SumoXMLAttr attr);
+
 private:
     /**@brief parse ID
      * @return empty string if ID obtained from attrs isn't valid
