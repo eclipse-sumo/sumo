@@ -47,6 +47,8 @@
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="emergencyDecel" type="positiveFloatType"/>
         <xsd:attribute name="apparentDecel" type="positiveFloatType"/>
+        <xsd:attribute name="maxAccelProfile" type="xsd:string"/>
+        <xsd:attribute name="desAccelProfile" type="xsd:string"/>
         <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
@@ -261,6 +263,8 @@
     <xsd:complexType name="cfEIDMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="maxAccelProfile" type="xsd:string"/>
+        <xsd:attribute name="desAccelProfile" type="xsd:string"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
         <xsd:attribute name="delta" type="floatType"/>
         <xsd:attribute name="tau" type="positiveFloatType"/>
