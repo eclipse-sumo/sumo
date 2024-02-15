@@ -54,7 +54,7 @@ public:
         myTurnaround(nullptr),
         myIsVirtual(true),
         myMaxLength(turnStart->getLength() - REVERSAL_SLACK),
-        myStartLength(turnStart->getLength()) {
+        myStartLength(turnStart->getLength() - REVERSAL_SLACK) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
 
@@ -192,7 +192,7 @@ public:
             for (const E* edge : myReplacementEdges) {
                 into.push_back(edge);
                 nPushed++;
-                seen += edge->getLength();
+                seen += edge->getLength() - REVERSAL_SLACK;
                 //std::cout << "insertOriginalEdges e=" << getID() << " length=" << length << " seen=" << seen << " into=" << toString(into) << "\n";
                 if (seen >= length && edge->isConnectedTo(*edge->getBidiEdge(), SVC_IGNORING)) {
                     break;
