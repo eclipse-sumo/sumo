@@ -72,11 +72,11 @@ title: ChangeLog
   - Fixed vehicle class selection ignoring user input. #13943
 
 - sumo-gui
+  - 3D models can be loaded as decals again. #14009 (regression in 1.17)
   - Context menu uses same screen as sumo-gui on Windows. #13674
   - Sidewalks are no longer connected to the ground in 3D view. #13993
   - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. #14003
-  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. #14005, #13768
-  - 3D models can be loaded as decals again. #14009
+  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. #14005, #13768  
 
 - netconvert
   - Fixed unequal length of bidi edge. #13569
