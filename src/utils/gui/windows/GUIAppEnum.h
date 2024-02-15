@@ -43,6 +43,8 @@ enum {
     MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,
     /// @brief hotkey for mode connecting lanes AND container
     MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
+    /// @brief hotkey for setting a breakpoint
+    MID_HOTKEY_B_BREAKPOINT,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
     MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
@@ -159,7 +161,8 @@ enum {
     MID_HOTKEY_ALT_9_TOGGLEEDITOPTION,
     /// @brief Main window closes
     MID_HOTKEY_ALT_F4_CLOSE,
-
+    /// @brief hotkey for setting a breakpoint ahead of the current time
+    MID_HOTKEY_ALT_B_BREAKPOINT_EARLY,
     /// @}
 
     /// @name shift + hotkeys

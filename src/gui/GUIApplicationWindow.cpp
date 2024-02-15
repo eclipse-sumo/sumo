@@ -134,6 +134,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOGGLE,                                           GUIApplicationWindow::onCmdDelayToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,                                           GUIApplicationWindow::onCmdDemandScale),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                                     GUIApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_B_BREAKPOINT,                                    GUIApplicationWindow::onCmdBreakpoint),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_B_BREAKPOINT_EARLY,                          GUIApplicationWindow::onCmdBreakpointEarly),
     // Stats
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWNETSTATS,       GUIApplicationWindow::onCmdShowStats),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWVEHSTATS,       GUIApplicationWindow::onCmdShowStats),
@@ -1397,6 +1399,22 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 
 
 long
+GUIApplicationWindow::onCmdBreakpoint(FXObject*, FXSelector, void*) {
+    // see updateTimeLCD for the DELTA_T
+    addBreakpoint(SIMSTEP - DELTA_T);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdBreakpointEarly(FXObject*, FXSelector, void*) {
+    // see updateTimeLCD for the DELTA_T
+    addBreakpoint(SIMSTEP - DELTA_T + GUIMessageWindow::getBreakPointOffset());
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStartable() || myAmLoading
@@ -2394,6 +2412,18 @@ GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
         myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
         myRunThread->getBreakpointLock().unlock();
         updateChildren(MID_TIMELINK_BREAKPOINT);
+    }
+}
+
+
+void
+GUIApplicationWindow::addBreakpoint(SUMOTime time) {
+    std::vector<SUMOTime> breakpoints = retrieveBreakpoints();
+    if (std::find(breakpoints.begin(), breakpoints.end(), time) == breakpoints.end()) {
+        breakpoints.push_back(time);
+        std::sort(breakpoints.begin(), breakpoints.end());
+        setBreakpoints(breakpoints);
+        setStatusBarText(TLF("Set breakpoint at %", time2string(time)));
     }
 }
 

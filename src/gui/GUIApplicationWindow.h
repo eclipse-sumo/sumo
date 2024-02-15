@@ -299,6 +299,12 @@ public:
     /// @brief Called if the message window shall be cleared
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
+    /// @brief Called to set a breakpoint via hotkey
+    long onCmdBreakpoint(FXObject*, FXSelector, void*);
+
+    /// @brief Called to set an early breakpoint via hotkey
+    long onCmdBreakpointEarly(FXObject*, FXSelector, void*);
+
     /// @brief Called on menu commands from the Locator menu
     long onCmdLocate(FXObject*, FXSelector, void*);
 
@@ -330,6 +336,9 @@ public:
 
     /// @brief Sets the breakpoints of the parent application
     virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
+
+    /// @brief Adds the given breakpoint
+    void addBreakpoint(SUMOTime time);
 
     /// @brief Sends an event from the application thread to the GUI and waits until it is handled
     virtual void sendBlockingEvent(GUIEvent* event);
