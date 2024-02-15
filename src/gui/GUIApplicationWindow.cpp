@@ -497,6 +497,12 @@ GUIApplicationWindow::fillMenuBar() {
     mySelectLanesMenuCascade->setHelpText(TL("Opens a menu for selecting a vehicle class by which to selected lanes."));
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                                           TL("Set Breakpoint"), "B", TL("Sets a breakpoint at the current simulation step"),
+                                           GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), this, MID_HOTKEY_B_BREAKPOINT);
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                                           TL("Set Breakpoint with offset"), "Alt+B", TL("Sets a breakpoint at the current simulation step + offset configured in application settings"),
+                                           GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), this, MID_HOTKEY_ALT_B_BREAKPOINT_EARLY);
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Breakpoints"), "Ctrl+B", TL("Opens a dialog for editing breakpoints."),
                                            GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
