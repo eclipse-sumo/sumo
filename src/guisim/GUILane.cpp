@@ -1498,7 +1498,7 @@ GUILane::getScaleValue(const GUIVisualizationSettings& s, int activeScheme, bool
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && ((myPermissions & SVC_BUS) == 0) && s.showRails && s.spreadSuperposed;
+    return isRailway(myPermissions) && ((myPermissions & SVC_BUS) == 0) && s.showRails;
 }
 
 
