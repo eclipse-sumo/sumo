@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-12 13:41+0100\n"
-"PO-Revision-Date: 2024-02-13 17:57+0000\n"
+"PO-Revision-Date: 2024-02-16 11:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.4\n"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:294
@@ -15266,17 +15266,17 @@ msgstr "per emissioni di rumore (Harmonoise)"
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:741
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1236
 msgid "by global travel time"
-msgstr ""
+msgstr "per tempo di percorrenza"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:745
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1240
 msgid "by global speed percentage"
-msgstr ""
+msgstr "per quota del limite di velocità raggiunta"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:750
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1244
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "per lunghezza specificata/geometrica"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:758
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1077
@@ -15285,67 +15285,67 @@ msgstr ""
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1325
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1549
 msgid "by angle"
-msgstr ""
+msgstr "per angolo"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:759
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1247
 msgid "by loaded weight"
-msgstr ""
+msgstr "per peso caricato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:763
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1252
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1551
 msgid "by priority"
-msgstr ""
+msgstr "per priorità"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:768
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1556
 msgid "by height at start"
-msgstr ""
+msgstr "per altezza all'inizio"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:776
 msgid "by height at geometry-segment start"
-msgstr ""
+msgstr "per altezza all'inizio di un segmento geometrico"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:784
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1570
 msgid "by inclination"
-msgstr ""
+msgstr "per inclinazione"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:791
 msgid "by geometry-segment inclination"
-msgstr ""
+msgstr "per inclinazione del segmento geometrico"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:798
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1257
 msgid "by average speed"
-msgstr ""
+msgstr "per velocità media"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:805
 msgid "by average relative speed "
-msgstr ""
+msgstr "per velocità relativa media "
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:812
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "per velocità supposta dall'attrezzo itinerari "
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:819
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1015
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1265
 msgid "by electricity consumption"
-msgstr ""
+msgstr "per consumo elettrico"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:827
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1268
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1353
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1388
 msgid "by insertion-backlog (streetwise)"
-msgstr ""
+msgstr "per numero di veicoli in attesa di inserzione (per arco)"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:832
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1358
 msgid "by TAZ (streetwise)"
-msgstr ""
+msgstr "per zona di assegnazione di traffico (per arco)"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:840
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:867
@@ -15355,106 +15355,106 @@ msgstr ""
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1599
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1665
 msgid "missing data"
-msgstr ""
+msgstr "dati mancanti"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:843
 msgid "by distance (kilometrage)"
-msgstr ""
+msgstr "per distanza (chilometraggio)"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:850
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "per distanza assoluta (chilometraggio)"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:854
 msgid "by reachability (traveltime)"
-msgstr ""
+msgstr "per accessibilità (tempo di percorrenza)"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:858
 msgid "by thread index"
-msgstr ""
+msgstr "per indice di thread"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:861
 msgid "free parking spaces"
-msgstr ""
+msgstr "spazi liberi nei parcheggi"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:872
 msgid "given vehicle/type/route color"
-msgstr ""
+msgstr "colore di veicolo/tipi/itinerario dato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:874
 msgid "given/assigned vehicle color"
-msgstr ""
+msgstr "colore di veicolo dato/assegnato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:875
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1083
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1118
 msgid "given/assigned type color"
-msgstr ""
+msgstr "colore di tipo dato/assegnato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:876
 msgid "given/assigned route color"
-msgstr ""
+msgstr "colore di itinerario dato/assegnato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:877
 msgid "depart position as HSV"
-msgstr ""
+msgstr "posizione di partenza come HSV"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:878
 msgid "arrival position as HSV"
-msgstr ""
+msgstr "posizione di arrivo come HSV"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:879
 msgid "direction/distance as HSV"
-msgstr ""
+msgstr "direzione/distanza come HSV"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:880
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1084
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1119
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1409
 msgid "by speed"
-msgstr ""
+msgstr "per velocità"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:890
 msgid "by action step"
-msgstr ""
+msgstr "per passo di azione"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:890
 msgid "no action"
-msgstr ""
+msgstr "nessuna azione"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:891
 msgid "action in next step"
-msgstr ""
+msgstr "azione nel passo successivo"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:892
 msgid "had action step"
-msgstr ""
+msgstr "azione eseguita"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:894
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1099
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1131
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1415
 msgid "by waiting time"
-msgstr ""
+msgstr "per tempo d'attesa"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:900
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1421
 msgid "by accumulated waiting time"
-msgstr ""
+msgstr "per tempo d'attesa accumulato"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:906
 msgid "by time since lane change"
-msgstr ""
+msgstr "per tempo dall'ultimo cambio di corsia"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:915
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1424
 msgid "by max speed"
-msgstr ""
+msgstr "per velocità massima"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:979
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1431
 msgid "by reroute number"
-msgstr ""
+msgstr "per numero di cambi di itinerari"
 
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:986
 #: /home/behr_mi/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:1435
@@ -15938,7 +15938,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1698
 msgid "Breakpoints"
-msgstr ""
+msgstr "Punti di interruzione"
 
 #: /home/behr_mi/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1717
 msgid "Decals:"
