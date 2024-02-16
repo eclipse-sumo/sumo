@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-01-23 14:03+0000\n"
+"PO-Revision-Date: 2024-02-17 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.4\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -166,15 +166,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "Unterbrechungspunkt setzen"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "Setzt einen Unterbrechungspunkt für den aktuellen Zeitschritt"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "Unterbrechungspunkt mit Versatz setzen"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid ""
