@@ -43,7 +43,7 @@ git pull >> $MAKELOG 2>&1 || (echo "git pull failed" | tee -a $STATUSLOG; tail -
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build_config/version.py -`
 date >> $MAKELOG
-mkdir -p build/$FILEPREFIX && cd build/$FILEPREFIX
+mkdir -p wheelhouse build/$FILEPREFIX && cd build/$FILEPREFIX
 cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make -j32 >> $MAKELOG 2>&1; then
   date >> $MAKELOG
@@ -143,14 +143,11 @@ if test ${FILEPREFIX: -2} == "M1"; then
   python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
   python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
   python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
-  # the credentials are in ~/.pypirc
-  twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
   docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build_config/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
-  twine upload --skip-existing -r testpypi wheelhouse/*
 fi
 # Linux x64 wheels
 if test ${FILEPREFIX} == "gcc4_64"; then
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.0.5 > $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.0.6 > $WHEELLOG 2>&1
   cp build/$FILEPREFIX/*.whl wheelhouse
 fi
