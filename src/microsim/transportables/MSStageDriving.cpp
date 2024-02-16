@@ -43,8 +43,6 @@
 #include <microsim/transportables/MSPerson.h>
 
 
-#define DEFAULT_CARRIAGE_DOOR_WIDTH 1.5
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -441,7 +439,7 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                     // Jitter the position before projection because of possible train curvature.
                     Position direction = randomCarriage->front - randomCarriage->back;
                     direction.norm2D();
-                    randomDoor.add(direction * RandHelper::rand(-0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5 * DEFAULT_CARRIAGE_DOOR_WIDTH));
+                    randomDoor.add(direction * RandHelper::rand(-0.5 * MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH, 0.5 * MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH));
                     // Project onto the lane.
                     myArrivalPos = myVehicle->getLane()->getShape().nearest_offset_to_point2D(randomDoor);
                     myArrivalPos = myVehicle->getLane()->interpolateGeometryPosToLanePos(myArrivalPos);

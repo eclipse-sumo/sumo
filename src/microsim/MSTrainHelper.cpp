@@ -24,6 +24,9 @@
 #include <microsim/MSVehicle.h>
 #include "MSTrainHelper.h"
 
+
+const double MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH = 1.5;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
