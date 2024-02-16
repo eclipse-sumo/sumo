@@ -88,7 +88,7 @@ namespace PHEMlightdllV5 {
             }
             return _resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4);
         }
-        double getFMot(const double speed);
+        double getFMot(const double speed, const double ratedPower);
 
     protected:
         double _massVehicle;
@@ -116,11 +116,9 @@ namespace PHEMlightdllV5 {
         std::vector<double> _normalizedPowerPatternFCvalues;
         std::vector<double> _normalizedPowerPatternPollutants;
 
-        std::map<std::string, std::vector<double> > _cepCurveFCvalues;
         std::map<std::string, std::vector<double> > _normedCepCurveFCvalues;
         std::vector<double> _gearTransmissionCurve;
         std::vector<double> _speedCurveRotational;
-        std::map<std::string, std::vector<double> > _cepCurvePollutants;
         std::map<std::string, std::vector<double> > _cepNormalizedCurvePollutants;
         std::map<std::string, double> _FleetMix;
         std::map<std::string, double> _idlingValueFCvalues;
@@ -136,7 +134,7 @@ namespace PHEMlightdllV5 {
 
         double CalcEngPower(double power);
 
-        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower);
+        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower, const double ratedPower);
 
         double GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass);
 
@@ -148,7 +146,7 @@ namespace PHEMlightdllV5 {
         bool GetfcVals(const std::string& _fuelTypex, double& _fCBr, double& _fCHC, double& _fCCO, double& _fCCO2, Helpers* VehicleClass);
 
     public:
-        double GetDecelCoast(double speed, double acc, double gradient);
+        double GetDecelCoast(double speed, double acc, double gradient, const double ratedPower);
 
         double GetRotationalCoeffecient(double speed);
 

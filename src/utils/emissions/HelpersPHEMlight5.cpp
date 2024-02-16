@@ -127,8 +127,8 @@ HelpersPHEMlight5::getFuel(const SUMOEmissionClass c) const {
 
 
 double
-HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower) const {
-    return currCep->GetEmission(e, p, v, &myHelper, drivingPower);
+HelpersPHEMlight5::getEmission(PHEMlightdllV5::CEP* currCep, const std::string& e, const double p, const double v, const double drivingPower, const double ratedPower) const {
+    return currCep->GetEmission(e, p, v, &myHelper, drivingPower, ratedPower);
 }
 
 
@@ -191,12 +191,13 @@ HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, c
     const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, currCep->getVehicleMass());
     const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
     const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
+    const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
 
     const double fRoll = currCep->getResistance(v, true) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
     const double fAir = cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST * 0.5 * std::pow(v, 2);
     const double fGrad = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100;
 
-    return -(currCep->getFMot(v) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
+    return -(currCep->getFMot(v, ratedPower) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
 }
 
 
@@ -218,37 +219,38 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
         return 0.;
     }
-    // TODO: this is probably only needed for non-heavy vehicles, so if execution speed becomes an issue
+    const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
+    // TODO: this is probably only needed for non-heavy vehicles, so if execution speed becomes an issue this could be optimized out
     const double drivingPower = calcPower(currCep, PHEMlightdllV5::Constants::NORMALIZING_SPEED, PHEMlightdllV5::Constants::NORMALIZING_ACCELARATION, 0, param);
     switch (e) {
         case PollutantsInterface::CO:
-            return getEmission(currCep, "CO", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "CO", power, corrSpeed, drivingPower, ratedPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::CO2:
-            return currCep->GetCO2Emission(getEmission(currCep, "FC", power, corrSpeed, drivingPower),
-                                           getEmission(currCep, "CO", power, corrSpeed, drivingPower),
-                                           getEmission(currCep, "HC", power, corrSpeed, drivingPower), &myHelper) / SECONDS_PER_HOUR * 1000.;
+            return currCep->GetCO2Emission(getEmission(currCep, "FC", power, corrSpeed, drivingPower, ratedPower),
+                                           getEmission(currCep, "CO", power, corrSpeed, drivingPower, ratedPower),
+                                           getEmission(currCep, "HC", power, corrSpeed, drivingPower, ratedPower), &myHelper) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::HC:
-            return getEmission(currCep, "HC", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "HC", power, corrSpeed, drivingPower, ratedPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::NO_X:
-            return getEmission(currCep, "NOx", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "NOx", power, corrSpeed, drivingPower, ratedPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::PM_X:
-            return getEmission(currCep, "PM", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.;
+            return getEmission(currCep, "PM", power, corrSpeed, drivingPower, ratedPower) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
             if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
-                return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / 836. / SECONDS_PER_HOUR * 1000.;
+                return getEmission(currCep, "FC", power, corrSpeed, drivingPower, ratedPower) / 836. / SECONDS_PER_HOUR * 1000.;
             }
             if (myVolumetricFuel && currCep->getFuelType() == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
-                return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / 742. / SECONDS_PER_HOUR * 1000.;
+                return getEmission(currCep, "FC", power, corrSpeed, drivingPower, ratedPower) / 742. / SECONDS_PER_HOUR * 1000.;
             }
             if (isBEV) {
                 return 0.;
             }
-            return getEmission(currCep, "FC", power, corrSpeed, drivingPower) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
+            return getEmission(currCep, "FC", power, corrSpeed, drivingPower, ratedPower) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
             if (isBEV) {
                 const double auxPower = param->getDoubleOptional(SUMO_ATTR_CONSTANTPOWERINTAKE, currCep->getAuxPower() * 1000.) / 1000.;
-                return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower) + auxPower) / SECONDS_PER_HOUR * 1000.;
+                return (getEmission(currCep, "FC_el", power, corrSpeed, drivingPower, ratedPower) + auxPower) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;
     }
