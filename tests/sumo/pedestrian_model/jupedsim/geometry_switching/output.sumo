@@ -1,0 +1,11 @@
+Loading net-file from 'net.net.xml' ... done (16ms).
+Loading additional-files from 'input_additional.add.xml' ... done (2ms).
+Loading done.
+Generating initial JuPedSim geometry for pedestrian network ... done.
+Simulation version v1_19_0+0842-e67d1f15d16 started with time: 0.00.
+Simulation ended at time: 900.00
+Reason: The final simulation step has been reached.
+DijkstraRouter answered 125 queries and explored 43.48 edges on average.
+DijkstraRouter spent 0.01s answering queries (0.04ms on average).
+DijkstraRouter answered 18 queries and explored 9.33 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.06ms on average).
