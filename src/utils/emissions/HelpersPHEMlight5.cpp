@@ -172,7 +172,8 @@ HelpersPHEMlight5::getModifiedAccel(const SUMOEmissionClass c, const double v, c
         const double mass = param->getDoubleOptional(SUMO_ATTR_MASS, currCep->getVehicleMass());
         const double massRot = currCep->getVehicleMassRot();
         const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
-        const double pMaxForAcc = currCep->GetPMaxNorm(v) * currCep->getRatedPower() - calcPower(currCep, v, 0, slope, param);
+        const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
+        const double pMaxForAcc = currCep->GetPMaxNorm(v) * ratedPower - calcPower(currCep, v, 0, slope, param);
         const double maxAcc = (pMaxForAcc * 1000) / ((mass * rotFactor + massRot + load) * v);
         return MIN2(a, maxAcc);
     }
@@ -213,13 +214,13 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
     const bool isBEV = currCep->getFuelType() == PHEMlightdllV5::Constants::strBEV;
     const bool isHybrid = currCep->getCalcType() == PHEMlightdllV5::Constants::strHybrid;
     const double power_raw = calcPower(currCep, corrSpeed, corrAcc, slope, param);
-    const double power = isHybrid ? calcWheelPower(currCep, corrSpeed, corrAcc, slope, param) : currCep->CalcEngPower(power_raw);
+    const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
+    const double power = isHybrid ? calcWheelPower(currCep, corrSpeed, corrAcc, slope, param) : currCep->CalcEngPower(power_raw, ratedPower);
 
     if (!isBEV && corrAcc < getCoastingDecel(c, corrSpeed, corrAcc, slope, param) &&
             corrSpeed > PHEMlightdllV5::Constants::ZERO_SPEED_ACCURACY) {
         return 0.;
     }
-    const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
     // TODO: this is probably only needed for non-heavy vehicles, so if execution speed becomes an issue this could be optimized out
     const double drivingPower = calcPower(currCep, PHEMlightdllV5::Constants::NORMALIZING_SPEED, PHEMlightdllV5::Constants::NORMALIZING_ACCELARATION, 0, param);
     switch (e) {

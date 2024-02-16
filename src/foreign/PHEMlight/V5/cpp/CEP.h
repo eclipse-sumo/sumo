@@ -128,11 +128,7 @@ namespace PHEMlightdllV5 {
         std::vector<double> _dragNormTable;
 
     public:
-        double CalcPower(double speed, double acc, double gradient, bool HBEV);
-
-        double CalcWheelPower(double speed, double acc, double gradient);
-
-        double CalcEngPower(double power);
+        double CalcEngPower(double power, const double ratedPower);
 
         double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower, const double ratedPower);
 
@@ -157,8 +153,6 @@ namespace PHEMlightdllV5 {
         double Interpolate(double px, double p1, double p2, double e1, double e2);
 
     public:
-        double GetMaxAccel(double speed, double gradient, bool HBEV);
-
         double GetPMaxNorm(double speed);
 
         //--------------------------------------------------------------------------------------------------

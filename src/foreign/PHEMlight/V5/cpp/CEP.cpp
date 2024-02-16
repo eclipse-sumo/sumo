@@ -193,49 +193,12 @@ namespace PHEMlightdllV5 {
         privateRatedPower = value;
     }
 
-    double CEP::CalcPower(double speed, double acc, double gradient, bool HBEV) {
-        //Declaration
-        double power = 0;
-        double rotFactor = GetRotationalCoeffecient(speed);
-        double powerAux = (_auxPower * getRatedPower());
-
-        //Calculate the power
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4)) * speed;
-        power += (_crossSectionalArea * _cWValue * Constants::AIR_DENSITY_CONST / 2) * std::pow(speed, 3);
-        power += (_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * acc * speed;
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient * 0.01 * speed;
-        power /= 1000;
-        power /= Constants::_DRIVE_TRAIN_EFFICIENCY;
-        if (!HBEV) {
-            power += powerAux;
+    double CEP::CalcEngPower(double power, const double ratedPower) {
+        if (power < _normalizedPowerPatternFCvalues.front() * ratedPower) {
+            return _normalizedPowerPatternFCvalues.front() * ratedPower;
         }
-
-        //Return result
-        return power;
-    }
-
-    double CEP::CalcWheelPower(double speed, double acc, double gradient) {
-        //Declaration
-        double power = 0;
-        double rotFactor = GetRotationalCoeffecient(speed);
-
-        //Calculate the power
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * (_resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4)) * speed;
-        power += (_crossSectionalArea * _cWValue * Constants::AIR_DENSITY_CONST / 2) * std::pow(speed, 3);
-        power += (_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * acc * speed;
-        power += (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient * 0.01 * speed;
-        power /= 1000;
-
-        //Return result
-        return power;
-    }
-
-    double CEP::CalcEngPower(double power) {
-        if (power < _normalizedPowerPatternFCvalues.front() * getRatedPower()) {
-            return _normalizedPowerPatternFCvalues.front() * getRatedPower();
-        }
-        if (power > _normalizedPowerPatternFCvalues.back() * getRatedPower()) {
-            return _normalizedPowerPatternFCvalues.back() * getRatedPower();
+        if (power > _normalizedPowerPatternFCvalues.back() * ratedPower) {
+            return _normalizedPowerPatternFCvalues.back() * ratedPower;
         }
 
         return power;
@@ -493,13 +456,6 @@ namespace PHEMlightdllV5 {
         }
 
         return e1 + (px - p1) / (p2 - p1) * (e2 - e1);
-    }
-
-    double CEP::GetMaxAccel(double speed, double gradient, bool HBEV) {
-        double rotFactor = GetRotationalCoeffecient(speed);
-        double pMaxForAcc = GetPMaxNorm(speed) * getRatedPower() - CalcPower(speed, 0, gradient, HBEV);
-
-        return (pMaxForAcc * 1000) / ((_massVehicle * rotFactor + _vehicleMassRot + _vehicleLoading) * speed);
     }
 
     double CEP::GetPMaxNorm(double speed) {
