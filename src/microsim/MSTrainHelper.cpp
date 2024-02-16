@@ -31,17 +31,17 @@ const double MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH = 1.5;
 // method definitions
 // ===========================================================================
 std::vector<PositionVector> 
-MSTrainHelper::getCarriageShapes(void) {
+MSTrainHelper::getCarriageShapes(void) const {
     std::vector<PositionVector> carriageShapes;
     for (const Carriage* carriage: myCarriages) {
         Position direction = carriage->front - carriage->back;
+        direction.norm2D();
         Position perp = Position(-direction.y(), direction.x());
-        perp.norm2D();
         PositionVector shape;
         shape.push_back(carriage->front + perp*myHalfWidth);
-        shape.push_back(carriage->front - perp*myHalfWidth); 
-        shape.push_back(carriage->back - perp*myHalfWidth); 
         shape.push_back(carriage->back + perp*myHalfWidth);
+        shape.push_back(carriage->back - perp*myHalfWidth); 
+        shape.push_back(carriage->front - perp*myHalfWidth); 
         carriageShapes.push_back(shape);
     }
     return carriageShapes;

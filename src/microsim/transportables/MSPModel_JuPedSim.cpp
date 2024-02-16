@@ -26,6 +26,7 @@
 #include <fstream>
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
+#include <jupedsim/simulation.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -34,6 +35,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSTrainHelper.h>
 #include <libsumo/Helper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -51,7 +53,7 @@ const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
 const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
-
+const double MSPModel_JuPedSim::DEFAULT_RAMP_WIDTH = 2.0;
 
 // ===========================================================================
 // method definitions
@@ -70,8 +72,8 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
     JPS_Geometry_Free(myJPSGeometry);
-    if (myJPSGeometryWithTrains != nullptr) {
-        JPS_Geometry_Free(myJPSGeometryWithTrains);
+    if (myJPSGeometryWithTrainsAndRamps != nullptr) {
+        JPS_Geometry_Free(myJPSGeometryWithTrainsAndRamps);
     }
 
     GEOSGeom_destroy(myGEOSPedestrianNetwork);
@@ -392,6 +394,69 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             }
         }
         JPS_AgentIdIterator_Free(agentsInArea);
+    }
+
+    // Add dynamically additional geometry from train carriages that are stopped.
+    const auto& stoppingPlaces = myNetwork->getStoppingPlaces(SumoXMLTag::SUMO_TAG_BUS_STOP);
+    std::vector<SUMOTrafficObject::NumericalID> allStoppedTrainIDs;
+    std::vector<const MSVehicle*> allStoppedTrains;
+    for (const auto& stop : stoppingPlaces) {
+        std::vector<const SUMOVehicle*> stoppedTrains = stop.second->getStoppedVehicles();
+        for (const SUMOVehicle* train : stoppedTrains) {
+            allStoppedTrainIDs.push_back(train->getNumericalID());
+            allStoppedTrains.push_back(dynamic_cast<const MSVehicle*>(train));
+        }
+    }
+    if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
+            if (!allStoppedTrainIDs.empty()) {
+                std::vector<GEOSGeometry*> carriagePolygons;
+                std::vector<GEOSGeometry*> rampPolygons;
+                for (const MSVehicle* train : allStoppedTrains) {
+                    const MSTrainHelper trainHelper(train);
+                    const std::vector<PositionVector> carriageShapes = trainHelper.getCarriageShapes();
+                    for (const PositionVector& carriageShape : carriageShapes) {
+                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
+                    }
+                    const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
+                    for (const MSTrainHelper::Carriage* carriage: carriages) {
+                        Position dir = carriage->front - carriage->back;
+                        dir.norm2D();
+                        const Position perp = Position(-dir.y(), dir.x());
+                        const double p = trainHelper.getHalfWidth() + DEFAULT_RAMP_WIDTH;
+                        const double d = 0.5 * MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH;
+                        const std::vector<Position>& doors = carriage->doors;
+                        for (const Position door : doors) {
+                            PositionVector rampShape;
+                            rampShape.push_back(door - perp*p + dir*d);
+                            rampShape.push_back(door - perp*p - dir*d);
+                            rampShape.push_back(door + perp*p - dir*d);
+                            rampShape.push_back(door + perp*p + dir*d);
+                            rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
+                        }
+                    }
+                }
+                GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
+                GEOSGeometry* carriagesUnion = GEOSUnaryUnion(carriagesCollection);
+                GEOSGeometry* pedestrianNetworkWithTrains = GEOSUnion(carriagesUnion, myGEOSPedestrianNetwork);
+                GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
+                GEOSGeometry* rampsUnion = GEOSUnaryUnion(rampsCollection);
+                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(rampsUnion, pedestrianNetworkWithTrains);
+#ifdef DEBUG_GEOMETRY_GENERATION
+                dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+#endif
+                myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRamps);
+                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
+                GEOSGeom_destroy(pedestrianNetworkWithTrains);
+                GEOSGeom_destroy(rampsUnion);
+                GEOSGeom_destroy(rampsCollection);
+                GEOSGeom_destroy(carriagesUnion);
+                GEOSGeom_destroy(carriagesCollection);
+            }
+            else {
+                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+            }
+            myAllStoppedTrainIDs = allStoppedTrainIDs;
     }
 
     JPS_ErrorMessage_Free(message);
@@ -751,22 +816,23 @@ void
 MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
     PositionVector shape = getCoordinates(exterior);
-
-    std::vector<PositionVector> holes;
-    int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
-    if (nbrInteriorRings != -1) {
-        for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
-            const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-            double area = getHoleArea(linearRing);
-            if (area > GEOS_MIN_AREA) {
-                PositionVector hole = getCoordinates(linearRing);
-                holes.push_back(hole);
+    ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
+    shapeContainer.removePolygon(polygonId);
+    bool added = shapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+    if (added) {
+        std::vector<PositionVector> holes;
+        int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
+        if (nbrInteriorRings != -1) {
+            for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+                const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
+                double area = getHoleArea(linearRing);
+                if (area > GEOS_MIN_AREA) {
+                    PositionVector hole = getCoordinates(linearRing);
+                    holes.push_back(hole);
+                }
             }
+            shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
         }
-
-        ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
-        shapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
-        shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
     }
 }
 
@@ -833,7 +899,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetwork);
     PROGRESS_DONE_MESSAGE();
-    myJPSGeometryWithTrains = nullptr;
+    myJPSGeometryWithTrainsAndRamps = nullptr;
     JPS_ErrorMessage message = nullptr;
 
     double strengthGeometryRepulsion = oc.getFloat("pedestrian.jupedsim.strength-geometry-repulsion");
