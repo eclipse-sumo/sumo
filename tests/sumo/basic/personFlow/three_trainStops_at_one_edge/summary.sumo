@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-12-07 10:48:26 by Eclipse SUMO sumo Version v1_19_0+0303-2203bfe8726
+<!-- generated on 2024-02-16 08:44:46 by Eclipse SUMO sumo Version v1_19_0+0840-b38b964b9b4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -209,12 +209,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <step time="165.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
     <step time="166.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
     <step time="167.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
-    <step time="168.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
+    <step time="168.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
     <step time="169.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
     <step time="170.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
-    <step time="171.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="172.00" loaded="10" inserted="10" walking="6" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="4" arrived="4" teleports="0"/>
-    <step time="173.00" loaded="10" inserted="10" walking="4" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="6" arrived="6" teleports="0"/>
-    <step time="174.00" loaded="10" inserted="10" walking="1" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="9" arrived="9" teleports="0"/>
-    <step time="175.00" loaded="10" inserted="10" walking="0" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="10" arrived="10" teleports="0"/>
+    <step time="171.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
+    <step time="172.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
+    <step time="173.00" loaded="10" inserted="10" walking="6" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="4" arrived="4" teleports="0"/>
+    <step time="174.00" loaded="10" inserted="10" walking="6" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="4" arrived="4" teleports="0"/>
+    <step time="175.00" loaded="10" inserted="10" walking="2" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="8" arrived="8" teleports="0"/>
+    <step time="176.00" loaded="10" inserted="10" walking="1" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="9" arrived="9" teleports="0"/>
+    <step time="177.00" loaded="10" inserted="10" walking="0" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="10" arrived="10" teleports="0"/>
 </personSummary>
