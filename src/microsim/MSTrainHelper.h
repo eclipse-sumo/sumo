@@ -119,7 +119,7 @@ public:
     }
 
     // Compute the rectangles from the front and back positions.
-    std::vector<PositionVector> getCarriageShapes(void);
+    std::vector<PositionVector> getCarriageShapes(void) const;
     
     static const double DEFAULT_CARRIAGE_DOOR_WIDTH;
 
