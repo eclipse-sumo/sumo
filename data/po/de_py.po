@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-02-12 13:41+0100\n"
+"POT-Creation-Date: 2023-07-10 15:12+0200\n"
 "PO-Revision-Date: 2023-06-15 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -19,120 +19,119 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.18\n"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:63
+#: D:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
 msgstr "Interaktives Ampelspiel"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:64
+#: D:\Repos\sumo/tools/game\runner.py:64
 msgid "Research intersection Ingolstadt"
 msgstr "Forschungskreuzung Ingolstadt"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:65
+#: D:\Repos\sumo/tools/game\runner.py:65
 msgid "Simple Junction"
 msgstr "Einfache Kreuzung"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:66
+#: D:\Repos\sumo/tools/game\runner.py:66
 msgid "Simple Junction (Demo)"
 msgstr "Einfache Kreuzung (Demo)"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:67
+#: D:\Repos\sumo/tools/game\runner.py:67
 msgid "Four Junctions"
 msgstr "Vier Kreuzungen"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:68
+#: D:\Repos\sumo/tools/game\runner.py:68
 msgid "Six Junctions"
 msgstr "Sechs Kreuzungen"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:69
+#: D:\Repos\sumo/tools/game\runner.py:69
 msgid "Prof. Kühne"
 msgstr "Prof. Kühne"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:70
+#: D:\Repos\sumo/tools/game\runner.py:70
 msgid "3D Junction Virtual World"
 msgstr "3D Forschungskreuzung Virtuelle Welt"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:71
+#: D:\Repos\sumo/tools/game\runner.py:71
 msgid "3D Junction OpenStreetMap"
 msgstr "3D Forschungskreuzung OpenStreetMap"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:72
+#: D:\Repos\sumo/tools/game\runner.py:72
 msgid "Highway Ramp"
 msgstr "Autobahnauffahrt"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:73
+#: D:\Repos\sumo/tools/game\runner.py:73
 msgid "Combined Highway On and Off Ramp"
 msgstr "Kombinierte Autobahnauf- und -abfahrt"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:74
+#: D:\Repos\sumo/tools/game\runner.py:74
 msgid "Corridor"
 msgstr "Strecke"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:75
+#: D:\Repos\sumo/tools/game\runner.py:75
 msgid "Highway Ramp A10"
 msgstr "A10 KW"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:76
+#: D:\Repos\sumo/tools/game\runner.py:76
 msgid "Demand Responsive Transport (new)"
 msgstr "Bedarfsbus (neu)"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:77
+#: D:\Repos\sumo/tools/game\runner.py:77
 msgid "DRT - Advanced (new)"
 msgstr "Bedarfsbus für Fortgeschrittene (neu)"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:78
+#: D:\Repos\sumo/tools/game\runner.py:78
 msgid "DRT - Demo"
 msgstr "Bedarfsbus - Demo"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:79
-#: /home/behr_mi/sumo/tools/game/runner.py:89
+#: D:\Repos\sumo/tools/game\runner.py:79 D:\Repos\sumo/tools/game\runner.py:89
 msgid "Highscore"
 msgstr "Bestenliste"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:80
+#: D:\Repos\sumo/tools/game\runner.py:80
 msgid "Reset Highscore"
 msgstr "Bestenliste zurücksetzen"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:81
+#: D:\Repos\sumo/tools/game\runner.py:81
 msgid "German"
 msgstr "Deutsch"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:82
+#: D:\Repos\sumo/tools/game\runner.py:82
 msgid "English"
 msgstr "Englisch"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:83
+#: D:\Repos\sumo/tools/game\runner.py:83
 msgid "Italian"
 msgstr "Italienisch"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:84
+#: D:\Repos\sumo/tools/game\runner.py:84
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:85
+#: D:\Repos\sumo/tools/game\runner.py:85
 msgid "French"
 msgstr "Französisch"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:86
+#: D:\Repos\sumo/tools/game\runner.py:86
 msgid "Chinese (simplified)"
 msgstr "Chinesisch (vereinfacht)"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:87
+#: D:\Repos\sumo/tools/game\runner.py:87
 msgid "Chinese (traditional)"
 msgstr "Chinesisch (traditionell)"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:88
+#: D:\Repos\sumo/tools/game\runner.py:88
 msgid "Quit"
 msgstr "Beenden"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:90
+#: D:\Repos\sumo/tools/game\runner.py:90
 msgid "Congratulations!"
 msgstr "Glückwunsch!"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:91
+#: D:\Repos\sumo/tools/game\runner.py:91
 msgid "Your Score"
 msgstr "Deine Punkte"
 
-#: /home/behr_mi/sumo/tools/game/runner.py:92
+#: D:\Repos\sumo/tools/game\runner.py:92
 msgid "Continue"
 msgstr "Weiter"
 
