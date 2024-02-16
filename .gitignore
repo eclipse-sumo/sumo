@@ -1,5 +1,5 @@
 # root dir, mostly release / doc building stuff
-/sumo-*.tar.gz
+/sumo*.tar.gz
 /sumo-*.zip
 /diff.*
 /compile
@@ -7,6 +7,8 @@
 /mirror
 /share
 /dist
+/_skbuild
+/wheelhouse
 /setup.py
 # IDE project files
 /.settings
