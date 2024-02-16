@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-16 11:36+0000\n"
+"PO-Revision-Date: 2024-02-17 15:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -167,15 +167,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "Metti punto di interruzione"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "Mette un punto di interruzione per il passo di simulazione attuale"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "Metti punto di interruzione anticipato"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid ""
