@@ -53,7 +53,7 @@ const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
 const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
-const double MSPModel_JuPedSim::DEFAULT_RAMP_WIDTH = 2.0;
+const double MSPModel_JuPedSim::CARRIAGE_RAMP_WIDTH = 2.0;
 
 // ===========================================================================
 // method definitions
@@ -413,17 +413,22 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 std::vector<GEOSGeometry*> rampPolygons;
                 for (const MSVehicle* train : allStoppedTrains) {
                     const MSTrainHelper trainHelper(train);
-                    const std::vector<PositionVector> carriageShapes = trainHelper.getCarriageShapes();
-                    for (const PositionVector& carriageShape : carriageShapes) {
-                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
-                    }
                     const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
                     for (const MSTrainHelper::Carriage* carriage: carriages) {
                         Position dir = carriage->front - carriage->back;
                         dir.norm2D();
-                        const Position perp = Position(-dir.y(), dir.x());
-                        const double p = trainHelper.getHalfWidth() + DEFAULT_RAMP_WIDTH;
-                        const double d = 0.5 * MSTrainHelper::DEFAULT_CARRIAGE_DOOR_WIDTH;
+                        Position perp = Position(-dir.y(), dir.x());
+                        // Create carriages geometry.
+                        double p = trainHelper.getHalfWidth();
+                        PositionVector carriageShape;
+                        carriageShape.push_back(carriage->front + perp*p);
+                        carriageShape.push_back(carriage->back + perp*p);
+                        carriageShape.push_back(carriage->back - perp*p); 
+                        carriageShape.push_back(carriage->front - perp*p); 
+                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
+                        // Create ramps geometry.
+                        p += CARRIAGE_RAMP_WIDTH;
+                        const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
                         const std::vector<Position>& doors = carriage->doors;
                         for (const Position door : doors) {
                             PositionVector rampShape;
