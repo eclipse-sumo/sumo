@@ -118,11 +118,8 @@ public:
         return myCarriages;
     }
 
-    // Compute the rectangles from the front and back positions.
-    std::vector<PositionVector> getCarriageShapes(void) const;
+    static const double CARRIAGE_DOOR_WIDTH;
     
-    static const double DEFAULT_CARRIAGE_DOOR_WIDTH;
-
 private:
     const MSVehicle* myTrain;
     double myUpscaleLength;

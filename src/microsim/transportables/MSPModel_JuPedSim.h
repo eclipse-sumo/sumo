@@ -175,7 +175,7 @@ private:
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
     static const double GEOS_BUFFERED_SEGMENT_WIDTH;
-    static const double DEFAULT_RAMP_WIDTH;
+    static const double CARRIAGE_RAMP_WIDTH;
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
