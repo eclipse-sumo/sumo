@@ -97,7 +97,7 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
         myInternalDrawingWidth = myDrawingWidth - (2 * SUMO_const_laneMarkWidth);
     }
     // check if draw superposed
-    myDrawSuperposed = myDrawAsRailway || (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
+    myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
     // adjust parameters depending of superposing
     if (myDrawSuperposed) {
         // apply offset
