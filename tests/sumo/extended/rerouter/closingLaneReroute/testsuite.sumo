@@ -9,3 +9,11 @@ closingLane_with_rerouting
 
 # closing 3 lanes rom a 3-lane road 
 closingLane_all
+
+# overtaking lane available in different directions at different times (closed lane is visible)
+directional_lane_switch_visible
+
+# overtaking lane available in different directions at different times. 
+# Visualization intended to model a 3 lane road with a center lane that switches permitted direction
+# 
+directional_lane_switch
