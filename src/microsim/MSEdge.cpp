@@ -745,12 +745,14 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                     return false;
                 }
                 const double occupancy = insertionLane->getBruttoOccupancy();
-                return occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength;
+                return (occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength ||
+                        v.getParameter().departProcedure == DepartDefinition::SPLIT);
             }
             default:
                 for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
                     const double occupancy = (*i)->getBruttoOccupancy();
-                    if (occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength) {
+                    if (occupancy == 0 || occupancy * myLength + v.getVehicleType().getLengthWithGap() <= myLength ||
+                            v.getParameter().departProcedure == DepartDefinition::SPLIT) {
                         return true;
                     }
                 }
