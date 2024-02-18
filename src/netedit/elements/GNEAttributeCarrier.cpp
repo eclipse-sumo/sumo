@@ -2739,6 +2739,12 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Whether the router should be inactive initially (and switched on in the gui)"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_OPTIONAL,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("If rerouter is optional"),
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_REROUTER_SYMBOL;
     {

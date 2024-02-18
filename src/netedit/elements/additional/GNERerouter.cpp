@@ -264,6 +264,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myVTypes);
         case SUMO_ATTR_OFF:
             return toString(myOff);
+        case SUMO_ATTR_OPTIONAL:
+            return toString(myOptional);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -309,6 +311,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_OFF:
+        case SUMO_ATTR_OPTIONAL:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -341,6 +344,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_OFF:
+            return canParse<bool>(value);
+        case SUMO_ATTR_OPTIONAL:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -397,6 +402,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_OFF:
             myOff = parse<bool>(value);
+            break;
+        case SUMO_ATTR_OPTIONAL:
+            myOptional = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
