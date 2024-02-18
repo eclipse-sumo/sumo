@@ -6,6 +6,7 @@
 # - rerouter edge (detour sign) encountered before alternative route branches off  vs not encountered
 # - ignore-route-errors on/off
 closingReroute
+closingLaneReroute
 
 # circular route tests
 cyclic_route
@@ -76,20 +77,6 @@ on_edge_when_activated
 # vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.
 use_routing_device
 
-# closing 2 lanes from a 3-lane road which results in reduced flow
-closingLane
-
-# closing 2 lanes from a 3-lane road which results in reduced flow. The edge before the closing is not notified
-closingLane_no_notification
-
-# closing 2 lanes from a 3-lane road which results in reduced flow and causes some vehicles to reroute
-closingLane_with_rerouting
-
-# closing 3 lanes rom a 3-lane road 
-closingLane_all
-
 # using the same id twice
 duplicate_id
-
-#
 destProb
