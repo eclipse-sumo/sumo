@@ -13,4 +13,4 @@ REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 call %~dp0\testEnv.bat %1
 set SUMO_BINARY=%~dp0\..\bin\sumo-gui%1.exe
-start %TEXTTESTPY% -a sumo
+start %TEXTTESTPY% -a sumo -name sumo-with-gui
