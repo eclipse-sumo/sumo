@@ -30,3 +30,7 @@ join_front_route_invalid
 
 # join two train parts into a single train. rail signal must allow the train to enter the block where the front part to be joined is already standing
 join_front_signal
+
+# the front part of the train is joined to the rear part (the rear part keeps its id),
+# the route of the front part continues (though it should disappear)
+join_front_route_problem
