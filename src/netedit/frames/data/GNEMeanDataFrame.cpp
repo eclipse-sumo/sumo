@@ -344,7 +344,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
         myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
     // make sure that mean data exists
-    if (myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveMeanData(myCurrentMeanData->getTagProperty().getTag(), myCurrentMeanData->getID(), false)) {
+    if (myCurrentMeanData && myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveMeanData(myCurrentMeanData->getTagProperty().getTag(), myCurrentMeanData->getID(), false)) {
         bool validMeanData = false;
         for (int i = 0; i < (int)myMeanDataComboBox->getNumItems(); i++) {
             if (myMeanDataComboBox->getItemText(i) == myCurrentMeanData->getID()) {
