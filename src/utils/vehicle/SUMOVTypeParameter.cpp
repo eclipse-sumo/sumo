@@ -745,7 +745,7 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
     if (hasParameter("locomotiveLength")) {
         locomotiveLength = StringUtils::toDouble(getParameter("locomotiveLength"));
         parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
-    } else if (locomotiveLength <= 0) {
+    } else if (locomotiveLength < 0) {
         locomotiveLength = carriageLength;
     }
     if (hasParameter("carriageGap")) {

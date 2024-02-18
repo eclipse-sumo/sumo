@@ -58,6 +58,9 @@ MSTrainHelper::computeTrainDimensions(double exaggeration) {
     }
     myLocomotiveLength = vtype.getParameter().locomotiveLength * myUpscaleLength;
     myDefaultLength = vtype.getParameter().carriageLength * myUpscaleLength;
+    if (myLocomotiveLength == 0) {
+        myLocomotiveLength = myDefaultLength;
+    }
     myCarriageGap = vtype.getParameter().carriageGap * myUpscaleLength;
     myLength = totalLength * myUpscaleLength;
     myHalfWidth = 0.5 * vtype.getWidth() * myUpscaleLength;
@@ -102,6 +105,9 @@ MSTrainHelper::computeCarriages(bool secondaryShape, bool reversed) {
         if (myNumCarriages > 1) {
             carriageBackOffset = carriageOffset - myCarriageLength;
         }
+    }
+    if (myTrain->getVehicleType().getParameter().locomotiveLength == 0) {
+        myFirstCarriageNo = -1; // don't draw locomotive
     }
 
     myFirstPassengerCarriage = myDefaultLength == myLocomotiveLength || myNumCarriages == 1
