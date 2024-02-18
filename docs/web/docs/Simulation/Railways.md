@@ -417,6 +417,7 @@ parameters](../Simulation/GenericParameters.md):
 - carriageGap
 
 These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) when drawing vehicles with the style 'simple shapes'.
+By default, the front of the train will be indicated by a darker carriage color and a front windscreen. This can be disabled by setting locomotiveLength to "0".
 
 ## Network
 
