@@ -97,6 +97,9 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     if (string2time(myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
         device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
     }
+    if (myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_AREA) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_AREA)) {
+        device.writeAttr(SUMO_ATTR_PARKING_AREA, myParkingAreaID);
+    }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
@@ -225,6 +228,8 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return myChargeType;
         case SUMO_ATTR_WAITINGTIME:
             return time2string(myWaitingTime);
+        case SUMO_ATTR_PARKING_AREA:
+            return myParkingAreaID;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -252,6 +257,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_CHARGEDELAY:
         case SUMO_ATTR_CHARGETYPE:
         case SUMO_ATTR_WAITINGTIME:
+        case SUMO_ATTR_PARKING_AREA:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
@@ -313,6 +319,8 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_WAITINGTIME:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
+        case SUMO_ATTR_PARKING_AREA:
+            return isValidAdditionalID(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -373,6 +381,9 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WAITINGTIME:
             myWaitingTime = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_PARKING_AREA:
+            myParkingAreaID = value;
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

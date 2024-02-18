@@ -123,6 +123,9 @@ protected:
     /// @brief waiting time before start charging
     SUMOTime myWaitingTime = 0;
 
+    /// @brief parking area ID
+    std::string myParkingAreaID;
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
