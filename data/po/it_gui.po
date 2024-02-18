@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-17 15:02+0000\n"
+"PO-Revision-Date: 2024-02-18 16:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -182,6 +182,8 @@ msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Mette un punto di interruzione al passo di simulazione attuale meno "
+"l'anticipo della configurazione"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 msgid "Edit Breakpoints"
@@ -2865,7 +2867,7 @@ msgstr "File di itinerari caricato con successo: "
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3907
 msgid "reloading demand elements from '%'"
-msgstr ""
+msgstr "ricaricando elementi di domanda da '%'"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3912
 msgid "Reloading of route file failed: "
@@ -3620,7 +3622,7 @@ msgstr "Crea itinerari di contenitori."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 msgid "EdgeData"
-msgstr ""
+msgstr "EdgeData"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 msgid "Create edgeData elements."
@@ -3629,7 +3631,7 @@ msgstr "Crea elementi edgeData."
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6835
 msgid "EdgeRelation"
-msgstr ""
+msgstr "EdgeRelation"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 msgid "Create edgeRelation elements."
@@ -3638,7 +3640,7 @@ msgstr "Crea elementi edgeRelation."
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6856
 msgid "TAZRelation"
-msgstr ""
+msgstr "Relazione tra zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 msgid "Create TAZRelation elements."
@@ -3647,7 +3649,7 @@ msgstr "Crea relazioni tra zone di assegnazione del traffico."
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 #: D:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:439
 msgid "MeanData"
-msgstr ""
+msgstr "MeanData"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 msgid "Create MeanData edge/lanes."
@@ -3921,7 +3923,7 @@ msgstr "Punti di interesse"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "WalkableAreas"
-msgstr ""
+msgstr "Aree pedonali"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Obstacles"
@@ -15478,54 +15480,54 @@ msgstr "per numero di cambi di itinerari"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:986
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1435
 msgid "by offset from best lane"
-msgstr ""
+msgstr "per distanza dalla corsia migliore"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:987
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1436
 msgid "opposite lane"
-msgstr ""
+msgstr "corsia opposta"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:994
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1443
 msgid "by acceleration"
-msgstr ""
+msgstr "per accelerazione"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1003
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1452
 msgid "by time gap on lane"
-msgstr ""
+msgstr "per intervallo tra mezzi sulla corsia"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1009
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1458
 msgid "by depart delay"
-msgstr ""
+msgstr "per ritardo di partenza"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1023
 msgid "by relative battery charge"
-msgstr ""
+msgstr "per carica relativa di batteria"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1032
 msgid "by charged energy"
-msgstr ""
+msgstr "per energia caricata"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1041
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1464
 msgid "by time loss"
-msgstr ""
+msgstr "per tempo morto"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1047
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1470
 msgid "by stop delay"
-msgstr ""
+msgstr "per ritardo dovuto a fermate"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1056
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1479
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "per ritardo all'arrivo a una fermata"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1066
 msgid "by lateral speed"
-msgstr ""
+msgstr "per velocità laterale"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1076
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
@@ -15533,7 +15535,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1188
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1650
 msgid "random"
-msgstr ""
+msgstr "a caso"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1080
 msgid "given person/type color"
