@@ -112,13 +112,21 @@ At the default option value of 0. Edge priority is ignored when routing. When se
   x = (edgePriority - minPriority) / (maxPriority - minPriority)
 ```
 
-The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
+The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) as explained below.
+
+#### Priority from partially restricted directionality
+
+If some of the tracks in the network are uni-directional these can be used to define the main direction and this property can be extroplated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.direction-priority**. The assigned priority values are:
 
 - 4: unidirectional track
 - 3: main direction of bidirectional track
 - 2: undetermined main direction (straight continuation from different directions of unidirectional track)
 - 1: undetermined main direction (no continuation from unidirectional track)
 - 0: reverse of main direction of bidirectional track
+
+#### Priority from partially defined values
+
+If some of the tracks in the network have priority values defined (by convention with the values 0 and 4) these can be used to define the main direction and this property can be extroplated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.extendn-priority**. The assigned priority for the other network edges also range from 1 to 3 just as above.
 
 ### Importing bidirectional tracks from OSM
 
