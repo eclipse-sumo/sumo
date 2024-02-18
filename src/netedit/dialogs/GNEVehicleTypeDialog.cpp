@@ -130,7 +130,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
                 myVTypeAttributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
             if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
-                myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
+                myVTypeAttributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
             }
             // update GUIShape
             if (myComboBoxVClass->getText().empty()) {

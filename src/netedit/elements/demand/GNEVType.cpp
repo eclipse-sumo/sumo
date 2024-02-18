@@ -1772,7 +1772,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
-            if (!value.empty() && (value != toString(defaultValues.containerCapacity))) {
+            if (!value.empty() && (value != toString(defaultValues.locomotiveLength))) {
                 locomotiveLength = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
