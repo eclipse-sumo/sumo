@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-19 07:57+0000\n"
+"PO-Revision-Date: 2024-02-19 12:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15627,88 +15627,88 @@ msgstr "per velocità relativa media"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1287
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "per utilizzo (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1287
 msgid "normal"
-msgstr ""
+msgstr "normale"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1289
 msgid "internal"
-msgstr ""
+msgstr "interno"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1291
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1373
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "per limite di velocità (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1298
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1376
 msgid "by current occupancy (streetwise, brutto)"
-msgstr ""
+msgstr "per occupazione attuale (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1301
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1379
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "per velocità attuale (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1382
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "per flusso attuale (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1311
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1385
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "per velocità relativa (per arco)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1318
 msgid "by routing device assumed speed"
-msgstr ""
+msgstr "per velocità supposta dall'attrezzo itinerari"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1326
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "per segmenti (alternati)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1326
 msgid "odd"
-msgstr ""
+msgstr "dispari"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1327
 msgid "even"
-msgstr ""
+msgstr "pari"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1329
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "per stato di ingorgo (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1329
 msgid "free"
-msgstr ""
+msgstr "libero"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1330
 msgid "limitedControl"
-msgstr ""
+msgstr "limitato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1331
 msgid "jammed"
-msgstr ""
+msgstr "ingorgo"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1333
 msgid "by current occupancy (segmentwise, brutto)"
-msgstr ""
+msgstr "per occupazione attuale (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1336
 msgid "by current speed (segmentwise)"
-msgstr ""
+msgstr "per velocità attuale (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "by current flow (segmentwise)"
-msgstr ""
+msgstr "per flusso attuale (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "by relative speed (segmentwise)"
-msgstr ""
+msgstr "per velocità relativa (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1358
 msgid "no TAZ"
