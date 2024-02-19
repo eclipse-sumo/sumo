@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-13 17:57+0000\n"
+"PO-Revision-Date: 2024-02-19 13:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.4\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2443,10 +2443,12 @@ msgstr "Das Aktualisierungsintervall der JuPedSim-Simulation (in Sekunden)"
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid "The distance to accept the JuPedSim arrival point (in meters)"
 msgstr ""
+"Ab welcher Entfernung ein JuPedSim-Ankunftspunkt akzeptiert wird (in Metern)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:559
 msgid "The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"
 msgstr ""
+"Das in JuPedSim zu nutzende Teilmodell (derzeit nur 'CollisionFreeSpeed')"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:561
 msgid "The neighbor repulsion strength of the JuPedSim model"
