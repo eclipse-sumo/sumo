@@ -395,6 +395,9 @@ public:
         /// @brief The maximum time extension for boarding / loading
         SUMOTime extension = -1;
 
+        /// @brief The earliest pickup time for a taxi stop
+        SUMOTime waitUntil = -1;
+        
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered = false;
 

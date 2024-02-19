@@ -1813,6 +1813,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // compute stopping time
                 stop.duration = stop.getMinDuration(time);
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
+                MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+                if (taxiDevice != nullptr && stop.pars.extension >= 0) {
+                    // earliestPickupTime is set with waitUntil
+                    stop.endBoarding = MAX2(time, stop.pars.waitUntil) + stop.pars.extension;
+                }
                 if (stop.getSpeed() > 0) {
                     // ignore duration parameter in waypoint mode unless 'until' or 'ended' are set
                     if (stop.getUntil() > time) {
@@ -1903,11 +1908,17 @@ MSVehicle::boardTransportables(MSStop& stop) {
 
     bool unregister = false;
     if (time > stop.endBoarding) {
+        // for taxi: cancel customers
+        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+        if (taxiDevice != nullptr) {
+            taxiDevice->cancelCurrentCustomers();
+        }
+
         stop.triggered = false;
         stop.containerTriggered = false;
         if (myAmRegisteredAsWaiting) {
             unregister = true;
-            myAmRegisteredAsWaiting = false;
+            myAmRegisteredAsWaiting = false;    
         }
     }
     if (boarded) {

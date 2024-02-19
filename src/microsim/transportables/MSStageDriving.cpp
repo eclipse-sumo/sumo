@@ -92,17 +92,18 @@ MSStageDriving::init(MSTransportable* transportable) {
             reservationTime = string2time(getParameter("reservationTime"));
         }
         SUMOTime earliestPickupTime = string2time(getParameter("earliestPickupTime"));
+        if (transportable->getNextStage(1) == this) {
+            // if the ride is the first stage use the departPos (there is a unvisible stop before)
+            myWaitingPos = transportable->getParameter().departPos;
+        } else {
+            // else use the middle of the edge, as also used as default for walk's arrivalPos
+            myWaitingPos = myOrigin->getLength() / 2;
+        }
         myReservationCommand = new BookReservation(transportable, earliestPickupTime, this);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myReservationCommand, reservationTime);
     }
     
-    if (transportable->getNextStage(1) == this) {
-        // if the ride is the first stage use the departPos (there is a unvisible stop before)
-        myWaitingPos = transportable->getParameter().departPos;
-    } else {
-        // else use the middle of the edge, as also used as default for walk's arrivalPos
-        myWaitingPos = myOrigin->getLength() / 2;
-    }
+
 }
 
 
@@ -313,7 +314,7 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
         }
         // Create reservation only if not already created by previous reservationTime
         if (myReservationCommand == nullptr) {
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, -1, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
         } else {
             // update "fromPos" with current (new) value of myWaitingPos
             MSDevice_Taxi::updateReservationFromPos(transportable, getLines(), myWaitingEdge, myReservationCommand->myWaitingPos, to, toPos, myGroup, myWaitingPos);

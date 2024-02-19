@@ -375,6 +375,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 } else if (item.second == 2) {
                     if (onBoard.count(item.first) == 0) {
                         // treat like a new customer
+                        // TODO: need to be checked
                         myCustomers.erase(item.first);
                     } else {
                         redundantPickup.insert(item.first);
@@ -440,7 +441,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             }
         }
         if (isPickup) {
-            prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons) + " (" + res->id + ")", res);
+            prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
             for (const MSTransportable* const transportable : res->persons) {
                 if (transportable->isPerson()) {
                     stops.back().triggered = true;
@@ -449,14 +450,19 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 }
                 stops.back().permitted.insert(transportable->getID());
             }
-            //stops.back().awaitedPersons.insert(res.person->getID());
+            // proof this lines: Is needed for pre-booking?
+            std::set<MSTransportable*> persons = res->persons;
+            for (auto itr = persons.begin(); itr != persons.end(); itr++) {
+                stops.back().awaitedPersons.insert((*itr)->getID());
+            }
+            
             stops.back().parametersSet |= STOP_PERMITTED_SET;
             if (stops.back().duration == -1) {
                 // keep dropOffDuration if the stop is dropOff and pickUp
                 stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", 0, false));
             }
         } else {
-            prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons) + " (" + res->id + ")", res);
+            prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
             stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", 60, false)); // pay and collect bags
         }
     }
@@ -495,10 +501,95 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 
 
 void
+MSDevice_Taxi::cancelCurrentCustomers() {
+    // check if taxi has stopped
+    if (myHolder.getNextStopParameter() == nullptr) {
+        return;
+    }
+    // find customers of the current stop
+    std::set<const MSTransportable*> customersToBeRemoved;
+    for (std::string tID : myHolder.getNextStopParameter()->permitted) {
+        //for (const MSTransportable* t : myCustomers) {
+        for (auto t : myCustomers) {
+            //bool removed = false;
+            //if (t->getID() == tID) {
+            if (t->getID() == tID) {
+                //cancelCustomer(t);
+                customersToBeRemoved.insert(t);
+                //removed = cancelCustomer((*tIt));
+                
+            }
+            //if (removed == false) {
+            //    tIt++;
+            //}
+        }
+    }
+    for (auto t : customersToBeRemoved) {
+        cancelCustomer(t);
+    }
+}
+
+
+bool
+MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
+    // ist es ein aktueller Customer des Taxis?
+    // entferne den Customer
+    // passe an:
+    // DONE:  - myCustomers
+    // offen: - state (empty, pickup, occupied)
+    // neuer Memeber: Liste der Reservation Pointers --> myReservations, ist das nicht "myCurrentReservations"?
+    // transportable aus entsprechender Reservierung entfernen,
+    // Reservierung beibehalten, wenn noch andere Person transportiert wird,
+    // sonst entfernen
+    // am Ende dipatchShared aufrufen, um "stops" zu aktualisieren
+
+    // is the given transportable a customer of the reservations?
+    if (myCustomers.find(t) == myCustomers.end()) {
+        return false;
+    }
+    myCustomers.erase(t);
+    // if there are no other reservations (not occupied by or is going to pickup other customers)
+    if (isEmpty()) {
+        // cleanup
+        for (const Reservation* res : myCurrentReservations) {
+            myDispatcher->fulfilledReservation(res);
+        }
+        myCurrentReservations.clear();
+        if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+            myIdleAlgorithm->idle(this);
+        }
+    }
+    else {
+        // check whether a single reservation has been fulfilled or another customer is part of the reservation
+        for (auto resIt = myCurrentReservations.begin(); resIt != myCurrentReservations.end();) {
+            bool fulfilled = true;
+            for (MSTransportable* t : (*resIt)->persons) {
+                if (myCustomers.count(t) != 0) {
+                    fulfilled = false;
+                    break;
+                }
+            }
+            if (fulfilled) {
+                myDispatcher->fulfilledReservation(*resIt);
+                resIt = myCurrentReservations.erase(resIt);
+            }
+            else {
+                ++resIt;
+            }
+        }
+    }
+    myState &= ~PICKUP;  // remove state PICKUP
+    // use myDispatcher->getReservations() or myDispatcher->getRunningReservations() ???
+    dispatchShared(myDispatcher->getRunningReservations());  // also sets PICKUP if needed
+    return true;
+}
+
+
+void
 MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
                            std::vector<SUMOVehicleParameter::Stop>& stops,
                            double& lastPos, const MSEdge* stopEdge, double stopPos,
-                           const std::string& action, const Reservation* res) {
+                           const std::string& action, const Reservation* res, const bool isPickup) {
     assert(!edges.empty());
     if (stopPos < lastPos && stopPos + NUMERICAL_EPS >= lastPos) {
         stopPos = lastPos;
@@ -554,6 +645,13 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     stop.parking = SUMOVehicleParameter::parseParkingType(getStringParam(myHolder, OptionsCont::getOptions(), "taxi.parking", "true", false));
     stop.actType = action;
     stop.index = STOP_INDEX_END;
+    // In case of prebooking if person is not there/ comes to late for pickup set maximum waiting time:
+    SUMOTime earliestPickupTime = res->earliestPickupTime;
+    if (isPickup && earliestPickupTime >= 0) {
+        stop.waitUntil = earliestPickupTime;
+        // TODO: replace hard coded extension with parameter
+        stop.extension = 15000; //static_cast<SUMOTime>(3 * 60 * 1000);  // 3mins
+    }
     stops.push_back(stop);
 }
 
@@ -603,7 +701,11 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
         if (!myIsStopped) {
             // limit duration of stop
             // @note: stops are not yet added to the vehicle so we can change the loaded parameters. Stops added from a route are not affected
-            myHolder.getNextStop().endBoarding = myServiceEnd;
+            // @note: that's not true for pre-booking, so check whether endBoarding is already set
+            //myHolder.getNextStop().endBoarding = myServiceEnd;
+            if (myHolder.getNextStop().endBoarding > myServiceEnd) {
+                myHolder.getNextStop().endBoarding = myServiceEnd;
+            }
         }
     }
 #ifdef DEBUG_DISPATCH
