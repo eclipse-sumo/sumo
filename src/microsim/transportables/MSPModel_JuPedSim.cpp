@@ -22,11 +22,15 @@
 // that come with the JuPedSim third-party simulation framework.
 /****************************************************************************/
 
+#include <config.h>
+
 #include <algorithm>
 #include <fstream>
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
+#if JPS_VERSION > 106
 #include <jupedsim/simulation.h>
+#endif
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -408,60 +412,63 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
     }
     if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
-            if (!allStoppedTrainIDs.empty()) {
-                std::vector<GEOSGeometry*> carriagePolygons;
-                std::vector<GEOSGeometry*> rampPolygons;
-                for (const MSVehicle* train : allStoppedTrains) {
-                    const MSTrainHelper trainHelper(train);
-                    const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
-                    for (const MSTrainHelper::Carriage* carriage: carriages) {
-                        Position dir = carriage->front - carriage->back;
-                        dir.norm2D();
-                        Position perp = Position(-dir.y(), dir.x());
-                        // Create carriages geometry.
-                        double p = trainHelper.getHalfWidth();
-                        PositionVector carriageShape;
-                        carriageShape.push_back(carriage->front + perp*p);
-                        carriageShape.push_back(carriage->back + perp*p);
-                        carriageShape.push_back(carriage->back - perp*p); 
-                        carriageShape.push_back(carriage->front - perp*p); 
-                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
-                        // Create ramps geometry.
-                        p += CARRIAGE_RAMP_WIDTH;
-                        const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
-                        const std::vector<Position>& doors = carriage->doors;
-                        for (const Position door : doors) {
-                            PositionVector rampShape;
-                            rampShape.push_back(door - perp*p + dir*d);
-                            rampShape.push_back(door - perp*p - dir*d);
-                            rampShape.push_back(door + perp*p - dir*d);
-                            rampShape.push_back(door + perp*p + dir*d);
-                            rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
-                        }
+        if (!allStoppedTrainIDs.empty()) {
+            std::vector<GEOSGeometry*> carriagePolygons;
+            std::vector<GEOSGeometry*> rampPolygons;
+            for (const MSVehicle* train : allStoppedTrains) {
+                const MSTrainHelper trainHelper(train);
+                const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
+                for (const MSTrainHelper::Carriage* carriage : carriages) {
+                    Position dir = carriage->front - carriage->back;
+                    dir.norm2D();
+                    Position perp = Position(-dir.y(), dir.x());
+                    // Create carriages geometry.
+                    double p = trainHelper.getHalfWidth();
+                    PositionVector carriageShape;
+                    carriageShape.push_back(carriage->front + perp * p);
+                    carriageShape.push_back(carriage->back + perp * p);
+                    carriageShape.push_back(carriage->back - perp * p);
+                    carriageShape.push_back(carriage->front - perp * p);
+                    carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
+                    // Create ramps geometry.
+                    p += CARRIAGE_RAMP_WIDTH;
+                    const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
+                    const std::vector<Position>& doors = carriage->doors;
+                    for (const Position door : doors) {
+                        PositionVector rampShape;
+                        rampShape.push_back(door - perp * p + dir * d);
+                        rampShape.push_back(door - perp * p - dir * d);
+                        rampShape.push_back(door + perp * p - dir * d);
+                        rampShape.push_back(door + perp * p + dir * d);
+                        rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
                     }
                 }
-                GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
-                GEOSGeometry* carriagesUnion = GEOSUnaryUnion(carriagesCollection);
-                GEOSGeometry* pedestrianNetworkWithTrains = GEOSUnion(carriagesUnion, myGEOSPedestrianNetwork);
-                GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
-                GEOSGeometry* rampsUnion = GEOSUnaryUnion(rampsCollection);
-                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(rampsUnion, pedestrianNetworkWithTrains);
+            }
+            GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
+            GEOSGeometry* carriagesUnion = GEOSUnaryUnion(carriagesCollection);
+            GEOSGeometry* pedestrianNetworkWithTrains = GEOSUnion(carriagesUnion, myGEOSPedestrianNetwork);
+            GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
+            GEOSGeometry* rampsUnion = GEOSUnaryUnion(rampsCollection);
+            GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(rampsUnion, pedestrianNetworkWithTrains);
 #ifdef DEBUG_GEOMETRY_GENERATION
-                dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+            dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
-                myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRamps);
-                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
-                GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
-                GEOSGeom_destroy(pedestrianNetworkWithTrains);
-                GEOSGeom_destroy(rampsUnion);
-                GEOSGeom_destroy(rampsCollection);
-                GEOSGeom_destroy(carriagesUnion);
-                GEOSGeom_destroy(carriagesCollection);
-            }
-            else {
-                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
-            }
-            myAllStoppedTrainIDs = allStoppedTrainIDs;
+            myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRamps);
+#if JPS_VERSION > 106
+            JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+#endif
+            GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
+            GEOSGeom_destroy(pedestrianNetworkWithTrains);
+            GEOSGeom_destroy(rampsUnion);
+            GEOSGeom_destroy(rampsCollection);
+            GEOSGeom_destroy(carriagesUnion);
+            GEOSGeom_destroy(carriagesCollection);
+        } else {
+#if JPS_VERSION > 106
+            JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+#endif
+        }
+        myAllStoppedTrainIDs = allStoppedTrainIDs;
     }
 
     JPS_ErrorMessage_Free(message);
