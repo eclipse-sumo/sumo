@@ -88,6 +88,9 @@ all-attributes
 # importing selected extra OSM tags
 extra-attributes
 
+# importing waterways and a ferry line
+ferry
+
 # creating opposite-direction edge due to sidewalk information
 sidewalks
 

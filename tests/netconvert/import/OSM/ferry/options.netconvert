@@ -1,0 +1,2 @@
+--type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertShips.typ.xml
+--osm-files osm.xml 
