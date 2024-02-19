@@ -56,32 +56,12 @@ public:
         return myUpscaleLength;
     }
 
-    inline double getLocomotiveLength(void) const {
-        return myLocomotiveLength;
-    } 
-
-    inline double getDefaultLength(void) const {
-        return myDefaultLength;
-    }
-
-    inline double getCarriageGap(void) const {
-        return myCarriageGap;
-    }
-
-    inline double getLength(void) const {
-        return myLength;
-    }
-
     inline double getHalfWidth(void) const {
         return myHalfWidth;
     }
 
     inline int getNumCarriages(void) const {
         return myNumCarriages;
-    }
-
-    inline double getCarriageLengthWithGap(void) const {
-        return myCarriageLengthWithGap;
     }
 
     inline double getCarriageLength(void) const {
@@ -114,7 +94,7 @@ public:
         std::vector<Position> doors;
     };
 
-    inline std::vector<Carriage*> getCarriages(void) const {
+    inline const std::vector<Carriage*>& getCarriages(void) const {
         return myCarriages;
     }
 

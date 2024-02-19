@@ -339,7 +339,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     Position front, back;
     double angle = 0.0;
     double curCLength = trainHelper.getFirstCarriageLength();
-    std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
+    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
     for (int i = 0; i < numCarriages; ++i) {
         front = carriages[i]->front;
         back = carriages[i]->back;
