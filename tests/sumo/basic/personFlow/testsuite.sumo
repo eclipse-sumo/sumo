@@ -47,3 +47,6 @@ busStop_ride_busStop_capacity
 
 # check correct arrival when there are multiple stops on the same edge
 three_trainStops_at_one_edge
+
+# Tests train unboarding with pedestrians, when the rail lane is curved.
+unboarding_curved
