@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-19 07:46+0000\n"
+"PO-Revision-Date: 2024-02-19 07:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15539,51 +15539,51 @@ msgstr "a caso"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1080
 msgid "given person/type color"
-msgstr ""
+msgstr "colore di persona/tipo dato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1082
 msgid "given/assigned person color"
-msgstr ""
+msgstr "colore di persona datao/assegnato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1092
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1124
 msgid "by mode"
-msgstr ""
+msgstr "per modo"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1092
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1124
 msgid "waiting for insertion"
-msgstr ""
+msgstr "aspettando di essere inserito"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1093
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1125
 msgid "stopped"
-msgstr ""
+msgstr "fermo"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1094
 msgid "walking"
-msgstr ""
+msgstr "camminando"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1095
 msgid "riding"
-msgstr ""
+msgstr "sul mezzo"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1096
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1127
 msgid "accessing trainStop"
-msgstr ""
+msgstr "accedendo alla fermata ferroviaria"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
 msgid "waiting for ride"
-msgstr ""
+msgstr "aspettando una corsa"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1105
 msgid "by jammed state"
-msgstr ""
+msgstr "per stato di ingorgo"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1115
 msgid "given container/type color"
-msgstr ""
+msgstr "colore di contenitore/tipo dato"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
 msgid "given/assigned container color"
