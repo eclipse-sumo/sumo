@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    if: github.repository == 'DLR-TS/sumo'
+    if: github.repository == 'DLR-TS/sumo' || github.event_name == 'pull_request'
     runs-on: windows-latest
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
