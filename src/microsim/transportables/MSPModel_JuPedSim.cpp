@@ -417,7 +417,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             std::vector<GEOSGeometry*> rampPolygons;
             for (const MSVehicle* train : allStoppedTrains) {
                 const MSTrainHelper trainHelper(train);
-                const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
+                const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
                 for (const MSTrainHelper::Carriage* carriage : carriages) {
                     Position dir = carriage->front - carriage->back;
                         if (dir.length2D() == 0.0) {
