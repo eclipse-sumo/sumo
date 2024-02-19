@@ -1,3 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <type id="a" priority="3" speed="13.89">
+        <restriction vClass="passenger" speed="27.89"/>
+    </type>
     <variableSpeedSign id="vss" lanes="middle_0" file="input_definition.def.xml"/>
 </additional>
