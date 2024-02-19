@@ -58,13 +58,15 @@ const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
 const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
 const double MSPModel_JuPedSim::CARRIAGE_RAMP_WIDTH = 2.0;
+const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_COLOR = RGBColor(179, 217, 255, 255);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
-    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myHaveAdditionalWalkableAreas(false) {
+    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myMaxAreaConnectedComponentPolygon(nullptr), 
+    myHaveAdditionalWalkableAreas(false) {
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }
@@ -457,6 +459,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
             myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRamps);
+            preparePolygonForDrawing(myMaxAreaConnectedComponentPolygon, myMaxAreaPolygonId + ".carriages_and_ramps", PEDESTRIAN_NETWORK_COLOR);
 #if JPS_VERSION > 106
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
 #endif
@@ -828,12 +831,11 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, JPS_Geometr
 
 
 void
-MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId) {
+MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
     PositionVector shape = getCoordinates(exterior);
     ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
-    shapeContainer.removePolygon(polygonId);
-    bool added = shapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+    bool added = shapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), color, 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
     if (added) {
         std::vector<PositionVector> holes;
         int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
@@ -856,20 +858,19 @@ JPS_Geometry
 MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon) {
     // For the moment, JuPedSim only supports one connected component, select the one with max area.
     int nbrConnectedComponents = GEOSGetNumGeometries(polygon);
-    const GEOSGeometry* maxAreaConnectedComponentPolygon = nullptr;
-    std::string maxAreaPolygonId;
+    myMaxAreaConnectedComponentPolygon = nullptr;
     double maxArea = 0.0;
     double totalArea = 0.0;
     for (unsigned int i = 0; i < (unsigned int)nbrConnectedComponents; i++) {
         const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(polygon, i);
-        std::string polygonId = std::string("jupedsim.pedestrian_network.") + std::to_string(i);
+        const std::string polygonId = std::string("jupedsim.pedestrian_network.") + std::to_string(i);
         double area;
         GEOSArea(connectedComponentPolygon, &area);
         totalArea += area;
         if (area > maxArea) {
             maxArea = area;
-            maxAreaConnectedComponentPolygon = connectedComponentPolygon;
-            maxAreaPolygonId = polygonId;
+            myMaxAreaConnectedComponentPolygon = connectedComponentPolygon;
+            myMaxAreaPolygonId = polygonId;
         }
     }
     if (nbrConnectedComponents > 1) {
@@ -880,8 +881,7 @@ MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon)
     dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
 #endif
     JPS_GeometryBuilder geometryBuilder = JPS_GeometryBuilder_Create();
-    preparePolygonForJPS(maxAreaConnectedComponentPolygon, geometryBuilder);
-    preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    preparePolygonForJPS(myMaxAreaConnectedComponentPolygon, geometryBuilder);
     JPS_ErrorMessage message = nullptr;
     JPS_Geometry geometry = JPS_GeometryBuilder_Build(geometryBuilder, &message);
     if (geometry == nullptr) {
@@ -913,6 +913,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     PROGRESS_BEGIN_MESSAGE("Generating initial JuPedSim geometry for pedestrian network");
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetwork);
+    preparePolygonForDrawing(myMaxAreaConnectedComponentPolygon, myMaxAreaPolygonId, PEDESTRIAN_NETWORK_COLOR);
     PROGRESS_DONE_MESSAGE();
     myJPSGeometryWithTrainsAndRamps = nullptr;
     JPS_ErrorMessage message = nullptr;

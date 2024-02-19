@@ -155,6 +155,8 @@ private:
     std::vector<PState*> myPedestrianStates;
 
     GEOSGeometry* myGEOSPedestrianNetwork;
+    const GEOSGeometry* myMaxAreaConnectedComponentPolygon;
+    std::string myMaxAreaPolygonId;
     bool myHaveAdditionalWalkableAreas;
 
     JPS_Geometry myJPSGeometry;
@@ -176,6 +178,7 @@ private:
     static const double GEOS_MIN_AREA;
     static const double GEOS_BUFFERED_SEGMENT_WIDTH;
     static const double CARRIAGE_RAMP_WIDTH;
+    static const RGBColor PEDESTRIAN_NETWORK_COLOR;
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
@@ -192,7 +195,7 @@ private:
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static double getHoleArea(const GEOSGeometry* hole);
     void preparePolygonForJPS(const GEOSGeometry* polygon, JPS_GeometryBuilder geometryBuilder);
-    void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId);
+    void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
     JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename);
 };
