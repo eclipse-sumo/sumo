@@ -420,6 +420,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 const std::vector<MSTrainHelper::Carriage*> carriages = trainHelper.getCarriages();
                 for (const MSTrainHelper::Carriage* carriage : carriages) {
                     Position dir = carriage->front - carriage->back;
+                        if (dir.length2D() == 0.0) {
+                            continue;
+                        }
                     dir.norm2D();
                     Position perp = Position(-dir.y(), dir.x());
                     // Create carriages geometry.
