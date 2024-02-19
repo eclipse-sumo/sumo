@@ -956,7 +956,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
             if (areaBoundary.back().x == areaBoundary.front().x && areaBoundary.back().y == areaBoundary.front().y) {
                 areaBoundary.pop_back();
             }
-            const std::string& type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
+            const std::string type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
             myAreas.push_back(AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap()});
         }
     }
