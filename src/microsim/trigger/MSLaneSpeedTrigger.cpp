@@ -125,9 +125,9 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
             }
         }
     } else {
-        const bool isDefault = speed == myDefaultSpeed;
+        const bool altered = speed != myDefaultSpeed;
         for (MSLane* const lane : myDestLanes) {
-            lane->setMaxSpeed(speed, isDefault);
+            lane->setMaxSpeed(speed, altered);
         }
     }
     if (!move2next) {
