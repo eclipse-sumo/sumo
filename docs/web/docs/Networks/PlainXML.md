@@ -830,7 +830,7 @@ Using `<type>` definitions it is possible to implement vClass specific speed
 limits:
 
 ```xml
-<type id="a" priority="3" numLanes="3" speed="38.89"/>
+<type id="a" priority="3" numLanes="3" speed="38.89">
    <restriction vClass="truck" speed="27.89"/>
 </type>
 ```
