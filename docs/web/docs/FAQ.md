@@ -119,7 +119,7 @@ git push
 ### How do I contribute to the documentation?
 
 The documentation is part of the code repository so the same rules as in the previous question apply.
-If you just want to have a simple typo fixed you can always drop us a line at sumo@dlr.de or at sumo-dev@eclipse.org.
+If you just want to have a simple typo fixed you can always drop us a line at <sumo@dlr.de> or at <sumo-dev@eclipse.org>.
 
 ### How do I cite SUMO
 
@@ -247,8 +247,7 @@ according to the above suggestions.
 
   Unfortunately, we do not have the resources to do other peoples
   projects for free.
-  [Contact](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/)
-  us for paid consultancy.
+  Contact us for paid consultancy at <sumo@dlr.de>.
   We try to help out with bugs and give pointers to the relevant
   documentation but this free support is limited to what we can do in
   our spare time.
