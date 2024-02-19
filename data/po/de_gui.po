@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-17 15:02+0000\n"
+"PO-Revision-Date: 2024-02-19 07:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -181,6 +181,8 @@ msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Setzt einen Unterbrechungspunkt am um einen Versatz aus den "
+"Anwendungseinstellungen geminderten aktuellen Zeitschritt"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 msgid "Edit Breakpoints"
@@ -868,7 +870,7 @@ msgstr "Sekunden"
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2432
 #: D:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:184
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "Unterbrechungspunkt bei % setzen"
 
 #: D:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -2863,7 +2865,7 @@ msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3907
 msgid "reloading demand elements from '%'"
-msgstr ""
+msgstr "lädt Nachfrageelemente aus '%'"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3912
 msgid "Reloading of route file failed: "
@@ -3956,7 +3958,7 @@ msgstr "Personen"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1409
 msgid "PersonTrips"
-msgstr ""
+msgstr "Personenfahrten"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1414
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
@@ -3980,7 +3982,7 @@ msgstr "Container"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1429
 msgid "Transports"
-msgstr ""
+msgstr "Transporte"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1434
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
@@ -3998,7 +4000,7 @@ msgstr "Haltepunkte"
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1444
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
 msgid "EdgeDatas"
-msgstr ""
+msgstr "Kantendaten"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1449
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
