@@ -134,6 +134,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     double smallRadius = useDefaultRadius ? oc.getFloat("junctions.small-radius") : myRadius;
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
+    const bool useEndpoints = oc.getBool("junctions.endpoint-shape");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
     const bool openDriveOutput = oc.isSet("opendrive-output");
 
@@ -163,7 +164,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     computeEdgeBoundaries(usedEdges, geomsCCW, geomsCW);
 
     // check which edges are parallel
-    joinSameDirectionEdges(usedEdges, same);
+    joinSameDirectionEdges(usedEdges, same, useEndpoints);
     // compute unique direction list
     EdgeVector newAll = computeUniqueDirectionList(usedEdges, same, geomsCCW, geomsCW);
     // if we have only two "directions", let's not compute the geometry using this method
@@ -309,7 +310,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             }
 #endif
             if (!simpleContinuation) {
-                if (currGeom.intersects(neighGeom)) {
+                if (useEndpoints && !(*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
+                    distances[*i] = EXT;
+                } else if (currGeom.intersects(neighGeom)) {
                     distances[*i] = (neighLargeTurn ? myRadius : smallRadius) + closestIntersection(currGeom, neighGeom, EXT);
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
@@ -640,7 +643,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
 }
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same) {
+NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same, bool useEndpoints) {
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neighbor)
     const double angleChangeLookahead = 35; // distance to look ahead for a misleading angle
@@ -652,6 +655,11 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
             j = edges.begin();
         } else {
             j = i + 1;
+        }
+        if (useEndpoints
+                && !(*i)->hasDefaultGeometryEndpointAtNode(&myNode)
+                && !(*j)->hasDefaultGeometryEndpointAtNode(&myNode)) {
+            continue;
         }
         const bool incoming = (*i)->getToNode() == &myNode;
         const bool incoming2 = (*j)->getToNode() == &myNode;

@@ -403,6 +403,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("junctions.minimal-shape", "Junctions",
                       "Build junctions with minimal shapes (ignoring edge overlap)");
 
+    oc.doRegister("junctions.endpoint-shape", new Option_Bool(false));
+    oc.addDescription("junctions.endpoint-shape", "Junctions",
+                      "Build junction shapes based on edge endpoints (ignoring edge overlap)");
+
     oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
     oc.addDescription("internal-junctions.vehicle-width", "Junctions",
                       "Assumed vehicle width for computing internal junction positions");
