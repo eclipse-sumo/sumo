@@ -6,7 +6,38 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed inconsistent edgeData and laneData emissions. #14209
+  - Fixed crash with SSM device and incomplete routes. #14201
+  - Trips now allow "via" edges that loop over the from/to edges. #13987
+  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115  
+  - Inserting vehicle with depart="split" now works on short edges. #14359
+  - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
+  - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
+  - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
+ 
+- netedit
+  - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
+  - Tool plot_trajectories.py is now usable. #14147
+
+- netcovert 
+  - Signal state sequences (green-yellow-green) is no longer generated. #14295
+  - Roundabouts defined explicitly in OSM now have correct right-of-way regardless of geometry. #13970
+
+- sumo-gui  
+  - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
+
+- TraCI
+  - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
+    
+- Activitygen: Fixed wrong working hour fallback times. #14344
+ 
 ### Enhancements
+
+- sumo
+  - Access elements support `pos="doors"` to change the algorithm for placing passengers that exit the vehicle. #14336
+  - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
+
 - netedit
   - Now sidewalk and bikelane width can be edited in in GNECreateEdgeFrame. #9725
   - Added new netedit option --ignore-missing-inputs. #12395
@@ -15,11 +46,22 @@ title: ChangeLog
   - Disable stopOffsetException row if stopOffset is 0. #14065
   - General optimización of netedit for big networks. #13894
   - Added red contour to moved elements. #14109
+ 
+- sumo-gui
+  - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
+    
+- TraCI / libsumo
+  - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
 
-- Other
-  - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
+- Tools
+  - tileGet.py supports downloading rendered tiles from OSM. #14241
+
 
 ### Miscellaneous
+
+- [Numerical access restrictions](Simulation/VehiclePermissions.md#custom_access_restrictions) for routing are now documented.  #14370
+- Fixed inconsistent documentation for jumps #14316
+- The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
 
 
 ## Version 1.19.0 (07.11.2023)
