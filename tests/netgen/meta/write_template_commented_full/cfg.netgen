@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-10-23 20:43:22 by Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
+<!-- generated on 2024-02-20 23:25:47 by Eclipse SUMO netgenerate Version v1_19_0+0910-7ddfc6d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -593,6 +593,9 @@
 
         <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
         <junctions.minimal-shape value="false" type="BOOL"/>
+
+        <!-- Build junction shapes based on edge endpoints (ignoring edge overlap) -->
+        <junctions.endpoint-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
         <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>

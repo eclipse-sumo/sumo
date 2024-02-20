@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
+Eclipse SUMO netconvert Version v1_19_0+0910-7ddfc6d
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -472,6 +472,8 @@ Junctions Options:
                                         of average
   --junctions.minimal-shape            Build junctions with minimal shapes
                                         (ignoring edge overlap)
+  --junctions.endpoint-shape           Build junction shapes based on edge
+                                        endpoints (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-10-23 20:43:22 by Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
+<!-- generated on 2024-02-20 23:25:47 by Eclipse SUMO netgenerate Version v1_19_0+0910-7ddfc6d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -224,6 +224,7 @@
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
         <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (ignoring edge overlap)"/>
+        <junctions.endpoint-shape value="false" type="BOOL" help="Build junction shapes based on edge endpoints (ignoring edge overlap)"/>
         <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
