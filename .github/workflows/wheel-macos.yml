@@ -53,6 +53,8 @@ jobs:
 
     - name: Preparing Build System
       run: |
+        brew update
+        brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
         brew install xerces-c fox proj gdal gl2ps ccache
 
@@ -124,7 +126,7 @@ jobs:
         brew update
         brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps libjpeg libtiff
+        brew install xerces-c fox proj gdal gl2ps
 
     - name: Preparing Python environment
       run: |
