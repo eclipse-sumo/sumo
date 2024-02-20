@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-19 12:40+0000\n"
+"PO-Revision-Date: 2024-02-20 07:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -4800,7 +4800,7 @@ msgstr "Il processo di resettare le opzioni è fallito."
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:313
 msgid "create edge"
-msgstr ""
+msgstr "crea arco"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:372
 msgid "delete junction"
@@ -5797,7 +5797,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Inspect mode"
-msgstr ""
+msgstr "Modo di ispezione"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Mode for inspect elements and change their attributes. (I)"
