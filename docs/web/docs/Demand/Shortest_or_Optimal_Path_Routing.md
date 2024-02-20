@@ -162,7 +162,7 @@ the *weight-attribute* must be defined:
 
 # Access restrictions
 
-Acces to a network edge is typiclly restricte by the [vehicle class](Simulation/VehiclePermissions.md) defined in a [vehicle type](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md) but can also be customized with [numerical restrictions](Simulation/VehiclePermissions.md#custom_access_restrictions).
+Acces to a network edge is typiclly restricte by the [vehicle class](../Simulation/VehiclePermissions.md) defined in a [vehicle type](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) but can also be customized with [numerical restrictions](../Simulation/VehiclePermissions.md#custom_access_restrictions).
 
 # Repair routes
 
