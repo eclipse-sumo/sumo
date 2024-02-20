@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-18 17:45:54 by Eclipse SUMO netedit Version v1_19_0+0864-88c0bd55b41
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="fullTrain" vClass="rail" length="115">
+        <param key="carriageLength" value="25"/>
+        <param key="locomotiveLength" value="15"/>
+    </vType>
+    <vType id="cars" vClass="rail" length="100">
+        <param key="carriageLength" value="25"/>
+        <param key="locomotiveLength" value="0"/>
+    </vType>
+
+    <trip id="t_0" type="fullTrain" depart="0.00" from="E0" to="-E0">
+        <stop edge="E1" endPos="150" split="t_1" duration="5"/>
+        <stop edge="-E4" speed="999"/>
+        <stop edge="E1" startPos="0" endPos="50" triggered="join"/>
+    </trip>
+    <trip id="t_1" type="cars" depart="split" from="E1" to="E1">
+        <stop edge="E1" endPos="120" join="t_0" duration="1"/>
+    </trip>
+</routes>
