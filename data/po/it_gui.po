@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-20 07:42+0000\n"
+"PO-Revision-Date: 2024-02-20 07:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5805,7 +5805,7 @@ msgstr "Modo per ispezionare elementi e per modificare i loro attributi. (I)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Delete mode"
-msgstr ""
+msgstr "Modo di rimozione"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Mode for deleting elements. (D)"
@@ -5813,7 +5813,7 @@ msgstr "Modo per rimuovere elementi. (D)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Select mode"
-msgstr ""
+msgstr "Modo di selezione"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Mode for selecting elements. (S)"
@@ -5822,7 +5822,7 @@ msgstr "Modo per selezionare degli elementi. (S)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Move mode"
-msgstr ""
+msgstr "Modo di spostamento"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
@@ -5831,15 +5831,15 @@ msgstr "Modo per spostare elementi. (M)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Edge mode"
-msgstr ""
+msgstr "Modo di archi"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Mode for creating junctions and edges. (E)"
-msgstr ""
+msgstr "Modo per creare archi e nodi. (E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Traffic light mode"
-msgstr ""
+msgstr "Modo di semafori"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Mode for editing traffic lights over junctions. (T)"
@@ -5847,7 +5847,7 @@ msgstr "Modo per modificare i semafori. (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Connection mode"
-msgstr ""
+msgstr "Modo di collegamenti"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Mode for edit connections between lanes. (C)"
@@ -5855,7 +5855,7 @@ msgstr "Modo per modificare i collegamenti tra corsie. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Prohibition mode"
-msgstr ""
+msgstr "Modo delle precedenze"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Mode for editing connection prohibitions. (H)"
@@ -5863,7 +5863,7 @@ msgstr "Modo per visualizzare le precedenze dei collegamenti. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Crossing mode"
-msgstr ""
+msgstr "Modo dei passeggi pedonali"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Mode for creating crossings between edges. (R)"
@@ -5879,15 +5879,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Wire mode"
-msgstr ""
+msgstr "Modo di catenarie"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Mode for editing overhead wires. (W)"
-msgstr ""
+msgstr "Modo per modificare le catenarie. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "TAZ mode"
-msgstr ""
+msgstr "Modo di zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
@@ -5895,7 +5895,7 @@ msgstr "Modo per creare zone di assegnazione del traffico. (Z)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Polygon mode"
-msgstr ""
+msgstr "Modo di poligoni"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Mode for creating polygons and POIs. (P)"
@@ -5903,7 +5903,7 @@ msgstr "Modo per creare poligoni e punti di interesse. (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Decal mode"
-msgstr ""
+msgstr "Modo di immagini di fondo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Mode for editing decals. (U)"
@@ -5912,7 +5912,7 @@ msgstr "Modo per modificare le immagini di fondo. (U)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3591
 #: D:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
-msgstr ""
+msgstr "Modo di itinerari"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3591
 msgid "Mode for creating routes. (R)"
@@ -5920,7 +5920,7 @@ msgstr "Modo per creare itinerari. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Route distribution mode"
-msgstr ""
+msgstr "Modo di distribuzioni di itinerari"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Mode for creating and editing rout distributions. (W)"
@@ -5928,7 +5928,7 @@ msgstr "Modo per creare e modificare distribuzioni di itinerari. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Vehicle mode"
-msgstr ""
+msgstr "Modo di veicoli"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Mode for creating vehicles. (V)"
