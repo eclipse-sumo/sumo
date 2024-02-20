@@ -110,6 +110,9 @@ jobs:
 
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v4
+      with:
+        path: python-wheels
+        merge-multiple: true
 
     - name: Configuring Python
       uses: actions/setup-python@v5
@@ -128,7 +131,7 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install wheel  # need to do this separately because the texttest install wants it
         python3 -m pip install texttest
-        python3 -m pip install python-3.8-wheels/eclipse_sumo*
+        python3 -m pip install -f python-wheels eclipse_sumo
         python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
@@ -153,8 +156,8 @@ jobs:
 
     - name: Running libsumo tests
       run: |
-        python3 -m pip install tools/dist/sumolib-* tools/dist/traci-*
-        python3 -m pip install python-${{ matrix.python_version }}-wheels/libsumo-*
+        python3 -m pip install -f tools/dist sumolib traci
+        python3 -m pip install -f python-wheels libsumo
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
