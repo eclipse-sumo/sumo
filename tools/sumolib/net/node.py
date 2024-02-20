@@ -206,5 +206,11 @@ class Node:
                     neighboring.append(e.getToNode())
         return neighboring
 
+    def getMaxTLLinkIndex(self):
+        idx = []
+        for conn in self.getConnections():
+               idx.append(conn.getTLLinkIndex())
+        return(max(idx))
+
     def __repr__(self):
         return '<junction id="%s"/>' % self._id
