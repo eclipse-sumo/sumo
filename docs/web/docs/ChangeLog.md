@@ -16,6 +16,7 @@ title: ChangeLog
   - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
   - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
+  - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
  
 - netedit
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
