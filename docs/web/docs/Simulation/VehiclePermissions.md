@@ -74,3 +74,40 @@ direct connections between pedestrian-only lanes are built. Instead
 options for [building pedestrian
 intersections](../Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation)
 should be used.
+
+# Custom access restrictions
+
+The default vehicle classes (including the values `custom1` and `custom2`) can handle most requirements for modelling network access restrictions.
+However, in some domains such as shipping (draught, beam) and railroads (axle weight, grade), it may be necessary to provide for fine grained numerical access models.
+
+For this, [duarouter](../duarouter.md) provides the option **--restriction-params** to handle set list of edge and vehicle type [generic parameters](GenericParameters.md) names.
+
+- Only those vehicles where the restriction param has a lowever value than the corresponding edge param are allowed to move on an edge.
+- If a `<vType>` does not define a restriction param it's value is initialized to *0*.
+- If an `<edge>` does not define a restriction param it's value is initialized to *1e40*.
+
+Restrictions on ship draught could be modelled in the following manner:
+
+`duarouter --restriction-params draught -n net.net.xml -r routes.rou.xml`
+
+where *net.net.xml* has an edge defined as
+
+```
+<edge id="E" from="beg" to="end" priority="-1">
+        <lane id="E_0" index="0" allow="ship" speed="13.90" length="100"/>
+        <param key="draught" value="10"/>
+</edge>
+```
+
+and *routes.rou.xml* defined with the following types:
+
+```
+    <vType id="0" vClass="ship">
+        <param key="draught" value="5"/>
+    </vType>
+    <vType id="1" vClass="ship">
+        <param key="draught" value="15"/>
+    </vType>
+```
+
+In this example, ships of type "0" would be able to use edge "E" whereas ships of type "1" would be prohibited.
