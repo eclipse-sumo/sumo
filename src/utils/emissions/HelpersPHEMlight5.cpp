@@ -151,8 +151,9 @@ HelpersPHEMlight5::calcWheelPower(PHEMlightdllV5::CEP* currCep, const double v, 
     const double massRot = currCep->getVehicleMassRot();
     const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
     const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
+    const double rf0 = param->getDoubleOptional(SUMO_ATTR_ROLLDRAGCOEFFICIENT, currCep->getResistanceF0());
 
-    double power = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * currCep->getResistance(v) * v;
+    double power = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * currCep->getResistance(v, rf0) * v;
     power += (cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST / 2) * std::pow(v, 3);
     power += (mass * rotFactor + massRot + load) * a * v;
     power += (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope * 0.01 * v;
@@ -193,12 +194,14 @@ HelpersPHEMlight5::getCoastingDecel(const SUMOEmissionClass c, const double v, c
     const double load = param->getDoubleOptional(SUMO_ATTR_LOADING, currCep->getVehicleLoading());
     const double cw = param->getDoubleOptional(SUMO_ATTR_FRONTSURFACEAREA, currCep->getCrossSectionalArea()) * param->getDoubleOptional(SUMO_ATTR_AIRDRAGCOEFFICIENT, currCep->getCWValue());
     const double ratedPower = param->getDoubleOptional(SUMO_ATTR_MAXIMUMPOWER, currCep->getRatedPower());
+    const double wheelRadius = param->getDoubleOptional(SUMO_ATTR_WHEELRADIUS, currCep->getWheelRadius());
+    const double rf0 = param->getDoubleOptional(SUMO_ATTR_ROLLDRAGCOEFFICIENT, currCep->getResistanceF0());
 
-    const double fRoll = currCep->getResistance(v, true) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
+    const double fRoll = currCep->getResistance(v, rf0) * (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST;
     const double fAir = cw * PHEMlightdllV5::Constants::AIR_DENSITY_CONST * 0.5 * std::pow(v, 2);
     const double fGrad = (mass + load) * PHEMlightdllV5::Constants::GRAVITY_CONST * slope / 100;
 
-    return -(currCep->getFMot(v, ratedPower) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
+    return -(currCep->getFMot(v, ratedPower, wheelRadius) + fRoll + fAir + fGrad) / ((mass + load) * rotFactor);
 }
 
 

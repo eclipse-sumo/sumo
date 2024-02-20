@@ -76,6 +76,8 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
         myMap[SUMO_ATTR_FRONTSURFACEAREA] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_WHEELRADIUS] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = INVALID_DOUBLE;
         return;
     }
     const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);

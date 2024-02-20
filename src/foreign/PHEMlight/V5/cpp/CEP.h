@@ -82,13 +82,16 @@ namespace PHEMlightdllV5 {
         double getCWValue() const {
             return _cWValue;
         }
-        double getResistance(const double speed, const bool full=false) const {
-            if (full) {
-                return _resistanceF0 + _resistanceF1 * speed + std::pow(_resistanceF2 * speed, 2) + std::pow(_resistanceF3 * speed, 3) + std::pow(_resistanceF4 * speed, 4);
-            }
-            return _resistanceF0 + _resistanceF1 * speed + _resistanceF4 * std::pow(speed, 4);
+        double getWheelRadius() const {
+            return _effectiveWheelDiameter / 2.;
         }
-        double getFMot(const double speed, const double ratedPower);
+        double getResistanceF0() const {
+            return _resistanceF0;
+        }
+        double getResistance(const double speed, const double f0) const {
+            return f0 + _resistanceF1 * speed + _resistanceF2 * std::pow(speed, 2) + _resistanceF3 * std::pow(speed, 3) + _resistanceF4 * std::pow(speed, 4);
+        }
+        double getFMot(const double speed, const double ratedPower, const double wheelRadius);
 
     protected:
         double _massVehicle;
@@ -142,8 +145,6 @@ namespace PHEMlightdllV5 {
         bool GetfcVals(const std::string& _fuelTypex, double& _fCBr, double& _fCHC, double& _fCCO, double& _fCCO2, Helpers* VehicleClass);
 
     public:
-        double GetDecelCoast(double speed, double acc, double gradient, const double ratedPower);
-
         double GetRotationalCoeffecient(double speed);
 
 

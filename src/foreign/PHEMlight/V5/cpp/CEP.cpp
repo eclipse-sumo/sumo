@@ -367,7 +367,7 @@ namespace PHEMlightdllV5 {
         return true;
     }
 
-    double CEP::getFMot(const double speed, const double ratedPower) {
+    double CEP::getFMot(const double speed, const double ratedPower, const double wheelRadius) {
         if (speed < 10e-2) {
             return 0.;
         }
@@ -380,27 +380,11 @@ namespace PHEMlightdllV5 {
 
         double iTot = iGear * _axleRatio;
 
-        double n = (30 * speed * iTot) / ((_effectiveWheelDiameter / 2) * M_PI);
+        double n = (30 * speed * iTot) / (wheelRadius * M_PI);
         double nNorm = (n - _engineIdlingSpeed) / (_engineRatedSpeed - _engineIdlingSpeed);
 
         FindLowerUpperInPattern(lowerIndex, upperIndex, _nNormTable, nNorm);
         return (-Interpolate(nNorm, _nNormTable[lowerIndex], _nNormTable[upperIndex], _dragNormTable[lowerIndex], _dragNormTable[upperIndex]) * ratedPower * 1000 / speed) / Constants::getDRIVE_TRAIN_EFFICIENCY();
-    }
-
-    double CEP::GetDecelCoast(double speed, double acc, double gradient, const double ratedPower) {
-
-        if (speed < Constants::SPEED_DCEL_MIN) {
-            return speed / Constants::SPEED_DCEL_MIN * GetDecelCoast(Constants::SPEED_DCEL_MIN, acc, gradient, ratedPower);
-        }
-        double fMot = getFMot(speed, ratedPower);
-        double rotCoeff = GetRotationalCoeffecient(speed);
-        double fRoll = (_resistanceF0 + _resistanceF1 * speed + std::pow(_resistanceF2 * speed, 2) + std::pow(_resistanceF3 * speed, 3) + std::pow(_resistanceF4 * speed, 4)) * (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST;
-
-        double fAir = _cWValue * _crossSectionalArea * Constants::AIR_DENSITY_CONST * 0.5 * std::pow(speed, 2);
-
-        double fGrad = (_massVehicle + _vehicleLoading) * Constants::GRAVITY_CONST * gradient / 100;
-
-        return -(fMot + fRoll + fAir + fGrad) / ((_massVehicle + _vehicleLoading) * rotCoeff);
     }
 
     double CEP::GetRotationalCoeffecient(double speed) {
