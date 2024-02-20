@@ -15,6 +15,7 @@ title: ChangeLog
   - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
   - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
+  - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
  
 - netedit
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
@@ -23,12 +24,17 @@ title: ChangeLog
 - netcovert 
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
   - Roundabouts defined explicitly in OSM now have correct right-of-way regardless of geometry. #13970
+  - Fixed problems related to option **--dlr-navteq-output**. #14071
 
-- sumo-gui  
+- sumo-gui
+  - Fixed positioning of guiShape "scooter". #13691
   - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
 
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
+
+- Tools 
+  - tileGet.py is able to use maQuest service again. #14202
     
 - Activitygen: Fixed wrong working hour fallback times. #14344
  
@@ -54,6 +60,7 @@ title: ChangeLog
   - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
 
 - Tools
+  - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating vidoes from a simulation with scripted view movements. #14060
   - tileGet.py supports downloading rendered tiles from OSM. #14241
 
 
