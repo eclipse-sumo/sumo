@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-20 07:58+0000\n"
+"PO-Revision-Date: 2024-02-20 08:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5855,7 +5855,7 @@ msgstr "Modo per modificare i collegamenti tra corsie. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Prohibition mode"
-msgstr "Modo delle precedenze"
+msgstr "Modo di precedenze"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Mode for editing connection prohibitions. (H)"
@@ -5863,7 +5863,7 @@ msgstr "Modo per visualizzare le precedenze dei collegamenti. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Crossing mode"
-msgstr "Modo dei passeggi pedonali"
+msgstr "Modo di passeggi pedonali"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Mode for creating crossings between edges. (R)"
@@ -5871,11 +5871,11 @@ msgstr "Modo per creare passeggi pedonali attraverso archi. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Additional mode"
-msgstr ""
+msgstr "Modo di elementi addizionali"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Mode for creating additional elements. (A)"
-msgstr ""
+msgstr "Modo per creare elementi addizionali. (A)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Wire mode"
