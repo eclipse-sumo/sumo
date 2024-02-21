@@ -125,6 +125,9 @@ junction_name
 # use stored option in network (#4397)
 internalJunctionVehicleWidth
 
+# build minimal junction shapes
+minimal-shape
+
 # build junctions based on (custom) edge endpoints
 endpoint-shape
 
