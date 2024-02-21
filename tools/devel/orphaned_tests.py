@@ -23,21 +23,51 @@ import sys
 import os
 from collections import defaultdict
 import glob
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 
-for root, dirs, files in os.walk(sys.argv[1]):
+def get_options():
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("root", category="input", type=op.file,
+                    help="root directory of tests to analyze")
+    op.add_argument("--fix", action="store_true", default=False,
+                    help="automatically append missing tests to test suites")
+    options = op.parse_args()
+    return options
+
+
+options = get_options()
+numFixed = 0
+
+for root, dirs, files in os.walk(options.root):
     numSuites = 0
     known_tests = set()
+    suites = []
     for fname in files:
         if fname.startswith("testsuite."):
-            numSuites += 1
+            suites.append(fname)
             with open(os.path.join(root, fname)) as s:
                 for line in s:
                     line = line.strip()
                     if line and not line.startswith("#"):
                         known_tests.add(line)
-    if numSuites != 0:
+    if suites:
+        orphaned = []
         for d in dirs:
+            if d in ["filter_files", "data"]:
+                continue
             if d not in known_tests:
+                orphaned.append(d)
                 print("orphaned '%s'" % os.path.join(root, d))
+        if orphaned and options.fix:
+            numFixed += len(orphaned)
+            # suite with shortest name is the main one
+            mainSuite = sorted(suites)[0]
+            with open(os.path.join(root, mainSuite), "a") as s:
+                for t in orphaned:
+                    print(t, file=s)
 
+if options.fix:
+    print("fixed %s orphaned tests" % numFixed)
