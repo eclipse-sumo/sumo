@@ -57,7 +57,6 @@ complex/tutorial/city_mobil/simple;../docs/tutorial/city_mobil
 #complex/tutorial/gtfs/plain;../docs/tutorial/gtfs
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/manhattan;../docs/tutorial/manhattan
-complex/tutorial/osm_activitygen;../docs/tutorial/osm_activitygen
 complex/tutorial/output_parsing;../docs/tutorial/output_parsing
 complex/tutorial/quickstart;../docs/tutorial/quickstart
 #complex/tutorial/san_pablo_dam;../docs/tutorial/san_pablo_dam
