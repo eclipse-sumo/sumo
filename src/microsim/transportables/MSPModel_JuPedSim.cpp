@@ -28,7 +28,7 @@
 #include <fstream>
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
-#if JPS_VERSION > 106
+#if JPS_VERSION >= 110
 #include <jupedsim/simulation.h>
 #endif
 #include <microsim/MSEdge.h>
@@ -65,7 +65,7 @@ const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_COLOR = RGBColor(179, 217, 
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
-    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myMaxAreaConnectedComponentPolygon(nullptr), 
+    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myMaxAreaConnectedComponentPolygon(nullptr),
     myHaveAdditionalWalkableAreas(false) {
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
@@ -422,9 +422,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
                 for (const MSTrainHelper::Carriage* carriage : carriages) {
                     Position dir = carriage->front - carriage->back;
-                        if (dir.length2D() == 0.0) {
-                            continue;
-                        }
+                    if (dir.length2D() == 0.0) {
+                        continue;
+                    }
                     dir.norm2D();
                     Position perp = Position(-dir.y(), dir.x());
                     // Create carriages geometry.
@@ -460,7 +460,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 #endif
             myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRamps);
             preparePolygonForDrawing(myMaxAreaConnectedComponentPolygon, myMaxAreaPolygonId + ".carriages_and_ramps", PEDESTRIAN_NETWORK_COLOR);
-#if JPS_VERSION > 106
+#if JPS_VERSION >= 110
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
 #endif
             GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -470,7 +470,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             GEOSGeom_destroy(carriagesUnion);
             GEOSGeom_destroy(carriagesCollection);
         } else {
-#if JPS_VERSION > 106
+#if JPS_VERSION >= 110
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
 #endif
         }
