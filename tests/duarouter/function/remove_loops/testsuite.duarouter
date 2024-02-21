@@ -39,3 +39,4 @@ with_taz
 
 # see #9837
 looped_twice
+whole_route_is_a_loop

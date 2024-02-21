@@ -194,3 +194,4 @@ geoTrips_lonLat
 # test routing taxi trips
 taxi
 errors
+carNoRoute
