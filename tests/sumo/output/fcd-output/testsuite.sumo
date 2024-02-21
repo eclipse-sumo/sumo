@@ -72,3 +72,5 @@ all_attributes
 
 # filter output with shape
 shape_filter
+begin
+period_begin

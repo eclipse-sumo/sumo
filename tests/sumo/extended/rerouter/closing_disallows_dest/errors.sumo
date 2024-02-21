@@ -1,2 +1,4 @@
-Warning: No connection between 'beg2left' and 'left' found.
+Warning: Vehicle 'veh0' is not allowed on destination edge 'left'.
+Warning: No route for vehicle 'veh0' found.
+Warning: Vehicle 'veh1' is not allowed on destination edge 'left'.
 Warning: No route for vehicle 'veh1' found.

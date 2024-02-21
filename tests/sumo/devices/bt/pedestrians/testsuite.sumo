@@ -9,3 +9,4 @@ comm_test_right_receiver
 multimodal
 
 # as approaching_opposite, but the simulationends before the vehicles leave the net
+app_opp_early_end

@@ -69,3 +69,4 @@ invalid_color_name
 # test for #5875
 empty_line
 parkingArea_noCapacity
+missing_first_param

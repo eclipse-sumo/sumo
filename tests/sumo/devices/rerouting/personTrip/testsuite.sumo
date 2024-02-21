@@ -183,4 +183,5 @@ toJunction_twice
 
 # trip between identical stops
 sameStops
+carNoRoute
 errors

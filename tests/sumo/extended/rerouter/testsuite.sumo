@@ -80,3 +80,5 @@ use_routing_device
 # using the same id twice
 duplicate_id
 destProb
+closing_disallow_misleading_alternative
+closing_disallows_dest

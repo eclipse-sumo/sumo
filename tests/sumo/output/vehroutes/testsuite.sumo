@@ -116,3 +116,4 @@ auto_trip
 
 # Testing error cases
 errors
+write_unfinished_stops
