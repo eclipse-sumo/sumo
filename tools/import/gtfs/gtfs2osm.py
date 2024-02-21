@@ -35,7 +35,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
-from sumolib.miscutils import benchmark  # noqa
+from sumolib.miscutils import benchmark, parseTime, humanReadableTime  # noqa
 
 # ----------------------- gtfs, osm and sumo modes ----------------------------
 OSM2SUMO_MODES = {
@@ -650,6 +650,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
+    # determine if we need to format times (depart, duration, until) to be human readable or whole seconds
+    ft = humanReadableTime if "hrtime" in options and options.hrtime else lambda x: int(x)
+
     with sumolib.openz(options.additional_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
@@ -718,10 +721,10 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     seqs[stopSeq] = row.trip_id
                 veh_attr = (row.trip_id, day,
                             main_shape, row.route_id, seqs[stopSeq],
-                            row.arrival_fixed.days + day,
-                            str(row.arrival_fixed).split(' ')[2],
+                            ft(parseTime(str(row.arrival_fixed.days + day) +
+                               ":" + str(row.arrival_fixed).split(' ')[2])),
                             min(stop_index), max(stop_index), pt_type, pt_color)
-                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
+                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
                 output_file.write(u'        <param key="gtfs.route_name" value=%s/>\n' %
                                   sumolib.xml.quoteattr(str(row.route_short_name), True))
                 if row.trip_headsign:
@@ -736,13 +739,15 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     if stop_index >= check_seq:
                         check_seq = stop_index
                         # TODO check stop position if we are on the same edge as before
-                        stop_attr = (stop.stop_item_id, stop.arrival_fixed.days + day,
-                                     str(stop.arrival_fixed).split(' ')[2],
-                                     options.duration, stop.departure_fixed.days + day,
-                                     str(stop.departure_fixed).split(' ')[
-                                         2], stop.stop_sequence, stop_list.stop_sequence.max(),
+                        stop_attr = (stop.stop_item_id,
+                                     ft(parseTime(str(stop.arrival_fixed.days + day) +
+                                        ":" + str(stop.arrival_fixed).split(' ')[2])),
+                                     ft(options.duration),
+                                     ft(parseTime(str(stop.departure_fixed.days + day) +
+                                        ":" + str(stop.departure_fixed).split(' ')[2])),
+                                     stop.stop_sequence, stop_list.stop_sequence.max(),
                                      sumolib.xml.quoteattr(stop.stop_name, True))
-                        output_file.write(u'        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--stopSequence="%s/%s" %s-->\n' % stop_attr)  # noqa
+                        output_file.write(u'        <stop busStop="%s" arrival="%s" duration="%s" until="%s"/><!--stopSequence="%s/%s" %s-->\n' % stop_attr)  # noqa
                     elif stop_index < check_seq:
                         # stop not downstream
                         sequence_errors.append((stop.stop_item_id, sumolib.xml.quoteattr(stop.stop_name, True),

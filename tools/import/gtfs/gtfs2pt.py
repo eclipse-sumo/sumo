@@ -451,6 +451,7 @@ def main(options):
             stops = map_stops(options, net, routes, aout, edgeMap, fixedStops)
             aout.write(u'</additional>\n')
         with sumolib.openz(options.route_output, mode='w') as rout:
+            ft = humanReadableTime if options.hrtime else lambda x: x
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, edges in routes.items():
                 if edges:
@@ -460,7 +461,7 @@ def main(options):
                         if offset is None:
                             offset = stop[1]
                         rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/> <!-- %s -->\n' %
-                                   (stop[0], options.duration, stop[1] - offset, stop[2]))
+                                   (stop[0], ft(options.duration), ft(stop[1] - offset), stop[2]))
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route", vehID, file=sys.stderr)
