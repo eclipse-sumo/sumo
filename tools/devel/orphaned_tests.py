@@ -67,6 +67,7 @@ for root, dirs, files in os.walk(options.root):
             mainSuite = sorted(suites)[0]
             with open(os.path.join(root, mainSuite), "a") as s:
                 for t in orphaned:
+                    print("\n", file=s)
                     print(t, file=s)
 
 if options.fix:
