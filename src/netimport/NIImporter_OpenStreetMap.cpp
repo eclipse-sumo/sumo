@@ -488,6 +488,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     const SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
     const SVCPermissions extraDis = myImportBikeAccess ? e->myExtraDisallowed : (e->myExtraDisallowed & ~SVC_BICYCLE);
     SVCPermissions permissions = (defaultPermissions | extra) & ~extraDis;
+    if (defaultPermissions == SVC_SHIP) {
+        // extra permission apply to the ships operating on the route rather than the waterway
+        permissions = defaultPermissions;
+    }
     if (defaultsToOneWay && defaultPermissions == SVC_PEDESTRIAN && (permissions & (~SVC_PEDESTRIAN)) != 0) {
         defaultsToOneWay = false;
     }
