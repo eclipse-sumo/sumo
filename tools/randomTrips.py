@@ -214,6 +214,9 @@ def get_options(args=None):
         for edge in options.net.getEdges():
             if edge.allows(options.vclass):
                 length += edge.getLaneNumber() * edge.getLength()
+        if length == 0:
+            raise ValueError("No valid edges for computing insertion-density")
+
         options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
     if options.insertionRate:

@@ -333,7 +333,12 @@ class Builder(object):
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
 
-                randomTrips.main(randomTrips.get_options(options))
+                try:
+                    randomTrips.main(randomTrips.get_options(options))
+                except ValueError:
+                    print("Could not generate %s traffic" % vehicle, file=sys.stderr)
+                    continue
+
                 randomTripsCalls.append(options)
 
                 # --validate is not called for pedestrians
