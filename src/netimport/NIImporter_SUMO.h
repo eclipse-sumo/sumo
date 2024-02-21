@@ -427,6 +427,7 @@ private:
     /// @brief custom settings for internal junction computation
     double myInternalJunctionsVehicleWidth;
     /// @brief custom settings for junction shape computation
+    bool myJunctionsMinimalShape;
     bool myJunctionsEndpointShape;
 
     /// @brief loaded roundabout edges

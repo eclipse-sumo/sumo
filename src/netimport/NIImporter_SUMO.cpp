@@ -88,6 +88,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myGeomAvoidOverlap(true),
       myJunctionsHigherSpeed(false),
       myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")),
+      myJunctionsMinimalShape(OptionsCont::getOptions().getBool("junctions.minimal-shape")),
       myJunctionsEndpointShape(OptionsCont::getOptions().getBool("junctions.endpoint-shape"))
 {
 }
@@ -343,6 +344,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isWriteable("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
+    if (oc.isWriteable("junctions.minimal-shape") && oc.getBool("junctions.minimal-shape") != myJunctionsMinimalShape) {
+        oc.set("junctions.minimal-shape", toString(myJunctionsMinimalShape));
+    }
     if (oc.isWriteable("junctions.endpoint-shape") && oc.getBool("junctions.endpoint-shape") != myJunctionsEndpointShape) {
         oc.set("junctions.endpoint-shape", toString(myJunctionsEndpointShape));
     }
@@ -450,6 +454,7 @@ NIImporter_SUMO::myStartElement(int element,
             myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
             myJunctionsHigherSpeed = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, myJunctionsHigherSpeed);
             myInternalJunctionsVehicleWidth = attrs.getOpt<double>(SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH, nullptr, ok, myInternalJunctionsVehicleWidth);
+            myJunctionsMinimalShape = attrs.getOpt<bool>(SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE, nullptr, ok, myJunctionsMinimalShape);
             myJunctionsEndpointShape = attrs.getOpt<bool>(SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE, nullptr, ok, myJunctionsEndpointShape);
             // derived
             const OptionsCont& oc = OptionsCont::getOptions();

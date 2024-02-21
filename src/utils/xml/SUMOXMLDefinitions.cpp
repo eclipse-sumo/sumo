@@ -959,6 +959,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "avoidOverlap",           SUMO_ATTR_AVOID_OVERLAP },
     { "junctionHigherSpeed",    SUMO_ATTR_HIGHER_SPEED },
     { "internalJunctionsVehicleWidth", SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH },
+    { "junctionsMinimalShape",  SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE },
     { "junctionsEndpointShape", SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
