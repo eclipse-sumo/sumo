@@ -14,6 +14,7 @@
 # @file    gtfs2pt.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Robert Hilbrich
 # @date    2018-08-28
 
 """
@@ -36,6 +37,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
+from sumolib.miscutils import humanReadableTime  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -66,6 +68,8 @@ def get_options(args=None):
     ap.add_argument("--sort", action="store_true", default=False, category="processing",
                     help="sorting the output-file")
     ap.add_argument("--stops", category="input", type=ap.file, help="file with predefined stop positions to use")
+    ap.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
+                    help="write times as h:m:s")
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
@@ -346,6 +350,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops):
 
 
 def filter_trips(options, routes, stops, outf, begin, end):
+    ft = humanReadableTime if options.hrtime else lambda x: x
     numDays = int(end) // 86400
     if end % 86400 != 0:
         numDays += 1
@@ -363,7 +368,7 @@ def filter_trips(options, routes, stops, outf, begin, end):
                             # only add trimmed trips the first day
                             continue
                         line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                (veh.id, d, veh.route, veh.type, depart, veh.line))
+                                (veh.id, d, veh.route, veh.type, ft(depart), veh.line))
                         for p in veh.param:
                             line += u'        <param key="%s" value="%s"/>\n' % p
                         line += u'    </vehicle>\n'
