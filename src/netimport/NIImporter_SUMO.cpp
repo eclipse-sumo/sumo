@@ -87,7 +87,9 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
       myGeomAvoidOverlap(true),
       myJunctionsHigherSpeed(false),
-      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")) {
+      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")),
+      myJunctionsEndpointShape(OptionsCont::getOptions().getBool("junctions.endpoint-shape"))
+{
 }
 
 
@@ -341,6 +343,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isWriteable("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
+    if (oc.isWriteable("junctions.endpoint-shape") && oc.getBool("junctions.endpoint-shape") != myJunctionsEndpointShape) {
+        oc.set("junctions.endpoint-shape", toString(myJunctionsEndpointShape));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNINGF(TL("Deprecated vehicle class(es) '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
@@ -445,6 +450,7 @@ NIImporter_SUMO::myStartElement(int element,
             myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
             myJunctionsHigherSpeed = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, myJunctionsHigherSpeed);
             myInternalJunctionsVehicleWidth = attrs.getOpt<double>(SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH, nullptr, ok, myInternalJunctionsVehicleWidth);
+            myJunctionsEndpointShape = attrs.getOpt<bool>(SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE, nullptr, ok, myJunctionsEndpointShape);
             // derived
             const OptionsCont& oc = OptionsCont::getOptions();
             myChangeLefthand = !oc.isDefault("lefthand") && (oc.getBool("lefthand") != myAmLefthand);

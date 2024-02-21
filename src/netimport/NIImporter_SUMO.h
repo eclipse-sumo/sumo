@@ -426,6 +426,8 @@ private:
     bool myJunctionsHigherSpeed;
     /// @brief custom settings for internal junction computation
     double myInternalJunctionsVehicleWidth;
+    /// @brief custom settings for junction shape computation
+    bool myJunctionsEndpointShape;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
