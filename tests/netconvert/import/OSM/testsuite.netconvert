@@ -145,3 +145,5 @@ restrictionException_no
 # example network from Zuerich
 oerlikon
 bugs
+width_lane
+crossings

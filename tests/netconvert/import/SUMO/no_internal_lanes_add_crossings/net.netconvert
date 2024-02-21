@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 16 12:45:36 2015 by SUMO netconvert Version dev-SVN-r18205ID
+<!-- generated on 2024-02-21 11:09:13 by Eclipse SUMO netconvert Version v1_19_0+0931-b4cf38940af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -13,14 +18,29 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <crossings.guess value="true"/>
+        <lefthand value="0"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <crossings.guess value="true"/>
+        <walkingareas value="0"/>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -29,29 +49,23 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,19.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="0.10" shape="9.00,-1.65 9.00,-1.65"/>
-    </edge>
-
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="9.00" shape="0.00,-1.65 9.00,-1.65"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="9.00" shape="0.00,-1.60 9.00,-1.60"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ3" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="10.00" shape="9.00,-1.65 19.00,-1.65"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="10.00" shape="9.00,-1.60 19.00,-1.60"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
-    <junction id="gneJ1" type="priority" x="9.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="9.00,-0.05 9.00,-3.25 9.00,-0.05">
-        <request index="0" response="0" foes="0" cont="0"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="gneJ1" type="priority" x="9.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="9.00,0.00 9.00,-3.20 9.00,0.00">
+        <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="gneJ3" type="unregulated" x="19.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="19.00,-3.25 19.00,-0.05"/>
+    <junction id="gneJ3" type="dead_end" x="19.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="19.00,-3.20 19.00,0.00"/>
 
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
-
-    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
