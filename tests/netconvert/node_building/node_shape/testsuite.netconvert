@@ -39,3 +39,6 @@ curved_back
 
 # force building junctions with minimal shapes.
 minimal-shape
+
+# build junctions based on (custom) edge endpoints
+endpoint-shape
