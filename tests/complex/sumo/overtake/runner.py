@@ -98,7 +98,7 @@ def generateDemand(pin, nLanes):
                 vehID += 1
                 s = '\t<vehicle depart="' + \
                     repr(t) + '" arrivalPos="-1" id="' + repr(vehID) + \
-                    '" route="route01" departPos="pwagSimple"'
+                    '" route="route01"'
                 if (lane == 0):
                     if random.random() < pTruck / (pTruck + 0.5 * pMed):
                         s = s + ' type="truck" departLane="' + \

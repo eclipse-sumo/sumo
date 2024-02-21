@@ -61,3 +61,10 @@ options
 
 # testing replay of fcd data
 fcdReplay
+gui
+max_depart
+overtake
+
+# test emissions for different tls configurations (old and some config files
+# missing)
+#tls_emissions

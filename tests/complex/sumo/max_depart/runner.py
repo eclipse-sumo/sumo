@@ -40,7 +40,7 @@ PERIOD = 5
 DEPARTSPEED = "max"
 
 fdo = open("results.csv", "w")
-for departPos in "random free random_free base pwagSimple pwagGeneric maxSpeedGap".split():
+for departPos in "random free random_free base last".split():
     print(">>> Building the routes (for departPos %s)" % departPos)
     fd = open("input_routes.rou.xml", "w")
     print("""<routes>

@@ -20,11 +20,13 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import subprocess
+import os
 import sys
 import sumodump
 import sumotripinfos
 import sumodetectors
-
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 def call(command, log):
     print("-" * 79, file=log)
@@ -122,9 +124,9 @@ T = 180
 log = open("logfile.txt", "w")
 
 # os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'netconvert'))
-netconvertBinary = ".\\netconvert.exe"
+netconvertBinary = sumolib.checkBinary("netconvert")
 call(netconvertBinary + " -c netconvert.netc.cfg -v", log)
-sumoBinary = ".\\sumo.exe"
+sumoBinary = sumolib.checkBinary("sumo")
 
 emissionClasses = []
 fd = open("all.txt")

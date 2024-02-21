@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/09/12 22:34:19 by SUMO netconvert Version dev-SVN-r13142
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2024-02-21 11:48:27 by Eclipse SUMO netconvert Version v1_19_0+0936-ceae20d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="data/circular.nod.xml"/>
         <edge-files value="data/circular.edg.xml"/>
-        <type-files value="data/circular.type.xml"/>
+        <type-files value="data/circular.typ.xml"/>
     </input>
 
     <output>
         <output-file value="data/circular.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1250.00,1250.00" origBoundary="0.00,0.00,1250.00,1250.00" projParameter="!"/>
 
+    <type id="edgeType" numLanes="2" speed="36.10"/>
+
     <edge id="bottom" from="bottom-left" to="bottom-right" priority="-1" type="edgeType">
-        <lane id="bottom_0" index="0" speed="36.10" length="1250.10" shape="-0.05,-4.95 1250.05,-4.95"/>
-        <lane id="bottom_1" index="1" speed="36.10" length="1250.10" shape="-0.05,-1.65 1250.05,-1.65"/>
+        <lane id="bottom_0" index="0" speed="36.10" length="1250.00" shape="0.00,-4.80 1250.00,-4.80"/>
+        <lane id="bottom_1" index="1" speed="36.10" length="1250.00" shape="0.00,-1.60 1250.00,-1.60"/>
     </edge>
     <edge id="left" from="top-left" to="bottom-left" priority="-1" type="edgeType">
-        <lane id="left_0" index="0" speed="36.10" length="1250.10" shape="-4.95,1250.05 -4.95,-0.05"/>
-        <lane id="left_1" index="1" speed="36.10" length="1250.10" shape="-1.65,1250.05 -1.65,-0.05"/>
+        <lane id="left_0" index="0" speed="36.10" length="1250.00" shape="-4.80,1250.00 -4.80,0.00"/>
+        <lane id="left_1" index="1" speed="36.10" length="1250.00" shape="-1.60,1250.00 -1.60,0.00"/>
     </edge>
     <edge id="right" from="bottom-right" to="top-right" priority="-1" type="edgeType">
-        <lane id="right_0" index="0" speed="36.10" length="1250.10" shape="1254.95,-0.05 1254.95,1250.05"/>
-        <lane id="right_1" index="1" speed="36.10" length="1250.10" shape="1251.65,-0.05 1251.65,1250.05"/>
+        <lane id="right_0" index="0" speed="36.10" length="1250.00" shape="1254.80,0.00 1254.80,1250.00"/>
+        <lane id="right_1" index="1" speed="36.10" length="1250.00" shape="1251.60,0.00 1251.60,1250.00"/>
     </edge>
     <edge id="top" from="top-right" to="top-left" priority="-1" type="edgeType">
-        <lane id="top_0" index="0" speed="36.10" length="1250.10" shape="1250.05,1254.95 -0.05,1254.95"/>
-        <lane id="top_1" index="1" speed="36.10" length="1250.10" shape="1250.05,1251.65 -0.05,1251.65"/>
+        <lane id="top_0" index="0" speed="36.10" length="1250.00" shape="1250.00,1254.80 0.00,1254.80"/>
+        <lane id="top_1" index="1" speed="36.10" length="1250.00" shape="1250.00,1251.60 0.00,1251.60"/>
     </edge>
 
-    <junction id="bottom-left" type="priority" x="0.00" y="0.00" incLanes="left_0 left_1" intLanes="" shape="-6.55,-0.05 -0.05,-0.05 -0.05,-6.55">
+    <junction id="bottom-left" type="priority" x="0.00" y="0.00" incLanes="left_0 left_1" intLanes="" shape="-6.40,0.00 0.00,0.00 0.00,-6.40 -3.56,-5.69 -4.80,-4.80 -5.69,-3.56 -6.22,-1.96">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="bottom-right" type="priority" x="1250.00" y="0.00" incLanes="bottom_0 bottom_1" intLanes="" shape="1250.05,-0.05 1256.55,-0.05 1250.05,-6.55 1250.05,-0.05">
+    <junction id="bottom-right" type="priority" x="1250.00" y="0.00" incLanes="bottom_0 bottom_1" intLanes="" shape="1250.00,0.00 1256.40,0.00 1255.69,-3.56 1254.80,-4.80 1253.56,-5.69 1251.96,-6.22 1250.00,-6.40">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="top-left" type="priority" x="0.00" y="1250.00" incLanes="top_0 top_1" intLanes="" shape="-0.05,1256.55 -0.05,1250.05 -6.55,1250.05">
+    <junction id="top-left" type="priority" x="0.00" y="1250.00" incLanes="top_0 top_1" intLanes="" shape="0.00,1256.40 0.00,1250.00 -6.40,1250.00 -5.69,1253.56 -4.80,1254.80 -3.56,1255.69 -1.96,1256.22">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="top-right" type="priority" x="1250.00" y="1250.00" incLanes="right_0 right_1" intLanes="" shape="1256.55,1250.05 1250.05,1250.05 1250.05,1256.55">
+    <junction id="top-right" type="priority" x="1250.00" y="1250.00" incLanes="right_0 right_1" intLanes="" shape="1256.40,1250.00 1250.00,1250.00 1250.00,1256.40 1253.56,1255.69 1254.80,1254.80 1255.69,1253.56 1256.22,1251.96">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

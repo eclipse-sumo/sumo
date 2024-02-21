@@ -184,10 +184,10 @@ if __name__ == "__main__":
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    traci.start([sumoBinary, "-n", options.nfile, "-r", options.rfile, "-a", options.afile, "--step-length=0.25",
+    traci.start(map(str, [sumoBinary, "-n", options.nfile, "-r", options.rfile, "-a", options.afile, "--step-length=0.25",
                  "--lateral-resolution=0.8", "--ignore-route-errors", "--step-method.ballistic",
                  "--fcd-output", options.opfile, "--gui-settings-file", options.vfile, "--summary", options.summary,
-                 "--lanechange-output", options.lcfile, "--error-log", options.elfile, "--no-step-log", "true"])
+                 "--lanechange-output", options.lcfile, "--error-log", options.elfile, "--no-step-log", "true"]))
 
     if code == "UC1_1":
         downwardEdgeID = "approach2"

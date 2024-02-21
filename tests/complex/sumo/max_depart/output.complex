@@ -1,0 +1,90 @@
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_19_0+0936-ceae20d started with time: 0.00.
+Simulation ended at time: 10000.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1.37s
+ Real time factor: 7288.63
+ UPS: 382202.623907
+Vehicles: 
+ Inserted: 4411 (Loaded: 6000)
+ Running: 61
+ Waiting: 1589
+
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_19_0+0936-ceae20d started with time: 0.00.
+Simulation ended at time: 10000.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1.71s
+ Real time factor: 5847.95
+ UPS: 467394.736842
+Vehicles: 
+ Inserted: 4941 (Loaded: 6000)
+ Running: 97
+ Waiting: 1059
+
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_19_0+0936-ceae20d started with time: 0.00.
+Simulation ended at time: 10000.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1.97s
+ Real time factor: 5068.42
+ UPS: 436439.432337
+Vehicles: 
+ Inserted: 4971 (Loaded: 6000)
+ Running: 101
+ Waiting: 1029
+
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_19_0+0936-ceae20d started with time: 0.00.
+Simulation ended at time: 10000.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1.42s
+ Real time factor: 7022.47
+ UPS: 403856.741573
+Vehicles: 
+ Inserted: 4481 (Loaded: 6000)
+ Running: 62
+ Waiting: 1519
+
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_19_0+0936-ceae20d started with time: 0.00.
+Simulation ended at time: 10000.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1.38s
+ Real time factor: 7267.44
+ UPS: 447641.715116
+Vehicles: 
+ Inserted: 4764 (Loaded: 6000)
+ Running: 70
+ Waiting: 1236
+
+>>> Building the routes (for departPos random)
+>>> Simulating ((for departPos random)
+>>> Building the routes (for departPos free)
+>>> Simulating ((for departPos free)
+>>> Building the routes (for departPos random_free)
+>>> Simulating ((for departPos random_free)
+>>> Building the routes (for departPos base)
+>>> Simulating ((for departPos base)
+>>> Building the routes (for departPos last)
+>>> Simulating ((for departPos last)

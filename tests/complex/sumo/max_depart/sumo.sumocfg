@@ -16,4 +16,9 @@
         <time-to-teleport value="-1" />
     </processing>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+
 </configuration>
