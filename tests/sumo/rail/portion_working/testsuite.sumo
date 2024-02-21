@@ -4,6 +4,9 @@ split
 # split a train into two parts without specifing the departPos of the train that is created by splitting
 split_departPosDefault
 
+# split a train into a long rear part and a short front part
+split_longTrain
+
 # join two train parts into a single train
 join
 
@@ -27,6 +30,13 @@ join_front_further
 
 # the front part of the train is joined to the rear part but front part is already on another edge
 join_front_route_invalid
+
+# join two train parts into a single train. rail signal must allow the train to enter the block where the front part to be joined is already standing
+join_front_signal
+
+# the front part of the train is joined to the rear part (the rear part keeps its id),
+# the route of the front part continues (though it should disappear)
+join_front_route_problem
 
 # a single train has a split and a join-trigger
 locomotive_switches_sides

@@ -87,6 +87,9 @@ circle_backward
 # track layout with a circle and a single railSignal
 circle_1signal
 
+# prevent insertion on short edge before red rail signal
+guard_insertion
+
 # upstream signal that guards switch must take route of approaching trains into account for deciding signal state
 indirect_guard_check_route
 
