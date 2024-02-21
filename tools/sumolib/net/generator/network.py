@@ -16,10 +16,15 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import sumolib
 import os
+import sys
 import subprocess
 import tempfile
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(os.path.join(tools))
+import sumolib  # noqa
 
 
 class Node:

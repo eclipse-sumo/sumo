@@ -18,12 +18,8 @@
 from __future__ import absolute_import
 import os
 import sys
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-    os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
 
-from . import network  # noqa
+import network  # noqa
 
 
 def straight(defaultNode=None, defaultEdge=None, centralReservation=0):

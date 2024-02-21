@@ -16,7 +16,7 @@
 # @date    2013-10-10
 
 from __future__ import absolute_import
-from . import network  # noqa
+import network  # noqa
 
 
 def cross(defaultNode=None, defaultEdge=None, centralReservation=0):
