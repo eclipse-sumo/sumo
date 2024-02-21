@@ -1,0 +1,4 @@
+[run_dependent_text]
+output:Parsing nodes from '.*{REPLACE Parsing nodes from FILE}
+output:Parsing edges from '.*{REPLACE Parsing edges from FILE}
+output:Parsing connections from '.*{REPLACE Parsing connections from FILE}
