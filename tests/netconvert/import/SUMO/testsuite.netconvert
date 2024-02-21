@@ -125,5 +125,8 @@ junction_name
 # use stored option in network (#4397)
 internalJunctionVehicleWidth
 
+# build junctions based on (custom) edge endpoints
+endpoint-shape
+
 # load bidi attribute from input network
 bidi
