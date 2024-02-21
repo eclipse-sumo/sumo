@@ -3,6 +3,9 @@ build_passenger
 
 # test all modes on the default location of osmWebWizard.py
 webWizard
+
+# test what happens if there are no suitable edges for passenger traffic
+webWizard_missingEdges
 webWizard_saveTemplate
 
 # test extraction of taxi stands as chargingStations
