@@ -49,3 +49,6 @@ monorail_all
 
 # medellin aerialway
 aerialway
+
+# importing waterways and a ferry line
+ferry
