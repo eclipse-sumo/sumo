@@ -631,7 +631,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // with is meant for raw lane count before adding sidewalks or cycleways
     const int taggedLanes = (addForward ? numLanesForward : 0) + (addBackward ? numLanesBackward : 0);
-    if (e->myWidth > 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0 && taggedLanes != 0) {
+    if (e->myWidth > 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0 && taggedLanes != 0
+            && !OptionsCont::getOptions().getBool("ignore-widths")) {
         // width is tagged excluding sidewalks and cycleways
         forwardWidth = e->myWidth / taggedLanes;
         backwardWidth = forwardWidth;
@@ -774,7 +775,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
             // process forward lanes width
             const int numForwardLanesFromWidthKey = (int)e->myWidthLanesForward.size();
-            if (numForwardLanesFromWidthKey > 0) {
+            if (numForwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
                 if ((int)nbe->getLanes().size() != numForwardLanesFromWidthKey) {
                     WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."),
                                    id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
@@ -824,7 +825,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             // process backward lanes width
             const int numBackwardLanesFromWidthKey = (int)e->myWidthLanesBackward.size();
-            if (numBackwardLanesFromWidthKey > 0) {
+            if (numBackwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
                 if ((int)nbe->getLanes().size() != numBackwardLanesFromWidthKey) {
                     WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."),
                                    id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);

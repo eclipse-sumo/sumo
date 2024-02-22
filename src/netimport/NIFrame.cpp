@@ -168,6 +168,10 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.doRegister("ignore-change-restrictions", new Option_StringVector(StringVector({"authority"})));
     oc.addDescription("ignore-change-restrictions", "Formats", TL("List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions)"));
 
+    oc.doRegister("ignore-widths", new Option_Bool(false));
+    oc.addSynonyme("ignore-widths", "opendrive.ignore-widths", false);
+    oc.addDescription("ignore-widths", "Formats", TL("Whether lane widths shall be ignored."));
+
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
@@ -350,8 +354,6 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     // register opendrive options
     oc.doRegister("opendrive.import-all-lanes", new Option_Bool(false));
     oc.addDescription("opendrive.import-all-lanes", "Formats", TL("Imports all lane types"));
-    oc.doRegister("opendrive.ignore-widths", new Option_Bool(false));
-    oc.addDescription("opendrive.ignore-widths", "Formats", TL("Whether lane widths shall be ignored."));
     oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
     oc.addDescription("opendrive.curve-resolution", "Formats", TL("The geometry resolution in m when importing curved geometries as line segments."));
     oc.doRegister("opendrive.advance-stopline", new Option_Float(0.0));
