@@ -38,7 +38,8 @@ def get_options(args=None):
                            help="run all thread counts, not only the powers of 2")
     argparser.add_argument("-v", "--verbose", action="store_true", default=False,
                            help="give more information")
-    argparser.add_argument("--number", type=int, default=100, help="number of vehicles")
+    argparser.add_argument("-n", "--number", type=int, default=100, help="number of vehicles")
+    argparser.add_argument("--figure", metavar="FILE", help="save figure to FILE")
     return argparser.parse_args(args)
 
 
@@ -73,13 +74,16 @@ def main():
     results = []
     for t in tc:
         timer = timeit.Timer('subprocess.call(["%s", "-n", "net.net.xml", "-r", "%s", "--threads", "%s", "--no-step-log"])' %
-                             (sumolib.checkBinary("sumo"), rout.name, t), setup='import subprocess')
+                             (sumolib.checkBinary("sumo").replace("\\", "\\\\"), rout.name, t), setup='import subprocess')
         times = timer.repeat(options.runs, 1)
         if options.verbose:
             print(t, times)
         results.append((t, min(times)))
     plt.plot(*zip(*results))
-    plt.show()
+    if options.figure:
+        plt.savefig(options.figure)
+    else:
+        plt.show()
 
 
 if __name__ == "__main__":
