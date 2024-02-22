@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_19_0+0910-7ddfc6d
+Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -557,6 +557,7 @@ Formats Options:
   --ignore-change-restrictions STR[]   List vehicle classes that may ignore
                                         lane changing restrictions ('all'
                                         discards all restrictions)
+  --ignore-widths                      Whether lane widths shall be ignored.
   --osm.skip-duplicates-check          Skips the check for duplicate nodes and
                                         edges
   --osm.elevation                      Imports elevation data
@@ -637,7 +638,6 @@ Formats Options:
   --visum.lanes-from-capacity.norm FLOAT  The factor for flow to no. lanes
                                         conversion
   --opendrive.import-all-lanes         Imports all lane types
-  --opendrive.ignore-widths            Whether lane widths shall be ignored.
   --opendrive.curve-resolution FLOAT   The geometry resolution in m when
                                         importing curved geometries as line
                                         segments.

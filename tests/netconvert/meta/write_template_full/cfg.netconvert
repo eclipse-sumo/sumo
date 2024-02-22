@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-20 23:25:46 by Eclipse SUMO netconvert Version v1_19_0+0910-7ddfc6d
+<!-- generated on 2024-02-22 13:20:00 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -307,6 +307,7 @@
     <formats>
         <discard-params value="" type="STR[]" help="Remove the list of keys from all params"/>
         <ignore-change-restrictions value="authority" type="STR[]" help="List vehicle classes that may ignore lane changing restrictions (&apos;all&apos; discards all restrictions)"/>
+        <ignore-widths value="false" synonymes="opendrive.ignore-widths" type="BOOL" help="Whether lane widths shall be ignored."/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
@@ -358,7 +359,6 @@
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
-        <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
         <opendrive.advance-stopline value="0" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>

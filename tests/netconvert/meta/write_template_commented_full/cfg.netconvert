@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-20 23:25:46 by Eclipse SUMO netconvert Version v1_19_0+0910-7ddfc6d
+<!-- generated on 2024-02-22 13:20:00 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -825,6 +825,9 @@
         <!-- List vehicle classes that may ignore lane changing restrictions (&apos;all&apos; discards all restrictions) -->
         <ignore-change-restrictions value="authority" type="STR[]"/>
 
+        <!-- Whether lane widths shall be ignored. -->
+        <ignore-widths value="false" synonymes="opendrive.ignore-widths" type="BOOL"/>
+
         <!-- Skips the check for duplicate nodes and edges -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
@@ -977,9 +980,6 @@
 
         <!-- Imports all lane types -->
         <opendrive.import-all-lanes value="false" type="BOOL"/>
-
-        <!-- Whether lane widths shall be ignored. -->
-        <opendrive.ignore-widths value="false" type="BOOL"/>
 
         <!-- The geometry resolution in m when importing curved geometries as line segments. -->
         <opendrive.curve-resolution value="2" type="FLOAT"/>
