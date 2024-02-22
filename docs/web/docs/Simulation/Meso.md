@@ -206,7 +206,7 @@ All attributes are optional and default to the value of the option with the corr
 
 ## Multimodal simulation
 
-By default, meso is meant to be used for road vehicles (i.e. cars and trucks). To make use of bicycles and edges that do not permit paasenger cars, option **--meso-lane-queue** must be set.
+By default, meso is meant to be used for road vehicles (i.e. cars and trucks). To make use of bicycles and edges that do not permit passenger cars, option **--meso-lane-queue** must be set.
 This will turn every lane into a distinct queue instead of treating parallel lanes as a single queue.
 
 ## Outputs
