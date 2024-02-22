@@ -31,6 +31,7 @@ Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
 Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
 Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
+Warning: Shape for junction '158710676' has distance 21.60 to its given position.
 Warning: Could not find edge for parkingArea '46039050#2'.
 Warning: Could not find edge for parkingArea '46039050#3'.
 Warning: Could not find edge for parkingArea '46039050#5'.
