@@ -629,6 +629,17 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesBackward = -e->myNoLanesForward;
         }
     }
+    // deal with busways that run in the opposite direction of a one-way street
+    if (!addForward && (e->myBuswayType & WAY_FORWARD) != 0) {
+        addForward = true;
+        forwardPermissions = SVC_BUS;
+        numLanesForward = 1;
+    }
+    if (!addBackward && (e->myBuswayType & WAY_BACKWARD) != 0) {
+        addBackward = true;
+        backwardPermissions = SVC_BUS;
+        numLanesBackward = 1;
+    }
     // with is meant for raw lane count before adding sidewalks or cycleways
     const int taggedLanes = (addForward ? numLanesForward : 0) + (addBackward ? numLanesBackward : 0);
     if (e->myWidth > 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0 && taggedLanes != 0
@@ -707,17 +718,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             // on the road
             backwardPermissions |= SVC_PEDESTRIAN;
         }
-    }
-    // deal with busways that run in the opposite direction of a one-way street
-    if (!addForward && (e->myBuswayType & WAY_FORWARD) != 0) {
-        addForward = true;
-        forwardPermissions = SVC_BUS;
-        numLanesForward = 1;
-    }
-    if (!addBackward && (e->myBuswayType & WAY_BACKWARD) != 0) {
-        addBackward = true;
-        backwardPermissions = SVC_BUS;
-        numLanesBackward = 1;
     }
 
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
