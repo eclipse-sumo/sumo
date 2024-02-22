@@ -742,7 +742,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         stop_attr = (stop.stop_item_id,
                                      ft(parseTime(str(stop.arrival_fixed.days + day) +
                                         ":" + str(stop.arrival_fixed).split(' ')[2])),
-                                     ft(options.duration),
+                                     ft(options.duration) if options.duration > 60 else options.duration,
                                      ft(parseTime(str(stop.departure_fixed.days + day) +
                                         ":" + str(stop.departure_fixed).split(' ')[2])),
                                      stop.stop_sequence, stop_list.stop_sequence.max(),
