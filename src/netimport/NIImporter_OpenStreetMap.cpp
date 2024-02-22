@@ -629,6 +629,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             numLanesBackward = -e->myNoLanesForward;
         }
     }
+    // with is meant for raw lane count before adding sidewalks or cycleways
+    const int taggedLanes = (addForward ? numLanesForward : 0) + (addBackward ? numLanesBackward : 0);
+    if (e->myWidth > 0 && e->myWidthLanesForward.size() == 0 && e->myWidthLanesBackward.size() == 0 && taggedLanes != 0) {
+        // width is tagged excluding sidewalks and cycleways
+        forwardWidth = e->myWidth / taggedLanes;
+        backwardWidth = forwardWidth;
+    }
+
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
         speed = e->myMaxSpeed / 3.6;
@@ -1188,7 +1196,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "bicycle:lanes"
                 && key != "bicycle:lanes:forward"
                 && key != "bicycle:lanes:backward"
-                && !StringUtils::startsWith(key, "width:lanes")
+                && !StringUtils::startsWith(key, "width")
                 && !StringUtils::startsWith(key, "turn:lanes")
                 && key != "public_transport") {
             return;
@@ -1363,6 +1371,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             } catch (const NumberFormatException&) {
                 WRITE_WARNINGF(TL("Using default lane width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
+            }
+        } else if (key == "width") {
+            try {
+                myCurrentEdge->myWidth = StringUtils::toDouble(value);
+            } catch (const NumberFormatException&) {
+                WRITE_WARNINGF(TL("Using default width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
             }
         } else if (key == "foot") {
             if (value == "use_sidepath" || value == "no") {

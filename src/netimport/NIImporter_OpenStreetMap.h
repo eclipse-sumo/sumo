@@ -180,7 +180,8 @@ protected:
             myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
-            myAmInRoundabout(false)
+            myAmInRoundabout(false),
+            myWidth(-1)
         { }
 
         virtual ~Edge() {}
@@ -249,6 +250,7 @@ protected:
         /// @brief Information on lane width
         std::vector<double> myWidthLanesForward;
         std::vector<double> myWidthLanesBackward;
+        double myWidth;
 
     private:
         /// invalidated assignment operator
