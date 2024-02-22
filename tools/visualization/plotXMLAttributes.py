@@ -45,7 +45,7 @@ except ImportError as e:
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib import openz  # noqa
-from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.miscutils import uMin, uMax, parseTime, short_names  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import sumolib.visualization.helpers  # noqa
 
@@ -206,22 +206,6 @@ def write_csv(data, fname):
                 f.write(" ".join(map(str, x)) + "\n")
             #  2 blank lines indicate a new data block in gnuplot
             f.write('\n\n')
-
-
-def short_names(filenames, noEmpty):
-    if len(filenames) == 1:
-        return filenames
-    reversedNames = [''.join(reversed(f)) for f in filenames]
-    prefix = os.path.commonprefix(filenames)
-    suffix = os.path.commonprefix(reversedNames)
-    prefixLen = len(prefix)
-    suffixLen = len(suffix)
-    shortened = [f[prefixLen:-suffixLen] for f in filenames]
-    if noEmpty and any([not f for f in shortened]):
-        # make longer to avoid empty file names
-        base = os.path.basename(prefix)
-        shortened = [base + f for f in shortened]
-    return shortened
 
 
 def onpick(event):

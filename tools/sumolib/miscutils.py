@@ -324,3 +324,21 @@ def openz(fileOrURL, mode="r", **kwargs):
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
     return io.open(fileOrURL, mode=mode, encoding=encoding)
+
+
+def short_names(filenames, noEmpty):
+    if len(filenames) == 1:
+        return filenames
+    reversedNames = [''.join(reversed(f)) for f in filenames]
+    prefix = os.path.commonprefix(filenames)
+    suffix = os.path.commonprefix(reversedNames)
+    prefixLen = len(prefix)
+    suffixLen = len(suffix)
+    shortened = [f[prefixLen:-suffixLen] for f in filenames]
+    if noEmpty and any([not f for f in shortened]):
+        # make longer to avoid empty file names
+        base = os.path.basename(prefix)
+        shortened = [base + f for f in shortened]
+    return shortened
+
+
