@@ -1631,6 +1631,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 myCollisionImmunity = TIME2STEPS(100);
                 // mark this vehicle as arrived
                 myArrivalPos = getPositionOnLane();
+                const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = getRoutePosition();
             }
         }
         boardTransportables(stop);
