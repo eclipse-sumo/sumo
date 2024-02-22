@@ -25,7 +25,7 @@ from collections import defaultdict
 import math
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.xml import parse  # noqa
-from sumolib.miscutils import Statistics, geh  # noqa
+from sumolib.miscutils import Statistics, geh, short_names  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 
@@ -54,8 +54,10 @@ def write_diff(options):
         for interval_old, interval_new in zip(
                 parse(options.orig, 'interval', heterogeneous=True),
                 parse(options.new, 'interval', heterogeneous=True)):
-            f.write('    <interval begin="%s" end="%s">\n' %
-                    (interval_old.begin, interval_old.end))
+            f.write('    <interval begin="%s" end="%s" id="%s@%s - %s@%s">\n' %
+                    (interval_old.begin, interval_old.end,
+                        interval_new.id, options.new,
+                        interval_old.id, options.orig))
             interval_new_edges = dict([(e.id, e) for e in interval_new.edge])
             for edge_old in interval_old.edge:
                 edge_new = interval_new_edges.get(edge_old.id, None)
