@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-16 14:39:40 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
+<!-- generated on 2024-02-22 13:59:50 by Eclipse SUMO netconvert Version v1_19_0+0965-4998ef0cb0f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/behr_mi/.texttest/tmp/tools.16Nov143935.334293/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -137,8 +137,8 @@
     </busStop>
     <busStop id="-2776873647" name="Berlin Alexanderplatz" lane="-32572618#0_0" startPos="0.00" endPos="200.00" friendlyPos="true">
         <access lane="272757266_0" pos="9.55" length="7.84" friendlyPos="1"/>
-        <access lane="272757297_0" pos="0.12" length="10.60" friendlyPos="1"/>
-        <access lane="272757306_0" pos="0.00" length="10.85" friendlyPos="1"/>
+        <access lane="272757297_0" pos="0.00" length="10.97" friendlyPos="1"/>
+        <access lane="272757306_0" pos="0.00" length="10.48" friendlyPos="1"/>
         <access lane="272757323#0_0" pos="5.43" length="10.61" friendlyPos="1"/>
         <access lane="272757323#1_0" pos="0.20" length="7.92" friendlyPos="1"/>
     </busStop>
@@ -158,8 +158,8 @@
         <access lane="521729368#1_0" pos="0.26" length="5.84" friendlyPos="1"/>
     </busStop>
     <busStop id="-3419694885" name="Berlin Alexanderplatz" lane="-32590651#0_0" startPos="835.30" endPos="1035.30" friendlyPos="true">
-        <access lane="272757282_0" pos="0.20" length="8.81" friendlyPos="1"/>
-        <access lane="272757297_0" pos="9.51" length="8.73" friendlyPos="1"/>
+        <access lane="272757282_0" pos="0.20" length="8.43" friendlyPos="1"/>
+        <access lane="272757297_0" pos="7.23" length="8.88" friendlyPos="1"/>
         <access lane="272757314_0" pos="2.41" length="3.29" friendlyPos="1"/>
         <access lane="272757335#1_0" pos="0.20" length="9.81" friendlyPos="1"/>
         <access lane="272757341#0_0" pos="0.00" length="9.36" friendlyPos="1"/>
@@ -470,8 +470,8 @@
     <busStop id="271884565" name="Memhardstraße" lane="523630412_0" startPos="8.71" endPos="23.71" friendlyPos="true" lines="N65"/>
     <busStop id="272408975" name="Unter den Linden/Friedrichstraße" lane="188386313#0_1" startPos="15.63" endPos="30.63" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="27411231" name="S Alexanderplatz" lane="4471817#1_0" startPos="670.60" endPos="870.60" friendlyPos="true" lines="S5 S7 S3 S9">
-        <access lane="272757274_0" pos="0.00" length="10.59" friendlyPos="1"/>
-        <access lane="272757292_0" pos="0.00" length="10.86" friendlyPos="1"/>
+        <access lane="272757274_0" pos="0.00" length="11.26" friendlyPos="1"/>
+        <access lane="272757292_0" pos="0.00" length="10.42" friendlyPos="1"/>
         <access lane="272757311_0" pos="9.56" length="8.24" friendlyPos="1"/>
         <access lane="272757337#1_0" pos="5.10" length="10.17" friendlyPos="1"/>
         <access lane="272757337#2_0" pos="0.20" length="8.03" friendlyPos="1"/>
@@ -492,8 +492,8 @@
     </busStop>
     <busStop id="2776873647" name="Berlin Alexanderplatz" lane="32590636#1_0" startPos="413.66" endPos="613.66" friendlyPos="true" lines="RE1 RE2 RB14 RE7">
         <access lane="272757266_0" pos="9.55" length="7.84" friendlyPos="1"/>
-        <access lane="272757297_0" pos="0.12" length="10.60" friendlyPos="1"/>
-        <access lane="272757306_0" pos="0.00" length="10.85" friendlyPos="1"/>
+        <access lane="272757297_0" pos="0.00" length="10.97" friendlyPos="1"/>
+        <access lane="272757306_0" pos="0.00" length="10.48" friendlyPos="1"/>
         <access lane="272757323#0_0" pos="5.43" length="10.61" friendlyPos="1"/>
         <access lane="272757323#1_0" pos="0.20" length="7.92" friendlyPos="1"/>
     </busStop>
@@ -583,8 +583,8 @@
     <busStop id="3352479219" name="Fischerinsel" lane="4773463#0_1" startPos="29.90" endPos="44.90" friendlyPos="true" lines="M48 248 N42 265"/>
     <busStop id="3352479220" name="Fischerinsel" lane="23851917#0_1" startPos="22.35" endPos="37.35" friendlyPos="true" lines="M48 248 N42"/>
     <busStop id="3419694885" name="Berlin Alexanderplatz" lane="32572622#1_0" startPos="77.09" endPos="277.09" friendlyPos="true" lines="RE2 RE1 RE7 RB14">
-        <access lane="272757282_0" pos="0.20" length="8.81" friendlyPos="1"/>
-        <access lane="272757297_0" pos="9.51" length="8.73" friendlyPos="1"/>
+        <access lane="272757282_0" pos="0.20" length="8.43" friendlyPos="1"/>
+        <access lane="272757297_0" pos="7.23" length="8.88" friendlyPos="1"/>
         <access lane="272757314_0" pos="2.41" length="3.29" friendlyPos="1"/>
         <access lane="272757335#1_0" pos="0.20" length="9.81" friendlyPos="1"/>
         <access lane="272757341#0_0" pos="0.00" length="9.36" friendlyPos="1"/>
@@ -619,7 +619,7 @@
     <busStop id="3867910416" name="Berliner Rathaus" lane="60333311#2_2" startPos="0.00" endPos="15.00" friendlyPos="true" lines="248"/>
     <busStop id="3867910417" name="Berliner Rathaus" lane="309479676_1" startPos="9.48" endPos="24.48" friendlyPos="true" lines="248"/>
     <busStop id="3867910420" name="Lustgarten" lane="61584187#2_1" startPos="1.76" endPos="16.76" friendlyPos="true" lines="100 200 N2"/>
-    <busStop id="3867910421" name="Lustgarten" lane="54048862#3_1" startPos="16.81" endPos="31.81" friendlyPos="true" lines="100 200 N2"/>
+    <busStop id="3867910421" name="Lustgarten" lane="54048862#3_1" startPos="15.01" endPos="30.01" friendlyPos="true" lines="100 200 N2"/>
     <busStop id="3867910423" name="Neumannsgasse" lane="43156728#2_2" startPos="4.38" endPos="19.38" friendlyPos="true" lines="147"/>
     <busStop id="3867910424" name="Nikolaiviertel" lane="23851927#1_1" startPos="13.51" endPos="28.51" friendlyPos="true" lines="M48 248 N42"/>
     <busStop id="3867910425" name="S Hackescher Markt" lane="275177453_0" startPos="22.17" endPos="37.17" friendlyPos="true" lines="N65 N8 N40">
@@ -716,8 +716,8 @@
         <access lane="-195105328#0_0" pos="6.31" length="26.78" friendlyPos="1"/>
         <access lane="107747047#3_0" pos="45.71" length="19.77" friendlyPos="1"/>
         <access lane="24243056_0" pos="45.09" length="7.89" friendlyPos="1"/>
-        <access lane="254339581#1_0" pos="0.20" length="28.51" friendlyPos="1"/>
-        <access lane="254339581#2_0" pos="0.95" length="24.12" friendlyPos="1"/>
+        <access lane="254339581#1_0" pos="0.20" length="28.29" friendlyPos="1"/>
+        <access lane="254339581#2_0" pos="1.35" length="24.12" friendlyPos="1"/>
     </busStop>
     <busStop id="4961125734" name="U Rosa-Luxemburg-Platz" lane="272795470#1_0" startPos="658.38" endPos="858.38" friendlyPos="true" lines="U2">
         <access lane="-24241762#2_0" pos="0.00" length="147.54" friendlyPos="1"/>
@@ -727,8 +727,8 @@
     <busStop id="5227235608" name="U Rosenthaler Platz" lane="381201610_0" startPos="622.91" endPos="822.91" friendlyPos="true" lines="U8"/>
     <busStop id="574265352" name="S Alexanderplatz" lane="32590433#2_0" startPos="96.11" endPos="296.11" friendlyPos="true" lines="S5 S7 S3 S9">
         <access lane="272757271_0" pos="2.17" length="2.57" friendlyPos="1"/>
-        <access lane="272757273_0" pos="0.20" length="8.37" friendlyPos="1"/>
-        <access lane="272757274_0" pos="9.62" length="9.00" friendlyPos="1"/>
+        <access lane="272757273_0" pos="0.20" length="8.04" friendlyPos="1"/>
+        <access lane="272757274_0" pos="7.28" length="9.27" friendlyPos="1"/>
         <access lane="272757341#1_0" pos="0.20" length="9.38" friendlyPos="1"/>
         <access lane="72157168#2_0" pos="7.06" length="9.22" friendlyPos="1"/>
     </busStop>

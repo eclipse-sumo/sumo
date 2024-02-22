@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-21 22:48:03 by Eclipse SUMO netconvert Version v1_19_0+0936-ceae20d2574
+<!-- generated on 2024-02-22 13:59:43 by Eclipse SUMO netconvert Version v1_19_0+0965-4998ef0cb0f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.21Feb224759.85271/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -58,6 +58,18 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="2045908036" name="Krampenburg" lane="25881424_0" startPos="851.13" endPos="876.13" friendlyPos="true" lines="F21"/>
-    <busStop id="262882408" name="Zum Seeblick" lane="25881424_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="F21"/>
+    <busStop id="2045908036" name="Krampenburg" lane="25881424_0" startPos="851.13" endPos="876.13" friendlyPos="true" lines="F21">
+        <access lane="-62450095_0" pos="0.00" length="39.74" friendlyPos="1"/>
+        <access lane="-62450100#0_0" pos="102.94" length="38.96" friendlyPos="1"/>
+        <access lane="56323943_0" pos="21.91" length="1.51" friendlyPos="1"/>
+        <access lane="62450095_0" pos="253.31" length="44.49" friendlyPos="1"/>
+        <access lane="62450100#0_0" pos="0.44" length="43.76" friendlyPos="1"/>
+    </busStop>
+    <busStop id="262882408" name="Zum Seeblick" lane="25881424_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="F21">
+        <access lane="-860420241#1_0" pos="0.00" length="52.28" friendlyPos="1"/>
+        <access lane="24279256_0" pos="0.00" length="1.94" friendlyPos="1"/>
+        <access lane="301687319_0" pos="0.00" length="54.72" friendlyPos="1"/>
+        <access lane="44716313_0" pos="0.20" length="54.45" friendlyPos="1"/>
+        <access lane="860420241#1_0" pos="0.38" length="50.67" friendlyPos="1"/>
+    </busStop>
 </additional>
