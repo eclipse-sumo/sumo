@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:31 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-22 13:54:07 by Eclipse SUMO netconvert Version v1_19_0+0965-4998ef0cb0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,18 +54,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="157562752_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20216614.24" shape="6657136.08,19089107.64 -1.51,0.53"/>
     </edge>
     <edge id="8614778" from="61330091" to="61321502" priority="3" type="highway.residential" spreadType="center" shape="574138.68,13718947.37 574165.80,13718990.57 574191.62,13719031.59 574221.78,13719077.72">
-        <lane id="8614778_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" shape="574140.04,13718946.52 574167.15,13718989.72 574192.97,13719030.73 574223.12,13719076.85"/>
-        <lane id="8614778_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" shape="574137.33,13718948.22 574164.44,13718991.42 574190.28,13719032.46 574220.44,13719078.60"/>
+        <lane id="8614778_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" width="6.70" shape="574141.52,13718945.59 574168.63,13718988.79 574194.44,13719029.78 574224.58,13719075.89"/>
+        <lane id="8614778_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" width="6.70" shape="574135.84,13718949.15 574162.96,13718992.36 574188.81,13719033.40 574218.98,13719079.56"/>
     </edge>
 
-    <junction id="1697931355" type="priority" x="0.00" y="0.00" incLanes="157562752_0" intLanes=":1697931355_0_0" shape="0.00,0.00 -3.02,1.05 0.00,-0.00">
+    <junction id="1697931355" type="priority" x="0.00" y="0.00" incLanes="157562752_0" intLanes=":1697931355_0_0" shape="0.00,-0.00 -3.02,1.05 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="1697931360" type="priority" x="6657137.59" y="19089107.12" incLanes="-157562752_0" intLanes=":1697931360_0_0" shape="6657137.59,19089107.12 6657140.61,19089106.06 6657137.59,19089107.12">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="61321502" type="dead_end" x="574221.78" y="13719077.72" incLanes="8614778_0 8614778_1" intLanes="" shape="574224.46,13719075.97 574219.10,13719079.47"/>
-    <junction id="61330091" type="dead_end" x="574138.68" y="13718947.37" incLanes="" intLanes="" shape="574135.97,13718949.07 574141.39,13718945.67"/>
+    <junction id="61321502" type="dead_end" x="574221.78" y="13719077.72" incLanes="8614778_0 8614778_1" intLanes="" shape="574227.39,13719074.06 574216.17,13719081.39"/>
+    <junction id="61330091" type="dead_end" x="574138.68" y="13718947.37" incLanes="" intLanes="" shape="574133.01,13718950.93 574144.36,13718943.80"/>
 
     <connection from="-157562752" to="157562752" fromLane="0" toLane="0" via=":1697931360_0_0" dir="t" state="M"/>
     <connection from="157562752" to="-157562752" fromLane="0" toLane="0" via=":1697931355_0_0" dir="t" state="M"/>

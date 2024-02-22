@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-05 10:32:16 by Eclipse SUMO netconvert Version v1_14_1+11463-7dae0f08724
+<!-- generated on 2024-02-22 13:54:09 by Eclipse SUMO netconvert Version v1_19_0+0965-4998ef0cb0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -292,8 +292,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="808642122#3_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.05" shape="108.69,85.00 105.60,105.67"/>
     </edge>
     <edge id="93203448" from="3895729380" to="597395969" priority="11" type="cycleway.lane|cycleway.track|highway.secondary">
-        <lane id="93203448_0" index="0" allow="bicycle" speed="13.89" length="3.01" width="1.50" shape="100.27,-1.80 100.34,-1.61"/>
-        <lane id="93203448_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.01" shape="98.04,-1.06 98.10,-0.87"/>
+        <lane id="93203448_0" index="0" allow="bicycle" speed="13.89" length="3.01" width="1.50" shape="108.63,-4.56 108.69,-4.37"/>
+        <lane id="93203448_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.01" width="12.00" shape="102.22,-2.44 102.28,-2.25"/>
     </edge>
     <edge id="998193588" from="273473116" to="1883138781" priority="17" type="railway.tram" spreadType="center" shape="3.57,97.99 0.00,99.35">
         <lane id="998193588_0" index="0" allow="tram" speed="13.89" length="4.48" shape="2.20,98.51 0.00,99.35"/>
@@ -497,7 +497,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="3895729380" type="dead_end" x="96.71" y="0.00" incLanes="-93203448_0 -93203448_1" intLanes="" shape="96.71,0.00 92.24,1.47 96.71,0.00"/>
-    <junction id="597395969" type="priority" x="97.28" y="1.74" incLanes="-176072020#0_0 -176072020#0_1 93203448_0 93203448_1 46733382#1_0" intLanes="" shape="93.49,5.30 105.49,1.46 100.86,-2.40 91.94,0.54 90.95,2.34 91.46,4.28">
+    <junction id="597395969" type="priority" x="97.28" y="1.74" incLanes="-176072020#0_0 -176072020#0_1 93203448_0 93203448_1 46733382#1_0" intLanes="" shape="93.49,5.30 105.49,1.46 109.22,-5.16 91.94,0.54 90.95,2.34 91.46,4.28">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="00000"/>
         <request index="2" response="00000" foes="00000"/>

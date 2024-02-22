@@ -10,4 +10,6 @@ Warning: Cannot revise pt stop localization for pt line '2077982', which consist
 Warning: Cannot revise pt stop localization for pt line '2078078', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2084110', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2084498', which consist of one way only. Ignoring!
+Warning: Ambiguity in turnarounds computation at junction 'cluster_72859928_8453482056'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_75042985_8453482059'.
 Warning: 9 total messages of type: No way found for reference '%' in relation '%'
