@@ -984,6 +984,14 @@ MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, boo
 #endif
                         continue;
                     }
+                    if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
+                        }
+#endif
+                        continue;
+                    }
                 }
             }
             if (myStoreVehicles && store) {
