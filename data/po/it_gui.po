@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-20 08:16+0000\n"
+"PO-Revision-Date: 2024-02-23 12:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8619,19 +8619,19 @@ msgstr "Peso associato a questo arco per arrivi"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3233
 msgid "TractionSubstation"
-msgstr ""
+msgstr "Sottostazione elettrica"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3237
 msgid "Traction substation ID"
-msgstr ""
+msgstr "Codice identificativo della sottostazione elettrica"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3248
 msgid "Voltage of at connection point for the overhead wire"
-msgstr ""
+msgstr "Voltaggio al punto di collegamento con la catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3254
 msgid "Current limit of the feeder line"
-msgstr ""
+msgstr "Limite attuale della linea di alimentazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3266
 msgid "WireSection"
@@ -8643,7 +8643,7 @@ msgstr "Code identificativo della sezione di catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3275
 msgid "Substation to which the circuit is connected"
-msgstr ""
+msgstr "Sottostazione collegata al circuito"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3280
 msgid "List of consecutive lanes of the circuit"
@@ -8663,31 +8663,35 @@ msgstr "Corsie interne dove la posa di catenarie è soggetta a restrizioni"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3316
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "Morsetto di catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3320
 msgid "Overhead wire clamp ID"
-msgstr ""
+msgstr "Codice identificativo del morsetto di catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3325
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
+"Codice identificativo del segmento di catenaria il cui inizio è collegato al "
+"morsetto"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
-msgstr ""
+msgstr "Codice identificativo della corsia collegata alla catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
 msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
 msgstr ""
+"Codice identificativo del segmento di catenaria il cui termine è collegato "
+"al morsetto"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3340
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
+msgstr "Codice identificativo della corsia collegata alla catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3360
 msgid "JuPedSim WalkableArea"
