@@ -123,6 +123,9 @@ public:
     /// @brief move front element in elements under cursor (currently used only in netedit)
     void updateFrontElement(const GUIGlObject* GLObject);
 
+    /// @brief isolate edge geometry points (used for moving)
+    void isolateEdgeGeometryPoints();
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
