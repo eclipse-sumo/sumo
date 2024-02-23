@@ -56,7 +56,7 @@ OSM](../Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_in
 | Attribute Name | Value Type | Value Range         | Description                                                    |
 | -------------- | ---------- | ------------------- | -------------------------------------------------------------- |
 | **lane**       | string     | id                  | The name of the lane from which this stop may also be accessed |
-| **pos**        | float, "doors"      | position along lane | The position along the lane from which the stop is reached     |
+| **pos**        | float, "random", "doors"      | position along lane | The position along the lane from which the stop is reached     |
 | length         | float      | >= 0 | The distance for computing the access time of pedestrians that use this element|
 | friendlyPos    | bool       |      | Whether an invalid **pos** should be silently converted to the closest correct approximation |
 
