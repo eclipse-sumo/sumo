@@ -35,7 +35,8 @@ vehicles.
 ## Generating random flows for jtrrouter
 
 The [randomTrips.py](../Tools/Trip.md#randomtripspy) tool can be
-used to generated suitable randomFlows with the following options.
+used to generated suitable randomFlows with the following options. If the **--trips-attributes** option 
+is not recognized correctly, try using double quotes around the option value and escape double quotes inside.
 
 ```
  <SUMO_HOME>/tools/randomTrips.py -n net.net.xml -o flows.xml --begin 0 --end 1 \
