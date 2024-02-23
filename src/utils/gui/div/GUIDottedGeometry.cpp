@@ -305,6 +305,13 @@ GUIDottedGeometry::getUnresampledShape() const {
 
 
 void
+GUIDottedGeometry::clearDottedGeometry() {
+    myDottedGeometrySegments.clear();
+    myUnresampledShape.clear();
+}
+
+
+void
 GUIDottedGeometry::calculateShapeRotationsAndLengths() {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {

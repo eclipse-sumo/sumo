@@ -121,6 +121,9 @@ public:
     /// @brief get simple shape (the shape without resampling)
     const PositionVector& getUnresampledShape() const;
 
+    /// @brief clear dotted geometry
+    void clearDottedGeometry();
+
 private:
     /// @brief calculate shape rotations and lengths
     void calculateShapeRotationsAndLengths();
