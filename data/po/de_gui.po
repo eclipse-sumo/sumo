@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-19 07:35+0000\n"
+"PO-Revision-Date: 2024-02-23 14:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -5881,11 +5881,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Wire mode"
-msgstr ""
+msgstr "Oberleitungsmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Mode for editing overhead wires. (W)"
-msgstr ""
+msgstr "Modus zur Bearbeitung von Oberleitungen. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "TAZ mode"
@@ -5897,7 +5897,7 @@ msgstr "Modus zum Erstellen von Verkehrsumlegungszonen. (Z)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Polygon mode"
-msgstr ""
+msgstr "Polygonmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Mode for creating polygons and POIs. (P)"
@@ -5905,7 +5905,7 @@ msgstr "Modus zum Erstellen von Polygonen und Pol. (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Decal mode"
-msgstr ""
+msgstr "HIntergrundbildmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Mode for editing decals. (U)"
@@ -5922,7 +5922,7 @@ msgstr "Modus zum Erstellen von Routen. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Route distribution mode"
-msgstr ""
+msgstr "Routenverteilungsmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Mode for creating and editing rout distributions. (W)"
@@ -5930,7 +5930,7 @@ msgstr "Modus zum Erstellen und Bearbeiten von Routenverteilungen. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Vehicle mode"
-msgstr ""
+msgstr "Fahrzeugmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Mode for creating vehicles. (V)"
@@ -5938,7 +5938,7 @@ msgstr "Modus zum Erstellen von Fahrzeugen. (V)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Type mode"
-msgstr ""
+msgstr "Typenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
@@ -5946,7 +5946,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Type distribution mode"
-msgstr ""
+msgstr "Typenverteilungsmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Mode for creating and editing type distribution. (U)"
@@ -11508,11 +11508,11 @@ msgstr "Fahrzeuge (mit integrierter Route) (nur %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:271
 msgid "RouteFlows (only %)"
-msgstr ""
+msgstr "Flüsse über Routen (nur %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:274
 msgid "RouteFlows (embedded route) (only %)"
-msgstr ""
+msgstr "Flüsse über Routen (interne Route, nur %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:277
 msgid "Trips (only %)"
@@ -11568,7 +11568,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:307
 msgid "Set custom crossing shape"
-msgstr ""
+msgstr "Benutzerdefinierten Shape für Fußgängerfurt setzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:693
 msgid "moving % of %"
@@ -11604,7 +11604,7 @@ msgstr "Vereinigte LSA hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:499
 msgid "Reset edge endpoints"
-msgstr ""
+msgstr "Kantenendpunkte zurücksetzen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:500
 msgid "Set custom junction shape"
@@ -11629,16 +11629,17 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:507
 msgid "Select roundabout"
-msgstr ""
+msgstr "Kreisverkehr auswählen"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:511
 msgid "Convert to roundabout (using junction attribute radius %)"
 msgstr ""
+"In Kreisverkehr (unter Nutzung des Knotenpunktattributs radius %) umwandeln"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:520
 #, c-format
 msgid " of % junctions"
-msgstr ""
+msgstr " von % Knotenpunkten"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:521
 msgid "Clear connections"
@@ -16381,7 +16382,7 @@ msgstr "Personenfarbenwert anzeigen"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1975
 msgid "Show JuPedSim pedestrian network"
-msgstr ""
+msgstr "JuPedSim-Fußgängernetz anzeigen"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2015
 msgid "Show container id"
