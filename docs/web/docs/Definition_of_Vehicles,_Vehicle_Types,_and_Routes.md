@@ -463,6 +463,9 @@ parameters are described in the following.
 
 ## Available vType Attributes
 
+!!! note
+    Many of the [defaults are vClass dependent](Vehicle_Type_Parameter_Defaults.md), so specifying a vClass is often enough.
+
 These values have the following meanings:
 
 | Attribute Name    | Value Type                        | Default                                                             | Description      |

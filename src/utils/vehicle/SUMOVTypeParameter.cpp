@@ -200,7 +200,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL_ELECTRIC:
             maxSpeed = 220. / 3.6;
-            width = 0.78;
             minGap = 5;
             width = 2.95;
             height = 3.89;
