@@ -2530,12 +2530,10 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             const auto geometryPointPos = myNBEdge->getGeometry()[i];
             // push geometry point drawing matrix
             GLHelper::pushMatrix();
-            // translate to front depending of big points
-            glTranslated(0, 0, bigGeometryPoints ? GLO_GEOMETRYPOINT : GLO_LANE + 1);
             // set color
             GLHelper::setColor(geometryPointColor);
-            // move to geometryPointPos
-            glTranslated(geometryPointPos.x(), geometryPointPos.y(), 0.1);
+            // move geometry point geometryPointPos
+            glTranslated(geometryPointPos.x(), geometryPointPos.y(), bigGeometryPoints ? GLO_GEOMETRYPOINT : GLO_LANE + 1);
             // draw filled circle (resolution of drawn circle depending of the zoom, to improve smoothness)
             GLHelper::drawFilledCircleDetailled(d, geometryPointRadius);
             // draw elevation or special symbols (Start, End and Block)
@@ -2585,7 +2583,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
             // push drawing matrix
             GLHelper::pushMatrix();
             // move to point position
-            glTranslated(startGeometryPointPos.x(), startGeometryPointPos.y(), 0.1);
+            glTranslated(startGeometryPointPos.x(), startGeometryPointPos.y(), GLO_GEOMETRYPOINT);
             // resolution of drawn circle depending of detail
             GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
             // pop drawing matrix
@@ -2595,7 +2593,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
                 // push drawing matrix
                 GLHelper::pushMatrix();
                 // move top
-                glTranslated(0, 0, 0.2);
+                glTranslated(0, 0, GLO_GEOMETRYPOINT + 0.1);
                 // draw S
                 GLHelper::drawText("S", startGeometryPointPos, 0, geometryPointRadius, RGBColor(0, 50, 255));
                 // pop drawing matrix
@@ -2649,7 +2647,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
             // push drawing matrix
             GLHelper::pushMatrix();
             // move to point position
-            glTranslated(geometryPointPos.x(), geometryPointPos.y(), 0.1);
+            glTranslated(geometryPointPos.x(), geometryPointPos.y(), GLO_GEOMETRYPOINT);
             // resolution of drawn circle depending of detail
             GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
             // pop drawing matrix
@@ -2659,7 +2657,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
                 // push drawing matrix
                 GLHelper::pushMatrix();
                 // move top
-                glTranslated(0, 0, 0.2);
+                glTranslated(0, 0, GLO_GEOMETRYPOINT + 0.1);
                 // draw S
                 GLHelper::drawText("E", geometryPointPos, 0, geometryPointRadius, RGBColor(0, 50, 255));
                 // pop drawing matrix
