@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-23 12:30+0000\n"
+"PO-Revision-Date: 2024-02-23 14:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5936,15 +5936,15 @@ msgstr "Modo per creare veicoli. (V)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Type mode"
-msgstr ""
+msgstr "Modo di tipi"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
-msgstr ""
+msgstr "Modo per creare tipi (di veicoli, persone e contenitori). (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Type distribution mode"
-msgstr ""
+msgstr "Modo di distribuzioni di tipi"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Mode for creating and editing type distribution. (U)"
@@ -5952,7 +5952,7 @@ msgstr "Modo per creare e modificare distribuzioni di tipi. (U)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 msgid "Stop mode"
-msgstr ""
+msgstr "Modo di fermate"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 msgid "Mode for creating stops. (A)"
@@ -5960,7 +5960,7 @@ msgstr "Modo per creare fermate. (A)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Person mode"
-msgstr ""
+msgstr "Modo di persone"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Mode for creating persons. (P)"
@@ -5968,7 +5968,7 @@ msgstr "Modo per creare persone. (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Person plan mode"
-msgstr ""
+msgstr "Modo di piani personali"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Mode for creating person plans. (L)"
@@ -5976,7 +5976,7 @@ msgstr "Modo per creare piani personali. (L)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 msgid "Container mode"
-msgstr ""
+msgstr "Modo di contenitori"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 msgid "Mode for creating containers. (C)"
@@ -5984,7 +5984,7 @@ msgstr "Modo per creare contenitori. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 msgid "Container plan mode"
-msgstr ""
+msgstr "Modo di piani di contenitori"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 msgid "Mode for creating container plans. (H)"
@@ -5992,7 +5992,7 @@ msgstr "Modo per creare piani di contenitori. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 msgid "Edge data mode"
-msgstr ""
+msgstr "Modo EdgeData"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 msgid "Mode for creating edge datas. (E)"
@@ -6008,7 +6008,7 @@ msgstr "Modo per creare elementi edgeRelation. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "TAZ relation data mode"
-msgstr ""
+msgstr "Modo relazioni origine-destinazione"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "Mode for creating TAZ relation datas. (Z)"
@@ -6040,7 +6040,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewParent.cpp:544
 msgid "WalkingArea Chooser"
-msgstr ""
+msgstr "Selezione di aree pedonali"
 
 #: D:\Repos\sumo/src\netedit\GNEViewParent.cpp:582
 msgid "Route Chooser"
@@ -6684,7 +6684,7 @@ msgstr "Correggi problemi di elementi di rete"
 #: D:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:156
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:346
 msgid "Conflict"
-msgstr ""
+msgstr "Conflitto"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:206
 msgid "Saving successfully"
@@ -7910,7 +7910,7 @@ msgstr "Tempo d'attesa prima della ricarica"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1880
 msgid "Parking area the charging station is located"
-msgstr ""
+msgstr "Parcheggio su cui si trova la stazione di ricarica"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1891
 msgid "ParkingArea"
@@ -10153,11 +10153,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6491
 msgid "Splits the train upon reaching the stop"
-msgstr ""
+msgstr "Divide il treno in due parti all'arrivo a questa fermata"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6507
 msgid "list of consecutive edges"
-msgstr ""
+msgstr "elenco di archi consecutivi"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6512
 msgid "Arrival position on the last edge"
@@ -10185,53 +10185,55 @@ msgstr "Codice identificativo della fermata di contenitori"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6562
 msgid "Edge start ID"
-msgstr ""
+msgstr "Codice identificativo dell'arco iniziale"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6568
 msgid "TAZ start ID"
 msgstr ""
+"Codice identificativo della zona di assegnazione del traffico di origine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6574
 msgid "Junction start ID"
-msgstr ""
+msgstr "Codice identificativo dell'incrocio di origine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6580
 msgid "BuStop start ID"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di origine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6586
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6637
 msgid "TrainStop start ID"
-msgstr ""
+msgstr "Codice identificativo della fermata ferroviaria di origine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6592
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6643
 msgid "ContainerStop start ID"
-msgstr ""
+msgstr "Codice identificativo della fermata di contenitori di origine"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6599
 msgid "Edge end ID"
-msgstr ""
+msgstr "Codice identificativo dell'arco di destinazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6606
 msgid "The position at which the tranship shall enter the net"
-msgstr ""
+msgstr "La posizione dove deve accadere il trasbordo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6612
 msgid "arrival position on the destination edge"
-msgstr ""
+msgstr "posizione di arrivo sull'arco di destinazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6619
 msgid "TAZ end ID"
 msgstr ""
+"Codice identificativo della zona di assegnazione del traffico di destinazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6625
 msgid "Junction end ID"
-msgstr ""
+msgstr "Codice identificativo dell'incrocio di destinazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6631
 msgid "BuStop end ID"
-msgstr ""
+msgstr "Codice identificativo della fermata di autobus di destinazione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6656
 msgid "List of possible vehicle types to take"
@@ -10247,7 +10249,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6666
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
+msgstr "elenco di veicoli alternativi da prendere per questa corsa"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6686
 msgid "list of vehicle alternatives to take for the ride"
