@@ -1752,8 +1752,28 @@ void
 GNELane::drawLaneAsRailway() const {
     // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
-    // draw as box lines
-    if (myShapeColors.size() > 0) {
+    // continue depending of detail
+    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+        // calculate intern geometry width
+        const double internGeometryWidth = myDrawingConstants->getInternalDrawingWidth() - (2 * SUMO_const_laneMarkWidth);
+        // Set current color back
+        GLHelper::setColor(GLHelper::getColor());
+        // move
+        glTranslated(0, 0, 0.1);
+        // calculate width
+        const double crossbarWidth = 0.2 * myDrawingConstants->getExaggeration();
+        // draw geometry
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, crossbarWidth,
+                                  myDrawingConstants->getOffset() - 1);
+
+        // draw geometry
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, crossbarWidth,
+                                  myDrawingConstants->getOffset() + 1);
+        // Draw crossties
+        GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
+                                crossbarWidth, 0.6 * myDrawingConstants->getExaggeration(),
+                                myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset(), false);
+    } else if (myShapeColors.size() > 0) {
         // draw colored box lines
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
                                   myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
@@ -1761,26 +1781,6 @@ GNELane::drawLaneAsRailway() const {
         // draw geometry with current color
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myDrawingConstants->getDrawingWidth(),
                                   myDrawingConstants->getOffset());
-    }
-    // continue depending of detail
-    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-        // calculate intern geometry width
-        const double internGeometryWidth = myDrawingConstants->getInternalDrawingWidth() - (2 * SUMO_const_laneMarkWidth);
-        // Save current color
-        RGBColor current = GLHelper::getColor();
-        // Draw gray on top with reduced width (the area between the two tracks)
-        glColor3d(0.8, 0.8, 0.8);
-        // move
-        glTranslated(0, 0, 0.1);
-        // draw geometry
-        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, internGeometryWidth,
-                                  myDrawingConstants->getOffset());
-        // Set current color back
-        GLHelper::setColor(current);
-        // Draw crossties
-        GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                0.26 * myDrawingConstants->getExaggeration(), 0.6 * myDrawingConstants->getExaggeration(),
-                                myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset(), false);
     }
 }
 
