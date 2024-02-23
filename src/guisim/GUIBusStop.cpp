@@ -140,7 +140,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem((transportable + " capacity [#]").c_str(), false, myTransportableCapacity);
     ret->mkItem((transportable + " number [#]").c_str(), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     ret->mkItem(TL("stopped vehicles [#]"), true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
-    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));
+    ret->mkItem(TL("last free pos [m]"), true, new FunctionBinding<GUIBusStop, double>(this, &GUIBusStop::getCroppedLastFreePos));
     // rides-being-waited-on statistic
     std::map<std::string, int> stats;
     for (const MSTransportable* t : getTransportables()) {
@@ -276,6 +276,11 @@ GUIBusStop::getCenteringBoundary() const {
 const std::string
 GUIBusStop::getOptionalName() const {
     return myName;
+}
+
+double
+GUIBusStop::getCroppedLastFreePos() const {
+    return MAX2(0., getLastFreePos());
 }
 
 /****************************************************************************/
