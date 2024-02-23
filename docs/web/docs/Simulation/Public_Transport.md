@@ -39,7 +39,7 @@ stop is an area on a lane. The parameters have the following meanings:
 
 ## Access Lanes
 
-Each bus stop may have additional child elements to model access from
+Each bus or train stop may have additional child elements to model access from
 other parts of the network (e.g. road access to a stop on the rail
 network). This takes the following form:
 
@@ -56,9 +56,14 @@ OSM](../Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_in
 | Attribute Name | Value Type | Value Range         | Description                                                    |
 | -------------- | ---------- | ------------------- | -------------------------------------------------------------- |
 | **lane**       | string     | id                  | The name of the lane from which this stop may also be accessed |
-| **pos**        | float      | position along lane | The position along the lane from which the stop is reached     |
+| **pos**        | float, "doors"      | position along lane | The position along the lane from which the stop is reached     |
 | length         | float      | >= 0 | The distance for computing the access time of pedestrians that use this element|
 | friendlyPos    | bool       |      | Whether an invalid **pos** should be silently converted to the closest correct approximation |
+
+The value `doors` is currently only used when exiting a train or bus. The starting position for a
+subsequent walk of the exiting passengers will be randomly chosen among the door positions of the train or bus.
+The door positions themselves cannot be defined but they are derived from the number of carriages
+and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages)
 
 # Letting Vehicles stop at a bus stop
 

@@ -761,12 +761,15 @@ length look quite odd, buses with 2m length, too.
 !!! caution
     Not all of these named shapes have a distinct visualization.
 
-Further parameters can be used to achieve visualization of individual rail carriages
+## Carriages
+
+Further parameters can be used to achieve visualization of individual rail carriages and configure exiting behavior at stations
 ```xml
 <vType id="rail">
     <param key="carriageLength" value="20"/>
     <param key="carriageGap" value="1"/>
     <param key="locomotiveLength" value="25"/>
+    <param key="carriageDoors" value="2"/>
 </vType>
 ```
 
