@@ -1754,8 +1754,6 @@ GNELane::drawLaneAsRailway() const {
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-        // calculate intern geometry width
-        const double internGeometryWidth = myDrawingConstants->getInternalDrawingWidth() - (2 * SUMO_const_laneMarkWidth);
         // Set current color back
         GLHelper::setColor(GLHelper::getColor());
         // move

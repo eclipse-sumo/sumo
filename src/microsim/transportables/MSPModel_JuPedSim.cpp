@@ -438,8 +438,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                     // Create ramps geometry.
                     p += CARRIAGE_RAMP_WIDTH;
                     const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
-                    const std::vector<Position>& doors = carriage->doors;
-                    for (const Position door : doors) {
+                    for (const Position& door : carriage->doors) {
                         PositionVector rampShape;
                         rampShape.push_back(door - perp * p + dir * d);
                         rampShape.push_back(door - perp * p - dir * d);
