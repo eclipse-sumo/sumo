@@ -1,3 +1,6 @@
+# handle transportables while joining/splitting trains
+transportables
+
 # split a train into two parts
 split
 

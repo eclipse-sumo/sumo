@@ -1,0 +1,5 @@
+# join two train parts into a single train, persons from both parts continue in the joint train
+join_persons
+
+# join two train parts into a single train, containers from both parts continue in the joint train
+join_containers
