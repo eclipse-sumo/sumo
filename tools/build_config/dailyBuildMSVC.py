@@ -165,7 +165,7 @@ def main(options, platform="x64"):
             status.printLog("Creating sumo.msi.")
             if options.suffix == "extra":
                 wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi",
-                             license=os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.rtf"))
+                             license_path=os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.rtf"))
             else:
                 wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi")
             shutil.copy(binaryZip + ".msi", options.remoteDir)
