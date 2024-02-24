@@ -28,6 +28,7 @@ import sumodetectors
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
+
 def call(command, log):
     print("-" * 79, file=log)
     print(command, file=log)

@@ -219,7 +219,7 @@ if __name__ == "__main__":
                                 '--summary', summaryfile,
                                 '--lanechange-file', lcfile,
                                 '--error-log', logfile,
-                                '--nogui', "false",
+                                '--gui',
                                 # '--verbose',
                             ]
                             print("calling %s" % ' '.join(cmd))

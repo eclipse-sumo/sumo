@@ -44,7 +44,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         nextStops = traci.vehicle.getStops(vehID, limit=1)
         if len(nextStops) > 0:
             stopID = nextStops[0].stoppingPlaceID
-            stopEdge = nextStops[0].lane.rsplit("_",1)[1]
+            stopEdge = nextStops[0].lane.rsplit("_", 1)[1]
             alightingPassengers = []
             for passengerID in passengerIDs:
                 nextStage = traci.person.getStage(passengerID)

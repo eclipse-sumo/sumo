@@ -30,40 +30,37 @@ from __future__ import print_function
 
 import os
 import sys
-import optparse
 # we need to import python modules from the $SUMO_HOME/tools directory
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-from sumolib import checkBinary  # noqa
+import sumolib  # noqa
 import traci  # noqa
 
 AV_identifier = "AVflow"
 ToC_identifier = "AVflowToC."
 routeID = "r0"
-global options
 
 
-def doToC(vehSet, changePerformed, timeUntilMRM, edgeID, distance):
-    global options
+def doToC(vehSet, changePerformed, timeUntilMRM, edgeID, distance, verbose):
     for vehID in vehSet:
         distToTOR = traci.vehicle.getDrivingDistance(vehID, edgeID, distance)
         if distToTOR < 0.:
             changePerformed.add(vehID)
             if vehID.startswith("AVflowToC."):
                 requestToC(vehID, timeUntilMRM)
-                if options.verbose:
+                if verbose:
                     t = traci.simulation.getCurrentTime() / 1000.
                     print("## Requesting ToC for vehicle '%s'!" % (vehID))
                     print("Requested ToC of %s at t=%s (until t=%s)" % (vehID, t, t + float(timeUntilMRM)))
                     printToCParams(vehID, True)
             elif traci.vehicle.getTypeID(vehID).startswith("auto"):
-                if options.verbose:
+                if verbose:
                     print("## Informing AV '%s' about alternative path!" % (vehID))
                 traci.vehicle.setVehicleClass(vehID, "passenger")
     # ~ return changePerformed
 
 
-def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist):
+def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist, options):
     """execute the TraCI control loop"""
     # this is the list of vehicle states for the scenario, which each AV will traverse
     downwardToCPending = set(traci.vehicle.getIDList())
@@ -82,7 +79,7 @@ def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist):
                                    if vehID.startswith(AV_identifier)])
 
         # provide the ToCService at the traffic sign for informing the lane closure
-        doToC(downwardToCPending, downwardTocRequested, timeUntilMRM, downwardEdgeID, distance)
+        doToC(downwardToCPending, downwardTocRequested, timeUntilMRM, downwardEdgeID, distance, options.verbose)
         downwardToCPending.difference_update(downwardTocRequested)
 
         # keep book on performed ToCs and trigger best lanes update by resetting the route
@@ -100,7 +97,7 @@ def run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist):
 
         # provide ToCService to the upwardTransitions
         upwardTocPerformed = set()
-        doToC(upwardToCPending, upwardTocPerformed, 0., upwardEdgeID, upwardDist)
+        doToC(upwardToCPending, upwardTocPerformed, 0., upwardEdgeID, upwardDist, options.verbose)
         upwardToCPending.difference_update(upwardTocPerformed)
         if options.debug:
             print("downwardTocRequested=%s" % downwardTocRequested)
@@ -145,9 +142,9 @@ def printToCParams(vehID, only_dynamic=False):
 
 
 def get_options():
-    optParser = optparse.OptionParser()
+    optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-a", "--add-file", dest="afile", help="additional file")
-    optParser.add_option("-c", "--code", dest="code", help="scenario code")
+    optParser.add_option("--code", help="scenario code")
     optParser.add_option("-e", "--error-log", dest="elfile", help="error log file")
     optParser.add_option("-f", "--fcd-file", dest="opfile", help="fcd file")
     optParser.add_option("-g", "--view-file", dest="vfile", help="sumo-gui view setting file")
@@ -156,14 +153,13 @@ def get_options():
     optParser.add_option("-r", "--route-file", dest="rfile", help="route file")
     optParser.add_option("-s", "--summary", dest="summary", help="summary file")
     optParser.add_option("-t", "--time-MRM", dest="timeUntilMRM", default=8, help="time until MRM")
-    optParser.add_option("--nogui", action="store_false",
-                         default=True, help="run the commandline version of sumo")
+    optParser.add_option("--gui", action="store_true",
+                         default=False, help="run the GUI version of sumo")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     optParser.add_option("-d", "--debug", action="store_true", dest="debug",
                          default=False, help="debug messages")
-    options, args = optParser.parse_args()
-    return options
+    return optParser.parse_args()
 
 
 # this is the main entry point of this script
@@ -177,17 +173,17 @@ if __name__ == "__main__":
         print("time to MRM: %s" % (timeUntilMRM))
     # this script has been called from the command line. It will start sumo as a
     # server, then connect and run
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
+    if options.gui:
+        sumoBinary = sumolib.checkBinary('sumo-gui')
     else:
-        sumoBinary = checkBinary('sumo-gui')
+        sumoBinary = sumolib.checkBinary('sumo')
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    traci.start(map(str, [sumoBinary, "-n", options.nfile, "-r", options.rfile, "-a", options.afile, "--step-length=0.25",
+    traci.start([sumoBinary, "-n", options.nfile, "-r", options.rfile, "-a", options.afile, "--step-length=0.25",
                  "--lateral-resolution=0.8", "--ignore-route-errors", "--step-method.ballistic",
                  "--fcd-output", options.opfile, "--gui-settings-file", options.vfile, "--summary", options.summary,
-                 "--lanechange-output", options.lcfile, "--error-log", options.elfile, "--no-step-log", "true"]))
+                 "--lanechange-output", options.lcfile, "--error-log", options.elfile, "--no-step-log"])
 
     if code == "UC1_1":
         downwardEdgeID = "approach2"
@@ -202,7 +198,7 @@ if __name__ == "__main__":
         upwardDist = 3500.0
 
     if downwardEdgeID and distance:
-        run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist)
+        run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID, upwardDist, options)
 
     traci.close()
     sys.stdout.flush()
