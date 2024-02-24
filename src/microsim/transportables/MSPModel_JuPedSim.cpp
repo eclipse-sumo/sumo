@@ -856,11 +856,11 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
 JPS_Geometry
 MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon) {
     // For the moment, JuPedSim only supports one connected component, select the one with max area.
-    int nbrConnectedComponents = GEOSGetNumGeometries(polygon);
+    const int nbrConnectedComponents = GEOSGetNumGeometries(polygon);
     myMaxAreaConnectedComponentPolygon = nullptr;
     double maxArea = 0.0;
     double totalArea = 0.0;
-    for (unsigned int i = 0; i < (unsigned int)nbrConnectedComponents; i++) {
+    for (int i = 0; i < nbrConnectedComponents; i++) {
         const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(polygon, i);
         const std::string polygonId = std::string("jupedsim.pedestrian_network.") + std::to_string(i);
         double area;
@@ -877,7 +877,7 @@ MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon)
                        nbrConnectedComponents, maxArea / totalArea * 100.0, "%");
     }
 #ifdef DEBUG_GEOMETRY_GENERATION
-    dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
+    dumpGeometry(myMaxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
 #endif
     JPS_GeometryBuilder geometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(myMaxAreaConnectedComponentPolygon, geometryBuilder);
