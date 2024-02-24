@@ -45,7 +45,12 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="train" vClass="rail" length="250" speedFactor="0.6" decel="1" accel="1"/>
-    <vType id="train2" vClass="rail" length="150" speedFactor="0.9" decel="1" accel="1"/>
+    <vType id="train2" vClass="rail" length="102" speedFactor="0.9" decel="1" accel="1" imgFile="data/locomotive.png" color="white">
+        <param key="locomotiveLength" value="12"/>
+        <param key="carriageLength" value="10"/>
+        <param key="carriageGap" value="0.3"/>
+        <param key="carriageImages" value="data/railcarFreight.png,data/railcarFreight2.png,data/railcarPassenger.png"/>
+    </vType>
     <!--
     <trip id="trip_0" type="train" depart="0.00" from="B0C0" to="C1B1" arrivalSpeed="0"/>
     -->
