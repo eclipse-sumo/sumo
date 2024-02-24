@@ -27,6 +27,7 @@
 #include <bitset>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomHelper.h>
@@ -371,7 +372,17 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
         double halfWidth = trainHelper.getHalfWidth();
-        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth() * exaggeration, curCLength)) {
+        std::string imgFile = getVType().getImgFile();
+        if (asImage && i != trainHelper.getFirstCarriageNo()) {
+            if (getVType().getParameter().hasParameter("carriageImages")) {
+                std::vector<std::string> imgFiles = StringTokenizer(getVType().getParameter().getParameter("carriageImages", "")).getVector();
+                if (imgFiles.size() > 0) {
+                    const int carIndex = trainHelper.isReversed() ? numCarriages - i : i;
+                    imgFile = imgFiles[MIN2((int)imgFiles.size() - 1, carIndex - 1)];
+                }
+            }
+        }
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, imgFile, this, getVType().getWidth() * exaggeration, curCLength)) {
             switch (getVType().getGuiShape()) {
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
