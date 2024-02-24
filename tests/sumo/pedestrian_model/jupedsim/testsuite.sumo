@@ -28,9 +28,3 @@ speed_factor
 
 # rerouting with optional rerouters
 rerouter
-
-# check correct arrival when there are multiple stops on the same edge
-# three_trainStops_at_one_edge (automatically commented due to no test directory being found)
-
-# This test checks the unboarding of passengers, which requires geometry switching.
-geometry_switching
