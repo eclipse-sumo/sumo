@@ -375,7 +375,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         std::string imgFile = getVType().getImgFile();
         if (asImage && i != trainHelper.getFirstCarriageNo()) {
             if (getVType().getParameter().hasParameter("carriageImages")) {
-                std::vector<std::string> imgFiles = StringTokenizer(getVType().getParameter().getParameter("carriageImages", "")).getVector();
+                std::vector<std::string> imgFiles = StringTokenizer(getVType().getParameter().getParameter("carriageImages", ""), ",").getVector();
                 if (imgFiles.size() > 0) {
                     const int carIndex = trainHelper.isReversed() ? numCarriages - i : i;
                     imgFile = imgFiles[MIN2((int)imgFiles.size() - 1, carIndex - 1)];
