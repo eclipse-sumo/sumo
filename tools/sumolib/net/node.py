@@ -211,9 +211,9 @@ class Node:
 
     def getMaxTLLinkIndex(self):
         idx = []
-        if self.getType()=='traffic_light':
+        if self.getType() == 'traffic_light':
             for conn in self.getConnections():
                 idx.append(conn.getTLLinkIndex())
-            return(max(idx))
+            return (max(idx))
         else:
             return None

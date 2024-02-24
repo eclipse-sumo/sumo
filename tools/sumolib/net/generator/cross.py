@@ -18,7 +18,8 @@
 from __future__ import absolute_import
 # relative imports don't work if a file is used as a library and executable
 # (https://peps.python.org/pep-0366/#rationale-for-change)
-import os, sys
+import os
+import sys
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 import network  # noqa
 

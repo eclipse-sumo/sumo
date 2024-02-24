@@ -73,8 +73,10 @@ def main():
         tc = [2**p for p in range(20) if 2**p <= options.threads]
     results = []
     for t in tc:
-        timer = timeit.Timer('subprocess.call(["%s", "-n", "net.net.xml", "-r", "%s", "--threads", "%s", "--no-step-log"])' %
-                             (sumolib.checkBinary("sumo").replace("\\", "\\\\"), rout.name, t), setup='import subprocess')
+        timer = timeit.Timer('subprocess.call(["%s", "-n", "net.net.xml", "-r", "%s", '
+                             '"--threads", "%s", "--no-step-log"])' %
+                             (sumolib.checkBinary("sumo").replace("\\", "\\\\"), rout.name, t),
+                             setup='import subprocess')
         times = timer.repeat(options.runs, 1)
         if options.verbose:
             print(t, times)

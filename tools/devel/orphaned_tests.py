@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    orhaphaned_tests.py
+# @file    orphaned_tests.py
 # @author  Jakob Erdmann
 # @date    2024-02-21
 
@@ -21,8 +21,6 @@
 from __future__ import print_function
 import sys
 import os
-from collections import defaultdict
-import glob
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
@@ -34,8 +32,7 @@ def get_options():
                     help="root directory of tests to analyze")
     op.add_argument("--fix", action="store_true", default=False,
                     help="automatically append missing tests to test suites")
-    options = op.parse_args()
-    return options
+    return op.parse_args()
 
 
 options = get_options()
