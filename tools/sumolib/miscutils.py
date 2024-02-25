@@ -340,5 +340,3 @@ def short_names(filenames, noEmpty):
         base = os.path.basename(prefix)
         shortened = [base + f for f in shortened]
     return shortened
-
-
