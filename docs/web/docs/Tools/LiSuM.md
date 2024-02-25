@@ -40,15 +40,32 @@ LiSuM-Core (the command line version) works with Java 8 as well.
 ![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
 "LISASumo.MainWindow.PNG")LiSuM Main window
 
-The installation of LiSuM is straightforward and it may not present major difficulties.
-Before compiling and running LiSuM it is recommended to have the following software installed on your computer:
+For running LiSuM it is required to have the following software installed on your computer:
 
 - Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core)
 - SUMO (version 1.0.1 or later)
-- and [Apache Maven](https://maven.apache.org/)
+- openjfx (for lisum-gui, Linux only)
 
-In a command or terminal window execute the Maven command install (`mvn install`) in the traas, lisum-core and lisum-gui folders (in that order).
-For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command.
+If you downloaded the Windows installer or the Windows zip, LiSuM should already be included and you just need to run:
+
+```
+java -jar "%SUMO_HOME%\bin\lisum-gui.jar"
+```
+
+You can also try to download and run this on Linux but you
+might be better off self-compiling as described below due to Java version mismatches.
+
+### Compiling LiSuM
+
+This will require [Apache Maven](https://maven.apache.org/) and a source distribution or a git repository clone of SUMO.
+In a command or terminal window execute `mvn install` in the tools/contributed/traas, and the tools/contributed/lisum folders (in that order).
+For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command, for example:
+```
+java -jar $SUMO_HOME/tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2-jar-with-dependencies.jar
+java -jar $SUMO_HOME/tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar
+```
+
+## Getting started
 
 When LiSuM is started for the first time, the user is prompted to select a
 directory which is going to be used as the workspace directory. The
@@ -56,8 +73,6 @@ workspace is the directory where LiSuM looks for existing simulation
 projects, where new ones should be stored and where the system
 preferences are saved. If needed use the system preferences window to
 change the workplace path.
-
-## Getting started
 
 Open LiSuM, set the SUMO path in the system preferences dialog window
 and open an existing simulation project from the workspace. In the Tools
