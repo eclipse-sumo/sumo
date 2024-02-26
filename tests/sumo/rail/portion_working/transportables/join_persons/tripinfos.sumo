@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-23 14:35:36 by Eclipse SUMO sumo Version v1_19_0+0982-d33f357
+<!-- generated on 2024-02-26 12:09:55 by Eclipse SUMO sumo Version v1_19_0+1013-694ada1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,8 +47,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </personinfo>
     <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="172.81" actType="waiting"/>
-        <ride waitingTime="81.00" vehicle="t1" depart="81.00" arrival="135.00" arrivalPos="95.00" duration="54.00" routeLength="315.44" timeLoss="31.29"/>
-        <ride waitingTime="31.00" vehicle="t0" depart="166.00" arrival="234.00" arrivalPos="338.22" duration="68.00" routeLength="494.34" timeLoss="32.41"/>
+        <ride waitingTime="81.00" vehicle="t1" depart="81.00" arrival="165.00" arrivalPos="95.00" duration="84.00" routeLength="315.44" timeLoss="31.29"/>
+        <ride waitingTime="1.00" vehicle="t0" depart="166.00" arrival="234.00" arrivalPos="338.22" duration="68.00" routeLength="494.34" timeLoss="32.41"/>
     </personinfo>
     <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="264.00" arrivalLane="c_0" arrivalPos="391.72" arrivalSpeed="5.25" duration="264.00" routeLength="1049.91" waitingTime="0.00" waitingCount="0" stopTime="79.00" timeLoss="109.11" rerouteNo="0" devices="tripinfo_t0 routing_t0 person_t0" vType="splitTrain@t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>
