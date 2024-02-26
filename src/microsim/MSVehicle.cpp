@@ -1841,6 +1841,14 @@ MSVehicle::processNextStop(double currentVelocity) {
                         const double newLength = MAX2(myType->getLength() - splitVeh->getVehicleType().getLength(),
                                                       myType->getParameter().locomotiveLength);
                         getSingularType().setLength(newLength);
+                        // handle transportables that want to continue in the split part
+                        if (myPersonDevice != nullptr) {
+                            myPersonDevice->transferAtSplit(splitVeh);
+                        }
+                        if (myContainerDevice != nullptr) {
+                            myContainerDevice->transferAtSplit(splitVeh);
+                        }
+
                     }
                 }
 

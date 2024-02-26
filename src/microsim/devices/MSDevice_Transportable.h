@@ -119,6 +119,9 @@ public:
 
     bool anyLeavingAtStop(const MSStop& stop) const;
 
+    /// @brief transfers transportables that what to continue in splitVeh without delays
+    void transferAtSplit(MSBaseVehicle* splitVeh);
+
     /** @brief Saves the state of the device
      *
      * @param[in] out The OutputDevice to write the information into
