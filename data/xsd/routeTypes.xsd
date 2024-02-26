@@ -162,6 +162,7 @@
                     <xsd:enumeration value="Freight" />
                     <xsd:enumeration value="MireoPlusB" />
                     <xsd:enumeration value="MireoPlusH" />
+                    <xsd:enumeration value="custom" />
                 </xsd:restriction>
             </xsd:simpleType>
 
@@ -242,6 +243,12 @@
         <xsd:attribute name="speedTable" type="xsd:string"/>
         <xsd:attribute name="tractionTable" type="xsd:string"/>
         <xsd:attribute name="resistanceTable" type="xsd:string"/>
+        <xsd:attribute name="massFactor" type="positiveFloatType"/>
+        <xsd:attribute name="maxPower" type="positiveFloatType"/>
+        <xsd:attribute name="maxTraction" type="positiveFloatType"/>
+        <xsd:attribute name="resCoef_constant" type="floatType"/>
+        <xsd:attribute name="resCoef_linear" type="floatType"/>
+        <xsd:attribute name="resCoef_quadratic" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
