@@ -119,8 +119,8 @@ public:
 
     bool anyLeavingAtStop(const MSStop& stop) const;
 
-    /// @brief transfers transportables that what to continue in splitVeh without delays
-    void transferAtSplit(MSBaseVehicle* splitVeh);
+    /// @brief transfers transportables that want to continue in the other train part (without boarding/loading delays)
+    void transferAtSplitOrJoin(MSBaseVehicle* otherVeh);
 
     /** @brief Saves the state of the device
      *

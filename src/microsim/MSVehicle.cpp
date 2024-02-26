@@ -1634,10 +1634,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                 const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = getRoutePosition();
                 // handle transportables that want to continue in the other vehicle
                 if (myPersonDevice != nullptr) {
-                    myPersonDevice->transferAtSplit(joinVeh);
+                    myPersonDevice->transferAtSplitOrJoin(joinVeh);
                 }
                 if (myContainerDevice != nullptr) {
-                    myContainerDevice->transferAtSplit(joinVeh);
+                    myContainerDevice->transferAtSplitOrJoin(joinVeh);
                 }
             }
         }
@@ -1850,10 +1850,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                         getSingularType().setLength(newLength);
                         // handle transportables that want to continue in the split part
                         if (myPersonDevice != nullptr) {
-                            myPersonDevice->transferAtSplit(splitVeh);
+                            myPersonDevice->transferAtSplitOrJoin(splitVeh);
                         }
                         if (myContainerDevice != nullptr) {
-                            myContainerDevice->transferAtSplit(splitVeh);
+                            myContainerDevice->transferAtSplitOrJoin(splitVeh);
                         }
                     }
                 }

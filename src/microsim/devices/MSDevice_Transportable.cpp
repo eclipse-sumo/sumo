@@ -106,7 +106,7 @@ MSDevice_Transportable::anyLeavingAtStop(const MSStop& stop) const {
 
 
 void
-MSDevice_Transportable::transferAtSplit(MSBaseVehicle* splitVeh) {
+MSDevice_Transportable::transferAtSplitOrJoin(MSBaseVehicle* otherVeh) {
     const MSStop& stop = myHolder.getNextStop();
     for (auto it = myTransportables.begin(); it != myTransportables.end();) {
         MSTransportable* t = *it;
@@ -114,7 +114,7 @@ MSDevice_Transportable::transferAtSplit(MSBaseVehicle* splitVeh) {
             MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
             if (stage->canLeaveVehicle(t, myHolder, stop)) {
                 MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
-                if (stage2 && stage2->isWaitingFor(splitVeh)) {
+                if (stage2 && stage2->isWaitingFor(otherVeh)) {
                     it = myTransportables.erase(it);
                     // proceeding registers t as waiting on edge
                     t->proceed(MSNet::getInstance(), SIMSTEP); 
@@ -123,8 +123,8 @@ MSDevice_Transportable::transferAtSplit(MSBaseVehicle* splitVeh) {
                             MSNet::getInstance()->getContainerControl());
                     tc.abortWaitingForVehicle(t);
                     t->getEdge()->removeTransportable(t);
-                    splitVeh->addTransportable(t);
-                    stage2->setVehicle(splitVeh);
+                    otherVeh->addTransportable(t);
+                    stage2->setVehicle(otherVeh);
                     continue;
                 }
             }
