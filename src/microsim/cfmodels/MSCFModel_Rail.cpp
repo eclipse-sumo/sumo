@@ -29,6 +29,35 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
 
+
+// ===========================================================================
+// trainParams method definitions
+// ===========================================================================
+
+double
+MSCFModel_Rail::TrainParams::getResistance(double speed) const {
+    if (resistance.size() > 1) {
+        return getInterpolatedValueFromLookUpMap(speed, &resistance); // kN
+    } else {
+        return 0;
+    }
+}
+
+
+double
+MSCFModel_Rail::TrainParams::getTraction(double speed) const {
+    if (traction.size() > 1) {
+        return getInterpolatedValueFromLookUpMap(speed, &traction); // kN
+    } else {
+        return 0;
+    }
+}
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
+
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     MSCFModel(vtype) {
     const std::string trainType = vtype->getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
@@ -153,14 +182,14 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
 
     double targetSpeed = myTrainParams.vmax;
 
-    double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
+    double res = myTrainParams.getResistance(speed); // kN
 
     double slope = veh->getSlope();
     double gr = myTrainParams.weight * GRAVITY * sin(DEG2RAD(slope)); //kN
 
     double totalRes = res + gr; //kN
 
-    double trac = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.traction)); // kN
+    double trac = myTrainParams.getTraction(speed); // kN
 
     double a;
     if (speed < targetSpeed) {
@@ -183,7 +212,7 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
 
     const double slope = veh->getSlope();
     const double gr = myTrainParams.weight * GRAVITY * sin(DEG2RAD(slope)); //kN
-    const double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
+    const double res = myTrainParams.getResistance(speed); // kN
     const double totalRes = res + gr; //kN
     const double a = myTrainParams.decl + totalRes / myTrainParams.getRotWeight();
     const double vMin = speed - ACCEL2SPEED(a);
@@ -203,7 +232,7 @@ MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) 
 }
 
 
-double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
+double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) {
     speed = speed * 3.6; // lookup values in km/h
     std::map<double, double>::const_iterator low, prev;
     low = lookUpMap->lower_bound(speed);

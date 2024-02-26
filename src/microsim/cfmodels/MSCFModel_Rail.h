@@ -84,9 +84,12 @@ private:
         double getRotWeight() const {
             return weight * mf;
         }
+
+        double getResistance(double speed) const;
+        double getTraction(double speed) const;
     };
 
-    double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const;
+    static double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap);
 
     std::vector<double> getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr);
 
