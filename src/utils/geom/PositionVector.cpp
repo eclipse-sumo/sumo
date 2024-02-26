@@ -1115,7 +1115,7 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
 
 void
 PositionVector::extrapolate(const double val, const bool onlyFirst, const bool onlyLast) {
-    if (size() > 0) {
+    if (size() > 1) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
         const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
@@ -1137,7 +1137,7 @@ PositionVector::extrapolate(const double val, const bool onlyFirst, const bool o
 
 void
 PositionVector::extrapolate2D(const double val, const bool onlyFirst) {
-    if (size() > 0) {
+    if (size() > 1) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
         if (p1.distanceTo2D(p2) > 0) {
