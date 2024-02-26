@@ -239,6 +239,9 @@
         <xsd:attribute name="timeToTeleport" type="floatType"/>
         <xsd:attribute name="timeToTeleportBidi" type="floatType"/>
         <xsd:attribute name="speedFactorPremature" type="floatType"/>
+        <xsd:attribute name="speedTable" type="xsd:string"/>
+        <xsd:attribute name="tractionTable" type="xsd:string"/>
+        <xsd:attribute name="resistanceTable" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
