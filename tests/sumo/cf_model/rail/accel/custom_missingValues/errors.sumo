@@ -1,0 +1,2 @@
+Error: Either tractionTable or maxPower must be defined for vType '0' with Rail model type 'custom'.
+Quitting (on error).

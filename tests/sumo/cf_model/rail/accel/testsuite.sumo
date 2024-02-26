@@ -15,3 +15,12 @@ REDosto7
 NGRS3
 MireoPlusB
 MireoPlusH
+
+# custom model without extra attributes
+custom_missingValues
+
+# custom model without extra attributes
+custom_tables
+
+# custom model without extra attributes
+custom_curves
