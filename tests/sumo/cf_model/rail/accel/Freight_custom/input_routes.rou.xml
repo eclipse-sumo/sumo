@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- generated on 2017-02-08 09:09:20.447642 by $Id: route2trips.py 22767 2017-01-30 11:42:27Z behrisch $ via randomTrips.py
+  options: 
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="0" vClass="rail" carFollowModel="Rail" trainType="Freight"
+        speedTable="0 10 20 30 40 50 60 70 80 90 100 110 120"
+        tractionTable="300 300 263 179 135 108 90 77 67.5 60 54 49 45"
+        resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>
+
+    <trip id="r0" depart="0.00" departLane="best" from="e0" to="e2" type="0"/>
+</routes>

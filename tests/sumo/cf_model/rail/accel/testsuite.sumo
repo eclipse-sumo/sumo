@@ -2,6 +2,9 @@ Freight
 
 # use custom mass value
 Freight_heavier
+
+# use custom traction and resistance curve
+Freight_custom
 ICE3
 NGT400_16
 RB628
