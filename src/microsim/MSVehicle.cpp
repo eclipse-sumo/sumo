@@ -1632,6 +1632,13 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // mark this vehicle as arrived
                 myArrivalPos = getPositionOnLane();
                 const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = getRoutePosition();
+                // handle transportables that want to continue in the other vehicle
+                if (myPersonDevice != nullptr) {
+                    myPersonDevice->transferAtSplit(joinVeh);
+                }
+                if (myContainerDevice != nullptr) {
+                    myContainerDevice->transferAtSplit(joinVeh);
+                }
             }
         }
         boardTransportables(stop);
@@ -1848,7 +1855,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                         if (myContainerDevice != nullptr) {
                             myContainerDevice->transferAtSplit(splitVeh);
                         }
-
                     }
                 }
 

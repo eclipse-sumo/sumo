@@ -135,6 +135,16 @@ MSDevice_Transportable::transferAtSplit(MSBaseVehicle* splitVeh) {
 
 
 bool
+MSDevice_Transportable::willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) const {
+    if (joinVeh && t->getNumRemainingStages() > 1) {
+        MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
+        return stage2->isWaitingFor(joinVeh);
+    }
+    return false;
+}
+
+
+bool
 MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double newPos, double newSpeed) {
     SUMOVehicle& veh = myHolder;
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -150,11 +160,12 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
         if (veh.isStopped()) {
             myStopped = true;
             MSStop& stop = veh.getNextStop();
+            const MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
             const SUMOTime boardingDuration = veh.getVehicleType().getLoadingDuration(!myAmContainer);
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
-                if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
+                if (stage->canLeaveVehicle(transportable, myHolder, stop) && !willTransferAtJoin(transportable, joinVeh)) {
                     SUMOTime& timeForNext = myAmContainer ? stop.timeToLoadNextContainer : stop.timeToBoardNextPerson;
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr && timeForNext == 0 && !MSGlobals::gUseMesoSim) {
@@ -172,9 +183,9 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
 
                     SUMOTime arrivalTime = currentTime;
                     if (MSGlobals::gUseMesoSim) {
+                        // no boarding / unboarding time in meso
                         arrivalTime += 1;
                     } else {
-                        // no boarding / unboarding time in meso
                         if (timeForNext > currentTime - DELTA_T) {
                             timeForNext += boardingDuration;
                         } else {

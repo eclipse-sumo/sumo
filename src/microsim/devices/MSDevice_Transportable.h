@@ -162,6 +162,10 @@ protected:
                             const double travelledDistanceVehicleOnLane,
                             const double meanLengthOnLane);
 
+    /// @brief check if boardingDuration should be applied
+    bool willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) const;
+
+
 private:
     /** @brief Constructor
      *
