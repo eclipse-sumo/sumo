@@ -640,6 +640,7 @@
                     <xsd:enumeration value="base"/>
                     <xsd:enumeration value="last"/>
                     <xsd:enumeration value="stop"/>
+                    <xsd:enumeration value="splitFront"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
