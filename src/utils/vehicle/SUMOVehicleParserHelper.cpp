@@ -1400,6 +1400,12 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         railParams.insert(SUMO_ATTR_SPEED_TABLE);
         railParams.insert(SUMO_ATTR_TRACTION_TABLE);
         railParams.insert(SUMO_ATTR_RESISTANCE_TABLE);
+        railParams.insert(SUMO_ATTR_MASSFACTOR);
+        railParams.insert(SUMO_ATTR_MAXPOWER);
+        railParams.insert(SUMO_ATTR_MAXTRACTION);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR);
+        railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
         // ACC

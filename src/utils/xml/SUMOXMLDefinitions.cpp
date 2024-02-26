@@ -598,6 +598,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shutOffAutoDuration",    SUMO_ATTR_SHUT_OFF_AUTO },
     { "loading",                SUMO_ATTR_LOADING },
 
+    /// @name carFollow model attributes
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
     { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },
@@ -644,11 +645,20 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedControlMinGap",             SUMO_ATTR_SC_MIN_GAP },
     { "applyDriverState",               SUMO_ATTR_APPLYDRIVERSTATE },
 
-    { "trainType",                  SUMO_ATTR_TRAIN_TYPE },
-    { "speedTable",                 SUMO_ATTR_SPEED_TABLE },
-    { "tractionTable",              SUMO_ATTR_TRACTION_TABLE },
-    { "resistanceTable",            SUMO_ATTR_RESISTANCE_TABLE },
+    { "trainType",                      SUMO_ATTR_TRAIN_TYPE },
+    { "speedTable",                     SUMO_ATTR_SPEED_TABLE },
+    { "tractionTable",                  SUMO_ATTR_TRACTION_TABLE },
+    { "resistanceTable",                SUMO_ATTR_RESISTANCE_TABLE },
+    { "massFactor",                     SUMO_ATTR_MASSFACTOR },
+    { "maxPower",                       SUMO_ATTR_MAXPOWER },
+    { "maxTraction",                    SUMO_ATTR_MAXTRACTION },
+    { "resCoef_constant",               SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT },
+    { "resCoef_linear",                 SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR },
+    { "resCoef_quadratic",              SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC },
+    /// @}
 
+    /// @name Lane changing model attributes
+    /// @{
     { "lcStrategic",                SUMO_ATTR_LCA_STRATEGIC_PARAM },
     { "lcCooperative",              SUMO_ATTR_LCA_COOPERATIVE_PARAM },
     { "lcSpeedGain",                SUMO_ATTR_LCA_SPEEDGAIN_PARAM },
@@ -676,7 +686,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
     { "lcOvertakeDeltaSpeedFactor", SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR },
     { "lcExperimental1",            SUMO_ATTR_LCA_EXPERIMENTAL1 },
+    /// @}
 
+    /// @name junction model attributes
+    /// @{
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },
     { "jmDriveAfterYellowTime", SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME },
     { "jmDriveAfterRedTime",    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME },
@@ -692,6 +705,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "junctionModel.ignoreTypes",  SUMO_ATTR_JM_IGNORE_TYPES },
     { "carFollowModel.ignoreIDs",   SUMO_ATTR_CF_IGNORE_IDS },
     { "carFollowModel.ignoreTypes", SUMO_ATTR_CF_IGNORE_TYPES },
+    /// @}
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },
@@ -1297,6 +1311,7 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
 };
 
 StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
+    { "custom",     TrainType::CUSTOM },
     { "NGT400",     TrainType::NGT400 },
     { "NGT400_16",  TrainType::NGT400_16 },
     { "RB425",      TrainType::RB425 },

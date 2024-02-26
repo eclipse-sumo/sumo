@@ -80,6 +80,11 @@ private:
         double recovery;
         LookUpMap traction;
         LookUpMap resistance;
+        double maxPower;
+        double maxTraction;
+        double resCoef_constant;
+        double resCoef_linear;
+        double resCoef_quadratic;
 
         double getRotWeight() const {
             return weight * mf;
@@ -849,6 +854,17 @@ private:
         params.recovery = 0.3;
         params.traction = initMireoPlusH2TTraction();
         params.resistance = initMireoPlusH2TResistance();
+        return params;
+    }
+
+    TrainParams initCustomParams() const {
+        TrainParams params;
+        params.weight = 100;
+        params.mf = 1.05;
+        params.length = 100;
+        params.decl = 1;
+        params.vmax = 200 / 3.6;
+        params.recovery = 0.3;
         return params;
     }
 //    void initVehicleVariables(const MSVehicle *const pVehicle, MSCFModel_Rail::VehicleVariables *pVariables)const;

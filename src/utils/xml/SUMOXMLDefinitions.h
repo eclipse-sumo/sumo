@@ -955,10 +955,13 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEED_TABLE, // list of speeds for traction and resistance value tables
     SUMO_ATTR_TRACTION_TABLE, // list of traction values for the speeds table
     SUMO_ATTR_RESISTANCE_TABLE, // list of resistance values for the speeds table
-    /// @}
+    SUMO_ATTR_MASSFACTOR,
+    SUMO_ATTR_MAXPOWER,
+    SUMO_ATTR_MAXTRACTION,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC,
 
-    /// @name Lane changing model attributes
-    /// @{
     SUMO_ATTR_LCA_STRATEGIC_PARAM,
     SUMO_ATTR_LCA_COOPERATIVE_PARAM,
     SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
@@ -1870,6 +1873,7 @@ enum class LaneChangeModel {
 
 /// @enum train types
 enum class TrainType {
+    CUSTOM,
     NGT400,
     NGT400_16,
     RB425,

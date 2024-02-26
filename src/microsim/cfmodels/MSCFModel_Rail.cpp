@@ -36,20 +36,20 @@
 
 double
 MSCFModel_Rail::TrainParams::getResistance(double speed) const {
-    if (resistance.size() > 1) {
-        return getInterpolatedValueFromLookUpMap(speed, &resistance); // kN
+    if (resCoef_constant != INVALID_DOUBLE) {
+        return (resCoef_quadratic * speed * speed + resCoef_linear * speed + resCoef_constant) / 1000; // kN
     } else {
-        return 0;
+        return getInterpolatedValueFromLookUpMap(speed, &resistance); // kN
     }
 }
 
 
 double
 MSCFModel_Rail::TrainParams::getTraction(double speed) const {
-    if (traction.size() > 1) {
-        return getInterpolatedValueFromLookUpMap(speed, &traction); // kN
+    if (maxPower != INVALID_DOUBLE) {
+        return MIN2(maxPower / speed * 3.6, maxTraction); // kN
     } else {
-        return 0;
+        return getInterpolatedValueFromLookUpMap(speed, &traction); // kN
     }
 }
 
@@ -81,6 +81,8 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         myTrainParams = initMireoPlusB2TParams();
     } else if (trainType.compare("MireoPlusH") == 0) {
         myTrainParams = initMireoPlusH2TParams();
+    } else if (trainType.compare("custom") == 0) {
+        myTrainParams = initCustomParams();
     } else {
         WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);
         throw ProcessError();
@@ -96,6 +98,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         // kg to tons
         myTrainParams.weight = vtype->getMass() / 1000;
     }
+    myTrainParams.mf = vtype->getParameter().getCFParam(SUMO_ATTR_MASSFACTOR, myTrainParams.mf);
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
     setEmergencyDecel(vtype->getParameter().getCFParam(SUMO_ATTR_EMERGENCYDECEL, myTrainParams.decl + 0.3));
@@ -103,12 +106,14 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
-    // init curves
+    // init tabular curves
     std::vector<double> speedTable = getValueTable(vtype, SUMO_ATTR_SPEED_TABLE);
     std::vector<double> tractionTable = getValueTable(vtype, SUMO_ATTR_TRACTION_TABLE);
     std::vector<double> resistanceTable = getValueTable(vtype, SUMO_ATTR_RESISTANCE_TABLE);
-    if (speedTable.size() > 0) {
-        if (speedTable.size() != tractionTable.size()) {
+    if (speedTable.size() > 0 || tractionTable.size() > 0 || resistanceTable.size() > 0) {
+        if (speedTable.size() == 1) {
+            throw ProcessError(TLF("Invalid size of speedTable for vType '%' (at least 2 values are required).", vtype->getID()));
+        } else if (speedTable.size() != tractionTable.size()) {
             throw ProcessError(TLF("Mismatching size of speedTable and tractionTable for vType '%'.", vtype->getID()));
         } else if (speedTable.size() != resistanceTable.size()) {
             throw ProcessError(TLF("Mismatching size of speedTable and resistanceTable for vType '%'.", vtype->getID()));
@@ -120,7 +125,43 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
             myTrainParams.resistance[speedTable[i]] = resistanceTable[i];
         }
     }
+
+    // init parametric curves
+    myTrainParams.maxPower = vtype->getParameter().getCFParam(SUMO_ATTR_MAXPOWER, INVALID_DOUBLE);
+    myTrainParams.maxTraction = vtype->getParameter().getCFParam(SUMO_ATTR_MAXTRACTION, INVALID_DOUBLE);
+    myTrainParams.resCoef_constant = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT, INVALID_DOUBLE);
+    myTrainParams.resCoef_linear = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR, INVALID_DOUBLE);
+    myTrainParams.resCoef_quadratic = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC, INVALID_DOUBLE);
+
+    if (myTrainParams.maxPower != INVALID_DOUBLE && myTrainParams.maxTraction == INVALID_DOUBLE) {
+        throw ProcessError(TLF("Undefined maxPower for vType '%'.", vtype->getID()));
+    } else if (myTrainParams.maxPower == INVALID_DOUBLE && myTrainParams.maxTraction != INVALID_DOUBLE) {
+        throw ProcessError(TLF("Undefined maxTraction for vType '%'.", vtype->getID()));
+    }
+    if (myTrainParams.maxPower != INVALID_DOUBLE && tractionTable.size() > 0) {
+        WRITE_WARNING(TLF("Ignoring tractionTable because maxPower and maxTraction are set for vType '%'.", vtype->getID()));
+    }
+    const bool hasSomeResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
+            || myTrainParams.resCoef_linear != INVALID_DOUBLE
+            || myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
+    const bool hasAllResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
+            && myTrainParams.resCoef_linear != INVALID_DOUBLE
+            && myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
+    if (hasSomeResCoef && !hasAllResCoef) {
+        throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
+    }
+    if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
+        WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficents are set for vType '%'.", vtype->getID()));
+    }
+
+    if (myTrainParams.traction.empty() && myTrainParams.maxPower == INVALID_DOUBLE) {
+        throw ProcessError(TLF("Either tractionTable or maxPower must be defined for vType '%' with Rail model type '%'.", vtype->getID(), trainType));
+    }
+    if (myTrainParams.resistance.empty() && myTrainParams.resCoef_constant == INVALID_DOUBLE) {
+        throw ProcessError(TLF("Either resistanceTable or resCoef_constant must be defined for vType '%' with Rail model type '%'.", vtype->getID(), trainType));
+    }
 }
+
 
 MSCFModel_Rail::~MSCFModel_Rail() { }
 
