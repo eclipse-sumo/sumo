@@ -4,6 +4,9 @@ transportables
 # split a train into two parts
 split
 
+# split a train into two parts, the rear part keeps the original id and the new part is split of at the front
+splitFront
+
 # split a train into two parts without specifing the departPos of the train that is created by splitting
 split_departPosDefault
 
