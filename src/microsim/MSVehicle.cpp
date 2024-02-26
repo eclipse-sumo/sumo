@@ -1855,6 +1855,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                         if (myContainerDevice != nullptr) {
                             myContainerDevice->transferAtSplitOrJoin(splitVeh);
                         }
+                        if (splitVeh->getParameter().departPosProcedure == DepartPosDefinition::SPLIT_FRONT) {
+                            const double backShift = splitVeh->getLength() + getVehicleType().getMinGap();
+                            myState.myPos -= backShift;
+                            myState.myBackPos -= backShift;
+                        }
                     }
                 }
 

@@ -171,6 +171,8 @@ enum class DepartPosDefinition {
     RANDOM_FREE,
     /// @brief The position may be chosen freely in a polygon defined by a taz
     RANDOM_LOCATION,
+    /// @brief depart position for a split vehicle is in front of the continuing vehicle
+    SPLIT_FRONT,
     /// @brief depart position is endPos of first stop
     STOP
 };

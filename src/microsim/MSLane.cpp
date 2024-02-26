@@ -691,6 +691,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
             FALLTHROUGH;
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
+        case DepartPosDefinition::SPLIT_FRONT:
         default:
             if (pars.departProcedure == DepartDefinition::SPLIT) {
                 pos = getLength();
@@ -699,7 +700,11 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 for (AnyVehicleIterator it = anyVehiclesBegin(); it != end; ++it) {
                     const MSVehicle* cand = *it;
                     if (cand->isStopped() && cand->getNextStopParameter()->split == veh.getID()) {
-                        pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        if (pars.departPosProcedure == DepartPosDefinition::SPLIT_FRONT) {
+                            pos = cand->getPositionOnLane() + cand->getVehicleType().getMinGap() + veh.getLength();
+                        } else {
+                            pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        }
                         break;
                     }
                 }
@@ -1329,6 +1334,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                 gap -= (leader->getLength() + leader->getBrakeGap(true));
             }
             if (gap < 0) {
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(veh)) {
+                    std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << "\n";
+                }
+#endif
                 if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
                 } else {

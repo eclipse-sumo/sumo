@@ -404,6 +404,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         dpd = DepartPosDefinition::BASE;
     } else if (val == "last") {
         dpd = DepartPosDefinition::LAST;
+    } else if (val == "splitFront") {
+        dpd = DepartPosDefinition::SPLIT_FRONT;
     } else if (val == "stop") {
         dpd = DepartPosDefinition::STOP;
     } else {
@@ -827,6 +829,9 @@ SUMOVehicleParameter::getDepartPos() const {
             break;
         case DepartPosDefinition::BASE:
             val = "base";
+            break;
+        case DepartPosDefinition::SPLIT_FRONT:
+            val = "splitFront";
             break;
         case DepartPosDefinition::STOP:
             val = "stop";
