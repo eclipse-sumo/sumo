@@ -292,6 +292,7 @@ To split a train, the following input definition can be used. The rear half of t
     </trip>
 ```
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
+If the vehicle that is split if (with `depart="split"`) uses attribute `departPos="splitFront"` it will instead be inserted at front and the part that keeps it's id will be positioned in the rear.
 
 ## Joining two trains
 To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop>`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
