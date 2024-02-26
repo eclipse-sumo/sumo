@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-26 08:39:11 by Eclipse SUMO sumo Version v1_19_0+1003-3d2f0c8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+        <stop duration="0.00" arrival="0.00" arrivalPos="208.37" actType="waiting"/>
+        <transport waitingTime="219.00" vehicle="t0" depart="219.00" arrival="429.00" arrivalPos="338.22" duration="210.00" routeLength="788.14" timeLoss="63.26"/>
+    </containerinfo>
+    <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+        <stop duration="0.00" arrival="0.00" arrivalPos="208.37" actType="waiting"/>
+        <transport waitingTime="219.00" vehicle="t0" depart="219.00" arrival="271.00" arrivalPos="150.00" duration="52.00" routeLength="293.80" timeLoss="30.85"/>
+        <transport waitingTime="91.00" vehicle="t1" depart="362.00" arrival="436.00" arrivalPos="371.28" duration="74.00" routeLength="582.43" timeLoss="32.08"/>
+    </containerinfo>
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="100.10" departSpeed="0.00" departDelay="0.00" arrival="539.00" arrivalLane="c_0" arrivalPos="391.72" arrivalSpeed="5.25" duration="539.00" routeLength="999.91" waitingTime="0.00" waitingCount="0" stopTime="360.00" timeLoss="106.71" rerouteNo="0" devices="tripinfo_t0 routing_t0 container_t0" vType="fullTrain@t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="271.00" departLane="b_0" departPos="95.00" departSpeed="0.00" departDelay="0.00" arrival="544.00" arrivalLane="e_0" arrivalPos="415.33" arrivalSpeed="4.75" duration="273.00" routeLength="626.48" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="47.66" rerouteNo="0" devices="tripinfo_t1 routing_t1 container_t1" vType="splitTrain" speedFactor="1.00" vaporized=""/>
+</tripinfos>

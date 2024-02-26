@@ -3,3 +3,9 @@ join_persons
 
 # join two train parts into a single train, containers from both parts continue in the joint train
 join_containers
+
+# split a train into two parts. Containers must end up in the correct part without loading/unloading delay
+split_containers
+
+# split a train into two parts. Containers must end up in the correct part without loading/unloading delay. This must even work when the split-off part doesn't have a stop.
+split_containers_noStop
