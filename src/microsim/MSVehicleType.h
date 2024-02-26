@@ -77,7 +77,7 @@ public:
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
      */
-    bool wasSet(int what) const {
+    bool wasSet(long long int what) const {
         return (myParameter.parametersSet & what) != 0;
     }
 

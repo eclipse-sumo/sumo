@@ -61,6 +61,10 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     if (vtype->wasSet(VTYPEPARS_LENGTH_SET)) {
         myTrainParams.length = vtype->getLength();
     }
+    if (vtype->wasSet(VTYPEPARS_MASS_SET)) {
+        // kg to tons
+        myTrainParams.weight = vtype->getMass() / 1000;
+    }
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
     setEmergencyDecel(vtype->getParameter().getCFParam(SUMO_ATTR_EMERGENCYDECEL, myTrainParams.decl + 0.3));
@@ -127,11 +131,11 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
 
     double a;
     if (speed < targetSpeed) {
-        a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
+        a = (trac - totalRes) / myTrainParams.getRotWeight(); //kN/t == N/kg
     } else {
         a = 0.;
         if (totalRes > trac) {
-            a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
+            a = (trac - totalRes) / myTrainParams.getRotWeight(); //kN/t == N/kg
         }
     }
 
@@ -148,7 +152,7 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
     const double gr = myTrainParams.weight * GRAVITY * sin(DEG2RAD(slope)); //kN
     const double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
     const double totalRes = res + gr; //kN
-    const double a = myTrainParams.decl + totalRes / myTrainParams.rotWeight;
+    const double a = myTrainParams.decl + totalRes / myTrainParams.getRotWeight();
     const double vMin = speed - ACCEL2SPEED(a);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MAX2(vMin, 0.);

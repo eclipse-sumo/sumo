@@ -70,15 +70,20 @@ private:
     typedef std::map<double, double> LookUpMap;
 
     struct TrainParams {
+        // the vehicle mass in tons
         double weight;
+        // the mass factor
         double mf;
         double length;
         double decl;
         double vmax;
         double recovery;
-        double rotWeight;
         LookUpMap traction;
         LookUpMap resistance;
+
+        double getRotWeight() const {
+            return weight * mf;
+        }
     };
 
     double getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const;
@@ -231,7 +236,6 @@ private:
         params.decl = 0.9;
         params.vmax = 500 / 3.6;
         params.recovery = 0.6;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initNGT400Traction();
         params.resistance = initNGT400Resistance();
         return params;
@@ -351,7 +355,6 @@ private:
         params.decl = 0.9;
         params.vmax = 430 / 3.6;
         params.recovery = 0.6;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initNGT400_16Traction();
         params.resistance = initNGT400_16Resistance();
         return params;
@@ -427,7 +430,6 @@ private:
         params.decl = 0.5;
         params.vmax = 250 / 3.6;
         params.recovery = 0.1;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initICE1Traction();
         params.resistance = initICE1Resistance();
         return params;
@@ -441,7 +443,6 @@ private:
         params.decl = 0.5;
         params.vmax = 300 / 3.6;
         params.recovery = 0.6;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initICE3Traction();
         params.resistance = initICE3Resistance();
         return params;
@@ -527,7 +528,6 @@ private:
         params.decl = 0.5;
         params.vmax = 160 / 3.6;
         params.recovery = 0.1;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initREDosto7Traction();
         params.resistance = initREDosto7Resistance();
         return params;
@@ -585,7 +585,6 @@ private:
         params.decl = 0.5;
         params.vmax = 120 / 3.6;
         params.recovery = 0;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initRB628Traction();
         params.resistance = initRB628Resistance();
         return params;
@@ -635,7 +634,6 @@ private:
         params.decl = 0.3;
         params.vmax = 120 / 3.6;
         params.recovery = 0.05;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initFreightTraction();
         params.resistance = initFreightResistance();
         return params;
@@ -728,7 +726,6 @@ private:
         params.decl = 1.0;
         params.vmax = 160 / 3.6;
         params.recovery = 0.6;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initRB425Traction();
         params.resistance = initRB425Resistance();
         return params;
@@ -787,7 +784,6 @@ private:
         params.decl = 1.1;
         params.vmax = 160 / 3.6;
         params.recovery = 0.3;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initMireoPlusB2TTraction();
         params.resistance = initMireoPlusB2TResistance();
         return params;
@@ -846,7 +842,6 @@ private:
         params.decl = 1.1;
         params.vmax = 160 / 3.6;
         params.recovery = 0.3;
-        params.rotWeight = params.weight * params.mf;
         params.traction = initMireoPlusH2TTraction();
         params.resistance = initMireoPlusH2TResistance();
         return params;
