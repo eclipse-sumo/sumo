@@ -952,6 +952,9 @@ enum SumoXMLAttr {
     /// @name Train model attributes
     /// @{
     SUMO_ATTR_TRAIN_TYPE, //used by: Rail
+    SUMO_ATTR_SPEED_TABLE, // list of speeds for traction and resistance value tables
+    SUMO_ATTR_TRACTION_TABLE, // list of traction values for the speeds table
+    SUMO_ATTR_RESISTANCE_TABLE, // list of resistance values for the speeds table
     /// @}
 
     /// @name Lane changing model attributes

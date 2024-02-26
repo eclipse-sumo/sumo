@@ -644,7 +644,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedControlMinGap",             SUMO_ATTR_SC_MIN_GAP },
     { "applyDriverState",               SUMO_ATTR_APPLYDRIVERSTATE },
 
-    { "trainType",              SUMO_ATTR_TRAIN_TYPE },
+    { "trainType",                  SUMO_ATTR_TRAIN_TYPE },
+    { "speedTable",                 SUMO_ATTR_SPEED_TABLE },
+    { "tractionTable",              SUMO_ATTR_TRACTION_TABLE },
+    { "resistanceTable",            SUMO_ATTR_RESISTANCE_TABLE },
 
     { "lcStrategic",                SUMO_ATTR_LCA_STRATEGIC_PARAM },
     { "lcCooperative",              SUMO_ATTR_LCA_COOPERATIVE_PARAM },

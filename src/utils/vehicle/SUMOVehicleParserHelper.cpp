@@ -1215,6 +1215,8 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                 }
                 // add parsedCFMAttribute to cfParameter
                 into->cfParameter[it] = parsedCFMAttribute;
+            } else if (it == SUMO_ATTR_SPEED_TABLE || it == SUMO_ATTR_TRACTION_TABLE || it == SUMO_ATTR_RESISTANCE_TABLE) {
+                into->cfParameter[it] = parsedCFMAttribute;
             } else if (it == SUMO_ATTR_CF_IDM_STEPPING) {
                 // declare a int in wich save CFM int attribute
                 double CFMDoubleAttribute = -1;
@@ -1395,6 +1397,9 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         // Rail
         std::set<SumoXMLAttr> railParams(genericParams);
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
+        railParams.insert(SUMO_ATTR_SPEED_TABLE);
+        railParams.insert(SUMO_ATTR_TRACTION_TABLE);
+        railParams.insert(SUMO_ATTR_RESISTANCE_TABLE);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
         // ACC

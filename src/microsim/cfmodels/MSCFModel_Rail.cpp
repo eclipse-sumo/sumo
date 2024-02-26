@@ -22,6 +22,8 @@
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -72,9 +74,40 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
+    // init curves
+    std::vector<double> speedTable = getValueTable(vtype, SUMO_ATTR_SPEED_TABLE);
+    std::vector<double> tractionTable = getValueTable(vtype, SUMO_ATTR_TRACTION_TABLE);
+    std::vector<double> resistanceTable = getValueTable(vtype, SUMO_ATTR_RESISTANCE_TABLE);
+    if (speedTable.size() > 0) {
+        if (speedTable.size() != tractionTable.size()) {
+            throw ProcessError(TLF("Mismatching size of speedTable and tractionTable for vType '%'.", vtype->getID()));
+        } else if (speedTable.size() != resistanceTable.size()) {
+            throw ProcessError(TLF("Mismatching size of speedTable and resistanceTable for vType '%'.", vtype->getID()));
+        }
+        myTrainParams.traction.clear();
+        myTrainParams.resistance.clear();
+        for (int i = 0; i < (int)speedTable.size(); i++) {
+            myTrainParams.traction[speedTable[i]] = tractionTable[i];
+            myTrainParams.resistance[speedTable[i]] = resistanceTable[i];
+        }
+    }
 }
 
 MSCFModel_Rail::~MSCFModel_Rail() { }
+
+
+std::vector<double> 
+MSCFModel_Rail::getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr) {
+    std::vector<double> result;
+    const std::string values = vtype->getParameter().getCFParamString(attr, "");
+    if (!values.empty()) {
+        for (std::string value : StringTokenizer(values).getVector()) {
+            result.push_back(StringUtils::toDouble(value));
+        }
+    }
+    return result;
+}
+
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
                                    double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
