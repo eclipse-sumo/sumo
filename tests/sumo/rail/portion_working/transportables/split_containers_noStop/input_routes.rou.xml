@@ -8,7 +8,7 @@
         <stop busStop="B" duration="30.00" until="60" split="t1"/>
         <stop busStop="C" duration="10.00" until="90"/>
     </trip>
-    <trip id="t1" type="splitTrain" depart="split" line="LDB">
+    <trip id="t1" type="splitTrain" depart="split" line="LDB" from="b">
         <!--stop busStop="B" duration="30.00" until="60"/-->
         <stop busStop="E" duration="30.00" until="60"/>
     </trip>
