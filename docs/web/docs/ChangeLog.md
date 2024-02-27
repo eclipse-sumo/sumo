@@ -8,15 +8,16 @@ title: ChangeLog
 
 - sumo
   - Fixed inconsistent edgeData and laneData emissions. #14209
-  - Fixed crash with SSM device and incomplete routes. #14201
-  - Trips now allow "via" edges that loop over the from/to edges. #13987
-  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115  
-  - Inserting vehicle with depart="split" now works on short edges. #14359
-  - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
-  - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
+  - Fixed crash with SSM device and incomplete routes. #14201  
+  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115    
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
   - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
   - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
+  - Railways
+    - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
+    - Inserting vehicle with depart="split" now works on short edges. #14359
+    - fixed collision during portion working when train route continues after join. #14350
+    - Rail signals now permit train joins where the front is joined to the rear part. #14349
  
 - netedit
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
@@ -26,15 +27,21 @@ title: ChangeLog
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
   - Roundabouts defined explicitly in OSM now have correct right-of-way regardless of geometry. #13970
   - Fixed problems related to option **--dlr-navteq-output**. #14071
+  - Option **--junctions.minimal-shape** now persists when re-processing the network. #14375
+  - Fixed invalid permissions in OSM import of ferry routes. #14362
+  - Fixec crash when importing Vissim Network with unusual geometry. #14413
 
 - sumo-gui
   - Fixed positioning of guiShape "scooter". #13691
   - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
+  - Fixed invalid default for edges minSize when loading incomplete gui settings file. #14384
 
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
 
-- Tools 
+- Tools
+  - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
+  - xml output from edgeDataDiff can now be loaded in netedit and sumo-gui. #14387
   - tileGet.py is able to use maQuest service again. #14202
     
 - Activitygen: Fixed wrong working hour fallback times. #14344
@@ -44,6 +51,9 @@ title: ChangeLog
 - sumo
   - Access elements support `pos="doors"` to change the algorithm for placing passengers that exit the vehicle. #14336
   - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
+  - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
+  - Added new attribute `departPos="splitFront" which causes a train with [`depart="split"`](Simulation/Railways.md#portion_working) to be created at the front rather than the rear of the original train. #14358
+  - vType attribute `mass` is noow used within `carFollowModel="Rail"`. #13055
 
 - netedit
   - Now sidewalk and bikelane width can be edited in in GNECreateEdgeFrame. #9725
@@ -56,6 +66,13 @@ title: ChangeLog
  
 - sumo-gui
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
+  - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
+  - The new train visualization param `carriageImages` accepts a comma-separated list of image files to enable distinct images for the different carriages. #14403
+ 
+- netconvert
+  - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
+  - Aded option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
+  - Option **--output.street-names** is now enabled by default if **--shapefile.name** is set. #14399
     
 - TraCI / libsumo
   - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
@@ -63,6 +80,8 @@ title: ChangeLog
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating vidoes from a simulation with scripted view movements. #14060
   - tileGet.py supports downloading rendered tiles from OSM. #14241
+  - added `sumolib.net.node.getMaxTLLinkIndex` #14373
+  - gtfs2pt.py nows support human-readable times output using option **-H**. #11192
 
 
 ### Miscellaneous
@@ -70,6 +89,7 @@ title: ChangeLog
 - [Numerical access restrictions](Simulation/VehiclePermissions.md#custom_access_restrictions) for routing are now documented.  #14370
 - Fixed inconsistent documentation for jumps #14316
 - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
+- Plexe: Improved whole-platoon lane change procedure. #14395
 
 
 ## Version 1.19.0 (07.11.2023)
@@ -84,7 +104,7 @@ title: ChangeLog
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
   - Fixed collision during sublane-change. #13582, #13585
   - Fixed crash during emergency vehicle simulation. #13598
-  - Start and end edge in trips can also be used as vias. #13987
+  - Start and end edge in trips can also be used as vias to create looped routes. #13987
   - bidi edge
     - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
     - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
