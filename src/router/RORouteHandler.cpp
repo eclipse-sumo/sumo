@@ -978,31 +978,26 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     std::vector<ROPerson::PlanItem*>& plan = *myActivePlan;
     const std::string pid = myVehicleParameter->id;
 
-    ROEdge* from = nullptr;
-    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, pid.c_str(), ok);
-        from = myNet.getEdge(fromID);
-        if (from == nullptr) {
-            myErrorOutput->inform("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
-            return;
+    const ROEdge* from = nullptr;
+    const ROEdge* to = nullptr;
+    parseFromViaTo(SUMO_TAG_PERSON, attrs, ok);
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
+            || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT) || attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
+        if (ok) {
+            from = myActiveRoute.front();
         }
     } else if (plan.empty()) {
         myErrorOutput->inform("The start edge for person '" + pid + "' is not known.");
         return;
     }
-    ROEdge* to = nullptr;
     std::string stoppingPlaceID;
     const SUMOVehicleParameter::Stop* stop = retrieveStoppingPlace(attrs, " for ride of person '" + myVehicleParameter->id + "'", stoppingPlaceID);
     if (stop != nullptr) {
         to = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop->lane));
     } else {
-        const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
-        if (toID != "") {
-            to = myNet.getEdge(toID);
-            if (to == nullptr) {
-                myErrorOutput->inform("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
-                return;
-            }
+        if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
+                || attrs.hasAttribute(SUMO_ATTR_TOLONLAT) || attrs.hasAttribute(SUMO_ATTR_TOXY)) {
+            to = myActiveRoute.back();
         } else {
             myErrorOutput->inform("The to edge is missing within a ride of '" + myVehicleParameter->id + "'.");
             return;
