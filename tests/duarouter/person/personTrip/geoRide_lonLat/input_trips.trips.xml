@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
-        <ride fromLonLat="13.522013,52.426592" toLonLat="13.535143,52.432031"/>
+        <ride fromLonLat="13.522013,52.426592" toLonLat="13.535143,52.432031" lines="ANY"/>
         <stop lon="13.535143" lat="52.432031" duration="30"/>
     </person>
 </routes>
