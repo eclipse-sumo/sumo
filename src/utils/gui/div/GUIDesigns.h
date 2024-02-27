@@ -48,10 +48,10 @@ class MFXMenuCheckIcon;
 /// @name ComboBox sizes
 /// @{
 /// @brief combo box size small
-#define GUIDesignComboBoxVisibleItemsSmall  5
+#define GUIDesignComboBoxVisibleItemsSmall  15
 
 /// @brief combo box medium small
-#define GUIDesignComboBoxVisibleItemsMedium 10
+#define GUIDesignComboBoxVisibleItemsMedium 15
 
 /// @brief combo box large small
 #define GUIDesignComboBoxVisibleItemsLarge  15
