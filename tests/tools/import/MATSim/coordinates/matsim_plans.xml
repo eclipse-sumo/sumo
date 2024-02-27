@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population desc="population written from streaming">
+
+	<attributes>
+		<attribute name="coordinateReferenceSystem" class="java.lang.String">     
+            EPSG:25832
+        </attribute>
+	</attributes>
+
+
+<!-- ====================================================================== -->
+
+	<person id="0">
+		<plan selected="yes">
+			<activity type="home" x="739896.49" y="5689000.22" end_time="07:33:00"/>
+			<leg mode="ride" />
+			<activity type="work" x="731549.1" y="5689956.9" start_time="08:05:00" end_time="13:27:00" />
+			<leg mode="car" />
+			<activity type="home" x="739896.49" y="5689000.22" start_time="14:05:00" />
+		</plan>
+	</person>
+
+<!-- ====================================================================== -->
+
+    <person id="freight_0">
+		<plan selected="yes">
+			<activity type="freight_start" x="760794.59" y="5697135.14" end_time="05:00:00" />
+			<leg mode="freight" />
+			<activity type="freight_end" x="755362.54" y="5671822.01" />
+		</plan>
+	</person>
+    
+    
+<!-- ====================================================================== -->
+
+</population>
