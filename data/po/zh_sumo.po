@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-27 13:33+0000\n"
+"PO-Revision-Date: 2024-02-27 13:49+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -116,7 +116,7 @@ msgstr "加载网络"
 #: D:\Repos\sumo/src\router\ROLoader.cpp:133
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr "输入网络中的废弃车辆类 '%'。"
+msgstr "输入网络中的车辆类 '%' 已不适用。"
 
 #: D:\Repos\sumo/src\activitygen\activitygen_main.cpp:89
 msgid ""
@@ -719,7 +719,7 @@ msgstr "无效的路径选择方法'%'。"
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
-msgstr "--logit选项已不适用，请使用--路径选择法logit。"
+msgstr "--logit选项已不适用，请使用 --route-choice-method logit。"
 
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
