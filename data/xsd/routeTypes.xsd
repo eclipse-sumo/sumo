@@ -800,6 +800,8 @@
         </xsd:sequence>
         <xsd:attribute name="lane" type="xsd:string"/>
         <xsd:attribute name="edge" type="xsd:string"/>
+        <xsd:attribute name="lon" type="floatType"/>
+        <xsd:attribute name="lat" type="floatType"/>
         <xsd:attribute name="busStop" type="xsd:string"/>
         <xsd:attribute name="trainStop" type="xsd:string"/>
         <xsd:attribute name="containerStop" type="xsd:string"/>
@@ -968,6 +970,10 @@
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="fromTaz" type="xsd:string"/>
                     <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromXY" type="positionType"/>
+                    <xsd:attribute name="toXY" type="positionType"/>
+                    <xsd:attribute name="fromLonLat" type="positionType"/>
+                    <xsd:attribute name="toLonLat" type="positionType"/>
                     <xsd:attribute name="fromJunction" type="xsd:string"/>
                     <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="viaJunctions" type="xsd:string"/>
