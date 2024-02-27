@@ -277,7 +277,7 @@ met:
       When importing public transport stops with option **--ptstop-output**, all bidirectional edges with a public transport stop will have the necessary turn-around connection and thus be eligible for reversing.
 
 # Portion working
-Trains can be split and joined (divided and coupled) at stops.
+Trains can be split and joined (divided and coupled) at stops. If a person or container travels in a train that is split or joined and wants to continue travelling in the new part, it requires a distinct `<ride>` or `<transport>` element in it's plan. No delay for boarding or loading will occur in the simulation for this.
 
 ## Splitting a train
 To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.
