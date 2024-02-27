@@ -763,11 +763,12 @@ length look quite odd, buses with 2m length, too.
 
 ## Carriages
 
-Further parameters can be used to achieve visualization of individual rail carriages and configure exiting behavior at stations
+Further parameters can be used to achieve visualization of [individual rail carriages](Simulation/Railways.md#trains) and configure exiting behavior at stations.
 ```xml
-<vType id="rail">
+<vType id="rail" vClass="rail" imgFile="locomotive.png">
     <param key="carriageLength" value="20"/>
     <param key="carriageGap" value="1"/>
+    <param key="carriageImages" value="freight.png,passengers.png"/>
     <param key="locomotiveLength" value="25"/>
     <param key="carriageDoors" value="2"/>
 </vType>
