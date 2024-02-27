@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-27 10:19+0000\n"
+"PO-Revision-Date: 2024-02-27 19:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13217,22 +13217,22 @@ msgstr "seleziona elementi figli"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1292
 msgid "Hold <SHIFT> for rectangle selection."
-msgstr ""
+msgstr "Premi <SHIFT> per selezionare elementi con un rettangulo."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1292
 msgid "Press <DEL> to delete selected objects."
-msgstr ""
+msgstr "Premi <DEL> per rimuovere gli oggetti selezionati."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1303
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:312
 #: D:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2205
 msgid "Selection"
-msgstr ""
+msgstr "Selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1484
 msgid "selection"
-msgstr ""
+msgstr "selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
@@ -13950,31 +13950,33 @@ msgstr "Crea arco"
 msgid ""
 "Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
+"Scegli il tipo di arco standard, quello per archi corti, uno personalizzato "
+"oppure il modello"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:694
 msgid "Invalid edge attributes"
-msgstr ""
+msgstr "Arco con attributi invalidi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:696
 msgid "Invalid lane attributes"
-msgstr ""
+msgstr "Corsia con attributi invalidi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:702
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:805
 msgid "create new edge"
-msgstr ""
+msgstr "crea un nuovo arco"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:810
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "Un'arco con la medesima geometria esiste già!"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:813
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "Il punto iniziale dell'arco deve essere differente da quello terminale!"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:98
 msgid "selection of edges"
-msgstr ""
+msgstr "selezione di archi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:103
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:506
@@ -13983,11 +13985,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:653
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:657
 msgid "Use selected edges"
-msgstr ""
+msgstr "Usa gli archi selezionati"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:106
 msgid "Clear edges"
-msgstr ""
+msgstr "Scordare gli archi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:109
 msgid "Invert edges"
