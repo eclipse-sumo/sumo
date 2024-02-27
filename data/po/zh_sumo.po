@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-01-23 06:43+0000\n"
-"Last-Translator: YY C <3070832194@qq.com>\n"
+"PO-Revision-Date: 2024-02-27 10:19+0000\n"
+"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2144,27 +2144,27 @@ msgstr "JuPedSim行人仿真的更新间隔（秒）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid "The distance to accept the JuPedSim arrival point (in meters)"
-msgstr ""
+msgstr "JuPedSim到达点的接受距离（米）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:559
 msgid "The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"
-msgstr ""
+msgstr "JuPedSim中使用的子模型（当前仅 'CollisionFreeSpeed'）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:561
 msgid "The neighbor repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "JuPedSim模型的邻居排斥强度"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:563
 msgid "The neighbor repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "JuPedSim模型的邻居排斥范围（米）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:565
 msgid "The geometry repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "JuPedSim模型的几何排斥范围"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:567
 msgid "The geometry repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "JuPedSim模型的几何排斥范围（米）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
