@@ -413,12 +413,14 @@ The length of railway carriages, locomotive and the gap between the
 carriages can be configured using the following [generic vType
 parameters](../Simulation/GenericParameters.md):
 
-- carriageLength
 - locomotiveLength
+- carriageLength
 - carriageGap
+- carriageImages
 
 These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) when drawing vehicles with the style 'simple shapes'.
-By default, the front of the train will be indicated by a darker carriage color and a front windscreen. This can be disabled by setting locomotiveLength to "0".
+By default, the front of the train will be indicated by a darker carriage color and a front windscreen. This can be disabled by setting `locomotiveLength="0"`.
+The parameter `carriageImages` accepts a comma-separated list of image file names to enable distinct images when using vehicle style 'raster images'.
 
 ## Network
 
