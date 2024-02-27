@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-27 15:43:10.693958 by matsim_importPlans.py v1_19_0+1044-19ddddf
+<!-- generated on 2024-02-27 16:15:08.920265 by matsim_importPlans.py v1_19_0+1045-4372057
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
@@ -8,8 +8,8 @@
     <vType id="car" vClass="passenger"/>
     <vType id="bicycle" vClass="bicycle"/>
 
-    <trip id="0_0" depart="triggered" from="None" to="None"/>
-    <trip id="0_1" depart="triggered" from="None" to="None" type="car"/>
+    <trip id="0_0" depart="triggered" fromLonLat="12.441623766883094,51.30168303457315" toLonLat="12.322710508594813,51.31372681762787"/>
+    <trip id="0_1" depart="triggered" fromLonLat="12.322710508594813,51.31372681762787" toLonLat="12.441623766883094,51.30168303457315" type="car"/>
     <person id="0" depart="0:0:0">
         <stop lane="None_0" until="07:33:00" actType="home"/>
         <ride lines="0_0" to="None"/>
@@ -17,7 +17,7 @@
         <ride lines="0_1" to="None"/>
         <stop lane="None_0" until="24:0:0" actType="home"/>
     </person>
-    <trip id="freight_0_0" depart="triggered" from="None" to="None"/>
+    <trip id="freight_0_0" depart="triggered" fromLonLat="12.74672784602896,51.36549012982353" toLonLat="12.650802871087379,51.14080387506128"/>
     <person id="freight_0" depart="0:0:0">
         <stop lane="None_0" until="05:00:00" actType="freight_start"/>
         <ride lines="freight_0_0" to="None"/>
