@@ -336,7 +336,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     }
     GLHelper::popMatrix(); // undo initial translation and rotation
     const double xCornerCut = 0.3 * exaggeration;
-    const double yCornerCut = 0.4 * exaggeration;
+    const double yCornerCut = 0.4 * trainHelper.getUpscaleLength();
     Position front, back;
     double angle = 0.0;
     double curCLength = trainHelper.getFirstCarriageLength();

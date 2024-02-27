@@ -44,6 +44,11 @@ MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
     myLength = totalLength * myUpscaleLength;
     myHalfWidth = 0.5 * vtype.getWidth() * exaggeration;
     myNumCarriages = MAX2(1, 1 + (int)((myLength - myLocomotiveLength) / (myDefaultLength + myCarriageGap) + 0.5)); // Round to closest integer.
+    if (myUpscaleLength > 1 && vehicleQuality != 4) {
+        // at high zoom, it doesn't help to draw many carriages)
+        myNumCarriages = MIN2(myNumCarriages, 2);
+        myLocomotiveLength = myLength / 2;
+    }
     assert(myNumCarriages > 0);
     if (myNumCarriages == 1) {
         myCarriageGap = 0;
@@ -149,10 +154,7 @@ MSTrainHelper::computeCarriages(bool secondaryShape, bool reversed) {
 double
 MSTrainHelper::getUpscaleLength(double upscale, double length, int vehicleQuality) {
     if (upscale > 1 && length > 5 && vehicleQuality != 4) {
-        // reduce the length/width ratio because this is not useful at high zoom
-        const double widthLengthFactor = length / 5;
-        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscale));
-        return upscale / shrinkFactor;
+        return MAX2(1.0, upscale * 5 / length);
     } else {
         return upscale;
     }
