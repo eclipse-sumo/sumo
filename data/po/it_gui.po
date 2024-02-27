@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-23 14:16+0000\n"
+"PO-Revision-Date: 2024-02-27 10:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10509,7 +10509,7 @@ msgstr "L'attributo '%' non esiste"
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:128
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:133
 msgid " > lanes's length"
-msgstr ""
+msgstr " > lunghezza della corsia"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:366
 #: D:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:152
@@ -10517,50 +10517,50 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:191
 #, c-format
 msgid "Copy % name to clipboard"
-msgstr ""
+msgstr "Copia il nome del/della % negli appunti"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:367
 #: D:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:153
 msgid "Copy % typed name to clipboard"
-msgstr ""
+msgstr "Copia nome tipizzato del/della % negli appunti"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:375
 msgid "Open "
-msgstr ""
+msgstr "Apri "
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:375
 msgid " Dialog"
-msgstr ""
+msgstr " Dialogo"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:383
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:393
 msgid "Cursor position over additional shape: "
-msgstr ""
+msgstr "Posizione del cursore sopra la forma dell'elemento addizionale: "
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:387
 msgid "Cursor position over lane: "
-msgstr ""
+msgstr "Posizione del cursore sopra la corsia: "
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:397
 msgid "Mouse position over edge: "
-msgstr ""
+msgstr "Posizione del cursore sopra l'arco: "
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:400
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:201
 msgid "Cursor position in view: "
-msgstr ""
+msgstr "Posizione del cursore nella veduta: "
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:669
 msgid "Invalid number of edges"
-msgstr ""
+msgstr "Numero invalido di archi"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:106
 msgid "add bus stop '"
-msgstr ""
+msgstr "aggiungi fermata di autobus '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:150
 msgid "add train stop '"
-msgstr ""
+msgstr "aggiungi fermata ferroviaria '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:203
 msgid ""
@@ -10723,25 +10723,27 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1145
 msgid "add route probe '"
-msgstr ""
+msgstr "aggiungi campione di itinerario '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1191
 msgid "add Variable Speed Sign '"
-msgstr ""
+msgstr "aggiungi limite di velocità dinamico '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1232
 msgid "add VSS Step in '"
-msgstr ""
+msgstr "aggiungi passo di limite di velocità dinamico in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1263
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
+"Non ho potuto creare il Vaporizer '%' in netedit perché la posizione "
+"iniziale è oltre quella terminale."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1269
 msgid "add vaporizer in '"
-msgstr ""
+msgstr "aggiungi vaporizer in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1322
 #, c-format
@@ -10780,37 +10782,39 @@ msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
+"Non ho potuto creare la catenaria '%' in netedit poiché le corsie non sono "
+"consecutive."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1572
 msgid "add overhead wire '"
-msgstr ""
+msgstr "aggiungi catenaria '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1623
 msgid "add polygon '"
-msgstr ""
+msgstr "aggiungi poligono '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1657
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1702
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1742
 msgid "add POI '"
-msgstr ""
+msgstr "aggiungi punto di interesse '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1734
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
-msgstr ""
+msgstr "Non ho potuto costruire il punto di interesse '%' in netedit"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1734
 msgid "Network requires a geo projection."
-msgstr ""
+msgstr "La rete richiede una proiezione geografica."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1772
 msgid "add jps walkable area '"
-msgstr ""
+msgstr "aggiungi area pedonale JuPedSim '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1800
 msgid "add jps obstacle '"
-msgstr ""
+msgstr "aggiungi ostacolo JuPedSim '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1986
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1992
@@ -10820,23 +10824,23 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2033
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2039
 msgid "Could not build % with ID '%' in netedit"
-msgstr ""
+msgstr "Non ho potuto costruire % con il codice identificativo '%' in netedit"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1986
 msgid "ID contains invalid characters."
-msgstr ""
+msgstr "Il codice identificativo contiene caratteri invalidi."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1992
 msgid "Invalid position over lane."
-msgstr ""
+msgstr "Posizione invalida sulla corsia."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1998
 msgid "Declared twice."
-msgstr ""
+msgstr "Già dichiarata prima."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2006
 msgid "Could not build % '%' in netedit"
-msgstr ""
+msgstr "Non ho potuto costruire % '%'in netedit"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2008
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2094
@@ -10849,12 +10853,12 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
 #, c-format
 msgid "Could not build % in netedit"
-msgstr ""
+msgstr "Non ho potuto costruire % in netedit"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2011
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "% '%' doesn't exist."
-msgstr ""
+msgstr "% '%' non esiste."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2013
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2094
@@ -10866,16 +10870,16 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
 #, c-format
 msgid "% doesn't exist."
-msgstr ""
+msgstr "% non esiste."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2021
 #, c-format
 msgid "Attribute % cannot be negative."
-msgstr ""
+msgstr "Non si può assegnare un valore negativo all'attributo %."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2027
 msgid "List of VTypes isn't valid."
-msgstr ""
+msgstr "L'elenco di tipi di veicoli non è valido."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2033
 msgid "Filename is invalid."
