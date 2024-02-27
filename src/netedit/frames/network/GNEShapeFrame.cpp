@@ -196,7 +196,6 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             if (myLatLonRadioButton->getCheck() == TRUE) {
                 geoPos.swapXY();
             }
-            GeoConvHelper::getFinal().x2cartesian_const(geoPos);
             // add lon/lat
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, geoPos.x());
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
@@ -208,6 +207,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
                 Boundary centerPosition;
+                GeoConvHelper::getFinal().x2cartesian_const(geoPos);
                 centerPosition.add(geoPos);
                 centerPosition = centerPosition.grow(10);
                 myShapeFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
