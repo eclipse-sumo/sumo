@@ -194,6 +194,9 @@ geoTrips_lonLat
 # test reading walk with geo-coordinates
 geoWalk_lonLat
 
+# test reading ride with geo-coordinates
+geoRide_lonLat
+
 # test routing taxi trips
 taxi
 errors
