@@ -65,26 +65,31 @@ def get_options(args=None):
     return options
 
 
-def getLocation(activity, prj = None):
+def getLocation(activity, attr, prj = None):
     if activity.link:
-        return activity.link, ""
+        return '%s="%s"' % (attr, activity.link)
     elif activity.x and activity.y:
         if prj:
             lon, lat = prj(activity.x, activity.y, inverse = True)
-            return "%s,%s" % (lon, lat), "LonLat"
+            if attr == "edge":
+                return 'lon="%s" lat="%s"' % (lon, lat)
+            else:
+                return '%sLonLat="%s,%s"' % (attr, lon, lat)
         else:
-            return "%s,%s" % (activity.x, activity.y), "XY"
+            if attr == "edge":
+                return 'x="%s" y="%s"' % (activity.x, activity.y)
+            else:
+                return '%sXY="%s,%s"' % (attr, activity.x, activity.y)
     else:
-        return None, ""
+        return None
 
 
-def writeLeg(outf, options, idveh, leg, startLink, endLink,
-             startAttrSuffix = "", endAttrSuffix = ""):
+def writeLeg(outf, options, idveh, leg, start, end):
     depart = leg.dep_time if options.vehicles_only else "triggered"
     mode = ' type="%s"' % leg.mode if leg.mode in ("car", "bicycle") else ""
     if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
-        outf.write('    <trip id="%s" depart="%s" from%s="%s" to%s="%s"%s/>\n'
-                   % (idveh, depart, startAttrSuffix, startLink, endAttrSuffix, endLink, mode))
+        outf.write('    <trip id="%s" depart="%s" %s %s%s/>\n'
+                   % (idveh, depart, start, end, mode))
     elif not leg.mode.endswith("walk") and leg.mode != "pt":
         outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
@@ -132,9 +137,9 @@ def main(options):
                 if lastLeg is not None:
                     leg = lastLeg
                     leg.dep_time = lastAct.end_time
-                    startLink, startAttrSuffix = getLocation(lastAct, prj)
-                    endLink, endAttrSuffix = getLocation(item, prj)
-                    writeLeg(outf, options, idveh, leg, startLink, endLink, startAttrSuffix, endAttrSuffix)
+                    writeLeg(outf, options, idveh, leg,
+                            getLocation(lastAct, "from", prj),
+                            getLocation(item, "to", prj))
                     lastLeg = None
                 lastAct = item
             if item.name == "leg":
@@ -142,7 +147,9 @@ def main(options):
                     lastLeg = item
                 else:
                     leg = item
-                    writeLeg(outf, options, idveh, leg, leg.route[0].start_link, leg.route[0].end_link)
+                    start = 'from="%s"' % leg.route[0].start_link
+                    end = 'to="%s"' % leg.route[0].end_link
+                    writeLeg(outf, options, idveh, leg, start, end)
             if leg:
                 untillist.append(leg.dep_time)
                 vehicleslist.append(idveh)
@@ -159,17 +166,18 @@ def main(options):
             lastLeg = None
             for item in plan.getChildList():
                 if "act" in item.name:  # act or activity
+                    end = getLocation(item, "to", prj)
                     if lastLeg is not None:
                         if lastLeg.mode == "non_network_walk":
                             pass
                             # outf.write('        <transship to="%s"/>\n' % item.link)
                         elif lastLeg.mode in ("walk", "transit_walk"):
-                            outf.write('        <walk to="%s"/>\n' % item.link)
+                            outf.write('        <walk %s/>\n' % end)
                         else:
-                            outf.write('        <ride lines="%s" to="%s"/>\n' % (vehicleslist[vehIndex], item.link))
+                            outf.write('        <ride lines="%s" %s/>\n' % ( vehicleslist[vehIndex], end))
                         vehIndex = vehIndex+1
-                    outf.write('        <stop lane="%s_0" until="%s" actType="%s"/>\n' %
-                               (item.link, untillist[vehIndex], item.type))
+                    outf.write('        <stop %s until="%s" actType="%s"/>\n' %
+                               (getLocation(item, "edge", prj), untillist[vehIndex], item.type))
                 if item.name == "leg":
                     lastLeg = item
             outf.write('    </person>\n')
