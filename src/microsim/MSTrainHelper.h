@@ -40,9 +40,9 @@ class MSVehicle;
  */
 class MSTrainHelper {
 public:
-    MSTrainHelper(const MSVehicle* vehicle, bool reversed=false, bool secondaryShape=false, double exaggeration=1.0) 
+    MSTrainHelper(const MSVehicle* vehicle, bool reversed=false, bool secondaryShape=false, double exaggeration=1.0, int vehicleQuality = 3)
         : myTrain(vehicle) {
-        computeTrainDimensions(exaggeration);
+        computeTrainDimensions(exaggeration, vehicleQuality);
         computeCarriages(secondaryShape, reversed);
     }
 
@@ -99,6 +99,9 @@ public:
     }
 
     static const double CARRIAGE_DOOR_WIDTH;
+
+    /// @brief return length exaggeration factor (special for long vehicles)
+    static double getUpscaleLength(double upscale, double length, int vehicleQuality);
     
 private:
     const MSVehicle* myTrain;
@@ -118,6 +121,6 @@ private:
     bool myIsReversed;
     std::vector<Carriage*> myCarriages;
 
-    void computeTrainDimensions(double exaggeration);
+    void computeTrainDimensions(double exaggeration, int vehicleQuality = 3);
     void computeCarriages(bool secondaryShape, bool reversed);
 };

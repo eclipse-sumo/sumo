@@ -31,16 +31,10 @@ const double MSTrainHelper::CARRIAGE_DOOR_WIDTH = 1.5;
 // method definitions
 // ===========================================================================
 void 
-MSTrainHelper::computeTrainDimensions(double exaggeration) {
+MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
     const MSVehicleType& vtype = myTrain->getVehicleType();
     const double totalLength = vtype.getLength();
-    myUpscaleLength = exaggeration;
-    if (exaggeration > 1 && totalLength > 5) {
-        // Reduce the length/width ratio because this is not useful at high zoom.
-        const double widthLengthFactor = totalLength / 5;
-        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(myUpscaleLength));
-        myUpscaleLength /= shrinkFactor;
-    }
+    myUpscaleLength = getUpscaleLength(exaggeration, totalLength, vehicleQuality);
     myLocomotiveLength = vtype.getParameter().locomotiveLength * myUpscaleLength;
     myDefaultLength = vtype.getParameter().carriageLength * myUpscaleLength;
     if (myLocomotiveLength == 0) {
@@ -150,3 +144,17 @@ MSTrainHelper::computeCarriages(bool secondaryShape, bool reversed) {
         carriageBackOffset -= myCarriageLengthWithGap;
     }
 }
+
+
+double
+MSTrainHelper::getUpscaleLength(double upscale, double length, int vehicleQuality) {
+    if (upscale > 1 && length > 5 && vehicleQuality != 4) {
+        // reduce the length/width ratio because this is not useful at high zoom
+        const double widthLengthFactor = length / 5;
+        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscale));
+        return upscale / shrinkFactor;
+    } else {
+        return upscale;
+    }
+}
+

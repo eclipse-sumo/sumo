@@ -48,6 +48,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSTrainHelper.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Transportable.h>
@@ -449,13 +450,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glTranslated((s.laneWidthExaggeration - 1) * -offsetFromLeftBorder / 2, 0, 0);
     }
 
-    double upscaleLength = upscale;
-    if (upscale > 1 && length > 5 && s.vehicleQuality != 4) {
-        // reduce the length/width ratio because this is not useful at high zoom
-        const double widthLengthFactor = length / 5;
-        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
-        upscaleLength /= shrinkFactor;
-    }
+    double upscaleLength = MSTrainHelper::getUpscaleLength(upscale, length, s.vehicleQuality);
     glScaled(upscale, upscaleLength, 1);
     /*
         MSLaneChangeModel::DK2004 &m2 = static_cast<MSLaneChangeModel::DK2004&>(veh->getLaneChangeModel());
