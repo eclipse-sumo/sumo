@@ -527,7 +527,13 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
         std::pair<const MSVehicle*, double> leaderInfo;
         if (myGapControlState->referenceVeh == nullptr) {
             // No reference vehicle specified -> use current leader as reference
-            leaderInfo = msVeh->getLeader(MAX2(desiredTargetTimeSpacing, myGapControlState->addGapCurrent)  + 20.);
+            const double brakeGap = msVeh->getBrakeGap(currentSpeed);
+            leaderInfo = msVeh->getLeader(MAX2(desiredTargetTimeSpacing, myGapControlState->addGapCurrent)  + MAX2(brakeGap, 20.0));
+#ifdef DEBUG_TRACI
+            if DEBUG_COND2(veh) {
+                std::cout <<  "  ---   no refVeh; myGapControlState->addGapCurrent: " << myGapControlState->addGapCurrent << ", brakeGap: " << brakeGap << " in simstep: " << SIMSTEP << std::endl;
+            }
+#endif            
         } else {
             // Control gap wrt reference vehicle
             const MSVehicle* leader = myGapControlState->referenceVeh;
