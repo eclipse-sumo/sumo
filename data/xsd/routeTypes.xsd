@@ -942,6 +942,10 @@
                     </xsd:sequence>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromLonLat" type="positionType"/>
+                    <xsd:attribute name="toLonLat" type="positionType"/>
+                    <xsd:attribute name="fromXY" type="positionType"/>
+                    <xsd:attribute name="toXY" type="positionType"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
