@@ -48,7 +48,7 @@ MSTrainHelper::computeTrainDimensions(double exaggeration) {
     }
     myCarriageGap = vtype.getParameter().carriageGap * myUpscaleLength;
     myLength = totalLength * myUpscaleLength;
-    myHalfWidth = 0.5 * vtype.getWidth() * myUpscaleLength;
+    myHalfWidth = 0.5 * vtype.getWidth() * exaggeration;
     myNumCarriages = MAX2(1, 1 + (int)((myLength - myLocomotiveLength) / (myDefaultLength + myCarriageGap) + 0.5)); // Round to closest integer.
     assert(myNumCarriages > 0);
     if (myNumCarriages == 1) {
