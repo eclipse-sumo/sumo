@@ -59,6 +59,8 @@
 
 #include <osgview/GUIOSGHeader.h>
 
+#define RENDERING_BUFFER 10
+
 //#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
 
 // ===========================================================================
@@ -763,6 +765,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 static_cast<const GUIVehicle*>(*v)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
         }
+        // draw long partial vehicles (#14342)
+        for (const MSVehicle* veh : myPartialVehicles) {
+            if (veh->getLength() > RENDERING_BUFFER) {
+                // potential double rendering taken into account
+                static_cast<const GUIVehicle*>(veh)->drawGL(s);
+            }
+        }
         // draw parking vehicles
         for (const MSBaseVehicle* const v : myParkingVehicles) {
             dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);
@@ -1050,7 +1059,7 @@ GUILane::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape[0]);
     b.add(myShape[-1]);
-    b.grow(10);
+    b.grow(RENDERING_BUFFER);
     // ensure that vehicles and persons on the side are drawn even if the edge
     // is outside the view
     return b;
