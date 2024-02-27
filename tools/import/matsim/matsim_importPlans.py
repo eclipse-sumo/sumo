@@ -25,6 +25,7 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+
 try:
     from StringIO import StringIO
 except ImportError:
@@ -64,12 +65,26 @@ def get_options(args=None):
     return options
 
 
-def writeLeg(outf, options, idveh, leg, startLink, endLink):
+def getLocation(activity, prj = None):
+    if activity.link:
+        return activity.link, ""
+    elif activity.x and activity.y:
+        if prj:
+            lon, lat = prj(activity.x, activity.y, inverse = True)
+            return "%s,%s" % (lon, lat), "LonLat"
+        else:
+            return "%s,%s" % (activity.x, activity.y), "XY"
+    else:
+        return None, ""
+
+
+def writeLeg(outf, options, idveh, leg, startLink, endLink,
+             startAttrSuffix = "", endAttrSuffix = ""):
     depart = leg.dep_time if options.vehicles_only else "triggered"
     mode = ' type="%s"' % leg.mode if leg.mode in ("car", "bicycle") else ""
     if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
-        outf.write('    <trip id="%s" depart="%s" from="%s" to="%s"%s/>\n'
-                   % (idveh, depart, startLink, endLink, mode))
+        outf.write('    <trip id="%s" depart="%s" from%s="%s" to%s="%s"%s/>\n'
+                   % (idveh, depart, startAttrSuffix, startLink, endAttrSuffix, endLink, mode))
     elif not leg.mode.endswith("walk") and leg.mode != "pt":
         outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
@@ -77,6 +92,22 @@ def writeLeg(outf, options, idveh, leg, startLink, endLink):
 
 
 def main(options):
+
+    prj = None
+    for attributes in sumolib.xml.parse(options.plan_file, 'attributes'):
+        for attribute in attributes.attribute:
+            if attribute.attr_name == "coordinateReferenceSystem":
+                projName = attribute.getText().strip()
+                try:
+                    import pyproj
+                    try:
+                        prj = pyproj.Proj(projName)
+                    except pyproj.exceptions.CRSError as e:
+                        print("Warning: Could not interpret coordinate system '%s' (%s)" % (projName, e), file=sys.stderr)
+                except ImportError:
+                    print("Warning: install pyproj to support input with coordinates", file=sys.stderr)
+
+
     persons = []  # (depart, xmlsnippet)
     for person in sumolib.xml.parse(options.plan_file, 'person'):
         outf = StringIO()
@@ -101,7 +132,9 @@ def main(options):
                 if lastLeg is not None:
                     leg = lastLeg
                     leg.dep_time = lastAct.end_time
-                    writeLeg(outf, options, idveh, leg, lastAct.link, item.link)
+                    startLink, startAttrSuffix = getLocation(lastAct, prj)
+                    endLink, endAttrSuffix = getLocation(item, prj)
+                    writeLeg(outf, options, idveh, leg, startLink, endLink, startAttrSuffix, endAttrSuffix)
                     lastLeg = None
                 lastAct = item
             if item.name == "leg":
