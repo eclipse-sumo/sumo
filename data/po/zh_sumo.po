@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-27 10:19+0000\n"
+"PO-Revision-Date: 2024-02-27 13:33+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -655,7 +655,7 @@ msgstr "选择一种路径选择方法：Gawron, logit, 或Lohse"
 
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:145
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
-msgstr "使用c-logit模型（已废弃，改用--路径选择法logit）"
+msgstr "使用c-logit模型（已不适用，改用 --route-choice-method logit）"
 
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
@@ -719,7 +719,7 @@ msgstr "无效的路径选择方法'%'。"
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
-msgstr "--logit选项已被弃用，请使用--路径选择法logit。"
+msgstr "--logit选项已不适用，请使用--路径选择法logit。"
 
 #: D:\Repos\sumo/src\duarouter\RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
@@ -2430,8 +2430,7 @@ msgstr "选项movereminder-output.veh需要设置选项movereminder-output"
 msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
-msgstr ""
-"选项 \"sloppy-insert \"已被废弃，因为它现在被默认激活，请看新选项 \"eager-"
+msgstr "选项 \"sloppy-insert \"已不适用，因为它现在被默认激活，看看新选项 \"eager-"
 "insert\"。"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:922
@@ -2448,7 +2447,7 @@ msgstr "中观仿真不支持副车道动态"
 msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
-msgstr "选项'ignore-accidents'已被废弃。请使用'碰撞.无动作'代替。"
+msgstr "选项'ignore-accidents'已不适用。请使用 'collision.action none' 。"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:943
 msgid ""
@@ -2679,7 +2678,7 @@ msgstr "路径%中对路径'%'的引用无效。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:331
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
-msgstr "路径的属性'period'已被废弃。请使用'cycleTime'代替。"
+msgstr "路径的属性'period'已不适用。请使用'cycleTime'代替。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:342
 msgid " for vehicle '%' with vClass %."
@@ -2811,7 +2810,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1275
 msgid "Deprecated attribute 'pos' in description of stop%."
-msgstr "停靠点%的描述中已弃用属性“pos”。"
+msgstr "停靠点%的描述中，属性 'pos' 已不适用。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1283
 msgid "Invalid start or end position for stop on %'%."
@@ -3036,7 +3035,8 @@ msgstr "车辆'%'在路段'%'结束传送，时间=%。"
 msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
-msgstr ""
+msgstr "vType '%' 同时具有 'mass' 属性和 'vehicleMass' 参数。'mass' "
+"属性将被优先使用。"
 
 #: D:\Repos\sumo/src\microsim\MSVehicleType.cpp:318
 #, c-format
@@ -3045,6 +3045,8 @@ msgid ""
 "the 'mass' attribute (for the empty mass) and the 'loading' parameter, if "
 "needed."
 msgstr ""
+"vType '%' 具有 'vehicleMass' 参数，该参数已不适用。如果需要，请使用 ’mass‘ "
+"属性（用于空载）和 'loading' 属性。"
 
 #: D:\Repos\sumo/src\microsim\MSVehicleType.cpp:330
 msgid ""
@@ -3082,7 +3084,8 @@ msgid ""
 "The battery device is active for vType '%' but no emission class is set. The "
 "emission class Energy/unknown will be used, please consider setting an "
 "explicit emission class!"
-msgstr ""
+msgstr "vType '%' 的电池设备处于活动状态，但未设置排放类型。将使用排放类型 Energy/"
+"unknown，请考虑设置明确的排放类型！"
 
 #: D:\Repos\sumo/src\microsim\cfmodels\MSCFModel_CC.cpp:66
 msgid ""
@@ -3166,26 +3169,27 @@ msgstr "跟踪非电动汽车的燃料消耗"
 msgid ""
 "Battery device in vehicle '%' still uses old parameter '%'. Please update to "
 "'device.%'."
-msgstr ""
+msgstr "车辆 '%' 中的电池设备仍使用旧参数 '%'。请更新为 'device.%'。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:116
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:130
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
-msgstr "电池制造商： 车辆'%'的参数%（%）没有有效值。"
+msgstr "电池制造商：车辆 '%' 的参数 %(%) 没有有效值。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:122
 msgid ""
 "Battery builder: Vehicle '%' has a % (%) greater than its % (%). A max "
 "battery capacity value will be assigned."
-msgstr ""
+msgstr "电池制造商：车辆 '%' 的 % (%) 大于其 % (%)。将为其分配最大电池容量。"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:137
 msgid ""
 "The battery device is active for vehicle '%' but no emission class is set. "
 "Please consider setting an explicit emission class or battery outputs might "
 "be inconsistent with emission outputs!"
-msgstr ""
+msgstr "车辆 \"%\" 的电池设备处于活动状态，但未设置排放类型。请考虑设置明确的排放类型"
+"，否则电池输出可能与排放输出不一致！"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:195
 #, c-format
