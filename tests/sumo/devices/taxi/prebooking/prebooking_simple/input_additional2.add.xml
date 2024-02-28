@@ -3,7 +3,7 @@
     <person id="p0" depart="0.00">
         <walk from="B1B2" to="B2C2"/>
         <ride from="B2C2" to="A0B0" lines="taxi">
-            <param key="earliestPickupTime" value="10.00"/>
+            <param key="earliestPickupTime" value="180.00"/>
             <param key="reservationTime" value="5.00"/>
         </ride>
     </person>
