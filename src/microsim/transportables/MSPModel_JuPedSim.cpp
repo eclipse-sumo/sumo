@@ -421,61 +421,65 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             std::vector<GEOSGeometry*> carriagePolygons;
             std::vector<GEOSGeometry*> rampPolygons;
             for (const MSVehicle* train : allStoppedTrains) {
-                const MSTrainHelper trainHelper(train);
-                const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
-                for (const MSTrainHelper::Carriage* carriage : carriages) {
-                    Position dir = carriage->front - carriage->back;
-                    if (dir.length2D() == 0.0) {
-                        continue;
-                    }
-                    dir.norm2D();
-                    Position perp = Position(-dir.y(), dir.x());
-                    // Create carriages geometry.
-                    double p = trainHelper.getHalfWidth();
-                    PositionVector carriageShape;
-                    carriageShape.push_back(carriage->front + perp * p);
-                    carriageShape.push_back(carriage->back + perp * p);
-                    carriageShape.push_back(carriage->back - perp * p);
-                    carriageShape.push_back(carriage->front - perp * p);
-                    carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
-                    // Create ramps geometry.
-                    p += CARRIAGE_RAMP_WIDTH;
-                    const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
-                    for (const Position& door : carriage->doors) {
-                        PositionVector rampShape;
-                        rampShape.push_back(door - perp * p + dir * d);
-                        rampShape.push_back(door - perp * p - dir * d);
-                        rampShape.push_back(door + perp * p - dir * d);
-                        rampShape.push_back(door + perp * p + dir * d);
-                        rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
+                if (train->getPersonNumber() > 0) {
+                    const MSTrainHelper trainHelper(train);
+                    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
+                    for (const MSTrainHelper::Carriage* carriage : carriages) {
+                        Position dir = carriage->front - carriage->back;
+                        if (dir.length2D() == 0.0) {
+                            continue;
+                        }
+                        dir.norm2D();
+                        Position perp = Position(-dir.y(), dir.x());
+                        // Create carriages geometry.
+                        double p = trainHelper.getHalfWidth();
+                        PositionVector carriageShape;
+                        carriageShape.push_back(carriage->front + perp * p);
+                        carriageShape.push_back(carriage->back + perp * p);
+                        carriageShape.push_back(carriage->back - perp * p);
+                        carriageShape.push_back(carriage->front - perp * p);
+                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
+                        // Create ramps geometry.
+                        p += CARRIAGE_RAMP_WIDTH;
+                        const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
+                        for (const Position& door : carriage->doors) {
+                            PositionVector rampShape;
+                            rampShape.push_back(door - perp * p + dir * d);
+                            rampShape.push_back(door - perp * p - dir * d);
+                            rampShape.push_back(door + perp * p - dir * d);
+                            rampShape.push_back(door + perp * p + dir * d);
+                            rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
+                        }
                     }
                 }
             }
-            GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
-            GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
-            GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
-            GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetwork);
+            if (!carriagePolygons.empty()) {
+                GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
+                GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
+                GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
+                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetwork);
 #ifdef DEBUG_GEOMETRY_GENERATION
-            dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+                dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
-            int nbrComponents = 0; double maxArea = 0.0; double totalArea = 0.0;
-            const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
-            if (nbrComponents > 1) {
-                WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."), 
-                    nbrComponents, maxArea / totalArea * 100.0, "%");
-            }
+                int nbrComponents = 0; double maxArea = 0.0; double totalArea = 0.0;
+                const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
+                if (nbrComponents > 1) {
+                    WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."), 
+                        nbrComponents, maxArea / totalArea * 100.0, "%");
+                }
 #ifdef DEBUG_GEOMETRY_GENERATION
-            dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
+                dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
-            myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
+                myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
 #if JPS_VERSION > 106
-            JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
 #endif
-            removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
-            preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
-            GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
-            GEOSGeom_destroy(rampsCollection);
-            GEOSGeom_destroy(carriagesCollection);
+                removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
+                preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
+                GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
+                GEOSGeom_destroy(rampsCollection);
+                GEOSGeom_destroy(carriagesCollection);
+            }
         } else {
 #if JPS_VERSION >= 110
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
@@ -864,7 +868,7 @@ MSPModel_JuPedSim::getLargestComponent(const GEOSGeometry* polygon, int& nbrComp
         }
     }
     return largestComponent;
-    }
+}
 
 
 JPS_Geometry
