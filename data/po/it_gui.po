@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-28 10:08+0000\n"
+"PO-Revision-Date: 2024-02-28 12:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15726,48 +15726,48 @@ msgstr "per velocità relativa (per segmento)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1358
 msgid "no TAZ"
-msgstr ""
+msgstr "nessuna zona di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1510
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1608
 msgid "data mode"
-msgstr ""
+msgstr "modo di dati"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1515
 msgid "by permission code"
-msgstr ""
+msgstr "per codice di autorizzazione"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1563
 msgid "by height at segment start"
-msgstr ""
+msgstr "per altezza all'inizio del segmento"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1577
 msgid "by segment inclination"
-msgstr ""
+msgstr "per inclinazione del segmento"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1604
 msgid "junction bubble"
-msgstr ""
+msgstr "simbolo d'incrocio"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1605
 msgid "geometry points"
-msgstr ""
+msgstr "punti geometrici"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1606
 msgid "connections missing"
-msgstr ""
+msgstr "collegamenti mancanti"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1607
 msgid "custom shape"
-msgstr ""
+msgstr "forma personalizzata"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
 msgid "by origin taz"
-msgstr ""
+msgstr "per zona di assegnazione del traffico di origine"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1664
 msgid "by destination taz"
-msgstr ""
+msgstr "per zona di assegnazione del traffico di destinazione"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2354
 msgid "No color defined for LinkState '%'"
