@@ -71,20 +71,20 @@ private:
 
     struct TrainParams {
         // the vehicle mass in tons
-        double weight;
+        double weight;  // tons
         // the mass factor
         double mf;
         double length;
         double decl;
         double vmax;
         double recovery;
-        LookUpMap traction;
-        LookUpMap resistance;
-        double maxPower;
-        double maxTraction;
-        double resCoef_constant;
-        double resCoef_linear;
-        double resCoef_quadratic;
+        LookUpMap traction;  // m/s -> kN
+        LookUpMap resistance;  // m/s -> kN
+        double maxPower;  // kN
+        double maxTraction; // kN
+        double resCoef_constant; // kN
+        double resCoef_linear;  // kN / (km/h)
+        double resCoef_quadratic; // kN / (km/h)^2
 
         double getRotWeight() const {
             return weight * mf;
@@ -126,6 +126,8 @@ public:
 //    };
 
 private:
+
+    static void convertMap(LookUpMap& map, double keyFactor = 1/3.6, double valueFactor = 1);
 
 
     TrainParams myTrainParams;
@@ -181,6 +183,7 @@ private:
         map[460] = 143.2;
         map[470] = 140.1;
         map[480] = 137.2;
+        convertMap(map);
         return map;
     }
 
@@ -235,6 +238,7 @@ private:
         map[460] = 138.7;
         map[470] = 144.6;
         map[480] = 150.6;
+        convertMap(map);
         return map;
     }
 
@@ -301,6 +305,7 @@ private:
         map[450] = 128;
         map[460] = 125;
         map[470] = 123;
+        convertMap(map);
         return map;
     }
 
@@ -354,6 +359,7 @@ private:
         map[450] = 139.2;
         map[460] = 145.5;
         map[470] = 150.0;
+        convertMap(map);
         return map;
     }
 
@@ -398,6 +404,7 @@ private:
         map[230] = 151;
         map[240] = 145;
         map[250] = 139;
+        convertMap(map);
         return map;
     }
 
@@ -429,6 +436,7 @@ private:
         map[230] = 108.7;
         map[240] = 115.8;
         map[250] = 123.1;
+        convertMap(map);
         return map;
     }
 
@@ -491,6 +499,7 @@ private:
         map[280] = 103;
         map[290] = 99;
         map[300] = 96;
+        convertMap(map);
         return map;
     }
 
@@ -527,6 +536,7 @@ private:
         map[280] = 64.1;
         map[290] = 68.1;
         map[300] = 71.8;
+        convertMap(map);
         return map;
     }
 
@@ -562,6 +572,7 @@ private:
         map[140] = 144;
         map[150] = 134;
         map[160] = 125;
+        convertMap(map);
         return map;
     }
 
@@ -584,6 +595,7 @@ private:
         map[140] = 33.3;
         map[150] = 36.6;
         map[160] = 40.2;
+        convertMap(map);
         return map;
     }
 
@@ -615,6 +627,7 @@ private:
         map[100] = 12.8;
         map[110] = 11.7;
         map[120] = 10.8;
+        convertMap(map);
         return map;
     }
 
@@ -633,6 +646,7 @@ private:
         map[100] = 7.00;
         map[110] = 8.06;
         map[120] = 9.2;
+        convertMap(map);
         return map;
     }
 
@@ -664,6 +678,7 @@ private:
         map[100] = 230;
         map[110] = 209;
         map[120] = 190;//guessed value
+        convertMap(map);
         return map;
     }
 
@@ -682,6 +697,7 @@ private:
         map[100] = 110.7;
         map[110] = 119.6;
         map[120] = 140.2;
+        convertMap(map);
         return map;
     }
     LookUpMap initRB425Traction() const {
@@ -703,6 +719,7 @@ private:
         map[140] = 52;
         map[150] = 46;
         map[160] = 40;
+        convertMap(map);
         return map;
     }
 
@@ -725,6 +742,7 @@ private:
         map[140] = 15.3;
         map[150] = 16.9;
         map[160] = 18.7;
+        convertMap(map);
         return map;
     }
 
@@ -760,6 +778,7 @@ private:
         map[140] = 44.03;
         map[150] = 41.07;
         map[160] = 38.49;
+        convertMap(map);
         return map;
     }
 
@@ -783,6 +802,7 @@ private:
         map[140] = 11.38;
         map[150] = 12.91;
         map[160] = 14.56;
+        convertMap(map);
         return map;
     }
 
@@ -818,6 +838,7 @@ private:
         map[140] = 43.71;
         map[150] = 40.80;
         map[160] = 38.25;
+        convertMap(map);
         return map;
     }
 
@@ -841,6 +862,7 @@ private:
         map[140] = 11.38;
         map[150] = 12.91;
         map[160] = 14.56;
+        convertMap(map);
         return map;
     }
 

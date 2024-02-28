@@ -29,6 +29,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
 
+#define N2kN 0.001
 
 // ===========================================================================
 // trainParams method definitions
@@ -37,7 +38,7 @@
 double
 MSCFModel_Rail::TrainParams::getResistance(double speed) const {
     if (resCoef_constant != INVALID_DOUBLE) {
-        return (resCoef_quadratic * speed * speed + resCoef_linear * speed + resCoef_constant) / 1000; // kN
+        return (resCoef_quadratic * speed * speed + resCoef_linear * speed + resCoef_constant); // kN
     } else {
         return getInterpolatedValueFromLookUpMap(speed, &resistance); // kN
     }
@@ -147,8 +148,13 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const bool hasAllResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
             && myTrainParams.resCoef_linear != INVALID_DOUBLE
             && myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
-    if (hasSomeResCoef && !hasAllResCoef) {
-        throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
+    if (hasSomeResCoef) {
+        if (!hasAllResCoef) {
+            throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
+        }
+        myTrainParams.resCoef_constant *= N2kN;
+        myTrainParams.resCoef_linear *= N2kN;
+        myTrainParams.resCoef_quadratic *= N2kN;
     }
     if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
         WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficents are set for vType '%'.", vtype->getID()));
@@ -166,7 +172,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 MSCFModel_Rail::~MSCFModel_Rail() { }
 
 
-std::vector<double> 
+std::vector<double>
 MSCFModel_Rail::getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr) {
     std::vector<double> result;
     const std::string values = vtype->getParameter().getCFParamString(attr, "");
@@ -241,7 +247,6 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
             a = (trac - totalRes) / myTrainParams.getRotWeight(); //kN/t == N/kg
         }
     }
-
     double maxNextSpeed = speed + ACCEL2SPEED(a);
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
@@ -274,7 +279,6 @@ MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) 
 
 
 double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) {
-    speed = speed * 3.6; // lookup values in km/h
     std::map<double, double>::const_iterator low, prev;
     low = lookUpMap->lower_bound(speed);
 
@@ -367,4 +371,15 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
 
 double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS, false), maxNextSpeed(speed, veh));
+}
+
+
+void
+MSCFModel_Rail::convertMap(LookUpMap& map, double keyFactor, double valueFactor) {
+    LookUpMap map2;
+    for (auto item : map) {
+        map2[item.first * keyFactor] = item.second * valueFactor;
+    }
+    map.clear();
+    map.insert(map2.begin(), map2.end());
 }
