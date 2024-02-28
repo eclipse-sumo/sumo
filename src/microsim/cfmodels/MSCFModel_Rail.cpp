@@ -29,8 +29,6 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
 
-#define N2kN 0.001
-
 // ===========================================================================
 // trainParams method definitions
 // ===========================================================================
@@ -148,13 +146,8 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const bool hasAllResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
             && myTrainParams.resCoef_linear != INVALID_DOUBLE
             && myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
-    if (hasSomeResCoef) {
-        if (!hasAllResCoef) {
-            throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
-        }
-        myTrainParams.resCoef_constant *= N2kN;
-        myTrainParams.resCoef_linear *= N2kN;
-        myTrainParams.resCoef_quadratic *= N2kN;
+    if (hasSomeResCoef && !hasAllResCoef) {
+        throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
     }
     if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
         WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficents are set for vType '%'.", vtype->getID()));
