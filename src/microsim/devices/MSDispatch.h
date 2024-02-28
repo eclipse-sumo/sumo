@@ -64,7 +64,7 @@ struct Reservation {
         toPos(_toPos),
         group(_group),
         line(_line),
-        recheck(MAX2(_reservationTime,_earliestPickupTime)),
+        recheck(_reservationTime),
         state(NEW)
     {}
 
