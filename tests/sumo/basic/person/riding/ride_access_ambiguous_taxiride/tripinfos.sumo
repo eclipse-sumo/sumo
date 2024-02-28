@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-28 16:12:00 by Eclipse SUMO sumo Version v1_19_0+1077-5e605c89a6b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="p0_0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="45.00" arrivalLane="beg2left_0" arrivalPos="450.00" arrivalSpeed="0.09" duration="45.00" routeLength="949.93" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="10.83" rerouteNo="0" devices="vehroute_p0_0 tripinfo_p0_0 person_p0_0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="train.0" depart="0.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="164.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="164.00" routeLength="1419.43" waitingTime="0.00" waitingCount="0" stopTime="38.00" timeLoss="23.75" rerouteNo="0" devices="vehroute_train.0 tripinfo_train.0 person_train.0" vType="train" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="45.00" arrivalPos="450.00" duration="45.00" routeLength="949.93" timeLoss="10.83"/>
+        <access stop="A" depart="45.00" arrival="57.00" duration="12.00" routeLength="17.44"/>
+        <ride waitingTime="3.00" vehicle="train.0" depart="60.00" arrival="141.00" arrivalPos="1300.00" duration="81.00" routeLength="1000.00" timeLoss="9.01"/>
+        <ride waitingTime="40.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>

@@ -74,3 +74,12 @@ ride_triggered_scale
 
 # scenario derived from output of  sumo/devices/rerouting/personTrip/car_public_walk2, see #7006
 ride_access_ride
+
+# check what happens if the from edge of a later walk isn't set and there are multiple access involved
+ride_access_ambiguous_walk
+
+# check what happens if the from edge of a later walk isn't set and there are multiple access involved
+ride_access_ambiguous_ride
+
+# check what happens if the from edge of a later walk isn't set and there are multiple access involved
+ride_access_ambiguous_taxiride
