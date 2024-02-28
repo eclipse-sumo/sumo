@@ -443,6 +443,11 @@ public:
      */
     int getPersonNumber() const;
 
+    /** @brief Returns the number of leaving persons
+     * @return The number of leaving passengers
+     */
+    int getLeavingPersonNumber() const;
+
     /** @brief Returns the list of persons
      * @return The list of passengers on-board
      */

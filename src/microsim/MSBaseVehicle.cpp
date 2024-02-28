@@ -41,6 +41,7 @@
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
@@ -1987,6 +1988,21 @@ int
 MSBaseVehicle::getPersonNumber() const {
     int boarded = myPersonDevice == nullptr ? 0 : myPersonDevice->size();
     return boarded + myParameter->personNumber;
+}
+
+int
+MSBaseVehicle::getLeavingPersonNumber() const {
+    int leavingPersonNumber = 0;
+    const std::vector<MSTransportable*>& persons = getPersons();
+    for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+        MSStageDriving* const stage = dynamic_cast<MSStageDriving*>((*it_p)->getCurrentStage());
+        const MSStop* stop = &myStops.front();
+        const MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle((*stop).pars.join));
+        if (stop && stage->canLeaveVehicle(*it_p, *this, *stop) && !MSDevice_Transportable::willTransferAtJoin(*it_p, joinVeh)) {
+            leavingPersonNumber++;
+        }
+    }
+    return leavingPersonNumber;
 }
 
 std::vector<std::string>
