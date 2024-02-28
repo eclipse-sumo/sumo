@@ -650,7 +650,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     if (isPickup && earliestPickupTime >= 0) {
         stop.waitUntil = earliestPickupTime;
         // TODO: replace hard coded extension with parameter
-        stop.extension = 15000; //static_cast<SUMOTime>(3 * 60 * 1000);  // 3mins
+        stop.extension = static_cast<SUMOTime>(3 * 60 * 1000);  // 3mins
     }
     stops.push_back(stop);
 }

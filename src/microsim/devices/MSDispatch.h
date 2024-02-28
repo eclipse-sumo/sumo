@@ -64,7 +64,7 @@ struct Reservation {
         toPos(_toPos),
         group(_group),
         line(_line),
-        recheck(_reservationTime),
+        recheck(MAX2(_reservationTime,_earliestPickupTime)),
         state(NEW)
     {}
 
@@ -113,7 +113,7 @@ public:
 
         /// @brief Comparing operator
         int operator()(const Reservation* r1, const Reservation* r2) const {
-            return r1->reservationTime < r2->reservationTime;
+            return MAX2(r1->reservationTime, r1->earliestPickupTime) < MAX2(r2->reservationTime, r2->earliestPickupTime);
         }
     };
 
