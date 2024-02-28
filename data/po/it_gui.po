@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-27 19:19+0000\n"
+"PO-Revision-Date: 2024-02-28 10:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14466,6 +14466,8 @@ msgid ""
 "There are unsaved changes in the currently edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
+"Il semaforo è stato modificato. \n"
+"Confermi di salvarli prima di cambiare modo?"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:244
 msgid "tlLogic '%', program '%' could not be built"
@@ -14482,54 +14484,54 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:418
 msgid "Invalid phase index"
-msgstr ""
+msgstr "indice di fase invalido"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:514
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "modifica della definizione di semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:528
 msgid "Unsaved modifications. Abort or Save"
-msgstr ""
+msgstr "Modifiche non salvate. Cancella o salvale"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:548
 msgid "Traffic light Attributes"
-msgstr ""
+msgstr "Attributi di semafori"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:557
 msgid "parameters"
-msgstr ""
+msgstr "parametri"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:564
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 msgid "Assign E1 detectors"
-msgstr ""
+msgstr "Assegna rivelatori E1"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:564
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "Attiva assegnazione E1"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:564
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 msgid "Assign E1 detectors to the current TLS"
-msgstr ""
+msgstr "Assegna rivelatori E1 al semaforo attuale"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "Disattiva assegnazione E1"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:881
 msgid "Traffic Light"
-msgstr ""
+msgstr "Semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:886
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:950
 msgid "Junction ID"
-msgstr ""
+msgstr "Codice identificativo dell'incrocio"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:893
 msgid "TLS ID"
-msgstr ""
+msgstr "Codice identificativo del semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
