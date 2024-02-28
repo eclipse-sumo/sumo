@@ -138,7 +138,7 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
 static std::map<int, std::vector<std::string> > vehicleClassNamesListCached;
 static std::map<std::string, SVCPermissions> parseVehicleClassesCached;
 static std::map<SVCPermissions, std::string> getVehicleClassNamesCached;
-static std::string vehicleClassNameAll = "all";
+static std::string VehicleClassNameAll = "all";
 
 // ===========================================================================
 // additional constants
@@ -277,7 +277,7 @@ StopOffset::operator!=(StopOffset const& other) const {
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
     if ((permissions & SVCAll) == SVCAll && !expand) {
-        return vehicleClassNameAll;
+        return VehicleClassNameAll;
     }
     // check if previously was cached
     if (getVehicleClassNamesCached.count(permissions) == 0) {
@@ -330,7 +330,7 @@ getVehicleClassCompoundID(const std::string& name) {
 
 SVCPermissions
 parseVehicleClasses(const std::string& allowedS) {
-    if (allowedS == "all") {
+    if (allowedS == VehicleClassNameAll) {
         return SVCAll;
     }
     // check  if allowedS was previously cached
@@ -359,7 +359,7 @@ parseVehicleClasses(const std::string& allowedS) {
 
 bool
 canParseVehicleClasses(const std::string& classes) {
-    if (classes == "all") {
+    if (classes == VehicleClassNameAll) {
         return true;
     }
     // check if was previously cached
@@ -400,7 +400,7 @@ invertPermissions(SVCPermissions permissions) {
 SVCPermissions
 parseVehicleClasses(const std::vector<std::string>& allowedS) {
     SVCPermissions result = 0;
-    if (std::find(allowedS.begin(), allowedS.end(), "all") != allowedS.end()) {
+    if (std::find(allowedS.begin(), allowedS.end(), VehicleClassNameAll) != allowedS.end()) {
         return SVCAll;
     }
     for (std::vector<std::string>::const_iterator i = allowedS.begin(); i != allowedS.end(); ++i) {
@@ -420,7 +420,7 @@ writePermissions(OutputDevice& into, SVCPermissions permissions) {
     if (permissions == SVCAll) {
         return;
     } else if (permissions == 0) {
-        into.writeAttr(SUMO_ATTR_DISALLOW, "all");
+        into.writeAttr(SUMO_ATTR_DISALLOW, VehicleClassNameAll);
         return;
     } else {
         int num_allowed = 0;
