@@ -149,6 +149,9 @@ public:
         return myTransportables;
     }
 
+    /// @brief check if boardingDuration should be applied
+    static bool willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh);
+
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -161,10 +164,6 @@ protected:
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
                             const double meanLengthOnLane);
-
-    /// @brief check if boardingDuration should be applied
-    bool willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) const;
-
 
 private:
     /** @brief Constructor

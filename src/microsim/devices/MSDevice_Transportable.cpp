@@ -135,7 +135,7 @@ MSDevice_Transportable::transferAtSplitOrJoin(MSBaseVehicle* otherVeh) {
 
 
 bool
-MSDevice_Transportable::willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) const {
+MSDevice_Transportable::willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh) {
     if (joinVeh && t->getNumRemainingStages() > 1) {
         MSStageDriving* const stage2 = dynamic_cast<MSStageDriving*>(t->getNextStage(1));
         return stage2->isWaitingFor(joinVeh);

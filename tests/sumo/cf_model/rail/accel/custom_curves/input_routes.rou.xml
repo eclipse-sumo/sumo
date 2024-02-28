@@ -3,7 +3,7 @@
   options: 
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom" max="114e3" maxPower="2350" maxTraction="150"
-        resCoef_quadratic="0.28" resCoef_linear="0.03" resCoef_constant="1670"/>
+    <vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom" maxPower="2350" maxTraction="150"
+        resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
     <trip id="r0" depart="0.00" departLane="best" from="e0" to="e2" type="0"/>
 </routes>
