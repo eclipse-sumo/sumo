@@ -1691,6 +1691,49 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
         const_cast<SUMOVehicleParameter*>(myParameter)->stops[nextStopIndex] = stop;
     }
+    if (teleport) {
+        // let the vehicle jump rather than teleport
+        // we add a jump-stop at the end of the edge (unless the vehicle is
+        // already configure to jump before the replaced stop)
+        bool needJump = true;
+        if (nextStopIndex > 0) {
+            auto itPriorStop = myStops.begin();
+            std::advance(itPriorStop, nextStopIndex - 1);
+            const MSStop& priorStop = *itPriorStop;
+            if (priorStop.pars.jump < 0) {
+                needJump = false;
+            }
+        }
+        if (needJump) {
+            SUMOVehicleParameter::Stop jumpStopPars;
+            jumpStopPars.endPos = (*itStart)->getLength();
+            jumpStopPars.speed = 1000;
+            jumpStopPars.jump = 0;
+            jumpStopPars.edge = (*itStart)->getID();
+            jumpStopPars.parametersSet = STOP_SPEED_SET | STOP_JUMP_SET;
+            MSLane* jumpStopLane = nullptr;
+            for (MSLane* cand : (*itStart)->getLanes()) {
+                if (cand->allowsVehicleClass(getVClass())) {
+                    jumpStopLane = cand;
+                    break;
+                }
+            }
+            if (jumpStopLane == nullptr) {
+                errorMsg = "Unable to replace stop with teleporting\n";
+                return false;
+            }
+            MSStop jumpStop(jumpStopPars);
+            jumpStop.initPars(jumpStopPars);
+            jumpStop.lane = jumpStopLane;
+            jumpStop.edge = myRoute->end(); // will be patched in replaceRoute
+            myStops.insert(itStop, jumpStop);
+            if (!hasDeparted() && (int)myParameter->stops.size() > nextStopIndex) {
+                // stops will be rebuilt from scratch so we must patch the stops in myParameter
+                auto it = myParameter->stops.begin() + nextStopIndex;
+                const_cast<SUMOVehicleParameter*>(myParameter)->stops.insert(it, jumpStopPars);
+            }
+        }
+    }
     return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false, &errorMsg);
 }
 
