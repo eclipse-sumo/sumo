@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-28 12:30+0000\n"
+"PO-Revision-Date: 2024-02-29 15:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11511,31 +11511,31 @@ msgstr "stato del collegamento invalido ('%')"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:451
 msgid "TLS operations"
-msgstr ""
+msgstr "Operazioni di semafori"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:453
 msgid "Add TLS"
-msgstr ""
+msgstr "Aggiungi semaforo"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:454
 msgid "Add joined TLS"
-msgstr ""
+msgstr "Aggiungi semaforo combinato"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:499
 msgid "Reset edge endpoints"
-msgstr ""
+msgstr "Resetta i punti terminali degli archi"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:500
 msgid "Set custom junction shape"
-msgstr ""
+msgstr "Metti una forma d'incrocio personalizzata"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:501
 msgid "Reset junction shape"
-msgstr ""
+msgstr "Resetta la forma dell'incrocio"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:502
 msgid "Replace junction by geometry point"
-msgstr ""
+msgstr "Sostituisci l'incrocio con un punto geometrico"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:503
 #, c-format
@@ -12639,28 +12639,28 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
 msgid "Person plans"
-msgstr ""
+msgstr "Piani personali"
 
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
 msgid "Container plans"
-msgstr ""
+msgstr "Piani di contenitori"
 
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 msgid "Person trips"
-msgstr ""
+msgstr "Corse di persone"
 
 #: D:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:197
 msgid "Person stops"
-msgstr ""
+msgstr "Fermate di persone"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:64
 msgid "Delete geometry points"
-msgstr ""
+msgstr "Rimuovi punti geometrici"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:238
 msgid "Protect Elements"
-msgstr ""
+msgstr "Proteggi elementi"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:240
 msgid "Protect all"
@@ -12704,22 +12704,22 @@ msgstr "Insieme di elementi"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:76
 msgid "Invalid supermode"
-msgstr ""
+msgstr "Supermodo invalido"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:96
 msgid "Mark as front element"
-msgstr ""
+msgstr "Segni come elemento di fronte"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:177
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:306
 msgid "Set new parent"
-msgstr ""
+msgstr "Metti un nuovo elemento come padre"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:368
 msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
-msgstr ""
+msgstr "- Segni come elemento frontale: Verrà disegnato sopra tutti gli altri\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:369
 msgid "- Block movement: disable movement in move mode\n"
