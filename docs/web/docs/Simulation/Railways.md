@@ -234,10 +234,43 @@ setting `carFollowModel="Rail" trainType="<TYPE>"` in the `<vType>` definition. 
 - NGT400_16
 - MireoPlusB
 - MireoPlusH
+- custom
 
-These types model traction and rolling resistance for particular trains.
-Alternatively, any other car following model may be used and configured
-with appropriate acceleration / deceleration parameters.
+These types model traction and rolling resistance for particular trains. To represent the behavior of arbitrary trains, the "custom" trainType may be used (see below).
+Alternatively, any other car following model may be used and configured with appropriate acceleration / deceleration parameters.
+
+# Custom dynamics model with tabular data
+
+The vType attributes `speedTable`, `tractionTable` and `resistanceTable` can be used to specify a custom interpolation table for traction and resistance.
+Each attribute is interpreted as a table column where the rows defines the traction and resistance for the corresponding speed.
+The speeds must be given in m/s whereas the traction and resistance forces are in kN. Intermediate values are obtained by linear interpolation.
+
+Example:
+```xml
+	<vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom"
+           speedTable="0 2.78 5.56 8.33 11.11 13.89 16.67 19.44 22.22 25 27.78 30.56 33.33"
+           tractionTable="300 300 263 179 135 108 90 77 67.5 60 54 49 45"
+           resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>   
+```
+
+# Custom dynamics model with parameterized curves
+
+The vType attributes `maxPower` and `maxTraction` can be used to specify the traction curve for a given speed (in m/s) according to the formula:
+
+ `traction_kN = min(maxPower / speed, maxTraction`
+ 
+
+The vType attributes `resCoef_quadratic`, `resCoef_linear` and `resCoef_constant` can be usd to specify the resistance curve for a given speed (in m/s) according to the formula:
+
+ `resistance_kN =  resCoef_quadratic * speed * speed + resCoef_linear * speed + resCoef_constant`
+
+Example:
+```xml
+   <vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom" maxPower="2350" maxTraction="150"
+        resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
+```
+
+The attributes 
 
 # Train Schedules
 
