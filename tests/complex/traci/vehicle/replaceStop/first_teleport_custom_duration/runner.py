@@ -43,7 +43,7 @@ vehID = "ego"
 
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 5:
-        traci.vehicle.insertStop(vehID, 0, "A0A1", 50)
+        traci.vehicle.insertStop(vehID, 0, "A0A1", 50, duration=-1)
         traci.vehicle.setStopParameter(vehID, 0, "speed", "1000")
         traci.vehicle.setStopParameter(vehID, 0, "jump", "30")
         traci.vehicle.replaceStop(vehID, 1, "busStop_A2B2", flags=tc.STOP_BUS_STOP,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 17 11:00:03 2021 by Eclipse SUMO sumo Version v1_8_0+1681-91e011f
+<!-- generated on 2024-02-29 16:50:24 by Eclipse SUMO sumo Version v1_19_0+1099-88e3be13895
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,19 +22,20 @@
     </report>
 
     <traci_server>
-        <remote-port value="43161"/>
+        <remote-port value="48703"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="224.00">
+    <vehicle id="ego" depart="0.00" arrival="223.00">
         <routeDistribution>
             <route replacedOnEdge="A0A1" reason="traci:replaceStop" replacedAtTime="5.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
             <route edges="A0A1 A1B1 B2C2 C2C1 C1D1 D1D2 D2D3"/>
         </routeDistribution>
         <stop busStop="busStop_A1B1" duration="60.00"/>
+        <stop edge="A1B1" speed="1000.00" jump="0.00"/>
         <stop busStop="busStop_B2C2" duration="30.00"/>
         <stop busStop="busStop_C1D1" duration="60.00"/>
     </vehicle>
