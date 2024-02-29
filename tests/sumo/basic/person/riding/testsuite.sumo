@@ -1,6 +1,9 @@
 # person with a single ride
 ride
 
+# person riding to work and going back home in the same car
+ride_reuse_car
+
 # define rides that end at a busStop, parkingArea, etc.
 ride_stoppingPlace
 
