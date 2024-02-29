@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:42 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:10 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-395408.93,-5809112.45" convBoundary="4379.95,90.90,4488.29,194.06" origBoundary="13.453860,52.423029,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -125,7 +125,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="283018514" type="right_before_left" x="4436.40" y="194.06" incLanes="25944536_0" intLanes="" shape="4436.40,194.06 4439.46,195.01 4436.40,194.06">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="cluster_1568241232_1654992651" type="priority" x="4457.73" y="162.90" incLanes="-143308673#0_0 169076556#0_0 169076556#0_1 -152709214_0 -169076556#2_0 -169076556#2_1" intLanes="" shape="4460.72,169.17 4466.60,166.64 4467.39,164.69 4463.42,155.08 4451.04,155.67 4446.35,160.03 4445.96,161.64 4449.50,171.41">
+    <junction id="cluster_1568241232_1654992651" type="priority" x="4457.73" y="162.89" incLanes="-143308673#0_0 169076556#0_0 169076556#0_1 -152709214_0 -169076556#2_0 -169076556#2_1" intLanes="" shape="4460.72,169.17 4466.60,166.64 4467.39,164.69 4463.42,155.08 4451.04,155.67 4446.35,160.03 4445.96,161.64 4449.50,171.41">
         <request index="0"  response="0000000000100000" foes="1000010000100000"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000"/>

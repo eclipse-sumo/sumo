@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:33 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-406402.44,-5798235.41" convBoundary="0.00,0.00,294.47,202.88" origBoundary="13.615742,52.323507,13.630883,52.328269" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="5197062#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.13" shape="171.45,64.15 191.29,62.23 236.54,57.60 244.22,56.75 253.03,55.75 266.36,48.20 283.52,25.71 285.65,15.99 288.55,6.54 293.11,-0.84"/>
     </edge>
 
-    <junction id="2289279154" type="priority" x="294.47" y="0.00" incLanes="5197062#1_0" intLanes=":2289279154_0_0" shape="294.47,-0.00 291.75,-1.68 294.47,-0.00">
+    <junction id="2289279154" type="priority" x="294.47" y="0.00" incLanes="5197062#1_0" intLanes=":2289279154_0_0" shape="294.47,-0.00 291.75,-1.68 294.47,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="36247736" type="priority" x="33.71" y="36.73" incLanes="-5197062#0_0" intLanes=":36247736_0_0" shape="33.71,36.73 33.01,39.85 33.71,36.73">

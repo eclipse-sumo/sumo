@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:29 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-354637.56,-5646011.53" convBoundary="0.00,0.00,353.99,223.64" origBoundary="6.925481,50.943553,6.935696,50.951735" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -154,7 +154,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="168898887#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.34" shape="164.00,125.03 170.83,120.23"/>
     </edge>
     <edge id="245122333" from="265876583" to="672773480" priority="11" type="highway.secondary" spreadType="center" shape="0.00,223.64 10.90,216.30 23.17,208.51 49.72,194.56 56.68,190.90 68.05,184.73 113.48,155.38">
-        <lane id="245122333_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="128.23" shape="0.00,223.64 10.90,216.30 23.17,208.51 49.72,194.56 56.68,190.90 68.05,184.73 109.85,157.72"/>
+        <lane id="245122333_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="128.23" shape="-0.00,223.64 10.90,216.30 23.17,208.51 49.72,194.56 56.68,190.90 68.05,184.73 109.85,157.72"/>
     </edge>
     <edge id="322459553" from="3292335094" to="36832211" priority="12" type="highway.primary" spreadType="center">
         <lane id="322459553_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="19.44" length="56.24" shape="110.22,65.51 145.30,109.47"/>

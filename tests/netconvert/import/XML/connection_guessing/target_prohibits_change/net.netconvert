@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 19 15:33:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1731-3cee3c3
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,14 +31,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-400661.23,-5810285.98" convBoundary="0.00,0.00,65.39,75.27" origBoundary="13.453860,52.423355,13.575739,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -74,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="4854982237" type="dead_end" x="3.17" y="12.04" incLanes="-c_0" intLanes="" shape="3.17,12.04 0.91,14.31 3.17,12.04"/>
-    <junction id="5543923995" type="dead_end" x="65.39" y="0.00" incLanes="-a_0" intLanes="" shape="65.39,0.00 63.05,-2.18 65.39,0.00"/>
+    <junction id="5543923995" type="dead_end" x="65.39" y="0.00" incLanes="-a_0" intLanes="" shape="65.39,-0.00 63.05,-2.18 65.39,0.00"/>
     <junction id="C" type="priority" x="29.66" y="38.43" incLanes="a_0 c_0 -b_0" intLanes="" shape="36.98,35.25 32.30,30.90 30.47,32.21 29.54,32.39 28.62,32.25 27.68,31.78 26.74,31.00 22.22,35.54 23.63,37.57 23.87,38.58 23.78,39.59 23.38,40.60 22.67,41.61 29.92,47.90 31.75,45.43 32.76,43.37 33.38,41.51 34.01,39.67 35.08,37.65">
         <request index="0" response="00000000" foes="00110000"/>
         <request index="1" response="00000000" foes="00110000"/>

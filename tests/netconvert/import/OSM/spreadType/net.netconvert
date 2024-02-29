@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:31 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" spreadType="roadCenter" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" spreadType="roadCenter" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-400608.19,-5808610.80" convBoundary="0.00,0.00,549.35,230.99" origBoundary="13.526039,52.417478,13.553838,52.423077" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -186,7 +186,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="721167526" type="priority" x="0.00" y="211.77" incLanes="-266150543#2_0" intLanes=":721167526_0_0" shape="0.00,211.77 1.39,214.65 0.00,211.77">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="942862455" type="priority" x="549.35" y="0.00" incLanes="152466403#0_0" intLanes=":942862455_0_0" shape="549.35,-0.00 548.67,-3.13 549.35,-0.00">
+    <junction id="942862455" type="priority" x="549.35" y="0.00" incLanes="152466403#0_0" intLanes=":942862455_0_0" shape="549.35,-0.00 548.67,-3.13 549.35,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="94487919" type="traffic_light" x="20.90" y="201.84" incLanes="-144909691#2_0 -144909691#2_1 -152466403#2_0 318210381#0_0 318210381#0_1 266150543#0_0" intLanes=":94487919_0_0 :94487919_1_0 :94487919_16_0 :94487919_17_0 :94487919_4_0 :94487919_5_0 :94487919_18_0 :94487919_19_0 :94487919_8_0 :94487919_9_0 :94487919_20_0 :94487919_21_0 :94487919_12_0 :94487919_13_0 :94487919_22_0 :94487919_23_0" shape="19.45,210.46 28.23,206.60 27.65,203.91 27.88,202.72 28.44,201.61 29.35,200.61 30.60,199.70 27.27,194.23 25.21,194.97 24.34,194.86 23.58,194.42 22.92,193.67 22.37,192.59 13.46,196.16 14.08,198.99 13.92,200.16 13.43,201.16 12.63,202.01 11.51,202.68 14.21,208.49 16.40,207.96 17.33,208.14 18.15,208.61 18.85,209.39">

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-13 18:09:47 by Eclipse SUMO netconvert Version v1_11_0+1099-62db5cfca0a
+<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,13 +24,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-550330.46,-5636326.50" convBoundary="0.00,0.00,24.35,1.83" origBoundary="9.707448,50.869477,9.716987,50.876859" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -40,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="Hospital_arrival_0" index="0" speed="13.89" length="8.37" width="1.50" shape="0.16,-0.73 8.34,1.05"/>
     </edge>
 
-    <junction id="gneJ131" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.32,-1.47"/>
+    <junction id="gneJ131" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.00 0.32,-1.47"/>
     <junction id="gneJ54" type="priority" x="8.38" y="1.83" incLanes="Hospital_arrival_0" intLanes=":gneJ54_0_0" shape="8.59,1.82 8.50,0.32 8.18,1.79 8.33,1.82 8.38,1.82 8.43,1.82">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

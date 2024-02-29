@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 23:21:40.010033 by netdiff.py v1_15_0+1985-a4f015c
-  options: -g source.net.xml dest.net.xml diff
+<!-- generated on 2024-02-29 13:55:29.692945 by netdiff.py v1_19_0+1092-a49a04372af
+<configuration>
+    <source value="source.net.xml"/>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <plain-geo value="True"/>
+</configuration>
 -->
 
-<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <!-- Deleted Elements -->
     <delete from="-10860203" fromLane="0" to="-10860201" toLane="1"/>
     <delete from="10860203" fromLane="0" to="-10860203" toLane="0"/>

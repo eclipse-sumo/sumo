@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:17 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-389060.19,-5815081.48" convBoundary="0.00,0.00,1267.18,1579.73" origBoundary="13.366597,52.474606,13.384884,52.488946" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -2150,7 +2150,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="28096705" type="priority" x="6.36" y="0.00" incLanes="28362838#2_0" intLanes=":28096705_0_0" shape="6.36,-0.00 3.29,-0.92 6.36,0.00">
+    <junction id="28096705" type="priority" x="6.36" y="0.00" incLanes="28362838#2_0" intLanes=":28096705_0_0" shape="6.36,0.00 3.29,-0.92 6.36,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="290170233" type="priority" x="708.80" y="1080.97" incLanes="338392735_0 391493945#0_0 391493945#0_1" intLanes=":290170233_0_0 :290170233_0_1 :290170233_2_0 :290170233_2_1" shape="713.69,1082.39 713.57,1079.19 712.76,1078.65 712.50,1077.94 712.34,1076.94 712.27,1075.65 712.29,1074.07 705.90,1073.80 705.36,1075.96 704.76,1076.71 703.95,1077.24 702.93,1077.54 701.69,1077.63 701.56,1084.02 703.71,1084.50 704.45,1085.06 704.97,1085.84 705.25,1086.82 705.31,1088.02 711.71,1088.27 712.03,1085.03 712.32,1083.89 712.69,1083.07 713.15,1082.57">

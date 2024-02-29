@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:19 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391818.71,-5817190.26" convBoundary="0.00,0.00,1414.40,979.75" origBoundary="13.406363,52.494306,13.427172,52.502966" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -781,7 +781,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="384804026_0" index="0" allow="rail_urban" speed="27.78" length="523.42" shape="0.06,475.81 99.06,474.36 146.39,475.17 390.89,489.61 408.81,490.02 426.54,488.81 445.05,486.63 503.93,478.06 522.19,476.73"/>
     </edge>
     <edge id="384804028" from="444840713" to="3881590686" priority="18" type="railway.subway" spreadType="center" shape="522.49,479.67 504.41,480.66 445.21,489.65 427.02,491.87 408.98,492.88 390.90,492.47 145.85,478.26 99.08,477.59 0.00,478.75">
-        <lane id="384804028_0" index="0" allow="rail_urban" speed="27.78" length="523.79" shape="522.49,479.67 504.41,480.66 445.21,489.65 427.02,491.87 408.98,492.88 390.90,492.47 145.85,478.26 99.08,477.59 -0.00,478.75"/>
+        <lane id="384804028_0" index="0" allow="rail_urban" speed="27.78" length="523.79" shape="522.49,479.67 504.41,480.66 445.21,489.65 427.02,491.87 408.98,492.88 390.90,492.47 145.85,478.26 99.08,477.59 0.00,478.75"/>
     </edge>
     <edge id="386659490#0" from="8895430718" to="2677616765" priority="1" type="highway.cycleway" spreadType="center">
         <lane id="386659490#0_0" index="0" allow="bicycle" speed="5.56" length="0.20" width="1.70" shape="761.09,538.47 761.03,538.66"/>

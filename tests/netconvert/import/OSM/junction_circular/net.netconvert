@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:31 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-528214.97,-5700855.89" convBoundary="0.00,-0.00,404.29,221.27" origBoundary="-2.593875,51.458003,-2.585151,51.460319" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -200,7 +200,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-123981301#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="86.94" shape="85.38,94.04 104.98,105.66 114.23,112.44 121.80,119.54 124.87,123.32 127.86,127.00 132.50,135.72 134.47,144.60 134.03,154.91 133.37,158.24"/>
     </edge>
     <edge id="1041419770#0" from="5359925909" to="3331523960" priority="11" type="highway.secondary" spreadType="center">
-        <lane id="1041419770#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.94" length="12.67" shape="-0.00,185.70 12.66,185.86"/>
+        <lane id="1041419770#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.94" length="12.67" shape="0.00,185.70 12.66,185.86"/>
         <param key="ref" value="B4051"/>
     </edge>
     <edge id="1041419770#1" from="3331523960" to="1281294877" priority="11" type="highway.secondary" spreadType="center" shape="12.66,185.86 19.90,185.37 59.72,182.95 75.12,181.63 114.29,178.45 132.94,175.98 149.40,171.05 159.94,166.27 170.03,163.99">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:27 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-401158.11,-5793239.26" convBoundary="0.00,0.00,1995.84,3310.09" origBoundary="13.550816,52.280814,13.579929,52.310438" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -786,7 +786,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="2840913156" type="dead_end" x="1080.95" y="67.19" incLanes="-26967458_0" intLanes="" shape="1080.95,67.19 1077.94,66.11 1080.95,67.19"/>
-    <junction id="294545994" type="dead_end" x="0.00" y="972.56" incLanes="37416497_0" intLanes="" shape="0.00,972.56 1.73,975.25 0.00,972.56"/>
+    <junction id="294545994" type="dead_end" x="0.00" y="972.56" incLanes="37416497_0" intLanes="" shape="-0.00,972.56 1.73,975.25 0.00,972.56"/>
     <junction id="295521289" type="priority" x="670.23" y="1221.96" incLanes="-6272827#1_0 279916249#1_0 6272827#0_0" intLanes=":295521289_0_0 :295521289_6_0 :295521289_2_0 :295521289_3_0 :295521289_4_0 :295521289_5_0" shape="676.95,1226.75 678.35,1220.50 676.32,1219.60 675.75,1218.90 675.47,1218.05 675.47,1217.03 675.77,1215.86 669.73,1213.73 668.42,1216.13 667.57,1216.88 666.59,1217.33 665.49,1217.49 664.25,1217.35 662.85,1223.59">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="110000" foes="111000" cont="1"/>

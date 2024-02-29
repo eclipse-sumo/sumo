@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:25 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-403883.80,-5802021.53" convBoundary="0.00,0.00,2215.74,4864.69" origBoundary="13.587139,52.360420,13.621060,52.403761" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -161,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="22955557#0" from="247330281" to="cluster_247120010_267009909_291194164_291194165" priority="19" type="railway.light_rail" spreadType="center" shape="0.00,4860.38 440.98,4361.36 676.64,4095.99 718.41,4044.44 748.72,4003.24 818.71,3893.04 830.89,3871.49 855.39,3826.59 877.24,3783.18 907.23,3720.36 925.34,3679.41 940.18,3642.26 954.18,3605.42 981.00,3533.17 1012.78,3446.99 1087.45,3244.59 1165.40,3037.76 1228.24,2868.24 1423.20,2345.25 1496.82,2145.82 1545.47,2015.32 1614.84,1826.12 1658.75,1710.11 1672.52,1672.81 1806.78,1314.00 1848.36,1196.76 1864.88,1154.32 1891.28,1087.68 1929.36,999.05 1978.87,861.16 2015.54,741.72" distance="-14908.75">
-        <lane id="22955557#0_0" index="0" allow="rail_urban" speed="27.78" length="4626.40" shape="0.00,4860.38 440.98,4361.36 676.64,4095.99 718.41,4044.44 748.72,4003.24 818.71,3893.04 830.89,3871.49 855.39,3826.59 877.24,3783.18 907.23,3720.36 925.34,3679.41 940.18,3642.26 954.18,3605.42 981.00,3533.17 1012.78,3446.99 1087.45,3244.59 1165.40,3037.76 1228.24,2868.24 1423.20,2345.25 1496.82,2145.82 1545.47,2015.32 1614.84,1826.12 1658.75,1710.11 1672.52,1672.81 1806.78,1314.00 1848.36,1196.76 1864.88,1154.32 1891.28,1087.68 1929.36,999.05 1978.87,861.16 2011.07,756.29"/>
+        <lane id="22955557#0_0" index="0" allow="rail_urban" speed="27.78" length="4626.40" shape="-0.00,4860.38 440.98,4361.36 676.64,4095.99 718.41,4044.44 748.72,4003.24 818.71,3893.04 830.89,3871.49 855.39,3826.59 877.24,3783.18 907.23,3720.36 925.34,3679.41 940.18,3642.26 954.18,3605.42 981.00,3533.17 1012.78,3446.99 1087.45,3244.59 1165.40,3037.76 1228.24,2868.24 1423.20,2345.25 1496.82,2145.82 1545.47,2015.32 1614.84,1826.12 1658.75,1710.11 1672.52,1672.81 1806.78,1314.00 1848.36,1196.76 1864.88,1154.32 1891.28,1087.68 1929.36,999.05 1978.87,861.16 2011.07,756.29"/>
     </edge>
     <edge id="22955557#1" from="cluster_247120010_267009909_291194164_291194165" to="cluster_2476940049_2476940061_2476940071_2476940083" priority="19" type="railway.light_rail" spreadType="center" shape="2015.54,741.72 2018.07,732.45" distance="-19548.00">
         <lane id="22955557#1_0" index="0" allow="rail_urban" speed="27.78" length="0.35" shape="2017.28,735.33 2017.37,735.00"/>

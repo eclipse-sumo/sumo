@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-15 13:50:23 by Eclipse SUMO netconvert Version v1_19_0+0153-31580b44f9e
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-465372.80,-5250716.39" convBoundary="0.00,0.00,602.99,443.84" origBoundary="8.541007,47.409008,8.548998,47.412993" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -5135,7 +5135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="303826784" from="3082801979" to="3082801991" priority="20" type="railway.rail" spreadType="center" shape="0.00,141.56 8.52,149.09 16.43,157.08 39.21,181.67">
-        <lane id="303826784_0" index="0" allow="rail" speed="44.44" length="54.59" shape="-0.00,141.56 8.52,149.09 16.43,157.08 38.16,180.53">
+        <lane id="303826784_0" index="0" allow="rail" speed="44.44" length="54.59" shape="0.00,141.56 8.52,149.09 16.43,157.08 38.16,180.53">
             <param key="origId" value="303826784"/>
         </lane>
         <param key="railway:track_ref" value="690"/>

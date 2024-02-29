@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:30 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-528644.50,-7416978.69" convBoundary="0.00,0.00,517.05,159.27" origBoundary="21.653492,66.869457,21.665251,66.870851" projParameter="+proj=utm +zone=34 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -84,7 +84,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="E 10"/>
     </edge>
 
-    <junction id="55225520" type="priority" x="78.71" y="0.00" incLanes="-7631418_0 -7631418_1 -7631418_2 -7631418_3" intLanes=":55225520_0_0" shape="78.71,-0.00 67.31,-5.81 78.71,-0.00">
+    <junction id="55225520" type="priority" x="78.71" y="0.00" incLanes="-7631418_0 -7631418_1 -7631418_2 -7631418_3" intLanes=":55225520_0_0" shape="78.71,0.00 67.31,-5.81 78.71,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="55225521" type="priority" x="517.05" y="4.65" incLanes="-7631419_0 -7631419_1 -7631419_2 -7631419_3" intLanes=":55225521_0_0" shape="517.05,4.65 505.65,-1.16 517.05,4.65">

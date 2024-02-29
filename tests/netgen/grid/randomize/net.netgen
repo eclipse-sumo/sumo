@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-07 10:20:10 by Eclipse SUMO netgenerate Version v1_15_0+1440-6fccaef
+<!-- generated on 2024-02-29 13:36:51 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,16 +19,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <grid.y-number value="3"/>
     </grid_network>
 
-    <random_network>
-        <random-lanenumber value="true"/>
-        <random-priority value="true"/>
-    </random_network>
-
     <output>
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <prefix value="foo_"/>
     </output>
+
+    <processing>
+        <random-lanenumber value="true"/>
+        <random-priority value="true"/>
+    </processing>
 
     <building_defaults>
         <default.lanenumber value="3"/>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 

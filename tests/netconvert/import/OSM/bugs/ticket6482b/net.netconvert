@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:32 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-355122.68,-5644468.20" convBoundary="0.00,0.00,340.23,197.37" origBoundary="6.938143,50.930775,6.951030,50.939870" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -190,7 +190,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1352615" type="dead_end" x="189.87" y="18.25" incLanes="" intLanes="" shape="188.30,17.94 191.44,18.56"/>
     <junction id="26538298" type="dead_end" x="110.89" y="2.40" incLanes="" intLanes="" shape="107.79,1.60 113.98,3.20"/>
     <junction id="26721449" type="dead_end" x="76.22" y="172.45" incLanes="150031203_0 150031203_1" intLanes="" shape="79.39,172.89 73.05,172.02"/>
-    <junction id="359616" type="priority" x="0.00" y="82.68" incLanes="-167324659_0" intLanes=":359616_0_0" shape="0.00,82.68 -1.20,85.65 0.00,82.68">
+    <junction id="359616" type="priority" x="0.00" y="82.68" incLanes="-167324659_0" intLanes=":359616_0_0" shape="-0.00,82.68 -1.20,85.65 0.00,82.68">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="359625" type="dead_end" x="100.96" y="0.00" incLanes="4380937_0 4380937_1" intLanes="" shape="97.85,-0.73 104.08,0.73"/>

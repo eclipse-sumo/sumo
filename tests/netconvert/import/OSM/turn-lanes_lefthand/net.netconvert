@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-07 08:32:34 by Eclipse SUMO netconvert Version v1_18_0+0170-9fe2cf4
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-693772.52,-5709857.48" convBoundary="0.00,-0.00,234.87,115.08" origBoundary="-0.224601,51.504380,-0.204308,51.509827" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -229,7 +229,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="3936955037" type="priority" x="234.87" y="115.08" incLanes="1136308589#9_0 1136308589#9_1" intLanes=":3936955037_0_0" shape="234.87,115.08 232.08,120.84 234.87,115.08">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="9785925880" type="traffic_light" x="0.00" y="-0.00" incLanes="-1136308589#0_0 -1136308589#0_1" intLanes=":9785925880_0_0" shape="0.00,0.00 2.88,-5.72 -0.00,-0.00">
+    <junction id="9785925880" type="traffic_light" x="0.00" y="-0.00" incLanes="-1136308589#0_0 -1136308589#0_1" intLanes=":9785925880_0_0" shape="-0.00,-0.00 2.88,-5.72 0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="cluster_10592639433_10592639440_10592639441_10592639442_#1more" type="traffic_light" x="68.56" y="35.21" incLanes="-1136308589#6_0 -1136308589#6_1 23597065#1_0 23597065#1_1 1136308589#2_0 1136308589#2_1" intLanes=":cluster_10592639433_10592639440_10592639441_10592639442_#1more_0_0 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_0_1 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_8_0 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_3_0 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_4_0 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_5_0 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_5_1 :cluster_10592639433_10592639440_10592639441_10592639442_#1more_9_0" shape="84.49,33.62 78.79,45.08 75.20,43.43 72.13,42.33 69.60,41.78 67.59,41.77 66.12,42.30 65.18,43.39 59.45,40.52 59.52,38.11 58.72,36.88 57.35,35.64 55.43,34.38 52.94,33.10 58.33,21.49">

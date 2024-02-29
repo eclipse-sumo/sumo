@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-05 18:01:30 by Eclipse SUMO netconvert Version v1_18_0+0125-f889bec6f9d
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-604185.54,-5793657.25" convBoundary="0.00,0.00,1017.41,1568.08" origBoundary="10.527770,52.283258,10.542687,52.297305" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -947,7 +947,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="413436796#0_0" index="0" allow="pedestrian" speed="2.78" length="61.79" width="2.00" shape="872.09,1456.41 846.52,1464.38 814.43,1471.80 812.39,1472.13"/>
     </edge>
     <edge id="413436796#1" from="cluster_558992074_8943940047" to="4147550760" priority="1" type="highway.footway" spreadType="center" shape="807.75,1472.86 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 0.00,1422.41">
-        <lane id="413436796#1_0" index="0" allow="pedestrian" speed="2.78" length="821.04" width="2.00" shape="803.15,1473.59 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 -0.00,1422.41"/>
+        <lane id="413436796#1_0" index="0" allow="pedestrian" speed="2.78" length="821.04" width="2.00" shape="803.15,1473.59 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 0.00,1422.41"/>
     </edge>
     <edge id="43955249#1" from="cluster_558992074_8943940047" to="558992105" priority="1" type="highway.service" shape="807.75,1472.86 822.62,1544.37">
         <lane id="43955249#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="70.38" shape="809.86,1475.13 824.18,1544.04"/>

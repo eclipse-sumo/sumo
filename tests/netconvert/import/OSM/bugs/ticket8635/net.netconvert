@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:33 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-700369.95,-5709861.75" convBoundary="0.00,-0.00,281.03,286.11" origBoundary="-0.112752,51.504274,-0.108601,51.506785" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -245,7 +245,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1696030874" type="priority" x="0.00" y="98.15" incLanes="-157380566#2_0 -157380566#2_1" intLanes=":1696030874_0_0" shape="0.00,98.15 3.49,92.79 0.00,98.15">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="25472468" type="priority" x="116.59" y="-0.00" incLanes="4253647_0" intLanes=":25472468_0_0" shape="116.59,-0.00 119.55,1.22 116.59,-0.00">
+    <junction id="25472468" type="priority" x="116.59" y="-0.00" incLanes="4253647_0" intLanes=":25472468_0_0" shape="116.59,-0.00 119.55,1.22 116.59,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="25472469" type="right_before_left" x="133.18" y="81.71" incLanes="-233229666#4_0 233229666#0_0 -4253647_0" intLanes=":25472469_0_0 :25472469_1_0 :25472469_2_0 :25472469_3_0 :25472469_4_0 :25472469_5_0 :25472469_6_0 :25472469_7_0 :25472469_8_0" shape="133.08,73.71 138.98,76.20 133.56,89.41 127.61,87.04 128.00,84.77 127.75,83.79 127.19,82.92 126.34,82.15 125.18,81.48 127.91,75.69 130.09,76.23 131.01,76.05 131.82,75.57 132.51,74.79">

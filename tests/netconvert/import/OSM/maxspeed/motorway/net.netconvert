@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 18:48:31 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-401158.11,-5793239.26" convBoundary="0.00,0.00,1995.84,3310.09" origBoundary="13.550816,52.280814,13.579929,52.310438" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -262,7 +262,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":2840913156_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="3.20" shape="1080.95,67.19 1083.96,68.28 1077.94,66.11 1080.95,67.19"/>
     </edge>
     <edge id=":294545994_w0" function="walkingarea">
-        <lane id=":294545994_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="3.20" shape="0.00,972.56 -1.73,969.87 1.73,975.25 -0.00,972.56"/>
+        <lane id=":294545994_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="3.20" shape="-0.00,972.56 -1.73,969.87 1.73,975.25 0.00,972.56"/>
     </edge>
     <edge id=":309374748_0" function="internal">
         <lane id=":309374748_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="36.39" length="8.21" shape="646.59,1134.48 647.20,1132.15 647.25,1130.46 647.29,1128.76 647.89,1126.43"/>
@@ -902,7 +902,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="2840913156" type="dead_end" x="1080.95" y="67.19" incLanes="-26967458_0" intLanes="" shape="1080.95,67.19 1077.94,66.11 1080.95,67.19"/>
-    <junction id="294545994" type="dead_end" x="0.00" y="972.56" incLanes="37416497_0" intLanes="" shape="0.00,972.56 1.73,975.25 -0.00,972.56"/>
+    <junction id="294545994" type="dead_end" x="0.00" y="972.56" incLanes="37416497_0" intLanes="" shape="-0.00,972.56 1.73,975.25 0.00,972.56"/>
     <junction id="309374747" type="dead_end" x="363.71" y="3085.96" incLanes="" intLanes="" shape="366.90,3086.13 360.51,3085.80"/>
     <junction id="309374748" type="priority" x="648.00" y="1130.74" incLanes="255557632_0 255557632_1 255557632_2" intLanes=":309374748_0_0 :309374748_0_1" shape="652.39,1128.09 646.39,1125.88 644.97,1128.52 643.53,1130.15 642.82,1131.22 642.10,1132.79 651.08,1136.17 651.75,1133.23 651.74,1131.04 651.90,1129.76">
         <request index="0" response="00" foes="00" cont="0"/>

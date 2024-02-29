@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:19 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-400077.44,-5809858.01" convBoundary="0.00,0.00,730.84,584.39" origBoundary="13.530317,52.429788,13.540963,52.435154" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -139,7 +139,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="206889079#2_0" index="0" allow="tram" speed="13.89" length="15.87" shape="568.34,497.60 568.18,497.48"/>
     </edge>
     <edge id="206889079#3" from="1906399893" to="1704693568" priority="17" type="railway.tram" spreadType="center" shape="568.54,497.76 564.44,494.86 555.51,487.78 542.92,476.12 421.16,353.75 413.61,346.31 405.35,338.18 345.58,279.52 338.46,272.09 329.72,263.70 297.24,230.29 291.68,224.72 250.14,183.02 235.06,167.86 218.41,151.25 199.61,134.16 184.63,123.00 172.43,115.95 162.78,110.37 151.42,103.35 129.90,90.03 82.93,62.34 55.28,44.87 32.42,27.90 29.94,25.88 18.57,17.07 0.00,2.89">
-        <lane id="206889079#3_0" index="0" allow="tram" speed="13.89" length="757.41" shape="568.54,497.76 564.44,494.86 555.51,487.78 542.92,476.12 421.16,353.75 413.61,346.31 405.35,338.18 345.58,279.52 338.46,272.09 329.72,263.70 297.24,230.29 291.68,224.72 250.14,183.02 235.06,167.86 218.41,151.25 199.61,134.16 184.63,123.00 172.43,115.95 162.78,110.37 151.42,103.35 129.90,90.03 82.93,62.34 55.28,44.87 32.42,27.90 29.94,25.88 18.57,17.07 -0.00,2.89"/>
+        <lane id="206889079#3_0" index="0" allow="tram" speed="13.89" length="757.41" shape="568.54,497.76 564.44,494.86 555.51,487.78 542.92,476.12 421.16,353.75 413.61,346.31 405.35,338.18 345.58,279.52 338.46,272.09 329.72,263.70 297.24,230.29 291.68,224.72 250.14,183.02 235.06,167.86 218.41,151.25 199.61,134.16 184.63,123.00 172.43,115.95 162.78,110.37 151.42,103.35 129.90,90.03 82.93,62.34 55.28,44.87 32.42,27.90 29.94,25.88 18.57,17.07 0.00,2.89"/>
     </edge>
     <edge id="220198808#0" from="1704693564" to="1906399902" priority="17" type="railway.tram" spreadType="center" shape="2.11,0.00 19.72,13.04 24.38,16.94 32.07,23.36 35.45,26.24 57.11,42.19 84.54,60.66 151.18,99.52 152.93,100.47 165.51,107.30 174.86,113.45 180.20,116.96 191.82,124.42 200.50,130.83 213.50,142.08 224.67,152.88 251.41,179.75 294.07,222.49 327.15,255.65 332.23,261.05 341.02,269.37 348.51,276.77 408.15,335.65 416.27,343.68 423.82,351.14 544.89,473.83 556.59,484.70 566.29,492.31 570.24,495.50">
         <lane id="220198808#0_0" index="0" allow="tram" speed="13.89" length="757.54" shape="2.11,-0.00 19.72,13.04 24.38,16.94 32.07,23.36 35.45,26.24 57.11,42.19 84.54,60.66 151.18,99.52 152.93,100.47 165.51,107.30 174.86,113.45 180.20,116.96 191.82,124.42 200.50,130.83 213.50,142.08 224.67,152.88 251.41,179.75 294.07,222.49 327.15,255.65 332.23,261.05 341.02,269.37 348.51,276.77 408.15,335.65 416.27,343.68 423.82,351.14 544.89,473.83 556.59,484.70 566.29,492.31 570.15,495.42"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:19 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-465486.97,-5247130.07" convBoundary="0.00,0.00,38.55,14.20" origBoundary="8.542809,47.376720,8.543321,47.376845" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="8143580_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="26.38" shape="-0.32,12.63 25.51,7.27"/>
     </edge>
 
-    <junction id="300900428" type="dead_end" x="0.00" y="14.20" incLanes="" intLanes="" shape="-0.00,14.20 -1.30,7.93"/>
+    <junction id="300900428" type="dead_end" x="0.00" y="14.20" incLanes="" intLanes="" shape="0.00,14.20 -1.30,7.93"/>
     <junction id="300901455" type="dead_end" x="38.55" y="0.00" incLanes="53275982_0" intLanes="" shape="36.10,-3.53 38.55,0.00"/>
     <junction id="674098902" type="priority" x="25.76" y="8.85" incLanes="8143580_0 8143580_1" intLanes=":674098902_0_0" shape="34.19,3.02 31.74,-0.52 29.29,1.10 28.37,1.57 27.39,1.91 26.18,2.22 24.54,2.57 25.83,8.84 27.89,8.25 29.29,7.52 30.31,6.63 31.27,5.59 32.46,4.38">
         <request index="0" response="0" foes="0" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-04 13:17:10 by Eclipse SUMO netconvert Version v1_18_0+0061-a2f1ffe04c7
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,12 +31,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-703312.63,-5709582.61" convBoundary="0.00,0.00,297.91,295.99" origBoundary="11.904062,51.485617,11.951923,51.515869" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":1917221202_0" function="internal">
-        <lane id=":1917221202_0_0" index="0" allow="tram" speed="0.10" length="0.10" shape="-0.00,295.99 -0.00,295.99"/>
+        <lane id=":1917221202_0_0" index="0" allow="tram" speed="0.10" length="0.10" shape="0.00,295.99 0.00,295.99"/>
     </edge>
     <edge id=":2075862255_0" function="internal">
         <lane id=":2075862255_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="4.79" length="9.45" shape="298.23,112.60 300.00,114.92 300.24,116.71 298.95,117.98 296.13,118.72"/>
@@ -213,10 +213,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="F_K5_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="49.41" shape="122.39,-0.31 151.46,25.24 159.13,32.68"/>
     </edge>
     <edge id="F_N_0" from="F" to="1917221202" priority="15" type="railway.tram" spreadType="center" shape="163.25,47.77 113.89,122.76 0.00,295.99" bidi="F_S1_0">
-        <lane id="F_N_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="153.09,63.21 113.89,122.76 -0.00,295.99"/>
+        <lane id="F_N_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="153.09,63.21 113.89,122.76 0.00,295.99"/>
     </edge>
     <edge id="F_S1_0" from="1917221202" to="F" priority="15" type="railway.tram" spreadType="center" shape="0.00,295.99 113.89,122.76 163.25,47.77" bidi="F_N_0">
-        <lane id="F_S1_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="-0.00,295.99 113.89,122.76 153.09,63.21"/>
+        <lane id="F_S1_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="0.00,295.99 113.89,122.76 153.09,63.21"/>
     </edge>
     <edge id="gneE32" from="gneJ52" to="F" priority="4" type="highway.residential" spreadType="center" shape="145.92,51.82 155.77,41.24">
         <lane id="gneE32_0" index="0" allow="pedestrian" speed="13.89" length="13.39" width="2.00" shape="147.74,49.87 156.86,40.07"/>

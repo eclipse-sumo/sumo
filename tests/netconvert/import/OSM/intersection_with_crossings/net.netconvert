@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:28 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-457446.19,-3111466.29" convBoundary="0.00,0.00,327.72,171.93" origBoundary="-15.433311,28.128080,-15.429979,28.129641" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -155,7 +155,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="1802244960" type="dead_end" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.18,40.29 0.08,35.09"/>
     <junction id="1877604354" type="dead_end" x="327.72" y="171.93" incLanes="" intLanes="" shape="328.96,170.92 324.94,174.21"/>
-    <junction id="1877604780" type="dead_end" x="34.16" y="0.00" incLanes="-324752522_0 -324752522_1" intLanes="" shape="34.16,0.00 28.97,0.27 34.16,0.00"/>
+    <junction id="1877604780" type="dead_end" x="34.16" y="0.00" incLanes="-324752522_0 -324752522_1" intLanes="" shape="34.16,-0.00 28.97,0.27 34.16,-0.00"/>
     <junction id="447602290" type="priority" x="34.91" y="109.49" incLanes="324752524_0 324752524_1 324752524_2" intLanes=":447602290_0_0" shape="34.91,109.49 43.30,109.76 34.91,109.49">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

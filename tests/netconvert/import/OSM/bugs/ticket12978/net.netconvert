@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-12 11:25:52 by Eclipse SUMO netconvert Version v1_17_0+0239-789d1ff
+<!-- generated on 2024-02-29 13:56:08 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-462943.47,-5247505.64" convBoundary="0.00,0.00,901.51,666.78" origBoundary="8.509001,47.380008,8.520999,47.385998" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -1174,7 +1174,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="536837428" from="7798627697" to="453814" priority="3" type="highway.residential">
         <lane id="536837428_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="0.20" shape="8.06,210.10 8.17,210.27"/>
     </edge>
-    <edge id="5880361" from="26114443" to="3696182577" priority="11" type="highway.secondary" spreadType="center" shape="411.70,278.99 410.67,282.31 418.51,288.91 469.69,366.30 494.29,402.92 506.29,420.03 513.50,428.42">
+    <edge id="5880361" from="26114443" to="3696182577" priority="11" type="highway.secondary" spreadType="center" shape="411.70,279.00 410.67,282.31 418.51,288.91 469.69,366.30 494.29,402.92 506.29,420.03 513.50,428.42">
         <lane id="5880361_0" index="0" allow="bus bicycle" prefer="bus" speed="13.89" length="180.77" shape="413.23,279.47 412.51,281.77 419.72,287.83 471.02,365.41 495.61,402.01 507.55,419.04 513.54,426.01"/>
         <lane id="5880361_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="180.77" shape="410.17,278.52 408.82,282.85 417.31,289.98 468.36,367.18 492.97,403.83 505.02,421.01 511.10,428.08"/>
     </edge>
@@ -1387,7 +1387,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
-    <junction id="157346325" type="priority" x="0.00" y="223.06" incLanes="-6276483_0" intLanes=":157346325_0_0" shape="-0.00,223.06 1.69,225.77 -0.00,223.06">
+    <junction id="157346325" type="priority" x="0.00" y="223.06" incLanes="-6276483_0" intLanes=":157346325_0_0" shape="0.00,223.06 1.69,225.77 0.00,223.06">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="1577466009" type="priority" x="1.78" y="545.56" incLanes="-672153089_0 -672153089_1 -672153089_2" intLanes=":1577466009_0_0" shape="1.78,545.56 5.86,554.25 1.78,545.56">

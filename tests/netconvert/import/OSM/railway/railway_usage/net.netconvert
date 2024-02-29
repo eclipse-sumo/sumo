@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 16:10:28 by Eclipse SUMO netconvert Version v1_17_0+0202-1b92128b489
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertRailUsage.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertRailUsage.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-406666.67,-5794742.44" convBoundary="0.00,0.00,712.02,1964.47" origBoundary="13.604857,52.295097,13.643564,52.312764" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -147,7 +147,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="294730182_0" index="0" allow="rail" speed="44.44" length="46.63" shape="18.25,347.52 17.71,300.90"/>
     </edge>
     <edge id="294730183" from="293605248" to="428760212" priority="19" type="railway.light_rail|usage.main" spreadType="center" shape="9.58,381.27 8.31,344.54 7.77,301.33 7.42,289.71 7.13,280.41 5.61,230.12 4.87,149.96 6.75,48.21 8.48,0.00">
-        <lane id="294730183_0" index="0" allow="rail_urban" speed="27.78" length="379.82" shape="9.53,379.71 8.31,344.54 7.77,301.33 7.42,289.71 7.13,280.41 5.61,230.12 4.87,149.96 6.75,48.21 8.48,-0.00"/>
+        <lane id="294730183_0" index="0" allow="rail_urban" speed="27.78" length="379.82" shape="9.53,379.71 8.31,344.54 7.77,301.33 7.42,289.71 7.13,280.41 5.61,230.12 4.87,149.96 6.75,48.21 8.48,0.00"/>
     </edge>
     <edge id="294730185" from="1363480438" to="253036059" priority="19" type="railway.light_rail|usage.main" spreadType="center">
         <lane id="294730185_0" index="0" allow="rail_urban" speed="27.78" length="36.69" shape="12.33,530.95 11.47,494.27"/>
@@ -177,7 +177,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="78766917#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="79.05" shape="4.73,441.10 4.49,428.65 4.13,410.34 3.18,362.06"/>
     </edge>
     <edge id="78766917#1" from="4395826741" to="42132938" priority="20" type="railway.rail|usage.main" spreadType="center" shape="3.18,362.06 2.70,336.97 1.63,231.93 1.20,202.83 0.00,121.46" distance="-27466.60">
-        <lane id="78766917#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="240.63" shape="3.18,362.06 2.70,336.97 1.63,231.93 1.20,202.83 0.00,121.46"/>
+        <lane id="78766917#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="240.63" shape="3.18,362.06 2.70,336.97 1.63,231.93 1.20,202.83 -0.00,121.46"/>
     </edge>
     <edge id="8602141" from="42145771" to="1363480437" priority="20" type="railway.rail|usage.main" spreadType="center">
         <lane id="8602141_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="29.28" shape="4.84,460.20 5.60,489.47"/>
@@ -237,7 +237,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="428760212" type="dead_end" x="8.48" y="0.00" incLanes="294730183_0" intLanes="" shape="6.88,-0.06 10.07,0.06"/>
-    <junction id="4395826739" type="priority" x="12.30" y="354.37" incLanes="154203996_0" intLanes=":4395826739_0_0" shape="13.91,354.39 10.73,354.06 10.69,354.36 13.88,354.68">
+    <junction id="4395826739" type="priority" x="12.30" y="354.37" incLanes="154203996_0" intLanes=":4395826739_0_0" shape="13.91,354.38 10.73,354.06 10.69,354.36 13.88,354.68">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="4395826741" type="rail_signal" x="3.18" y="362.06" incLanes="78766917#0_0" intLanes=":4395826741_0_0" shape="1.58,362.09 4.78,362.03 1.58,362.09">

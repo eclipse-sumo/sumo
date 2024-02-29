@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-02 09:54:51 by Eclipse SUMO netconvert Version v1_17_0+0652-1215d8a
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-401154.82,-5810651.34" convBoundary="0.00,0.00,90.48,51.46" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -93,24 +93,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origTo" value="3909915214"/>
     </edge>
     <edge id="-178028204#3" from="257749657" to="cluster3892451598_766875150" name="Dörpfeldstraße" priority="10" type="highway.tertiary" shape="0.00,2.80 21.01,14.49" bidi="178028204#3">
-        <lane id="-178028204#3_0" index="0" allow="pedestrian" speed="8.33" length="24.05" width="3.00" shape="3.84,-4.10 24.85,7.59">
+        <lane id="-178028204#3_0" index="0" allow="pedestrian" speed="8.33" length="24.04" width="3.00" shape="3.84,-4.10 24.85,7.59">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="-178028204#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="24.05" shape="2.33,-1.39 23.35,10.30">
+        <lane id="-178028204#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="24.04" shape="2.33,-1.39 23.35,10.30">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="-178028204#3_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="24.05" shape="0.78,1.40 21.79,13.09">
+        <lane id="-178028204#3_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="24.04" shape="0.78,1.40 21.79,13.09">
             <param key="origId" value="178028204"/>
         </lane>
     </edge>
     <edge id="178028204#1" from="cluster_237253947_3909915214" to="cluster3892451598_766875150" name="Dörpfeldstraße" priority="10" type="highway.tertiary" shape="88.70,48.66 24.16,12.58" bidi="-178028204#1">
-        <lane id="178028204#1_0" index="0" allow="pedestrian" speed="8.33" length="76.84" width="3.00" shape="87.37,56.97 20.31,19.48">
+        <lane id="178028204#1_0" index="0" allow="pedestrian" speed="8.33" length="76.83" width="3.00" shape="87.37,56.97 20.31,19.48">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="178028204#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.84" shape="88.89,54.26 21.82,16.77">
+        <lane id="178028204#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.83" shape="88.89,54.26 21.82,16.77">
             <param key="origId" value="178028204"/>
         </lane>
-        <lane id="178028204#1_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.84" shape="90.45,51.47 23.38,13.98">
+        <lane id="178028204#1_2" index="2" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.83" shape="90.45,51.47 23.38,13.98">
             <param key="origId" value="178028204"/>
         </lane>
         <param key="origFrom" value="3909915214"/>

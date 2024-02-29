@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:48 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:56:09 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -28,14 +33,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-675165.20,2523391.64" convBoundary="0.00,0.00,440.92,636.33" origBoundary="-43.351298,-22.816776,-43.272598,-22.746621" projParameter="+proj=utm +zone=23 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -43,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="13254683_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="558.14" shape="0.00,242.36 29.92,224.22 58.77,203.68 87.10,187.85 112.82,177.90 146.20,169.93 176.37,172.16 209.64,180.27 235.94,192.69 329.51,253.17 349.31,271.59 367.09,297.01 372.31,311.59 376.36,326.43 372.23,412.21"/>
     </edge>
     <edge id="13259376" from="122415008" to="122413289" priority="9" type="highway.motorway_link" spreadType="center" shape="416.66,0.00 425.04,14.51 429.09,27.08 429.12,42.26 424.14,84.79 414.69,165.48 392.63,327.95">
-        <lane id="13259376_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="333.17" shape="416.66,0.00 425.04,14.51 429.09,27.08 429.12,42.26 424.14,84.79 414.69,165.48 397.62,291.19"/>
+        <lane id="13259376_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="333.17" shape="416.66,-0.00 425.04,14.51 429.09,27.08 429.12,42.26 424.14,84.79 414.69,165.48 397.62,291.19"/>
     </edge>
     <edge id="69902841#1" from="69902841#1-AddedOnRampNode" to="837607525" priority="14" type="highway.motorway" spreadType="center">
         <lane id="69902841#1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="39.44" length="115.09" shape="351.92,527.91 329.26,636.66"/>

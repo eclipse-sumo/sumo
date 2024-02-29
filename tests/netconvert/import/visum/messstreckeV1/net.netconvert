@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:19 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-414.43,1203.74" convBoundary="0.00,0.00,2522.62,826.48" origBoundary="414.43,-1203.74,2937.05,-354.22" projParameter="!"/>
 
@@ -329,7 +329,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-16" from="16" to="15" priority="-1" type="0">
         <lane id="-16_0" index="0" allow="pedestrian passenger" speed="13.89" length="26.02" shape="1560.85,551.89 1534.94,554.24"/>
     </edge>
-    <edge id="-19" from="19" to="7" priority="-1" type="0" shape="1802.69,659.45 1935.16,518.35 1923.64,452.11">
+    <edge id="-19" from="19" to="7" priority="-1" type="0" shape="1802.70,659.45 1935.16,518.35 1923.64,452.11">
         <lane id="-19_0" index="0" allow="pedestrian passenger" speed="13.89" length="248.36" shape="1801.53,658.36 1933.45,517.83 1923.92,463.03"/>
     </edge>
     <edge id="-20" from="20" to="8" priority="-1" type="0" shape="1750.86,0.00 1785.42,95.03 1828.61,135.35 1874.69,146.87 1972.60,247.65 2050.35,328.29 2079.15,342.68 2130.98,377.24 2171.30,426.20 2148.26,469.39">
@@ -418,7 +418,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="18_0" index="0" allow="pedestrian passenger" speed="13.89" length="48.40" shape="1561.24,496.60 1567.78,544.56"/>
         <lane id="18_1" index="1" allow="pedestrian passenger" speed="13.89" length="48.40" shape="1558.07,497.03 1564.61,544.99"/>
     </edge>
-    <edge id="19" from="7" to="19" priority="-1" type="0" shape="1923.64,452.11 1935.16,518.35 1802.69,659.45">
+    <edge id="19" from="7" to="19" priority="-1" type="0" shape="1923.64,452.11 1935.16,518.35 1802.70,659.45">
         <lane id="19_0" index="0" allow="pedestrian passenger" speed="13.89" length="251.56" shape="1927.07,462.49 1936.87,518.86 1803.86,660.55"/>
     </edge>
     <edge id="20" from="8" to="20" priority="-1" type="0" shape="2148.26,469.39 2171.30,426.20 2130.98,377.24 2079.15,342.68 2050.35,328.29 1972.60,247.65 1874.69,146.87 1828.61,135.35 1785.42,95.03 1750.86,0.00">
@@ -515,7 +515,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="18" type="priority" x="1416.81" y="673.85" incLanes="14_0" intLanes=":18_0_0" shape="1416.81,673.85 1419.13,676.06 1416.81,673.85">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="19" type="priority" x="1802.69" y="659.45" incLanes="19_0" intLanes=":19_0_0" shape="1802.69,659.45 1805.03,661.64 1802.69,659.45">
+    <junction id="19" type="priority" x="1802.70" y="659.45" incLanes="19_0" intLanes=":19_0_0" shape="1802.70,659.45 1805.03,661.64 1802.70,659.45">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2" type="priority" x="460.75" y="575.94" incLanes="-22_0 -22_1 1_0 1_1 -10_0" intLanes=":2_0_0 :2_1_0 :2_1_1 :2_3_0 :2_3_1 :2_8_0 :2_6_0 :2_7_0" shape="466.75,581.84 465.63,569.09 450.17,571.08 452.10,583.73 454.21,583.83 454.87,584.26 455.26,584.94 455.40,585.87 455.27,587.05 461.54,588.31 462.67,584.87 463.46,583.63 464.40,582.71 465.50,582.12">
@@ -528,7 +528,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="00000110" foes="00000110" cont="0"/>
         <request index="7" response="00111110" foes="00111110" cont="0"/>
     </junction>
-    <junction id="20" type="priority" x="1750.86" y="0.00" incLanes="20_0" intLanes=":20_0_0" shape="1750.86,0.00 1747.85,1.09 1750.86,0.00">
+    <junction id="20" type="priority" x="1750.86" y="0.00" incLanes="20_0" intLanes=":20_0_0" shape="1750.86,0.00 1747.85,1.09 1750.86,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="22" type="priority" x="624.90" y="561.54" incLanes="21_0 21_1 22_0 22_1" intLanes=":22_0_0 :22_0_1 :22_2_0 :22_2_1" shape="625.43,567.92 624.63,555.15 624.20,555.18 625.32,567.93">

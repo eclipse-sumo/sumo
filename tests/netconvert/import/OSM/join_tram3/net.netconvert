@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:18 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-402736.69,-5811586.07" convBoundary="0.00,0.00,694.86,866.77" origBoundary="13.498592,52.444569,13.580610,52.469965" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -272,7 +272,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="175925594#0_0" index="0" allow="tram" speed="13.89" length="4.94" shape="199.71,595.73 197.42,598.11"/>
     </edge>
     <edge id="175925594#1" from="1863122992" to="1006128113" priority="17" type="railway.tram" spreadType="center" shape="197.42,598.11 157.45,644.08 145.03,658.54 129.91,677.23 120.18,689.13 110.17,701.89 91.68,728.08 63.05,769.69 55.98,780.82 52.19,786.79 50.50,789.39 18.43,838.53 0.00,866.77">
-        <lane id="175925594#1_0" index="0" allow="tram" speed="13.89" length="333.94" shape="197.42,598.11 157.45,644.08 145.03,658.54 129.91,677.23 120.18,689.13 110.17,701.89 91.68,728.08 63.05,769.69 55.98,780.82 52.19,786.79 50.50,789.39 18.43,838.53 -0.00,866.77"/>
+        <lane id="175925594#1_0" index="0" allow="tram" speed="13.89" length="333.94" shape="197.42,598.11 157.45,644.08 145.03,658.54 129.91,677.23 120.18,689.13 110.17,701.89 91.68,728.08 63.05,769.69 55.98,780.82 52.19,786.79 50.50,789.39 18.43,838.53 0.00,866.77"/>
     </edge>
     <edge id="175925595#0" from="1864294635" to="297025226" priority="17" type="railway.tram" spreadType="center" shape="440.84,126.02 439.48,121.82">
         <lane id="175925595#0_0" index="0" allow="tram" speed="13.89" length="5.04" shape="440.85,126.07 439.93,123.20"/>
@@ -746,7 +746,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="00000" foes="00111"/>
         <request index="4" response="00000" foes="00110"/>
     </junction>
-    <junction id="1882685600" type="rail_crossing" x="231.18" y="563.97" incLanes="175772163#1_0 32935326#1_0 32935326#1_1" intLanes="" shape="231.01,568.62 235.82,564.40 235.65,561.67 233.36,559.44 232.66,559.92 232.32,559.98 231.97,559.91 231.62,559.73 231.28,559.43 226.64,563.84 227.19,564.69 227.26,565.11 227.20,565.53 227.00,565.95 226.67,566.36 228.98,568.58">
+    <junction id="1882685600" type="rail_crossing" x="231.18" y="563.97" incLanes="175772163#1_0 32935326#1_0 32935326#1_1" intLanes="" shape="231.01,568.62 235.82,564.40 235.65,561.67 233.36,559.44 232.66,559.92 232.32,559.98 231.97,559.91 231.62,559.73 231.28,559.43 226.64,563.84 227.19,564.69 227.26,565.11 227.20,565.53 227.00,565.95 226.67,566.37 228.98,568.58">
         <request index="0" response="000" foes="110"/>
         <request index="1" response="001" foes="001"/>
         <request index="2" response="001" foes="001"/>

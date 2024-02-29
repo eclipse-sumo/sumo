@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 16:54:08 by Eclipse SUMO netconvert Version v1_13_0+1503-9394720
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-975.72,68.20" convBoundary="0.00,0.00,55.85,70.00" origBoundary="975.72,-68.20,1031.57,1.80" projParameter="!"/>
 
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="4_0" index="0" speed="13.89" length="25.30" width="3.50" shape="55.44,44.70 55.35,70.00"/>
     </edge>
     <edge id="5" from="0" to="5-end" priority="-1" type="1" spreadType="center" shape="47.98,38.93 0.00,38.82">
-        <lane id="5_0" index="0" speed="13.89" length="46.16" width="3.50" shape="46.16,38.92 0.00,38.82"/>
+        <lane id="5_0" index="0" speed="13.89" length="46.16" width="3.50" shape="46.16,38.92 -0.00,38.82"/>
     </edge>
     <edge id="6" from="0" to="6-end" priority="-1" type="1" spreadType="center" shape="51.95,31.85 52.35,0.00">
         <lane id="6_0" index="0" speed="13.89" length="29.70" width="3.50" shape="51.97,29.70 52.35,-0.00"/>

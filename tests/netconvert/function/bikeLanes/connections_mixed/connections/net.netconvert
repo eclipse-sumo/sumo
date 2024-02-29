@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-06 08:14:51 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
+<!-- generated on 2024-02-29 13:56:10 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -90,14 +90,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_31_0" index="0" allow="bicycle" speed="11.63" length="12.52" width="1.50" shape="94.39,100.97 92.38,97.65 91.15,89.10"/>
     </edge>
     <edge id=":C_32" function="internal">
-        <lane id=":C_32_0" index="0" allow="passenger" speed="6.76" length="5.31" shape="106.66,106.12 106.32,106.32 105.18,108.23 104.80,110.90"/>
+        <lane id=":C_32_0" index="0" allow="passenger" speed="6.76" length="5.31" shape="106.66,106.12 106.33,106.32 105.18,108.23 104.80,110.90"/>
     </edge>
     <edge id=":C_33" function="internal">
         <lane id=":C_33_0" index="0" allow="passenger" speed="9.44" length="15.15" shape="105.94,100.89 105.43,100.82 101.53,98.47 99.18,94.57 98.40,89.10"/>
     </edge>
     <edge id=":C_15" function="internal">
         <lane id=":C_15_0" index="0" allow="bicycle" speed="5.53" length="6.24" width="1.50" shape="105.65,89.10 105.98,90.08 106.96,90.79 108.60,91.21 110.90,91.35"/>
-        <lane id=":C_15_1" index="1" allow="passenger" speed="6.76" length="9.84" shape="104.80,89.10 105.18,91.77 106.32,93.68 108.23,94.82 110.90,95.20"/>
+        <lane id=":C_15_1" index="1" allow="passenger" speed="6.76" length="9.84" shape="104.80,89.10 105.18,91.77 106.32,93.67 108.23,94.82 110.90,95.20"/>
     </edge>
     <edge id=":C_17" function="internal">
         <lane id=":C_17_0" index="0" allow="bicycle" speed="13.89" length="21.93" width="1.50" shape="105.65,89.10 106.12,95.18 107.15,99.62 108.18,104.26 108.65,110.90"/>

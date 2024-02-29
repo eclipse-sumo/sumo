@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:45:37 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-293458.92,-5709017.82" convBoundary="0.00,0.00,1099.87,614.72" origBoundary="11.984784,51.476682,12.342589,51.531167" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -120,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="408481556" type="priority" x="696.38" y="614.72" incLanes="CN_0" intLanes=":408481556_0_0" shape="696.38,614.72 699.58,614.57 696.38,614.72">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="635894914" type="priority" x="666.19" y="0.00" incLanes="CS_0" intLanes=":635894914_0_0" shape="666.19,-0.00 663.04,0.56 666.19,-0.00">
+    <junction id="635894914" type="priority" x="666.19" y="0.00" incLanes="CS_0" intLanes=":635894914_0_0" shape="666.19,-0.00 663.04,0.56 666.19,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="C" type="priority" x="694.68" y="561.27" incLanes="NC_0 EC_rail_0 EC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0" shape="691.25,572.92 697.64,572.62 697.77,571.79 697.96,571.50 698.24,571.30 698.61,571.18 699.07,571.14 699.11,567.94 696.03,567.02 694.88,564.75 695.38,561.71 697.24,558.48 700.15,555.64 703.84,553.78 702.00,547.65 699.86,547.84 699.10,547.51 698.55,546.89 698.20,545.99 698.06,544.80 691.66,544.97 691.78,551.96 691.72,557.67 691.48,562.12 691.06,565.29 690.47,567.19 689.71,567.81 689.66,571.01 690.50,571.23 690.81,571.50 691.03,571.87 691.18,572.34">

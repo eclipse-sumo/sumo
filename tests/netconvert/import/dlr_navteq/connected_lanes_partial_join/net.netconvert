@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:31 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -18,7 +23,6 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <projection>
-        <proj.scale value="1e-05"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -33,13 +37,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-406053.41,-5802746.30" convBoundary="0.00,0.00,310.15,145.59" origBoundary="1362016.870000,5236695.590000,1362470.650000,5236825.640000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -89,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="23" type="priority" x="111.18" y="145.59" incLanes="13_0 13_1" intLanes="" shape="111.18,145.59 105.00,147.24 116.34,149.38">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="28" type="priority" x="158.09" y="0.00" incLanes="14_0 14_1" intLanes="" shape="158.09,-0.00 164.41,-1.02 153.73,-4.68">
+    <junction id="28" type="priority" x="158.09" y="0.00" incLanes="14_0 14_1" intLanes="" shape="158.09,0.00 164.41,-1.02 153.73,-4.68">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="cluster_24_25_26_27" type="priority" x="136.25" y="69.97" incLanes="-12_0 -12_1 -12_2 -14_0 -14_1 10_0 10_1 10_2 -13_0 -13_1" intLanes="" shape="152.86,90.21 159.47,59.19 157.43,58.30 156.82,57.61 156.50,56.74 156.46,55.72 156.71,54.52 127.84,46.44 126.42,48.90 125.31,49.61 123.93,49.97 122.29,49.98 120.37,49.65 112.56,80.14 114.56,81.11 115.13,81.83 115.41,82.70 115.39,83.72 115.09,84.90 142.68,95.41 143.69,93.35 144.97,91.77 146.53,90.67 148.37,90.04 150.47,89.89">

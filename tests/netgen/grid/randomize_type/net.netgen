@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-07 10:20:10 by Eclipse SUMO netgenerate Version v1_15_0+1440-6fccaef
+<!-- generated on 2024-02-29 13:36:51 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,10 +18,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <grid.number value="3"/>
     </grid_network>
 
-    <random_network>
-        <random-type value="true"/>
-    </random_network>
-
     <input>
         <type-files value="input_types.typ.xml"/>
     </input>
@@ -31,6 +27,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <output-file value="net.net.xml"/>
     </output>
 
+    <processing>
+        <random-type value="true"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
     </report>
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -170,7 +170,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":B1_8_0" index="0" allow="bus" speed="8.00" length="14.19" shape="101.60,89.60 102.15,93.45 103.80,96.20 106.55,97.85 110.40,98.40"/>
     </edge>
     <edge id=":B1_9" function="internal">
-        <lane id=":B1_9_0" index="0" allow="bus" speed="13.89" length="24.12" shape="101.60,89.60 102.10,94.05 103.20,99.73 104.30,106.33 104.80,113.60"/>
+        <lane id=":B1_9_0" index="0" allow="bus" speed="13.89" length="24.12" shape="101.60,89.60 102.10,94.05 103.20,99.72 104.30,106.33 104.80,113.60"/>
         <lane id=":B1_9_1" index="1" allow="bus" speed="13.89" length="24.12" shape="101.60,89.60 101.60,113.60"/>
     </edge>
     <edge id=":B1_11" function="internal">

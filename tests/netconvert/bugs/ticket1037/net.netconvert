@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:08 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,13 +33,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392704.85,-5815104.73" convBoundary="0.00,0.00,259.16,356.63" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -102,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="923797611_0" index="0" speed="8.33" length="32.62" shape="148.47,-0.80 161.59,1.38 171.47,3.46"/>
     </edge>
 
-    <junction id="61041982" type="priority" x="0.00" y="146.68" incLanes="-53478448_0" intLanes="" shape="-0.00,146.68 -0.48,149.84 -0.00,146.68">
+    <junction id="61041982" type="priority" x="0.00" y="146.68" incLanes="-53478448_0" intLanes="" shape="0.00,146.68 -0.48,149.84 0.00,146.68">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="61041990" type="right_before_left" x="143.56" y="0.00" incLanes="-923797612_0 -53478773_0 -53478773_1" intLanes="" shape="147.69,3.93 148.74,-2.38 146.31,-2.56 144.25,-2.24 142.55,-1.40 141.22,-0.06 140.25,1.79 139.65,4.15 145.97,5.17 146.27,4.37 146.52,4.12 146.84,3.96 147.23,3.90">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:19 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-889.91,1209.18" convBoundary="0.00,0.00,2060.03,844.92" origBoundary="889.91,-1209.18,2949.94,-364.26" projParameter="!"/>
 
@@ -516,8 +516,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="17" type="dead_end" x="1260.98" y="699.45" incLanes="15_0" intLanes="" shape="1260.98,699.45 1263.14,697.08 1260.98,699.45"/>
     <junction id="18" type="dead_end" x="941.34" y="679.29" incLanes="14_0" intLanes="" shape="941.34,679.29 943.69,681.46 941.34,679.29"/>
     <junction id="19" type="dead_end" x="1322.24" y="673.08" incLanes="19_0" intLanes="" shape="1322.24,673.08 1324.63,675.20 1322.24,673.08"/>
-    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="0.00,580.15 0.54,586.53 0.00,580.15"/>
-    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,0.00 1272.01,1.10 1275.01,-0.00"/>
+    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="-0.00,580.15 0.54,586.53 -0.00,580.15"/>
+    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,0.00 1272.01,1.10 1275.01,0.00"/>
     <junction id="21" type="dead_end" x="1511.62" y="837.39" incLanes="29_0" intLanes="" shape="1511.62,837.39 1514.04,839.49 1511.62,837.39"/>
     <junction id="22" type="priority" x="316.73" y="553.10" incLanes="21_0 21_1 22_0 22_1" intLanes=":22_0_0 :22_0_1 :22_2_0 :22_2_1 :22_2_2" shape="321.00,559.30 320.23,543.32 317.18,544.30 316.24,545.13 315.30,545.97 314.07,546.67 312.26,547.06 313.35,559.81">
         <request index="0" response="00000" foes="00000" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:17 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391376.77,-5815457.98" convBoundary="0.00,0.00,1663.20,857.79" origBoundary="13.400387,52.478736,13.424985,52.486339" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -286,7 +286,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="8008611#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="38.68" shape="1340.98,179.26 1328.85,174.98 1303.69,169.17"/>
     </edge>
     <edge id="8008611#2" from="3719169604" to="3612453893" priority="1" type="highway.path" spreadType="center" shape="1300.60,168.45 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 0.00,581.84">
-        <lane id="8008611#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="1374.75" shape="1297.62,167.81 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 -0.00,581.84"/>
+        <lane id="8008611#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="1374.75" shape="1297.62,167.81 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 0.00,581.84"/>
     </edge>
 
     <tlLogic id="28095228" type="static" programID="0" offset="0">

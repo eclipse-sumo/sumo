@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:31 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-404534.58,-5796769.29" convBoundary="0.00,0.00,213.71,283.61" origBoundary="13.599499,52.312984,13.603834,52.316857" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -135,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="L 400"/>
     </edge>
     <edge id="151495017" from="cluster_1643085231_21432440_32500280_32500282_#2more" to="21533060" priority="11" type="highway.secondary" spreadType="center" shape="127.71,211.50 109.13,227.51 89.91,242.45 64.44,258.02 33.29,272.96 0.00,283.61">
-        <lane id="151495017_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="139.15" shape="120.83,217.43 109.13,227.51 89.91,242.45 64.44,258.02 33.29,272.96 0.00,283.61"/>
+        <lane id="151495017_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="139.15" shape="120.83,217.43 109.13,227.51 89.91,242.45 64.44,258.02 33.29,272.96 -0.00,283.61"/>
         <param key="ref" value="L 400"/>
     </edge>
     <edge id="151495020" from="cluster_1643085231_21432440_32500280_32500282_#2more" to="32500275" priority="9" type="highway.motorway_link" spreadType="center" shape="121.33,203.98 83.16,147.49">

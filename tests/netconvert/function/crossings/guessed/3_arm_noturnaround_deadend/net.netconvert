@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:45:36 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -96,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="0.00" incLanes="EC_0 EC_1 WC_0 WC_1 :C_w1_0" intLanes=":C_0_0 :C_1_0 :C_c0_0" shape="100.00,6.70 103.20,6.70 103.37,5.87 103.57,5.57 103.87,5.37 104.24,5.24 104.70,5.20 104.70,-5.20 98.50,-5.20 98.50,5.20 99.33,5.37 99.62,5.57 99.83,5.87 99.96,6.24">
+    <junction id="C" type="traffic_light" x="100.00" y="0.00" incLanes="EC_0 EC_1 WC_0 WC_1 :C_w1_0" intLanes=":C_0_0 :C_1_0 :C_c0_0" shape="100.00,6.70 103.20,6.70 103.37,5.87 103.57,5.58 103.87,5.37 104.24,5.24 104.70,5.20 104.70,-5.20 98.50,-5.20 98.50,5.20 99.33,5.37 99.62,5.58 99.83,5.87 99.96,6.24">
         <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="100" foes="100" cont="0"/>
         <request index="2" response="000" foes="011" cont="0"/>
