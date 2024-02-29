@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 10:47:44.391507 by matsim_importPlans.py v1_19_0+1085-630fe6e6a6f
-  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+<!-- generated on 2024-02-29 10:48:49.809418 by matsim_importPlans.py v1_19_0+1086-c3e234239f4
+  options: <doubleminus>prefer-coordinate <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="car" vClass="passenger"/>
     <vType id="bicycle" vClass="bicycle"/>
 
-    <trip id="0_0" depart="triggered" from="1234" to="5678"/>
+    <trip id="0_0" depart="triggered" fromLonLat="12.441623766883094,51.30168303457315" toLonLat="12.322710508594813,51.31372681762787"/>
     <vehicle id="0_1" depart="triggered" type="car">
         <route edges="13758 14271 14269 14273 14468 14267 14465"/>
     </vehicle>
     <person id="0" depart="0:0:0">
-        <stop edge="1234" until="07:33:00" actType="home"/>
-        <ride lines="0_0" to="5678"/>
-        <stop edge="5678" until="08:00:00" actType="work"/>
+        <stop lon="12.441623766883094" lat="51.30168303457315" until="07:33:00" actType="home"/>
+        <ride lines="0_0" toLonLat="12.322710508594813,51.31372681762787"/>
+        <stop lon="12.322710508594813" lat="51.31372681762787" until="08:00:00" actType="work"/>
         <ride lines="0_1" toLonLat="12.441623766883094,51.30168303457315"/>
         <stop lon="12.441623766883094" lat="51.30168303457315" until="24:0:0" actType="home"/>
     </person>
