@@ -65,7 +65,7 @@ const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
 /// @brief (M)ajor/(M)inor version for written networks and default version for loading
 typedef std::pair<int, double> MMVersion;
-const MMVersion NETWORK_VERSION(1, 16);
+const MMVersion NETWORK_VERSION(1, 20);
 
 /* -------------------------------------------------------------------------
  * templates for mathematical functions missing in some c++-implementations
