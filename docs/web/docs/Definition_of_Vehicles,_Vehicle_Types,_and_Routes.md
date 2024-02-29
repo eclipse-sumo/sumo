@@ -770,6 +770,7 @@ Further parameters can be used to achieve visualization of [individual rail carr
     <param key="carriageGap" value="1"/>
     <param key="carriageImages" value="freight.png,passengers.png"/>
     <param key="locomotiveLength" value="25"/>
+    <param key="frontSeatPos" value="1.7"/>
     <param key="carriageDoors" value="2"/>
 </vType>
 ```
