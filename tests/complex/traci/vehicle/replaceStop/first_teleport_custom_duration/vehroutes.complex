@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-29 16:44:57 by Eclipse SUMO sumo Version v1_19_0+1097-b485b475aa1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional4.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="51833"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0.00" arrival="254.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0A1" reason="traci:insertStop" replacedAtTime="5.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+            <route replacedOnEdge="A0A1" reason="traci:replaceStop" replacedAtTime="5.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
+            <route edges="A0A1 A2B2 B2B1 B1C1 C1D1 D1D2 D2D3"/>
+        </routeDistribution>
+        <stop lane="A0A1_0" startPos="49.90" endPos="50.00" duration="92233720368547758.07" speed="1000.00" jump="30.00"/>
+        <stop edge="A0A1" speed="1000.00" jump="0.00"/>
+        <stop busStop="busStop_A2B2" duration="30.00"/>
+        <stop busStop="busStop_B1C1" duration="60.00"/>
+        <stop busStop="busStop_C1D1" duration="60.00"/>
+    </vehicle>
+
+</routes>

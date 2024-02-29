@@ -13,6 +13,9 @@ first_later
 # replace first stop after the vehicle has departed
 first_teleport
 
+# set custom jump duration
+first_teleport_custom_duration
+
 # replace second stop after the vehicle has departed
 second
 
