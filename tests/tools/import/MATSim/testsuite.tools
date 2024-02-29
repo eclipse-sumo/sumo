@@ -10,3 +10,6 @@ bikes_walks
 
 # import coordinates instead of edge ids
 coordinates
+
+# import activity end times
+activity
