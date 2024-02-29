@@ -50,6 +50,8 @@ def get_options(args=None):
                     default=False, help="Repair routes after import (needs a SUMO net)")
     op.add_argument("--remove-loops", action="store_true", category="processing",
                     default=False, help="Remove loops in routes after import (needs a SUMO net)")
+    op.add_argument("--prefer-coordinate", action="store_true", category="processing",
+                    default=False, help="Use coordinates instead of link ids if both are given")
     op.add_argument("--default-start", metavar="TIME", default="0:0:0", category="time",
                     help="default start time for the first activity")
     op.add_argument("--default-end", metavar="TIME", default="24:0:0", category="time",
@@ -67,8 +69,8 @@ def get_options(args=None):
     return options
 
 
-def getLocation(activity, attr, prj = None):
-    if activity.link:
+def getLocation(options, activity, attr, prj = None):
+    if activity.link and (not options.prefer_coordinate or not activity.x):
         return '%s="%s"' % (attr, activity.link)
     elif activity.x and activity.y:
         if prj:
@@ -141,8 +143,8 @@ def main(options):
                     leg = lastLeg
                     leg.dep_time = lastAct.end_time
                     writeLeg(outf, options, idveh, leg,
-                            getLocation(lastAct, "from", prj),
-                            getLocation(item, "to", prj))
+                            getLocation(options, lastAct, "from", prj),
+                            getLocation(options, item, "to", prj))
                     lastLeg = None
                 lastAct = item
                 durations.append(item.max_dur if item.max_dur else options.default_dur)
@@ -171,7 +173,7 @@ def main(options):
             lastLeg = None
             for item in plan.getChildList():
                 if "act" in item.name:  # act or activity
-                    end = getLocation(item, "to", prj)
+                    end = getLocation(options, item, "to", prj)
                     if lastLeg is not None:
                         if lastLeg.mode == "non_network_walk":
                             pass
@@ -187,7 +189,7 @@ def main(options):
                     else:
                         timing = 'duration="%s"' % durations[actIndex]
                     outf.write('        <stop %s %s actType="%s"/>\n' %
-                               (getLocation(item, "edge", prj), timing, item.type))
+                               (getLocation(options, item, "edge", prj), timing, item.type))
                     actIndex += 1
                 if item.name == "leg":
                     lastLeg = item
