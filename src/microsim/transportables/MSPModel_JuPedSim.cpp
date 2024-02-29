@@ -457,7 +457,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
                 GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
                 GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
-                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetwork);
+                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
 #ifdef DEBUG_GEOMETRY_GENERATION
                 dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
@@ -471,7 +471,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                 myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-#if JPS_VERSION > 106
+#if JPS_VERSION > 110
                 JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
 #endif
                 removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
@@ -484,7 +484,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 #if JPS_VERSION >= 110
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
             removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
-            preparePolygonForDrawing(myGEOSPedestrianNetwork, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
 #endif
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
