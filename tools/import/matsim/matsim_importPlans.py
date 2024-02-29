@@ -54,6 +54,8 @@ def get_options(args=None):
                     help="default start time for the first activity")
     op.add_argument("--default-end", metavar="TIME", default="24:0:0", category="time",
                     help="default end time for the last activity")
+    op.add_argument("--default-dur", metavar="TIME", default="1:0:0", category="time",
+                    help="default duration for activities")
     op.add_argument("-v", "--verbose", action="store_true", category="processing",
                     default=False, help="tell me what you are doing")
     options = op.parse_args(args)
@@ -128,6 +130,7 @@ def main(options):
         # write vehicles
         vehicleslist = []
         untillist = []
+        durations = []
         lastAct = None
         lastLeg = None
         for item in plan.getChildList():
@@ -142,6 +145,7 @@ def main(options):
                             getLocation(item, "to", prj))
                     lastLeg = None
                 lastAct = item
+                durations.append(item.max_dur if item.max_dur else options.default_dur)
             if item.name == "leg":
                 if item.route is None:
                     lastLeg = item
@@ -153,11 +157,12 @@ def main(options):
             if leg:
                 untillist.append(leg.dep_time)
                 vehicleslist.append(idveh)
-                vehIndex = vehIndex+1
+                vehIndex += 1
         untillist.append(lastAct.end_time if lastAct.end_time else options.default_end)
         # write person
         if not options.vehicles_only:
             vehIndex = 0
+            actIndex = 0
             outf.write('    <person id="%s" depart="%s">\n' % (person.id, depart))
             if attributes is not None:
                 for attr in attributes.attribute:
@@ -175,9 +180,15 @@ def main(options):
                             outf.write('        <walk %s/>\n' % end)
                         else:
                             outf.write('        <ride lines="%s" %s/>\n' % ( vehicleslist[vehIndex], end))
-                        vehIndex = vehIndex+1
-                    outf.write('        <stop %s until="%s" actType="%s"/>\n' %
-                               (getLocation(item, "edge", prj), untillist[vehIndex], item.type))
+                        vehIndex += 1
+                    until = untillist[vehIndex]
+                    if until:
+                        timing = 'until="%s"' % until
+                    else:
+                        timing = 'duration="%s"' % durations[actIndex]
+                    outf.write('        <stop %s %s actType="%s"/>\n' %
+                               (getLocation(item, "edge", prj), timing, item.type))
+                    actIndex += 1
                 if item.name == "leg":
                     lastLeg = item
             outf.write('    </person>\n')
