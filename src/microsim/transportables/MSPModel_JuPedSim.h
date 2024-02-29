@@ -148,29 +148,52 @@ private:
         int myNumStages;
     };
 
+    /// @brief The network on which the simulation runs.
     MSNet* const myNetwork;
+
+    /// @brief The shape container used to add polygons to the rendering pipeline.
     ShapeContainer& myShapeContainer;
+
+    /// @brief Timestep used in the JuPedSim simulator.
     const SUMOTime myJPSDeltaT;
+
+    /// @brief Threshold to decide if a pedestrian has ended its journey or not.
     const double myExitTolerance;
+
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
 
-    GEOSGeometry* myGEOSPedestrianNetwork;
+    /// @brief The GEOS polygon containing all computed connected components of the pedestrian network.
+    GEOSGeometry* myGEOSPedestrianNetwork; // Kept because the largest component refers to it.
+
+    /// @brief The GEOS polygon representing the largest (by area) connected component of the pedestrian network.
     const GEOSGeometry* myGEOSPedestrianNetworkLargestComponent;
+
     bool myHaveAdditionalWalkableAreas;
 
-    JPS_Geometry myJPSGeometry;
+    /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
+    JPS_Geometry myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+
+    /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
     JPS_Geometry myJPSGeometryWithTrainsAndRamps;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
+
+    /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
     struct AreaData {
         const std::string id;
         const std::string areaType;
         const std::vector<JPS_Point> areaBoundary;
         const Parameterised::Map params;
     };
+
+    /// @brief Array of special areas.
     std::vector<AreaData> myAreas;
+
+    /// @brief The last time a pedestrian was removed in a vanishing area.
     SUMOTime myLastRemovalTime = 0;
+    
+    /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
     static const int GEOS_QUADRANT_SEGMENTS;
