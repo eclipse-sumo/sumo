@@ -46,7 +46,7 @@ MSCFModel_Rail::TrainParams::getResistance(double speed) const {
 double
 MSCFModel_Rail::TrainParams::getTraction(double speed) const {
     if (maxPower != INVALID_DOUBLE) {
-        return MIN2(maxPower / speed * 3.6, maxTraction); // kN
+        return MIN2(maxPower / speed, maxTraction); // kN
     } else {
         return getInterpolatedValueFromLookUpMap(speed, &traction); // kN
     }
