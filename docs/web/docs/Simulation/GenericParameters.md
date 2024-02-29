@@ -37,7 +37,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 
 - [setting up devices on a per-vehicle basis](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 - customizing the functionality of [actuated traffic lights](../Simulation/Traffic_Lights.md#additional_parameters)
-- configurating the [motion dynamics](Railways.md#modelling_trains) and [visualization](Railways.md#trains) of trains
+- configurating the [visualization](Railways.md#trains) of trains
 - configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
