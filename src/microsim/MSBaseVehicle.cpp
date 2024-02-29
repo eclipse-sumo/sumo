@@ -1700,7 +1700,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
             auto itPriorStop = myStops.begin();
             std::advance(itPriorStop, nextStopIndex - 1);
             const MSStop& priorStop = *itPriorStop;
-            if (priorStop.pars.jump < 0) {
+            if (priorStop.pars.jump >= 0) {
                 needJump = false;
             }
         }
