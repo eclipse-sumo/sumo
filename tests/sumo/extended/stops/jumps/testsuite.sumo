@@ -1,6 +1,9 @@
 # define an explicit jump (disconnect) in the route
 trip_jump
 
+# define jump as a waypoint
+trip_jump_waypoint
+
 # define an explicit jump (disconnect) in the route
 trip_jump_end
 
