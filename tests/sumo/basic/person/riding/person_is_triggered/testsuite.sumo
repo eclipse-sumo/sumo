@@ -1,0 +1,8 @@
+# person starting in a vehicle
+person_triggered
+
+# 2 person starting in the same vehicle
+persons_triggered
+
+# person starting in a vehicle with ride attribute from
+person_triggered_from
