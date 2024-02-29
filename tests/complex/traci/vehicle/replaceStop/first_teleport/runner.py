@@ -37,7 +37,6 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "--no-step-log",
              "--vehroute-output", "vehroutes.xml",
-             "--time-to-teleport.disconnected", "1",
              ] + sys.argv[1:])
 
 vehID = "ego"
