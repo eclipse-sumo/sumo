@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-10 08:17:13 by Eclipse SUMO netconvert Version v1_15_0+1486-7b31a69
+<!-- generated on 2024-03-01 07:43:17 by Eclipse SUMO netconvert Version v1_19_0+1110-75f47df7c4e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -11,7 +11,7 @@
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,990.00,700.00" origBoundary="0.00,0.00,990.00,700.00" projParameter="!"/>
 
@@ -174,7 +174,7 @@
     </edge>
 
     <junction id="f0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
-    <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_0_1 :f1_0_2" shape="300.00,0.00 307.14,-6.42 305.07,-8.19 303.92,-8.81 302.69,-9.25 301.39,-9.51 300.00,-9.60">
+    <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_0_1 :f1_0_2" shape="300.00,-0.00 307.14,-6.42 305.07,-8.19 303.92,-8.81 302.69,-9.25 301.39,-9.51 300.00,-9.60">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
