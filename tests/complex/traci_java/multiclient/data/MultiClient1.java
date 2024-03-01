@@ -15,22 +15,23 @@
 /****************************************************************************/
 /// @file    MultiClient1.java
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    2019
 ///
 //
 /****************************************************************************/
-import it.polito.appeal.traci.SumoTraciConnection;
-import de.tudresden.sumo.cmd.Simulation;
-import de.tudresden.sumo.cmd.Vehicle;
-import de.tudresden.sumo.cmd.Inductionloop;
-import de.tudresden.sumo.cmd.Trafficlight;
-import de.tudresden.sumo.objects.SumoVehicleData;
+import org.eclipse.sumo.libtraci.*;
 
 public class MultiClient1 {
     public static void main(String[] args) {
+        if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
+            System.loadLibrary("iconv-2");
+            System.loadLibrary("intl-8");
+            System.loadLibrary("proj_9_0");
+        }
+        System.loadLibrary("libtracijni");
         String sumo_bin = "sumo"; //"sumo-gui";
         String config_file = "data/config.sumocfg";
-        double step_length = 0.1;
 
         if (args.length > 0) {
             sumo_bin = args[0];
@@ -40,34 +41,35 @@ public class MultiClient1 {
         }
 
         try {
-            SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
-            conn.addOption("step-length", step_length + "");
-            conn.addOption("start", "true"); //start sumo immediately
-            conn.addOption("num-clients", "2");
+            Simulation.start(new StringVector(new String[] {sumo_bin,
+                                              "-c", config_file,
+                                              "--start", "true",
+                                              "--num-clients", "2",
+                                              "--step-length", "0.1"
+                                                           }), 9999);
 
             //start Traci Server
-            conn.runServer(9999);
-            conn.setOrder(1);
-
+            Simulation.setOrder(1);
+            
             int lastPhase = -1;
             for (int i = 0; i < 3600; i++) {
-                conn.do_timestep();
-                conn.do_job_set(Vehicle.addFull("v" + i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0));
-                double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
-                int tlsPhase = (int)conn.do_job_get(Trafficlight.getPhase("gneJ1"));
+                Simulation.step();
+                Vehicle.add("v" + i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0);
+                double timeSeconds = Simulation.getTime();
+                int tlsPhase = TrafficLight.getPhase("gneJ1");
                 if (tlsPhase != lastPhase) {
-                    String tlsPhaseName = (String)conn.do_job_get(Trafficlight.getPhaseName("gneJ1"));
+                    String tlsPhaseName = TrafficLight.getPhaseName("gneJ1");
                     System.out.println(String.format("Step %s, tlsPhase %s (%s)", timeSeconds, tlsPhase, tlsPhaseName));
                     lastPhase = tlsPhase;
                 }
 
-                SumoVehicleData vehData = (SumoVehicleData)conn.do_job_get(Inductionloop.getVehicleData("loop1"));
-                for (SumoVehicleData.VehicleData d : vehData.ll) {
-                    System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
+                TraCIVehicleDataVector vehData = InductionLoop.getVehicleData("loop1");
+                for (TraCIVehicleData d : vehData) {
+                    System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
                 }
             }
 
-            conn.close();
+            Simulation.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
