@@ -2,4 +2,4 @@
 -a input_additional.add.xml
 --routes=input_routes.rou.xml --stop-output stopinfos.xml
 --fcd-output fcd.xml
---fcd-output.attributes speed
+--fcd-output.attributes speed,arrivalDelay
