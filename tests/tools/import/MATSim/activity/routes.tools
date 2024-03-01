@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 10:35:20.081122 by matsim_importPlans.py v1_19_0+1082-b5e7202dbad
+<!-- generated on 2024-03-01 11:39:02.991629 by matsim_importPlans.py v1_19_0+1095-b06fb687685
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
@@ -8,22 +8,17 @@
     <vType id="car" vClass="passenger"/>
     <vType id="bicycle" vClass="bicycle"/>
 
-    <trip id="100300_0" depart="triggered" fromLonLat="12.338531971825324,51.32269992163245" toLonLat="12.345381247289957,51.33019827321066"/>
-    <trip id="100300_1" depart="triggered" fromLonLat="12.345381247289957,51.33019827321066" toLonLat="12.351808020775046,51.33387254359802"/>
-    <trip id="100300_2" depart="triggered" fromLonLat="12.351808020775046,51.33387254359802" toLonLat="12.345381247289957,51.33019827321066"/>
-    <trip id="100300_3" depart="triggered" fromLonLat="12.345381247289957,51.33019827321066" toLonLat="12.371472066438269,51.34700028645829"/>
-    <trip id="100300_4" depart="triggered" fromLonLat="12.371472066438269,51.34700028645829" toLonLat="12.38180805562922,51.34009850507165"/>
     <person id="100300" depart="0:0:0">
-        <stop lon="12.338531971825324" lat="51.32269992163245" until="07:01:00" actType="home_25200"/>
-        <ride lines="100300_0" toLonLat="12.345381247289957,51.33019827321066"/>
-        <stop lon="12.345381247289957" lat="51.33019827321066" duration="00:02:45" actType="leisure_600"/>
-        <ride lines="100300_1" toLonLat="12.351808020775046,51.33387254359802"/>
+        <stop lon="12.338531971825326" lat="51.32269992163245" until="07:01:00" actType="home_25200"/>
+        <ride lines="pt" toLonLat="12.345381247289955,51.33019827321066"/>
+        <stop lon="12.345381247289955" lat="51.33019827321066" until="07:05:45" actType="leisure_600"/>
+        <ride lines="pt" toLonLat="12.351808020775046,51.33387254359802"/>
         <stop lon="12.351808020775046" lat="51.33387254359802" until="08:13:59" actType="other_3600"/>
-        <ride lines="100300_2" toLonLat="12.345381247289957,51.33019827321066"/>
-        <stop lon="12.345381247289957" lat="51.33019827321066" duration="00:06:35" actType="leisure_600"/>
-        <ride lines="100300_3" toLonLat="12.371472066438269,51.34700028645829"/>
+        <ride lines="pt" toLonLat="12.345381247289955,51.33019827321066"/>
+        <stop lon="12.345381247289955" lat="51.33019827321066" until="08:29:00" actType="leisure_600"/>
+        <ride lines="pt" toLonLat="12.371472066438269,51.34700028645829"/>
         <stop lon="12.371472066438269" lat="51.34700028645829" until="12:07:00" actType="leisure_12000"/>
-        <ride lines="100300_4" toLonLat="12.38180805562922,51.34009850507165"/>
+        <ride lines="pt" toLonLat="12.38180805562922,51.34009850507165"/>
         <stop lon="12.38180805562922" lat="51.34009850507165" until="14:00:00" actType="leisure_6000"/>
     </person>
 </routes>

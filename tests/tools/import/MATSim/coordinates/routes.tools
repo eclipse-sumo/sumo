@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-27 17:42:51.474891 by matsim_importPlans.py v1_19_0+1057-c5d8ddd
+<!-- generated on 2024-03-01 11:39:02.989629 by matsim_importPlans.py v1_19_0+1095-b06fb687685
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
@@ -8,19 +8,19 @@
     <vType id="car" vClass="passenger"/>
     <vType id="bicycle" vClass="bicycle"/>
 
-    <trip id="0_0" depart="triggered" fromLonLat="12.441623766883094,51.30168303457315" toLonLat="12.322710508594813,51.31372681762787"/>
-    <trip id="0_1" depart="triggered" fromLonLat="12.322710508594813,51.31372681762787" toLonLat="12.441623766883094,51.30168303457315" type="car"/>
+    <trip id="0_0" depart="triggered" fromLonLat="12.441623766883094,51.301683034573145" toLonLat="12.322710508594813,51.31372681762787"/>
+    <trip id="0_1" depart="triggered" fromLonLat="12.322710508594813,51.31372681762787" toLonLat="12.441623766883094,51.301683034573145" type="car"/>
     <person id="0" depart="0:0:0">
-        <stop lon="12.441623766883094" lat="51.30168303457315" until="07:33:00" actType="home"/>
+        <stop lon="12.441623766883094" lat="51.301683034573145" until="07:33:00" actType="home"/>
         <ride lines="0_0" toLonLat="12.322710508594813,51.31372681762787"/>
         <stop lon="12.322710508594813" lat="51.31372681762787" until="13:27:00" actType="work"/>
-        <ride lines="0_1" toLonLat="12.441623766883094,51.30168303457315"/>
-        <stop lon="12.441623766883094" lat="51.30168303457315" until="24:0:0" actType="home"/>
+        <ride lines="0_1" toLonLat="12.441623766883094,51.301683034573145"/>
+        <stop lon="12.441623766883094" lat="51.301683034573145" until="15:05:00" actType="home"/>
     </person>
-    <trip id="freight_0_0" depart="triggered" fromLonLat="12.74672784602896,51.36549012982353" toLonLat="12.650802871087379,51.14080387506128"/>
+    <trip id="freight_0_0" depart="triggered" fromLonLat="12.74672784602896,51.365490129823534" toLonLat="12.650802871087379,51.14080387506129"/>
     <person id="freight_0" depart="0:0:0">
-        <stop lon="12.74672784602896" lat="51.36549012982353" until="05:00:00" actType="freight_start"/>
-        <ride lines="freight_0_0" toLonLat="12.650802871087379,51.14080387506128"/>
-        <stop lon="12.650802871087379" lat="51.14080387506128" until="24:0:0" actType="freight_end"/>
+        <stop lon="12.74672784602896" lat="51.365490129823534" until="05:00:00" actType="freight_start"/>
+        <ride lines="freight_0_0" toLonLat="12.650802871087379,51.14080387506129"/>
+        <stop lon="12.650802871087379" lat="51.14080387506129" until="24:0:0" actType="freight_end"/>
     </person>
 </routes>
