@@ -21,7 +21,9 @@ from __future__ import print_function
 import sys
 import os
 import random
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import subprocess
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 netFile = "ttDistro.net.xml"
@@ -30,128 +32,84 @@ configFile = "ttDistro.sumocfg"
 dumpFile = "ttDump.xml"
 
 
-def generateNet(nLanes=2):
-    # writing the node file is not needed
-    # writing edge file (for different numbers of lanes!!),
-    fp = open('ttDistro.edg.xml', 'w')
-    rest = 'numLanes="' + repr(nLanes) + '" speed="40" />'
-    print('<edges>', file=fp)
-    print('\t<edge from="node1" id="1to2" to="node2" ' + rest, file=fp)
-    print('\t<edge from="node2" id="2to3" to="node3" ' + rest, file=fp)
-    print('\t<edge from="node0" id="0to1" to="node1" ' + rest, file=fp)
-    print('</edges>', file=fp)
-    fp.close()
+def generateNet(numLanes=2):
+    with open('ttDistro.edg.xml', 'w', encoding="utf8") as fp:
+        rest = 'numLanes="%s" speed="40" />' % numLanes
+        print('<edges>', file=fp)
+        print('    <edge from="node1" id="1to2" to="node2" ' + rest, file=fp)
+        print('    <edge from="node2" id="2to3" to="node3" ' + rest, file=fp)
+        print('    <edge from="node0" id="0to1" to="node1" ' + rest, file=fp)
+        print('</edges>', file=fp)
 
-    fp = open('ttDistro.nod.xml', 'w')
-    print('<nodes>', file=fp)
-    print('\t<node id="node0" x="-200.0" y="0.0" />', file=fp)
-    print('\t<node id="node1" x="0.0" y="0.0" />', file=fp)
-    print('\t<node id="node2" x="+9800.0" y="0.0" />', file=fp)
-    print('\t<node id="node3" x="+10000.0" y="0.0" />', file=fp)
-    print('</nodes>', file=fp)
-    fp.close()
-    os.system('%s -n ttDistro.nod.xml -e ttDistro.edg.xml -o %s' % (sumolib.checkBinary("netconvert"),
-                                                                    netFile))
+    with open('ttDistro.nod.xml', 'w', encoding="utf8") as fp:
+        print('<nodes>', file=fp)
+        print('    <node id="node0" x="-200.0" y="0.0" />', file=fp)
+        print('    <node id="node1" x="0.0" y="0.0" />', file=fp)
+        print('    <node id="node2" x="+9800.0" y="0.0" />', file=fp)
+        print('    <node id="node3" x="+10000.0" y="0.0" />', file=fp)
+        print('</nodes>', file=fp)
+    subprocess.call([sumolib.checkBinary("netconvert"),
+                     '-n', 'ttDistro.nod.xml', '-e', 'ttDistro.edg.xml', '-o', netFile])
 
 
 def generateDemand(pin, nLanes):
-    fp = open(routeFile, 'w')
-    fp.write('<routes>\n')
-    # normal vehicles
-    lFast = 5.0
-    lMed = 5.0
-    lSlow = 11.0
-    vSlow = 25.0
-    vMed = 30.0
-    vFast = 35.0
-    pTruck = 0.1
-    pMed = 0.5
-    pFast = 0.4
+    with open(routeFile, 'w', encoding="utf8") as fp:
+        sumolib.writeXMLHeader(fp, root="routes")
+        print('''
+    <vType accel="2." decel="5." id="fast" length="5." maxSpeed="35." sigma="0.8" />
+    <vType accel="2." decel="5." id="med" length="5." maxSpeed="30." sigma="0.8" />
+    <vType accel="1." decel="4." id="truck" length="11." maxSpeed="25." sigma="0.6" />
+    <route id="route01" edges="0to1 1to2 2to3"/>''', file=fp)
 
-    # fast passenger cars
-    s0 = '\t<vType accel="2.0" decel="5.0" id="fast" length="' + \
-        repr(lFast) + '" maxSpeed="' + repr(vFast)
-    print(s0 + '" sigma="0.8" />', file=fp)
+        # now, the vehicles...
+        # generate nMax vehicles for each demand ranging from 0.03 to 0.66 veh/s/lane in steps of 0.03 vehs/s/lane
+        # use only the last 1000 or so for the statistical analysis
+        pTruck = 0.1
+        pMed = 0.5
+        pFast = 0.4
+        nMax = 1500
+        vehID = 0
 
-    # slow passenger cars
-    s0 = '\t<vType accel="2.0" decel="5.0" id="med" length="' + \
-        repr(lMed) + '" maxSpeed="' + repr(vMed)
-    print(s0 + '" sigma="0.8" />', file=fp)
-
-    # trucks
-    s0 = '\t<vType accel="1.0" decel="4.0" id="truck" length="' + \
-        repr(lSlow) + '" maxSpeed="' + repr(vSlow)
-    print(s0 + '" sigma="0.6" />', file=fp)
-
-    # the one and only route...
-    fp.write('\t<route id="route01" edges="0to1 1to2 2to3"/>\n')
-
-    # now, the vehicles...
-    # generate nMax vehicles for each demand ranging from 0.03 to 0.66 veh/s/lane in steps of 0.03 vehs/s/lane
-    # use only the last 1000 or so for the statistical analysis
-    nMax = 1500
-    vehID = 0
-
-    for t in range(100000):
-        for lane in range(0, nLanes):
-            if random.random() < pin:
-                vehID += 1
-                s = '\t<vehicle depart="' + \
-                    repr(t) + '" arrivalPos="-1" id="' + repr(vehID) + \
-                    '" route="route01"'
-                if (lane == 0):
-                    if random.random() < pTruck / (pTruck + 0.5 * pMed):
-                        s = s + ' type="truck" departLane="' + \
-                            repr(lane) + '" departSpeed="max" />'
-                    else:
-                        s = s + ' type="med" departLane="' + \
-                            repr(lane) + '" departSpeed="max" />'
-                else:  # currently: the left lane only in this else cause
-                    if random.random() < pFast / (pFast + 0.5 * pMed):
-                        s = s + ' type="fast" departLane="' + \
-                            repr(lane) + '" departSpeed="max" />'
-                    else:
-                        s = s + ' type="med" departLane="' + \
-                            repr(lane) + '" departSpeed="max" />'
-                print(s, file=fp)
-        if vehID >= nMax:
-            break
-    print('</routes>', file=fp)
-    fp.close()
-
-
-def runSim():
-    fp = open(configFile, 'w')
-    print("""<configuration>
-    <input>
-        <net-file value="%s"/>
-        <route-files value="%s"/>
-    </input>
-    <report>
-        <no-duration-log value="true"/>
-        <no-step-log value="true"/>
-        <max-depart-delay value="0"/>
-        <tripinfo-output value="%s"/>
-    </report>
-</configuration>""" % (netFile, routeFile, dumpFile), file=fp)
-    fp.close()
-    os.system('%s -c %s' % (sumolib.checkBinary("sumo"), configFile))
+        for t in range(100000):
+            for lane in range(0, nLanes):
+                if random.random() < pin:
+                    vehID += 1
+                    s = '    <vehicle depart="' + \
+                        repr(t) + '" arrivalPos="-1" id="' + repr(vehID) + \
+                        '" route="route01"'
+                    if lane == 0:
+                        if random.random() < pTruck / (pTruck + 0.5 * pMed):
+                            s = s + ' type="truck" departLane="' + \
+                                repr(lane) + '" departSpeed="max" />'
+                        else:
+                            s = s + ' type="med" departLane="' + \
+                                repr(lane) + '" departSpeed="max" />'
+                    else:  # currently: the left lane only in this else cause
+                        if random.random() < pFast / (pFast + 0.5 * pMed):
+                            s = s + ' type="fast" departLane="' + \
+                                repr(lane) + '" departSpeed="max" />'
+                        else:
+                            s = s + ' type="med" departLane="' + \
+                                repr(lane) + '" departSpeed="max" />'
+                    print(s, file=fp)
+            if vehID >= nMax:
+                break
+        print('</routes>', file=fp)
 
 
 def analyzeData(pp):
-    fp = open('gw.txt', 'w')
     n0 = 500
-    for line in open(dumpFile):
-        ll = line.split('id="')
-        if len(ll) > 1:
-            vNr = int(ll[1].split('"')[0])
-            lll = ll[1].split('duration="')
-            tT = float(lll[1].split('"')[0])
-            tmp = line.split('depart="')[1]
-            t1 = float(tmp.split('"')[0])
-            if vNr > n0 and t1 > 0.0:
-                print(pp, vNr, t1, tT, file=fp)
-    fp.close()
+    with open('gw.txt', 'w', encoding="utf8") as fp, open(dumpFile) as dump:
+        for line in dump:
+            ll = line.split('id="')
+            if len(ll) > 1:
+                vNr = int(ll[1].split('"')[0])
+                lll = ll[1].split('duration="')
+                tT = float(lll[1].split('"')[0])
+                tmp = line.split('depart="')[1]
+                t1 = float(tmp.split('"')[0])
+                if vNr > n0 and t1 > 0.0:
+                    print(pp, vNr, t1, tT, file=fp)
 
 
 def writeVSSFile():
@@ -159,7 +117,7 @@ def writeVSSFile():
     # and the vss file,
     fp = open('input_vss.add.xml', 'w')
     print('<additional>', file=fp)
-    s = '\t<variableSpeedSign id="vss" lanes="2to3_0'
+    s = '    <variableSpeedSign id="vss" lanes="2to3_0'
     maxLanes = None
     for lane in range(1, maxLanes):
         s = s + ' 2to3_' + repr(lane)
@@ -175,7 +133,8 @@ generateNet(nLanes)
 for p in range(3, 67, 3):
     generateDemand(0.01 * p, nLanes)
     print("# running the simulation...")
-    runSim()
+    subprocess.call([sumolib.checkBinary("sumo"), "-n", netFile, "-r", routeFile, "--tripinfo-output", dumpFile,
+                     "--no-duration-log", "--no-step-log", "--max-depart-delay", "0"])
     print("# analyzing the results...")
     analyzeData(p)
     break
