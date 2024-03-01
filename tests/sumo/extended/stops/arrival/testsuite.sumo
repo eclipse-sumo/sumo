@@ -21,3 +21,6 @@ premature_useStarted
 
 # vehicle arrives ahead of time
 premature_useStarted_later
+
+# rail vehicle should have smooth trajectory
+premature_slowdown_rail
