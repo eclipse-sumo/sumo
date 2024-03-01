@@ -84,7 +84,7 @@ public:
         return myEdgeFilter;
     }
 
-    static long long int getWrittenAttributes() {
+    static SumoXMLAttrMask getWrittenAttributes() {
         return myWrittenAttributes;
     }
 
@@ -122,8 +122,8 @@ private:
     static bool myShapeFilterDesired;
 
     /// @brief bit mask for checking attributes to be written
-    static long long int myWrittenAttributes;
-    static const long long int myDefaultMask;
+    static SumoXMLAttrMask myWrittenAttributes;
+    static SumoXMLAttrMask getDefaultMask();
 
 private:
     /// @brief Invalidated copy constructor.

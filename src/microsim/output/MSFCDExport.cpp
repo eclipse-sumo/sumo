@@ -54,7 +54,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
-    const long long int mask = MSDevice_FCD::getWrittenAttributes();
+    const SumoXMLAttrMask mask = MSDevice_FCD::getWrittenAttributes();
     const bool maskSet = oc.isSet("fcd-output.attributes");
     const bool useGeo = oc.getBool("fcd-output.geo");
     const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
@@ -223,7 +223,7 @@ MSFCDExport::hasOwnOutput(const MSTransportable* p, bool filter, bool shapeFilte
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
                                 bool filter, bool shapeFilter, bool inRadius,
-                                SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
+                                SumoXMLTag tag, bool useGeo, bool elevation, SumoXMLAttrMask mask) {
     if (!hasOwnOutput(p, filter, shapeFilter, inRadius)) {
         return;
     }

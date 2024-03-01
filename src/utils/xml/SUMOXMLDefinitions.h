@@ -24,6 +24,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <bitset>
 
 #include <utils/common/StringBijection.h>
 
@@ -534,6 +535,7 @@ enum SumoXMLTag {
     /// @}
 };
 
+typedef std::bitset<96> SumoXMLAttrMask;
 
 /**
  * @enum SumoXMLAttr

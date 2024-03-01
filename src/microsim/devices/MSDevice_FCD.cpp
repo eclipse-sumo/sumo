@@ -34,13 +34,6 @@
 #include <microsim/MSVehicle.h>
 #include "MSDevice_FCD.h"
 
-// some attributes are not written by default and must be enabled via option fcd-output.attributes
-const long long int MSDevice_FCD::myDefaultMask(~(
-            ((long long int)1 << SUMO_ATTR_VEHICLE) |
-            ((long long int)1 << SUMO_ATTR_ODOMETER) |
-            ((long long int)1 << SUMO_ATTR_SPEED_LAT) |
-            ((long long int)1 << SUMO_ATTR_POSITION_LAT)
-        ));
 
 // ===========================================================================
 // static members
@@ -50,7 +43,7 @@ std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterDesired(false);
-long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
+SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes(getDefaultMask());
 
 // ===========================================================================
 // method definitions
@@ -95,6 +88,22 @@ MSDevice_FCD::MSDevice_FCD(SUMOVehicle& holder, const std::string& id) :
 
 MSDevice_FCD::~MSDevice_FCD() {
 }
+
+
+SumoXMLAttrMask
+MSDevice_FCD::getDefaultMask() {
+    SumoXMLAttrMask mask;
+    // set all bits to 1
+    mask.set();
+    // some attributes are not written by default and must be enabled via option fcd-output.attributes
+    // (or with an explicit attribute list)
+    mask.reset(SUMO_ATTR_VEHICLE);
+    mask.reset(SUMO_ATTR_ODOMETER);
+    mask.reset(SUMO_ATTR_SPEED_LAT);
+    mask.reset(SUMO_ATTR_POSITION_LAT);
+    return mask;
+}
+
 
 bool
 MSDevice_FCD::shapeFilter(const SUMOTrafficObject* veh) {
@@ -190,7 +199,7 @@ MSDevice_FCD::cleanup() {
     myEdgeFilterInitialized = false;
     myShapeFilterInitialized = false;
     myShapeFilterDesired = false;
-    myWrittenAttributes = myDefaultMask;
+    myWrittenAttributes = getDefaultMask();
 }
 
 
