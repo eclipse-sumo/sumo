@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-19 13:32+0000\n"
+"PO-Revision-Date: 2024-03-02 14:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3585,6 +3585,8 @@ msgid ""
 "Battery device in vehicle '%' still uses old parameter '%'. Please update to "
 "'device.%'."
 msgstr ""
+"Die Batterieeinrichtung des Fahrzeugs '%' nutzt noch den alten Parameter "
+"'%'. Bitte ersetze diesen durch 'device.%'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:116
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:130
@@ -3606,6 +3608,10 @@ msgid ""
 "Please consider setting an explicit emission class or battery outputs might "
 "be inconsistent with emission outputs!"
 msgstr ""
+"Die Batterieeinrichtung ist im Fahrzeug '%' aktiviert, ohne dass eine "
+"Emissionsklasse definiert ist. Bitte setze eine explizite Emissionsklasse, "
+"da sonst Batterieausgangsdaten zu den Emissionsausgangsdaten inkonsistent "
+"werden können!"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:195
 #, c-format
