@@ -185,13 +185,13 @@ private:
         const std::string areaType;
         const std::vector<JPS_Point> areaBoundary;
         const Parameterised::Map params;
+
+        /// @brief The last time a pedestrian was removed in a vanishing area.
+        SUMOTime lastRemovalTime = 0;
     };
 
     /// @brief Array of special areas.
     std::vector<AreaData> myAreas;
-
-    /// @brief The last time a pedestrian was removed in a vanishing area.
-    SUMOTime myLastRemovalTime = 0;
     
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;

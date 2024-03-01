@@ -362,12 +362,12 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
     }
 
     // Remove pedestrians that are in a predefined area, at a predefined rate.
-    for (const AreaData& area : myAreas) {
+    for (AreaData& area : myAreas) {
         const std::vector<JPS_Point>& areaBoundary = area.areaBoundary;
         JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
         if (area.areaType == "vanishing_area") {
             const SUMOTime period = area.params.count("period") > 0 ? string2time(area.params.at("period")) : 1000;
-            if (time - myLastRemovalTime >= period) {
+            if (time - area.lastRemovalTime >= period) {
                 const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
                 if (agentID != 0) {
                     auto lambda = [agentID](const PState * const p) {
@@ -385,7 +385,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                             registerArrived();
                             JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
                             myPedestrianStates.erase(iterator);
-                            myLastRemovalTime = time;
+                            area.lastRemovalTime = time;
                         }
                     }
                 }
