@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-02-29 15:28+0000\n"
+"PO-Revision-Date: 2024-03-01 12:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15021,7 +15021,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
-msgstr ""
+msgstr "L'oggetto deve essere una corsia"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
 msgid "Copy name to clipboard"
@@ -15771,84 +15771,84 @@ msgstr "per zona di assegnazione del traffico di destinazione"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2354
 msgid "No color defined for LinkState '%'"
-msgstr ""
+msgstr "Nessun colore definito per il LinkState '%'"
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "Salva i dati..."
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:130
 msgid "Multiplot"
-msgstr ""
+msgstr "Multiplot"
 
 #: D:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:218
 msgid "Save Data"
-msgstr ""
+msgstr "Salva dati"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:85
 msgid "Track"
-msgstr ""
+msgstr "Persegui"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 msgid "&Hide Unselected"
-msgstr ""
+msgstr "&Nascondi non selezionati"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "By &Name"
-msgstr ""
+msgstr "Per nome"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "Locate item by name"
-msgstr ""
+msgstr "Localizza elemento per nome"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&Seleziona/deseleziona"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "Seleziona/deseleziona l'oggetto attuale"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 msgid "&Filter substring"
-msgstr ""
+msgstr "&Filtra con termine di ricerca"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "Select &all"
-msgstr ""
+msgstr "Seleziona tutto"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "Select all items in list"
-msgstr ""
+msgstr "Seleziona tutti gli elementi elencati"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "&Deselect all"
-msgstr ""
+msgstr "&Deseleziona tutto"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "Deselect all items in list"
-msgstr ""
+msgstr "Deseleziona tutti gli elementi elencati"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:98
 msgid "&Update"
-msgstr ""
+msgstr "&Aggiorna"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:98
 msgid "Reload all ids"
-msgstr ""
+msgstr "Ricarica tutti i codici identificativi"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:102
 msgid "case-sensitive search"
-msgstr ""
+msgstr "distingui tra minuscole e maiuscole nella ricerca"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:104
 msgid "auto-center"
-msgstr ""
+msgstr "centratura automatica"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:329
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% oggetti"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
