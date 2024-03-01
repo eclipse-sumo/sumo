@@ -144,6 +144,8 @@ if test ${FILEPREFIX: -2} == "M1"; then
   python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
   python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
   mv dist dist_native  # just as backup
+  # the docker script will create _skbuild, dist and wheelhouse dir owned by root but writable for everyone
+  # we only need wheelhouse, the rest is for inspecting if errors occur
   docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build_config/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
 fi
 # Linux x64 wheels
