@@ -42,7 +42,7 @@ LiSuM-Core (the command line version) works with Java 8 as well.
 
 For running LiSuM it is required to have the following software installed on your computer:
 
-- Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core)
+- Java SE Runtime Environment (version 17 and later for lisum-gui and version 7 and later for lisum-core)
 - SUMO (version 1.0.1 or later)
 - openjfx (for lisum-gui, Linux only)
 

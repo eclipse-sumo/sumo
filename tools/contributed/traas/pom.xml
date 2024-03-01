@@ -45,7 +45,8 @@
                             <value>bar</value>
                         </property>
                     </javaApiLinks>
-                 	<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                    <doclint>all,-missing</doclint>
                 </configuration>
             </plugin>
         </plugins>
