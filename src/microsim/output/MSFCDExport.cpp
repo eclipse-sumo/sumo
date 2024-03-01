@@ -155,6 +155,14 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                     }
                 }
+                if (of.useAttribute(SUMO_ATTR_ARRIVALDELAY, mask)) {
+                    double arrivalDelay = baseVeh->getStopArrivalDelay();
+                    if (arrivalDelay == INVALID_DOUBLE) {
+                        // no upcoming stop also means that there is no delay
+                        arrivalDelay = 0;
+                    }
+                    of.writeOptionalAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay, mask);
+                }
                 of.closeTag();
             }
             // write persons and containers

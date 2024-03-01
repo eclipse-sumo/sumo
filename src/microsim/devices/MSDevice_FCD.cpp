@@ -101,6 +101,7 @@ MSDevice_FCD::getDefaultMask() {
     mask.reset(SUMO_ATTR_ODOMETER);
     mask.reset(SUMO_ATTR_SPEED_LAT);
     mask.reset(SUMO_ATTR_POSITION_LAT);
+    mask.reset(SUMO_ATTR_ARRIVALDELAY);
     return mask;
 }
 
@@ -167,19 +168,18 @@ MSDevice_FCD::initOnce() {
         }
     }
     if (oc.isSet("fcd-output.attributes")) {
-        myWrittenAttributes = 0;
+        myWrittenAttributes.reset();
         for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
                 if (attrName == "all") {
-                    myWrittenAttributes = ~0;
+                    myWrittenAttributes.set();
                 } else {
                     WRITE_ERRORF(TL("Unknown attribute '%' to write in fcd output."), attrName);
                 }
                 continue;
             }
             int attr = SUMOXMLDefinitions::Attrs.get(attrName);
-            assert(attr <= 63);
-            myWrittenAttributes |= ((long long int)1 << attr);
+            myWrittenAttributes.set(attr);
         }
     }
 

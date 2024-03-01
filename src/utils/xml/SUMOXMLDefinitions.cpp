@@ -430,6 +430,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "odometer",               SUMO_ATTR_ODOMETER },
     { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "speedLat",               SUMO_ATTR_SPEED_LAT },
+    { "arrivalDelay",           SUMO_ATTR_ARRIVALDELAY },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },

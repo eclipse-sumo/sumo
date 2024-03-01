@@ -131,7 +131,7 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
         myDevice.writeAttr("delay", delay);
     }
     if (stop.arrival >= 0) {
-        myDevice.writeAttr("arrivalDelay", arrivalDelay);
+        myDevice.writeAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay);
     }
     myDevice.writeAttr("initialPersons", si.initialNumPersons);
     myDevice.writeAttr("loadedPersons", si.loadedPersons);
