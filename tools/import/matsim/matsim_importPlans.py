@@ -89,12 +89,16 @@ def getLocation(options, activity, attr, prj = None):
 
 
 def writeLeg(outf, options, idveh, leg, start, end):
+    """ Write the vehicles and trips. """
+    # walk and public transport are not relevant
+    if leg.mode.endswith("walk") or leg.mode == "pt":
+        return
     depart = leg.dep_time if options.vehicles_only else "triggered"
     mode = ' type="%s"' % leg.mode if leg.mode in ("car", "bicycle") else ""
     if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
         outf.write('    <trip id="%s" depart="%s" %s %s%s/>\n'
                    % (idveh, depart, start, end, mode))
-    elif not leg.mode.endswith("walk") and leg.mode != "pt":
+    else:
         outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
         outf.write('    </vehicle>\n')
@@ -129,6 +133,7 @@ def main(options):
         if depart is None:
             depart = options.default_start
         attributes = person.attributes[0] if person.attributes else None
+        
         # write vehicles
         vehicleslist = []
         untillist = []
@@ -146,6 +151,24 @@ def main(options):
                             getLocation(options, lastAct, "from", prj),
                             getLocation(options, item, "to", prj))
                     lastLeg = None
+                # set missing end_time:
+                if not item.end_time:
+                    if item.start_time and item.max_dur:
+                        item.end_time = sumolib.miscutils.humanReadableTime(
+                                sumolib.miscutils.parseTime(item.start_time) + 
+                                sumolib.miscutils.parseTime(item.max_dur)
+                        )
+                    elif item.start_time:
+                        item.end_time = sumolib.miscutils.humanReadableTime(
+                                sumolib.miscutils.parseTime(item.start_time) + 
+                                sumolib.miscutils.parseTime(options.default_dur)
+                        )
+                    elif item.max_dur and leg:
+                        item.end_time = sumolib.miscutils.humanReadableTime(
+                                sumolib.miscutils.parseTime(leg.dep_time) + 
+                                sumolib.miscutils.parseTime(options.default_dur) +
+                                sumolib.miscutils.parseTime(item.max_dur)
+                        )
                 lastAct = item
                 durations.append(item.max_dur if item.max_dur else options.default_dur)
             if item.name == "leg":
@@ -158,9 +181,10 @@ def main(options):
                     writeLeg(outf, options, idveh, leg, start, end)
             if leg:
                 untillist.append(leg.dep_time)
-                vehicleslist.append(idveh)
+                vehicleslist.append(idveh if leg.mode != "pt" else "pt")
                 vehIndex += 1
         untillist.append(lastAct.end_time if lastAct.end_time else options.default_end)
+        
         # write person
         if not options.vehicles_only:
             vehIndex = 0
