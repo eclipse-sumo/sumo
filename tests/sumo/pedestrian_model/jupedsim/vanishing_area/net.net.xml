@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-02 16:50:53 by Eclipse SUMO netedit Version v1_19_0+0707-807931593a9
+<!-- generated on 2024-03-01 11:41:24 by Eclipse SUMO netedit Version v1_19_0+1118-98ab26335df
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumocfg-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\vanishing_area\config.sumocfg"/>
+        <sumocfg-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\vanishing_area\test.sumocfg"/>
         <additional-files value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\vanishing_area\input_additional.add.xml"/>
         <route-files value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\vanishing_area\input_routes.rou.xml"/>
         <sumo-net-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\vanishing_area\net.net.xml"/>
@@ -36,7 +36,7 @@
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="882.72,1528.66" convBoundary="1586.92,1893.80,1795.49,2150.97" origBoundary="-882.72,-1528.66,912.78,899.36" projParameter="!"/>
 
@@ -154,6 +154,12 @@
     <edge id="E1" from="J3" to="J4" priority="-1">
         <lane id="E1_0" index="0" allow="pedestrian" speed="13.89" length="5.00" shape="1712.97,2053.62 1717.97,2053.62"/>
     </edge>
+    <edge id="E2" from="J0" to="J5" priority="-1">
+        <lane id="E2_0" index="0" allow="pedestrian" speed="13.89" length="4.30" shape="1681.93,2033.24 1686.09,2034.34"/>
+    </edge>
+    <edge id="E3" from="J6" to="J7" priority="-1">
+        <lane id="E3_0" index="0" allow="pedestrian" speed="13.89" length="5.00" shape="1679.18,2044.63 1684.18,2044.63"/>
+    </edge>
 
     <junction id="1387" type="priority" x="1795.49" y="2052.95" incLanes="1391_0 1391_1 1391_2 1391_3 1388_0 1388_1 1388_2 1388_3 :1387_w1_0 :1387_w2_0 :1387_w0_0" intLanes=":1387_0_0 :1387_0_1 :1387_0_2 :1387_3_0 :1387_3_1 :1387_3_2 :1387_10_0 :1387_11_0 :1387_12_0 :1387_13_0 :1387_c0_0 :1387_c1_0 :1387_c2_0" shape="1805.66,2037.88 1794.11,2039.02 1794.04,2039.80 1793.86,2040.03 1793.60,2040.16 1793.26,2040.18 1792.82,2040.09 1784.11,2070.05 1787.37,2071.17 1788.46,2071.71 1789.21,2072.23 1789.60,2072.73 1789.64,2073.22 1800.78,2076.44 1803.15,2068.44 1804.87,2062.44 1805.96,2057.41 1806.44,2052.32 1806.33,2046.15">
         <request index="0"  response="0000000000000" foes="1010111000000" cont="0"/>
@@ -180,10 +186,14 @@
         <request index="4" response="00001" foes="01111" cont="0"/>
     </junction>
     <junction id="568" type="dead_end" x="1780.38" y="1900.00" incLanes="" intLanes="" shape="1780.38,1900.00 1791.92,1898.86"/>
+    <junction id="J0" type="dead_end" x="1681.52" y="2034.79" incLanes="" intLanes="" shape="1681.52,2034.79 1682.34,2031.70"/>
     <junction id="J1" type="dead_end" x="1717.64" y="2048.00" incLanes="" intLanes="" shape="1717.64,2048.00 1717.64,2044.80"/>
     <junction id="J2" type="dead_end" x="1722.64" y="2048.00" incLanes="E0_0" intLanes="" shape="1722.64,2044.80 1722.64,2048.00"/>
     <junction id="J3" type="dead_end" x="1712.97" y="2055.22" incLanes="" intLanes="" shape="1712.97,2055.22 1712.97,2052.02"/>
     <junction id="J4" type="dead_end" x="1717.97" y="2055.22" incLanes="E1_0" intLanes="" shape="1717.97,2052.02 1717.97,2055.22"/>
+    <junction id="J5" type="dead_end" x="1685.68" y="2035.89" incLanes="E2_0" intLanes="" shape="1686.50,2032.80 1685.68,2035.89"/>
+    <junction id="J6" type="dead_end" x="1679.18" y="2046.23" incLanes="" intLanes="" shape="1679.18,2046.23 1679.18,2043.03"/>
+    <junction id="J7" type="dead_end" x="1684.18" y="2046.23" incLanes="E3_0" intLanes="" shape="1684.18,2043.03 1684.18,2046.23"/>
 
     <junction id=":1387_10_0" type="internal" x="1793.76" y="2044.80" incLanes=":1387_6_0 1391_1 1391_2 1391_3" intLanes=":1387_0_0 :1387_0_1 :1387_0_2 :1387_3_0 :1387_3_1 :1387_3_2 :1387_c1_0 :1387_c2_0"/>
     <junction id=":1387_11_0" type="internal" x="1793.36" y="2048.32" incLanes=":1387_6_1 1391_1 1391_2 1391_3" intLanes=":1387_0_0 :1387_0_1 :1387_0_2 :1387_3_0 :1387_3_1 :1387_3_2 :1387_c1_0 :1387_c2_0"/>
