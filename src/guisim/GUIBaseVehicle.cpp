@@ -637,8 +637,9 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         int requiredSeats = getNumPassengers();
         int requiredContainerPositions = getNumContainers();
         const Position back = (p1 + Position(-scaledLength * upscaleLength, 0)).rotateAround2D(angle, p1);
-        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
-        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions);
+        double extraOffset = scaledLength * 0.15;
+        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions, extraOffset);
+        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions, extraOffset);
     }
 
     GLHelper::popMatrix();
@@ -1153,7 +1154,7 @@ GUIBaseVehicle::getDeviceDescription() {
 
 
 void
-GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const {
+GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into, double extraOffset) const {
     if (requiredSeats <= 0) {
         return;
     }
@@ -1162,9 +1163,10 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
     const double vehWidth = getVType().getSeatingWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
-    const double rowOffset = MAX2(1.0, (length - getVType().getFrontSeatPos() - 1)) / ceil((double)maxSeats / rowSize);
+    const double frontSeatPos = getVType().getFrontSeatPos() + extraOffset;
+    const double rowOffset = MAX2(1.0, (length - frontSeatPos - 1)) / ceil((double)maxSeats / rowSize);
     const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
-    double rowPos = getVType().getFrontSeatPos() - rowOffset;
+    double rowPos = frontSeatPos - rowOffset;
     double angle = back.angleTo2D(front);
     const int fillDirection = MSGlobals::gLefthand ? -1 : 1;
     //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";
