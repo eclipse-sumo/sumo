@@ -12,6 +12,17 @@ vehicle types).
     The correct setting may be dependent on the car-following model in use. This is especially true for `accel` and `decel` which
     usually do *not* denote the maximum values achievable by the vehicle but rather the convenient values. If you use a different model than Krauss you should probably revisit the values.
 
+Please note that `personCapacity` and `mass` do usually not include a driver in the tables below.
+(So a bicycle has a capacity of 1 and this does not mean the children's seat but the driver; and a mass of 10kg
+obviously does not include the driver.) The only exception here is the default passenger car which has
+a capacity of 4 while the average car out there has probably rather 5 places. But using all 5 places is
+probably rather exceptional so the historic default has been kept and it is maybe the better value for taxi scenarios as well.
+Please also note that the mass in the handbook
+of a private car usually *includes* the average driver's weight.
+
+Whether the exclusion is correct or not also depends on the way you set up the simulation. If persons are
+modelled explicitly it is right, if not, you probably do not care about personCapacity and variable mass anyway,
+but if you do please revisit your vType settings.
 
 ## Pedestrians and Two-Wheelers
 
@@ -34,7 +45,7 @@ vehicle types).
 |--|--|--|--|--|--|--|--|--|--|--|--|--|--|
 |passenger|<img src="images/Wikicommons_passenger.jpg" width="180" alt="Passenger Car" />|passenger|5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup>|1500kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|4|PC_G_EU4|0.1|
 |taxi||taxi|5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup>|1500kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|4|PC_G_EU4|0.05|
-|evehicle||evehicle|5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup>|1500kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|4|PC_G_EU4|0.1|
+|evehicle||evehicle|5<sup>(29)</sup><br>1.8m<sup>(29)</sup><br>1.5m<sup>(29)</sup>|1500kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|4|zero|0.1|
 |emergency|<img src="images/Wikicommons_emergency.jpg" width="180" alt="Emergency" />|delivery|6.5m<sup>(37)</sup><br>2.16m<sup>(37)</sup><br>2.86m<sup>(37)</sup>|5000kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|3|LDV|0|
 |delivery|<img src="images/Wikicommons_delivery.jpg" width="180" alt="Delivery" />|delivery|6.5m<sup>(37)</sup><br>2.16m<sup>(37)</sup><br>2.86m<sup>(37)</sup>|5000kg|2.5m|2.6m/s<sup>2(29)</sup>|4.5m/s<sup>2(27)</sup>|9m/s<sup>2</sup>|200km/h<sup>(29)</sup>|-|3|LDV|0.05|
 
