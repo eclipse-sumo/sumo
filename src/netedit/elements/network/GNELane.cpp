@@ -1244,7 +1244,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
             // calculate x1
             double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
             // iterate over links
-            for (int i = noLinks; i >= 0; --i) {
+            for (int i = noLinks - 1; i >= 0; --i) {
                 // calculate x2
                 const double x2 = x1 - (double)(w / 2.);
                 // get link number
