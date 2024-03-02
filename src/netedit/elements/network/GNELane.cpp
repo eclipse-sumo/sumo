@@ -1714,8 +1714,7 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
             glColor3d(0.3, 0.3, 0.3);
         }
         // get width and sideOffset
-        const double width = MAX2(NUMERICAL_EPS, (myDrawingConstants->getDrawingWidth() * 2 * myDrawingConstants->getExaggeration() * (myDrawingConstants->drawSuperposed() ? 0.4 : 1)));
-        const double sideOffset = myDrawingConstants->drawSuperposed() ? width * -0.5 : 0;
+        const double width = MAX2(NUMERICAL_EPS, (myDrawingConstants->getDrawingWidth() * 2 * myDrawingConstants->getExaggeration()));
         // push direction indicator matrix
         GLHelper::pushMatrix();
         // move to front
@@ -1734,9 +1733,9 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
                 const double length = MIN2(width * 0.5, myLaneGeometry.getShapeLengths()[i] - subWidth);
                 // draw triangle
                 glBegin(GL_TRIANGLES);
-                glVertex2d(sideOffset, -subWidth - length);
-                glVertex2d(sideOffset - width * 0.25, -subWidth);
-                glVertex2d(sideOffset + width * 0.25, -subWidth);
+                glVertex2d(myDrawingConstants->getOffset(), -subWidth - length);
+                glVertex2d(myDrawingConstants->getOffset() - width * 0.25, -subWidth);
+                glVertex2d(myDrawingConstants->getOffset() + width * 0.25, -subWidth);
                 glEnd();
             }
             // pop triangle matrix
@@ -1754,23 +1753,33 @@ GNELane::drawLaneAsRailway() const {
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-        // Set current color back
-        GLHelper::setColor(GLHelper::getColor());
+        // Set color back
+        GLHelper::setColor(RGBColor::BLACK);
         // move
         glTranslated(0, 0, 0.1);
-        // calculate width
+        // draw external crossbar
         const double crossbarWidth = 0.2 * myDrawingConstants->getExaggeration();
         // draw geometry
-        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, crossbarWidth,
-                                  myDrawingConstants->getOffset() - 1);
-
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
+                                  myDrawingConstants->getDrawingWidth() * 0.8,
+                                  myDrawingConstants->getOffset());
+        // move
+        glTranslated(0, 0, 0.01);
+        // Set color gray
+        glColor3d(0.8, 0.8, 0.8);
         // draw geometry
-        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, crossbarWidth,
-                                  myDrawingConstants->getOffset() + 1);
+        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
+                                  myDrawingConstants->getDrawingWidth() * 0.6,
+                                  myDrawingConstants->getOffset());
+        // move
+        glTranslated(0, 0, 0.01);
+        // Set color back
+        GLHelper::setColor(RGBColor::BLACK);
         // Draw crossties
         GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
                                 crossbarWidth, 0.6 * myDrawingConstants->getExaggeration(),
-                                myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset(), false);
+                                myDrawingConstants->getDrawingWidth(),
+                                myDrawingConstants->getOffset(), false);
     } else if (myShapeColors.size() > 0) {
         // draw colored box lines
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
