@@ -1221,28 +1221,45 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         // filter elements
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
         std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
+        std::vector<GUIGlObject*> filteredPersonsUnderCursor;
+        std::vector<GUIGlObject*> filteredContainersUnderCursor;
         std::vector<GUIGlObject*> filteredTLSUnderCursor;
         for (const auto& GLObject : objectsUnderCursor) {
+            // avoid edges
             if (GLObject->getType() == GLO_EDGE) {
-                // avoid edges
                 continue;
             }
+            // avoid duplicated lanes
             if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
-                // avoid duplicated lanes
                 continue;
+            }
+            // filter vehicles, person and containers
+            if ((GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
+                filteredPersonsUnderCursor.push_back(GLObject);
+            }
+            if ((GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW)) {
+                filteredContainersUnderCursor.push_back(GLObject);
             }
             if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
-                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
-                    (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
-                    (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
-                // filter vehicles, person and containers
+                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW)) {
                 filteredVehiclesUnderCursor.push_back(GLObject);
             }
+            // filter TLSs
             if (GLObject->getType() == GLO_TLLOGIC) {
-                // filter TLSs
                 filteredTLSUnderCursor.push_back(GLObject);
             }
             filteredObjectsUnderCursor.push_back(GLObject);
+        }
+        // filter demand elements (persons, container and vehicles)
+        std::vector<GUIGlObject*> filteredDemandElements;
+        for (auto person : filteredPersonsUnderCursor) {
+            filteredDemandElements.push_back(person);
+        }
+        for (auto container : filteredContainersUnderCursor) {
+            filteredContainersUnderCursor.push_back(container);
+        }
+        for (auto vehicle : filteredVehiclesUnderCursor) {
+            filteredVehiclesUnderCursor.push_back(vehicle);
         }
         // filter internal lanes
         filteredObjectsUnderCursor = filterInternalLanes(filteredObjectsUnderCursor);
@@ -1262,9 +1279,9 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         } else if (altKeyPressed) {
             // inspect all objects under cusror
             openObjectDialog(filteredObjectsUnderCursor, false);
-        } else if (filteredVehiclesUnderCursor.size() > 0) {
-            // inspect only vehicles
-            openObjectDialog(filteredVehiclesUnderCursor, true);
+        } else if (filteredDemandElements.size() > 0) {
+            // inspect only demand elements
+            openObjectDialog(filteredDemandElements, true);
         } else if (filteredTLSUnderCursor.size() > 0) {
             // inspect only TLSs
             openObjectDialog(filteredTLSUnderCursor, true);
