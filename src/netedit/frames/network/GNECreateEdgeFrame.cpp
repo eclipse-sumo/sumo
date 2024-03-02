@@ -695,6 +695,10 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     } else if (!myLaneTypeAttributes->areValuesValid()) {
         WRITE_WARNING(TL("Invalid lane attributes"));
     } else {
+        // if grid is enabled and currently there isn't a junction under mouse, make a new search snapping position to grid
+        if ((viewObjects.getJunctionFront() == nullptr) && myViewNet->getVisualisationSettings().showGrid) {
+            myViewNet->updateObjectsInPosition(myViewNet->snapToActiveGrid(clickedPosition));
+        }
         // obtain junction depending of gridEnabled
         GNEJunction* junction = viewObjects.getJunctionFront();
         // begin undo list
