@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-01 12:16+0000\n"
+"PO-Revision-Date: 2024-03-04 08:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14536,98 +14536,100 @@ msgstr "Codice identificativo del semaforo"
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Join"
-msgstr ""
+msgstr "Combina"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 msgid "Enable join mode"
-msgstr ""
+msgstr "Attiva modo di combinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Join TLS and junctions in the current junction."
-msgstr ""
+msgstr "Combina semafori e incroci nelL'incrocio attuale."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Disable join mode"
-msgstr ""
+msgstr "Disattiva modo di combinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin"
-msgstr ""
+msgstr "Separa"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "Separa il semaforo attuale"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "Separa il semaforo attuale."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Finish join."
-msgstr ""
+msgstr "Termina combinazione."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Cancel Join."
-msgstr ""
+msgstr "Cancella combinazione."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:957
 msgid "no junction selected"
-msgstr ""
+msgstr "nessun'incrocio selezionato"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:979
 msgid "Junction IDs"
-msgstr ""
+msgstr "codici identificativi di incroci"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1071
 msgid "rename TLS"
-msgstr ""
+msgstr "cambia nome al semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1157
 msgid "change TLS type"
-msgstr ""
+msgstr "cambia tipo del semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1241
 msgid "join TLS"
-msgstr ""
+msgstr "combina semafori"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1303
 msgid "disjoin TLS"
-msgstr ""
+msgstr "separa semafori"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1382
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "Programmi di semafori"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create TLS"
-msgstr ""
+msgstr "Crea semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create a new traffic light program."
-msgstr ""
+msgstr "Crea un nuovo programma di semaforo."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1398
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
+"Rimuove un programma di semaforo. Nel rimuovere tutti i programmi l'incrocio "
+"diventa di tipo prioritario."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset single"
-msgstr ""
+msgstr "Resetta individualmente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "Resetta il programma di semaforo attuale."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all"
-msgstr ""
+msgstr "Resetta tutti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "Resetta tutti i programmi di semaforo."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1407
 msgid "Save program modifications. (Enter)"
