@@ -27,7 +27,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
 
-#include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_Routing.h"
@@ -49,6 +48,8 @@
 #include "MSTransportableDevice_FCD.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Friction.h"
+#include "MSDevice_FCDReplay.h"
+#include "MSDevice.h"
 
 
 // ===========================================================================
@@ -89,6 +90,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Tripinfo::insertOptions(oc);
     MSDevice_Vehroutes::insertOptions(oc);
     MSDevice_Friction::insertOptions(oc);
+    MSDevice_FCDReplay::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
@@ -126,6 +128,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_Taxi::buildVehicleDevices(v, into);
     MSDevice_GLOSA::buildVehicleDevices(v, into);
     MSDevice_Friction::buildVehicleDevices(v, into);
+    MSDevice_FCDReplay::buildVehicleDevices(v, into);
 }
 
 

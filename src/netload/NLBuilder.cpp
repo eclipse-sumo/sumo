@@ -50,6 +50,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <microsim/devices/MSDevice_FCDReplay.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -274,6 +275,8 @@ NLBuilder::build() {
         }
         PROGRESS_TIME_MESSAGE(before);
     }
+    // routes from FCD files
+    MSDevice_FCDReplay::init();
     // load routes
     if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
         if (!load("route-files")) {
