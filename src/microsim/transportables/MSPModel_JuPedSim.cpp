@@ -471,7 +471,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                 myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-#if JPS_VERSION > 110
+#if JPS_VERSION >= 110
                 JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
 #endif
                 removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
