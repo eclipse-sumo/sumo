@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSDevice_FCDReplay.h
+/// @file    MSTransportableDevice_FCDReplay.h
 /// @author  Michael Behrisch
 /// @date    01.03.2024
 ///
@@ -20,22 +20,24 @@
 #pragma once
 #include <config.h>
 
-#include <utils/xml/SUMOSAXHandler.h>
-#include "MSVehicleDevice.h"
+#include "MSTransportableDevice.h"
+#include "MSDevice_FCDReplay.h"
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSDevice_FCDReplay
- * @brief A device which replays a vehiucle trajectory from an fcd file
+ * @class MSTransportableDevice_FCDReplay
+ * @brief A device which collects info on the vehicle trip (mainly on departure and arrival)
  *
- * @see MSDevice
+ * Each device collects departure time, lane and speed and the same for arrival.
+ *
+ * @see MSTransportableDevice
  */
-class MSDevice_FCDReplay : public MSVehicleDevice {
+class MSTransportableDevice_FCDReplay : public MSTransportableDevice {
 public:
-    /** @brief Inserts MSDevice_FCDReplay-options
+    /** @brief Inserts MSTransportableDevice_FCDReplay-options
      * @param[filled] oc The options container to add the options to
      */
     static void insertOptions(OptionsCont& oc);
@@ -43,7 +45,7 @@ public:
 
     /** @brief Build devices for the given vehicle, if needed
      *
-     * The options are read and evaluated whether a FCDReplay-device shall be built
+     * The options are read and evaluated whether a FCD-device shall be built
      *  for the given vehicle.
      *
      * The built device is stored in the given vector.
@@ -51,15 +53,11 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
-
-    /** @brief Static intialization
-     */
-    static void init();
+    static void buildDevices(MSTransportable& t, std::vector<MSTransportableDevice*>& into);
 
 public:
     /// @brief Destructor.
-    ~MSDevice_FCDReplay();
+    ~MSTransportableDevice_FCDReplay();
 
     bool notifyMove(SUMOTrafficObject& veh,
                     double oldPos,
@@ -71,9 +69,7 @@ public:
         return "fcd-replay";
     }
 
-    typedef std::vector<std::tuple<Position, std::string, double, double> > Trajectory;
-
-    void setTrajectory(Trajectory* const t) {
+    void setTrajectory(MSDevice_FCDReplay::Trajectory* const t) {
         myTrajectory = t;
     }
 
@@ -83,41 +79,17 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_FCDReplay(SUMOVehicle& holder, const std::string& id);
-
-    class FCDHandler : public SUMOSAXHandler {
-    public:
-        void addTrafficObjects();
-
-    protected:
-        /// @name inherited from GenericSAXHandler
-        //@{
-
-        /** @brief Called on the opening of a tag
-         *
-         * @param[in] element ID of the currently opened element
-         * @param[in] attrs Attributes within the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myStartElement
-         */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
-        //@}
-    
-    private:
-        SUMOTime myTime;
-        std::map<std::string, Trajectory> myTrajectories;
-        std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector > > myRoutes;
-    };
+    MSTransportableDevice_FCDReplay(MSTransportable& holder, const std::string& id);
 
 private:
-    static FCDHandler myHandler;
-    Trajectory* myTrajectory = nullptr;
+    MSDevice_FCDReplay::Trajectory* myTrajectory = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
-    MSDevice_FCDReplay(const MSDevice_FCDReplay&) = delete;
+    MSTransportableDevice_FCDReplay(const MSTransportableDevice_FCDReplay&);
 
     /// @brief Invalidated assignment operator.
-    MSDevice_FCDReplay& operator=(const MSDevice_FCDReplay&) = delete;
+    MSTransportableDevice_FCDReplay& operator=(const MSTransportableDevice_FCDReplay&);
+
 
 };

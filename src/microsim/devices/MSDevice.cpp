@@ -46,6 +46,7 @@
 #include "MSDevice_ElecHybrid.h"
 #include "MSTransportableDevice_Routing.h"
 #include "MSTransportableDevice_FCD.h"
+#include "MSTransportableDevice_FCDReplay.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Friction.h"
 #include "MSDevice_FCDReplay.h"
@@ -138,6 +139,7 @@ MSDevice::buildTransportableDevices(MSTransportable& p, std::vector<MSTransporta
     MSTransportableDevice_FCD::buildDevices(p, into);
     MSTransportableDevice_BTsender::buildDevices(p, into);
     MSTransportableDevice_BTreceiver::buildDevices(p, into);
+    MSTransportableDevice_FCDReplay::buildDevices(p, into);
 }
 
 

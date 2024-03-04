@@ -46,6 +46,8 @@ set(microsim_devices_STAT_SRCS
    MSTransportableDevice_Routing.h
    MSTransportableDevice_FCD.cpp
    MSTransportableDevice_FCD.h
+   MSTransportableDevice_FCDReplay.cpp
+   MSTransportableDevice_FCDReplay.h
    MSRoutingEngine.cpp
    MSRoutingEngine.h
    MSDispatch.cpp
