@@ -58,6 +58,19 @@ class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
 class GUILane;
 
+/// @brief comparator for resolving clicks
+struct ComparatorClickPriority {
+    bool operator()(const GUIGlObject* const a, const GUIGlObject* const b) const {
+        if (a->getClickPriority() == b->getClickPriority()) {
+            // sorty by GUIGlID as second criterion to simplify
+            // duplicate removal
+            return a->getGlID() > b->getGlID();
+        } else {
+            return a->getClickPriority() > b->getClickPriority();
+        }
+    }
+};
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -176,6 +189,9 @@ public:
 
     /// @brief hook to react on change in visualization settings
     virtual long  onVisualizationChange(FXObject*, FXSelector, void*);
+
+    /// @brief filter out duplicate and forbidden objects
+    std::vector<GUIGlObject*> filterContextObjects(const std::vector<GUIGlObject*>& objects);
 
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor(const FXEvent* ev);

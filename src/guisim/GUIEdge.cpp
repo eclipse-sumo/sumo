@@ -661,4 +661,12 @@ GUIEdge::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
 }
 
+double
+GUIEdge::getClickPriority() const {
+    if (!MSGlobals::gUseMesoSim) {
+        // do not select edgse in meso mode
+        return INVALID_PRIORITY;
+    }
+    return GLO_EDGE;
+}
 /****************************************************************************/

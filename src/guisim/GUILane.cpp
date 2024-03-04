@@ -1595,7 +1595,7 @@ double
 GUILane::getClickPriority() const {
     if (MSGlobals::gUseMesoSim) {
         // do not select lanes in meso mode
-        return -std::numeric_limits<double>::max();
+        return INVALID_PRIORITY;
     }
     if (myEdge->isCrossing()) {
         return GLO_CROSSING;

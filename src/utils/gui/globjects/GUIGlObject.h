@@ -70,6 +70,7 @@ public:
     /// @brief associates object types with strings
     static StringBijection<GUIGlObjectType> TypeNames;
     static const GUIGlID INVALID_ID;
+    static const double INVALID_PRIORITY;
 
     /** @brief Constructor
      *

@@ -138,6 +138,8 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
+    double getClickPriority() const override;
+
     void addTransportable(MSTransportable* t) const override {
         FXMutexLock locker(myLock);
         MSEdge::addTransportable(t);

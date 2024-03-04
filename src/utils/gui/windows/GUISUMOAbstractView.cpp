@@ -1207,6 +1207,18 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
     return 1;
 }
 
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterContextObjects(const std::vector<GUIGlObject*>& objects) {
+    // assume input is sorted with ComparatorClickPriority
+    std::vector<GUIGlObject*> result;
+    for (GUIGlObject* o : objects) {
+        if (o->getClickPriority() != GUIGlObject::INVALID_PRIORITY && (result.empty() || result.back() != o)) {
+            result.push_back(o);
+        }
+    }
+    return result;
+}
+
 
 void
 GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
@@ -1216,80 +1228,19 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
     const bool altKeyPressed = ((ev->state & ALTMASK) != 0);
     // check if SUMO is enabled, initialised and Make OpenGL context current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
-        // get all objects under cusor
         auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
-        // filter elements
-        std::vector<GUIGlObject*> filteredObjectsUnderCursor;
-        std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
-        std::vector<GUIGlObject*> filteredPersonsUnderCursor;
-        std::vector<GUIGlObject*> filteredContainersUnderCursor;
-        std::vector<GUIGlObject*> filteredTLSUnderCursor;
-        for (const auto& GLObject : objectsUnderCursor) {
-            // avoid edges
-            if (GLObject->getType() == GLO_EDGE) {
-                continue;
-            }
-            // avoid duplicated lanes
-            if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
-                continue;
-            }
-            // filter vehicles, person and containers
-            if ((GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
-                filteredPersonsUnderCursor.push_back(GLObject);
-            }
-            if ((GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW)) {
-                filteredContainersUnderCursor.push_back(GLObject);
-            }
-            if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
-                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW)) {
-                filteredVehiclesUnderCursor.push_back(GLObject);
-            }
-            // filter TLSs
-            if (GLObject->getType() == GLO_TLLOGIC) {
-                filteredTLSUnderCursor.push_back(GLObject);
-            }
-            filteredObjectsUnderCursor.push_back(GLObject);
-        }
-        // filter demand elements (persons, container and vehicles)
-        std::vector<GUIGlObject*> filteredDemandElements;
-        for (auto person : filteredPersonsUnderCursor) {
-            filteredDemandElements.push_back(person);
-        }
-        for (auto container : filteredContainersUnderCursor) {
-            filteredContainersUnderCursor.push_back(container);
-        }
-        for (auto vehicle : filteredVehiclesUnderCursor) {
-            filteredVehiclesUnderCursor.push_back(vehicle);
-        }
-        // filter internal lanes
-        filteredObjectsUnderCursor = filterInternalLanes(filteredObjectsUnderCursor);
-        // remove duplicated elements using an unordered set
-        auto itDuplicated = filteredObjectsUnderCursor.begin();
-        std::unordered_set<GUIGlObject*> unorderedSet;
-        for (auto itElement = filteredObjectsUnderCursor.begin(); itElement != filteredObjectsUnderCursor.end(); itElement++) {
-            if (unorderedSet.insert(*itElement).second) {
-                *itDuplicated++ = *itElement;
-            }
-        }
-        filteredObjectsUnderCursor.erase(itDuplicated, filteredObjectsUnderCursor.end());
-        // continue depending of number of objects
-        if (filteredObjectsUnderCursor.empty()) {
-            // if filteredObjectsUnderCursor, inspect net
-            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
-        } else if (altKeyPressed) {
-            // inspect all objects under cursor
-            openObjectDialog(filteredObjectsUnderCursor, false);
-        } else if (filteredDemandElements.size() > 0) {
-            // inspect only demand elements
-            openObjectDialog(filteredDemandElements, true);
-        } else if (filteredTLSUnderCursor.size() > 0) {
-            // inspect only TLSs
-            openObjectDialog(filteredTLSUnderCursor, true);
+        if (objectsUnderCursor.empty()) {
+            myPopup = GUIGlObjectStorage::gIDStorage.getNetObject()->getPopUpMenu(*myApp, *this);
         } else {
-            // inspect objects under cursor
-            openObjectDialog(filteredObjectsUnderCursor, true);
+            std::sort(objectsUnderCursor.begin(), objectsUnderCursor.end(), ComparatorClickPriority());
+            if (altKeyPressed && objectsUnderCursor.size() > 1) {
+                // open dialog for picking among objects (without duplicates)
+                myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, filterContextObjects(objectsUnderCursor));
+            } else {
+                myPopup = objectsUnderCursor.front()->getPopUpMenu(*myApp, *this);
+            }
         }
-        // Make OpenGL context non current
+        openPopupDialog();
         makeNonCurrent();
     }
 }
