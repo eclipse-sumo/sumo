@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-04 08:04+0000\n"
+"PO-Revision-Date: 2024-03-05 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13342,20 +13342,20 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:108
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:123
 msgid "Current selected container isn't valid."
-msgstr ""
+msgstr "Il contenitore attualmente selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:113
 msgid "Current selected container type isn't valid."
-msgstr ""
+msgstr "Il tipo di contenitore attualmente selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:118
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:129
 msgid "Current selected container plan isn't valid."
-msgstr ""
+msgstr "Il piano di contenitori attualmente selezionato è invalido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:262
 msgid "Invalid container parameters."
-msgstr ""
+msgstr "Parametri di contenitori invalidi."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:40
 msgid "ContainerPlans"
@@ -13363,35 +13363,35 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:77
 msgid "Distribution Editor"
-msgstr ""
+msgstr "Editore di distribuzioni"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:83
 msgid "New"
-msgstr ""
+msgstr "Nuovo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:85
 msgid "Create new %"
-msgstr ""
+msgstr "Crea nuovo/a %"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:89
 msgid "Delete current edited %"
-msgstr ""
+msgstr "Rimuovi % attualmente modificato"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:161
 msgid "Distribution selector"
-msgstr ""
+msgstr "Selezione di distribuzioni"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:324
 msgid "Delete distribution value"
-msgstr ""
+msgstr "Rimuovi valore di distribuzione"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:481
 msgid "Distribution values"
-msgstr ""
+msgstr "Valori di distribuzione"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:497
 msgid "Add new distribution value"
-msgstr ""
+msgstr "Aggiungi nuovo valore di distribuzione"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:108
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:123
@@ -13409,15 +13409,15 @@ msgstr "L'itinerario personale selezionato non è valido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:262
 msgid "Invalid person parameters."
-msgstr ""
+msgstr "Parametri di persona invalidi."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:40
 msgid "PersonPlans"
-msgstr ""
+msgstr "Piani di persone"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
 msgid "Route Distributions"
-msgstr ""
+msgstr "Distribuzioni di itinerari"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:71
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:77
