@@ -1277,7 +1277,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             // if filteredObjectsUnderCursor, inspect net
             openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
         } else if (altKeyPressed) {
-            // inspect all objects under cusror
+            // inspect all objects under cursor
             openObjectDialog(filteredObjectsUnderCursor, false);
         } else if (filteredDemandElements.size() > 0) {
             // inspect only demand elements
