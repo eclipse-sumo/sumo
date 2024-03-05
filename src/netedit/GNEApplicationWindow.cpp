@@ -4803,6 +4803,7 @@ GNEApplicationWindow::loadAdditionalElements() {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '") + toString(additionalFiles) + "'");
         // iterate over every additional file
+        bool setSaved = additionalFiles.size() == 1;
         for (const auto& file : additionalFiles) {
             // check if ignore missing imputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
@@ -4815,11 +4816,15 @@ GNEApplicationWindow::loadAdditionalElements() {
                 if (!handler.parse()) {
                     WRITE_ERRORF(TL("Loading of % failed."), file);
                 }
+                setSaved &= !handler.isErrorCreatingElement();
                 // set additionals in SumoConfig
                 setInputInSumoOptions(false, false);
                 // disable validation for additionals
                 XMLSubSys::setValidation("auto", "auto", "auto");
             }
+        }
+        if (setSaved) {
+            myNet->getSavingStatus()->additionalsSaved();
         }
         // end undo list
         myUndoList->end();
