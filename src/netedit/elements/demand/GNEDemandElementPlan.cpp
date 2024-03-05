@@ -368,7 +368,9 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
 void
 GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
     const auto tagProperty = myPlanElement->getTagProperty();
-    if (tagProperty.planFromStoppingPlace()) {
+    // write extra stop element for a stopping place (if this is the first element)
+    if (tagProperty.planFromStoppingPlace()
+            && myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
         device.openTag(SUMO_TAG_STOP);
         const std::string stopID = myPlanElement->getParentAdditionals().front()->getID();
         if (tagProperty.planFromBusStop()) {
