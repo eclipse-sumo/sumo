@@ -107,7 +107,7 @@ void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
     writeOriginStop(device);
     device.openTag(SUMO_TAG_WALK);
-    writePlanAttributes(device);
+    writeLocationAttributes(device);
     device.closeTag();
 }
 

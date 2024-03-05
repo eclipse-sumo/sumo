@@ -89,7 +89,7 @@ void
 GNETranship::writeDemandElement(OutputDevice& device) const {
     writeOriginStop(device);
     device.openTag(SUMO_TAG_TRANSHIP);
-    writePlanAttributes(device);
+    writeLocationAttributes(device);
     device.closeTag();
 }
 

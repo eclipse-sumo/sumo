@@ -307,7 +307,7 @@ GNEDemandElementPlan::getPlanMoveOperation() {
 
 
 void
-GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
+GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
     const auto tagProperty = myPlanElement->getTagProperty();
     // write attributes depending of parent elements
     if (tagProperty.planConsecutiveEdges()) {

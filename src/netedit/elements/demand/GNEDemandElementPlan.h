@@ -89,7 +89,7 @@ protected:
     GNEMoveOperation* getPlanMoveOperation();
 
     /// @brief write plan element common attributes
-    void writePlanAttributes(OutputDevice& device) const;
+    void writeLocationAttributes(OutputDevice& device) const;
 
     /// @brief write initial stop stage if plan starts at a stopping place
     void writeOriginStop(OutputDevice& device) const;

@@ -98,7 +98,7 @@ GNEStopPlan::getMoveOperation() {
 void
 GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
-    writePlanAttributes(device);
+    writeLocationAttributes(device);
     // write stop attributes
     if (isAttributeEnabled(SUMO_ATTR_DURATION)) {
         device.writeAttr(SUMO_ATTR_DURATION, getAttribute(SUMO_ATTR_DURATION));

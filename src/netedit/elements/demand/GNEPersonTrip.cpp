@@ -99,7 +99,7 @@ void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     writeOriginStop(device);
     device.openTag(SUMO_TAG_PERSONTRIP);
-    writePlanAttributes(device);
+    writeLocationAttributes(device);
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
     }

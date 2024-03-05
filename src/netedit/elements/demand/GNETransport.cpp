@@ -83,7 +83,7 @@ void
 GNETransport::writeDemandElement(OutputDevice& device) const {
     writeOriginStop(device);
     device.openTag(SUMO_TAG_TRANSPORT);
-    writePlanAttributes(device);
+    writeLocationAttributes(device);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
