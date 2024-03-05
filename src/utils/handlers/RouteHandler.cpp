@@ -307,8 +307,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                             obj->getStringAttribute(SUMO_ATTR_FROM),
                             obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
                             obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                            obj->getStringAttribute(SUMO_ATTR_FROM_BUSSTOP),
-                            obj->getStringAttribute(SUMO_ATTR_FROM_TRAINSTOP),
+                            obj->getStringAttribute(GNE_ATTR_FROM_BUSSTOP),
+                            obj->getStringAttribute(GNE_ATTR_FROM_TRAINSTOP),
                             obj->getStringAttribute(SUMO_ATTR_TO),
                             obj->getStringAttribute(SUMO_ATTR_TO_TAZ),
                             obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION),
@@ -322,8 +322,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_RIDE:
             buildRide(obj,
                       obj->getStringAttribute(SUMO_ATTR_FROM),
-                      obj->getStringAttribute(SUMO_ATTR_FROM_BUSSTOP),
-                      obj->getStringAttribute(SUMO_ATTR_FROM_TRAINSTOP),
+                      obj->getStringAttribute(GNE_ATTR_FROM_BUSSTOP),
+                      obj->getStringAttribute(GNE_ATTR_FROM_TRAINSTOP),
                       obj->getStringAttribute(SUMO_ATTR_TO),
                       obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
                       obj->getStringAttribute(SUMO_ATTR_TRAIN_STOP),
@@ -335,8 +335,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                       obj->getStringAttribute(SUMO_ATTR_FROM),
                       obj->getStringAttribute(SUMO_ATTR_FROM_TAZ),
                       obj->getStringAttribute(SUMO_ATTR_FROM_JUNCTION),
-                      obj->getStringAttribute(SUMO_ATTR_FROM_BUSSTOP),
-                      obj->getStringAttribute(SUMO_ATTR_FROM_TRAINSTOP),
+                      obj->getStringAttribute(GNE_ATTR_FROM_BUSSTOP),
+                      obj->getStringAttribute(GNE_ATTR_FROM_TRAINSTOP),
                       obj->getStringAttribute(SUMO_ATTR_TO),
                       obj->getStringAttribute(SUMO_ATTR_TO_TAZ),
                       obj->getStringAttribute(SUMO_ATTR_TO_JUNCTION),
@@ -359,7 +359,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_TRANSPORT:
             buildTransport(obj,
                            obj->getStringAttribute(SUMO_ATTR_FROM),
-                           obj->getStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP),
+                           obj->getStringAttribute(GNE_ATTR_FROM_CONTAINERSTOP),
                            obj->getStringAttribute(SUMO_ATTR_TO),
                            obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                            obj->getStringListAttribute(SUMO_ATTR_LINES),
@@ -368,7 +368,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_TRANSHIP:
             buildTranship(obj,
                           obj->getStringAttribute(SUMO_ATTR_FROM),
-                          obj->getStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP),
+                          obj->getStringAttribute(GNE_ATTR_FROM_CONTAINERSTOP),
                           obj->getStringAttribute(SUMO_ATTR_TO),
                           obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
@@ -742,9 +742,9 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
     const std::string toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, "", parsedOk, "");
     const std::string fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
     const std::string toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, "", parsedOk, "");
-    const std::string fromBusStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_BUSSTOP, "", parsedOk, "");
+    const std::string fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, "", parsedOk, "");
     const std::string toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
-    const std::string fromTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
+    const std::string fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
     const std::string toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
     const std::vector<std::string> via = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VIA, "", parsedOk);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, "", parsedOk);
@@ -769,9 +769,9 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_TAZ, toTAZ);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, fromJunction);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_JUNCTION, toJunction);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_BUSSTOP, fromBusStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_BUSSTOP, fromBusStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, toBusStop);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_TRAINSTOP, fromTrainStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_TRAINSTOP, fromTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TRAIN_STOP, toTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_MODES, modes);
@@ -795,9 +795,9 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     const std::string toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, "", parsedOk, "");
     const std::string fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
     const std::string toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, "", parsedOk, "");
-    const std::string fromBusStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_BUSSTOP, "", parsedOk, "");
+    const std::string fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, "", parsedOk, "");
     const std::string toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
-    const std::string fromTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
+    const std::string fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
     const std::string toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
     const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, "", parsedOk, 0);
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
@@ -816,9 +816,9 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_TAZ, toTAZ);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, fromJunction);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO_JUNCTION, toJunction);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_BUSSTOP, fromBusStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_BUSSTOP, fromBusStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, toBusStop);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_TRAINSTOP, fromTrainStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_TRAINSTOP, fromTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TRAIN_STOP, toTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DURATION, duration);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
@@ -836,9 +836,9 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::string fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
     const std::string toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
-    const std::string fromBusStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_BUSSTOP, "", parsedOk, "");
+    const std::string fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, "", parsedOk, "");
     const std::string toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
-    const std::string fromTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
+    const std::string fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
     const std::string toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
@@ -848,9 +848,9 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, fromEdge);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, toEdge);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_BUSSTOP, fromBusStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_BUSSTOP, fromBusStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, toBusStop);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_TRAINSTOP, fromTrainStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_TRAINSTOP, fromTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TRAIN_STOP, toTrainStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
@@ -895,7 +895,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::string fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
     const std::string toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
-    const std::string fromContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
+    const std::string fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
     const std::string toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
@@ -905,7 +905,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, fromEdge);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, toEdge);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, toContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
@@ -921,7 +921,7 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
     const std::string fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
     const std::string toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
-    const std::string fromContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
+    const std::string fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
     const std::string toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
@@ -933,7 +933,7 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, fromEdge);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, toEdge);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(GNE_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, toContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);

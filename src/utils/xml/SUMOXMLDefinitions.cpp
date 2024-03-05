@@ -844,9 +844,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "trainStop",              SUMO_ATTR_TRAIN_STOP },
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
-    { "fromBusStop",            SUMO_ATTR_FROM_BUSSTOP },
-    { "fromTrainStop",          SUMO_ATTR_FROM_TRAINSTOP },
-    { "fromContainerStop",      SUMO_ATTR_FROM_CONTAINERSTOP },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
     { "onRoad",                 SUMO_ATTR_ONROAD },
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION },
@@ -1066,6 +1063,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "planGeometryEndPos",                 GNE_ATTR_PLAN_GEOMETRY_ENDPOS },
     { "fromLaneID",                         GNE_ATTR_FROM_LANEID },
     { "toLaneID",                           GNE_ATTR_TO_LANEID },
+    // mapped to additioanl elements on writing
+    { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
+    { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
+    { "fromContainerStop",                  GNE_ATTR_FROM_CONTAINERSTOP },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

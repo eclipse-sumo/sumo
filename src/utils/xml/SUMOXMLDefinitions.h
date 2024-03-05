@@ -1211,9 +1211,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_TRAIN_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
-    SUMO_ATTR_FROM_BUSSTOP,
-    SUMO_ATTR_FROM_TRAINSTOP,
-    SUMO_ATTR_FROM_CONTAINERSTOP,
     SUMO_ATTR_ROADSIDE_CAPACITY,
     SUMO_ATTR_ONROAD,
     SUMO_ATTR_CHARGING_STATION,
@@ -1518,6 +1515,11 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_LANEID,
     /// @brief to lane ID (used in GNEConnection)
     GNE_ATTR_TO_LANEID,
+
+    // virtual attributes for easier UI
+    GNE_ATTR_FROM_BUSSTOP,
+    GNE_ATTR_FROM_TRAINSTOP,
+    GNE_ATTR_FROM_CONTAINERSTOP,
     // @}
 
     /// @name train parameters

@@ -6582,19 +6582,19 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromBusStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_BUSSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("BuStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromTrainStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_TRAINSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_TRAINSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("TrainStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planFromContainerStop()) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_CONTAINERSTOP,
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CONTAINERSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("ContainerStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);

@@ -334,11 +334,11 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
             } else if (tagProperty.planFromJunction()) {
                 device.writeAttr(SUMO_ATTR_FROM_JUNCTION, myPlanElement->getParentJunctions().front()->getID());
             } else if (tagProperty.planFromBusStop()) {
-                device.writeAttr(SUMO_ATTR_FROM_BUSSTOP, myPlanElement->getParentAdditionals().front()->getID());
+                device.writeAttr(GNE_ATTR_FROM_BUSSTOP, myPlanElement->getParentAdditionals().front()->getID());
             } else if (tagProperty.planFromTrainStop()) {
-                device.writeAttr(SUMO_ATTR_FROM_TRAINSTOP, myPlanElement->getParentAdditionals().front()->getID());
+                device.writeAttr(GNE_ATTR_FROM_TRAINSTOP, myPlanElement->getParentAdditionals().front()->getID());
             } else if (tagProperty.planFromContainerStop()) {
-                device.writeAttr(SUMO_ATTR_FROM_CONTAINERSTOP, myPlanElement->getParentAdditionals().front()->getID());
+                device.writeAttr(GNE_ATTR_FROM_CONTAINERSTOP, myPlanElement->getParentAdditionals().front()->getID());
             }
         }
         // continue writting to attribute
@@ -643,8 +643,8 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FROM_JUNCTION:
             return myPlanElement->getParentJunctions().front()->getID();
         case SUMO_ATTR_FROM_TAZ:
-        case SUMO_ATTR_FROM_BUSSTOP:
-        case SUMO_ATTR_FROM_TRAINSTOP:
+        case GNE_ATTR_FROM_BUSSTOP:
+        case GNE_ATTR_FROM_TRAINSTOP:
             return myPlanElement->getParentAdditionals().front()->getID();
         // to elements
         case SUMO_ATTR_TO:
@@ -888,8 +888,8 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_FROM_JUNCTION:
         case SUMO_ATTR_FROM_TAZ:
-        case SUMO_ATTR_FROM_BUSSTOP:
-        case SUMO_ATTR_FROM_TRAINSTOP:
+        case GNE_ATTR_FROM_BUSSTOP:
+        case GNE_ATTR_FROM_TRAINSTOP:
         // to
         case SUMO_ATTR_TO:
         case SUMO_ATTR_TO_JUNCTION:
