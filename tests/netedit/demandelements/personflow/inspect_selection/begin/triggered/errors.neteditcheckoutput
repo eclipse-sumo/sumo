@@ -1,2 +1,2 @@
-Error: Triggered departure for personFlow 'pf_0' requires starting with a ride.
+Error: Unknown vehicle 'ANY' in triggered departure for person 'pf_0'.
 Quitting (on error).
