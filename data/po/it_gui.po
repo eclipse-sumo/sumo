@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-05 09:13+0000\n"
+"PO-Revision-Date: 2024-03-05 16:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16173,11 +16173,11 @@ msgstr "Mostra indicatori di direzione / luci di freno"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1909
 msgid "Show minimum gap"
-msgstr ""
+msgstr "Mostra distanza longitudinale minima"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1911
 msgid "Show brake gap"
-msgstr ""
+msgstr "Mostra distanza di arresto"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1913
 msgid "Show Bluetooth range"
@@ -16189,7 +16189,7 @@ msgstr "Mostra indice dell'itinerario"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1917
 msgid "Scale length with geometry"
-msgstr ""
+msgstr "Gradua la lunghezza con la geometria"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1919
 msgid "Show parking info"
