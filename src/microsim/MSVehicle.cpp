@@ -3802,7 +3802,7 @@ MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
 #ifdef DEBUG_TRACI
         if DEBUG_COND2(this) {
             std::cout << SIMTIME << " MSVehicle::processTraCISpeedControl() for vehicle '" << getID() << "'"
-                      << " vSafe=" << vSafe << " (init)vNext=" << vNext;
+                      << " vSafe=" << vSafe << " (init)vNext=" << vNext << " keepStopping=" << keepStopping();
         }
 #endif
         if (myInfluencer->isRemoteControlled()) {
@@ -3814,6 +3814,10 @@ MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
             vMin = MAX2(0., vMin);
         }
         vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
+        if (keepStopping() && myStops.front().getSpeed() == 0) {
+            // avoid driving while stopped (unless it's actually a waypoint
+            vNext = myInfluencer->getOriginalSpeed();
+        }
 #ifdef DEBUG_TRACI
         if DEBUG_COND2(this) {
             std::cout << " (processed)vNext=" << vNext << std::endl;
