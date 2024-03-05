@@ -201,25 +201,13 @@ GNERide::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathM
 
 GNELane*
 GNERide::getFirstPathLane() const {
-    // get previous plan
-    const auto previousPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-    if (previousPlan) {
-        // sue the last pathLane of previous plan
-        return previousPlan->getLastPathLane();
-    } else {
-        return getParentEdges().front()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
-    }
+    return getFirstPlanPathLane();
 }
 
 
 GNELane*
 GNERide::getLastPathLane() const {
-    // check if personPlan ends in a BusStop
-    if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentLanes().front();
-    } else {
-        return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
-    }
+    return getLastPlanPathLane();
 }
 
 
