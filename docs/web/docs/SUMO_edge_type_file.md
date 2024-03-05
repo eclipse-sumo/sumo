@@ -107,7 +107,7 @@ the following attributes:
   Wikipedia lists the [Speed limits by
   country](https://en.wikipedia.org/wiki/Speed_limits_by_country).
 
-The right values are hard to find. Because they depend at least partly
+The right values are hard to find, because they depend at least partly
 on the legislation (maxspeed, for example); the values vary from country
 to country. Further context information, like the fact whether a road is
 inside or outside a city border, may determine the defaults as well. In
