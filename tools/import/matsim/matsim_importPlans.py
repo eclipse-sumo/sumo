@@ -69,12 +69,12 @@ def get_options(args=None):
     return options
 
 
-def getLocation(options, activity, attr, prj = None):
+def getLocation(options, activity, attr, prj=None):
     if activity.link and (not options.prefer_coordinate or not activity.x):
         return '%s="%s"' % (attr, activity.link)
     elif activity.x and activity.y:
         if prj:
-            lon, lat = prj(activity.x, activity.y, inverse = True)
+            lon, lat = prj(activity.x, activity.y, inverse=True)
             if attr == "edge":
                 return 'lon="%s" lat="%s"' % (lon, lat)
             else:
@@ -116,10 +116,10 @@ def main(options):
                     try:
                         prj = pyproj.Proj(projName)
                     except pyproj.exceptions.CRSError as e:
-                        print("Warning: Could not interpret coordinate system '%s' (%s)" % (projName, e), file=sys.stderr)
+                        print("Warning: Could not interpret coordinate system '%s' (%s)" % (
+                            projName, e), file=sys.stderr)
                 except ImportError:
                     print("Warning: install pyproj to support input with coordinates", file=sys.stderr)
-
 
     persons = []  # (depart, xmlsnippet)
     for person in sumolib.xml.parse(options.plan_file, 'person'):
@@ -133,7 +133,7 @@ def main(options):
         if depart is None:
             depart = options.default_start
         attributes = person.attributes[0] if person.attributes else None
-        
+
         # write vehicles
         vehicleslist = []
         untillist = []
@@ -148,24 +148,24 @@ def main(options):
                     leg = lastLeg
                     leg.dep_time = lastAct.end_time
                     writeLeg(outf, options, idveh, leg,
-                            getLocation(options, lastAct, "from", prj),
-                            getLocation(options, item, "to", prj))
+                             getLocation(options, lastAct, "from", prj),
+                             getLocation(options, item, "to", prj))
                     lastLeg = None
                 # set missing end_time:
                 if not item.end_time:
                     if item.start_time and item.max_dur:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(item.start_time) + 
+                                sumolib.miscutils.parseTime(item.start_time) +
                                 sumolib.miscutils.parseTime(item.max_dur)
                         )
                     elif item.start_time:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(item.start_time) + 
+                                sumolib.miscutils.parseTime(item.start_time) +
                                 sumolib.miscutils.parseTime(options.default_dur)
                         )
                     elif item.max_dur and leg:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(leg.dep_time) + 
+                                sumolib.miscutils.parseTime(leg.dep_time) +
                                 sumolib.miscutils.parseTime(options.default_dur) +
                                 sumolib.miscutils.parseTime(item.max_dur)
                         )
@@ -184,7 +184,7 @@ def main(options):
                 vehicleslist.append(idveh if leg.mode != "pt" else "pt")
                 vehIndex += 1
         untillist.append(lastAct.end_time if lastAct.end_time else options.default_end)
-        
+
         # write person
         if not options.vehicles_only:
             vehIndex = 0
@@ -205,7 +205,7 @@ def main(options):
                         elif lastLeg.mode in ("walk", "transit_walk"):
                             outf.write('        <walk %s/>\n' % end)
                         else:
-                            outf.write('        <ride lines="%s" %s/>\n' % ( vehicleslist[vehIndex], end))
+                            outf.write('        <ride lines="%s" %s/>\n' % (vehicleslist[vehIndex], end))
                         vehIndex += 1
                     until = untillist[vehIndex]
                     if until:
