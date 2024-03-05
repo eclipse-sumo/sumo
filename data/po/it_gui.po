@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-05 09:01+0000\n"
+"PO-Revision-Date: 2024-03-05 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16153,23 +16153,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1898
 msgid "Show vehicle id"
-msgstr ""
+msgstr "Mostra il codice identificativo del veicolo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1899
 msgid "Show vehicle color value"
-msgstr ""
+msgstr "Mostra il valore di colore del veicolo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1900
 msgid "Show vehicle scale value"
-msgstr ""
+msgstr "Mostra il valore di scala del veicolo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1901
 msgid "Show vehicle text param"
-msgstr ""
+msgstr "Mostra il parametro di testo del veicolo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1907
 msgid "Show blinker / brake lights"
-msgstr ""
+msgstr "Mostra indicatori di direzione / luci di freno"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1909
 msgid "Show minimum gap"
@@ -16181,11 +16181,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1913
 msgid "Show Bluetooth range"
-msgstr "Mostri raggio Bluetooth"
+msgstr "Mostra raggio Bluetooth"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1915
 msgid "Show route index"
-msgstr "Mostri indice dell'itinerario"
+msgstr "Mostra indice dell'itinerario"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1917
 msgid "Scale length with geometry"
