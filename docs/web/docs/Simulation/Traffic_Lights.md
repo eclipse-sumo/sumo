@@ -503,7 +503,7 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
 ```xml
 <tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
-   <condition id="C4" value="C3 and z:det6 < 2"/>
+   <condition id="C4" value="C3 and z:det6 &lt; 2"/>
    <condition id="C5" value="g:3 > 20"/>
    ...
 ```
