@@ -23,12 +23,12 @@ SPDX-License-Identifier: EPL-2.0
     <time>
         <begin value="0"/>
         <end value="3000"/>
+	    <step-length value="0.1" />
     </time>
 
     <processing>
         <default.speeddev value="0"/>
         <step-method.ballistic value="true" />
-	    <step-length value="0.1" />
     </processing>
 
     <report>
