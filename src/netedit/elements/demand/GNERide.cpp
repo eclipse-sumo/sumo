@@ -87,17 +87,14 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    writeOriginStop(device);
     device.openTag(SUMO_TAG_RIDE);
-    // write plan attributes
     writePlanAttributes(device);
-    // write lines
     if (myLines.empty()) {
         device.writeAttr(SUMO_ATTR_LINES, "ANY");
     } else {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // close tag
     device.closeTag();
 }
 

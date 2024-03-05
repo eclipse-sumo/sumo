@@ -97,23 +97,18 @@ GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    writeOriginStop(device);
     device.openTag(SUMO_TAG_PERSONTRIP);
-    // write plan attributes
     writePlanAttributes(device);
-    // write modes
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
     }
-    // write lines
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // write vTypes
     if (myVTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
     }
-    // close tag
     device.closeTag();
 }
 

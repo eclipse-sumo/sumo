@@ -308,7 +308,6 @@ GNEDemandElementPlan::getPlanMoveOperation() {
 
 void
 GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
-    // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // write attributes depending of parent elements
     if (tagProperty.planConsecutiveEdges()) {
@@ -333,13 +332,8 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
                 device.writeAttr(SUMO_ATTR_FROM_TAZ, myPlanElement->getParentAdditionals().front()->getID());
             } else if (tagProperty.planFromJunction()) {
                 device.writeAttr(SUMO_ATTR_FROM_JUNCTION, myPlanElement->getParentJunctions().front()->getID());
-            } else if (tagProperty.planFromBusStop()) {
-                device.writeAttr(GNE_ATTR_FROM_BUSSTOP, myPlanElement->getParentAdditionals().front()->getID());
-            } else if (tagProperty.planFromTrainStop()) {
-                device.writeAttr(GNE_ATTR_FROM_TRAINSTOP, myPlanElement->getParentAdditionals().front()->getID());
-            } else if (tagProperty.planFromContainerStop()) {
-                device.writeAttr(GNE_ATTR_FROM_CONTAINERSTOP, myPlanElement->getParentAdditionals().front()->getID());
             }
+            // origin stopping places are transformed into an intial stop stage (see writeOriginStop)
         }
         // continue writting to attribute
         if (tagProperty.planToEdge()) {
@@ -367,6 +361,25 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
     // check if write end position
     if (tagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
         device.writeAttr(SUMO_ATTR_ENDPOS, myArrivalPosition);
+    }
+}
+
+
+void
+GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
+    const auto tagProperty = myPlanElement->getTagProperty();
+    if (tagProperty.planFromStoppingPlace()) {
+        device.openTag(SUMO_TAG_STOP);
+        const std::string stopID = myPlanElement->getParentAdditionals().front()->getID();
+        if (tagProperty.planFromBusStop()) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, stopID);
+        } else if (tagProperty.planFromTrainStop()) {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, stopID);
+        } else if (tagProperty.planFromContainerStop()) {
+            device.writeAttr(SUMO_ATTR_CONTAINER_STOP, stopID);
+        }
+        device.writeAttr(SUMO_ATTR_DURATION, 0);
+        device.closeTag();
     }
 }
 

@@ -105,11 +105,9 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    writeOriginStop(device);
     device.openTag(SUMO_TAG_WALK);
-    // write plan attributes
     writePlanAttributes(device);
-    // close tag
     device.closeTag();
 }
 

@@ -91,6 +91,9 @@ protected:
     /// @brief write plan element common attributes
     void writePlanAttributes(OutputDevice& device) const;
 
+    /// @brief write initial stop stage if plan starts at a stopping place
+    void writeOriginStop(OutputDevice& device) const;
+
     /// @brief Returns an own popup-menu
     GUIGLObjectPopupMenu* getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 

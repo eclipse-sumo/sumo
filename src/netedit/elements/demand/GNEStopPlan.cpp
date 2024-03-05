@@ -97,9 +97,7 @@ GNEStopPlan::getMoveOperation() {
 
 void
 GNEStopPlan::writeDemandElement(OutputDevice& device) const {
-    // open tag
     device.openTag(SUMO_TAG_STOP);
-    // write plan attributes
     writePlanAttributes(device);
     // write stop attributes
     if (isAttributeEnabled(SUMO_ATTR_DURATION)) {
@@ -114,7 +112,6 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS) && myFriendlyPos) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
-    // close tag
     device.closeTag();
 }
 

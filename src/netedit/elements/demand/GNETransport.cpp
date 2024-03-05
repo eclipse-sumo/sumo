@@ -81,15 +81,12 @@ GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETransport::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    writeOriginStop(device);
     device.openTag(SUMO_TAG_TRANSPORT);
-    // write plan attributes
     writePlanAttributes(device);
-    // write lines
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // close tag
     device.closeTag();
 }
 
