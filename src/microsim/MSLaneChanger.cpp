@@ -1845,7 +1845,7 @@ MSLaneChanger::resolveDeadlock(MSVehicle* vehicle,
                 std::cout << SIMTIME << " veh=" << vehicle->getID() << " resolveDeadlock"
                           << " leader=" << leader.first->getID()
                           << " leaderGap=" << leader.second
-                          << " oncoming=" << oncomingOpposite.first->getID()
+                          << " oncoming=" << Named::getIDSecure(oncomingOpposite.first)
                           << " currentDist=" << currentDist
                           << " blockerLength=" << blockerLength
                           << " reserved=" << reserved
