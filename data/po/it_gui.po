@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-06 07:50+0000\n"
+"PO-Revision-Date: 2024-03-06 12:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12951,23 +12951,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Common move options"
-msgstr ""
+msgstr "Opzioni comuni di spostamento"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:72
 msgid "Allow change lanes"
-msgstr ""
+msgstr "Permetti cambio corsia"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:75
 msgid "Merge geometry points"
-msgstr ""
+msgstr "Combina punti geometrici"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:99
 msgid "Network move options"
-msgstr ""
+msgstr "Opzioni di spostamento della rete"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:102
 msgid "Move whole polygons"
-msgstr ""
+msgstr "Sposta poligoni interi"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:105
 msgid "Force draw geom. points"
