@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-05 16:46+0000\n"
+"PO-Revision-Date: 2024-03-06 07:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12724,18 +12724,23 @@ msgstr "- Segni come elemento frontale: Verrà disegnato sopra tutti gli altri\n
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:369
 msgid "- Block movement: disable movement in move mode\n"
 msgstr ""
+"- Blocca spostamenti: disattiva ogni spostamento nel modo di spostamento\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:370
 msgid ""
 "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
 "can be moved'.\n"
 msgstr ""
+"- Blocca forme: Disattiva modifiche delle forme. Le forme complete possono "
+"comunque essere spostate.\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
 msgstr ""
+"- Chiudi forma: Aggiungi o rimuovi l'ultimo punto alla stessa posizione del "
+"primo arco."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
 msgid "GEO Attributes"
