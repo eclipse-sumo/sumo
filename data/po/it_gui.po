@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-06 12:30+0000\n"
+"PO-Revision-Date: 2024-03-06 12:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12279,40 +12279,40 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:56
 msgid "Use selected"
-msgstr ""
+msgstr "Usa selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:63
 msgid "-Click over an edge to select"
-msgstr ""
+msgstr "-Clicca sopra un arco per selezionarlo"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
-msgstr ""
+msgstr "-Clicca sopra una corsia per selezionarla"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:74
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:183
 msgid "Invalid NetworkElementType"
-msgstr ""
+msgstr "Elemento di rete invalido"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
-msgstr ""
+msgstr "Elementi sovrapposti"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:62
 msgid "Overlapped "
-msgstr ""
+msgstr "Sovrapposto: "
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:289
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "Aiuto per attributi geografici"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:292
 msgid " - Click in the same position"
-msgstr ""
+msgstr " - Clicca sulla stessa posizione"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:293
 msgid "   for inspect next element"
-msgstr ""
+msgstr "   per ispezionare il prossimo elemento"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:294
 msgid " - Shift + Click in the same"
@@ -12324,7 +12324,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:296
 msgid "   previous element"
-msgstr ""
+msgstr "   elemento precedente"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:127
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:155
@@ -12362,47 +12362,47 @@ msgstr "Mostra gli archi candidati"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:151
 msgid "SHIFT-click: ignore vClass"
-msgstr ""
+msgstr "SHIFT-clic: ignora classe di veicoli"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
 msgid "CTRL-click: force add"
-msgstr ""
+msgstr "CTRL-clic: aggiungi forzatamente"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:159
 msgid "BACKSPACE: undo click"
-msgstr ""
+msgstr "BACKSPACE: annulla clic"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:277
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:948
 msgid "Double junctions aren't allowed"
-msgstr ""
+msgstr "Gli incroci raddoppiati non sono permessi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:285
 msgid "Only two junctions are allowed"
-msgstr ""
+msgstr "Solamente due incroci sono permessi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:324
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:982
 msgid "Double TAZs aren't allowed"
-msgstr ""
+msgstr "Zone di aggregazione del traffico raddoppiate non sono permesse"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:332
 msgid "Only two TAZs are allowed"
-msgstr ""
+msgstr "Solamente due zone di aggregazione del traffico sono permesse"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:367
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:924
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1016
 msgid "Double edges aren't allowed"
-msgstr ""
+msgstr "Archi raddoppiati non sono permessi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:377
 msgid "Only consecutives edges are allowed"
-msgstr ""
+msgstr "Solamente due archi consecutivi sono permessi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:386
 msgid "Only two edges are allowed"
-msgstr ""
+msgstr "Solamente due archi sono permessi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:395
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
