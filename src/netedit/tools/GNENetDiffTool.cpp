@@ -114,9 +114,9 @@ GNENetDiffTool::getCommand() const {
     // declare arguments
     std::string arguments;
     // add arguments
-    arguments += (myPythonToolsOptions.getString("original-net") + " ");
-    arguments += (myPythonToolsOptions.getString("modified-net") + " ");
-    arguments += myPythonToolsOptions.getString("outprefix") + " ";
+    arguments += "\"" + myPythonToolsOptions.getString("original-net") + "\" ";
+    arguments += "\"" + myPythonToolsOptions.getString("modified-net") + "\" ";
+    arguments += "\"" + myPythonToolsOptions.getString("outprefix")    + "\" ";
     // check if save selection
     if (myPythonToolsOptions.getBool("select-modified") ||
             myPythonToolsOptions.getBool("select-added") ||
