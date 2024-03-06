@@ -1889,7 +1889,10 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
     const MSVehicle* oncomingVeh = oncoming.first;
     if (oncomingVeh != 0) {
         if (!oncomingVeh->getLaneChangeModel().isOpposite() && oncomingVeh->getLaneChangeModel().getShadowLane() != source) {
-            const double egoSpeedFraction = MIN2(0.5, vMax / (vMax + oncomingSpeed));
+            double egoSpeedFraction = 0.5;
+            if (oncomingSpeed > 0) {
+                egoSpeedFraction = MIN2(egoSpeedFraction, vMax / (vMax + oncomingSpeed));
+            }
             oppositeLength = MIN2(oppositeLength, forwardPos + oncoming.second * egoSpeedFraction);
 #ifdef DEBUG_CHANGE_OPPOSITE
             if (DEBUG_COND) {
