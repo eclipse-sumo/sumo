@@ -21,8 +21,19 @@
 
 #include <utils/options/OptionsCont.h>
 #include <libsumo/Helper.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/MSNet.h>
+#include <microsim/transportables/MSStageWalking.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include "MSTransportableDevice_FCDReplay.h"
+
+
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+bool MSTransportableDevice_FCDReplay::myAmActive = false;
+
 
 // ===========================================================================
 // method definitions
@@ -42,6 +53,10 @@ MSTransportableDevice_FCDReplay::buildDevices(MSTransportable& t, std::vector<MS
     if (equippedByDefaultAssignmentOptions(oc, "fcd-replay", t, oc.isSet("device.fcd-replay.file"), true)) {
         MSTransportableDevice_FCDReplay* device = new MSTransportableDevice_FCDReplay(t, "fcdReplay_" + t.getID());
         into.push_back(device);
+        if (!myAmActive) {
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(), SIMSTEP + DELTA_T);
+            myAmActive = true;
+        }
     }
 }
 
@@ -58,18 +73,28 @@ MSTransportableDevice_FCDReplay::~MSTransportableDevice_FCDReplay() {
 }
 
 
-bool
-MSTransportableDevice_FCDReplay::notifyMove(SUMOTrafficObject& t,
-                         double /*oldPos*/,
-                         double /*newPos*/,
-                         double /*newSpeed*/) {
-    if (myTrajectory == nullptr || myTrajectory->empty()) {
-        // TODO remove person
-        return false;
+SUMOTime
+MSTransportableDevice_FCDReplay::MovePedestrians::execute(SUMOTime /* currentTime */) {
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
+    for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
+        MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(i->second->getDevice(typeid(MSTransportableDevice_FCDReplay)));
+        if (device != nullptr) {
+            device->move();
+        }
     }
-    MSPerson* person = dynamic_cast<MSPerson*>(&t);
-    if (person == nullptr) {
-        return false;
+    return DELTA_T;
+}
+
+
+void
+MSTransportableDevice_FCDReplay::move() {
+    MSPerson* person = dynamic_cast<MSPerson*>(&myHolder);
+    if (person == nullptr || !person->hasDeparted()) {
+        return;
+    }
+    if (myTrajectory == nullptr || myTrajectory->empty()) {
+        myHolder.removeStage(0, false);
+        return;
     }
     const auto& p = myTrajectory->front();
     MSLane* lane = nullptr;
@@ -79,18 +104,13 @@ MSTransportableDevice_FCDReplay::notifyMove(SUMOTrafficObject& t,
     int routeOffset = 0;
     ConstMSEdgeVector edges;
     libsumo::Helper::moveToXYMap_matchingRoutePosition(std::get<0>(p), std::get<1>(p),
-            {person->getEdge()}, 0,
+            static_cast<MSStageWalking*>(person->getCurrentStage())->getRoute(), person->getRoutePosition(),
             person->getVehicleType().getVehicleClass(), true,
             bestDistance, &lane, lanePos, routeOffset);
     libsumo::Helper::setRemoteControlled(person, std::get<0>(p), lane, std::get<2>(p), lanePosLat,
                                          libsumo::INVALID_DOUBLE_VALUE, routeOffset, edges, SIMSTEP);
     // person->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
-    if (myTrajectory->empty()) {
-        // TODO remove person
-        return false;
-    }
-    return true;
 }
 
 

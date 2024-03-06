@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/Command.h>
 #include "MSTransportableDevice.h"
 #include "MSDevice_FCDReplay.h"
 
@@ -59,11 +60,6 @@ public:
     /// @brief Destructor.
     ~MSTransportableDevice_FCDReplay();
 
-    bool notifyMove(SUMOTrafficObject& veh,
-                    double oldPos,
-                    double newPos,
-                    double newSpeed);
-
     /// @brief return the name for this type of device
     const std::string deviceName() const {
         return "fcd-replay";
@@ -73,6 +69,8 @@ public:
         myTrajectory = t;
     }
 
+    void move();
+
 private:
     /** @brief Constructor
      *
@@ -81,8 +79,19 @@ private:
      */
     MSTransportableDevice_FCDReplay(MSTransportable& holder, const std::string& id);
 
+    class MovePedestrians : public Command {
+    public:
+        SUMOTime execute(SUMOTime currentTime);
+    private:
+        /// @brief Invalidated assignment operator.
+        MovePedestrians& operator=(const MovePedestrians&) = delete;
+    };
+
 private:
     MSDevice_FCDReplay::Trajectory* myTrajectory = nullptr;
+
+    /// @brief whether an event for pedestrian processing was added
+    static bool myAmActive;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -27,10 +27,10 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSRoute.h>
-#include <microsim/MSEventControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageWaiting.h>
+#include <microsim/transportables/MSStageWalking.h>
 #include "MSTransportableDevice_FCDReplay.h"
 #include "MSDevice_FCDReplay.h"
 
@@ -187,6 +187,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
         if (isPerson) {
             MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
             plan->push_back(new MSStageWaiting(std::get<3>(desc.second).front(), nullptr, 0, params->depart, params->departPos, "awaiting departure", true));
+            plan->push_back(new MSStageWalking(id, std::get<3>(desc.second), nullptr, -1, params->departSpeed, params->departPos, 0, 0));
             MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
             MSNet::getInstance()->getPersonControl().add(person);
             MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
