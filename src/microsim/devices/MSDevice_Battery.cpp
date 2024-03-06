@@ -240,14 +240,10 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
                 myActChargingStation->setChargingVehicle(true);
 
                 // Calulate energy charged
-                myEnergyCharged = myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency() * TS;
+                myEnergyCharged = MIN2(myActChargingStation->getChargingPower(myTrackFuel) * myActChargingStation->getEfficency() * TS, getMaximumBatteryCapacity() - getActualBatteryCapacity());
 
                 // Update Battery charge
-                if ((myEnergyCharged + getActualBatteryCapacity()) > getMaximumBatteryCapacity()) {
-                    setActualBatteryCapacity(getMaximumBatteryCapacity());
-                } else {
-                    setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
-                }
+                setActualBatteryCapacity(getActualBatteryCapacity() + myEnergyCharged);
             }
             // add charge value for output to myActChargingStation
             myActChargingStation->addChargeValueForOutput(myEnergyCharged, this);
