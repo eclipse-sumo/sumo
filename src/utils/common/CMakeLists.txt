@@ -10,6 +10,7 @@ set(utils_common_STAT_SRCS
    Named.h
    NamedObjectCont.h
    NamedRTree.h
+   MapMatcher.h
    Parameterised.cpp
    Parameterised.h
    PolySolver.h

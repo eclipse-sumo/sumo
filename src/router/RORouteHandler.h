@@ -26,7 +26,7 @@
 #include <vector>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/NamedRTree.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include "ROPerson.h"
@@ -54,7 +54,7 @@ class RORouteDef;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class RORouteHandler : public SUMORouteHandler {
+class RORouteHandler : public SUMORouteHandler, public MapMatcher<ROEdge, ROLane, RONode> {
 public:
     /// @brief standard constructor
     RORouteHandler(RONet& net, const std::string& file,
@@ -172,16 +172,6 @@ protected:
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
                     const std::string& rid, bool& ok);
 
-    /// @brief Parse edges from coordinates
-    void parseGeoEdges(const PositionVector& positions, bool geo,
-                       ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok);
-
-    /// @brief find closest edge within distance for the given position or nullptr
-    const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass);
-
-    /// @brief find closest junction taz given the closest edge
-    const ROEdge* getJunctionTaz(const Position& pos, const ROEdge* closestEdge, SUMOVehicleClass vClass, bool isFrom);
-
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
 
@@ -194,8 +184,9 @@ protected:
                             double& departPos, double& arrivalPos, std::string& busStopID,
                             const ROPerson::PlanItem* const lastStage, bool& ok);
 
-    /// @brief initialize lane-RTree
-    NamedRTree* getLaneTree();
+    void initLaneTree(NamedRTree* tree) override;
+
+    ROEdge* retrieveEdge(const std::string& id) override;
 
 protected:
     /// @brief The current route
@@ -232,10 +223,6 @@ protected:
     /// @brief whether to keep the the vtype distribution in output
     const bool myKeepVTypeDist;
 
-    /// @brief maximum distance when map-matching
-    const double myMapMatchingDistance;
-    const bool myMapMatchJunctions;
-
     /// @brief whether input is read all at once (no sorting check is necessary)
     const bool myUnsortedInput;
 
@@ -247,9 +234,6 @@ protected:
 
     /// @brief The currently parsed route alternatives
     RORouteDef* myCurrentAlternatives;
-
-    /// @brief RTree for finding lanes
-    NamedRTree* myLaneTree;
 
 private:
     /// @brief Invalidated copy constructor

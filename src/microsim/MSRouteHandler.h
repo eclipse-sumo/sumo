@@ -24,6 +24,7 @@
 
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportable.h>
@@ -48,7 +49,7 @@ class MSVehicleType;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class MSRouteHandler : public SUMORouteHandler {
+class MSRouteHandler : public SUMORouteHandler, public MapMatcher<MSEdge, MSLane, MSJunction> {
 public:
 
     /// @brief enum for object type
@@ -178,6 +179,10 @@ protected:
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
                             double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
                             const MSStage* const lastStage, bool& ok);
+
+    void initLaneTree(NamedRTree* tree) override;
+
+    MSEdge* retrieveEdge(const std::string& id) override;
 
 protected:
     /// @brief The current route

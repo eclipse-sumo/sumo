@@ -570,6 +570,13 @@ MSFrame::fillOptions() {
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
     oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));
 
+    oc.doRegister("mapmatch.distance", new Option_Float(100));
+    oc.addDescription("mapmatch.distance", "Processing", TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
+
+    oc.doRegister("mapmatch.junctions", new Option_Bool(false));
+    oc.addDescription("mapmatch.junctions", "Processing", TL("Match positions to junctions instead of edges"));
+
+
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Routing",
