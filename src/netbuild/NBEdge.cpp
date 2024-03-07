@@ -2582,15 +2582,26 @@ NBEdge::computeLanes2Edges() {
 
 
 std::vector<LinkDirection>
-NBEdge::decodeTurnSigns(int turnSigns) {
+NBEdge::decodeTurnSigns(int turnSigns, int shift) {
     std::vector<LinkDirection> result;
     for (int i = 0; i < 8; i++) {
         // see LinkDirection in SUMOXMLDefinitions.h
-        if ((turnSigns & (1 << i)) != 0) {
+        if ((turnSigns & (1 << (i + shift))) != 0) {
             result.push_back((LinkDirection)(1 << i));
         }
     }
     return result;
+}
+
+void
+NBEdge::updateTurnPermissions(SVCPermissions& perm, LinkDirection dir, SVCPermissions spec, std::vector<LinkDirection> dirs) {
+    if (dirs.size() > 0) {
+        if (std::find(dirs.begin(), dirs.end(), dir) == dirs.end()) {
+            perm &= ~spec;
+        } else {
+            perm |= spec;
+        }
+    }
 }
 
 bool
@@ -2623,6 +2634,10 @@ NBEdge::applyTurnSigns() {
             signCons[dir]++;
         }
     }
+    allDirs |= allDirs >> TURN_SIGN_SHIFT_BUS;
+    allDirs |= allDirs >> TURN_SIGN_SHIFT_TAXI;
+    allDirs |= allDirs >> TURN_SIGN_SHIFT_BICYCLE;
+
     if ((allDirs & (int)LinkDirection::NODIR) != 0) {
         targets.push_back(nullptr); // dead end
     }
@@ -2745,7 +2760,25 @@ NBEdge::applyTurnSigns() {
                 }
             }
             // add new connections
-            for (LinkDirection dir : decodeTurnSigns(turnSigns)) {
+            int allSigns = (turnSigns
+                    | turnSigns >> TURN_SIGN_SHIFT_BUS
+                    | turnSigns >> TURN_SIGN_SHIFT_TAXI
+                    | turnSigns >> TURN_SIGN_SHIFT_BICYCLE);
+            std::vector<LinkDirection> all = decodeTurnSigns(turnSigns);
+            std::vector<LinkDirection> bus = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_BUS);
+            std::vector<LinkDirection> taxi = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_TAXI);
+            std::vector<LinkDirection> bike = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_BICYCLE);
+            //std::cout << "  allSigns=" << allSigns << " turnSigns=" << turnSigns << " bus=" << bus.size() << "\n";
+            for (LinkDirection dir : decodeTurnSigns(allSigns)) {
+                SVCPermissions perm = 0;
+                updateTurnPermissions(perm, dir, SVCAll, all);
+                updateTurnPermissions(perm, dir, SVC_BUS, bus);
+                updateTurnPermissions(perm, dir, SVC_TAXI, taxi);
+                updateTurnPermissions(perm, dir, SVC_BICYCLE, bike);
+                if (perm == SVCAll) {
+                    perm = SVC_UNSPECIFIED;
+                }
+                //std::cout << "   lane=" << i << " dir=" << toString(dir) << " perm=" << getVehicleClassNames(perm) << "\n";
                 NBEdge* to = const_cast<NBEdge*>(dirMap[dir]);
                 if (to != nullptr) {
                     if (toLaneIndex.count(to) == 0) {
@@ -2773,7 +2806,15 @@ NBEdge::applyTurnSigns() {
 #endif
                         toLaneIndex[to] = toLane;
                     }
-                    setConnection(i, to, toLaneIndex[to]++, Lane2LaneInfoType::VALIDATED, true);
+                    setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::VALIDATED, true,
+                            false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
+                            UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
+                            myDefaultConnectionLength, PositionVector::EMPTY,
+                            UNSPECIFIED_CONNECTION_UNCONTROLLED,
+                            perm);
+                    if (toLaneIndex[to] < to->getNumLanes() - 1) {
+                        toLaneIndex[to]++;
+                    }
                 }
             }
         }
@@ -2813,9 +2854,14 @@ NBEdge::recheckLanes() {
         }
     }
     if (myStep != EdgeBuildingStep::LANES2LANES_DONE && myStep != EdgeBuildingStep::LANES2LANES_USER) {
-        //if (myLanes.back().turnSigns != 0 && myTurnSignTarget != myTo->getID()) {
-        //    std::cout << getID() << " tst=" << myTurnSignTarget << " to=" << myTo->getID() << "\n";
-        //}
+#ifdef DEBUG_TURNSIGNS
+        if (myLanes.back().turnSigns != 0) {
+            std::cout << getID() << " hasTurnSigns\n";
+            if (myTurnSignTarget != myTo->getID()) {
+                std::cout << "   tst=" << myTurnSignTarget << " to=" << myTo->getID() << "\n";
+            }
+        }
+#endif
         if (myLanes.back().turnSigns == 0 || myTurnSignTarget != myTo->getID() || !applyTurnSigns()) {
             // check #1:
             // If there is a lane with no connections and any neighbour lane has

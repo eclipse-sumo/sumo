@@ -370,6 +370,11 @@ public:
     /// @brief TLS-controlled despite its node controlled not specified.
     static const bool UNSPECIFIED_CONNECTION_UNCONTROLLED;
 
+    /// @brief shift values for decoding turn signs
+    static const int TURN_SIGN_SHIFT_BUS = 8;
+    static const int TURN_SIGN_SHIFT_TAXI = 16;
+    static const int TURN_SIGN_SHIFT_BICYCLE = 24;
+
     /// @brief junction priority values set by setJunctionPriority
     enum JunctionPriority {
         MINOR_ROAD = 0,
@@ -1703,7 +1708,8 @@ private:
     double assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
     /// @brief decode bitset
-    std::vector<LinkDirection> decodeTurnSigns(int turnSigns);
+    static std::vector<LinkDirection> decodeTurnSigns(int turnSigns, int shift = 0);
+    static void updateTurnPermissions(SVCPermissions& perm, LinkDirection dir, SVCPermissions spec, std::vector<LinkDirection> dirs);
 
     /// @brief apply loaded turn sign information
     bool applyTurnSigns();

@@ -1198,7 +1198,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "bicycle:lanes:forward"
                 && key != "bicycle:lanes:backward"
                 && !StringUtils::startsWith(key, "width")
-                && !StringUtils::startsWith(key, "turn:lanes")
+                && !(StringUtils::startsWith(key, "turn:") && key.find(":lanes") != std::string::npos)
                 && key != "public_transport") {
             return;
         }
@@ -1530,7 +1530,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             interpretLaneUse(value, SVC_BICYCLE, true);
         } else if (key == "bicycle:lanes:backward") {
             interpretLaneUse(value, SVC_BICYCLE, false);
-        } else if (StringUtils::startsWith(key, "turn:lanes")) {
+        } else if (StringUtils::startsWith(key, "turn:") && key.find(":lanes") != std::string::npos) {
+            int shift = 0;
+            // use the first 8 bit to encode permitted directions for all classes
+            // and the successive 8 bit blocks for selected classes
+            if (StringUtils::startsWith(key, "turn:bus") || StringUtils::startsWith(key, "turn:psv:")) {
+                shift = NBEdge::TURN_SIGN_SHIFT_BUS;
+            } else if (StringUtils::startsWith(key, "turn:taxi")) {
+                shift = NBEdge::TURN_SIGN_SHIFT_TAXI;
+            } else if (StringUtils::startsWith(key, "turn:bicycle")) {
+                shift = NBEdge::TURN_SIGN_SHIFT_BICYCLE;
+            }
             const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
             std::vector<int> turnCodes;
             for (std::string codeList : values) {
@@ -1541,30 +1551,30 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
                 for (std::string code : codes) {
                     if (code == "" || code == "none" || code == "through") {
-                        turnCode |= (int)LinkDirection::STRAIGHT;
+                        turnCode |= (int)LinkDirection::STRAIGHT << shift ;
                     } else if (code == "left" || code == "sharp_left") {
-                        turnCode |= (int)LinkDirection::LEFT;
+                        turnCode |= (int)LinkDirection::LEFT << shift;
                     } else if (code == "right" || code == "sharp_right") {
-                        turnCode |= (int)LinkDirection::RIGHT;
+                        turnCode |= (int)LinkDirection::RIGHT << shift;
                     } else if (code == "slight_left") {
-                        turnCode |= (int)LinkDirection::PARTLEFT;
+                        turnCode |= (int)LinkDirection::PARTLEFT << shift;
                     } else if (code == "slight_right") {
-                        turnCode |= (int)LinkDirection::PARTRIGHT;
+                        turnCode |= (int)LinkDirection::PARTRIGHT << shift;
                     } else if (code == "reverse") {
-                        turnCode |= (int)LinkDirection::TURN;
+                        turnCode |= (int)LinkDirection::TURN << shift;
                     } else if (code == "merge_to_left" || code == "merge_to_right") {
-                        turnCode |= (int)LinkDirection::NODIR;
+                        turnCode |= (int)LinkDirection::NODIR << shift;
                     }
                 }
                 turnCodes.push_back(turnCode);
             }
-            if (key == "turn:lanes" || key == "turn:lanes:forward") {
-                myCurrentEdge->myTurnSignsForward = turnCodes;
-            } else if (key == "turn:lanes:backward") {
-                myCurrentEdge->myTurnSignsBackward = turnCodes;
-            } else if (key == "turn:lanes:both_ways") {
-                myCurrentEdge->myTurnSignsForward = turnCodes;
-                myCurrentEdge->myTurnSignsBackward = turnCodes;
+            if (StringUtils::endsWith(key, "lanes") || StringUtils::endsWith(key, "lanes:forward")) {
+                mergeTurnSigns(myCurrentEdge->myTurnSignsForward, turnCodes);
+            } else if (StringUtils::endsWith(key, "lanes:backward")) {
+                mergeTurnSigns(myCurrentEdge->myTurnSignsBackward, turnCodes);
+            } else if (StringUtils::endsWith(key, "lanes:both_ways")) {
+                mergeTurnSigns(myCurrentEdge->myTurnSignsForward, turnCodes);
+                mergeTurnSigns(myCurrentEdge->myTurnSignsBackward, turnCodes);
             }
         }
     }
@@ -2579,6 +2589,17 @@ NIImporter_OpenStreetMap::applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge
                 e->preferVehicleClass(lane, extraAllowed);
             }
             e->setPermissions((e->getPermissions(lane) | extraAllowed) & (~extraDisallowed), lane);
+        }
+    }
+}
+
+void
+NIImporter_OpenStreetMap::mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2) {
+    if (signs.empty()) {
+        signs.insert(signs.begin(), signs2.begin(), signs2.end());
+    } else {
+        for (int i = 0; i < (int)MIN2(signs.size(), signs2.size()); i++) {
+            signs[i] |= signs2[i];
         }
     }
 }

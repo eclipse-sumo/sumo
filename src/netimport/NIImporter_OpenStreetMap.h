@@ -391,6 +391,7 @@ protected:
     /// @param nie Ths Edge that the information comes from.
     void applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward);
 
+    static void mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
