@@ -13,6 +13,9 @@ title: ChangeLog
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
   - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
   - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
+  - Fixed crash when using **--lateral-resolution** with **--no-internal-links** #14460
+  - chargingstations-output no longer records charging when battery is full #14473
+  - Fixed undefined behavior during opposite direction driving #14475 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -20,8 +23,13 @@ title: ChangeLog
     - Rail signals now permit train joins where the front is joined to the rear part. #14349
  
 - netedit
+  - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
+  - The unsupported attribute "lines" is no longer written for a personTrip #14463 (regression in 1.15.0)
+  - Fixed invalid "save" dialog after loading additionals from file. #14464 (regrssion in 1.16.0)
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
   - Tool plot_trajectories.py is now usable. #14147
+  - "copy type" now also copies vehicle class #14444
+  - Fixed crash when trying to define ride between busStops #14462 
 
 - netcovert 
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
@@ -30,14 +38,23 @@ title: ChangeLog
   - Option **--junctions.minimal-shape** now persists when re-processing the network. #14375
   - Fixed invalid permissions in OSM import of ferry routes. #14362
   - Fixec crash when importing Vissim Network with unusual geometry. #14413
+  - Prevented writing an invalid network when aborting with an error #14470 
 
 - sumo-gui
+  - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
   - Fixed positioning of guiShape "scooter". #13691
   - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
   - Fixed invalid default for edges minSize when loading incomplete gui settings file. #14384
+  - Persons are no longer drawn outside the vehicle when drawn as triangle #14433
 
+
+- duarouter
+  - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
+ 
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
+  - `vehicle.setStopParameter` now supports "jump" #14441
+  - `vehicle.setSpeed` no longer causes stop at wrong position #14459 
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
@@ -54,6 +71,9 @@ title: ChangeLog
   - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
   - Added new attribute `departPos="splitFront" which causes a train with [`depart="split"`](Simulation/Railways.md#portion_working) to be created at the front rather than the rear of the original train. #14358
   - vType attribute `mass` is noow used within `carFollowModel="Rail"`. #13055
+  - Option **--fcd-output.attributes** now supports the value 'arrivalDelay' #14447
+  - Sumo now allows specifying departure and arrival positions in network or geo-coordinates #2182
+  - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in in GNECreateEdgeFrame. #9725
@@ -68,14 +88,20 @@ title: ChangeLog
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
   - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
   - The new train visualization param `carriageImages` accepts a comma-separated list of image files to enable distinct images for the different carriages. #14403
+  - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423 
  
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
   - Aded option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
   - Option **--output.street-names** is now enabled by default if **--shapefile.name** is set. #14399
-    
+  - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476 
+ 
+- duarouter
+  - Added support for loading ride with geo-coordinates #14427
+   
 - TraCI / libsumo
   - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
+  - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438 
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating vidoes from a simulation with scripted view movements. #14060
