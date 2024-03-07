@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-07 09:13+0000\n"
+"PO-Revision-Date: 2024-03-07 18:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12128,43 +12128,43 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
 msgid "Open dialog for editing vClasses"
-msgstr ""
+msgstr "Apri finestra per modificare le classi di veicoli"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
 msgid "Open dialog for editing color"
-msgstr ""
+msgstr "Apri finestra per modificare il colore"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:593
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:594
 msgid "Move element up one lane"
-msgstr ""
+msgstr "Sposta l'elemento una corsia più su"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:599
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:600
 msgid "Move element down one lane"
-msgstr ""
+msgstr "Sposta l'elemento una corsia più giù"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1054
 msgid "Extended attributes"
-msgstr ""
+msgstr "Attributi estesi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1057
 msgid "Open attributes editor"
-msgstr ""
+msgstr "Apri editore di attributi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1088
 msgid "Attributes"
-msgstr ""
+msgstr "Attributi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1092
 msgid "Edit attributes"
-msgstr ""
+msgstr "Modifica attributi"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1238
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1247
 msgid "Parameters"
-msgstr ""
+msgstr "Parametri"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:51
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:93
@@ -12173,27 +12173,27 @@ msgstr "Attributi netedit"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:55
 msgid "Reference Left"
-msgstr ""
+msgstr "Referenza a sinistra"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
 msgid "Reference Right"
-msgstr ""
+msgstr "Referenza a destra"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:58
 msgid "Extended Left"
-msgstr ""
+msgstr "Esteso a sinistra"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:59
 msgid "Extended Right"
-msgstr ""
+msgstr "Esteso a destra"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:60
 msgid "Extended"
-msgstr ""
+msgstr "Esteso"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:75
 msgid "Force leng."
-msgstr ""
+msgstr "Lunghezza forzata"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:83
 msgid "Center view"
@@ -12205,19 +12205,21 @@ msgstr "Il punto di riferimento selezionato non è valido"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:159
 msgid "Invalid length"
-msgstr ""
+msgstr "Lunghezza invalida"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:172
 msgid ""
 "Invalid position. Uncheck 'Force length' to create element with flexible "
 "length"
 msgstr ""
+"Posizione invalida. Disattiva 'Lunghezza forzata' per creare elementi con "
+"lunghezza flessibile"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:375
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:267
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:448
 msgid "Netedit Parameters Help"
-msgstr ""
+msgstr "Aiuto parametri netedit"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
 msgid "- Reference point: Mark the initial position of the additional element."
