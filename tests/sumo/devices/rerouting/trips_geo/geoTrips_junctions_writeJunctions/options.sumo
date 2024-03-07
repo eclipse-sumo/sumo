@@ -1,0 +1,5 @@
+--net-file=net.net.xml --route-files=input_trips.trips.xml
+--additional-files input_additional.add.xml --vehroute-output vehroutes.xml 
+--mapmatch.junctions
+--junction-taz
+--no-step-log
