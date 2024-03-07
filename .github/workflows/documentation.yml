@@ -48,6 +48,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Use lychee cache
+      uses: actions/cache@v4
+      with:
+        path: .lycheecache
+        key: cache-lychee-${{ github.sha }}
+        restore-keys: cache-lychee-
+
     - name: Cloning repository
       uses: actions/checkout@v4
 
@@ -55,4 +62,4 @@ jobs:
       uses: lycheeverse/lychee-action@v1
       with:
         fail: true
-        args: -c docs/web/lychee.toml -n docs/web/docs/
+        args: -c docs/web/lychee.toml -n docs/web/docs/ --cache --max-cache-age 2d
