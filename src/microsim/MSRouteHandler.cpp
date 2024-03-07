@@ -107,6 +107,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         useTaz = false;
     }
     bool ok = true;
+    const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     // from-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
             (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
@@ -115,16 +116,16 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROM_JUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok);
         const MSEdge* fromTaz = MSEdge::dictionary(tazID + "-source");
         if (fromTaz == nullptr) {
-            throw ProcessError("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
+            throw ProcessError("Source " + tazType + " '" + tazID + "' not known " + rid + "!"
                                + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (fromTaz->getNumSuccessors() == 0 && tag != SUMO_TAG_PERSON) {
-            throw ProcessError("Source " + tazType + " '" + tazID + "' has no outgoing edges for " + element + " '" + myVehicleParameter->id + "'!");
+            throw ProcessError("Source " + tazType + " '" + tazID + "' has no outgoing edges " + rid + "!");
         } else {
             myActiveRoute.push_back(fromTaz);
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                               myActiveRoute, rid);
     }
 
     // via-attributes
@@ -143,7 +144,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok),
-                               viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
+                               viaEdges, rid);
     }
     if (!viaEdges.empty()) {
         myHaveVia = true;
@@ -161,16 +162,16 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TO_JUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const MSEdge* toTaz = MSEdge::dictionary(tazID + "-sink");
         if (toTaz == nullptr) {
-            throw ProcessError("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
+            throw ProcessError("Sink " + tazType + " '" + tazID + "' not known " + rid + "!"
                                + (useJunction ? JUNCTION_TAZ_MISSING_HELP : ""));
         } else if (toTaz->getNumPredecessors() == 0 && tag != SUMO_TAG_PERSON) {
-            throw ProcessError("Sink " + tazType + " '" + tazID + "' has no incoming edges for " + element + " '" + myVehicleParameter->id + "'!");
+            throw ProcessError("Sink " + tazType + " '" + tazID + "' has no incoming edges " + rid + "!");
         } else {
             myActiveRoute.push_back(toTaz);
         }
     } else {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true),
-                               myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+                               myActiveRoute, rid);
     }
     myActiveRouteID = "!" + myVehicleParameter->id;
     if (myVehicleParameter->routeid == "") {
