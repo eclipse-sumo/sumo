@@ -82,5 +82,12 @@ OutputDevice_File::getOStream() {
     return *myFileStream;
 }
 
+bool
+OutputDevice_File::removeSelf() {
+    if (myAmNull) {
+        return true;
+    }
+    return std::remove(myFilename.c_str()) == 0;
+}
 
 /****************************************************************************/

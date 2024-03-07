@@ -58,191 +58,198 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
-    std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    if (oc.getBool("lefthand") != oc.getBool("flip-y-axis")) {
-        attrs[SUMO_ATTR_LEFTHAND] = "true";
-    } else if (oc.getBool("lefthand")) {
-        // network was flipped, correct written link directions
-        OptionsCont::getOptions().resetWritable();
-        OptionsCont::getOptions().set("lefthand", "false");
-    }
-    const int cornerDetail = oc.getInt("junctions.corner-detail");
-    if (cornerDetail > 0) {
-        attrs[SUMO_ATTR_CORNERDETAIL] = toString(cornerDetail);
-    }
-    if (!oc.isDefault("junctions.internal-link-detail")) {
-        attrs[SUMO_ATTR_LINKDETAIL] = toString(oc.getInt("junctions.internal-link-detail"));
-    }
-    if (oc.getBool("rectangular-lane-cut")) {
-        attrs[SUMO_ATTR_RECTANGULAR_LANE_CUT] = "true";
-    }
-    if (oc.getBool("crossings.guess") || oc.getBool("walkingareas")) {
-        attrs[SUMO_ATTR_WALKINGAREAS] = "true";
-    }
-    if (oc.getFloat("junctions.limit-turn-speed") > 0) {
-        attrs[SUMO_ATTR_LIMIT_TURN_SPEED] = toString(oc.getFloat("junctions.limit-turn-speed"));
-    }
-    if (!oc.isDefault("check-lane-foes.all")) {
-        attrs[SUMO_ATTR_CHECKLANEFOES_ALL] = toString(oc.getBool("check-lane-foes.all"));
-    }
-    if (!oc.isDefault("check-lane-foes.roundabout")) {
-        attrs[SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT] = toString(oc.getBool("check-lane-foes.roundabout"));
-    }
-    if (!oc.isDefault("tls.ignore-internal-junction-jam")) {
-        attrs[SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM] = toString(oc.getBool("tls.ignore-internal-junction-jam"));
-    }
-    if (oc.getString("default.spreadtype") == "roadCenter") {
-        // it makes no sense to store the default=center in the net since
-        // centered edges would have the attribute written anyway and edges that
-        // should have 'right' would be misinterpreted
-        attrs[SUMO_ATTR_SPREADTYPE] = oc.getString("default.spreadtype");
-    }
-    if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
-        attrs[SUMO_ATTR_AVOID_OVERLAP] = toString(oc.getBool("geometry.avoid-overlap"));
-    }
-    if (oc.exists("junctions.higher-speed") && oc.getBool("junctions.higher-speed")) {
-        attrs[SUMO_ATTR_HIGHER_SPEED] = toString(oc.getBool("junctions.higher-speed"));
-    }
-    if (oc.exists("internal-junctions.vehicle-width") && !oc.isDefault("internal-junctions.vehicle-width")) {
-        attrs[SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH] = toString(oc.getFloat("internal-junctions.vehicle-width"));
-    }
-    if (!oc.isDefault("junctions.minimal-shape")) {
-        attrs[SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE] = toString(oc.getBool("junctions.minimal-shape"));
-    }
-    if (!oc.isDefault("junctions.endpoint-shape")) {
-        attrs[SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE] = toString(oc.getBool("junctions.endpoint-shape"));
-    }
-    device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
-    device.lf();
-    // get involved container
-    const NBNodeCont& nc = nb.getNodeCont();
-    const NBEdgeCont& ec = nb.getEdgeCont();
-    const NBDistrictCont& dc = nb.getDistrictCont();
-
-    // write network offsets and projection
-    GeoConvHelper::writeLocation(device);
-
-    // write edge types and restrictions
-    std::set<std::string> usedTypes = ec.getUsedTypes();
-    nb.getTypeCont().writeEdgeTypes(device, usedTypes);
-
-    // write inner lanes
-    if (!oc.getBool("no-internal-links")) {
-        bool hadAny = false;
-        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            hadAny |= writeInternalEdges(device, ec, *(*i).second);
+    try {
+        std::map<SumoXMLAttr, std::string> attrs;
+        attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
+        if (oc.getBool("lefthand") != oc.getBool("flip-y-axis")) {
+            attrs[SUMO_ATTR_LEFTHAND] = "true";
+        } else if (oc.getBool("lefthand")) {
+            // network was flipped, correct written link directions
+            OptionsCont::getOptions().resetWritable();
+            OptionsCont::getOptions().set("lefthand", "false");
         }
-        if (hadAny) {
-            device.lf();
+        const int cornerDetail = oc.getInt("junctions.corner-detail");
+        if (cornerDetail > 0) {
+            attrs[SUMO_ATTR_CORNERDETAIL] = toString(cornerDetail);
         }
-    }
-
-    // write edges with lanes and connected edges
-    bool noNames = !oc.getBool("output.street-names");
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        writeEdge(device, *(*i).second, noNames);
-    }
-    device.lf();
-
-    // write tls logics
-    writeTrafficLights(device, nb.getTLLogicCont());
-
-    // write the nodes (junctions)
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        writeJunction(device, *(*i).second);
-    }
-    device.lf();
-    const bool includeInternal = !oc.getBool("no-internal-links");
-    if (includeInternal) {
-        // ... internal nodes if not unwanted
-        bool hadAny = false;
-        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            hadAny |= writeInternalNodes(device, *(*i).second);
+        if (!oc.isDefault("junctions.internal-link-detail")) {
+            attrs[SUMO_ATTR_LINKDETAIL] = toString(oc.getInt("junctions.internal-link-detail"));
         }
-        if (hadAny) {
-            device.lf();
+        if (oc.getBool("rectangular-lane-cut")) {
+            attrs[SUMO_ATTR_RECTANGULAR_LANE_CUT] = "true";
         }
-    }
-
-    // write the successors of lanes
-    int numConnections = 0;
-    for (std::map<std::string, NBEdge*>::const_iterator it_edge = ec.begin(); it_edge != ec.end(); it_edge++) {
-        NBEdge* from = it_edge->second;
-        const std::vector<NBEdge::Connection>& connections = from->getConnections();
-        numConnections += (int)connections.size();
-        for (const NBEdge::Connection& con : connections) {
-            writeConnection(device, *from, con, includeInternal);
+        if (oc.getBool("crossings.guess") || oc.getBool("walkingareas")) {
+            attrs[SUMO_ATTR_WALKINGAREAS] = "true";
         }
-    }
-    if (numConnections > 0) {
+        if (oc.getFloat("junctions.limit-turn-speed") > 0) {
+            attrs[SUMO_ATTR_LIMIT_TURN_SPEED] = toString(oc.getFloat("junctions.limit-turn-speed"));
+        }
+        if (!oc.isDefault("check-lane-foes.all")) {
+            attrs[SUMO_ATTR_CHECKLANEFOES_ALL] = toString(oc.getBool("check-lane-foes.all"));
+        }
+        if (!oc.isDefault("check-lane-foes.roundabout")) {
+            attrs[SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT] = toString(oc.getBool("check-lane-foes.roundabout"));
+        }
+        if (!oc.isDefault("tls.ignore-internal-junction-jam")) {
+            attrs[SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM] = toString(oc.getBool("tls.ignore-internal-junction-jam"));
+        }
+        if (oc.getString("default.spreadtype") == "roadCenter") {
+            // it makes no sense to store the default=center in the net since
+            // centered edges would have the attribute written anyway and edges that
+            // should have 'right' would be misinterpreted
+            attrs[SUMO_ATTR_SPREADTYPE] = oc.getString("default.spreadtype");
+        }
+        if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
+            attrs[SUMO_ATTR_AVOID_OVERLAP] = toString(oc.getBool("geometry.avoid-overlap"));
+        }
+        if (oc.exists("junctions.higher-speed") && oc.getBool("junctions.higher-speed")) {
+            attrs[SUMO_ATTR_HIGHER_SPEED] = toString(oc.getBool("junctions.higher-speed"));
+        }
+        if (oc.exists("internal-junctions.vehicle-width") && !oc.isDefault("internal-junctions.vehicle-width")) {
+            attrs[SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH] = toString(oc.getFloat("internal-junctions.vehicle-width"));
+        }
+        if (!oc.isDefault("junctions.minimal-shape")) {
+            attrs[SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE] = toString(oc.getBool("junctions.minimal-shape"));
+        }
+        if (!oc.isDefault("junctions.endpoint-shape")) {
+            attrs[SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE] = toString(oc.getBool("junctions.endpoint-shape"));
+        }
+        device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
         device.lf();
-    }
-    if (includeInternal) {
-        // ... internal successors if not unwanted
-        bool hadAny = false;
-        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            hadAny |= writeInternalConnections(device, *(*i).second);
+        // get involved container
+        const NBNodeCont& nc = nb.getNodeCont();
+        const NBEdgeCont& ec = nb.getEdgeCont();
+        const NBDistrictCont& dc = nb.getDistrictCont();
+
+        // write network offsets and projection
+        GeoConvHelper::writeLocation(device);
+
+        // write edge types and restrictions
+        std::set<std::string> usedTypes = ec.getUsedTypes();
+        nb.getTypeCont().writeEdgeTypes(device, usedTypes);
+
+        // write inner lanes
+        if (!oc.getBool("no-internal-links")) {
+            bool hadAny = false;
+            for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+                hadAny |= writeInternalEdges(device, ec, *(*i).second);
+            }
+            if (hadAny) {
+                device.lf();
+            }
         }
-        if (hadAny) {
+
+        // write edges with lanes and connected edges
+        bool noNames = !oc.getBool("output.street-names");
+        for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
+            writeEdge(device, *(*i).second, noNames);
+        }
+        device.lf();
+
+        // write tls logics
+        writeTrafficLights(device, nb.getTLLogicCont());
+
+        // write the nodes (junctions)
+        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+            writeJunction(device, *(*i).second);
+        }
+        device.lf();
+        const bool includeInternal = !oc.getBool("no-internal-links");
+        if (includeInternal) {
+            // ... internal nodes if not unwanted
+            bool hadAny = false;
+            for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+                hadAny |= writeInternalNodes(device, *(*i).second);
+            }
+            if (hadAny) {
+                device.lf();
+            }
+        }
+
+        // write the successors of lanes
+        int numConnections = 0;
+        for (std::map<std::string, NBEdge*>::const_iterator it_edge = ec.begin(); it_edge != ec.end(); it_edge++) {
+            NBEdge* from = it_edge->second;
+            const std::vector<NBEdge::Connection>& connections = from->getConnections();
+            numConnections += (int)connections.size();
+            for (const NBEdge::Connection& con : connections) {
+                writeConnection(device, *from, con, includeInternal);
+            }
+        }
+        if (numConnections > 0) {
             device.lf();
         }
-    }
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* node = (*i).second;
-        // write connections from pedestrian crossings
-        std::vector<NBNode::Crossing*> crossings = node->getCrossings();
-        for (auto c : crossings) {
-            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "", LinkDirection::STRAIGHT, c->tlID, c->tlLinkIndex2);
+        if (includeInternal) {
+            // ... internal successors if not unwanted
+            bool hadAny = false;
+            for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+                hadAny |= writeInternalConnections(device, *(*i).second);
+            }
+            if (hadAny) {
+                device.lf();
+            }
         }
-        // write connections from pedestrian walking areas
-        for (const NBNode::WalkingArea& wa : node->getWalkingAreas()) {
-            for (const std::string& cID : wa.nextCrossings) {
-                const NBNode::Crossing& nextCrossing = *node->getCrossing(cID);
-                // connection to next crossing (may be tls-controlled)
-                device.openTag(SUMO_TAG_CONNECTION);
-                device.writeAttr(SUMO_ATTR_FROM, wa.id);
-                device.writeAttr(SUMO_ATTR_TO, cID);
-                device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
-                device.writeAttr(SUMO_ATTR_TO_LANE, 0);
-                if (nextCrossing.tlID != "") {
-                    device.writeAttr(SUMO_ATTR_TLID, nextCrossing.tlID);
-                    assert(nextCrossing.tlLinkIndex >= 0);
-                    device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkIndex);
+        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+            NBNode* node = (*i).second;
+            // write connections from pedestrian crossings
+            std::vector<NBNode::Crossing*> crossings = node->getCrossings();
+            for (auto c : crossings) {
+                NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "", LinkDirection::STRAIGHT, c->tlID, c->tlLinkIndex2);
+            }
+            // write connections from pedestrian walking areas
+            for (const NBNode::WalkingArea& wa : node->getWalkingAreas()) {
+                for (const std::string& cID : wa.nextCrossings) {
+                    const NBNode::Crossing& nextCrossing = *node->getCrossing(cID);
+                    // connection to next crossing (may be tls-controlled)
+                    device.openTag(SUMO_TAG_CONNECTION);
+                    device.writeAttr(SUMO_ATTR_FROM, wa.id);
+                    device.writeAttr(SUMO_ATTR_TO, cID);
+                    device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
+                    device.writeAttr(SUMO_ATTR_TO_LANE, 0);
+                    if (nextCrossing.tlID != "") {
+                        device.writeAttr(SUMO_ATTR_TLID, nextCrossing.tlID);
+                        assert(nextCrossing.tlLinkIndex >= 0);
+                        device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkIndex);
+                    }
+                    device.writeAttr(SUMO_ATTR_DIR, LinkDirection::STRAIGHT);
+                    device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
+                    device.closeTag();
                 }
-                device.writeAttr(SUMO_ATTR_DIR, LinkDirection::STRAIGHT);
-                device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
-                device.closeTag();
-            }
-            // optional connections from/to sidewalk
-            std::string edgeID;
-            int laneIndex;
-            for (const std::string& sw : wa.nextSidewalks) {
-                NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
-                NWWriter_SUMO::writeInternalConnection(device, wa.id, edgeID, 0, laneIndex, "");
-            }
-            for (const std::string& sw : wa.prevSidewalks) {
-                NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
-                NWWriter_SUMO::writeInternalConnection(device, edgeID, wa.id, laneIndex, 0, "");
+                // optional connections from/to sidewalk
+                std::string edgeID;
+                int laneIndex;
+                for (const std::string& sw : wa.nextSidewalks) {
+                    NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
+                    NWWriter_SUMO::writeInternalConnection(device, wa.id, edgeID, 0, laneIndex, "");
+                }
+                for (const std::string& sw : wa.prevSidewalks) {
+                    NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
+                    NWWriter_SUMO::writeInternalConnection(device, edgeID, wa.id, laneIndex, 0, "");
+                }
             }
         }
-    }
 
-    // write loaded prohibitions
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        writeProhibitions(device, i->second->getProhibitions());
-    }
-
-    // write roundabout information
-    writeRoundabouts(device, ec.getRoundabouts(), ec);
-
-    // write the districts
-    if (dc.size() != 0 && oc.isDefault("taz-output")) {
-        WRITE_WARNING(TL("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead"));
-        for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
-            writeDistrict(device, *(*i).second);
+        // write loaded prohibitions
+        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+            writeProhibitions(device, i->second->getProhibitions());
         }
-        device.lf();
+
+        // write roundabout information
+        writeRoundabouts(device, ec.getRoundabouts(), ec);
+
+        // write the districts
+        if (dc.size() != 0 && oc.isDefault("taz-output")) {
+            WRITE_WARNING(TL("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead"));
+            for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
+                writeDistrict(device, *(*i).second);
+            }
+            device.lf();
+        }
+    } catch (const ProcessError& e) {
+        if (!device.removeSelf()) {
+            WRITE_ERROR(TLF("Could not remove output file '%' after error. File contents possibly invalid.", device.getFilename()));
+        }
+        throw;
     }
     device.close();
 }

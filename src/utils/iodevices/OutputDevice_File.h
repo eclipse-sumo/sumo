@@ -55,6 +55,7 @@ public:
         return myAmNull;
     }
 
+    bool removeSelf() override;
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods
