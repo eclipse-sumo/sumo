@@ -129,6 +129,9 @@ turn-lanes2
 # i.e. turn:bus:lanes
 turn-lanes_restricted
 
+# i.e. turn:bus:lanes
+turn-lanes_restricted2
+
 # import turn-lane information
 turn-lanes_lefthand
 
