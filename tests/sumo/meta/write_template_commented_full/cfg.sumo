@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-14 22:13:55 by Eclipse SUMO sumo Version v1_19_0+0829-67ebab13130
+<!-- generated on 2024-03-07 14:22:00 by Eclipse SUMO sumo Version v1_19_0+1185-ef359fe9789
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -519,29 +519,14 @@
         <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
         <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
 
-        <!-- The update interval of the JuPedSim simulation (in seconds) -->
-        <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
-
-        <!-- The distance to the JuPedSim destination point considered as arrival (in meters) -->
-        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
-
-        <!-- The submodel to use in JuPedSim -->
-        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR"/>
-
-        <!-- The neighbor repulsion strength of the JuPedSim model -->
-        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT"/>
-
-        <!-- The neighbor repulsion range of the JuPedSim model (in meters) -->
-        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT"/>
-
-        <!-- The geometry repulsion strength of the JuPedSim model -->
-        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT"/>
-
-        <!-- The geometry repulsion range of the JuPedSim model (in meters) -->
-        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT"/>
-
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>
+
+        <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
+        <mapmatch.distance value="100" type="FLOAT"/>
+
+        <!-- Match positions to junctions instead of edges -->
+        <mapmatch.junctions value="false" type="BOOL"/>
 
         <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
         <persontrip.walk-opposite-factor value="1" type="FLOAT"/>
@@ -1289,9 +1274,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

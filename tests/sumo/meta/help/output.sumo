@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
+Eclipse SUMO sumo Version v1_19_0+1185-ef359fe9789
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -367,13 +367,14 @@ Processing Options:
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
                                         points to smooth out lanes within the
                                         walkingarea
-  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
-                                        simulation (in seconds)
-  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to the destination
-                                        point considered as arrival (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
+  --mapmatch.distance FLOAT            Maximum distance when mapping input
+                                        coordinates (fromXY etc.) to the road
+                                        network
+  --mapmatch.junctions                 Match positions to junctions instead of
+                                        edges
   --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
                                         speed against vehicle traffic direction
 
@@ -904,8 +905,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
