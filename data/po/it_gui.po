@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-06 12:53+0000\n"
+"PO-Revision-Date: 2024-03-07 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14126,31 +14126,31 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
-msgstr ""
+msgstr "Creatore di punti di interesse geografici"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:60
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "Formato: Longitudine-Latitudine"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:61
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "Formato: Latitudine-Longitudine"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:67
 msgid "Center View after creation"
-msgstr ""
+msgstr "Centra veduta dopo la creazione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:69
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:122
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:179
 msgid "Create GEO POI (clipboard)"
-msgstr ""
+msgstr "Crea punto di interesse geografico (appunti)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:72
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:137
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:141
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "Coordinate cartesiane equivalenti:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
@@ -14164,7 +14164,7 @@ msgstr "- Y = metti una latitudine valida"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:120
 msgid "Create GEO POI"
-msgstr ""
+msgstr "Crea punto di interesse geografico"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:172
 msgid "Using clipboard"
