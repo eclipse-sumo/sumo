@@ -71,9 +71,7 @@ jobs:
       uses: compnerd/gha-setup-vsdevenv@main
 
     - name: Installing Python build environment
-      run: |
-        python -m pip install wheel build
-        mkdir tmp
+      run: python -m pip install wheel build
 
     - name: Building libsumo plain
       if: matrix.build_type == 'libsumo'
@@ -98,10 +96,7 @@ jobs:
         python -m build --wheel tools -o dist
         python tools\build_config\version.py tools\build_config\setup-traci.py tools\setup.py
         python -m build --wheel tools -o dist
-        copy build_config\pyproject.toml .
-        python tools\build_config\version.py tools\build_config\setup-sumo.py .\setup.py
-        python -m build --wheel --config-setting=--plat-name=win_amd64 --config-setting=-G=Ninja
-        python -c "import glob, os; f = glob.glob(\`"dist/eclipse_sumo-*\`")[0]; os.rename(f, f.replace(\`"cp38-cp38\`", \`"py2.py3-none\`"))"
+        python tools\build_config\buildWindowsSUMOWheel.py
 
     - name: Uploading artifacts
       if: matrix.build_type == 'sumo'
@@ -144,6 +139,9 @@ jobs:
 
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v4
+      with:
+        path: python-wheels
+        merge-multiple: true
 
     - name: Configuring Python
       uses: actions/setup-python@v5
@@ -153,7 +151,7 @@ jobs:
     - name: Preparing Python environment
       run: |
         python -m pip install texttest
-        python -m pip install (Get-ChildItem -Filter sumo-python-wheels/eclipse_sumo*).FullName
+        python -m pip install -f python-wheels eclipse_sumo
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
@@ -173,9 +171,7 @@ jobs:
         python -m pip uninstall -y eclipse-sumo
 
     - name: Installing libsumo
-      run: |
-        python -m pip install (Get-ChildItem -Filter sumo-python-wheels/sumolib-*).FullName (Get-ChildItem -Filter sumo-python-wheels/traci-*).FullName
-        python -m pip install --user (Get-ChildItem -Filter libsumo-python-${{ matrix.python_version }}-wheels/libsumo-*).FullName
+      run: python -m pip install --user -f python-wheels sumolib traci libsumo
 
 #    - name: Running libsumo tests
 #      run: |
