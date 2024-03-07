@@ -64,9 +64,6 @@ Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJun
 ## Mapmatching
 Since version 1.2 duarouter supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configured using option **--mapmatch.distance** (since version 1.5)
 
-!!! caution
-    SUMO does not yet support these mapping attributes.
-
 By setting the option **--mapmatch.junctions**, positions are mapped to junctions instead of edges. The routes are then [computed between junctions](#routing_between_junctions).
 
 ## Vehicle Types
