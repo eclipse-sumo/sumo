@@ -68,7 +68,7 @@ const std::string MSPModel_JuPedSim::PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID =
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
-    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr), 
+    myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
@@ -461,11 +461,13 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 #ifdef DEBUG_GEOMETRY_GENERATION
                 dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
-                int nbrComponents = 0; double maxArea = 0.0; double totalArea = 0.0;
+                int nbrComponents = 0;
+                double maxArea = 0.0;
+                double totalArea = 0.0;
                 const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
                 if (nbrComponents > 1) {
-                    WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."), 
-                        nbrComponents, maxArea / totalArea * 100.0, "%");
+                    WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
+                                   nbrComponents, maxArea / totalArea * 100.0, "%");
                 }
 #ifdef DEBUG_GEOMETRY_GENERATION
                 dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
@@ -825,7 +827,7 @@ MSPModel_JuPedSim::getHoleArea(const GEOSGeometry* hole) {
 void
 MSPModel_JuPedSim::removePolygonFromDrawing(const std::string& polygonId) {
     myShapeContainer.removePolygon(polygonId);
-            }
+}
 
 
 void
@@ -851,7 +853,7 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
 }
 
 
-const GEOSGeometry* 
+const GEOSGeometry*
 MSPModel_JuPedSim::getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea) {
     nbrComponents = GEOSGetNumGeometries(polygon);
     const GEOSGeometry* largestComponent = nullptr;
@@ -923,7 +925,9 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     initGEOS(nullptr, nullptr);
     PROGRESS_BEGIN_MESSAGE("Generating initial JuPedSim geometry for pedestrian network");
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
-    int nbrComponents = 0; double maxArea = 0.0; double totalArea = 0.0;
+    int nbrComponents = 0;
+    double maxArea = 0.0;
+    double totalArea = 0.0;
     myGEOSPedestrianNetworkLargestComponent = getLargestComponent(myGEOSPedestrianNetwork, nbrComponents, maxArea, totalArea);
     if (nbrComponents > 1) {
         WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
@@ -982,7 +986,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
                 areaBoundary.pop_back();
             }
             const std::string type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
-            myAreas.push_back(AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap()});
+            myAreas.push_back(AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap(), 0});
         }
     }
 }
