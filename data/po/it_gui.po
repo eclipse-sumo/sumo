@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-07 18:57+0000\n"
+"PO-Revision-Date: 2024-03-08 08:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16208,75 +16208,75 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1966
 msgid "Show person id"
-msgstr ""
+msgstr "Mostra il codice identificativo della persona"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1967
 msgid "Show person color value"
-msgstr ""
+msgstr "Mostra il valore di colore della persona"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1975
 msgid "Show JuPedSim pedestrian network"
-msgstr ""
+msgstr "Mostra la rete pedonale JuPedSim"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2015
 msgid "Show container id"
-msgstr ""
+msgstr "Mostra il codice identificativo del contenitore"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2043
 msgid "Draw junction shape"
-msgstr ""
+msgstr "Disegna la forma dell'incrocio"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2045
 msgid "Draw crossings/walkingareas"
-msgstr ""
+msgstr "Disegna passaggi e aree pedonali"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2047
 msgid "Show lane to lane connections"
-msgstr ""
+msgstr "Mostra collegamenti tra corsie"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2051
 msgid "Show link tls index"
-msgstr ""
+msgstr "Mostra l'indice semaforico"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2052
 msgid "Show link junction index"
-msgstr ""
+msgstr "Mostra l'indice del collegamento"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2053
 msgid "Show junction id"
-msgstr ""
+msgstr "Mostra il codice identificativo dell'incrocio"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2054
 msgid "Show internal junction id"
-msgstr ""
+msgstr "Mostra il codice identificativo dell'incrocio interno"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2055
 msgid "Show internal edge id"
-msgstr ""
+msgstr "Mostra il codice identificativo dell'arco interno"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2056
 msgid "Show crossing and walkingarea id"
-msgstr ""
+msgstr "Mostra i codici identificativi di passaggi e aree pedonali"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2057
 msgid "Show traffic light phase index"
-msgstr ""
+msgstr "Mostra l'indice della fase del programma semaforico"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2058
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "Mostra il nome della fase del programma semaforico"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2059
 msgid "Show junction name"
-msgstr ""
+msgstr "Mostra il nome dell'incrocio"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2070
 msgid "Show object id"
-msgstr ""
+msgstr "Mostra il codice identificativo dell'oggetto"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2071
 msgid "Show full name"
-msgstr ""
+msgstr "Mostra il nome completo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2078
 msgid "StoppingPlace"
