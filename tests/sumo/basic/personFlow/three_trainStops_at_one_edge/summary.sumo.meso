@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-22 15:37:47 by Eclipse SUMO sumo Version v1_19_0+0217-cf6b8a2c140
+<!-- generated on 2024-03-07 22:27:39 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -157,29 +157,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <step time="109.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
     <step time="110.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
     <step time="111.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
-    <step time="112.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
-    <step time="113.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
-    <step time="114.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
-    <step time="115.00" loaded="10" inserted="10" walking="9" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="1" arrived="1" teleports="0"/>
-    <step time="116.00" loaded="10" inserted="10" walking="8" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="2" arrived="2" teleports="0"/>
-    <step time="117.00" loaded="10" inserted="10" walking="8" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="2" arrived="2" teleports="0"/>
-    <step time="118.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="119.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="120.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="121.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="122.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="123.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="124.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="125.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="126.00" loaded="10" inserted="10" walking="7" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="3" arrived="3" teleports="0"/>
-    <step time="127.00" loaded="10" inserted="10" walking="6" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="4" arrived="4" teleports="0"/>
-    <step time="128.00" loaded="10" inserted="10" walking="6" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="4" arrived="4" teleports="0"/>
-    <step time="129.00" loaded="10" inserted="10" walking="5" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="5" arrived="5" teleports="0"/>
-    <step time="130.00" loaded="10" inserted="10" walking="5" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="5" arrived="5" teleports="0"/>
-    <step time="131.00" loaded="10" inserted="10" walking="5" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="5" arrived="5" teleports="0"/>
-    <step time="132.00" loaded="10" inserted="10" walking="5" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="5" arrived="5" teleports="0"/>
-    <step time="133.00" loaded="10" inserted="10" walking="4" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="6" arrived="6" teleports="0"/>
-    <step time="134.00" loaded="10" inserted="10" walking="3" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="7" arrived="7" teleports="0"/>
-    <step time="135.00" loaded="10" inserted="10" walking="2" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="8" arrived="8" teleports="0"/>
-    <step time="136.00" loaded="10" inserted="10" walking="0" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="10" arrived="10" teleports="0"/>
+    <step time="112.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="113.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="114.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="115.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="116.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="117.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="118.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="119.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="120.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="121.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="122.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="123.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="124.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="125.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="126.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="127.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="128.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="129.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="130.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="131.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="132.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="133.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="134.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="135.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="136.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="137.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="138.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="139.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="140.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="141.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="142.00" loaded="10" inserted="10" walking="10" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="0" arrived="0" teleports="0"/>
+    <step time="143.00" loaded="10" inserted="10" walking="0" waitingForRide="0" riding="0" stopping="0" jammed="0" ended="10" arrived="10" teleports="0"/>
 </personSummary>

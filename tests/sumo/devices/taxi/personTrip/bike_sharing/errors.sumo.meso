@@ -1,0 +1,6 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Vehicle class 'bicycle' of vType 'shared_bike' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Vehicle 'bikeA' with device.taxi should have vClass taxi instead of 'bicycle'.
+Warning: Vehicle 'bikeB' with device.taxi should have vClass taxi instead of 'bicycle'.
+Warning: Vehicle 'bikeA' aborted waiting for a person that will never come.
+Warning: Vehicle 'bikeB' aborted waiting for a person that will never come.
