@@ -54,6 +54,7 @@ jobs:
         path: .lycheecache
         key: cache-lychee-${{ github.sha }}
         restore-keys: cache-lychee-
+        save-always: true
 
     - name: Cloning repository
       uses: actions/checkout@v4
