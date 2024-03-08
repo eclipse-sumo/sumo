@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-08 08:52+0000\n"
+"PO-Revision-Date: 2024-03-08 12:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15861,53 +15861,53 @@ msgstr "% oggetti"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
-msgstr ""
+msgstr "Carica veduta da file"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save viewport to file"
-msgstr ""
+msgstr "Salva veduta in un file"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:210
 msgid "Load Viewport"
-msgstr ""
+msgstr "Carica veduta"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:229
 msgid "Save Viewport"
-msgstr ""
+msgstr "Salva veduta"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:87
 msgid "View Settings"
-msgstr ""
+msgstr "Configurazione grafica"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1004
 msgid "Enter a name"
-msgstr ""
+msgstr "Metti un nome"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1006
 msgid "Please enter an alphanumeric name: "
-msgstr ""
+msgstr "Metti un nome alfanumerico per favore: "
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1085
 msgid "Export view settings"
-msgstr ""
+msgstr "Esporta configurazione grafica"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1136
 msgid "Import view settings"
-msgstr ""
+msgstr "Importa configurazione grafica"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1153
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1170
 msgid "Load Decals"
-msgstr ""
+msgstr "Carica immagini di fondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1187
 msgid "Save Decals"
-msgstr ""
+msgstr "Salva immagini di fondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1259
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1324
 msgid "No Data"
-msgstr ""
+msgstr "Senza dati"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1590
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1635
