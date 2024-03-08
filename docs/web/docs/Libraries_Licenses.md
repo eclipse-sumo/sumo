@@ -114,7 +114,7 @@ won't work
 ### [Open Scene Graph](https://www.openscenegraph.org/) - 3D Graphics Toolkit
 
 - [OpenSceneGraph Public
-  License](https://www.openscenegraph.org/images/LICENSE.txt)
+  License](https://openscenegraph.github.io/openscenegraph.io/about/license.html)
 
 ### [FFmpeg](https://ffmpeg.org/) - Multimedia Library
 
