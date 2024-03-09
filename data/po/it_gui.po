@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-08 12:40+0000\n"
+"PO-Revision-Date: 2024-03-09 15:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11565,7 +11565,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:522
 msgid "Reset connections"
-msgstr ""
+msgstr "Resetta collegamenti"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:531
 msgid "Reset junction shapes"
@@ -11573,39 +11573,39 @@ msgstr "Resetta le forme degli incroci"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:545
 msgid "wrong edit mode"
-msgstr ""
+msgstr "modo sbagliato"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1348
 msgid "change junction position"
-msgstr ""
+msgstr "sposta la posizione dell'incrocio"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1369
 msgid "change keepClear for whole junction"
-msgstr ""
+msgstr "cambia keepClear per l'incrocio intero"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:519
 msgid "Copy parent edge name to clipboard"
-msgstr ""
+msgstr "Copia il nome dell'arco padre negli appunti"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:528
 msgid "Remove Lane From Selected"
-msgstr ""
+msgstr "Rimuovi corsia dalla selezione"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:530
 msgid "Add Lane To Selected"
-msgstr ""
+msgstr "Aggiungi corsia alla selezione"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:534
 msgid "Remove Edge From Selected"
-msgstr ""
+msgstr "Rimuovi arco dalla selezione"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:536
 msgid "Add Edge To Selected"
-msgstr ""
+msgstr "Aggiungi arco alla selezione"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:553
 msgid "Reset edge end points"
-msgstr ""
+msgstr "Resetta punti terminali dell'arco"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:580
 msgid "Select state for all links from this edge:"
@@ -14750,32 +14750,36 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
+"Usa un'indice differente per ogni collegamento (annulla il raggruppamento di "
+"stati)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
 msgstr ""
+"Usa un'indice differente per ogni collegamento (annulla il raggruppamento di "
+"stati). (Non permesso per più programmi)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2080
 msgid "invalid column"
-msgstr ""
+msgstr "colonna invalida"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2639
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "Errore nel rimuovere la fase '"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2904
 msgid "TLS Program File"
-msgstr ""
+msgstr "File di programmi semaforici"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2908
 msgid "Load TLS program from additional file"
-msgstr ""
+msgstr "Carica programma semaforico da file di elementi addizionali"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2910
 msgid "Save TLS program to additional file"
-msgstr ""
+msgstr "Salva programma semaforico in file di elementi addizionali"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2969
 msgid " new programs for tlLogic '"
@@ -14795,7 +14799,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2997
 msgid "Save TLS Program as"
-msgstr ""
+msgstr "Salva programma semaforico con nome"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
@@ -16304,35 +16308,35 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
 msgid "Show poi id"
-msgstr ""
+msgstr "Mostra codice identificativo del punto di interesse"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2167
 msgid "Show poi type"
-msgstr ""
+msgstr "Mostra tipo del punto di interesse"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2168
 msgid "Show poi text param"
-msgstr ""
+msgstr "Mostra parametro di testo del punto di interesse"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2195
 msgid "Show polygon id"
-msgstr ""
+msgstr "Mostra codice identificativo del poligono"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2196
 msgid "Show polygon types"
-msgstr ""
+msgstr "Mostra tipi di poligoni"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2210
 msgid "Default Selection Color"
-msgstr ""
+msgstr "Colore di selezione standard"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2213
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diverso"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2262
 msgid "hide below threshold"
-msgstr ""
+msgstr "nascondi sotto il valore soglia"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2269
 msgid "Exaggerate edgeRelation width by"
@@ -16364,7 +16368,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2316
 msgid "Draw boundaries"
-msgstr ""
+msgstr "Disegna contorni"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2319
 msgid "Force draw for rectangle selection"
@@ -16384,7 +16388,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2334
 msgid "3D view"
-msgstr ""
+msgstr "Veduta 3D"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2339
 msgid "Show TLS link markers"
@@ -16412,11 +16416,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter View"
-msgstr ""
+msgstr "Ricentra veduta"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "Ricentra veduta all'area simulata."
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 #: D:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1594
