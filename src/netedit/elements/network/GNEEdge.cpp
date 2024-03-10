@@ -2663,16 +2663,16 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
                 // pop drawing matrix
                 GLHelper::popMatrix();
                 // check if draw line between junctions
-                if ((selectedGeometryPoints.size() > 0) && (selectedGeometryPoints.front() == ((int)myNBEdge->getGeometry().size() - 1))) {
+                if ((selectedGeometryPoints.size() > 0) && (selectedGeometryPoints.back() == ((int)myNBEdge->getGeometry().size() - 1))) {
                     // set base color
                     GLHelper::setColor(RGBColor::ORANGE);
                     // push drawing matrix
                     GLHelper::pushMatrix();
                     // draw line between geometry point and from junction
-                    const PositionVector lineA = {geometryPointPos, getFromJunction()->getNBNode()->getPosition()};
+                    const PositionVector lineA = {geometryPointPos, getToJunction()->getNBNode()->getPosition()};
                     GLHelper::drawBoxLine(lineA[1], RAD2DEG(lineA[0].angleTo2D(lineA[1])) - 90, lineA[0].distanceTo2D(lineA[1]), .1);
                     // draw line between begin point of last lane shape and the first edge shape point
-                    const PositionVector lineB = {geometryPointPos, myNBEdge->getLanes().back().shape.front()};
+                    const PositionVector lineB = {geometryPointPos, myNBEdge->getLanes().back().shape.back()};
                     GLHelper::drawBoxLine(lineB[1], RAD2DEG(lineB[0].angleTo2D(lineB[1])) - 90, lineB[0].distanceTo2D(lineB[1]), .1);
                     // pop drawing matrix
                     GLHelper::popMatrix();
