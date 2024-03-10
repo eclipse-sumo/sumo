@@ -5636,12 +5636,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_MOVE: {
-            // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (checkSelectEdges()) {
-                myViewObjectsSelector.filterLanes();
-            } else {
-                myViewObjectsSelector.filterEdges();
-            }
+            // editing lane shapes in move mode isn't finished, then always filter lanes
+            myViewObjectsSelector.filterLanes();
             // filter locked elements
             myViewObjectsSelector.filterLockedElements({GLO_WALKINGAREA});
             // check if we're editing a shape
