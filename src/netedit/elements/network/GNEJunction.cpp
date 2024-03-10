@@ -1618,7 +1618,7 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVi
     // set color
     GLHelper::setColor(bubbleColor);
     // move matrix junction center
-    glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 2);
+    glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.5);
     // draw filled circle
     GLHelper::drawFilledCircleDetailled(d, bubbleRadius);
     // pop matrix

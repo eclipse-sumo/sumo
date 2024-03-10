@@ -1271,7 +1271,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
         // push arrow matrix
         GLHelper::pushMatrix();
         // move front (note: must draw on top of junction shape?
-        glTranslated(0, 0, 0.5);
+        glTranslated(0, 0, 3);
         // change color depending of spreadSuperposed
         if (myDrawingConstants->drawSuperposed()) {
             GLHelper::setColor(RGBColor::CYAN);
