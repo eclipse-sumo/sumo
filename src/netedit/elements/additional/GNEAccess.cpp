@@ -47,11 +47,12 @@ myFriendlyPosition(false) {
 }
 
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const Parameterised::Map& parameters) :
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+                     const bool friendlyPos, const double length, const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
 Parameterised(parameters),
 myPositionOverLane(pos),
+mySpecialPosition(specialPos),
 myLength(length),
 myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
@@ -268,7 +269,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             if (myPositionOverLane == INVALID_DOUBLE) {
-                return "random";
+                return mySpecialPosition;
             } else {
                 return toString(myPositionOverLane);
             }
@@ -337,7 +338,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty() || (value == "random")) {
+            if (value.empty() || value == "random" || value == "doors") {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -387,8 +388,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (value.empty()) {
                 myPositionOverLane = 0;
-            } else if (value == "random") {
+            } else if (value == "random" || value == "doors") {
                 myPositionOverLane = INVALID_DOUBLE;
+                mySpecialPosition = value;
             } else {
                 myPositionOverLane = parse<double>(value);
             }

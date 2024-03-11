@@ -182,7 +182,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         if (GNEAttributeCarrier::canParse<double>(pos)) {
             posDouble = GNEAttributeCarrier::parse<double>(pos);
             validPos = checkLanePosition(posDouble, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
-        } else if (pos == "random") {
+        } else if (pos == "random" || pos == "doors") {
             posDouble = INVALID_DOUBLE;
         } else if (pos.empty()) {
             posDouble = 0;
@@ -205,7 +205,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         WRITE_WARNING(TLF("Could not build access in netedit; The lane '%' doesn't support pedestrians", lane->getID()));
     } else {
         // build access
-        GNEAdditional* access = new GNEAccess(busStop, lane, myNet, posDouble, length, friendlyPos, parameters);
+        GNEAdditional* access = new GNEAccess(busStop, lane, myNet, posDouble, pos, friendlyPos, length, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + busStop->getID() + "'");

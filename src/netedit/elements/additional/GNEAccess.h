@@ -49,8 +49,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length,
-              bool friendlyPos, const Parameterised::Map& parameters);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, const double pos, const std::string& specialPos,
+              const bool friendlyPos, const double length, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -167,6 +167,9 @@ public:
 protected:
     /// @brief position over lane
     double myPositionOverLane;
+
+    /// @brief position over lane
+    std::string mySpecialPosition;
 
     /// @brief Access length
     double myLength;
