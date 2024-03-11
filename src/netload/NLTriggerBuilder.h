@@ -328,11 +328,12 @@ protected:
      * @param[in] chargeDelay delay in the charge
      * @param[in] chargeType charge type (normal, electric or fuel)
      * @param[in] waitingTime waiting time until start charging
+     * @param[in] parkingArea The associated parking area
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType,
-                                      SUMOTime waitingTime);
+                                      SUMOTime waitingTime, MSParkingArea* parkingArea);
 
     /** @brief Builds an overhead wire segment
     *
@@ -463,6 +464,21 @@ protected:
      */
     MSLane* getLane(const SUMOSAXAttributes& attrs,
                     const std::string& tt, const std::string& tid);
+
+
+    /** @brief Returns the parking area defined by attribute "parkingArea"
+     *
+     * Retrieves the parking area id from the given attrs. Tries to retrieve the parking area,
+     *  throws an InvalidArgument if it does not exist.
+     *
+     * @param[in] attrs The attributes to obtain the parking area id from
+     * @param[in] tt The trigger type (for user output)
+     * @param[in] tid The trigger id (for user output)
+     * @return The named parking area if it is known, nullptr if empty ID is given
+     * @exception InvalidArgument If the named parking area does not exist
+     */
+    MSParkingArea* getParkingArea(const SUMOSAXAttributes& attrs,
+                                  const std::string& tt, const std::string& tid);
 
 
     /** @brief returns the position on the lane checking it

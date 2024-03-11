@@ -153,12 +153,13 @@ protected:
      * @param[in] chargeDelay delay in the charge
      * @param[in] chargeType charge type (normal, electric or fuel)
      * @param[in] waitingTime waiting time until start charging
+     * @param[in] parkingArea The associated parking area
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
-                                      double frompos, double topos, const std::string& name,
-                                      double chargingPower, double efficiency, bool chargeInTransit,
-                                      SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) override;
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
+                                      double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType,
+                                      SUMOTime waitingTime, MSParkingArea* parkingArea);
+
 
     /** @brief Builds an overhead wire segment
     *

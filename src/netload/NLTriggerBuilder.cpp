@@ -165,6 +165,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), ok, 900);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    MSParkingArea* parkingArea = getParkingArea(attrs, "parkingArea", id);
 
     // check charge type
     if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
@@ -175,7 +176,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
         throw InvalidArgument("Invalid position for charging station '" + id + "'.");
     }
 
-    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime);
+    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime, parkingArea);
 }
 
 
@@ -845,9 +846,10 @@ NLTriggerBuilder::endStoppingPlace() {
 void
 NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
-                                       SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) {
-    MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-            chargeInTransit, chargeDelay, chargeType, waitingTime);
+                                       SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
+    MSChargingStation* chargingStation = (parkingArea == nullptr) ? new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
+                                         chargeInTransit, chargeDelay, chargeType, waitingTime) : new MSChargingStation(id, parkingArea, name, chargingPower, efficiency,
+                                                 chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
@@ -935,6 +937,23 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
     }
     return lane;
+}
+
+
+MSParkingArea*
+NLTriggerBuilder::getParkingArea(const SUMOSAXAttributes& attrs, const std::string& tt, const std::string& tid) {
+    bool ok = true;
+    std::string objectID = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, tid.c_str(), ok);
+    if (!ok || objectID.size() == 0) {
+        return nullptr;
+    }
+    MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));
+    if (pa == nullptr) {
+        // Throw the exception only in case that the lane really does not exist in the network file
+        // or it is broken.
+        throw InvalidArgument("The parkingArea " + objectID + " to use within the " + tt + " '" + tid + "' is not known.");
+    }
+    return pa;
 }
 
 

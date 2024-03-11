@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -56,27 +57,16 @@ GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, doub
                                        const std::string& chargeType, SUMOTime waitingTime) :
     MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
-    myFGShape = lane.getShape();
-    myFGShape = myFGShape.getSubpart(
-                    lane.interpolateLanePosToGeometryPos(frompos),
-                    lane.interpolateLanePosToGeometryPos(topos));
-    myFGShapeRotations.reserve(myFGShape.size() - 1);
-    myFGShapeLengths.reserve(myFGShape.size() - 1);
-    int e = (int) myFGShape.size() - 1;
-    for (int i = 0; i < e; ++i) {
-        const Position& f = myFGShape[i];
-        const Position& s = myFGShape[i + 1];
-        myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
-    }
-    PositionVector tmp = myFGShape;
-    tmp.move2side(1.5);
-    myFGSignPos = tmp.getLineCenter();
-    myFGSignRot = 0;
-    if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
-    }
+    initAppearance(lane, frompos, topos);
+}
+
+
+GUIChargingStation::GUIChargingStation(const std::string& id, MSParkingArea* parkingArea, const std::string& name,
+                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
+                                       const std::string& chargeType, SUMOTime waitingTime) :
+    MSChargingStation(id, parkingArea, name, chargingPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
+    GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
+    initAppearance(const_cast<MSLane&>(parkingArea->getLane()), parkingArea->getBeginLanePosition(), parkingArea->getEndLanePosition());
 }
 
 
@@ -191,6 +181,33 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
+
+
+void
+GUIChargingStation::initAppearance(MSLane& lane, double frompos, double topos) {
+    myFGShape = lane.getShape();
+    myFGShape = myFGShape.getSubpart(
+                    lane.interpolateLanePosToGeometryPos(frompos),
+                    lane.interpolateLanePosToGeometryPos(topos));
+    myFGShapeRotations.reserve(myFGShape.size() - 1);
+    myFGShapeLengths.reserve(myFGShape.size() - 1);
+    int e = (int)myFGShape.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        const Position& f = myFGShape[i];
+        const Position& s = myFGShape[i + 1];
+        myFGShapeLengths.push_back(f.distanceTo(s));
+        myFGShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+    }
+    PositionVector tmp = myFGShape;
+    tmp.move2side(1.5);
+    myFGSignPos = tmp.getLineCenter();
+    myFGSignRot = 0;
+    if (tmp.length() != 0) {
+        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
+        myFGSignRot -= 90;
+    }
+}
+
 
 const std::string
 GUIChargingStation::getOptionalName() const {
