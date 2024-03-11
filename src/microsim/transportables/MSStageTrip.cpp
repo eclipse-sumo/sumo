@@ -286,7 +286,11 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             }
         } else {
             // append stage so the GUI won't crash due to inconsistent state
-            transportable->appendStage(new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), stageIndex++);
+            previous = new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat);
+            if (hasParameter("pushParam")) {
+                previous->setParameters(*this);
+            }
+            transportable->appendStage(previous, stageIndex++);
             if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
                 if (vehicle != nullptr) {
                     vehControl.deleteVehicle(vehicle, true);
