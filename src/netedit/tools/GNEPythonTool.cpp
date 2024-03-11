@@ -105,19 +105,21 @@ GNEPythonTool::getCommand() const {
         sumoHome = std::string(sumoHomeEnv);
         // harmonise slash
         if (sumoHome.back() == '\\') {
-            sumoHome = sumoHome.substr(0, sumoHome.size() - 1);
+            sumoHome.pop_back();
+        }
+        if (sumoHome.back() != '/') {
+            sumoHome += "/";
         }
         // quote string to handle spaces but prevent double quotes
         if (sumoHome.front() != '"') {
             sumoHome = "\"" + sumoHome;
         }
-        if (sumoHome.back() != '"') {
-            sumoHome += "\"";
+        if (sumoHome.back() == '"') {
+            sumoHome.pop_back();
         }
-        sumoHome += "/";
     }
     // get command
-    std::string command = python + " " + sumoHome + myToolPath;
+    std::string command = python + " " + sumoHome + myToolPath + "\"";
     // declare arguments
     std::string arguments;
     // add arguments
