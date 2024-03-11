@@ -434,6 +434,7 @@ protected:
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
     FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;
+    FXRealSpinner* myComboRows = nullptr;
 
     /// @brief name panels
     NamePanel* myEdgeNamePanel = nullptr;

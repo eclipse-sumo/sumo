@@ -48,13 +48,16 @@ class MFXMenuCheckIcon;
 /// @name ComboBox sizes
 /// @{
 /// @brief combo box size small
-#define GUIDesignComboBoxVisibleItemsSmall  15
+#define GUIDesignComboBoxVisibleItemsSmall  ((int)getApp()->reg().readIntEntry("SETTINGS", "comboRows", 32))
+
 
 /// @brief combo box medium small
-#define GUIDesignComboBoxVisibleItemsMedium 15
+#define GUIDesignComboBoxVisibleItemsMedium GUIDesignComboBoxVisibleItemsSmall
 
 /// @brief combo box large small
-#define GUIDesignComboBoxVisibleItemsLarge  15
+#define GUIDesignComboBoxVisibleItemsLarge GUIDesignComboBoxVisibleItemsSmall
+
+#define GUIDesignComboBoxVisibleItemsFixed 15
 
 /// @}
 
