@@ -4710,7 +4710,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP,
+                                      GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: containerStop"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
