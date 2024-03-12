@@ -1233,7 +1233,8 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             myPopup = GUIGlObjectStorage::gIDStorage.getNetObject()->getPopUpMenu(*myApp, *this);
         } else {
             std::sort(objectsUnderCursor.begin(), objectsUnderCursor.end(), ComparatorClickPriority());
-            if (altKeyPressed && objectsUnderCursor.size() > 1) {
+            if (objectsUnderCursor.size() > 1 && (altKeyPressed
+                        || objectsUnderCursor[0]->getClickPriority() == objectsUnderCursor[1]->getClickPriority())) {
                 // open dialog for picking among objects (without duplicates)
                 myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, filterContextObjects(objectsUnderCursor));
             } else {
