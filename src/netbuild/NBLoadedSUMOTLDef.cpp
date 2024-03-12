@@ -388,35 +388,40 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
     if (!amInvalid() && !myNeedsContRelationReady) {
         myNeedsContRelation.clear();
         myRightOnRedConflicts.clear();
-        const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-            const std::string state = (*it).state;
-            for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
-                const NBConnection& c1 = *it1;
-                const int i1 = c1.getTLIndex();
-                if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
-                    continue;
-                }
-                for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
-                    const NBConnection& c2 = *it2;
-                    const int i2 = c2.getTLIndex();
-                    if (i2 != NBConnection::InvalidTlIndex
-                            && i2 != i1
-                            && (state[i2] == 'G' || state[i2] == 'g')
-                            && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
-                        const bool rightTurnConflict = NBNode::rightTurnConflict(
-                                                           c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
-                        const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
-                        const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
-                        if (forbidden || rightTurnConflict) {
-                            myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+        if (myType == TrafficLightType::NEMA) {
+            NBTrafficLightDefinition::initNeedsContRelation();
+            NBTrafficLightDefinition::initRightOnRedConflicts();
+        } else {
+            const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
+            const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+            for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+                const std::string state = (*it).state;
+                for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
+                    const NBConnection& c1 = *it1;
+                    const int i1 = c1.getTLIndex();
+                    if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
+                        continue;
+                    }
+                    for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
+                        const NBConnection& c2 = *it2;
+                        const int i2 = c2.getTLIndex();
+                        if (i2 != NBConnection::InvalidTlIndex
+                                && i2 != i1
+                                && (state[i2] == 'G' || state[i2] == 'g')
+                                && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
+                            const bool rightTurnConflict = NBNode::rightTurnConflict(
+                                    c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                            const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
+                            const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
+                            if (forbidden || rightTurnConflict) {
+                                myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
+                            }
+                            if (isFoes && state[i1] == 's') {
+                                myRightOnRedConflicts.insert(std::make_pair(i1, i2));
+                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
+                            }
+                            //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                         }
-                        if (isFoes && state[i1] == 's') {
-                            myRightOnRedConflicts.insert(std::make_pair(i1, i2));
-                            //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
-                        }
-                        //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                     }
                 }
             }

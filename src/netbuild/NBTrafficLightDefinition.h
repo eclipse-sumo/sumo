@@ -349,6 +349,8 @@ public:
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
     virtual void initNeedsContRelation() const;
 
+    virtual void initRightOnRedConflicts() const;
+
     ///@brief Returns the maximum index controlled by this traffic light and assigned to a connection
     virtual int getMaxIndex() = 0;
 

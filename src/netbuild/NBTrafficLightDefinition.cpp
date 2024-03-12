@@ -536,8 +536,8 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 }
 
 
-bool
-NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
+void
+NBTrafficLightDefinition::initRightOnRedConflicts() const {
     if (!myRightOnRedConflictsReady) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
         dummy.setParticipantsInformation();
@@ -553,6 +553,12 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
         //    std::cout << "   " << it->first << ", " << it->second << "\n";
         //}
     }
+}
+
+
+bool
+NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
+    initRightOnRedConflicts();
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
 
