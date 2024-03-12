@@ -51,7 +51,7 @@ public:
     /** @brief returns the information whether the device will discard all output
      * @return Whether the device redirects to /dev/null
      */
-    bool isNull() {
+    bool isNull() override {
         return myAmNull;
     }
 
@@ -64,7 +64,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream();
+    std::ostream& getOStream() override;
     /// @}
 
 
