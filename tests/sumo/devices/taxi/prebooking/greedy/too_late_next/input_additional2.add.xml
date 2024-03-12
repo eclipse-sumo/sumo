@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00">
+        <stop edge="C1C0" until="300"/>
+        <ride from="C1C0" to="A0B0" lines="taxi">
+            <param key="earliestPickupTime" value="00.00"/>
+            <param key="reservationTime" value="0.00"/>
+        </ride>
+    </person>
+    <person id="p1" depart="0.00">
+        <ride from="C1C2" to="C0B0" lines="taxi">
+            <param key="earliestPickupTime" value="10.00"/>
+            <param key="reservationTime" value="0.00"/>
+        </ride>
+    </person>
+</routes> 

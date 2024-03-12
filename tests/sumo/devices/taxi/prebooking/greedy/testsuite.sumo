@@ -1,0 +1,5 @@
+# order should be defined by earliestPickupTime
+many_bookings
+
+# after first person comes too late, cancel the reservation and go to the next one
+too_late_next

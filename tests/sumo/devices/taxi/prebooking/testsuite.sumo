@@ -1,14 +1,16 @@
 # order taxi before the ride stage, using ride params "reservationTime" and "earliestPickupTime"
-prebooking_simple
+simple
 
 # order taxi before the ride stage, without initial walk, using ride params "reservationTime" and "earliestPickupTime"
-prebooking_no_walk
+no_walk
 
 # order taxi before the ride stage, without initial walk, with individual departPos, using ride params "reservationTime" and "earliestPickupTime"
-prebooking_no_walk_departPos
+no_walk_departPos
 
 # order taxi before the depart, using ride params "reservationTime" and "earliestPickupTime"
-prebooking_reservation_before_depart
+reservation_before_depart
 
 # order taxi before the depart, using ride param "earliestPickupTime"
-prebooking_default_reservationTime
+default_reservationTime
+greedy
+greedyShared
