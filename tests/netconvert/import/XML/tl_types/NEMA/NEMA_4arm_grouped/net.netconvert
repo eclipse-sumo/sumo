@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-12 20:26:47 by Eclipse SUMO netconvert Version v1_19_0+1237-e57b0e7b117
+<!-- generated on 2024-03-12 20:32:38 by Eclipse SUMO netconvert Version v1_19_0+1238-84d92f9a34e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -161,6 +161,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="90" state="Ggrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="4"/>
         <phase duration="90" state="rGrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="7"/>
         <phase duration="90" state="rrrrGgrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="8"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_16_0 :C_17_0 :C_4_0 :C_5_0 :C_18_0 :C_19_0 :C_8_0 :C_9_0 :C_20_0 :C_21_0 :C_12_0 :C_13_0 :C_22_0 :C_23_0" shape="93.60,110.40 103.20,110.40 104.00,108.18 105.00,107.40 106.40,106.84 108.20,106.51 110.40,106.40 110.40,96.80 108.18,96.00 107.40,95.00 106.84,93.60 106.51,91.80 106.40,89.60 96.80,89.60 96.00,91.82 95.00,92.60 93.60,93.16 91.80,93.49 89.60,93.60 89.60,103.20 91.82,104.00 92.60,105.00 93.16,106.40 93.49,108.20" rightOfWay="allwayStop">
