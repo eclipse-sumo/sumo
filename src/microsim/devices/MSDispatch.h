@@ -45,7 +45,7 @@ struct Reservation {
     };
 
     Reservation(const std::string& _id,
-                const std::vector<MSTransportable*>& _persons,
+                const std::vector<const MSTransportable*>& _persons,
                 SUMOTime _reservationTime,
                 SUMOTime _pickupTime,
                 SUMOTime _earliestPickupTime,
@@ -69,7 +69,7 @@ struct Reservation {
     {}
 
     std::string id;
-    std::set<MSTransportable*> persons;
+    std::set<const MSTransportable*> persons;
     SUMOTime reservationTime;
     SUMOTime pickupTime;
     SUMOTime earliestPickupTime;

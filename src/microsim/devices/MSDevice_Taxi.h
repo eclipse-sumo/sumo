@@ -276,6 +276,8 @@ private:
     static MSDispatch* myDispatcher;
     /// @brief The repeated call to the dispatcher
     static Command* myDispatchCommand;
+    /// @brief the last dispatch order
+    std::vector<const Reservation*> myLastDispatch;
     // @brief the list of available taxis
     static std::vector<MSDevice_Taxi*> myFleet;
     // @brief the maximum personCapacity in the fleet

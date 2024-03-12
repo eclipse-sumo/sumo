@@ -183,7 +183,7 @@ Person::filterReservation(int onlyNew, const Reservation* res, std::vector<libsu
         return false;
     }
     std::vector<std::string> personIDs;
-    for (MSTransportable* p : res->persons) {
+    for (const MSTransportable* p : res->persons) {
         personIDs.push_back(p->getID());
     }
     std::sort(personIDs.begin(), personIDs.end());

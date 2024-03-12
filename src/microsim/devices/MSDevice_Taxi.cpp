@@ -313,6 +313,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         }
     }
 #endif
+    myLastDispatch = reservations;
     ConstMSEdgeVector tmpEdges;
     std::vector<SUMOVehicleParameter::Stop> stops;
     double lastPos = myHolder.getPositionOnLane();
@@ -333,7 +334,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         // check how often existing customers appear in the new reservations
         std::map<const MSTransportable*, int> nOccur;
         for (const Reservation* res : reservations) {
-            for (MSTransportable* person : res->persons) {
+            for (const MSTransportable* person : res->persons) {
                 if (myCustomers.count(person) != 0) {
                     nOccur[person] += 1;
                     if (myCurrentReservations.count(res) == 0) {
@@ -433,7 +434,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     for (const Reservation* res : reservations) {
         myCurrentReservations.insert(res);
         bool isPickup = false;
-        for (MSTransportable* person : res->persons) {
+        for (const MSTransportable* person : res->persons) {
             if (myCustomers.count(person) == 0) {
                 myCustomers.insert(person);
                 isPickup = true;
@@ -451,7 +452,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 stops.back().permitted.insert(transportable->getID());
             }
             // proof this lines: Is needed for pre-booking?
-            std::set<MSTransportable*> persons = res->persons;
+            std::set<const MSTransportable*> persons = res->persons;
             for (auto itr = persons.begin(); itr != persons.end(); itr++) {
                 stops.back().awaitedPersons.insert((*itr)->getID());
             }
@@ -532,55 +533,44 @@ MSDevice_Taxi::cancelCurrentCustomers() {
 
 bool
 MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
-    // ist es ein aktueller Customer des Taxis?
-    // entferne den Customer
-    // passe an:
-    // DONE:  - myCustomers
-    // offen: - state (empty, pickup, occupied)
-    // neuer Memeber: Liste der Reservation Pointers --> myReservations, ist das nicht "myCurrentReservations"?
-    // transportable aus entsprechender Reservierung entfernen,
-    // Reservierung beibehalten, wenn noch andere Person transportiert wird,
-    // sonst entfernen
-    // am Ende dipatchShared aufrufen, um "stops" zu aktualisieren
-
     // is the given transportable a customer of the reservations?
-    if (myCustomers.find(t) == myCustomers.end()) {
+    if (myCustomers.count(t) == 0) {
         return false;
     }
     myCustomers.erase(t);
-    // if there are no other reservations (not occupied by or is going to pickup other customers)
-    if (isEmpty()) {
-        // cleanup
-        for (const Reservation* res : myCurrentReservations) {
-            myDispatcher->fulfilledReservation(res);
+    // check whether a single reservation has been fulfilled or another customer is part of the reservation
+    for (auto resIt = myCurrentReservations.begin(); resIt != myCurrentReservations.end();) {
+        bool fulfilled = false;
+        if ((*resIt)->persons.size() == 1 && (*resIt)->persons.count(t) != 0) {
+            // the reservation contains only the customer
+            fulfilled = true;
         }
-        myCurrentReservations.clear();
-        if (MSGlobals::gUseMesoSim && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
-            myIdleAlgorithm->idle(this);
+        if (fulfilled) {
+            // delete the reservation
+            myDispatcher->fulfilledReservation(*resIt);
+            // remove reservation from the current dispatch
+            for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
+                if (*it == *resIt)
+                    it = myLastDispatch.erase(it);
+                else
+                    ++it;
+            }
+            // remove reservation from the served reservations
+            resIt = myCurrentReservations.erase(resIt);
         }
-    }
-    else {
-        // check whether a single reservation has been fulfilled or another customer is part of the reservation
-        for (auto resIt = myCurrentReservations.begin(); resIt != myCurrentReservations.end();) {
-            bool fulfilled = true;
-            for (MSTransportable* t : (*resIt)->persons) {
-                if (myCustomers.count(t) != 0) {
-                    fulfilled = false;
-                    break;
-                }
-            }
-            if (fulfilled) {
-                myDispatcher->fulfilledReservation(*resIt);
-                resIt = myCurrentReservations.erase(resIt);
-            }
-            else {
-                ++resIt;
-            }
+        else {
+            ++resIt;
         }
     }
     myState &= ~PICKUP;  // remove state PICKUP
-    // use myDispatcher->getReservations() or myDispatcher->getRunningReservations() ???
-    dispatchShared(myDispatcher->getRunningReservations());  // also sets PICKUP if needed
+    for (const Reservation* res : myCurrentReservations) {
+        // if there is another pickup in the dispatch left, add the state PICKUP
+        if (std::count(myLastDispatch.begin(), myLastDispatch.end(), res) == 2) {
+            myState |= PICKUP;  // add state PICKUP
+        }
+    }
+    // if there are reservations left, go on with the dispatch
+    dispatchShared(myLastDispatch);
     return true;
 }
 
@@ -791,7 +781,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
         // check whether a single reservation has been fulfilled
         for (auto resIt = myCurrentReservations.begin(); resIt != myCurrentReservations.end();) {
             bool fulfilled = true;
-            for (MSTransportable* t : (*resIt)->persons) {
+            for (const MSTransportable* t : (*resIt)->persons) {
                 if (myCustomers.count(t) != 0) {
                     fulfilled = false;
                     break;
