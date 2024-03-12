@@ -1792,7 +1792,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         }
     }
 
-    assert(lane != 0);
+    assert(lane != nullptr);
     // quit if no solution was found, reporting a failure
     if (lane == nullptr) {
 #ifdef DEBUG_MOVEXY

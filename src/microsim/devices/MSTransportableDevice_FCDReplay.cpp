@@ -20,9 +20,10 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include <libsumo/Helper.h>
+#include <libsumo/Person.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageWalking.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -97,18 +98,7 @@ MSTransportableDevice_FCDReplay::move() {
         return;
     }
     const auto& p = myTrajectory->front();
-    MSLane* lane = nullptr;
-    double lanePos;
-    double lanePosLat = 0;
-    double bestDistance = std::numeric_limits<double>::max();
-    int routeOffset = 0;
-    ConstMSEdgeVector edges;
-    libsumo::Helper::moveToXYMap_matchingRoutePosition(std::get<0>(p), std::get<1>(p),
-            static_cast<MSStageWalking*>(person->getCurrentStage())->getRoute(), person->getRoutePosition(),
-            person->getVehicleType().getVehicleClass(), true,
-            bestDistance, &lane, lanePos, routeOffset);
-    libsumo::Helper::setRemoteControlled(person, std::get<0>(p), lane, std::get<2>(p), lanePosLat,
-                                         libsumo::INVALID_DOUBLE_VALUE, routeOffset, edges, SIMSTEP);
+    libsumo::Person::moveToXY(person->getID(), std::get<1>(p), std::get<0>(p).x(), std::get<0>(p).y(), std::get<4>(p), 7);
     // person->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
 }

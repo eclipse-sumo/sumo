@@ -71,7 +71,7 @@ public:
         return "fcd-replay";
     }
 
-    typedef std::vector<std::tuple<Position, std::string, double, double> > Trajectory;
+    typedef std::vector<std::tuple<Position, std::string, double, double, double> > Trajectory;
 
     void setTrajectory(Trajectory* const t) {
         myTrajectory = t;

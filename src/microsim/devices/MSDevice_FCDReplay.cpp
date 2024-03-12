@@ -22,7 +22,7 @@
 #include <utils/geom/Position.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
-#include <libsumo/Helper.h>
+#include <libsumo/Vehicle.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -105,18 +105,10 @@ MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
         return false;
     }
     const auto& p = myTrajectory->front();
-    MSLane* lane = nullptr;
-    double lanePos;
-    double lanePosLat = 0;
-    double bestDistance = std::numeric_limits<double>::max();
-    int routeOffset = 0;
-    ConstMSEdgeVector edges;
-    libsumo::Helper::moveToXYMap_matchingRoutePosition(std::get<0>(p), std::get<1>(p),
-            v->getRoute().getEdges(), v->getRoutePosition(),
-            v->getVehicleType().getVehicleClass(), true,
-            bestDistance, &lane, lanePos, routeOffset);
-    libsumo::Helper::setRemoteControlled(v, std::get<0>(p), lane, std::get<2>(p), lanePosLat,
-                                         libsumo::INVALID_DOUBLE_VALUE, routeOffset, edges, SIMSTEP);
+    const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(std::get<1>(p));
+    const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(p));
+    libsumo::Vehicle::moveToXY(veh.getID(), edgeID, laneIdx, std::get<0>(p).x(), std::get<0>(p).y(),
+                               std::get<4>(p), 7);
     v->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
     if (myTrajectory->empty()) {
@@ -147,7 +139,8 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
             const std::string edgeOrLane = attrs.getOpt<std::string>(isPerson ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, id.c_str(), ok, "");
             const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
             const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
-            myTrajectories[id].push_back({Position(x, y), edgeOrLane, pos, speed});
+            const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
+            myTrajectories[id].push_back({Position(x, y), edgeOrLane, pos, speed, angle});
             const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
             if (myRoutes.count(id) == 0) {
                 myRoutes[id] = {myTime, type, isPerson, {edge}};
@@ -189,6 +182,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             plan->push_back(new MSStageWaiting(std::get<3>(desc.second).front(), nullptr, 0, params->depart, params->departPos, "awaiting departure", true));
             plan->push_back(new MSStageWalking(id, std::get<3>(desc.second), nullptr, -1, params->departSpeed, params->departPos, 0, 0));
             MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
+            person->getSingularType().setVClass(SVC_IGNORING);
             MSNet::getInstance()->getPersonControl().add(person);
             MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
             if (device == nullptr) {  // Person did not get a replay device
