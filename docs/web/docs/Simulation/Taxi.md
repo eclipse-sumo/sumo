@@ -10,7 +10,7 @@ based on a configurable dispatch algorithm.
 !!! note
     While the taxi capabilities are under development, their status can be checked via Issue #6418.
 
-# Equipping vehicles
+# Equipping Vehicles
 A vehicle can be equipped with an Taxi device to make it part of the taxi fleet.
 To attach a Taxi device to a vehicle, the [standard device-equipment
 procedures](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) can be applied using `<device name>=taxi`.
@@ -23,9 +23,9 @@ For instance, a single vehicle can configured as taxi as in the following minima
     </vehicle>
 ```
 
-# Taxi requests
+# Taxi Requests
 
-## Direct ride hailing
+## Direct Ride Hailing
 A person can be defined as taxi customer with the following definition:
 
 ```xml
@@ -54,6 +54,9 @@ Multiple persons can travel together as a group using attribute `group` (if the 
     <person id="p1" depart="0.00">
         <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
     </person>
+
+## Prebooking
+Documentation in progress
 
 # Multiple Taxi Fleets
 
