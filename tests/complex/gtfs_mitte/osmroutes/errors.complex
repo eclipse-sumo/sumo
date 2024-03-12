@@ -74,9 +74,3 @@ Warning: 31 total messages of type: At actuated tlLogic '%', linkIndex % has no 
 Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
 Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
 Warning: No stops for flow '34_bus_200:1'
-/scr1/sumo/tools/import/gtfs/gtfs2osm.py:531: FutureWarning: The provided callable <built-in function sum> is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string "sum" instead.
-  'route_type', 'direction_id']).stop_name.aggregate(sum).reset_index(
-/scr1/sumo/tools/import/gtfs/gtfs2osm.py:338: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
-  lat_dif = float(line_dest[1]) - float(line_orig[1])
-/scr1/sumo/tools/import/gtfs/gtfs2osm.py:339: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
-  lon_dif = float(line_dest[0]) - float(line_orig[0])
