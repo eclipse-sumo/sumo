@@ -1,0 +1,4 @@
+Error: The parameter 'stdout' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).
