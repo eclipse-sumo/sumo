@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-09 15:11+0000\n"
+"PO-Revision-Date: 2024-03-12 10:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14249,15 +14249,15 @@ msgstr "Nessuna zona di assegnazione del traffico selezionata"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:399
 msgid "Confirm changes"
-msgstr ""
+msgstr "Conferma modifiche"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:402
 msgid "Cancel changes"
-msgstr ""
+msgstr "Annulla modifiche"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:432
 msgid "TAZ changes"
-msgstr ""
+msgstr "Modifiche di zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:485
 msgid "TAZ Sources/Sinks"
@@ -14281,7 +14281,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:508
 msgid "Set zero fringe prob."
-msgstr ""
+msgstr "Definisci probabilità di bordo rete"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
@@ -14296,27 +14296,27 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:563
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:655
 msgid "Remove all edges"
-msgstr ""
+msgstr "Rimuovi tutti gli archi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
-msgstr ""
+msgstr "Rimuovi tutti gli archi dalla selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
-msgstr ""
+msgstr "Aggiungi tutti gli archi alla selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:588
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "Rimuovi arco dalla selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:590
 msgid "Add edge to selection"
-msgstr ""
+msgstr "Aggiungi arco alla selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr ""
+msgstr "Rimuovi "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid " edges from to selection"
@@ -14336,7 +14336,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "Keep Membership:"
-msgstr ""
+msgstr "Conferma appartenenza:"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "  Select Sources/Sinks."
@@ -14371,15 +14371,15 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:865
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "Definisci le probabilità di bordo rete"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:854
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "definisci le probabilità di bordo rete"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:865
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "Nessun'origine/destinazione da aggiornare."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:875
 msgid "Selection Statistics"
