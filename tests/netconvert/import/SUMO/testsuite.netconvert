@@ -134,3 +134,6 @@ endpoint-shape
 # load bidi attribute from input network
 bidi
 no_internal_lanes_add_crossings
+
+# network has a NEMA junction
+NEMA
