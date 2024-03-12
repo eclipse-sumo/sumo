@@ -986,7 +986,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
                 areaBoundary.pop_back();
             }
             const std::string type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
-            myAreas.push_back(AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap(), 0});
+            myAreas.push_back({poly->getID(), type, areaBoundary, poly->getParametersMap(), 0});
         }
     }
 }

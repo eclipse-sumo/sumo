@@ -245,7 +245,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
             device.lf();
         }
-    } catch (const ProcessError& e) {
+    } catch (const ProcessError&) {
         if (!device.removeSelf()) {
             WRITE_ERROR(TLF("Could not remove output file '%' after error. File contents possibly invalid.", device.getFilename()));
         }
