@@ -1,4 +1,4 @@
-Warning: 6 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 10 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 3 total messages of type: Ambiguous node type for node cluster '%' (%,%), setting to 'priority'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
@@ -11,33 +11,34 @@ Warning: 5 total messages of type: Could not find corresponding edge or compatib
 Warning: 2 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 2 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
 Warning: 5 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 17 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 16 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 9 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
 Warning: 9 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 7 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 47 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 48 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
-Warning: 2 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: 4 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
 Warning: 2 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 10 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 112 total messages of type: No way found for reference '%' in relation '%'
-Warning: 8 total messages of type: Not joining junctions % (%).
+Warning: 10 total messages of type: Not joining junctions % (%).
 Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 16 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 14 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 19 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 4 total messages of type: Reducing junction cluster % (%).
+Warning: 3 total messages of type: Reducing junction cluster % (%).
 Warning: 1 total messages of type: Removed % pt stops because they could not be assigned to the network
 Warning: 8 total messages of type: Removed invalid stop '%' from line '%'.
 Warning: 4 total messages of type: Removing pt stop '%' on non existing edge '%'.
-Warning: 54 total messages of type: The rail crossing '%' does not have any roads.
-Warning: 3 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
-Warning: 12 total messages of type: The traffic light '%' has a high cycle time of %.
+Warning: 62 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 4 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
+Warning: 14 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 1 total messages of type: Value of key '%' is not numeric ('%') in edge '%'.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
 Warning: Unequal lengths of bidi lane ':cluster_10989066143_25954547_29221622_9044259979_#6more_12_0' and lane ':cluster_10989066143_25954547_29221622_9044259979_#6more_32_0' (31.52 != 31.50).
@@ -45,9 +46,9 @@ Warning: At actuated tlLogic 'cluster_10173804193_10561486885_10567768857_105677
 Warning: At actuated tlLogic 'cluster_10314479343_10567752800_10567768926_10567768930_#2more', linkIndex 2 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_10314479343_10567752800_10567768926_10567768930_#2more', linkIndex 3 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_10567769015_10567769016_9583740872', actuated phase 2 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_11395330980_2055804552_25662542_5693810076_#4more', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_11395330980_2055804552_25662542_5693810076_#4more', linkIndex 33 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_11395330980_2055804552_25662542_5693810076_#4more', linkIndex 34 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_11204975433_11204975435_1827996421_1827996431_#14more', linkIndex 5 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_11204975433_11204975435_1827996421_1827996431_#14more', linkIndex 6 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_11204975433_11204975435_1827996421_1827996431_#14more', linkIndex 7 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_29215077_3411531065_3411531067', actuated phase 0 has no controlling detector.
 Warning: Program '0' at tlLogic 'joinedS_cluster_10761998985_10761998986_10761998988_10761998990_#4more_cluster_10761998992_10761998994_10761998995_10761998996_#2more_cluster_1662153923_3837028179_859002304_9068723927_cluster_3918855386_9830554041' is incompatible with logic at junction 'cluster_10761998985_10761998986_10761998988_10761998990_#4more' (mutual conflict between link indices 0,8 tl indices 0,8 phase 0).
   To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
@@ -69,7 +70,13 @@ Warning: Teleporting vehicle '84_subway_U2:0'; waited too long (wrong lane), lan
 Warning: Vehicle '84_subway_U2:0' ends teleporting on edge '200422335#1', time=26482.00.
 Warning: Teleporting vehicle '85_subway_U2:1'; waited too long (wrong lane), lane='199847347#1_0', time=26695.00.
 Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '199847347#1', time=26695.00.
-Warning: 27 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 31 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
 Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
 Warning: No stops for flow '34_bus_200:1'
+/scr1/sumo/tools/import/gtfs/gtfs2osm.py:531: FutureWarning: The provided callable <built-in function sum> is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string "sum" instead.
+  'route_type', 'direction_id']).stop_name.aggregate(sum).reset_index(
+/scr1/sumo/tools/import/gtfs/gtfs2osm.py:338: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
+  lat_dif = float(line_dest[1]) - float(line_orig[1])
+/scr1/sumo/tools/import/gtfs/gtfs2osm.py:339: FutureWarning: Calling float on a single element Series is deprecated and will raise a TypeError in the future. Use float(ser.iloc[0]) instead
+  lon_dif = float(line_dest[0]) - float(line_orig[0])
