@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2023-11-23 09:58+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"PO-Revision-Date: 2024-03-12 10:13+0000\n"
+"Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -4920,7 +4920,7 @@ msgstr "分割路口"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1902
 msgid "Could not rename split node to '%'"
-msgstr "无法將分割的节点重新命名为%'"
+msgstr "无法将拆分的节点重新命名为%'"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1941
 msgid "clear junction connections"
@@ -7124,7 +7124,7 @@ msgstr "节点的id"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:933
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1982
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr "在平面上节点的x,y,z位置(以公尺为单位)"
+msgstr "在平面上节点的x,y,z位置(以米为单位)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:938
 msgid "An optional type for the node"
@@ -7169,7 +7169,7 @@ msgstr "交通信号方案的可自选识别名 (id)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1006
 msgid "EdgeType"
-msgstr ""
+msgstr "路段类型"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1010
 msgid "The id of the edge"
@@ -7231,31 +7231,31 @@ msgstr "应添加为附加通道的自行车道宽度"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1075
 msgid "LaneType"
-msgstr ""
+msgstr "车道类型"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1079
 msgid "The maximum speed allowed on the lane in m/s"
-msgstr "车道上允許的最大速度(米/秒)"
+msgstr "车道上允许的最大速度(米/秒)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1096
 msgid ""
 "Lane width for all lanes of this type in meters (used for visualization)"
-msgstr "此车道上所有车道的车道宽度(以米为单位) (用于视觉化)"
+msgstr "此车道上所有车道的车道宽度（以米为单位，用于可视化）"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1112
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2790
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2844
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6532
 msgid "Edge ID"
-msgstr "路段识别名(ID)"
+msgstr "路段识别名（ID）"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1117
 msgid "The name of a node within the nodes-file the edge shall start at"
-msgstr "在节点档案中, 路段开始的节点的名称"
+msgstr "在节点文件中，路段开始的节点的名称"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1122
 msgid "The name of a node within the nodes-file the edge shall end at"
-msgstr "在节点档案中, 路段結束的节点的名称"
+msgstr "在节点文件中，路段结束的节点的名称"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1145
 msgid "The name of a type within the SUMO edge type file"
