@@ -11,6 +11,9 @@ NEMA_noLeftTurnLane
 # declare a NEMA controller
 NEMA_4arm
 
+# declare a NEMA controller with grouped signals
+NEMA_4arm_grouped
+
 # declare a NEMA controller
 NEMA_3arm_noS
 
