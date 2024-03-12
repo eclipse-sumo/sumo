@@ -60,7 +60,10 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     mySubID(logic->getProgramID()),
     myOffset(logic->getOffset()),
     myPhases(logic->myPhases.begin(), logic->myPhases.end()),
-    myType(logic->getType()) {}
+    myType(logic->getType())
+{
+    updateParameters(logic->getParametersMap());
+}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
