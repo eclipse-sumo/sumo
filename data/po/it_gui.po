@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-12 10:13+0000\n"
+"PO-Revision-Date: 2024-03-12 14:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13502,103 +13502,103 @@ msgstr "Tipo attuale"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:203
 msgid "Type Editor"
-msgstr ""
+msgstr "Editore di tipi"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:206
 msgid "Create Type"
-msgstr ""
+msgstr "Crea tipo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:208
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:253
 msgid "Delete Type"
-msgstr ""
+msgstr "Rimuovi tipo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:210
 msgid "Copy Type"
-msgstr ""
+msgstr "Copia tipo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:241
 msgid "Reset Type"
-msgstr ""
+msgstr "Resetta tipo"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:269
 msgid "create vehicle type"
-msgstr ""
+msgstr "crea tipo di veicoli"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:301
 msgid "copy vehicle type"
-msgstr ""
+msgstr "copia tipo di veicoli"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "reset default vehicle type values"
-msgstr ""
+msgstr "resetta a valori standard del tipo di veicoli"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:392
 msgid "Types"
-msgstr ""
+msgstr "Tipi"
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
-msgstr ""
+msgstr "Clicca su un itinerario per creare un veicolo."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
-msgstr ""
+msgstr "Seleziona due archi per creare una corsa."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:80
 msgid "Select two edges to create a vehicle with embedded route."
-msgstr ""
+msgstr "Seleziona due archi per creare un veicolo con itinerario interno."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:84
 msgid "Select two junctions to create a trip."
-msgstr ""
+msgstr "Seleziona due incroci per creare una corsa."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr ""
+msgstr "Seleziona due zone di assegnazione del traffico per creare una corsa."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
-msgstr ""
+msgstr "Clicca su un itinerario per crearci un flusso di veicoli."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
-msgstr ""
+msgstr "Seleziona due archi per creare un flusso."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:101
 msgid "Select two edges to create a flow with embedded route."
-msgstr ""
+msgstr "Seleziona due archi per creare un flusso con itinerario interno."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "Select two junctions to create a flow."
-msgstr ""
+msgstr "Seleziona due incroci per creare un flusso."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr ""
+msgstr "Seleziona due zone di assegnazione del traffico per creare un flusso."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
-msgstr ""
+msgstr "Il veicolo selezionato non è valido."
 
 #: D:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
-msgstr "Il veicolo selezionato non è valido."
+msgstr "Il tipo di veicoli selezionato non è valido."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2286
 msgid "Legend"
-msgstr ""
+msgstr "Leggenda"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:89
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:91
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:93
 msgid "-Click over lane to create it"
-msgstr ""
+msgstr "-Clicca su una corsia per crearlo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:95
 msgid "-Click over view to create it"
-msgstr ""
+msgstr "-Clicca su una veduta per crearlo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
