@@ -118,16 +118,17 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
-| lines  | list     | valid line or vehicle ids or *ANY* | ANY      | list of vehicle alternatives to take for the ride |
+| lines  | list     | valid line or vehicle ids or *ANY* | ANY      | list of vehicle alternatives to take for the ride    |
 | from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Persons.md#starting_the_simulation_in_a_vehicle)) |
 | to         | string   | valid edge ids                     | \-      | id of the destination edge (optional, if a busStop or other stopping place is given)  |
-| arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge          |
-| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
-| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                        |
-| trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
-| chargingStation| string   | valid chargingStation ids              | \-      | id of the destination stop                        |
-| containerStop| string   | valid containerStop ids              | \-      | id of the destination stop                        |
-| group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
+| fromPos    | float(m) |                                    | middle of edge  | depart position on the start edge          |
+| arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge      |
+| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                         |
+| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                         |
+| trainStop  | string   | valid trainStop ids                | \-      | id of the destination stop                         |
+| chargingStation| string | valid chargingStation ids        | \-      | id of the destination stop                         |
+| containerStop| string   | valid containerStop ids          | \-      | id of the destination stop                         |
+| group      | string   |                                    | ""      | id of the travel group. Persons with the same group may share a taxi ride |
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
@@ -135,9 +136,10 @@ The person enters the vehicle if it stops on the 'from' edge and any of
 the following conditions are met
 
 - the 'line' attribute of the vehicle or the 'id' of the vehicle is
-  given in the list defined by the 'lines' attribute of the ride OR
+  given in the list defined by the `lines` attribute of the ride OR
   the lines attribute contains 'ANY' and the vehicle stops at the
   destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined).
+- the `lines` attribute can be used to apply taxis, see [taxi](../Simulation/Taxi.md) for more information
 - the vehicle has a triggered stop and the person position is within
   the range of `startpos,endPos` of the stop.
 - the vehicle has a timed stop and the person is waiting within 10m of
