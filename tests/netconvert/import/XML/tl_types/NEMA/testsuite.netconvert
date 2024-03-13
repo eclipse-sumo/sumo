@@ -31,3 +31,6 @@ NEMA_2arm_turn
 
 # declare a NEMA controller for a network with pedestrian infrastructure
 NEMA_4arm_crossing
+
+# declare a NEMA controller for a network with pedestrian infrastructure
+NEMA_3arm_crossing

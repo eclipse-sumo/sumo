@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-13 12:31:32 by Eclipse SUMO netconvert Version v1_19_0+1263-7909fcacf14
+<!-- generated on 2024-03-13 14:59:18 by Eclipse SUMO netconvert Version v1_19_0+1264-9f2af095d39
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -213,13 +213,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <tlLogic id="C" type="NEMA" programID="0" offset="0">
         <phase duration="90" state="rrrrrrrrrrrrrrGGrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="1"/>
-        <phase duration="90" state="rrrrGGggrrrrrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="2"/>
+        <phase duration="90" state="rrrrgGggrrrrrrrrGrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="2"/>
         <phase duration="90" state="rrrrrrGGrrrrrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="5"/>
-        <phase duration="90" state="rrrrrrrrrrrrGGggrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="6"/>
+        <phase duration="90" state="rrrrrrrrrrrrgGggrrGr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="6"/>
         <phase duration="90" state="rrrrrrrrrrGGrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="3"/>
-        <phase duration="90" state="GGggrrrrrrrrrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="4"/>
+        <phase duration="90" state="gGggrrrrrrrrrrrrrrrG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="4"/>
         <phase duration="90" state="rrGGrrrrrrrrrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="7"/>
-        <phase duration="90" state="rrrrrrrrGGggrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="8"/>
+        <phase duration="90" state="rrrrrrrrgGggrrrrrGrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="8"/>
         <param key="barrier2Phases" value="2,6"/>
         <param key="barrierPhases" value="4,8"/>
         <param key="ring1" value="1,2,3,4"/>
