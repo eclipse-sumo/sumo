@@ -357,8 +357,14 @@ MEVehicle::mayProceed() {
             break;
         }
         if (net->getCurrentTimeStep() > stop.endBoarding) {
-            stop.triggered = false;
-            stop.containerTriggered = false;
+            if (stop.triggered || stop.containerTriggered) {
+                MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+                if (taxiDevice != nullptr) {
+                    taxiDevice->cancelCurrentCustomers();
+                }
+                stop.triggered = false;
+                stop.containerTriggered = false;
+            }
             if (myAmRegisteredAsWaiting) {
                 net->getVehicleControl().unregisterOneWaiting();
                 myAmRegisteredAsWaiting = false;

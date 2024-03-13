@@ -570,7 +570,10 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
         }
     }
     // if there are reservations left, go on with the dispatch
-    dispatchShared(myLastDispatch);
+    // in meso, wait for the next dispatch cycle to avoid updating stops in this stage
+    if (!MSGlobals::gUseMesoSim) {
+        dispatchShared(myLastDispatch);
+    }
     return true;
 }
 
