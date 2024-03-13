@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-05 16:46+0000\n"
+"PO-Revision-Date: 2024-03-13 08:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2452,19 +2452,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:561
 msgid "The neighbor repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "Die Abstoßkraft des JuPedSim-Modells zum Nachbarn"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:563
 msgid "The neighbor repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "Die Abstoßreichweite des JuPedSim-Modells zum Nachbarn (in Metern)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:565
 msgid "The geometry repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "Die Abstoßkraft des JuPedSim-Modells von Geometrien"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:567
 msgid "The geometry repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "Die Abstoßreichweite des JuPedSim-Modells zu Geometrien (in Metern)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
