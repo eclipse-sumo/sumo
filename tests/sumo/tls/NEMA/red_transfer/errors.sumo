@@ -1,3 +1,4 @@
+Warning: Missing green phase in tlLogic '0', program '01' for tl-index 1.
 Warning: At NEMA tlLogic '0', actuated phase 3 has no controlling detector
 Warning: At NEMA tlLogic '0, linkIndex 7 has no controlling detector
 Warning: Teleporting vehicle 'NS.0'; waited too long (yield), lane='4si_0', time=447.00.
