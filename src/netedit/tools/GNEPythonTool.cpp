@@ -209,7 +209,11 @@ GNEPythonTool::saveConfiguration(const std::string& file) const {
     for (const auto& option : myPythonToolsOptions) {
         // only write modified values
         if (!option.second->isDefault()) {
-            command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            if (option.second->isBool()) {
+                command += ("--" + option.first + " ");
+            } else {
+                command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+            }
         }
     }
     // start in background
