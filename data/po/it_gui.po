@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-13 08:06+0000\n"
+"PO-Revision-Date: 2024-03-13 08:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11615,15 +11615,15 @@ msgstr "Resetta punti terminali dell'arco"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:580
 msgid "Select state for all links from this edge:"
-msgstr ""
+msgstr "Seleziona lo stato di tutti gli collegamenti in uscita da questo arco:"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:590
 msgid "Additional options available in 'Inspect Mode'"
-msgstr ""
+msgstr "Opzioni addizionali disponibili nel modo di ispezione"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:605
 msgid "Shape pos: "
-msgstr ""
+msgstr "Posizione in forma: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:606
 msgid "Length pos: "
@@ -11631,15 +11631,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:608
 msgid "Distance: "
-msgstr ""
+msgstr "Distanza: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:610
 msgid "Height: "
-msgstr ""
+msgstr "Altezza: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:611
 msgid "Angle: "
-msgstr ""
+msgstr "Angolo: "
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:661
 msgid "Lane Parametric Length cannot be never 0"
@@ -11657,31 +11657,32 @@ msgstr "Stato di collegamento inaspettato '%'"
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1975
 #, c-format
 msgid "Edge operations (% selected)"
-msgstr ""
+msgstr "Operazioni di archi (% selezionati)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1977
 msgid "Edge operations"
-msgstr ""
+msgstr "Operazioni di archi"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1980
 msgid "Split edge here"
-msgstr ""
+msgstr "Separa l'arco qui"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1981
 msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr ""
+"Separa l'arco qui in entrambe le direzioni (senza arco opposto simmetrico)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1986
 msgid "Split edge in both directions here (no opposite edge)"
-msgstr ""
+msgstr "Separa l'arco qui in entrambe le direzioni (nessun'arco opposto)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1993
 msgid "Split edge in both directions here"
-msgstr ""
+msgstr "Separa l'arco qui in entrambe le direzioni"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1997
 msgid "Set geometry endpoint here (shift-click)"
-msgstr ""
+msgstr "Metti il punto geometrico terminale qui (shift-clic)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2001
 msgid "Restore both geometry endpoints"
