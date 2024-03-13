@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-09 15:11+0000\n"
+"PO-Revision-Date: 2024-03-13 08:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4798,7 +4798,7 @@ msgstr "Rücksetzung der Optionen fehlgeschlagen."
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:313
 msgid "create edge"
-msgstr ""
+msgstr "Kante erstellen"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:372
 msgid "delete junction"
@@ -5542,7 +5542,7 @@ msgstr "Netzelemente bearbeiten"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
 msgid "Set mode for editing network elements. (F2)"
-msgstr ""
+msgstr "Modus zum Bearbeiten von Netzbestandteilen anzeigen. (F2)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 msgid "Edit traffic demand elements"
@@ -5550,7 +5550,7 @@ msgstr "Verkehrsnachfrageelemente bearbeiten"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 msgid "Set mode for editing traffic demand. (F3)"
-msgstr ""
+msgstr "Modus zum Bearbeiten der Verkehrsnachfrage anzeigen. (F3)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 msgid "Edit data elements"
@@ -5558,7 +5558,7 @@ msgstr "Datenelemente bearbeiten"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 msgid "Set mode for editing data demand. (F4)"
-msgstr ""
+msgstr "Modus zum Bearbeiten von Daten. (F4)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
 msgid "Change netedit view"
