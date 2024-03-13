@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-13 08:33+0000\n"
+"PO-Revision-Date: 2024-03-13 08:38+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5798,7 +5798,7 @@ msgstr "Nur eingehende Quelle-Ziel-Beziehung zeichnen ein-/ausschalten"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Inspect mode"
-msgstr ""
+msgstr "Bearbeitungsmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Mode for inspect elements and change their attributes. (I)"
@@ -5807,7 +5807,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Delete mode"
-msgstr ""
+msgstr "Löschmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Mode for deleting elements. (D)"
@@ -5815,7 +5815,7 @@ msgstr "Modus zum Löschen von Elementen. (D)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Select mode"
-msgstr ""
+msgstr "Auswahlmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Mode for selecting elements. (S)"
@@ -5824,7 +5824,7 @@ msgstr "Modus zur Auswahl von Elementen. (S)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Move mode"
-msgstr ""
+msgstr "Verschiebemodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
@@ -5833,15 +5833,15 @@ msgstr "Modus zum Verschieben von Elementen. (M)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Edge mode"
-msgstr ""
+msgstr "Kantenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Mode for creating junctions and edges. (E)"
-msgstr ""
+msgstr "Modus zum Erstellen von Knotenpunkten und Kanten. (E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Traffic light mode"
-msgstr ""
+msgstr "LSA-Modus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Mode for editing traffic lights over junctions. (T)"
@@ -5849,7 +5849,7 @@ msgstr "Modus zum Hinzufügen von LSA an Knotenpunkten. (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Connection mode"
-msgstr ""
+msgstr "Verbindungsmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Mode for edit connections between lanes. (C)"
@@ -5857,7 +5857,7 @@ msgstr "Modus zum Hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Prohibition mode"
-msgstr ""
+msgstr "Vorfahrtregelmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Mode for editing connection prohibitions. (H)"
@@ -5865,7 +5865,7 @@ msgstr "Modus zum Ansehen von Vorfahrtregeln. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Crossing mode"
-msgstr ""
+msgstr "Fußgängerfurtenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Mode for creating crossings between edges. (R)"
