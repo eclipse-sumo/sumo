@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-12 14:01+0000\n"
+"PO-Revision-Date: 2024-03-13 08:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10419,41 +10419,45 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
-msgstr ""
+msgstr "Qualche elemento meanData è stato perso ordinando"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:93
 msgid "no tag type defined"
-msgstr ""
+msgstr "nessun tipo definito nel tag"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:96
 msgid "no tag property defined"
-msgstr ""
+msgstr "nessuna proprietà definita nel tag"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:99
 msgid "no tag parent defined"
-msgstr ""
+msgstr "nessun elemento padre definito"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:102
 msgid "no conflict defined"
-msgstr ""
+msgstr "nessun conflitto definito"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:106
 msgid "no basic type property defined"
-msgstr ""
+msgstr "nessuna proprietà del tipo base definita"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:110
 msgid "multiple basic type properties defined"
-msgstr ""
+msgstr "varie proprietà del tipo base definite"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:114
 msgid "element can be either shape or TAZ or wire element at the same time"
 msgstr ""
+"l'elemento può essere o una forma, una zona di assegnazione del traffico o "
+"una catenaria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:118
 msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
 msgstr ""
+"Se le posizioni iniziali e terminali vengono definite da altri attributi, "
+"entrambi deveno essere definiti"
 
 #: D:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:144
 msgid "Attributes aren't combinables"
@@ -10576,15 +10580,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:211
 msgid "add access in '"
-msgstr ""
+msgstr "aggiungi accesso in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:252
 msgid "add container stop '"
-msgstr ""
+msgstr "aggiungi fermata di contenitore '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:296
 msgid "add charging station '"
-msgstr ""
+msgstr "aggiungi stazione di ricarica '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:340
 #, c-format
@@ -10592,10 +10596,12 @@ msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
 msgstr ""
+"Non ho potuto costruire il parcheggio con il codice identificativo '%' in "
+"netedit; La departPos è invalida sulla corsia."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:348
 msgid "add parking area '"
-msgstr ""
+msgstr "aggiungi parcheggio '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:370
 msgid ""
@@ -11540,28 +11546,28 @@ msgstr "Sostituisci l'incrocio con un punto geometrico"
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:503
 #, c-format
 msgid "Split junction (% end points)"
-msgstr ""
+msgstr "Separa incrocio (% punti terminali)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:504
 msgid "Split junction and reconnect"
-msgstr ""
+msgstr "Separa e ricollega incrocio"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:507
 msgid "Select roundabout"
-msgstr ""
+msgstr "Seleziona rotatoria"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:511
 msgid "Convert to roundabout (using junction attribute radius %)"
-msgstr ""
+msgstr "Converti in rotatoria (utilizzando l'attributo radius dell'incrocio %)"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:520
 #, c-format
 msgid " of % junctions"
-msgstr ""
+msgstr " di % incroci"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:521
 msgid "Clear connections"
-msgstr ""
+msgstr "Rimuovi collegamenti"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:522
 msgid "Reset connections"
