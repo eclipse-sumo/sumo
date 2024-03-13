@@ -36,9 +36,9 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
+cmake_minimum_required(VERSION 3.5)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.5)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
