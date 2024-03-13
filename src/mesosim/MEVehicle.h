@@ -179,7 +179,7 @@ public:
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap(bool delayed = false) const {
         UNUSED_PARAMETER(delayed);
-        return 0;
+        return mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE ? 0 : mySegment->getLength();
     }
 
     /** @brief Sets the (planned) time at which the vehicle leaves its current segment
