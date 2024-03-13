@@ -781,7 +781,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         deactivateInsideEdges(logic, fromEdges);
     }
     if (isNEMA) {
-        NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, chosenList, straightStates, leftStates);
+        NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, toEdges, crossings, chosenList, straightStates, leftStates);
         if (nemaLogic == nullptr) {
             WRITE_WARNINGF(TL("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
             logic->setType(TrafficLightType::ACTUATED);
@@ -963,6 +963,77 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
                         result[i1] = 'g';
                         break;
                     }
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
+std::string
+NBOwnTLDef::patchNEMAStateForCrossings(const std::string& state,
+        const std::vector<NBNode::Crossing*>& crossings,
+        const EdgeVector& fromEdges,
+        const EdgeVector& toEdges,
+        const NBEdge* greenEdge, NBEdge* otherChosen) {
+    std::string result = state;
+    const int pos = (int)(state.size() - crossings.size()); // number of controlled vehicle links
+    const EdgeVector& all = greenEdge->getToNode()->getEdges();
+    EdgeVector::const_iterator start = std::find(all.begin(), all.end(), greenEdge);
+
+    // permit crossings over edges between the current green edge and it's straight continuation
+    const NBEdge* endEdge = nullptr;
+    for (int i = 0; i < (int)state.size(); i++) {
+        if (state[i] == 'G' && fromEdges[i] == greenEdge
+                && greenEdge->getToNode()->getDirection(greenEdge, toEdges[i]) == LinkDirection::STRAIGHT) {
+            // straight edge found
+            endEdge = toEdges[i];
+            break;
+        }
+    }
+    if (endEdge == nullptr) {
+        endEdge = otherChosen;
+    }
+    if (endEdge == nullptr) {
+        // try to find the reverse edge of the green edge
+        auto itCW = start;
+        NBContHelper::nextCW(all, itCW);
+        if ((*itCW)->getFromNode() == greenEdge->getToNode()) {
+            endEdge = *itCW;
+        }
+    }
+    if (endEdge == nullptr) {
+        // at least prevent an infinite loop
+        endEdge = greenEdge;
+    }
+    //std::cout << " patchNEMAStateForCrossings green=" << greenEdge->getID() << " other=" << Named::getIDSecure(otherChosen) << " end=" << Named::getIDSecure(end) << " all=" << toString(all) << "\n";
+
+    EdgeVector::const_iterator end = std::find(all.begin(), all.end(), endEdge);
+    auto it = start;
+    NBContHelper::nextCCW(all, it);
+    for (; it != end; NBContHelper::nextCCW(all, it)) {
+        for (int ic = 0; ic < (int)crossings.size(); ++ic) {
+            const int i1 = pos + ic;
+            const NBNode::Crossing& cross = *crossings[ic];
+            for (const NBEdge* crossed : cross.edges) {
+                //std::cout << "   cand=" << (*it)->getID() << " crossed=" << crossed->getID() << "\n";
+                if (crossed == *it) {
+                    result[i1] = 'G';
+                    break;
+                }
+            }
+        }
+    }
+    // correct behaviour for roads that are in conflict with a pedestrian crossing
+    for (int i1 = 0; i1 < pos; ++i1) {
+        if (result[i1] == 'G') {
+            for (int ic = 0; ic < (int)crossings.size(); ++ic) {
+                const NBNode::Crossing& crossing = *crossings[ic];
+                const int i2 = pos + ic;
+                if (result[i2] == 'G' && crossing.node->mustBrakeForCrossing(fromEdges[i1], toEdges[i1], crossing)) {
+                    result[i1] = 'g';
+                    break;
                 }
             }
         }
@@ -1540,6 +1611,8 @@ NBOwnTLDef::corridorLike() const {
 NBTrafficLightLogic*
 NBOwnTLDef::buildNemaPhases(
     const EdgeVector& fromEdges,
+    const EdgeVector& toEdges,
+    const std::vector<NBNode::Crossing*>& crossings,
     const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
     const std::vector<std::string>& straightStates,
     const std::vector<std::string>& leftStates) {
@@ -1574,6 +1647,8 @@ NBOwnTLDef::buildNemaPhases(
         }
         if (e2 != nullptr) {
             std::string straight2 = filterState(straightStates[i], fromEdges, e2);
+            straight2 = patchNEMAStateForCrossings(straight2, crossings, fromEdges, toEdges, e2, e1);
+
             logic->addStep(dur, straight2, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 1));
             if (i < (int)leftStates.size()) {
                 std::string left2 = filterState(leftStates[i], fromEdges, e2);
@@ -1588,6 +1663,7 @@ NBOwnTLDef::buildNemaPhases(
             delete logic;
             return nullptr;
         }
+        straight1 = patchNEMAStateForCrossings(straight1, crossings, fromEdges, toEdges, e1, e2);
         logic->addStep(dur, straight1, minMinDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, toString(phaseNameLeft + 5));
         phaseNameLeft += 2;
     }

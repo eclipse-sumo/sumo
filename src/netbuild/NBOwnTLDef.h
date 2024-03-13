@@ -117,6 +117,12 @@ public:
     /// @brief compute phase state in regard to pedestrian crossings
     static std::string patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
+    static std::string patchNEMAStateForCrossings(const std::string& state,
+            const std::vector<NBNode::Crossing*>& crossings,
+            const EdgeVector& fromEdges,
+            const EdgeVector& toEdges,
+            const NBEdge* greenEdge, NBEdge* otherChosen);
+
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @param[in] onlyConts whether the method is only called to compute myNeedsContRelation
@@ -183,6 +189,8 @@ protected:
 
     NBTrafficLightLogic* buildNemaPhases(
         const EdgeVector& fromEdges,
+        const EdgeVector& toEdges,
+        const std::vector<NBNode::Crossing*>& crossings,
         const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
         const std::vector<std::string>& straightStates,
         const std::vector<std::string>& leftStates);
