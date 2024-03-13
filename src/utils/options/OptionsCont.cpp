@@ -627,7 +627,6 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         return true;
     }
 
-    myWriteLicense = getBool("write-license");
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
@@ -1021,7 +1020,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
-    if (myWriteLicense) {
+    if (getBool("write-license")) {
         os << "This data file and the accompanying materials\n"
            "are made available under the terms of the Eclipse Public License v2.0\n"
            "which accompanies this distribution, and is available at\n"
