@@ -48,15 +48,49 @@ Whenever a person enters a taxi during the intermodal route search, a time penal
 ## Groups of Persons
 Multiple persons can travel together as a group using attribute `group` (if the taxi has sufficient capacity):
 
+```xml
     <person id="p0" depart="0.00">
         <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
     </person>
     <person id="p1" depart="0.00">
         <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
     </person>
+```
 
 ## Prebooking
-Documentation in progress
+Direct ride hailing can be regarded as a spontaneous booking. If the taxi is to be requested before the person is at the pick-up location, prebooking is necessary. This is used by specifying an `earliestPickupTime` and a `reservationTime` in the `ride`. The `reservationTime` specifies the time at which the reservation is created and made available to the dispatch. It may also be less than the person's depart. The `earliestPickupTime` specifies the time at which the person is ready to be picked up. Depending on the algorithm used, this may allow a better dispatch to be made. Especially in combination with a custom dispatch algorithm via [TraCi](#traci), the requirements of different use cases can be addressed.
+
+### Application:
+- The file with the persons must be loaded as an additional file.
+- At least the `earliestPickupTime` must be specified. The `reservationTime` has the start time of the simulation as the default value.
+- It is necessary to define the attribute `from` in the `ride`.
+- If there was previously a `walk` in which the `arrivalPos` attribute was defined, then the `fromPos` attribute must also be defined in the `ride` with the same value.
+
+### Example:
+```xml
+    <person id="p0" depart="100.00">
+        <ride from="B2C2" to="A0B0" lines="taxi">
+            <param key="earliestPickupTime" value="100.00"/>
+            <param key="reservationTime" value="50.00"/>
+        </ride>
+    </person>
+    <person id="p1" depart="0.00">
+        <walk from="B2C2" to="B1C1"/>
+        <ride from="B1C1" to="A1B1" lines="taxi">
+            <param key="earliestPickupTime" value="30.00"/>
+        </ride>
+    </person>
+```
+
+### Behavior:
+- If a person arrives at the departure point earlier than the `earliestPickupTime`, the person boards as soon as the taxi arrives.
+- If the taxi is on time and the person does not arrive at the departure point within 3 minutes of the `earliestPickupTime`, the reservation is canceled and the taxi serves the next reservation.
+- If the taxi arrives later and the person does not arrive at the departure point within 3 minutes of the taxi's arrival time, the reservation is canceled.
+- If the greedy or greedyShared scheduling algorithms are used, the reservations are processed in the order of the `earliestPickupTime`. A combination of spontaneous bookings and prebookings can lead to side effects. It is recommended to use a custom dispo algorithm via TraCi.
+
+### Notes:
+- Prebookings for merged reservations and group reservations are not yet supported.
+- The current status can be tracked in [Ticket 11429](https://github.com/eclipse-sumo/sumo/issues/11429)
 
 # Multiple Taxi Fleets
 
