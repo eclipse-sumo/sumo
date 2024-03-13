@@ -13,4 +13,3 @@ pyproj>=2.5.0
 rtree>=0.9.4
 scipy>=1.3.3
 shapely>=1.8.0
-texttest>=4.2.1
