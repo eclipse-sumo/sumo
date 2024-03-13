@@ -200,9 +200,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
-                if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
-                }
+                WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 break;
             }
         }
