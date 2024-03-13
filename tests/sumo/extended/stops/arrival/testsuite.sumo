@@ -11,6 +11,9 @@ premature_slowDown_limit
 premature_slowDown_longDistance
 
 # vehicle arrives ahead of time
+premature_flexArrival
+
+# vehicle arrives ahead of time
 premature_started
 
 # vehicle arrives ahead of time, impossible timing
