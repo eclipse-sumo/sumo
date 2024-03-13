@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-13 08:18+0000\n"
+"PO-Revision-Date: 2024-03-14 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14647,11 +14647,11 @@ msgstr "Resetta tutti i programmi di semaforo."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1407
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "Salva modifiche al progamma. (Enter)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1410
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "Annulla modifiche al programma. (Esc)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1504
 msgid "TLSDefinition cannot be found"
@@ -14686,27 +14686,27 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1623
 msgid "Duplicate"
-msgstr ""
+msgstr "Raddoppia"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1663
 msgid "reset current program"
-msgstr ""
+msgstr "resetta il programma attuale"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1702
 msgid "reset TLS"
-msgstr ""
+msgstr "resetta semaforo"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1863
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
+msgstr "raddoppia programma '%' del semaforo '%'"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1909
 msgid "Traffic light does not control any links"
-msgstr ""
+msgstr "Il semaforo non controlla alcun collegamento"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1921
 msgid "Phases"
-msgstr ""
+msgstr "Fasi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
 msgid "Clean States"
@@ -14722,17 +14722,20 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
 msgid "Add States"
-msgstr ""
+msgstr "Aggiungi stati"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
 msgid "Extend the state vector for all phases by one entry"
-msgstr ""
+msgstr "Aggrandisci il vettore di stati di una dimensione per tutte le fasi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1940
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
+"Aggrandisci il vettore di stati di una dimensione per tutte le fasi. ("
+"Inutilizzata finché l'indice corrispondente viene assegnato a un "
+"collegamento o a un passaggio pedonale)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
