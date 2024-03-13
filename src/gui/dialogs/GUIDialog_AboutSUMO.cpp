@@ -52,6 +52,9 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     (new FXLabel(descriptionFrame, "SUMO sumo-gui " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
+#ifdef JPS_VERSION
+    new FXLabel(descriptionFrame, TLF("includes JuPedSim %.%.%", int(JPS_VERSION / 100), int(JPS_VERSION % 100 / 10), JPS_VERSION % 10).c_str(), nullptr, GUIDesignLabelAboutInfo);
+#endif
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice

@@ -1976,10 +1976,14 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     myShowPedestrianNetwork = new FXCheckButton(m105, TL("Show JuPedSim pedestrian network"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowPedestrianNetwork->setCheck(mySettings->showPedestrianNetwork);
     myPedestrianNetworkColor = new FXColorWell(m105, MFXUtils::getFXColor(mySettings->pedestrianNetworkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+#ifdef JPS_VERSION
     if (mySettings->netedit) {
+#endif
         myShowPedestrianNetwork->disable();
         myPedestrianNetworkColor->disable();
+#ifdef JPS_VERSION
     }
+#endif
 }
 
 

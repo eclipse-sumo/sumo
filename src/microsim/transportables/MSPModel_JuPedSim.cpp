@@ -28,9 +28,6 @@
 #include <fstream>
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
-#if JPS_VERSION >= 110
-#include <jupedsim/simulation.h>
-#endif
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -473,9 +470,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                 myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-#if JPS_VERSION >= 110
                 JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
-#endif
                 removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                 preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                 GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -483,11 +478,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-#if JPS_VERSION >= 110
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
             removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
-#endif
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
     }

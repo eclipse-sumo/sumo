@@ -23,7 +23,7 @@ jobs:
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
-        jps_version: ['v1.0.6']
+        jps_version: ['v1.1.0']
         # include:
         #   - build_type: full
         #     jps_version: master
