@@ -230,7 +230,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         myOffFoeLinks = new std::vector<MSLink*>();
         if (isEntryLink()) {
             for (MSLane* foeLane : foeLanes) {
-                assert(foeLane->isInternal());
+                assert(foeLane->isInternal() || foeLane->isCrossing());
                 MSLink* viaLink = foeLane->getIncomingLanes().front().viaLink;
                 if (viaLink->getLaneBefore()->isNormal()) {
                     myOffFoeLinks->push_back(viaLink);

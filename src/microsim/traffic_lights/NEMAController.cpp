@@ -728,7 +728,10 @@ NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, In
         if (ch == 'G') {
             stateIndex.push_back(i);
             for (auto link : myLinks[i]) {
-                laneIDs.push_back(link->getLaneBefore()->getID());
+                const MSLane* incoming = link->getLaneBefore();
+                if (incoming->isNormal()) {
+                    laneIDs.push_back(incoming->getID());
+                }
             }
         }
     }
