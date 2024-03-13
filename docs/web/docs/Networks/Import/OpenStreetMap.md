@@ -260,7 +260,7 @@ When using option **--osm.elevation**, z-data is imported from [tags with `key="
 tag is not yet in wide use, tools exist to overlay OSM data with
 elevation data sources
 (https://wiki.openstreetmap.org/wiki/Srtm_to_Nodes). When using the
-osmosis-srtm pluging the option **tagName=ele** must be used since only the ['ele'
+osmosis-srtm plugin the option **tagName=ele** must be used since only the ['ele'
 tag](https://wiki.openstreetmap.org/wiki/Key:ele) is evaluated and the
 plugin would use the ['height'
 tag](https://wiki.openstreetmap.org/wiki/Key:height) by default.
