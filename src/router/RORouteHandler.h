@@ -64,10 +64,10 @@ public:
                    const bool checkSchema);
 
     /// @brief standard destructor
-    virtual ~RORouteHandler();
+    ~RORouteHandler() override;
 
     /// @brief Checks whether the route file is sorted by departure time if needed
-    bool checkLastDepart();
+    bool checkLastDepart() override;
 
 protected:
     void deleteActivePlanAndVehicleParameter();
@@ -82,8 +82,8 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs);
+    void myStartElement(int element,
+                        const SUMOSAXAttributes& attrs) override;
     //@}
 
     /** @brief Called for parsing from and to and the corresponding taz attributes
@@ -95,22 +95,22 @@ protected:
     void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok);
 
     /// @brief opens a type distribution for reading
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
+    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeVehicleTypeDistribution();
+    void closeVehicleTypeDistribution() override;
 
     /// @brief opens a route for reading
-    void openRoute(const SUMOSAXAttributes& attrs);
+    void openRoute(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a flow for reading
-    void openFlow(const SUMOSAXAttributes& attrs);
+    void openFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a route flow for reading
-    void openRouteFlow(const SUMOSAXAttributes& attrs);
+    void openRouteFlow(const SUMOSAXAttributes& attrs) override;
 
     /// @brief opens a trip for reading
-    void openTrip(const SUMOSAXAttributes& attrs);
+    void openTrip(const SUMOSAXAttributes& attrs) override;
 
     /**@brief closes (ends) the building of a route.
      * @note Afterwards no edges may be added to it;
@@ -118,65 +118,65 @@ protected:
      *       a) the route is empty or
      *       b) another route with the same id already exists
      */
-    void closeRoute(const bool mayBeDisconnected = false);
+    void closeRoute(const bool mayBeDisconnected = false) override;
 
     /// @brief opens a route distribution for reading
-    void openRouteDistribution(const SUMOSAXAttributes& attrs);
+    void openRouteDistribution(const SUMOSAXAttributes& attrs) override;
 
     /// @brief closes (ends) the building of a distribution
-    void closeRouteDistribution();
+    void closeRouteDistribution() override;
 
     /// @brief Ends the processing of a vehicle
-    void closeVehicle();
+    void closeVehicle() override;
 
     /// @brief Ends the processing of a vehicle type
-    void closeVType();
+    void closeVType() override;
 
     /// @brief Ends the processing of a person
-    void closePerson();
+    void closePerson() override;
 
     /// @brief Ends the processing of a personFlow
-    void closePersonFlow();
+    void closePersonFlow() override;
 
     /// @brief Ends the processing of a container
-    void closeContainer();
+    void closeContainer() override;
 
     /// @brief Ends the processing of a containerFlow
-    void closeContainerFlow();
+    void closeContainerFlow() override;
 
     /// @brief Ends the processing of a flow
-    void closeFlow();
+    void closeFlow() override;
 
     /// @brief Ends the processing of a trip
-    void closeTrip();
+    void closeTrip() override;
 
     /// @brief retrieve stopping place element
     const SUMOVehicleParameter::Stop* retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam = nullptr);
 
     /// @brief Processing of a stop
-    Parameterised* addStop(const SUMOSAXAttributes& attrs);
+    Parameterised* addStop(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a person from a personFlow
     void addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a ride
-    void addRide(const SUMOSAXAttributes& attrs);
+    void addRide(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
+    void addTransport(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Processing of a tranship
-    void addTranship(const SUMOSAXAttributes& attrs);
+    void addTranship(const SUMOSAXAttributes& attrs) override;
 
     /// @brief Parse edges from strings
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
                     const std::string& rid, bool& ok);
 
     /// @brief add a routing request for a walking or intermodal person
-    void addPersonTrip(const SUMOSAXAttributes& attrs);
+    void addPersonTrip(const SUMOSAXAttributes& attrs) override;
 
     /// @brief add a fully specified walk
-    void addWalk(const SUMOSAXAttributes& attrs);
+    void addWalk(const SUMOSAXAttributes& attrs) override;
 
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
