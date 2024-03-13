@@ -2935,7 +2935,11 @@ MSVehicle::slowDownForSchedule(double vMinComfortable) const {
     std::pair<double, double> timeDist = estimateTimeToNextStop();
     double arrivalDelay = SIMTIME + timeDist.first - STEPS2TIME(stop.pars.arrival);
     double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
-    if (stop.pars.started >= 0 && MSGlobals::gUseStopStarted) {
+    if (stop.pars.hasParameter(toString(SUMO_ATTR_FLEX_ARRIVAL))) {
+        SUMOTime flexStart = string2time(stop.pars.getParameter(toString(SUMO_ATTR_FLEX_ARRIVAL)));
+        arrivalDelay += STEPS2TIME(stop.pars.arrival - flexStart);
+        t = STEPS2TIME(flexStart - SIMSTEP);
+    } else if (stop.pars.started >= 0 && MSGlobals::gUseStopStarted) {
         arrivalDelay += STEPS2TIME(stop.pars.arrival - stop.pars.started);
         t = STEPS2TIME(stop.pars.started - SIMSTEP);
     }

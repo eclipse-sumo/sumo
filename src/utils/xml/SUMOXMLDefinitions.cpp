@@ -707,6 +707,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "carFollowModel.ignoreIDs",   SUMO_ATTR_CF_IGNORE_IDS },
     { "carFollowModel.ignoreTypes", SUMO_ATTR_CF_IGNORE_TYPES },
     /// @}
+    { "flexArrival", SUMO_ATTR_FLEX_ARRIVAL },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },

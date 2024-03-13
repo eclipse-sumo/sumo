@@ -1015,6 +1015,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CF_IGNORE_IDS,
     SUMO_ATTR_CF_IGNORE_TYPES,
     /// @}
+    SUMO_ATTR_FLEX_ARRIVAL,
 
     /// @name route alternatives / distribution attributes
     /// @{
