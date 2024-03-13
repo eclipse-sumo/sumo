@@ -1178,6 +1178,12 @@ Under windows these settings must be configured using `regedit` i.e. at the regi
   3 compatibility for [sumolib](Tools/Sumolib.md) and
   [traci](TraCI/Interfacing_TraCI_from_Python.md) however.
 
+### The tool fails when adding an argument with a leading minus sign
+
+  Many of our tools use an argument parser to gather further command line arguments.
+  As the option names usually start with a leading minus, the parser gets confused whether your input is 
+  an option or the corresponding value. In this case try the `--option=value` syntax.
+
 ### tools fail with an ImportError
 
   Make sure to set the environment variable SUMO_HOME to point at the
