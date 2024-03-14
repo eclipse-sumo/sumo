@@ -1103,6 +1103,9 @@ private:
     /// @brief remove route at the end of the simulation
     void checkRouteRemoval();
 
+    /// @brief helper function
+    bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
+
 private:
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s) = delete;
