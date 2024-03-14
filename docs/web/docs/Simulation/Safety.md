@@ -64,6 +64,8 @@ size (default 1s) when using the default Krauss model.
   *driverstate*-device](../Driver_State.md)
 - The [carFollowModel EIDM](../Car-Following-Models/EIDM.md) natively includes [parameters for driving errors](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_model_parameters) that can be used to provoke dangerous situations and collisions
 - Disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) and then configure insertion with high speed and small gap
+- *carFollowModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_carfollowmodel_parameters))
+- *carFollowModel.ignoreTypes*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_carfollowmodel_parameters))
 
 ### Collisions related to lane-changing
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
