@@ -95,7 +95,7 @@ GNEPythonTool::postProcessing() {
 
 
 std::string
-GNEPythonTool::getCommand() const {
+GNEPythonTool::getCommandPath() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
@@ -118,9 +118,12 @@ GNEPythonTool::getCommand() const {
             sumoHome.pop_back();
         }
     }
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath + "\"";
-    // declare arguments
+    return python + " " + sumoHome + myToolPath + "\"";
+}
+
+
+std::string
+GNEPythonTool::getCommand() const {
     std::string arguments;
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
@@ -152,7 +155,7 @@ GNEPythonTool::getCommand() const {
             }
         }
     }
-    return command + " " + arguments;
+    return getCommandPath() + " " + arguments;
 }
 
 

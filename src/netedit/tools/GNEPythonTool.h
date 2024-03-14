@@ -74,6 +74,10 @@ public:
     void saveConfiguration(const std::string& file) const;
 
 protected:
+    /// @brief get command (python + script)
+    std::string getCommandPath() const;
+
+protected:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 

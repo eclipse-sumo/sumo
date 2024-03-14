@@ -89,31 +89,6 @@ GNENetDiffTool::postProcessing() {
 
 std::string
 GNENetDiffTool::getCommand() const {
-    // add python script
-    const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
-    const char* sumoHomeEnv = getenv("SUMO_HOME");
-    std::string sumoHome = "";
-    if (sumoHomeEnv != nullptr && sumoHomeEnv != std::string("")) {
-        sumoHome = std::string(sumoHomeEnv);
-        // harmonise slash
-        if (sumoHome.back() == '\\') {
-            sumoHome.pop_back();
-        }
-        if (sumoHome.back() != '/') {
-            sumoHome += "/";
-        }
-        // quote string to handle spaces but prevent double quotes
-        if (sumoHome.front() != '"') {
-            sumoHome = "\"" + sumoHome;
-        }
-        if (sumoHome.back() == '"') {
-            sumoHome.pop_back();
-        }
-    }
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath + "\"";
-    // declare arguments
     std::string arguments;
     // add arguments
     arguments += "\"" + myPythonToolsOptions.getString("original-net") + "\" ";
@@ -131,7 +106,7 @@ GNENetDiffTool::getCommand() const {
             myPythonToolsOptions.getBool("load-shapes-deleted")) {
         arguments += "--write-shapes ";
     }
-    return command + " " + arguments;
+    return getCommandPath() + " " + arguments;
 }
 
 
