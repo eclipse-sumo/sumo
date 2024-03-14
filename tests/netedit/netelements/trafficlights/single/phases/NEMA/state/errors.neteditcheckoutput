@@ -1,1 +1,2 @@
 Warning: At NEMA tlLogic 'J0', the phases before barrier 2 from both rings do not add up. (ring1=55.00, ring2=90.00)
+Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 5.
