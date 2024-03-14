@@ -302,13 +302,6 @@ algorithm further. These may be given within the `<tlLogic>`-Element as follows:
 The time gaps which determine the phase extensions are collected by induction loop detectors.
 These detectors are placed automatically at a configurable distance (see below). If the incoming lanes are too short and there is a sequence of unique predecessor lanes, the detector will be placed on a predecessor lane at the computed distance instead.
 
-Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
-In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
-A simple fix is often the provide dedicate left turn lanes.
-
-!!! note
-    When setting option **--tls.actuated.jam-threshold** to a value > 0 (i.e. 30), all detectors will be usable, because useless phase extension is automatically avoided if a detector is found to be jammed. Alternatively, this can be configured for individual tls or even individual lanes using `<param>`.
-
 The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
 
 - **TLSID** is the id of the tlLogic element
@@ -316,8 +309,14 @@ The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
 - **EDGEINDEX** is a running index that starts at 0 for edge that approaches tls linkIndex 0 (typically the northern approach)
 - **LANEINDEX** is a running index for the current edge that starts at the first vehicular lane (sidewalks do not count)
 
+Each lane incoming to the traffic light will receive a detector. However, not all detectors can be used in all phases.
+In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive. A simple fix is often the provide dedicate left turn lanes.
+
 !!! note
     Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
+
+!!! note
+    When setting option **--tls.actuated.jam-threshold** to a value > 0 (i.e. 30), all detectors will be usable, because useless phase extension is automatically avoided if a detector is found to be jammed. Alternatively, this can be configured for individual tls (`<param key="jam-threshold" value="30">`) or even individual lanes using `<param key="jam-threshold:LANEID" value="30">` by putting the `<param>` element into the `<tlLogic>` definition.
 
 Detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
@@ -354,7 +353,8 @@ each lanes maximum speed).
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 - **coordinated** (true/false) Influence there reference point for time-in-cycle when using [coordination](#coordination)
 - **cycleTime** sets the cycle time (in s) when using [coordination](#coordination). Defaults to the sum of all phase 'durations' values.
-- **jam-threshold**: ignore detected vehicles if they have stood on a detector for the given time or more (activated by setting a position value)
+- **jam-threshold**: ignore detected vehicles if they have stood on a detector for the given time or more
+- **jam-threshold:LANEID**: ignore detected vehicles if they have stood on the detector on the given LANEID for the given time or more
 - **detector-length**: set detector length to the given value (to ensure robust request detection with varying gaps and vehicle positions)
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
