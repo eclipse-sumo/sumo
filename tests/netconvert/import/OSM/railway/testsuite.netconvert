@@ -43,3 +43,7 @@ inconsistent_directions2
 
 # see #13431
 S42
+S42_all_signals
+
+# Copy of S42_all_signals
+S42_custom_signals
