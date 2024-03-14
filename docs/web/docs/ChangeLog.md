@@ -69,19 +69,19 @@ title: ChangeLog
   - Access elements support `pos="doors"` to change the algorithm for placing passengers that exit the vehicle. #14336
   - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
   - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
-  - Added new attribute `departPos="splitFront" which causes a train with [`depart="split"`](Simulation/Railways.md#portion_working) to be created at the front rather than the rear of the original train. #14358
+  - Added new attribute `departPos="splitFront"` which causes a train with [`depart="split"`](Simulation/Railways.md#portion_working) to be created at the front rather than the rear of the original train. #14358
   - vType attribute `mass` is noow used within `carFollowModel="Rail"`. #13055
   - Option **--fcd-output.attributes** now supports the value 'arrivalDelay' #14447
   - Sumo now allows specifying departure and arrival positions in network or geo-coordinates #2182
   - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258 
 
 - netedit
-  - Now sidewalk and bikelane width can be edited in in GNECreateEdgeFrame. #9725
+  - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
   - Added new netedit option --ignore-missing-inputs. #12395
   - Add color legend in person and container modes. #13139
-  - Now netedit checks if repeated routed are valid before saving. #13503
+  - Now netedit checks if repeated routes are valid before saving. #13503
   - Disable stopOffsetException row if stopOffset is 0. #14065
-  - General optimización of netedit for big networks. #13894
+  - Improved rendering speed for large networks. #13894
   - Added red contour to moved elements. #14109
  
 - sumo-gui
