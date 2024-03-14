@@ -464,6 +464,9 @@ protected:
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
 
+        /// @brief custom requirements for rail signal tagging
+        StringVector myRailSignalRules;
+
         /// @brief number of diplicate nodes
         int myDuplicateNodes;
 

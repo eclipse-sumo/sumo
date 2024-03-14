@@ -884,8 +884,24 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
     myUniqueNodes(uniqueNodes),
     myImportElevation(oc.getBool("osm.elevation")),
     myDuplicateNodes(0),
-    myOptionsCont(oc) {
+    myOptionsCont(oc)
+{
+    // init rail signal rules
+    for (std::string kv : oc.getStringVector("osm.railsignals")) {
+        if (kv == "DEFAULT") {
+            for (std::string st : {"main", "combined"}) {
+                for (std::string v : {"block", "entry", "exit", "intermediate"}) {
+                    myRailSignalRules.push_back("railway:signal:" + st + ":function=" + v);
+                }
+            }
+        } else if (kv == "ALL") {
+            myRailSignalRules.push_back("railway=signal");
+        } else {
+            myRailSignalRules.push_back("railway:signal:" + kv);
+        }
+    }
 }
+
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() = default;
 
@@ -957,9 +973,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myCurrentNode->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myCurrentNode->railwayCrossing = true;
-            } else if (StringUtils::startsWith(key, "railway:signal") && (
-                           value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
-                myCurrentNode->railwaySignal = true;
+            } else if (StringUtils::startsWith(key, "railway:signal") || (key == "railway" && value == "signal")) {
+                std::string kv = key + "=" + value;
+                std::string kglob = key + "=";
+                if ((std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kv) != myRailSignalRules.end())
+                        || (std::find(myRailSignalRules.begin(), myRailSignalRules.end(), kglob) != myRailSignalRules.end())) {
+                    myCurrentNode->railwaySignal = true;
+                }
             } else if (StringUtils::startsWith(key, "railway:position") && value.size() > myCurrentNode->position.size()) {
                 // use the entry with the highest precision (more digits)
                 myCurrentNode->position = value;
