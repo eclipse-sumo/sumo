@@ -29,6 +29,7 @@
 #include <utils/emissions/EnergyParams.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVehicle.h>
+#include "MSStoppingPlaceRerouter.h"
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
 #include "MSVehicleType.h"
@@ -43,6 +44,7 @@ class MSDevice_Transportable;
 class MSDevice_Emissions;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
+class MSChargingStation;
 
 
 // ===========================================================================
@@ -981,21 +983,16 @@ public:
 
     /// @name state io
     //@{
-    void rememberBlockedParkingArea(const MSParkingArea* pa, bool local);
-    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const;
+    void rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local);
+    SUMOTime sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const;
+    void rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local);
+    SUMOTime sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const;
 
     /// @brief score only needed when running with gui
-    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score);
+    void rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score);
     void resetParkingAreaScores();
-
-    /// @brief store information for a single parking area
-    struct PaMemory {
-        PaMemory() : blockedAtTime(-1), blockedAtTimeLocal(-1) {}
-
-        SUMOTime blockedAtTime;
-        SUMOTime blockedAtTimeLocal;
-        std::string score;
-    };
+    void rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score);
+    void resetChargingStationScores();
 
     int getNumberParkingReroutes() const {
         return myNumberParkingReroutes;
@@ -1004,8 +1001,7 @@ public:
         myNumberParkingReroutes = value;
     }
 
-    typedef std::map<const MSParkingArea*, PaMemory, ComparatorIdLess> ParkingMemory;
-    const ParkingMemory* getParkingMemory() const {
+    const StoppingPlaceMemory* getParkingMemory() const {
         return myParkingMemory;
     }
     //@}
@@ -1084,7 +1080,8 @@ protected:
     int myRouteValidity;
 
     /// memory for parking search
-    ParkingMemory* myParkingMemory = nullptr;
+    StoppingPlaceMemory* myParkingMemory = nullptr;
+    StoppingPlaceMemory* myChargingMemory = nullptr;
     int myNumberParkingReroutes = 0;
 
     /// @brief Whether this vehicle is registered as waiting for a person or container (for deadlock-recognition)

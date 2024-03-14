@@ -1,0 +1,572 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    StoppingPlaceRerouter.cpp
+/// @author  Mirko Barthauer
+/// @date    Mon, 17 June 2024
+///
+// The StoppingPlaceRerouter provides an interface to structure the rerouting
+// to the best StoppingPlace according to the evaluation criteria and
+// associated weights.
+/****************************************************************************/
+#pragma once
+#include <utils/vehicle/SUMOVehicle.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSGlobals.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSRoute.h>
+#include <microsim/MSParkingArea.h>
+#include <microsim/MSStoppingPlace.h>
+#include <microsim/MSVehicleType.h>
+#include <microsim/trigger/MSChargingStation.h>
+#include "MSStoppingPlaceRerouter.h"
+
+
+
+///@brief Constructor
+MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix, StoppingPlaceParamMap_t evalParams, StoppingPlaceParamSwitchMap_t invertParams) : myEvalParams(evalParams), myInvertParams(invertParams), myStoppingType(stoppingType), myParamPrefix(paramPrefix) {
+    for (auto param : myEvalParams) {
+        myNormParams.insert({param.first, param.first != "probability"});
+    }
+}
+
+MSStoppingPlace*
+MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, const MSEdgeVector& closedEdges) {
+    // Reroute destination from initial stopping place to an alternative stopping place
+    // if the following conditions are met:
+    // - next stop target is a stopping place of the right type
+    // - target is included in the current alternative set
+    // - target is visibly full
+    // Any stopping places that are visibly full at the current location are
+    // committed to the stopping place memory corresponding to their type
+
+    MSStoppingPlace* nearStoppingPlace = nullptr;
+
+    // get vehicle params
+    MSStoppingPlace* destStoppingPlace = nullptr;
+    bool destVisible = false;
+    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
+        destStoppingPlace = veh.getNextParkingArea();
+        if (destStoppingPlace == nullptr) {
+            // not driving towards the right type of stop
+            return nullptr;
+        }
+        destVisible = (&destStoppingPlace->getLane().getEdge() == veh.getEdge());
+        // if the vehicle is on the destination stop edge it is always visible
+        for (auto stoppingPlace : stoppingPlaceCandidates) {
+            if (stoppingPlace.first == destStoppingPlace && stoppingPlace.second) {
+                destVisible = true;
+                break;
+            }
+        }
+    }
+    const MSRoute& route = veh.getRoute();
+
+    MSStoppingPlace* onTheWay = nullptr;
+    const int stopAnywhere = (int)getWeight(veh, "anywhere", -1);
+    // check whether we are ready to accept any free parkingArea along the
+    // way to our destination
+    // TODO: make this work for charging stations as well
+    if (stopAnywhere < 0 || (stopAnywhere > veh.getNumberParkingReroutes() && myStoppingType == SUMO_TAG_PARKING_AREA)) {
+        if (!destVisible) {
+            // cannot determine destination occupancy, only register visibly full
+            for (const StoppingPlaceVisible& stoppingPlace : stoppingPlaceCandidates) {
+                if (stoppingPlace.second && getStoppingPlaceOccupancy(stoppingPlace.first) >= 1.) {
+                    rememberBlockedStoppingPlace(veh, stoppingPlace.first, &stoppingPlace.first->getLane().getEdge() == veh.getEdge());
+                }
+            }
+        }
+    } else {
+        double bestDist = std::numeric_limits<double>::max();
+        const double brakeGap = veh.getBrakeGap(true);
+        for (StoppingPlaceVisible& item : stoppingPlaceCandidates) {
+            if (item.second) {
+                if (&item.first->getLane().getEdge() == veh.getEdge()
+                        && getStoppingPlaceOccupancy(item.first) < 1.) {
+                    const double distToStart = item.first->getBeginLanePosition() - veh.getPositionOnLane();
+                    const double distToEnd = item.first->getEndLanePosition() - veh.getPositionOnLane();
+                    if (distToEnd > brakeGap) {
+                        rememberStoppingPlaceScore(veh, item.first, "dist=" + toString(distToStart));
+                        if (distToStart < bestDist) {
+                            bestDist = distToStart;
+                            onTheWay = item.first;
+                        }
+                    } else {
+                        rememberStoppingPlaceScore(veh, item.first, "tooClose");
+                    }
+                }
+            }
+        }
+    }
+    if (!destVisible && onTheWay == nullptr) {
+        return nullptr;
+    }
+
+    if (getStoppingPlaceOccupancy(destStoppingPlace) >= 1. || onTheWay != nullptr) {
+        // if the current route ends at the stopping place, the new route will
+        // also end at the new stopping place
+        newDestination = (destStoppingPlace != nullptr && &destStoppingPlace->getLane().getEdge() == route.getLastEdge()
+                          && veh.getArrivalPos() >= destStoppingPlace->getBeginLanePosition()
+                          && veh.getArrivalPos() <= destStoppingPlace->getEndLanePosition());
+
+        std::map<MSStoppingPlace*, ConstMSEdgeVector> newRoutes;
+        std::map<MSStoppingPlace*, ConstMSEdgeVector> stopApproaches;
+        StoppingPlaceParamMap_t weights = collectWeights(veh); // add option to patch values for interdependent values
+        StoppingPlaceParamMap_t maxValues;
+        for (auto param : weights) {
+            maxValues[param.first] = 0.;
+        }
+
+        // a map stores elegible stopping places
+        StoppingPlaceMap_t stoppingPlaces;
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), closedEdges);
+        const double brakeGap = veh.getBrakeGap(true);
+
+        if (onTheWay != nullptr) {
+            // compute new route
+            if (newDestination) {
+                newRoute.push_back(veh.getEdge());
+            } else {
+                bool valid = evaluateDestination(veh, brakeGap, newDestination, onTheWay, getStoppingPlaceOccupancy(onTheWay), 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues);
+                if (!valid) {
+                    WRITE_WARNINGF(TL("Stopping place '%' along the way cannot be used by vehicle '%' for unknown reason"), onTheWay->getID(), veh.getID());
+                    return nullptr;
+                }
+                newRoute = newRoutes[onTheWay];
+            }
+            return onTheWay;
+        }
+        int numAlternatives = 0;
+        std::vector<std::tuple<SUMOTime, MSStoppingPlace*, int>> blockedTimes;
+        resetStoppingPlaceScores(veh);
+
+        if (destStoppingPlace != nullptr) {
+            rememberStoppingPlaceScore(veh, destStoppingPlace, "occupied");
+            rememberBlockedStoppingPlace(veh, destStoppingPlace, &destStoppingPlace->getLane().getEdge() == veh.getEdge());
+        }
+        const SUMOTime stoppingPlaceMemory = TIME2STEPS(getWeight(veh, "memory", 600));
+        const double stoppingPlaceFrustration = getWeight(veh, "frustration", 100);
+        const double stoppingPlaceKnowledge = getWeight(veh, "knowledge", 0);
+
+        for (int i = 0; i < (int)stoppingPlaceCandidates.size(); ++i) {
+            // alternative occupancy is randomized (but never full) if invisible
+            // current destination must be visible at this point
+            const bool visible = stoppingPlaceCandidates[i].second || (stoppingPlaceCandidates[i].first == destStoppingPlace && destVisible);
+            double occupancy = getStoppingPlaceOccupancy(stoppingPlaceCandidates[i].first);
+            if (!visible && (stoppingPlaceKnowledge == 0 || stoppingPlaceKnowledge < RandHelper::rand(veh.getRNG()))) {
+                double capacity = getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first);
+                const double minOccupancy = MIN2(capacity - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * capacity / stoppingPlaceFrustration));
+                occupancy = RandHelper::rand(minOccupancy, capacity);
+                // previously visited?
+                SUMOTime blockedTime = sawBlockedStoppingPlace(veh, stoppingPlaceCandidates[i].first, false);
+                if (blockedTime >= 0 && SIMSTEP - blockedTime < stoppingPlaceMemory) {
+                    // assume it's still occupied
+                    occupancy = capacity;
+                    blockedTimes.push_back(std::make_tuple(blockedTime, stoppingPlaceCandidates[i].first, i));
+                }
+            }
+            if (occupancy < getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first)) {
+                if (evaluateDestination(veh, brakeGap, newDestination, stoppingPlaceCandidates[i].first, occupancy, probs[i], router, stoppingPlaces, newRoutes, stopApproaches, maxValues)) {
+                    numAlternatives++;
+                }
+            } else if (visible) {
+                // might only be visible now (i.e. because it's on the other
+                // side of the street), so we should remember this for later.
+                rememberBlockedStoppingPlace(veh, stoppingPlaceCandidates[i].first, &stoppingPlaceCandidates[i].first->getLane().getEdge() == veh.getEdge());
+            }
+        }
+        if (numAlternatives == 0) {
+            // use parkingArea with lowest blockedTime
+            std::sort(blockedTimes.begin(), blockedTimes.end(),
+            [](std::tuple<SUMOTime, MSStoppingPlace*, int> const & t1, std::tuple<SUMOTime, MSStoppingPlace*, int> const & t2) {
+                if (std::get<0>(t1) < std::get<0>(t2)) {
+                    return true;
+                }
+                if (std::get<0>(t1) == std::get<0>(t2)) {
+                    if (std::get<1>(t1)->getID() < std::get<1>(t2)->getID()) {
+                        return true;
+                    }
+                    if (std::get<1>(t1)->getID() == std::get<1>(t2)->getID()) {
+                        return std::get<2>(t1) < std::get<2>(t2);
+                    }
+                }
+                return false;
+            }
+                     );
+            for (auto item : blockedTimes) {
+                MSStoppingPlace* sp = std::get<1>(item);
+                double prob = probs[std::get<2>(item)];
+                // all stopping places are occupied. We have no good basis for
+                // prefering one or the other based on estimated occupancy
+                double occupancy = RandHelper::rand(getStoppingPlaceCapacity(sp));
+                if (evaluateDestination(veh, brakeGap, newDestination, sp, occupancy, prob, router, stoppingPlaces, newRoutes, stopApproaches, maxValues)) {
+                    numAlternatives = 1;
+                    break;
+                }
+                //std::cout << "  candidate=" << item.second->getID() << " observed=" << time2string(item.first) << "\n";
+            }
+            if (numAlternatives == 0) {
+                // take any random target but prefer that that haven't been visited yet
+                std::vector<std::pair<SUMOTime, MSStoppingPlace*>> candidates;
+                for (const StoppingPlaceVisible& stoppingPlaceCandidate : stoppingPlaceCandidates) {
+                    if (stoppingPlaceCandidate.first == destStoppingPlace) {
+                        continue;
+                    }
+                    SUMOTime dummy = sawBlockedStoppingPlace(veh, stoppingPlaceCandidate.first, true);
+                    if (dummy < 0) {
+                        // randomize among the unvisited
+                        dummy = -RandHelper::rand(1000000);
+                    }
+                    candidates.push_back(std::make_pair(dummy, stoppingPlaceCandidate.first));
+                }
+                std::sort(candidates.begin(), candidates.end(),
+                [](std::tuple<SUMOTime, MSStoppingPlace*> const & t1, std::tuple<SUMOTime, MSStoppingPlace*> const & t2) {
+                    return std::get<0>(t1) < std::get<0>(t2) || (std::get<0>(t1) == std::get<0>(t2) && std::get<1>(t1)->getID() < std::get<1>(t2)->getID());
+                }
+                         );
+                for (auto item : candidates) {
+                    if (evaluateDestination(veh, brakeGap, newDestination, item.second, 0, 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues)) {
+                        numAlternatives = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
+
+        // minimum cost to get the parking area
+        double minStoppingPlaceCost = 0.0;
+
+        for (StoppingPlaceMap_t::iterator it = stoppingPlaces.begin(); it != stoppingPlaces.end(); ++it) {
+            // get the parking values
+            StoppingPlaceParamMap_t stoppingPlaceValues = it->second;
+
+            if (weights["probability"] > 0 && maxValues["probability"] > 0.0) {
+                // random search should not drive past a usable parking area
+                bool dominated = false;
+                double endPos = it->first->getEndLanePosition();
+                const ConstMSEdgeVector& to1 = stopApproaches[it->first];
+                assert(to1.size() > 0);
+                for (auto altSp : stoppingPlaces) {
+                    if (altSp.first == it->first) {
+                        continue;
+                    }
+                    const ConstMSEdgeVector& to2 = stopApproaches[altSp.first];
+                    assert(to2.size() > 0);
+                    if (to1.size() > to2.size()) {
+                        if (std::equal(to2.begin(), to2.end(), to1.begin())) {
+                            // other target lies on the route to the current candidate
+                            dominated = true;
+                            //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " onTheWay=" << altPa.first->getID() << "\n";
+                            break;
+                        }
+                    } else if (to1 == to2 && endPos > altSp.first->getEndLanePosition()) {
+                        // other target is on the same edge but ahead of the current candidate
+                        dominated = true;
+                        //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " sameEdge=" << altPa.first->getID() << "\n";
+                        break;
+                    }
+                }
+                double prob = 0;
+                if (!dominated) {
+                    prob = RandHelper::rand(stoppingPlaceValues["probability"], veh.getRNG());
+                    stoppingPlaceValues["probability"] = 1.0 - prob / maxValues["probability"];
+                } else {
+                    // worst probability score
+                    stoppingPlaceValues["probability"] = 1.0;
+                }
+            } else {
+                // value takes no effect due to weight=0
+                stoppingPlaceValues["probability"] = 0;
+            }
+
+            // get the parking area cost
+            double stoppingPlaceCost = getTargetValue(stoppingPlaceValues, maxValues, weights, myNormParams, myInvertParams);
+            rememberStoppingPlaceScore(veh, it->first, toString(stoppingPlaceCost));
+
+            // get the parking area with minimum cost
+            if (nearStoppingPlace == nullptr || stoppingPlaceCost < minStoppingPlaceCost) {
+                minStoppingPlaceCost = stoppingPlaceCost;
+                nearStoppingPlace = it->first;
+                newRoute = newRoutes[nearStoppingPlace];
+            }
+        }
+        if (myStoppingType == SUMO_TAG_PARKING_AREA) {
+            veh.setNumberParkingReroutes(veh.getNumberParkingReroutes() + 1);
+        }
+    }
+    return nearStoppingPlace;
+}
+
+
+bool
+MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative,
+        double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceMap_t& stoppingPlaces,
+        std::map<MSStoppingPlace*, ConstMSEdgeVector>& newRoutes, std::map<MSStoppingPlace*, ConstMSEdgeVector>& stoppingPlaceApproaches,
+        StoppingPlaceParamMap_t& maxValues) {
+
+    // a map stores the parking values
+    StoppingPlaceParamMap_t stoppingPlaceValues;
+
+    const MSRoute& route = veh.getRoute();
+    const RGBColor& c = route.getColor();
+    const MSEdge* stoppingPlaceEdge = &(alternative->getLane().getEdge());
+
+    const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+
+    // Compute the route from the current edge to the parking area edge
+    ConstMSEdgeVector edgesToPark;
+    const double targetPos = alternative->getLastFreePos(veh);
+    const MSEdge* rerouteOrigin = *veh.getRerouteOrigin();
+    router.compute(rerouteOrigin, veh.getPositionOnLane(), stoppingPlaceEdge, targetPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
+
+    if (edgesToPark.size() > 0) {
+        // Compute the route from the parking area edge to the end of the route
+        if (rerouteOrigin != veh.getEdge()) {
+            edgesToPark.insert(edgesToPark.begin(), veh.getEdge());
+        }
+        ConstMSEdgeVector edgesFromPark;
+        stoppingPlaceApproaches[alternative] = edgesToPark;
+
+        const MSEdge* nextDestination = route.getLastEdge();
+        double nextPos = veh.getArrivalPos();
+        int nextDestinationIndex = route.size() - 1;
+        if (!newDestination) {
+            std::vector<std::pair<int, double> > stopIndices = veh.getStopIndices();
+            if (stopIndices.size() > 1) {
+                nextDestinationIndex = stopIndices[1].first;
+                nextDestination = route.getEdges()[nextDestinationIndex];
+                nextPos = stopIndices[1].second;
+
+            }
+            router.compute(stoppingPlaceEdge, targetPos, nextDestination, nextPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
+        }
+        if (edgesFromPark.size() > 0 || newDestination) {
+            stoppingPlaceValues["probability"] = prob;
+            if (stoppingPlaceValues["probability"] > maxValues["probability"]) {
+                maxValues["probability"] = stoppingPlaceValues["probability"];
+            }
+
+            stoppingPlaceValues["capacity"] = getStoppingPlaceCapacity(alternative);
+            stoppingPlaceValues["absfreespace"] = stoppingPlaceValues["capacity"] - occupancy;
+            // if capacity = 0 then absfreespace and relfreespace are also 0
+            stoppingPlaceValues["relfreespace"] = stoppingPlaceValues["absfreespace"] / MAX2(1.0, stoppingPlaceValues["capacity"]);
+            if (stoppingPlaceValues["capacity"] > maxValues["capacity"]) {
+                maxValues["capacity"] = stoppingPlaceValues["capacity"];
+            }
+            if (stoppingPlaceValues["absfreespace"] > maxValues["absfreespace"]) {
+                maxValues["absfreespace"] = stoppingPlaceValues["absfreespace"];
+            }
+            if (stoppingPlaceValues["relfreespace"] > maxValues["relfreespace"]) {
+                maxValues["relfreespace"] = stoppingPlaceValues["relfreespace"];
+            }
+
+            MSRoute routeToPark(route.getID() + "!to" + myParamPrefix + "#1", edgesToPark, false,
+                                &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
+
+            // The distance from the current edge to the new parking area
+            double toPos = alternative->getBeginLanePosition();
+            if (&alternative->getLane().getEdge() == veh.getEdge()) {
+                toPos = MAX2(veh.getPositionOnLane(), toPos);
+            }
+            stoppingPlaceValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), toPos,
+                                                routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
+
+            if (stoppingPlaceValues["distanceto"] == std::numeric_limits<double>::max()) {
+                WRITE_WARNINGF(TL("Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."),
+                               veh.getID(), alternative->getID(), time2string(SIMSTEP));
+            }
+            const double endPos = getStoppingPlaceOccupancy(alternative) == stoppingPlaceValues["capacity"]
+                                  ? alternative->getLastFreePos(veh, veh.getPositionOnLane() + brakeGap)
+                                  : alternative->getEndLanePosition();
+            const double distToEnd = stoppingPlaceValues["distanceto"] - toPos + endPos;
+
+            if (distToEnd < brakeGap) {
+                rememberStoppingPlaceScore(veh, alternative, "tooClose");
+                return false;
+            }
+
+            // The time to reach the new parking area
+            stoppingPlaceValues["timeto"] = router.recomputeCosts(edgesToPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
+            if (stoppingPlaceValues["distanceto"] > maxValues["distanceto"]) {
+                maxValues["distanceto"] = stoppingPlaceValues["distanceto"];
+            }
+            if (stoppingPlaceValues["timeto"] > maxValues["timeto"]) {
+                maxValues["timeto"] = stoppingPlaceValues["timeto"];
+            }
+            ConstMSEdgeVector newEdges = edgesToPark;
+            if (newDestination) {
+                stoppingPlaceValues["distancefrom"] = 0;
+                stoppingPlaceValues["timefrom"] = 0;
+            } else {
+                MSRoute routeFromPark(route.getID() + "!from" + myParamPrefix + "#1", edgesFromPark, false,
+                                      &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
+                // The distance from the new parking area to the end of the route
+                stoppingPlaceValues["distancefrom"] = routeFromPark.getDistanceBetween(alternative->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
+                                                      routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
+                if (stoppingPlaceValues["distancefrom"] == std::numeric_limits<double>::max()) {
+                    WRITE_WARNINGF(TL("Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."),
+                                   veh.getID(), alternative->getID(), time2string(SIMSTEP));
+                }
+                // The time to reach this area
+                stoppingPlaceValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, SIMSTEP);
+                newEdges.insert(newEdges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
+                newEdges.insert(newEdges.end(), route.begin() + nextDestinationIndex + 1, route.end());
+            }
+            if (stoppingPlaceValues["distancefrom"] > maxValues["distancefrom"]) {
+                maxValues["distancefrom"] = stoppingPlaceValues["distancefrom"];
+            }
+            if (stoppingPlaceValues["timefrom"] > maxValues["timefrom"]) {
+                maxValues["timefrom"] = stoppingPlaceValues["timefrom"];
+            }
+            stoppingPlaces[alternative] = stoppingPlaceValues;
+            newRoutes[alternative] = newEdges;
+
+            return true;
+        } else {
+            rememberStoppingPlaceScore(veh, alternative, "unreachable");
+        }
+    } else {
+        rememberStoppingPlaceScore(veh, alternative, "unreachable");
+    }
+    // unreachable
+    return false;
+}
+
+
+double
+MSStoppingPlaceRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
+    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
+        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(stoppingPlace);
+        return pa->getOccupancy();
+    } else {
+        return stoppingPlace->getEndLanePosition() - stoppingPlace->getLastFreePos();
+    }
+}
+
+
+double
+MSStoppingPlaceRerouter::getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) {
+    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
+        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(stoppingPlace);
+        return pa->getCapacity();
+    } else {
+        // must be a charging station
+        // check if it is connected to a parking
+        MSChargingStation* cs = dynamic_cast<MSChargingStation*>(stoppingPlace);
+        if (cs->getParkingArea() != nullptr) {
+            return cs->getParkingArea()->getCapacity();
+        }
+        return stoppingPlace->getEndLanePosition() - stoppingPlace->getBeginLanePosition();
+    }
+}
+
+void
+MSStoppingPlaceRerouter::rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) {
+    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
+        veh.rememberBlockedChargingStation(stoppingPlace, blocked);
+    } else {
+        veh.rememberBlockedParkingArea(stoppingPlace, blocked);
+    }
+}
+
+
+void
+MSStoppingPlaceRerouter::rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) {
+    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
+        veh.rememberChargingStationScore(place, score);
+    } else {
+        veh.rememberParkingAreaScore(place, score);
+    }
+}
+
+
+void
+MSStoppingPlaceRerouter::resetStoppingPlaceScores(SUMOVehicle& veh) {
+    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
+        veh.resetChargingStationScores();
+    } else {
+        veh.resetParkingAreaScores();
+    }
+}
+
+
+SUMOTime
+MSStoppingPlaceRerouter::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) {
+    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
+        return veh.sawBlockedChargingStation(place, local);
+    } else {
+        return veh.sawBlockedParkingArea(place, local);
+    }
+}
+
+
+MSStoppingPlaceRerouter::StoppingPlaceParamMap_t
+MSStoppingPlaceRerouter::collectWeights(SUMOVehicle& veh) {
+    MSStoppingPlaceRerouter::StoppingPlaceParamMap_t result;
+    for (auto evalParam : myEvalParams) {
+        result[evalParam.first] = getWeight(veh, evalParam.first + ".weight", evalParam.second);
+    }
+    result["probability"] = getWeight(veh, "probability.weight", 0.);
+    return result;
+}
+
+
+double
+MSStoppingPlaceRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) {
+    // get custom vehicle parameter
+    const std::string key = myParamPrefix + "." + param;
+    if (veh.getParameter().hasParameter(key)) {
+        try {
+            return StringUtils::toDouble(veh.getParameter().getParameter(key, "-1"));
+        } catch (...) {
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter '%'"), veh.getParameter().getParameter(key, "-1"), key);
+        }
+    } else {
+        // get custom vType parameter
+        if (veh.getVehicleType().getParameter().hasParameter(key)) {
+            try {
+                return StringUtils::toDouble(veh.getVehicleType().getParameter().getParameter(key, "-1"));
+            } catch (...) {
+                WRITE_WARNINGF(TL("Invalid value '%' for vType parameter '%'"), veh.getVehicleType().getParameter().getParameter(key, "-1"), key);
+            }
+        }
+    }
+    WRITE_MESSAGEF("Vehicle '%' does not supply vehicle parameter '%'. Using default of %\n", veh.getID(), key, toString(defaultWeight));
+    return defaultWeight;
+}
+
+
+void
+MSStoppingPlaceRerouter::updateMaxValues(StoppingPlaceParamMap_t& stoppingPlaceValues, StoppingPlaceParamMap_t& maxValues) {
+    for (auto it = maxValues.begin(); it != maxValues.end(); ++it) {
+        if (stoppingPlaceValues[it->first] > it->second) {
+            it->second = stoppingPlaceValues[it->first];
+        }
+    }
+}
+
+
+double
+MSStoppingPlaceRerouter::getTargetValue(const StoppingPlaceParamMap_t& absValues, const StoppingPlaceParamMap_t& maxValues, const StoppingPlaceParamMap_t& weights, const StoppingPlaceParamSwitchMap_t& norm, const StoppingPlaceParamSwitchMap_t& invert) {
+    double cost = 0.;
+    for (StoppingPlaceParamMap_t::const_iterator sc = absValues.begin(); sc != absValues.end(); ++sc) {
+        double weight = weights.at(sc->first);
+        double val = sc->second;
+        if (norm.at(sc->first)) {
+            val /= maxValues.at(sc->first);
+        }
+        cost += (invert.at(sc->first)) ? weight * (1. - val) : weight * val;
+    }
+    return cost;
+}

@@ -42,6 +42,7 @@ class MSPerson;
 class MSStop;
 class MSTransportable;
 class MSParkingArea;
+class MSChargingStation;
 class MSStoppingPlace;
 class MSVehicleDevice;
 class SUMOSAXAttributes;
@@ -364,12 +365,17 @@ public:
 
     /// @name parking memory io
     //@{
-    virtual void rememberBlockedParkingArea(const MSParkingArea* pa, bool local) = 0;
-    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const = 0;
-    virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
+    virtual void rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local) = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const = 0;
+    virtual void rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score) = 0;
     virtual void resetParkingAreaScores() = 0;
     virtual int getNumberParkingReroutes() const = 0;
     virtual void setNumberParkingReroutes(int value) = 0;
+
+    virtual void rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local) = 0;
+    virtual SUMOTime sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const = 0;
+    virtual void rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score) = 0;
+    virtual void resetChargingStationScores() = 0;
     //@}
 
     /// @name state io

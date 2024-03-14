@@ -1033,7 +1033,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
 void
 GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& /*col*/) const {
     if (s.showParkingInfo) {
-        const MSBaseVehicle::ParkingMemory* pm = myVehicle.getParkingMemory();
+        const StoppingPlaceMemory* pm = myVehicle.getParkingMemory();
         if (pm != nullptr) {
             for (auto item : *pm) {
                 const GUIParkingArea* pa = dynamic_cast<const GUIParkingArea*>(item.first);
