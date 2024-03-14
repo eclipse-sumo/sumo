@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-14 10:01+0000\n"
+"PO-Revision-Date: 2024-03-14 10:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14655,13 +14655,13 @@ msgstr "Annulla modifiche al programma. (Esc)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1504
 msgid "TLSDefinition cannot be found"
-msgstr ""
+msgstr "La definizione del semaforo non è stata trovata"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1546
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1559
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1578
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "Il semaforo non può essere creato"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
 msgid "Traffic Light cannot be created because junction must have"
@@ -14710,15 +14710,17 @@ msgstr "Fasi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
 msgid "Clean States"
-msgstr ""
+msgstr "Rimuovi stati"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
 msgid "Clean unused states from all phase"
-msgstr ""
+msgstr "Rimuove i stati inutilizzati da tutte le fasi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
+"Rimuove i stati inutlizzati da tutte le fasi. (Non permesso per più "
+"programmi alla volta)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
 msgid "Add States"
@@ -14739,7 +14741,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
-msgstr ""
+msgstr "Raggruppa signali"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid ""
