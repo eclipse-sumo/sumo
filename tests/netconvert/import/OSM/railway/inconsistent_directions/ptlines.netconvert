@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-14 00:47:00 by Eclipse SUMO netconvert Version v1_17_0+0272-c60cea0
+<!-- generated on 2024-03-14 16:46:46 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="1929071" name="S1: S Wannsee =&gt; S Oranienburg" line="S1" type="light_rail" vClass="rail_urban" period="600" color="212,116,174" completeness="0.06">
-        <route edges="231225970 304099841 231224789 231224790 231224788 304099840 -118641069 -26806067 -26806068 -142541378 -27147949 -27147948 -118755348 -118755311 -231223363 -231223355"/>
+        <route edges="231225970 304099841 231224789 231224790#0 231224790#1 231224788 304099840 -118641069 -26806067 -26806068 -142541378 -27147949 -27147948 -118755348 -118755311 -231223363 -231223355"/>
         <busStop id="3086164690" name="S Lehnitz"/>
         <busStop id="-610830379" name="S Oranienburg"/>
     </ptLine>

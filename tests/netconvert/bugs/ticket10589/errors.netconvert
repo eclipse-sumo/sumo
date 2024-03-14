@@ -1,5 +1,5 @@
 Warning: Removing pt stop '3214057380' on non existing edge '317671621#0'.
-Warning: Removing pt stop '3239586702' on non existing edge '887901759#1'.
+Warning: Removing pt stop '3239586702' on non existing edge '887901759#2'.
 Warning: Cannot revise pt stop localization for pt line '10082594', which has no route edges. Ignoring!
 Warning: Removed invalid stop '3239586702' from line '10082594'.
 Warning: Cannot revise pt stop localization for pt line '10082595', which has no route edges. Ignoring!

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-16 13:16:18 by Eclipse SUMO netconvert Version v1_17_0+0979-603b84d
+<!-- generated on 2024-03-14 16:46:46 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,13 +43,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-1095078302" name="Neukölln" lane="-13252388_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="-1095078302" name="Neukölln" lane="-13252388#1_0" startPos="0.00" endPos="149.85" friendlyPos="true"/>
     <busStop id="-110124633" name="Halensee" lane="-4407773#1_0" startPos="5.13" endPos="205.13" friendlyPos="true"/>
     <busStop id="-1106283740" name="Sonnenallee" lane="-24314518_0" startPos="0.00" endPos="180.56" friendlyPos="true"/>
-    <busStop id="-1127966943" name="Wedding" lane="-27707583_0" startPos="0.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="-1127966943" name="Wedding" lane="-27707583#2_0" startPos="0.00" endPos="159.90" friendlyPos="true"/>
     <busStop id="-1127966954" name="Prenzlauer Allee" lane="-42146224_0" startPos="0.00" endPos="166.29" friendlyPos="true"/>
-    <busStop id="-1127966977" name="Schönhauser Allee" lane="-41893764_0" startPos="0.00" endPos="183.37" friendlyPos="true"/>
-    <busStop id="-1127966990" name="Storkower Straße" lane="-375331614_0" startPos="0.00" endPos="191.21" friendlyPos="true"/>
+    <busStop id="-1127966977" name="Schönhauser Allee" lane="-41893764#0_0" startPos="0.00" endPos="177.52" friendlyPos="true"/>
+    <busStop id="-1127966990" name="Storkower Straße" lane="-375331614#0_0" startPos="0.00" endPos="184.54" friendlyPos="true"/>
     <busStop id="-1127967008" name="Landsberger Allee" lane="-383960624_0" startPos="0.00" endPos="88.30" friendlyPos="true"/>
     <busStop id="-128376788" name="Messe Nord/ICC" lane="-1155801229_0" startPos="0.00" endPos="171.38" friendlyPos="true"/>
     <busStop id="-1797163101" name="Ostkreuz" lane="-154456590#2_0" startPos="0.00" endPos="150.24" friendlyPos="true"/>
@@ -64,19 +64,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="-315501112" name="Westhafen" lane="-446633270_0" startPos="373.66" endPos="573.66" friendlyPos="true"/>
     <busStop id="-316775452" name="Tempelhof" lane="-463435053#1_0" startPos="0.00" endPos="163.05" friendlyPos="true"/>
     <busStop id="-3876863066" name="Greifswalder Straße" lane="-427231839_0" startPos="0.00" endPos="121.01" friendlyPos="true"/>
-    <busStop id="-4946539230" name="Südkreuz" lane="-52782252_0" startPos="0.00" endPos="165.85" friendlyPos="true"/>
+    <busStop id="-4946539230" name="Südkreuz" lane="-52782252#2_0" startPos="0.00" endPos="151.04" friendlyPos="true"/>
     <busStop id="-4946539231" name="Westend" lane="-180406884#1_0" startPos="0.00" endPos="97.98" friendlyPos="true"/>
     <busStop id="-4946539232" name="Hohenzollerndamm" lane="-290741153#0_0" startPos="0.00" endPos="185.82" friendlyPos="true"/>
     <busStop id="-4946539240" name="Heidelberger Platz" lane="-374931225_0" startPos="0.00" endPos="116.00" friendlyPos="true"/>
     <busStop id="-527860811" name="Beusselstraße" lane="-4543951_0" startPos="905.58" endPos="1105.58" friendlyPos="true"/>
     <busStop id="-670814566" name="Schöneberg" lane="-4525942_0" startPos="0.00" endPos="70.31" friendlyPos="true"/>
-    <busStop id="1095078302" name="Neukölln" lane="13252388_0" startPos="30.40" endPos="230.40" friendlyPos="true" lines="S42"/>
+    <busStop id="1095078302" name="Neukölln" lane="13252388#1_0" startPos="0.00" endPos="149.85" friendlyPos="true" lines="S42"/>
     <busStop id="110124633" name="Halensee" lane="4407773#1_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="S42"/>
     <busStop id="1106283740" name="Sonnenallee" lane="24314518_0" startPos="0.00" endPos="180.56" friendlyPos="true" lines="S42"/>
-    <busStop id="1127966943" name="Wedding" lane="27707583_0" startPos="33.84" endPos="233.84" friendlyPos="true" lines="S42"/>
+    <busStop id="1127966943" name="Wedding" lane="27707583#2_0" startPos="0.00" endPos="159.90" friendlyPos="true" lines="S42"/>
     <busStop id="1127966954" name="Prenzlauer Allee" lane="42146224_0" startPos="0.00" endPos="166.29" friendlyPos="true" lines="S42"/>
-    <busStop id="1127966977" name="Schönhauser Allee" lane="41893764_0" startPos="0.00" endPos="183.37" friendlyPos="true" lines="S42"/>
-    <busStop id="1127966990" name="Storkower Straße" lane="375331614_0" startPos="0.00" endPos="191.21" friendlyPos="true" lines="S42"/>
+    <busStop id="1127966977" name="Schönhauser Allee" lane="41893764#0_0" startPos="0.00" endPos="177.52" friendlyPos="true" lines="S42"/>
+    <busStop id="1127966990" name="Storkower Straße" lane="375331614#0_0" startPos="0.00" endPos="184.54" friendlyPos="true" lines="S42"/>
     <busStop id="1127967008" name="Landsberger Allee" lane="383960624_0" startPos="0.00" endPos="88.30" friendlyPos="true" lines="S42"/>
     <busStop id="128376788" name="Messe Nord/ICC" lane="1155801229_0" startPos="0.00" endPos="171.38" friendlyPos="true" lines="S42"/>
     <busStop id="1797163101" name="Ostkreuz" lane="154456590#2_0" startPos="0.00" endPos="150.24" friendlyPos="true" lines="S42"/>
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="315501112" name="Westhafen" lane="446633270_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="S42"/>
     <busStop id="316775452" name="Tempelhof" lane="463435053#1_0" startPos="0.00" endPos="163.05" friendlyPos="true" lines="S42"/>
     <busStop id="3876863066" name="Greifswalder Straße" lane="427231839_0" startPos="0.00" endPos="121.01" friendlyPos="true" lines="S42"/>
-    <busStop id="4946539230" name="Südkreuz" lane="52782252_0" startPos="0.00" endPos="165.85" friendlyPos="true" lines="S42"/>
+    <busStop id="4946539230" name="Südkreuz" lane="52782252#2_0" startPos="0.00" endPos="151.04" friendlyPos="true" lines="S42"/>
     <busStop id="4946539231" name="Westend" lane="180406884#1_0" startPos="0.00" endPos="97.98" friendlyPos="true" lines="S42"/>
     <busStop id="4946539232" name="Hohenzollerndamm" lane="290741153#0_0" startPos="0.00" endPos="185.82" friendlyPos="true" lines="S42"/>
     <busStop id="4946539240" name="Heidelberger Platz" lane="374931225_0" startPos="0.00" endPos="116.00" friendlyPos="true" lines="S42"/>

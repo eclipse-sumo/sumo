@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-14 01:03:53 by Eclipse SUMO netconvert Version v1_17_0+0274-40679153183
+<!-- generated on 2024-03-14 16:51:42 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.14May010341.245704/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.14Mar165136.1847323/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -59,7 +59,7 @@
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="156479" name="RE2: Cottbus =&gt; Wismar" line="RE2" type="train" vClass="rail" period="3600" color="255,230,0" completeness="0.05">
-        <route edges="32572630 32572622#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
+        <route edges="32572630#0 32572630#1 32572622#1 32590644#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
@@ -69,7 +69,7 @@
         <busStop id="2776873647" name="Berlin Alexanderplatz"/>
     </ptLine>
     <ptLine id="188380" name="RE1: Eisenhüttenstadt =&gt; Magdeburg" line="RE1" type="train" vClass="rail" period="3600" color="red" completeness="0.06">
-        <route edges="32572630 32572622#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
+        <route edges="32572630#0 32572630#1 32572622#1 32590644#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
@@ -108,12 +108,12 @@
         <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße"/>
     </ptLine>
     <ptLine id="1929070" name="S-Bahnlinie S1: S Oranienburg =&gt; S Wannsee" line="S1" type="light_rail" vClass="rail_urban" period="600" color="212,116,174" completeness="0.06">
-        <route edges="109444375"/>
+        <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="1929071" name="S-Bahnlinie S1: S Wannsee =&gt; S Oranienburg" line="S1" type="light_rail" vClass="rail_urban" period="600" color="212,116,174" completeness="0.06">
-        <route edges="237751551"/>
+        <route edges="237751551 463462760 230976795#1"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
@@ -213,25 +213,25 @@
         <busStop id="30731700" name="U Oranienburger Tor"/>
     </ptLine>
     <ptLine id="2015944" name="S-Bahnlinie S5: Strausberg Nord =&gt; Spandau" line="S5" type="light_rail" vClass="rail_urban" period="600" color="242,87,33" completeness="0.08">
-        <route edges="32590425 32590433#1 32590433#2 72984388#1 25946685#1 25946685#2 29384521#1 29384522#1"/>
+        <route edges="32590425 32590433#1 32590433#2 72984388#1 32590501#1 32590649#1 32590649#2 32590640#1 32590640#2 32590653#1 32590904#1 25946685#1 25946685#2 25946678 25946662 29384521#1 29384522#1 29384522#2 29384522#3"/>
         <busStop id="574265352" name="S Alexanderplatz"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="2603331695" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2015959" name="S-Bahnlinie S5: Spandau =&gt; Strausberg Nord" line="S5" type="light_rail" vClass="rail_urban" period="600" color="242,87,33" completeness="0.08">
-        <route edges="4471823#0 4471823#1 4471818#1 25946681 4471817#1 72984377#1 32590438 32590434#1"/>
+        <route edges="4471823#0 4471823#1 4471823#2 25946658#1 4471819#1 4471818#1 25946681 25946682#1 25946682#2 32590894#1 4471817#1 4471817#2 4471817#3 32590638#1 32590647#1 32590496#1 72984377#1 32590438 32590434#1 32590435#1 32590431#1"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
     <ptLine id="2017023" name="S-Bahnlinie S7: Ahrensfelde =&gt; Potsdam Hauptbahnhof" line="S7" type="light_rail" vClass="rail_urban" period="600" color="128,112,183" completeness="0.10">
-        <route edges="32590425 32590433#1 32590433#2 72984388#1 25946685#1 25946685#2 29384521#1 29384522#1"/>
+        <route edges="32590425 32590433#1 32590433#2 72984388#1 32590501#1 32590649#1 32590649#2 32590640#1 32590640#2 32590653#1 32590904#1 25946685#1 25946685#2 25946678 25946662 29384521#1 29384522#1 29384522#2 29384522#3"/>
         <busStop id="574265352" name="S Alexanderplatz"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="2603331695" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2017024" name="S-Bahnlinie S7: Potsdam Hauptbahnhof =&gt; Ahrensfelde" line="S7" type="light_rail" vClass="rail_urban" period="600" color="128,112,183" completeness="0.10">
-        <route edges="4471823#0 4471823#1 4471818#1 25946681 4471817#1 72984377#1 32590438 32590434#1"/>
+        <route edges="4471823#0 4471823#1 4471823#2 25946658#1 4471819#1 4471818#1 25946681 25946682#1 25946682#2 32590894#1 4471817#1 4471817#2 4471817#3 32590638#1 32590647#1 32590496#1 72984377#1 32590438 32590434#1 32590435#1 32590431#1"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
@@ -385,46 +385,46 @@
         <busStop id="3907105048" name="Littenstraße"/>
     </ptLine>
     <ptLine id="2269237" name="S-Bahnlinie S2: S Bernau =&gt; S Blankenfelde" line="S2" type="light_rail" vClass="rail_urban" period="1200" color="1,138,71" completeness="0.07">
-        <route edges="109444375"/>
+        <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2269238" name="S-Bahnlinie S2: S Blankenfelde =&gt; S Bernau" line="S2" type="light_rail" vClass="rail_urban" period="1200" color="1,138,71" completeness="0.07">
-        <route edges="237751551"/>
+        <route edges="237751551 463462760 230976795#1"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
     <ptLine id="2343465" name="S-Bahnlinie S3: Erkner =&gt; Westkreuz" line="S3" type="light_rail" vClass="rail_urban" color="5,90,153" completeness="0.12">
-        <route edges="32590425 32590433#1 32590433#2 72984388#1 25946685#1 25946685#2 29384521#1 29384522#1"/>
+        <route edges="32590425 32590433#1 32590433#2 72984388#1 32590501#1 32590649#1 32590649#2 32590640#1 32590640#2 32590653#1 32590904#1 25946685#1 25946685#2 25946678 25946662 29384521#1 29384522#1 29384522#2 29384522#3"/>
         <busStop id="574265352" name="S Alexanderplatz"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="2603331695" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2343466" name="S-Bahnlinie S3: Westkreuz =&gt; Erkner" line="S3" type="light_rail" vClass="rail_urban" color="5,90,153" completeness="0.12">
-        <route edges="4471823#0 4471823#1 4471818#1 25946681 4471817#1 72984377#1 32590438 32590434#1"/>
+        <route edges="4471823#0 4471823#1 4471823#2 25946658#1 4471819#1 4471818#1 25946681 25946682#1 25946682#2 32590894#1 4471817#1 4471817#2 4471817#3 32590638#1 32590647#1 32590496#1 72984377#1 32590438 32590434#1 32590435#1 32590431#1"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
     <ptLine id="2389945" name="S-Bahnlinie S9: S Flughafen Schönefeld =&gt; S Rathaus Spandau" line="S9" type="light_rail" vClass="rail_urban" period="1200" color="154,48,82" completeness="0.11">
-        <route edges="32590425 32590433#1 32590433#2 72984388#1 25946685#1 25946685#2 29384521#1 29384522#1"/>
+        <route edges="32590425 32590433#1 32590433#2 72984388#1 32590501#1 32590649#1 32590649#2 32590640#1 32590640#2 32590653#1 32590904#1 25946685#1 25946685#2 25946678 25946662 29384521#1 29384522#1 29384522#2 29384522#3"/>
         <busStop id="574265352" name="S Alexanderplatz"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="2603331695" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2389946" name="S-Bahnlinie S9: S Rathaus Spandau =&gt; S Flughafen Schönefeld" line="S9" type="light_rail" vClass="rail_urban" period="1200" color="154,48,82" completeness="0.11">
-        <route edges="4471823#0 4471823#1 4471818#1 25946681 4471817#1 72984377#1 32590438 32590434#1"/>
+        <route edges="4471823#0 4471823#1 4471823#2 25946658#1 4471819#1 4471818#1 25946681 25946682#1 25946682#2 32590894#1 4471817#1 4471817#2 4471817#3 32590638#1 32590647#1 32590496#1 72984377#1 32590438 32590434#1 32590435#1 32590431#1"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
     <ptLine id="2422950" name="S-Bahnlinie S25: Henningsdorf =&gt; Teltow" line="S25" type="light_rail" vClass="rail_urban" period="600" color="1,138,71" completeness="0.07">
-        <route edges="109444375"/>
+        <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="2422951" name="S-Bahnlinie S25: Teltow =&gt; Hennigsdorf" line="S25" type="light_rail" vClass="rail_urban" period="600" color="1,138,71" completeness="0.07">
-        <route edges="237751551"/>
+        <route edges="237751551 463462760 230976795#1"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
@@ -463,7 +463,7 @@
         <busStop id="2776873647" name="Berlin Alexanderplatz"/>
     </ptLine>
     <ptLine id="2609906" name="RE2: Berlin Ostbahnhof =&gt; Wismar" line="RE2" type="train" vClass="rail" color="255,230,0" completeness="0.06">
-        <route edges="32572630 32572622#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
+        <route edges="32572630#0 32572630#1 32572622#1 32590644#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
@@ -526,17 +526,17 @@
         <busStop id="366500582" name="Berlin Friedrichstraße"/>
     </ptLine>
     <ptLine id="3019044" name="S-Bahnlinie S2: S Buch =&gt; S Lichtenrade" line="S2" type="light_rail" vClass="rail_urban" period="1200" color="1,138,71" completeness="0.09">
-        <route edges="109444375"/>
+        <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="3019045" name="S-Bahnlinie S2: Lichtenrade =&gt; Bernau" line="S2" type="light_rail" vClass="rail_urban" period="1200" color="1,138,71" completeness="0.08">
-        <route edges="237751551"/>
+        <route edges="237751551 463462760 230976795#1"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
     <ptLine id="326636" name="RE7: Wünsdorf-Waldstadt =&gt; Dessau Hbf" line="RE7" type="train" vClass="rail" period="3600" color="38,153,0" completeness="0.07">
-        <route edges="32572630 32572622#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
+        <route edges="32572630#0 32572630#1 32572622#1 32590644#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
@@ -585,7 +585,7 @@
         <busStop id="270727260" name="S+U Alexanderplatz/Memhardstraße"/>
     </ptLine>
     <ptLine id="6257264" name="RB14: Berlin-Schönefeld =&gt; Nauen" line="RB14" type="train" vClass="rail" period="3600" color="153,0,255" completeness="0.13">
-        <route edges="32572630 32572622#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
+        <route edges="32572630#0 32572630#1 32572622#1 32590644#1 32590651#1 32590900#1 25946666#1 25946666#2 421021565#1"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
@@ -626,12 +626,12 @@
         <busStop id="3352479219" name="Fischerinsel"/>
     </ptLine>
     <ptLine id="7794031" name="S-Bahnlinie S26: Teltow =&gt; Waidmannslust" line="S26" type="light_rail" vClass="rail_urban" period="600" color="1,138,71" completeness="0.09">
-        <route edges="237751551"/>
+        <route edges="237751551 463462760 230976795#1"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
     <ptLine id="7794032" name="S-Bahnlinie S26: Waidmannslust =&gt; Teltow" line="S26" type="light_rail" vClass="rail_urban" period="600" color="1,138,71" completeness="0.09">
-        <route edges="109444375"/>
+        <route edges="109444375 230976793#1 465376248 394320752#1"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
     </ptLine>

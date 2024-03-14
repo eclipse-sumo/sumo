@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-03-14 16:51:43 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -84,6 +84,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":2950176742_0" function="internal">
         <lane id=":2950176742_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="188.66,185.31 188.60,185.59"/>
         <lane id=":2950176742_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="185.54,184.60 185.47,184.90"/>
+    </edge>
+    <edge id=":3153581358_0" function="internal">
+        <lane id=":3153581358_0_0" index="0" allow="tram" speed="13.89" length="0.24" shape="233.97,124.68 233.74,124.61"/>
+    </edge>
+    <edge id=":3153585663_0" function="internal">
+        <lane id=":3153585663_0_0" index="0" allow="tram" speed="13.89" length="0.22" shape="320.28,146.24 320.49,146.30"/>
+    </edge>
+    <edge id=":3153585678_0" function="internal">
+        <lane id=":3153585678_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="584.62,213.25 584.62,213.25"/>
+    </edge>
+    <edge id=":3155095017_0" function="internal">
+        <lane id=":3155095017_0_0" index="0" allow="tram" speed="13.89" length="0.29" shape="185.04,157.21 185.12,156.93"/>
     </edge>
     <edge id=":3209822898_0" function="internal">
         <lane id=":3209822898_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.23" shape="218.13,133.19 218.31,133.24"/>
@@ -189,6 +201,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":6364032862_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="330.86,136.03 331.15,136.12"/>
         <lane id=":6364032862_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="329.92,139.09 330.21,139.18"/>
         <lane id=":6364032862_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="328.98,142.15 329.27,142.24"/>
+    </edge>
+    <edge id=":7781218437_0" function="internal">
+        <lane id=":7781218437_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="93.77,613.03 93.77,613.03"/>
+    </edge>
+    <edge id=":7781218438_0" function="internal">
+        <lane id=":7781218438_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="107.97,555.43 107.97,555.43"/>
+    </edge>
+    <edge id=":7781218440_0" function="internal">
+        <lane id=":7781218440_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="116.55,493.74 116.55,493.74"/>
+    </edge>
+    <edge id=":7781218441_0" function="internal">
+        <lane id=":7781218441_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="130.52,441.31 130.52,441.31"/>
+    </edge>
+    <edge id=":7781218446_0" function="internal">
+        <lane id=":7781218446_0_0" index="0" allow="tram" speed="13.89" length="0.30" shape="205.83,79.36 205.79,79.65"/>
+    </edge>
+    <edge id=":7781218448_0" function="internal">
+        <lane id=":7781218448_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="362.77,159.25 362.77,159.25"/>
     </edge>
     <edge id=":9710305460_0" function="internal">
         <lane id=":9710305460_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.28" shape="178.66,129.57 178.70,129.37"/>
@@ -301,20 +331,50 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="23208747#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="27.33" shape="204.46,141.42 194.30,166.79"/>
         <lane id="23208747#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="27.33" shape="201.49,140.23 191.33,165.60"/>
     </edge>
-    <edge id="25290479" from="B4_Wolfenbuetteler" to="275461506" priority="17" type="railway.tram" spreadType="center" shape="189.61,153.71 188.46,157.97 184.47,172.45 176.40,210.28 160.74,290.06 130.52,441.31 128.39,451.95 125.13,468.41 108.85,550.48 108.42,552.86 107.97,555.43 107.18,559.82 106.57,563.22 100.35,597.96 100.29,598.60 80.57,702.63 70.80,763.71 70.11,767.98">
-        <lane id="25290479_0" index="0" allow="tram" speed="13.89" length="649.47" shape="195.71,130.94 188.46,157.97 184.47,172.45 176.40,210.28 160.74,290.06 130.52,441.31 128.39,451.95 125.13,468.41 108.85,550.48 108.42,552.86 107.97,555.43 107.18,559.82 106.57,563.22 100.35,597.96 100.29,598.60 80.57,702.63 70.80,763.71 70.11,767.98"/>
+    <edge id="25290479#0" from="B4_Wolfenbuetteler" to="7781218441" priority="17" type="railway.tram" spreadType="center" shape="189.61,153.71 188.46,157.97 184.47,172.45 176.40,210.28 160.74,290.06 130.52,441.31">
+        <lane id="25290479#0_0" index="0" allow="tram" speed="13.89" length="317.23" shape="195.71,130.94 188.46,157.97 184.47,172.45 176.40,210.28 160.74,290.06 130.52,441.31"/>
     </edge>
-    <edge id="26811659" from="51519926" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="214.99,10.71 206.90,70.92 206.01,77.90 205.81,79.51 205.50,81.93">
-        <lane id="26811659_0" index="0" allow="tram" speed="13.89" length="82.03" shape="214.99,10.71 206.90,70.92 206.01,77.90 205.81,79.51 204.20,92.03"/>
+    <edge id="25290479#1" from="7781218441" to="7781218438" priority="17" type="railway.tram" spreadType="center" shape="130.52,441.31 128.39,451.95 125.13,468.41 108.85,550.48 108.42,552.86 107.97,555.43">
+        <lane id="25290479#1_0" index="0" allow="tram" speed="13.89" length="116.34" shape="130.52,441.31 128.39,451.95 125.13,468.41 108.85,550.48 108.42,552.86 107.97,555.43"/>
     </edge>
-    <edge id="310003023" from="51519988" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25 355.70,157.73 352.93,157.07 341.31,154.54 326.31,151.22 323.18,150.48 319.53,149.66 292.55,142.33 242.22,127.22 238.95,126.21 233.86,124.65 230.78,123.58 228.14,122.93">
-        <lane id="310003023_0" index="0" allow="tram" speed="13.89" length="466.04" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25 355.70,157.73 352.93,157.07 341.31,154.54 326.31,151.22 323.18,150.48 319.53,149.66 292.55,142.33 242.22,127.22 238.95,126.21 233.86,124.65 230.78,123.58 222.10,121.42"/>
+    <edge id="25290479#2" from="7781218438" to="275461506" priority="17" type="railway.tram" spreadType="center" shape="107.97,555.43 107.18,559.82 106.57,563.22 100.35,597.96 100.29,598.60 80.57,702.63 70.80,763.71 70.11,767.98">
+        <lane id="25290479#2_0" index="0" allow="tram" speed="13.89" length="215.91" shape="107.97,555.43 107.18,559.82 106.57,563.22 100.35,597.96 100.29,598.60 80.57,702.63 70.80,763.71 70.11,767.98"/>
     </edge>
-    <edge id="310143559" from="3155095026" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="66.98,767.69 67.63,763.53 77.11,702.03 93.77,613.03 96.73,597.16 97.36,594.54 103.28,562.59 103.93,559.14 112.93,511.19 116.55,493.74 121.93,467.75 125.42,447.85 157.30,289.39 172.96,209.59 181.07,171.63 183.76,161.85 185.08,157.07 186.37,152.57">
-        <lane id="310143559_0" index="0" allow="tram" speed="13.89" length="650.49" shape="66.98,767.69 67.63,763.53 77.11,702.03 93.77,613.03 96.73,597.16 97.36,594.54 103.28,562.59 103.93,559.14 112.93,511.19 116.55,493.74 121.93,467.75 125.42,447.85 157.30,289.39 172.96,209.59 181.07,171.63 183.76,161.85 185.08,157.07 192.95,129.75"/>
+    <edge id="26811659#0" from="51519926" to="7781218446" priority="17" type="railway.tram" spreadType="center" shape="214.99,10.71 206.90,70.92 206.01,77.90 205.81,79.51">
+        <lane id="26811659#0_0" index="0" allow="tram" speed="13.89" length="69.25" shape="214.99,10.71 206.90,70.92 206.01,77.90 205.83,79.36"/>
     </edge>
-    <edge id="310144574" from="B4_Wolfenbuetteler" to="2166437481" priority="17" type="railway.tram" spreadType="center" shape="228.50,118.71 231.52,119.74 234.74,120.81 242.98,123.59 293.52,138.97 320.39,146.27 324.09,147.12 327.30,147.87 341.61,151.10 353.65,153.73 356.41,154.36 392.15,161.98 444.18,174.23 519.94,195.07 549.21,203.22 567.75,208.81 584.62,213.25 592.81,214.59 595.54,214.66 600.19,214.86 601.07,214.79 608.97,215.04 617.13,214.82 622.83,214.58 625.95,214.33 632.60,213.41 644.09,212.07 649.35,211.36 654.76,211.03 659.98,210.90 667.61,210.89 673.90,211.49">
-        <lane id="310144574_0" index="0" allow="tram" speed="13.89" length="463.66" shape="223.41,116.97 231.52,119.74 234.74,120.81 242.98,123.59 293.52,138.97 320.39,146.27 324.09,147.12 327.30,147.87 341.61,151.10 353.65,153.73 356.41,154.36 392.15,161.98 444.18,174.23 519.94,195.07 549.21,203.22 567.75,208.81 584.62,213.25 592.81,214.59 595.54,214.66 600.19,214.86 601.07,214.79 608.97,215.04 617.13,214.82 622.83,214.58 625.95,214.33 632.60,213.41 644.09,212.07 649.35,211.36 654.76,211.03 659.98,210.90 667.61,210.89 673.90,211.49"/>
+    <edge id="26811659#1" from="7781218446" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="205.81,79.51 205.50,81.93">
+        <lane id="26811659#1_0" index="0" allow="tram" speed="13.89" length="12.47" shape="205.79,79.65 204.20,92.03"/>
+    </edge>
+    <edge id="310003023#0" from="51519988" to="7781218448" priority="17" type="railway.tram" spreadType="center" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25">
+        <lane id="310003023#0_0" index="0" allow="tram" speed="13.89" length="320.28" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25"/>
+    </edge>
+    <edge id="310003023#1" from="7781218448" to="3153581358" priority="17" type="railway.tram" spreadType="center" shape="362.77,159.25 355.70,157.73 352.93,157.07 341.31,154.54 326.31,151.22 323.18,150.48 319.53,149.66 292.55,142.33 242.22,127.22 238.95,126.21 233.86,124.65">
+        <lane id="310003023#1_0" index="0" allow="tram" speed="13.89" length="133.43" shape="362.77,159.25 355.70,157.73 352.93,157.07 341.31,154.54 326.31,151.22 323.18,150.48 319.53,149.66 292.55,142.33 242.22,127.22 238.95,126.21 233.97,124.68"/>
+    </edge>
+    <edge id="310003023#2" from="3153581358" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="233.86,124.65 230.78,123.58 228.14,122.93">
+        <lane id="310003023#2_0" index="0" allow="tram" speed="13.89" length="12.09" shape="233.74,124.61 230.78,123.58 222.10,121.42"/>
+    </edge>
+    <edge id="310143559#0" from="3155095026" to="7781218437" priority="17" type="railway.tram" spreadType="center" shape="66.98,767.69 67.63,763.53 77.11,702.03 93.77,613.03">
+        <lane id="310143559#0_0" index="0" allow="tram" speed="13.89" length="156.99" shape="66.98,767.69 67.63,763.53 77.11,702.03 93.77,613.03"/>
+    </edge>
+    <edge id="310143559#1" from="7781218437" to="7781218440" priority="17" type="railway.tram" spreadType="center" shape="93.77,613.03 96.73,597.16 97.36,594.54 103.28,562.59 103.93,559.14 112.93,511.19 116.55,493.74">
+        <lane id="310143559#1_0" index="0" allow="tram" speed="13.89" length="121.45" shape="93.77,613.03 96.73,597.16 97.36,594.54 103.28,562.59 103.93,559.14 112.93,511.19 116.55,493.74"/>
+    </edge>
+    <edge id="310143559#2" from="7781218440" to="3155095017" priority="17" type="railway.tram" spreadType="center" shape="116.55,493.74 121.93,467.75 125.42,447.85 157.30,289.39 172.96,209.59 181.07,171.63 183.76,161.85 185.08,157.07">
+        <lane id="310143559#2_0" index="0" allow="tram" speed="13.89" length="343.48" shape="116.55,493.74 121.93,467.75 125.42,447.85 157.30,289.39 172.96,209.59 181.07,171.63 183.76,161.85 185.04,157.21"/>
+    </edge>
+    <edge id="310143559#3" from="3155095017" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" spreadType="center" shape="185.08,157.07 186.37,152.57">
+        <lane id="310143559#3_0" index="0" allow="tram" speed="13.89" length="28.28" shape="185.12,156.93 192.95,129.75"/>
+    </edge>
+    <edge id="310144574#0" from="B4_Wolfenbuetteler" to="3153585663" priority="17" type="railway.tram" spreadType="center" shape="228.50,118.71 231.52,119.74 234.74,120.81 242.98,123.59 293.52,138.97 320.39,146.27">
+        <lane id="310144574#0_0" index="0" allow="tram" speed="13.89" length="101.22" shape="223.41,116.97 231.52,119.74 234.74,120.81 242.98,123.59 293.52,138.97 320.28,146.24"/>
+    </edge>
+    <edge id="310144574#1" from="3153585663" to="3153585678" priority="17" type="railway.tram" spreadType="center" shape="320.39,146.27 324.09,147.12 327.30,147.87 341.61,151.10 353.65,153.73 356.41,154.36 392.15,161.98 444.18,174.23 519.94,195.07 549.21,203.22 567.75,208.81 584.62,213.25">
+        <lane id="310144574#1_0" index="0" allow="tram" speed="13.89" length="272.57" shape="320.49,146.30 324.09,147.12 327.30,147.87 341.61,151.10 353.65,153.73 356.41,154.36 392.15,161.98 444.18,174.23 519.94,195.07 549.21,203.22 567.75,208.81 584.62,213.25"/>
+    </edge>
+    <edge id="310144574#2" from="3153585678" to="2166437481" priority="17" type="railway.tram" spreadType="center" shape="584.62,213.25 592.81,214.59 595.54,214.66 600.19,214.86 601.07,214.79 608.97,215.04 617.13,214.82 622.83,214.58 625.95,214.33 632.60,213.41 644.09,212.07 649.35,211.36 654.76,211.03 659.98,210.90 667.61,210.89 673.90,211.49">
+        <lane id="310144574#2_0" index="0" allow="tram" speed="13.89" length="89.65" shape="584.62,213.25 592.81,214.59 595.54,214.66 600.19,214.86 601.07,214.79 608.97,215.04 617.13,214.82 622.83,214.58 625.95,214.33 632.60,213.41 644.09,212.07 649.35,211.36 654.76,211.03 659.98,210.90 667.61,210.89 673.90,211.49"/>
     </edge>
     <edge id="310264604" from="B4_Wolfenbuetteler" to="3156641235" priority="17" type="railway.tram" spreadType="center" shape="201.48,84.43 207.27,41.88 211.52,10.25">
         <lane id="310264604_0" index="0" allow="tram" speed="13.89" length="82.03" shape="200.51,91.54 207.27,41.88 211.52,10.25"/>
@@ -639,7 +699,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="1582162305" type="dead_end" x="309.86" y="154.85" incLanes="" intLanes="" shape="310.82,151.80 308.91,157.91"/>
-    <junction id="2166437481" type="dead_end" x="673.90" y="211.49" incLanes="310144574_0" intLanes="" shape="674.05,209.90 673.75,213.09"/>
+    <junction id="2166437481" type="dead_end" x="673.90" y="211.49" incLanes="310144574#2_0" intLanes="" shape="674.05,209.90 673.75,213.09"/>
     <junction id="268928927" type="priority" x="276.39" y="125.77" incLanes="32353230#2_0 32353230#2_1" intLanes=":268928927_0_0 :268928927_0_1 :268928927_0_2" shape="279.07,131.39 281.39,122.07 278.48,121.77 277.43,121.89 276.38,121.99 275.14,121.94 273.50,121.58 271.69,127.72 274.47,128.97 275.36,129.62 276.26,130.25 277.41,130.85">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
@@ -649,12 +709,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="275461506" type="dead_end" x="70.11" y="767.98" incLanes="25290479_0" intLanes="" shape="71.69,768.23 68.53,767.73"/>
+    <junction id="275461506" type="dead_end" x="70.11" y="767.98" incLanes="25290479#2_0" intLanes="" shape="71.69,768.23 68.53,767.73"/>
     <junction id="2950176742" type="priority" x="187.07" y="185.10" incLanes="61793938#0_0 61793938#0_1" intLanes=":2950176742_0_0 :2950176742_0_1" shape="190.22,185.67 183.98,184.25 183.91,184.56 190.16,185.94">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="301870609" type="dead_end" x="200.84" y="23.51" incLanes="33289080#2_0 33289080#2_1" intLanes="" shape="197.70,22.91 203.99,24.11"/>
+    <junction id="3153581358" type="rail_signal" x="233.86" y="124.65" incLanes="310003023#1_0" intLanes=":3153581358_0_0" shape="233.50,126.21 234.44,123.16 234.27,123.10 233.22,126.12">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3153585663" type="rail_signal" x="320.39" y="146.27" incLanes="310144574#0_0" intLanes=":3153585663_0_0" shape="320.14,147.86 320.85,144.74 320.70,144.70 319.86,147.79">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3153585678" type="rail_signal" x="584.62" y="213.25" incLanes="310144574#1_0" intLanes=":3153585678_0_0" shape="584.43,214.84 584.95,211.68 584.14,214.78 584.28,214.82">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3155095017" type="rail_signal" x="185.08" y="157.07" incLanes="310143559#2_0" intLanes=":3155095017_0_0" shape="186.65,157.37 183.58,156.48 183.49,156.78 186.58,157.63">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
     <junction id="3155095026" type="dead_end" x="66.98" y="767.69" incLanes="" intLanes="" shape="68.57,767.94 65.40,767.45"/>
     <junction id="3156641235" type="dead_end" x="211.52" y="10.25" incLanes="310264604_0" intLanes="" shape="209.93,10.04 213.10,10.46"/>
     <junction id="3209822898" type="traffic_light" x="218.80" y="130.06" incLanes="316779263#3_0 316779263#3_1 316779263#3_2" intLanes=":3209822898_0_0 :3209822898_0_1 :3209822898_0_2" shape="217.72,134.74 220.17,125.46 219.89,125.38 217.42,134.66">
@@ -759,12 +831,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
+    <junction id="7781218437" type="rail_signal" x="93.77" y="613.03" incLanes="310143559#0_0" intLanes=":7781218437_0_0" shape="95.34,613.32 92.20,612.73 95.34,613.32">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7781218438" type="rail_signal" x="107.97" y="555.43" incLanes="25290479#1_0" intLanes=":7781218438_0_0" shape="109.54,555.71 106.39,555.15 109.54,555.72">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7781218440" type="rail_signal" x="116.55" y="493.74" incLanes="310143559#1_0" intLanes=":7781218440_0_0" shape="118.11,494.06 114.98,493.42 118.11,494.06">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7781218441" type="rail_signal" x="130.52" y="441.31" incLanes="25290479#0_0" intLanes=":7781218441_0_0" shape="132.09,441.62 128.96,440.99 132.09,441.62">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7781218446" type="rail_signal" x="205.81" y="79.51" incLanes="26811659#0_0" intLanes=":7781218446_0_0" shape="207.41,79.56 204.24,79.16 204.20,79.45 207.38,79.86">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="7781218448" type="rail_signal" x="362.77" y="159.25" incLanes="310003023#0_0" intLanes=":7781218448_0_0" shape="362.44,160.82 363.11,157.69 362.44,160.82">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
     <junction id="9710305460" type="traffic_light" x="181.81" y="130.12" incLanes="316779266#2_0 316779266#2_1 316779266#2_2" intLanes=":9710305460_0_0 :9710305460_0_1 :9710305460_0_2" shape="186.55,130.89 177.13,129.07 177.09,129.23 186.48,131.27">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="B4_Wolfenbuetteler" type="traffic_light" x="204.84" y="114.57" incLanes="316779263#4_0 316779263#4_1 316779263#4_2 310003023_0 316779261#3_0 316779261#3_1 316779261#3_2 316779261#3_3 316779261#3_4 26811659_0 384324387_0 316779266#3_0 316779266#3_1 316779266#3_2 310143559_0" intLanes=":B4_Wolfenbuetteler_0_0 :B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_22_0 :B4_Wolfenbuetteler_23_0 :B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_24_0 :B4_Wolfenbuetteler_25_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_26_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_27_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0" shape="218.13,134.85 226.97,104.90 225.01,103.26 224.47,101.79 224.23,99.87 224.28,97.51 224.63,94.72 185.05,89.50 180.97,91.66 178.07,97.36 178.22,123.43 208.28,136.33">
+    <junction id="B4_Wolfenbuetteler" type="traffic_light" x="204.84" y="114.57" incLanes="316779263#4_0 316779263#4_1 316779263#4_2 310003023#2_0 316779261#3_0 316779261#3_1 316779261#3_2 316779261#3_3 316779261#3_4 26811659#1_0 384324387_0 316779266#3_0 316779266#3_1 316779266#3_2 310143559#3_0" intLanes=":B4_Wolfenbuetteler_0_0 :B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_22_0 :B4_Wolfenbuetteler_23_0 :B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_24_0 :B4_Wolfenbuetteler_25_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_26_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_27_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0" shape="218.13,134.85 226.97,104.90 225.01,103.26 224.47,101.79 224.23,99.87 224.28,97.51 224.63,94.72 185.05,89.50 180.97,91.66 178.07,97.36 178.22,123.43 208.28,136.33">
         <request index="0"  response="0000000000000110000000" foes="0000000000000110000000" cont="0"/>
         <request index="1"  response="1111110000001110000000" foes="1111111000001110010000" cont="0"/>
         <request index="2"  response="1111100110001110000000" foes="1111100110011110010000" cont="1"/>
@@ -790,9 +880,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <junction id=":B4_Wolfenbuetteler_22_0" type="internal" x="190.21" y="100.26" incLanes=":B4_Wolfenbuetteler_2_0 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_9_0 :B4_Wolfenbuetteler_10_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0"/>
-    <junction id=":B4_Wolfenbuetteler_23_0" type="internal" x="222.34" y="110.41" incLanes=":B4_Wolfenbuetteler_3_0 26811659_0 310003023_0 310143559_0 316779261#3_0 316779266#3_2 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_21_0"/>
+    <junction id=":B4_Wolfenbuetteler_23_0" type="internal" x="222.34" y="110.41" incLanes=":B4_Wolfenbuetteler_3_0 26811659#1_0 310003023#2_0 310143559#3_0 316779261#3_0 316779266#3_2 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_21_0"/>
     <junction id=":B4_Wolfenbuetteler_24_0" type="internal" x="190.46" y="101.14" incLanes=":B4_Wolfenbuetteler_9_0 316779266#3_0 316779266#3_1" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_15_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
-    <junction id=":B4_Wolfenbuetteler_25_0" type="internal" x="191.27" y="93.10" incLanes=":B4_Wolfenbuetteler_10_0 26811659_0 310003023_0 310143559_0 316779263#4_2 316779266#3_0 316779266#3_1 384324387_0" intLanes=":B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
+    <junction id=":B4_Wolfenbuetteler_25_0" type="internal" x="191.27" y="93.10" incLanes=":B4_Wolfenbuetteler_10_0 26811659#1_0 310003023#2_0 310143559#3_0 316779263#4_2 316779266#3_0 316779266#3_1 384324387_0" intLanes=":B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
     <junction id=":B4_Wolfenbuetteler_26_0" type="internal" x="181.56" y="94.65" incLanes=":B4_Wolfenbuetteler_15_0 316779261#3_3 316779263#4_1 316779266#3_0" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_9_0 :B4_Wolfenbuetteler_16_0"/>
     <junction id=":B4_Wolfenbuetteler_27_0" type="internal" x="211.06" y="106.28" incLanes=":B4_Wolfenbuetteler_19_0 316779261#3_0 316779261#3_1 316779261#3_2" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_3_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_20_0"/>
 
@@ -807,11 +897,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="23208747#1" to="23208747#2" fromLane="1" toLane="1" via=":5426362056_0_1" tl="5426362056" linkIndex="1" dir="s" state="O"/>
     <connection from="23208747#2" to="61793938#0" fromLane="0" toLane="0" via=":52753731_0_0" dir="s" state="M"/>
     <connection from="23208747#2" to="61793938#0" fromLane="1" toLane="1" via=":52753731_0_1" dir="s" state="M"/>
-    <connection from="26811659" to="310144574" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_11_0" tl="B4_Wolfenbuetteler" linkIndex="11" dir="r" state="o"/>
-    <connection from="310003023" to="25290479" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_4_0" tl="B4_Wolfenbuetteler" linkIndex="4" dir="r" state="o"/>
-    <connection from="310003023" to="310264604" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_5_0" tl="B4_Wolfenbuetteler" linkIndex="5" dir="l" state="o"/>
-    <connection from="310143559" to="310264604" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_20_0" tl="B4_Wolfenbuetteler" linkIndex="20" dir="s" state="O"/>
-    <connection from="310143559" to="310144574" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_21_0" tl="B4_Wolfenbuetteler" linkIndex="21" dir="l" state="o"/>
+    <connection from="25290479#0" to="25290479#1" fromLane="0" toLane="0" via=":7781218441_0_0" tl="7781218441" linkIndex="0" dir="s" state="O"/>
+    <connection from="25290479#1" to="25290479#2" fromLane="0" toLane="0" via=":7781218438_0_0" tl="7781218438" linkIndex="0" dir="s" state="O"/>
+    <connection from="26811659#0" to="26811659#1" fromLane="0" toLane="0" via=":7781218446_0_0" tl="7781218446" linkIndex="0" dir="s" state="O"/>
+    <connection from="26811659#1" to="310144574#0" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_11_0" tl="B4_Wolfenbuetteler" linkIndex="11" dir="r" state="o"/>
+    <connection from="310003023#0" to="310003023#1" fromLane="0" toLane="0" via=":7781218448_0_0" tl="7781218448" linkIndex="0" dir="s" state="O"/>
+    <connection from="310003023#1" to="310003023#2" fromLane="0" toLane="0" via=":3153581358_0_0" tl="3153581358" linkIndex="0" dir="s" state="O"/>
+    <connection from="310003023#2" to="25290479#0" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_4_0" tl="B4_Wolfenbuetteler" linkIndex="4" dir="r" state="o"/>
+    <connection from="310003023#2" to="310264604" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_5_0" tl="B4_Wolfenbuetteler" linkIndex="5" dir="l" state="o"/>
+    <connection from="310143559#0" to="310143559#1" fromLane="0" toLane="0" via=":7781218437_0_0" tl="7781218437" linkIndex="0" dir="s" state="O"/>
+    <connection from="310143559#1" to="310143559#2" fromLane="0" toLane="0" via=":7781218440_0_0" tl="7781218440" linkIndex="0" dir="s" state="O"/>
+    <connection from="310143559#2" to="310143559#3" fromLane="0" toLane="0" via=":3155095017_0_0" tl="3155095017" linkIndex="0" dir="s" state="O"/>
+    <connection from="310143559#3" to="310264604" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_20_0" tl="B4_Wolfenbuetteler" linkIndex="20" dir="s" state="O"/>
+    <connection from="310143559#3" to="310144574#0" fromLane="0" toLane="0" via=":B4_Wolfenbuetteler_21_0" tl="B4_Wolfenbuetteler" linkIndex="21" dir="l" state="o"/>
+    <connection from="310144574#0" to="310144574#1" fromLane="0" toLane="0" via=":3153585663_0_0" tl="3153585663" linkIndex="0" dir="s" state="O"/>
+    <connection from="310144574#1" to="310144574#2" fromLane="0" toLane="0" via=":3153585678_0_0" tl="3153585678" linkIndex="0" dir="s" state="O"/>
     <connection from="316779260" to="316779261#0" fromLane="0" toLane="0" via=":1582162011_0_0" dir="s" state="M"/>
     <connection from="316779260" to="316779261#0" fromLane="1" toLane="1" via=":1582162011_0_1" dir="s" state="M"/>
     <connection from="316779260" to="316779261#0" fromLane="2" toLane="2" via=":1582162011_0_2" dir="s" state="M"/>
@@ -923,6 +1023,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":268931940_0" to="32353230#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":2950176742_0" to="61793938#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2950176742_0" to="61793938#1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":3153581358_0" to="310003023#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3153585663_0" to="310144574#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3153585678_0" to="310144574#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3155095017_0" to="310143559#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3209822898_0" to="316779263#4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3209822898_0" to="316779263#4" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":3209822898_0" to="316779263#4" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -978,6 +1082,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":6364032862_0" to="320432219#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":6364032862_0" to="320432219#3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":6364032862_0" to="320432219#3" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":7781218437_0" to="310143559#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7781218438_0" to="25290479#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7781218440_0" to="310143559#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7781218441_0" to="25290479#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7781218446_0" to="26811659#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7781218448_0" to="310003023#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":9710305460_0" to="316779266#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":9710305460_0" to="316779266#3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":9710305460_0" to="316779266#3" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -987,7 +1097,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":B4_Wolfenbuetteler_22" to="33289080#0" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":B4_Wolfenbuetteler_3" to="32353230#0" fromLane="0" toLane="1" via=":B4_Wolfenbuetteler_23_0" dir="t" state="m"/>
     <connection from=":B4_Wolfenbuetteler_23" to="32353230#0" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":B4_Wolfenbuetteler_4" to="25290479" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":B4_Wolfenbuetteler_4" to="25290479#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":B4_Wolfenbuetteler_5" to="310264604" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":B4_Wolfenbuetteler_6" to="32353230#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":B4_Wolfenbuetteler_7" to="23208747#0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -996,7 +1106,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":B4_Wolfenbuetteler_24" to="-384324387" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":B4_Wolfenbuetteler_10" to="33289080#0" fromLane="0" toLane="1" via=":B4_Wolfenbuetteler_25_0" dir="t" state="m"/>
     <connection from=":B4_Wolfenbuetteler_25" to="33289080#0" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":B4_Wolfenbuetteler_11" to="310144574" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":B4_Wolfenbuetteler_11" to="310144574#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":B4_Wolfenbuetteler_12" to="33289080#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":B4_Wolfenbuetteler_13" to="32353230#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":B4_Wolfenbuetteler_13" to="32353230#0" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1008,6 +1118,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":B4_Wolfenbuetteler_19" to="32353230#0" fromLane="0" toLane="1" via=":B4_Wolfenbuetteler_27_0" dir="l" state="m"/>
     <connection from=":B4_Wolfenbuetteler_27" to="32353230#0" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":B4_Wolfenbuetteler_20" to="310264604" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":B4_Wolfenbuetteler_21" to="310144574" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":B4_Wolfenbuetteler_21" to="310144574#0" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

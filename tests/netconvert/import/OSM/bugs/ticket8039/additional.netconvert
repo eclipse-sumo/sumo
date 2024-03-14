@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-05 17:07:44 by Eclipse SUMO netconvert Version v1_15_0+0783-6ed32014969
+<!-- generated on 2024-03-14 16:51:37 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,14 +58,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="595002498#0_0" pos="0.00" length="12.74" friendlyPos="1"/>
         <access lane="595002498#1_0" pos="0.00" length="15.10" friendlyPos="1"/>
     </busStop>
-    <busStop id="54143009" name="Veltenhöfer Straße" lane="859066431#1_0" startPos="29.09" endPos="54.09" friendlyPos="true" lines="1">
+    <busStop id="54143009" name="Veltenhöfer Straße" lane="859066431#1_0" startPos="24.19" endPos="49.19" friendlyPos="true" lines="1">
         <access lane="-10425592#1_0" pos="51.76" length="14.40" friendlyPos="1"/>
         <access lane="-32433933#1_0" pos="55.50" length="7.91" friendlyPos="1"/>
         <access lane="10425592#1_0" pos="1.87" length="19.20" friendlyPos="1"/>
         <access lane="32433933#1_0" pos="1.45" length="10.91" friendlyPos="1"/>
         <access lane="394007640#2_0" pos="8.59" length="17.14" friendlyPos="1"/>
     </busStop>
-    <busStop id="54143012" name="Veltenhöfer Straße" lane="859066429#0_0" startPos="23.73" endPos="48.73" friendlyPos="true" lines="1">
+    <busStop id="54143012" name="Veltenhöfer Straße" lane="859066429#0_0" startPos="19.63" endPos="44.63" friendlyPos="true" lines="1">
         <access lane="-32548182#1_0" pos="16.20" length="0.16" friendlyPos="1"/>
         <access lane="32548182#1_0" pos="33.43" length="2.84" friendlyPos="1"/>
         <access lane="388933682#1_0" pos="57.30" length="19.89" friendlyPos="1"/>
