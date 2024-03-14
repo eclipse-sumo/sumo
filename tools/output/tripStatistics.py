@@ -178,7 +178,7 @@ def doKruskalWallisTest(verbose, groups, combivehlist, assignments, label, hValu
     for index in [("traveltime"), ("speed"), ("travellength"), ("waittime")]:
         for veh in combivehlist:
             veh.rank = 0.
-        for method in assignments.itervalues():
+        for method in assignments.values():
             method.sumrank = 0.
 
         samecountlist = []
@@ -247,11 +247,11 @@ def doKruskalWallisTest(verbose, groups, combivehlist, assignments, label, hValu
                 break
 
         for veh in combivehlist:
-            for method in assignments.itervalues():
+            for method in assignments.values():
                 if veh.method == method.label:
                     method.sumrank += veh.rank
 
-        for method in assignments.itervalues():
+        for method in assignments.values():
             subtotal += (method.sumrank**2.) / method.totalVeh
 
         for elem in samecountlist:
@@ -336,15 +336,15 @@ print('The calculation of network statistics is done!')
 # begin the significance test for the observations with a normal distribution
 if options.ttest:
     print('begin the t test!')
-    for A in assignments.itervalues():
+    for A in assignments.values():
         tValueAvg[A] = {}
-    doTTestForAvg(options.verbose, tValueAvg, list(assignments.itervalues()))
+    doTTestForAvg(options.verbose, tValueAvg, list(assignments.values()))
     print('The t test is done!')
 if options.kwtest:
     # The Kruskal-Wallis test is applied for the data, not drawn from a
     # normally distributed population.
     groups = 2
-    values = list(allvehicles.iteritems())
+    values = list(allvehicles.items())
     for num, A in enumerate(values):
         for B in values[num + 1:]:
             combilabel = ''

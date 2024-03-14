@@ -71,7 +71,7 @@ f1.close()
 maxLanes = 0
 dt2OneHour = 6.0
 
-for t in dd.iterkeys():
+for t in dd.keys():
     if len(dd[t]) > maxLanes:
         maxLanes = len(dd[t])
 
@@ -83,7 +83,7 @@ vecIndx = 0
 
 f = open('lane-shares.txt', 'w')
 # for t,v in dd.items():
-for t in sorted(dd.iterkeys()):
+for t in sorted(dd.keys()):
     # qTot = math.fsum(dd[t])
     qTot = sum(dd[t].values())
     nrm = 0.0

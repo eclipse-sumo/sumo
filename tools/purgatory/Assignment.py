@@ -257,7 +257,7 @@ def main():
                     linkMap = net._fullEdges
                 else:
                     linkMap = net._edges
-                for edge in linkMap.itervalues():
+                for edge in linkMap.values():
                     edge.getActualTravelTime(options, False)
                     if options.dijkstra == 'boost':
                         edge.boost.weight = edge.helpacttime

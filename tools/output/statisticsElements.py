@@ -180,7 +180,7 @@ def getSignificanceTestOutput(assignments, tTest, tValueAvg, hValues, outputfile
         foutSGtest.write(
             'The significances of the performance averages among the used assignment models ' +
             'are examined with the t test.\n')
-        assignlist = list(assignments.itervalues())
+        assignlist = list(assignments.values())
         for num, A in enumerate(assignlist):
             for B in assignlist[num + 1:]:
                 foutSGtest.write('\nmethod:%s' % A.label)

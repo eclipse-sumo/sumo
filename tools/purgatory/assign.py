@@ -332,7 +332,7 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
     # Check if the convergence reaches.
     if iter > 1:
         counts = 0
-        for edge in net._edges.itervalues():
+        for edge in net._edges.values():
             stop = edge.stopCheck(options)
             if stop:
                 counts += 1
