@@ -159,6 +159,8 @@ can be removed from a network.
 
 When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction).
 
+When importing rail networks from OSM, the rules for [what counts as a rail signal can be customized](../Networks/Import/OpenStreetMap.md#railway_signals) to adapt to the local level of database detail.
+
 ## Rail Crossings
 
 The [node type](../Networks/PlainXML.md#node_descriptions)
