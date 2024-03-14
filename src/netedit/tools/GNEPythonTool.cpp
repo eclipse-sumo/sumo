@@ -201,13 +201,7 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
 
 void
 GNEPythonTool::saveConfiguration(const std::string& file) const {
-    // add python script
-    const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
-    const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath + " -C " + file + " ";
+    std::string command = getCommandPath() + " -C \"" + file + "\" ";
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
         // only write modified values
