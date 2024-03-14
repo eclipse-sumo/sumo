@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-14 10:55+0000\n"
+"PO-Revision-Date: 2024-03-14 13:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13648,7 +13648,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:424
 msgid "' cannot be greater than attribute '"
-msgstr ""
+msgstr "' non può essere maggiore dell'attributo '"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:441
 msgid "List of edges cannot be empty"
@@ -13732,34 +13732,41 @@ msgid ""
 "Selects all lanes that have no outgoing connection (clears previous "
 "selection)"
 msgstr ""
+"Seleziona tutte le corsia senza collegamenti in uscita (sostituisce la "
+"selezione precedente)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:162
 msgid "Select Dead Starts"
-msgstr ""
+msgstr "Seleziona inizi senza precedenti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:162
 msgid ""
 "Selects all lanes that have no incoming connection (clears previous "
 "selection)"
 msgstr ""
+"Seleziona tutte le corsie senza collegamenti entranti (sostituisce la "
+"selezione precedente)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:165
 msgid "Select Conflicts"
-msgstr ""
+msgstr "Seleziona conflitti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:165
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
 msgstr ""
+"Seleziona tutte le corsie con più di un collegamento entrante dallo stesso "
+"arco (sostituisce la selezione precedente)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Select Passing"
-msgstr ""
+msgstr "Seleziona passanti"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Selects all lanes with a connection that has the 'pass' attribute set"
 msgstr ""
+"Seleziona tutte le corsia con un collegamento con l'attributo 'pass' attivato"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171
 msgid "Clear Selected"
@@ -14741,23 +14748,28 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
-msgstr "Raggruppa signali"
+msgstr "Raggruppa segnali"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
 msgstr ""
+"Accorcia la definizione di stato utilizzando lo stesso indice per "
+"collegamenti che vengono segnalati sempre identicamente"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
+"Accorcia la definizione di stato utilizzando lo stesso indice per "
+"collegamenti che vengono segnalati sempre identicamente. (Non permesso per "
+"più progammi alla volta)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "Separa segnali"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Let every connection use a distinct index (reverse state grouping)"
