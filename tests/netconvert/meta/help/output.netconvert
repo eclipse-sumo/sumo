@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+Eclipse SUMO netconvert Version v1_19_0+1291-b5283f10f2b
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -585,6 +585,8 @@ Formats Options:
                                         FLOAT m
   --osm.stop-output.length.train FLOAT  The default length of a train stop in
                                         FLOAT m
+  --osm.railsignals STR[]              Specify custom rules for importing
+                                        railway signals
   --osm.all-attributes                 Whether additional attributes shall be
                                         imported
   --osm.extra-attributes STR[]         List of additional attributes that shall

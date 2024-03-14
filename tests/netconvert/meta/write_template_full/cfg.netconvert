@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:20:00 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-03-14 16:28:07 by Eclipse SUMO netconvert Version v1_19_0+1291-b5283f10f2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -322,6 +322,7 @@
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
+        <osm.railsignals value="DEFAULT" type="STR[]" help="Specify custom rules for importing railway signals"/>
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>

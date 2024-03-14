@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:20:00 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-03-14 16:28:07 by Eclipse SUMO netconvert Version v1_19_0+1291-b5283f10f2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -869,6 +869,9 @@
 
         <!-- The default length of a train stop in FLOAT m -->
         <osm.stop-output.length.train value="200" type="FLOAT"/>
+
+        <!-- Specify custom rules for importing railway signals -->
+        <osm.railsignals value="DEFAULT" type="STR[]"/>
 
         <!-- Whether additional attributes shall be imported -->
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL"/>
