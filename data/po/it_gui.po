@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-14 13:00+0000\n"
+"PO-Revision-Date: 2024-03-14 14:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10982,35 +10982,35 @@ msgstr "Seleziona elementi contenuti nel profilo del poligono"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:284
 msgid "Remove geometry point"
-msgstr ""
+msgstr "Rimuovi punto geometrico"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:284
 msgid "Remove geometry point under mouse"
-msgstr ""
+msgstr "Rimuove il punto geometrico sotto il cursore"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:285
 msgid "Set first geometry point"
-msgstr ""
+msgstr "Metti il primo punto geometrico"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:391
 msgid "Number of remaining points insufficient"
-msgstr ""
+msgstr "Numero di punti rimasti insufficiente"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:418
 msgid "Polygon already opened"
-msgstr ""
+msgstr "Poligono già aperto"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:439
 msgid "Polygon already closed"
-msgstr ""
+msgstr "Poligono già chiuso"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:450
 msgid "Selected point must be different of the first point"
-msgstr ""
+msgstr "Il punto selezionato deve essere diverso dal primo punto"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:515
 msgid "Polygon already simplified"
-msgstr ""
+msgstr "Poligono già semplificato"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNETAZ.cpp:296
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:562
@@ -12118,11 +12118,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:447
 msgid "enable attribute '"
-msgstr ""
+msgstr "attiva attributo '"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:455
 msgid "disable attribute '"
-msgstr ""
+msgstr "disattiva attributo '"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:513
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:514
@@ -12130,7 +12130,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:648
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "Ispeziona elemento padre di %"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
