@@ -53,7 +53,7 @@ MSDevice_FCDReplay::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("fcd-replay", "FCD Replay Device", oc);
 
     oc.doRegister("device.fcd-replay.file", new Option_FileName());
-    oc.addDescription("device.fcd.begin", "FCD Replay Device", TL("FCD file to read"));
+    oc.addDescription("device.fcd-replay.file", "FCD Replay Device", TL("FCD file to read"));
 }
 
 
@@ -93,9 +93,9 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 
 bool
 MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
-                         double /*oldPos*/,
-                         double /*newPos*/,
-                         double /*newSpeed*/) {
+                               double /*oldPos*/,
+                               double /*newPos*/,
+                               double /*newSpeed*/) {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
         // TODO remove vehicle
         return false;

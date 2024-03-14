@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 14:22:00 by Eclipse SUMO sumo Version v1_19_0+1185-ef359fe9789
+<!-- generated on 2024-03-14 13:29:17 by Eclipse SUMO sumo Version v1_19_0+1295-20871755e55
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -518,6 +518,27 @@
 
         <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
         <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
+
+        <!-- The update interval of the JuPedSim simulation (in seconds) -->
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
+
+        <!-- The distance to accept the JuPedSim arrival point (in meters) -->
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
+
+        <!-- The submodel to use in JuPedSim (currently only &apos;CollisionFreeSpeed&apos;) -->
+        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR"/>
+
+        <!-- The neighbor repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT"/>
+
+        <!-- The neighbor repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT"/>
+
+        <!-- The geometry repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT"/>
+
+        <!-- The geometry repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT"/>
 
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>
@@ -1154,6 +1175,21 @@
 
     </friction_device>
 
+    <fcd_replay_device>
+        <!-- The probability for a vehicle to have a &apos;fcd-replay&apos; device -->
+        <device.fcd-replay.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd-replay&apos; device to named vehicles -->
+        <device.fcd-replay.explicit value="" synonymes="device.fcd-replay.knownveh" type="STR[]"/>
+
+        <!-- The &apos;fcd-replay&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.fcd-replay.deterministic value="false" type="BOOL"/>
+
+        <!-- FCD file to read -->
+        <device.fcd-replay.file value="" type="FILE"/>
+
+    </fcd_replay_device>
+
     <traci_server>
         <!-- Enables TraCI Server if set -->
         <remote-port value="0" type="INT"/>
@@ -1274,6 +1310,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

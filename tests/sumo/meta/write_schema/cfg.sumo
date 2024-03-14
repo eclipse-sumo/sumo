@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 14:22:00 by Eclipse SUMO sumo Version v1_19_0+1185-ef359fe9789
+<!-- generated on 2024-03-14 13:29:17 by Eclipse SUMO sumo Version v1_19_0+1295-20871755e55
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -31,6 +31,7 @@
             <xsd:element name="tripinfo_device" type="tripinfo_deviceTopicType" minOccurs="0"/>
             <xsd:element name="vehroutes_device" type="vehroutes_deviceTopicType" minOccurs="0"/>
             <xsd:element name="friction_device" type="friction_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="fcd_replay_device" type="fcd_replay_deviceTopicType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverTopicType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicTopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberTopicType" minOccurs="0"/>
@@ -216,6 +217,13 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
@@ -498,6 +506,15 @@
         </xsd:all>
     </xsd:complexType>
 
+    <xsd:complexType name="fcd_replay_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.fcd-replay.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd-replay.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd-replay.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd-replay.file" type="fileOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
     <xsd:complexType name="traci_serverTopicType">
         <xsd:all>
             <xsd:element name="remote-port" type="intOptionType" minOccurs="0"/>
@@ -552,6 +569,7 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
