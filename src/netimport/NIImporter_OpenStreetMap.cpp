@@ -889,11 +889,8 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
     // init rail signal rules
     for (std::string kv : oc.getStringVector("osm.railsignals")) {
         if (kv == "DEFAULT") {
-            for (std::string st : {"main", "combined"}) {
-                for (std::string v : {"block", "entry", "exit", "intermediate"}) {
-                    myRailSignalRules.push_back("railway:signal:" + st + ":function=" + v);
-                }
-            }
+            myRailSignalRules.push_back("railway:signal:main=");
+            myRailSignalRules.push_back("railway:signal:combined=");
         } else if (kv == "ALL") {
             myRailSignalRules.push_back("railway=signal");
         } else {
