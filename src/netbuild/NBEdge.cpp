@@ -2258,7 +2258,7 @@ NBEdge::computeAngle() {
 
     const double angleLookahead = MIN2(shape.length2D() / 2, ANGLE_LOOKAHEAD);
     const Position referencePosStart = shape.positionAtOffset2D(angleLookahead);
-    const Position referencePosEnd = shape.positionAtOffset2D(shape.length() - angleLookahead);
+    const Position referencePosEnd = shape.positionAtOffset2D(shape.length2D() - angleLookahead);
 
     myStartAngle = GeomHelper::legacyDegree(fromCenter.angleTo2D(referencePosStart), true);
     const double myStartAngle2 = GeomHelper::legacyDegree(myFrom->getPosition().angleTo2D(referencePosStart), true);
@@ -2335,7 +2335,7 @@ NBEdge::getShapeStartAngle() const {
 double
 NBEdge::getShapeEndAngle() const {
     const double angleLookahead = MIN2(myGeom.length2D() / 2, ANGLE_LOOKAHEAD);
-    const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length() - angleLookahead);
+    const Position referencePosEnd = myGeom.positionAtOffset2D(myGeom.length2D() - angleLookahead);
     return GeomHelper::legacyDegree(referencePosEnd.angleTo2D(myGeom.back()), true);
 }
 
