@@ -234,9 +234,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             }
                         }
                         previous = new MSStageWalking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
-                        if (hasParameter("pushParam")) {
-                            previous->setParameters(*this);
-                        }
+                        previous->setParameters(*this);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (isTaxi) {
                         const ConstMSEdgeVector& prevEdges = previous->getEdges();
@@ -252,9 +250,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             }
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
-                        if (hasParameter("pushParam")) {
-                            previous->setParameters(*this);
-                        }
+                        previous->setParameters(*this);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
@@ -262,9 +258,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             localArrivalPos = it->edges.back()->getLength();
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
-                        if (hasParameter("pushParam")) {
-                            previous->setParameters(*this);
-                        }
+                        previous->setParameters(*this);
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
@@ -273,9 +267,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         carUsed = true;
                     } else {
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
-                        if (hasParameter("pushParam")) {
-                            previous->setParameters(*this);
-                        }
+                        previous->setParameters(*this);
                         transportable->appendStage(previous, stageIndex++);
                     }
                 }
@@ -287,9 +279,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         } else {
             // append stage so the GUI won't crash due to inconsistent state
             previous = new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat);
-            if (hasParameter("pushParam")) {
-                previous->setParameters(*this);
-            }
+            previous->setParameters(*this);
             transportable->appendStage(previous, stageIndex++);
             if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
                 if (vehicle != nullptr) {
