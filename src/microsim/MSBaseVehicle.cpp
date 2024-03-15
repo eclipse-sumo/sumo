@@ -703,11 +703,12 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
     } else {
         start = route->begin();
     }
+    const bool checkJumps = route == myRoute;  // the edge iterators in the stops are invalid otherwise
     MSRouteIterator last = route->end() - 1;
     // check connectivity, first
     for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == nullptr) {
-            if (!hasJump(e)) {
+            if (!checkJumps || !hasJump(e)) {
                 msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
                 return false;
             }
