@@ -10,5 +10,5 @@ Warning: Could not re-assign PT stop '271135812', probably broken osm file.
 Warning: Could not re-assign PT stop '271135799', probably broken osm file.
 Warning: Ambiguity in turnarounds computation at junction '271135578'.
 Warning: Ambiguity in turnarounds computation at junction '453246005'.
-Warning: 18 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
+Warning: 13 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 6 total messages of type: Ignoring track count % for edge '%'.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-14 10:59:23 by Eclipse SUMO netconvert Version v1_17_0+0277-c73eb30
+<!-- generated on 2024-03-15 10:15:50 by Eclipse SUMO netconvert Version v1_19_0+1305-3dcf69d3212
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="2017024" name="S7: S Potsdam Hauptbahnhof =&gt; S Ahrensfelde" line="S7" type="light_rail" vClass="rail_urban" period="600" color="128,112,183" completeness="0.10">
-        <route edges="-28984028#1 -28984028#0 -32501483 -686680743 -32501482 -28983947 28983419 28983945 28983946 28983423 28983424#0 28983424#1 28983424#2 28983421 28983422 4777580 4863589 4906399 4906398 28984029 4863604 4863605 4469442"/>
+        <route edges="-28984028#1 -28984028#0 -32501483 -686680743 -32501482 -28983947 28983419 28983945 28983946 28983423 28983424#0 28983424#1 28983424#2 28983421 28983422 -4777580 -4863589 -4906399 -4906398 -28984029 4863604 4863605 4469442"/>
         <busStop id="-2514016658" name="S Potsdam Hauptbahnhof"/>
         <busStop id="318701320" name="S Babelsberg"/>
         <busStop id="2513869313" name="S Griebnitzsee"/>

@@ -95,15 +95,15 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
+Warning: Connection '-442921387#0_0->196844845_0' is only 0.00m short.
 Warning: Connection '-388702047#0_0->388702039#7_0' is only 0.00m short.
 Warning: Connection '-6228154#0_0->30719903#0_0' is only 0.00m short.
 Warning: Connection '-388702047#4_0->388702039#11_0' is only 0.00m short.
 Warning: Connection '388702039#10_0->-388702047#3_0' is only 0.00m short.
-Warning: Connection '-388702047#2_0->388702039#9_0' is only 0.00m short.
 Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702047#4_0' and lane '-111251382#2_2' (increase junction radius to avoid this).
 Warning: 30 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
-Warning: 11 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 12 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
@@ -175,8 +175,9 @@ Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_57472
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: Person 'ped154' is jammed on edge ':990017251_w0', time=806.00.
+Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=576.00.
+Warning: Person 'ped154' is jammed on edge ':990017251_w0', time=794.00.
 Warning: Person 'ped94' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped61' aborted waiting for M6:1 at busStop '30731508'.
-Warning: Person 'ped117' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped116' aborted waiting for U6:1 at busStop '2071423334'.
+Warning: Person 'ped123' aborted waiting for U6:1 at busStop '2071423334'.
 Warning: Person 'ped154' aborted waiting for 12:0 at busStop '2175753204'.

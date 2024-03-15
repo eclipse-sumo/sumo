@@ -8,4 +8,5 @@ Warning: Could not find corresponding edge or compatible lane for free-floating 
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106137' (Am Nottefließ). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106138' (Am Nottefließ). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106154' (Schloß). Thus, it will be removed!
+Warning: Lane '78766917#0_0' is not connected from any incoming edge at junction '374388207'.
 Warning: Connection '294730182_0->154203996_0' is only 0.00m short.
