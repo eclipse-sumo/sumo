@@ -27,6 +27,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageWaiting.h>
@@ -39,6 +40,7 @@
 // static member initializations
 // ===========================================================================
 MSDevice_FCDReplay::FCDHandler MSDevice_FCDReplay::myHandler;
+MSDevice_FCDReplay::Removal* MSDevice_FCDReplay::myRemovalCommand = nullptr;
 
 
 // ===========================================================================
@@ -97,7 +99,7 @@ MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
                                double /*newPos*/,
                                double /*newSpeed*/) {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
-        // TODO remove vehicle
+        libsumo::Vehicle::remove(veh.getID());
         return false;
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&veh);
@@ -112,7 +114,11 @@ MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
     v->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
     if (myTrajectory->empty()) {
-        // TODO remove vehicle
+        if (myRemovalCommand == nullptr) {
+            myRemovalCommand = new Removal();
+            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myRemovalCommand);
+        }
+        myRemovalCommand->schedule(v);
         return false;
     }
     return true;
@@ -204,13 +210,29 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
             MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(vehicle->getDevice(typeid(MSDevice_FCDReplay)));
             if (device == nullptr) {  // Vehicle did not get a replay device
-                // TODO delete vehicle
+                MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
                 continue;
             }
             t.erase(t.begin());
             device->setTrajectory(&t);
         }
     }
+}
+
+
+SUMOTime
+MSDevice_FCDReplay::Removal::execute(SUMOTime /* currentTime */) {
+    for (MSVehicle* veh : myToRemove) {
+        libsumo::Vehicle::remove(veh->getID(), libsumo::REMOVE_ARRIVED);
+    }
+    myRemovalCommand = nullptr;
+    return 0;
+}
+
+
+void
+MSDevice_FCDReplay::Removal::schedule(MSVehicle* v) {
+    myToRemove.push_back(v);
 }
 
 

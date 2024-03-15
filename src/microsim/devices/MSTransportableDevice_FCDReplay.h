@@ -69,7 +69,7 @@ public:
         myTrajectory = t;
     }
 
-    void move();
+    bool move();
 
 private:
     /** @brief Constructor
