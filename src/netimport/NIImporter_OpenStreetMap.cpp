@@ -433,6 +433,13 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             node->setParameter("buffer_stop", "true");
             node->setFringeType(FringeType::INNER);
         }
+        if (n->railwaySignal) {
+            if (n->myRailDirection == WAY_FORWARD) {
+                node->setParameter("railway:signal:direction", "forward");
+            } else if (n->myRailDirection == WAY_BACKWARD) {
+                node->setParameter("railway:signal:direction", "backward");
+            }
+        }
         node->updateParameters(n->getParametersMap());
     }
     return node;
@@ -540,7 +547,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
     }
-    if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD) {
+    if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
+            && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
         //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
         // heuristc: assume that the mapped way direction indicates
         // potential driving direction
