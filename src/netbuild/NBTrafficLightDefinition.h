@@ -377,6 +377,10 @@ public:
     /// @brief perform optional final checks
     virtual void finalChecks() const {}
 
+    /// @brief processing parameter for rail signal edges and nodes
+    static const std::string OSM_DIRECTION;
+    static const std::string OSM_SIGNAL_DIRECTION;
+
 protected:
     /// @brief id for temporary definitions
     static const std::string DummyID;
@@ -472,5 +476,6 @@ protected:
 private:
     static std::set<NBEdge*> collectReachable(EdgeVector outer, const EdgeVector& within, bool checkControlled);
 
+    static bool railSignalUncontrolled(const NBEdge* in, const NBEdge* out);
 
 };

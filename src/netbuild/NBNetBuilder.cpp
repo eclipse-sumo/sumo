@@ -683,6 +683,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             MIN2(geoConvHelper.getConvBoundary().xmin(), geoConvHelper.getConvBoundary().ymin()) < -1000000) {
         WRITE_WARNING(TL("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin"));
     }
+
+    // clean up OSM processing params
+    if (oc.exists("osm-files") && oc.isSet("osm-files")) {
+        for (auto item : myEdgeCont) {
+            item.second->unsetParameter(NBTrafficLightDefinition::OSM_DIRECTION);
+        }
+    }
 }
 
 

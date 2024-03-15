@@ -190,6 +190,9 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
     if (ec.retrieve(id2) == nullptr) {
         NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(),
                                 edge, edge->getGeometry().reverse());
+        if (edge->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
+            e2->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+        }
         ec.insert(e2);
         if (ec.retrieve(id2) == nullptr) {
             WRITE_WARNINGF(TL("Bidi-edge '%' prevented by filtering rules."), id2);
@@ -657,6 +660,9 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
                 e->reinitNodes(e->getToNode(), e->getFromNode());
                 e->setGeometry(e->getGeometry().reverse());
                 reversedIDs.insert(e->getID());
+                if (e->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
+                    e->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+                }
             }
             seqLengths[(int)seq.size()]++;
             numReversed++;

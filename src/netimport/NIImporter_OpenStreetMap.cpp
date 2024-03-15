@@ -435,9 +435,9 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         if (n->railwaySignal) {
             if (n->myRailDirection == WAY_FORWARD) {
-                node->setParameter("railway:signal:direction", "forward");
+                node->setParameter(NBTrafficLightDefinition::OSM_SIGNAL_DIRECTION, "forward");
             } else if (n->myRailDirection == WAY_BACKWARD) {
-                node->setParameter("railway:signal:direction", "backward");
+                node->setParameter(NBTrafficLightDefinition::OSM_SIGNAL_DIRECTION, "backward");
             }
         }
         node->updateParameters(n->getParametersMap());
@@ -756,12 +756,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
-
+        const bool markOSMDirection =  from->getType() == SumoXMLNodeType::RAIL_SIGNAL || to->getType() == SumoXMLNodeType::RAIL_SIGNAL;
         if (addForward) {
             assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, numLanesForward, tc.getEdgeTypePriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
                                      StringUtils::escapeXML(streetName), origID, true);
+            if (markOSMDirection) {
+                nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
+            }
             nbe->setPermissions(forwardPermissions, -1);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -818,6 +821,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, NBEdge::UNSPECIFIED_FRICTION, numLanesBackward, tc.getEdgeTypePriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), lsf,
                                      StringUtils::escapeXML(streetName), origID, true);
+            if (markOSMDirection) {
+                nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+            }
             nbe->setPermissions(backwardPermissions);
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
