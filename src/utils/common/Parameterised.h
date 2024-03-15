@@ -71,6 +71,11 @@ public:
      */
     void updateParameters(const Parameterised::Map& mapArg);
 
+    /**@brief Adds or appends all given parameters from the map
+     * @param[in] mapArg The keys/values to insert
+     */
+    void mergeParameters(const Parameterised::Map& mapArg, const std::string separator = " ", bool uniqueValues = true);
+
     /**@brief Returns whether the parameter is set
      * @param[in] key The key to ask for
      * @return Whether the key is known

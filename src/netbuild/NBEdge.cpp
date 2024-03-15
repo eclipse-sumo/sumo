@@ -3880,9 +3880,7 @@ NBEdge::append(NBEdge* e) {
     myTo = e->myTo;
     myTurnSignTarget = e->myTurnSignTarget;
     myToBorder = e->myToBorder;
-    if (e->hasParameter("origTo")) {
-        setParameter("origTo", e->getParameter("origTo"));
-    }
+    mergeParameters(e->getParametersMap());
     if (e->mySignalPosition != Position::INVALID) {
         mySignalPosition = e->mySignalPosition;
     }
