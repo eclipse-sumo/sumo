@@ -47,7 +47,7 @@ In order to activate periodic rerouting en route set **--device.rerouting.period
 
 # Edge weights
 
-If the routing is enabled for any vehicles, the average travel times in
+If the routing is enabled for any vehicle, the average travel times in
 the net are collected for all edges. If a vehicle needs to be routed
 (either because it gets inserted or because a repeated route choice was
 enabled via the ".period" option) it chooses the fastest route to its
