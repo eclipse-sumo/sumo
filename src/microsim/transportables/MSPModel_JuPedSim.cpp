@@ -122,9 +122,9 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
 
 
 bool
-MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID) {
+MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius) {
     JPS_ErrorMessage message = nullptr;
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {point.x(), point.y()}, myExitTolerance, &message);
+    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {point.x(), point.y()}, radius, &message);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
@@ -185,9 +185,10 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
 
-    PositionVector waypoints;
+    std::vector<std::pair<Position, double> >waypoints;
     for (const MSEdge* const e : stage->getEdges()) {
-        waypoints.push_back(getSidewalk<MSEdge, MSLane>(e)->getShape().positionAtOffset(e->getLength() / 2.));
+        const MSLane* const lane = getSidewalk<MSEdge, MSLane>(e);
+        waypoints.push_back(std::make_pair(lane->getShape().positionAtOffset(e->getLength() / 2.), lane->getWidth() / 2.));
     }
     waypoints.pop_back();  // arrival waypoint comes later
     if (!waypoints.empty()) {
@@ -195,13 +196,13 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     }
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getDestination());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
-    waypoints.push_back(arrivalPosition);
+    waypoints.push_back(std::make_pair(arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)));
 
     JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
     JPS_StageId startingStage = 0;
     JPS_StageId predecessor = 0;
-    for (const Position& p : waypoints) {
-        if (!addWaypoint(journeyDesc, predecessor, p, person->getID())) {
+    for (const std::pair<Position, double>& p : waypoints) {
+        if (!addWaypoint(journeyDesc, predecessor, p.first, person->getID(), p.second)) {
             JPS_JourneyDescription_Free(journeyDesc);
             return nullptr;
         }
@@ -340,7 +341,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             }
         }
 
-        if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
+        if (newPosition.distanceTo2D(state->getNextWaypoint().first) < 2 * state->getNextWaypoint().second) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk
@@ -1004,7 +1005,7 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
                                   JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const PositionVector& waypoints)
+                                  const std::vector<std::pair<Position, double> >& waypoints)
     : myPerson(person), myStage(stage), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
       myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
@@ -1012,7 +1013,7 @@ MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
 
 void
 MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const PositionVector& waypoints) {
+                                  const std::vector<std::pair<Position, double> >& waypoints) {
     if (myStage != nullptr) {
         myStage->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
     }
@@ -1098,7 +1099,7 @@ const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage)
 }
 
 
-const Position& MSPModel_JuPedSim::PState::getNextWaypoint() const {
+const std::pair<Position, double>& MSPModel_JuPedSim::PState::getNextWaypoint() const {
     return myWaypoints.front();
 }
 

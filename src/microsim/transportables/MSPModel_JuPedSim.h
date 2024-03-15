@@ -75,10 +75,10 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<std::pair<Position, double> >& waypoints);
         ~PState() override;
 
-        void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
+        void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<std::pair<Position, double> >& waypoints);
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         void setPosition(double x, double y);
@@ -100,7 +100,7 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
         double getSpeed(const MSStageMoving& stage) const override;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
-        const Position& getNextWaypoint() const;
+        const std::pair<Position, double>& getNextWaypoint() const;
         JPS_AgentId getAgentId() const;
 
         /// @brief whether the transportable has finished walking
@@ -137,7 +137,7 @@ private:
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
-        PositionVector myWaypoints;
+        std::vector<std::pair<Position, double> > myWaypoints;
         JPS_AgentId myAgentId;
         Position myPosition;
         Position myPreviousPosition; // Will be initialized to zero automatically.
@@ -192,7 +192,7 @@ private:
 
     /// @brief Array of special areas.
     std::vector<AreaData> myAreas;
-    
+
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
@@ -208,7 +208,7 @@ private:
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID);
+    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius);
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
     static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
