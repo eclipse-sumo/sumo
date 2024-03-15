@@ -140,10 +140,10 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
             const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
             const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
             const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
-            myTrajectories[id].push_back({Position(x, y), edgeOrLane, pos, speed, angle});
+            myTrajectories[id].push_back(std::make_tuple(Position(x, y), edgeOrLane, pos, speed, angle));
             const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
             if (myRoutes.count(id) == 0) {
-                myRoutes[id] = {myTime, type, isPerson, {edge}};
+                myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
             } else {
                 auto& route = std::get<3>(myRoutes[id]);
                 if (!edge->isInternal() && edge != route.back()) {
