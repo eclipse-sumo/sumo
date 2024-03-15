@@ -1,3 +1,6 @@
+# test routing taxi trips
+taxi
+
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
@@ -196,8 +199,8 @@ geoWalk_lonLat
 
 # test reading ride with geo-coordinates
 geoRide_lonLat
-
-# test routing taxi trips
-taxi
-errors
 carNoRoute
+
+# test for #14343
+pt_looped_disconnected
+errors
