@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-15 09:31+0000\n"
+"PO-Revision-Date: 2024-03-15 11:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11449,39 +11449,39 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:280
 msgid "Flows (only %)"
-msgstr ""
+msgstr "Flussi (solo %)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:289
 msgid "Vehicles (embedded route)"
-msgstr ""
+msgstr "Veicoli (itinerario interno)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 msgid "RouteFlows"
-msgstr ""
+msgstr "Flussi lungo itinerari"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:295
 msgid "RouteFlows (embedded route)"
-msgstr ""
+msgstr "Flussi lungo itinerari (itinerario interno)"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:298
 msgid "Trips"
-msgstr ""
+msgstr "Corse"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:301
 msgid "Flows"
-msgstr ""
+msgstr "Flussi"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:826
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "Tag di veicolo invalido"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2354
 msgid "departPos of %"
-msgstr ""
+msgstr "posizione di partenza di %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2364
 msgid "arrivalPos of %"
-msgstr ""
+msgstr "posizione di arrivo di %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:625
 msgid "Could not set attribute '%' (tls is broken)"
@@ -14417,23 +14417,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:948
 msgid "edge wasn't found"
-msgstr ""
+msgstr "arco non trovato"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:950
 msgid "Invalid edge"
-msgstr ""
+msgstr "Arco invalido"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1127
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- Codice identificativo dell'arco: "
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1162
 msgid "TAZ parameters"
-msgstr ""
+msgstr "Parametri di zone di assegnazione del traffico"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1188
 msgid "Edges within"
-msgstr ""
+msgstr "Archi inclusi"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1189
 #: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1297
