@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-14 14:47+0000\n"
+"PO-Revision-Date: 2024-03-15 09:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10673,59 +10673,63 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:717
 msgid "add instant induction loop '"
-msgstr ""
+msgstr "aggiungi circuito di induzione istantaneo '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:767
 msgid "add lane calibrator '"
-msgstr ""
+msgstr "aggiungi calibrator di corsia '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:821
 msgid "add calibrator '"
-msgstr ""
+msgstr "aggiungi calibrator '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:862
 msgid "add calibrator flow in '"
-msgstr ""
+msgstr "aggiungi flusso calibrator in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:919
 msgid "add rerouter '"
-msgstr ""
+msgstr "aggiungi rerouter '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:958
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
+"Non ho potuto creare l'intervallo con il codice identificativo '%' in "
+"netedit; l'inizio è dopo la fine."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:966
 msgid "add rerouter interval in '"
-msgstr ""
+msgstr "aggiungi intervallo rerouter in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:975
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
+"Non ho potuto creare l'intervallo con inizio '%' e fine '%' in '%' a causa "
+"di sovrapposizione."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:997
 msgid "add closing lane reroute in '"
-msgstr ""
+msgstr "aggiungi reroute di corsia chiusa in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1025
 msgid "add closing reroute in '"
-msgstr ""
+msgstr "aggiungi reroute di chiusura in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1052
 msgid "add dest prob reroute in '"
-msgstr ""
+msgstr "aggiungi reroute probabilistico di destino in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1080
 msgid "add parking area reroute in '"
-msgstr ""
+msgstr "aggiungi reroute di parcheggio in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1108
 msgid "add route prob reroute in '"
-msgstr ""
+msgstr "aggiungi reroute probabilistico di itinerario in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1145
 msgid "add route probe '"
