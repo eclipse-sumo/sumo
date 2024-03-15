@@ -1976,7 +1976,9 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     double gap = veh->getBackPositionOnLane(backLane) - getPositionOnLane();
     if (isStopped() && myStops.begin()->joinTriggered && backLane == getLane()
             && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
+        double skippedLaneLengths = 0;
         if (veh->myFurtherLanes.size() > 0) {
+            skippedLaneLengths += getLane()->getLength();
             // this vehicle must be moved to the lane of veh
             // ensure that lane and furtherLanes of veh match our route
             int routeIndex = getRoutePosition();
@@ -2001,13 +2003,14 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
                 return false;
             }
             for (int i = (int)veh->myFurtherLanes.size() - 2; i >= 0; i--) {
-                enterLaneAtMove(veh->myFurtherLanes[i]);
+                skippedLaneLengths += veh->myFurtherLanes[i]->getLength();
             }
         }
+
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
-        assert(myLane == veh->getLane());
-        myState.myPos = veh->getPositionOnLane();
+        // lane will be advanced just as for regular movement
+        myState.myPos = skippedLaneLengths + veh->getPositionOnLane();
         myStops.begin()->joinTriggered = false;
         if (myAmRegisteredAsWaiting) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
