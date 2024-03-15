@@ -28,3 +28,6 @@ speed_factor
 
 # rerouting with optional rerouters
 rerouter
+
+# This test checks the unboarding of passengers, which requires geometry switching.
+geometry_switching
