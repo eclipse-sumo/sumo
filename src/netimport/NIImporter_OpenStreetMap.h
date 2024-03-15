@@ -69,6 +69,18 @@ public:
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+
+    /** @enum CycleWayType
+     * @brief details on the kind of cycleway along this road
+     */
+    enum WayType {
+        WAY_NONE = 0,
+        WAY_FORWARD = 1,
+        WAY_BACKWARD = 2,
+        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        WAY_UNKNOWN = 4
+    };
+
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode : public Parameterised {
@@ -83,6 +95,7 @@ protected:
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
+            myRailDirection(WAY_UNKNOWN),
             node(nullptr) { }
 
         /// @brief The node's id
@@ -115,6 +128,8 @@ protected:
         std::string position;
         /// @brief position converted to m (using highest precision available)
         double positionMeters;
+        /// @brief Information about the direction(s) of railway usage
+        WayType myRailDirection;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -131,17 +146,6 @@ public:
 
 protected:
 
-
-    /** @enum CycleWayType
-     * @brief details on the kind of cycleway along this road
-     */
-    enum WayType {
-        WAY_NONE = 0,
-        WAY_FORWARD = 1,
-        WAY_BACKWARD = 2,
-        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4
-    };
 
     enum ParkingType {
         PARKING_NONE = 0,

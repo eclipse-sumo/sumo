@@ -515,6 +515,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         distanceStart = 0;
         distanceEnd = 0;
     }
+    // get additional direction information
+    int nodeDirection = myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection |
+        myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection;
+
     std::vector<std::shared_ptr<NBPTStop> > ptStops;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
@@ -532,8 +536,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 sc.insert(ptStops.back());
             }
         }
+        nodeDirection = n->myRailDirection;
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
+    }
+    if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD) {
+        //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
+        // heuristc: assume that the mapped way direction indicates
+        // potential driving direction
+        e->myRailDirection = WAY_BOTH;
     }
     if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERRORF("Unable to project coordinates for edge '%'.", id);
@@ -571,6 +582,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     // check directions
     bool addForward = true;
     bool addBackward = true;
+    const bool explicitTwoWay = e->myIsOneWay == "no";
     if ((e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
             || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0"))
             && e->myRailDirection != WAY_BOTH) {
@@ -725,7 +737,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         const int offsetFactor = lefthand ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                                 e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+                                 (e->myRailDirection == WAY_UNKNOWN || explicitTwoWay)  ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
         if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
             lsf = LaneSpreadFunction::ROADCENTER;
         }
@@ -970,6 +982,14 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myCurrentNode->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myCurrentNode->railwayCrossing = true;
+            } else if (key == "railway:signal:direction") {
+                if (value == "both") {
+                    myCurrentNode->myRailDirection = WAY_BOTH;
+                } else if (value == "backward") {
+                    myCurrentNode->myRailDirection = WAY_BACKWARD;
+                } else if (value == "forward") {
+                    myCurrentNode->myRailDirection = WAY_FORWARD;
+                }
             } else if (StringUtils::startsWith(key, "railway:signal") || (key == "railway" && value == "signal")) {
                 std::string kv = key + "=" + value;
                 std::string kglob = key + "=";
@@ -1500,8 +1520,12 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
-            } else if (value == "backward") {
-                myCurrentEdge->myRailDirection = WAY_BACKWARD;
+            } else if (myCurrentEdge->myRailDirection == WAY_UNKNOWN) {
+                if (value == "backward") {
+                    myCurrentEdge->myRailDirection = WAY_BACKWARD;
+                } else if (value == "forward") {
+                    myCurrentEdge->myRailDirection = WAY_FORWARD;
+                }
             }
         } else if (key == "railway:bidirectional") {
             if (value == "regular") {
