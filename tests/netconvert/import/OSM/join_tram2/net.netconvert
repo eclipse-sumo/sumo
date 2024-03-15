@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 16:51:36 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
+<!-- generated on 2024-03-15 11:03:49 by Eclipse SUMO netconvert Version v1_19_0+1307-c3315d84abc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -5227,6 +5227,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3144373893" type="rail_signal" x="1936.95" y="1010.42" incLanes="309119317#0_0" intLanes="" shape="1938.56,1010.40 1935.37,1010.14 1935.34,1010.42 1938.53,1010.71">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="3144373894" type="priority" x="1936.53" y="1014.35" incLanes="309119317#1_0" intLanes="" shape="1938.14,1014.40 1934.97,1014.00 1934.93,1014.28 1938.10,1014.71">
         <request index="0" response="0" foes="0"/>
@@ -5249,6 +5250,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3144373918" type="rail_signal" x="1943.73" y="1054.58" incLanes="309119315#3_0" intLanes="" shape="1943.67,1056.18 1943.95,1052.99 1943.79,1052.98 1943.70,1052.98">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="3144373921" type="priority" x="1917.31" y="1058.91" incLanes="6148685#3_0 312890950#3_0" intLanes="" shape="1922.14,1059.62 1921.54,1056.48 1920.79,1056.48 1920.59,1056.35 1920.51,1056.12 1920.55,1055.80 1920.70,1055.39 1917.79,1054.05 1916.51,1056.09 1915.70,1056.89 1914.80,1057.55 1913.78,1058.07 1912.66,1058.44 1913.45,1061.54 1914.20,1061.49 1914.42,1061.62 1914.53,1061.84 1914.54,1062.17 1914.44,1062.60 1917.48,1063.58 1918.47,1061.68 1919.18,1060.95 1920.02,1060.36 1921.01,1059.92">
         <request index="0" response="0000" foes="0100"/>
@@ -5284,6 +5286,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3144381703" type="rail_signal" x="1718.51" y="1081.03" incLanes="6148690#7_0" intLanes="" shape="1719.27,1082.45 1718.01,1079.51 1717.78,1079.60 1718.98,1082.57">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="3144381707" type="priority" x="1621.39" y="1113.71" incLanes="25076274#2_0 25076274#2_1 6148690#6_0" intLanes="" shape="1621.65,1119.25 1626.70,1115.32 1627.22,1113.73 1626.36,1110.65 1624.92,1110.83 1624.34,1110.72 1623.87,1110.47 1623.49,1110.08 1623.21,1109.56 1617.25,1111.88 1617.39,1112.71 1617.30,1113.05 1617.10,1113.34 1616.79,1113.59 1616.37,1113.78 1617.44,1116.79">
         <request index="0" response="100" foes="100"/>
@@ -5324,6 +5327,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3144398477" type="rail_signal" x="1183.76" y="1105.03" incLanes="309121423#0_0" intLanes="" shape="1185.31,1105.47 1182.26,1104.48 1182.19,1104.73">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="3144398483" type="priority" x="1193.82" y="1145.88" incLanes="309121423#5_0" intLanes="" shape="1192.83,1147.14 1195.00,1144.79 1192.48,1146.77 1192.60,1146.92 1192.65,1146.97 1192.69,1147.01">
         <request index="0" response="0" foes="0"/>
@@ -5830,6 +5834,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3845447802" type="rail_signal" x="1943.90" y="1049.26" incLanes="309119313#2_0" intLanes="" shape="1942.98,1050.58 1944.95,1048.05 1942.73,1050.36 1942.85,1050.47">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="3873842523" type="dead_end" x="2102.10" y="1067.85" incLanes="43328052_0 43328052_1" intLanes="" shape="2101.86,1064.66 2102.34,1071.04"/>
     <junction id="3873859360" type="traffic_light" x="1793.06" y="1062.65" incLanes="5059167#2_0 5059167#2_1" intLanes="" shape="1793.08,1065.85 1793.29,1059.46 1792.80,1059.46">
@@ -5943,9 +5948,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="50917953" type="rail_signal" x="1771.45" y="1061.34" incLanes="309119319#1_0" intLanes="" shape="1772.02,1062.84 1771.03,1059.80 1770.89,1059.84 1770.81,1059.88">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="50917965" type="rail_signal" x="1898.66" y="965.91" incLanes="316682910#1_0 316682910#1_1" intLanes="" shape="1898.89,967.49 1898.41,962.31 1898.22,962.33 1898.15,962.34 1898.00,962.37 1897.88,962.39">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="50917974" type="dead_end" x="1930.09" y="941.90" incLanes="" intLanes="" shape="1928.50,941.68 1931.67,942.12"/>
     <junction id="50917991" type="priority" x="1791.27" y="1057.62" incLanes="309119319#0_0" intLanes="" shape="1791.28,1059.22 1791.46,1056.03 1791.32,1056.02 1791.26,1056.02 1791.15,1056.02">
@@ -6515,18 +6522,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="7781218422" type="rail_signal" x="1602.57" y="1120.66" incLanes="6148690#3_0" intLanes="" shape="1603.28,1122.11 1602.15,1119.11 1601.87,1119.22 1603.00,1122.21">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781218423" type="rail_signal" x="1636.42" y="1113.34" incLanes="309119319#3_0" intLanes="" shape="1637.00,1114.84 1636.12,1111.76 1635.83,1111.85 1636.71,1114.92">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781218425" type="rail_signal" x="1767.90" y="1059.01" incLanes="6148690#9_0" intLanes="" shape="1768.72,1060.39 1767.36,1057.49 1767.10,1057.62 1768.44,1060.52">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781218431" type="rail_signal" x="1919.65" y="1053.84" incLanes="312890950#2_0" intLanes="" shape="1921.11,1054.51 1918.20,1053.17 1921.11,1054.51">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781218433" type="rail_signal" x="1928.68" y="981.89" incLanes="25116889#5_0" intLanes="" shape="1927.18,982.48 1930.26,981.60 1930.17,981.31 1927.10,982.19">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781248572" type="priority" x="1295.09" y="1198.67" incLanes="833553877_0" intLanes="" shape="1294.72,1200.23 1295.45,1197.11 1294.72,1200.23">
         <request index="0" response="0" foes="0"/>
@@ -6536,15 +6548,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="7781248574" type="rail_signal" x="1324.09" y="1205.12" incLanes="833551063#0_0" intLanes="" shape="1323.94,1206.72 1324.54,1203.58 1324.25,1203.52 1323.64,1206.66">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781248575" type="rail_signal" x="1401.96" y="1197.63" incLanes="309119319#10_0" intLanes="" shape="1402.67,1199.07 1401.53,1196.08 1401.25,1196.19 1402.38,1199.18">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781248576" type="priority" x="1392.30" y="1197.62" incLanes="833551065_0" intLanes="" shape="1392.99,1199.06 1391.88,1196.07 1391.59,1196.17 1392.71,1199.17">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="7781248581" type="rail_signal" x="1359.68" y="1241.60" incLanes="308958253#1_0" intLanes="" shape="1358.11,1241.94 1361.29,1241.55 1361.25,1241.25 1358.07,1241.65">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781248582" type="dead_end" x="1368.85" y="1275.10" incLanes="833551067_0" intLanes="" shape="1370.43,1274.86 1367.27,1275.35"/>
     <junction id="7781297300" type="priority" x="1158.11" y="992.73" incLanes="833553875#4_0" intLanes="" shape="1157.03,993.93 1159.38,991.75 1159.18,991.53 1156.83,993.70">
@@ -6552,31 +6567,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="7781297301" type="rail_signal" x="1066.29" y="904.80" incLanes="309122505#2_0" intLanes="" shape="1065.78,906.32 1067.08,903.40 1066.80,903.27 1065.51,906.20">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781297302" type="rail_signal" x="1109.34" y="941.06" incLanes="23329789#1_0" intLanes="" shape="1108.36,942.33 1110.54,939.99 1110.32,939.79 1108.14,942.13">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781297306" type="rail_signal" x="1198.17" y="1155.04" incLanes="26812744#0_0" intLanes="" shape="1197.13,1156.26 1199.21,1153.82 1197.13,1156.25">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781297308" type="priority" x="1160.57" y="990.37" incLanes="309122505#8_0" intLanes="" shape="1159.49,991.56 1161.84,989.39 1161.64,989.17 1159.29,991.34">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="7781397420" type="rail_signal" x="1781.75" y="1412.43" incLanes="317682099#3_0" intLanes="" shape="1780.17,1412.73 1783.36,1412.42 1783.33,1412.12 1780.14,1412.43">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7781397431" type="dead_end" x="1747.13" y="1450.80" incLanes="" intLanes="" shape="1747.35,1449.21 1746.92,1452.38"/>
     <junction id="7786701083" type="rail_signal" x="214.50" y="621.89" incLanes="309122505#0_0" intLanes="" shape="214.64,623.49 214.65,620.29 214.35,620.29 214.34,623.49">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7786701084" type="rail_signal" x="272.09" y="623.47" incLanes="23329789#8_0" intLanes="" shape="272.24,625.07 272.24,621.87 271.94,621.87 271.94,625.07">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7786747285" type="rail_signal" x="454.86" y="678.67" incLanes="309122505#1_0" intLanes="" shape="454.18,680.13 455.70,677.31 455.60,677.26 453.96,680.00">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7786747286" type="rail_signal" x="509.51" y="709.81" incLanes="23329789#7_0" intLanes="" shape="509.01,711.34 510.28,708.40 510.00,708.28 508.74,711.22">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7898187249" type="traffic_light" x="1177.70" y="1154.28" incLanes="316781877#0_0 316781877#0_1" intLanes="" shape="1177.82,1157.54 1178.87,1151.23 1175.42,1156.62 1176.24,1157.12 1176.55,1157.26 1176.88,1157.36 1177.28,1157.45">
         <request index="0" response="00" foes="00"/>

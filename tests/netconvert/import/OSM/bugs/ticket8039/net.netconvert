@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 16:51:37 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
+<!-- generated on 2024-03-15 11:03:50 by Eclipse SUMO netconvert Version v1_19_0+1307-c3315d84abc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -608,9 +608,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="5672130270" type="dead_end" x="379.83" y="744.18" incLanes="" intLanes="" shape="381.21,745.23 381.28,743.23 378.38,743.21 378.43,745.21"/>
     <junction id="7847344753" type="rail_signal" x="432.10" y="328.05" incLanes="859066429#0_0" intLanes="" shape="433.71,328.10 430.53,327.71 430.49,328.01 433.67,328.38">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="7847344754" type="rail_signal" x="426.88" y="349.33" incLanes="859066431#1_0" intLanes="" shape="428.49,349.35 425.31,349.00 425.28,349.30 428.46,349.65">
         <request index="0" response="0" foes="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="8007877014" type="dead_end" x="458.28" y="0.00" incLanes="859066427#2_0" intLanes="" shape="456.69,-0.08 459.88,0.08"/>
     <junction id="8007877017" type="dead_end" x="436.82" y="283.67" incLanes="" intLanes="" shape="435.23,283.51 438.42,283.84"/>

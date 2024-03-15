@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-15 10:15:50 by Eclipse SUMO netconvert Version v1_19_0+1305-3dcf69d3212
+<!-- generated on 2024-03-15 11:03:47 by Eclipse SUMO netconvert Version v1_19_0+1307-c3315d84abc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -329,6 +329,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1727196818" type="rail_signal" x="48.64" y="142.61" incLanes="28984028#0_0 -28984028#1_0" intLanes=":1727196818_0_0 :1727196818_1_0" shape="48.78,144.20 48.49,141.01 48.78,144.20">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway:signal:direction" value="backward"/>
     </junction>
     <junction id="2514016658" type="priority" x="0.00" y="146.95" incLanes="28984028#1_0" intLanes=":2514016658_0_0" shape="0.14,148.54 -0.14,145.35 0.14,148.54 -0.14,145.35">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -336,10 +337,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="2705527811" type="rail_signal" x="1667.81" y="45.35" incLanes="-28983424#1_0 28983424#0_0" intLanes=":2705527811_0_0 :2705527811_1_0" shape="1667.78,46.95 1668.13,43.77 1667.84,43.74 1667.48,46.92">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway:signal:direction" value="backward"/>
     </junction>
     <junction id="2705527816" type="rail_signal" x="1829.45" y="64.28" incLanes="-28983424#2_0 28983424#1_0" intLanes=":2705527816_0_0 :2705527816_1_0" shape="1829.36,65.88 1829.82,62.71 1829.51,62.67 1829.11,65.85">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="27318373" type="priority" x="3808.32" y="294.16" incLanes="-4469442_0 4863605_0" intLanes=":27318373_0_0 :27318373_1_0" shape="3808.27,295.76 3808.67,292.59 3808.36,292.55 3807.98,295.73">
         <request index="0" response="00" foes="00" cont="0"/>

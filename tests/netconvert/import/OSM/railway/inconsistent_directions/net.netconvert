@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 16:46:46 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
+<!-- generated on 2024-03-15 11:03:47 by Eclipse SUMO netconvert Version v1_19_0+1307-c3315d84abc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -298,6 +298,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="5221601527" type="rail_signal" x="900.75" y="194.35" incLanes="231224790#0_0 -231224790#1_0" intLanes=":5221601527_0_0 :5221601527_1_0" shape="902.24,194.97 899.41,193.47 899.27,193.73 902.09,195.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway:signal:direction" value="forward"/>
     </junction>
     <junction id="59292839" type="priority" x="470.81" y="738.29" incLanes="-27147949_0 27147948_0" intLanes=":59292839_0_0 :59292839_1_0" shape="472.14,739.19 469.65,737.18 469.46,737.42 471.99,739.38">
         <request index="0" response="00" foes="00" cont="0"/>
