@@ -32,12 +32,12 @@ Using the methods [*traci.vehicle.changeTarget* or *traci.vehicle.rerouteTravelt
 rerouting is triggered for the specified vehicle.
 
 Alternatively, routes can be computed using
-[''traci.simulation.findRoute](../TraCI/Simulation_Value_Retrieval.md)
+[*traci.simulation.findRoute*](../TraCI/Simulation_Value_Retrieval.md)
 and applied using
 [*traci.vehicle.setRoute*](../TraCI/Change_Vehicle_State.md).
 
 For persons, the function
-[''traci.simulation.findIntermodalRoute](../TraCI/Simulation_Value_Retrieval.md)
+[*traci.simulation.findIntermodalRoute*](../TraCI/Simulation_Value_Retrieval.md)
 can be used to compute simple walks as well as [itineraries for public transport](../IntermodalRouting.md).
 
 # Alternative Destinations
