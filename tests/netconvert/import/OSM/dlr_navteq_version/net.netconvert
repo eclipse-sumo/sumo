@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-03-15 12:15:28 by Eclipse SUMO netconvert Version v1_19_0+1311-1eb1a594fd5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2410,7 +2410,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="224769566 224769565"/>
         </lane>
         <param key="origFrom" value="2335739502"/>
-        <param key="surface" value="paving_stones"/>
+        <param key="surface" value="paving_stones asphalt"/>
     </edge>
     <edge id="-225232900" from="2340420372" to="2340420373" priority="1" type="highway.service">
         <lane id="-225232900_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.86" shape="1052.64,419.94 1052.14,427.79">
@@ -2530,7 +2530,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-71960756_0" index="0" allow="pedestrian bicycle" speed="5.56" length="21.83" width="2.00" shape="1238.28,255.50 1225.95,252.95 1223.06,244.18">
             <param key="origId" value="71960756 71960707"/>
         </lane>
-        <param key="surface" value="sand"/>
+        <param key="surface" value="sand pebblestone"/>
     </edge>
     <edge id="114024900" from="4167993264" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1483.10,434.74 1496.26,433.14 1546.34,427.02">
         <lane id="114024900_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="54.24" shape="1487.66,432.57 1496.07,431.55 1541.49,426.00">
@@ -2750,7 +2750,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="224769565 224769566"/>
         </lane>
         <param key="origTo" value="2335739502"/>
-        <param key="surface" value="asphalt"/>
+        <param key="surface" value="asphalt paving_stones"/>
     </edge>
     <edge id="225232900" from="2340420373" to="2340420372" priority="1" type="highway.service">
         <lane id="225232900_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.86" shape="1048.95,427.59 1049.44,419.74">
@@ -2829,8 +2829,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="292525973_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="176.53" shape="930.86,405.78 938.47,399.90 950.77,390.91 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
             <param key="origId" value="292525973 22762378"/>
         </lane>
+        <param key="bridge" value="yes"/>
+        <param key="layer" value="1"/>
         <param key="ref" value="A 113"/>
-        <param key="surface" value="concrete"/>
+        <param key="surface" value="concrete asphalt"/>
     </edge>
     <edge id="292525975" from="1597984543" to="2960840891" priority="14" type="highway.motorway" spreadType="center" shape="819.06,460.69 880.91,432.71 915.29,413.06 925.77,405.66">
         <lane id="292525975_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="116.36" shape="817.08,456.32 878.73,428.43 912.71,409.00 919.78,404.02">
@@ -3287,6 +3289,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="415852870_0" index="0" allow="pedestrian bicycle" speed="5.56" length="356.66" width="2.00" shape="980.06,386.63 978.74,387.63 927.90,384.91 888.32,411.40 889.77,413.34 930.32,386.19 950.74,370.50 968.22,354.35 983.68,339.70 998.44,323.37 1023.54,292.87 1033.99,278.81 1048.20,256.62 1057.29,239.34 1060.71,230.48">
             <param key="origId" value="-245105014#0"/>
         </lane>
+        <param key="bridge" value="yes"/>
+        <param key="layer" value="1"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852871" from="4167993266" to="1906766917" priority="1" type="highway.path" shape="1006.26,359.80 998.23,371.56 981.50,384.28">
@@ -3958,6 +3962,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="415852962_0" index="0" allow="pedestrian bicycle" speed="5.56" length="365.77" width="2.00" shape="1062.58,231.20 1059.11,240.17 1049.93,257.63 1035.64,279.95 1025.11,294.11 999.96,324.68 985.11,341.09 969.59,355.81 952.03,372.03 931.49,387.81 889.30,416.06 885.46,410.91 927.34,382.88 978.11,385.60 978.85,385.04">
             <param key="origId" value="25944450#2"/>
         </lane>
+        <param key="bridge" value="yes"/>
+        <param key="layer" value="1"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852963" from="283018514" to="4167993272" priority="1" type="highway.service" shape="1495.66,119.94 1503.16,189.11">
@@ -4255,7 +4261,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="71960707_0" index="0" allow="pedestrian bicycle" speed="5.56" length="19.51" width="2.00" shape="1224.96,243.56 1227.48,251.22 1238.69,253.54">
             <param key="origId" value="71960707 71960756"/>
         </lane>
-        <param key="surface" value="pebblestone"/>
+        <param key="surface" value="pebblestone sand"/>
     </edge>
     <edge id="71960748" from="855359022" to="1935182239" priority="1" type="highway.service" shape="1157.83,118.39 1145.63,161.91 1120.09,233.28 1119.61,239.93 1120.45,250.87 1118.87,258.29 1116.38,262.64 1112.03,267.22 1105.82,271.34 1098.61,274.44 1091.39,276.46 1029.36,283.76 1022.17,279.13 1024.97,272.04">
         <lane id="71960748_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="267.00" shape="1159.37,118.82 1147.15,162.40 1121.67,233.61 1121.22,239.93 1122.06,250.97 1120.39,258.86 1117.67,263.61 1113.06,268.45 1106.59,272.75 1099.14,275.96 1091.70,278.04 1028.98,285.42 1020.20,279.76 1024.35,269.28">
