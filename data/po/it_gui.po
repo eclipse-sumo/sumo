@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-15 11:09+0000\n"
+"PO-Revision-Date: 2024-03-15 13:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13000,24 +13000,26 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:208
 msgid "Apply shift value"
-msgstr ""
+msgstr "Applica valore di spostamento"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:208
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
+"Sposta la geometria dell'arco ortogonalmente alla direzione di marcia per "
+"tutti gli archi selezionati"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:279
 msgid "Change Z in selection"
-msgstr ""
+msgstr "Cambia Z nella selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:288
 msgid "Absolute value"
-msgstr ""
+msgstr "Valore assoluto"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:288
 msgid "Set Z value as absolute"
-msgstr ""
+msgstr "Metti valore Z assoluto"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:290
 msgid "Relative value"
@@ -13037,19 +13039,19 @@ msgstr "Applica valore Z a tutti gli incroci selezionati"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:531
 msgid "- Num geometry points: "
-msgstr ""
+msgstr "- Numero di punti geometrici: "
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:532
 msgid "- Selection minimum Z: "
-msgstr ""
+msgstr "- Valore Z minimo nella selezione: "
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:533
 msgid "- Selection maximum Z: "
-msgstr ""
+msgstr "- Valore Z massimo nella selezione: "
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 msgid "- Selection average Z: "
-msgstr ""
+msgstr "- Valore Z medio nella selezione: "
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:545
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:561
