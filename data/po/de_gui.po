@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-13 08:38+0000\n"
+"PO-Revision-Date: 2024-03-15 09:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10741,7 +10741,7 @@ msgstr "Kalibrator hinzufügen '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:862
 msgid "add calibrator flow in '"
-msgstr "Kalibrator-Fluss in ' hinzufügen"
+msgstr "Kalibrator-Fluss hinzufügen in '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:919
 msgid "add rerouter '"
