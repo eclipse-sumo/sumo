@@ -135,9 +135,8 @@ public:
         double getDestinationPos() const {
             return (stopDesc.startPos + stopDesc.endPos) / 2;
         }
-        void saveAsXML(OutputDevice& os, const bool /* extended */, const bool /*asTrip*/, OptionsCont& /* options */) const {
-            stopDesc.write(os);
-        }
+        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, OptionsCont& options) const; 
+
         bool isStop() const {
             return true;
         }

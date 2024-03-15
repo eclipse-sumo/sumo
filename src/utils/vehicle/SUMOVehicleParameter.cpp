@@ -313,6 +313,23 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     }
 }
 
+std::vector<std::string>
+SUMOVehicleParameter::Stop::getStoppingPlaceIDs() const {
+    std::vector<std::string> result;
+    if (busstop != "") {
+        result.push_back(busstop);
+    }
+    if (containerstop != "") {
+        result.push_back(containerstop);
+    }
+    if (chargingStation != "") {
+        result.push_back(chargingStation);
+    }
+    if (parkingarea != "") {
+        result.push_back(parkingarea);
+    }
+    return result;
+}
 
 bool
 SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& element, const std::string& id,

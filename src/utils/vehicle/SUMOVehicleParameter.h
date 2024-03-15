@@ -353,6 +353,9 @@ public:
          */
         void write(OutputDevice& dev, const bool close = true, const bool writeTagAndParents = true) const;
 
+        /// @brief return list of stopping place ids
+        std::vector<std::string> getStoppingPlaceIDs() const;
+
         /// @brief write trigger attribute
         std::vector<std::string> getTriggers() const;
 
