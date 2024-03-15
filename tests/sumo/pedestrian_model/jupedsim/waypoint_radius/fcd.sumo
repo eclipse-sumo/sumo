@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-15 10:11:46 by Eclipse SUMO sumo Version v1_19_0+1308-9c99b20f1c6
+<!-- generated on 2024-03-15 10:13:30 by Eclipse SUMO sumo Version v1_19_0+1308-9c99b20f1c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,44 +56,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="p_0" x="5.86" y="53.87" angle="148.51" speed="1.39" pos="21.97" edge="E1" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <person id="p_0" x="13.12" y="42.03" angle="148.51" speed="1.39" pos="35.84" edge="E1" slope="0.00"/>
+        <person id="p_0" x="13.12" y="42.03" angle="148.51" speed="1.39" pos="0.00" edge="E2" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <person id="p_0" x="23.16" y="35.67" angle="38.15" speed="1.36" pos="2.00" edge="E2" slope="0.00"/>
+        <person id="p_0" x="23.32" y="36.01" angle="19.11" speed="1.21" pos="0.30" edge="E3" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
-        <person id="p_0" x="27.48" y="48.87" angle="17.89" speed="1.39" pos="13.79" edge="E3" slope="0.00"/>
+        <person id="p_0" x="27.59" y="49.22" angle="17.89" speed="1.39" pos="14.17" edge="E3" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <person id="p_0" x="31.78" y="62.07" angle="18.23" speed="1.39" pos="27.66" edge="E3" slope="0.00"/>
+        <person id="p_0" x="31.90" y="62.43" angle="18.23" speed="1.39" pos="28.03" edge="E3" slope="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <person id="p_0" x="36.12" y="75.27" angle="18.23" speed="1.39" pos="41.52" edge="E3" slope="0.00"/>
+        <person id="p_0" x="36.24" y="75.62" angle="18.23" speed="1.39" pos="41.89" edge="E3" slope="0.00"/>
     </timestep>
     <timestep time="80.00">
-        <person id="p_0" x="46.51" y="81.19" angle="93.94" speed="1.39" pos="8.82" edge="E4" slope="0.00"/>
+        <person id="p_0" x="46.88" y="81.16" angle="93.94" speed="1.39" pos="9.19" edge="E4" slope="0.00"/>
     </timestep>
     <timestep time="90.00">
-        <person id="p_0" x="58.00" y="76.43" angle="149.81" speed="1.39" pos="4.74" edge="E5" slope="0.00"/>
+        <person id="p_0" x="58.18" y="76.11" angle="149.81" speed="1.39" pos="5.12" edge="E5" slope="0.00"/>
     </timestep>
     <timestep time="100.00">
-        <person id="p_0" x="64.98" y="64.43" angle="149.81" speed="1.39" pos="18.61" edge="E5" slope="0.00"/>
+        <person id="p_0" x="65.17" y="64.11" angle="149.81" speed="1.39" pos="18.98" edge="E5" slope="0.00"/>
     </timestep>
     <timestep time="110.00">
-        <person id="p_0" x="72.04" y="52.47" angle="149.44" speed="1.39" pos="32.47" edge="E5" slope="0.00"/>
+        <person id="p_0" x="72.23" y="52.15" angle="149.44" speed="1.39" pos="32.84" edge="E5" slope="0.00"/>
     </timestep>
     <timestep time="120.00">
-        <person id="p_0" x="80.35" y="42.16" angle="92.22" speed="1.39" pos="3.59" edge="E6" slope="0.00"/>
+        <person id="p_0" x="80.92" y="42.40" angle="99.51" speed="1.39" pos="4.06" edge="E6" slope="0.00"/>
     </timestep>
     <timestep time="130.00">
-        <person id="p_0" x="86.30" y="52.55" angle="15.75" speed="1.39" pos="10.77" edge="E7" slope="0.00"/>
+        <person id="p_0" x="86.44" y="53.07" angle="15.75" speed="1.39" pos="11.31" edge="E7" slope="0.00"/>
     </timestep>
     <timestep time="140.00">
-        <person id="p_0" x="89.53" y="66.05" angle="11.43" speed="1.39" pos="24.64" edge="E7" slope="0.00"/>
+        <person id="p_0" x="89.64" y="66.58" angle="11.43" speed="1.39" pos="25.18" edge="E7" slope="0.00"/>
     </timestep>
-    <timestep time="150.00">
-        <person id="p_0" x="92.28" y="79.66" angle="11.43" speed="1.39" pos="0.58" edge="E8" slope="0.00"/>
-    </timestep>
+    <timestep time="150.00"/>
     <timestep time="160.00"/>
     <timestep time="170.00"/>
     <timestep time="180.00"/>

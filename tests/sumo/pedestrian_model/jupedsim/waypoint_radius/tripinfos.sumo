@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-15 10:13:30 by Eclipse SUMO sumo Version v1_19_0+1308-9c99b20f1c6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="2000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="jupedsim"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.period value="10"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="23.00" arrivalPos="3.02" duration="23.00" routeLength="53.43" timeLoss="-15.47" maxSpeed="1.39"/>
+        <walk depart="23.00" departPos="3.02" arrival="118.00" arrivalPos="3.06" duration="95.00" routeLength="118.95" timeLoss="9.35" maxSpeed="1.39"/>
+        <walk depart="118.00" departPos="3.06" arrival="150.00" arrivalPos="2.88" duration="32.00" routeLength="46.29" timeLoss="-1.33" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>
