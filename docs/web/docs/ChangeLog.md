@@ -15,7 +15,9 @@ title: ChangeLog
   - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
   - Fixed crash when using **--lateral-resolution** with **--no-internal-links** #14460
   - chargingstations-output no longer records charging when battery is full #14473
-  - Fixed undefined behavior during opposite direction driving #14475 
+  - Fixed undefined behavior during opposite direction driving #14475
+  - Fixed crash when loading NEMA controller with pedestrian crossings. #14474
+  - NEMA controller now warns about missing green phase #14502 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -24,12 +26,18 @@ title: ChangeLog
  
 - netedit
   - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
+  - Lane markings are rendered below the junction bubble again #14417 (regression in 1.12.0)
   - The unsupported attribute "lines" is no longer written for a personTrip #14463 (regression in 1.15.0)
   - Fixed invalid "save" dialog after loading additionals from file. #14464 (regrssion in 1.16.0)
+  - Fixed missing connections after adding edge #14391 (regression in 1.19.0)
+  - Alt+Hotkeys for menus are working again #14396 (regression in 1.19.0)
+  - Fixed superfluous scrollbars in combo boxes #14412 (regressin in 1.19.0)
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
   - Tool plot_trajectories.py is now usable. #14147
   - "copy type" now also copies vehicle class #14444
-  - Fixed crash when trying to define ride between busStops #14462 
+  - Fixed crash when trying to define ride between busStops #14462
+  - Fixed use of python tools involving space in paths #14469
+  - Fixed saving of python tool config involving space in paths #14506
 
 - netcovert 
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
@@ -38,7 +46,12 @@ title: ChangeLog
   - Option **--junctions.minimal-shape** now persists when re-processing the network. #14375
   - Fixed invalid permissions in OSM import of ferry routes. #14362
   - Fixec crash when importing Vissim Network with unusual geometry. #14413
-  - Prevented writing an invalid network when aborting with an error #14470 
+  - Prevented writing an invalid network when aborting with an error #14470
+  - NEMA junctions now stays consistent on recompute #14491
+  - NEMA junctions now work correctly with option --tls.group-signals #14440  
+  - generated NEMA controller now also gives green to pedestrians #14501
+  - Fixed broken junction shapes in 3D network. #10645
+  - Edge parameters are no longer lost when using option **--geometry.remove**. #14517 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -46,7 +59,10 @@ title: ChangeLog
   - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
   - Fixed invalid default for edges minSize when loading incomplete gui settings file. #14384
   - Persons are no longer drawn outside the vehicle when drawn as triangle #14433
+  - option **--write-license** from configfile is now respected #14494 
 
+- meso
+  - Fixed bug where taxi fails to pick up person on the current segment. #14500 
 
 - duarouter
   - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
@@ -73,7 +89,8 @@ title: ChangeLog
   - vType attribute `mass` is noow used within `carFollowModel="Rail"`. #13055
   - Option **--fcd-output.attributes** now supports the value 'arrivalDelay' #14447
   - Sumo now allows specifying departure and arrival positions in network or geo-coordinates #2182
-  - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258 
+  - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258
+  - speedFactorPremature can now make use of stop parameter "flexArrival" if a reference time other than the scheduled arrival is needed. #14503 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -83,6 +100,7 @@ title: ChangeLog
   - Disable stopOffsetException row if stopOffset is 0. #14065
   - Improved rendering speed for large networks. #13894
   - Added red contour to moved elements. #14109
+  - The maximum number of rows for a combo box can now be configured in the gui settings (persistent across sessions) #14412
  
 - sumo-gui
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
@@ -94,7 +112,9 @@ title: ChangeLog
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
   - Aded option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
   - Option **--output.street-names** is now enabled by default if **--shapefile.name** is set. #14399
-  - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476 
+  - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476
+  - More rail signals are imported from OSM and option **--osm.railsignals** can be used for fine grained control of signal interpretation. #14483
+  - Rail signal direction is now imported from OSM #14512 
  
 - duarouter
   - Added support for loading ride with geo-coordinates #14427
@@ -108,6 +128,7 @@ title: ChangeLog
   - tileGet.py supports downloading rendered tiles from OSM. #14241
   - added `sumolib.net.node.getMaxTLLinkIndex` #14373
   - gtfs2pt.py nows support human-readable times output using option **-H**. #11192
+  - [matsim_importPlans.py](Tools/Import/MATSim.md) now supports loading input with coordinates #14422 
 
 
 ### Miscellaneous
