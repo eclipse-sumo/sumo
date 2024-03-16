@@ -37,6 +37,9 @@ remove_teleport_once
 # replace all stops with "" after the vehicle has departed and teleport to destination
 remove_teleport_once_custom
 
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport_once_custom2
+
 # replace second stop with "" after the vehicle has departed before the vehicle has departed
 second_remove_init
 
