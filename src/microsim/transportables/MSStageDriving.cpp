@@ -391,12 +391,13 @@ bool
 MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
     assert(myLines.size() > 0);
     return (myLines.count(vehicle->getID()) > 0
-            || myLines.count(vehicle->getParameter().line) > 0
-            || MSDevice_Taxi::compatibleLine(vehicle->getParameter().line, *myLines.begin())
-            || (myLines.count("ANY") > 0 && (
-                    myDestinationStop == nullptr
-                    ? vehicle->stopsAtEdge(myDestination)
-                    : vehicle->stopsAt(myDestinationStop))));
+            || ((myLines.count(vehicle->getParameter().line) > 0
+                    || myLines.count("ANY") > 0) &&
+                // even if the line matches we still have to check for stops (#14526)
+                (myDestinationStop == nullptr
+                 ? vehicle->stopsAtEdge(myDestination)
+                 : vehicle->stopsAt(myDestinationStop)))
+            || MSDevice_Taxi::compatibleLine(vehicle->getParameter().line, *myLines.begin()));
 }
 
 

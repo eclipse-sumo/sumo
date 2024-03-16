@@ -257,7 +257,7 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
             return true;
         }
     }
-    return false;
+    return myRoute->getLastEdge() == edge;
 }
 
 
