@@ -517,7 +517,7 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
 bool
 NBTrafficLightDefinition::railSignalUncontrolled(const NBEdge* in, const NBEdge* out) {
     const NBNode* n = in->getToNode();
-    if (n->hasParameter(OSM_SIGNAL_DIRECTION)) {
+    if (n->hasParameter(OSM_SIGNAL_DIRECTION) && in->hasParameter(OSM_DIRECTION) && out->hasParameter(OSM_DIRECTION)) {
         if (in->getParameter(OSM_DIRECTION) == out->getParameter(OSM_DIRECTION)) {
             if (n->getParameter(OSM_SIGNAL_DIRECTION) != in->getParameter(OSM_DIRECTION)) {
                 return true;
