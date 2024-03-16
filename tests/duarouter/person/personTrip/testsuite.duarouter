@@ -208,4 +208,9 @@ pt_looped_disconnected
 # 
 # the passenger must switch between two trains running on the same line
 pt_looped_need_transfer
+
+# test for #14343
+# 
+# the passenger must switch between two trains running on the same line
+pt_looped_need_transfer2
 errors
