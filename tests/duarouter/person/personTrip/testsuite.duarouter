@@ -203,4 +203,9 @@ carNoRoute
 
 # test for #14343
 pt_looped_disconnected
+
+# test for #14343
+# 
+# the passenger must switch between two trains running on the same line
+pt_looped_need_transfer
 errors
