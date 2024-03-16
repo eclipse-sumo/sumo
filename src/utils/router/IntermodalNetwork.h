@@ -689,6 +689,9 @@ public:
                 lastStop = currStop;
                 lastPos = stopPos;
             }
+            if (pars.line != "taxi" && validStops.front().busstop == validStops.back().busstop) {
+                myLoopedLines.insert(pars.line);
+            }
         } else {
             if (validStops.size() != lineEdges.size() + 1) {
                 WRITE_WARNINGF("Number of stops for public transport line '%' does not match earlier definitions, ignoring schedule.", pars.line);
@@ -744,6 +747,10 @@ public:
         addEdge(access);
         from->addSuccessor(access);
         access->addSuccessor(to);
+    }
+
+    bool isLooped(const std::string lineID) const {
+        return myLoopedLines.count(lineID) != 0;
     }
 
 private:
@@ -869,6 +876,9 @@ private:
 
     /// @brief retrieve the splitted edges for the given "original"
     std::map<_IntermodalEdge*, std::vector<_IntermodalEdge*> > myAccessSplits;
+
+    /// @brief looped lines need extra checking when building itineraries
+    std::set<std::string > myLoopedLines;
 
     int myNumericalID;
     const int myCarWalkTransfer;

@@ -123,6 +123,8 @@ public:
         const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges, true);
         if (success) {
             std::string lastLine = "";
+            const _IntermodalEdge* lastLineEdge = nullptr;
+            double lastLineTime = STEPS2TIME(msTime);
             double time = STEPS2TIME(msTime);
             double effort = 0.;
             double length = 0.;
@@ -147,8 +149,10 @@ public:
                             into.back().destStop = iEdge->getID();
                         }
                     } else {
-                        if (iEdge->getLine() != lastLine) {
+                        if (iEdge->getLine() != lastLine || loopedLineTransfer(lastLineEdge, iEdge, lastLineTime, time)) {
                             lastLine = iEdge->getLine();
+                            lastLineEdge = iEdge;
+                            lastLineTime = time;
                             if (lastLine == "!car") {
                                 into.push_back(TripItem(vehicle->getID()));
                                 into.back().vType = vehicle->getParameter().vtypeid;
@@ -167,7 +171,9 @@ public:
                         }
                     }
                 }
-                const double prevTime = time, prevEffort = effort, prevLength = length;
+                const double prevTime = time;
+                const double prevEffort = effort;
+                const double prevLength = length;
                 myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 // correct intermodal length:
                 length += iEdge->getPartialLength(&trip) - iEdge->getLength();
@@ -320,6 +326,20 @@ private:
                     break;
             }
         }
+    }
+
+
+    bool loopedLineTransfer(const _IntermodalEdge* prev, const _IntermodalEdge* cur, double prevTime, double time) {
+        assert(prev != nullptr);
+        if (myIntermodalNet->isLooped(cur->getLine())) {
+            // check if the last two edges are served by different vehicles
+            std::string intended1;
+            std::string intended2;
+            prev->getIntended(prevTime, intended1);
+            cur->getIntended(time, intended2);
+            return intended1 != intended2;
+        }
+        return false;
     }
 
 private:
